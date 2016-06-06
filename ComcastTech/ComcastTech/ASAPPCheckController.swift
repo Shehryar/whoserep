@@ -27,8 +27,19 @@ class ASAPPCheckController: UIViewController {
     }
     
     func setup() {
-        self.addStep("This is a test title", content: 1, continueText: "CONTINUE")
-        self.addStep("This is a test title again", content: 1, continueText: "CONTINUE 2")
+        // DUMMY CONTENT'
+        let optionDisct: [String: Bool] = [
+            "Black Screen / One Moment Please": false
+        ]
+        let content = StepModel.StepTypeMultiChoice(options: optionDisct, multiSelect: true)
+        let optionDisct2: [String: Bool] = [
+            "Replaced Outside Drop": false,
+            "Customer Edutcation": false
+        ]
+        let content2 = StepModel.StepTypeMultiChoice(options: optionDisct2, multiSelect: true)
+        
+        self.addStep("Is this the problem?", content: content as Any, continueText: "CONTINUE")
+        self.addStep("What action did you take?", content: content2 as Any, continueText: "CONTINUE")
         
         setupNextStepButton()
         update()
@@ -46,8 +57,8 @@ class ASAPPCheckController: UIViewController {
         updateNextStepButton()
     }
     
-    func addStep(title: String, content: AnyObject, continueText: String) {
-        let step = StepModel.Step(type: Type.Intro, title: title, content: content, continueText: continueText)
+    func addStep(title: String, content: Any, continueText: String) {
+        let step = StepModel.Step(type: Type.MultiChoice, title: title, content: content, continueText: continueText)
         self.steps.append(step)
     }
     

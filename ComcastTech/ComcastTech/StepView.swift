@@ -39,6 +39,7 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func setup() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.setupTitle()
         self.setupContent()
     }
@@ -46,29 +47,35 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
     func updateWithData(data: StepModel.Step) {
         self.data = data
         self.renderTitle()
+        self.renderContent()
     }
     
     func setupTitle() {
         titleView.font = UIFont(name: "Lato-Bold", size: 22)
         titleView.textColor = UIColor(red: 57/255, green: 61/255, blue: 71/255, alpha: 0.95)
         self.addSubview(titleView)
-        
-        titleView.snp_remakeConstraints { (make) in
-            make.top.equalTo(self.snp_top).offset(60)
-            make.leading.equalTo(self.snp_leading).offset(40)
-            make.trailing.equalTo(self.snp_trailing).offset(40)
-        }
     }
     
     func setupContent() {
         self.addSubview(contentView)
+        contentView.backgroundColor = UIColor.grayColor()
+    }
+    
+    override func updateConstraints() {
+        titleView.snp_remakeConstraints { (make) in
+            make.top.equalTo(self.snp_top).offset(40)
+            make.width.equalTo(self.snp_width).offset(-80)
+            make.centerX.equalTo(self.snp_centerX)
+        }
         
         contentView.snp_remakeConstraints { (make) in
-            make.top.equalTo(titleView.snp_bottom)
+            make.top.equalTo(titleView.snp_bottom).offset(20)
             make.bottom.equalTo(self.snp_bottom)
-            make.leading.equalTo(self.snp_leading).offset(40)
-            make.trailing.equalTo(self.snp_trailing).offset(40)
+            make.leading.equalTo(titleView.snp_leading)
+            make.trailing.equalTo(titleView.snp_trailing)
         }
+        
+        super.updateConstraints()
     }
     
     func renderTitle() {
@@ -82,11 +89,23 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     // Render Table View
+    let SUMMARY_CELL_IDENTIFIER = "customSummaryCell"
+    
     func renderMultiChoiceContent() {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.registerClass(StepSummaryTableViewCell.self, forCellReuseIdentifier: SUMMARY_CELL_IDENTIFIER)
+        tableView.separatorColor = UIColor.clearColor()
+        tableView.allowsSelection = false
+        tableView.bounces = false
+        
         self.addSubview(tableView)
+        
+        tableView.snp_makeConstraints { (make) in
+            make.center.equalTo(self.contentView.snp_center)
+            make.size.equalTo(self.contentView.snp_size)
+        }
     }
     
     func getOptions() -> [String: Bool]? {
@@ -101,18 +120,29 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
         if options == nil {
             return 0
         }
-        
-        return (options!.count)
+        print(options?.count)
+        return (options?.count)! + 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:StepSummaryTableViewCell = tableView.dequeueReusableCellWithIdentifier("customSummaryCell") as! StepSummaryTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(SUMMARY_CELL_IDENTIFIER, forIndexPath: indexPath) as? StepSummaryTableViewCell
         
         let options = self.getOptions()
         let index = options?.startIndex.advancedBy(indexPath.row)
-        cell.setTitle((options?.keys[index!])!)
         
-        return cell
+        if indexPath.row < tableView.numberOfRowsInSection(indexPath.section) - 1 {
+            cell!.setTitle((options?.keys[index!])!)
+            cell?.setNormalDisplay()
+        } else {
+            cell?.setTitle("Add More")
+            cell?.setAddDisplay()
+        }
+        
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
     }
     
 }

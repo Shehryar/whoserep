@@ -36,10 +36,10 @@ class StepModel: NSObject {
         
         var type: Type!
         var title: String!
-        var content: AnyObject!
+        var content: Any!
         var continueText: String!
         
-        convenience init(type: Type, title: String, content: AnyObject, continueText: String) {
+        convenience init(type: Type, title: String, content: Any, continueText: String) {
             self.init()
             
             self.type = type

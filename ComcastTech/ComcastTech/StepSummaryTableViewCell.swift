@@ -19,22 +19,30 @@ class StepSummaryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.setup()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        self.contentView.backgroundColor = UIColor.whiteColor()
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setup() {
-        holder.layer.borderColor = UIColor(red: 202/255, green: 202/255, blue: 202/255, alpha: 1).CGColor
-        holder.layer.borderWidth = 1
-        self.addSubview(holder)
-        
-        label.font = UIFont(name: "Lato-Black", size: 13)
+        self.contentView.addSubview(holder)
         holder.addSubview(label)
+        
+        self.updateConstraints()
     }
     
     func setTitle(text: String) {
@@ -48,19 +56,42 @@ class StepSummaryTableViewCell: UITableViewCell {
         self.label.attributedText = attributedString
     }
     
+    func setNormalDisplay() {
+        holder.layer.borderColor = UIColor(red: 202/255, green: 202/255, blue: 202/255, alpha: 1).CGColor
+        holder.layer.borderWidth = 1
+        holder.backgroundColor = UIColor.whiteColor()
+        
+        label.font = UIFont(name: "Lato-Black", size: 12)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        label.textAlignment = .Center
+    }
+    
+    func setAddDisplay() {
+        holder.layer.borderColor = UIColor(red: 202/255, green: 202/255, blue: 202/255, alpha: 1).CGColor
+        holder.layer.borderWidth = 0
+        holder.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        
+        label.font = UIFont(name: "Lato-Black", size: 12)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        label.textAlignment = .Center
+    }
+    
     override func updateConstraints() {
         holder.snp_remakeConstraints { (make) in
-            make.top.equalTo(self.snp_top).offset(4)
-            make.leading.equalTo(self.snp_leading).offset(40)
-            make.trailing.equalTo(self.snp_trailing).offset(40)
-            make.height.equalTo(58)
-            make.bottom.equalTo(self.snp_bottom).offset(4)
+            make.top.equalTo(self.contentView.snp_top).offset(4)
+            make.leading.equalTo(self.contentView.snp_leading).offset(0)
+            make.trailing.equalTo(self.contentView.snp_trailing).offset(0)
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-4)
         }
         
         label.snp_remakeConstraints { (make) in
             make.center.equalTo(holder.center)
-            make.width.equalTo(holder.snp_width).offset(-60)
+            make.width.equalTo(holder.snp_width)
+            make.top.equalTo(holder.snp_top).offset(20)
+            make.bottom.equalTo(holder.snp_bottom).offset(-20)
         }
+        
+        super.updateConstraints()
     }
 
 }
