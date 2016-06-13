@@ -8,7 +8,11 @@
 
 import UIKit
 
-class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
+protocol StepViewDelegate {
+    func presentStepChildViewController(vc: UIViewController)
+}
+
+class StepView: UIView, UITableViewDelegate, UITableViewDataSource, MultiChoiceDataSource {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -18,6 +22,8 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     */
     
+    var delegate: StepViewDelegate!
+    
     let titleView = UILabel()
     let contentView = UIView()
     
@@ -25,17 +31,11 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    convenience init(data: StepModel.Step) {
-        self.init(frame: CGRectZero)
-        self.setup()
-        self.updateWithData(data)
     }
     
     func setup() {
@@ -44,8 +44,8 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
         self.setupContent()
     }
     
-    func updateWithData(data: StepModel.Step) {
-        self.data = data
+    func update() {
+        self.data = Model.dataForCurrentStep()
         self.renderTitle()
         self.renderContent()
     }
@@ -88,11 +88,11 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // Render Table View
+    // Render MultiChoice View
     let SUMMARY_CELL_IDENTIFIER = "customSummaryCell"
+    let tableView = UITableView()
     
     func renderMultiChoiceContent() {
-        let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(StepSummaryTableViewCell.self, forCellReuseIdentifier: SUMMARY_CELL_IDENTIFIER)
@@ -106,6 +106,8 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
             make.center.equalTo(self.contentView.snp_center)
             make.size.equalTo(self.contentView.snp_size)
         }
+        
+        tableView.reloadData()
     }
     
     func getOptions() -> [String: Bool]? {
@@ -115,27 +117,45 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
         return nil
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func findSelectedOptions() -> [String: Bool] {
+        var selectedOptions: [String: Bool] = [:]
         let options = self.getOptions()
         if options == nil {
-            return 0
+            return selectedOptions
         }
-        print(options?.count)
-        return (options?.count)! + 1
+        
+        for option in options! {
+            if option.1 == true {
+                selectedOptions[option.0] = option.1
+            }
+        }
+        
+        return selectedOptions
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let options = self.findSelectedOptions()
+        return (options.count) + 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(SUMMARY_CELL_IDENTIFIER, forIndexPath: indexPath) as? StepSummaryTableViewCell
         
-        let options = self.getOptions()
-        let index = options?.startIndex.advancedBy(indexPath.row)
+        let options = self.findSelectedOptions()
+        let index = options.startIndex.advancedBy(indexPath.row)
         
         if indexPath.row < tableView.numberOfRowsInSection(indexPath.section) - 1 {
-            cell!.setTitle((options?.keys[index!])!)
+            cell!.setTitle((options.keys[index]))
             cell?.setNormalDisplay()
         } else {
             cell?.setTitle("Add More")
-            cell?.setAddDisplay()
+            cell?.setAddDisplay({ 
+                dispatch_async(dispatch_get_main_queue(), {
+                    let mc = MultiChoiceOptionViewController()
+                    mc.delegate = self
+                    self.delegate.presentStepChildViewController(mc)
+                })
+            })
         }
         
         return cell!
@@ -143,6 +163,20 @@ class StepView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
+    }
+    
+    // MultiChoiceDataSource Implementation
+    
+    func availableAndSelectedChoices() -> [String : Bool]? {
+        return getOptions()
+    }
+    
+    func didFinishUpdatingChoices(choices: [String : Bool]) {
+        if var multiContent = data.content as? StepModel.StepTypeMultiChoice {
+            multiContent.options = choices
+            data.content = multiContent
+            tableView.reloadData()
+        }
     }
     
 }

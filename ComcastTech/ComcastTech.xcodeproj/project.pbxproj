@@ -21,6 +21,9 @@
 		FD686E511CF61B69006681B3 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD686E501CF61B69006681B3 /* StepView.swift */; };
 		FD686E551CF664CB006681B3 /* StepTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD686E541CF664CB006681B3 /* StepTableViewCell.swift */; };
 		FD686E571CF66541006681B3 /* StepSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD686E561CF66541006681B3 /* StepSummaryTableViewCell.swift */; };
+		FD75821C1D06395B00076464 /* MultiChoiceOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD75821B1D06395B00076464 /* MultiChoiceOptionViewController.swift */; };
+		FD75821E1D0641B600076464 /* MultiChoiceTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD75821D1D0641B600076464 /* MultiChoiceTopBar.swift */; };
+		FD7582461D08906300076464 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7582451D08906300076464 /* Model.swift */; };
 		FDA5F7C41CADB3F400ED9369 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7C31CADB3F400ED9369 /* AppDelegate.swift */; };
 		FDA5F7C61CADB3F400ED9369 /* ASAPPTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7C51CADB3F400ED9369 /* ASAPPTabBarController.swift */; };
 		FDA5F7CB1CADB3F400ED9369 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F7CA1CADB3F400ED9369 /* Assets.xcassets */; };
@@ -63,6 +66,9 @@
 		FD686E501CF61B69006681B3 /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		FD686E541CF664CB006681B3 /* StepTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepTableViewCell.swift; sourceTree = "<group>"; };
 		FD686E561CF66541006681B3 /* StepSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepSummaryTableViewCell.swift; sourceTree = "<group>"; };
+		FD75821B1D06395B00076464 /* MultiChoiceOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChoiceOptionViewController.swift; sourceTree = "<group>"; };
+		FD75821D1D0641B600076464 /* MultiChoiceTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChoiceTopBar.swift; sourceTree = "<group>"; };
+		FD7582451D08906300076464 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		FDA5F7C01CADB3F400ED9369 /* ComcastTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComcastTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDA5F7C31CADB3F400ED9369 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDA5F7C51CADB3F400ED9369 /* ASAPPTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPTabBarController.swift; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 				FD686E501CF61B69006681B3 /* StepView.swift */,
 				FD686E541CF664CB006681B3 /* StepTableViewCell.swift */,
 				FD686E561CF66541006681B3 /* StepSummaryTableViewCell.swift */,
+				FD75821D1D0641B600076464 /* MultiChoiceTopBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -241,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				FD06190D1CF4F8DF00CA9E9D /* ASAPPCheckController.swift */,
+				FD75821B1D06395B00076464 /* MultiChoiceOptionViewController.swift */,
 			);
 			name = CheckControllers;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				FDE786521CF51DD300DB5D5C /* StepModel.swift */,
+				FD7582451D08906300076464 /* Model.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -399,9 +408,12 @@
 			files = (
 				FD686E571CF66541006681B3 /* StepSummaryTableViewCell.swift in Sources */,
 				FDA5F7C61CADB3F400ED9369 /* ASAPPTabBarController.swift in Sources */,
+				FD75821C1D06395B00076464 /* MultiChoiceOptionViewController.swift in Sources */,
 				FDA5F7C41CADB3F400ED9369 /* AppDelegate.swift in Sources */,
 				FDE786531CF51DD300DB5D5C /* StepModel.swift in Sources */,
 				FD686E551CF664CB006681B3 /* StepTableViewCell.swift in Sources */,
+				FD75821E1D0641B600076464 /* MultiChoiceTopBar.swift in Sources */,
+				FD7582461D08906300076464 /* Model.swift in Sources */,
 				FD1782331CF355420093232A /* ASAPPNavButton.swift in Sources */,
 				FD0619101CF4F92700CA9E9D /* ChatViewController.swift in Sources */,
 				FD686E511CF61B69006681B3 /* StepView.swift in Sources */,

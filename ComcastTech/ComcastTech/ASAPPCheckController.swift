@@ -8,39 +8,24 @@
 
 import UIKit
 
-class ASAPPCheckController: UIViewController {
+class ASAPPCheckController: UIViewController, StepViewDelegate {
 
     let holder = UIView()
     let nextButton = UIButton()
     
-    var steps: [StepModel.Step] = []
     var stepView: StepView!
-    
-    var curStepIdx: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.whiteColor()
+        
+        Model._init()
         setup()
     }
     
     func setup() {
-        // DUMMY CONTENT'
-        let optionDisct: [String: Bool] = [
-            "Black Screen / One Moment Please": false
-        ]
-        let content = StepModel.StepTypeMultiChoice(options: optionDisct, multiSelect: true)
-        let optionDisct2: [String: Bool] = [
-            "Replaced Outside Drop": false,
-            "Customer Edutcation": false
-        ]
-        let content2 = StepModel.StepTypeMultiChoice(options: optionDisct2, multiSelect: true)
-        
-        self.addStep("Is this the problem?", content: content as Any, continueText: "CONTINUE")
-        self.addStep("What action did you take?", content: content2 as Any, continueText: "CONTINUE")
-        
         setupNextStepButton()
         update()
         
@@ -50,42 +35,26 @@ class ASAPPCheckController: UIViewController {
     }
     
     func update() {
-        if self.curStepIdx >= self.steps.count {
-            return
-        }
         updateStepView()
         updateNextStepButton()
     }
     
-    func addStep(title: String, content: Any, continueText: String) {
-        let step = StepModel.Step(type: Type.MultiChoice, title: title, content: content, continueText: continueText)
-        self.steps.append(step)
-    }
-    
     func nextStep(sender: UIButton) {
-        if self.curStepIdx >= self.steps.count - 1 {
-            return
-        }
-        
-        self.curStepIdx += 1
+        Model.nextStep()
         self.update()
     }
     
     func previousStep() {
-        if self.curStepIdx == 0 {
-            return
-        }
-        
-        self.curStepIdx -= 1
+        Model.prevStep()
         self.update()
     }
     
     func updateStepView() {
         if self.stepView == nil {
-            self.stepView = StepView(data: self.steps[self.curStepIdx])
-        } else {
-            self.stepView.updateWithData(self.steps[self.curStepIdx])
+            self.stepView = StepView()
+            self.stepView.delegate = self
         }
+        self.stepView.update()
     }
     
     func setupNextStepButton() {
@@ -100,11 +69,15 @@ class ASAPPCheckController: UIViewController {
     }
     
     func updateNextStepButton() {
-        let continueText = self.steps[self.curStepIdx].continueText
+        let continueText = Model.dataForCurrentStep().continueText
         let attributedString = NSMutableAttributedString(string: continueText)
         attributedString.addAttribute(NSKernAttributeName, value: 1, range: NSMakeRange(0, continueText.characters.count))
         attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, continueText.characters.count))
         self.nextButton.setAttributedTitle(attributedString, forState: .Normal)
+    }
+    
+    func presentStepChildViewController(vc: UIViewController) {
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     override func updateViewConstraints() {
