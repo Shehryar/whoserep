@@ -1,0 +1,24 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '9.0'
+
+workspace 'ASAPP'
+
+target 'ASAPP' do
+  # Comment this line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ASAPP
+  pod 'SnapKit', '~> 0.15.0'
+  pod 'RealmSwift', '~> 1.0'
+  xcodeproj 'ASAPP.xcodeproj'
+
+end
+
+target 'ASAPPTest' do
+  # Comment this line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ASAPPTest
+  xcodeproj 'ASAPPTest/ASAPPTest.xcodeproj'
+
+end

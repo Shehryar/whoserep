@@ -1,0 +1,20 @@
+PODS:
+  - Realm (1.0.1):
+    - Realm/Headers (= 1.0.1)
+  - Realm/Headers (1.0.1)
+  - RealmSwift (1.0.1):
+    - Realm (= 1.0.1)
+  - SnapKit (0.15.0)
+
+DEPENDENCIES:
+  - RealmSwift (~> 1.0)
+  - SnapKit (~> 0.15.0)
+
+SPEC CHECKSUMS:
+  Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
+  RealmSwift: d73ea2af08c3676dbdd5e4b669651a0f492162a4
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
+
+PODFILE CHECKSUM: 6fa4a2227ac1a224d68ad59fbdb95a0c947339bc
+
+COCOAPODS: 1.0.0
