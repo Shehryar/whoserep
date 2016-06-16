@@ -10,6 +10,7 @@ target 'ASAPP' do
   # Pods for ASAPP
   pod 'SnapKit', '~> 0.15.0'
   pod 'RealmSwift', '~> 1.0'
+  pod 'SocketRocket', '~> 0.5.1'
   xcodeproj 'ASAPP.xcodeproj'
 
 end
@@ -19,6 +20,10 @@ target 'ASAPPTest' do
   use_frameworks!
 
   # Pods for ASAPPTest
+  pod 'SnapKit', '~> 0.15.0'
+  pod 'RealmSwift', '~> 1.0'
+  # pod 'Starscream', '~> 1.1.3'
+  pod 'SocketRocket', '~> 0.5.1'
   xcodeproj 'ASAPPTest/ASAPPTest.xcodeproj'
 
 end

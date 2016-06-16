@@ -11,13 +11,17 @@ import ASAPP
 
 class ViewController: UIViewController {
 
+    var asapp: ASAPP!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(animated: Bool) {
-        let asapp: ASAPP = ASAPP()
+        if asapp == nil {
+            asapp = ASAPP()
+        }
         let vc = asapp.viewControllerForChat()
         self.presentViewController(vc, animated: true, completion: nil)
     }

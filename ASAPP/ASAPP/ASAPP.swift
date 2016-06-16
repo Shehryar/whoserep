@@ -11,13 +11,19 @@ import SnapKit
 
 public class ASAPP: NSObject {
     
+    static var instance: ASAPP!
+    var state: ASAPPState!
+    
     var customerToken: String!
     
     // Public APIs
     override public init() {
         super.init()
         
+        ASAPP.instance = self
         loadFonts()
+        
+        state = ASAPPState()
     }
     
     convenience init(customerToken: String) {

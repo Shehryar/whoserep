@@ -28,12 +28,18 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
         
         keyboardObserver.registerForNotifications()
+        
+        ASAPP.instance.state.on(.Event, observer: self) { (info) in
+            ASAPPLog(info)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
         if keyboardObserver != nil {
             keyboardObserver.deregisterForNotification()
         }
+        
+        ASAPP.instance.state.off(.Event, observer: self)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -72,9 +78,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     }
     
     override func updateViewConstraints() {
-        print("update")
         input.snp_updateConstraints { (make) in
-            print(KEYBOARD_OFFSET)
             make.bottom.equalTo(self.view.snp_bottom).offset(-KEYBOARD_OFFSET)
             make.leading.equalTo(self.view.snp_leading)
             make.trailing.equalTo(self.view.snp_trailing)

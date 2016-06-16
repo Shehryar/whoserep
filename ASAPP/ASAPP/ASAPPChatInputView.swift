@@ -29,10 +29,34 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         render()
+        
+        registerListeners()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        
+    }
+    
+    func registerListeners() {
+        ASAPP.instance.state.on(.Connect, observer: self) { [weak self] (info) in
+            guard self != nil else {
+                return
+            }
+            
+            self!.updateSendButton()
+        }
+        
+        ASAPP.instance.state.on(.Disconnect, observer: self) { [weak self] (info) in
+            guard self != nil else {
+                return
+            }
+            
+            self!.updateSendButton()
+        }
     }
     
     func render() {
@@ -61,6 +85,8 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
         
         textView.delegate = self
         self.addSubview(textView)
+        
+        
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
@@ -123,7 +149,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     func updateSendButton() {
         let text = "SEND"
         var textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 1)
-        if textView.text == "" {
+        if !ASAPP.instance.state.isConnected() || textView.text == "" {
             textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 0.3)
             sendButton.enabled = false
         } else {
@@ -139,6 +165,11 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     
     func sendAction(sender: UIButton) {
         print("send")
+        ASAPP.instance.state.sendMessage(textView.text)
+        
+        textView.text = ""
+        resizeIfNeeded(textView)
+        updateSendButton()
     }
     
     override func updateConstraints() {

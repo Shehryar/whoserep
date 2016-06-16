@@ -10,6 +10,20 @@ import Foundation
 
 let framework = NSBundle(forClass: ASAPP.self)
 
+// MARK: - ASAPP Log
+
+var ASAPPLogEnabled = true
+func ASAPPLog(items: Any...) {
+    if !ASAPPLogEnabled {
+        return
+    }
+    print("ASAPP:", items)
+}
+
+func ASAPPLoge(items: Any...) {
+    print("ASAPP ERROR:", items)
+}
+
 // MARK: - Custom Fonts
 
 func loadFonts() {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
+		FD22E4B61D12109300ED2033 /* ASAPPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD22E4B51D12109300ED2033 /* ASAPPState.swift */; };
+		FD2FE11F1D12622000FEF954 /* ASAPPEventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */; };
 		FD8D8AFE1D0F6E2A001B420B /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8D8AFD1D0F6E2A001B420B /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD8D8B081D0F8C08001B420B /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B071D0F8C08001B420B /* ASAPP.swift */; };
 		FD8D8B0D1D105A52001B420B /* ASAPPChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B0C1D105A52001B420B /* ASAPPChatViewController.swift */; };
@@ -20,13 +22,15 @@
 		FD8D8B4E1D10A872001B420B /* icon_camera-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B4B1D10A872001B420B /* icon_camera-dark.png */; };
 		FD8D8B4F1D10A872001B420B /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B4C1D10A872001B420B /* icon_camera-dark@2x.png */; };
 		FD8D8B501D10A872001B420B /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B4D1D10A872001B420B /* icon_camera-dark@3x.png */; };
-		FD8D8B531D10C197001B420B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B521D10C197001B420B /* Model.swift */; };
+		FD8D8B561D11B34F001B420B /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B551D11B34F001B420B /* ASAPPConn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD22E4B51D12109300ED2033 /* ASAPPState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPState.swift; sourceTree = "<group>"; };
+		FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEventLog.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8AFD1D0F6E2A001B420B /* ASAPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		FD8D8AFF1D0F6E2A001B420B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,7 +45,7 @@
 		FD8D8B4B1D10A872001B420B /* icon_camera-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_camera-dark.png"; path = "Imgs/icon_camera-dark.png"; sourceTree = "<group>"; };
 		FD8D8B4C1D10A872001B420B /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_camera-dark@2x.png"; path = "Imgs/icon_camera-dark@2x.png"; sourceTree = "<group>"; };
 		FD8D8B4D1D10A872001B420B /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_camera-dark@3x.png"; path = "Imgs/icon_camera-dark@3x.png"; sourceTree = "<group>"; };
-		FD8D8B521D10C197001B420B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		FD8D8B551D11B34F001B420B /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +112,8 @@
 		FD8D8B091D0F8D8C001B420B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FD8D8B521D10C197001B420B /* Model.swift */,
+				FD22E4B51D12109300ED2033 /* ASAPPState.swift */,
+				FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 		FD8D8B471D109336001B420B /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				FD8D8B551D11B34F001B420B /* ASAPPConn.swift */,
 				FD8D8B481D10934D001B420B /* ASAPPUtil.swift */,
 			);
 			name = Util;
@@ -288,11 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD8D8B531D10C197001B420B /* Model.swift in Sources */,
+				FD2FE11F1D12622000FEF954 /* ASAPPEventLog.swift in Sources */,
 				FD8D8B0D1D105A52001B420B /* ASAPPChatViewController.swift in Sources */,
 				FD8D8B491D10934D001B420B /* ASAPPUtil.swift in Sources */,
+				FD22E4B61D12109300ED2033 /* ASAPPState.swift in Sources */,
 				FD8D8B081D0F8C08001B420B /* ASAPP.swift in Sources */,
 				FD8D8B0F1D105D54001B420B /* ASAPPChatInputView.swift in Sources */,
+				FD8D8B561D11B34F001B420B /* ASAPPConn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
