@@ -34,6 +34,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         print("Initializing State")
         
         eventLog = ASAPPEventLog()
+        eventLog.delegate = self
         
         conn = ASAPPConn()
         conn.delegate = self
@@ -49,7 +50,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
             if tokens[0] == ASAPPMsgTypeResponse {
                 let didHandleAuth = handleAuthIfNeeded(tokens[2])
             } else if tokens[0] == ASAPPMsgTypeEvent {
-                
+                eventLog.processEvent(tokens[1], isNew: true)
             }
         }
     }
@@ -85,7 +86,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         let Closure: ASAPPClosure
     }
     
-    typealias ASAPPClosure = (info: Any?) -> Void
+    typealias ASAPPClosure = (info: AnyObject?) -> Void
     
     var asappNotificationObservers: [ASAPPNotificationType: [ASAPPNotificationObserver]] = [:]
     
@@ -108,7 +109,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         }
     }
     
-    func fire(notificationType: ASAPPNotificationType, info: Any?) {
+    func fire(notificationType: ASAPPNotificationType, info: AnyObject?) {
         if let list = asappNotificationObservers[notificationType] {
             for item in list {
                 item.Closure(info: info)
@@ -150,7 +151,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     }
     
     func didProcessEvent(event: ASAPPEvent, isNew: Bool) {
-        let info: [String: Any] = [
+        let info: [String: AnyObject] = [
             "event": event,
             "isNew": isNew
         ]

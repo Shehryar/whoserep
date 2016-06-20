@@ -23,6 +23,9 @@
 		FD8D8B4F1D10A872001B420B /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B4C1D10A872001B420B /* icon_camera-dark@2x.png */; };
 		FD8D8B501D10A872001B420B /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B4D1D10A872001B420B /* icon_camera-dark@3x.png */; };
 		FD8D8B561D11B34F001B420B /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B551D11B34F001B420B /* ASAPPConn.swift */; };
+		FD98D0C01D13403F001C6E47 /* ASAPPChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD98D0BF1D13403F001C6E47 /* ASAPPChatTableView.swift */; };
+		FD98D0C61D148D28001C6E47 /* ASAPPBubbleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD98D0C51D148D28001C6E47 /* ASAPPBubbleViewCell.swift */; };
+		FD98D0CC1D186016001C6E47 /* ASAPPBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD98D0CB1D186016001C6E47 /* ASAPPBubbleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		FD8D8B4C1D10A872001B420B /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_camera-dark@2x.png"; path = "Imgs/icon_camera-dark@2x.png"; sourceTree = "<group>"; };
 		FD8D8B4D1D10A872001B420B /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_camera-dark@3x.png"; path = "Imgs/icon_camera-dark@3x.png"; sourceTree = "<group>"; };
 		FD8D8B551D11B34F001B420B /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
+		FD98D0BF1D13403F001C6E47 /* ASAPPChatTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPChatTableView.swift; sourceTree = "<group>"; };
+		FD98D0C51D148D28001C6E47 /* ASAPPBubbleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPBubbleViewCell.swift; sourceTree = "<group>"; };
+		FD98D0CB1D186016001C6E47 /* ASAPPBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPBubbleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,9 @@
 			children = (
 				FD8D8B0C1D105A52001B420B /* ASAPPChatViewController.swift */,
 				FD8D8B0E1D105D54001B420B /* ASAPPChatInputView.swift */,
+				FD98D0BF1D13403F001C6E47 /* ASAPPChatTableView.swift */,
+				FD98D0C51D148D28001C6E47 /* ASAPPBubbleViewCell.swift */,
+				FD98D0CB1D186016001C6E47 /* ASAPPBubbleView.swift */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -294,9 +303,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD98D0CC1D186016001C6E47 /* ASAPPBubbleView.swift in Sources */,
 				FD2FE11F1D12622000FEF954 /* ASAPPEventLog.swift in Sources */,
 				FD8D8B0D1D105A52001B420B /* ASAPPChatViewController.swift in Sources */,
 				FD8D8B491D10934D001B420B /* ASAPPUtil.swift in Sources */,
+				FD98D0C61D148D28001C6E47 /* ASAPPBubbleViewCell.swift in Sources */,
+				FD98D0C01D13403F001C6E47 /* ASAPPChatTableView.swift in Sources */,
 				FD22E4B61D12109300ED2033 /* ASAPPState.swift in Sources */,
 				FD8D8B081D0F8C08001B420B /* ASAPP.swift in Sources */,
 				FD8D8B0F1D105D54001B420B /* ASAPPChatInputView.swift in Sources */,

@@ -12,10 +12,10 @@ protocol ASAPPEventLogDelegate {
     func didProcessEvent(event: ASAPPEvent, isNew: Bool)
 }
 
-typealias ASAPPTime = Int64
-typealias ASAPPId = UInt64
+typealias ASAPPTime = UInt
+typealias ASAPPId = UInt
 
-enum ASAPPEventType: UInt16 {
+enum ASAPPEventType: Int {
     case EventTypeNone = 0
     case EventTypeTextMessage = 1
     case EventTypeNewIssue = 2
@@ -38,7 +38,7 @@ enum ASAPPEventType: UInt16 {
     case EventTypeVCardMessage = 19
 }
 
-enum ASAPPEphemeralType: UInt16 {
+enum ASAPPEphemeralType: Int {
     case EphemeralTypeNone = 0
     case EphemeralTypeTypingStatus = 1
     case EphemeralTypeTypingPreview = 2
@@ -54,33 +54,81 @@ typealias ASAPPCompanyId = ASAPPId
 typealias ASAPPCustomerId = ASAPPId
 typealias ASAPPRepId = ASAPPId
 typealias ASAPPEventTime = ASAPPTime
-typealias ASAPPEventFlag = UInt32
+typealias ASAPPEventFlag = UInt
 typealias ASAPPEventJSON = String
 
-struct ASAPPEvent {
-    let CreatedTime: ASAPPCreatedTime
-    let IssueId: ASAPPIssueId
-    let CompanyId: ASAPPCompanyId
-    let CustomerId: ASAPPCustomerId
-    let RepId: ASAPPRepId
-    let EventTime: ASAPPEventTime
-    let EventType: ASAPPEventType
-    let EphemeralType: ASAPPEphemeralType
-    let EventFlags: ASAPPEventFlag
-    let EventJSON: ASAPPEventJSON
+class ASAPPEvent: NSObject {
+    var CreatedTime: ASAPPCreatedTime!
+    var IssueId: ASAPPIssueId!
+    var CompanyId: ASAPPCompanyId!
+    var CustomerId: ASAPPCustomerId!
+    var RepId: ASAPPRepId!
+    var EventTime: ASAPPEventTime!
+    var EventType: ASAPPEventType!
+    var EphemeralType: ASAPPEphemeralType!
+    var EventFlags: ASAPPEventFlag!
+    var EventJSON: ASAPPEventJSON!
     
-//    init() {
-//        CreatedTime = 0
-//        IssueId = 0
-//        CompanyId = 0
-//        CustomerId = 0
-//        RepId = 0
-//        EventTime = 0
-//        EventType = ASAPPEventType.EventTypeNone
-//        EphemeralType = ASAPPEphemeralType.EphemeralTypeNone
-//        EventFlags = 0
-//        EventJSON = "{}"
-//    }
+    convenience init(createdTime: ASAPPCreatedTime, issueId: ASAPPIssueId, companyId: ASAPPCompanyId, customerId: ASAPPCustomerId, repId: ASAPPRepId, eventTime: ASAPPEventTime, eventType: ASAPPEventType, ephemeralType: ASAPPEphemeralType, eventFlags: ASAPPEventFlag, eventJSON: ASAPPEventJSON) {
+        self.init()
+        CreatedTime = createdTime
+        IssueId = issueId
+        CompanyId = companyId
+        CustomerId = customerId
+        RepId = repId
+        EventTime = eventTime
+        EventType = eventType
+        EphemeralType = ephemeralType
+        EventFlags = eventFlags
+        EventJSON = eventJSON
+    }
+    
+    func isCustomerEvent() -> Bool {
+        if EventFlags == 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func isMessageEvent() -> Bool {
+        if EventType == ASAPPEventType.EventTypeTextMessage || EventType == ASAPPEventType.EventTypePictureMessage {
+            return true
+        }
+        
+        return false
+    }
+    
+    func payload() -> Any? {
+        if EventType == ASAPPEventType.EventTypeTextMessage {
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(EventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
+                
+                if let text = json["Text"] as? String {
+                    return ASAPPEventPayload.TextMessage(Text: text)
+                }
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        
+        return nil
+    }
+    
+    func shouldDisplay() -> Bool {
+        if EventType == ASAPPEventType.EventTypeTextMessage ||
+            EventType == ASAPPEventType.EventTypePictureMessage {
+            return true
+        }
+        
+        return false
+    }
+}
+
+class ASAPPEventPayload: NSObject {
+    struct TextMessage {
+        let Text: String
+    }
 }
 
 class ASAPPEventLog: NSObject {
@@ -96,21 +144,22 @@ class ASAPPEventLog: NSObject {
             ASAPPLoge(err)
         }
         
+        print(eventTypeEnumValue(json["EventType"]))
         guard let createdTime = json["CreatedTime"] as? ASAPPCreatedTime,
             let issueId = json["IssueId"] as? ASAPPIssueId,
             let companyId = json["CompanyId"] as? ASAPPCompanyId,
             let customerId = json["CustomerId"] as? ASAPPCustomerId,
             let repId = json["RepId"] as? ASAPPRepId,
             let eventTime = json["EventTime"] as? ASAPPEventTime,
-            let eventType = json["EventType"] as? ASAPPEventType,
-            let ephemeralType = json["EphemeralType"] as? ASAPPEphemeralType,
+            let eventType = eventTypeEnumValue(json["EventType"]),
+            let ephemeralType = ephemeralTypeEnumValue(json["EphemeralType"]),
             let eventFlags = json["EventFlags"] as? ASAPPEventFlag,
             let eventJSON = json["EventJSON"] as? ASAPPEventJSON
             else {
                 return
         }
         
-        let event = ASAPPEvent(CreatedTime: createdTime, IssueId: issueId, CompanyId: companyId, CustomerId: customerId, RepId: repId, EventTime: eventTime, EventType: eventType, EphemeralType: ephemeralType, EventFlags: eventFlags, EventJSON: eventJSON)
+        let event = ASAPPEvent(createdTime: createdTime, issueId: issueId, companyId: companyId, customerId: customerId, repId: repId, eventTime: eventTime, eventType: eventType, ephemeralType: ephemeralType, eventFlags: eventFlags, eventJSON: eventJSON)
     
         if isNew {
             saveEvent(event)
@@ -119,6 +168,22 @@ class ASAPPEventLog: NSObject {
         if delegate != nil {
             delegate.didProcessEvent(event, isNew: isNew)
         }
+    }
+    
+    func eventTypeEnumValue(rawValue: AnyObject?) -> ASAPPEventType? {
+        var enumValue: ASAPPEventType? = nil
+        if let value = rawValue as? Int {
+            enumValue = ASAPPEventType.init(rawValue: value)
+        }
+        return enumValue
+    }
+    
+    func ephemeralTypeEnumValue(rawValue: AnyObject?) -> ASAPPEphemeralType? {
+        var enumValue: ASAPPEphemeralType? = nil
+        if let value = rawValue as? Int {
+            enumValue = ASAPPEphemeralType.init(rawValue: value)
+        }
+        return enumValue
     }
     
     func saveEvent(event: ASAPPEvent) {

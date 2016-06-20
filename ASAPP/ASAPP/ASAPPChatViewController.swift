@@ -10,6 +10,7 @@ import UIKit
 
 class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
 
+    var chatView: ASAPPChatTableView!
     var input: ASAPPChatInputView!
     var keyboardObserver: ASAPPKeyboardObserver!
     
@@ -19,6 +20,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.whiteColor()
         renderInputView()
+        renderChatView()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -44,6 +46,13 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         input.textView.resignFirstResponder()
+    }
+    
+    // MARK: - ChatView
+    
+    func renderChatView() {
+        chatView = ASAPPChatTableView()
+        self.view.addSubview(chatView)
     }
     
     // MARK: - InputView
@@ -82,6 +91,13 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
             make.bottom.equalTo(self.view.snp_bottom).offset(-KEYBOARD_OFFSET)
             make.leading.equalTo(self.view.snp_leading)
             make.trailing.equalTo(self.view.snp_trailing)
+        }
+        
+        chatView.snp_remakeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top)
+            make.leading.equalTo(self.view.snp_leading)
+            make.trailing.equalTo(self.view.snp_trailing)
+            make.bottom.equalTo(input.snp_top)
         }
         
         super.updateViewConstraints()
