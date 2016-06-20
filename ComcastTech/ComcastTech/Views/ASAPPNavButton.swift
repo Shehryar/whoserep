@@ -18,6 +18,8 @@ class ASAPPNavButton: UIButton {
     }
     */
     
+    var style: ASAPPNavBarStyle = .Primary
+    
     internal enum ASAPPButtonType: String {
         case Text, Image
     }
@@ -28,6 +30,11 @@ class ASAPPNavButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    convenience init(style: ASAPPNavBarStyle) {
+        self.init(frame: CGRectZero)
+        self.style = style
         self.setup()
     }
     
@@ -38,17 +45,30 @@ class ASAPPNavButton: UIButton {
     func setup() {
         self.clipsToBounds = true
         
-        self.backgroundColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 1)
-        gradientLayer.frame = CGRectMake(0, 0, 300, 50)
-        self.layer.addSublayer(gradientLayer)
+        if self.style == .Primary {
+            self.backgroundColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 1)
+            // TODO: Do not hardcode to 300
+            gradientLayer.frame = CGRectMake(0, 0, 300, 50)
+            self.layer.addSublayer(gradientLayer)
+        } else {
+            self.backgroundColor = UIColor.whiteColor()
+            gradientLayer.frame = CGRectMake(0, 45, 300, 5)
+            self.layer.addSublayer(gradientLayer)
+        }
         
         self.updateBackground()
     }
     
     func updateBackground() {
-        let topColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0).CGColor
+        var topColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0).CGColor
+        var bottomColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).CGColor
+        
+        if self.style == .Secondary && self.selected {
+            topColor = UIColor(red: 121/255, green: 127/255, blue: 144/255, alpha: 1).CGColor
+            bottomColor = topColor
+        }
+        
         if self.selected {
-            let bottomColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).CGColor
             gradientLayer.colors = [topColor, bottomColor]
             gradientLayer.locations = [0.0, 1.0]
         } else {

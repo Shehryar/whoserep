@@ -17,19 +17,21 @@ class ASAPPTabBarController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.whiteColor()
-        self.setupTabBar()
+        self.renderTabBar()
     }
     
-    func setupTabBar() {
-        navBar = ASAPPNavBar(controllerHandler: { (oldController, newController) in
+    func renderTabBar() {
+        navBar = ASAPPNavBar(style: .Primary, controllerHandler: { (oldController, newController) in
             self.setupChildController(oldController, newController: newController)
         })
+        
+        navBar.addButton(.Image, value: "icon_chat-white.png", targetController: ChatViewController(), isDefault: false)
+        navBar.addButton(.Text, value: "CHECK", targetController: ASAPPCheckController(), isDefault: true)
+        navBar.addButton(.Text, value: "TIMELINE", targetController: TimelineTabViewController(), isDefault: false)
+        navBar.addButton(.Image, value: "icon_logout-white.png", targetController: ChatViewController(), isDefault: false)
+        
+        navBar.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(navBar)
-        navBar.snp_makeConstraints { (make) in
-            make.width.equalTo(UIScreen.mainScreen().bounds.size.width)
-            make.height.equalTo(70)
-            make.top.equalTo(self.view.snp_topMargin).offset(0)
-        }
     }
     
     func setupChildController(oldController: UIViewController?, newController: UIViewController) {
@@ -54,6 +56,17 @@ class ASAPPTabBarController: UIViewController {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
+    }
+    
+    override func updateViewConstraints() {
+        navBar.snp_makeConstraints { (make) in
+            make.height.equalTo(70)
+            make.top.equalTo(self.view.snp_topMargin).offset(0)
+            make.leading.equalTo(self.view.snp_leading)
+            make.trailing.equalTo(self.view.snp_trailing)
+        }
+        
+        super.updateViewConstraints()
     }
 
     override func didReceiveMemoryWarning() {

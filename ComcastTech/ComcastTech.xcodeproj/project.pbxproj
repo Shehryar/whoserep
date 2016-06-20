@@ -24,6 +24,7 @@
 		FD75821C1D06395B00076464 /* MultiChoiceOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD75821B1D06395B00076464 /* MultiChoiceOptionViewController.swift */; };
 		FD75821E1D0641B600076464 /* MultiChoiceTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD75821D1D0641B600076464 /* MultiChoiceTopBar.swift */; };
 		FD7582461D08906300076464 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7582451D08906300076464 /* Model.swift */; };
+		FD98D0D11D18A04A001C6E47 /* TimelineTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD98D0D01D18A04A001C6E47 /* TimelineTabViewController.swift */; };
 		FDA5F7C41CADB3F400ED9369 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7C31CADB3F400ED9369 /* AppDelegate.swift */; };
 		FDA5F7C61CADB3F400ED9369 /* ASAPPTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7C51CADB3F400ED9369 /* ASAPPTabBarController.swift */; };
 		FDA5F7CB1CADB3F400ED9369 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F7CA1CADB3F400ED9369 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		FD75821B1D06395B00076464 /* MultiChoiceOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChoiceOptionViewController.swift; sourceTree = "<group>"; };
 		FD75821D1D0641B600076464 /* MultiChoiceTopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChoiceTopBar.swift; sourceTree = "<group>"; };
 		FD7582451D08906300076464 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		FD98D0D01D18A04A001C6E47 /* TimelineTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTabViewController.swift; sourceTree = "<group>"; };
 		FDA5F7C01CADB3F400ED9369 /* ComcastTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComcastTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDA5F7C31CADB3F400ED9369 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDA5F7C51CADB3F400ED9369 /* ASAPPTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPTabBarController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		FD98D0CF1D189FE8001C6E47 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				FD98D0D01D18A04A001C6E47 /* TimelineTabViewController.swift */,
+			);
+			name = Timeline;
+			sourceTree = "<group>";
+		};
 		FDA5F7B71CADB3F400ED9369 = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +210,7 @@
 		FDA5F7D51CADB40C00ED9369 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FD98D0CF1D189FE8001C6E47 /* Timeline */,
 				FD686E4F1CF61B19006681B3 /* Views */,
 				FD17823A1CF3AEF40093232A /* NavBar */,
 				FD17823B1CF3AF110093232A /* ASAPPColor.swift */,
@@ -417,6 +428,7 @@
 				FD1782331CF355420093232A /* ASAPPNavButton.swift in Sources */,
 				FD0619101CF4F92700CA9E9D /* ChatViewController.swift in Sources */,
 				FD686E511CF61B69006681B3 /* StepView.swift in Sources */,
+				FD98D0D11D18A04A001C6E47 /* TimelineTabViewController.swift in Sources */,
 				FD06190E1CF4F8DF00CA9E9D /* ASAPPCheckController.swift in Sources */,
 				FD17823C1CF3AF110093232A /* ASAPPColor.swift in Sources */,
 				FD1782391CF3AE4D0093232A /* ASAPPNavBar.swift in Sources */,
