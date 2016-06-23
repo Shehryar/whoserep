@@ -48,6 +48,24 @@
 		FDE7864C1CF4FCF800DB5D5C /* icon_settings-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDE7863A1CF4FCF800DB5D5C /* icon_settings-white@2x.png */; };
 		FDE7864D1CF4FCF800DB5D5C /* icon_settings-white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDE7863B1CF4FCF800DB5D5C /* icon_settings-white@3x.png */; };
 		FDE786531CF51DD300DB5D5C /* StepModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE786521CF51DD300DB5D5C /* StepModel.swift */; };
+		FDFCDDAA1D18B0C900AEBD2C /* AccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDA91D18B0C900AEBD2C /* AccountSummaryViewController.swift */; };
+		FDFCDDAC1D18B12D00AEBD2C /* TimelineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDAB1D18B12D00AEBD2C /* TimelineModel.swift */; };
+		FDFCDDAE1D19BDEA00AEBD2C /* JourneyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDAD1D19BDEA00AEBD2C /* JourneyTableViewController.swift */; };
+		FDFCDDB01D1AEA0D00AEBD2C /* JourneyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDAF1D1AEA0D00AEBD2C /* JourneyTableViewCell.swift */; };
+		FDFCDDB21D1B179400AEBD2C /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDB11D1B179400AEBD2C /* ActivityTableViewCell.swift */; };
+		FDFCDDB61D1B23D800AEBD2C /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFCDDB51D1B23D800AEBD2C /* AccountTableViewCell.swift */; };
+		FDFCDDC31D1B554500AEBD2C /* icon_timeline-house.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDB71D1B554500AEBD2C /* icon_timeline-house.png */; };
+		FDFCDDC41D1B554500AEBD2C /* icon_timeline-house@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDB81D1B554500AEBD2C /* icon_timeline-house@2x.png */; };
+		FDFCDDC51D1B554500AEBD2C /* icon_timeline-house@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDB91D1B554500AEBD2C /* icon_timeline-house@3x.png */; };
+		FDFCDDC61D1B554500AEBD2C /* icon_timeline-phone.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBA1D1B554500AEBD2C /* icon_timeline-phone.png */; };
+		FDFCDDC71D1B554500AEBD2C /* icon_timeline-phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBB1D1B554500AEBD2C /* icon_timeline-phone@2x.png */; };
+		FDFCDDC81D1B554500AEBD2C /* icon_timeline-phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBC1D1B554500AEBD2C /* icon_timeline-phone@3x.png */; };
+		FDFCDDC91D1B554500AEBD2C /* icon_timeline-tv.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBD1D1B554500AEBD2C /* icon_timeline-tv.png */; };
+		FDFCDDCA1D1B554500AEBD2C /* icon_timeline-tv@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBE1D1B554500AEBD2C /* icon_timeline-tv@2x.png */; };
+		FDFCDDCB1D1B554500AEBD2C /* icon_timeline-tv@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDBF1D1B554500AEBD2C /* icon_timeline-tv@3x.png */; };
+		FDFCDDCC1D1B554500AEBD2C /* icon_timeline-wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDC01D1B554500AEBD2C /* icon_timeline-wifi.png */; };
+		FDFCDDCD1D1B554500AEBD2C /* icon_timeline-wifi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDC11D1B554500AEBD2C /* icon_timeline-wifi@2x.png */; };
+		FDFCDDCE1D1B554500AEBD2C /* icon_timeline-wifi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDFCDDC21D1B554500AEBD2C /* icon_timeline-wifi@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +114,24 @@
 		FDE7863A1CF4FCF800DB5D5C /* icon_settings-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings-white@2x.png"; sourceTree = "<group>"; };
 		FDE7863B1CF4FCF800DB5D5C /* icon_settings-white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings-white@3x.png"; sourceTree = "<group>"; };
 		FDE786521CF51DD300DB5D5C /* StepModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepModel.swift; sourceTree = "<group>"; };
+		FDFCDDA91D18B0C900AEBD2C /* AccountSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewController.swift; sourceTree = "<group>"; };
+		FDFCDDAB1D18B12D00AEBD2C /* TimelineModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineModel.swift; sourceTree = "<group>"; };
+		FDFCDDAD1D19BDEA00AEBD2C /* JourneyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyTableViewController.swift; sourceTree = "<group>"; };
+		FDFCDDAF1D1AEA0D00AEBD2C /* JourneyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyTableViewCell.swift; sourceTree = "<group>"; };
+		FDFCDDB11D1B179400AEBD2C /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
+		FDFCDDB51D1B23D800AEBD2C /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		FDFCDDB71D1B554500AEBD2C /* icon_timeline-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-house.png"; sourceTree = "<group>"; };
+		FDFCDDB81D1B554500AEBD2C /* icon_timeline-house@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-house@2x.png"; sourceTree = "<group>"; };
+		FDFCDDB91D1B554500AEBD2C /* icon_timeline-house@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-house@3x.png"; sourceTree = "<group>"; };
+		FDFCDDBA1D1B554500AEBD2C /* icon_timeline-phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-phone.png"; sourceTree = "<group>"; };
+		FDFCDDBB1D1B554500AEBD2C /* icon_timeline-phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-phone@2x.png"; sourceTree = "<group>"; };
+		FDFCDDBC1D1B554500AEBD2C /* icon_timeline-phone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-phone@3x.png"; sourceTree = "<group>"; };
+		FDFCDDBD1D1B554500AEBD2C /* icon_timeline-tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-tv.png"; sourceTree = "<group>"; };
+		FDFCDDBE1D1B554500AEBD2C /* icon_timeline-tv@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-tv@2x.png"; sourceTree = "<group>"; };
+		FDFCDDBF1D1B554500AEBD2C /* icon_timeline-tv@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-tv@3x.png"; sourceTree = "<group>"; };
+		FDFCDDC01D1B554500AEBD2C /* icon_timeline-wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-wifi.png"; sourceTree = "<group>"; };
+		FDFCDDC11D1B554500AEBD2C /* icon_timeline-wifi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-wifi@2x.png"; sourceTree = "<group>"; };
+		FDFCDDC21D1B554500AEBD2C /* icon_timeline-wifi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline-wifi@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +206,11 @@
 			isa = PBXGroup;
 			children = (
 				FD98D0D01D18A04A001C6E47 /* TimelineTabViewController.swift */,
+				FDFCDDA91D18B0C900AEBD2C /* AccountSummaryViewController.swift */,
+				FDFCDDB51D1B23D800AEBD2C /* AccountTableViewCell.swift */,
+				FDFCDDB11D1B179400AEBD2C /* ActivityTableViewCell.swift */,
+				FDFCDDAD1D19BDEA00AEBD2C /* JourneyTableViewController.swift */,
+				FDFCDDAF1D1AEA0D00AEBD2C /* JourneyTableViewCell.swift */,
 			);
 			name = Timeline;
 			sourceTree = "<group>";
@@ -221,6 +262,18 @@
 		FDE786281CF4FCD200DB5D5C /* Imgs */ = {
 			isa = PBXGroup;
 			children = (
+				FDFCDDB71D1B554500AEBD2C /* icon_timeline-house.png */,
+				FDFCDDB81D1B554500AEBD2C /* icon_timeline-house@2x.png */,
+				FDFCDDB91D1B554500AEBD2C /* icon_timeline-house@3x.png */,
+				FDFCDDBA1D1B554500AEBD2C /* icon_timeline-phone.png */,
+				FDFCDDBB1D1B554500AEBD2C /* icon_timeline-phone@2x.png */,
+				FDFCDDBC1D1B554500AEBD2C /* icon_timeline-phone@3x.png */,
+				FDFCDDBD1D1B554500AEBD2C /* icon_timeline-tv.png */,
+				FDFCDDBE1D1B554500AEBD2C /* icon_timeline-tv@2x.png */,
+				FDFCDDBF1D1B554500AEBD2C /* icon_timeline-tv@3x.png */,
+				FDFCDDC01D1B554500AEBD2C /* icon_timeline-wifi.png */,
+				FDFCDDC11D1B554500AEBD2C /* icon_timeline-wifi@2x.png */,
+				FDFCDDC21D1B554500AEBD2C /* icon_timeline-wifi@3x.png */,
 				FDE7862A1CF4FCF800DB5D5C /* icon_camera-dark.png */,
 				FDE7862B1CF4FCF800DB5D5C /* icon_camera-dark@2x.png */,
 				FDE7862C1CF4FCF800DB5D5C /* icon_camera-dark@3x.png */,
@@ -269,6 +322,7 @@
 			children = (
 				FDE786521CF51DD300DB5D5C /* StepModel.swift */,
 				FD7582451D08906300076464 /* Model.swift */,
+				FDFCDDAB1D18B12D00AEBD2C /* TimelineModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -339,24 +393,36 @@
 				FDE786411CF4FCF800DB5D5C /* icon_chat-white@3x.png in Resources */,
 				FDE786401CF4FCF800DB5D5C /* icon_chat-white@2x.png in Resources */,
 				FD17822D1CF352A80093232A /* Lato-Bold.ttf in Resources */,
+				FDFCDDC61D1B554500AEBD2C /* icon_timeline-phone.png in Resources */,
 				FDE786431CF4FCF800DB5D5C /* icon_logout-white@2x.png in Resources */,
 				FDE786441CF4FCF800DB5D5C /* icon_logout-white@3x.png in Resources */,
 				FD17822E1CF352A80093232A /* Lato-Hairline.ttf in Resources */,
+				FDFCDDC51D1B554500AEBD2C /* icon_timeline-house@3x.png in Resources */,
+				FDFCDDCA1D1B554500AEBD2C /* icon_timeline-tv@2x.png in Resources */,
 				FDE7863D1CF4FCF800DB5D5C /* icon_camera-dark@2x.png in Resources */,
 				FDE786481CF4FCF800DB5D5C /* icon_map-white.png in Resources */,
 				FD1782301CF352A80093232A /* Lato-Regular.ttf in Resources */,
+				FDFCDDC81D1B554500AEBD2C /* icon_timeline-phone@3x.png in Resources */,
 				FDE7864B1CF4FCF800DB5D5C /* icon_settings-white.png in Resources */,
 				FDE786461CF4FCF800DB5D5C /* icon_map-dark@2x.png in Resources */,
 				FDE7863E1CF4FCF800DB5D5C /* icon_camera-dark@3x.png in Resources */,
 				FDE7864C1CF4FCF800DB5D5C /* icon_settings-white@2x.png in Resources */,
 				FDA5F7CE1CADB3F400ED9369 /* LaunchScreen.storyboard in Resources */,
+				FDFCDDCE1D1B554500AEBD2C /* icon_timeline-wifi@3x.png in Resources */,
 				FDE786471CF4FCF800DB5D5C /* icon_map-dark@3x.png in Resources */,
+				FDFCDDC41D1B554500AEBD2C /* icon_timeline-house@2x.png in Resources */,
 				FDE786491CF4FCF800DB5D5C /* icon_map-white@2x.png in Resources */,
 				FDE7863F1CF4FCF800DB5D5C /* icon_chat-white.png in Resources */,
+				FDFCDDCC1D1B554500AEBD2C /* icon_timeline-wifi.png in Resources */,
 				FDE7864D1CF4FCF800DB5D5C /* icon_settings-white@3x.png in Resources */,
+				FDFCDDC71D1B554500AEBD2C /* icon_timeline-phone@2x.png in Resources */,
+				FDFCDDC31D1B554500AEBD2C /* icon_timeline-house.png in Resources */,
 				FDA5F7CB1CADB3F400ED9369 /* Assets.xcassets in Resources */,
+				FDFCDDCD1D1B554500AEBD2C /* icon_timeline-wifi@2x.png in Resources */,
 				FDE786451CF4FCF800DB5D5C /* icon_map-dark.png in Resources */,
 				FD17822F1CF352A80093232A /* Lato-Light.ttf in Resources */,
+				FDFCDDC91D1B554500AEBD2C /* icon_timeline-tv.png in Resources */,
+				FDFCDDCB1D1B554500AEBD2C /* icon_timeline-tv@3x.png in Resources */,
 				FDE7863C1CF4FCF800DB5D5C /* icon_camera-dark.png in Resources */,
 				FDE7864A1CF4FCF800DB5D5C /* icon_map-white@3x.png in Resources */,
 			);
@@ -419,7 +485,11 @@
 			files = (
 				FD686E571CF66541006681B3 /* StepSummaryTableViewCell.swift in Sources */,
 				FDA5F7C61CADB3F400ED9369 /* ASAPPTabBarController.swift in Sources */,
+				FDFCDDB21D1B179400AEBD2C /* ActivityTableViewCell.swift in Sources */,
+				FDFCDDAE1D19BDEA00AEBD2C /* JourneyTableViewController.swift in Sources */,
 				FD75821C1D06395B00076464 /* MultiChoiceOptionViewController.swift in Sources */,
+				FDFCDDB61D1B23D800AEBD2C /* AccountTableViewCell.swift in Sources */,
+				FDFCDDAA1D18B0C900AEBD2C /* AccountSummaryViewController.swift in Sources */,
 				FDA5F7C41CADB3F400ED9369 /* AppDelegate.swift in Sources */,
 				FDE786531CF51DD300DB5D5C /* StepModel.swift in Sources */,
 				FD686E551CF664CB006681B3 /* StepTableViewCell.swift in Sources */,
@@ -428,10 +498,12 @@
 				FD1782331CF355420093232A /* ASAPPNavButton.swift in Sources */,
 				FD0619101CF4F92700CA9E9D /* ChatViewController.swift in Sources */,
 				FD686E511CF61B69006681B3 /* StepView.swift in Sources */,
+				FDFCDDB01D1AEA0D00AEBD2C /* JourneyTableViewCell.swift in Sources */,
 				FD98D0D11D18A04A001C6E47 /* TimelineTabViewController.swift in Sources */,
 				FD06190E1CF4F8DF00CA9E9D /* ASAPPCheckController.swift in Sources */,
 				FD17823C1CF3AF110093232A /* ASAPPColor.swift in Sources */,
 				FD1782391CF3AE4D0093232A /* ASAPPNavBar.swift in Sources */,
+				FDFCDDAC1D18B12D00AEBD2C /* TimelineModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
