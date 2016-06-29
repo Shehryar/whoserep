@@ -10,7 +10,11 @@ import Foundation
 import SocketRocket
 
 protocol ASAPPConnDelegate {
-    func sessionInfoIfAvailable() -> [String: AnyObject]?
+    func sessionInfoIfAvailable() -> String?
+    func nextRequestId() -> Int
+    
+    func issueId() -> Int
+    
     func customerTargetCompanyId() -> Int
     
     func didChangeConnState(isConnected: Bool)
@@ -21,6 +25,9 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
     
     var ws: SRWebSocket!
     var delegate: ASAPPConnDelegate!
+    
+    typealias RequestHandler = (message: AnyObject?) -> Void
+    var requestHandlers: [Int: RequestHandler] = [:]
     
     override init() {
         super.init()
@@ -51,7 +58,7 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
             return
         }
         
-        let url = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+        let url = NSURL(string: "ws://192.168.1.151:8080/api/websocket")
         let request = NSMutableURLRequest(URL: url!)
         request.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         request.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
@@ -80,37 +87,36 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
         return false
     }
     
-    func authenticate() {
-        let params: [String: AnyObject] = [
-            "CompanyMarker": "text-rex",
-            "RegionCode": "US"
-        ]
-        request("auth/CreateAnonCustomerAccount", params: params)
-    }
-    
-    func authenticate(session: String) {
-        
-    }
-    
-    func sendMessage(message: String) {
-        
-    }
-    
     // MARK: - Request
     
-    func request(endPoint: String) {
-        return request(endPoint, params: [:])
+    func request(endPoint: String, handler: RequestHandler?) {
+        return request(endPoint, params: [:], handler: handler)
     }
     
-    func request(endPoint: String, params: [String: AnyObject]) {
-        let context: [String: AnyObject] = [
+    func request(endPoint: String, params: [String: AnyObject], handler: RequestHandler?) {
+        if delegate == nil {
+            ASAPPLoge("ERROR: Delegate not set for conn")
+            return
+        }
+        
+        var context: [String: AnyObject] = [
             "CompanyId": delegate.customerTargetCompanyId()
         ]
-        return request(endPoint, params: params, context: context)
+        
+        if !isCustomerEndpoint(endPoint) && ASAPP.instance.mTargetCustomerToken != nil {
+            context = [
+                "IssueId": delegate.issueId()
+            ]
+        }
+        
+        return request(endPoint, params: params, context: context, handler: handler)
     }
     
-    func request(endPoint: String, params: [String: AnyObject], context: [String: AnyObject]) {
-        let reqId = 1
+    func request(endPoint: String, params: [String: AnyObject], context: [String: AnyObject], handler: RequestHandler?) {
+        let reqId = delegate.nextRequestId()
+        if handler != nil {
+            requestHandlers[reqId] = handler!
+        }
         var paramsJSON = "{}"
         if NSJSONSerialization.isValidJSONObject(params) {
             do {
@@ -135,21 +141,38 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
         ws.send(requestStr)
     }
     
+    func isCustomerEndpoint(endpoint: String) -> Bool {
+        if endpoint.hasPrefix("customer/") {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - SocketRocket
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
         ASAPPLog("ws opened")
         delegate.didChangeConnState(true)
-        authenticate()
+//        authenticate()
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        print(message)
+        print("WS-MESSAGE:", message)
         if delegate == nil {
             return
         }
         
-        delegate.didReceiveMessage(message)
+        if let message = message as? String {
+            let tokens = message.characters.split("|").map(String.init)
+            if tokens[0] == ASAPPState.ASAPPMsgTypeResponse {
+                if let handler = requestHandlers[Int(tokens[1])!] {
+                    handler(message: tokens[2])
+                }
+            } else if tokens[0] == ASAPPState.ASAPPMsgTypeEvent {
+                delegate.didReceiveMessage(tokens[1])
+            }
+        }
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {

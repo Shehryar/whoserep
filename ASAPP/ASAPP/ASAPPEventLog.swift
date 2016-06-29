@@ -10,6 +10,9 @@ import Foundation
 
 protocol ASAPPEventLogDelegate {
     func didProcessEvent(event: ASAPPEvent, isNew: Bool)
+    func didClearEventLog()
+    
+    func fetchEvents(after: Int)
 }
 
 typealias ASAPPTime = UInt
@@ -85,6 +88,16 @@ class ASAPPEvent: NSObject {
     
     func isCustomerEvent() -> Bool {
         if EventFlags == 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func isMyEvent() -> Bool {
+        if ASAPP.isCustomer() && isCustomerEvent() {
+            return true
+        } else if !ASAPP.isCustomer() && ASAPP.myId() != nil && ASAPP.myId() == RepId {
             return true
         }
         
@@ -188,5 +201,17 @@ class ASAPPEventLog: NSObject {
     
     func saveEvent(event: ASAPPEvent) {
         
+    }
+    
+    func reloadEventLog() {
+        
+    }
+    
+    func clearAll() {
+        events.removeAll()
+        
+        if delegate != nil {
+            delegate.didClearEventLog()
+        }
     }
 }

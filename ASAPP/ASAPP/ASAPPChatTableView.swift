@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ASAPPChatTableView: UITableView, UITableViewDelegate {
+class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -19,7 +19,8 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate {
     */
     
     static let CELL_IDENT_MSG_SEND: String = "asappCellMsgSend"
-    static let CELL_IDENT_MSG_RECEIVE: String = "asappCellMsgSend"
+    static let CELL_IDENT_MSG_RECEIVE: String = "asappCellMsgReceive"
+    static let CELL_IDENT_MSG_RECEIVE_CUSTOMER: String = "asappCellMsgReceiveCustomer"
     
     var eventSource: ASAPPChatDataSource!
     
@@ -29,6 +30,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate {
         
         self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_SEND)
         self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE)
+        self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER)
         
         eventSource = ASAPPChatDataSource()
         self.dataSource = eventSource
@@ -72,6 +74,13 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate {
         }
     }
     
+    func didClearEventLog() {
+        if let source = self.dataSource as? ASAPPChatDataSource {
+            source.clearAll()
+            self.reloadData()
+        }
+    }
+    
     override func insertRowsAtIndexPaths(indexPaths: [NSIndexPath], withRowAnimation animation: UITableViewRowAnimation) {
         super.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
     }
@@ -84,6 +93,10 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate {
         
         func addObject(anObject: AnyObject) {
             events.addObject(anObject)
+        }
+        
+        func clearAll() {
+            events.removeAllObjects()
         }
         
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,8 +112,10 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate {
             
             if event.isMessageEvent() {
                 var cell: ASAPPBubbleViewCell = ASAPPBubbleViewCell()
-                if event.isCustomerEvent() {
+                if event.isMyEvent() {
                     cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_SEND)
+                } else if !ASAPP.isCustomer() && event.isCustomerEvent() {
+                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER)
                 } else {
                     cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE)
                 }

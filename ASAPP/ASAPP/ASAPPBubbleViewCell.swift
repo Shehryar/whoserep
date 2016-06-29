@@ -77,17 +77,23 @@ class ASAPPBubbleViewCell: UITableViewCell {
         let sendCorners: UIRectCorner = [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomLeft]
         let receiveCorners: UIRectCorner = [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomRight]
         var corners = sendCorners
-        if !event.isCustomerEvent() {
+        
+        holder.isCustomerEvent = false
+        if !event.isMyEvent() {
             corners = receiveCorners
 //            holder.backgroundColor = UIColor.redColor()
             holder.shouldShowBorder = true
+            if !ASAPP.isCustomer() && event.isCustomerEvent() {
+                holder.shouldShowBorder = false
+                holder.isCustomerEvent = true
+                textMessageLabel.textColor = UIColor.whiteColor()
+            }
         } else {
 //            holder.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
             holder.shouldShowBorder = false
         }
         var borderRect = self.contentView.bounds
         if event.EventType == ASAPPEventType.EventTypeTextMessage {
-            print("---------MMM - ", borderRect, UIScreen.mainScreen().bounds, self.bounds)
             let tempLabel = UILabel()
             setupLabel(tempLabel)
             if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
@@ -97,7 +103,6 @@ class ASAPPBubbleViewCell: UITableViewCell {
             holderWidth = size.width + (HOLDER_PADDING * 2)
             borderRect.size.width = size.width + (HOLDER_PADDING * 2)
             borderRect.size.height = size.height + (HOLDER_PADDING_VERTICAL * 2)
-            print("---------", borderRect, tempLabel.text)
         }
 //        borderRect.size.width = borderRect.size.width - (BUBBLE_PADDING * 2)
         let borderPath = UIBezierPath(roundedRect: borderRect, byRoundingCorners: corners, cornerRadii: CGSizeMake(20, 20))
@@ -109,14 +114,13 @@ class ASAPPBubbleViewCell: UITableViewCell {
     }
     
     override func updateConstraints() {
-        print("=======", self.bounds)
         holder.snp_updateConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top)
             make.bottom.equalTo(self.contentView.snp_bottom)
             make.width.equalTo(holderWidth)
             
             if mEvent.isMessageEvent() {
-                if mEvent.isCustomerEvent() {
+                if mEvent.isMyEvent() {
                     make.leading.greaterThanOrEqualTo(self.contentView.snp_leading).offset(BUBBLE_PADDING)
                     make.trailing.equalTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING)
                 } else {
