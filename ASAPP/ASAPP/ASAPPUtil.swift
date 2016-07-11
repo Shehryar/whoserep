@@ -41,7 +41,7 @@ func loadFont(name: String, type: String) {
     if let font = CGFontCreateWithDataProvider(provider) {
         CTFontManagerRegisterGraphicsFont(font, &err)
         if err != nil {
-            print(err)
+            ASAPPLoge(err)
         }
     }
 }

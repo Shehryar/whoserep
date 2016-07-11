@@ -12,6 +12,12 @@ class ASAPPBubbleView: UIView {
 
     var shouldShowBorder: Bool = false
     var isCustomerEvent: Bool = false
+    var state: ASAPPState!
+    
+    convenience init(state: ASAPPState) {
+        self.init()
+        self.state = state
+    }
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -29,7 +35,7 @@ class ASAPPBubbleView: UIView {
         
         let borderPath = UIBezierPath(roundedRect: roundedRect, byRoundingCorners: [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomRight], cornerRadii: CGSizeMake(20, 20))
         var fillPath = UIBezierPath(roundedRect: roundedRect, byRoundingCorners: [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomLeft], cornerRadii: CGSizeMake(20, 20))
-        if !ASAPP.isCustomer() && isCustomerEvent {
+        if !state.isCustomer() && isCustomerEvent {
             fillPath = borderPath
             UIColor(red: 121/255, green: 127/255, blue: 144/255, alpha: 1).setFill()
         }

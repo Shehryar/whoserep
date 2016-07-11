@@ -23,6 +23,7 @@ protocol ASAPPConnDelegate {
 
 class ASAPPConn: NSObject, SRWebSocketDelegate {
     
+    var state: ASAPPState!
     var ws: SRWebSocket!
     var delegate: ASAPPConnDelegate!
     
@@ -54,11 +55,11 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
             ws = nil
         }
         if ws != nil && ws.readyState != .CLOSED {
-            print("ASAPP: Connection state is not closed")
+            ASAPPLoge("ASAPP: Connection state is not closed")
             return
         }
         
-        let url = NSURL(string: "ws://192.168.1.151:8080/api/websocket")
+        let url = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
         let request = NSMutableURLRequest(URL: url!)
         request.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         request.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
@@ -103,7 +104,7 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
             "CompanyId": delegate.customerTargetCompanyId()
         ]
         
-        if !isCustomerEndpoint(endPoint) && ASAPP.instance.mTargetCustomerToken != nil {
+        if !isCustomerEndpoint(endPoint) && state.targetCustomerToken() != nil {
             context = [
                 "IssueId": delegate.issueId()
             ]
@@ -137,7 +138,7 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
         }
         
         let requestStr = String(format: "%@|%d|%@|%@", endPoint, reqId, contextJSON, paramsJSON)
-        print(requestStr)
+        ASAPPLog(requestStr)
         ws.send(requestStr)
     }
     
@@ -158,7 +159,7 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        print("WS-MESSAGE:", message)
+        ASAPPLog("WS-MESSAGE:", message)
         if delegate == nil {
             return
         }

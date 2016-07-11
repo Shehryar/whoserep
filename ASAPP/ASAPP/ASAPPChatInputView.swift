@@ -18,6 +18,9 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     */
     
+    // HACK: Pass state object
+    var state: ASAPPState!
+    
     var textView: UITextView!
     var mediaButton: UIButton!
     var sendButton: UIButton!
@@ -28,8 +31,14 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        render()
+    }
+    
+    convenience init(state: ASAPPState) {
+        self.init()
         
+        self.state = state
+        
+        render()
         registerListeners()
     }
     
@@ -42,7 +51,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     
     func registerListeners() {
-        ASAPP.instance.state.on(.Connect, observer: self) { [weak self] (info) in
+        state.on(.Connect, observer: self) { [weak self] (info) in
             guard self != nil else {
                 return
             }
@@ -50,7 +59,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
             self!.updateSendButton()
         }
         
-        ASAPP.instance.state.on(.Disconnect, observer: self) { [weak self] (info) in
+        state.on(.Disconnect, observer: self) { [weak self] (info) in
             guard self != nil else {
                 return
             }
@@ -149,7 +158,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     func updateSendButton() {
         let text = "SEND"
         var textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 1)
-        if !ASAPP.instance.state.isConnected() || textView.text == "" {
+        if !state.isConnected() || textView.text == "" {
             textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 0.3)
             sendButton.enabled = false
         } else {
@@ -164,8 +173,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     
     func sendAction(sender: UIButton) {
-        print("send")
-        ASAPP.instance.state.sendMessage(textView.text)
+        state.sendMessage(textView.text)
         
         textView.text = ""
         resizeIfNeeded(textView)

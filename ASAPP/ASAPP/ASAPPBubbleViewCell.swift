@@ -10,6 +10,8 @@ import UIKit
 
 class ASAPPBubbleViewCell: UITableViewCell {
 
+    var state: ASAPPState!
+    
     var holder: ASAPPBubbleView!
     var textMessageLabel: UILabel!
     
@@ -28,12 +30,19 @@ class ASAPPBubbleViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, state: ASAPPState) {
+        self.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.state = state
         
         textMessageLabel = UILabel()
         setupLabel(textMessageLabel)
         
         holder = ASAPPBubbleView()
-//        holder.clipsToBounds = true
+        holder.state = state
+        //        holder.clipsToBounds = true
         holder.backgroundColor = UIColor.clearColor()
         
         holder.addSubview(textMessageLabel)
@@ -59,7 +68,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
     
     func setEvent(event: ASAPPEvent) {
         if event.isMessageEvent() {
-            if event.EventType == ASAPPEventType.EventTypeTextMessage {
+            if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
                 if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
                     textMessageLabel.text = payload.Text
                 }
@@ -79,11 +88,11 @@ class ASAPPBubbleViewCell: UITableViewCell {
         var corners = sendCorners
         
         holder.isCustomerEvent = false
-        if !event.isMyEvent() {
+        if !state.isMyEvent(event) {
             corners = receiveCorners
 //            holder.backgroundColor = UIColor.redColor()
             holder.shouldShowBorder = true
-            if !ASAPP.isCustomer() && event.isCustomerEvent() {
+            if !state.isCustomer() && event.isCustomerEvent() {
                 holder.shouldShowBorder = false
                 holder.isCustomerEvent = true
                 textMessageLabel.textColor = UIColor.whiteColor()
@@ -93,7 +102,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
             holder.shouldShowBorder = false
         }
         var borderRect = self.contentView.bounds
-        if event.EventType == ASAPPEventType.EventTypeTextMessage {
+        if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
             let tempLabel = UILabel()
             setupLabel(tempLabel)
             if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
@@ -120,7 +129,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
             make.width.equalTo(holderWidth)
             
             if mEvent.isMessageEvent() {
-                if mEvent.isMyEvent() {
+                if state.isMyEvent(mEvent) {
                     make.leading.greaterThanOrEqualTo(self.contentView.snp_leading).offset(BUBBLE_PADDING)
                     make.trailing.equalTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING)
                 } else {

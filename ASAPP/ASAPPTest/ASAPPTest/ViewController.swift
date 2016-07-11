@@ -20,8 +20,8 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         if asapp == nil {
-            asapp = ASAPP(userToken: "vs-cct", isCustomer: false)
-            asapp.targetCustomerToken("customerdummytest")
+            asapp = ASAPP(company:"vs-dev", userToken: "vs-cct-c", isCustomer: true)
+//            asapp.targetCustomerToken("customerdummytest")
         }
         let vc = asapp.viewControllerForChat()
         self.presentViewController(vc, animated: true, completion: nil)
@@ -34,4 +34,3 @@ class ViewController: UIViewController {
 
 
 }
-

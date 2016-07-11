@@ -14,6 +14,9 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     var input: ASAPPChatInputView!
     var keyboardObserver: ASAPPKeyboardObserver!
     
+    // HACK: Pass state object
+    var state: ASAPPState!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,17 +34,32 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         
         keyboardObserver.registerForNotifications()
         
-        ASAPP.instance.state.on(.Event, observer: self) { (info) in
-            ASAPPLog(info)
+        // HACK
+        chatView.eventSource.clearAll()
+        let events = state.eventLog.events
+        if events == nil {
+            return
         }
+        
+        for event in events {
+            if !event.isMessageEvent() {
+                continue
+            }
+            let eInfo: [String: AnyObject] = [
+                "event": event,
+                "isNew": false
+            ]
+            chatView.eventSource.addObject(eInfo)
+        }
+        
+        chatView.reloadData()
+        chatView.scrollToBottomIfNeeded(true)
     }
     
     override func viewWillDisappear(animated: Bool) {
         if keyboardObserver != nil {
             keyboardObserver.deregisterForNotification()
         }
-        
-        ASAPP.instance.state.off(.Event, observer: self)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -51,14 +69,14 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     // MARK: - ChatView
     
     func renderChatView() {
-        chatView = ASAPPChatTableView()
+        chatView = ASAPPChatTableView(state: state)
         self.view.addSubview(chatView)
     }
     
     // MARK: - InputView
     
     func renderInputView() {
-        input = ASAPPChatInputView()
+        input = ASAPPChatInputView(state: state)
         self.view.addSubview(input)
     }
     
@@ -74,6 +92,8 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
         }
+        
+        chatView.scrollToBottomIfNeeded(true)
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol ASAPPEventLogDelegate {
     func didProcessEvent(event: ASAPPEvent, isNew: Bool)
@@ -15,10 +16,12 @@ protocol ASAPPEventLogDelegate {
     func fetchEvents(after: Int)
 }
 
-typealias ASAPPTime = UInt
-typealias ASAPPId = UInt
+typealias ASAPPTime = Int
+typealias ASAPPId = Int
+typealias ASAPPEventType = Int
+typealias ASAPPEphemeralType = Int
 
-enum ASAPPEventType: Int {
+enum ASAPPEventTypes: ASAPPEventType {
     case EventTypeNone = 0
     case EventTypeTextMessage = 1
     case EventTypeNewIssue = 2
@@ -41,7 +44,7 @@ enum ASAPPEventType: Int {
     case EventTypeVCardMessage = 19
 }
 
-enum ASAPPEphemeralType: Int {
+enum ASAPPEphemeralTypes: ASAPPEphemeralType {
     case EphemeralTypeNone = 0
     case EphemeralTypeTypingStatus = 1
     case EphemeralTypeTypingPreview = 2
@@ -57,20 +60,23 @@ typealias ASAPPCompanyId = ASAPPId
 typealias ASAPPCustomerId = ASAPPId
 typealias ASAPPRepId = ASAPPId
 typealias ASAPPEventTime = ASAPPTime
-typealias ASAPPEventFlag = UInt
+typealias ASAPPEventFlag = Int
 typealias ASAPPEventJSON = String
 
-class ASAPPEvent: NSObject {
-    var CreatedTime: ASAPPCreatedTime!
-    var IssueId: ASAPPIssueId!
-    var CompanyId: ASAPPCompanyId!
-    var CustomerId: ASAPPCustomerId!
-    var RepId: ASAPPRepId!
-    var EventTime: ASAPPEventTime!
-    var EventType: ASAPPEventType!
-    var EphemeralType: ASAPPEphemeralType!
-    var EventFlags: ASAPPEventFlag!
-    var EventJSON: ASAPPEventJSON!
+class ASAPPEvent: Object {
+    dynamic var CreatedTime: ASAPPCreatedTime = 0
+    dynamic var IssueId: ASAPPIssueId = 0
+    dynamic var CompanyId: ASAPPCompanyId = 0
+    dynamic var CustomerId: ASAPPCustomerId = 0
+    dynamic var RepId: ASAPPRepId = 0
+    dynamic var EventTime: ASAPPEventTime = 0
+    dynamic var EventType: ASAPPEventType = 0
+    dynamic var EphemeralType: ASAPPEphemeralType = 0
+    dynamic var EventFlags: ASAPPEventFlag = 0
+    dynamic var EventJSON: ASAPPEventJSON = ""
+    dynamic var EventLogSeq: Int = 0
+    
+//    var state: ASAPPState!
     
     convenience init(createdTime: ASAPPCreatedTime, issueId: ASAPPIssueId, companyId: ASAPPCompanyId, customerId: ASAPPCustomerId, repId: ASAPPRepId, eventTime: ASAPPEventTime, eventType: ASAPPEventType, ephemeralType: ASAPPEphemeralType, eventFlags: ASAPPEventFlag, eventJSON: ASAPPEventJSON) {
         self.init()
@@ -86,6 +92,10 @@ class ASAPPEvent: NSObject {
         EventJSON = eventJSON
     }
     
+    override static func primaryKey() -> String? {
+        return "EventLogSeq"
+    }
+    
     func isCustomerEvent() -> Bool {
         if EventFlags == 1 {
             return true
@@ -94,18 +104,18 @@ class ASAPPEvent: NSObject {
         return false
     }
     
-    func isMyEvent() -> Bool {
-        if ASAPP.isCustomer() && isCustomerEvent() {
-            return true
-        } else if !ASAPP.isCustomer() && ASAPP.myId() != nil && ASAPP.myId() == RepId {
-            return true
-        }
-        
-        return false
-    }
+//    func isMyEvent() -> Bool {
+//        if /*state.isCustomer() &&*/ isCustomerEvent() {
+//            return true
+////        } else if !state.isCustomer() && state.myId() == RepId {
+////            return true
+//        }
+//        
+//        return false
+//    }
     
     func isMessageEvent() -> Bool {
-        if EventType == ASAPPEventType.EventTypeTextMessage || EventType == ASAPPEventType.EventTypePictureMessage {
+        if EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue || EventType == ASAPPEventTypes.EventTypePictureMessage.rawValue {
             return true
         }
         
@@ -113,7 +123,7 @@ class ASAPPEvent: NSObject {
     }
     
     func payload() -> Any? {
-        if EventType == ASAPPEventType.EventTypeTextMessage {
+        if EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(EventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
                 
@@ -121,7 +131,9 @@ class ASAPPEvent: NSObject {
                     return ASAPPEventPayload.TextMessage(Text: text)
                 }
             } catch let error as NSError {
-                print(error)
+                ASAPPLoge(error)
+            } catch {
+                ASAPPLoge("Unknown Error")
             }
         }
         
@@ -129,8 +141,8 @@ class ASAPPEvent: NSObject {
     }
     
     func shouldDisplay() -> Bool {
-        if EventType == ASAPPEventType.EventTypeTextMessage ||
-            EventType == ASAPPEventType.EventTypePictureMessage {
+        if EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue ||
+            EventType == ASAPPEventTypes.EventTypePictureMessage.rawValue {
             return true
         }
         
@@ -146,8 +158,28 @@ class ASAPPEventPayload: NSObject {
 
 class ASAPPEventLog: NSObject {
     
+    var state: ASAPPState!
+    
     var delegate: ASAPPEventLogDelegate!
-    var events: [ASAPPEvent] = []
+    var events: Results<ASAPPEvent>!
+    
+    func load() {
+        if events != nil || delegate == nil {
+            return
+        }
+        
+        events = state.store.mEventLog.sorted("EventLogSeq", ascending: true)
+        for i in 0 ..< events.count {
+            let event = events[i]
+            delegate.didProcessEvent(event, isNew: false)
+        }
+        
+        if events.last != nil {
+            delegate.fetchEvents((events.last?.EventLogSeq)!)
+        } else if delegate != nil {
+            delegate.fetchEvents(0)
+        }
+    }
     
     func processEvent(eventData: String, isNew: Bool) {
         var json: [String: AnyObject] = [:]
@@ -155,9 +187,10 @@ class ASAPPEventLog: NSObject {
             json = try NSJSONSerialization.JSONObjectWithData(eventData.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! [String: AnyObject]
         } catch let err as NSError {
             ASAPPLoge(err)
+        } catch {
+            ASAPPLoge("Unknown Error")
         }
         
-        print(eventTypeEnumValue(json["EventType"]))
         guard let createdTime = json["CreatedTime"] as? ASAPPCreatedTime,
             let issueId = json["IssueId"] as? ASAPPIssueId,
             let companyId = json["CompanyId"] as? ASAPPCompanyId,
@@ -173,10 +206,20 @@ class ASAPPEventLog: NSObject {
         }
         
         let event = ASAPPEvent(createdTime: createdTime, issueId: issueId, companyId: companyId, customerId: customerId, repId: repId, eventTime: eventTime, eventType: eventType, ephemeralType: ephemeralType, eventFlags: eventFlags, eventJSON: eventJSON)
-    
-        if isNew {
-            saveEvent(event)
+        
+        if state.isCustomer() {
+            if let eventLogSeq = json["CustomerEventLogSeq"] as? Int {
+                event.EventLogSeq = eventLogSeq
+            }
+        } else {
+            if let eventLogSeq = json["CompanyEventLogSeq"] as? Int {
+                event.EventLogSeq = eventLogSeq
+            }
         }
+//        event.state = state
+//        if isNew {
+            saveEvent(event)
+//        }
         
         if delegate != nil {
             delegate.didProcessEvent(event, isNew: isNew)
@@ -186,7 +229,7 @@ class ASAPPEventLog: NSObject {
     func eventTypeEnumValue(rawValue: AnyObject?) -> ASAPPEventType? {
         var enumValue: ASAPPEventType? = nil
         if let value = rawValue as? Int {
-            enumValue = ASAPPEventType.init(rawValue: value)
+            enumValue = ASAPPEventType(value)
         }
         return enumValue
     }
@@ -194,13 +237,13 @@ class ASAPPEventLog: NSObject {
     func ephemeralTypeEnumValue(rawValue: AnyObject?) -> ASAPPEphemeralType? {
         var enumValue: ASAPPEphemeralType? = nil
         if let value = rawValue as? Int {
-            enumValue = ASAPPEphemeralType.init(rawValue: value)
+            enumValue = ASAPPEphemeralType(value)
         }
         return enumValue
     }
     
     func saveEvent(event: ASAPPEvent) {
-        
+        state.store.addEvent(event)
     }
     
     func reloadEventLog() {
@@ -208,7 +251,7 @@ class ASAPPEventLog: NSObject {
     }
     
     func clearAll() {
-        events.removeAll()
+        ASAPPLog("CLEAR EVENTLOG")
         
         if delegate != nil {
             delegate.didClearEventLog()

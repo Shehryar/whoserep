@@ -6,10 +6,25 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		FDFCDDD31D243BCD00AEBD2C /* ASAPPUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FDFCDDD61D243BCD00AEBD2C /* Build configuration list for PBXAggregateTarget "ASAPPUniversal" */;
+			buildPhases = (
+				FDFCDDD91D24419E00AEBD2C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = ASAPPUniversal;
+			productName = ASAPPUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 		FD22E4B61D12109300ED2033 /* ASAPPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD22E4B51D12109300ED2033 /* ASAPPState.swift */; };
 		FD2FE11F1D12622000FEF954 /* ASAPPEventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */; };
+		FD87530A1D2D736500E90D7D /* ASAPPStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8753091D2D736500E90D7D /* ASAPPStore.swift */; };
 		FD8D8AFE1D0F6E2A001B420B /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8D8AFD1D0F6E2A001B420B /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD8D8B081D0F8C08001B420B /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B071D0F8C08001B420B /* ASAPP.swift */; };
 		FD8D8B0D1D105A52001B420B /* ASAPPChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B0C1D105A52001B420B /* ASAPPChatViewController.swift */; };
@@ -34,6 +49,7 @@
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD22E4B51D12109300ED2033 /* ASAPPState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPState.swift; sourceTree = "<group>"; };
 		FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEventLog.swift; sourceTree = "<group>"; };
+		FD8753091D2D736500E90D7D /* ASAPPStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStore.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8AFD1D0F6E2A001B420B /* ASAPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		FD8D8AFF1D0F6E2A001B420B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,8 +134,9 @@
 		FD8D8B091D0F8D8C001B420B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FD22E4B51D12109300ED2033 /* ASAPPState.swift */,
 				FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */,
+				FD22E4B51D12109300ED2033 /* ASAPPState.swift */,
+				FD8753091D2D736500E90D7D /* ASAPPStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -229,6 +246,9 @@
 					FD8D8AF91D0F6E2A001B420B = {
 						CreatedOnToolsVersion = 7.3;
 					};
+					FDFCDDD31D243BCD00AEBD2C = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = FD8D8AF41D0F6E2A001B420B /* Build configuration list for PBXProject "ASAPP" */;
@@ -244,6 +264,7 @@
 			projectRoot = "";
 			targets = (
 				FD8D8AF91D0F6E2A001B420B /* ASAPP */,
+				FDFCDDD31D243BCD00AEBD2C /* ASAPPUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -296,6 +317,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FDFCDDD91D24419E00AEBD2C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -309,6 +343,7 @@
 				FD8D8B491D10934D001B420B /* ASAPPUtil.swift in Sources */,
 				FD98D0C61D148D28001C6E47 /* ASAPPBubbleViewCell.swift in Sources */,
 				FD98D0C01D13403F001C6E47 /* ASAPPChatTableView.swift in Sources */,
+				FD87530A1D2D736500E90D7D /* ASAPPStore.swift in Sources */,
 				FD22E4B61D12109300ED2033 /* ASAPPState.swift in Sources */,
 				FD8D8B081D0F8C08001B420B /* ASAPP.swift in Sources */,
 				FD8D8B0F1D105D54001B420B /* ASAPPChatInputView.swift in Sources */,
@@ -448,6 +483,21 @@
 			};
 			name = Release;
 		};
+		FDFCDDD41D243BCD00AEBD2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FDFCDDD51D243BCD00AEBD2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -465,6 +515,15 @@
 			buildConfigurations = (
 				FD8D8B031D0F6E2A001B420B /* Debug */,
 				FD8D8B041D0F6E2A001B420B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDFCDDD61D243BCD00AEBD2C /* Build configuration list for PBXAggregateTarget "ASAPPUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDFCDDD41D243BCD00AEBD2C /* Debug */,
+				FDFCDDD51D243BCD00AEBD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -13,18 +13,26 @@ protocol ASAPPStateDelegate {
     func didClearEventLog()
 }
 
+class ASAPPStateModel: Object {
+    // Required
+    dynamic var companyMarker: String = ""
+    dynamic var userToken: String? = nil
+    dynamic var isCustomer: Bool = true
+    
+    // Updated later
+    dynamic var targetCustomerToken: String = ""
+    dynamic var myId: Int = 0
+    dynamic var customerTargetCompanyId: Int = 0
+    dynamic var issueId: Int = 0
+    dynamic var reqId: Int = 0
+    dynamic var sessionInfo: String? = nil
+}
+
 class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     
     var conn: ASAPPConn!
     var eventLog: ASAPPEventLog!
-    var realm: Realm!
-    
-    var mMyId: UInt = 0
-    var mCustomerTargetCompanyId = 0
-    var mIssueId = 0
-    var mReqId: Int = 0
-    
-    // MARK: - Persistence
+    var store: ASAPPStore!
     
     // Keys for saving data
     let ASAPPSessionKey: String = "ASAPP_SESSION_KEY"
@@ -34,23 +42,32 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     static let ASAPPMsgTypeEvent: String = "Event"
     static let ASAPPMsgTypeResponseError: String = "ResponseError"
     
-    override init() {
-        super.init()
-        print("Initializing State")
+    func loadOrCreate(company: String, userToken: String?, isCustomer: Bool) {
+        ASAPPLog("Initializing State")
         
-        let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let filePath = filePaths[0].stringByAppendingString("/ASAPP.realm")
-        let fileURL = NSURL(fileURLWithPath: filePath)
-        print(NSFileManager.defaultManager().createFileAtPath(fileURL.absoluteString, contents: nil, attributes: nil))
-        realm = try! Realm(fileURL: fileURL)
-        ASAPPLog(realm.configuration.fileURL, filePath)
+        store = ASAPPStore()
+        store.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
         
         eventLog = ASAPPEventLog()
+        eventLog.state = self
         eventLog.delegate = self
+        eventLog.load()
         
         conn = ASAPPConn()
+        conn.state = self
         conn.delegate = self
         conn.connect()
+        
+        if self.isCustomer() {
+            self.on(.Auth, observer: self, closure: { [weak self] (info) in
+                guard self != nil else {
+                    return
+                }
+                
+//                self?.eventLog.clearAll()
+                self?.eventLog.load()
+            })
+        }
     }
     
     // MARK: - ASAPPConnDelegate
@@ -77,19 +94,56 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     }
     
     func customerTargetCompanyId() -> Int {
-        return 1
+        guard let customerTargetCompanyId = store.stateProperty("customerTargetCompanyId") as? Int else {
+            return 0
+        }
+        
+        return customerTargetCompanyId
+    }
+    
+    func targetCustomerToken() -> String? {
+        guard let targetCustomerToken = store.stateProperty("targetCustomerToken") as? String else {
+            return nil
+        }
+        
+        return targetCustomerToken
     }
     
     func issueId() -> Int {
-        return mIssueId
+        guard let issueId = store.stateProperty("issueId") as? Int else {
+            return 0
+        }
+        
+        return issueId
+    }
+    
+    func myId() -> Int {
+        guard let myId = store.stateProperty("myId") as? Int else {
+            return 0
+        }
+        
+        return myId
+    }
+    
+    func isMyEvent(event:ASAPPEvent) -> Bool {
+        if isCustomer() && event.isCustomerEvent() {
+            return true
+        } else if !isCustomer() && myId() == event.RepId {
+            return true
+        }
+        
+        return false
     }
     
     func nextRequestId() -> Int {
-        var reqId = 0
+        var reqId = 1
         
         objc_sync_enter(self)
-        reqId = mReqId
-        mReqId += 1
+        if let curReqId = store.stateProperty("reqId") as? Int {
+            reqId = curReqId + 1
+        }
+        
+        store.updateState(reqId, forKeyPath: "reqId")
         objc_sync_exit(self)
         
         return reqId
@@ -97,20 +151,39 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     
     // MARK: - Authentication
     
+    func isCustomer() -> Bool {
+        guard let isCustomer = store.stateProperty("isCustomer") as? Bool else {
+            return true
+        }
+        
+        return isCustomer
+    }
+
     func authenticate() {
-        let sessionInfo: String? = nil
-        if sessionInfo != nil {
-            authenticateWithSession(sessionInfo!)
-        } else if ASAPP.instance.mUserToken != nil {
-            authenticateWithToken(ASAPP.instance.mUserToken)
+        if let sessionInfo = store.stateProperty("sessionInfo") as? String {
+            authenticateWithSession(sessionInfo)
+        } else if let userToken = store.stateProperty("userToken") as? String {
+            if isCustomer() {
+                authenticateCustomerWithToken(userToken)
+            } else {
+                authenticateWithToken(userToken)
+            }
         } else {
             createAnonAccount()
         }
     }
     
     func authenticateWithSession(session: String) {
+        var jsonObj: [String: AnyObject] = [:]
+        do {
+            jsonObj = try NSJSONSerialization.JSONObjectWithData(session.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! [String: AnyObject]
+        } catch let error as NSError {
+            ASAPPLoge(error)
+        }
+        
         let params: [String: AnyObject] = [
-            "SessionInfo": session
+            "SessionInfo": jsonObj,
+            "App": "ios-sdk"
         ]
         conn.request("auth/AuthenticateWithSession", params: params) { [weak self] (message) in
             guard self != nil else {
@@ -123,9 +196,26 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         }
     }
     
+    func authenticateCustomerWithToken(token: String) {
+        let params: [String: AnyObject] = [
+            "CompanyMarker": "vs-dev",
+            "Identifiers": token,
+            "App": "ios-sdk"
+        ]
+        conn.request("auth/AuthenticateWithCustomerToken", params: params) { [weak self] (message) in
+            guard self != nil else {
+                return
+            }
+            
+            if let authInfo = message as? String {
+                self?.handleAuthIfNeeded(authInfo)
+            }
+        }
+    }
+    
     func authenticateWithToken(token: String) {
         let params: [String: AnyObject] = [
-            "Company": "dev",
+            "Company": "vs-dev",
             "AuthCallbackData": token,
             "GhostEmailAddress": "",
             "CountConnectionForIssueTimeout": false,
@@ -144,7 +234,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     
     func createAnonAccount() {
         let params: [String: AnyObject] = [
-            "CompanyMarker": "text-rex",
+            "CompanyMarker": "vs-dev",
             "RegionCode": "US"
         ]
         conn.request("auth/CreateAnonCustomerAccount", params: params) { [weak self] (message) in
@@ -166,6 +256,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         case Event
         case Auth
         case Unauth
+        case FetchedEvents
     }
     
     struct ASAPPNotificationObserver {
@@ -215,23 +306,25 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
             
             if let sessionInfo = jsonObj["SessionInfo"] as? [String: AnyObject] {
                 saveToDefaults(sessionInfo, key: ASAPPSessionKey)
+                let jsonData = try NSJSONSerialization.dataWithJSONObject(sessionInfo, options: [])
+                store.updateState(String(data: jsonData, encoding: NSUTF8StringEncoding) , forKeyPath: "sessionInfo")
                 
                 if let company = sessionInfo["Company"] as? [String: AnyObject] {
                     if let companyId = company["CompanyId"] as? Int {
-                        mCustomerTargetCompanyId = companyId
+                        store.updateState(companyId, forKeyPath: "customerTargetCompanyId")
                     }
                 }
                 
-                if ASAPP.isCustomer() {
+                if isCustomer() {
                     if let customer = sessionInfo["Customer"] as? [String: AnyObject] {
                         if let rawId = customer["CustomerId"] as? UInt {
-                            mMyId = rawId
+                            store.updateState(rawId, forKeyPath: "myId")
                         }
                     }
                 } else {
                     if let customer = sessionInfo["Rep"] as? [String: AnyObject] {
                         if let rawId = customer["RepId"] as? UInt {
-                            mMyId = rawId
+                            store.updateState(rawId, forKeyPath: "myId")
                         }
                     }
                 }
@@ -239,7 +332,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
                 fire(.Auth, info: nil)
             }
         } catch let err as NSError {
-            print(err)
+            ASAPPLoge(err)
         }
         
         return
@@ -264,7 +357,11 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     }
     
     func fetchEvents(afterSeq: Int) {
-        var params: [String: AnyObject] = [
+        if conn == nil {
+            return
+        }
+        
+        let params: [String: AnyObject] = [
             "AfterSeq": afterSeq
         ]
         
@@ -279,12 +376,21 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
             do {
                 let jsonObj = try NSJSONSerialization.JSONObjectWithData(eventData.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
                 
-                if let events = jsonObj["Events"] as? [AnyObject] {
-                    for event in events {
-                        let rawJSON = try NSJSONSerialization.dataWithJSONObject(event, options: .PrettyPrinted)
-                        self!.didReceiveMessage(String(data: rawJSON, encoding: NSUTF8StringEncoding)!)
-                    }
+                var events: [AnyObject] = []
+                
+                // This is bad because server uses different keys for returning events for rep and customers
+                if let repEvents = jsonObj["Events"] as? [AnyObject] {
+                    events = repEvents
+                } else if let customerEvents = jsonObj["EventList"] as? [AnyObject] {
+                    events = customerEvents
                 }
+                
+                for event in events {
+                    let rawJSON = try NSJSONSerialization.dataWithJSONObject(event, options: .PrettyPrinted)
+                    self!.eventLog.processEvent(String(data: rawJSON, encoding: NSUTF8StringEncoding)!, isNew: false)
+                }
+                
+                self!.fire(.FetchedEvents, info: nil)
             } catch let error as NSError {
                 ASAPPLoge(error)
             }
@@ -294,7 +400,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     // MARK: - Actions
     
     func prefixForRequests() -> String {
-        if ASAPP.isCustomer() {
+        if isCustomer() {
             return "customer/"
         }
         
@@ -318,6 +424,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     // MARK: - Rep chat actions
     
     func reloadStateForRep(targetCustomerToken: String) {
+        store.updateState(targetCustomerToken, forKeyPath: "targetCustomerToken")
         eventLog.clearAll()
         customerByCRMCustomerId()
     }
@@ -329,7 +436,7 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
             }
             
             let params: [String: AnyObject] = [
-                "CRMCustomerId": ASAPP.instance.mTargetCustomerToken
+                "CRMCustomerId": (self?.targetCustomerToken())!
             ]
             
             self!.conn.request("rep/GetCustomerByCRMCustomerId", params: params) { [weak self] (message) in
@@ -371,8 +478,8 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
                 let jsonObj = try NSJSONSerialization.JSONObjectWithData(issueIdData.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
                 
                 if let issueId = jsonObj["IssueId"] as? Int {
-                    self?.mIssueId = issueId
-                    self?.fetchEvents(0)
+                    self?.store.updateState(issueId, forKeyPath: "issueId")
+                    self?.eventLog.load()
                 }
             } catch let error as NSError {
                 ASAPPLoge(error)
@@ -381,51 +488,3 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     }
 
 }
-
-// MARK: - SessionInfo
-//
-//class ASAPPSessionInfo: Object {
-//    var AuthenticatedTime: Int64 = 0
-//    var CountConnectionForIssueTimeout = false
-//    var IsGhostSession = false
-//    var Company: ASAPPCompany? = nil
-//    var Customer: ASAPPCustomer? = nil
-//    var Rep: ASAPPRep? = nil
-//    var SessionAuth: ASAPPSessionAuth!
-//    
-//    class ASAPPCustomer: Object {
-//        var CustomerId: UInt64 = 0
-//        var LastCustomerEventLogSeq: UInt = 0
-//        var CreatedTime: UInt64 = 0
-//        var RegionId: UInt64 = 0
-//    }
-//    
-//    class ASAPPCompany: Object {
-//        var CompanyId: UInt64 = 0
-//        var CRMCompanyId: String = ""
-//        var CRMCompanyBridge: String = ""
-//        var CompanyMarker: String = ""
-//        var Name: String = ""
-//        var CreatedTime: UInt64 = 0
-//        var CreatedBySuperUserId: UInt64 = 0
-//        var RootGroupId: UInt64 = 0
-//    }
-//    
-//    class ASAPPSessionAuth: Object {
-//        var AgentType: UInt8 = 0
-//        var AgentId: UInt64 = 0
-//        var SessionTime: Int64 = 0
-//        var SessionSecret: String = ""
-//    }
-//    
-//    class ASAPPRep: Object {
-//        var CRMRepId: String = ""
-//        var CompanyId: UInt64 = 0
-//        var CreatedTime: Int64 = 0
-//        var DisabledTime: Int64 = 0
-//        var MadeAdminTime: Int64 = 0
-//        var Name: String = ""
-//        var RepId: UInt64 = 0
-//        var RolesJSON: String = ""
-//    }
-//}

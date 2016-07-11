@@ -11,12 +11,7 @@ import SnapKit
 
 public class ASAPP: NSObject {
     
-    static var instance: ASAPP!
-    var state: ASAPPState!
-    
-    var mUserToken: String!
-    var mIsCustomer: Bool!
-    var mTargetCustomerToken: String!
+    var mState: ASAPPState!
     
     // Public APIs
     override public init() {
@@ -24,49 +19,43 @@ public class ASAPP: NSObject {
         loadFonts()
     }
     
-    public convenience init(userToken: String, isCustomer: Bool) {
+    public convenience init(company: String) {
+        self.init(company: company, userToken: nil)
+    }
+    
+    public convenience init(company: String, userToken: String?) {
+        self.init(company: company, userToken: userToken, isCustomer: true)
+    }
+    
+    public convenience init(company: String, userToken: String?, isCustomer: Bool) {
         self.init()
-        mIsCustomer = isCustomer
-        mUserToken = userToken
-        
-        ASAPP.instance = self
-        state = ASAPPState()
+        mState = ASAPPState()
+        mState.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
     }
     
     public func viewControllerForChat() -> UIViewController {
-        return ASAPPChatViewController()
+        let vc = ASAPPChatViewController()
+        vc.state = mState
+        return vc
     }
     
     public func targetCustomerToken(targetCustomerToken: String) {
-        if ASAPP.isCustomer() {
+        if mState.isCustomer() {
             ASAPPLoge("ERROR: Cannot set targetCustomer for Customer chat session.")
             return
         }
         
-        if mTargetCustomerToken != nil && mTargetCustomerToken == targetCustomerToken {
+        if mState.targetCustomerToken() != nil && mState.targetCustomerToken() == targetCustomerToken {
             ASAPPLoge("WARNING: Same targetCustomerToken provided.")
             return
         }
         
-        mTargetCustomerToken = targetCustomerToken
-        state.reloadStateForRep(targetCustomerToken)
+        mState.reloadStateForRep(targetCustomerToken)
     }
     
     // MARK: - Helper Functions
     
-    static func isCustomer() -> Bool {
-        if ASAPP.instance == nil || ASAPP.instance.mIsCustomer == nil {
-            return true
-        }
-        
-        return ASAPP.instance.mIsCustomer
-    }
-    
-    static func myId() -> UInt? {
-        if ASAPP.instance == nil || ASAPP.instance.state == nil {
-            return nil
-        }
-        
-        return ASAPP.instance.state.mMyId
-    }
+//    func myId() -> UInt? {
+//        return state.mMyId
+//    }
 }
