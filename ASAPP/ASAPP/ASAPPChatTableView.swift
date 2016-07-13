@@ -27,7 +27,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
     
     var eventSource: ASAPPChatDataSource!
     
-    var heightForRowAtIndexPath: [NSIndexPath: AnyObject] = [:]
+    var heightForRowAtIndexPath: [Int: AnyObject] = [:]
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
@@ -68,7 +68,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
                 return
             }
             
-            guard let eInfo = info as? [String: AnyObject],
+            guard var eInfo = info as? [String: AnyObject],
                 let event = eInfo["event"] as? ASAPPEvent,
                 let isNew = eInfo["isNew"] as? Bool
                 else {
@@ -80,9 +80,13 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
             }
             
             if let source = self?.dataSource as? ASAPPChatDataSource {
-                self?.beginUpdates()
-                source.addObject(info!)
                 let shouldScroll = self?.isNearBottom(10)
+                if !shouldScroll! {
+                    eInfo["isNew"] = false
+                }
+                
+                self?.beginUpdates()
+                source.addObject(eInfo)
                 let indexPath = NSIndexPath(forRow: source.events.count - 1, inSection: 0)
                 self?.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
                 self?.endUpdates()
@@ -97,7 +101,17 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
                 return
             }
             
+            self?.calculateHeightForAllCells()
             self?.scrollToBottomIfNeeded(false)
+        }
+    }
+    
+    func calculateHeightForAllCells() {
+        for i in 0 ..< self.numberOfRowsInSection(0) {
+            if let cell = eventSource.cellAtIndexRow(i) as? ASAPPBubbleViewCell {
+                let size = cell.sizeThatFits(CGSizeMake(self.bounds.size.width, CGFloat.max))
+                heightForRowAtIndexPath[i] = cell.holderHeight
+            }
         }
     }
     
@@ -131,7 +145,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let height = heightForRowAtIndexPath[indexPath] as? CGFloat {
+        if let height = heightForRowAtIndexPath[indexPath.row] as? CGFloat {
             return height
         } else {
             return UITableViewAutomaticDimension
@@ -159,13 +173,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
             }
         }
         
-        heightForRowAtIndexPath[indexPath] = cell.frame.size.height
-        print(heightForRowAtIndexPath[indexPath])
-    }
-    
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        heightForRowAtIndexPath[indexPath] = cell.frame.size.height
-        print("REMOVED", cell.frame.size.height)
+        heightForRowAtIndexPath[indexPath.row] = cell.frame.size.height
     }
     
     // MARK: - DataSource
@@ -188,13 +196,21 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
         }
         
         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            guard let eventInfo = events.objectAtIndex(indexPath.row) as? [String: AnyObject],
+            return cellAtIndexRow(indexPath.row)
+        }
+        
+        func cellAtIndexRow(row: Int) -> UITableViewCell {
+            guard let eventInfo = events.objectAtIndex(row) as? [String: AnyObject],
                 let event = eventInfo["event"] as? ASAPPEvent,
                 let isNew = eventInfo["isNew"] as? Bool else {
                     ASAPPLoge("ERROR: Invalid event info")
                     return UITableViewCell()
             }
             
+            return cellForEvent(event, isNew: isNew)
+        }
+        
+        func cellForEvent(event: ASAPPEvent, isNew: Bool) -> UITableViewCell {
             if event.isMessageEvent() {
                 var cell: ASAPPBubbleViewCell = ASAPPBubbleViewCell()
                 if stateDataSource.isMyEvent(event) {

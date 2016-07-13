@@ -52,6 +52,8 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
         
         chatView.reloadData()
+        
+        chatView.calculateHeightForAllCells()
         chatView.scrollToBottom(false)
     }
     
