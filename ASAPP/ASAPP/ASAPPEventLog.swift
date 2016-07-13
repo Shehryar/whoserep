@@ -12,8 +12,6 @@ import RealmSwift
 protocol ASAPPEventLogDelegate {
     func didProcessEvent(event: ASAPPEvent, isNew: Bool)
     func didClearEventLog()
-    
-    func fetchEvents(after: Int)
 }
 
 typealias ASAPPTime = Int
@@ -76,8 +74,6 @@ class ASAPPEvent: Object {
     dynamic var EventJSON: ASAPPEventJSON = ""
     dynamic var EventLogSeq: Int = 0
     
-//    var state: ASAPPState!
-    
     convenience init(createdTime: ASAPPCreatedTime, issueId: ASAPPIssueId, companyId: ASAPPCompanyId, customerId: ASAPPCustomerId, repId: ASAPPRepId, eventTime: ASAPPEventTime, eventType: ASAPPEventType, ephemeralType: ASAPPEphemeralType, eventFlags: ASAPPEventFlag, eventJSON: ASAPPEventJSON) {
         self.init()
         CreatedTime = createdTime
@@ -103,16 +99,6 @@ class ASAPPEvent: Object {
         
         return false
     }
-    
-//    func isMyEvent() -> Bool {
-//        if /*state.isCustomer() &&*/ isCustomerEvent() {
-//            return true
-////        } else if !state.isCustomer() && state.myId() == RepId {
-////            return true
-//        }
-//        
-//        return false
-//    }
     
     func isMessageEvent() -> Bool {
         if EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue || EventType == ASAPPEventTypes.EventTypePictureMessage.rawValue {
@@ -158,26 +144,34 @@ class ASAPPEventPayload: NSObject {
 
 class ASAPPEventLog: NSObject {
     
-    var state: ASAPPState!
-    
+    var dataSource: ASAPPStateDataSource!
     var delegate: ASAPPEventLogDelegate!
-    var events: Results<ASAPPEvent>!
+    var store: ASAPPStore!
+    
+    var events: Results<ASAPPEvent>?
+    
+    convenience init(dataSource: ASAPPStateDataSource, delegate: ASAPPEventLogDelegate, store: ASAPPStore) {
+        self.init()
+        self.dataSource = dataSource
+        self.delegate = delegate
+        self.store = store
+    }
     
     func load() {
         if events != nil || delegate == nil {
             return
         }
         
-        events = state.store.mEventLog.sorted("EventLogSeq", ascending: true)
-        for i in 0 ..< events.count {
-            let event = events[i]
+        events = store.mEventLog.sorted("EventLogSeq", ascending: true)
+        for i in 0 ..< events!.count {
+            let event = events![i]
             delegate.didProcessEvent(event, isNew: false)
         }
         
-        if events.last != nil {
-            delegate.fetchEvents((events.last?.EventLogSeq)!)
+        if events?.last != nil {
+            dataSource.fetchEvents((events?.last?.EventLogSeq)!)
         } else if delegate != nil {
-            delegate.fetchEvents(0)
+            dataSource.fetchEvents(0)
         }
     }
     
@@ -207,7 +201,7 @@ class ASAPPEventLog: NSObject {
         
         let event = ASAPPEvent(createdTime: createdTime, issueId: issueId, companyId: companyId, customerId: customerId, repId: repId, eventTime: eventTime, eventType: eventType, ephemeralType: ephemeralType, eventFlags: eventFlags, eventJSON: eventJSON)
         
-        if state.isCustomer() {
+        if dataSource.isCustomer() {
             if let eventLogSeq = json["CustomerEventLogSeq"] as? Int {
                 event.EventLogSeq = eventLogSeq
             }
@@ -243,7 +237,7 @@ class ASAPPEventLog: NSObject {
     }
     
     func saveEvent(event: ASAPPEvent) {
-        state.store.addEvent(event)
+        store.addEvent(event)
     }
     
     func reloadEventLog() {

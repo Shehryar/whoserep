@@ -10,7 +10,6 @@ import Foundation
 import SocketRocket
 
 protocol ASAPPConnDelegate {
-    func sessionInfoIfAvailable() -> String?
     func nextRequestId() -> Int
     
     func issueId() -> Int
@@ -23,9 +22,9 @@ protocol ASAPPConnDelegate {
 
 class ASAPPConn: NSObject, SRWebSocketDelegate {
     
-    var state: ASAPPState!
-    var ws: SRWebSocket!
+    var dataSource: ASAPPStateDataSource!
     var delegate: ASAPPConnDelegate!
+    var ws: SRWebSocket!
     
     typealias RequestHandler = (message: AnyObject?) -> Void
     var requestHandlers: [Int: RequestHandler] = [:]
@@ -38,6 +37,12 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    convenience init(dataSource: ASAPPStateDataSource, delegate: ASAPPConnDelegate) {
+        self.init()
+        self.dataSource = dataSource
+        self.delegate = delegate
     }
     
     func connectIfNeeded(sender: NSNotification) {
@@ -58,6 +63,8 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
             ASAPPLoge("ASAPP: Connection state is not closed")
             return
         }
+        
+        ASAPPLog("Connecting")
         
         let url = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
         let request = NSMutableURLRequest(URL: url!)
@@ -104,7 +111,7 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
             "CompanyId": delegate.customerTargetCompanyId()
         ]
         
-        if !isCustomerEndpoint(endPoint) && state.targetCustomerToken() != nil {
+        if !isCustomerEndpoint(endPoint) && dataSource.targetCustomerToken() != nil {
             context = [
                 "IssueId": delegate.issueId()
             ]
@@ -153,9 +160,8 @@ class ASAPPConn: NSObject, SRWebSocketDelegate {
     // MARK: - SocketRocket
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        ASAPPLog("ws opened")
+        ASAPPLog("WS-OPENED")
         delegate.didChangeConnState(true)
-//        authenticate()
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {

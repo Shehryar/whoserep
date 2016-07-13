@@ -14,8 +14,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     var input: ASAPPChatInputView!
     var keyboardObserver: ASAPPKeyboardObserver!
     
-    // HACK: Pass state object
-    var state: ASAPPState!
+    var dataSource: ASAPPStateDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +35,12 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         
         // HACK
         chatView.eventSource.clearAll()
-        let events = state.eventLog.events
+        let events = dataSource.eventsFromEventLog()
         if events == nil {
             return
         }
         
-        for event in events {
+        for event in events! {
             if !event.isMessageEvent() {
                 continue
             }
@@ -53,7 +52,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
         
         chatView.reloadData()
-        chatView.scrollToBottomIfNeeded(true)
+        chatView.scrollToBottom(false)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -69,15 +68,27 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
     // MARK: - ChatView
     
     func renderChatView() {
-        chatView = ASAPPChatTableView(state: state)
-        self.view.addSubview(chatView)
+        if let eventCenter = dataSource as? ASAPPStateEventCenter {
+            chatView = ASAPPChatTableView(stateDataSource: dataSource, eventCenter: eventCenter)
+            self.view.addSubview(chatView)
+        } else {
+            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
+        }
     }
     
     // MARK: - InputView
     
     func renderInputView() {
-        input = ASAPPChatInputView(state: state)
-        self.view.addSubview(input)
+        if let eventCenter = dataSource as? ASAPPStateEventCenter {
+            if let action = dataSource as? ASAPPStateAction {
+                input = ASAPPChatInputView(dataSource: dataSource, eventCenter: eventCenter, action: action)
+                self.view.addSubview(input)
+            } else {
+                ASAPPLoge("Invalid dataSource passed which cannot be cast into action")
+            }
+        } else {
+            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
+        }
     }
     
     // MARK: - KeyboardObserver
@@ -93,7 +104,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
             self.view.layoutIfNeeded()
         }
         
-        chatView.scrollToBottomIfNeeded(true)
+        chatView.scrollToBottom(false)
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {

@@ -13,6 +13,45 @@ protocol ASAPPStateDelegate {
     func didClearEventLog()
 }
 
+protocol ASAPPStateDataSource {
+    func isConnected() -> Bool
+    func isCustomer() -> Bool
+    func isMyEvent(event:ASAPPEvent) -> Bool
+    
+    func nextRequestId() -> Int
+    func myId() -> Int
+    func issueId() -> Int
+    func customerTargetCompanyId() -> Int
+    func targetCustomerToken() -> String?
+    
+    func fetchEvents(afterSeq: Int)
+    func eventsFromEventLog() -> Results<ASAPPEvent>?
+}
+
+protocol ASAPPStateAction {
+    func sendMessage(message: String)
+}
+
+// MARK: - To register/deregister for events
+
+enum ASAPPNotificationType {
+    case Connect
+    case Disconnect
+    case Event
+    case Auth
+    case Unauth
+    case FetchedEvents
+}
+
+typealias ASAPPClosure = (info: AnyObject?) -> Void
+
+protocol ASAPPStateEventCenter {
+    func on(notificationType: ASAPPNotificationType, observer: AnyObject, closure: ASAPPClosure)
+    func off(notificationType: ASAPPNotificationType, observer: AnyObject)
+}
+
+// MARK: - Used by Realm
+
 class ASAPPStateModel: Object {
     // Required
     dynamic var companyMarker: String = ""
@@ -28,7 +67,7 @@ class ASAPPStateModel: Object {
     dynamic var sessionInfo: String? = nil
 }
 
-class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
+class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPStateAction, ASAPPConnDelegate, ASAPPEventLogDelegate {
     
     var conn: ASAPPConn!
     var eventLog: ASAPPEventLog!
@@ -48,14 +87,10 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         store = ASAPPStore()
         store.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
         
-        eventLog = ASAPPEventLog()
-        eventLog.state = self
-        eventLog.delegate = self
+        eventLog = ASAPPEventLog(dataSource: self, delegate: self, store: store)
         eventLog.load()
         
-        conn = ASAPPConn()
-        conn.state = self
-        conn.delegate = self
+        conn = ASAPPConn(dataSource: self, delegate: self)
         conn.connect()
         
         if self.isCustomer() {
@@ -64,7 +99,6 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
                     return
                 }
                 
-//                self?.eventLog.clearAll()
                 self?.eventLog.load()
             })
         }
@@ -87,10 +121,18 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         }
     }
     
-    func sessionInfoIfAvailable() -> String? {
-//        let info = realm.objects(ASAPPSessionInfo.self)
-
-        return nil
+    // MARK: ASAPPStateDataSource
+    
+    func isConnected() -> Bool {
+        return conn.isOpen()
+    }
+    
+    func isCustomer() -> Bool {
+        guard let isCustomer = store.stateProperty("isCustomer") as? Bool else {
+            return true
+        }
+        
+        return isCustomer
     }
     
     func customerTargetCompanyId() -> Int {
@@ -149,15 +191,11 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         return reqId
     }
     
-    // MARK: - Authentication
-    
-    func isCustomer() -> Bool {
-        guard let isCustomer = store.stateProperty("isCustomer") as? Bool else {
-            return true
-        }
-        
-        return isCustomer
+    func eventsFromEventLog() -> Results<ASAPPEvent>? {
+        return eventLog.events
     }
+    
+    // MARK: - Authentication
 
     func authenticate() {
         if let sessionInfo = store.stateProperty("sessionInfo") as? String {
@@ -250,21 +288,10 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
     
     // MARK: - State Notifications
     
-    enum ASAPPNotificationType {
-        case Connect
-        case Disconnect
-        case Event
-        case Auth
-        case Unauth
-        case FetchedEvents
-    }
-    
     struct ASAPPNotificationObserver {
         let Observer: AnyObject
         let Closure: ASAPPClosure
     }
-    
-    typealias ASAPPClosure = (info: AnyObject?) -> Void
     
     var asappNotificationObservers: [ASAPPNotificationType: [ASAPPNotificationObserver]] = [:]
     
@@ -305,7 +332,6 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
             let jsonObj = try NSJSONSerialization.JSONObjectWithData(authInfo.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! [String: AnyObject]
             
             if let sessionInfo = jsonObj["SessionInfo"] as? [String: AnyObject] {
-                saveToDefaults(sessionInfo, key: ASAPPSessionKey)
                 let jsonData = try NSJSONSerialization.dataWithJSONObject(sessionInfo, options: [])
                 store.updateState(String(data: jsonData, encoding: NSUTF8StringEncoding) , forKeyPath: "sessionInfo")
                 
@@ -336,12 +362,6 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         }
         
         return
-    }
-    
-    func saveToDefaults(value: AnyObject, key: String) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(value, forKey: key)
-        userDefaults.synchronize()
     }
     
     func didProcessEvent(event: ASAPPEvent, isNew: Bool) {
@@ -413,12 +433,6 @@ class ASAPPState: NSObject, ASAPPConnDelegate, ASAPPEventLogDelegate {
         ]
         
         conn.request(prefixForRequests() + "SendTextMessage", params: params, handler: nil)
-    }
-    
-    // MARK: - State Info
-    
-    func isConnected() -> Bool {
-        return conn.isOpen()
     }
     
     // MARK: - Rep chat actions

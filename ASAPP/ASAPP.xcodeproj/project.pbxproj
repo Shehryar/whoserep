@@ -122,7 +122,7 @@
 			children = (
 				FD8D8B3D1D10929A001B420B /* Assets */,
 				FD8D8B0A1D105A10001B420B /* UI */,
-				FD8D8B091D0F8D8C001B420B /* Model */,
+				FD8D8B091D0F8D8C001B420B /* State */,
 				FD8D8B471D109336001B420B /* Util */,
 				FD8D8AFD1D0F6E2A001B420B /* ASAPP.h */,
 				FD8D8AFF1D0F6E2A001B420B /* Info.plist */,
@@ -131,14 +131,14 @@
 			path = ASAPP;
 			sourceTree = "<group>";
 		};
-		FD8D8B091D0F8D8C001B420B /* Model */ = {
+		FD8D8B091D0F8D8C001B420B /* State */ = {
 			isa = PBXGroup;
 			children = (
 				FD2FE11E1D12622000FEF954 /* ASAPPEventLog.swift */,
 				FD22E4B51D12109300ED2033 /* ASAPPState.swift */,
 				FD8753091D2D736500E90D7D /* ASAPPStore.swift */,
 			);
-			name = Model;
+			name = State;
 			sourceTree = "<group>";
 		};
 		FD8D8B0A1D105A10001B420B /* UI */ = {

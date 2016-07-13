@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         if asapp == nil {
-            asapp = ASAPP(company:"vs-dev", userToken: "vs-cct-c", isCustomer: true)
+            asapp = ASAPP(company:"vs-dev", userToken: "vs-cct-c5", isCustomer: true)
 //            asapp.targetCustomerToken("customerdummytest")
         }
         let vc = asapp.viewControllerForChat()

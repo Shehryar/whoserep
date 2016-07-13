@@ -10,18 +10,19 @@ import UIKit
 
 class ASAPPBubbleViewCell: UITableViewCell {
 
-    var state: ASAPPState!
+    var stateDataSource: ASAPPStateDataSource!
     
-    var holder: ASAPPBubbleView!
+    var holder: UIView!
+    var bubble: ASAPPBubbleView!
     var textMessageLabel: UILabel!
     
     let BUBBLE_PADDING: CGFloat = 16
     let HOLDER_PADDING: CGFloat = 16
     let HOLDER_PADDING_VERTICAL: CGFloat = 12
     
-    var holderWidth: CGFloat = 0
-    
-    var mEvent: ASAPPEvent!
+    var bubbleWidth: CGFloat = 0
+    var bubbleHeight: CGFloat = 0
+    var holderHeight: CGFloat = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,20 +33,23 @@ class ASAPPBubbleViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, state: ASAPPState) {
+    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, stateDataSource: ASAPPStateDataSource) {
         self.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.state = state
+        self.stateDataSource = stateDataSource
         
         textMessageLabel = UILabel()
         setupLabel(textMessageLabel)
         
-        holder = ASAPPBubbleView()
-        holder.state = state
-        //        holder.clipsToBounds = true
-        holder.backgroundColor = UIColor.clearColor()
+        bubble = ASAPPBubbleView()
+        bubble.stateDataSource = stateDataSource
+        //        bubble.clipsToBounds = true
+        bubble.backgroundColor = UIColor.clearColor()
         
-        holder.addSubview(textMessageLabel)
+        holder = UIView()
+        
+        bubble.addSubview(textMessageLabel)
+        holder.addSubview(bubble)
         self.contentView.addSubview(holder)
     }
     
@@ -66,7 +70,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
         label.adjustsFontSizeToFitWidth = false
     }
     
-    func setEvent(event: ASAPPEvent) {
+    func setEvent(event: ASAPPEvent, isNew: Bool) {
         if event.isMessageEvent() {
             if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
                 if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
@@ -77,76 +81,96 @@ class ASAPPBubbleViewCell: UITableViewCell {
             drawBubble(event)
         }
         
-        mEvent = event
         self.setNeedsUpdateConstraints()
         self.updateConstraintsIfNeeded()
     }
     
     func drawBubble(event: ASAPPEvent) {
-        let sendCorners: UIRectCorner = [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomLeft]
-        let receiveCorners: UIRectCorner = [UIRectCorner.TopRight, UIRectCorner.TopLeft, UIRectCorner.BottomRight]
-        var corners = sendCorners
-        
-        holder.isCustomerEvent = false
-        if !state.isMyEvent(event) {
-            corners = receiveCorners
-//            holder.backgroundColor = UIColor.redColor()
-            holder.shouldShowBorder = true
-            if !state.isCustomer() && event.isCustomerEvent() {
-                holder.shouldShowBorder = false
-                holder.isCustomerEvent = true
+        bubble.isCustomerEvent = false
+        if !stateDataSource.isMyEvent(event) {
+            bubble.shouldShowBorder = true
+            
+            if !stateDataSource.isCustomer() && event.isCustomerEvent() {
+                bubble.shouldShowBorder = false
+                bubble.isCustomerEvent = true
                 textMessageLabel.textColor = UIColor.whiteColor()
             }
         } else {
-//            holder.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-            holder.shouldShowBorder = false
+            bubble.shouldShowBorder = false
         }
+        
         var borderRect = self.contentView.bounds
         if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
             let tempLabel = UILabel()
             setupLabel(tempLabel)
+            
             if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
                 tempLabel.text = payload.Text
             }
+            
             let size = tempLabel.sizeThatFits(CGSize(width: borderRect.size.width - ((BUBBLE_PADDING * 2) + (HOLDER_PADDING * 2)), height: CGFloat.max))
-            holderWidth = size.width + (HOLDER_PADDING * 2)
-            borderRect.size.width = size.width + (HOLDER_PADDING * 2)
-            borderRect.size.height = size.height + (HOLDER_PADDING_VERTICAL * 2)
+            bubbleWidth = size.width + (HOLDER_PADDING * 2)
+            bubbleHeight = size.height + (HOLDER_PADDING_VERTICAL * 2)
+            holderHeight = bubbleHeight
+            borderRect.size.width = bubbleWidth
+            borderRect.size.height = bubbleHeight
         }
-//        borderRect.size.width = borderRect.size.width - (BUBBLE_PADDING * 2)
-        let borderPath = UIBezierPath(roundedRect: borderRect, byRoundingCorners: corners, cornerRadii: CGSizeMake(20, 20))
-        let borderLayer = CAShapeLayer()
-        borderLayer.path = borderPath.CGPath
-        holder.layer.mask = borderLayer
         
-        holder.setNeedsDisplay()
+        bubble.setNeedsDisplay()
     }
     
     override func updateConstraints() {
         holder.snp_updateConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top)
             make.bottom.equalTo(self.contentView.snp_bottom)
-            make.width.equalTo(holderWidth)
+            make.width.equalTo(self.contentView.snp_width)
+            make.height.equalTo(holderHeight).priorityMedium()
+        }
+        
+        bubble.snp_updateConstraints { (make) in
+            make.bottom.equalTo(holder.snp_bottom)
+            make.width.equalTo(bubbleWidth)
+            make.height.equalTo(bubbleHeight)
             
-            if mEvent.isMessageEvent() {
-                if state.isMyEvent(mEvent) {
-                    make.leading.greaterThanOrEqualTo(self.contentView.snp_leading).offset(BUBBLE_PADDING)
-                    make.trailing.equalTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING)
+            if self.reuseIdentifier != nil {
+                if self.reuseIdentifier == ASAPPChatTableView.CELL_IDENT_MSG_SEND {
+                    make.leading.greaterThanOrEqualTo(self.contentView.snp_leading).offset(BUBBLE_PADDING).priorityMedium()
+                    make.trailing.equalTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING).priorityMedium()
                 } else {
-                    make.leading.equalTo(self.contentView.snp_leading).offset(BUBBLE_PADDING)
-                    make.trailing.lessThanOrEqualTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING)
+                    make.leading.equalTo(self.contentView.snp_leading).offset(BUBBLE_PADDING).priorityMedium()
+                    make.trailing.lessThanOrEqualTo(self.contentView.snp_trailing).offset(-BUBBLE_PADDING).priorityMedium()
                 }
             }
         }
         
         textMessageLabel.snp_updateConstraints { (make) in
-            make.top.equalTo(holder.snp_top).offset(HOLDER_PADDING_VERTICAL)
-            make.leading.equalTo(holder.snp_leading).offset(HOLDER_PADDING)
-            make.trailing.equalTo(holder.snp_trailing).offset(-HOLDER_PADDING)
-            make.bottom.equalTo(holder.snp_bottom).offset(-HOLDER_PADDING_VERTICAL)
+            make.top.equalTo(bubble.snp_top).offset(HOLDER_PADDING_VERTICAL)
+            make.leading.equalTo(bubble.snp_leading).offset(HOLDER_PADDING)
+            make.trailing.equalTo(bubble.snp_trailing).offset(-HOLDER_PADDING)
+            make.bottom.equalTo(bubble.snp_bottom).offset(-HOLDER_PADDING_VERTICAL)
         }
         
         super.updateConstraints()
+    }
+    
+    func animate() {
+        let origBubbleWidth = self.bubbleWidth
+        let origBubbleHeight = self.bubbleHeight
+        
+        self.bubbleWidth = HOLDER_PADDING * 2
+        self.bubbleHeight = HOLDER_PADDING_VERTICAL * 2
+        self.setNeedsUpdateConstraints()
+        self.updateConstraintsIfNeeded()
+        self.layoutIfNeeded()
+        
+        self.bubbleWidth = origBubbleWidth
+        self.bubbleHeight = origBubbleHeight
+        self.setNeedsUpdateConstraints()
+        self.updateConstraintsIfNeeded()
+        
+        UIView.animateWithDuration(0.5) {
+            self.layoutIfNeeded()
+        }
     }
 
 }

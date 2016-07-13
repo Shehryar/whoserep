@@ -18,8 +18,9 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     */
     
-    // HACK: Pass state object
-    var state: ASAPPState!
+    var dataSource: ASAPPStateDataSource!
+    var eventCenter: ASAPPStateEventCenter!
+    var action: ASAPPStateAction!
     
     var textView: UITextView!
     var mediaButton: UIButton!
@@ -33,10 +34,12 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
         super.init(frame: frame)
     }
     
-    convenience init(state: ASAPPState) {
+    convenience init(dataSource: ASAPPStateDataSource, eventCenter: ASAPPStateEventCenter, action: ASAPPStateAction) {
         self.init()
         
-        self.state = state
+        self.dataSource = dataSource
+        self.eventCenter = eventCenter
+        self.action = action
         
         render()
         registerListeners()
@@ -47,11 +50,12 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     
     deinit {
-        
+        eventCenter.off(.Connect, observer: self)
+        eventCenter.off(.Disconnect, observer: self)
     }
     
     func registerListeners() {
-        state.on(.Connect, observer: self) { [weak self] (info) in
+        eventCenter.on(.Connect, observer: self) { [weak self] (info) in
             guard self != nil else {
                 return
             }
@@ -59,7 +63,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
             self!.updateSendButton()
         }
         
-        state.on(.Disconnect, observer: self) { [weak self] (info) in
+        eventCenter.on(.Disconnect, observer: self) { [weak self] (info) in
             guard self != nil else {
                 return
             }
@@ -158,7 +162,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     func updateSendButton() {
         let text = "SEND"
         var textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 1)
-        if !state.isConnected() || textView.text == "" {
+        if !dataSource.isConnected() || textView.text == "" {
             textColor = UIColor(red: 91/255, green: 101/255, blue: 126/255, alpha: 0.3)
             sendButton.enabled = false
         } else {
@@ -173,7 +177,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
     }
     
     func sendAction(sender: UIButton) {
-        state.sendMessage(textView.text)
+        action.sendMessage(textView.text)
         
         textView.text = ""
         resizeIfNeeded(textView)

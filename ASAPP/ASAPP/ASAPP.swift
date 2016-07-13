@@ -35,7 +35,7 @@ public class ASAPP: NSObject {
     
     public func viewControllerForChat() -> UIViewController {
         let vc = ASAPPChatViewController()
-        vc.state = mState
+        vc.dataSource = mState
         return vc
     }
     
