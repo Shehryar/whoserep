@@ -16,9 +16,10 @@ class ASAPPBubbleViewCell: UITableViewCell {
     var bubble: ASAPPBubbleView!
     var textMessageLabel: UILabel!
     
+    let BUBBLE_OFFSET: CGFloat = 2
     let BUBBLE_PADDING: CGFloat = 16
     let HOLDER_PADDING: CGFloat = 16
-    let HOLDER_PADDING_VERTICAL: CGFloat = 12
+    let HOLDER_PADDING_VERTICAL: CGFloat = 8
     
     var bubbleWidth: CGFloat = 0
     var bubbleHeight: CGFloat = 0
@@ -27,10 +28,6 @@ class ASAPPBubbleViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, stateDataSource: ASAPPStateDataSource) {
@@ -42,19 +39,25 @@ class ASAPPBubbleViewCell: UITableViewCell {
         setupLabel(textMessageLabel)
         
         bubble = ASAPPBubbleView()
-        bubble.stateDataSource = stateDataSource
-        //        bubble.clipsToBounds = true
-        bubble.backgroundColor = UIColor.clearColor()
+        if self.reuseIdentifier == ASAPPChatTableView.CELL_IDENT_MSG_SEND {
+            bubble.isMyEvent = true
+        } else {
+            bubble.isMyEvent = false
+        }
+        bubble.render(reuseIdentifier!)
         
         holder = UIView()
         
         bubble.addSubview(textMessageLabel)
         holder.addSubview(bubble)
         self.contentView.addSubview(holder)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        bubbleWidth = BUBBLE_PADDING * 2
+        bubbleHeight = BUBBLE_PADDING * 2
+        holderHeight = bubbleHeight
+        
+        self.setNeedsUpdateConstraints()
+        self.updateConstraintsIfNeeded()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -81,25 +84,27 @@ class ASAPPBubbleViewCell: UITableViewCell {
             drawBubble(event)
         }
         
-        self.setNeedsUpdateConstraints()
-        self.updateConstraintsIfNeeded()
+        holder.snp_updateConstraints { (make) in
+            make.height.equalTo(holderHeight).priorityMedium()
+        }
+        
+        bubble.snp_updateConstraints { (make) in
+            make.width.equalTo(bubbleWidth)
+            make.height.equalTo(bubbleHeight)
+        }
     }
     
     func drawBubble(event: ASAPPEvent) {
-        bubble.isCustomerEvent = false
         if !stateDataSource.isMyEvent(event) {
-            bubble.shouldShowBorder = true
-            
             if !stateDataSource.isCustomer() && event.isCustomerEvent() {
-                bubble.shouldShowBorder = false
-                bubble.isCustomerEvent = true
                 textMessageLabel.textColor = UIColor.whiteColor()
             }
-        } else {
-            bubble.shouldShowBorder = false
         }
         
-        var borderRect = self.contentView.bounds
+        // Calculate bounds based on screen size and not the contentView.
+        // NOTE: Why 100?
+        var borderRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width - 100, CGFloat.max)
+        
         if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
             let tempLabel = UILabel()
             setupLabel(tempLabel)
@@ -108,23 +113,21 @@ class ASAPPBubbleViewCell: UITableViewCell {
                 tempLabel.text = payload.Text
             }
             
-            let size = tempLabel.sizeThatFits(CGSize(width: borderRect.size.width - ((BUBBLE_PADDING * 2) + (HOLDER_PADDING * 2)), height: CGFloat.max))
-            bubbleWidth = size.width + (HOLDER_PADDING * 2)
-            bubbleHeight = size.height + (HOLDER_PADDING_VERTICAL * 2)
+            let size = tempLabel.sizeThatFits(CGSize(width: borderRect.size.width - ((BUBBLE_PADDING * 2) + (HOLDER_PADDING * 2)), height: borderRect.height))
+            bubbleWidth = max(size.width + (HOLDER_PADDING * 2), BUBBLE_PADDING * 2)
+            bubbleHeight = max(size.height + (HOLDER_PADDING_VERTICAL * 2), BUBBLE_PADDING * 2)
             holderHeight = bubbleHeight
             borderRect.size.width = bubbleWidth
             borderRect.size.height = bubbleHeight
         }
         
-        bubble.setNeedsDisplay()
     }
     
     override func updateConstraints() {
         holder.snp_updateConstraints { (make) in
             make.top.equalTo(self.contentView.snp_top)
-            make.bottom.equalTo(self.contentView.snp_bottom)
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-BUBBLE_OFFSET)
             make.width.equalTo(self.contentView.snp_width)
-            make.height.equalTo(holderHeight).priorityMedium()
         }
         
         bubble.snp_updateConstraints { (make) in

@@ -39,20 +39,13 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
         self.stateDataSource = stateDataSource
         self.delegate = self
         
-        self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_SEND)
-        self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE)
-        self.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER)
-        
         eventSource = ASAPPChatDataSource()
         eventSource.stateDataSource = self.stateDataSource
         self.dataSource = eventSource
         
         self.separatorColor = UIColor.clearColor()
         self.separatorStyle = .None
-        
         self.allowsSelection = false
-        
-//        self.estimatedRowHeight = 44
         self.rowHeight = UITableViewAutomaticDimension
         
         registerForEvents()
@@ -108,9 +101,9 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
     
     func calculateHeightForAllCells() {
         for i in 0 ..< self.numberOfRowsInSection(0) {
-            if let cell = eventSource.cellAtIndexRow(i) as? ASAPPBubbleViewCell {
+            if let cell = eventSource.cellAtIndexRow(self, row: i) as? ASAPPBubbleViewCell {
                 let size = cell.sizeThatFits(CGSizeMake(self.bounds.size.width, CGFloat.max))
-                heightForRowAtIndexPath[i] = cell.holderHeight
+                heightForRowAtIndexPath[i] = cell.holderHeight + cell.BUBBLE_OFFSET
             }
         }
     }
@@ -161,19 +154,19 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
                     return
             }
             
-            if !isNew {
-                return
-            }
-            
-            eventInfo["isNew"] = false
-            tableDataSource.events.replaceObjectAtIndex(indexPath.row, withObject: eventInfo)
-            
             if let bubbleCell = cell as? ASAPPBubbleViewCell {
+                heightForRowAtIndexPath[indexPath.row] = cell.frame.size.height
+                
+                if !isNew {
+                    return
+                }
+                
+                eventInfo["isNew"] = false
+                tableDataSource.events.replaceObjectAtIndex(indexPath.row, withObject: eventInfo)
+                
                 bubbleCell.animate()
             }
         }
-        
-        heightForRowAtIndexPath[indexPath.row] = cell.frame.size.height
     }
     
     // MARK: - DataSource
@@ -196,10 +189,10 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
         }
         
         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            return cellAtIndexRow(indexPath.row)
+            return cellAtIndexRow(tableView, row: indexPath.row)
         }
         
-        func cellAtIndexRow(row: Int) -> UITableViewCell {
+        func cellAtIndexRow(tableView: UITableView, row: Int) -> UITableViewCell {
             guard let eventInfo = events.objectAtIndex(row) as? [String: AnyObject],
                 let event = eventInfo["event"] as? ASAPPEvent,
                 let isNew = eventInfo["isNew"] as? Bool else {
@@ -207,23 +200,29 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
                     return UITableViewCell()
             }
             
-            return cellForEvent(event, isNew: isNew)
+            return cellForEvent(tableView, event: event, isNew: isNew)
         }
         
-        func cellForEvent(event: ASAPPEvent, isNew: Bool) -> UITableViewCell {
+        func cellForEvent(tableView: UITableView, event: ASAPPEvent, isNew: Bool) -> UITableViewCell {
             if event.isMessageEvent() {
                 var cell: ASAPPBubbleViewCell = ASAPPBubbleViewCell()
+                var reuseIdentifier: String? = nil
+                
                 if stateDataSource.isMyEvent(event) {
-                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_SEND, stateDataSource: stateDataSource)
+                    reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_SEND
                 } else if !stateDataSource.isCustomer() && event.isCustomerEvent() {
-                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER, stateDataSource: stateDataSource)
+                    reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER
                 } else {
-                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE, stateDataSource: stateDataSource)
+                    reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE
+                }
+                
+                if let reuseCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier!) as? ASAPPBubbleViewCell {
+                    cell = reuseCell
+                } else {
+                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: reuseIdentifier, stateDataSource: stateDataSource)
                 }
                 
                 cell.setEvent(event, isNew: isNew)
-                cell.layoutSubviews()
-                
                 return cell
             }
             
