@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30099D781D3ED44200171D56 /* SRS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D771D3ED44200171D56 /* SRS.framework */; };
+		30099D791D3ED44200171D56 /* SRS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D771D3ED44200171D56 /* SRS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDA5F7ED1CAEDAD800ED9369 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7EC1CAEDAD800ED9369 /* main.m */; };
 		FDA5F7F01CAEDAD800ED9369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7EF1CAEDAD800ED9369 /* AppDelegate.m */; };
 		FDA5F7F31CAEDAD800ED9369 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7F21CAEDAD800ED9369 /* ViewController.m */; };
 		FDA5F7F61CAEDAD800ED9369 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F7F41CAEDAD800ED9369 /* Main.storyboard */; };
 		FDA5F7F81CAEDAD800ED9369 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F7F71CAEDAD800ED9369 /* Assets.xcassets */; };
 		FDA5F7FB1CAEDAD800ED9369 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F7F91CAEDAD800ED9369 /* LaunchScreen.storyboard */; };
-		FDA5F8251CAEEB4D00ED9369 /* SRS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA5F8241CAEEB4D00ED9369 /* SRS.framework */; };
-		FDA5F8261CAEEB4D00ED9369 /* SRS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDA5F8241CAEEB4D00ED9369 /* SRS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDA5F8281CAF2AA000ED9369 /* SRSProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F8271CAF2AA000ED9369 /* SRSProvider.m */; };
 		FDA5F8371CB31DB200ED9369 /* home_internet.png in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F8311CB31DB200ED9369 /* home_internet.png */; };
 		FDA5F8381CB31DB200ED9369 /* home_tv.png in Resources */ = {isa = PBXBuildFile; fileRef = FDA5F8321CB31DB200ED9369 /* home_tv.png */; };
@@ -27,13 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FDA5F80E1CAEE7EF00ED9369 /* Embed Frameworks */ = {
+		30099D7A1D3ED44200171D56 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FDA5F8261CAEEB4D00ED9369 /* SRS.framework in Embed Frameworks */,
+				30099D791D3ED44200171D56 /* SRS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30099D771D3ED44200171D56 /* SRS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRS.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/SRS-doeqhwfozlfbkmfhwkcctkailkit/Build/Products/Debug-iphonesimulator/SRS.framework"; sourceTree = "<absolute>"; };
 		FDA5F7E81CAEDAD800ED9369 /* My Account.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Account.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDA5F7EC1CAEDAD800ED9369 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDA5F7EE1CAEDAD800ED9369 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -71,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDA5F8251CAEEB4D00ED9369 /* SRS.framework in Frameworks */,
+				30099D781D3ED44200171D56 /* SRS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +82,7 @@
 		FDA5F7DF1CAEDAD800ED9369 = {
 			isa = PBXGroup;
 			children = (
+				30099D771D3ED44200171D56 /* SRS.framework */,
 				FDA5F8241CAEEB4D00ED9369 /* SRS.framework */,
 				FDA5F7EA1CAEDAD800ED9369 /* XfinityObjC */,
 				FDA5F7E91CAEDAD800ED9369 /* Products */,
@@ -149,7 +151,7 @@
 				FDA5F7E41CAEDAD800ED9369 /* Sources */,
 				FDA5F7E51CAEDAD800ED9369 /* Frameworks */,
 				FDA5F7E61CAEDAD800ED9369 /* Resources */,
-				FDA5F80E1CAEE7EF00ED9369 /* Embed Frameworks */,
+				30099D7A1D3ED44200171D56 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -333,7 +335,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = XfinityObjC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -347,7 +348,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = XfinityObjC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
