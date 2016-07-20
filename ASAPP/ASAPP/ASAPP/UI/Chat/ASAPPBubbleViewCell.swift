@@ -73,10 +73,10 @@ class ASAPPBubbleViewCell: UITableViewCell {
         label.adjustsFontSizeToFitWidth = false
     }
     
-    func setEvent(event: ASAPPEvent, isNew: Bool) {
-        if event.isMessageEvent() {
-            if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
-                if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
+    func setEvent(event: Event, isNew: Bool) {
+        if event.isMessageEvent {
+            if event.eventType == .TextMessage {
+                if let payload = event.payload() as? EventPayload.TextMessage {
                     textMessageLabel.text = payload.Text
                 }
             }
@@ -94,9 +94,9 @@ class ASAPPBubbleViewCell: UITableViewCell {
         }
     }
     
-    func drawBubble(event: ASAPPEvent) {
+    func drawBubble(event: Event) {
         if !stateDataSource.isMyEvent(event) {
-            if !stateDataSource.isCustomer() && event.isCustomerEvent() {
+            if !stateDataSource.isCustomer() && event.isCustomerEvent {
                 textMessageLabel.textColor = UIColor.whiteColor()
             }
         }
@@ -105,11 +105,11 @@ class ASAPPBubbleViewCell: UITableViewCell {
         // NOTE: Why 100?
         var borderRect = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width - 100, CGFloat.max)
         
-        if event.EventType == ASAPPEventTypes.EventTypeTextMessage.rawValue {
+        if event.eventType == .TextMessage {
             let tempLabel = UILabel()
             setupLabel(tempLabel)
             
-            if let payload = event.payload() as? ASAPPEventPayload.TextMessage {
+            if let payload = event.payload() as? EventPayload.TextMessage {
                 tempLabel.text = payload.Text
             }
             

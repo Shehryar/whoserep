@@ -1,5 +1,5 @@
 //
-//  ASAPPEventLog.swift
+//  EventLog.swift
 //  ASAPP
 //
 //  Created by Vicky Sehrawat on 6/16/16.
@@ -9,20 +9,20 @@
 import Foundation
 import RealmSwift
 
-protocol ASAPPEventLogDelegate {
-    func didProcessEvent(event: ASAPPEvent, isNew: Bool)
+protocol EventLogDelegate {
+    func didProcessEvent(event: Event, isNew: Bool)
     func didClearEventLog()
 }
 
-class ASAPPEventLog: NSObject {
+class EventLog: NSObject {
     
     var dataSource: ASAPPStateDataSource!
-    var delegate: ASAPPEventLogDelegate!
+    var delegate: EventLogDelegate!
     var store: ASAPPStore!
     
-    var events: Results<ASAPPEvent>?
+    var events: Results<Event>?
     
-    convenience init(dataSource: ASAPPStateDataSource, delegate: ASAPPEventLogDelegate, store: ASAPPStore) {
+    convenience init(dataSource: ASAPPStateDataSource, delegate: EventLogDelegate, store: ASAPPStore) {
         self.init()
         self.dataSource = dataSource
         self.delegate = delegate
@@ -34,14 +34,14 @@ class ASAPPEventLog: NSObject {
             return
         }
         
-        events = store.mEventLog.sorted("EventLogSeq", ascending: true)
+        events = store.mEventLog.sorted("eventLogSeq", ascending: true)
         for i in 0 ..< events!.count {
             let event = events![i]
             delegate.didProcessEvent(event, isNew: false)
         }
         
         if events?.last != nil {
-            dataSource.fetchEvents((events?.last?.EventLogSeq)!)
+            dataSource.fetchEvents((events?.last?.eventLogSeq)!)
         } else if delegate != nil {
             dataSource.fetchEvents(0)
         }
@@ -57,29 +57,29 @@ class ASAPPEventLog: NSObject {
             ASAPPLoge("Unknown Error")
         }
         
-        guard let createdTime = json["CreatedTime"] as? ASAPPCreatedTime,
-            let issueId = json["IssueId"] as? ASAPPIssueId,
-            let companyId = json["CompanyId"] as? ASAPPCompanyId,
-            let customerId = json["CustomerId"] as? ASAPPCustomerId,
-            let repId = json["RepId"] as? ASAPPRepId,
-            let eventTime = json["EventTime"] as? ASAPPEventTime,
+        guard let createdTime = json["CreatedTime"] as? Int,
+            let issueId = json["IssueId"] as? Int,
+            let companyId = json["CompanyId"] as? Int,
+            let customerId = json["CustomerId"] as? Int,
+            let repId = json["RepId"] as? Int,
+            let eventTime = json["EventTime"] as? Int,
             let eventType = eventTypeEnumValue(json["EventType"]),
             let ephemeralType = ephemeralTypeEnumValue(json["EphemeralType"]),
-            let eventFlags = json["EventFlags"] as? ASAPPEventFlag,
-            let eventJSON = json["EventJSON"] as? ASAPPEventJSON
+            let eventFlags = json["EventFlags"] as? Int,
+            let eventJSON = json["EventJSON"] as? String
             else {
                 return
         }
         
-        let event = ASAPPEvent(createdTime: createdTime, issueId: issueId, companyId: companyId, customerId: customerId, repId: repId, eventTime: eventTime, eventType: eventType, ephemeralType: ephemeralType, eventFlags: eventFlags, eventJSON: eventJSON)
+        let event = Event(createdTime: createdTime, issueId: issueId, companyId: companyId, customerId: customerId, repId: repId, eventTime: eventTime, eventType: eventType, ephemeralType: ephemeralType, eventFlags: eventFlags, eventJSON: eventJSON)
         
         if dataSource.isCustomer() {
             if let eventLogSeq = json["CustomerEventLogSeq"] as? Int {
-                event.EventLogSeq = eventLogSeq
+                event.eventLogSeq = eventLogSeq
             }
         } else {
             if let eventLogSeq = json["CompanyEventLogSeq"] as? Int {
-                event.EventLogSeq = eventLogSeq
+                event.eventLogSeq = eventLogSeq
             }
         }
 //        event.state = state
@@ -92,23 +92,23 @@ class ASAPPEventLog: NSObject {
         }
     }
     
-    func eventTypeEnumValue(rawValue: AnyObject?) -> ASAPPEventType? {
-        var enumValue: ASAPPEventType? = nil
+    func eventTypeEnumValue(rawValue: AnyObject?) -> EventType? {
+        var enumValue: EventType? = nil
         if let value = rawValue as? Int {
-            enumValue = ASAPPEventType(value)
+            enumValue = EventType(rawValue: value)
         }
         return enumValue
     }
     
-    func ephemeralTypeEnumValue(rawValue: AnyObject?) -> ASAPPEphemeralType? {
-        var enumValue: ASAPPEphemeralType? = nil
+    func ephemeralTypeEnumValue(rawValue: AnyObject?) -> EphemeralType? {
+        var enumValue: EphemeralType? = nil
         if let value = rawValue as? Int {
-            enumValue = ASAPPEphemeralType(value)
+            enumValue = EphemeralType(rawValue: value)
         }
         return enumValue
     }
     
-    func saveEvent(event: ASAPPEvent) {
+    func saveEvent(event: Event) {
         store.addEvent(event)
     }
     

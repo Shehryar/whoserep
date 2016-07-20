@@ -32,16 +32,16 @@
 		30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */; };
 		30099DD51D3EDBC400171D56 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBE1D3EDBC400171D56 /* ASAPPConn.swift */; };
 		30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */; };
-		30099DD81D3EDBC400171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC31D3EDBC400171D56 /* Lato-Black.ttf */; };
-		30099DD91D3EDBC400171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC41D3EDBC400171D56 /* Lato-Bold.ttf */; };
-		30099DDA1D3EDBC400171D56 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC51D3EDBC400171D56 /* Lato-Light.ttf */; };
-		30099DDB1D3EDBC400171D56 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC61D3EDBC400171D56 /* Lato-Regular.ttf */; };
-		30099DDC1D3EDBC400171D56 /* icon_camera-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC81D3EDBC400171D56 /* icon_camera-dark.png */; };
-		30099DDD1D3EDBC400171D56 /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099DC91D3EDBC400171D56 /* icon_camera-dark@2x.png */; };
-		30099DDE1D3EDBC400171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099DCA1D3EDBC400171D56 /* icon_camera-dark@3x.png */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099DE41D3EE40400171D56 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30099DE21D3EE40400171D56 /* Info.plist */; };
-		30099DEB1D3FC2CC00171D56 /* ASAPPEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */; };
+		30099DEB1D3FC2CC00171D56 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DEA1D3FC2CC00171D56 /* Event.swift */; };
+		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
+		30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */; };
+		30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E091D3FD1DA00171D56 /* Lato-Light.ttf */; };
+		30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0A1D3FD1DA00171D56 /* Lato-Regular.ttf */; };
+		30099E131D3FD1DA00171D56 /* icon_camera-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */; };
+		30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */; };
+		30099E151D3FD1DA00171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,16 +57,16 @@
 		30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPChatViewController.swift; sourceTree = "<group>"; };
 		30099DBE1D3EDBC400171D56 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
 		30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPUtil.swift; sourceTree = "<group>"; };
-		30099DC31D3EDBC400171D56 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
-		30099DC41D3EDBC400171D56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
-		30099DC51D3EDBC400171D56 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
-		30099DC61D3EDBC400171D56 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
-		30099DC81D3EDBC400171D56 /* icon_camera-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark.png"; sourceTree = "<group>"; };
-		30099DC91D3EDBC400171D56 /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@2x.png"; sourceTree = "<group>"; };
-		30099DCA1D3EDBC400171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEvent.swift; sourceTree = "<group>"; };
+		30099DEA1D3FC2CC00171D56 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		30099E071D3FD1DA00171D56 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		30099E091D3FD1DA00171D56 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		30099E0A1D3FD1DA00171D56 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark.png"; sourceTree = "<group>"; };
+		30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@2x.png"; sourceTree = "<group>"; };
+		30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,36 +136,6 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		30099DC11D3EDBC400171D56 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				30099DC21D3EDBC400171D56 /* Fonts */,
-				30099DC71D3EDBC400171D56 /* Images */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		30099DC21D3EDBC400171D56 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				30099DC31D3EDBC400171D56 /* Lato-Black.ttf */,
-				30099DC41D3EDBC400171D56 /* Lato-Bold.ttf */,
-				30099DC51D3EDBC400171D56 /* Lato-Light.ttf */,
-				30099DC61D3EDBC400171D56 /* Lato-Regular.ttf */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
-		30099DC71D3EDBC400171D56 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				30099DC81D3EDBC400171D56 /* icon_camera-dark.png */,
-				30099DC91D3EDBC400171D56 /* icon_camera-dark@2x.png */,
-				30099DCA1D3EDBC400171D56 /* icon_camera-dark@3x.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		30099DE01D3EE40400171D56 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,9 +148,39 @@
 		30099DE51D3FC1E000171D56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */,
+				30099DEA1D3FC2CC00171D56 /* Event.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		30099E051D3FD1DA00171D56 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				30099E061D3FD1DA00171D56 /* Fonts */,
+				30099E0B1D3FD1DA00171D56 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		30099E061D3FD1DA00171D56 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				30099E071D3FD1DA00171D56 /* Lato-Black.ttf */,
+				30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */,
+				30099E091D3FD1DA00171D56 /* Lato-Light.ttf */,
+				30099E0A1D3FD1DA00171D56 /* Lato-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		30099E0B1D3FD1DA00171D56 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */,
+				30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */,
+				30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		5F7B85B6B6F9A7C1B0B5571A /* Pods */ = {
@@ -222,7 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				30099DB01D3EDBC400171D56 /* ASAPP */,
-				30099DC11D3EDBC400171D56 /* Assets */,
+				30099E051D3FD1DA00171D56 /* Resources */,
 				30099DE01D3EE40400171D56 /* Supporting Files */,
 			);
 			path = ASAPP;
@@ -302,14 +302,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30099DDD1D3EDBC400171D56 /* icon_camera-dark@2x.png in Resources */,
+				30099E151D3FD1DA00171D56 /* icon_camera-dark@3x.png in Resources */,
+				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
+				30099E131D3FD1DA00171D56 /* icon_camera-dark.png in Resources */,
+				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
+				30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */,
+				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
 				30099DE41D3EE40400171D56 /* Info.plist in Resources */,
-				30099DDA1D3EDBC400171D56 /* Lato-Light.ttf in Resources */,
-				30099DD81D3EDBC400171D56 /* Lato-Black.ttf in Resources */,
-				30099DD91D3EDBC400171D56 /* Lato-Bold.ttf in Resources */,
-				30099DDC1D3EDBC400171D56 /* icon_camera-dark.png in Resources */,
-				30099DDE1D3EDBC400171D56 /* icon_camera-dark@3x.png in Resources */,
-				30099DDB1D3EDBC400171D56 /* Lato-Regular.ttf in Resources */,
+				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +372,7 @@
 				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
 				30099DD51D3EDBC400171D56 /* ASAPPConn.swift in Sources */,
 				30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */,
-				30099DEB1D3FC2CC00171D56 /* ASAPPEvent.swift in Sources */,
+				30099DEB1D3FC2CC00171D56 /* Event.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
 				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,

@@ -62,13 +62,13 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
             }
             
             guard var eInfo = info as? [String: AnyObject],
-                let event = eInfo["event"] as? ASAPPEvent,
+                let event = eInfo["event"] as? Event,
                 let isNew = eInfo["isNew"] as? Bool
                 else {
                     return
             }
             
-            if !event.shouldDisplay() {
+            if !event.shouldDisplay {
                 return
             }
             
@@ -148,7 +148,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let tableDataSource = tableView.dataSource as? ASAPPChatDataSource {
             guard var eventInfo = tableDataSource.events.objectAtIndex(indexPath.row) as? [String: AnyObject],
-                let event = eventInfo["event"] as? ASAPPEvent,
+                let event = eventInfo["event"] as? Event,
                 let isNew = eventInfo["isNew"] as? Bool else {
                     ASAPPLoge("ERROR: Invalid event info")
                     return
@@ -194,7 +194,7 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
         
         func cellAtIndexRow(tableView: UITableView, row: Int) -> UITableViewCell {
             guard let eventInfo = events.objectAtIndex(row) as? [String: AnyObject],
-                let event = eventInfo["event"] as? ASAPPEvent,
+                let event = eventInfo["event"] as? Event,
                 let isNew = eventInfo["isNew"] as? Bool else {
                     ASAPPLoge("ERROR: Invalid event info")
                     return UITableViewCell()
@@ -203,14 +203,14 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
             return cellForEvent(tableView, event: event, isNew: isNew)
         }
         
-        func cellForEvent(tableView: UITableView, event: ASAPPEvent, isNew: Bool) -> UITableViewCell {
-            if event.isMessageEvent() {
+        func cellForEvent(tableView: UITableView, event: Event, isNew: Bool) -> UITableViewCell {
+            if event.isMessageEvent {
                 var cell: ASAPPBubbleViewCell = ASAPPBubbleViewCell()
                 var reuseIdentifier: String? = nil
                 
                 if stateDataSource.isMyEvent(event) {
                     reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_SEND
-                } else if !stateDataSource.isCustomer() && event.isCustomerEvent() {
+                } else if !stateDataSource.isCustomer() && event.isCustomerEvent {
                     reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE_CUSTOMER
                 } else {
                     reuseIdentifier = ASAPPChatTableView.CELL_IDENT_MSG_RECEIVE

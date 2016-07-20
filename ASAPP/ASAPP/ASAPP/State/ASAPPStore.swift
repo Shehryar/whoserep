@@ -14,7 +14,7 @@ class ASAPPStore: NSObject {
     var realm: Realm!
     
     var mState: Results<ASAPPStateModel>!
-    var mEventLog: Results<ASAPPEvent>!
+    var mEventLog: Results<Event>!
     
     func loadOrCreate(company: String, userToken: String?, isCustomer: Bool) {
         ASAPPLog("Initializing Store")
@@ -45,7 +45,7 @@ class ASAPPStore: NSObject {
         }
         
         // Load events for eventlog
-        mEventLog = realm.objects(ASAPPEvent.self)
+        mEventLog = realm.objects(Event.self)
     }
     
     func stateProperty(keyPath: String) -> AnyObject? {
@@ -64,7 +64,7 @@ class ASAPPStore: NSObject {
         })
     }
     
-    func addEvent(event: ASAPPEvent) {
+    func addEvent(event: Event) {
         try! realm.write({ 
             realm.add(event, update: true)
         })

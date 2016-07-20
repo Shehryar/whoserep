@@ -41,7 +41,7 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
         
         for event in events! {
-            if !event.isMessageEvent() {
+            if !event.isMessageEvent {
                 continue
             }
             let eInfo: [String: AnyObject] = [

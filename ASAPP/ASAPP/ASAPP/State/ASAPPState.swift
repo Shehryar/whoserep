@@ -16,7 +16,7 @@ protocol ASAPPStateDelegate {
 protocol ASAPPStateDataSource {
     func isConnected() -> Bool
     func isCustomer() -> Bool
-    func isMyEvent(event:ASAPPEvent) -> Bool
+    func isMyEvent(event:Event) -> Bool
     
     func nextRequestId() -> Int
     func myId() -> Int
@@ -25,7 +25,7 @@ protocol ASAPPStateDataSource {
     func targetCustomerToken() -> String?
     
     func fetchEvents(afterSeq: Int)
-    func eventsFromEventLog() -> Results<ASAPPEvent>?
+    func eventsFromEventLog() -> Results<Event>?
 }
 
 protocol ASAPPStateAction {
@@ -67,10 +67,10 @@ class ASAPPStateModel: Object {
     dynamic var sessionInfo: String? = nil
 }
 
-class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPStateAction, ASAPPConnDelegate, ASAPPEventLogDelegate {
+class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPStateAction, ASAPPConnDelegate, EventLogDelegate {
     
     var conn: ASAPPConn!
-    var eventLog: ASAPPEventLog!
+    var eventLog: EventLog!
     var store: ASAPPStore!
     
     // Keys for saving data
@@ -87,7 +87,7 @@ class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPSt
         store = ASAPPStore()
         store.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
         
-        eventLog = ASAPPEventLog(dataSource: self, delegate: self, store: store)
+        eventLog = EventLog(dataSource: self, delegate: self, store: store)
         eventLog.load()
         
         conn = ASAPPConn(dataSource: self, delegate: self)
@@ -167,10 +167,10 @@ class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPSt
         return myId
     }
     
-    func isMyEvent(event:ASAPPEvent) -> Bool {
-        if isCustomer() && event.isCustomerEvent() {
+    func isMyEvent(event:Event) -> Bool {
+        if isCustomer() && event.isCustomerEvent {
             return true
-        } else if !isCustomer() && myId() == event.RepId {
+        } else if !isCustomer() && myId() == event.repId {
             return true
         }
         
@@ -191,7 +191,7 @@ class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPSt
         return reqId
     }
     
-    func eventsFromEventLog() -> Results<ASAPPEvent>? {
+    func eventsFromEventLog() -> Results<Event>? {
         return eventLog.events
     }
     
@@ -364,7 +364,7 @@ class ASAPPState: NSObject, ASAPPStateDataSource, ASAPPStateEventCenter, ASAPPSt
         return
     }
     
-    func didProcessEvent(event: ASAPPEvent, isNew: Bool) {
+    func didProcessEvent(event: Event, isNew: Bool) {
         let info: [String: AnyObject] = [
             "event": event,
             "isNew": isNew
