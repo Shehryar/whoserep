@@ -41,6 +41,7 @@
 		30099DDE1D3EDBC400171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099DCA1D3EDBC400171D56 /* icon_camera-dark@3x.png */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099DE41D3EE40400171D56 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30099DE21D3EE40400171D56 /* Info.plist */; };
+		30099DEB1D3FC2CC00171D56 /* ASAPPEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		30099DCA1D3EDBC400171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEvent.swift; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +102,7 @@
 				30099DB41D3EDBC400171D56 /* ASAPPState.swift */,
 				30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */,
 				30099DB51D3EDBC400171D56 /* ASAPPStore.swift */,
+				30099DE51D3FC1E000171D56 /* Models */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -115,11 +118,11 @@
 		30099DB71D3EDBC400171D56 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */,
 				30099DB81D3EDBC400171D56 /* ASAPPBubbleView.swift */,
 				30099DB91D3EDBC400171D56 /* ASAPPBubbleViewCell.swift */,
 				30099DBA1D3EDBC400171D56 /* ASAPPChatInputView.swift */,
 				30099DBB1D3EDBC400171D56 /* ASAPPChatTableView.swift */,
-				30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -170,6 +173,14 @@
 				30099DE21D3EE40400171D56 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		30099DE51D3FC1E000171D56 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				30099DEA1D3FC2CC00171D56 /* ASAPPEvent.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5F7B85B6B6F9A7C1B0B5571A /* Pods */ = {
@@ -361,6 +372,7 @@
 				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
 				30099DD51D3EDBC400171D56 /* ASAPPConn.swift in Sources */,
 				30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */,
+				30099DEB1D3FC2CC00171D56 /* ASAPPEvent.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
 				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,
