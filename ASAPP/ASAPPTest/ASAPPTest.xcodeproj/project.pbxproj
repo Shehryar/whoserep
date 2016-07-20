@@ -114,13 +114,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD8D8B2B1D107A19001B420B /* Build configuration list for PBXNativeTarget "ASAPPTest" */;
 			buildPhases = (
-				7D0630395EE90380BCBCB950 /* 📦 Check Pods Manifest.lock */,
+				7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */,
 				FD8D8B151D107A19001B420B /* Sources */,
 				FD8D8B161D107A19001B420B /* Frameworks */,
 				FD8D8B171D107A19001B420B /* Resources */,
 				FD8D8B311D107A26001B420B /* Embed Frameworks */,
-				36651D9877DB843DB2B69C83 /* 📦 Embed Pods Frameworks */,
-				E2EA9BCDE466655252E626B0 /* 📦 Copy Pods Resources */,
+				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
+				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,14 +178,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36651D9877DB843DB2B69C83 /* 📦 Embed Pods Frameworks */ = {
+		36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,14 +193,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D0630395EE90380BCBCB950 /* 📦 Check Pods Manifest.lock */ = {
+		7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,14 +208,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E2EA9BCDE466655252E626B0 /* 📦 Copy Pods Resources */ = {
+		E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
