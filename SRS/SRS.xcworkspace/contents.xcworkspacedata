@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:SRS SDK"
+      name = "SRS SDK">
+      <FileRef
+         location = "group:SRS.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:SRS"
+         name = "SRS">
+         <FileRef
+            location = "group:article.png">
+         </FileRef>
+         <FileRef
+            location = "group:article@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:article@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:autoPaySched.png">
+         </FileRef>
+         <FileRef
+            location = "group:autoPaySched@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:autoPaySched@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:back.png">
+         </FileRef>
+         <FileRef
+            location = "group:back@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:back@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billDue.png">
+         </FileRef>
+         <FileRef
+            location = "group:billDue@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billDue@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPaid.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPaid@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPaid@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPastDue.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPastDue@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:billPastDue@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:call.png">
+         </FileRef>
+         <FileRef
+            location = "group:call@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:call@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:credit.png">
+         </FileRef>
+         <FileRef
+            location = "group:credit@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:credit@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:dash.png">
+         </FileRef>
+         <FileRef
+            location = "group:dash@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:dash@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:deeplink.png">
+         </FileRef>
+         <FileRef
+            location = "group:deeplink@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:deeplink@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-a.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-a@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-a@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-b.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-b@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_billing-b@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_book.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_book@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_book@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_check.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_check@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_check@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_phone.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_phone@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:icon_phone@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+         <FileRef
+            location = "group:loading@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:nonPaySuspend.png">
+         </FileRef>
+         <FileRef
+            location = "group:nonPaySuspend@2x.png">
+         </FileRef>
+         <FileRef
+            location = "group:nonPaySuspend@3x.png">
+         </FileRef>
+         <FileRef
+            location = "group:SRS.h">
+         </FileRef>
+         <FileRef
+            location = "group:SRS.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSButton.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSCircle.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSColor.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSConn.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSContent.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSInput.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSMenu.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSMenuItemView.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSPinView.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSPrompt.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSTutorial.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SRSUtil.swift">
+         </FileRef>
+         <FileRef
+            location = "group:XFINITYSans-Reg.otf">
+         </FileRef>
+         <FileRef
+            location = "group:XFINITYSansTT-Bold.ttf">
+         </FileRef>
+         <FileRef
+            location = "group:XFINITYSansTT-BoldCond.ttf">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:XfinityObjC"
+      name = "XfinityObjC">
+      <FileRef
+         location = "group:XfinityObjC.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:XfinityObjC"
+         name = "XfinityObjC">
+         <FileRef
+            location = "group:AppDelegate.h">
+         </FileRef>
+         <FileRef
+            location = "group:AppDelegate.m">
+         </FileRef>
+         <Group
+            location = "group:Assets.xcassets"
+            name = "Assets.xcassets">
+            <Group
+               location = "group:AppIcon.appiconset"
+               name = "AppIcon.appiconset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:xfinit_app_icon@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:xfinit_app_icon@3x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Base.lproj"
+            name = "Base.lproj">
+            <FileRef
+               location = "group:LaunchScreen.storyboard">
+            </FileRef>
+            <FileRef
+               location = "group:Main.storyboard">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:home.png">
+         </FileRef>
+         <FileRef
+            location = "group:home_internet.png">
+         </FileRef>
+         <FileRef
+            location = "group:home_tv.png">
+         </FileRef>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+         <FileRef
+            location = "group:InternetTroubleshootViewController.h">
+         </FileRef>
+         <FileRef
+            location = "group:InternetTroubleshootViewController.m">
+         </FileRef>
+         <FileRef
+            location = "group:main.m">
+         </FileRef>
+         <FileRef
+            location = "group:restartDeviceImage.png">
+         </FileRef>
+         <FileRef
+            location = "group:speedTroubleshoot.png">
+         </FileRef>
+         <FileRef
+            location = "group:SRSProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:SRSProvider.m">
+         </FileRef>
+         <FileRef
+            location = "group:tv_troubleshoot.png">
+         </FileRef>
+         <FileRef
+            location = "group:TVTroubleshootViewController.h">
+         </FileRef>
+         <FileRef
+            location = "group:TVTroubleshootViewController.m">
+         </FileRef>
+         <FileRef
+            location = "group:ViewController.h">
+         </FileRef>
+         <FileRef
+            location = "group:ViewController.m">
+         </FileRef>
+      </Group>
+   </Group>
+</Workspace>

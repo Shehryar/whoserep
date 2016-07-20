@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30099D701D3EC30600171D56 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D6F1D3EC30600171D56 /* ASAPP.framework */; };
+		30099D711D3EC30600171D56 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D6F1D3EC30600171D56 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B1F1D107A19001B420B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1E1D107A19001B420B /* ViewController.swift */; };
 		FD8D8B221D107A19001B420B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B201D107A19001B420B /* Main.storyboard */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 		FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */; };
-		FD8D8B2F1D107A26001B420B /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8D8B2E1D107A26001B420B /* ASAPP.framework */; };
-		FD8D8B301D107A26001B420B /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FD8D8B2E1D107A26001B420B /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FD8D8B301D107A26001B420B /* ASAPP.framework in Embed Frameworks */,
+				30099D711D3EC30600171D56 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
+		30099D6F1D3EC30600171D56 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphonesimulator/ASAPP.framework"; sourceTree = "<absolute>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.release.xcconfig"; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,7 +43,6 @@
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD8D8B261D107A19001B420B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD8D8B281D107A19001B420B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FD8D8B2E1D107A26001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/vickysehrawat/Library/Developer/Xcode/DerivedData/ASAPP-glynbhwxjdwuywcgqlryhketpozd/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD8D8B2F1D107A26001B420B /* ASAPP.framework in Frameworks */,
+				30099D701D3EC30600171D56 /* ASAPP.framework in Frameworks */,
 				D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,7 +78,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				FD8D8B2E1D107A26001B420B /* ASAPP.framework */,
+				30099D6F1D3EC30600171D56 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				FD8D8B1A1D107A19001B420B /* Products */,
 				FCB047A4DE7D9EB0065D7FB9 /* Pods */,
@@ -114,13 +114,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD8D8B2B1D107A19001B420B /* Build configuration list for PBXNativeTarget "ASAPPTest" */;
 			buildPhases = (
-				7D0630395EE90380BCBCB950 /* 📦 Check Pods Manifest.lock */,
+				7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */,
 				FD8D8B151D107A19001B420B /* Sources */,
 				FD8D8B161D107A19001B420B /* Frameworks */,
 				FD8D8B171D107A19001B420B /* Resources */,
 				FD8D8B311D107A26001B420B /* Embed Frameworks */,
-				36651D9877DB843DB2B69C83 /* 📦 Embed Pods Frameworks */,
-				E2EA9BCDE466655252E626B0 /* 📦 Copy Pods Resources */,
+				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
+				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,14 +178,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36651D9877DB843DB2B69C83 /* 📦 Embed Pods Frameworks */ = {
+		36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,14 +193,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D0630395EE90380BCBCB950 /* 📦 Check Pods Manifest.lock */ = {
+		7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,14 +208,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E2EA9BCDE466655252E626B0 /* 📦 Copy Pods Resources */ = {
+		E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
