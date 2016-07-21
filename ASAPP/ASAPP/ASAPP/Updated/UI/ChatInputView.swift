@@ -14,9 +14,15 @@ class ChatInputView: UIView {
     
     public var onSendButtonTap: ((messageText: String) -> ())?
     
+    public var canSendMessage: Bool = true {
+        didSet {
+            updateSendButtonForCurrentState()
+        }
+    }
+    
     // MARK: Properties: Data
     
-    let inputMinHeight: CGFloat = 32
+    let inputMinHeight: CGFloat = 36
     let inputMaxHeight: CGFloat = 150
     var inputHeight: CGFloat = 0
     
@@ -46,6 +52,7 @@ class ChatInputView: UIView {
         addSubview(mediaButton)
         
         styleSendButton()
+        updateSendButtonForCurrentState()
         addSubview(sendButton)
     }
     
@@ -95,7 +102,10 @@ class ChatInputView: UIView {
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), forState: .Highlighted)
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), forState: .Disabled)
         sendButton.addTarget(self, action: #selector(ChatInputView.didTapSendButton(_:)), forControlEvents: .TouchUpInside)
-        
+    }
+    
+    func updateSendButtonForCurrentState() {
+        sendButton.enabled = !textView.text.isEmpty && canSendMessage
     }
     
     func styleMediaButton() {
@@ -156,6 +166,7 @@ extension ChatInputView {
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         resizeIfNeeded()
+        updateSendButtonForCurrentState()
     }
     
     func resizeIfNeeded() {
@@ -190,5 +201,6 @@ extension ChatInputView {
     public func clear() {
         textView.text = ""
         resizeIfNeeded()
+        updateSendButtonForCurrentState()
     }
 }

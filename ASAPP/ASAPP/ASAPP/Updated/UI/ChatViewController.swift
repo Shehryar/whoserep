@@ -61,6 +61,10 @@ class ChatViewController: UIViewController {
         } else {
             ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
         }
+        chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
+            self?.chatInputView.clear()
+        }
+        
         view.addSubview(chatInputView)
         
         updateViewConstraints()
@@ -132,7 +136,7 @@ extension ChatViewController {
     }
 }
 
-// MARK: - KeyboardObserver
+// MARK:- KeyboardObserver
 
 extension ChatViewController: ASAPPKeyboardObserverDelegate {
     func ASAPPKeyboardWillShow(size: CGRect, duration: NSTimeInterval) {
@@ -149,4 +153,10 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
             self.view.layoutIfNeeded()
         }
     }
+}
+
+// MARK:- Managing Data
+
+extension ChatViewController {
+    
 }
