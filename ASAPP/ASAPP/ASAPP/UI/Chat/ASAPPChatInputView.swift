@@ -10,14 +10,6 @@ import UIKit
 
 class ASAPPChatInputView: UIView, UITextViewDelegate {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
     var dataSource: ASAPPStateDataSource!
     var eventCenter: ASAPPStateEventCenter!
     var action: ASAPPStateAction!
@@ -211,5 +203,4 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
         
         super.updateConstraints()
     }
-
 }

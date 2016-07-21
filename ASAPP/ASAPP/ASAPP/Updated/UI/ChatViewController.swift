@@ -10,15 +10,24 @@ import UIKit
 
 class ChatViewController: UIViewController {
     
-    var credentials: Credentials
+    // MARK: Properties: Data
     
+    var credentials: Credentials
+    var dataSource: ASAPPStateDataSource!
     var keyboardObserver = ASAPPKeyboardObserver()
+    var keyboardOffset: CGFloat = 0 {
+        didSet {
+            if keyboardOffset != oldValue {
+                view.setNeedsUpdateConstraints()
+                view.updateConstraintsIfNeeded()
+            }
+        }
+    }
+    
+    // MARK: Properties: UI
     
     var chatView: ASAPPChatTableView!
-    var input: ASAPPChatInputView!
-    
-    var keyboardOffset: CGFloat = 0
-    var dataSource: ASAPPStateDataSource!
+    var chatInputView = ChatInputView()
     
     // MARK:- Initialization
     
@@ -42,22 +51,17 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.whiteColor()
+        
         // Subviews
         if let eventCenter = dataSource as? ASAPPStateEventCenter {
-            // Input View
-            if let action = dataSource as? ASAPPStateAction {
-                input = ASAPPChatInputView(dataSource: dataSource, eventCenter: eventCenter, action: action)
-                self.view.addSubview(input)
-            } else {
-                ASAPPLoge("Invalid dataSource passed which cannot be cast into action")
-            }
-            
             // Chat View
             chatView = ASAPPChatTableView(stateDataSource: dataSource, eventCenter: eventCenter)
             self.view.addSubview(chatView)
         } else {
             ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
         }
+        view.addSubview(chatInputView)
         
         updateViewConstraints()
     }
@@ -103,7 +107,7 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController {
     override func updateViewConstraints() {
-        input.snp_updateConstraints { (make) in
+        chatInputView.snp_updateConstraints { (make) in
             make.bottom.equalTo(self.view.snp_bottom).offset(-keyboardOffset)
             make.leading.equalTo(self.view.snp_leading)
             make.trailing.equalTo(self.view.snp_trailing)
@@ -113,7 +117,7 @@ extension ChatViewController {
             make.top.equalTo(self.view.snp_top)
             make.leading.equalTo(self.view.snp_leading)
             make.trailing.equalTo(self.view.snp_trailing)
-            make.bottom.equalTo(input.snp_top)
+            make.bottom.equalTo(chatInputView.snp_top)
         }
         
         super.updateViewConstraints()
@@ -133,21 +137,14 @@ extension ChatViewController {
 extension ChatViewController: ASAPPKeyboardObserverDelegate {
     func ASAPPKeyboardWillShow(size: CGRect, duration: NSTimeInterval) {
         keyboardOffset = size.height
-        view.setNeedsUpdateConstraints()
-        view.updateConstraintsIfNeeded()
-        
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
         }
-        
         chatView.scrollToBottom(false)
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
         keyboardOffset = 0
-        self.view.setNeedsUpdateConstraints()
-        self.view.updateConstraintsIfNeeded()
-        
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
         }

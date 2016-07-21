@@ -40,6 +40,11 @@
 		30099E131D3FD1DA00171D56 /* icon_camera-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */; };
 		30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */; };
 		30099E151D3FD1DA00171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */; };
+		308F296E1D414FBD00EC7055 /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296D1D414FBD00EC7055 /* ChatInputView.swift */; };
+		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
+		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
+		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
+		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
 		308FA9971D40008800D01329 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9931D40008800D01329 /* ASAPPConn.swift */; };
 		308FA9981D40008800D01329 /* ChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9941D40008800D01329 /* ChatAPI.swift */; };
 		308FA9991D40008800D01329 /* ChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9951D40008800D01329 /* ChatClient.swift */; };
@@ -74,6 +79,11 @@
 		30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark.png"; sourceTree = "<group>"; };
 		30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@2x.png"; sourceTree = "<group>"; };
 		30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
+		308F296D1D414FBD00EC7055 /* ChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		308FA9931D40008800D01329 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPConn.swift; path = "../Chat Client/ASAPPConn.swift"; sourceTree = "<group>"; };
 		308FA9941D40008800D01329 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
 		308FA9951D40008800D01329 /* ChatClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatClient.swift; sourceTree = "<group>"; };
@@ -151,6 +161,10 @@
 			isa = PBXGroup;
 			children = (
 				30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */,
+				308F296F1D4164FE00EC7055 /* Colors.swift */,
+				308F29711D41665900EC7055 /* Fonts.swift */,
+				308F29731D4168BE00EC7055 /* Images.swift */,
+				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -270,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				30AF19B21D412330004514FF /* ChatViewController.swift */,
+				308F296D1D414FBD00EC7055 /* ChatInputView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -462,6 +477,7 @@
 				30AF19A91D411FD3004514FF /* ConversationManager.swift in Sources */,
 				30AF19AF1D41200D004514FF /* Credentials.swift in Sources */,
 				308FA9981D40008800D01329 /* ChatAPI.swift in Sources */,
+				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				30099DD01D3EDBC400171D56 /* ASAPPBubbleView.swift in Sources */,
 				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
 				30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */,
@@ -470,12 +486,16 @@
 				30AF19B31D412330004514FF /* ChatViewController.swift in Sources */,
 				308FA9971D40008800D01329 /* ASAPPConn.swift in Sources */,
 				30AF19B01D41200D004514FF /* Event.swift in Sources */,
+				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				30AF19AA1D411FD3004514FF /* SocketConnection.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
+				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
 				30AF19AC1D411FD3004514FF /* DataStore.swift in Sources */,
 				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
+				308F296E1D414FBD00EC7055 /* ChatInputView.swift in Sources */,
 				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,
 				30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */,
+				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				308FA99C1D40210E00D01329 /* DataStore2.swift in Sources */,
 				30099DCE1D3EDBC400171D56 /* ASAPPState.swift in Sources */,
 			);

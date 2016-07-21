@@ -16,7 +16,7 @@ public class ASAPP: NSObject {
     // Public APIs
     override public init() {
         super.init()
-        loadFonts()
+//        loadFonts()
     }
     
     public convenience init(company: String) {
@@ -55,12 +55,6 @@ public class ASAPP: NSObject {
 }
 
 public class ASAPPv2: NSObject {
-    
-    // MARK:- Class Initialization
-    
-    override public class func initialize() {
-        loadFonts()
-    }
     
     // MARK:- Instance Methods
     
