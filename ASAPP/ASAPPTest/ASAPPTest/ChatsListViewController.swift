@@ -45,6 +45,12 @@ class ChatsListViewController: UIViewController {
         tableView.delegate = self
         view.addSubview(tableView)
     }
+    
+    // MARK:- Status Bar
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }
 
 extension ChatsListViewController: UITableViewDataSource {
