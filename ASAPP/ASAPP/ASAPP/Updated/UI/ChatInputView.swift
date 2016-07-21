@@ -10,7 +10,12 @@ import UIKit
 
 class ChatInputView: UIView {
 
+    // MARK: Public Properties
+    
+    public var onSendButtonTap: ((messageText: String) -> ())?
+    
     // MARK: Properties: Data
+    
     let inputMinHeight: CGFloat = 32
     let inputMaxHeight: CGFloat = 150
     var inputHeight: CGFloat = 0
@@ -102,11 +107,9 @@ class ChatInputView: UIView {
     // MARK:- Button Actions
     
     func didTapSendButton(sender: UIButton) {
-        
-        // TODO: call delegate or perform action
-        
-        textView.text = ""
-        resizeIfNeeded(textView)
+        if let onSendButtonTap = onSendButtonTap, let messageText = textView.text {
+            onSendButtonTap(messageText: messageText)
+        }
     }
 }
 
@@ -152,10 +155,10 @@ extension ChatInputView {
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
-        resizeIfNeeded(textView)
+        resizeIfNeeded()
     }
     
-    func resizeIfNeeded(textView: UITextView) {
+    func resizeIfNeeded() {
         var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
         if height < inputMinHeight {
             height = inputMinHeight
@@ -178,5 +181,14 @@ extension ChatInputView: UITextViewDelegate {
                 self.layoutIfNeeded()
             }
         }
+    }
+}
+
+// MARK:- Public Instance Methods
+
+extension ChatInputView {
+    public func clear() {
+        textView.text = ""
+        resizeIfNeeded()
     }
 }
