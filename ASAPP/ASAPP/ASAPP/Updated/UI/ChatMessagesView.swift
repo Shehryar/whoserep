@@ -26,6 +26,8 @@ class ChatMessagesView: UIView {
 
     // MARK:- Initialization
     
+    let MessageCellReuseId = "MessageCellReuseId"
+    
     init(withConversationManager conversationManager: ConversationManager) {
         self.conversationManager = conversationManager
         super.init(frame: CGRectZero)
@@ -36,6 +38,7 @@ class ChatMessagesView: UIView {
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
+        tableView.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: MessageCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -63,10 +66,15 @@ extension ChatMessagesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return conversationManager.messageEvents.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ASAPPBubbleViewCell {
+            cell.setEvent(conversationManager.messageEvents[indexPath.row], isNew: false)
+            return cell
+        }
+        
         return UITableViewCell()
     }
 }
@@ -76,6 +84,15 @@ extension ChatMessagesView: UITableViewDataSource {
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let event = conversationManager.messageEvents[indexPath.row]
+        
+        // TODO: Check if event.isNew
+        if let bubbleCell = tableView.cellForRowAtIndexPath(indexPath) as? ASAPPBubbleViewCell {
+            bubbleCell.animate()
+        }
     }
 }
 

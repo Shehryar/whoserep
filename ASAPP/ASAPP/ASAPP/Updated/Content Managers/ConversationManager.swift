@@ -14,7 +14,7 @@ class ConversationManager: NSObject {
     
     public var credentials: Credentials
     
-    public var messages = [Event]()
+    public var messageEvents = [Event]()
     
     public var onMessageReceived: ((message: Event, messages: [Event]) -> Void)?
     
