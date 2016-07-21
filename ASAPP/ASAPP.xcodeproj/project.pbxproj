@@ -30,11 +30,9 @@
 		30099DD21D3EDBC400171D56 /* ASAPPChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBA1D3EDBC400171D56 /* ASAPPChatInputView.swift */; };
 		30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBB1D3EDBC400171D56 /* ASAPPChatTableView.swift */; };
 		30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */; };
-		30099DD51D3EDBC400171D56 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBE1D3EDBC400171D56 /* ASAPPConn.swift */; };
 		30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099DE41D3EE40400171D56 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30099DE21D3EE40400171D56 /* Info.plist */; };
-		30099DEB1D3FC2CC00171D56 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DEA1D3FC2CC00171D56 /* Event.swift */; };
 		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
 		30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */; };
 		30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E091D3FD1DA00171D56 /* Lato-Light.ttf */; };
@@ -42,6 +40,17 @@
 		30099E131D3FD1DA00171D56 /* icon_camera-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */; };
 		30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */; };
 		30099E151D3FD1DA00171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */; };
+		308FA9971D40008800D01329 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9931D40008800D01329 /* ASAPPConn.swift */; };
+		308FA9981D40008800D01329 /* ChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9941D40008800D01329 /* ChatAPI.swift */; };
+		308FA9991D40008800D01329 /* ChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9951D40008800D01329 /* ChatClient.swift */; };
+		308FA99C1D40210E00D01329 /* DataStore2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA99B1D40210E00D01329 /* DataStore2.swift */; };
+		30AF19A91D411FD3004514FF /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A01D411FD3004514FF /* ConversationManager.swift */; };
+		30AF19AA1D411FD3004514FF /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A41D411FD3004514FF /* SocketConnection.swift */; };
+		30AF19AB1D411FD3004514FF /* MessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A61D411FD3004514FF /* MessagingService.swift */; };
+		30AF19AC1D411FD3004514FF /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A81D411FD3004514FF /* DataStore.swift */; };
+		30AF19AF1D41200D004514FF /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19AD1D41200D004514FF /* Credentials.swift */; };
+		30AF19B01D41200D004514FF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19AE1D41200D004514FF /* Event.swift */; };
+		30AF19B31D412330004514FF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19B21D412330004514FF /* ChatViewController.swift */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,11 +64,9 @@
 		30099DBA1D3EDBC400171D56 /* ASAPPChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPChatInputView.swift; sourceTree = "<group>"; };
 		30099DBB1D3EDBC400171D56 /* ASAPPChatTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPChatTableView.swift; sourceTree = "<group>"; };
 		30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPChatViewController.swift; sourceTree = "<group>"; };
-		30099DBE1D3EDBC400171D56 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
 		30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPUtil.swift; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30099DEA1D3FC2CC00171D56 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30099E071D3FD1DA00171D56 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		30099E091D3FD1DA00171D56 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -67,6 +74,17 @@
 		30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark.png"; sourceTree = "<group>"; };
 		30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@2x.png"; sourceTree = "<group>"; };
 		30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
+		308FA9931D40008800D01329 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPConn.swift; path = "../Chat Client/ASAPPConn.swift"; sourceTree = "<group>"; };
+		308FA9941D40008800D01329 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
+		308FA9951D40008800D01329 /* ChatClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatClient.swift; sourceTree = "<group>"; };
+		308FA99B1D40210E00D01329 /* DataStore2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore2.swift; sourceTree = "<group>"; };
+		30AF19A01D411FD3004514FF /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
+		30AF19A41D411FD3004514FF /* SocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
+		30AF19A61D411FD3004514FF /* MessagingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
+		30AF19A81D411FD3004514FF /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		30AF19AD1D41200D004514FF /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		30AF19AE1D41200D004514FF /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		30AF19B21D412330004514FF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				30099DB11D3EDBC400171D56 /* ASAPP.swift */,
+				30AF199E1D411FD3004514FF /* Updated */,
+				308FA9921D40008800D01329 /* Chat Client */,
 				30099DB21D3EDBC400171D56 /* State */,
 				30099DB61D3EDBC400171D56 /* UI */,
 				30099DBD1D3EDBC400171D56 /* Util */,
@@ -99,10 +119,10 @@
 		30099DB21D3EDBC400171D56 /* State */ = {
 			isa = PBXGroup;
 			children = (
+				308FA9931D40008800D01329 /* ASAPPConn.swift */,
 				30099DB41D3EDBC400171D56 /* ASAPPState.swift */,
 				30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */,
 				30099DB51D3EDBC400171D56 /* ASAPPStore.swift */,
-				30099DE51D3FC1E000171D56 /* Models */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -130,7 +150,6 @@
 		30099DBD1D3EDBC400171D56 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				30099DBE1D3EDBC400171D56 /* ASAPPConn.swift */,
 				30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */,
 			);
 			path = Util;
@@ -143,14 +162,6 @@
 				30099DE21D3EE40400171D56 /* Info.plist */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		30099DE51D3FC1E000171D56 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				30099DEA1D3FC2CC00171D56 /* Event.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		30099E051D3FD1DA00171D56 /* Resources */ = {
@@ -181,6 +192,86 @@
 				30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		308FA9921D40008800D01329 /* Chat Client */ = {
+			isa = PBXGroup;
+			children = (
+				308FA9951D40008800D01329 /* ChatClient.swift */,
+				308FA9941D40008800D01329 /* ChatAPI.swift */,
+				308FA99B1D40210E00D01329 /* DataStore2.swift */,
+			);
+			path = "Chat Client";
+			sourceTree = "<group>";
+		};
+		30AF199E1D411FD3004514FF /* Updated */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19B11D412319004514FF /* UI */,
+				30AF19A11D411FD3004514FF /* Data Models */,
+				30AF199F1D411FD3004514FF /* Content Managers */,
+				30AF19A21D411FD3004514FF /* Networking */,
+			);
+			path = Updated;
+			sourceTree = "<group>";
+		};
+		30AF199F1D411FD3004514FF /* Content Managers */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19A01D411FD3004514FF /* ConversationManager.swift */,
+			);
+			path = "Content Managers";
+			sourceTree = "<group>";
+		};
+		30AF19A11D411FD3004514FF /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19AD1D41200D004514FF /* Credentials.swift */,
+				30AF19AE1D41200D004514FF /* Event.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		30AF19A21D411FD3004514FF /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19A31D411FD3004514FF /* API */,
+				30AF19A51D411FD3004514FF /* Services */,
+				30AF19A71D411FD3004514FF /* Storage */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		30AF19A31D411FD3004514FF /* API */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19A41D411FD3004514FF /* SocketConnection.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		30AF19A51D411FD3004514FF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19A61D411FD3004514FF /* MessagingService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		30AF19A71D411FD3004514FF /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19A81D411FD3004514FF /* DataStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		30AF19B11D412319004514FF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				30AF19B21D412330004514FF /* ChatViewController.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		5F7B85B6B6F9A7C1B0B5571A /* Pods */ = {
@@ -368,15 +459,24 @@
 			files = (
 				30099DD21D3EDBC400171D56 /* ASAPPChatInputView.swift in Sources */,
 				30099DD11D3EDBC400171D56 /* ASAPPBubbleViewCell.swift in Sources */,
+				30AF19A91D411FD3004514FF /* ConversationManager.swift in Sources */,
+				30AF19AF1D41200D004514FF /* Credentials.swift in Sources */,
+				308FA9981D40008800D01329 /* ChatAPI.swift in Sources */,
 				30099DD01D3EDBC400171D56 /* ASAPPBubbleView.swift in Sources */,
 				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
-				30099DD51D3EDBC400171D56 /* ASAPPConn.swift in Sources */,
 				30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */,
-				30099DEB1D3FC2CC00171D56 /* Event.swift in Sources */,
+				308FA9991D40008800D01329 /* ChatClient.swift in Sources */,
+				30AF19AB1D411FD3004514FF /* MessagingService.swift in Sources */,
+				30AF19B31D412330004514FF /* ChatViewController.swift in Sources */,
+				308FA9971D40008800D01329 /* ASAPPConn.swift in Sources */,
+				30AF19B01D41200D004514FF /* Event.swift in Sources */,
+				30AF19AA1D411FD3004514FF /* SocketConnection.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
+				30AF19AC1D411FD3004514FF /* DataStore.swift in Sources */,
 				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
 				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,
 				30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */,
+				308FA99C1D40210E00D01329 /* DataStore2.swift in Sources */,
 				30099DCE1D3EDBC400171D56 /* ASAPPState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

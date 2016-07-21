@@ -52,10 +52,32 @@ public class ASAPP: NSObject {
         
         mState.reloadStateForRep(targetCustomerToken)
     }
-    
-    // MARK: - Helper Functions
-    
-//    func myId() -> UInt? {
-//        return state.mMyId
-//    }
 }
+
+public class ASAPPv2: NSObject {
+    
+    // MARK:- Class Initialization
+    
+    override public class func initialize() {
+        loadFonts()
+    }
+    
+    // MARK:- Instance Methods
+    
+    public func createChatViewController(withCompany company: String, userToken: String? = nil, isCustomer: Bool = false) -> UIViewController {
+        let credentials = Credentials(withCompany: company,
+                                      userToken: userToken,
+                                      isCustomer: isCustomer)
+        
+        let viewController = ChatViewController(withCredentials: credentials)
+        
+        // TODO: remove this later
+        let mState = ASAPPState()
+        mState.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
+        viewController.dataSource = mState
+        
+        return viewController
+    }
+}
+
+

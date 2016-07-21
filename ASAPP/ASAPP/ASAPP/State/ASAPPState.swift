@@ -32,6 +32,10 @@ protocol ASAPPStateAction {
     func sendMessage(message: String)
 }
 
+
+
+
+
 // MARK: - To register/deregister for events
 
 enum ASAPPNotificationType {

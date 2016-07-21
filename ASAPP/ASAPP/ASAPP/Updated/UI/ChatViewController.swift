@@ -1,28 +1,46 @@
 //
-//  ASAPPChatViewController.swift
+//  ChatViewController.swift
 //  ASAPP
 //
-//  Created by Vicky Sehrawat on 6/14/16.
+//  Created by Mitchell Morgan on 7/21/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
 import UIKit
 
-class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
-
+class ChatViewController: UIViewController {
+    
+    var credentials: Credentials
+    
     var chatView: ASAPPChatTableView!
     var input: ASAPPChatInputView!
     var keyboardObserver: ASAPPKeyboardObserver!
-    
+    var keyboardOffset: CGFloat = 0
     var dataSource: ASAPPStateDataSource!
+    
+    // MARK:- Initialization
+    
+    init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK:- View
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.blueColor()
         renderInputView()
         renderChatView()
+        
+        updateViewConstraints()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,11 +81,13 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
     }
     
+    // MARK:- Touches
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         input.textView.resignFirstResponder()
     }
     
-    // MARK: - ChatView
+    // MARK:- ChatView
     
     func renderChatView() {
         if let eventCenter = dataSource as? ASAPPStateEventCenter {
@@ -93,35 +113,14 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
     }
     
-    // MARK: - KeyboardObserver
-    
-    var KEYBOARD_OFFSET: CGFloat = 0
-    
-    func ASAPPKeyboardWillShow(size: CGRect, duration: NSTimeInterval) {
-        KEYBOARD_OFFSET = size.height
-        self.view.setNeedsUpdateConstraints()
-        self.view.updateConstraintsIfNeeded()
-        
-        UIView.animateWithDuration(duration) {
-            self.view.layoutIfNeeded()
-        }
-        
-        chatView.scrollToBottom(false)
-    }
-    
-    func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
-        KEYBOARD_OFFSET = 0
-        self.view.setNeedsUpdateConstraints()
-        self.view.updateConstraintsIfNeeded()
-        
-        UIView.animateWithDuration(duration) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
+}
+
+// MARK:- Layout
+
+extension ChatViewController {
     override func updateViewConstraints() {
         input.snp_updateConstraints { (make) in
-            make.bottom.equalTo(self.view.snp_bottom).offset(-KEYBOARD_OFFSET)
+            make.bottom.equalTo(self.view.snp_bottom).offset(-keyboardOffset)
             make.leading.equalTo(self.view.snp_leading)
             make.trailing.equalTo(self.view.snp_trailing)
         }
@@ -134,5 +133,31 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         }
         
         super.updateViewConstraints()
+    }
+}
+
+// MARK: - KeyboardObserver
+
+extension ChatViewController: ASAPPKeyboardObserverDelegate {
+    func ASAPPKeyboardWillShow(size: CGRect, duration: NSTimeInterval) {
+        keyboardOffset = size.height
+        view.setNeedsUpdateConstraints()
+        view.updateConstraintsIfNeeded()
+        
+        UIView.animateWithDuration(duration) {
+            self.view.layoutIfNeeded()
+        }
+        
+        chatView.scrollToBottom(false)
+    }
+    
+    func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
+        keyboardOffset = 0
+        self.view.setNeedsUpdateConstraints()
+        self.view.updateConstraintsIfNeeded()
+        
+        UIView.animateWithDuration(duration) {
+            self.view.layoutIfNeeded()
+        }
     }
 }

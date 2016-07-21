@@ -6,14 +6,8 @@
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import RealmSwift
-
-class EventPayload: NSObject {
-    struct TextMessage {
-        let Text: String
-    }
-}
 
 @objc enum EventType: Int {
     case None = 0
@@ -46,6 +40,12 @@ class EventPayload: NSObject {
     case UpdateCustomerIdentifiers = 4
     case ConnectionUpdate = 5
     case IPBlock = 6
+}
+
+class EventPayload: NSObject {
+    struct TextMessage {
+        let Text: String
+    }
 }
 
 class Event: Object {
@@ -96,7 +96,11 @@ class Event: Object {
         self.eventJSON = eventJSON
     }
     
-    func payload() -> Any? {
+    // MARK:- Instance Methods
+    
+    func getPayload() -> Any? {
+        // TODO: This should be lazy-loaded/stored so we don't have to repeatedly serialize the json
+        
         if eventType == .TextMessage {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
@@ -110,7 +114,6 @@ class Event: Object {
                 ASAPPLoge("Unknown Error")
             }
         }
-        
         return nil
     }
 }

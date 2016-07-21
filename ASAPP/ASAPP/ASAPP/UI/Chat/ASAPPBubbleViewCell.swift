@@ -76,7 +76,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
     func setEvent(event: Event, isNew: Bool) {
         if event.isMessageEvent {
             if event.eventType == .TextMessage {
-                if let payload = event.payload() as? EventPayload.TextMessage {
+                if let payload = event.getPayload() as? EventPayload.TextMessage {
                     textMessageLabel.text = payload.Text
                 }
             }
@@ -109,7 +109,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
             let tempLabel = UILabel()
             setupLabel(tempLabel)
             
-            if let payload = event.payload() as? EventPayload.TextMessage {
+            if let payload = event.getPayload() as? EventPayload.TextMessage {
                 tempLabel.text = payload.Text
             }
             
