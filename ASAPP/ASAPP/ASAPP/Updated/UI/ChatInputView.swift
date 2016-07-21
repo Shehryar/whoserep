@@ -11,9 +11,8 @@ import UIKit
 class ChatInputView: UIView {
 
     // MARK: Properties: Data
-    
-    let INPUT_MIN_HEIGHT = 32
-    let INPUT_MAX_HEIGHT = 80
+    let inputMinHeight: CGFloat = 32
+    let inputMaxHeight: CGFloat = 150
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
@@ -65,6 +64,7 @@ class ChatInputView: UIView {
         textView.textColor = Colors.mediumTextColor()
         textView.bounces = false
         textView.scrollEnabled = false
+        textView.scrollsToTop = false
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
     }
@@ -124,14 +124,14 @@ extension ChatInputView {
         mediaButton.snp_remakeConstraints { (make) in
             make.leading.equalTo(self.snp_leading).offset(16)
             make.bottom.equalTo(self.snp_bottom).offset(-8)
-            make.height.equalTo(INPUT_MIN_HEIGHT)
+            make.height.equalTo(inputMinHeight)
             make.width.equalTo(28)
         }
         
         sendButton.snp_remakeConstraints { (make) in
             make.bottom.equalTo(mediaButton.snp_bottom)
             make.trailing.equalTo(self.snp_trailing).offset(-16)
-            make.height.equalTo(INPUT_MIN_HEIGHT)
+            make.height.equalTo(inputMinHeight)
             make.width.equalTo(40)
         }
         
@@ -141,8 +141,6 @@ extension ChatInputView {
             make.bottom.equalTo(mediaButton.snp_bottom)
             make.trailing.equalTo(sendButton.snp_leading).offset(-16)
             make.width.greaterThanOrEqualTo(1)
-            make.height.greaterThanOrEqualTo(INPUT_MIN_HEIGHT)
-            make.height.lessThanOrEqualTo(INPUT_MAX_HEIGHT)
             make.height.equalTo(inputHeight)
         }
         
@@ -153,37 +151,32 @@ extension ChatInputView {
 // MARK:- UITextViewDelegate
 
 extension ChatInputView: UITextViewDelegate {
-    func textViewDidBeginEditing(textView: UITextView) {
-        textView.backgroundColor = UIColor.whiteColor()
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.backgroundColor = UIColor.clearColor()
-        } else {
-            textView.backgroundColor = UIColor.whiteColor()
-        }
-    }
-    
     func textViewDidChange(textView: UITextView) {
         resizeIfNeeded(textView)
     }
     
     func resizeIfNeeded(textView: UITextView) {
-        let temp = UITextView()
-        temp.font = textView.font
-        temp.bounces = false
-        temp.scrollEnabled = false
-        temp.text = textView.text
+        var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
+        if height < inputMinHeight {
+            height = inputMinHeight
+        }
+        if height > inputMaxHeight {
+            height = inputMaxHeight
+            textView.scrollEnabled = true
+            textView.bounces = true
+        } else {
+            textView.scrollEnabled = false
+            textView.bounces = false
+        }
         
-        let origWidth: CGFloat = textView.frame.size.width
-        var size = temp.sizeThatFits(CGSize(width: origWidth, height: CGFloat.max))
-        inputHeight = size.height
-        self.setNeedsUpdateConstraints()
-        self.updateConstraintsIfNeeded()
-        
-        UIView.animateWithDuration(0.3) {
-            self.layoutIfNeeded()
+        if height != inputHeight {
+            inputHeight = height
+            
+            setNeedsUpdateConstraints()
+            updateConstraintsIfNeeded()
+            UIView.animateWithDuration(0.2) {
+                self.layoutIfNeeded()
+            }
         }
     }
 }

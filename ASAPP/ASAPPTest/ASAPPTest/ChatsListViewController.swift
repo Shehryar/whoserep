@@ -66,7 +66,7 @@ extension ChatsListViewController: UITableViewDataSource {
         let reuseId = "cellReuseId"
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseId) ?? UITableViewCell(style: .Default, reuseIdentifier: reuseId)
         
-        cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 16)
+        cell.textLabel?.font = UIFont.systemFontOfSize(16)
         cell.accessoryType = .DisclosureIndicator
         
         switch indexPath.row {

@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
         navigationController.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSFontAttributeName : UIFont(name: "Lato-Bold", size: 18) ?? UIFont.systemFontOfSize(18)
+            NSFontAttributeName : UIFont.boldSystemFontOfSize(18)
         ]
         navigationController.navigationBar.barStyle = .Black
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
             NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSFontAttributeName : UIFont(name: "Lato-Regular", size: 16) ?? UIFont.systemFontOfSize(16)
+            NSFontAttributeName : UIFont.systemFontOfSize(16)
             ], forState: .Normal)
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
