@@ -23,6 +23,8 @@ class ASAPPChatViewController: UIViewController, ASAPPKeyboardObserverDelegate {
         self.view.backgroundColor = UIColor.whiteColor()
         renderInputView()
         renderChatView()
+        
+        updateViewConstraints()
     }
     
     override func viewWillAppear(animated: Bool) {

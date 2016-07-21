@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
         navigationController.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSFontAttributeName : UIFont.boldSystemFontOfSize(18)
+            NSFontAttributeName : UIFont.boldSystemFontOfSize(16)
         ]
         navigationController.navigationBar.barStyle = .Black
         

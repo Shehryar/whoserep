@@ -13,6 +13,8 @@ class ChatViewController: UIViewController {
     // MARK: Properties: Data
     
     var credentials: Credentials
+    var conversationManager: ConversationManager
+    
     var dataSource: ASAPPStateDataSource!
     var keyboardObserver = ASAPPKeyboardObserver()
     var keyboardOffset: CGFloat = 0 {
@@ -26,14 +28,22 @@ class ChatViewController: UIViewController {
     
     // MARK: Properties: UI
     
-    var chatView: ASAPPChatTableView!
+    var chatView: ChatMessagesView
     var chatInputView = ChatInputView()
     
     // MARK:- Initialization
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
+        self.conversationManager = ConversationManager(withCredentials: credentials)
+        self.chatView = ChatMessagesView(withConversationManager: self.conversationManager)
+        
         super.init(nibName: nil, bundle: nil)
+        
+        chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
+            self?.sendMessage(withText: messageText)
+            self?.chatInputView.clear()
+        }
         
         keyboardObserver.delegate = self
     }
@@ -53,18 +63,7 @@ class ChatViewController: UIViewController {
         
         view.backgroundColor = UIColor.whiteColor()
         
-        // Subviews
-        if let eventCenter = dataSource as? ASAPPStateEventCenter {
-            // Chat View
-            chatView = ASAPPChatTableView(stateDataSource: dataSource, eventCenter: eventCenter)
-            self.view.addSubview(chatView)
-        } else {
-            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
-        }
-        chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
-            self?.chatInputView.clear()
-        }
-        
+        view.addSubview(chatView)
         view.addSubview(chatInputView)
         
         updateViewConstraints()
@@ -72,37 +71,11 @@ class ChatViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         keyboardObserver.registerForNotifications()
-        
-        
-        // HACK
-        chatView.eventSource.clearAll()
-        let events = dataSource.eventsFromEventLog()
-        if events == nil {
-            return
-        }
-        
-        for event in events! {
-            if !event.isMessageEvent {
-                continue
-            }
-            let eInfo: [String: AnyObject] = [
-                "event": event,
-                "isNew": false
-            ]
-            chatView.eventSource.addObject(eInfo)
-        }
-        
-        chatView.reloadData()
-        
-        chatView.calculateHeightForAllCells()
-        chatView.scrollToBottom(false)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
         keyboardObserver.deregisterForNotification()
     }
 }
@@ -119,8 +92,8 @@ extension ChatViewController {
         
         chatView.snp_remakeConstraints { (make) in
             make.top.equalTo(self.view.snp_top)
-            make.leading.equalTo(self.view.snp_leading)
-            make.trailing.equalTo(self.view.snp_trailing)
+            make.left.equalTo(self.view.snp_left)
+            make.right.equalTo(self.view.snp_right)
             make.bottom.equalTo(chatInputView.snp_top)
         }
         
@@ -158,5 +131,12 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
 // MARK:- Managing Data
 
 extension ChatViewController {
-    
+    func sendMessage(withText text: String) {
+        
+        conversationManager.sendMessage(withText: text) { (error) in
+            if let error = error {
+                ASAPPLoge("Encountered error while sending message: \(text)\nError: \(error)")
+            }
+        }
+    }
 }

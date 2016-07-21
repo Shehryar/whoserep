@@ -45,6 +45,7 @@
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
+		308F29781D4188E800EC7055 /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29771D4188E800EC7055 /* ChatMessagesView.swift */; };
 		308FA9971D40008800D01329 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9931D40008800D01329 /* ASAPPConn.swift */; };
 		308FA9981D40008800D01329 /* ChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9941D40008800D01329 /* ChatAPI.swift */; };
 		308FA9991D40008800D01329 /* ChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA9951D40008800D01329 /* ChatClient.swift */; };
@@ -84,6 +85,7 @@
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		308F29771D4188E800EC7055 /* ChatMessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesView.swift; sourceTree = "<group>"; };
 		308FA9931D40008800D01329 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPConn.swift; path = "../Chat Client/ASAPPConn.swift"; sourceTree = "<group>"; };
 		308FA9941D40008800D01329 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
 		308FA9951D40008800D01329 /* ChatClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatClient.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			children = (
 				30AF19B21D412330004514FF /* ChatViewController.swift */,
 				308F296D1D414FBD00EC7055 /* ChatInputView.swift */,
+				308F29771D4188E800EC7055 /* ChatMessagesView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				30099DD11D3EDBC400171D56 /* ASAPPBubbleViewCell.swift in Sources */,
 				30AF19A91D411FD3004514FF /* ConversationManager.swift in Sources */,
 				30AF19AF1D41200D004514FF /* Credentials.swift in Sources */,
+				308F29781D4188E800EC7055 /* ChatMessagesView.swift in Sources */,
 				308FA9981D40008800D01329 /* ChatAPI.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				30099DD01D3EDBC400171D56 /* ASAPPBubbleView.swift in Sources */,

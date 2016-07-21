@@ -21,7 +21,8 @@ class ChatsListViewController: UIViewController {
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
-    let asapp = ASAPPv2()
+    let asapp1 = ASAPP(company:"vs-dev", userToken: "vs-cct-c6", isCustomer: true)
+    let asapp2 = ASAPPv2()
     
     // MARK:- Init
     
@@ -71,11 +72,11 @@ extension ChatsListViewController: UITableViewDataSource {
         
         switch indexPath.row {
         case Row.Customer.rawValue:
-            cell.textLabel?.text = "Customer Chat"
+            cell.textLabel?.text = "Chat v2"
             break
             
         case Row.Rep.rawValue:
-            cell.textLabel?.text = "Representative Chat"
+            cell.textLabel?.text = "Chat v1"
             break
             
         default:
@@ -90,26 +91,21 @@ extension ChatsListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        var chatViewController: UIViewController?
-        var viewControllerTitle = ""
-        
         switch indexPath.row {
         case Row.Customer.rawValue:
-            chatViewController = asapp.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true)
-            viewControllerTitle = "Customer Chat"
+            // v2
+            let chatViewController = asapp2.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true)
+            chatViewController.title = "Chat v2"
+            navigationController?.pushViewController(chatViewController, animated: true)
             break
             
         case Row.Rep.rawValue:
-            chatViewController = asapp.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: false)
-            viewControllerTitle = "Rep Chat"
+            let chatViewController = asapp1.viewControllerForChat()
+            chatViewController.title = "Chat v1"
+            navigationController?.pushViewController(chatViewController, animated: true)
             break
             
         default: break
-        }
-        
-        if let chatViewController = chatViewController {
-            chatViewController.title = viewControllerTitle
-            navigationController?.pushViewController(chatViewController, animated: true)
         }
     }
 }

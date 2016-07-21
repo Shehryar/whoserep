@@ -12,7 +12,7 @@ class ChatInputView: UIView {
 
     // MARK: Public Properties
     
-    public var onSendButtonTap: ((messageText: String) -> ())?
+    public var onSendButtonTap: ((messageText: String) -> Void)?
     
     public var canSendMessage: Bool = true {
         didSet {
