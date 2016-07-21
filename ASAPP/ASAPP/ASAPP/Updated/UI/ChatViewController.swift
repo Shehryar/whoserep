@@ -12,9 +12,11 @@ class ChatViewController: UIViewController {
     
     var credentials: Credentials
     
+    var keyboardObserver = ASAPPKeyboardObserver()
+    
     var chatView: ASAPPChatTableView!
     var input: ASAPPChatInputView!
-    var keyboardObserver: ASAPPKeyboardObserver!
+    
     var keyboardOffset: CGFloat = 0
     var dataSource: ASAPPStateDataSource!
     
@@ -22,12 +24,17 @@ class ChatViewController: UIViewController {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        
         super.init(nibName: nil, bundle: nil)
+        
+        keyboardObserver.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        keyboardObserver.delegate = nil
     }
     
     // MARK:- View
@@ -35,21 +42,31 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        automaticallyAdjustsScrollViewInsets = true
-        renderInputView()
-        renderChatView()
+        // Subviews
+        if let eventCenter = dataSource as? ASAPPStateEventCenter {
+            // Input View
+            if let action = dataSource as? ASAPPStateAction {
+                input = ASAPPChatInputView(dataSource: dataSource, eventCenter: eventCenter, action: action)
+                self.view.addSubview(input)
+            } else {
+                ASAPPLoge("Invalid dataSource passed which cannot be cast into action")
+            }
+            
+            // Chat View
+            chatView = ASAPPChatTableView(stateDataSource: dataSource, eventCenter: eventCenter)
+            self.view.addSubview(chatView)
+        } else {
+            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
+        }
         
         updateViewConstraints()
     }
     
     override func viewWillAppear(animated: Bool) {
-        if keyboardObserver == nil {
-            keyboardObserver = ASAPPKeyboardObserver()
-            keyboardObserver.delegate = self
-        }
+        super.viewWillAppear(animated)
         
         keyboardObserver.registerForNotifications()
+        
         
         // HACK
         chatView.eventSource.clearAll()
@@ -76,43 +93,10 @@ class ChatViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if keyboardObserver != nil {
-            keyboardObserver.deregisterForNotification()
-        }
+        super.viewWillDisappear(animated)
+        
+        keyboardObserver.deregisterForNotification()
     }
-    
-    // MARK:- Touches
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        input.textView.resignFirstResponder()
-    }
-    
-    // MARK:- ChatView
-    
-    func renderChatView() {
-        if let eventCenter = dataSource as? ASAPPStateEventCenter {
-            chatView = ASAPPChatTableView(stateDataSource: dataSource, eventCenter: eventCenter)
-            self.view.addSubview(chatView)
-        } else {
-            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
-        }
-    }
-    
-    // MARK: - InputView
-    
-    func renderInputView() {
-        if let eventCenter = dataSource as? ASAPPStateEventCenter {
-            if let action = dataSource as? ASAPPStateAction {
-                input = ASAPPChatInputView(dataSource: dataSource, eventCenter: eventCenter, action: action)
-                self.view.addSubview(input)
-            } else {
-                ASAPPLoge("Invalid dataSource passed which cannot be cast into action")
-            }
-        } else {
-            ASAPPLoge("Invalid dataSource passed which cannot be cast into eventCenter")
-        }
-    }
-    
 }
 
 // MARK:- Layout
