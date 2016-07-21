@@ -36,7 +36,7 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.blueColor()
+        automaticallyAdjustsScrollViewInsets = true
         renderInputView()
         renderChatView()
         
@@ -133,6 +133,14 @@ extension ChatViewController {
         }
         
         super.updateViewConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let navigationBar = navigationController?.navigationBar {
+            chatView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(navigationBar.frame), 0, 0, 0)
+        }
     }
 }
 
