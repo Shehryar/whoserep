@@ -28,7 +28,7 @@ class ChatInputView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
+        backgroundColor = Colors.offWhiteColor()
         translatesAutoresizingMaskIntoConstraints = false
         
         borderTopView.backgroundColor = Colors.lightGrayColor()
@@ -60,8 +60,9 @@ class ChatInputView: UIView {
         textView.layer.borderColor = Colors.lightGrayColor().CGColor
         textView.layer.borderWidth = 1
         textView.backgroundColor = UIColor.whiteColor()
+        textView.tintColor = Colors.grayColor()
         textView.font = Fonts.latoRegularFont(withSize: 16)
-        textView.textColor = UIColor(red: 57/255, green: 61/255, blue: 71/255, alpha: 0.6)
+        textView.textColor = Colors.mediumTextColor()
         textView.bounces = false
         textView.scrollEnabled = false
         textView.sizeToFit()
