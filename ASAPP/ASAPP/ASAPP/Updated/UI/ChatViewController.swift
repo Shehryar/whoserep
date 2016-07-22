@@ -72,11 +72,17 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
+        conversationManager.connectIfNeeded()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        conversationManager.disconnect()
     }
 }
 

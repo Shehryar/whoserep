@@ -20,7 +20,7 @@ class Images: NSObject {
     }
     
     private class func imageWithName(name: String) -> UIImage? {
-        return UIImage(named: "icon_camera-dark", inBundle: framework, compatibleWithTraitCollection: nil)
+        return UIImage(named: name, inBundle: framework, compatibleWithTraitCollection: nil)
     }
     
     private class func modifiedImage(image: UIImage?, tintColor: UIColor? = nil, fillColor: UIColor?  = nil, alpha: CGFloat = 1) -> UIImage? {
