@@ -15,7 +15,7 @@ class FullCredentials: Object {
     dynamic var userToken: String? = nil
     dynamic var isCustomer: Bool = true
     
-    dynamic var targetCustomerToken: String = ""
+    dynamic var targetCustomerToken: String?
     dynamic var myId: Int = 0
     dynamic var customerTargetCompanyId: Int = 0
     dynamic var issueId: Int = 0

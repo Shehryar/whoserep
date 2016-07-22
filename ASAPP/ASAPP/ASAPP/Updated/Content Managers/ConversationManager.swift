@@ -27,18 +27,9 @@ class ConversationManager: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        self.socketConnection = ChatSocketConnection()
+        self.socketConnection = ChatSocketConnection(withCredentials: self.credentials)
         self.conversationStore = ConversationStore(withCredentials: self.credentials)
         super.init()
-        
-        self.socketConnection.dataSource = self
-        self.socketConnection.onFullCredentialsUpdate = { [weak self] (fullCredentials, value, keyPath) in
-            self?.conversationStore.updateFullCredentials(value, forKeyPath: keyPath)
-        }
-    }
-    
-    deinit {
-        socketConnection.dataSource = nil
     }
 }
 
@@ -54,43 +45,6 @@ extension ConversationManager {
     }
     
     func sendMessage(withText text: String, completionHandler: ((error: NSError?) -> Void)?) {
-        var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
-        var params = ["Text" : text]
-        socketConnection.sendRequest(withPath: path, params: params) { (message) in
-            
-        }
-    }
-}
-
-// MARK:- ChatSockectConnectionDataSource
-
-extension ConversationManager: ChatSockectConnectionDataSource {
-    func targetCustomerTokenForSocketConnection(socketConnection: ChatSocketConnection) -> Int? {
-        return 0
-    }
-    
-    func customerTargetCompanyIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int {
-        return 0
-    }
-    
-    func nextRequestIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int {
-        var reqId = 1
-        
-        objc_sync_enter(self)
-        if let curReqId = conversationStore.fullCredentials?.reqId {
-            reqId = curReqId + 1
-        }
-        conversationStore.updateFullCredentials(reqId, forKeyPath: "reqId")
-        objc_sync_exit(self)
-        
-        return reqId
-    }
-    
-    func issueIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int {
-        return 0
-    }
-    
-    func fullCredentialsForSocketConnection(socketConnection: ChatSocketConnection) -> FullCredentials? {
-        return conversationStore.fullCredentials
+       socketConnection.sendChatMessage(withText: text)
     }
 }

@@ -7,50 +7,35 @@
 //
 
 import UIKit
-
-// MARK: ChatSockectConnectionDataSource
-
-protocol ChatSockectConnectionDataSource {
-    func targetCustomerTokenForSocketConnection(socketConnection: ChatSocketConnection) -> Int?
-    func customerTargetCompanyIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int
-    func nextRequestIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int
-    func issueIdForSocketConnection(socketConnection: ChatSocketConnection) -> Int
-    func fullCredentialsForSocketConnection(socketConnection: ChatSocketConnection) -> FullCredentials?
-}
-
-// MARK: ChatSocketConnectionDelegate {
-
-protocol ChatSocketConnectionDelegate {
-    func chatSocketConnection(chatSocketConnection: ChatSocketConnection, didUpdateFullCredentials: FullCredentials, value: AnyObject?, forKeyPath keyPath: String)
-}
+import SocketRocket
 
 // MARK:- ChatSocketConnection
 
 class ChatSocketConnection: SocketConnection {
     
-    // Websocket Message Types
-    enum MessageType: String {
-        case Response = "Response"
-        case Event = "Event"
-        case ResponseError = "ResponseError"
-    }
+    typealias ChatSocketMessageHandler = ((response: ChatSocketMessageResponse?) -> Void)
     
     // MARK: Properties
     
-    var dataSource: ChatSockectConnectionDataSource?
+    private(set) public var credentials: Credentials
     
-    var onFullCredentialsUpdate: ((fullCredentials: FullCredentials, value: AnyObject?, keyPath: String) -> Void)?
+    private var fullCredentials: FullCredentials
+    
+    private var requestHandlers = [Int : ChatSocketMessageHandler]()
     
     let sessionKey = "ASAPP_SESSION_KEY"
     
     // MARK: Initialization
     
-    init() {
+    init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
+        self.fullCredentials = FullCredentials(withCredentials: self.credentials)
+        
         var connectionRequest = NSMutableURLRequest()
         connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
-        
+
         super.init(withConnectionRequest: connectionRequest)
     }
     
@@ -62,30 +47,38 @@ class ChatSocketConnection: SocketConnection {
 // MARK:- Sending Requests
 
 extension ChatSocketConnection {
-    
-    // MARK: Sending Messages
-    
     public func sendRequest(withPath path: String,
                                      params: [String: AnyObject]? = nil,
                                      context: [String: AnyObject]? = nil,
-                                     requestHandler: ((message: AnyObject?) -> Void)? = nil) {
-        guard let dataSource = dataSource else {
-            ASAPPLoge("ChatSocketConnection missing dataSource")
-            return
-        }
+                                     requestHandler: ((response: ChatSocketMessageResponse?) -> Void)? = nil) {
         
-        // NOTE: Request handler was here
-        
-        let requestId = dataSource.nextRequestIdForSocketConnection(self)
+        let requestId = nextRequestId()
         let paramsJSON = paramsJSONForParams(params)
         let contextJSON = contextJSONForContext(context ?? defaultContextForRequestWithPath(path))
         let requestString = String(format: "%@|%d|%@|%@", path, requestId, contextJSON, paramsJSON)
         
-        sendMessage(withString: requestString)
+        if let requestHandler = requestHandler {
+            requestHandlers[requestId] = requestHandler
+        }
+        
+        makeRequestWithString(requestString)
     }
     
-    // MARK: Private Utilities
+    public func sendChatMessage(withText text: String) {
+        var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
+        sendRequest(withPath: path, params: ["Text" : text])
+    }
+}
 
+// MARK:- Request Utilites
+
+extension ChatSocketConnection {
+    func nextRequestId() -> Int {
+        fullCredentials.reqId += 1
+        
+        return fullCredentials.reqId
+    }
+    
     func requestWithPathIsCustomerEndpoint(path: String?) -> Bool {
         if let path = path {
             return path.hasPrefix("customer/")
@@ -94,15 +87,10 @@ extension ChatSocketConnection {
     }
     
     func defaultContextForRequestWithPath(path: String) -> [String: AnyObject] {
-        guard let dataSource = dataSource else {
-            ASAPPLoge("ChatSocketConnection missing dataSource")
-            return [:]
-        }
-        
-        var context = ["CompanyId": dataSource.customerTargetCompanyIdForSocketConnection(self)]
+        var context = [ "CompanyId" : fullCredentials.customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
-            if dataSource.targetCustomerTokenForSocketConnection(self) != nil {
-                context = ["IssueId" : dataSource.issueIdForSocketConnection(self)]
+            if fullCredentials.targetCustomerToken != nil {
+                context = [ "IssueId" : fullCredentials.issueId ]
             }
         }
         return context
@@ -139,24 +127,44 @@ extension ChatSocketConnection {
     }
 }
 
-// MARK:- Updates for Connection Status
+// MARK:- Overriding SocketRocketDelegate
 
 extension ChatSocketConnection {
-    override func connectionStatusDidChange() {
-        guard let dataSource = dataSource else {
-            ASAPPLoge("Missing dataSource for ChatSocketConnection")
+    override func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+        DebugLog("\n\n\nReceived Message:\n\(message)\n\n\n")
+        
+        let response = ChatSocketMessageResponse(withResponse: message)
+        guard let type = response.type else {
+            DebugLogError("Unable to determine type from response: \(message)")
             return
         }
         
-        print("\n\n\nConnection Status Did Change\n\n")
-        
-        if isConnected {
-            if let fullCredentials = dataSource.fullCredentialsForSocketConnection(self) {
-                authenticate(withFullCredentials: fullCredentials)
-            } else {
-                ASAPPLoge("Unable to authenticate because ChatSocketConnection.dataSource returned nil FullCredentials")
+        switch type {
+        case .Response:
+            if let requestId = response.requestId {
+                if let handler = requestHandlers[requestId] {
+                    handler(response: response)
+                    requestHandlers[requestId] = nil
+                }
             }
+            break;
+            
+        case .Event:
+            if let body = response.body {
+                delegate?.socketConnection(self, didReceiveMessage: body)
+            }
+            break
+            
+        case .ResponseError:
+            DebugLogError("Received Response Error: \(message)")
+            break
         }
+    }
+    
+    override func webSocketDidOpen(webSocket: SRWebSocket!) {
+        super.webSocketDidOpen(webSocket)
+        
+        authenticate()
     }
 }
 
@@ -164,23 +172,25 @@ extension ChatSocketConnection {
 
 extension ChatSocketConnection {
     
-    public func authenticate(withFullCredentials fullCredentials: FullCredentials) {
+    public func authenticate() {
         if let sessionInfo = fullCredentials.sessionInfo {
-            authenticateWithSession(sessionInfo, fullCredentials: fullCredentials)
+            authenticateWithSession(sessionInfo)
         } else if let userToken = fullCredentials.userToken {
             if fullCredentials.isCustomer {
-                authenticateCustomerWithToken(userToken, fullCredentials: fullCredentials)
+                authenticateCustomerWithToken(userToken)
             } else {
-                authenticateWithToken(userToken, fullCredentials: fullCredentials)
+                authenticateNonCustomerWithToken(userToken)
             }
         } else {
-            createAnonAccount(withFullCredentials: fullCredentials)
+            createAnonAccount()
         }
     }
     
     // MARK: Private Utilities
     
-    func authenticateWithSession(session: String, fullCredentials: FullCredentials) {
+    func authenticateWithSession(session: String) {
+        print("\n\nAuthenticating with session \(session)\n\n")
+        
         guard let jsonObject = try? NSJSONSerialization.JSONObjectWithData(session.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject] else {
             return
         }
@@ -189,32 +199,28 @@ extension ChatSocketConnection {
             "SessionInfo": jsonObject!,
             "App": "ios-sdk"
         ]
-        sendRequest(withPath: "auth/AuthenticateWithSession", params: params) { [weak self] (message) in
-            guard self != nil else {
-                return
-            }
-            
-            if let authInfo = message as? String {
-                self?.handleAuthIfNeeded(authInfo, fullCredentials: fullCredentials)
-            }
+        sendRequest(withPath: "auth/AuthenticateWithSession", params: params) { [weak self] (response) in
+            self?.handleAuthIfNeeded(response)
         }
     }
     
-    func authenticateCustomerWithToken(token: String, fullCredentials: FullCredentials) {
+    func authenticateCustomerWithToken(token: String) {
+        print("\n\nAuthenticating customer with token \(token)\n\n")
+        
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",
             "Identifiers": token,
             "App": "ios-sdk"
         ]
         
-        sendRequest(withPath: "auth/AuthenticateWithCustomerToken", params: params) { [weak self] (message) in
-            if let authInfo = message as? String {
-                self?.handleAuthIfNeeded(authInfo, fullCredentials: fullCredentials)
-            }
+        sendRequest(withPath: "auth/AuthenticateWithCustomerToken", params: params) { [weak self] (response) in
+            self?.handleAuthIfNeeded(response)
         }
     }
     
-    func authenticateWithToken(token: String, fullCredentials: FullCredentials) {
+    func authenticateNonCustomerWithToken(token: String) {
+        print("\n\nAuthenticating non-customer with token \(token)\n\n")
+        
         let params: [String: AnyObject] = [
             "Company": "vs-dev",
             "AuthCallbackData": token,
@@ -222,66 +228,56 @@ extension ChatSocketConnection {
             "CountConnectionForIssueTimeout": false,
             "App": "ios-sdk"
         ]
-        sendRequest(withPath: "auth/AuthenticateWithSalesForceToken", params: params) { [weak self] (message) in
-            if let authInfo = message as? String {
-                self?.handleAuthIfNeeded(authInfo, fullCredentials: fullCredentials)
-            }
+        sendRequest(withPath: "auth/AuthenticateWithSalesForceToken", params: params) { [weak self] (response) in
+            self?.handleAuthIfNeeded(response)
         }
     }
     
-    func createAnonAccount(withFullCredentials fullCredentials: FullCredentials) {
+    func createAnonAccount() {
+        print("\n\nCreating anon account")
+        
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",
             "RegionCode": "US"
         ]
-        sendRequest(withPath: "auth/CreateAnonCustomerAccount", params: params) { [weak self] (message) in
-            if let authInfo = message as? String {
-                self?.handleAuthIfNeeded(authInfo, fullCredentials: fullCredentials)
-            }
+        sendRequest(withPath: "auth/CreateAnonCustomerAccount", params: params) { [weak self] (response) in
+            self?.handleAuthIfNeeded(response)
         }
     }
     
-    func handleAuthIfNeeded(authInfo: String, fullCredentials: FullCredentials) {
-        guard let onFullCredentialsUpdate = onFullCredentialsUpdate else {
-            ASAPPLoge("Missing onFullCredentialsUpdate in ChatSocketConnection")
+    func handleAuthIfNeeded(response: ChatSocketMessageResponse?) {
+        guard let response = response else {
             return
         }
         
-        
-        if authInfo == "null" {
-            return
-        }
-        do {
-            let jsonObj = try NSJSONSerialization.JSONObjectWithData(authInfo.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! [String: AnyObject]
-            
+        if let jsonObj = response.serializedbody {
             if let sessionInfo = jsonObj["SessionInfo"] as? [String: AnyObject] {
-                let jsonData = try NSJSONSerialization.dataWithJSONObject(sessionInfo, options: [])
-                onFullCredentialsUpdate(fullCredentials: fullCredentials, value: String(data: jsonData, encoding: NSUTF8StringEncoding), keyPath: "sessionInfo")
+                if let jsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfo, options: []) {
+                    fullCredentials.sessionInfo = String(data: jsonData, encoding: NSUTF8StringEncoding)
+                }
                 
                 if let company = sessionInfo["Company"] as? [String: AnyObject] {
                     if let companyId = company["CompanyId"] as? Int {
-                        onFullCredentialsUpdate(fullCredentials: fullCredentials, value: companyId, keyPath: "customerTargetCompanyId")
+                        fullCredentials.customerTargetCompanyId = companyId
                     }
                 }
                 
                 if fullCredentials.isCustomer {
                     if let customer = sessionInfo["Customer"] as? [String: AnyObject] {
-                        if let rawId = customer["CustomerId"] as? UInt {
-                            onFullCredentialsUpdate(fullCredentials: fullCredentials, value: rawId, keyPath: "myId")
+                        if let rawId = customer["CustomerId"] as? Int {
+                            fullCredentials.myId = rawId
                         }
                     }
                 } else {
                     if let customer = sessionInfo["Rep"] as? [String: AnyObject] {
-                        if let rawId = customer["RepId"] as? UInt {
-                            onFullCredentialsUpdate(fullCredentials: fullCredentials, value: rawId, keyPath: "myId")
+                        if let rawId = customer["RepId"] as? Int {
+                            fullCredentials.myId = rawId
                         }
                     }
                 }
                 
 //                fire(.Auth, info: nil)
             }
-        } catch let err as NSError {
-            ASAPPLoge(err)
         }
     }
 }

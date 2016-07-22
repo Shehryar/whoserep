@@ -21,8 +21,7 @@ class ChatsListViewController: UIViewController {
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
-    let asapp1 = ASAPP(company:"vs-dev", userToken: "vs-cct-c6", isCustomer: true)
-    let asapp2 = ASAPPv2()
+    let asapp = ASAPPv2()
     
     // MARK:- Init
     
@@ -76,7 +75,7 @@ extension ChatsListViewController: UITableViewDataSource {
             break
             
         case Row.Rep.rawValue:
-            cell.textLabel?.text = "Chat v1"
+            cell.textLabel?.text = "No action"
             break
             
         default:
@@ -94,15 +93,13 @@ extension ChatsListViewController: UITableViewDelegate {
         switch indexPath.row {
         case Row.Customer.rawValue:
             // v2
-            let chatViewController = asapp2.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true)
+            let chatViewController = asapp.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true)
             chatViewController.title = "Chat v2"
             navigationController?.pushViewController(chatViewController, animated: true)
             break
             
         case Row.Rep.rawValue:
-            let chatViewController = asapp1.viewControllerForChat()
-            chatViewController.title = "Chat v1"
-            navigationController?.pushViewController(chatViewController, animated: true)
+            
             break
             
         default: break

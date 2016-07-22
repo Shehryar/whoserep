@@ -20,8 +20,6 @@ protocol SocketConnectionDelegate {
 
 class SocketConnection: NSObject {
     
-    typealias SocketMessageHandler = ((message: AnyObject?) -> Void)
-    
     // MARK: Public Properties
     
     public var connectionRequest: NSURLRequest
@@ -103,21 +101,15 @@ extension SocketConnection {
 // MARK:- Sending Messages
 
 extension SocketConnection {
-    func sendMessage(withString messageString: String) {
+    func makeRequestWithString(requestString: String) {
         // TODO: maybe attempt connection, maintain queue of messages to send on connection?
         if !isConnected {
-            ASAPPLoge("Socket is not connected...")
+            DebugLogError("Socket is not connected...")
         }
         
-        socket?.send(messageString)
-    }
-}
-
-// MARK:- Internal Connection Changes
-
-extension SocketConnection {
-    internal func connectionStatusDidChange() {
-        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
+        DebugLog("\n\nSending request: \(requestString)\n\n")
+        
+        socket?.send(requestString)
     }
 }
 
@@ -127,27 +119,23 @@ extension SocketConnection: SRWebSocketDelegate {
     // MARK: Receiving Messages
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        print("\n\nReceived message:\n\(message)\n\n")
+        DebugLog("\n\nReceived message:\n\(message)\n\n")
         
         delegate?.socketConnection(self, didReceiveMessage: message)
-    }
-    
-    func webSocket(webSocket: SRWebSocket!, didReceivePong pongPayload: NSData!) {
-        // No-op for now
     }
     
     // MARK: Connection Opening/Closing
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        connectionStatusDidChange()
+        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        connectionStatusDidChange()
+        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        connectionStatusDidChange()
+        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
 }
 

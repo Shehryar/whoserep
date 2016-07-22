@@ -38,15 +38,13 @@ class ConversationStore: NSObject {
         super.init()
         
         self.realm = loadOrCreateRealm(withCredentials: self.credentials)
-        self.fullCredentialsResults = loadOrCreateFullCredentialsResults(withCredentials: self.credentials)
-        self.messageEventsResults = loadOrCreateMessageEventResults()
+        self.messageEventsResults = self.realm?.objects(Event.self)
     }
 }
 
 // MARK:- Realm Setup Utilities
 
 extension ConversationStore {
-    // MARK: Utility
     
     func realmFileURL(withCredentials credentials: Credentials) -> NSURL {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
@@ -55,52 +53,24 @@ extension ConversationStore {
         return NSURL(fileURLWithPath: filePath)
     }
     
-    // MARK: Creation
-    
     func loadOrCreateRealm(withCredentials credentials: Credentials) -> Realm? {
         let fileURL = realmFileURL(withCredentials: credentials)
         
-        ASAPPLog("Loading Realm with FileURL: ", fileURL.path)
+        DebugLog("Loading Realm with FileURL: \(fileURL.path)")
         
         if !NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
             let success = NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: nil, attributes: nil)
-            ASAPPLog("REALM created file: ", success)
+            DebugLog("REALM created file: \(success)")
         }
         
         let realm = try? Realm(fileURL: fileURL)
         if let realm = realm {
-            ASAPPLog("REALM initialized with file:", realm.configuration.fileURL)
+            DebugLog("REALM initialized with file: \(realm.configuration.fileURL)")
         } else {
-            ASAPPLoge("Failed to initialize REALM")
+            DebugLog("Failed to initialize REALM")
         }
         
         return realm
-    }
-    
-    func loadOrCreateFullCredentialsResults(withCredentials credentials: Credentials) -> Results<FullCredentials>? {
-        guard let realm = realm else {
-            ASAPPLoge("Realm was not properly created.")
-            return nil
-        }
-        
-        var storedFullCredentials = realm.objects(FullCredentials.self)
-        if storedFullCredentials.count == 0 {
-            var newFullCredentials = FullCredentials(withCredentials: self.credentials)
-            try! realm.write({
-                realm.add(newFullCredentials)
-            })
-            storedFullCredentials = realm.objects(FullCredentials.self)
-        }
-        return storedFullCredentials
-    }
-    
-    func loadOrCreateMessageEventResults() -> Results<Event>? {
-        guard let realm = realm else {
-            ASAPPLoge("Realm was not properly created.")
-            return nil
-        }
-        
-        return realm.objects(Event.self)
     }
 } 
 
