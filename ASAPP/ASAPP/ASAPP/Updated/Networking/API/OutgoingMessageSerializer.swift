@@ -12,6 +12,8 @@ class OutgoingMessageSerializer: NSObject {
     
     // MARK: Pubic Properties
     
+    private(set) var credentials: Credentials
+    
     var myId: Int = 0
     var issueId: Int = 0
     var sessionInfo: String?
@@ -24,7 +26,8 @@ class OutgoingMessageSerializer: NSObject {
 
     // MARK: Init 
     
-    override init() {
+    init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
         super.init()
     }
 }
@@ -38,6 +41,85 @@ extension OutgoingMessageSerializer {
         let contextJSONString = jsonStringify(contextForRequest(withPath: path))
 
         return ("\(path)|\(requestId)|\(contextJSONString)|\(paramsJSONString)", requestId)
+    }
+    
+    func createAuthRequest() -> (path: String, params: [String : AnyObject]) {
+        var path: String
+        var params: [String : AnyObject]
+        
+        if let sessionInfo = sessionInfo {
+            // Session
+            path = "auth/AuthenticateWithSession"
+            params =  [
+                "SessionInfo": sessionInfo, // convert to json?
+                "App": "ios-sdk"
+            ]
+        } else if let userToken = credentials.userToken {
+            // Customer w/ Token
+            if credentials.isCustomer {
+                path = "auth/AuthenticateWithCustomerToken"
+                params = [
+                    "CompanyMarker": "vs-dev",
+                    "Identifiers": userToken,
+                    "App": "ios-sdk"
+                ]
+            } else {
+                // Non-customer w/ Token
+                path = "auth/AuthenticateWithSalesForceToken"
+                params = [
+                    "Company": "vs-dev",
+                    "AuthCallbackData": userToken,
+                    "GhostEmailAddress": "",
+                    "CountConnectionForIssueTimeout": false,
+                    "App": "ios-sdk"
+                ]
+            }
+        } else {
+            // Anonymous User
+            path = "auth/CreateAnonCustomerAccount"
+            params = [
+                "CompanyMarker": "vs-dev",
+                "RegionCode": "US"
+            ]
+        }
+        
+        return (path, params)
+    }
+    
+    func updateWithAuthResponse(response: IncomingMessage) {
+        guard let jsonObj = response.body else {
+            DebugLogError("Authentication response missing body: \(response)")
+            return
+        }
+        
+        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] else {
+            DebugLogError("Authentication response missing sessionInfo: \(response)")
+            return
+        }
+        
+        if let sessionJsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfoDict, options: []) {
+            sessionInfo = String(data: sessionJsonData, encoding: NSUTF8StringEncoding)
+        }
+        
+        if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
+            if let companyId = company["CompanyId"] as? Int {
+                customerTargetCompanyId = companyId
+            }
+        }
+        
+        if credentials.isCustomer {
+            if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
+                if let rawId = customer["CustomerId"] as? Int {
+                    myId = rawId
+                }
+            }
+        } else {
+            if let customer = sessionInfoDict["Rep"] as? [String: AnyObject] {
+                if let rawId = customer["RepId"] as? Int {
+                    myId = rawId
+                }
+            }
+        }
     }
 }
 
@@ -67,11 +149,11 @@ extension OutgoingMessageSerializer {
         return ""
     }
     
-    func requestWithPathIsCustomerEndpoint(path: String) -> Bool {
+    private func requestWithPathIsCustomerEndpoint(path: String) -> Bool {
         return path.hasPrefix("customer/")
     }
     
-    func contextForRequest(withPath path: String) -> [String : AnyObject] {
+    private func contextForRequest(withPath path: String) -> [String : AnyObject] {
         var context = [ "CompanyId" : customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {

@@ -45,7 +45,7 @@ class SocketConnection: NSObject {
     
     private var socket: SRWebSocket?
     
-    private var outgoingMessageSerializer = OutgoingMessageSerializer()
+    private var outgoingMessageSerializer: OutgoingMessageSerializer
     
     private var incomingMessageSerializer = IncomingMessageSerializer()
     
@@ -57,6 +57,7 @@ class SocketConnection: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
+        self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
     }
     
@@ -141,83 +142,10 @@ extension SocketConnection {
 
 extension SocketConnection {
     func authenticate() {
-        var path: String
-        var params: [String : AnyObject]
-        
-        if let sessionInfo = outgoingMessageSerializer.sessionInfo {
-            // Session
-            path = "auth/AuthenticateWithSession"
-            params =  [
-                "SessionInfo": sessionInfo, // convert to json?
-                "App": "ios-sdk"
-            ]
-        } else if let userToken = credentials.userToken {
-            // Customer w/ Token
-            if credentials.isCustomer {
-                path = "auth/AuthenticateWithCustomerToken"
-                params = [
-                    "CompanyMarker": "vs-dev",
-                    "Identifiers": userToken,
-                    "App": "ios-sdk"
-                ]
-            } else {
-                // Non-customer w/ Token
-                path = "auth/AuthenticateWithSalesForceToken"
-                params = [
-                    "Company": "vs-dev",
-                    "AuthCallbackData": userToken,
-                    "GhostEmailAddress": "",
-                    "CountConnectionForIssueTimeout": false,
-                    "App": "ios-sdk"
-                ]
-            }
-        } else {
-            // Anonymous User
-            path = "auth/CreateAnonCustomerAccount"
-            params = [
-                "CompanyMarker": "vs-dev",
-                "RegionCode": "US"
-            ]
-        }
+        let (path, params) = outgoingMessageSerializer.createAuthRequest()
         
         sendRequest(withPath: path, params: params) { [weak self] (message) in
-            self?.handleAuthenticationResponse(message)
-        }
-    }
-    
-    func handleAuthenticationResponse(response: IncomingMessage) {
-        guard let jsonObj = response.body else {
-            DebugLogError("Authentication response missing body: \(response)")
-            return
-        }
-        
-        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] else {
-            DebugLogError("Authentication response missing sessionInfo: \(response)")
-            return
-        }
-        
-        if let sessionJsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfoDict, options: []) {
-            outgoingMessageSerializer.sessionInfo = String(data: sessionJsonData, encoding: NSUTF8StringEncoding)
-        }
-        
-        if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
-            if let companyId = company["CompanyId"] as? Int {
-                outgoingMessageSerializer.customerTargetCompanyId = companyId
-            }
-        }
-        
-        if credentials.isCustomer {
-            if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
-                if let rawId = customer["CustomerId"] as? Int {
-                    outgoingMessageSerializer.myId = rawId
-                }
-            }
-        } else {
-            if let customer = sessionInfoDict["Rep"] as? [String: AnyObject] {
-                if let rawId = customer["RepId"] as? Int {
-                    outgoingMessageSerializer.myId = rawId
-                }
-            }
+            self?.outgoingMessageSerializer.updateWithAuthResponse(message)
         }
     }
 }
