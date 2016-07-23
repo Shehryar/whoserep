@@ -15,7 +15,6 @@ class ChatViewController: UIViewController {
     var credentials: Credentials
     var conversationManager: ConversationManager
     
-    var dataSource: ASAPPStateDataSource!
     var keyboardObserver = ASAPPKeyboardObserver()
     var keyboardOffset: CGFloat = 0 {
         didSet {

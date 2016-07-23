@@ -62,15 +62,8 @@ public class ASAPPv2: NSObject {
         let credentials = Credentials(withCompany: company,
                                       userToken: userToken,
                                       isCustomer: isCustomer)
-        
-        let viewController = ChatViewController(withCredentials: credentials)
-        
-        // TODO: remove this later
-        let mState = ASAPPState()
-        mState.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
-        viewController.dataSource = mState
-        
-        return viewController
+            
+        return ChatViewController(withCredentials: credentials)
     }
 }
 

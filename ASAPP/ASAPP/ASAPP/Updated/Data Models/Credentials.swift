@@ -13,8 +13,9 @@ class Credentials: NSObject {
     // MARK:- Properties
     
     var companyMarker: String
-    var userToken: String?
     var isCustomer: Bool
+    var userToken: String?
+    var targetCustomerToken: String?
         
     // MARK:- Initialization
     

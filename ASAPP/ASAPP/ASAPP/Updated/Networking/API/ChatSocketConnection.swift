@@ -19,17 +19,19 @@ class ChatSocketConnection: SocketConnection {
     
     private(set) public var credentials: Credentials
     
-    private var fullCredentials: FullCredentials
-    
     private var requestHandlers = [Int : ChatSocketMessageHandler]()
     
-    let sessionKey = "ASAPP_SESSION_KEY"
+    private var requestId: Int = 0
+    
+    private var myId: Int = 0
+    private var issueId: Int = 0
+    private var sessionInfo: String?
+    private var customerTargetCompanyId: Int = 0
     
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        self.fullCredentials = FullCredentials(withCredentials: self.credentials)
         
         var connectionRequest = NSMutableURLRequest()
         connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
@@ -53,7 +55,7 @@ extension ChatSocketConnection {
         
         let requestId = nextRequestId()
         let paramsJSON = paramsJSONForParams(params)
-        let contextJSON = contextForRequestWithPath(path)
+        let contextJSON = contextJSONForRequestWithPath(path)
         let requestString = String(format: "%@|%d|%@|%@", path, requestId, contextJSON, paramsJSON)
         
         if let requestHandler = requestHandler {
@@ -73,9 +75,8 @@ extension ChatSocketConnection {
 
 extension ChatSocketConnection {
     func nextRequestId() -> Int {
-        fullCredentials.reqId += 1
-        
-        return fullCredentials.reqId
+        requestId++
+        return requestId
     }
     
     func requestWithPathIsCustomerEndpoint(path: String?) -> Bool {
@@ -85,14 +86,24 @@ extension ChatSocketConnection {
         return false
     }
     
-    func contextForRequestWithPath(path: String) -> [String: AnyObject] {
-        var context = [ "CompanyId" : fullCredentials.customerTargetCompanyId ]
+    func contextJSONForRequestWithPath(path: String) -> String {
+        var context = [ "CompanyId" : customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
-            if fullCredentials.targetCustomerToken != nil {
-                context = [ "IssueId" : fullCredentials.issueId ]
+            if credentials.targetCustomerToken != nil {
+                context = [ "IssueId" : issueId ]
             }
         }
-        return context
+        
+        var contextJSON = "{}"
+        if NSJSONSerialization.isValidJSONObject(context) {
+            do {
+                let rawJSON = try NSJSONSerialization.dataWithJSONObject(context, options: .PrettyPrinted)
+                contextJSON = String(data: rawJSON, encoding: NSUTF8StringEncoding)!
+            } catch {
+                NSLog("ERROR: JSON Serialization failed")
+            }
+        }
+        return contextJSON
     }
     
     func paramsJSONForParams(params: [String: AnyObject]?) -> String {
@@ -136,7 +147,7 @@ extension ChatSocketConnection {
             return
         }
         
-        DebugLog("\n\n\nReceived Message:\n\(response.serializedbody ?? response.originalMessage)\n\n\n")
+        DebugLog("\nReceived Message:\n\(response.serializedbody ?? response.originalMessage)\n")
         
         switch type {
         case .Response:
@@ -155,7 +166,7 @@ extension ChatSocketConnection {
             break
             
         case .ResponseError:
-            DebugLogError("Received Response Error: \(message)")
+            DebugLogError("\nReceived Response Error: \(message)\n")
             break
         }
     }
@@ -172,10 +183,10 @@ extension ChatSocketConnection {
 extension ChatSocketConnection {
     
     public func authenticate() {
-        if let sessionInfo = fullCredentials.sessionInfo {
+        if let sessionInfo = sessionInfo {
             authenticateWithSession(sessionInfo)
-        } else if let userToken = fullCredentials.userToken {
-            if fullCredentials.isCustomer {
+        } else if let userToken = credentials.userToken {
+            if credentials.isCustomer {
                 authenticateCustomerWithToken(userToken)
             } else {
                 authenticateNonCustomerWithToken(userToken)
@@ -188,7 +199,7 @@ extension ChatSocketConnection {
     // MARK: Private Utilities
     
     func authenticateWithSession(session: String) {
-        print("\n\nAuthenticating with session \(session)\n\n")
+        DebugLog("\nAuthenticating with session \(session)\n")
         
         guard let jsonObject = try? NSJSONSerialization.JSONObjectWithData(session.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject] else {
             return
@@ -204,7 +215,7 @@ extension ChatSocketConnection {
     }
     
     func authenticateCustomerWithToken(token: String) {
-        print("\n\nAuthenticating customer with token \(token)\n\n")
+        DebugLog("\nAuthenticating customer with token \(token)\n")
         
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",
@@ -218,7 +229,7 @@ extension ChatSocketConnection {
     }
     
     func authenticateNonCustomerWithToken(token: String) {
-        print("\n\nAuthenticating non-customer with token \(token)\n\n")
+        DebugLog("\nAuthenticating non-customer with token \(token)\n")
         
         let params: [String: AnyObject] = [
             "Company": "vs-dev",
@@ -233,7 +244,7 @@ extension ChatSocketConnection {
     }
     
     func createAnonAccount() {
-        print("\n\nCreating anon account")
+        DebugLog("\nCreating an anonymous account\n")
         
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",
@@ -250,27 +261,27 @@ extension ChatSocketConnection {
         }
         
         if let jsonObj = response.serializedbody {
-            if let sessionInfo = jsonObj["SessionInfo"] as? [String: AnyObject] {
-                if let jsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfo, options: []) {
-                    fullCredentials.sessionInfo = String(data: jsonData, encoding: NSUTF8StringEncoding)
+            if let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] {
+                if let jsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfoDict, options: []) {
+                    sessionInfo = String(data: jsonData, encoding: NSUTF8StringEncoding)
                 }
                 
-                if let company = sessionInfo["Company"] as? [String: AnyObject] {
+                if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
                     if let companyId = company["CompanyId"] as? Int {
-                        fullCredentials.customerTargetCompanyId = companyId
+                        customerTargetCompanyId = companyId
                     }
                 }
                 
-                if fullCredentials.isCustomer {
-                    if let customer = sessionInfo["Customer"] as? [String: AnyObject] {
+                if credentials.isCustomer {
+                    if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
                         if let rawId = customer["CustomerId"] as? Int {
-                            fullCredentials.myId = rawId
+                            myId = rawId
                         }
                     }
                 } else {
-                    if let customer = sessionInfo["Rep"] as? [String: AnyObject] {
+                    if let customer = sessionInfoDict["Rep"] as? [String: AnyObject] {
                         if let rawId = customer["RepId"] as? Int {
-                            fullCredentials.myId = rawId
+                            myId = rawId
                         }
                     }
                 }

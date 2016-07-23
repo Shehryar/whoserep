@@ -44,7 +44,6 @@
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		3049CD261D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD251D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift */; };
 		306A744C1D4270170074DF76 /* ChatSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A744B1D4270170074DF76 /* ChatSocketConnection.swift */; };
-		306A744E1D427EA50074DF76 /* FullCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A744D1D427EA50074DF76 /* FullCredentials.swift */; };
 		306A74501D428FD90074DF76 /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A744F1D428FD90074DF76 /* ConversationStore.swift */; };
 		308F296E1D414FBD00EC7055 /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296D1D414FBD00EC7055 /* ChatInputView.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
@@ -86,7 +85,6 @@
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		3049CD251D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSocketMessageResponse.swift; sourceTree = "<group>"; };
 		306A744B1D4270170074DF76 /* ChatSocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSocketConnection.swift; sourceTree = "<group>"; };
-		306A744D1D427EA50074DF76 /* FullCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullCredentials.swift; sourceTree = "<group>"; };
 		306A744F1D428FD90074DF76 /* ConversationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStore.swift; sourceTree = "<group>"; };
 		308F296D1D414FBD00EC7055 /* ChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				30AF19AD1D41200D004514FF /* Credentials.swift */,
-				306A744D1D427EA50074DF76 /* FullCredentials.swift */,
 				30AF19AE1D41200D004514FF /* Event.swift */,
 			);
 			path = "Data Models";
@@ -488,7 +485,6 @@
 				30AF19B01D41200D004514FF /* Event.swift in Sources */,
 				3049CD261D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
-				306A744E1D427EA50074DF76 /* FullCredentials.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
 				306A74501D428FD90074DF76 /* ConversationStore.swift in Sources */,
 				30AF19AA1D411FD3004514FF /* SocketConnection.swift in Sources */,

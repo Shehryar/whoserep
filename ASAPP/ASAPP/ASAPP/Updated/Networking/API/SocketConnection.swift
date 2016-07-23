@@ -107,7 +107,7 @@ extension SocketConnection {
             DebugLogError("Socket is not connected...")
         }
         
-        DebugLog("\n\nSending request: \(requestString)\n\n")
+        DebugLog("\nSending request:\n\(requestString)\n")
         
         socket?.send(requestString)
     }
@@ -119,7 +119,7 @@ extension SocketConnection: SRWebSocketDelegate {
     // MARK: Receiving Messages
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        DebugLog("\n\nReceived message:\n\(message)\n\n")
+        DebugLog("\nReceived message:\n\(message)\n")
         
         delegate?.socketConnection(self, didReceiveMessage: message)
     }
