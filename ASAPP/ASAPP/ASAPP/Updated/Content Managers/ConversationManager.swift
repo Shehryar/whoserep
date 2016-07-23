@@ -26,7 +26,7 @@ class ConversationManager: NSObject {
     
     private var conversationStore: ConversationStore
     
-    private var socketConnection: ChatSocketConnection
+    private var socketConnection: SocketConnection
     
     public var onMessageReceived: ((message: Event, messages: [Event]) -> Void)?
 
@@ -35,7 +35,8 @@ class ConversationManager: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        self.socketConnection = ChatSocketConnection(withCredentials: self.credentials)
+//        self.socketConnection = ChatSocketConnection(withCredentials: self.credentials)
+        self.socketConnection = SocketConnection(withCredentials: self.credentials)
         self.conversationStore = ConversationStore(withCredentials: self.credentials)
         super.init()
     }
@@ -53,14 +54,18 @@ extension ConversationManager {
     }
     
     func sendMessage(withText text: String, completionHandler: ((event: Event?, error: NSError?) -> Void)?) {
-        socketConnection.sendChatMessage(withText: text) { [weak self] (response) in
-            let event = Event(withJSON: response?.serializedbody)
-            if let event = event {
-                
-                self?.conversationStore.addEvent(event)
-            }
-            
-            completionHandler?(event: event, error: nil)
-        }
+        
+        var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
+        socketConnection.sendRequest(withPath: path, params: ["Text" : text])
+        
+//        socketConnection.sendChatMessage(withText: text) { [weak self] (response) in
+//            let event = Event(withJSON: response?.serializedbody)
+//            if let event = event {
+//                
+//                self?.conversationStore.addEvent(event)
+//            }
+//            
+//            completionHandler?(event: event, error: nil)
+//        }
     }
 }

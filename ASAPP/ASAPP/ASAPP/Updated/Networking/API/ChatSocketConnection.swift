@@ -11,7 +11,7 @@ import SocketRocket
 
 // MARK:- ChatSocketConnection
 
-class ChatSocketConnection: SocketConnection {
+class ChatSocketConnection: SocketConnection2 {
     
     typealias ChatSocketMessageHandler = ((response: ChatSocketMessageResponse?) -> Void)
     
@@ -120,21 +120,6 @@ extension ChatSocketConnection {
         }
         return paramsJSON
     }
-    
-    func contextJSONForContext(context: [String: AnyObject]?) -> String {
-        var contextJSON = "{}"
-        if let context = context {
-            if NSJSONSerialization.isValidJSONObject(context) {
-                do {
-                    let rawJSON = try NSJSONSerialization.dataWithJSONObject(context, options: .PrettyPrinted)
-                    contextJSON = String(data: rawJSON, encoding: NSUTF8StringEncoding)!
-                } catch {
-                    NSLog("ERROR: JSON Serialization failed")
-                }
-            }
-        }
-        return contextJSON
-    }
 }
 
 // MARK:- Overriding SocketRocketDelegate
@@ -161,7 +146,7 @@ extension ChatSocketConnection {
             
         case .Event:
             if let body = response.body {
-                delegate?.socketConnection(self, didReceiveMessage: body)
+//                delegate?.socketConnection(self, didReceiveMessage: body)
             }
             break
             

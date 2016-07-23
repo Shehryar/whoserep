@@ -2,7 +2,7 @@
 //  SocketConnection.swift
 //  ASAPP
 //
-//  Created by Mitchell Morgan on 7/21/16.
+//  Created by Mitchell Morgan on 7/23/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import SocketRocket
 
 protocol SocketConnectionDelegate {
     func socketConnection(socketConnection: SocketConnection, didChangeConnectionStatus isConnected: Bool)
-    func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: AnyObject)
+    func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
 
 // MARK:- SocketConnection
@@ -22,8 +22,16 @@ class SocketConnection: NSObject {
     
     // MARK: Public Properties
     
-    public var connectionRequest: NSURLRequest
+    private(set) public var credentials: Credentials
     
+    lazy var connectionRequest: NSURLRequest = {
+        var connectionRequest = NSMutableURLRequest()
+        connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
+        connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
+        return connectionRequest
+    }()
+
     public var isConnected: Bool {
         if let socket = socket {
             return socket.readyState == .OPEN
@@ -37,10 +45,18 @@ class SocketConnection: NSObject {
     
     private var socket: SRWebSocket?
     
+    private var outgoingMessageSerializer = OutgoingMessageSerializer()
+    
+    private var incomingMessageSerializer = IncomingMessageSerializer()
+    
+    private var requestQueue = [String /* RequestString */]()
+    
+    private var requestHandlers = [Int : IncomingMessageHandler]()
+    
     // MARK: Initialization
     
-    init(withConnectionRequest connectionRequest: NSURLRequest) {
-        self.connectionRequest = connectionRequest
+    init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
         super.init()
     }
     
@@ -75,7 +91,7 @@ extension SocketConnection {
         socket?.open()
         
         // Retry
-        connectIfNeeded(afterDelay: 5)
+        connectIfNeeded(afterDelay: 3)
     }
     
     func connectIfNeeded(afterDelay delayInSeconds: Int = 0) {
@@ -101,15 +117,108 @@ extension SocketConnection {
 // MARK:- Sending Messages
 
 extension SocketConnection {
-    func makeRequestWithString(requestString: String) {
-        // TODO: maybe attempt connection, maintain queue of messages to send on connection?
-        if !isConnected {
-            DebugLogError("Socket is not connected...")
+    func sendRequest(withPath path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler? = nil) {
+        let (requestString, requestId) = outgoingMessageSerializer.createRequestString(withPath: path, params: params)
+        if let requestHandler = requestHandler {
+            requestHandlers[requestId] = requestHandler
+        }
+        sendRequest(withRequestString: requestString)
+    }
+    
+    func sendRequest(withRequestString requestString: String) {
+        if isConnected {
+            DebugLog("Sending request: \(requestString)")
+            socket?.send(requestString)
+        } else {
+            DebugLog("Socket not connected. Queueing request: \(requestString)")
+            requestQueue.append(requestString)
+            connect()
+        }
+    }
+}
+
+// MARK:- Authentication
+
+extension SocketConnection {
+    func authenticate() {
+        var path: String
+        var params: [String : AnyObject]
+        
+        if let sessionInfo = outgoingMessageSerializer.sessionInfo {
+            // Session
+            path = "auth/AuthenticateWithSession"
+            params =  [
+                "SessionInfo": sessionInfo, // convert to json?
+                "App": "ios-sdk"
+            ]
+        } else if let userToken = credentials.userToken {
+            // Customer w/ Token
+            if credentials.isCustomer {
+                path = "auth/AuthenticateWithCustomerToken"
+                params = [
+                    "CompanyMarker": "vs-dev",
+                    "Identifiers": userToken,
+                    "App": "ios-sdk"
+                ]
+            } else {
+                // Non-customer w/ Token
+                path = "auth/AuthenticateWithSalesForceToken"
+                params = [
+                    "Company": "vs-dev",
+                    "AuthCallbackData": userToken,
+                    "GhostEmailAddress": "",
+                    "CountConnectionForIssueTimeout": false,
+                    "App": "ios-sdk"
+                ]
+            }
+        } else {
+            // Anonymous User
+            path = "auth/CreateAnonCustomerAccount"
+            params = [
+                "CompanyMarker": "vs-dev",
+                "RegionCode": "US"
+            ]
         }
         
-        DebugLog("Sending request:\n\(requestString)")
+        sendRequest(withPath: path, params: params) { [weak self] (message) in
+            self?.handleAuthenticationResponse(message)
+        }
+    }
+    
+    func handleAuthenticationResponse(response: IncomingMessage) {
+        guard let jsonObj = response.body else {
+            DebugLogError("Authentication response missing body: \(response)")
+            return
+        }
         
-        socket?.send(requestString)
+        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] else {
+            DebugLogError("Authentication response missing sessionInfo: \(response)")
+            return
+        }
+        
+        if let sessionJsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfoDict, options: []) {
+            outgoingMessageSerializer.sessionInfo = String(data: sessionJsonData, encoding: NSUTF8StringEncoding)
+        }
+        
+        if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
+            if let companyId = company["CompanyId"] as? Int {
+                outgoingMessageSerializer.customerTargetCompanyId = companyId
+            }
+        }
+        
+        if credentials.isCustomer {
+            if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
+                if let rawId = customer["CustomerId"] as? Int {
+                    outgoingMessageSerializer.myId = rawId
+                }
+            }
+        } else {
+            if let customer = sessionInfoDict["Rep"] as? [String: AnyObject] {
+                if let rawId = customer["RepId"] as? Int {
+                    outgoingMessageSerializer.myId = rawId
+                }
+            }
+        }
     }
 }
 
@@ -121,12 +230,28 @@ extension SocketConnection: SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         DebugLog("Received message:\n\(message)")
         
-        delegate?.socketConnection(self, didReceiveMessage: message)
+        let serializedMessage = incomingMessageSerializer.serializedMessage(message)
+        if let requestId = serializedMessage.requestId {
+            if let requestHandler = requestHandlers[requestId] {
+                requestHandlers[requestId] = nil
+                requestHandler(serializedMessage)
+            }
+        }
+        
+        delegate?.socketConnection(self, didReceiveMessage: serializedMessage)
     }
     
     // MARK: Connection Opening/Closing
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
+        authenticate()
+        
+        while !requestQueue.isEmpty {
+            let requestString = requestQueue[0]
+            requestQueue.removeAtIndex(0)
+            sendRequest(withRequestString: requestString)
+        }
+        
         delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
     
@@ -137,10 +262,4 @@ extension SocketConnection: SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
-}
-
-// MARK:- Notifications
-
-extension SocketConnection {
-    // TODO: Send notifications for all messages received and connectionStatus updates
 }
