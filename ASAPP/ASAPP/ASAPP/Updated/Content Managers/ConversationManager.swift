@@ -8,6 +8,14 @@
 
 import Foundation
 
+// MARK:- ConversationManagerDelegate
+
+protocol ConversationManagerDelegate {
+    func conversationManager(conversationManager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
+}
+
+// MARK:- ConversationManager
+
 class ConversationManager: NSObject {
 
     // MARK: Properties
@@ -44,7 +52,15 @@ extension ConversationManager {
         socketConnection.disconnect()
     }
     
-    func sendMessage(withText text: String, completionHandler: ((error: NSError?) -> Void)?) {
-       socketConnection.sendChatMessage(withText: text)
+    func sendMessage(withText text: String, completionHandler: ((event: Event?, error: NSError?) -> Void)?) {
+        socketConnection.sendChatMessage(withText: text) { [weak self] (response) in
+            let event = Event(withJSON: response?.serializedbody)
+            if let event = event {
+                
+                self?.conversationStore.addEvent(event)
+            }
+            
+            completionHandler?(event: event, error: nil)
+        }
     }
 }

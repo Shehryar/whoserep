@@ -139,7 +139,9 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
 extension ChatViewController {
     func sendMessage(withText text: String) {
         
-        conversationManager.sendMessage(withText: text) { (error) in
+        conversationManager.sendMessage(withText: text) { (event, error) in
+            
+            
             if let error = error {
                 ASAPPLoge("Encountered error while sending message: \(text)\nError: \(error)")
             }

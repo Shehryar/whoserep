@@ -14,10 +14,6 @@ class ConversationStore: NSObject {
     // MARK: Properties
     
     private(set) public var credentials: Credentials
-   
-    public var fullCredentials: FullCredentials? {
-        return fullCredentialsResults?.last
-    }
     
     public var messageEvents: [Event]? {
         return nil
@@ -26,8 +22,6 @@ class ConversationStore: NSObject {
     // MARK: Private Properties
     
     private var realm: Realm?
-    
-    private var fullCredentialsResults: Results<FullCredentials>?
     
     private var messageEventsResults: Results<Event>?
     
@@ -77,16 +71,6 @@ extension ConversationStore {
 // MARK:- Making Changes
 
 extension ConversationStore {
-    func updateFullCredentials(value: AnyObject?, forKeyPath keyPath: String) {
-        guard let realm = realm else {
-            return
-        }
-        
-        try! realm.write({
-            fullCredentialsResults?.setValue(value, forKeyPath: keyPath)
-        })
-    }
-    
     func addEvent(event: Event) {
         guard let realm = realm else {
             return

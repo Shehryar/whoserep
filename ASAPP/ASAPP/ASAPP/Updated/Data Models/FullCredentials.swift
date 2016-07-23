@@ -14,10 +14,12 @@ class FullCredentials: Object {
     dynamic var companyMarker: String = ""
     dynamic var userToken: String? = nil
     dynamic var isCustomer: Bool = true
+    dynamic var targetCustomerToken: String? // used for three-way chats
     
-    dynamic var targetCustomerToken: String?
+    // come from server on auth
+    
     dynamic var myId: Int = 0
-    dynamic var customerTargetCompanyId: Int = 0
+    dynamic var customerTargetCompanyId: Int = 0 // will get rid of soon
     dynamic var issueId: Int = 0
     dynamic var reqId: Int = 0
     dynamic var sessionInfo: String?

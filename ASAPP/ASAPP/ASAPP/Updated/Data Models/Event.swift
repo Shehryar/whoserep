@@ -83,7 +83,6 @@ class Event: Object {
     // MARK:- Initialization
     
     convenience init(createdTime: Int, issueId: Int, companyId: Int, customerId: Int, repId: Int, eventTime: Int, eventType: EventType, ephemeralType: EphemeralType, eventFlags: Int, eventJSON: String) {
-        self.init()
         self.createdTime = createdTime
         self.issueId = issueId
         self.companyId = companyId
@@ -94,6 +93,41 @@ class Event: Object {
         self.ephemeralType = ephemeralType
         self.eventFlags = eventFlags
         self.eventJSON = eventJSON
+        
+        self.init()
+    }
+    
+    convenience init?(withJSON json: [String: AnyObject]?) {
+        guard let json = json else {
+            return nil
+        }
+        
+        guard let createdTime = json["CreatedTime"] as? Int,
+            let issueId = json["IssueId"] as? Int,
+            let companyId = json["CompanyId"] as? Int,
+            let customerId = json["CustomerId"] as? Int,
+            let repId = json["RepId"] as? Int,
+            let eventTime = json["EventTime"] as? Int,
+            let eventType = EventType(rawValue: json["EventType"]),
+            let ephemeralType = EphemeralType(rawValue: json["EphemeralType"]),
+            let eventFlags = json["EventFlags"] as? Int,
+            let eventJSON = json["EventJSON"] as? String
+            else {
+                return nil
+        }
+
+        self.createdTime = createdTime
+        self.issueId = issueId
+        self.companyId = companyId
+        self.customerId = customerId
+        self.repId = repId
+        self.eventTime = eventTime
+        self.eventType = eventType
+        self.ephemeralType = ephemeralType
+        self.eventFlags = eventFlags
+        self.eventJSON = eventJSON
+        
+        self.init()
     }
     
     // MARK:- Instance Methods

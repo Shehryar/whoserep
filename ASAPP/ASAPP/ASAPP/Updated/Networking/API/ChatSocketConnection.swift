@@ -49,12 +49,11 @@ class ChatSocketConnection: SocketConnection {
 extension ChatSocketConnection {
     public func sendRequest(withPath path: String,
                                      params: [String: AnyObject]? = nil,
-                                     context: [String: AnyObject]? = nil,
                                      requestHandler: ((response: ChatSocketMessageResponse?) -> Void)? = nil) {
         
         let requestId = nextRequestId()
         let paramsJSON = paramsJSONForParams(params)
-        let contextJSON = contextJSONForContext(context ?? defaultContextForRequestWithPath(path))
+        let contextJSON = contextForRequestWithPath(path)
         let requestString = String(format: "%@|%d|%@|%@", path, requestId, contextJSON, paramsJSON)
         
         if let requestHandler = requestHandler {
@@ -64,9 +63,9 @@ extension ChatSocketConnection {
         makeRequestWithString(requestString)
     }
     
-    public func sendChatMessage(withText text: String) {
+    public func sendChatMessage(withText text: String, requestHandler: ChatSocketMessageHandler? = nil) {
         var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
-        sendRequest(withPath: path, params: ["Text" : text])
+        sendRequest(withPath: path, params: ["Text" : text], requestHandler: requestHandler)
     }
 }
 
@@ -86,7 +85,7 @@ extension ChatSocketConnection {
         return false
     }
     
-    func defaultContextForRequestWithPath(path: String) -> [String: AnyObject] {
+    func contextForRequestWithPath(path: String) -> [String: AnyObject] {
         var context = [ "CompanyId" : fullCredentials.customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if fullCredentials.targetCustomerToken != nil {
@@ -131,13 +130,13 @@ extension ChatSocketConnection {
 
 extension ChatSocketConnection {
     override func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        DebugLog("\n\n\nReceived Message:\n\(message)\n\n\n")
-        
         let response = ChatSocketMessageResponse(withResponse: message)
         guard let type = response.type else {
             DebugLogError("Unable to determine type from response: \(message)")
             return
         }
+        
+        DebugLog("\n\n\nReceived Message:\n\(response.serializedbody ?? response.originalMessage)\n\n\n")
         
         switch type {
         case .Response:
