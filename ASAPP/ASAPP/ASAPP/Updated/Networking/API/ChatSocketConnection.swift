@@ -114,7 +114,7 @@ extension ChatSocketConnection {
                     let rawJSON = try NSJSONSerialization.dataWithJSONObject(params, options: .PrettyPrinted)
                     paramsJSON = String(data: rawJSON, encoding: NSUTF8StringEncoding)!
                 } catch {
-                    NSLog("ERROR: JSON Serialization failed")
+                    DebugLog("ERROR: JSON Serialization failed")
                 }
             }
         }
@@ -147,7 +147,7 @@ extension ChatSocketConnection {
             return
         }
         
-        DebugLog("\nReceived Message:\n\(response.serializedbody ?? response.originalMessage)\n")
+        DebugLog("Received Message:\n\(response.serializedbody ?? response.originalMessage)")
         
         switch type {
         case .Response:
@@ -166,7 +166,7 @@ extension ChatSocketConnection {
             break
             
         case .ResponseError:
-            DebugLogError("\nReceived Response Error: \(message)\n")
+            DebugLogError("Received Response Error: \(message)")
             break
         }
     }
@@ -199,7 +199,7 @@ extension ChatSocketConnection {
     // MARK: Private Utilities
     
     func authenticateWithSession(session: String) {
-        DebugLog("\nAuthenticating with session \(session)\n")
+        DebugLog("Authenticating with session \(session)")
         
         guard let jsonObject = try? NSJSONSerialization.JSONObjectWithData(session.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject] else {
             return
@@ -215,7 +215,7 @@ extension ChatSocketConnection {
     }
     
     func authenticateCustomerWithToken(token: String) {
-        DebugLog("\nAuthenticating customer with token \(token)\n")
+        DebugLog("Authenticating customer with token \(token)")
         
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",
@@ -229,7 +229,7 @@ extension ChatSocketConnection {
     }
     
     func authenticateNonCustomerWithToken(token: String) {
-        DebugLog("\nAuthenticating non-customer with token \(token)\n")
+        DebugLog("Authenticating non-customer with token \(token)")
         
         let params: [String: AnyObject] = [
             "Company": "vs-dev",
@@ -244,7 +244,7 @@ extension ChatSocketConnection {
     }
     
     func createAnonAccount() {
-        DebugLog("\nCreating an anonymous account\n")
+        DebugLog("Creating an anonymous account")
         
         let params: [String: AnyObject] = [
             "CompanyMarker": "vs-dev",

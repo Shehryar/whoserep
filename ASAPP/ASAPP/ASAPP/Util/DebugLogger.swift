@@ -12,18 +12,18 @@ var DebugLoggingEnabled = true
 
 func DebugLog(message: String) {
     if DebugLoggingEnabled {
-        print(message)
+        print("\(message)\n")
     }
 }
 
 func DebugLogError(message: String) {
     if DebugLoggingEnabled {
-        print("ERROR: \(message)")
+        print("ERROR: \(message)\n")
     }
 }
 
 func DebugLogWarning(message: String) {
     if DebugLoggingEnabled {
-        print("WARNING: \(message)")
+        print("WARNING: \(message)\n")
     }
 }
