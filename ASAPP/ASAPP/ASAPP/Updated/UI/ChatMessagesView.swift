@@ -11,15 +11,17 @@ import UIKit
 class ChatMessagesView: UIView {
 
     // MARK:- Public Properties
-    private(set) public var conversationManager: ConversationManager
+    
+    public var messageEvents: [Event] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     public var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
-    
-    // MARK: Properties: Data
-    
     
     // MARK: Properties: UI
     let tableView = UITableView()
@@ -28,8 +30,7 @@ class ChatMessagesView: UIView {
     
     let MessageCellReuseId = "MessageCellReuseId"
     
-    init(withConversationManager conversationManager: ConversationManager) {
-        self.conversationManager = conversationManager
+    override init(frame: CGRect) {
         super.init(frame: CGRectZero)
      
         backgroundColor = UIColor.whiteColor()
@@ -42,10 +43,6 @@ class ChatMessagesView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
-    }
-    
-    override init(frame: CGRect) {
-        fatalError("must call init(withConversationManager:)")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -66,12 +63,12 @@ extension ChatMessagesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversationManager.messageEvents.count
+        return messageEvents.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ASAPPBubbleViewCell {
-            cell.setEvent(conversationManager.messageEvents[indexPath.row], isNew: false)
+            cell.setEvent(messageEvents[indexPath.row], isNew: false)
             return cell
         }
         
@@ -87,7 +84,7 @@ extension ChatMessagesView: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let event = conversationManager.messageEvents[indexPath.row]
+        let event = messageEvents[indexPath.row]
         
         // TODO: Check if event.isNew
         if let bubbleCell = tableView.cellForRowAtIndexPath(indexPath) as? ASAPPBubbleViewCell {
@@ -96,14 +93,24 @@ extension ChatMessagesView: UITableViewDelegate {
     }
 }
 
-// MARK:- Public Instance Methods: Scroll
+// MARK:- Public Instance Methods
 
 extension ChatMessagesView {
-    func isNearBottom(delta: CGFloat) -> Bool {
+    
+    // MARK: Messages
+    
+    public func insertNewMessageEvent(event: Event) {
+        messageEvents.append(event)
+        tableView.reloadData()
+    }
+    
+    // MARK: Scroll
+    
+    public func isNearBottom(delta: CGFloat) -> Bool {
         return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
     }
     
-    func scrollToBottomIfNeeded(animated: Bool) {
+    public func scrollToBottomIfNeeded(animated: Bool) {
         if !isNearBottom(10) {
             return
         }

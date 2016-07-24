@@ -16,7 +16,13 @@ class ConversationStore: NSObject {
     private(set) public var credentials: Credentials
     
     public var messageEvents: [Event]? {
-        return nil
+        var messageEvents = [Event]()
+        if let messageEventsResults = messageEventsResults {
+            for event in messageEventsResults {
+                messageEvents.append(event)
+            }
+        }
+        return messageEvents
     }
     
     // MARK: Private Properties
@@ -76,8 +82,12 @@ extension ConversationStore {
             return
         }
         
-        try! realm.write({
-            realm.add(event, update: true)
-        })
+        do {
+            try realm.write({
+                realm.add(event, update: true)
+            })
+        } catch {
+            // Handle error
+        }
     }
 }

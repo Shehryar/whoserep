@@ -27,7 +27,7 @@ class ChatViewController: UIViewController {
     
     // MARK: Properties: UI
     
-    var chatView: ChatMessagesView
+    var chatMessagesView: ChatMessagesView
     var chatInputView = ChatInputView()
     
     // MARK:- Initialization
@@ -35,9 +35,14 @@ class ChatViewController: UIViewController {
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
         self.conversationManager = ConversationManager(withCredentials: credentials)
-        self.chatView = ChatMessagesView(withConversationManager: self.conversationManager)
+        self.chatMessagesView = ChatMessagesView()
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.conversationManager.delegate = self
+        if let storedEvents = self.conversationManager.getStoredMessages() {
+            self.chatMessagesView.messageEvents = storedEvents
+        }
         
         chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
             self?.sendMessage(withText: messageText)
@@ -53,6 +58,7 @@ class ChatViewController: UIViewController {
     
     deinit {
         keyboardObserver.delegate = nil
+        conversationManager.delegate = nil
     }
     
     // MARK:- View
@@ -62,7 +68,7 @@ class ChatViewController: UIViewController {
         
         view.backgroundColor = UIColor.whiteColor()
         
-        view.addSubview(chatView)
+        view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         
         updateViewConstraints()
@@ -71,7 +77,7 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
-        conversationManager.connectIfNeeded()
+        conversationManager.enterConversation()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -81,7 +87,7 @@ class ChatViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        conversationManager.disconnect()
+        conversationManager.exitConversation()
     }
 }
 
@@ -95,7 +101,7 @@ extension ChatViewController {
             make.trailing.equalTo(self.view.snp_trailing)
         }
         
-        chatView.snp_remakeConstraints { (make) in
+        chatMessagesView.snp_remakeConstraints { (make) in
             make.top.equalTo(self.view.snp_top)
             make.left.equalTo(self.view.snp_left)
             make.right.equalTo(self.view.snp_right)
@@ -109,7 +115,7 @@ extension ChatViewController {
         super.viewDidLayoutSubviews()
         
         if let navigationBar = navigationController?.navigationBar {
-            chatView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(navigationBar.frame), 0, 0, 0)
+            chatMessagesView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(navigationBar.frame), 0, 0, 0)
         }
     }
 }
@@ -122,7 +128,7 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
         }
-        chatView.scrollToBottom(false)
+        chatMessagesView.scrollToBottom(false)
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
@@ -133,17 +139,18 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
     }
 }
 
-// MARK:- Managing Data
+// MARK:- ConversationManagerDelegate
+
+extension ChatViewController: ConversationManagerDelegate {
+    func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
+        chatMessagesView.insertNewMessageEvent(messageEvent)
+    }
+}
+
+// MARK:- Actions
 
 extension ChatViewController {
     func sendMessage(withText text: String) {
-        
-        conversationManager.sendMessage(withText: text) { (event, error) in
-            
-            
-            if let error = error {
-                ASAPPLoge("Encountered error while sending message: \(text)\nError: \(error)")
-            }
-        }
+        conversationManager.sendMessage(text)
     }
 }

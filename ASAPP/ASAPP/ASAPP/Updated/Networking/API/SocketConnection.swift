@@ -23,14 +23,6 @@ class SocketConnection: NSObject {
     // MARK: Public Properties
     
     private(set) public var credentials: Credentials
-    
-    lazy var connectionRequest: NSURLRequest = {
-        var connectionRequest = NSMutableURLRequest()
-        connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
-        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
-        connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
-        return connectionRequest
-    }()
 
     public var isConnected: Bool {
         if let socket = socket {
@@ -42,6 +34,8 @@ class SocketConnection: NSObject {
     public var delegate: SocketConnectionDelegate?
     
     // MARK: Private Properties
+    
+    private var connectionRequest: NSURLRequest
     
     private var socket: SRWebSocket?
     
@@ -56,6 +50,11 @@ class SocketConnection: NSObject {
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
+        var connectionRequest = NSMutableURLRequest()
+        connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
+        connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
+        self.connectionRequest = connectionRequest
         self.credentials = credentials
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()

@@ -11,7 +11,7 @@ import Foundation
 // MARK:- ConversationManagerDelegate
 
 protocol ConversationManagerDelegate {
-    func conversationManager(conversationManager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
+    func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
 }
 
 // MARK:- ConversationManager
@@ -22,50 +22,64 @@ class ConversationManager: NSObject {
     
     public var credentials: Credentials
     
-    public var messageEvents = [Event]()
+    public var delegate: ConversationManagerDelegate?
     
-    private var conversationStore: ConversationStore
+    // MARK: Private Properties
     
     private var socketConnection: SocketConnection
     
-    public var onMessageReceived: ((message: Event, messages: [Event]) -> Void)?
-
+    private var conversationStore: ConversationStore
     
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-//        self.socketConnection = ChatSocketConnection(withCredentials: self.credentials)
         self.socketConnection = SocketConnection(withCredentials: self.credentials)
         self.conversationStore = ConversationStore(withCredentials: self.credentials)
         super.init()
+        
+        self.socketConnection.delegate = self
+    }
+    
+    deinit {
+        socketConnection.delegate = nil
     }
 }
 
 // MARK:- Network Actions
 
 extension ConversationManager {
-    func connectIfNeeded() {
+    func enterConversation() {
         socketConnection.connectIfNeeded()
     }
     
-    func disconnect() {
+    func exitConversation() {
         socketConnection.disconnect()
     }
     
-    func sendMessage(withText text: String, completionHandler: ((event: Event?, error: NSError?) -> Void)?) {
-        
+    func sendMessage(message: String) {
         var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
-        socketConnection.sendRequest(withPath: path, params: ["Text" : text])
+        socketConnection.sendRequest(withPath: path, params: ["Text" : message])
+    }
+    
+    func getStoredMessages() -> [Event]? {
+        return conversationStore.messageEvents
+    }
+}
+
+// MARK:- SocketConnectionDelegate
+
+extension ConversationManager: SocketConnectionDelegate {
+    func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
+        if message.type == .Event {
+            if let event = Event(withJSON: message.body) {
+                conversationStore.addEvent(event)
+                delegate?.conversationManager(self, didReceiveMessageEvent: event)
+            }
+        }
+    }
+    
+    func socketConnection(socketConnection: SocketConnection, didChangeConnectionStatus isConnected: Bool) {
         
-//        socketConnection.sendChatMessage(withText: text) { [weak self] (response) in
-//            let event = Event(withJSON: response?.serializedbody)
-//            if let event = event {
-//                
-//                self?.conversationStore.addEvent(event)
-//            }
-//            
-//            completionHandler?(event: event, error: nil)
-//        }
     }
 }
