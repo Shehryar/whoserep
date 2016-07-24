@@ -87,7 +87,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
         if event.isMessageEvent {
             if event.eventType == .TextMessage {
                 if let payload = event.getPayload() as? EventPayload.TextMessage {
-                    textMessageLabel.text = payload.Text
+                    textMessageLabel.text = payload.text
                 }
             }
             
@@ -122,7 +122,7 @@ class ASAPPBubbleViewCell: UITableViewCell {
             setupLabel(tempLabel)
             
             if let payload = event.getPayload() as? EventPayload.TextMessage {
-                tempLabel.text = payload.Text
+                tempLabel.text = payload.text
             }
             
             let size = tempLabel.sizeThatFits(CGSize(width: borderRect.size.width - ((BUBBLE_PADDING * 2) + (HOLDER_PADDING * 2)), height: borderRect.height))

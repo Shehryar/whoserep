@@ -145,6 +145,13 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         chatMessagesView.insertNewMessageEvent(messageEvent)
     }
+    
+    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withEvent event: Event) {
+        let userString = event.isCustomerEvent ? "Customer" : "Representative"
+        let typingString = isTyping ? "started typing." : "finished typing."
+        
+        DebugLog("\(userString) \(typingString)")
+    }
 }
 
 // MARK:- Actions

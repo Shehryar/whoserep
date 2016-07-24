@@ -12,12 +12,13 @@ import Foundation
 
 protocol ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
+    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withEvent event: Event)
 }
 
 // MARK:- ConversationManager
 
 class ConversationManager: NSObject {
-
+    
     // MARK: Properties
     
     public var credentials: Credentials
@@ -71,15 +72,41 @@ extension ConversationManager {
 
 extension ConversationManager: SocketConnectionDelegate {
     func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
+        
         if message.type == .Event {
             if let event = Event(withJSON: message.body) {
-                conversationStore.addEvent(event)
-                delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                switch event.eventType {
+                case .TextMessage:
+                    conversationStore.addEvent(event)
+                    delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                    break
+                  
+                case .None:
+                    switch event.ephemeralType {
+                    case .TypingStatus:
+                        if let typingStatus = event.payload as? EventPayload.TypingStatus {
+                            delegate?.conversationManager(self, didUpdateRemoteTypingStatus: typingStatus.isTyping, withEvent: event)
+                        }
+                        break
+                        
+                    default:
+                        // Not yet handled
+                        break
+                    }
+                    break
+                    
+                    
+                default:
+                    // Not yet handled
+                    break
+                }
+                
             }
         }
     }
-    
+
+
     func socketConnection(socketConnection: SocketConnection, didChangeConnectionStatus isConnected: Bool) {
-        
+    
     }
 }

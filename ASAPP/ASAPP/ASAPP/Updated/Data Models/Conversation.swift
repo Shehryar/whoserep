@@ -17,6 +17,7 @@ class Conversation: Object {
     dynamic var isCustomer: Bool = true
     dynamic var userToken: String?
     dynamic var targetCustomerToken: String?
+    dynamic var uniqueIdentifier: String?
     let messageEvents = List<Event>()
     
     convenience init(withCredentials credentials: Credentials) {
@@ -25,9 +26,11 @@ class Conversation: Object {
         self.isCustomer = credentials.isCustomer
         self.userToken = credentials.userToken
         self.targetCustomerToken = credentials.targetCustomerToken
+        
+        self.uniqueIdentifier = "\(company)|\(isCustomer)|\(userToken ?? "")|\(targetCustomerToken ?? "")"
     }
     
     override static func primaryKey() -> String? {
-        return "company"
+        return "uniqueIdentifier"
     }
 }

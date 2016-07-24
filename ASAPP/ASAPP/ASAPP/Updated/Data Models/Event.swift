@@ -44,7 +44,11 @@ import RealmSwift
 
 class EventPayload: NSObject {
     struct TextMessage {
-        let Text: String
+        let text: String
+    }
+    
+    struct TypingStatus {
+        let isTyping: Bool
     }
 }
 
@@ -138,25 +142,59 @@ class Event: Object {
         self.eventJSON = eventJSON
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
     }
-    
+
     // MARK:- Instance Methods
     
     func getPayload() -> Any? {
-        // TODO: This should be lazy-loaded/stored so we don't have to repeatedly serialize the json
-        
-        if eventType == .TextMessage {
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
-                
-                if let text = json["Text"] as? String {
-                    return EventPayload.TextMessage(Text: text)
-                }
-            } catch let error as NSError {
-                ASAPPLoge(error)
-            } catch {
-                ASAPPLoge("Unknown Error")
-            }
-        }
-        return nil
+        return payload
     }
+    
+    // MARK:- Ignored Properties
+    
+    override static func ignoredProperties() -> [String] {
+        return ["eventJSONObject", "payload"]
+    }
+    
+    lazy var eventJSONObject: [String : AnyObject]? = {
+        var eventJSONObject: [String : AnyObject]?
+        do {
+            eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
+        } catch {
+            // Unable to serialize eventJSON
+            DebugLogError("Unable to serialize eventJSON: \(self.eventJSON)")
+        }
+        return eventJSONObject
+    }()
+    
+    lazy var payload: Any? = {
+        guard let eventJSONObject = self.eventJSONObject else {
+            return nil
+        }
+        
+        switch self.eventType {
+        case .TextMessage:
+            if let text = eventJSONObject["Text"] as? String {
+                return EventPayload.TextMessage(text: text)
+            }
+            break
+            
+        case .None:
+            switch self.ephemeralType {
+            case .TypingStatus:
+                if let isTyping = eventJSONObject["IsTyping"] as? Bool {
+                    return EventPayload.TypingStatus(isTyping: isTyping)
+                }
+                break
+                
+            default:
+                break
+            }
+            break
+            
+        default:
+            break
+        }
+        
+        return nil
+    }()
 }

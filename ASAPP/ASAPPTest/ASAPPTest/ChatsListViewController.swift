@@ -9,19 +9,28 @@
 import UIKit
 import ASAPP
 
+struct ASAPPConversation {
+    var company: String = ""
+    var userToken: String?
+    var isCustomer: Bool = true
+    
+    var description: String {
+        return "\(company)|\(userToken ?? "")|\(isCustomer ? "customer" : "rep")"
+    }
+}
+
 class ChatsListViewController: UIViewController {
 
-    enum Row: Int {
-        case Customer = 0
-        case Rep = 1
-        case Count = 2
-    }
-    
     // MARK:- Properties
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
     let asapp = ASAPPv2()
+    
+    let conversations = [
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true) // testing
+    ]
     
     // MARK:- Init
     
@@ -59,7 +68,7 @@ extension ChatsListViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Row.Count.rawValue
+        return conversations.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,18 +78,8 @@ extension ChatsListViewController: UITableViewDataSource {
         cell.textLabel?.font = UIFont.systemFontOfSize(16)
         cell.accessoryType = .DisclosureIndicator
         
-        switch indexPath.row {
-        case Row.Customer.rawValue:
-            cell.textLabel?.text = "Chat v2"
-            break
-            
-        case Row.Rep.rawValue:
-            cell.textLabel?.text = "No action"
-            break
-            
-        default:
-            cell.textLabel?.text = ""
-        }
+        let conversation = conversations[indexPath.row]
+        cell.textLabel?.text = conversation.description
         
         return cell
     }
@@ -90,19 +89,10 @@ extension ChatsListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        switch indexPath.row {
-        case Row.Customer.rawValue:
-            // v2
-            let chatViewController = asapp.createChatViewController(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true)
-            chatViewController.title = "Chat v2"
-            navigationController?.pushViewController(chatViewController, animated: true)
-            break
-            
-        case Row.Rep.rawValue:
-            
-            break
-            
-        default: break
-        }
+        let conversation = conversations[indexPath.row]
+        
+        let chatViewController = asapp.createChatViewController(withCompany: conversation.company, userToken: conversation.userToken, isCustomer: conversation.isCustomer)
+        chatViewController.title = conversation.description
+        navigationController?.pushViewController(chatViewController, animated: true)
     }
 }

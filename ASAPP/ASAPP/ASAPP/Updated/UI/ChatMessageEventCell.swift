@@ -14,8 +14,15 @@ class ChatMessageEventCell: UITableViewCell {
     
     public var messageEvent: Event? {
         didSet {
-            if let payload = messageEvent?.getPayload() as? EventPayload.TextMessage {
-                textLabel?.text = payload.Text
+            if let messageEvent = messageEvent {
+                textLabel?.text = (messageEvent.payload as? EventPayload.TextMessage)?.text
+                
+                if messageEvent.isCustomerEvent {
+                    textLabel?.textAlignment = .Right
+                } else {
+                    textLabel?.textAlignment = .Left
+                }
+                
             } else {
                 textLabel?.text = ""
             }
