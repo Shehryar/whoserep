@@ -47,11 +47,20 @@ extension OutgoingMessageSerializer {
         var path: String
         var params: [String : AnyObject]
         
+        var sessionInfoJson: [String : AnyObject]?
         if let sessionInfo = sessionInfo {
+            do {
+                sessionInfoJson = try NSJSONSerialization.JSONObjectWithData(sessionInfo.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject]
+            } catch {}
+        }
+        
+        if let sessionInfoJson = sessionInfoJson {
             // Session
+            
+            
             path = "auth/AuthenticateWithSession"
             params =  [
-                "SessionInfo": sessionInfo, // convert to json?
+                "SessionInfo": sessionInfoJson, // convert to json?
                 "App": "ios-sdk"
             ]
         } else if let userToken = credentials.userToken {
