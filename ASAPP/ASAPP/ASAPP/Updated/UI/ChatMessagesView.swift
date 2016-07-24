@@ -39,7 +39,7 @@ class ChatMessagesView: UIView {
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
-        tableView.registerClass(ASAPPBubbleViewCell.self, forCellReuseIdentifier: MessageCellReuseId)
+        tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -67,8 +67,8 @@ extension ChatMessagesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ASAPPBubbleViewCell {
-            cell.setEvent(messageEvents[indexPath.row], isNew: false)
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
+            cell.messageEvent = messageEvents[indexPath.row]
             return cell
         }
         
@@ -87,8 +87,8 @@ extension ChatMessagesView: UITableViewDelegate {
         let event = messageEvents[indexPath.row]
         
         // TODO: Check if event.isNew
-        if let bubbleCell = tableView.cellForRowAtIndexPath(indexPath) as? ASAPPBubbleViewCell {
-            bubbleCell.animate()
+        if let messageCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatMessageEventCell {
+            messageCell.animate()
         }
     }
 }
@@ -132,5 +132,3 @@ extension ChatMessagesView {
         }
     }
 }
-
-

@@ -15,11 +15,13 @@ class ConversationStore: NSObject {
     
     private(set) public var credentials: Credentials
     
-    public var messageEvents: [Event]? {
+    private(set) public var conversation: Conversation?
+    
+    public var messageEvents: [Event] {
         var messageEvents = [Event]()
-        if let messageEventsResults = messageEventsResults {
-            for event in messageEventsResults {
-                messageEvents.append(event)
+        if let conversation = conversation {
+            for messageEvent in conversation.messageEvents {
+                messageEvents.append(messageEvent)
             }
         }
         return messageEvents
@@ -29,8 +31,6 @@ class ConversationStore: NSObject {
     
     private var realm: Realm?
     
-    private var messageEventsResults: Results<Event>?
-    
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
@@ -38,7 +38,21 @@ class ConversationStore: NSObject {
         super.init()
         
         self.realm = loadOrCreateRealm(withCredentials: self.credentials)
-        self.messageEventsResults = self.realm?.objects(Event.self)
+        
+        var storedConversation = self.realm?.objects(Conversation.self).filter({ (conversation) -> Bool in
+            return (conversation.company == credentials.companyMarker &&
+                conversation.isCustomer == credentials.isCustomer &&
+                conversation.userToken == credentials.userToken &&
+                conversation.targetCustomerToken == credentials.targetCustomerToken
+            )
+        }).last
+        
+        if storedConversation != nil {
+            self.conversation = storedConversation
+        } else {
+            self.conversation = Conversation(withCredentials: self.credentials)
+            saveConversation()
+        }
     }
 }
 
@@ -77,17 +91,33 @@ extension ConversationStore {
 // MARK:- Making Changes
 
 extension ConversationStore {
-    func addEvent(event: Event) {
-        guard let realm = realm else {
-            return
+    func saveConversation() {
+        guard let conversation = conversation,
+            let realm = realm else {
+                return
         }
         
         do {
             try realm.write({
-                realm.add(event, update: true)
+                realm.add(conversation, update: true)
             })
         } catch {
-            // Handle error
+            DebugLogError("Failed to save conversation: \(conversation)")
+        }
+    }
+    
+    func addEvent(event: Event) {
+        guard let conversation = conversation,
+            let realm = realm else {
+                return
+        }
+        
+        do {
+            try realm.write {
+                conversation.messageEvents.append(event)
+            }
+        } catch {
+            DebugLogError("Failed to write event: \(event)")
         }
     }
 }

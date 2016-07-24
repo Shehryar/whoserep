@@ -25,6 +25,8 @@
 		282C95221D43CC5E0000558B /* OutgoingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C95211D43CC5E0000558B /* OutgoingMessageSerializer.swift */; };
 		282C95241D43CC690000558B /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C95231D43CC690000558B /* IncomingMessageSerializer.swift */; };
 		282C95261D4435B40000558B /* ConversationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C95251D4435B40000558B /* ConversationStore.swift */; };
+		282C95281D445C9E0000558B /* ChatMessageEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C95271D445C9E0000558B /* ChatMessageEventCell.swift */; };
+		282C952A1D446DD80000558B /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C95291D446DD80000558B /* Conversation.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
 		30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */; };
 		30099DCE1D3EDBC400171D56 /* ASAPPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB41D3EDBC400171D56 /* ASAPPState.swift */; };
@@ -67,6 +69,8 @@
 		282C95211D43CC5E0000558B /* OutgoingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializer.swift; sourceTree = "<group>"; };
 		282C95231D43CC690000558B /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
 		282C95251D4435B40000558B /* ConversationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationStore.swift; sourceTree = "<group>"; };
+		282C95271D445C9E0000558B /* ChatMessageEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageEventCell.swift; sourceTree = "<group>"; };
+		282C95291D446DD80000558B /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
 		30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEventLog.swift; sourceTree = "<group>"; };
 		30099DB41D3EDBC400171D56 /* ASAPPState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPState.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				30AF19AD1D41200D004514FF /* Credentials.swift */,
+				282C95291D446DD80000558B /* Conversation.swift */,
 				30AF19AE1D41200D004514FF /* Event.swift */,
 			);
 			path = "Data Models";
@@ -278,6 +283,7 @@
 				30AF19B21D412330004514FF /* ChatViewController.swift */,
 				308F296D1D414FBD00EC7055 /* ChatInputView.swift */,
 				308F29771D4188E800EC7055 /* ChatMessagesView.swift */,
+				282C95271D445C9E0000558B /* ChatMessageEventCell.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 				306A744C1D4270170074DF76 /* ChatSocketConnection.swift in Sources */,
 				30AF19B01D41200D004514FF /* Event.swift in Sources */,
 				3049CD261D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift in Sources */,
+				282C952A1D446DD80000558B /* Conversation.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
 				30AF19AA1D411FD3004514FF /* SocketConnectionOld.swift in Sources */,
@@ -487,6 +494,7 @@
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
 				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
 				308F296E1D414FBD00EC7055 /* ChatInputView.swift in Sources */,
+				282C95281D445C9E0000558B /* ChatMessageEventCell.swift in Sources */,
 				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,
 				282C95261D4435B40000558B /* ConversationStore.swift in Sources */,
 				30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */,

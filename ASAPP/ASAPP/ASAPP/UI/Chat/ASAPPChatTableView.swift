@@ -219,7 +219,8 @@ class ASAPPChatTableView: UITableView, UITableViewDelegate, ASAPPStateDelegate {
                 if let reuseCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier!) as? ASAPPBubbleViewCell {
                     cell = reuseCell
                 } else {
-                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: reuseIdentifier, stateDataSource: stateDataSource)
+                    cell = ASAPPBubbleViewCell(style: .Default, reuseIdentifier: reuseIdentifier)
+                    cell.stateDataSource = stateDataSource
                 }
                 
                 cell.setEvent(event, isNew: isNew)

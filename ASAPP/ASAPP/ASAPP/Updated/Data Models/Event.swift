@@ -117,7 +117,9 @@ class Event: Object {
             let eventType = EventType(rawValue: eventTypeInt),
             let ephemeralType = EphemeralType(rawValue: ephemeralTypeInt),
             let eventFlags = json["EventFlags"] as? Int,
-            let eventJSON = json["EventJSON"] as? String
+            let eventJSON = json["EventJSON"] as? String,
+            let customerEventLogSeq = json["CustomerEventLogSeq"] as? Int,
+            let companyEventLogSeq = json["CompanyEventLogSeq"] as? Int
             else {
                 return nil
         }
@@ -134,6 +136,7 @@ class Event: Object {
         self.ephemeralType = ephemeralType
         self.eventFlags = eventFlags
         self.eventJSON = eventJSON
+        self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
     }
     
     // MARK:- Instance Methods

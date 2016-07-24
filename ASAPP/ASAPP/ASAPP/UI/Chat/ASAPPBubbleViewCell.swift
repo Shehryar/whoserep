@@ -10,11 +10,11 @@ import UIKit
 
 class ASAPPBubbleViewCell: UITableViewCell {
 
-    var stateDataSource: ASAPPStateDataSource!
+    var stateDataSource: ASAPPStateDataSource?
     
-    var holder: UIView!
-    var bubble: ASAPPBubbleView!
-    var textMessageLabel: UILabel!
+    var holder: UIView = UIView()
+    var bubble: ASAPPBubbleView = ASAPPBubbleView()
+    var textMessageLabel: UILabel = UILabel()
     
     let BUBBLE_OFFSET: CGFloat = 2
     let BUBBLE_PADDING: CGFloat = 16
@@ -30,23 +30,33 @@ class ASAPPBubbleViewCell: UITableViewCell {
         // Initialization code
     }
     
-    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, stateDataSource: ASAPPStateDataSource) {
-        self.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.stateDataSource = stateDataSource
-        
-        textMessageLabel = UILabel()
+//    init(style: UITableViewCellStyle, reuseIdentifier: String?, stateDataSource: ASAPPStateDataSource) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        
+//        self.stateDataSource = stateDataSource
+//        
+//        commonInit()
+//    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    func commonInit() {
         setupLabel(textMessageLabel)
         
-        bubble = ASAPPBubbleView()
         if self.reuseIdentifier == ASAPPChatTableView.CELL_IDENT_MSG_SEND {
             bubble.isMyEvent = true
         } else {
             bubble.isMyEvent = false
         }
         bubble.render(reuseIdentifier!)
-        
-        holder = UIView()
         
         bubble.addSubview(textMessageLabel)
         holder.addSubview(bubble)
@@ -95,9 +105,11 @@ class ASAPPBubbleViewCell: UITableViewCell {
     }
     
     func drawBubble(event: Event) {
-        if !stateDataSource.isMyEvent(event) {
-            if !stateDataSource.isCustomer() && event.isCustomerEvent {
-                textMessageLabel.textColor = UIColor.whiteColor()
+        if let stateDataSource = stateDataSource {
+            if !stateDataSource.isMyEvent(event) {
+                if !stateDataSource.isCustomer() && event.isCustomerEvent {
+                    textMessageLabel.textColor = UIColor.whiteColor()
+                }
             }
         }
         
