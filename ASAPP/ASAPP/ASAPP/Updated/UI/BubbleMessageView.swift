@@ -23,13 +23,12 @@ class BubbleMessageView: UIView {
     
     var isReply: Bool = false {
         didSet {
-            if isReply {
-                bubbleView.hardCorner = .BottomLeft
-            } else {
-                bubbleView.hardCorner = .BottomRight
+            if oldValue != isReply {
+                updateHardCorner()
+                
+                setNeedsUpdateConstraints()
+                updateConstraintsIfNeeded()
             }
-            setNeedsUpdateConstraints()
-            updateConstraintsIfNeeded()
         }
     }
     
@@ -76,15 +75,24 @@ class BubbleMessageView: UIView {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textLabel)
         
+        updateHardCorner()
         setNeedsUpdateConstraints()
         updateConstraintsIfNeeded()
     }
     
     // MARK: Layout
     
+    func updateHardCorner() {
+        if isReply {
+            bubbleView.hardCorner = .BottomLeft
+        } else {
+            bubbleView.hardCorner = .BottomRight
+        }
+    }
+    
     override func updateConstraints() {
-        self.leftConstraint?.uninstall()
-        self.rightConstraint?.uninstall()
+        leftConstraint?.uninstall()
+        rightConstraint?.uninstall()
         
         textLabel.snp_updateConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(contentInset.top)

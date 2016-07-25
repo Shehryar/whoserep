@@ -19,16 +19,28 @@ class BubbleView: UIView {
     }
     
     public var cornerRadius: CGFloat = 16.0 {
-        didSet { setNeedsDisplay() }
+        didSet {
+            if oldValue != cornerRadius {
+                setNeedsDisplay()
+            }
+        }
     }
     
     /// The corner that does not use a corner radius
     public var hardCorner: BubbleCorner = .None {
-        didSet { setNeedsDisplay() }
+        didSet {
+            if oldValue != hardCorner {
+                setNeedsDisplay()
+            }
+        }
     }
     
-    public var fillColor = Colors.grayColor() {
-        didSet { setNeedsDisplay() }
+    public var fillColor = Colors.lightGrayColor() {
+        didSet {
+            if oldValue != fillColor {
+                setNeedsDisplay()
+            }
+        }
     }
     
     // MARK:- Init
@@ -48,7 +60,6 @@ class BubbleView: UIView {
         backgroundColor = UIColor.clearColor()
         contentMode = .Redraw
     }
-    
     
     // MARK:- Drawing
     
@@ -79,14 +90,13 @@ class BubbleView: UIView {
         case .BottomRight:
             roundedCorners = [.TopLeft, .TopRight, .BottomLeft]
             break
-            
         }
+        
+        fillColor.setFill()
         
         let path = UIBezierPath(roundedRect: rect,
                                 byRoundingCorners: roundedCorners,
                                 cornerRadii: cornerRadii)
-        
-        fillColor.setFill()
         path.fill()
     }
 }

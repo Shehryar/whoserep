@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ChatMessageEventCell: UITableViewCell {
 
@@ -42,6 +43,11 @@ class ChatMessageEventCell: UITableViewCell {
     
     private let messageView = BubbleMessageView()
     
+    private var leftConstraint: Constraint?
+    
+    private var rightConstraint: Constraint?
+    
+    
     // MARK: Init
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,17 +73,16 @@ class ChatMessageEventCell: UITableViewCell {
     // MARK: Layout
     
     override func updateConstraints() {
-        let messageWidth = CGRectGetWidth(bounds) - contentInset.left - contentInset.right
+        leftConstraint?.uninstall()
+        rightConstraint?.uninstall()
         
-        let maxMessageWidth = 0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right)
+        let maxMessageWidth = floor(0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
         
         messageView.snp_updateConstraints { (make) in
             if isReply {
-                make.left.equalTo(contentView.snp_left).offset(contentInset.left)
-                make.right.greaterThanOrEqualTo(contentView.snp_right).offset(-contentInset.right)
+                self.leftConstraint = make.left.equalTo(contentView.snp_left).offset(contentInset.left).constraint
             } else {
-                make.right.equalTo(contentView.snp_right).offset(-contentInset.right)
-                make.left.greaterThanOrEqualTo(contentView.snp_left).offset(contentInset.left)
+                self.rightConstraint = make.right.equalTo(contentView.snp_right).offset(-contentInset.right).constraint
             }
             make.top.equalTo(contentView.snp_top).offset(contentInset.top)
             make.width.lessThanOrEqualTo(maxMessageWidth)
