@@ -40,7 +40,6 @@
 		30099DD41D3EDBC400171D56 /* ASAPPChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBC1D3EDBC400171D56 /* ASAPPChatViewController.swift */; };
 		30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30099DE41D3EE40400171D56 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30099DE21D3EE40400171D56 /* Info.plist */; };
 		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
 		30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */; };
 		30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E091D3FD1DA00171D56 /* Lato-Light.ttf */; };
@@ -50,8 +49,6 @@
 		30099E151D3FD1DA00171D56 /* icon_camera-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */; };
 		3049CD221D42A49800F0C0E6 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD211D42A49800F0C0E6 /* ASAPPConn.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
-		3049CD261D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD251D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift */; };
-		306A744C1D4270170074DF76 /* ChatSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A744B1D4270170074DF76 /* ChatSocketConnection.swift */; };
 		308F296E1D414FBD00EC7055 /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296D1D414FBD00EC7055 /* ChatInputView.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
@@ -59,7 +56,6 @@
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
 		308F29781D4188E800EC7055 /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29771D4188E800EC7055 /* ChatMessagesView.swift */; };
 		30AF19A91D411FD3004514FF /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A01D411FD3004514FF /* ConversationManager.swift */; };
-		30AF19AA1D411FD3004514FF /* SocketConnectionOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19A41D411FD3004514FF /* SocketConnectionOld.swift */; };
 		30AF19AF1D41200D004514FF /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19AD1D41200D004514FF /* Credentials.swift */; };
 		30AF19B01D41200D004514FF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19AE1D41200D004514FF /* Event.swift */; };
 		30AF19B31D412330004514FF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AF19B21D412330004514FF /* ChatViewController.swift */; };
@@ -96,8 +92,6 @@
 		30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_camera-dark@3x.png"; sourceTree = "<group>"; };
 		3049CD211D42A49800F0C0E6 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
-		3049CD251D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSocketMessageResponse.swift; sourceTree = "<group>"; };
-		306A744B1D4270170074DF76 /* ChatSocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSocketConnection.swift; sourceTree = "<group>"; };
 		308F296D1D414FBD00EC7055 /* ChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -105,7 +99,6 @@
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		308F29771D4188E800EC7055 /* ChatMessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesView.swift; sourceTree = "<group>"; };
 		30AF19A01D411FD3004514FF /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
-		30AF19A41D411FD3004514FF /* SocketConnectionOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConnectionOld.swift; sourceTree = "<group>"; };
 		30AF19AD1D41200D004514FF /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		30AF19AE1D41200D004514FF /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30AF19B21D412330004514FF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -263,9 +256,6 @@
 		30AF19A31D411FD3004514FF /* API */ = {
 			isa = PBXGroup;
 			children = (
-				306A744B1D4270170074DF76 /* ChatSocketConnection.swift */,
-				3049CD251D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift */,
-				30AF19A41D411FD3004514FF /* SocketConnectionOld.swift */,
 				282C951D1D433DFF0000558B /* SocketConnection.swift */,
 				282C95211D43CC5E0000558B /* OutgoingMessageSerializer.swift */,
 				282C95231D43CC690000558B /* IncomingMessageSerializer.swift */,
@@ -419,7 +409,6 @@
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
 				30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
-				30099DE41D3EE40400171D56 /* Info.plist in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,13 +477,10 @@
 				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
 				30099DD31D3EDBC400171D56 /* ASAPPChatTableView.swift in Sources */,
 				30AF19B31D412330004514FF /* ChatViewController.swift in Sources */,
-				306A744C1D4270170074DF76 /* ChatSocketConnection.swift in Sources */,
 				30AF19B01D41200D004514FF /* Event.swift in Sources */,
-				3049CD261D42B3CE00F0C0E6 /* ChatSocketMessageResponse.swift in Sources */,
 				282C952A1D446DD80000558B /* Conversation.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
-				30AF19AA1D411FD3004514FF /* SocketConnectionOld.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				282C95221D43CC5E0000558B /* OutgoingMessageSerializer.swift in Sources */,
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,

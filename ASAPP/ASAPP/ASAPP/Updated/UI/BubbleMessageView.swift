@@ -24,7 +24,7 @@ class BubbleMessageView: UIView {
     var isReply: Bool = false {
         didSet {
             if oldValue != isReply {
-                updateHardCorner()
+                updateMessageViewForIsReply()
                 
                 setNeedsUpdateConstraints()
                 updateConstraintsIfNeeded()
@@ -70,23 +70,26 @@ class BubbleMessageView: UIView {
         addSubview(bubbleView)
         
         textLabel.font = Fonts.latoRegularFont(withSize: 16)
-        textLabel.textColor = UIColor.darkTextColor()
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textLabel)
         
-        updateHardCorner()
+        updateMessageViewForIsReply()
         setNeedsUpdateConstraints()
         updateConstraintsIfNeeded()
     }
     
     // MARK: Layout
     
-    func updateHardCorner() {
+    func updateMessageViewForIsReply() {
         if isReply {
             bubbleView.hardCorner = .BottomLeft
+            bubbleView.fillColor = Colors.bluishGray()
+            textLabel.textColor = UIColor.whiteColor()
         } else {
             bubbleView.hardCorner = .BottomRight
+            bubbleView.fillColor = Colors.lightGrayColor()
+            textLabel.textColor = Colors.darkTextColor()
         }
     }
     

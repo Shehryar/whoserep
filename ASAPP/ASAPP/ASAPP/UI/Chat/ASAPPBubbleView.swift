@@ -195,7 +195,7 @@ class ASAPPBubbleView: UIView {
             startPoint = CGPointMake(0, cornerRadius)
         }
         
-        var borderPath = UIBezierPath()
+        let borderPath = UIBezierPath()
         if !isStroke {
             borderPath.moveToPoint(centerPoint)
             borderPath.addLineToPoint(startPoint)

@@ -9,7 +9,7 @@
 import UIKit
 
 class BubbleView: UIView {
-
+    
     enum BubbleCorner {
         case None
         case TopLeft
@@ -18,7 +18,7 @@ class BubbleView: UIView {
         case BottomRight
     }
     
-    public var cornerRadius: CGFloat = 16.0 {
+    var cornerRadius: CGFloat = 16.0 {
         didSet {
             if oldValue != cornerRadius {
                 setNeedsDisplay()
@@ -27,7 +27,7 @@ class BubbleView: UIView {
     }
     
     /// The corner that does not use a corner radius
-    public var hardCorner: BubbleCorner = .None {
+    var hardCorner: BubbleCorner = .None {
         didSet {
             if oldValue != hardCorner {
                 setNeedsDisplay()
@@ -35,11 +35,9 @@ class BubbleView: UIView {
         }
     }
     
-    public var fillColor = Colors.lightGrayColor() {
+    var fillColor = Colors.lighterGrayColor() {
         didSet {
-            if oldValue != fillColor {
-                setNeedsDisplay()
-            }
+            setNeedsDisplay()
         }
     }
     
@@ -48,7 +46,6 @@ class BubbleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,8 +61,12 @@ class BubbleView: UIView {
     // MARK:- Drawing
     
     override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        
+        let path = bubbleViewPath(forRect: rect)
+        fillColor.setFill()
+        path.fill()
+    }
+    
+    func bubbleViewPath(forRect rect: CGRect) -> UIBezierPath {
         let cornerRadius = min(self.cornerRadius, CGRectGetHeight(rect) / 2.0)
         let cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
         var roundedCorners: UIRectCorner
@@ -92,11 +93,8 @@ class BubbleView: UIView {
             break
         }
         
-        fillColor.setFill()
-        
-        let path = UIBezierPath(roundedRect: rect,
-                                byRoundingCorners: roundedCorners,
-                                cornerRadii: cornerRadii)
-        path.fill()
+        return UIBezierPath(roundedRect: rect,
+                            byRoundingCorners: roundedCorners,
+                            cornerRadii: cornerRadii)
     }
 }

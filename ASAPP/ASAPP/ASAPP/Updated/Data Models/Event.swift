@@ -74,13 +74,13 @@ class Event: Object {
     
     // MARK:- Read-only Properties
     
-    public var isCustomerEvent: Bool {
+    var isCustomerEvent: Bool {
         return eventFlags == 1
     }
-    public var isMessageEvent: Bool {
+    var isMessageEvent: Bool {
         return eventType == .TextMessage || eventType == .PictureMessage
     }
-    public var shouldDisplay: Bool {
+    var shouldDisplay: Bool {
         return eventType == .TextMessage || eventType == .PictureMessage
     }
     

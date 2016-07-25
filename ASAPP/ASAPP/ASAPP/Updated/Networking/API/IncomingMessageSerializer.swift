@@ -32,7 +32,7 @@ typealias IncomingMessageHandler = ((IncomingMessage) -> Void)
 struct IncomingMessageSerializer {
     
     func serializedMessage(message: AnyObject?) -> (IncomingMessage) {
-        var serializedMessage = IncomingMessage(withFullMessage: message)
+        let serializedMessage = IncomingMessage(withFullMessage: message)
         
         guard let messageString = message as? String else {
             serializedMessage.debugError = "Response not in expcted string format"
@@ -41,7 +41,6 @@ struct IncomingMessageSerializer {
         }
         
         let tokens = messageString.characters.split("|").map(String.init)
-        let messageType = tokens[0]
         
         serializedMessage.type = MessageType(rawValue: tokens[0])
         if let type = serializedMessage.type {

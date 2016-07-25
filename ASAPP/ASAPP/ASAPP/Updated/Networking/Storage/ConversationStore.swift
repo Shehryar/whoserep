@@ -13,11 +13,11 @@ class ConversationStore: NSObject {
 
     // MARK: Properties
     
-    private(set) public var credentials: Credentials
+    private(set) var credentials: Credentials
     
-    private(set) public var conversation: Conversation?
+    private(set) var conversation: Conversation?
     
-    public var messageEvents: [Event] {
+    var messageEvents: [Event] {
         var messageEvents = [Event]()
         if let conversation = conversation {
             for messageEvent in conversation.messageEvents {
@@ -39,7 +39,7 @@ class ConversationStore: NSObject {
         
         self.realm = loadOrCreateRealm(withCredentials: self.credentials)
         
-        var storedConversation = self.realm?.objects(Conversation.self).filter({ (conversation) -> Bool in
+        let storedConversation = self.realm?.objects(Conversation.self).filter({ (conversation) -> Bool in
             return (conversation.company == credentials.companyMarker &&
                 conversation.isCustomer == credentials.isCustomer &&
                 conversation.userToken == credentials.userToken &&

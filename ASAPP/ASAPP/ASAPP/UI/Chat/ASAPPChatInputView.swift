@@ -119,7 +119,7 @@ class ASAPPChatInputView: UIView, UITextViewDelegate {
         temp.text = textView.text
         
         let origWidth: CGFloat = textView.frame.size.width
-        var size = temp.sizeThatFits(CGSize(width: origWidth, height: CGFloat.max))
+        let size = temp.sizeThatFits(CGSize(width: origWidth, height: CGFloat.max))
         inputHeight = size.height
         self.setNeedsUpdateConstraints()
         self.updateConstraintsIfNeeded()

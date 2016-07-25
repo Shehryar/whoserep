@@ -13,7 +13,7 @@ class ChatMessageEventCell: UITableViewCell {
 
     // MARK: Public Properties
     
-    public var messageEvent: Event? {
+    var messageEvent: Event? {
         didSet {
             messageView.message = (messageEvent?.payload as? EventPayload.TextMessage)?.text
             messageView.isReply = isReply
@@ -30,7 +30,7 @@ class ChatMessageEventCell: UITableViewCell {
         return true
     }
     
-    public var contentInset = UIEdgeInsetsMake(4, 8, 4, 8) {
+    var contentInset = UIEdgeInsetsMake(4, 8, 4, 8) {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()
@@ -108,5 +108,15 @@ class ChatMessageEventCell: UITableViewCell {
             self.messageView.alpha = 1
             self.messageView.transform = CGAffineTransformIdentity
             }, completion: nil)
+    }
+    
+    // MARK: Overriding Selected/Highlighted
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        // No-op
+    }
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        // No-op
     }
 }

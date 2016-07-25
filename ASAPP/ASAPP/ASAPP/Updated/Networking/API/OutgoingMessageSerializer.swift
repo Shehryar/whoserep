@@ -136,7 +136,7 @@ extension OutgoingMessageSerializer {
 
 extension OutgoingMessageSerializer {
     private func getNextRequestId() -> Int {
-        currentRequestId++
+        currentRequestId += 1
         return currentRequestId
     }
     

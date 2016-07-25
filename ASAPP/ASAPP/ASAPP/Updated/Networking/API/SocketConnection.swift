@@ -22,16 +22,16 @@ class SocketConnection: NSObject {
     
     // MARK: Public Properties
     
-    private(set) public var credentials: Credentials
+    private(set) var credentials: Credentials
 
-    public var isConnected: Bool {
+    var isConnected: Bool {
         if let socket = socket {
             return socket.readyState == .OPEN
         }
         return false
     }
     
-    public var delegate: SocketConnectionDelegate?
+    var delegate: SocketConnectionDelegate?
     
     // MARK: Private Properties
     
@@ -50,7 +50,7 @@ class SocketConnection: NSObject {
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
-        var connectionRequest = NSMutableURLRequest()
+        let connectionRequest = NSMutableURLRequest()
         connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")

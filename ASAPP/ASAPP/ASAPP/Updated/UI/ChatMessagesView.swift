@@ -12,23 +12,23 @@ class ChatMessagesView: UIView {
 
     // MARK:- Public Properties
     
-    public var messageEvents: [Event] = [] {
+    var messageEvents: [Event] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    public var contentInset: UIEdgeInsets {
+    var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
     
     // MARK: Properties: UI
-    let tableView = UITableView()
+    private let tableView = UITableView()
 
     // MARK:- Initialization
     
-    let MessageCellReuseId = "MessageCellReuseId"
+    private let MessageCellReuseId = "MessageCellReuseId"
     
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)
@@ -82,7 +82,7 @@ extension ChatMessagesView: UITableViewDataSource {
 
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let event = messageEvents[indexPath.row]
+//        let event = messageEvents[indexPath.row]
         
         // TODO: Check if event.isNew
         if let messageCell = cell as? ChatMessageEventCell {
@@ -97,25 +97,25 @@ extension ChatMessagesView {
     
     // MARK: Messages
     
-    public func insertNewMessageEvent(event: Event) {
+    func insertNewMessageEvent(event: Event) {
         messageEvents.append(event)
         tableView.reloadData()
     }
     
     // MARK: Scroll
     
-    public func isNearBottom(delta: CGFloat) -> Bool {
+    func isNearBottom(delta: CGFloat) -> Bool {
         return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
     }
     
-    public func scrollToBottomIfNeeded(animated: Bool) {
+    func scrollToBottomIfNeeded(animated: Bool) {
         if !isNearBottom(10) {
             return
         }
         scrollToBottom(animated)
     }
 
-    public func scrollToBottom(animated: Bool) {
+    func scrollToBottom(animated: Bool) {
         var indexPath: NSIndexPath?
         let lastSection = numberOfSectionsInTableView(tableView) - 1
         if lastSection >= 0 {

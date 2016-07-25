@@ -12,7 +12,7 @@ class Fonts: NSObject {
     
     // MARK:- Loading Fonts
     
-    override public class func initialize() {
+    override class func initialize() {
         loadFont("Lato-Regular", type: "ttf")
         loadFont("Lato-Bold", type: "ttf")
         loadFont("Lato-Black", type: "ttf")

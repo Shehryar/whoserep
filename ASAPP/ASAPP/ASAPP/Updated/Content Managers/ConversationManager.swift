@@ -21,9 +21,9 @@ class ConversationManager: NSObject {
     
     // MARK: Properties
     
-    public var credentials: Credentials
+    var credentials: Credentials
     
-    public var delegate: ConversationManagerDelegate?
+    var delegate: ConversationManagerDelegate?
     
     // MARK: Private Properties
     
@@ -59,7 +59,7 @@ extension ConversationManager {
     }
     
     func sendMessage(message: String) {
-        var path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
+        let path = "\(credentials.isCustomer ? "customer/" : "rep/")SendTextMessage"
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
     

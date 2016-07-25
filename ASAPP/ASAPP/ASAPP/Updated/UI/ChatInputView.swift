@@ -12,9 +12,9 @@ class ChatInputView: UIView {
 
     // MARK: Public Properties
     
-    public var onSendButtonTap: ((messageText: String) -> Void)?
+    var onSendButtonTap: ((messageText: String) -> Void)?
     
-    public var canSendMessage: Bool = true {
+    var canSendMessage: Bool = true {
         didSet {
             updateSendButtonForCurrentState()
         }
@@ -37,7 +37,15 @@ class ChatInputView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    func commonInit() {
         backgroundColor = Colors.offWhiteColor()
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -56,10 +64,6 @@ class ChatInputView: UIView {
         addSubview(sendButton)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     deinit {
         textView.delegate = nil
     }
@@ -73,7 +77,7 @@ class ChatInputView: UIView {
         textView.backgroundColor = UIColor.whiteColor()
         textView.tintColor = Colors.grayColor()
         textView.font = Fonts.latoRegularFont(withSize: 16)
-        textView.textColor = Colors.mediumTextColor()
+        textView.textColor = Colors.darkTextColor()
         textView.bounces = false
         textView.scrollEnabled = false
         textView.scrollsToTop = false
@@ -198,7 +202,7 @@ extension ChatInputView: UITextViewDelegate {
 // MARK:- Public Instance Methods
 
 extension ChatInputView {
-    public func clear() {
+    func clear() {
         textView.text = ""
         resizeIfNeeded()
         updateSendButtonForCurrentState()
