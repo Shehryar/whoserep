@@ -82,11 +82,11 @@ extension ChatMessagesView: UITableViewDataSource {
 
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        let event = messageEvents[indexPath.row]
+        let event = messageEvents[indexPath.row]
         
-        // TODO: Check if event.isNew
-        if let messageCell = cell as? ChatMessageEventCell {
-            messageCell.animate()
+        if event.isNew {
+            (cell as? ChatMessageEventCell)?.animate()
+            event.isNew = false
         }
     }
 }

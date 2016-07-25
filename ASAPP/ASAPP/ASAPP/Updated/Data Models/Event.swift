@@ -152,8 +152,10 @@ class Event: Object {
     // MARK:- Ignored Properties
     
     override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload"]
+        return ["isNew","eventJSONObject", "payload"]
     }
+    
+    var isNew: Bool = false
     
     lazy var eventJSONObject: [String : AnyObject]? = {
         var eventJSONObject: [String : AnyObject]?

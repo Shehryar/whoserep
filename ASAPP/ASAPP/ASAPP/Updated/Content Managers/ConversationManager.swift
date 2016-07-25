@@ -75,6 +75,8 @@ extension ConversationManager: SocketConnectionDelegate {
         
         if message.type == .Event {
             if let event = Event(withJSON: message.body) {
+                event.isNew = true
+                
                 switch event.eventType {
                 case .TextMessage:
                     conversationStore.addEvent(event)
