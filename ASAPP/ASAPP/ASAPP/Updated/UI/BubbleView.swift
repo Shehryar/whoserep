@@ -46,6 +46,7 @@ class BubbleView: UIView {
     
     func commonInit() {
         backgroundColor = UIColor.clearColor()
+        contentMode = .Redraw
     }
     
     

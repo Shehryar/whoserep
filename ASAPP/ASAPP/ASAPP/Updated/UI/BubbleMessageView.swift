@@ -35,8 +35,10 @@ class BubbleMessageView: UIView {
     
     var contentInset = UIEdgeInsetsMake(10, 16, 10, 16) {
         didSet {
-            setNeedsUpdateConstraints()
-            updateConstraintsIfNeeded()
+            if oldValue != contentInset {
+                setNeedsUpdateConstraints()
+                updateConstraintsIfNeeded()
+            }
         }
     }
     
@@ -47,6 +49,7 @@ class BubbleMessageView: UIView {
     private let bubbleView = BubbleView()
     
     private var leftConstraint: Constraint?
+    
     private var rightConstraint: Constraint?
     
     // MARK: Init
@@ -80,24 +83,24 @@ class BubbleMessageView: UIView {
     // MARK: Layout
     
     override func updateConstraints() {
+        self.leftConstraint?.uninstall()
+        self.rightConstraint?.uninstall()
+        
+        textLabel.snp_updateConstraints { (make) in
+            make.top.equalTo(self.snp_top).offset(contentInset.top)
+            if isReply {
+                self.leftConstraint = make.left.equalTo(self.snp_left).offset(contentInset.left).constraint
+            } else {
+                self.rightConstraint = make.right.equalTo(self.snp_right).offset(-contentInset.right).constraint
+            }
+            make.width.lessThanOrEqualTo(self.snp_width).offset(-(contentInset.left + contentInset.right))
+        }
+        
         bubbleView.snp_updateConstraints { (make) in
             make.top.equalTo(self.snp_top)
             make.left.equalTo(textLabel.snp_left).offset(-contentInset.left)
             make.right.equalTo(textLabel.snp_right).offset(contentInset.right)
             make.height.equalTo(textLabel.snp_height).offset(contentInset.top + contentInset.bottom)
-        }
-        
-        textLabel.snp_updateConstraints { (make) in
-            make.top.equalTo(self.snp_top).offset(contentInset.top)
-            if isReply {
-                self.rightConstraint?.uninstall()
-                self.leftConstraint = make.left.equalTo(self.snp_left).offset(contentInset.left).constraint
-                
-            } else {
-                self.leftConstraint?.uninstall()
-                self.rightConstraint = make.right.equalTo(self.snp_right).offset(-contentInset.right).constraint
-            }
-            make.width.lessThanOrEqualTo(self.snp_width).offset(-(contentInset.left + contentInset.right))
         }
         
         self.snp_updateConstraints { (make) in
