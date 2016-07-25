@@ -8,7 +8,7 @@ target 'ASAPP' do
   use_frameworks!
 
   # Pods for ASAPP
-  pod 'SnapKit', '~> 0.15.0'
+  pod 'SnapKit', '~> 0.21.1'
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
   xcodeproj 'ASAPP.xcodeproj'
@@ -20,7 +20,7 @@ target 'ASAPPTest' do
   use_frameworks!
 
   # Pods for ASAPPTest
-  pod 'SnapKit', '~> 0.15.0'
+  pod 'SnapKit', '~> 0.21.1'
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
   xcodeproj 'ASAPPTest/ASAPPTest.xcodeproj'
