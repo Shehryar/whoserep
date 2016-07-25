@@ -9,6 +9,8 @@
 import UIKit
 
 class Colors: NSObject {
+
+    class func redColor() -> UIColor { return UIColor(red:0.921,  green:0.401,  blue:0.336, alpha:1) }
     
     class func bluishGray() -> UIColor { return UIColor(red:0.555,  green:0.595,  blue:0.692, alpha:1) }
     

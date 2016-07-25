@@ -34,8 +34,10 @@ class ChatMessagesView: UIView {
         super.init(frame: CGRectZero)
      
         backgroundColor = UIColor.whiteColor()
+        clipsToBounds = false
         
         tableView.frame = bounds
+        tableView.clipsToBounds = false
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
@@ -98,13 +100,19 @@ extension ChatMessagesView {
     // MARK: Messages
     
     func insertNewMessageEvent(event: Event) {
+        let wasNearBottom = isNearBottom()
+        
         messageEvents.append(event)
         tableView.reloadData()
+        
+        if wasNearBottom {
+            scrollToBottomAnimated(true)
+        }
     }
     
     // MARK: Scroll
     
-    func isNearBottom(delta: CGFloat) -> Bool {
+    func isNearBottom(delta: CGFloat = 80) -> Bool {
         return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
     }
     
@@ -112,10 +120,10 @@ extension ChatMessagesView {
         if !isNearBottom(10) {
             return
         }
-        scrollToBottom(animated)
+        scrollToBottomAnimated(animated)
     }
 
-    func scrollToBottom(animated: Bool) {
+    func scrollToBottomAnimated(animated: Bool) {
         var indexPath: NSIndexPath?
         let lastSection = numberOfSectionsInTableView(tableView) - 1
         if lastSection >= 0 {
@@ -126,7 +134,7 @@ extension ChatMessagesView {
         }
         
         if let indexPath = indexPath {
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
         }
     }
 }

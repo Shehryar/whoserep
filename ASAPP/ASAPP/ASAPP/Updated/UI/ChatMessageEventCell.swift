@@ -103,7 +103,7 @@ class ChatMessageEventCell: UITableViewCell {
     func animate() {
         messageView.alpha = 0
         messageView.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        
+    
         UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
             self.messageView.alpha = 1
             self.messageView.transform = CGAffineTransformIdentity

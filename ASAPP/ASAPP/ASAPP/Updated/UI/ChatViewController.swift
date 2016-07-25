@@ -68,6 +68,7 @@ class ChatViewController: UIViewController {
         
         view.backgroundColor = UIColor.whiteColor()
         
+        chatMessagesView.scrollToBottomAnimated(false)
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         
@@ -128,7 +129,7 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
         }
-        chatMessagesView.scrollToBottom(false)
+        chatMessagesView.scrollToBottomAnimated(false)
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
