@@ -10,24 +10,37 @@ import UIKit
 
 class ChatMessageEventCell: UITableViewCell {
 
-    // MARK: Properties
+    // MARK: Public Properties
     
     public var messageEvent: Event? {
         didSet {
-            if let messageEvent = messageEvent {
-                textLabel?.text = (messageEvent.payload as? EventPayload.TextMessage)?.text
-                
-                if messageEvent.isCustomerEvent {
-                    textLabel?.textAlignment = .Right
-                } else {
-                    textLabel?.textAlignment = .Left
-                }
-                
-            } else {
-                textLabel?.text = ""
+            messageView.message = (messageEvent?.payload as? EventPayload.TextMessage)?.text
+            messageView.isReply = isReply
+            
+            setNeedsUpdateConstraints()
+            updateConstraintsIfNeeded()
+        }
+    }
+    
+    var isReply: Bool {
+        if let messageEvent = messageEvent {
+            return !messageEvent.isCustomerEvent
+        }
+        return true
+    }
+    
+    public var contentInset = UIEdgeInsetsMake(4, 8, 4, 8) {
+        didSet {
+            if oldValue != contentInset {
+                setNeedsUpdateConstraints()
+                updateConstraintsIfNeeded()
             }
         }
     }
+    
+    // MARK: Properties
+    
+    private let messageView = BubbleMessageView()
     
     // MARK: Init
     
@@ -42,14 +55,41 @@ class ChatMessageEventCell: UITableViewCell {
     }
     
     func commonInit() {
-        textLabel?.font = Fonts.latoRegularFont(withSize: 16)
-        textLabel?.textColor = Colors.mediumTextColor()
-        textLabel?.numberOfLines = 0
+        selectionStyle = .None
+        
+        messageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(messageView)
+        
+        setNeedsUpdateConstraints()
+        setNeedsUpdateConstraints()
     }
     
     // MARK: Layout
     
     override func updateConstraints() {
+        let messageWidth = CGRectGetWidth(bounds) - contentInset.left - contentInset.right
+        
+        let maxMessageWidth = 0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right)
+        
+        messageView.snp_updateConstraints { (make) in
+            if isReply {
+                make.left.equalTo(contentView.snp_left).offset(contentInset.left)
+                make.right.greaterThanOrEqualTo(contentView.snp_right).offset(-contentInset.right)
+            } else {
+                make.right.equalTo(contentView.snp_right).offset(-contentInset.right)
+                make.left.greaterThanOrEqualTo(contentView.snp_left).offset(contentInset.left)
+            }
+            make.top.equalTo(contentView.snp_top).offset(contentInset.top)
+            make.width.lessThanOrEqualTo(maxMessageWidth)
+        }
+        
+        contentView.snp_updateConstraints { (make) in
+            make.left.equalTo(self.snp_left)
+            make.top.equalTo(self.snp_top)
+            make.width.equalTo(self.snp_width)
+            make.height.greaterThanOrEqualTo(messageView.snp_height).offset(contentInset.top + contentInset.bottom)
+        }
+        
         super.updateConstraints()
     }
     

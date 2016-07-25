@@ -39,6 +39,8 @@ class ChatMessagesView: UIView {
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
+        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
@@ -79,10 +81,6 @@ extension ChatMessagesView: UITableViewDataSource {
 // MARK:- UITableViewDelegate
 
 extension ChatMessagesView: UITableViewDelegate {
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
-    }
-    
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let event = messageEvents[indexPath.row]
         
