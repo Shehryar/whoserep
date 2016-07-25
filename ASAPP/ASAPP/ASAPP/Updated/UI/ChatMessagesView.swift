@@ -85,7 +85,7 @@ extension ChatMessagesView: UITableViewDelegate {
         let event = messageEvents[indexPath.row]
         
         // TODO: Check if event.isNew
-        if let messageCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatMessageEventCell {
+        if let messageCell = cell as? ChatMessageEventCell {
             messageCell.animate()
         }
     }
