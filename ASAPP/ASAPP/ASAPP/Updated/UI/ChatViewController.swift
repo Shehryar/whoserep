@@ -133,8 +133,9 @@ extension ChatViewController: ASAPPKeyboardObserverDelegate {
         keyboardOffset = size.height
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
+            self.chatMessagesView.scrollToBottomAnimated(false)
         }
-        chatMessagesView.scrollToBottomAnimated(false)
+        
     }
     
     func ASAPPKeyboardWillHide(duration: NSTimeInterval) {

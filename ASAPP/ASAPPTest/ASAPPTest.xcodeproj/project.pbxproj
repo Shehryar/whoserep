@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3049CD281D465D9D00F0C0E6 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3049CD271D465D9D00F0C0E6 /* ASAPP.framework */; };
+		30226CBB1D48207D00871453 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30226CBA1D48207D00871453 /* ASAPP.framework */; };
+		30226CBC1D48207D00871453 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30226CBA1D48207D00871453 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				30226CBC1D48207D00871453 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -30,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
+		30226CBA1D48207D00871453 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		3049CD271D465D9D00F0C0E6 /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASAPP.framework; path = "../build/Debug-iphoneos/ASAPP.framework"; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,8 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3049CD281D465D9D00F0C0E6 /* ASAPP.framework in Frameworks */,
 				D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */,
+				30226CBB1D48207D00871453 /* ASAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +78,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
+				30226CBA1D48207D00871453 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				FD8D8B1A1D107A19001B420B /* Products */,
 				FCB047A4DE7D9EB0065D7FB9 /* Pods */,
@@ -138,6 +142,7 @@
 				TargetAttributes = {
 					FD8D8B181D107A19001B420B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 94CPHRUGLV;
 					};
 				};
 			};
@@ -331,10 +336,11 @@
 			baseConfigurationReference = 1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -344,9 +350,11 @@
 			baseConfigurationReference = 9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
