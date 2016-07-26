@@ -68,6 +68,7 @@ extension ConversationManager {
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
 
+    /// Returns all types of events
     func getMessageEvents(afterEvent: Event? = nil,
 //                          beforeEvent: Event? = nil, // After event not yet supported by the API
                            completion: ((events: [Event]?, error: String?) -> Void)) {
@@ -89,7 +90,7 @@ extension ConversationManager {
                         guard let eventJSON = eventJSON as? [String : AnyObject] else {
                             continue
                         }
-                        if let event = Event(withJSON: eventJSON) {                            
+                        if let event = Event(withJSON: eventJSON) {
                             fetchedEvents?.append(event)
                         }
                     }
@@ -103,7 +104,7 @@ extension ConversationManager {
                 errorMessage = errorMessage ?? "No results returned."
             }
             
-            DebugLog("Fetched \(numberOfEventsFetched) with error: \(errorMessage ?? "success")")
+            DebugLog("Fetched \(numberOfEventsFetched) events with error: \(errorMessage ?? "success")")
             
             completion(events: fetchedEvents, error: errorMessage)
         }

@@ -12,11 +12,11 @@ class ChatViewController: UIViewController {
     
     // MARK: Properties: Data
     
-    var credentials: Credentials
-    var conversationManager: ConversationManager
+    private(set) var credentials: Credentials
+    private var conversationManager: ConversationManager
     
-    var keyboardObserver = ASAPPKeyboardObserver()
-    var keyboardOffset: CGFloat = 0 {
+    private var keyboardObserver = ASAPPKeyboardObserver()
+    private var keyboardOffset: CGFloat = 0 {
         didSet {
             if keyboardOffset != oldValue {
                 view.setNeedsUpdateConstraints()
@@ -27,8 +27,9 @@ class ChatViewController: UIViewController {
     
     // MARK: Properties: UI
     
-    var chatMessagesView: ChatMessagesView
-    var chatInputView = ChatInputView()
+    private var chatMessagesView: ChatMessagesView
+    private var chatInputView = ChatInputView()
+    private var isInitialLayout = true
     
     // MARK:- Initialization
     
@@ -41,7 +42,7 @@ class ChatViewController: UIViewController {
         
         conversationManager.delegate = self
         
-        chatMessagesView.messageEvents = conversationManager.storedMessages
+        chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         
         chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
             self?.sendMessage(withText: messageText)
@@ -67,13 +68,11 @@ class ChatViewController: UIViewController {
         
         view.backgroundColor = UIColor.whiteColor()
         
-        chatMessagesView.scrollToBottomAnimated(false)
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         
         view.setNeedsUpdateConstraints()
-        
-        reloadMessageEvents()
+        view.updateFocusIfNeeded()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,6 +117,11 @@ extension ChatViewController {
         
         if let navigationBar = navigationController?.navigationBar {
             chatMessagesView.contentInset = UIEdgeInsetsMake(CGRectGetMaxY(navigationBar.frame), 0, 0, 0)
+        }
+        
+        if isInitialLayout {
+            chatMessagesView.scrollToBottomAnimated(false)
+            isInitialLayout = false
         }
     }
 }
@@ -173,7 +177,7 @@ extension ChatViewController {
     func reloadMessageEvents() {
         conversationManager.getMessageEvents { [weak self] (events, error) in
             if let events = events {
-                self?.chatMessagesView.messageEvents = events
+                self?.chatMessagesView.mergeMessageEventsWithEvents(events)
             }
         }
     }

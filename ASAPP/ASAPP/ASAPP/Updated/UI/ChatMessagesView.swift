@@ -12,9 +12,11 @@ class ChatMessagesView: UIView {
 
     // MARK:- Public Properties
     
-    var messageEvents: [Event] = [] {
+    private(set) var messageEvents: [Event] = [] {
         didSet {
-            tableView.reloadData()
+            filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
+                return canDisplayMessageEvent(messageEvent)
+            })
         }
     }
     
@@ -25,9 +27,15 @@ class ChatMessagesView: UIView {
     
     // MARK: Private Properties
     
+    private var filteredMessageEvents: [Event] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     private let tableView = UITableView()
 
-    private var newMessageEvents = Set<Event>()
+    private var eventsThatShouldAnimate = Set<Event>()
     
     private let MessageCellReuseId = "MessageCellReuseId"
     
@@ -65,17 +73,48 @@ class ChatMessagesView: UIView {
 // MARK:- UITableViewDataSource
 
 extension ChatMessagesView: UITableViewDataSource {
+    
+    // Private Utilities
+    
+    private func messageEventForIndexPath(indexPath: NSIndexPath) -> Event? {
+        if indexPath.row >= 0 && indexPath.row < filteredMessageEvents.count {
+            return filteredMessageEvents[indexPath.row]
+        }
+        return nil
+    }
+    
+    private func indexPathForMessageEvent(messageEvent: Event?) -> NSIndexPath? {
+        guard let messageEvent = messageEvent else {
+            return nil
+        }
+        
+        var messageEventIndex: Int? = nil
+        for (index, event) in filteredMessageEvents.enumerate() {
+            if event.eventLogSeq == messageEvent.eventLogSeq {
+                messageEventIndex = index
+                break
+            }
+        }
+        
+        if let index = messageEventIndex {
+            return NSIndexPath(forRow: index, inSection: 0)
+        }
+        return nil
+    }
+    
+    // UITableViewDataSource
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageEvents.count
+        return filteredMessageEvents.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
-            cell.messageEvent = messageEvents[indexPath.row]
+            cell.messageEvent = messageEventForIndexPath(indexPath)
             return cell
         }
         
@@ -87,11 +126,13 @@ extension ChatMessagesView: UITableViewDataSource {
 
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let event = messageEvents[indexPath.row]
-        
-        if newMessageEvents.contains(event) {
+        guard let event = messageEventForIndexPath(indexPath) else {
+            return
+        }
+
+        if eventsThatShouldAnimate.contains(event) {
             (cell as? ChatMessageEventCell)?.animate()
-            newMessageEvents.remove(event)
+            eventsThatShouldAnimate.remove(event)
         }
     }
 }
@@ -100,15 +141,78 @@ extension ChatMessagesView: UITableViewDelegate {
 
 extension ChatMessagesView {
     
+    func canDisplayMessageEvent(messageEvent: Event) -> Bool {
+        return messageEvent.eventType == .TextMessage
+    }
+    
+    func arraysOfMessageEventsAreDifferent(array1: [Event], array2: [Event]) -> Bool {
+        guard array1.count == array2.count else {
+            return true
+        }
+        
+        for idx in 0..<array1.count {
+            if array1[idx].eventLogSeq != array2[idx].eventLogSeq {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     // MARK: Messages
+
+    func replaceMessageEventsWithEvents(newMessageEvents: [Event]) {
+        messageEvents = newMessageEvents
+    }
+    
+    func mergeMessageEventsWithEvents(newMessageEvents: [Event]) {
+        var lastVisibleMessageEvent: Event?
+        if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageEventCell {
+            lastVisibleMessageEvent = lastVisibleCell.messageEvent
+        }
+        
+        var allMessages = [Event]()
+        
+        var setOfMessageEventLogSeqs = Set<Int>()
+        func addOrSkipMessageEvent(event: Event) {
+            if !setOfMessageEventLogSeqs.contains(event.eventLogSeq) {
+                allMessages.append(event)
+                setOfMessageEventLogSeqs.insert(event.eventLogSeq)
+            }
+        }
+        
+        // Favor newMessageEvents over old
+        for event in newMessageEvents { addOrSkipMessageEvent(event) }
+        for event in messageEvents { addOrSkipMessageEvent(event) }
+        
+        
+        let mergedMessageEvents = allMessages.sort({ (event1, event2) -> Bool in
+            return event1.eventLogSeq < event2.eventLogSeq
+        })
+        
+        // Do not reload the view if the events are the same
+        if arraysOfMessageEventsAreDifferent(mergedMessageEvents, array2: messageEvents) {
+            messageEvents = mergedMessageEvents
+            
+            if let lastVisibleIndexPath = indexPathForMessageEvent(lastVisibleMessageEvent) {
+                tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
+            }
+        }
+    }
     
     func insertNewMessageEvent(event: Event) {
-        newMessageEvents.insert(event)
-        
         let wasNearBottom = isNearBottom()
         
         messageEvents.append(event)
+        if canDisplayMessageEvent(event) {
+            // Only animate the message if the user is near the bottom
+            if wasNearBottom {
+                eventsThatShouldAnimate.insert(event)
+            }
+        }
+        
         tableView.reloadData()
+        tableView.layoutIfNeeded()
         
         if wasNearBottom {
             scrollToBottomAnimated(true)

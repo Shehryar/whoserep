@@ -29,6 +29,7 @@ class ChatsListViewController: UIViewController {
     
     let conversations = [
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-r6", isCustomer: false),
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true), // testing
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c8", isCustomer: true), // testing
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c9", isCustomer: true), // testing
