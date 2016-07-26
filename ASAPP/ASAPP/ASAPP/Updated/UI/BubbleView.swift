@@ -51,6 +51,14 @@ class BubbleView: UIView {
         }
     }
     
+    var strokeLineWidth: CGFloat = 1 {
+        didSet {
+            if oldValue != strokeLineWidth {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
     // MARK:- Init
     
     override init(frame: CGRect) {
@@ -64,6 +72,7 @@ class BubbleView: UIView {
     }
     
     func commonInit() {
+        clipsToBounds = false
         backgroundColor = UIColor.clearColor()
         contentMode = .Redraw
     }
@@ -76,7 +85,7 @@ class BubbleView: UIView {
         path.fill()
         if let strokeColor = strokeColor {
             strokeColor.setStroke()
-            path.lineWidth = 1
+            path.lineWidth = strokeLineWidth
             path.stroke()
         }
     }
@@ -108,7 +117,12 @@ class BubbleView: UIView {
             break
         }
         
-        return UIBezierPath(roundedRect: rect,
+        var sizedRect = rect
+        if strokeColor != nil {
+            sizedRect = CGRectInset(rect, strokeLineWidth, strokeLineWidth)
+        }
+        
+        return UIBezierPath(roundedRect: sizedRect,
                             byRoundingCorners: roundedCorners,
                             cornerRadii: cornerRadii)
     }
