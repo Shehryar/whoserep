@@ -17,7 +17,6 @@ class BubbleMessageView: UIView {
         didSet {
             textLabel.text = message
             setNeedsUpdateConstraints()
-            updateConstraintsIfNeeded()
         }
     }
     
@@ -25,9 +24,7 @@ class BubbleMessageView: UIView {
         didSet {
             if oldValue != isReply {
                 updateMessageViewForIsReply()
-                
                 setNeedsUpdateConstraints()
-                updateConstraintsIfNeeded()
             }
         }
     }
@@ -36,7 +33,6 @@ class BubbleMessageView: UIView {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()
-                updateConstraintsIfNeeded()
             }
         }
     }
@@ -75,8 +71,6 @@ class BubbleMessageView: UIView {
         addSubview(textLabel)
         
         updateMessageViewForIsReply()
-        setNeedsUpdateConstraints()
-        updateConstraintsIfNeeded()
     }
     
     // MARK: Layout
@@ -117,7 +111,7 @@ class BubbleMessageView: UIView {
         self.snp_updateConstraints { (make) in
            make.height.greaterThanOrEqualTo(textLabel.snp_height).offset(contentInset.top + contentInset.bottom)
         }
-
+        
         super.updateConstraints()
     }
 }

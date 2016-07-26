@@ -30,6 +30,8 @@ class ChatInputView: UIView {
     
     let borderTopView = UIView()
     let textView = UITextView()
+    let placeholderTextView = UITextView()
+    
     let mediaButton = UIButton()
     let sendButton = UIButton()
     
@@ -46,7 +48,7 @@ class ChatInputView: UIView {
     }
     
     func commonInit() {
-        backgroundColor = Colors.offWhiteColor()
+        backgroundColor = Colors.whiteColor()
         translatesAutoresizingMaskIntoConstraints = false
         
         borderTopView.backgroundColor = Colors.lightGrayColor()
@@ -55,6 +57,7 @@ class ChatInputView: UIView {
         styleTextView()
         textView.delegate = self
         addSubview(textView)
+        addSubview(placeholderTextView)
         
         styleMediaButton()
         addSubview(mediaButton)
@@ -71,9 +74,6 @@ class ChatInputView: UIView {
     // MARK:- Appearance
     
     func styleTextView() {
-        textView.layer.cornerRadius = 4
-        textView.layer.borderColor = Colors.lightGrayColor().CGColor
-        textView.layer.borderWidth = 1
         textView.backgroundColor = UIColor.whiteColor()
         textView.tintColor = Colors.grayColor()
         textView.font = Fonts.latoRegularFont(withSize: 16)
@@ -83,6 +83,14 @@ class ChatInputView: UIView {
         textView.scrollsToTop = false
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
+        
+        placeholderTextView.text = "Enter message here..." // TODO: Localization
+        placeholderTextView.backgroundColor = UIColor.clearColor()
+        placeholderTextView.font = textView.font
+        placeholderTextView.textColor = textView.tintColor
+        placeholderTextView.userInteractionEnabled = false
+        placeholderTextView.scrollsToTop = false
+        placeholderTextView.scrollEnabled = false
     }
     
     func styleSendButton() {
@@ -161,6 +169,10 @@ extension ChatInputView {
             make.height.equalTo(inputHeight)
         }
         
+        placeholderTextView.snp_remakeConstraints { (make) in
+            make.edges.equalTo(textView)
+        }
+        
         super.updateConstraints()
     }
 }
@@ -171,6 +183,8 @@ extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         resizeIfNeeded()
         updateSendButtonForCurrentState()
+        
+        placeholderTextView.hidden = !textView.text.isEmpty
     }
     
     func resizeIfNeeded() {

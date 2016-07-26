@@ -17,9 +17,7 @@ class ChatMessageEventCell: UITableViewCell {
         didSet {
             messageView.message = (messageEvent?.payload as? EventPayload.TextMessage)?.text
             messageView.isReply = isReply
-            
             setNeedsUpdateConstraints()
-            updateConstraintsIfNeeded()
         }
     }
     
@@ -34,7 +32,6 @@ class ChatMessageEventCell: UITableViewCell {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()
-                updateConstraintsIfNeeded()
             }
         }
     }
@@ -46,7 +43,6 @@ class ChatMessageEventCell: UITableViewCell {
     private var leftConstraint: Constraint?
     
     private var rightConstraint: Constraint?
-    
     
     // MARK: Init
     
@@ -65,9 +61,6 @@ class ChatMessageEventCell: UITableViewCell {
         
         messageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(messageView)
-        
-        setNeedsUpdateConstraints()
-        setNeedsUpdateConstraints()
     }
     
     // MARK: Layout
@@ -94,7 +87,6 @@ class ChatMessageEventCell: UITableViewCell {
             make.width.equalTo(self.snp_width)
             make.height.greaterThanOrEqualTo(messageView.snp_height).offset(contentInset.top + contentInset.bottom)
         }
-        
         super.updateConstraints()
     }
     
