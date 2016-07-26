@@ -15,69 +15,43 @@ class ConversationStore: NSObject {
     
     private(set) var credentials: Credentials
     
-    private(set) var conversation: Conversation?
-    
-    var messageEvents: [Event] {
-        var messageEvents = [Event]()
-        if let conversation = conversation {
-            for messageEvent in conversation.messageEvents {
-                messageEvents.append(messageEvent)
-            }
-        }
-        return messageEvents
-    }
-    
     // MARK: Private Properties
     
+    private var realmFileURL: NSURL
+    
     private var realm: Realm?
+    
+    private var conversation: Conversation?
     
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        super.init()
         
-        self.realm = loadOrCreateRealm(withCredentials: self.credentials)
-        
-        let storedConversation = self.realm?.objects(Conversation.self).filter({ (conversation) -> Bool in
-            return (conversation.company == credentials.companyMarker &&
-                conversation.isCustomer == credentials.isCustomer &&
-                conversation.userToken == credentials.userToken &&
-                conversation.targetCustomerToken == credentials.targetCustomerToken
-            )
-        }).last
-        
-        if storedConversation != nil {
-            self.conversation = storedConversation
-        } else {
-            self.conversation = Conversation(withCredentials: self.credentials)
-            saveConversation()
-        }
-    }
-}
-
-// MARK:- Realm Setup Utilities
-
-extension ConversationStore {
-    
-    func realmFileURL(withCredentials credentials: Credentials) -> NSURL {
         let filePaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let fileName = String(format: "/ASAPP_%@_%@.realm", credentials.companyMarker, credentials.isCustomer)
         let filePath = filePaths[0].stringByAppendingString(fileName)
-        return NSURL(fileURLWithPath: filePath)
+        self.realmFileURL = NSURL(fileURLWithPath: filePath)
+
+        super.init()
+        
+        self.realm = createRealmObject()
+        self.conversation = getStoredOrNewConversation()
     }
-    
-    func loadOrCreateRealm(withCredentials credentials: Credentials) -> Realm? {
-        let fileURL = realmFileURL(withCredentials: credentials)
+}
+
+// MARK:- Realm Setup
+
+extension ConversationStore {
+    private func createRealmObject() -> Realm? {
+        DebugLog("Loading Realm with FileURL: \(realmFileURL.path)")
         
-        DebugLog("Loading Realm with FileURL: \(fileURL.path)")
-        
-        if !NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
-            let success = NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: nil, attributes: nil)
+        if !NSFileManager.defaultManager().fileExistsAtPath(realmFileURL.path!) {
+            let success = NSFileManager.defaultManager().createFileAtPath(realmFileURL.path!, contents: nil, attributes: nil)
             DebugLog("REALM created file: \(success)")
         }
         
-        let realm = try? Realm(fileURL: fileURL)
+        let realm = try? Realm(fileURL: realmFileURL)
         if let realm = realm {
             DebugLog("REALM initialized with file: \(realm.configuration.fileURL)")
         } else {
@@ -86,31 +60,53 @@ extension ConversationStore {
         
         return realm
     }
-} 
+    
+    private func getStoredOrNewConversation() -> Conversation? {
+        guard let realm = realm else { return nil }
+        
+        let storedConversation = realm.objects(Conversation.self).filter({ (conversation) -> Bool in
+            return (conversation.company == self.credentials.companyMarker &&
+                conversation.isCustomer == self.credentials.isCustomer &&
+                conversation.userToken == self.credentials.userToken &&
+                conversation.targetCustomerToken == self.credentials.targetCustomerToken
+            )
+        }).last
+        
+        if storedConversation != nil {
+            DebugLog("Fetched stored conversation.")
+            return storedConversation
+        }
+        
+        DebugLog("Creating new conversation.")
+        
+        let newConversation = Conversation(withCredentials: self.credentials)
+        do {
+            try realm.write({
+                realm.add(newConversation, update: true)
+            })
+        } catch {
+            DebugLogError("Failed to save conversat/Users/mitch/Developer/asapp-ios/ASAPP/ASAPP/ASAPP/Updated/Networking/API/SocketConnection.swiftion: \(conversation)")
+        }
+        
+        return newConversation
+    }
+}
 
 // MARK:- Making Changes
 
 extension ConversationStore {
-    func saveConversation() {
-        guard let conversation = conversation,
-            let realm = realm else {
-                return
-        }
+    func getMessageEvents() -> [Event] {
+        guard let conversation = conversation else {   return [] }
         
-        do {
-            try realm.write({
-                realm.add(conversation, update: true)
-            })
-        } catch {
-            DebugLogError("Failed to save conversation: \(conversation)")
+        var messageEvents = [Event]()
+        for messageEvent in conversation.messageEvents {
+            messageEvents.append(messageEvent)
         }
+        return messageEvents
     }
     
     func addEvent(event: Event) {
-        guard let conversation = conversation,
-            let realm = realm else {
-                return
-        }
+        guard let realm = realm, let conversation = conversation else { return }
         
         do {
             try realm.write {

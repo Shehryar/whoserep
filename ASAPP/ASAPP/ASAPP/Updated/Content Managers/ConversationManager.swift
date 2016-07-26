@@ -63,8 +63,8 @@ extension ConversationManager {
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
     
-    func getStoredMessages() -> [Event]? {
-        return conversationStore.messageEvents
+    func getStoredMessages(completion: ((storedMessages: [Event]?) -> Void)) {
+        completion(storedMessages: conversationStore.getMessageEvents())
     }
 }
 

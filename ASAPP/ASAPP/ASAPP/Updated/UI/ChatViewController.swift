@@ -40,8 +40,11 @@ class ChatViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.conversationManager.delegate = self
-        if let storedEvents = self.conversationManager.getStoredMessages() {
-            self.chatMessagesView.messageEvents = storedEvents
+        
+        self.conversationManager.getStoredMessages { (storedMessages) in
+            if let storedMessages = storedMessages {
+                self.chatMessagesView.messageEvents = storedMessages
+            }
         }
         
         chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
