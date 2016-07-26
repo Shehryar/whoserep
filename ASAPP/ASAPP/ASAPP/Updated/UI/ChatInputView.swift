@@ -81,6 +81,8 @@ class ChatInputView: UIView {
         textView.bounces = false
         textView.scrollEnabled = false
         textView.scrollsToTop = false
+        textView.textContainer.lineFragmentPadding = 0
+
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
@@ -91,6 +93,7 @@ class ChatInputView: UIView {
         placeholderTextView.userInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
         placeholderTextView.scrollEnabled = false
+        placeholderTextView.textContainer.lineFragmentPadding = 0
     }
     
     func styleSendButton() {
