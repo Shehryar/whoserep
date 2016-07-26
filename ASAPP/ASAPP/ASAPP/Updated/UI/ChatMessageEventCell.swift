@@ -108,32 +108,36 @@ class ChatMessageEventCell: UITableViewCell {
     }
     
     private func performAnimation() {
-        let messageSize = messageView.sizeThatFits(bounds.size)
-        
-        print("Performing Animation:\nBounds=\(String(bounds))\nmessageView.frame=\(String(messageView.frame))\nCalculated Message Size=\(String(messageSize))\n\n")
         
         
-        var originalCenter = CGPointZero
-        var startingCenter = CGPointZero
-        
-        originalCenter.y = CGRectGetHeight(bounds) - messageSize.height / 2.0 - contentInset.bottom
-        startingCenter.y = CGRectGetHeight(bounds)
+        var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
         if isReply {
-            originalCenter.x = contentInset.left + messageSize.width / 2.0
-            startingCenter.x = originalCenter.x - messageSize.width / 2.0
+            animationBeginCenter.x = contentInset.left
         } else {
-            originalCenter.x = CGRectGetWidth(bounds) - messageSize.width / 2.0 - contentInset.right
-            startingCenter.x = originalCenter.x + messageSize.width / 2.0
+            animationBeginCenter.x = CGRectGetWidth(bounds) - contentInset.right
+        }
+        
+        var animationEndCenter = CGPoint()
+        if messageView.bounds.isEmpty {
+            let messageSize = messageView.sizeThatFits(bounds.size)
+            animationEndCenter.y = CGRectGetHeight(bounds) - contentInset.bottom - messageSize.height / 2.0
+            if isReply {
+                animationEndCenter.x = contentInset.left + messageSize.width / 2.0
+            } else {
+                animationEndCenter.x = CGRectGetWidth(bounds) - contentInset.right - messageSize.width / 2.0
+            }
+        } else {
+            animationEndCenter = messageView.center
         }
         
         messageView.alpha = 0
         messageView.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        messageView.center = startingCenter
+        messageView.center = animationBeginCenter
         
         UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
             self.messageView.alpha = 1
             self.messageView.transform = CGAffineTransformIdentity
-            self.messageView.center = originalCenter
+            self.messageView.center = animationEndCenter
             }, completion: { (completed) in
                 self.setNeedsLayout()
                 self.animating = false
