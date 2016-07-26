@@ -67,9 +67,10 @@ class Event: Object {
     dynamic var eventFlags = 0
     dynamic var eventJSON = ""
     dynamic var eventLogSeq = 0
+    dynamic var uniqueIdentifier: String = NSUUID().UUIDString
     
-    override static func primaryKey() -> String? {
-        return "eventLogSeq"
+    override class func primaryKey() -> String? {
+        return "uniqueIdentifier"
     }
     
     // MARK:- Read-only Properties

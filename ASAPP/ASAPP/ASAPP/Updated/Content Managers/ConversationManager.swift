@@ -20,6 +20,8 @@ protocol ConversationManagerDelegate {
 
 class ConversationManager: NSObject {
     
+    typealias ConversationManagerRequestBlock = ((fetchedEvents: [Event]?, error: String?) -> Void)
+    
     // MARK: Properties
     
     var credentials: Credentials
@@ -67,11 +69,18 @@ extension ConversationManager {
         let path = "\(requestPrefix)SendTextMessage"
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
+    
+    func getLatestMessages(completion: ConversationManagerRequestBlock) {
+        getMessageEvents { (fetchedEvents, error) in
+            if let fetchedEvents = fetchedEvents {
+                self.conversationStore.updateWithRecentMessageEvents(fetchedEvents)
+                completion(fetchedEvents: fetchedEvents, error: error)
+            }
+        }
+    }
 
     /// Returns all types of events
-    func getMessageEvents(afterEvent: Event? = nil,
-//                          beforeEvent: Event? = nil, // After event not yet supported by the API
-                           completion: ((events: [Event]?, error: String?) -> Void)) {
+    func getMessageEvents(afterEvent: Event? = nil, completion: ConversationManagerRequestBlock) {
         let path = "\(requestPrefix)GetEvents"
         var params = [String : AnyObject]()
         if let afterEvent = afterEvent {
@@ -104,9 +113,9 @@ extension ConversationManager {
                 errorMessage = errorMessage ?? "No results returned."
             }
             
-            DebugLog("Fetched \(numberOfEventsFetched) events with error: \(errorMessage ?? "success")")
+            DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? "with error: \(errorMessage!)" : "")")
             
-            completion(events: fetchedEvents, error: errorMessage)
+            completion(fetchedEvents: fetchedEvents, error: errorMessage)
         }
     }
     
@@ -122,9 +131,10 @@ extension ConversationManager: SocketConnectionDelegate {
         
         if message.type == .Event {
             if let event = Event(withJSON: message.body) {
+                conversationStore.addEvent(event)
+                
                 switch event.eventType {
                 case .TextMessage:
-                    conversationStore.addEvent(event)
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     break
                   

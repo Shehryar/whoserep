@@ -95,6 +95,8 @@ class ChatMessageEventCell: UITableViewCell {
     // MARK: Instance Methods
     
     func animate() {
+//        return
+        
         if animating {
             return
         }
@@ -107,6 +109,9 @@ class ChatMessageEventCell: UITableViewCell {
     
     private func performAnimation() {
         let messageSize = messageView.sizeThatFits(bounds.size)
+        
+        print("Performing Animation:\nBounds=\(String(bounds))\nmessageView.frame=\(String(messageView.frame))\nCalculated Message Size=\(String(messageSize))\n\n")
+        
         
         var originalCenter = CGPointZero
         var startingCenter = CGPointZero

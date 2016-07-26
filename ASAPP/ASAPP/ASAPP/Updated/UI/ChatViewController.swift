@@ -175,9 +175,9 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        conversationManager.getMessageEvents { [weak self] (events, error) in
-            if let events = events {
-                self?.chatMessagesView.mergeMessageEventsWithEvents(events)
+        conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
+            if let fetchedEvents = fetchedEvents {
+                self?.chatMessagesView.mergeMessageEventsWithEvents(fetchedEvents)
             }
         }
     }

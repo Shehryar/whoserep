@@ -12,13 +12,7 @@ class ChatMessagesView: UIView {
 
     // MARK:- Public Properties
     
-    private(set) var messageEvents: [Event] = [] {
-        didSet {
-            filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
-                return canDisplayMessageEvent(messageEvent)
-            })
-        }
-    }
+    private(set) var messageEvents: [Event] = []
     
     var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
@@ -27,11 +21,7 @@ class ChatMessagesView: UIView {
     
     // MARK: Private Properties
     
-    private var filteredMessageEvents: [Event] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private var filteredMessageEvents: [Event] = []
     
     private let tableView = UITableView()
 
@@ -163,9 +153,18 @@ extension ChatMessagesView {
 
     func replaceMessageEventsWithEvents(newMessageEvents: [Event]) {
         messageEvents = newMessageEvents
+        filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
+            return canDisplayMessageEvent(messageEvent)
+        })
+        tableView.reloadData()
     }
     
     func mergeMessageEventsWithEvents(newMessageEvents: [Event]) {
+        guard messageEvents.count > 0 else {
+            replaceMessageEventsWithEvents(newMessageEvents)
+            return
+        }
+        
         var lastVisibleMessageEvent: Event?
         if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageEventCell {
             lastVisibleMessageEvent = lastVisibleCell.messageEvent
@@ -193,6 +192,10 @@ extension ChatMessagesView {
         // Do not reload the view if the events are the same
         if arraysOfMessageEventsAreDifferent(mergedMessageEvents, array2: messageEvents) {
             messageEvents = mergedMessageEvents
+            filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
+                return canDisplayMessageEvent(messageEvent)
+            })
+            tableView.reloadData()
             
             if let lastVisibleIndexPath = indexPathForMessageEvent(lastVisibleMessageEvent) {
                 tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
@@ -205,14 +208,14 @@ extension ChatMessagesView {
         
         messageEvents.append(event)
         if canDisplayMessageEvent(event) {
+            filteredMessageEvents.append(event)
             // Only animate the message if the user is near the bottom
             if wasNearBottom {
                 eventsThatShouldAnimate.insert(event)
             }
+            tableView.reloadData()
+            
         }
-        
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
         
         if wasNearBottom {
             scrollToBottomAnimated(true)

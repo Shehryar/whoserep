@@ -55,7 +55,7 @@ extension ConversationStore {
         if let realm = realm {
             DebugLog("REALM initialized with file: \(realm.configuration.fileURL)")
         } else {
-            DebugLog("Failed to initialize REALM")
+            DebugLog("Failed to initialize REALM with file URL: \(realmFileURL)")
         }
         
         return realm
@@ -85,7 +85,7 @@ extension ConversationStore {
                 realm.add(newConversation, update: true)
             })
         } catch {
-            DebugLogError("Failed to save conversat/Users/mitch/Developer/asapp-ios/ASAPP/ASAPP/ASAPP/Updated/Networking/API/SocketConnection.swiftion: \(conversation)")
+            DebugLogError("Failed to save conversation: \(conversation)")
         }
         
         return newConversation
@@ -103,6 +103,19 @@ extension ConversationStore {
             messageEvents.append(messageEvent)
         }
         return messageEvents
+    }
+    
+    func updateWithRecentMessageEvents(events: [Event]) {
+        guard let realm = realm, let conversation = conversation else { return }
+        
+        do {
+            try realm.write({ 
+                conversation.messageEvents.removeAll()
+                conversation.messageEvents.appendContentsOf(events)
+            })
+        } catch {
+            DebugLogError("Failed to update conversation with \(events.count) recent events.")
+        }
     }
     
     func addEvent(event: Event) {
