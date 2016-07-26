@@ -78,11 +78,13 @@ class BubbleMessageView: UIView {
     func updateMessageViewForIsReply() {
         if isReply {
             bubbleView.hardCorner = .BottomLeft
-            bubbleView.fillColor = Colors.bluishGray()
-            textLabel.textColor = UIColor.whiteColor()
+            bubbleView.fillColor = Colors.lighterGrayColor()
+            bubbleView.strokeColor = nil
+            textLabel.textColor = Colors.darkTextColor()
         } else {
             bubbleView.hardCorner = .BottomRight
-            bubbleView.fillColor = Colors.lightGrayColor()
+            bubbleView.fillColor = Colors.whiteColor()
+            bubbleView.strokeColor = Colors.lightGrayColor()
             textLabel.textColor = Colors.darkTextColor()
         }
     }

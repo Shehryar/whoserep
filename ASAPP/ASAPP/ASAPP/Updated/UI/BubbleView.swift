@@ -37,7 +37,17 @@ class BubbleView: UIView {
     
     var fillColor = Colors.lighterGrayColor() {
         didSet {
-            setNeedsDisplay()
+            if oldValue != fillColor {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var strokeColor: UIColor? {
+        didSet {
+            if oldValue != strokeColor {
+                setNeedsDisplay()
+            }
         }
     }
     
@@ -64,6 +74,11 @@ class BubbleView: UIView {
         let path = bubbleViewPath(forRect: rect)
         fillColor.setFill()
         path.fill()
+        if let strokeColor = strokeColor {
+            strokeColor.setStroke()
+            path.lineWidth = 1
+            path.stroke()
+        }
     }
     
     func bubbleViewPath(forRect rect: CGRect) -> UIBezierPath {
