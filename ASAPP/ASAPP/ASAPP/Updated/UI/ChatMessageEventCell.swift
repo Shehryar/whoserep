@@ -93,64 +93,32 @@ class ChatMessageEventCell: UITableViewCell {
     // MARK: Instance Methods
     
     func animate() {
+        let messageSize = messageView.sizeThatFits(bounds.size)
         
-        /*
- [self layoutSubviews];
- 
- CGPoint originalCenter = self.messageView.center;
- 
- CGPoint startingCenter = self.messageView.center;
- startingCenter.y += CGRectGetHeight(self.messageView.bounds) / 2.0f;
- if (self.message.isResponse) {
- startingCenter.x -= CGRectGetWidth(self.messageView.bounds) / 2.0f;
- } else {
- startingCenter.x += CGRectGetWidth(self.messageView.bounds) / 2.0f;
- }
- 
- self.messageView.center = startingCenter;
- self.messageView.alpha = 0.0f;
- self.messageView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
- 
- [UIView animateWithDuration:0.3f
- delay:0.0f
- options:UIViewAnimationOptionCurveEaseInOut
- animations:^{
- self.messageView.alpha = 1.0f;
- self.messageView.transform = CGAffineTransformIdentity;
- self.messageView.center = originalCenter;
- } completion:NULL];
-
- */
- 
- 
-//        self.layoutSubviews()
-//        
-//        
-//        let testSize = messageView.sizeThatFits(bounds.size)
-//        print("\n\n\nself = \(String(self.bounds))\nmessage bounds = \(String(messageView.bounds))\nsize that fits = \(String(testSize))\n\n\n")
-//        
-//        
-//        let originalCenter = messageView.center
-//        
-//        var startingCenter = originalCenter
-//        startingCenter.y += CGRectGetHeight(messageView.bounds) / 2.0
-//        if isReply {
-//            startingCenter.x -= CGRectGetWidth(messageView.bounds) / 2.0
-//        } else {
-//            startingCenter.x += CGRectGetWidth(messageView.bounds) / 2.0
-//        }
-// 
-//        startingCenter = CGPoint(x: -499, y: 149)
+        var originalCenter = CGPointZero
+        var startingCenter = CGPointZero
+        
+        originalCenter.y = CGRectGetHeight(bounds) - messageSize.height / 2.0 - contentInset.bottom
+        startingCenter.y = CGRectGetHeight(bounds)
+        if isReply {
+            originalCenter.x = contentInset.left + messageSize.width / 2.0
+            startingCenter.x = originalCenter.x - messageSize.width / 2.0
+        } else {
+            originalCenter.x = CGRectGetWidth(bounds) - messageSize.width / 2.0 - contentInset.right
+            startingCenter.x = originalCenter.x + messageSize.width / 2.0
+        }
         
         messageView.alpha = 0
-        messageView.transform = CGAffineTransformMakeScale(0.8, 0.8)
-//        messageView.center = startingCenter
+        messageView.transform = CGAffineTransformMakeScale(0.01, 0.01)
+        messageView.center = startingCenter
  
         UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
             self.messageView.alpha = 1
             self.messageView.transform = CGAffineTransformIdentity
-//            self.messageView.center = originalCenter
-            }, completion: nil)
+            self.messageView.center = originalCenter
+            }, completion: { (completed) in
+                self.setNeedsLayout()
+        })
     }
     
     // MARK: Overriding Selected/Highlighted

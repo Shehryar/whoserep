@@ -89,6 +89,18 @@ class BubbleMessageView: UIView {
         }
     }
     
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        var maxLabelSize = size
+        maxLabelSize.width -= contentInset.left + contentInset.right
+        maxLabelSize.height -= contentInset.top + contentInset.bottom
+        
+        var fittedLabelSize = textLabel.sizeThatFits(maxLabelSize)
+        fittedLabelSize.width = ceil(fittedLabelSize.width + contentInset.left + contentInset.right)
+        fittedLabelSize.height = ceil(fittedLabelSize.height + contentInset.top + contentInset.bottom)
+        
+        return fittedLabelSize
+    }
+    
     override func updateConstraints() {
         leftConstraint?.uninstall()
         rightConstraint?.uninstall()
