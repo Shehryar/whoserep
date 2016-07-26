@@ -213,8 +213,10 @@ extension ChatMessagesView {
             if wasNearBottom {
                 eventsThatShouldAnimate.insert(event)
             }
-            tableView.reloadData()
-            
+            UIView.performWithoutAnimation({ 
+                self.tableView.reloadData()
+                self.tableView.layoutIfNeeded()
+            })
         }
         
         if wasNearBottom {
