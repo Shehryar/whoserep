@@ -23,12 +23,15 @@ class ChatMessagesView: UIView {
         get { return tableView.contentInset }
     }
     
-    // MARK: Properties: UI
+    // MARK: Private Properties
+    
     private let tableView = UITableView()
 
-    // MARK:- Initialization
+    private var newMessageEvents = Set<Event>()
     
     private let MessageCellReuseId = "MessageCellReuseId"
+    
+    // MARK:- Initialization
     
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)
@@ -86,9 +89,9 @@ extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let event = messageEvents[indexPath.row]
         
-        if event.isNew {
+        if newMessageEvents.contains(event) {
             (cell as? ChatMessageEventCell)?.animate()
-            event.isNew = false
+            newMessageEvents.remove(event)
         }
     }
 }
@@ -100,6 +103,8 @@ extension ChatMessagesView {
     // MARK: Messages
     
     func insertNewMessageEvent(event: Event) {
+        newMessageEvents.insert(event)
+        
         let wasNearBottom = isNearBottom()
         
         messageEvents.append(event)

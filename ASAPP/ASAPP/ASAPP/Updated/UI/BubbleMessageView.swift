@@ -16,7 +16,6 @@ class BubbleMessageView: UIView {
     var message: String? {
         didSet {
             textLabel.text = message
-            setNeedsUpdateConstraints()
         }
     }
     

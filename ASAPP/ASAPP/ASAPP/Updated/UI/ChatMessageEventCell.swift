@@ -44,6 +44,8 @@ class ChatMessageEventCell: UITableViewCell {
     
     private var rightConstraint: Constraint?
     
+    private var animating = false
+    
     // MARK: Init
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,6 +95,17 @@ class ChatMessageEventCell: UITableViewCell {
     // MARK: Instance Methods
     
     func animate() {
+        if animating {
+            return
+        }
+        animating = true
+        
+        messageView.alpha = 0
+        
+        delay(100) {  self.performAnimation() }
+    }
+    
+    private func performAnimation() {
         let messageSize = messageView.sizeThatFits(bounds.size)
         
         var originalCenter = CGPointZero
@@ -111,13 +124,14 @@ class ChatMessageEventCell: UITableViewCell {
         messageView.alpha = 0
         messageView.transform = CGAffineTransformMakeScale(0.01, 0.01)
         messageView.center = startingCenter
- 
+        
         UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
             self.messageView.alpha = 1
             self.messageView.transform = CGAffineTransformIdentity
             self.messageView.center = originalCenter
             }, completion: { (completed) in
                 self.setNeedsLayout()
+                self.animating = false
         })
     }
     
