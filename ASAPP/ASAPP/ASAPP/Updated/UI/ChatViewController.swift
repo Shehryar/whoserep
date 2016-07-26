@@ -39,13 +39,9 @@ class ChatViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        self.conversationManager.delegate = self
+        conversationManager.delegate = self
         
-        self.conversationManager.getStoredMessages { (storedMessages) in
-            if let storedMessages = storedMessages {
-                self.chatMessagesView.messageEvents = storedMessages
-            }
-        }
+        chatMessagesView.messageEvents = conversationManager.storedMessages
         
         chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
             self?.sendMessage(withText: messageText)
@@ -75,7 +71,9 @@ class ChatViewController: UIViewController {
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         
-        updateViewConstraints()
+        view.setNeedsUpdateConstraints()
+        
+        reloadMessageEvents()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -156,6 +154,13 @@ extension ChatViewController: ConversationManagerDelegate {
         
         DebugLog("\(userString) \(typingString)")
     }
+    
+    func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
+        if isConnected {
+            // Fetch events
+            reloadMessageEvents()
+        }
+    }
 }
 
 // MARK:- Actions
@@ -163,5 +168,13 @@ extension ChatViewController: ConversationManagerDelegate {
 extension ChatViewController {
     func sendMessage(withText text: String) {
         conversationManager.sendMessage(text)
+    }
+    
+    func reloadMessageEvents() {
+        conversationManager.getMessageEvents { [weak self] (events, error) in
+            if let events = events {
+                self?.chatMessagesView.messageEvents = events
+            }
+        }
     }
 }
