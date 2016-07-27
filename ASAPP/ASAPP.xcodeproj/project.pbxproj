@@ -48,6 +48,9 @@
 		30226CF51D493F5300871453 /* BubbleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CEF1D493F5300871453 /* BubbleMessageView.swift */; };
 		30226CF61D493F5300871453 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CF01D493F5300871453 /* BubbleView.swift */; };
 		30226CF81D493FC100871453 /* ChatInfoEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CF71D493FC100871453 /* ChatInfoEventCell.swift */; };
+		30226CFA1D49523000871453 /* temp-asapp-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CF91D49523000871453 /* temp-asapp-logo.png */; };
+		30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */; };
+		30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
@@ -85,6 +88,9 @@
 		30226CEF1D493F5300871453 /* BubbleMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleMessageView.swift; sourceTree = "<group>"; };
 		30226CF01D493F5300871453 /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		30226CF71D493FC100871453 /* ChatInfoEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoEventCell.swift; sourceTree = "<group>"; };
+		30226CF91D49523000871453 /* temp-asapp-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-asapp-logo.png"; sourceTree = "<group>"; };
+		30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@2x.png"; sourceTree = "<group>"; };
+		30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -167,6 +173,9 @@
 		30099E0B1D3FD1DA00171D56 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				30226CF91D49523000871453 /* temp-asapp-logo.png */,
+				30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */,
+				30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */,
 				30099E0C1D3FD1DA00171D56 /* icon_camera-dark.png */,
 				30099E0D1D3FD1DA00171D56 /* icon_camera-dark@2x.png */,
 				30099E0E1D3FD1DA00171D56 /* icon_camera-dark@3x.png */,
@@ -398,9 +407,12 @@
 				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
 				30099E131D3FD1DA00171D56 /* icon_camera-dark.png in Resources */,
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
+				30226CFA1D49523000871453 /* temp-asapp-logo.png in Resources */,
+				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30099E141D3FD1DA00171D56 /* icon_camera-dark@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
+				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

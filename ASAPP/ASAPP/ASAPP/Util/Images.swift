@@ -10,12 +10,16 @@ import UIKit
 
 class Images: NSObject {
     class func cameraIconDark(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("icon_camera-dark", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+        return imageWithName("temp-icon-paperclip", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func asappLogoIcon() -> UIImage? {
+        return imageWithName("temp-asapp-logo.png")
     }
     
     // MARK:- Private Helper Methods
     
-    private class func imageWithName(name: String, tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+    private class func imageWithName(name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {
         return modifiedImage(imageWithName(name), tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     

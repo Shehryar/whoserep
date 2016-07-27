@@ -29,16 +29,18 @@ class ChatInputView: UIView {
     
     let inputMinHeight: CGFloat = 36
     let inputMaxHeight: CGFloat = 150
+    let mediaButtonWidth: CGFloat = 44
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
     
-    let borderTopView = UIView()
-    let textView = UITextView()
-    let placeholderTextView = UITextView()
+    private let borderTopView = UIView()
+    private let textView = UITextView()
+    private let placeholderTextView = UITextView()
     
-    let mediaButton = UIButton()
-    let sendButton = UIButton()
+    private let mediaButton = UIButton()
+    private let sendButton = UIButton()
+    private let logoView = UIImageView(image: Images.asappLogoIcon())
     
     // MARK:- Initialization
     
@@ -58,6 +60,9 @@ class ChatInputView: UIView {
         
         borderTopView.backgroundColor = Colors.lightGrayColor()
         addSubview(borderTopView)
+        
+        logoView.contentMode = .ScaleAspectFit
+        addSubview(logoView)
         
         styleTextView()
         textView.delegate = self
@@ -91,10 +96,10 @@ class ChatInputView: UIView {
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
-        placeholderTextView.text = "Enter message here..." // TODO: Localization
+        placeholderTextView.text = "Craft a message..." // TODO: Localization
         placeholderTextView.backgroundColor = UIColor.clearColor()
         placeholderTextView.font = textView.font
-        placeholderTextView.textColor = textView.tintColor
+        placeholderTextView.textColor = Colors.mediumTextColor()
         placeholderTextView.userInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
         placeholderTextView.scrollEnabled = false
@@ -125,10 +130,25 @@ class ChatInputView: UIView {
     }
     
     func updateSendButtonForCurrentState() {
-        sendButton.enabled = !textView.text.isEmpty && canSendMessage
+        if textView.text.isEmpty {
+            sendButton.hidden = true
+            mediaButton.hidden = false
+        } else {
+            sendButton.hidden = false
+            mediaButton.hidden = true
+        }
+        
+        sendButton.enabled = canSendMessage
+        mediaButton.enabled = canSendMessage
     }
     
     func styleMediaButton() {
+        mediaButton.imageView?.contentMode = .ScaleAspectFit
+        
+        let imageSize: CGFloat = 20
+        let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
+        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+        
         mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 1), forState: .Normal)
         mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 0.7), forState: .Highlighted)
         mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 0.4), forState: .Disabled)
@@ -154,31 +174,38 @@ extension ChatInputView {
             make.height.equalTo(1)
         }
         
-        mediaButton.snp_remakeConstraints { (make) in
-            make.leading.equalTo(self.snp_leading).offset(16)
-            make.bottom.equalTo(self.snp_bottom).offset(-8)
-            make.height.equalTo(inputMinHeight)
-            make.width.equalTo(28)
-        }
-        
-        sendButton.snp_remakeConstraints { (make) in
-            make.bottom.equalTo(mediaButton.snp_bottom)
-            make.trailing.equalTo(self.snp_trailing).offset(-16)
-            make.height.equalTo(inputMinHeight)
-            make.width.equalTo(40)
+        logoView.snp_remakeConstraints { (make) in
+            make.bottom.equalTo(self.snp_bottom)
+            make.centerX.equalTo(self.snp_centerX)
+            make.height.equalTo(40)
+            make.width.equalTo(120)
         }
         
         textView.snp_remakeConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(8)
-            make.leading.equalTo(mediaButton.snp_trailing).offset(16)
+            make.left.equalTo(self.snp_left).offset(16)
+            make.right.equalTo(sendButton.snp_left).offset(-8)
             make.bottom.equalTo(mediaButton.snp_bottom)
-            make.trailing.equalTo(sendButton.snp_leading).offset(-16)
             make.width.greaterThanOrEqualTo(1)
             make.height.equalTo(inputHeight)
         }
         
         placeholderTextView.snp_remakeConstraints { (make) in
             make.edges.equalTo(textView)
+        }
+        
+        mediaButton.snp_remakeConstraints { (make) in
+            make.right.equalTo(self.snp_right).offset(-8)
+            make.bottom.equalTo(logoView.snp_top).offset(-8)
+            make.height.equalTo(inputMinHeight)
+            make.width.equalTo(mediaButtonWidth)
+        }
+        
+        sendButton.snp_remakeConstraints { (make) in
+            make.bottom.equalTo(mediaButton.snp_bottom)
+            make.right.equalTo(self.snp_right).offset(-16)
+            make.height.equalTo(inputMinHeight)
+            make.width.equalTo(40)
         }
         
         super.updateConstraints()
