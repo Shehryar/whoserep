@@ -14,18 +14,23 @@ class BubbleMessageView: UIView {
     // MARK: Public Properties
     
     var message: String? {
-        didSet {
-            textLabel.text = message
-        }
+        set { textLabel.text = newValue }
+        get { return textLabel.text }
     }
     
-    var isReply: Bool = false {
-        didSet {
-            if oldValue != isReply {
-                updateMessageViewForIsReply()
-                setNeedsUpdateConstraints()
-            }
-        }
+    var font: UIFont {
+        set { textLabel.font = newValue }
+        get { return textLabel.font }
+    }
+    
+    var textColor: UIColor? {
+        set { textLabel.textColor = newValue }
+        get { return textLabel.textColor }
+    }
+    
+    var bubbleViewRoundedCorners: UIRectCorner {
+        set { bubbleView.roundedCorners = newValue }
+        get { return bubbleView.roundedCorners }
     }
     
     var contentInset = UIEdgeInsetsMake(10, 16, 10, 16) {
@@ -36,15 +41,21 @@ class BubbleMessageView: UIView {
         }
     }
     
+    var bubbleFillColor: UIColor {
+        set { bubbleView.fillColor = newValue }
+        get { return bubbleView.fillColor }
+    }
+    
+    var bubbleStrokeColor: UIColor? {
+        set { bubbleView.strokeColor = newValue }
+        get { return bubbleView.strokeColor }
+    }
+    
     // MARK: Private Properties
     
     private let textLabel = UILabel()
     
     private let bubbleView = BubbleView()
-    
-    private var leftConstraint: Constraint?
-    
-    private var rightConstraint: Constraint?
     
     // MARK: Init
     
@@ -68,25 +79,9 @@ class BubbleMessageView: UIView {
         textLabel.numberOfLines = 0
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textLabel)
-        
-        updateMessageViewForIsReply()
     }
     
     // MARK: Layout
-    
-    func updateMessageViewForIsReply() {
-        if isReply {
-            bubbleView.hardCorner = .BottomLeft
-            bubbleView.fillColor = Colors.lighterGrayColor()
-            bubbleView.strokeColor = nil
-            textLabel.textColor = Colors.darkTextColor()
-        } else {
-            bubbleView.hardCorner = .BottomRight
-            bubbleView.fillColor = Colors.whiteColor()
-            bubbleView.strokeColor = Colors.lightGrayColor()
-            textLabel.textColor = Colors.darkTextColor()
-        }
-    }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
         var maxLabelSize = size
@@ -101,16 +96,9 @@ class BubbleMessageView: UIView {
     }
     
     override func updateConstraints() {
-        leftConstraint?.uninstall()
-        rightConstraint?.uninstall()
-        
         textLabel.snp_updateConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(contentInset.top)
-            if isReply {
-                self.leftConstraint = make.left.equalTo(self.snp_left).offset(contentInset.left).constraint
-            } else {
-                self.rightConstraint = make.right.equalTo(self.snp_right).offset(-contentInset.right).constraint
-            }
+            make.left.equalTo(self.snp_left)
             make.width.lessThanOrEqualTo(self.snp_width).offset(-(contentInset.left + contentInset.right))
         }
         
@@ -126,5 +114,13 @@ class BubbleMessageView: UIView {
         }
         
         super.updateConstraints()
+    }
+}
+
+// MARK:- Public
+
+extension BubbleMessageView {
+    func update() {
+        
     }
 }

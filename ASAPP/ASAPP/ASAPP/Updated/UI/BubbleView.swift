@@ -9,15 +9,7 @@
 import UIKit
 
 class BubbleView: UIView {
-    
-    enum BubbleCorner {
-        case None
-        case TopLeft
-        case TopRight
-        case BottomLeft
-        case BottomRight
-    }
-    
+
     var cornerRadius: CGFloat = 16.0 {
         didSet {
             if oldValue != cornerRadius {
@@ -26,10 +18,9 @@ class BubbleView: UIView {
         }
     }
     
-    /// The corner that does not use a corner radius
-    var hardCorner: BubbleCorner = .None {
+    var roundedCorners: UIRectCorner = .AllCorners {
         didSet {
-            if oldValue != hardCorner {
+            if oldValue != roundedCorners {
                 setNeedsDisplay()
             }
         }
@@ -93,30 +84,7 @@ class BubbleView: UIView {
     func bubbleViewPath(forRect rect: CGRect) -> UIBezierPath {
         let cornerRadius = min(self.cornerRadius, CGRectGetHeight(rect) / 2.0)
         let cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
-        var roundedCorners: UIRectCorner
-        
-        switch hardCorner {
-        case .None:
-            roundedCorners = .AllCorners
-            break
-            
-        case .TopLeft:
-            roundedCorners = [.TopRight, .BottomLeft, .BottomRight]
-            break
-            
-        case .TopRight:
-            roundedCorners = [.TopLeft, .BottomLeft, .BottomRight]
-            break
-            
-        case .BottomLeft:
-            roundedCorners = [.TopLeft, .TopRight, .BottomRight]
-            break
-            
-        case .BottomRight:
-            roundedCorners = [.TopLeft, .TopRight, .BottomLeft]
-            break
-        }
-        
+    
         var sizedRect = rect
         if strokeColor != nil {
             sizedRect = CGRectInset(rect, strokeLineWidth, strokeLineWidth)

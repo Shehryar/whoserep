@@ -10,25 +10,43 @@ import UIKit
 import SnapKit
 
 class ChatMessageEventCell: UITableViewCell {
-
+    
+    enum MessageBubbleStyling {
+        case Default
+        case FirstOfMany
+        case MiddleOfMany
+    }
+    
     // MARK: Public Properties
     
     var messageEvent: Event? {
         didSet {
-            messageView.message = (messageEvent?.payload as? EventPayload.TextMessage)?.text
-            messageView.isReply = isReply
-            setNeedsUpdateConstraints()
+            if let messageEvent = messageEvent {
+                messageView.message = (messageEvent.payload as? EventPayload.TextMessage)?.text
+                isReply = !messageEvent.isCustomerEvent
+            } else {
+                messageView.message = nil
+            }
         }
     }
     
-    var isReply: Bool {
-        if let messageEvent = messageEvent {
-            return !messageEvent.isCustomerEvent
+    var isReply: Bool = false {
+        didSet {
+            if oldValue != isReply {
+                updateForIsReplyValue()
+            }
         }
-        return true
     }
     
-    var contentInset = UIEdgeInsetsMake(4, 16, 4, 16) {
+    var bubbleStyling: MessageBubbleStyling = .Default {
+        didSet {
+            if oldValue != bubbleStyling {
+                updateBubbleCorners()
+            }
+        }
+    }
+    
+    var contentInset = UIEdgeInsetsMake(2, 16, 2, 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()
@@ -63,6 +81,59 @@ class ChatMessageEventCell: UITableViewCell {
         
         messageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(messageView)
+        
+        updateForIsReplyValue()
+    }
+    
+    // MARK: Styling
+    
+    func updateForIsReplyValue() {
+        if isReply {
+            messageView.bubbleFillColor = Colors.lighterGrayColor()
+            messageView.bubbleStrokeColor = nil
+            messageView.textColor = Colors.darkTextColor()
+        } else {
+            messageView.bubbleFillColor = Colors.whiteColor()
+            messageView.bubbleStrokeColor = Colors.lightGrayColor()
+            messageView.textColor = Colors.darkTextColor()
+        }
+        updateBubbleCorners()
+        
+        setNeedsUpdateConstraints()
+    }
+    
+    func updateBubbleCorners() {
+        var roundedCorners: UIRectCorner
+        if isReply {
+            switch bubbleStyling {
+            case .Default:
+                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
+                break
+                
+            case .FirstOfMany:
+                roundedCorners = [.TopRight, .BottomRight, .BottomLeft]
+                break
+                
+            case .MiddleOfMany:
+                roundedCorners = [.TopRight, .BottomRight]
+                break
+            }
+        } else {
+            switch bubbleStyling {
+            case .Default:
+                roundedCorners = [.TopRight, .TopLeft, .BottomLeft]
+                break
+                
+            case .FirstOfMany:
+                roundedCorners = [.TopLeft, .BottomLeft, .BottomRight]
+                break
+                
+            case .MiddleOfMany:
+                roundedCorners = [.TopLeft, .BottomLeft]
+                break
+            }
+        }
+        messageView.bubbleViewRoundedCorners = roundedCorners
     }
     
     // MARK: Layout
@@ -84,9 +155,7 @@ class ChatMessageEventCell: UITableViewCell {
         }
         
         contentView.snp_updateConstraints { (make) in
-            make.left.equalTo(self.snp_left)
-            make.top.equalTo(self.snp_top)
-            make.width.equalTo(self.snp_width)
+            make.edges.equalTo(self)
             make.height.greaterThanOrEqualTo(messageView.snp_height).offset(contentInset.top + contentInset.bottom)
         }
         super.updateConstraints()
@@ -95,8 +164,6 @@ class ChatMessageEventCell: UITableViewCell {
     // MARK: Instance Methods
     
     func animate() {
-//        return
-        
         if animating {
             return
         }
