@@ -26,8 +26,8 @@ class KeyboardObserver: NSObject {
     // MARK: Public Methods
     
     func registerForNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ASAPPKeyboardObserver.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ASAPPKeyboardObserver.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func deregisterForNotification() {
@@ -36,7 +36,7 @@ class KeyboardObserver: NSObject {
     
     // MARK: Private Methods
     
-    private func keyboardWillShow(sender: NSNotification) {
+    @objc private func keyboardWillShow(sender: NSNotification) {
         if delegate == nil {
             return
         }
@@ -48,7 +48,7 @@ class KeyboardObserver: NSObject {
         delegate?.keyboardWillShow(size, duration: duration)
     }
     
-    private func keyboardWillHide(sender: NSNotification) {
+    @objc private func keyboardWillHide(sender: NSNotification) {
         if delegate == nil {
             return
         }

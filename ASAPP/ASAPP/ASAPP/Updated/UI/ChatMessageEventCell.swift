@@ -28,7 +28,7 @@ class ChatMessageEventCell: UITableViewCell {
         return true
     }
     
-    var contentInset = UIEdgeInsetsMake(4, 8, 4, 8) {
+    var contentInset = UIEdgeInsetsMake(4, 16, 4, 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()

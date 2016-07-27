@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol ChatInputViewDelegate {
+    func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
+    func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
+}
+
 class ChatInputView: UIView {
 
     // MARK: Public Properties
     
-    var onSendButtonTap: ((messageText: String) -> Void)?
+    var delegate: ChatInputViewDelegate?
     
     var canSendMessage: Bool = true {
         didSet {
@@ -132,8 +137,8 @@ class ChatInputView: UIView {
     // MARK:- Button Actions
     
     func didTapSendButton(sender: UIButton) {
-        if let onSendButtonTap = onSendButtonTap, let messageText = textView.text {
-            onSendButtonTap(messageText: messageText)
+        if let messageText = textView.text {
+            delegate?.chatInputView(self, didTapSendMessage: messageText)
         }
     }
 }
@@ -212,6 +217,8 @@ extension ChatInputView: UITextViewDelegate {
             UIView.animateWithDuration(0.2) {
                 self.layoutIfNeeded()
             }
+            
+            delegate?.chatInputViewDidChangeContentSize(self)
         }
     }
 }

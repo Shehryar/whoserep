@@ -15,7 +15,7 @@ class ChatViewController: UIViewController {
     private(set) var credentials: Credentials
     private var conversationManager: ConversationManager
     
-    private var keyboardObserver = ASAPPKeyboardObserver()
+    private var keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0 {
         didSet {
             if keyboardOffset != oldValue {
@@ -43,11 +43,7 @@ class ChatViewController: UIViewController {
         conversationManager.delegate = self
         
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
-        
-        chatInputView.onSendButtonTap = {[weak self] (messageText: String) in
-            self?.sendMessage(withText: messageText)
-            self?.chatInputView.clear()
-        }
+        chatInputView.delegate = self
         
         keyboardObserver.delegate = self
     }
@@ -58,6 +54,7 @@ class ChatViewController: UIViewController {
     
     deinit {
         keyboardObserver.delegate = nil
+        chatInputView.delegate = nil
         conversationManager.delegate = nil
     }
     
@@ -128,20 +125,35 @@ extension ChatViewController {
 
 // MARK:- KeyboardObserver
 
-extension ChatViewController: ASAPPKeyboardObserverDelegate {
-    func ASAPPKeyboardWillShow(size: CGRect, duration: NSTimeInterval) {
+extension ChatViewController: KeyboardObserverDelegate {
+    func keyboardWillShow(size: CGRect, duration: NSTimeInterval) {
         keyboardOffset = size.height
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
             self.chatMessagesView.scrollToBottomAnimated(false)
         }
-        
     }
     
-    func ASAPPKeyboardWillHide(duration: NSTimeInterval) {
+    func keyboardWillHide(duration: NSTimeInterval) {
         keyboardOffset = 0
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
+        }
+    }
+}
+
+// MARK:- ChatInputViewDelegate
+
+extension ChatViewController: ChatInputViewDelegate {
+    func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
+        self.sendMessage(withText: message)
+        self.chatInputView.clear()
+    }
+    
+    func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
+        if chatMessagesView.isNearBottom() {
+            view.layoutIfNeeded()
+            chatMessagesView.scrollToBottomAnimated(true)
         }
     }
 }
