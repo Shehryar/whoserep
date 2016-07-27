@@ -9,13 +9,14 @@
 import UIKit
 import SnapKit
 
+enum MessageBubbleStyling {
+    case Default
+    case FirstOfMany
+    case MiddleOfMany
+    case LastOfMany
+}
+
 class ChatMessageEventCell: UITableViewCell {
-    
-    enum MessageBubbleStyling {
-        case Default
-        case FirstOfMany
-        case MiddleOfMany
-    }
     
     // MARK: Public Properties
     
@@ -30,7 +31,7 @@ class ChatMessageEventCell: UITableViewCell {
         }
     }
     
-    var isReply: Bool = false {
+    private var isReply: Bool = false {
         didSet {
             if oldValue != isReply {
                 updateForIsReplyValue()
@@ -111,11 +112,15 @@ class ChatMessageEventCell: UITableViewCell {
                 break
                 
             case .FirstOfMany:
-                roundedCorners = [.TopRight, .BottomRight, .BottomLeft]
+                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
                 break
                 
             case .MiddleOfMany:
                 roundedCorners = [.TopRight, .BottomRight]
+                break
+                
+            case .LastOfMany:
+                roundedCorners = [.TopRight, .BottomRight, .BottomLeft]
                 break
             }
         } else {
@@ -125,11 +130,15 @@ class ChatMessageEventCell: UITableViewCell {
                 break
                 
             case .FirstOfMany:
-                roundedCorners = [.TopLeft, .BottomLeft, .BottomRight]
+                roundedCorners = [.TopRight, .TopLeft, .BottomLeft]
                 break
                 
             case .MiddleOfMany:
                 roundedCorners = [.TopLeft, .BottomLeft]
+                break
+                
+            case .LastOfMany:
+                roundedCorners = [.TopLeft, .BottomLeft, .BottomRight]
                 break
             }
         }

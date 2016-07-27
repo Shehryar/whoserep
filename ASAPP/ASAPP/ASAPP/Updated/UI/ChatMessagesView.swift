@@ -92,6 +92,36 @@ extension ChatMessagesView: UITableViewDataSource {
         return nil
     }
     
+    private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
+        guard let messageEvent = messageEventForIndexPath(indexPath) else { return .Default }
+ 
+        let previousIndexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
+        let nextIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+        
+        let messageIsReply = messageEventIsReply(messageEvent)
+        let previousIsReply = messageEventIsReply(messageEventForIndexPath(previousIndexPath))
+        let nextIsReply = messageEventIsReply(messageEventForIndexPath(nextIndexPath))
+        
+        if messageIsReply == previousIsReply && messageIsReply == nextIsReply {
+            return .MiddleOfMany
+        }
+        if messageIsReply == nextIsReply {
+            return .FirstOfMany
+        }
+        if messageIsReply == previousIsReply {
+            return .LastOfMany
+        }
+        
+        return .Default
+    }
+    
+    private func messageEventIsReply(messageEvent: Event?) -> Bool? {
+        if let messageEvent = messageEvent {
+            return messageEvent.isCustomerEvent
+        }
+        return nil
+    }
+    
     // UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -105,6 +135,7 @@ extension ChatMessagesView: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
             cell.messageEvent = messageEventForIndexPath(indexPath)
+            cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
             return cell
         }
         
