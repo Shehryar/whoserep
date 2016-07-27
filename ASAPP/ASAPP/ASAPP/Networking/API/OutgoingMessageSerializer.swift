@@ -56,8 +56,7 @@ extension OutgoingMessageSerializer {
         
         if let sessionInfoJson = sessionInfoJson {
             // Session
-            
-            
+    
             path = "auth/AuthenticateWithSession"
             params =  [
                 "SessionInfo": sessionInfoJson, // convert to json?

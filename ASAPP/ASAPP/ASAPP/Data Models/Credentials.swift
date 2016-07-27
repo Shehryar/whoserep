@@ -19,10 +19,11 @@ class Credentials: NSObject {
         
     // MARK:- Initialization
     
-    init(withCompany company: String, userToken: String? = nil, isCustomer: Bool = true) {
+    init(withCompany company: String, userToken: String? = nil, isCustomer: Bool = true, targetCustomerToken: String? = nil) {
         self.companyMarker = company
         self.userToken = userToken
         self.isCustomer = isCustomer
+        self.targetCustomerToken = targetCustomerToken
         
         super.init()
     }

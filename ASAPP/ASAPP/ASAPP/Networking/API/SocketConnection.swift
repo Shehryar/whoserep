@@ -147,6 +147,49 @@ extension SocketConnection {
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
         }
     }
+    
+    func updateTargetCustomerRequestInfoIfNeeded() {
+        guard let targetCustomerToken = credentials.targetCustomerToken else {
+            return
+        }
+        
+        let params: [String : AnyObject] = [ "CRMCustomerId" : targetCustomerToken ]
+        let path = "rep/GetCustomerByCRMCustomerId"
+        sendRequest(withPath: path, params: params) { [weak self] (incomingMessage) in
+
+//            if let customer = jsonObj["Customer"] as? [String: AnyObject] {
+//                if let customerId = customer["CustomerId"] as? Int {
+//                    self?.participateInIssueForCustomer(customerId)
+//                }
+//            }
+        }
+    }
+    
+    func participateInIssueForCustomer(customerId: Int) {
+//        let context: [String: AnyObject] = [
+//            "CustomerId": customerId
+//        ]
+//        conn.request("rep/ParticipateInIssueForCustomer", params: [:], context: context) { [weak self] (message) in
+//            ASAPPLog(message)
+//            
+//            guard self != nil,
+//                let issueIdData = message as? String else {
+//                    return
+//            }
+//            
+//            do {
+//                let jsonObj = try NSJSONSerialization.JSONObjectWithData(issueIdData.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
+//                
+//                if let issueId = jsonObj["IssueId"] as? Int {
+//                    self?.store.updateState(issueId, forKeyPath: "issueId")
+//                    self?.eventLog.load()
+//                }
+//            } catch let error as NSError {
+//                ASAPPLoge(error)
+//            }
+//        }
+    }
+
 }
 
 // MARK:- SocketRocketDelegate
@@ -172,6 +215,7 @@ extension SocketConnection: SRWebSocketDelegate {
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
         authenticate()
+        updateTargetCustomerRequestInfoIfNeeded()
         
         while !requestQueue.isEmpty {
             let requestString = requestQueue[0]

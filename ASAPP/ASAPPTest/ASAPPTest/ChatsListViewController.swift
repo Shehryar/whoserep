@@ -13,9 +13,10 @@ struct ASAPPConversation {
     var company: String = ""
     var userToken: String?
     var isCustomer: Bool = true
+    var targetCustomerToken: String? = nil
     
     var description: String {
-        return "\(company)|\(userToken ?? "")|\(isCustomer ? "customer" : "rep")"
+        return "\(company) || \(userToken ?? "") || \(isCustomer ? "customer" : "rep")"
     }
 }
 
@@ -25,15 +26,17 @@ class ChatsListViewController: UIViewController {
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
-    let asapp = ASAPPv2()
+    let asapp = ASAPP()
     
     let conversations = [
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true),
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-r6", isCustomer: false),
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true), // testing
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c8", isCustomer: true), // testing
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c9", isCustomer: true), // testing
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c10", isCustomer: true) // testing
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil),
+        
+        ASAPPConversation(company: "vs-dev", userToken: "asdfad", isCustomer: false, targetCustomerToken: "vs-cct-c6"),
+        
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true, targetCustomerToken: nil),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c8", isCustomer: true, targetCustomerToken: nil),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c9", isCustomer: true, targetCustomerToken: nil),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c10", isCustomer: true, targetCustomerToken: nil)
     ]
     
     // MARK:- Init
