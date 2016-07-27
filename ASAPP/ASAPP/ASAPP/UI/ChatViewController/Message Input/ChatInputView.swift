@@ -131,15 +131,19 @@ class ChatInputView: UIView {
     
     func updateSendButtonForCurrentState() {
         if textView.text.isEmpty {
+            placeholderTextView.hidden = false
             sendButton.hidden = true
             mediaButton.hidden = false
         } else {
+            placeholderTextView.hidden = true
             sendButton.hidden = false
             mediaButton.hidden = true
         }
         
         sendButton.enabled = canSendMessage
         mediaButton.enabled = canSendMessage
+        
+        
     }
     
     func styleMediaButton() {
@@ -177,7 +181,7 @@ extension ChatInputView {
         logoView.snp_remakeConstraints { (make) in
             make.bottom.equalTo(self.snp_bottom)
             make.centerX.equalTo(self.snp_centerX)
-            make.height.equalTo(40)
+            make.height.equalTo(30)
             make.width.equalTo(120)
         }
         
@@ -218,8 +222,6 @@ extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         resizeIfNeeded()
         updateSendButtonForCurrentState()
-        
-        placeholderTextView.hidden = !textView.text.isEmpty
     }
     
     func resizeIfNeeded() {
