@@ -175,8 +175,8 @@
 		30226CC01D4933F200871453 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				30226CC11D4933F200871453 /* Conversation.swift */,
 				30226CC21D4933F200871453 /* Credentials.swift */,
+				30226CC11D4933F200871453 /* Conversation.swift */,
 				30226CC31D4933F200871453 /* Event.swift */,
 			);
 			path = "Data Models";

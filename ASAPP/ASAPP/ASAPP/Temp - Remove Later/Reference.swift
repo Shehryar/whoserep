@@ -6,7 +6,7 @@
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Reference: NSObject {
     
