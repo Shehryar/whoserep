@@ -14,7 +14,17 @@ class ChatMessagesView: UIView {
     
     private(set) var messageEvents: [Event] = []
     
-    var contentInset: UIEdgeInsets {
+    var contentInsetTop: CGFloat = 0 {
+        didSet {
+            var newContentInset = defaultContentInset
+            newContentInset.top += max(0, contentInsetTop)
+            contentInset = newContentInset
+        }
+    }
+    
+    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+    
+    private var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
@@ -38,6 +48,7 @@ class ChatMessagesView: UIView {
         clipsToBounds = false
         
         tableView.frame = bounds
+        tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()

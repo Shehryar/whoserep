@@ -31,7 +31,7 @@ class ChatsListViewController: UIViewController {
     let conversations = [
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil),
         
-        ASAPPConversation(company: "vs-dev", userToken: "asdfad", isCustomer: false, targetCustomerToken: "vs-cct-c6"),
+        ASAPPConversation(company: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6"),
         
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true, targetCustomerToken: nil),
         ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c8", isCustomer: true, targetCustomerToken: nil),
