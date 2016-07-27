@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28BA99171D485957007C7078 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28BA99151D485957007C7078 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30226CBE1D48FB7200871453 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30226CBD1D48FB7200871453 /* ASAPP.framework */; };
+		30226CBF1D48FB7200871453 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30226CBD1D48FB7200871453 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
@@ -21,7 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				28BA99171D485957007C7078 /* ASAPP.framework in Embed Frameworks */,
+				30226CBF1D48FB7200871453 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -30,7 +31,7 @@
 
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
-		28BA99151D485957007C7078 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitchm/Library/Developer/Xcode/DerivedData/ASAPP-agiknwjsufrxnmgayewuzxzsfwcf/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
+		30226CBD1D48FB7200871453 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		3049CD271D465D9D00F0C0E6 /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASAPP.framework; path = "../build/Debug-iphoneos/ASAPP.framework"; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30226CBE1D48FB7200871453 /* ASAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +76,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				28BA99151D485957007C7078 /* ASAPP.framework */,
+				30226CBD1D48FB7200871453 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				FD8D8B1A1D107A19001B420B /* Products */,
 				FCB047A4DE7D9EB0065D7FB9 /* Pods */,

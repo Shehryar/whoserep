@@ -145,7 +145,7 @@ class BubbleView: UIView {
         let bottomLeftCornerRadius = getCornerRadius(.BottomLeft)
         let bottomLeftCornerCenter = move(bottomLeft, x: bottomLeftCornerRadius, y: -bottomLeftCornerRadius)
         
-        var path = CGPathCreateMutable()
+        let path = CGPathCreateMutable()
     
         CGPathAddArc(path, nil, topLeftCornerCenter.x, topLeftCornerCenter.y, topLeftCornerRadius, CGFloat(2 * M_PI_2), CGFloat(3 * M_PI_2), false)
         CGPathAddArc(path, nil, topRightCornerCenter.x, topRightCornerCenter.y, topRightCornerRadius, CGFloat(3 * M_PI_2), CGFloat(4 * M_PI_2), false)
