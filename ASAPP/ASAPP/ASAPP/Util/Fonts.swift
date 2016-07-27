@@ -20,7 +20,7 @@ class Fonts: NSObject {
     }
     
     class func loadFont(name: String, type: String) {
-        guard let path = framework.pathForResource(name, ofType: type) else {
+        guard let path = ASAPPBundle.pathForResource(name, ofType: type) else {
             return
         }
         
@@ -30,7 +30,7 @@ class Fonts: NSObject {
         if let font = CGFontCreateWithDataProvider(provider) {
             CTFontManagerRegisterGraphicsFont(font, &err)
             if err != nil {
-                ASAPPLoge(err)
+                DebugLogError(String(err))
             }
         }
     }

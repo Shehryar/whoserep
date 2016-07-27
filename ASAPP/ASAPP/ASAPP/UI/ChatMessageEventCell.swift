@@ -180,7 +180,7 @@ class ChatMessageEventCell: UITableViewCell {
         
         messageView.alpha = 0
         
-        delay(100) {  self.performAnimation() }
+        Dispatcher.delay(100) {  self.performAnimation() }
     }
     
     private func performAnimation() {

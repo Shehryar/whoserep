@@ -21,13 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		28E9BE561D477CE400ACCF86 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatch.swift */; };
+		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
-		30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */; };
-		30099DCE1D3EDBC400171D56 /* ASAPPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB41D3EDBC400171D56 /* ASAPPState.swift */; };
-		30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB51D3EDBC400171D56 /* ASAPPStore.swift */; };
-		30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
 		30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */; };
@@ -50,7 +46,7 @@
 		30226CDF1D4933F200871453 /* ChatMessageEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CD11D4933F200871453 /* ChatMessageEventCell.swift */; };
 		30226CE01D4933F200871453 /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CD21D4933F200871453 /* ChatMessagesView.swift */; };
 		30226CE11D4933F200871453 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CD31D4933F200871453 /* ChatViewController.swift */; };
-		3049CD221D42A49800F0C0E6 /* ASAPPConn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD211D42A49800F0C0E6 /* ASAPPConn.swift */; };
+		30226CE61D49381700871453 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CE51D49381700871453 /* Reference.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
@@ -60,13 +56,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		28E9BE551D477CE400ACCF86 /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
-		30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPEventLog.swift; sourceTree = "<group>"; };
-		30099DB41D3EDBC400171D56 /* ASAPPState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPState.swift; sourceTree = "<group>"; };
-		30099DB51D3EDBC400171D56 /* ASAPPStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStore.swift; sourceTree = "<group>"; };
-		30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPUtil.swift; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30099E071D3FD1DA00171D56 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -90,7 +82,7 @@
 		30226CD11D4933F200871453 /* ChatMessageEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageEventCell.swift; sourceTree = "<group>"; };
 		30226CD21D4933F200871453 /* ChatMessagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesView.swift; sourceTree = "<group>"; };
 		30226CD31D4933F200871453 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		3049CD211D42A49800F0C0E6 /* ASAPPConn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConn.swift; sourceTree = "<group>"; };
+		30226CE51D49381700871453 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -121,33 +113,21 @@
 				30226CC01D4933F200871453 /* Data Models */,
 				30226CC41D4933F200871453 /* Networking */,
 				30226CCD1D4933F200871453 /* UI */,
-				30099DB21D3EDBC400171D56 /* State */,
 				30099DBD1D3EDBC400171D56 /* Util */,
+				30226CE41D49381700871453 /* Temp - Remove Later */,
 			);
 			path = ASAPP;
-			sourceTree = "<group>";
-		};
-		30099DB21D3EDBC400171D56 /* State */ = {
-			isa = PBXGroup;
-			children = (
-				3049CD211D42A49800F0C0E6 /* ASAPPConn.swift */,
-				30099DB41D3EDBC400171D56 /* ASAPPState.swift */,
-				30099DB31D3EDBC400171D56 /* ASAPPEventLog.swift */,
-				30099DB51D3EDBC400171D56 /* ASAPPStore.swift */,
-			);
-			path = State;
 			sourceTree = "<group>";
 		};
 		30099DBD1D3EDBC400171D56 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				30099DBF1D3EDBC400171D56 /* ASAPPUtil.swift */,
 				308F296F1D4164FE00EC7055 /* Colors.swift */,
 				308F29711D41665900EC7055 /* Fonts.swift */,
 				308F29731D4168BE00EC7055 /* Images.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */,
-				28E9BE551D477CE400ACCF86 /* Dispatch.swift */,
+				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
 			);
 			path = Util;
@@ -249,6 +229,14 @@
 				30226CD31D4933F200871453 /* ChatViewController.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		30226CE41D49381700871453 /* Temp - Remove Later */ = {
+			isa = PBXGroup;
+			children = (
+				30226CE51D49381700871453 /* Reference.swift */,
+			);
+			path = "Temp - Remove Later";
 			sourceTree = "<group>";
 		};
 		5F7B85B6B6F9A7C1B0B5571A /* Pods */ = {
@@ -434,15 +422,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28E9BE561D477CE400ACCF86 /* Dispatch.swift in Sources */,
+				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30226CDE1D4933F200871453 /* ChatInputView.swift in Sources */,
 				30226CDD1D4933F200871453 /* BubbleView.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
-				30099DD61D3EDBC400171D56 /* ASAPPUtil.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				30226CDF1D4933F200871453 /* ChatMessageEventCell.swift in Sources */,
 				30226CD41D4933F200871453 /* Conversation.swift in Sources */,
+				30226CE61D49381700871453 /* Reference.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
@@ -451,16 +439,12 @@
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
 				30226CDC1D4933F200871453 /* BubbleMessageView.swift in Sources */,
 				30226CE01D4933F200871453 /* ChatMessagesView.swift in Sources */,
-				30099DCF1D3EDBC400171D56 /* ASAPPStore.swift in Sources */,
-				30099DCD1D3EDBC400171D56 /* ASAPPEventLog.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				30226CDB1D4933F200871453 /* ConversationStore.swift in Sources */,
 				30226CD51D4933F200871453 /* Credentials.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
-				30099DCE1D3EDBC400171D56 /* ASAPPState.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30226CE11D4933F200871453 /* ChatViewController.swift in Sources */,
-				3049CD221D42A49800F0C0E6 /* ASAPPConn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

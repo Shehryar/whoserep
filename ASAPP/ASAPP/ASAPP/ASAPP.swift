@@ -2,11 +2,13 @@
 //  ASAPP.swift
 //  ASAPP
 //
-//  Created by Vicky Sehrawat on 6/13/16.
+//  Created by Mitchell Morgan on 7/21/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
 import Foundation
+
+internal let ASAPPBundle = NSBundle(forClass: ASAPP.self)
 
 public class ASAPP: NSObject {
     
@@ -24,26 +26,4 @@ public class ASAPP: NSObject {
         return ChatViewController(withCredentials: credentials)
     }
 }
-
-
-/*** Reference for later - TargetCustomerToken
- 
- 
- public func targetCustomerToken(targetCustomerToken: String) {
-     if mState.isCustomer() {
-        ASAPPLoge("ERROR: Cannot set targetCustomer for Customer chat session.")
-        return
-     }
-     
-     if mState.targetCustomerToken() != nil && mState.targetCustomerToken() == targetCustomerToken {
-        ASAPPLoge("WARNING: Same targetCustomerToken provided.")
-        return
-     }
-     
-     mState.reloadStateForRep(targetCustomerToken)
- }
- 
- 
- */
- 
  
