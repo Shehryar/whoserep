@@ -184,8 +184,6 @@ class ChatMessageEventCell: UITableViewCell {
     }
     
     private func performAnimation() {
-        
-        
         var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
         if isReply {
             animationBeginCenter.x = contentInset.left

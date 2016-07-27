@@ -98,14 +98,12 @@ class BubbleMessageView: UIView {
     override func updateConstraints() {
         textLabel.snp_updateConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(contentInset.top)
-            make.left.equalTo(self.snp_left)
+            make.left.equalTo(self.snp_left).offset(contentInset.left)
             make.width.lessThanOrEqualTo(self.snp_width).offset(-(contentInset.left + contentInset.right))
         }
         
         bubbleView.snp_updateConstraints { (make) in
-            make.top.equalTo(self.snp_top)
-            make.left.equalTo(textLabel.snp_left).offset(-contentInset.left)
-            make.right.equalTo(textLabel.snp_right).offset(contentInset.right)
+            make.edges.equalTo(self)
             make.height.equalTo(textLabel.snp_height).offset(contentInset.top + contentInset.bottom)
         }
         
