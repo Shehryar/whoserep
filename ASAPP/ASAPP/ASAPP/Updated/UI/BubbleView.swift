@@ -10,9 +10,17 @@ import UIKit
 
 class BubbleView: UIView {
 
-    var cornerRadius: CGFloat = 16.0 {
+    var cornerRadius: CGFloat = 18.0 {
         didSet {
             if oldValue != cornerRadius {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var smallCornerRadius: CGFloat = 6.0 {
+        didSet {
+            if oldValue != smallCornerRadius {
                 setNeedsDisplay()
             }
         }
@@ -71,7 +79,9 @@ class BubbleView: UIView {
     // MARK:- Drawing
     
     override func drawRect(rect: CGRect) {
-        let path = bubbleViewPath(forRect: rect)
+        let path = manualBubbleViewPath(forRect: rect)
+//        let path = bubbleViewPath(forRect: rect)
+        
         fillColor.setFill()
         path.fill()
         if let strokeColor = strokeColor {
@@ -86,12 +96,63 @@ class BubbleView: UIView {
         let cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
     
         var sizedRect = rect
+        let strokeInset = strokeLineWidth / 2.0
         if strokeColor != nil {
-            sizedRect = CGRectInset(rect, strokeLineWidth, strokeLineWidth)
+            sizedRect = CGRectInset(rect, strokeInset, strokeInset)
         }
         
         return UIBezierPath(roundedRect: sizedRect,
                             byRoundingCorners: roundedCorners,
                             cornerRadii: cornerRadii)
+    }
+    
+    func manualBubbleViewPath(forRect originalRect: CGRect) -> UIBezierPath {
+        var rect = originalRect
+        let strokeInset = strokeLineWidth
+        if strokeColor != nil {
+            rect = CGRectInset(originalRect, strokeInset, strokeInset)
+        }
+        
+        let maxCornerRadius = CGRectGetHeight(rect) / 2.0
+        func getCornerRadius(corner: UIRectCorner) -> CGFloat {
+            var cornerRadiusForCorner = smallCornerRadius
+            if roundedCorners.contains(corner) {
+                cornerRadiusForCorner = cornerRadius
+            }
+            return min(cornerRadiusForCorner, maxCornerRadius)
+        }
+        
+        func move(point: CGPoint, x: CGFloat, y: CGFloat) -> CGPoint {
+            var movedPoint = point
+            movedPoint.x += x
+            movedPoint.y += y
+            return movedPoint
+        }
+        
+        let topLeft = CGPoint(x: CGRectGetMinX(rect), y: CGRectGetMinY(rect))
+        let topLeftCornerRadius = getCornerRadius(.TopLeft)
+        let topLeftCornerCenter = move(topLeft, x: topLeftCornerRadius, y: topLeftCornerRadius)
+        
+        let topRight = CGPoint(x: CGRectGetMaxX(rect), y: CGRectGetMinY(rect))
+        let topRightCornerRadius = getCornerRadius(.TopRight)
+        let topRightCornerCenter = move(topRight, x: -topRightCornerRadius, y: topRightCornerRadius)
+        
+        let bottomRight = CGPoint(x: CGRectGetMaxX(rect), y: CGRectGetMaxY(rect))
+        let bottomRightCornerRadius = getCornerRadius(.BottomRight)
+        let bottomRightCornerCenter = move(bottomRight, x: -bottomRightCornerRadius, y: -bottomRightCornerRadius)
+        
+        let bottomLeft = CGPoint(x: CGRectGetMinX(rect), y: CGRectGetMaxY(rect))
+        let bottomLeftCornerRadius = getCornerRadius(.BottomLeft)
+        let bottomLeftCornerCenter = move(bottomLeft, x: bottomLeftCornerRadius, y: -bottomLeftCornerRadius)
+        
+        var path = CGPathCreateMutable()
+    
+        CGPathAddArc(path, nil, topLeftCornerCenter.x, topLeftCornerCenter.y, topLeftCornerRadius, CGFloat(2 * M_PI_2), CGFloat(3 * M_PI_2), false)
+        CGPathAddArc(path, nil, topRightCornerCenter.x, topRightCornerCenter.y, topRightCornerRadius, CGFloat(3 * M_PI_2), CGFloat(4 * M_PI_2), false)
+        CGPathAddArc(path, nil, bottomRightCornerCenter.x, bottomRightCornerCenter.y, bottomRightCornerRadius, CGFloat(4 * M_PI_2), CGFloat(5 * M_PI_2), false)
+        CGPathAddArc(path, nil, bottomLeftCornerCenter.x, bottomLeftCornerCenter.y, bottomLeftCornerRadius, CGFloat(5 * M_PI_2), CGFloat(6 * M_PI_2), false)
+        CGPathCloseSubpath(path)
+        
+        return UIBezierPath(CGPath: path)
     }
 }
