@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        Fabric.with([Crashlytics.self])
+        
         let navigationController = UINavigationController(rootViewController: ChatsListViewController())
         navigationController.navigationBar.barTintColor = UIColor(red:0.208,  green:0.266,  blue:0.350, alpha:1)
         navigationController.navigationBar.tintColor = UIColor.whiteColor()

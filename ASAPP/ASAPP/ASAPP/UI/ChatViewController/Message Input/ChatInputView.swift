@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatInputViewDelegate {
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
+    func chatInputViewDidTapMediaButton(chatInputView: ChatInputView)
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
 }
 

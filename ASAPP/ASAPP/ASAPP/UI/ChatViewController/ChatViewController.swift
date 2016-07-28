@@ -155,6 +155,12 @@ extension ChatViewController: ChatInputViewDelegate {
         self.chatInputView.clear()
     }
     
+    func chatInputViewDidTapMediaButton(chatInputView: ChatInputView) {
+        let alert = UIAlertController(title: "Coming Soon!", message: "This feature is still under development.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
         if chatMessagesView.isNearBottom() {
             view.layoutIfNeeded()
