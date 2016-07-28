@@ -12,7 +12,9 @@ import SocketRocket
 // MARK:- SocketConnectionDelegate
 
 protocol SocketConnectionDelegate {
-    func socketConnection(socketConnection: SocketConnection, didChangeConnectionStatus isConnected: Bool)
+    func socketConnectionDidLoseConnection(socketConnection: SocketConnection)
+    func socketConnectionFailedToAuthenticate(socketConnection: SocketConnection)
+    func socketConnectionEstablishedConnection(socketConnection: SocketConnection)
     func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
 
@@ -43,7 +45,7 @@ class SocketConnection: NSObject {
     
     private var incomingMessageSerializer = IncomingMessageSerializer()
     
-    private var requestQueue = [String /* RequestString */]()
+    private var requestQueue = [SocketRequest]()
     
     private var requestHandlers = [Int : IncomingMessageHandler]()
     
@@ -117,21 +119,22 @@ extension SocketConnection {
 // MARK:- Sending Messages
 
 extension SocketConnection {
-    func sendRequest(withPath path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler? = nil) {
-        let (requestString, requestId) = outgoingMessageSerializer.createRequestString(withPath: path, params: params)
+    func sendRequest(withPath path: String, params: [String : AnyObject]?, context: [String : AnyObject]? = nil, requestHandler: IncomingMessageHandler? = nil) {
+        let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: context)
         if let requestHandler = requestHandler {
-            requestHandlers[requestId] = requestHandler
+            requestHandlers[request.requestId] = requestHandler
         }
-        sendRequest(withRequestString: requestString)
+        sendRequestWithRequest(request)
     }
     
-    func sendRequest(withRequestString requestString: String) {
+    func sendRequestWithRequest(request: SocketRequest) {
         if isConnected {
+            let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
             DebugLog("Sending request: \(requestString)")
             socket?.send(requestString)
         } else {
-            DebugLog("Socket not connected. Queueing request: \(requestString)")
-            requestQueue.append(requestString)
+            DebugLog("Socket not connected. Queueing request: \(request.path)")
+            requestQueue.append(request)
             connect()
         }
     }
@@ -140,61 +143,76 @@ extension SocketConnection {
 // MARK:- Authentication
 
 extension SocketConnection {
-    func authenticate() {
-        let (path, params) = outgoingMessageSerializer.createAuthRequest()
+    typealias SocketAuthResponseBlock = ((message: IncomingMessage?, errorMessage: String?) -> Void)
+    
+    func authenticate(completion: SocketAuthResponseBlock? = nil) {
         
+        let (path, params) = outgoingMessageSerializer.createAuthRequest()
         sendRequest(withPath: path, params: params) { [weak self] (message) in
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
+            
+            if let targetCustomerToken = self?.credentials.targetCustomerToken {
+                self?.updateCustomerByCRMCustomerId(withTargetCustomerToken: targetCustomerToken, completion: completion)
+            } else if let completion = completion {
+                completion(message: message, errorMessage: nil)
+            }
         }
     }
     
-    func updateTargetCustomerRequestInfoIfNeeded() {
-        guard let targetCustomerToken = credentials.targetCustomerToken else {
-            return
-        }
-        
-        let params: [String : AnyObject] = [ "CRMCustomerId" : targetCustomerToken ]
+    // MARK: TargetCustomer
+    
+    func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/GetCustomerByCRMCustomerId"
-        sendRequest(withPath: path, params: params) { [weak self] (incomingMessage) in
-
-//            if let customer = jsonObj["Customer"] as? [String: AnyObject] {
-//                if let customerId = customer["CustomerId"] as? Int {
-//                    self?.participateInIssueForCustomer(customerId)
-//                }
-//            }
+        let params: [String: AnyObject] = [ "CRMCustomerId" : targetCustomerToken ]
+        
+        sendRequest(withPath: path, params: params) { (response) in
+            guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
+                DebugLogError("Missing Customer json body in: \(response.fullMessage)")
+                
+                completion?(message: response, errorMessage: "Failed to update customer by CRMCustomerId")
+                return
+            }
+            
+            if let customerId = customerJSON["CustomerId"] as? Int {
+                self.participateInIssueForCustomer(customerId, completion: completion)
+            } else if let completion = completion {
+                completion(message: response, errorMessage: "Missing CustomerId in: \(response.fullMessage)")
+            }
         }
     }
     
-    func participateInIssueForCustomer(customerId: Int) {
-//        let context: [String: AnyObject] = [
-//            "CustomerId": customerId
-//        ]
-//        conn.request("rep/ParticipateInIssueForCustomer", params: [:], context: context) { [weak self] (message) in
-//            ASAPPLog(message)
-//            
-//            guard self != nil,
-//                let issueIdData = message as? String else {
-//                    return
-//            }
-//            
-//            do {
-//                let jsonObj = try NSJSONSerialization.JSONObjectWithData(issueIdData.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
-//                
-//                if let issueId = jsonObj["IssueId"] as? Int {
-//                    self?.store.updateState(issueId, forKeyPath: "issueId")
-//                    self?.eventLog.load()
-//                }
-//            } catch let error as NSError {
-//                ASAPPLoge(error)
-//            }
-//        }
+    func participateInIssueForCustomer(customerId: Int, completion: SocketAuthResponseBlock? = nil) {
+        let path = "rep/ParticipateInIssueForCustomer"
+        let context: [String: AnyObject] = [ "CustomerId" : customerId ]
+        
+        sendRequest(withPath: path, params: nil, context: context) { (response) in
+            var errorMessage: String?
+            if let issueId = response.body?["IssueId"] as? Int {
+                self.outgoingMessageSerializer.issueId = issueId
+            } else {
+                DebugLogError("Failed to get IssueId with: \(response.fullMessage)")
+                errorMessage = "Failed to get IssueId"
+            }
+            
+            if let completion = completion {
+                completion(message: response, errorMessage: errorMessage)
+            }
+        }
     }
-
+    
+    func resendQueuedRequestsIfNeeded() {
+        while !requestQueue.isEmpty {
+            let request = requestQueue[0] 
+            requestQueue.removeAtIndex(0)
+            sendRequestWithRequest(request)
+        }
+    }
 }
 
 // MARK:- SocketRocketDelegate
 
 extension SocketConnection: SRWebSocketDelegate {
+    
     // MARK: Receiving Messages
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -214,23 +232,23 @@ extension SocketConnection: SRWebSocketDelegate {
     // MARK: Connection Opening/Closing
     
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        authenticate()
-        updateTargetCustomerRequestInfoIfNeeded()
-        
-        while !requestQueue.isEmpty {
-            let requestString = requestQueue[0]
-            requestQueue.removeAtIndex(0)
-            sendRequest(withRequestString: requestString)
+        authenticate { [weak self] (message, errorMessage) in
+            guard self != nil else { return }
+            
+            if errorMessage == nil {
+                self?.resendQueuedRequestsIfNeeded()
+                self?.delegate?.socketConnectionEstablishedConnection(self!)
+            } else {
+                self?.delegate?.socketConnectionFailedToAuthenticate(self!)
+            }
         }
-        
-        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
+        delegate?.socketConnectionDidLoseConnection(self)
     }
     
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        delegate?.socketConnection(self, didChangeConnectionStatus: isConnected)
+        delegate?.socketConnectionFailedToAuthenticate(self)
     }
 }

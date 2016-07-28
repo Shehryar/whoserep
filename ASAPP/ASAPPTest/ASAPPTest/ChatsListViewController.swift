@@ -16,7 +16,7 @@ struct ASAPPConversation {
     var targetCustomerToken: String? = nil
     
     var description: String {
-        return "\(company) || \(userToken ?? "") || \(isCustomer ? "customer" : "rep")"
+        return "\(company) || \(userToken ?? "") || \(isCustomer ? "customer" : "rep") || \(targetCustomerToken ?? "")"
     }
 }
 
@@ -98,7 +98,7 @@ extension ChatsListViewController: UITableViewDelegate {
         
         let conversation = conversations[indexPath.row]
         
-        let chatViewController = asapp.createChatViewController(withCompany: conversation.company, userToken: conversation.userToken, isCustomer: conversation.isCustomer)
+        let chatViewController = asapp.createChatViewController(withCompany: conversation.company, userToken: conversation.userToken, isCustomer: conversation.isCustomer, targetCustomerToken: conversation.targetCustomerToken)
         chatViewController.title = conversation.description
         navigationController?.pushViewController(chatViewController, animated: true)
     }

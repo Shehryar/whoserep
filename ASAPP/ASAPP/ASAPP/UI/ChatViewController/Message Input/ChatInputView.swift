@@ -142,8 +142,6 @@ class ChatInputView: UIView {
         
         sendButton.enabled = canSendMessage
         mediaButton.enabled = canSendMessage
-        
-        
     }
     
     func styleMediaButton() {

@@ -83,9 +83,12 @@ extension ConversationManager {
     func getMessageEvents(afterEvent: Event? = nil, completion: ConversationManagerRequestBlock) {
         let path = "\(requestPrefix)GetEvents"
         var params = [String : AnyObject]()
+        
+        var afterSeq = 0
         if let afterEvent = afterEvent {
-            params["AfterSeq"] = afterEvent.eventLogSeq
+            afterSeq = afterEvent.eventLogSeq
         }
+        params["AfterSeq"] = afterSeq
         
         socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage) in
             var fetchedEvents: [Event]?
@@ -162,8 +165,15 @@ extension ConversationManager: SocketConnectionDelegate {
         }
     }
 
-
-    func socketConnection(socketConnection: SocketConnection, didChangeConnectionStatus isConnected: Bool) {
-        delegate?.conversationManager(self, connectionStatusDidChange: isConnected)
+    func socketConnectionEstablishedConnection(socketConnection: SocketConnection) {
+        delegate?.conversationManager(self, connectionStatusDidChange: true)
+    }
+    
+    func socketConnectionFailedToAuthenticate(socketConnection: SocketConnection) {
+        delegate?.conversationManager(self, connectionStatusDidChange: false)
+    }
+    
+    func socketConnectionDidLoseConnection(socketConnection: SocketConnection) {
+        delegate?.conversationManager(self, connectionStatusDidChange: false)
     }
 }

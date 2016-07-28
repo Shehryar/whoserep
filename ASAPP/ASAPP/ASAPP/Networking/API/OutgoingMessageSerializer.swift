@@ -8,6 +8,13 @@
 
 import Foundation
 
+struct SocketRequest {
+    var requestId: Int
+    var path: String
+    var params: [String : AnyObject]?
+    var context: [String : AnyObject]?
+}
+
 class OutgoingMessageSerializer: NSObject {
     
     // MARK: Pubic Properties
@@ -28,6 +35,8 @@ class OutgoingMessageSerializer: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
+        self.targetCustomerToken = credentials.targetCustomerToken
+        
         super.init()
     }
 }
@@ -35,12 +44,15 @@ class OutgoingMessageSerializer: NSObject {
 // MARK:- Public Instance Methods
 
 extension OutgoingMessageSerializer {
-    func createRequestString(withPath path: String, params: [String : AnyObject]? = nil) -> (requestString: String, requestId: Int) {
-        let requestId = getNextRequestId()
-        let paramsJSONString = jsonStringify(params ?? [:])
-        let contextJSONString = jsonStringify(contextForRequest(withPath: path))
+    func createRequest(withPath path: String, params: [String : AnyObject]?, context: [String : AnyObject]?) -> SocketRequest {
+        return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context)
+    }
+    
+    func createRequestString(withRequest request: SocketRequest) -> String {
+        let paramsJSONString = jsonStringify(request.params ?? [:])
+        let contextJSONString = jsonStringify(request.context ?? contextForRequest(withPath: request.path))
 
-        return ("\(path)|\(requestId)|\(contextJSONString)|\(paramsJSONString)", requestId)
+        return "\(request.path)|\(request.requestId)|\(contextJSONString)|\(paramsJSONString)"
     }
     
     func createAuthRequest() -> (path: String, params: [String : AnyObject]) {
