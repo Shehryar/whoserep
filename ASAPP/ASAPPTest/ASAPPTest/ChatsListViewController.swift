@@ -150,13 +150,14 @@ extension ChatsListViewController: UITableViewDelegate {
             
         case .TwoWayChats:
             let chatViewController = TwoWayChatViewController(withLeftChatCredentials: defaultRepChatCredentials, rightChatCredentials: defaultCustomerChatCredentials)
+            chatViewController.title = "Two-Way Chat"
             navigationController?.pushViewController(chatViewController, animated: true)
             break
         }
         
         if let chatCredentials = chatCredentials {
             let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials)
-
+            chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)
         }
     }

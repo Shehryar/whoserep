@@ -359,7 +359,7 @@
 				TargetAttributes = {
 					FD8D8AF91D0F6E2A001B420B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 94CPHRUGLV;
+						DevelopmentTeam = GHJ79KTB8D;
 					};
 					FDFCDDD31D243BCD00AEBD2C = {
 						CreatedOnToolsVersion = 7.3;
@@ -590,6 +590,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPtest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -610,6 +611,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPtest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -617,15 +619,19 @@
 		FDFCDDD41D243BCD00AEBD2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 			};
 			name = Debug;
 		};
 		FDFCDDD51D243BCD00AEBD2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 			};
 			name = Release;
 		};

@@ -85,8 +85,6 @@ class TwoWayChatViewController: UIViewController {
         labelsContainer.addSubview(rightChatTitleLabel)
         view.addSubview(labelsContainer)
         view.addSubview(dividerView)
-        
-        title = "Two-way Chat"
     }
 
     // MARK:- Layout
