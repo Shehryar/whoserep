@@ -40,7 +40,6 @@ class ChatInputView: UIView {
     
     private let mediaButton = UIButton()
     private let sendButton = UIButton()
-    private let logoView = UIImageView(image: Images.asappLogoIcon())
     
     // MARK:- Initialization
     
@@ -58,11 +57,8 @@ class ChatInputView: UIView {
         backgroundColor = Colors.whiteColor()
         translatesAutoresizingMaskIntoConstraints = false
         
-        borderTopView.backgroundColor = Colors.lightGrayColor()
+        borderTopView.backgroundColor = Colors.lighterGrayColor()
         addSubview(borderTopView)
-        
-        logoView.contentMode = .ScaleAspectFit
-        addSubview(logoView)
         
         styleTextView()
         textView.delegate = self
@@ -176,13 +172,6 @@ extension ChatInputView {
             make.height.equalTo(1)
         }
         
-        logoView.snp_remakeConstraints { (make) in
-            make.bottom.equalTo(self.snp_bottom)
-            make.centerX.equalTo(self.snp_centerX)
-            make.height.equalTo(30)
-            make.width.equalTo(120)
-        }
-        
         textView.snp_remakeConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(8)
             make.left.equalTo(self.snp_left).offset(16)
@@ -198,7 +187,7 @@ extension ChatInputView {
         
         mediaButton.snp_remakeConstraints { (make) in
             make.right.equalTo(self.snp_right).offset(-8)
-            make.bottom.equalTo(logoView.snp_top).offset(-8)
+            make.bottom.equalTo(self.snp_bottom).offset(-8)
             make.height.equalTo(inputMinHeight)
             make.width.equalTo(mediaButtonWidth)
         }

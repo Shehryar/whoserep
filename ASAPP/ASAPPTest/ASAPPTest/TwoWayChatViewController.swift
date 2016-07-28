@@ -44,7 +44,7 @@ class TwoWayChatViewController: UIViewController {
         labelsContainer.layer.shadowColor = UIColor.blackColor().CGColor
         labelsContainer.layer.shadowOffset = CGSize(width: 0, height: 1)
         labelsContainer.layer.shadowRadius = 2
-        labelsContainer.layer.shadowOpacity = 0.3
+        labelsContainer.layer.shadowOpacity = 0.2
         
         leftChatTitleLabel.text = leftChatCredentials.isCustomer ? "Customer" : "Rep"
         applyStylesToLabel(leftChatTitleLabel)

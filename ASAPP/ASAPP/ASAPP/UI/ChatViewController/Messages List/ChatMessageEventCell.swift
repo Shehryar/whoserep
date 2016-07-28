@@ -111,15 +111,15 @@ class ChatMessageEventCell: UITableViewCell {
                 break
                 
             case .FirstOfMany:
-                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
+                roundedCorners =  .AllCorners//[.TopLeft, .TopRight, .BottomRight] // FB-style
                 break
                 
             case .MiddleOfMany:
-                roundedCorners = [.TopRight, .BottomRight]
+                roundedCorners =  .AllCorners//[.TopRight, .BottomRight]
                 break
                 
             case .LastOfMany:
-                roundedCorners = [.TopRight, .BottomRight, .BottomLeft]
+                roundedCorners = [.TopLeft, .TopRight, .BottomRight]//[.TopRight, .BottomRight, .BottomLeft]
                 break
             }
         } else {
@@ -129,15 +129,15 @@ class ChatMessageEventCell: UITableViewCell {
                 break
                 
             case .FirstOfMany:
-                roundedCorners = [.TopRight, .TopLeft, .BottomLeft]
+                roundedCorners = .AllCorners//[.TopRight, .TopLeft, .BottomLeft]
                 break
                 
             case .MiddleOfMany:
-                roundedCorners = [.TopLeft, .BottomLeft]
+                roundedCorners = .AllCorners// [.TopLeft, .BottomLeft]
                 break
                 
             case .LastOfMany:
-                roundedCorners = [.TopLeft, .BottomLeft, .BottomRight]
+                roundedCorners =  [.TopRight, .TopLeft, .BottomLeft] //[.TopLeft, .BottomLeft, .BottomRight]
                 break
             }
         }

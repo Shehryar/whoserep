@@ -44,6 +44,10 @@ class ChatViewController: UIViewController {
         
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         chatInputView.delegate = self
+        chatInputView.layer.shadowColor = UIColor.blackColor().CGColor
+        chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        chatInputView.layer.shadowRadius = 2
+        chatInputView.layer.shadowOpacity = 0.1
         
         keyboardObserver.delegate = self
     }
@@ -63,6 +67,7 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.clipsToBounds = true
         view.backgroundColor = UIColor.whiteColor()
         
         view.addSubview(chatMessagesView)
