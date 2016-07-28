@@ -16,13 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         let navigationController = UINavigationController(rootViewController: ChatsListViewController())
-        navigationController.navigationBar.barTintColor = UIColor(red:0.290,  green:0.290,  blue:0.290, alpha:1)
+        navigationController.navigationBar.barTintColor = UIColor(red:0.208,  green:0.266,  blue:0.350, alpha:1)
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
         navigationController.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.whiteColor(),
             NSFontAttributeName : UIFont.boldSystemFontOfSize(16)
         ]
         navigationController.navigationBar.barStyle = .Black
+        navigationController.navigationBar.opaque = true
+        navigationController.navigationBar.translucent = false
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
             NSForegroundColorAttributeName : UIColor.whiteColor(),

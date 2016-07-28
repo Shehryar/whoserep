@@ -25,6 +25,11 @@ class TwoWayChatViewController: UIViewController {
     // MARK:- Init
     
     required init(withLeftChatCredentials leftChatCredentials: Credentials, rightChatCredentials: Credentials) {
+
+        assert(leftChatCredentials.targetCustomerToken == rightChatCredentials.userToken ||
+            rightChatCredentials.targetCustomerToken == leftChatCredentials.userToken , "Target customer token must be the user token of the other party")
+        
+        
         self.leftChatCredentials = leftChatCredentials
         self.rightChatCredentials = rightChatCredentials
         self.leftChatViewController = ASAPP.createChatViewController(withCredentials: self.leftChatCredentials)
@@ -32,18 +37,18 @@ class TwoWayChatViewController: UIViewController {
     
         super.init(nibName: nil, bundle: nil)
         
-        dividerView.backgroundColor = UIColor.lightGrayColor()
+        dividerView.backgroundColor = UIColor(red:0.919,  green:0.883,  blue:0.840, alpha:1)
         
-        leftChatTitleLabel.text = leftChatCredentials.description
+        leftChatTitleLabel.text = leftChatCredentials.isCustomer ? "Customer" : "Rep"
         leftChatTitleLabel.font = UIFont.boldSystemFontOfSize(14)
         leftChatTitleLabel.textColor = UIColor.whiteColor()
-        leftChatTitleLabel.backgroundColor = UIColor(red:0.139,  green:0.576,  blue:0.975, alpha:1)
+        leftChatTitleLabel.backgroundColor = UIColor(red:0.210,  green:0.674,  blue:0.643, alpha:1)
         leftChatTitleLabel.textAlignment = .Center
         
-        rightChatTitleLabel.text = rightChatCredentials.description
+        rightChatTitleLabel.text = rightChatCredentials.isCustomer ? "Customer" : "Rep"
         rightChatTitleLabel.font = UIFont.boldSystemFontOfSize(14)
         rightChatTitleLabel.textColor = UIColor.whiteColor()
-        rightChatTitleLabel.backgroundColor = UIColor(red:0.139,  green:0.576,  blue:0.975, alpha:1)
+        rightChatTitleLabel.backgroundColor = leftChatTitleLabel.backgroundColor
         rightChatTitleLabel.textAlignment = .Center
         
         addChildViewController(leftChatViewController)
@@ -68,6 +73,8 @@ class TwoWayChatViewController: UIViewController {
         view.addSubview(leftChatTitleLabel)
         view.addSubview(rightChatTitleLabel)
         view.addSubview(dividerView)
+        
+        title = "Two-way Chat"
     }
 
     // MARK:- Layout

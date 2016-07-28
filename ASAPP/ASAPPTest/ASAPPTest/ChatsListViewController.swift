@@ -156,7 +156,7 @@ extension ChatsListViewController: UITableViewDelegate {
         
         if let chatCredentials = chatCredentials {
             let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials)
-            chatViewController.title = chatCredentials.description
+
             navigationController?.pushViewController(chatViewController, animated: true)
         }
     }

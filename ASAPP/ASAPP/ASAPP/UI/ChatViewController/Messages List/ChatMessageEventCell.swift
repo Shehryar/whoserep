@@ -89,9 +89,9 @@ class ChatMessageEventCell: UITableViewCell {
     
     func updateForIsReplyValue() {
         if isReply {
-            messageView.bubbleFillColor = Colors.lighterGrayColor()
+            messageView.bubbleFillColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)//Colors.lighterGrayColor()
             messageView.bubbleStrokeColor = nil
-            messageView.textColor = Colors.darkTextColor()
+            messageView.textColor = UIColor.whiteColor() //Colors.darkTextColor()
         } else {
             messageView.bubbleFillColor = Colors.whiteColor()
             messageView.bubbleStrokeColor = Colors.lightGrayColor()
