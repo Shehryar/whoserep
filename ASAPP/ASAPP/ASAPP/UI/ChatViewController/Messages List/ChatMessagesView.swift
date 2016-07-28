@@ -210,6 +210,7 @@ extension ChatMessagesView {
             return
         }
         
+        let wasNearBottom = isNearBottom()
         var lastVisibleMessageEvent: Event?
         if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageEventCell {
             lastVisibleMessageEvent = lastVisibleCell.messageEvent
@@ -242,7 +243,9 @@ extension ChatMessagesView {
             })
             tableView.reloadData()
             
-            if let lastVisibleIndexPath = indexPathForMessageEvent(lastVisibleMessageEvent) {
+            if wasNearBottom {
+                scrollToBottomAnimated(false)
+            } else if let lastVisibleIndexPath = indexPathForMessageEvent(lastVisibleMessageEvent) {
                 tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
             }
         }
