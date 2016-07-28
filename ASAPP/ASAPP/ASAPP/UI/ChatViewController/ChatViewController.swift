@@ -36,7 +36,7 @@ class ChatViewController: UIViewController {
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
         self.conversationManager = ConversationManager(withCredentials: credentials)
-        self.chatMessagesView = ChatMessagesView()
+        self.chatMessagesView = ChatMessagesView(withCredentials: credentials)
         
         super.init(nibName: nil, bundle: nil)
         

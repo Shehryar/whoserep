@@ -14,16 +14,42 @@ public class ASAPP: NSObject {
     
     // MARK:- Instance Methods
     
-    public func createChatViewController(withCompany company: String,
-                                                     userToken: String? = nil,
-                                                     isCustomer: Bool = false,
-                                                     targetCustomerToken: String? = nil) -> UIViewController {
-        let credentials = Credentials(withCompany: company,
-                                      userToken: userToken,
-                                      isCustomer: isCustomer,
-                                      targetCustomerToken: targetCustomerToken)
-            
+    public class func createChatViewController(withCredentials credentials: Credentials) -> UIViewController {
         return ChatViewController(withCredentials: credentials)
+    }
+}
+
+public class Credentials: NSObject {
+    
+    // MARK:- Properties
+    
+    public private(set) var companyMarker: String
+    public private(set) var isCustomer: Bool
+    public private(set) var userToken: String?
+    public private(set) var targetCustomerToken: String?
+    
+    // MARK:- Initialization
+    
+    public init(withCompany company: String, userToken: String?, isCustomer: Bool, targetCustomerToken: String? = nil) {
+        self.companyMarker = company
+        self.userToken = userToken
+        self.isCustomer = isCustomer
+        self.targetCustomerToken = targetCustomerToken
+        
+        super.init()
+    }
+    
+    // MARK:- DebugPrintable
+    
+    override public var description: String {
+        if isCustomer {
+            return "Customer @ \(companyMarker): \(userToken ?? "")"
+        } else {
+            return "Rep @ \(companyMarker): \(userToken ?? "") \(targetCustomerToken != nil ? "-> \(targetCustomerToken!)" : "")"
+        }
+    }
+    override public var debugDescription: String {
+        return description
     }
 }
  

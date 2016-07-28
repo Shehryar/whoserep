@@ -24,14 +24,13 @@ class ChatMessageEventCell: UITableViewCell {
         didSet {
             if let messageEvent = messageEvent {
                 messageView.message = (messageEvent.payload as? EventPayload.TextMessage)?.text
-                isReply = !messageEvent.isCustomerEvent
             } else {
                 messageView.message = nil
             }
         }
     }
     
-    private var isReply: Bool = false {
+    var isReply: Bool = false {
         didSet {
             if oldValue != isReply {
                 updateForIsReplyValue()

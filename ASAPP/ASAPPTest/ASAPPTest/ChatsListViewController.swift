@@ -9,37 +9,50 @@
 import UIKit
 import ASAPP
 
-struct ASAPPConversation {
-    var company: String = ""
-    var userToken: String?
-    var isCustomer: Bool = true
-    var targetCustomerToken: String? = nil
-    
-    var description: String {
-        return "\(company) || \(userToken ?? "") || \(isCustomer ? "customer" : "rep") || \(targetCustomerToken ?? "")"
-    }
-}
-
 class ChatsListViewController: UIViewController {
 
+    enum ChatSection: Int {
+        case CustomerChats = 0
+        case RepChats = 1
+        case TwoWayChats = 2
+    }
+    
     // MARK:- Properties
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
-    
-    let asapp = ASAPP()
-    
-    let conversations = [
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil),
         
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6"),
-        
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c7", isCustomer: true, targetCustomerToken: nil),
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c8", isCustomer: true, targetCustomerToken: nil),
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c9", isCustomer: true, targetCustomerToken: nil),
-        ASAPPConversation(company: "vs-dev", userToken: "vs-cct-c10", isCustomer: true, targetCustomerToken: nil)
+    let defaultCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil)
+    let defaultRepChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6")
+    
+    let customerChatCredentials = [
+        Credentials(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil),
+        Credentials(withCompany: "vs-dev", userToken: "vs-cct-c7", isCustomer: true, targetCustomerToken: nil),
+        Credentials(withCompany: "vs-dev", userToken: "vs-cct-c8", isCustomer: true, targetCustomerToken: nil),
+        Credentials(withCompany: "vs-dev", userToken: "vs-cct-c9", isCustomer: true, targetCustomerToken: nil),
+        Credentials(withCompany: "vs-dev", userToken: "vs-cct-c10", isCustomer: true, targetCustomerToken: nil)
     ]
+    let repChatCredentials = [Credentials(withCompany: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6")]
     
     // MARK:- Init
+    
+    func commonInit() {
+        title = "Test Chats"
+        automaticallyAdjustsScrollViewInsets = true
+        
+        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
     
     deinit {
         tableView.dataSource = nil
@@ -50,15 +63,10 @@ class ChatsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        title = "All Chats"
-        automaticallyAdjustsScrollViewInsets = true
+        
         view.backgroundColor = UIColor.whiteColor()
         
         tableView.frame = view.bounds
-        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        tableView.dataSource = self
-        tableView.delegate = self
         view.addSubview(tableView)
     }
     
@@ -71,11 +79,27 @@ class ChatsListViewController: UIViewController {
 
 extension ChatsListViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return ChatSection.TwoWayChats.rawValue + 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversations.count
+        guard let chatSection: ChatSection = ChatSection(rawValue: section) else { return 0 }
+        
+        switch chatSection {
+        case .CustomerChats: return customerChatCredentials.count
+        case .RepChats: return repChatCredentials.count
+        case .TwoWayChats: return 1
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let chatSection: ChatSection = ChatSection(rawValue: section) else { return nil }
+        
+        switch chatSection {
+        case .CustomerChats: return "Customer Chats"
+        case .RepChats: return "Rep Chats"
+        case .TwoWayChats: return "Two-Way Chats"
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -85,8 +109,23 @@ extension ChatsListViewController: UITableViewDataSource {
         cell.textLabel?.font = UIFont.systemFontOfSize(16)
         cell.accessoryType = .DisclosureIndicator
         
-        let conversation = conversations[indexPath.row]
-        cell.textLabel?.text = conversation.description
+        if let chatSection = ChatSection(rawValue: indexPath.section) {
+            switch chatSection {
+            case .CustomerChats:
+                let conversation = customerChatCredentials[indexPath.row]
+                cell.textLabel?.text = conversation.description
+                break
+                
+            case .RepChats:
+                let conversation = repChatCredentials[indexPath.row]
+                cell.textLabel?.text = conversation.description
+                break
+                
+            case .TwoWayChats:
+                cell.textLabel?.text = "Rep: \(defaultRepChatCredentials.userToken ?? "") <-> Customer: \(defaultCustomerChatCredentials.userToken ?? "")"
+                break
+            }
+        }
         
         return cell
     }
@@ -96,10 +135,29 @@ extension ChatsListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let conversation = conversations[indexPath.row]
+        guard let chatSection: ChatSection = ChatSection(rawValue: indexPath.section) else { return }
         
-        let chatViewController = asapp.createChatViewController(withCompany: conversation.company, userToken: conversation.userToken, isCustomer: conversation.isCustomer, targetCustomerToken: conversation.targetCustomerToken)
-        chatViewController.title = conversation.description
-        navigationController?.pushViewController(chatViewController, animated: true)
+        var chatCredentials: Credentials?
+        
+        switch chatSection {
+        case .CustomerChats:
+            chatCredentials = customerChatCredentials[indexPath.row]
+            break
+            
+        case .RepChats:
+            chatCredentials = repChatCredentials[indexPath.row]
+            break
+            
+        case .TwoWayChats:
+            let chatViewController = TwoWayChatViewController(withLeftChatCredentials: defaultRepChatCredentials, rightChatCredentials: defaultCustomerChatCredentials)
+            navigationController?.pushViewController(chatViewController, animated: true)
+            break
+        }
+        
+        if let chatCredentials = chatCredentials {
+            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials)
+            chatViewController.title = chatCredentials.description
+            navigationController?.pushViewController(chatViewController, animated: true)
+        }
     }
 }

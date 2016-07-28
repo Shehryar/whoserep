@@ -11,6 +11,8 @@ import UIKit
 class ChatMessagesView: UIView {
 
     // MARK:- Public Properties
+
+    var credentials: Credentials
     
     private(set) var messageEvents: [Event] = []
     
@@ -41,9 +43,10 @@ class ChatMessagesView: UIView {
     
     // MARK:- Initialization
     
-    override init(frame: CGRect) {
+    required init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
         super.init(frame: CGRectZero)
-     
+        
         backgroundColor = UIColor.whiteColor()
         clipsToBounds = false
         
@@ -127,10 +130,9 @@ extension ChatMessagesView: UITableViewDataSource {
     }
     
     private func messageEventIsReply(messageEvent: Event?) -> Bool? {
-        if let messageEvent = messageEvent {
-            return messageEvent.isCustomerEvent
-        }
-        return nil
+        guard let messageEvent = messageEvent else { return nil }
+        
+        return !messageEvent.wasSentByUserWithCredentials(credentials)
     }
     
     // UITableViewDataSource
@@ -146,6 +148,7 @@ extension ChatMessagesView: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
             cell.messageEvent = messageEventForIndexPath(indexPath)
+            cell.isReply = messageEventIsReply(cell.messageEvent) ?? false
             cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
             return cell
         }

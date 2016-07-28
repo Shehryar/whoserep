@@ -199,3 +199,18 @@ class Event: Object {
         return nil
     }()
 }
+
+// MARK:- Instance Methods
+
+extension Event {
+    func wasSentByUserWithCredentials(credentials: Credentials) -> Bool {
+        
+        // TODO: Check IDs of some sort... which IDs?
+        
+        if credentials.isCustomer {
+            return isCustomerEvent
+        } else {
+            return !isCustomerEvent
+        }
+    }
+}
