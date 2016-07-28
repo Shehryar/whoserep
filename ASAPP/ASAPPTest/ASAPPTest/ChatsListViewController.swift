@@ -149,9 +149,21 @@ extension ChatsListViewController: UITableViewDelegate {
             break
             
         case .TwoWayChats:
-            let chatViewController = TwoWayChatViewController(withLeftChatCredentials: defaultRepChatCredentials, rightChatCredentials: defaultCustomerChatCredentials)
-            chatViewController.title = "Two-Way Chat"
-            navigationController?.pushViewController(chatViewController, animated: true)
+            switch self.traitCollection.horizontalSizeClass {
+            case .Compact:
+                showAlert(withTitle: "Not Supported!", message: "Two-way chat requires a large amount of screen space to function properly and is not supported for your current screen size.")
+                break
+                
+            case .Regular:
+                let chatViewController = TwoWayChatViewController(withLeftChatCredentials: defaultRepChatCredentials, rightChatCredentials: defaultCustomerChatCredentials)
+                chatViewController.title = "Two-Way Chat"
+                navigationController?.pushViewController(chatViewController, animated: true)
+                break
+                
+            case .Unspecified:
+                showAlert(withTitle: "Unspecified Trait Class...", message: "Email mitch@asapp.com and let him know how you got here.")
+                break
+            }
             break
         }
         
@@ -160,5 +172,13 @@ extension ChatsListViewController: UITableViewDelegate {
             chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)
         }
+    }
+}
+
+extension ChatsListViewController {
+    func showAlert(withTitle title: String, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
