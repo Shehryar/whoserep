@@ -17,6 +17,7 @@ class TwoWayChatViewController: UIViewController {
     
     var leftChatTitleLabel = UILabel()
     var rightChatTitleLabel = UILabel()
+    var labelsContainer = UIView()
     var dividerView = UIView()
     
     var leftChatCredentials: Credentials
@@ -39,17 +40,17 @@ class TwoWayChatViewController: UIViewController {
         
         dividerView.backgroundColor = UIColor(red:0.919,  green:0.883,  blue:0.840, alpha:1)
         
+        labelsContainer.backgroundColor = UIColor.clearColor()
+        labelsContainer.layer.shadowColor = UIColor.blackColor().CGColor
+        labelsContainer.layer.shadowOffset = CGSize(width: 0, height: 1)
+        labelsContainer.layer.shadowRadius = 2
+        labelsContainer.layer.shadowOpacity = 0.3
+        
         leftChatTitleLabel.text = leftChatCredentials.isCustomer ? "Customer" : "Rep"
-        leftChatTitleLabel.font = UIFont.boldSystemFontOfSize(14)
-        leftChatTitleLabel.textColor = UIColor.whiteColor()
-        leftChatTitleLabel.backgroundColor = UIColor(red:0.210,  green:0.674,  blue:0.643, alpha:1)
-        leftChatTitleLabel.textAlignment = .Center
+        applyStylesToLabel(leftChatTitleLabel)
         
         rightChatTitleLabel.text = rightChatCredentials.isCustomer ? "Customer" : "Rep"
-        rightChatTitleLabel.font = UIFont.boldSystemFontOfSize(14)
-        rightChatTitleLabel.textColor = UIColor.whiteColor()
-        rightChatTitleLabel.backgroundColor = leftChatTitleLabel.backgroundColor
-        rightChatTitleLabel.textAlignment = .Center
+        applyStylesToLabel(rightChatTitleLabel)
         
         addChildViewController(leftChatViewController)
         addChildViewController(rightChatViewController)
@@ -57,6 +58,16 @@ class TwoWayChatViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK:- Display
+    
+    func applyStylesToLabel(label: UILabel) {
+        label.font = UIFont.boldSystemFontOfSize(16)
+        label.textColor = UIColor.whiteColor()
+        label.backgroundColor = UIColor(red:0.210,  green:0.674,  blue:0.643, alpha:1)
+        label.textAlignment = .Center
+        label.clipsToBounds = false
     }
     
     // MARK:- View
@@ -70,8 +81,9 @@ class TwoWayChatViewController: UIViewController {
         rightChatViewController.willMoveToParentViewController(self)
         view.addSubview(rightChatViewController.view)
         
-        view.addSubview(leftChatTitleLabel)
-        view.addSubview(rightChatTitleLabel)
+        labelsContainer.addSubview(leftChatTitleLabel)
+        labelsContainer.addSubview(rightChatTitleLabel)
+        view.addSubview(labelsContainer)
         view.addSubview(dividerView)
         
         title = "Two-way Chat"
@@ -85,26 +97,33 @@ class TwoWayChatViewController: UIViewController {
     
     override func updateViewConstraints() {
         
-        leftChatTitleLabel.snp_updateConstraints { (make) in
+        labelsContainer.snp_updateConstraints { (make) in
             if let navigationController = navigationController {
                 make.top.equalTo(navigationController.navigationBar.snp_bottom)
             } else {
                 make.top.equalTo(view.snp_top)
             }
-            make.left.equalTo(leftChatViewController.view.snp_left)
-            make.width.equalTo(leftChatViewController.view.snp_width)
+            make.left.equalTo(view.snp_left)
+            make.right.equalTo(view.snp_right)
             make.height.equalTo(40)
         }
         
+        leftChatTitleLabel.snp_updateConstraints { (make) in
+            make.top.equalTo(labelsContainer.snp_top)
+            make.left.equalTo(labelsContainer.snp_left)
+            make.bottom.equalTo(labelsContainer.snp_bottom)
+            make.width.equalTo(leftChatViewController.view.snp_width)
+        }
+        
         rightChatTitleLabel.snp_updateConstraints { (make) in
-            make.top.equalTo(leftChatTitleLabel.snp_top)
-            make.right.equalTo(rightChatViewController.view.snp_right)
+            make.top.equalTo(labelsContainer.snp_top)
+            make.right.equalTo(labelsContainer.snp_right)
+            make.bottom.equalTo(labelsContainer.snp_bottom)
             make.width.equalTo(rightChatViewController.view.snp_width)
-            make.height.equalTo(leftChatTitleLabel.snp_height)
         }
         
         leftChatViewController.view.snp_updateConstraints { (make) in
-            make.top.equalTo(leftChatTitleLabel.snp_bottom)
+            make.top.equalTo(labelsContainer.snp_bottom)
             make.left.equalTo(view.snp_left)
             make.bottom.equalTo(view.snp_bottom)
             make.width.equalTo(rightChatViewController.view.snp_width)
@@ -112,7 +131,7 @@ class TwoWayChatViewController: UIViewController {
         }
         
         rightChatViewController.view.snp_updateConstraints { (make) in
-            make.top.equalTo(rightChatTitleLabel.snp_bottom)
+            make.top.equalTo(labelsContainer.snp_bottom)
             make.left.equalTo(leftChatViewController.view.snp_right)
             make.right.equalTo(view.snp_right)
             make.bottom.equalTo(view.snp_bottom)
