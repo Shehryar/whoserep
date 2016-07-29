@@ -67,6 +67,7 @@ class ChatInputView: UIView {
         addSubview(placeholderTextView)
         
         styleMediaButton()
+        mediaButton.addTarget(self, action: #selector(ChatInputView.didTapMediaButton), forControlEvents: .TouchUpInside)
         addSubview(mediaButton)
         
         styleSendButton()
@@ -159,6 +160,10 @@ class ChatInputView: UIView {
         if let messageText = textView.text {
             delegate?.chatInputView(self, didTapSendMessage: messageText)
         }
+    }
+    
+    func didTapMediaButton() {
+        delegate?.chatInputViewDidTapMediaButton(self)
     }
 }
 
