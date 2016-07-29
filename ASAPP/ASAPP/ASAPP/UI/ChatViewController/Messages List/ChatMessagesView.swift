@@ -55,7 +55,9 @@ class ChatMessagesView: UIView {
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
         tableView.estimatedRowHeight = 80
+        tableView.estimatedSectionHeaderHeight = 30
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
@@ -106,24 +108,24 @@ extension ChatMessagesView: UITableViewDataSource {
     
     // UITableViewDataSource
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let timeStamp = dataSource.timeStampForSection(section)
-        guard timeStamp > 0 else {
-            return nil
-        }
-        let date = NSDate(timeIntervalSince1970: timeStamp)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy 'at' h:mm zzz"
-        
-        return "Send Time: \(dateFormatter.stringFromDate(date))"
-    }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return dataSource.numberOfSections()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.numberOfRowsInSection(section)
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerReuseId = "ChatHeaderReuseId"
+        var headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(headerReuseId) as? ChatMessagesTimeHeaderView
+        if headerView == nil {
+            headerView = ChatMessagesTimeHeaderView(reuseIdentifier: headerReuseId)
+        }
+        
+        headerView?.timeStampInSeconds = dataSource.timeStampInSecondsForSection(section)
+        
+        return headerView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -152,6 +154,11 @@ extension ChatMessagesView: UITableViewDelegate {
             (cell as? ChatMessageEventCell)?.animate()
             eventsThatShouldAnimate.remove(event)
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        endEditing(true)
     }
 }
 

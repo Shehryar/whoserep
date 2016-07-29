@@ -12,7 +12,7 @@ class ChatMessagesViewDataSource: NSObject {
 
     // MARK: Properties
     
-    var secondsBetweenSections: Int = 300
+    var secondsBetweenSections: Int = (20 * 60)
     
     let allowedEventTypes: Set<EventType> = Set([.TextMessage])
     
@@ -78,7 +78,7 @@ class ChatMessagesViewDataSource: NSObject {
         return event.eventTime
     }
     
-    func timeStampForSection(section: Int) -> Double {
+    func timeStampInSecondsForSection(section: Int) -> Double {
         return timeStampInMicroSecondsForSection(section) / 1000000.0
     }
     
