@@ -54,6 +54,8 @@
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
+		30AE79F71D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F61D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift */; };
+		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +94,8 @@
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		30AE79F61D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderView.swift; sourceTree = "<group>"; };
+		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				30226CED1D493F5300871453 /* ChatMessagesView.swift */,
+				30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */,
+				30AE79F61D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift */,
 				30226CF71D493FC100871453 /* ChatInfoEventCell.swift */,
 				30226CEC1D493F5300871453 /* ChatMessageEventCell.swift */,
 			);
@@ -473,9 +479,11 @@
 				30226CF31D493F5300871453 /* ChatMessageEventCell.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				30226CDB1D4933F200871453 /* ConversationStore.swift in Sources */,
+				30AE79F71D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
+				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

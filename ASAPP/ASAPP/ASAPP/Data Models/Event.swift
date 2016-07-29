@@ -56,12 +56,12 @@ class Event: Object {
     
     // MARK:- Realm Properties
     
-    dynamic var createdTime = 0
+    dynamic var createdTime: Double = 0 // in micro-seconds
     dynamic var issueId = 0
     dynamic var companyId = 0
     dynamic var customerId = 0
     dynamic var repId = 0
-    dynamic var eventTime = 0
+    dynamic var eventTime: Double = 0 // in micro-seconds
     dynamic var eventType = EventType.None
     dynamic var ephemeralType = EphemeralType.None
     dynamic var eventFlags = 0
@@ -84,10 +84,13 @@ class Event: Object {
     var shouldDisplay: Bool {
         return eventType == .TextMessage || eventType == .PictureMessage
     }
+    var eventTimeInSeconds: Int64 {
+        return Int64(eventTime / 1000000)
+    }
     
     // MARK:- Initialization
     
-    convenience init(createdTime: Int, issueId: Int, companyId: Int, customerId: Int, repId: Int, eventTime: Int, eventType: EventType, ephemeralType: EphemeralType, eventFlags: Int, eventJSON: String) {
+    convenience init(createdTime: Double, issueId: Int, companyId: Int, customerId: Int, repId: Int, eventTime: Double, eventType: EventType, ephemeralType: EphemeralType, eventFlags: Int, eventJSON: String) {
         self.init()
         
         self.createdTime = createdTime
@@ -113,12 +116,12 @@ class Event: Object {
                 return nil
         }
         
-        guard let createdTime = json["CreatedTime"] as? Int,
+        guard let createdTime = json["CreatedTime"] as? Double,
             let issueId = json["IssueId"] as? Int,
             let companyId = json["CompanyId"] as? Int,
             let customerId = json["CustomerId"] as? Int,
             let repId = json["RepId"] as? Int,
-            let eventTime = json["EventTime"] as? Int,
+            let eventTime = json["EventTime"] as? Double,
             let eventType = EventType(rawValue: eventTypeInt),
             let ephemeralType = EphemeralType(rawValue: ephemeralTypeInt),
             let eventFlags = json["EventFlags"] as? Int,

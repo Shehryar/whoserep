@@ -14,8 +14,6 @@ class ChatMessagesView: UIView {
 
     var credentials: Credentials
     
-    private(set) var messageEvents: [Event] = []
-    
     var contentInsetTop: CGFloat = 0 {
         didSet {
             var newContentInset = defaultContentInset
@@ -24,18 +22,18 @@ class ChatMessagesView: UIView {
         }
     }
     
-    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+    // MARK: Private Properties
     
     private var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
     
-    // MARK: Private Properties
+    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     
-    private var filteredMessageEvents: [Event] = []
+    private var dataSource = ChatMessagesViewDataSource()
     
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
 
     private var eventsThatShouldAnimate = Set<Event>()
     
@@ -80,41 +78,12 @@ extension ChatMessagesView: UITableViewDataSource {
     
     // Private Utilities
     
-    private func messageEventForIndexPath(indexPath: NSIndexPath) -> Event? {
-        if indexPath.row >= 0 && indexPath.row < filteredMessageEvents.count {
-            return filteredMessageEvents[indexPath.row]
-        }
-        return nil
-    }
-    
-    private func indexPathForMessageEvent(messageEvent: Event?) -> NSIndexPath? {
-        guard let messageEvent = messageEvent else {
-            return nil
-        }
-        
-        var messageEventIndex: Int? = nil
-        for (index, event) in filteredMessageEvents.enumerate() {
-            if event.eventLogSeq == messageEvent.eventLogSeq {
-                messageEventIndex = index
-                break
-            }
-        }
-        
-        if let index = messageEventIndex {
-            return NSIndexPath(forRow: index, inSection: 0)
-        }
-        return nil
-    }
-    
     private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
-        guard let messageEvent = messageEventForIndexPath(indexPath) else { return .Default }
- 
-        let previousIndexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
-        let nextIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
-        
+        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
+
         let messageIsReply = messageEventIsReply(messageEvent)
-        let previousIsReply = messageEventIsReply(messageEventForIndexPath(previousIndexPath))
-        let nextIsReply = messageEventIsReply(messageEventForIndexPath(nextIndexPath))
+        let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row - 1))
+        let nextIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row + 1))
         
         if messageIsReply == previousIsReply && messageIsReply == nextIsReply {
             return .MiddleOfMany
@@ -137,17 +106,31 @@ extension ChatMessagesView: UITableViewDataSource {
     
     // UITableViewDataSource
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let timeStamp = dataSource.timeStampForSection(section)
+        guard timeStamp > 0 else {
+            return nil
+        }
+        let date = NSDate(timeIntervalSince1970: timeStamp)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy 'at' h:mm zzz"
+        
+        return "Send Time: \(dateFormatter.stringFromDate(date))"
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return dataSource.numberOfSections()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredMessageEvents.count
+        return dataSource.numberOfRowsInSection(section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let event = dataSource.eventForIndexPath(indexPath)
+        
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
-            cell.messageEvent = messageEventForIndexPath(indexPath)
+            cell.messageEvent = event
             cell.isReply = messageEventIsReply(cell.messageEvent) ?? false
             cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
             return cell
@@ -161,7 +144,7 @@ extension ChatMessagesView: UITableViewDataSource {
 
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        guard let event = messageEventForIndexPath(indexPath) else {
+        guard let event = dataSource.eventForIndexPath(indexPath) else {
             return
         }
 
@@ -197,16 +180,13 @@ extension ChatMessagesView {
     // MARK: Messages
 
     func replaceMessageEventsWithEvents(newMessageEvents: [Event]) {
-        messageEvents = newMessageEvents
-        filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
-            return canDisplayMessageEvent(messageEvent)
-        })
+        dataSource.reloadWithEvents(newMessageEvents)
+        
         tableView.reloadData()
     }
     
     func mergeMessageEventsWithEvents(newMessageEvents: [Event]) {
-        guard messageEvents.count > 0 else {
-            replaceMessageEventsWithEvents(newMessageEvents)
+        guard newMessageEvents.count > 0 else {
             return
         }
         
@@ -216,56 +196,31 @@ extension ChatMessagesView {
             lastVisibleMessageEvent = lastVisibleCell.messageEvent
         }
         
-        var allMessages = [Event]()
+        dataSource.mergeWithEvents(newMessageEvents)
         
-        var setOfMessageEventLogSeqs = Set<Int>()
-        func addOrSkipMessageEvent(event: Event) {
-            if !setOfMessageEventLogSeqs.contains(event.eventLogSeq) {
-                allMessages.append(event)
-                setOfMessageEventLogSeqs.insert(event.eventLogSeq)
-            }
-        }
+        tableView.reloadData()
         
-        // Favor newMessageEvents over old
-        for event in newMessageEvents { addOrSkipMessageEvent(event) }
-        for event in messageEvents { addOrSkipMessageEvent(event) }
-        
-        
-        let mergedMessageEvents = allMessages.sort({ (event1, event2) -> Bool in
-            return event1.eventLogSeq < event2.eventLogSeq
-        })
-        
-        // Do not reload the view if the events are the same
-        if arraysOfMessageEventsAreDifferent(mergedMessageEvents, array2: messageEvents) {
-            messageEvents = mergedMessageEvents
-            filteredMessageEvents = messageEvents.filter({ (messageEvent: Event) -> Bool in
-                return canDisplayMessageEvent(messageEvent)
-            })
-            tableView.reloadData()
-            
-            if wasNearBottom {
-                scrollToBottomAnimated(false)
-            } else if let lastVisibleIndexPath = indexPathForMessageEvent(lastVisibleMessageEvent) {
-                tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
-            }
+        if wasNearBottom {
+            scrollToBottomAnimated(false)
+        } else if let lastVisibleIndexPath = dataSource.indexPathOfEvent(lastVisibleMessageEvent) {
+            tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
         }
     }
     
     func insertNewMessageEvent(event: Event) {
         let wasNearBottom = isNearBottom()
         
-        messageEvents.append(event)
-        if canDisplayMessageEvent(event) {
-            filteredMessageEvents.append(event)
-            // Only animate the message if the user is near the bottom
-            if wasNearBottom {
-                eventsThatShouldAnimate.insert(event)
-            }
-            UIView.performWithoutAnimation({ 
-                self.tableView.reloadData()
-                self.tableView.layoutIfNeeded()
-            })
+        dataSource.addEvent(event)
+        
+        // Only animate the message if the user is near the bottom
+        if wasNearBottom {
+            eventsThatShouldAnimate.insert(event)
         }
+        
+        UIView.performWithoutAnimation({
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        })
         
         if wasNearBottom {
             scrollToBottomAnimated(true)
