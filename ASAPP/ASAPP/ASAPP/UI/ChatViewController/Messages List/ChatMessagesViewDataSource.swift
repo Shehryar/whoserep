@@ -144,8 +144,6 @@ class ChatMessagesViewDataSource: NSObject {
             // TODO: support this
             
             fatalError("Must call addEvent in order.")
-            
-            return nil
         }
         
         // Insert at end

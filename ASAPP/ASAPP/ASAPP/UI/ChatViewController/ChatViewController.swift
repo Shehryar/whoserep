@@ -131,18 +131,16 @@ extension ChatViewController {
 // MARK:- KeyboardObserver
 
 extension ChatViewController: KeyboardObserverDelegate {
-    func keyboardWillShow(size: CGRect, duration: NSTimeInterval) {
-        keyboardOffset = size.height
-        UIView.animateWithDuration(duration) {
-            self.view.layoutIfNeeded()
-            self.chatMessagesView.scrollToBottomAnimated(false)
-        }
-    }
     
-    func keyboardWillHide(duration: NSTimeInterval) {
-        keyboardOffset = 0
+    func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
+        let keyboardWasHidden = keyboardOffset <= 0
+        keyboardOffset = height
+        
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
+            if keyboardWasHidden && height > 0{
+                self.chatMessagesView.scrollToBottomAnimated(false)
+            }
         }
     }
 }

@@ -11,8 +11,8 @@ import UIKit
 // MARK:- KeyboardObserverDelegate
 
 protocol KeyboardObserverDelegate {
-    func keyboardWillShow(size: CGRect, duration: NSTimeInterval)
-    func keyboardWillHide(duration: NSTimeInterval)
+    /// Height is visible height relative to UIScreen.mainScreen
+    func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions)
 }
 
 // MARK:- KeyboardObserver
@@ -26,8 +26,9 @@ class KeyboardObserver: NSObject {
     // MARK: Public Methods
     
     func registerForNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func deregisterForNotification() {
@@ -36,26 +37,20 @@ class KeyboardObserver: NSObject {
     
     // MARK: Private Methods
     
-    @objc private func keyboardWillShow(sender: NSNotification) {
-        if delegate == nil {
+    @objc private func keyboardWillAdjustFrame(sender: NSNotification) {
+        guard let delegate = delegate, userInfo = sender.userInfo else {
             return
         }
         
-        var userInfo = sender.userInfo
-        let size = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        let duration = NSTimeInterval(userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
+        let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardHeight = CGRectGetHeight(UIScreen.mainScreen().bounds) - CGRectGetMinY(keyboardFrame)
+        let duration = NSTimeInterval(userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
         
-        delegate?.keyboardWillShow(size, duration: duration)
-    }
-    
-    @objc private func keyboardWillHide(sender: NSNotification) {
-        if delegate == nil {
-            return
+        var animationCurve: UIViewAnimationOptions = .CurveLinear
+        if let animationCurveInt = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.unsignedIntegerValue {
+            animationCurve = UIViewAnimationOptions(rawValue: animationCurveInt<<16)
         }
-        
-        var userInfo = sender.userInfo
-        let duration = NSTimeInterval(userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
-        
-        delegate?.keyboardWillHide(duration)
+
+        delegate.keyboardWillUpdateVisibleHeight(keyboardHeight, withDuration: duration, animationCurve: animationCurve)
     }
 }
