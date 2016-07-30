@@ -39,7 +39,7 @@ class ChatBubbleCell: UITableViewCell {
     
     // MARK: Private Properties
     
-    private let messageView = BubbleMessageView()
+    internal let bubbleView = BubbleMessageView()
     
     private var leftConstraint: Constraint?
     
@@ -52,9 +52,8 @@ class ChatBubbleCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .None
         
-        messageView.translatesAutoresizingMaskIntoConstraints = false
-        messageView.message = "Typing..."
-        contentView.addSubview(messageView)
+        bubbleView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(bubbleView)
         
         updateForIsReplyValue()
     }
@@ -73,13 +72,13 @@ class ChatBubbleCell: UITableViewCell {
     
     func updateForIsReplyValue() {
         if isReply {
-            messageView.bubbleFillColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)//Colors.lighterGrayColor()
-            messageView.bubbleStrokeColor = nil
-            messageView.textColor = UIColor.whiteColor() //Colors.darkTextColor()
+            bubbleView.bubbleFillColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)//Colors.lighterGrayColor()
+            bubbleView.bubbleStrokeColor = nil
+            bubbleView.textColor = UIColor.whiteColor() //Colors.darkTextColor()
         } else {
-            messageView.bubbleFillColor = Colors.whiteColor()
-            messageView.bubbleStrokeColor = Colors.lightGrayColor()
-            messageView.textColor = Colors.darkTextColor()
+            bubbleView.bubbleFillColor = Colors.whiteColor()
+            bubbleView.bubbleStrokeColor = Colors.lightGrayColor()
+            bubbleView.textColor = Colors.darkTextColor()
         }
         updateBubbleCorners()
         
@@ -125,7 +124,7 @@ class ChatBubbleCell: UITableViewCell {
                 break
             }
         }
-        messageView.bubbleViewRoundedCorners = roundedCorners
+        bubbleView.bubbleViewRoundedCorners = roundedCorners
     }
     
     // MARK: Layout
@@ -136,7 +135,7 @@ class ChatBubbleCell: UITableViewCell {
         
         let maxMessageWidth = floor(0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
         
-        messageView.snp_updateConstraints { (make) in
+        bubbleView.snp_updateConstraints { (make) in
             if isReply {
                 self.leftConstraint = make.left.equalTo(contentView.snp_left).offset(contentInset.left).constraint
             } else {
@@ -148,7 +147,7 @@ class ChatBubbleCell: UITableViewCell {
         
         contentView.snp_updateConstraints { (make) in
             make.edges.equalTo(self)
-            make.height.greaterThanOrEqualTo(messageView.snp_height).offset(contentInset.top + contentInset.bottom)
+            make.height.greaterThanOrEqualTo(bubbleView.snp_height).offset(contentInset.top + contentInset.bottom)
         }
         super.updateConstraints()
     }
@@ -156,48 +155,6 @@ class ChatBubbleCell: UITableViewCell {
     // MARK: Instance Methods
     
     func animate() {
-        if animating {
-            return
-        }
-        animating = true
-        
-        messageView.alpha = 0
-        
-        Dispatcher.delay(100) {  self.performAnimation() }
-    }
-    
-    private func performAnimation() {
-        var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
-        if isReply {
-            animationBeginCenter.x = contentInset.left
-        } else {
-            animationBeginCenter.x = CGRectGetWidth(bounds) - contentInset.right
-        }
-        
-        var animationEndCenter = CGPoint()
-        if messageView.bounds.isEmpty {
-            let messageSize = messageView.sizeThatFits(bounds.size)
-            animationEndCenter.y = CGRectGetHeight(bounds) - contentInset.bottom - messageSize.height / 2.0
-            if isReply {
-                animationEndCenter.x = contentInset.left + messageSize.width / 2.0
-            } else {
-                animationEndCenter.x = CGRectGetWidth(bounds) - contentInset.right - messageSize.width / 2.0
-            }
-        } else {
-            animationEndCenter = messageView.center
-        }
-        
-        messageView.alpha = 0
-        messageView.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        messageView.center = animationBeginCenter
-        
-        UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
-            self.messageView.alpha = 1
-            self.messageView.transform = CGAffineTransformIdentity
-            self.messageView.center = animationEndCenter
-            }, completion: { (completed) in
-                self.setNeedsLayout()
-                self.animating = false
-        })
+        // Subclasses can override
     }
 }

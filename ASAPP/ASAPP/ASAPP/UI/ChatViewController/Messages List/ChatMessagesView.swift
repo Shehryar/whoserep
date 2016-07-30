@@ -22,7 +22,7 @@ class ChatMessagesView: UIView {
         }
     }
     
-    
+
     
     //  BEGIN CLEAN UP
     
@@ -117,7 +117,7 @@ class ChatMessagesView: UIView {
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
-        tableView.registerClass(ChatBubbleCell.self, forCellReuseIdentifier: IsTypingCellReuseId)
+        tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: IsTypingCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -203,7 +203,7 @@ extension ChatMessagesView: UITableViewDataSource {
         
         // Typing-Cell
         if event == nil {
-            if let cell = tableView.dequeueReusableCellWithIdentifier(IsTypingCellReuseId) as? ChatBubbleCell {
+            if let cell = tableView.dequeueReusableCellWithIdentifier(IsTypingCellReuseId) as? ChatTypingIndicatorCell {
                 cell.isReply = true
                 cell.bubbleStyling = .Default
                 return cell
@@ -225,6 +225,13 @@ extension ChatMessagesView: UITableViewDataSource {
 
 extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let isTypingCell = cell as? ChatTypingIndicatorCell {
+            if !isTypingCell.loadingView.animating {
+                isTypingCell.loadingView.beginAnimating()
+            }
+            return
+        }
+        
         guard let event = dataSource.eventForIndexPath(indexPath) else {
             return
         }
