@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ChatInputViewDelegate {
+    func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?)
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
     func chatInputViewDidTapMediaButton(chatInputView: ChatInputView)
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
@@ -215,6 +216,7 @@ extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         resizeIfNeeded()
         updateSendButtonForCurrentState()
+        delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
     
     func resizeIfNeeded() {
@@ -252,5 +254,7 @@ extension ChatInputView {
         textView.text = ""
         resizeIfNeeded()
         updateSendButtonForCurrentState()
+        
+        delegate?.chatInputView(self, didTypeMessageText: nil)
     }
 }

@@ -104,13 +104,13 @@ extension ChatViewController {
             make.trailing.equalTo(self.view.snp_trailing)
         }
         
-        chatMessagesView.snp_remakeConstraints { (make) in
+        chatMessagesView.snp_updateConstraints { (make) in
             make.top.equalTo(self.view.snp_top)
             make.left.equalTo(self.view.snp_left)
             make.right.equalTo(self.view.snp_right)
             make.bottom.equalTo(chatInputView.snp_top)
         }
-        
+
         super.updateViewConstraints()
     }
     
@@ -150,6 +150,11 @@ extension ChatViewController: KeyboardObserverDelegate {
 // MARK:- ChatInputViewDelegate
 
 extension ChatViewController: ChatInputViewDelegate {
+    func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?) {
+        let isTyping = text != nil && !text!.isEmpty
+        conversationManager.updateCurrentUserTypingStatus(isTyping, withText: text)
+    }
+    
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
         self.sendMessage(withText: message)
         self.chatInputView.clear()
@@ -176,11 +181,8 @@ extension ChatViewController: ConversationManagerDelegate {
         chatMessagesView.insertNewMessageEvent(messageEvent)
     }
     
-    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withEvent event: Event) {
-        let userString = event.isCustomerEvent ? "Customer" : "Representative"
-        let typingString = isTyping ? "started typing." : "finished typing."
-        
-        DebugLog("\(userString) \(typingString)")
+    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event) {
+        chatMessagesView.updateOtherParticipantTypingStatus(isTyping, withPreviewText: (credentials.isCustomer ? nil : previewText))
     }
     
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {

@@ -12,7 +12,7 @@ import Foundation
 
 protocol ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
-    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withEvent event: Event)
+    func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event)
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool)
 }
 
@@ -70,6 +70,18 @@ extension ConversationManager {
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
     
+    func updateCurrentUserTypingStatus(isTyping: Bool, withText text: String?) {
+        if credentials.isCustomer {
+            let path = "\(requestPrefix)NotifyTypingPreview"
+            let params = [ "Text" : text ?? "" ]
+            socketConnection.sendRequest(withPath: path, params: params)
+        } else {
+            let path = "\(requestPrefix)NotifyTypingStatus"
+            let params = [ "IsTyping" : isTyping ]
+            socketConnection.sendRequest(withPath: path, params: params)
+        }
+    }
+    
     func getLatestMessages(completion: ConversationManagerRequestBlock) {
         getMessageEvents { (fetchedEvents, error) in
             if let fetchedEvents = fetchedEvents {
@@ -116,6 +128,15 @@ extension ConversationManager {
                 errorMessage = errorMessage ?? "No results returned."
             }
             
+            if let fetchedEvents = fetchedEvents {
+                for event in fetchedEvents {
+                    if event.eventType != .TextMessage {
+                        print("\n\n\(event.eventType.rawValue): \(event.eventJSON)\n\n")
+                    }
+                }
+            }
+            
+            
             DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? "with error: \(errorMessage!)" : "")")
             
             completion(fetchedEvents: fetchedEvents, error: errorMessage)
@@ -145,7 +166,19 @@ extension ConversationManager: SocketConnectionDelegate {
                     switch event.ephemeralType {
                     case .TypingStatus:
                         if let typingStatus = event.payload as? EventPayload.TypingStatus {
-                            delegate?.conversationManager(self, didUpdateRemoteTypingStatus: typingStatus.isTyping, withEvent: event)
+                            delegate?.conversationManager(self,
+                                                          didUpdateRemoteTypingStatus: typingStatus.isTyping,
+                                                          withPreviewText: nil,
+                                                          event: event)
+                        }
+                        break
+                        
+                    case .TypingPreview:
+                        if let typingPreview = event.payload as? EventPayload.TypingPreview {
+                            delegate?.conversationManager(self,
+                                                          didUpdateRemoteTypingStatus: !typingPreview.previewText.isEmpty,
+                                                          withPreviewText: typingPreview.previewText,
+                                                          event: event)
                         }
                         break
                         

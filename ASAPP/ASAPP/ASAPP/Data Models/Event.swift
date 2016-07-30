@@ -50,6 +50,10 @@ class EventPayload: NSObject {
     struct TypingStatus {
         let isTyping: Bool
     }
+    
+    struct TypingPreview {
+        let previewText: String
+    }
 }
 
 class Event: Object {
@@ -189,6 +193,9 @@ class Event: Object {
                     return EventPayload.TypingStatus(isTyping: isTyping)
                 }
                 break
+                
+            case .TypingPreview:
+                return EventPayload.TypingPreview(previewText: (eventJSONObject["Text"] as? String) ?? "")
                 
             default:
                 break
