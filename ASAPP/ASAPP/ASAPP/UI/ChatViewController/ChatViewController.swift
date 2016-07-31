@@ -154,8 +154,8 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
-        self.sendMessage(withText: message)
         self.chatInputView.clear()
+        self.sendMessage(withText: message)
     }
     
     func chatInputViewDidTapMediaButton(chatInputView: ChatInputView) {
