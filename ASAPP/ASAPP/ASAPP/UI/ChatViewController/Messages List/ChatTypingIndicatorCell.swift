@@ -19,6 +19,8 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         
         loadingView.tintColor = UIColor.whiteColor()
         bubbleView.addSubview(loadingView)
+        
+        setNeedsUpdateConstraints()
     }
     
     // MARK: Layout
@@ -29,17 +31,12 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         bubbleView.snp_updateConstraints { (make) in
             make.width.equalTo(loadingView.snp_width)
             make.height.equalTo(loadingView.snp_height)
-            
-//            make.width.equalTo(600)
-//            make.height.equalTo(40)
         }
         
         loadingView.snp_updateConstraints { (make) in
             make.left.equalTo(bubbleView.snp_left)
             make.top.equalTo(bubbleView.snp_top)
         }
-        
-        
     }
     
     // MARK: Reuse

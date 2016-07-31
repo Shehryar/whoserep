@@ -242,6 +242,12 @@ extension ChatMessagesView: UITableViewDelegate {
         }
     }
     
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = cell as? ChatTypingIndicatorCell {
+            cell.loadingView.endAnimating()
+        }
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         endEditing(true)

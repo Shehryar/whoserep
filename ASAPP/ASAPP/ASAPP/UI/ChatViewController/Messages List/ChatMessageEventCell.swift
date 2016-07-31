@@ -64,6 +64,8 @@ class ChatMessageEventCell: UITableViewCell {
     
     private var animating = false
     
+    private var animationStartTime: Double = 0.0
+    
     // MARK: Init
     
     required init?(coder aDecoder: NSCoder) {
@@ -169,6 +171,17 @@ class ChatMessageEventCell: UITableViewCell {
         super.updateConstraints()
     }
     
+    // MARK: Reuse
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        layer.removeAllAnimations()
+        messageView.alpha = 1
+        messageView.transform = CGAffineTransformIdentity
+        animationStartTime = 0
+        animating = false
+    }
+    
     // MARK: Instance Methods
     
     func animate() {
@@ -176,10 +189,16 @@ class ChatMessageEventCell: UITableViewCell {
             return
         }
         animating = true
+        animationStartTime = NSDate().timeIntervalSince1970
+        let blockStartTime = animationStartTime
         
         messageView.alpha = 0
-        
-        Dispatcher.delay(100) {  self.performAnimation() }
+
+        Dispatcher.delay(100) {
+            if self.animating && self.animationStartTime == blockStartTime {
+                self.performAnimation()
+            }
+        }
     }
     
     private func performAnimation() {
