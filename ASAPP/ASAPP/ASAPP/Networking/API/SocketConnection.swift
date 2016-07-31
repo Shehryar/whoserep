@@ -60,10 +60,14 @@ class SocketConnection: NSObject {
         self.credentials = credentials
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SocketConnection.connect), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     deinit {
         socket?.delegate = nil
+        
+        
     }
 }
 

@@ -142,7 +142,6 @@ class BouncingBallsLoadingView: UIView {
     }
     
     private func animateUp(ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
-        print("animate up")
         UIView.animateWithDuration(0.24, delay: delay, options: [.CurveEaseInOut, .BeginFromCurrentState], animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYUp())
             }) { (completed) in
@@ -151,7 +150,6 @@ class BouncingBallsLoadingView: UIView {
     }
     
     private func animateDown(ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
-        print("animate down")
         UIView.animateWithDuration(0.20, delay: delay, options: [.CurveEaseInOut, .BeginFromCurrentState], animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYDefault())
         }) { (completed) in
