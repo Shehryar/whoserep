@@ -29,7 +29,7 @@ class ChatBubbleCell: UITableViewCell {
         }
     }
     
-    var contentInset = UIEdgeInsetsMake(2, 16, 2, 16) {
+    var contentInset = UIEdgeInsets(top: 2, left: 16, bottom: 2, right: 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsUpdateConstraints()
@@ -38,6 +38,8 @@ class ChatBubbleCell: UITableViewCell {
     }
     
     // MARK: Private Properties
+    
+    internal var ignoresReplyBubbleStyling = false
     
     internal let bubbleView = BubbleMessageView()
     
@@ -71,14 +73,16 @@ class ChatBubbleCell: UITableViewCell {
     // MARK: Styling
     
     func updateForIsReplyValue() {
-        if isReply {
-            bubbleView.bubbleFillColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)//Colors.lighterGrayColor()
-            bubbleView.bubbleStrokeColor = nil
-            bubbleView.textColor = UIColor.whiteColor() //Colors.darkTextColor()
-        } else {
-            bubbleView.bubbleFillColor = Colors.whiteColor()
-            bubbleView.bubbleStrokeColor = Colors.lightGrayColor()
-            bubbleView.textColor = Colors.darkTextColor()
+        if !ignoresReplyBubbleStyling {
+            if isReply {
+                bubbleView.bubbleFillColor = Colors.blueColor()
+                bubbleView.bubbleStrokeColor = nil
+                bubbleView.textColor = UIColor.whiteColor()
+            } else {
+                bubbleView.bubbleFillColor = Colors.whiteColor()
+                bubbleView.bubbleStrokeColor = Colors.lightGrayColor()
+                bubbleView.textColor = Colors.darkTextColor()
+            }
         }
         updateBubbleCorners()
         

@@ -9,9 +9,9 @@
 import UIKit
 
 class ChatMessagesView: UIView {
-
+    
     // MARK:- Public Properties
-
+    
     var credentials: Credentials
     
     var contentInsetTop: CGFloat = 0 {
@@ -22,61 +22,13 @@ class ChatMessagesView: UIView {
         }
     }
     
-
     
-    //  BEGIN CLEAN UP
     
+    // MARK:- Private Properties
     
     private var otherParticipantIsTyping: Bool = false
+    
     private var otherParticipantTypingPreview: String?
-    
-    func updateOtherParticipantTypingStatus(isTyping: Bool, withPreviewText previewText: String?) {
-        let isDifferent = isTyping != otherParticipantIsTyping
-        let shouldInsert = isTyping && !otherParticipantIsTyping
-        let shouldDelete = !isTyping && otherParticipantIsTyping
-        let shouldScrollToBottom = isNearBottom() && shouldInsert
-        
-        otherParticipantIsTyping = isTyping
-        otherParticipantTypingPreview = previewText
-      
-        if isDifferent {
-            tableView.reloadData()
-        }
-//        tableView.beginUpdates()
-//        let previewCellIndexPath = indexPathForTypingPreviewCell()
-//        if shouldInsert {
-//            tableView.insertRowsAtIndexPaths([previewCellIndexPath], withRowAnimation: .Fade)
-//        } else if shouldDelete {
-//            tableView.deleteRowsAtIndexPaths([previewCellIndexPath], withRowAnimation: .Fade)
-//        } else {
-//            tableView.reloadRowsAtIndexPaths([previewCellIndexPath], withRowAnimation: .None)
-//        }
-        
-//        tableView.endUpdates()
-        
-        if shouldScrollToBottom {
-            scrollToBottomAnimated(false)
-        }
-    }
-    
-    func indexPathForTypingPreviewCell() -> NSIndexPath {
-        let lastSection = dataSource.numberOfSections() - 1
-        if lastSection < 0 {
-            return NSIndexPath(forRow: 0, inSection: 0)
-        } else {
-            let lastRow = dataSource.numberOfRowsInSection(lastSection)
-            return NSIndexPath(forRow: lastRow, inSection: lastSection)
-        }
-    }
-    
-    
-    
-    // END CLEAN UP
-    
-    
-    
-    
-    // MARK: Private Properties
     
     private var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
@@ -88,12 +40,13 @@ class ChatMessagesView: UIView {
     private var dataSource = ChatMessagesViewDataSource()
     
     private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
-
+    
     private var eventsThatShouldAnimate = Set<Event>()
     
-    private let MessageCellReuseId = "MessageCellReuseId"
-    private let IsTypingCellReuseId = "IsTypingCellReuseId"
     private let HeaderViewReuseId = "TimeStampHeaderReuseId"
+    private let MessageCellReuseId = "MessageCellReuseId"
+    private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
+    private let TypingStatusCellReuseId = "TypingStatusCellReuseId"
     
     // MARK:- Initialization
     
@@ -117,7 +70,8 @@ class ChatMessagesView: UIView {
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
-        tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: IsTypingCellReuseId)
+        tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingStatusCellReuseId)
+        tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -141,7 +95,7 @@ extension ChatMessagesView: UITableViewDataSource {
     
     private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
         guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
-
+        
         let messageIsReply = messageEventIsReply(messageEvent)
         let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row - 1))
         let nextIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row + 1))
@@ -203,11 +157,17 @@ extension ChatMessagesView: UITableViewDataSource {
         
         // Typing-Cell
         if event == nil {
-            if let cell = tableView.dequeueReusableCellWithIdentifier(IsTypingCellReuseId) as? ChatTypingIndicatorCell {
+            if !credentials.isCustomer && otherParticipantTypingPreview != nil {
+                if let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell {
+                    cell.previewText = otherParticipantTypingPreview
+                    return cell
+                }
+            } else if let cell = tableView.dequeueReusableCellWithIdentifier(TypingStatusCellReuseId) as? ChatTypingIndicatorCell {
                 cell.isReply = true
                 cell.bubbleStyling = .Default
                 return cell
             }
+            return UITableViewCell()
         }
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
@@ -235,7 +195,7 @@ extension ChatMessagesView: UITableViewDelegate {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
             return
         }
-
+        
         if eventsThatShouldAnimate.contains(event) {
             (cell as? ChatMessageEventCell)?.animate()
             eventsThatShouldAnimate.remove(event)
@@ -254,30 +214,77 @@ extension ChatMessagesView: UITableViewDelegate {
     }
 }
 
-// MARK:- Public Instance Methods
+// MARK:- Scroll
 
 extension ChatMessagesView {
     
-    func canDisplayMessageEvent(messageEvent: Event) -> Bool {
-        return messageEvent.eventType == .TextMessage
+    func isNearBottom(delta: CGFloat = 80) -> Bool {
+        return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
     }
     
-    func arraysOfMessageEventsAreDifferent(array1: [Event], array2: [Event]) -> Bool {
-        guard array1.count == array2.count else {
-            return true
+    func scrollToBottomIfNeeded(animated: Bool) {
+        if !isNearBottom(10) {
+            return
         }
-        
-        for idx in 0..<array1.count {
-            if array1[idx].eventLogSeq != array2[idx].eventLogSeq {
-                return true
+        scrollToBottomAnimated(animated)
+    }
+    
+    func scrollToBottomAnimated(animated: Bool) {
+        var indexPath: NSIndexPath?
+        let lastSection = numberOfSectionsInTableView(tableView) - 1
+        if lastSection >= 0 {
+            let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
+            if lastRow >= 0 {
+                indexPath = NSIndexPath(forRow: lastRow, inSection: lastSection)
             }
         }
         
-        return false
+        if let indexPath = indexPath {
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
+        }
+    }
+}
+
+// MARK:- Typing Status / Preview
+
+extension ChatMessagesView {
+    
+    func updateOtherParticipantTypingStatus(isTyping: Bool, withPreviewText previewText: String?) {
+        var isDifferent = isTyping != otherParticipantIsTyping
+        if !credentials.isCustomer {
+            isDifferent = isDifferent || previewText != otherParticipantTypingPreview
+        }
+        let shouldInsert = isTyping && !otherParticipantIsTyping
+        let shouldDelete = !isTyping && otherParticipantIsTyping
+        let shouldScrollToBottom = isNearBottom() && isDifferent
+        
+        otherParticipantIsTyping = isTyping
+        otherParticipantTypingPreview = previewText
+        
+        if isDifferent {
+            tableView.reloadData()
+        }
+        
+        if shouldScrollToBottom {
+            scrollToBottomAnimated(false)
+        }
     }
     
-    // MARK: Messages
+    func indexPathForTypingPreviewCell() -> NSIndexPath {
+        let lastSection = dataSource.numberOfSections() - 1
+        if lastSection < 0 {
+            return NSIndexPath(forRow: 0, inSection: 0)
+        } else {
+            let lastRow = dataSource.numberOfRowsInSection(lastSection)
+            return NSIndexPath(forRow: lastRow, inSection: lastSection)
+        }
+    }
+}
 
+// MARK:- Adding / Replacing Messages
+
+extension ChatMessagesView {
+    
     func replaceMessageEventsWithEvents(newMessageEvents: [Event]) {
         dataSource.reloadWithEvents(newMessageEvents)
         
@@ -323,34 +330,6 @@ extension ChatMessagesView {
         
         if wasNearBottom {
             scrollToBottomAnimated(true)
-        }
-    }
-    
-    // MARK: Scroll
-    
-    func isNearBottom(delta: CGFloat = 80) -> Bool {
-        return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
-    }
-    
-    func scrollToBottomIfNeeded(animated: Bool) {
-        if !isNearBottom(10) {
-            return
-        }
-        scrollToBottomAnimated(animated)
-    }
-
-    func scrollToBottomAnimated(animated: Bool) {
-        var indexPath: NSIndexPath?
-        let lastSection = numberOfSectionsInTableView(tableView) - 1
-        if lastSection >= 0 {
-            let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
-            if lastRow >= 0 {
-                indexPath = NSIndexPath(forRow: lastRow, inSection: lastSection)
-            }
-        }
-        
-        if let indexPath = indexPath {
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
         }
     }
 }

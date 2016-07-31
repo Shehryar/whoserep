@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		28580A401D4C5422005C91DF /* ChatTypingIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A3F1D4C5422005C91DF /* ChatTypingIndicatorCell.swift */; };
 		28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */; };
+		28580A441D4E78CB005C91DF /* ChatTypingPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A431D4E78CB005C91DF /* ChatTypingPreviewCell.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		28580A3F1D4C5422005C91DF /* ChatTypingIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCell.swift; sourceTree = "<group>"; };
 		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
+		28580A431D4E78CB005C91DF /* ChatTypingPreviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTypingPreviewCell.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				30226CEC1D493F5300871453 /* ChatMessageEventCell.swift */,
 				3029A6AE1D4C1C60000B6404 /* ChatBubbleCell.swift */,
 				28580A3F1D4C5422005C91DF /* ChatTypingIndicatorCell.swift */,
+				28580A431D4E78CB005C91DF /* ChatTypingPreviewCell.swift */,
 			);
 			path = "Messages List";
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
+				28580A441D4E78CB005C91DF /* ChatTypingPreviewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
