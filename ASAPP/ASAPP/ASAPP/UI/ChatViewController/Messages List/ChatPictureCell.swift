@@ -14,7 +14,9 @@ class ChatPictureCell: ChatBubbleCell {
     var event: Event? {
         didSet {
             if let imageURL = event?.imageURLForPictureMessage(event?.pictureMessage) {
-                pictureImageView.loadImageFromURL(imageURL)
+                pictureImageView.loadImageFromURL(imageURL, placeholderImage: nil, completion: { (finished, error) in
+                    self.setNeedsUpdateConstraints()
+                })
             } else {
                 pictureImageView.image = nil
             }

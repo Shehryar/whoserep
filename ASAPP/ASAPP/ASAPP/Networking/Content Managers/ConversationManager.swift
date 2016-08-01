@@ -166,7 +166,7 @@ extension ConversationManager: SocketConnectionDelegate {
                 conversationStore.addEvent(event)
                 
                 switch event.eventType {
-                case .TextMessage:
+                case .TextMessage, .PictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     break
                   
