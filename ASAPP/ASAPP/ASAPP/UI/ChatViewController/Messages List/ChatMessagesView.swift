@@ -26,6 +26,11 @@ class ChatMessagesView: UIView {
     
     // MARK:- Private Properties
     
+    private var shouldShowTypingPreview: Bool {
+        return false
+        // return !credentials.isCustomer && otherParticipantTypingPreview != nil
+    }
+    
     private var otherParticipantIsTyping: Bool = false
     
     private var otherParticipantTypingPreview: String?
@@ -157,7 +162,7 @@ extension ChatMessagesView: UITableViewDataSource {
         
         // Typing-Cell
         if event == nil {
-            if !credentials.isCustomer && otherParticipantTypingPreview != nil {
+            if shouldShowTypingPreview {
                 if let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell {
                     cell.previewText = otherParticipantTypingPreview
                     return cell
@@ -251,7 +256,7 @@ extension ChatMessagesView {
     
     func updateOtherParticipantTypingStatus(isTyping: Bool, withPreviewText previewText: String?) {
         var isDifferent = isTyping != otherParticipantIsTyping
-        if !credentials.isCustomer {
+        if shouldShowTypingPreview {
             isDifferent = isDifferent || previewText != otherParticipantTypingPreview
         }
         let shouldScrollToBottom = isNearBottom() && isDifferent
