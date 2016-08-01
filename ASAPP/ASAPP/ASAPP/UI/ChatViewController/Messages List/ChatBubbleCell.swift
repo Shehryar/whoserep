@@ -9,6 +9,13 @@
 import UIKit
 import SnapKit
 
+enum MessageBubbleStyling {
+    case Default
+    case FirstOfMany
+    case MiddleOfMany
+    case LastOfMany
+}
+
 class ChatBubbleCell: UITableViewCell {
 
     // MARK: Public Properties
