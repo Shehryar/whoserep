@@ -7,24 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30099D701D3EC30600171D56 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D6F1D3EC30600171D56 /* ASAPP.framework */; };
-		30099D711D3EC30600171D56 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D6F1D3EC30600171D56 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		28580A3A1D4C417E005C91DF /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28580A391D4C417E005C91DF /* ASAPP.framework */; };
+		28580A3B1D4C417E005C91DF /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28580A391D4C417E005C91DF /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
+		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
+		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
+		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
+		7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
-		FD8D8B1F1D107A19001B420B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1E1D107A19001B420B /* ViewController.swift */; };
-		FD8D8B221D107A19001B420B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B201D107A19001B420B /* Main.storyboard */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 		FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FD8D8B311D107A26001B420B /* Embed Frameworks */ = {
+		28580A3C1D4C417F005C91DF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30099D711D3EC30600171D56 /* ASAPP.framework in Embed Frameworks */,
+				28580A3B1D4C417E005C91DF /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,13 +35,16 @@
 
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
-		30099D6F1D3EC30600171D56 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphonesimulator/ASAPP.framework"; sourceTree = "<absolute>"; };
+		28580A391D4C417E005C91DF /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitchm/Library/Developer/Xcode/DerivedData/ASAPP-agiknwjsufrxnmgayewuzxzsfwcf/Build/Products/Debug-iphonesimulator/ASAPP.framework"; sourceTree = "<absolute>"; };
+		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
+		3049CD271D465D9D00F0C0E6 /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASAPP.framework; path = "../build/Debug-iphoneos/ASAPP.framework"; sourceTree = "<group>"; };
+		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
+		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.release.xcconfig"; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FD8D8B1E1D107A19001B420B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FD8D8B211D107A19001B420B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD8D8B261D107A19001B420B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD8D8B281D107A19001B420B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,17 +55,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30099D701D3EC30600171D56 /* ASAPP.framework in Frameworks */,
-				D5FE320665DE1B9A7B2DA58B /* Pods_ASAPPTest.framework in Frameworks */,
+				28580A3A1D4C417E005C91DF /* ASAPP.framework in Frameworks */,
+				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
+				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
+				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30AE79DB1D4AB83700651F09 /* Third-Party */ = {
+			isa = PBXGroup;
+			children = (
+				30AE79D71D4AB83100651F09 /* Fabric.framework */,
+				30AE79D81D4AB83100651F09 /* Crashlytics.framework */,
+			);
+			name = "Third-Party";
+			sourceTree = "<group>";
+		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3049CD271D465D9D00F0C0E6 /* ASAPP.framework */,
 				3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */,
 			);
 			name = Frameworks;
@@ -78,8 +95,9 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				30099D6F1D3EC30600171D56 /* ASAPP.framework */,
+				28580A391D4C417E005C91DF /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
+				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
 				FCB047A4DE7D9EB0065D7FB9 /* Pods */,
 				DC9BA702B8E37367ED44E868 /* Frameworks */,
@@ -98,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				FD8D8B1C1D107A19001B420B /* AppDelegate.swift */,
-				FD8D8B1E1D107A19001B420B /* ViewController.swift */,
-				FD8D8B201D107A19001B420B /* Main.storyboard */,
+				308F296B1D413F2300EC7055 /* ChatsListViewController.swift */,
+				30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */,
 				FD8D8B231D107A19001B420B /* Assets.xcassets */,
 				FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */,
 				FD8D8B281D107A19001B420B /* Info.plist */,
@@ -118,9 +136,10 @@
 				FD8D8B151D107A19001B420B /* Sources */,
 				FD8D8B161D107A19001B420B /* Frameworks */,
 				FD8D8B171D107A19001B420B /* Resources */,
-				FD8D8B311D107A26001B420B /* Embed Frameworks */,
 				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
 				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
+				30AE79D61D4AB7FA00651F09 /* ShellScript */,
+				28580A3C1D4C417F005C91DF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,6 +162,7 @@
 				TargetAttributes = {
 					FD8D8B181D107A19001B420B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = GHJ79KTB8D;
 					};
 				};
 			};
@@ -171,13 +191,25 @@
 			files = (
 				FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */,
 				FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */,
-				FD8D8B221D107A19001B420B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		30AE79D61D4AB7FA00651F09 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 2cfc5c83c2f6a6414a09cd762fd06d58b4689c6f 157bf3e2d5414d94b30a777ec842e2d80a55799ac93d09548555a9f2e59b1039    ./Fabric.framework/run 2cfc5c83c2f6a6414a09cd762fd06d58b4689c6f 157bf3e2d5414d94b30a777ec842e2d80a55799ac93d09548555a9f2e59b1039";
+		};
 		36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -230,7 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD8D8B1F1D107A19001B420B /* ViewController.swift in Sources */,
+				308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */,
+				30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,14 +271,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FD8D8B201D107A19001B420B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD8D8B211D107A19001B420B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -257,6 +282,67 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		30AE79F41D4BACD800651F09 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		30AE79F51D4BACD800651F09 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */;
+			buildSettings = {
+				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP AdHoc";
+				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = AdHoc;
+		};
 		FD8D8B291D107A19001B420B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -344,12 +430,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */;
 			buildSettings = {
+				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP Debug";
+				ASAPP_BUNDLE_ID = com.asappinc.TestAppDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -357,11 +454,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */;
 			buildSettings = {
+				ASAPP_BUNDLE_DISPLAY_NAME = ASAPP;
+				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -373,6 +481,7 @@
 			buildConfigurations = (
 				FD8D8B291D107A19001B420B /* Debug */,
 				FD8D8B2A1D107A19001B420B /* Release */,
+				30AE79F41D4BACD800651F09 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -382,6 +491,7 @@
 			buildConfigurations = (
 				FD8D8B2C1D107A19001B420B /* Debug */,
 				FD8D8B2D1D107A19001B420B /* Release */,
+				30AE79F51D4BACD800651F09 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

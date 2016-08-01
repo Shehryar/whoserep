@@ -2,60 +2,54 @@
 //  ASAPP.swift
 //  ASAPP
 //
-//  Created by Vicky Sehrawat on 6/13/16.
+//  Created by Mitchell Morgan on 7/21/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
 import Foundation
-import SnapKit
+
+internal let ASAPPBundle = NSBundle(forClass: ASAPP.self)
 
 public class ASAPP: NSObject {
     
-    var mState: ASAPPState!
+    // MARK:- Instance Methods
     
-    // Public APIs
-    override public init() {
-        super.init()
-        loadFonts()
+    public class func createChatViewController(withCredentials credentials: Credentials) -> UIViewController {
+        return ChatViewController(withCredentials: credentials)
     }
-    
-    public convenience init(company: String) {
-        self.init(company: company, userToken: nil)
-    }
-    
-    public convenience init(company: String, userToken: String?) {
-        self.init(company: company, userToken: userToken, isCustomer: true)
-    }
-    
-    public convenience init(company: String, userToken: String?, isCustomer: Bool) {
-        self.init()
-        mState = ASAPPState()
-        mState.loadOrCreate(company, userToken: userToken, isCustomer: isCustomer)
-    }
-    
-    public func viewControllerForChat() -> UIViewController {
-        let vc = ASAPPChatViewController()
-        vc.dataSource = mState
-        return vc
-    }
-    
-    public func targetCustomerToken(targetCustomerToken: String) {
-        if mState.isCustomer() {
-            ASAPPLoge("ERROR: Cannot set targetCustomer for Customer chat session.")
-            return
-        }
-        
-        if mState.targetCustomerToken() != nil && mState.targetCustomerToken() == targetCustomerToken {
-            ASAPPLoge("WARNING: Same targetCustomerToken provided.")
-            return
-        }
-        
-        mState.reloadStateForRep(targetCustomerToken)
-    }
-    
-    // MARK: - Helper Functions
-    
-//    func myId() -> UInt? {
-//        return state.mMyId
-//    }
 }
+
+public class Credentials: NSObject {
+    
+    // MARK:- Properties
+    
+    public private(set) var companyMarker: String
+    public private(set) var isCustomer: Bool
+    public private(set) var userToken: String?
+    public private(set) var targetCustomerToken: String?
+    
+    // MARK:- Initialization
+    
+    public init(withCompany company: String, userToken: String?, isCustomer: Bool, targetCustomerToken: String? = nil) {
+        self.companyMarker = company
+        self.userToken = userToken
+        self.isCustomer = isCustomer
+        self.targetCustomerToken = targetCustomerToken
+        
+        super.init()
+    }
+    
+    // MARK:- DebugPrintable
+    
+    override public var description: String {
+        if isCustomer {
+            return "Customer @ \(companyMarker): \(userToken ?? "")"
+        } else {
+            return "Rep @ \(companyMarker): \(userToken ?? "") \(targetCustomerToken != nil ? "-> \(targetCustomerToken!)" : "")"
+        }
+    }
+    override public var debugDescription: String {
+        return description
+    }
+}
+ 
