@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28580A3A1D4C417E005C91DF /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28580A391D4C417E005C91DF /* ASAPP.framework */; };
-		28580A3B1D4C417E005C91DF /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28580A391D4C417E005C91DF /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
+		303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303FCB211D4F94170023F2B1 /* ASAPP.framework */; };
+		303FCB231D4F94170023F2B1 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 303FCB211D4F94170023F2B1 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
@@ -26,7 +26,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				28580A3B1D4C417E005C91DF /* ASAPP.framework in Embed Frameworks */,
+				303FCB231D4F94170023F2B1 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,8 +35,8 @@
 
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
-		28580A391D4C417E005C91DF /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitchm/Library/Developer/Xcode/DerivedData/ASAPP-agiknwjsufrxnmgayewuzxzsfwcf/Build/Products/Debug-iphonesimulator/ASAPP.framework"; sourceTree = "<absolute>"; };
 		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
+		303FCB211D4F94170023F2B1 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		3049CD271D465D9D00F0C0E6 /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASAPP.framework; path = "../build/Debug-iphoneos/ASAPP.framework"; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28580A3A1D4C417E005C91DF /* ASAPP.framework in Frameworks */,
+				303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */,
 				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
@@ -95,7 +95,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				28580A391D4C417E005C91DF /* ASAPP.framework */,
+				303FCB211D4F94170023F2B1 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,

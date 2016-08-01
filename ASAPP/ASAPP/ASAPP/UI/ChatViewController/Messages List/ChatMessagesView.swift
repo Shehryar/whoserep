@@ -254,8 +254,6 @@ extension ChatMessagesView {
         if !credentials.isCustomer {
             isDifferent = isDifferent || previewText != otherParticipantTypingPreview
         }
-        let shouldInsert = isTyping && !otherParticipantIsTyping
-        let shouldDelete = !isTyping && otherParticipantIsTyping
         let shouldScrollToBottom = isNearBottom() && isDifferent
         
         otherParticipantIsTyping = isTyping
