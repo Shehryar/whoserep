@@ -77,12 +77,9 @@ extension ConversationManager {
             DebugLogError("Unable to get JPEG data for image: \(image)")
             return
         }
-        let imageSize = imageData.length
-        let imageWidth = image.size.width
-        let imageHeight = image.size.height
-        
+        let imageFileSize = imageData.length
         let params: [String : AnyObject] = [ "MimeType" : "image/jpeg",
-                                             "FileSize" : imageSize,
+                                             "FileSize" : imageFileSize,
                                              "PicWidth" : image.size.width,
                                              "PicHeight" : image.size.height ]
         
@@ -176,7 +173,7 @@ extension ConversationManager: SocketConnectionDelegate {
                 case .None:
                     switch event.ephemeralType {
                     case .TypingStatus:
-                        if let typingStatus = event.payload as? EventPayload.TypingStatus {
+                        if let typingStatus = event.typingStatus {
                             delegate?.conversationManager(self,
                                                           didUpdateRemoteTypingStatus: typingStatus.isTyping,
                                                           withPreviewText: nil,
@@ -185,7 +182,7 @@ extension ConversationManager: SocketConnectionDelegate {
                         break
                         
                     case .TypingPreview:
-                        if let typingPreview = event.payload as? EventPayload.TypingPreview {
+                        if let typingPreview = event.typingPreview {
                             delegate?.conversationManager(self,
                                                           didUpdateRemoteTypingStatus: !typingPreview.previewText.isEmpty,
                                                           withPreviewText: typingPreview.previewText,

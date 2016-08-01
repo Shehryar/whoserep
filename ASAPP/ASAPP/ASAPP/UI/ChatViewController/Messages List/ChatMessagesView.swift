@@ -181,6 +181,7 @@ extension ChatMessagesView: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCellWithIdentifier(PictureCellReuseId) as? ChatPictureCell {
                 cell.isReply = messageEventIsReply(event) ?? false
                 cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
+                cell.event = event
                 return cell
             }
         } else if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {

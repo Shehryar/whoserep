@@ -10,13 +10,15 @@ import UIKit
 
 class ChatPictureCell: ChatBubbleCell {
     
-    var imageURL: NSURL? {
+    var event: Event? {
         didSet {
-            if let imageURL = imageURL {
+            if let imageURL = event?.imageURLForPictureMessage(event?.pictureMessage) {
+                DebugLog("\n\nSetting image with url: \(imageURL)\n\n")
                 
             } else {
-                imageView?.image = nil
+                
             }
+            setNeedsUpdateConstraints()
         }
     }
     
@@ -43,18 +45,21 @@ class ChatPictureCell: ChatBubbleCell {
     override func updateConstraints() {
         super.updateConstraints()
         
-        let imageAspectRatio = 6.0 / 9.0
+        var aspectRatio: Double = 1.0
+        if let pictureMessage = event?.pictureMessage {
+            aspectRatio = pictureMessage.aspectRatio
+        }
         
         bubbleView.snp_updateConstraints { (make) in
             make.width.equalTo(pictureImageView.snp_width)
             make.height.equalTo(pictureImageView.snp_height)
         }
         
-        pictureImageView.snp_updateConstraints { (make) in
+        pictureImageView.snp_remakeConstraints { (make) in
             make.left.equalTo(bubbleView.snp_left)
             make.top.equalTo(bubbleView.snp_top)
             make.width.equalTo(bubbleView.snp_width)
-            make.height.equalTo(pictureImageView.snp_width).multipliedBy(imageAspectRatio)
+            make.height.equalTo(pictureImageView.snp_width).dividedBy(aspectRatio)
         }
     }
     

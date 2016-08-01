@@ -22,11 +22,7 @@ class ChatMessageEventCell: UITableViewCell {
     
     var messageEvent: Event? {
         didSet {
-            if let messageEvent = messageEvent {
-                messageView.message = (messageEvent.payload as? EventPayload.TextMessage)?.text
-            } else {
-                messageView.message = nil
-            }
+            messageView.message = messageEvent?.textMessage?.text
         }
     }
     

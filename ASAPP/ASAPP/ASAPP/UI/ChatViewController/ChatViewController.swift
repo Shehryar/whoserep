@@ -60,6 +60,8 @@ class ChatViewController: UIViewController {
         keyboardObserver.delegate = nil
         chatInputView.delegate = nil
         conversationManager.delegate = nil
+        
+        conversationManager.exitConversation()
     }
     
     // MARK:- View
@@ -75,22 +77,18 @@ class ChatViewController: UIViewController {
         
         view.setNeedsUpdateConstraints()
         view.updateFocusIfNeeded()
+        
+        conversationManager.enterConversation()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
-        conversationManager.enterConversation()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        conversationManager.exitConversation()
     }
 }
 

@@ -42,23 +42,41 @@ import RealmSwift
     case IPBlock = 6
 }
 
-class EventPayload: NSObject {
-    struct TextMessage {
-        let text: String
-    }
+// MARK:- Payloads
+
+struct TextMessage {
+    let text: String
+}
+
+struct PictureMessage {
+    let fileBucket: String
+    let fileSecret: String
+    let mimeType: String
+    let width: Int
+    let height: Int
     
-    struct TypingStatus {
-        let isTyping: Bool
-    }
-    
-    struct TypingPreview {
-        let previewText: String
+    /// Returns the aspect ratio (w/h) or 1 if either width/height == 0
+    var aspectRatio: Double {
+        if width <= 0 || height <= 0 {
+            return 1
+        }
+        return Double(width) / Double(height)
     }
 }
 
+struct TypingStatus {
+    let isTyping: Bool
+}
+
+struct TypingPreview {
+    let previewText: String
+}
+
+// MARK:- Event
+
 class Event: Object {
     
-    // MARK:- Realm Properties
+    // MARK: Realm Properties
     
     dynamic var createdTime: Double = 0 // in micro-seconds
     dynamic var issueId = 0
@@ -73,41 +91,83 @@ class Event: Object {
     dynamic var eventLogSeq = 0
     dynamic var uniqueIdentifier: String = NSUUID().UUIDString
     
-    override class func primaryKey() -> String? {
-        return "uniqueIdentifier"
-    }
-    
-    // MARK:- Read-only Properties
+    // MARK: Read-only Properties
     
     var isCustomerEvent: Bool {
         return eventFlags == 1
-    }
-    var isMessageEvent: Bool {
-        return eventType == .TextMessage || eventType == .PictureMessage
-    }
-    var shouldDisplay: Bool {
-        return eventType == .TextMessage || eventType == .PictureMessage
     }
     var eventTimeInSeconds: Int64 {
         return Int64(eventTime / 1000000)
     }
     
-    // MARK:- Initialization
+    // MARK: Lazy Properties
     
-    convenience init(createdTime: Double, issueId: Int, companyId: Int, customerId: Int, repId: Int, eventTime: Double, eventType: EventType, ephemeralType: EphemeralType, eventFlags: Int, eventJSON: String) {
-        self.init()
+    lazy var eventJSONObject: [String : AnyObject]? = {
+        var eventJSONObject: [String : AnyObject]?
+        do {
+            eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
+        } catch {
+            // Unable to serialize eventJSON
+            DebugLogError("Unable to serialize eventJSON: \(self.eventJSON)")
+        }
+        return eventJSONObject
+    }()
+    
+    lazy var textMessage: TextMessage? = {
+        guard self.eventType == .TextMessage else { return nil }
+        guard let eventJSONObject = self.eventJSONObject else { return nil }
         
-        self.createdTime = createdTime
-        self.issueId = issueId
-        self.companyId = companyId
-        self.customerId = customerId
-        self.repId = repId
-        self.eventTime = eventTime
-        self.eventType = eventType
-        self.ephemeralType = ephemeralType
-        self.eventFlags = eventFlags
-        self.eventJSON = eventJSON
+        if let text = eventJSONObject["Text"] as? String {
+            return TextMessage(text: text)
+        }
+        return nil
+    }()
+    
+    lazy var pictureMessage: PictureMessage? = {
+        guard self.eventType == .PictureMessage else { return nil }
+        guard let eventJSONObject = self.eventJSONObject else { return nil }
+        
+        if let fileBucket = eventJSONObject["FileBucket"] as? String,
+            let fileSecret = eventJSONObject["FileSecret"] as? String,
+            let mimeType = eventJSONObject["MimeType"] as? String,
+            let width = eventJSONObject["PicWidth"] as? Int,
+            let height = eventJSONObject["PicHeight"] as? Int {
+            return PictureMessage(fileBucket: fileBucket, fileSecret: fileSecret, mimeType: mimeType, width: width, height: height)
+        }
+        return nil
+    }()
+    
+    lazy var typingStatus: TypingStatus? = {
+        guard self.eventType == .None && self.ephemeralType == .TypingStatus else { return nil }
+        guard let eventJSONObject = self.eventJSONObject else { return nil }
+        
+        if let isTyping = eventJSONObject["IsTyping"] as? Bool {
+            return TypingStatus(isTyping: isTyping)
+        }
+        return nil
+    }()
+    
+    lazy var typingPreview: TypingPreview? = {
+        guard self.eventType == .None && self.ephemeralType == .TypingPreview else { return nil }
+        guard let eventJSONObject = self.eventJSONObject else { return nil }
+        
+        if let previewText = eventJSONObject["Text"] as? String {
+            return TypingPreview(previewText: previewText)
+        }
+        return nil
+    }()
+    
+    // MARK: Realm Property Methods
+    
+    override class func primaryKey() -> String? {
+        return "uniqueIdentifier"
     }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview"]
+    }
+    
+    // MARK:- Initialization
     
     convenience init?(withJSON json: [String: AnyObject]?) {
         guard let json = json else {
@@ -135,7 +195,7 @@ class Event: Object {
             else {
                 return nil
         }
-
+        
         self.init()
         
         self.createdTime = createdTime
@@ -150,64 +210,6 @@ class Event: Object {
         self.eventJSON = eventJSON
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
     }
-
-    // MARK:- Instance Methods
-    
-    func getPayload() -> Any? {
-        return payload
-    }
-    
-    // MARK:- Ignored Properties
-    
-    override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload"]
-    }
-    
-    lazy var eventJSONObject: [String : AnyObject]? = {
-        var eventJSONObject: [String : AnyObject]?
-        do {
-            eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
-        } catch {
-            // Unable to serialize eventJSON
-            DebugLogError("Unable to serialize eventJSON: \(self.eventJSON)")
-        }
-        return eventJSONObject
-    }()
-    
-    lazy var payload: Any? = {
-        guard let eventJSONObject = self.eventJSONObject else {
-            return nil
-        }
-        
-        switch self.eventType {
-        case .TextMessage:
-            if let text = eventJSONObject["Text"] as? String {
-                return EventPayload.TextMessage(text: text)
-            }
-            break
-            
-        case .None:
-            switch self.ephemeralType {
-            case .TypingStatus:
-                if let isTyping = eventJSONObject["IsTyping"] as? Bool {
-                    return EventPayload.TypingStatus(isTyping: isTyping)
-                }
-                break
-                
-            case .TypingPreview:
-                return EventPayload.TypingPreview(previewText: (eventJSONObject["Text"] as? String) ?? "")
-                
-            default:
-                break
-            }
-            break
-            
-        default:
-            break
-        }
-        
-        return nil
-    }()
 }
 
 // MARK:- Instance Methods
@@ -222,5 +224,14 @@ extension Event {
         } else {
             return !isCustomerEvent
         }
+    }
+    
+    func imageURLForPictureMessage(pictureMessage: PictureMessage?) -> NSURL? {
+        guard let pictureMessage = pictureMessage else { return nil }
+        
+        let imageSuffix = pictureMessage.mimeType.componentsSeparatedByString("/").last ?? "jpg"
+        let urlString = "https://\(pictureMessage.fileBucket).s3.amazonaws.com/customer/\(customerId)/company/\(companyId)/\(pictureMessage.fileSecret)-\(pictureMessage.width)x\(pictureMessage.height).\(imageSuffix)"
+        
+        return NSURL(string: urlString)
     }
 }
