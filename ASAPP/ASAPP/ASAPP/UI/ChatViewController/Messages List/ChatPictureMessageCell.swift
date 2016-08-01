@@ -1,5 +1,5 @@
 //
-//  ChatPictureCell.swift
+//  ChatPictureMessageCell.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/1/16.
@@ -9,7 +9,7 @@
 import UIKit
 import KFSwiftImageLoader
 
-class ChatPictureCell: ChatBubbleCell {
+class ChatPictureMessageCell: ChatBubbleCell {
     
     var event: Event? {
         didSet {

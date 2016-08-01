@@ -1,5 +1,5 @@
 //
-//  ChatMessageEventCell.swift
+//  ChatTextMessageCell.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 7/23/16.
@@ -16,13 +16,13 @@ enum MessageBubbleStyling {
     case LastOfMany
 }
 
-class ChatMessageEventCell: UITableViewCell {
+class ChatTextMessageCell: UITableViewCell {
     
     // MARK: Public Properties
     
-    var messageEvent: Event? {
+    var event: Event? {
         didSet {
-            messageView.message = messageEvent?.textMessage?.text
+            messageView.message = event?.textMessage?.text
         }
     }
     
@@ -77,6 +77,9 @@ class ChatMessageEventCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .None
         
+        autoresizingMask = .FlexibleHeight
+        translatesAutoresizingMaskIntoConstraints = true
+        
         messageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(messageView)
         
@@ -87,9 +90,9 @@ class ChatMessageEventCell: UITableViewCell {
     
     func updateForIsReplyValue() {
         if isReply {
-            messageView.bubbleFillColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)//Colors.lighterGrayColor()
+            messageView.bubbleFillColor = Colors.blueColor()
             messageView.bubbleStrokeColor = nil
-            messageView.textColor = UIColor.whiteColor() //Colors.darkTextColor()
+            messageView.textColor = Colors.whiteColor()
         } else {
             messageView.bubbleFillColor = Colors.whiteColor()
             messageView.bubbleStrokeColor = Colors.lightGrayColor()

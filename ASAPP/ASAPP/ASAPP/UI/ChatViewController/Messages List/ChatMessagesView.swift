@@ -49,8 +49,8 @@ class ChatMessagesView: UIView {
     private var eventsThatShouldAnimate = Set<Event>()
     
     private let HeaderViewReuseId = "TimeStampHeaderReuseId"
-    private let MessageCellReuseId = "MessageCellReuseId"
-    private let PictureCellReuseId = "PictureCellReuseId"
+    private let TextMessageCellReuseId = "TextMessageCellReuseId"
+    private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
     private let TypingStatusCellReuseId = "TypingStatusCellReuseId"
     
@@ -75,8 +75,8 @@ class ChatMessagesView: UIView {
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
-        tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
-        tableView.registerClass(ChatPictureCell.self, forCellReuseIdentifier: PictureCellReuseId)
+        tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
+        tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingStatusCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
         tableView.dataSource = self
@@ -178,15 +178,15 @@ extension ChatMessagesView: UITableViewDataSource {
         }
         
         if event?.eventType == .PictureMessage {
-            if let cell = tableView.dequeueReusableCellWithIdentifier(PictureCellReuseId) as? ChatPictureCell {
+            if let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell {
                 cell.isReply = messageEventIsReply(event) ?? false
                 cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
                 cell.event = event
                 return cell
             }
-        } else if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
-            cell.messageEvent = event
-            cell.isReply = messageEventIsReply(cell.messageEvent) ?? false
+        } else if let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell {
+            cell.event = event
+            cell.isReply = messageEventIsReply(event) ?? false
             cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
             return cell
         }
@@ -211,7 +211,7 @@ extension ChatMessagesView: UITableViewDelegate {
         }
         
         if eventsThatShouldAnimate.contains(event) {
-            (cell as? ChatMessageEventCell)?.animate()
+            (cell as? ChatTextMessageCell)?.animate()
             eventsThatShouldAnimate.remove(event)
         }
     }
@@ -310,8 +310,8 @@ extension ChatMessagesView {
         
         let wasNearBottom = isNearBottom()
         var lastVisibleMessageEvent: Event?
-        if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageEventCell {
-            lastVisibleMessageEvent = lastVisibleCell.messageEvent
+        if let lastVisibleCell = tableView.visibleCells.last as? ChatTextMessageCell {
+            lastVisibleMessageEvent = lastVisibleCell.event
         }
         
         dataSource.mergeWithEvents(newMessageEvents)
