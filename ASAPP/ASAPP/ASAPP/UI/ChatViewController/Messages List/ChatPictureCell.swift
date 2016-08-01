@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import KFSwiftImageLoader
 
 class ChatPictureCell: ChatBubbleCell {
     
     var event: Event? {
         didSet {
             if let imageURL = event?.imageURLForPictureMessage(event?.pictureMessage) {
-                DebugLog("\n\nSetting image with url: \(imageURL)\n\n")
-                
+                pictureImageView.loadImageFromURL(imageURL)
             } else {
-                
+                pictureImageView.image = nil
             }
             setNeedsUpdateConstraints()
         }
@@ -29,12 +29,14 @@ class ChatPictureCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
 
+        ignoresReplyBubbleStyling = true
+        
         pictureImageView.contentMode = .ScaleAspectFill
         pictureImageView.removeFromSuperview()
-        pictureImageView.image = Images.testImage(withAlpha: 0.7)
 
         bubbleView.clipsToBubblePath = true
         bubbleView.strokeColor = Colors.bluishGray()
+        bubbleView.fillColor = Colors.lightGrayColor()
         bubbleView.addSubview(pictureImageView)
         
         setNeedsUpdateConstraints()
@@ -67,6 +69,6 @@ class ChatPictureCell: ChatBubbleCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        pictureImageView.image = nil
+        pictureImageView.image = nil
     }
 }

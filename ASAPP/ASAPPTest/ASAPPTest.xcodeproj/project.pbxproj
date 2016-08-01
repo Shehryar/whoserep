@@ -43,6 +43,7 @@
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.release.xcconfig"; sourceTree = "<group>"; };
+		C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.adhoc.xcconfig"; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 			children = (
 				1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */,
 				9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */,
+				C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -322,7 +324,7 @@
 		};
 		30AE79F51D4BACD800651F09 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */;
+			baseConfigurationReference = C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */;
 			buildSettings = {
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP AdHoc";
 				ASAPP_BUNDLE_ID = com.asappinc.TestApp;

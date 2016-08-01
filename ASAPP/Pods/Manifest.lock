@@ -1,4 +1,5 @@
 PODS:
+  - KFSwiftImageLoader (2.0.1)
   - Realm (1.0.2):
     - Realm/Headers (= 1.0.2)
   - Realm/Headers (1.0.2)
@@ -8,16 +9,18 @@ PODS:
   - SocketRocket (0.5.1)
 
 DEPENDENCIES:
+  - KFSwiftImageLoader (~> 2.0.1)
   - RealmSwift (~> 1.0.2)
   - SnapKit (~> 0.21.1)
   - SocketRocket (~> 0.5.1)
 
 SPEC CHECKSUMS:
+  KFSwiftImageLoader: a2b8a33a89116c767e7af8d2c109e8c483037b19
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SnapKit: bbad04cb016c7cead63965f16b00c09318d271ee
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: 1ce007255eb11ccaaa88a3b10104a6d44362cf6f
+PODFILE CHECKSUM: f3f0e6295bb7c5a5b3866859737dfba082d4c0c5
 
 COCOAPODS: 1.0.1
