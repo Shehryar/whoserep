@@ -283,6 +283,7 @@ extension ChatViewController {
 // MARK:- Actions
 
 extension ChatViewController {
+    
     func sendMessage(withText text: String) {
         conversationManager.sendMessage(text)
     }

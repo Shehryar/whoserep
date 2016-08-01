@@ -50,6 +50,7 @@ class ChatMessagesView: UIView {
     
     private let HeaderViewReuseId = "TimeStampHeaderReuseId"
     private let MessageCellReuseId = "MessageCellReuseId"
+    private let PictureCellReuseId = "PictureCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
     private let TypingStatusCellReuseId = "TypingStatusCellReuseId"
     
@@ -75,6 +76,7 @@ class ChatMessagesView: UIView {
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.registerClass(ChatMessageEventCell.self, forCellReuseIdentifier: MessageCellReuseId)
+        tableView.registerClass(ChatPictureCell.self, forCellReuseIdentifier: PictureCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingStatusCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
         tableView.dataSource = self
@@ -175,7 +177,13 @@ extension ChatMessagesView: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
+        if event?.eventType == .PictureMessage {
+            if let cell = tableView.dequeueReusableCellWithIdentifier(PictureCellReuseId) as? ChatPictureCell {
+                cell.isReply = messageEventIsReply(event) ?? false
+                cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
+                return cell
+            }
+        } else if let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellReuseId) as? ChatMessageEventCell {
             cell.messageEvent = event
             cell.isReply = messageEventIsReply(cell.messageEvent) ?? false
             cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)

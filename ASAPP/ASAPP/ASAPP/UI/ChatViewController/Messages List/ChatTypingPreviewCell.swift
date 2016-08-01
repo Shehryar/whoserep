@@ -29,8 +29,8 @@ class ChatTypingPreviewCell: ChatBubbleCell {
         isReply = true
         bubbleStyling = .Default
         
-        bubbleView.bubbleFillColor = Colors.bluishGray()
-        bubbleView.bubbleStrokeColor = nil
+        bubbleView.fillColor = Colors.bluishGray()
+        bubbleView.strokeColor = nil
         
         previewLabel.numberOfLines = 0
         previewLabel.font = Fonts.latoRegularFont(withSize: 16)

@@ -58,6 +58,16 @@ class BubbleView: UIView {
         }
     }
     
+    var clipsToBubblePath = false {
+        didSet {
+            if oldValue != clipsToBubblePath {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    private let maskLayer = CAShapeLayer()
+    
     // MARK:- Init
     
     override init(frame: CGRect) {
@@ -79,9 +89,9 @@ class BubbleView: UIView {
     // MARK:- Drawing
     
     override func drawRect(rect: CGRect) {
-        let path = manualBubbleViewPath(forRect: rect)
-//        let path = bubbleViewPath(forRect: rect)
         
+        let path = bubbleViewPath(forRect: rect, insetForStroke: (strokeColor != nil))
+    
         fillColor.setFill()
         path.fill()
         if let strokeColor = strokeColor {
@@ -89,27 +99,20 @@ class BubbleView: UIView {
             path.lineWidth = strokeLineWidth
             path.stroke()
         }
-    }
-    
-    func bubbleViewPath(forRect rect: CGRect) -> UIBezierPath {
-        let cornerRadius = min(self.cornerRadius, CGRectGetHeight(rect) / 2.0)
-        let cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
-    
-        var sizedRect = rect
-        let strokeInset = strokeLineWidth / 2.0
-        if strokeColor != nil {
-            sizedRect = CGRectInset(rect, strokeInset, strokeInset)
-        }
         
-        return UIBezierPath(roundedRect: sizedRect,
-                            byRoundingCorners: roundedCorners,
-                            cornerRadii: cornerRadii)
+        if clipsToBubblePath {
+            let clippingPath = bubbleViewPath(forRect: rect, insetForStroke: false)
+            maskLayer.path = clippingPath.CGPath
+            layer.mask = maskLayer
+        } else {
+            layer.mask = nil
+        }
     }
     
-    func manualBubbleViewPath(forRect originalRect: CGRect) -> UIBezierPath {
+    func bubbleViewPath(forRect originalRect: CGRect, insetForStroke: Bool) -> UIBezierPath {
         var rect = originalRect
-        let strokeInset = strokeLineWidth
-        if strokeColor != nil {
+        let strokeInset = strokeLineWidth / 2.0
+        if insetForStroke {
             rect = CGRectInset(originalRect, strokeInset, strokeInset)
         }
         

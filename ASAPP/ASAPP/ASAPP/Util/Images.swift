@@ -13,8 +13,8 @@ class Images: NSObject {
         return imageWithName("temp-icon-paperclip", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
-    class func asappLogoIcon() -> UIImage? {
-        return imageWithName("temp-asapp-logo.png")
+    class func testImage(withAlpha alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("test-image.jpg")
     }
     
     // MARK:- Private Helper Methods
@@ -37,4 +37,3 @@ class Images: NSObject {
         return modifiedImage
     }
 }
-

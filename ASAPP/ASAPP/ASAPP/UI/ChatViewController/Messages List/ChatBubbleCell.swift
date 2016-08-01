@@ -41,7 +41,7 @@ class ChatBubbleCell: UITableViewCell {
     
     internal var ignoresReplyBubbleStyling = false
     
-    internal let bubbleView = BubbleMessageView()
+    internal let bubbleView = BubbleView()
     
     private var leftConstraint: Constraint?
     
@@ -75,13 +75,11 @@ class ChatBubbleCell: UITableViewCell {
     func updateForIsReplyValue() {
         if !ignoresReplyBubbleStyling {
             if isReply {
-                bubbleView.bubbleFillColor = Colors.blueColor()
-                bubbleView.bubbleStrokeColor = nil
-                bubbleView.textColor = UIColor.whiteColor()
+                bubbleView.fillColor = Colors.blueColor()
+                bubbleView.strokeColor = nil
             } else {
-                bubbleView.bubbleFillColor = Colors.whiteColor()
-                bubbleView.bubbleStrokeColor = Colors.lightGrayColor()
-                bubbleView.textColor = Colors.darkTextColor()
+                bubbleView.fillColor = Colors.whiteColor()
+                bubbleView.strokeColor = Colors.lightGrayColor()
             }
         }
         updateBubbleCorners()
@@ -128,7 +126,7 @@ class ChatBubbleCell: UITableViewCell {
                 break
             }
         }
-        bubbleView.bubbleViewRoundedCorners = roundedCorners
+        bubbleView.roundedCorners = roundedCorners
     }
     
     // MARK: Layout
