@@ -158,10 +158,8 @@ extension ChatViewController: ChatInputViewDelegate {
         self.sendMessage(withText: message)
     }
     
-    func chatInputViewDidTapMediaButton(chatInputView: ChatInputView) {
-        let alert = UIAlertController(title: "Coming Soon!", message: "This feature is still under development.", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+    func chatInputView(chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton) {
+        presentImageUploadOptions(fromView: mediaButton)
     }
     
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
@@ -188,6 +186,97 @@ extension ChatViewController: ConversationManagerDelegate {
             // Fetch events
             reloadMessageEvents()
         }
+    }
+}
+
+// MARK:- Image Selection
+
+extension ChatViewController {
+    
+    func presentImageUploadOptions(fromView presentFromView: UIView) {
+        let cameraIsAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
+        let photoLibraryIsAvailable = UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary)
+        
+        if !cameraIsAvailable && !photoLibraryIsAvailable {
+            // TODO: Localization
+            
+            // Show alert to check settings
+            showAlert(withTitle: "Photos Unavailable", message: "Please update your settings to allow access to the camera and/or photo library.")
+            return
+        }
+        
+        if cameraIsAvailable && photoLibraryIsAvailable {
+            presentCameraOrPhotoLibrarySelection(fromView: presentFromView)
+        } else if cameraIsAvailable {
+            presentCamera()
+        } else if photoLibraryIsAvailable {
+            presentPhotoLibrary()
+        }
+    }
+    
+    func presentCameraOrPhotoLibrarySelection(fromView presentFromView: UIView) {
+        // TODO: Localization
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (alert) in
+            self.presentCamera()
+        }))
+        alertController.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { (alert) in
+            self.presentPhotoLibrary()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Destructive, handler: { (alert) in
+            // No-op
+        }))
+        alertController.popoverPresentationController?.sourceView = presentFromView
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func presentCamera() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .Camera
+        imagePickerController.navigationBar.tintColor = Colors.blueColor()
+        imagePickerController.delegate = self
+        
+        presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func presentPhotoLibrary() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.navigationBar.tintColor = Colors.blueColor()
+        imagePickerController.delegate = self
+        
+        presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+}
+
+// MARK:- UIImagePickerControllerDelegate
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage {
+            conversationManager.sendPictureMessage(image)
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+// MARK:- Alerts
+
+extension ChatViewController {
+    
+    func showAlert(withTitle title: String, message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .Destructive, handler: nil))
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

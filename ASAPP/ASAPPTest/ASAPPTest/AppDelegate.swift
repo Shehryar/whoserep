@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.translucent = false
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSForegroundColorAttributeName : UIColor.whiteColor(),
             NSFontAttributeName : UIFont.systemFontOfSize(16)
             ], forState: .Normal)
         

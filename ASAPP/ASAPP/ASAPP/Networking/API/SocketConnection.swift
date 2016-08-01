@@ -131,11 +131,21 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
+    func sendRequestWithData(data: NSData) {
+        let request = outgoingMessageSerializer.createRequestWithData(data)
+        sendRequestWithRequest(request)
+    }
+    
     func sendRequestWithRequest(request: SocketRequest) {
         if isConnected {
-            let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
-            DebugLog("Sending request: \(requestString)")
-            socket?.send(requestString)
+            if let data = request.requestData {
+                DebugLog("Sending data request - (\(data.length) bytes)")
+                socket?.send(data)
+            } else {
+                let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
+                DebugLog("Sending request: \(requestString)")
+                socket?.send(requestString)
+            }
         } else {
             DebugLog("Socket not connected. Queueing request: \(request.path)")
             requestQueue.append(request)

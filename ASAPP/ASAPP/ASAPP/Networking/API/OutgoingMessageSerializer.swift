@@ -13,6 +13,8 @@ struct SocketRequest {
     var path: String
     var params: [String : AnyObject]?
     var context: [String : AnyObject]?
+    
+    var requestData: NSData?
 }
 
 class OutgoingMessageSerializer: NSObject {
@@ -45,7 +47,11 @@ class OutgoingMessageSerializer: NSObject {
 
 extension OutgoingMessageSerializer {
     func createRequest(withPath path: String, params: [String : AnyObject]?, context: [String : AnyObject]?) -> SocketRequest {
-        return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context)
+        return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
+    }
+    
+    func createRequestWithData(data: NSData) -> SocketRequest {
+        return SocketRequest(requestId: 0, path: "", params: nil, context: nil, requestData: data)
     }
     
     func createRequestString(withRequest request: SocketRequest) -> String {

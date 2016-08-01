@@ -11,7 +11,7 @@ import UIKit
 protocol ChatInputViewDelegate {
     func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?)
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
-    func chatInputViewDidTapMediaButton(chatInputView: ChatInputView)
+    func chatInputView(chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
 }
 
@@ -164,7 +164,7 @@ class ChatInputView: UIView {
     }
     
     func didTapMediaButton() {
-        delegate?.chatInputViewDidTapMediaButton(self)
+        delegate?.chatInputView(self, didTapMediaButton: mediaButton)
     }
 }
 

@@ -70,6 +70,26 @@ extension ConversationManager {
         socketConnection.sendRequest(withPath: path, params: ["Text" : message])
     }
     
+    func sendPictureMessage(image: UIImage) {
+        let path = "\(requestPrefix)SendPictureMessage"
+        
+        guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
+            DebugLogError("Unable to get JPEG data for image: \(image)")
+            return
+        }
+        let imageSize = imageData.length
+        let imageWidth = image.size.width
+        let imageHeight = image.size.height
+        
+        let params: [String : AnyObject] = [ "MimeType" : "image/jpeg",
+                                             "FileSize" : imageSize,
+                                             "PicWidth" : image.size.width,
+                                             "PicHeight" : image.size.height ]
+        
+        socketConnection.sendRequest(withPath: path, params: params)
+        socketConnection.sendRequestWithData(imageData)
+    }
+    
     func updateCurrentUserTypingStatus(isTyping: Bool, withText text: String?) {
         if credentials.isCustomer {
             let path = "\(requestPrefix)NotifyTypingPreview"
@@ -127,15 +147,6 @@ extension ConversationManager {
             if numberOfEventsFetched == 0 {
                 errorMessage = errorMessage ?? "No results returned."
             }
-            
-            if let fetchedEvents = fetchedEvents {
-                for event in fetchedEvents {
-                    if event.eventType != .TextMessage {
-                        print("\n\n\(event.eventType.rawValue): \(event.eventJSON)\n\n")
-                    }
-                }
-            }
-            
             
             DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? "with error: \(errorMessage!)" : "")")
             

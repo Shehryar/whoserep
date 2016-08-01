@@ -14,7 +14,7 @@ class ChatMessagesViewDataSource: NSObject {
     
     var secondsBetweenSections: Int = (20 * 60)
     
-    let allowedEventTypes: Set<EventType> = Set([.TextMessage])
+    let allowedEventTypes: Set<EventType> = Set([.TextMessage, .PictureMessage])
     
     private var allEvents = [Event]()
     
