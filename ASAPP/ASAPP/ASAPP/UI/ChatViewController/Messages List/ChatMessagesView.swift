@@ -22,7 +22,6 @@ class ChatMessagesView: UIView {
         }
     }
     
-    
     // MARK:- Private Properties
     
     private var shouldShowTypingPreview: Bool {
@@ -72,6 +71,8 @@ class ChatMessagesView: UIView {
         tableView.estimatedSectionHeaderHeight = 30
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+//        tableView.rowHeight = 100.0
+//        tableView.sectionHeaderHeight = 30.0
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
@@ -93,11 +94,9 @@ class ChatMessagesView: UIView {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK:- Utility
 
-extension ChatMessagesView: UITableViewDataSource {
-    
-    // Private Utilities
+extension ChatMessagesView {
     
     private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
         guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
@@ -124,8 +123,14 @@ extension ChatMessagesView: UITableViewDataSource {
         
         return !messageEvent.wasSentByUserWithCredentials(credentials)
     }
+}
+
+
+// MARK:- UITableViewDataSource
+
+extension ChatMessagesView: UITableViewDataSource {
     
-    // UITableViewDataSource
+    // MARK: Number of Item
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         let numberOfSections = dataSource.numberOfSections()
@@ -143,6 +148,8 @@ extension ChatMessagesView: UITableViewDataSource {
         }
         return dataSource.numberOfRowsInSection(section)
     }
+    
+    // MARK: Views / Cells
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < dataSource.numberOfSections() else { return nil }

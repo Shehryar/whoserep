@@ -64,6 +64,7 @@ class ChatBubbleCell: UITableViewCell {
     
     func commonInit() {
         selectionStyle = .None
+        opaque = true
         
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)

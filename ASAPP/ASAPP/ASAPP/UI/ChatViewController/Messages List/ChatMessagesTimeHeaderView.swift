@@ -23,9 +23,12 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     // MARK:- Init
     
     func commonInit() {
+        opaque = true
+        
         timeLabel.font = Fonts.latoBoldFont(withSize: 12)
         timeLabel.textColor = Colors.mediumTextColor()
         timeLabel.textAlignment = .Center
+        timeLabel.backgroundColor = Colors.whiteColor()
         contentView.addSubview(timeLabel)
         
         setNeedsUpdateConstraints()

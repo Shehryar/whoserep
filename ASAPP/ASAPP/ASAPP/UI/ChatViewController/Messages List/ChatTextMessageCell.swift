@@ -52,6 +52,8 @@ class ChatTextMessageCell: ChatBubbleCell {
         } else {
             textMessageLabel.textColor = Colors.darkTextColor()
         }
+        textMessageLabel.backgroundColor = bubbleView.fillColor
+        bubbleView.backgroundColor = Colors.whiteColor()
     }
     
     // MARK: Layout
