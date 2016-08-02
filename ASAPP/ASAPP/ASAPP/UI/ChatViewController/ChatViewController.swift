@@ -40,6 +40,8 @@ class ChatViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        edgesForExtendedLayout = .None
+        
         conversationManager.delegate = self
         
         chatMessagesView.delegate = self

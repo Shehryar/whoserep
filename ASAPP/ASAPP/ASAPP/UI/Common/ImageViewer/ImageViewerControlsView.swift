@@ -14,9 +14,9 @@ class ImageViewerControlsView: UIView {
     
     private let dismissButton = UIButton()
 
-    private let dismissButtonImageSize: CGFloat  = 22
+    private let dismissButtonImageSize: CGFloat = 18
     
-    private let contentInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 10)
+    private let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     
     // MARK: Init
     
