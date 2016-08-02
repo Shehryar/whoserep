@@ -130,6 +130,10 @@ extension ImageViewerTransitionAnimator {
         
         transitioningImageView.frame = animateFromFrame
         transitioningImageView.contentMode = imageViewer.presentationImageContentMode
+        if imageViewer.presentationImageCornerRadius > 0 {
+            transitioningImageView.layer.cornerRadius = imageViewer.presentationImageCornerRadius
+            transitioningImageView.clipsToBounds = true
+        }
         transitioningImageView.image = imageViewer.presentationImage
         imageViewer.presentFromView?.hidden = true
         imageViewer.setAccessoryViewsHidden(true, animated: false)
@@ -221,6 +225,9 @@ extension ImageViewerTransitionAnimator {
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: initialSpringVelocity, options: .BeginFromCurrentState, animations: {
             self.presentingView?.transform = CGAffineTransformIdentity
             self.maskView.alpha = 0.0
+            if imageViewer.presentationImageCornerRadius != 0 {
+                self.transitioningImageView.layer.cornerRadius = imageViewer.presentationImageCornerRadius
+            }
             
             if mustScaleToFit {
                 let transform = self.aspectFitTransform(forImage: self.transitioningImageView.image, fromFrame: self.transitioningImageView.frame, toFrame: animateFromFrame)
@@ -418,10 +425,6 @@ extension ImageViewerTransitionAnimator {
             return
         }
         
-        presentingViewController.dismissViewControllerAnimated(true, completion: { [weak presentingViewController] in
-            UIView.animateWithDuration(0.3, animations: { 
-                presentingViewController?.setNeedsStatusBarAppearanceUpdate()
-            })
-        })
+        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
 }

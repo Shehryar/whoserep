@@ -18,6 +18,8 @@ class ImageViewer: UIViewController {
     
     var presentationImageContentMode: UIViewContentMode = .ScaleAspectFill
     
+    var presentationImageCornerRadius: CGFloat = 0
+    
     // MARK: Properties: Readonly
     
     private(set) var images: [ImageViewerImage]
@@ -42,9 +44,7 @@ class ImageViewer: UIViewController {
     private(set) var accessoryViewsHidden = false
     
     // MARK: Properties: Private
-    
-    private var viewAppeared = false
-    
+        
     private var transitionAnimator = ImageViewerTransitionAnimator()
     
     private let controlsView = ImageViewerControlsView()
@@ -69,7 +69,7 @@ class ImageViewer: UIViewController {
         transitioningDelegate = transitionAnimator
         
         controlsView.onDismissButtonTap = {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         }
         
         pageViewController.dataSource = self
@@ -103,18 +103,6 @@ class ImageViewer: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if !viewAppeared {
-            viewAppeared = true
-            UIView.animateWithDuration(0.3, animations: { 
-                self.setNeedsStatusBarAppearanceUpdate()
-            })
-        }
-        
-    }
-    
     // MARK: Layout
     
     override func viewDidLayoutSubviews() {
@@ -133,10 +121,7 @@ extension ImageViewer {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        if viewAppeared {
-            return true
-        }
-        return super.prefersStatusBarHidden()
+        return true
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
