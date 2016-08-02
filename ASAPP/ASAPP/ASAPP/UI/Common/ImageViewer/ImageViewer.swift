@@ -43,6 +43,8 @@ class ImageViewer: UIViewController {
     
     // MARK: Properties: Private
     
+    private var viewAppeared = false
+    
     private var transitionAnimator = ImageViewerTransitionAnimator()
     
     private let controlsView = ImageViewerControlsView()
@@ -63,7 +65,7 @@ class ImageViewer: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         modalPresentationStyle = .Custom
         modalTransitionStyle = .CrossDissolve
-        modalPresentationCapturesStatusBarAppearance = false
+        modalPresentationCapturesStatusBarAppearance = true
         transitioningDelegate = transitionAnimator
         
         controlsView.onDismissButtonTap = {
@@ -101,6 +103,18 @@ class ImageViewer: UIViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !viewAppeared {
+            viewAppeared = true
+            UIView.animateWithDuration(0.3, animations: { 
+                self.setNeedsStatusBarAppearanceUpdate()
+            })
+        }
+        
+    }
+    
     // MARK: Layout
     
     override func viewDidLayoutSubviews() {
@@ -119,7 +133,14 @@ extension ImageViewer {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        if viewAppeared {
+            return true
+        }
+        return super.prefersStatusBarHidden()
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
     }
 }
 
