@@ -7,24 +7,25 @@
 //
 
 import UIKit
-import KFSwiftImageLoader
+import SDWebImage
 
 class ChatPictureMessageCell: ChatBubbleCell {
     
     var event: Event? {
         didSet {
-            if let imageURL = event?.imageURLForPictureMessage(event?.pictureMessage) {
-                pictureImageView.loadImageFromURL(imageURL, placeholderImage: nil, completion: { (finished, error) in
-                    self.setNeedsUpdateConstraints()
-                })
-            } else {
-                pictureImageView.image = nil
+            if let event = event, let pictureMessage = event.pictureMessage {
+                pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
+                if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
+                    pictureImageView.sd_setImageWithURL(imageURL)
+                } else {
+                    pictureImageView.image = nil
+                }
             }
             setNeedsUpdateConstraints()
         }
     }
     
-    private let pictureImageView = UIImageView()
+    private let pictureImageView = FixedSizeImageView()
     
     // MARK: Init
     
@@ -33,9 +34,13 @@ class ChatPictureMessageCell: ChatBubbleCell {
 
         ignoresReplyBubbleStyling = true
         
+        pictureImageView.translatesAutoresizingMaskIntoConstraints = false
+        pictureImageView.image = Images.testImage()
         pictureImageView.contentMode = .ScaleAspectFill
         pictureImageView.removeFromSuperview()
 
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        bubbleView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.clipsToBubblePath = true
         bubbleView.strokeColor = Colors.bluishGray()
         bubbleView.fillColor = Colors.lightGrayColor()
@@ -47,30 +52,35 @@ class ChatPictureMessageCell: ChatBubbleCell {
     // MARK: Layout
     
     override func updateConstraints() {
-        super.updateConstraints()
+        
+        
+        guard maxMessageWidth > 0 else { return }
         
         var aspectRatio: Double = 1.0
         if let pictureMessage = event?.pictureMessage {
             aspectRatio = pictureMessage.aspectRatio
         }
-        
+        let bubbleHeight = max(maxMessageWidth, floor(maxMessageWidth / CGFloat(aspectRatio)))
+ 
         bubbleView.snp_updateConstraints { (make) in
-            make.width.equalTo(pictureImageView.snp_width)
-            make.height.equalTo(pictureImageView.snp_height)
+            make.right.equalTo(pictureImageView.snp_right)
+            make.bottom.equalTo(pictureImageView.snp_bottom)
         }
         
         pictureImageView.snp_remakeConstraints { (make) in
             make.left.equalTo(bubbleView.snp_left)
             make.top.equalTo(bubbleView.snp_top)
-            make.width.equalTo(bubbleView.snp_width)
-            make.height.equalTo(pictureImageView.snp_width).dividedBy(aspectRatio)
+            make.width.lessThanOrEqualTo(bubbleView.snp_width)
+            make.height.lessThanOrEqualTo(pictureImageView.snp_width).dividedBy(aspectRatio)
         }
+        
+        super.updateConstraints()
     }
     
     // MARK: Reuse
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        pictureImageView.image = nil
+//        pictureImageView.image = nil
     }
 }

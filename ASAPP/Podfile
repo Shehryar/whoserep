@@ -11,7 +11,7 @@ target 'ASAPP' do
   pod 'SnapKit', '~> 0.21.1'
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
-  pod 'KFSwiftImageLoader', '~> 2.0.1'
+  pod 'SDWebImage', '~> 3.8.1'
   project 'ASAPP.xcodeproj'
 
 end
@@ -24,7 +24,7 @@ target 'ASAPPTest' do
   pod 'SnapKit', '~> 0.21.1'
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
-  pod 'KFSwiftImageLoader', '~> 2.0.1'
+  pod 'SDWebImage', '~> 3.8.1'
   project 'ASAPPTest/ASAPPTest.xcodeproj'
 
 end

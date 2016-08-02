@@ -23,7 +23,6 @@ class ChatMessagesView: UIView {
     }
     
     
-    
     // MARK:- Private Properties
     
     private var shouldShowTypingPreview: Bool {

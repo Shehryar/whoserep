@@ -46,6 +46,10 @@ class ChatBubbleCell: UITableViewCell {
     
     // MARK: Private Properties
     
+    internal var maxMessageWidth: CGFloat {
+        return floor(0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
+    }
+    
     internal var ignoresReplyBubbleStyling = false
     
     internal let bubbleView = BubbleView()
@@ -141,8 +145,6 @@ class ChatBubbleCell: UITableViewCell {
     override func updateConstraints() {
         leftConstraint?.uninstall()
         rightConstraint?.uninstall()
-        
-        let maxMessageWidth = floor(0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
         
         bubbleView.snp_updateConstraints { (make) in
             if isReply {
