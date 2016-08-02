@@ -150,9 +150,9 @@ class ChatInputView: UIView {
         let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
         
-        mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 1), forState: .Normal)
-        mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 0.7), forState: .Highlighted)
-        mediaButton.setImage(Images.cameraIconDark(fillColor: Colors.mediumTextColor(), alpha: 0.4), forState: .Disabled)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 1), forState: .Normal)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 0.7), forState: .Highlighted)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 0.4), forState: .Disabled)
     }
     
     // MARK:- Button Actions

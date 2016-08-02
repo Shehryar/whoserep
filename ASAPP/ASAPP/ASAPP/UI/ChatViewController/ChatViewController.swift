@@ -42,7 +42,9 @@ class ChatViewController: UIViewController {
         
         conversationManager.delegate = self
         
+        chatMessagesView.delegate = self
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
+        
         chatInputView.delegate = self
         chatInputView.layer.shadowColor = UIColor.blackColor().CGColor
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -58,6 +60,7 @@ class ChatViewController: UIViewController {
     
     deinit {
         keyboardObserver.delegate = nil
+        chatMessagesView.delegate = nil
         chatInputView.delegate = nil
         conversationManager.delegate = nil
         
@@ -140,6 +143,21 @@ extension ChatViewController: KeyboardObserverDelegate {
                 self.chatMessagesView.scrollToBottomAnimated(false)
             }
         }
+    }
+}
+
+// MARK:- ChatMessagesViewDelegate
+
+extension ChatViewController: ChatMessagesViewDelegate {
+    func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event) {
+        guard let image = imageView.image else {
+            return
+        }
+        
+        let imageViewerImage = ImageViewerImage(image: image)
+        let imageViewer = ImageViewer(withImages: [imageViewerImage], initialIndex: 0)
+        imageViewer.preparePresentationFromImageView(imageView)
+        presentViewController(imageViewer, animated: true, completion: nil)
     }
 }
 

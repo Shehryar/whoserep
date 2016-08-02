@@ -25,7 +25,7 @@ class ChatPictureMessageCell: ChatBubbleCell {
         }
     }
     
-    private let pictureImageView = FixedSizeImageView()
+    let pictureImageView = FixedSizeImageView()
     
     // MARK: Init
     

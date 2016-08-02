@@ -130,7 +130,7 @@ extension ImageViewerTransitionAnimator {
         transitioningImageView.contentMode = imageViewer.presentationImageContentMode
         transitioningImageView.image = imageViewer.presentationImage
         imageViewer.presentFromView?.hidden = true
-        imageViewer.accessoryViewsHidden = true
+        imageViewer.setAccessoryViewsHidden(true, animated: false)
         imageViewerView.hidden = true
         
         UIView.animateWithDuration(0.3, animations: {
@@ -207,7 +207,7 @@ extension ImageViewerTransitionAnimator {
         
         updateTransitioningImageViewForCurrentImage()
         transitioningImageView.hidden = false
-        imageViewerView.hidden = false
+        imageViewerView.hidden = true
         
         let contentMode = imageViewer.presentationImageContentMode
         let mustScaleToFit = contentMode == .ScaleAspectFit
@@ -417,8 +417,9 @@ extension ImageViewerTransitionAnimator {
         }
         
         presentingViewController.dismissViewControllerAnimated(true, completion: { [weak presentingViewController] in
-            // TODO: Is this necessary?
-            presentingViewController?.setNeedsStatusBarAppearanceUpdate()
+            UIView.animateWithDuration(0.3, animations: { 
+                presentingViewController?.setNeedsStatusBarAppearanceUpdate()
+            })
         })
     }
 }

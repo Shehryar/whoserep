@@ -8,11 +8,15 @@
 
 import UIKit
 
+protocol ChatMessagesViewDelegate {
+    func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
+}
+
 class ChatMessagesView: UIView {
     
     // MARK:- Public Properties
     
-    var credentials: Credentials
+    private(set) var credentials: Credentials
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
@@ -21,6 +25,8 @@ class ChatMessagesView: UIView {
             contentInset = newContentInset
         }
     }
+    
+    var delegate: ChatMessagesViewDelegate?
     
     // MARK:- Private Properties
     
@@ -231,6 +237,11 @@ extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         endEditing(true)
+        
+        if let pictureCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatPictureMessageCell,
+            let event = pictureCell.event {
+                delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
+        }
     }
 }
 

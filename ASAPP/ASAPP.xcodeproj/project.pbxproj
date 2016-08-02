@@ -62,6 +62,8 @@
 		30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB0B1D510A8F00795BA7 /* ImageViewerImageView.swift */; };
 		30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB0D1D510A9D00795BA7 /* ImageViewerImageViewController.swift */; };
 		30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */; };
+		30A4BB131D5139CC00795BA7 /* temp-icon-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A4BB111D5139CC00795BA7 /* temp-icon-x@2x.png */; };
+		30A4BB141D5139CC00795BA7 /* temp-icon-x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A4BB121D5139CC00795BA7 /* temp-icon-x@3x.png */; };
 		30AE79F71D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F61D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift */; };
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
@@ -110,6 +112,8 @@
 		30A4BB0B1D510A8F00795BA7 /* ImageViewerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerImageView.swift; sourceTree = "<group>"; };
 		30A4BB0D1D510A9D00795BA7 /* ImageViewerImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerImageViewController.swift; sourceTree = "<group>"; };
 		30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerImage.swift; sourceTree = "<group>"; };
+		30A4BB111D5139CC00795BA7 /* temp-icon-x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-x@2x.png"; sourceTree = "<group>"; };
+		30A4BB121D5139CC00795BA7 /* temp-icon-x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-x@3x.png"; sourceTree = "<group>"; };
 		30AE79F61D4BB42100651F09 /* ChatMessagesTimeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderView.swift; sourceTree = "<group>"; };
 		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				303FCB261D4FCDAD0023F2B1 /* test-image.jpg */,
 				30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */,
 				30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */,
+				30A4BB111D5139CC00795BA7 /* temp-icon-x@2x.png */,
+				30A4BB121D5139CC00795BA7 /* temp-icon-x@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -427,6 +433,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30A4BB131D5139CC00795BA7 /* temp-icon-x@2x.png in Resources */,
 				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
 				303FCB271D4FCDAD0023F2B1 /* test-image.jpg in Resources */,
@@ -434,6 +441,7 @@
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
+				30A4BB141D5139CC00795BA7 /* temp-icon-x@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

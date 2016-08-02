@@ -9,8 +9,12 @@
 import UIKit
 
 class Images: NSObject {
-    class func cameraIconDark(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+    class func paperclipIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         return imageWithName("temp-icon-paperclip", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func xIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("temp-icon-x", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
     class func testImage(withAlpha alpha: CGFloat = 1) -> UIImage? {
