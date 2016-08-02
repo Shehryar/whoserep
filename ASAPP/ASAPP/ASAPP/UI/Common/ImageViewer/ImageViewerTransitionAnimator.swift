@@ -67,31 +67,33 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
             imageViewer = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? ImageViewer
             imageViewerView = transitionContext.viewForKey(UITransitionContextToViewKey) ?? imageViewer?.view
             containerView = transitionContext.containerView()
+        
+            
+            guard let containerView = containerView else {
+                DebugLogError("Missing containerView in ImageViewTransitionAnimator")
+                return
+            }
+            
+            guard let imageViewerView = imageViewerView else {
+                DebugLogError("Missing imageViewerView in ImageViewTransitionAnimator")
+                return
+            }
+            
+            imageViewerView.hidden = true
+            if let presentFromView = imageViewer?.presentFromView {
+                animateFromFrame = presentFromView.superview?.convertRect(presentFromView.frame, toView: containerView)
+            } else {
+                animateFromFrame = CGRectZero
+            }
+            
+            maskView.frame = containerView.bounds
+            containerView.addSubview(maskView)
+            containerView.addSubview(imageViewerView)
+            containerView.addSubview(transitioningImageView)
+            containerView.addGestureRecognizer(panGesture)
+            
         }
-        
-        guard let containerView = containerView else {
-            DebugLogError("Missing containerView in ImageViewTransitionAnimator")
-            return
-        }
-        
-        guard let imageViewerView = imageViewerView else {
-            DebugLogError("Missing imageViewerView in ImageViewTransitionAnimator")
-            return
-        }
-        
-        imageViewerView.hidden = true
-        if let presentFromView = imageViewer?.presentFromView {
-            animateFromFrame = presentFromView.superview?.convertRect(presentFromView.frame, toView: containerView)
-        } else {
-            animateFromFrame = CGRectZero
-        }
-        
-        maskView.frame = containerView.bounds
-        containerView.addSubview(maskView)
-        containerView.addSubview(imageViewerView)
-        containerView.addSubview(transitioningImageView)
-        containerView.addGestureRecognizer(panGesture)
-        
+    
         if isPresenting {
             performPresentationAnimation(transitionContext)
         } else {
