@@ -17,7 +17,22 @@ class ChatsListViewController: UIViewController {
         case TwoWayChats = 2
     }
     
+    enum ChatStyle {
+        case Light
+        case Dark
+    }
+    
     // MARK:- Properties
+    
+    var defaultChatStyle = ChatStyle.Light {
+        didSet {
+            if oldValue != defaultChatStyle {
+                updateToggleButtonTitle()
+            }
+        }
+    }
+    
+    var toggleButtonItem: UIBarButtonItem?
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
@@ -42,6 +57,10 @@ class ChatsListViewController: UIViewController {
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.dataSource = self
         tableView.delegate = self
+        
+        toggleButtonItem = UIBarButtonItem(title: "Toggle Button", style: .Plain, target: self, action: #selector(ChatsListViewController.didToggleDefaultStyle))
+        updateToggleButtonTitle()
+        navigationItem.rightBarButtonItem = toggleButtonItem
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -74,6 +93,32 @@ class ChatsListViewController: UIViewController {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    // MARK:- Toggling Styles
+    
+    func didToggleDefaultStyle() {
+        switch defaultChatStyle {
+        case .Light:
+            self.defaultChatStyle = .Dark
+            break
+            
+        case .Dark:
+            self.defaultChatStyle = .Light
+            break
+        }
+    }
+    
+    func updateToggleButtonTitle() {
+        switch defaultChatStyle {
+        case .Light:
+            toggleButtonItem?.title = "Default Style: Light"
+            break
+            
+        case .Dark:
+            toggleButtonItem?.title = "Default Style: Dark"
+            break
+        }
     }
 }
 
@@ -168,7 +213,17 @@ extension ChatsListViewController: UITableViewDelegate {
         }
         
         if let chatCredentials = chatCredentials {
-            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: nil)
+            var styles: ASAPPStyles
+            switch defaultChatStyle {
+            case .Light:
+                styles = ASAPPStyles()
+                break
+                
+            case .Dark:
+                styles = ASAPPStyles.darkStyles()
+                break
+            }
+            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: styles)
             chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)
         }
