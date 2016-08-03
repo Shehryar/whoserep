@@ -46,11 +46,17 @@ class ChatPictureMessageCell: ChatBubbleCell {
         setNeedsUpdateConstraints()
     }
     
+    // MARK: Styles
+    
+    override func updateFontsAndColors() {
+        super.updateFontsAndColors()
+        
+        pictureImageView.backgroundColor = styles.backgroundColor2
+    }
+    
     // MARK: Layout
     
     override func updateConstraints() {
-        
-        
         guard maxMessageWidth > 0 else { return }
         
         var aspectRatio: Double = 1.0

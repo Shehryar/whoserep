@@ -33,28 +33,8 @@ class TwoWayChatViewController: UIViewController {
             rightChatCredentials.targetCustomerToken == leftChatCredentials.userToken , "Target customer token must be the user token of the other party")
         
         
-        let leftChatStyles = ASAPPStyles()
-        leftChatStyles.messageFont = UIFont.italicSystemFontOfSize(22)
-        leftChatStyles.subheadFont = UIFont.boldSystemFontOfSize(50 )
-        leftChatStyles.backgroundColor1 = UIColor.blueColor()
-        leftChatStyles.foregroundColor1 = UIColor.orangeColor()
-        leftChatStyles.foregroundColor2 = UIColor.brownColor()
-        leftChatStyles.messageFillColor = UIColor.redColor()
-        leftChatStyles.messageStrokeColor = UIColor.yellowColor()
-        leftChatStyles.messageTextColor = UIColor.yellowColor()
-        leftChatStyles.replyMessageFillColor = UIColor.yellowColor()
-        leftChatStyles.replyMessageTextColor = UIColor.redColor()
-        leftChatStyles.replyMessageStrokeColor = UIColor.redColor()
+        let leftChatStyles = ASAPPStyles.darkStyles()
         
-        leftChatStyles.inputBackgroundColor = UIColor.darkGrayColor()
-        leftChatStyles.inputBorderTopColor = UIColor.greenColor()
-        leftChatStyles.inputTintColor = UIColor.purpleColor()
-        leftChatStyles.inputPlaceholderColor = UIColor.yellowColor()
-        leftChatStyles.inputTextColor = UIColor.redColor()
-        leftChatStyles.inputFont = UIFont.boldSystemFontOfSize(24)
-        leftChatStyles.inputSendButtonFont = UIFont.boldSystemFontOfSize(18)
-        leftChatStyles.inputSendButtonColor = UIColor.orangeColor()
-        leftChatStyles.inputImageButtonColor = UIColor.brownColor()
 
         
         self.leftChatCredentials = leftChatCredentials

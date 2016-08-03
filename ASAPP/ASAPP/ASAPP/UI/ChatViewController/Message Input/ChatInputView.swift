@@ -104,7 +104,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         
         // Send Button
         
-        sendButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        sendButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         applySendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 13),
                              color: Colors.mediumTextColor())
         sendButton.addTarget(self,
