@@ -22,8 +22,14 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Colors - Messages
     
-    public var chatBackgroundColor: UIColor = Colors.whiteColor()
+    public var backgroundColor1: UIColor = Colors.whiteColor()
     
+    public var backgroundColor2: UIColor = Colors.lighterGrayColor()
+    
+    public var foregroundColor1: UIColor = Colors.darkTextColor()
+    
+    public var foregroundColor2: UIColor = Colors.mediumTextColor()
+        
     public var messageFillColor: UIColor = Colors.whiteColor()
     
     public var messageStrokeColor: UIColor? = Colors.lightGrayColor()

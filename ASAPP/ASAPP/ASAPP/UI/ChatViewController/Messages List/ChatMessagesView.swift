@@ -12,7 +12,7 @@ protocol ChatMessagesViewDelegate {
     func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
 }
 
-class ChatMessagesView: UIView {
+class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- Public Properties
     
@@ -76,8 +76,6 @@ class ChatMessagesView: UIView {
         tableView.estimatedSectionHeaderHeight = 30
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-//        tableView.rowHeight = 100.0
-//        tableView.sectionHeaderHeight = 30.0
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
@@ -96,6 +94,19 @@ class ChatMessagesView: UIView {
     deinit {
         tableView.dataSource = nil
         tableView.delegate = nil
+    }
+    
+    // MARK:- ASAPPStyleable
+    
+    var styles: ASAPPStyles = ASAPPStyles()
+    
+    func applyStyles(styles: ASAPPStyles) {
+        self.styles = styles
+        
+        backgroundColor = styles.backgroundColor1
+        tableView.backgroundColor = styles.backgroundColor1
+        
+        tableView.reloadData()
     }
 }
 
@@ -163,7 +174,7 @@ extension ChatMessagesView: UITableViewDataSource {
         if headerView == nil {
             headerView = ChatMessagesTimeHeaderView(reuseIdentifier: HeaderViewReuseId)
         }
-        
+        headerView?.applyStyles(styles)
         headerView?.timeStampInSeconds = dataSource.timeStampInSecondsForSection(section)
         
         return headerView
@@ -177,11 +188,12 @@ extension ChatMessagesView: UITableViewDataSource {
         if event == nil {
             if shouldShowTypingPreview {
                 if let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell {
-                    cell.previewText = otherParticipantTypingPreview
+                    cell.messageText = otherParticipantTypingPreview
+                    cell.applyStyles(styles, isReply: true)
                     return cell
                 }
             } else if let cell = tableView.dequeueReusableCellWithIdentifier(TypingStatusCellReuseId) as? ChatTypingIndicatorCell {
-                cell.isReply = true
+                cell.applyStyles(styles, isReply: true)
                 cell.bubbleStyling = .Default
                 return cell
             }
@@ -190,14 +202,14 @@ extension ChatMessagesView: UITableViewDataSource {
         
         if event?.eventType == .PictureMessage {
             if let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell {
-                cell.isReply = messageEventIsReply(event) ?? false
+                cell.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
                 cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
                 cell.event = event
                 return cell
             }
         } else if let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell {
-            cell.event = event
-            cell.isReply = messageEventIsReply(event) ?? false
+            cell.messageText = event?.textMessage?.text
+            cell.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
             cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
             return cell
         }

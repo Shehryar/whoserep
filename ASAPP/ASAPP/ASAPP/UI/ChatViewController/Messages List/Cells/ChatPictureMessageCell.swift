@@ -31,20 +31,16 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     override func commonInit() {
         super.commonInit()
-
-        ignoresReplyBubbleStyling = true
         
         pictureImageView.translatesAutoresizingMaskIntoConstraints = false
         pictureImageView.image = Images.testImage()
         pictureImageView.contentMode = .ScaleAspectFill
-        pictureImageView.backgroundColor = Colors.lightGrayColor()
+        pictureImageView.backgroundColor = Colors.lightGrayColor().colorWithAlphaComponent(0.5)
         pictureImageView.opaque = true
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.clipsToBubblePath = true
-        bubbleView.strokeColor = Colors.bluishGray()
-        bubbleView.fillColor = Colors.lightGrayColor()
         bubbleView.addSubview(pictureImageView)
         
         setNeedsUpdateConstraints()
@@ -81,6 +77,6 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        pictureImageView.image = nil
+        pictureImageView.image = nil
     }
 }

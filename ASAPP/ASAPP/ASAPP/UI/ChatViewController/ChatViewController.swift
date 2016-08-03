@@ -49,6 +49,7 @@ class ChatViewController: UIViewController {
         conversationManager.delegate = self
         
         chatMessagesView.delegate = self
+        chatMessagesView.applyStyles(self.styles)
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         
         chatInputView.delegate = self

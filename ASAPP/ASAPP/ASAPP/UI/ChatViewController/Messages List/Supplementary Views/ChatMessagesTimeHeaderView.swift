@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
+class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     
     var contentInset: UIEdgeInsets = UIEdgeInsetsMake(8, 16, 8, 16)
     
@@ -81,5 +81,18 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         }
         
         super.updateConstraints()
+    }
+    
+    // MARK:- ASAPPStyleable
+    
+    var styles: ASAPPStyles = ASAPPStyles()
+    
+    func applyStyles(styles: ASAPPStyles) {
+        self.styles = styles
+        
+        contentView.backgroundColor = styles.backgroundColor1
+        timeLabel.backgroundColor = styles.backgroundColor1
+        timeLabel.font = styles.subheadFont
+        timeLabel.textColor = styles.foregroundColor2
     }
 }
