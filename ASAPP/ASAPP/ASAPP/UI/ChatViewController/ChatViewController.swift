@@ -81,7 +81,7 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = styles.backgroundColor1
         
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)

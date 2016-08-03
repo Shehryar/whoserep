@@ -35,7 +35,7 @@ class TwoWayChatViewController: UIViewController {
         
         let leftChatStyles = ASAPPStyles()
         leftChatStyles.messageFont = UIFont.italicSystemFontOfSize(22)
-        leftChatStyles.subheadFont = UIFont.boldSystemFontOfSize(50)
+        leftChatStyles.subheadFont = UIFont.boldSystemFontOfSize(50 )
         leftChatStyles.backgroundColor1 = UIColor.blueColor()
         leftChatStyles.foregroundColor1 = UIColor.orangeColor()
         leftChatStyles.foregroundColor2 = UIColor.brownColor()
