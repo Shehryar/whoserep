@@ -14,7 +14,9 @@ public class ASAPPStyles: NSObject {
     
     public var messageFont: UIFont = Fonts.latoRegularFont(withSize: 16)
     
-    public var subheadFont: UIFont = Fonts.latoBoldFont(withSize: 12)
+    public var subheadFont: UIFont = Fonts.latoBoldFont(withSize: 14)
+    
+    public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
     
     public var inputFont: UIFont = Fonts.latoRegularFont(withSize: 16)
     
@@ -69,6 +71,7 @@ public class ASAPPStyles: NSObject {
         let styles = ASAPPStyles()
         styles.messageFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
         styles.subheadFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
+        styles.detailFont = UIFont(name: "Avenir-Black", size: 12) ?? UIFont.boldSystemFontOfSize(12)
         styles.inputFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
         styles.inputSendButtonFont = UIFont(name: "Avenir-Black", size: 14) ??  UIFont.boldSystemFontOfSize(13)
         

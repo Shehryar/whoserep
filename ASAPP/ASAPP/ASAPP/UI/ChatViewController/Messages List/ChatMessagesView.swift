@@ -45,7 +45,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
     
-    private var dataSource = ChatMessagesViewDataSource()
+    private var dataSource: ChatMessagesViewDataSource
     
     private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
@@ -56,11 +56,20 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
     private let TypingStatusCellReuseId = "TypingStatusCellReuseId"
+    private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK:- Initialization
     
     required init(withCredentials credentials: Credentials) {
         self.credentials = credentials
+        var allowedEventTypes: Set<EventType>
+        if self.credentials.isCustomer {
+            allowedEventTypes = [.TextMessage, .PictureMessage]
+        } else {
+            allowedEventTypes = [.TextMessage, .PictureMessage, .NewIssue, .NewRep, .CRMCustomerLinked]
+        }
+        self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
+        
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor.whiteColor()
@@ -82,6 +91,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingStatusCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
+        tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -181,37 +191,64 @@ extension ChatMessagesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let event = dataSource.eventForIndexPath(indexPath)
-        
-        // Typing-Cell
-        if event == nil {
+        guard let event = dataSource.eventForIndexPath(indexPath) else {
+            // Typing Preview
             if shouldShowTypingPreview {
-                if let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell {
-                    cell.messageText = otherParticipantTypingPreview
-                    cell.applyStyles(styles, isReply: true)
-                    return cell
-                }
-            } else if let cell = tableView.dequeueReusableCellWithIdentifier(TypingStatusCellReuseId) as? ChatTypingIndicatorCell {
-                cell.applyStyles(styles, isReply: true)
-                cell.bubbleStyling = .Default
-                return cell
+                let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell
+                cell?.messageText = otherParticipantTypingPreview
+                cell?.applyStyles(styles, isReply: true)
+                return cell ?? UITableViewCell()
             }
-            return UITableViewCell()
+            
+            // Typing Status
+            let cell = tableView.dequeueReusableCellWithIdentifier(TypingStatusCellReuseId) as? ChatTypingIndicatorCell
+            cell?.applyStyles(styles, isReply: true)
+            cell?.bubbleStyling = .Default
+            return cell ?? UITableViewCell()
         }
         
-        if event?.eventType == .PictureMessage {
-            if let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell {
-                cell.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
-                cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
-                cell.event = event
-                return cell
+        // Picture Message
+        if event.eventType == .PictureMessage {
+            let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell
+            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
+            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
+            cell?.event = event
+            return cell ?? UITableViewCell()
+            
+        }
+        
+        // Text Message
+        if event.eventType == .TextMessage {
+            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
+            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
+            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
+            cell?.messageText = event.textMessage?.text
+            return cell ?? UITableViewCell()
+        }
+        
+        // Info Cell
+        if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
+            let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
+            cell?.applyStyles(styles)
+            
+            switch event.eventType {
+            case .CRMCustomerLinked:
+                cell?.infoText = "Customer Linked"
+                break
+                
+            case .NewIssue:
+                cell?.infoText = "New Issue: \(event.newIssue?.issueId ?? 0)"
+                break
+                
+            case .NewRep:
+                cell?.infoText = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))"
+                break
+                
+            default:  // Other cases not handled
+                break
             }
-        } else if let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell {
-            cell.messageText = event?.textMessage?.text
-            cell.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
-            cell.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
-            return cell
+            
+            return cell ?? UITableViewCell()
         }
         
         return UITableViewCell()
