@@ -56,8 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */,
 				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
+				303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
 			);
@@ -334,6 +334,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/**",
 				);
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
