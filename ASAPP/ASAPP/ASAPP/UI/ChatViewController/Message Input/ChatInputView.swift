@@ -15,7 +15,7 @@ protocol ChatInputViewDelegate {
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
 }
 
-class ChatInputView: UIView {
+class ChatInputView: UIView, ASAPPStyleable {
 
     // MARK: Public Properties
     
@@ -29,7 +29,7 @@ class ChatInputView: UIView {
     
     // MARK: Properties: Data
     
-    let inputMinHeight: CGFloat = 36
+    var inputMinHeight: CGFloat = 36
     let inputMaxHeight: CGFloat = 150
     let mediaButtonWidth: CGFloat = 44
     var inputHeight: CGFloat = 0
@@ -58,31 +58,13 @@ class ChatInputView: UIView {
     func commonInit() {
         backgroundColor = Colors.whiteColor()
         translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
         
         borderTopView.backgroundColor = Colors.lighterGrayColor()
         addSubview(borderTopView)
         
-        styleTextView()
-        textView.delegate = self
-        addSubview(textView)
-        addSubview(placeholderTextView)
+        // Text View
         
-        styleMediaButton()
-        mediaButton.addTarget(self, action: #selector(ChatInputView.didTapMediaButton), forControlEvents: .TouchUpInside)
-        addSubview(mediaButton)
-        
-        styleSendButton()
-        updateSendButtonForCurrentState()
-        addSubview(sendButton)
-    }
-    
-    deinit {
-        textView.delegate = nil
-    }
-    
-    // MARK:- Appearance
-    
-    func styleTextView() {
         textView.backgroundColor = UIColor.whiteColor()
         textView.tintColor = Colors.grayColor()
         textView.font = Fonts.latoRegularFont(withSize: 16)
@@ -90,8 +72,9 @@ class ChatInputView: UIView {
         textView.bounces = false
         textView.scrollEnabled = false
         textView.scrollsToTop = false
+        textView.clipsToBounds = false
         textView.textContainer.lineFragmentPadding = 0
-
+        textView.delegate = self
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
@@ -103,30 +86,42 @@ class ChatInputView: UIView {
         placeholderTextView.scrollsToTop = false
         placeholderTextView.scrollEnabled = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
+        textView.delegate = self
+        addSubview(textView)
+        addSubview(placeholderTextView)
+        
+        // Media Button
+        
+        let imageSize: CGFloat = 20
+        let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
+        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+        mediaButton.imageView?.contentMode = .ScaleAspectFit
+        applyMediaButtonColor(Colors.mediumTextColor())
+        mediaButton.addTarget(self,
+                              action: #selector(ChatInputView.didTapMediaButton),
+                              forControlEvents: .TouchUpInside)
+        addSubview(mediaButton)
+        
+        // Send Button
+        
+        sendButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        applySendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 13),
+                             color: Colors.mediumTextColor())
+        sendButton.addTarget(self,
+                             action: #selector(ChatInputView.didTapSendButton(_:)),
+                             forControlEvents: .TouchUpInside)
+        addSubview(sendButton)
+        
+        updateSendButtonForCurrentState()
+        
+        setNeedsUpdateConstraints()
     }
     
-    func styleSendButton() {
-        let normalAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : Colors.mediumTextColor(),
-            NSFontAttributeName : Fonts.latoBlackFont(withSize: 13)
-        ]
-        let highlightedAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : Colors.mediumTextColor().colorWithAlphaComponent(0.7),
-            NSFontAttributeName : Fonts.latoBlackFont(withSize: 13)
-        ]
-        let disabledAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : Colors.mediumTextColor().colorWithAlphaComponent(0.4),
-            NSFontAttributeName : Fonts.latoBlackFont(withSize: 13)
-        ]
-        let buttonTitle = "SEND" // TODO: Localization
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), forState: .Normal)
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), forState: .Highlighted)
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), forState: .Disabled)
-        sendButton.addTarget(self, action: #selector(ChatInputView.didTapSendButton(_:)), forControlEvents: .TouchUpInside)
+    deinit {
+        textView.delegate = nil
     }
+    
+    // MARK:- Appearance
     
     func updateSendButtonForCurrentState() {
         if textView.text.isEmpty {
@@ -143,16 +138,34 @@ class ChatInputView: UIView {
         mediaButton.enabled = canSendMessage
     }
     
-    func styleMediaButton() {
-        mediaButton.imageView?.contentMode = .ScaleAspectFit
-        
-        let imageSize: CGFloat = 20
-        let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
-        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-        
-        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 1), forState: .Normal)
-        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 0.7), forState: .Highlighted)
-        mediaButton.setImage(Images.paperclipIcon(fillColor: Colors.mediumTextColor(), alpha: 0.4), forState: .Disabled)
+    // MARK:- Button Colors
+    
+    func applySendButtonStyle(withFont font: UIFont, color: UIColor) {
+        let normalAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color,
+            NSFontAttributeName : font
+        ]
+        let highlightedAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color.colorWithAlphaComponent(0.7),
+            NSFontAttributeName : font
+        ]
+        let disabledAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color.colorWithAlphaComponent(0.4),
+            NSFontAttributeName : font
+        ]
+        let buttonTitle = "SEND" // TODO: Localization
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), forState: .Normal)
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), forState: .Highlighted)
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), forState: .Disabled)
+    }
+    
+    func applyMediaButtonColor(color: UIColor) {
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 1), forState: .Normal)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.7), forState: .Highlighted)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.4), forState: .Disabled)
     }
     
     // MARK:- Button Actions
@@ -165,6 +178,35 @@ class ChatInputView: UIView {
     
     func didTapMediaButton() {
         delegate?.chatInputView(self, didTapMediaButton: mediaButton)
+    }
+    
+    // MARK:- ASAPPStyleable
+    
+    var styles: ASAPPStyles = ASAPPStyles()
+    
+    func applyStyles(styles: ASAPPStyles) {
+        self.styles = styles
+        
+        backgroundColor = styles.inputBackgroundColor
+        textView.backgroundColor = backgroundColor
+        borderTopView.backgroundColor = styles.inputBorderTopColor
+        
+        textView.font = styles.inputFont
+        textView.tintColor = styles.inputTintColor
+        textView.textColor = styles.inputTextColor
+        placeholderTextView.font = textView.font
+        placeholderTextView.textColor = styles.inputPlaceholderColor
+        
+        applySendButtonStyle(withFont: styles.inputSendButtonFont, color: styles.inputSendButtonColor)
+        applyMediaButtonColor(styles.inputImageButtonColor)
+        
+        let textViewText = textView.text
+        textView.text = nil
+        resizeIfNeeded(false)
+        inputMinHeight = inputHeight
+        textView.text = textViewText
+        
+        setNeedsUpdateConstraints()
     }
 }
 
@@ -182,7 +224,7 @@ extension ChatInputView {
         textView.snp_remakeConstraints { (make) in
             make.top.equalTo(self.snp_top).offset(8)
             make.left.equalTo(self.snp_left).offset(16)
-            make.right.equalTo(sendButton.snp_left).offset(-8)
+            make.right.equalTo(sendButton.snp_left).offset(-8 + sendButton.titleEdgeInsets.left)
             make.bottom.equalTo(mediaButton.snp_bottom)
             make.width.greaterThanOrEqualTo(1)
             make.height.equalTo(inputHeight)
@@ -199,13 +241,15 @@ extension ChatInputView {
             make.width.equalTo(mediaButtonWidth)
         }
         
+        let sendButtonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
+        
         sendButton.snp_remakeConstraints { (make) in
             make.bottom.equalTo(mediaButton.snp_bottom)
-            make.right.equalTo(self.snp_right).offset(-16)
+            make.right.equalTo(self.snp_right).offset(-16 + sendButton.titleEdgeInsets.right)
             make.height.equalTo(inputMinHeight)
-            make.width.equalTo(40)
+            make.width.equalTo(sendButtonWidth)
         }
-        
+    
         super.updateConstraints()
     }
 }
@@ -214,12 +258,12 @@ extension ChatInputView {
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
-        resizeIfNeeded()
+        resizeIfNeeded(true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
     
-    func resizeIfNeeded() {
+    func resizeIfNeeded(animated: Bool) {
         var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
         if height < inputMinHeight {
             height = inputMinHeight
@@ -238,8 +282,12 @@ extension ChatInputView: UITextViewDelegate {
             
             setNeedsUpdateConstraints()
             updateConstraintsIfNeeded()
-            UIView.animateWithDuration(0.2) {
-                self.layoutIfNeeded()
+            if animated {
+                UIView.animateWithDuration(0.2) {
+                    self.layoutIfNeeded()
+                }
+            } else {
+                layoutIfNeeded()
             }
             
             delegate?.chatInputViewDidChangeContentSize(self)
@@ -252,7 +300,7 @@ extension ChatInputView: UITextViewDelegate {
 extension ChatInputView {
     func clear() {
         textView.text = ""
-        resizeIfNeeded()
+        resizeIfNeeded(false)
         updateSendButtonForCurrentState()
         
         delegate?.chatInputView(self, didTypeMessageText: nil)

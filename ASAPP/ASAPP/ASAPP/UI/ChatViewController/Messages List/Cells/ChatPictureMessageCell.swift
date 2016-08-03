@@ -61,8 +61,7 @@ class ChatPictureMessageCell: ChatBubbleCell {
         if let pictureMessage = event?.pictureMessage {
             aspectRatio = pictureMessage.aspectRatio
         }
-        let bubbleHeight = max(maxMessageWidth, floor(maxMessageWidth / CGFloat(aspectRatio)))
- 
+        
         bubbleView.snp_updateConstraints { (make) in
             make.right.equalTo(pictureImageView.snp_right)
             make.bottom.equalTo(pictureImageView.snp_bottom)

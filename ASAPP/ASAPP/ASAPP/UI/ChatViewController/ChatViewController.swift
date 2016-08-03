@@ -10,9 +10,14 @@ import UIKit
 
 class ChatViewController: UIViewController {
     
-    // MARK: Properties: Data
+    // MARK: Public Properties
     
     private(set) var credentials: Credentials
+    
+    private(set) var styles: ASAPPStyles
+    
+    // MARK: Private Properties
+    
     private var conversationManager: ConversationManager
     
     private var keyboardObserver = KeyboardObserver()
@@ -25,16 +30,15 @@ class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: Properties: UI
-    
     private var chatMessagesView: ChatMessagesView
     private var chatInputView = ChatInputView()
     private var isInitialLayout = true
     
     // MARK:- Initialization
     
-    init(withCredentials credentials: Credentials) {
+    init(withCredentials credentials: Credentials, styles: ASAPPStyles?) {
         self.credentials = credentials
+        self.styles = styles ?? ASAPPStyles()
         self.conversationManager = ConversationManager(withCredentials: credentials)
         self.chatMessagesView = ChatMessagesView(withCredentials: credentials)
         
@@ -48,6 +52,7 @@ class ChatViewController: UIViewController {
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         
         chatInputView.delegate = self
+        chatInputView.applyStyles(self.styles)
         chatInputView.layer.shadowColor = UIColor.blackColor().CGColor
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
         chatInputView.layer.shadowRadius = 2
@@ -81,7 +86,6 @@ class ChatViewController: UIViewController {
         view.addSubview(chatInputView)
         
         view.setNeedsUpdateConstraints()
-        view.updateFocusIfNeeded()
         
         conversationManager.enterConversation()
     }
@@ -103,8 +107,9 @@ extension ChatViewController {
     override func updateViewConstraints() {
         chatInputView.snp_updateConstraints { (make) in
             make.bottom.equalTo(self.view.snp_bottom).offset(-keyboardOffset)
-            make.leading.equalTo(self.view.snp_leading)
-            make.trailing.equalTo(self.view.snp_trailing)
+            make.left.equalTo(self.view.snp_left)
+            make.width.equalTo(self.view.snp_width)
+            make.right.equalTo(self.view.snp_right)
         }
         
         chatMessagesView.snp_updateConstraints { (make) in
