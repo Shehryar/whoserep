@@ -51,6 +51,8 @@ class ChatPictureMessageCell: ChatBubbleCell {
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
         
+        bubbleView.strokeColor = nil
+        bubbleView.fillColor = styles.backgroundColor2
         pictureImageView.backgroundColor = styles.backgroundColor2
     }
     
