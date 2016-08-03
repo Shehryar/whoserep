@@ -45,11 +45,10 @@ class ImageViewer: UIViewController {
     
     // MARK: Properties: Private
     
-    private var shouldOverrideStatusBar = false {
+    /// Should be updated by the ImageViewerTransitionAnimator
+    var shouldOverrideStatusBar = false {
         didSet {
-            UIView.animateWithDuration(0.3) { 
-                self.setNeedsStatusBarAppearanceUpdate()
-            }
+            setNeedsStatusBarAppearanceUpdate()
         }
     }
     
@@ -111,16 +110,6 @@ class ImageViewer: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        shouldOverrideStatusBar = true
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        shouldOverrideStatusBar = false
-    }
-    
     // MARK: Layout
     
     override func viewDidLayoutSubviews() {
@@ -146,7 +135,7 @@ extension ImageViewer {
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Fade
+        return .None
     }
 }
 

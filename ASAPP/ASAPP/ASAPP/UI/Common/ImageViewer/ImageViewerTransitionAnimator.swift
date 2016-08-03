@@ -158,6 +158,8 @@ extension ImageViewerTransitionAnimator {
                 self.transitioningImageView.hidden = true
                 
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                
+                imageViewer.shouldOverrideStatusBar = true
         }
     }
     
@@ -179,6 +181,8 @@ extension ImageViewerTransitionAnimator {
                     }, completion: { (completed) in
                         self.imageViewer?.setAccessoryViewsHidden(false, animated: true)
                         transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                        
+                        self.imageViewer?.shouldOverrideStatusBar = true
                 })
         }
     }
@@ -188,6 +192,8 @@ extension ImageViewerTransitionAnimator {
 
 extension ImageViewerTransitionAnimator {
     func performDismissalAnimation(transitionContext: UIViewControllerContextTransitioning) {
+        self.imageViewer?.shouldOverrideStatusBar = false
+        
         if imageViewer?.presentFromView != nil && imageViewer?.presentationImage != nil {
             if imageViewer?.initialIndex == imageViewer?.currentIndex {
                 performDismissToImageViewAnimation(transitionContext)
@@ -383,10 +389,12 @@ extension ImageViewerTransitionAnimator {
         
         if panGesture.state == .Began {
             panStart = location
+            imageViewer.shouldOverrideStatusBar = false
             imageViewer.presentFromView?.hidden = imageViewer.initialIndex == imageViewer.currentIndex
             imageViewerView.hidden = true
             updateTransitioningImageViewForCurrentImage()
             transitioningImageView.hidden = false
+
         }
         
         guard let panStart = panStart else {
@@ -406,6 +414,7 @@ extension ImageViewerTransitionAnimator {
                     }, completion: { (completed) in
                         imageViewerView.hidden = false
                         self.transitioningImageView.hidden = true
+                        imageViewer.shouldOverrideStatusBar = true
                 })
             }
         } else {
