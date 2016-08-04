@@ -1,0 +1,10 @@
+framework module ASAPP {
+  umbrella header "ASAPP.h"
+
+  export *
+  module * { export * }
+}
+
+module ASAPP.Swift {
+    header "ASAPP-Swift.h"
+}

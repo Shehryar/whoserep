@@ -12,6 +12,8 @@
 		304C47381D539C9800FD236D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 304C47371D539C9800FD236D /* ViewController.m */; };
 		304C473D1D539C9800FD236D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 304C473C1D539C9800FD236D /* Assets.xcassets */; };
 		304C47401D539C9800FD236D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 304C473E1D539C9800FD236D /* LaunchScreen.storyboard */; };
+		304C47771D53C73900FD236D /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304C47751D53C70600FD236D /* ASAPP.framework */; };
+		304C47781D53C73900FD236D /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304C47751D53C70600FD236D /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,6 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				304C47781D53C73900FD236D /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +40,7 @@
 		304C473C1D539C9800FD236D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		304C473F1D539C9800FD236D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		304C47411D539C9800FD236D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		304C47751D53C70600FD236D /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ASAPP.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				304C47771D53C73900FD236D /* ASAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +74,7 @@
 		304C472F1D539C9800FD236D /* ASAPPTestObjC */ = {
 			isa = PBXGroup;
 			children = (
+				304C47751D53C70600FD236D /* ASAPP.framework */,
 				304C47331D539C9800FD236D /* AppDelegate.h */,
 				304C47341D539C9800FD236D /* AppDelegate.m */,
 				304C47361D539C9800FD236D /* ViewController.h */,
