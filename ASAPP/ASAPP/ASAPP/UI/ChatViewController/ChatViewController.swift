@@ -127,7 +127,9 @@ extension ChatViewController {
         super.viewDidLayoutSubviews()
         
         if let navigationBar = navigationController?.navigationBar {
-            chatMessagesView.contentInsetTop = CGRectGetMaxY(navigationBar.frame)
+            if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
+                chatMessagesView.contentInsetTop = CGRectGetHeight(CGRectIntersection(navBarFrame, chatMessagesView.frame))
+            }
         }
         
         if isInitialLayout {
