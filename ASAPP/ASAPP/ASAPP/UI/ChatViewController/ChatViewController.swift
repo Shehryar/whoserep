@@ -147,9 +147,10 @@ extension ChatViewController: KeyboardObserverDelegate {
         let keyboardWasHidden = keyboardOffset <= 0
         keyboardOffset = height
         
+        let wasNearBottom = chatMessagesView.isNearBottom()
         UIView.animateWithDuration(duration) {
             self.view.layoutIfNeeded()
-            if keyboardWasHidden && height > 0{
+            if wasNearBottom && keyboardWasHidden && height > 0 {
                 self.chatMessagesView.scrollToBottomAnimated(false)
             }
         }

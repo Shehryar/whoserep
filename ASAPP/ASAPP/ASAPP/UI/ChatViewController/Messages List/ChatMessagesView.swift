@@ -31,7 +31,8 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     // MARK:- Private Properties
     
     private var shouldShowTypingPreview: Bool {
-        return !credentials.isCustomer && otherParticipantTypingPreview != nil
+        return false
+//        return !credentials.isCustomer && otherParticipantTypingPreview != nil
     }
     
     private var otherParticipantIsTyping: Bool = false

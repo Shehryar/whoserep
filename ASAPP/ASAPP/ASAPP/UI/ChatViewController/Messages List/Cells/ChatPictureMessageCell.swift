@@ -33,7 +33,6 @@ class ChatPictureMessageCell: ChatBubbleCell {
         super.commonInit()
         
         pictureImageView.translatesAutoresizingMaskIntoConstraints = false
-        pictureImageView.image = Images.testImage()
         pictureImageView.contentMode = .ScaleAspectFill
         pictureImageView.backgroundColor = Colors.lightGrayColor().colorWithAlphaComponent(0.5)
         pictureImageView.opaque = true

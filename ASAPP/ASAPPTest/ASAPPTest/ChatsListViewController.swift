@@ -34,6 +34,8 @@ class ChatsListViewController: UIViewController {
     
     var toggleButtonItem: UIBarButtonItem?
     
+    let chatButton1 = ASAPPButton()
+    
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
     let defaultCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil)
@@ -53,6 +55,10 @@ class ChatsListViewController: UIViewController {
     func commonInit() {
         title = "Test Chats"
         automaticallyAdjustsScrollViewInsets = true
+        
+        chatButton1.presentingViewController = self
+        chatButton1.credentials = defaultCustomerChatCredentials
+        chatButton1.hideUntilAnimateInIsCalled()
         
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.dataSource = self
@@ -87,6 +93,28 @@ class ChatsListViewController: UIViewController {
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
+        view.addSubview(chatButton1)
+        
+        view.setNeedsUpdateConstraints()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        chatButton1.animateIn(afterDelay: 1)
+    }
+    
+    // MARK:- Layout
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        chatButton1.snp_updateConstraints { (make) in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+            make.right.equalTo(view.snp_right).offset(-15)
+            make.bottom.equalTo(view.snp_bottom).offset(-15)
+        }
     }
     
     // MARK:- Status Bar

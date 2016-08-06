@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
-		303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303FCB211D4F94170023F2B1 /* ASAPP.framework */; };
-		303FCB231D4F94170023F2B1 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 303FCB211D4F94170023F2B1 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30593EB51D551E5000145DA7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30593EB41D551E5000145DA7 /* ASAPP.framework */; };
+		30593EB61D551E5000145DA7 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30593EB41D551E5000145DA7 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
@@ -20,13 +20,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		28580A3C1D4C417F005C91DF /* Embed Frameworks */ = {
+		30883F9F1D551735002414E9 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				303FCB231D4F94170023F2B1 /* ASAPP.framework in Embed Frameworks */,
+				30593EB61D551E5000145DA7 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,8 +36,7 @@
 /* Begin PBXFileReference section */
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
 		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
-		303FCB211D4F94170023F2B1 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
-		3049CD271D465D9D00F0C0E6 /* ASAPP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ASAPP.framework; path = "../build/Debug-iphoneos/ASAPP.framework"; sourceTree = "<group>"; };
+		30593EB41D551E5000145DA7 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -56,8 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30593EB51D551E5000145DA7 /* ASAPP.framework in Frameworks */,
 				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
-				303FCB221D4F94170023F2B1 /* ASAPP.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
 			);
@@ -78,7 +77,6 @@
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3049CD271D465D9D00F0C0E6 /* ASAPP.framework */,
 				3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */,
 			);
 			name = Frameworks;
@@ -97,7 +95,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				303FCB211D4F94170023F2B1 /* ASAPP.framework */,
+				30593EB41D551E5000145DA7 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
@@ -141,7 +139,7 @@
 				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
 				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
 				30AE79D61D4AB7FA00651F09 /* ShellScript */,
-				28580A3C1D4C417F005C91DF /* Embed Frameworks */,
+				30883F9F1D551735002414E9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

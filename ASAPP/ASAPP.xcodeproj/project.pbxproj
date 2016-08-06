@@ -44,9 +44,11 @@
 		30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */; };
 		30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
-		303FCB271D4FCDAD0023F2B1 /* test-image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 303FCB261D4FCDAD0023F2B1 /* test-image.jpg */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
+		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
+		30883F981D54E557002414E9 /* temp-icon-asapp-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30883F961D54E557002414E9 /* temp-icon-asapp-button@2x.png */; };
+		30883F991D54E557002414E9 /* temp-icon-asapp-button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30883F971D54E557002414E9 /* temp-icon-asapp-button@3x.png */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
@@ -96,9 +98,11 @@
 		30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@2x.png"; sourceTree = "<group>"; };
 		30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		303FCB261D4FCDAD0023F2B1 /* test-image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-image.jpg"; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
+		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
+		30883F961D54E557002414E9 /* temp-icon-asapp-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-asapp-button@2x.png"; sourceTree = "<group>"; };
+		30883F971D54E557002414E9 /* temp-icon-asapp-button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-asapp-button@3x.png"; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -198,7 +202,8 @@
 		30099E0B1D3FD1DA00171D56 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				303FCB261D4FCDAD0023F2B1 /* test-image.jpg */,
+				30883F961D54E557002414E9 /* temp-icon-asapp-button@2x.png */,
+				30883F971D54E557002414E9 /* temp-icon-asapp-button@3x.png */,
 				30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */,
 				30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */,
 				30A4BB111D5139CC00795BA7 /* temp-icon-x@2x.png */,
@@ -256,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				30A4BB281D52637200795BA7 /* ASAPPStyles.swift */,
+				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
 				30226CEE1D493F5300871453 /* Common */,
 			);
@@ -300,6 +306,14 @@
 				30A4BB041D51095400795BA7 /* ImageViewer */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		30883F931D54E0CA002414E9 /* ASAPPButton */ = {
+			isa = PBXGroup;
+			children = (
+				30883F941D54E0E7002414E9 /* ASAPPButton.swift */,
+			);
+			path = ASAPPButton;
 			sourceTree = "<group>";
 		};
 		30A4BB041D51095400795BA7 /* ImageViewer */ = {
@@ -460,12 +474,13 @@
 				30A4BB131D5139CC00795BA7 /* temp-icon-x@2x.png in Resources */,
 				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
-				303FCB271D4FCDAD0023F2B1 /* test-image.jpg in Resources */,
+				30883F991D54E557002414E9 /* temp-icon-asapp-button@3x.png in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				30A4BB141D5139CC00795BA7 /* temp-icon-x@3x.png in Resources */,
+				30883F981D54E557002414E9 /* temp-icon-asapp-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +568,7 @@
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
+				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */,
 				30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
