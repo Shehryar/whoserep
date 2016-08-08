@@ -127,6 +127,43 @@ class SRSConn: NSObject {
         })
         SRS.prompt.prompt.text = ""
     }
+    
+    var recommendationsJSON = "{\"Recommendations\":[\"pay my bill\",\"troubleshooting help\",\"password reset\"]}"
+    func fetchRecommendations() {
+        dispatch_async(dispatch_get_global_queue(priority, 0)) { 
+            let url = NSURL(string: "https://srs-get." + self.getHost() + "/recommended")
+            let request = NSMutableURLRequest(URL: url!)
+            request.HTTPMethod = "GET"
+            print(url?.absoluteString)
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error) in
+                var dataJSON = data
+                if error != nil {
+                    dataJSON = self.recommendationsJSON.dataUsingEncoding(NSUTF8StringEncoding)
+                }
+                let httpResponse = response as? NSHTTPURLResponse
+                if httpResponse?.statusCode != 200 {
+                    dataJSON = self.recommendationsJSON.dataUsingEncoding(NSUTF8StringEncoding)
+                }
+                print("RECOMMENDATION:", NSString(data: dataJSON!, encoding: NSUTF8StringEncoding))
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(dataJSON!, options: NSJSONReadingOptions.AllowFragments)
+                    if let recommendations = json["Recommendations"] as? [String] {
+                        print("Recommendations:", recommendations)
+                        self.updateRecommendations(recommendations)
+                    }
+                } catch let err as NSError {
+                    print(err)
+                    self.handleRequestError(err)
+                }
+            })
+            task.resume()
+        }
+    }
+    func updateRecommendations(recommendations: [String]) {
+        dispatch_async(dispatch_get_main_queue()) { 
+            SRS.input.updateRecommendations(recommendations)
+        }
+    }
     func openRequest() {
         dispatch_async(dispatch_get_global_queue(priority, 0), {
             let url = NSURL(string: "https://srs-appopen." + self.getHost() + "/appopen")

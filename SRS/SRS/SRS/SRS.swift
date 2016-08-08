@@ -241,6 +241,7 @@ public class SRS: UIView {
             self.setupContent()
 //            self.setupTutorialIfNeeded()
             SRS.conn.openRequest()
+            SRS.conn.fetchRecommendations()
         }
     }
     

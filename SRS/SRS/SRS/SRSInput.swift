@@ -41,6 +41,8 @@ class SRSInput: UIView, UITextViewDelegate {
     var placeholder: UILabel!
     var menu: UIView!
     
+    var recommendations: [String] = []
+    
     var selfInputBotConstraint: NSLayoutConstraint!
     func addInputView() {
         input = UITextView()
@@ -113,9 +115,19 @@ class SRSInput: UIView, UITextViewDelegate {
         
         menu.subviews.forEach({ $0.removeFromSuperview() })
         menu.removeConstraints(self.constraints)
-        addMenuItemView("pay my bill", tag: 1)
-        addMenuItemView("troubleshooting help", tag: 2)
+//        addMenuItemView("pay my bill", tag: 1)
+//        addMenuItemView("troubleshooting help", tag: 2)
 //        addMenuItemView("password reset", tag: 3)
+    }
+    
+    func updateRecommendations(recommendations: [String]) {
+        self.recommendations = recommendations
+        
+        var count = 0
+        for recommendation in self.recommendations {
+            addMenuItemView(recommendation, tag: count)
+            count++
+        }
     }
     
     var prevMenuItemBotConstraint: NSLayoutConstraint!
@@ -177,13 +189,14 @@ class SRSInput: UIView, UITextViewDelegate {
         print("hello tap")
         
         var inputStr = "help"
-        if sender.view?.tag == 1 {
-            inputStr = "pay my bill"
-        } else if sender.view?.tag == 2 {
-            inputStr = "troubleshooting help"
-        } else if sender.view?.tag == 3 {
-            inputStr = "password reset"
-        }
+//        if sender.view?.tag == 1 {
+//            inputStr = "pay my bill"
+//        } else if sender.view?.tag == 2 {
+//            inputStr = "troubleshooting help"
+//        } else if sender.view?.tag == 3 {
+//            inputStr = "password reset"
+//        }
+        inputStr = self.recommendations[(sender.view?.tag)!]
         
         input.text = inputStr
         showPlaceholderIfNeeded()
