@@ -197,21 +197,32 @@ class SRSInput: UIView, UITextViewDelegate {
     
     func textViewDidBeginEditing(textView: UITextView) {
         print("GOT FOCUS")
-        self.resetInput()
+        self.focusInput()
     }
     
-    func resetInput() {
-        self.input.text = ""
+    func textViewDidEndEditing(textView: UITextView) {
+        self.blurInputIfNeeded()
+    }
+    
+    func focusInput() {
         textViewDidChange(self.input)
+        input.backgroundColor = UIColor.whiteColor()
+    }
+    
+    func resetData() {
         SRS.content.resetData()
         SRS.content.resetStack()
-        input.backgroundColor = UIColor.whiteColor()
+        showMenuIfNeeded()
+        blurInputIfNeeded()
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             print("did finsh editing", textView.text)
-            SRS.conn.request(textView.text)
+            if textView.text != "" {
+                resetData()
+                SRS.conn.request(textView.text)
+            }
             input.resignFirstResponder()
         }
         return true
@@ -220,24 +231,44 @@ class SRSInput: UIView, UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
         heightConstraint.constant = getHeight() + 32
         showPlaceholderIfNeeded()
+        showMenuIfNeeded()
 //        SRS.prompt.addRipple()
     }
     
     func showPlaceholderIfNeeded() {
         if input.text.characters.count > 0 {
             placeholder.text = ""
+        } else {
+            placeholder.text = "I want to ..."
+            SRS.prompt.prompt.text = "HOW CAN WE HELP?"
+        }
+    }
+    
+    func showMenuIfNeeded() {
+        if SRS.content.hasData() {
             menu.alpha = 0.0
             if selfMenuBotConstraint != nil {
                 selfMenuBotConstraint.active = false
             }
         } else {
-            placeholder.text = "I want to ..."
             menu.alpha = 1.0
             if selfMenuBotConstraint != nil {
                 selfMenuBotConstraint.active = true
             }
-            SRS.prompt.prompt.text = "HOW CAN WE HELP?"
         }
+    }
+    
+    func blurInputIfNeeded() {
+        if SRS.content.hasData() {
+            blurInput()
+        } else {
+            input.backgroundColor = UIColor.whiteColor()
+        }
+    }
+    
+    func blurInput() {
+        input.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        input.textColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 0.5)
     }
     
     func setSRSContent(content: SRSContent) {

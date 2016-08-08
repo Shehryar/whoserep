@@ -213,7 +213,7 @@ public class SRS: UIView {
             self.setupPrompt("HOW CAN WE HELP?")
             self.setupInput()
             self.setupContent()
-            self.setupTutorialIfNeeded()
+//            self.setupTutorialIfNeeded()
             SRS.conn.openRequest()
         }
     }

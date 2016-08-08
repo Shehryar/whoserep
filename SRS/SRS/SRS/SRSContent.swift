@@ -70,10 +70,18 @@ class SRSContent: UIScrollView {
         mGravity = "up"
     }
     
+    func hasData() -> Bool {
+        // HACKY
+        if views.count == 0 {
+            return false
+        }
+        
+        return true
+    }
+    
     func updateData(data: NSData, isBackUpdate: Bool) {
         resetData()
-        SRS.input.input.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-        SRS.input.input.textColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 0.5)
+        SRS.input.blurInput()
         holder.backgroundColor = UIColor.whiteColor()
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
@@ -92,6 +100,8 @@ class SRSContent: UIScrollView {
             }
         }
         mData = data
+        
+        SRS.input.showMenuIfNeeded()
         
 //        prevBotConstraint.active = false
         self.backgroundColor = UIColor.whiteColor()
@@ -128,7 +138,7 @@ class SRSContent: UIScrollView {
         let prevData = contentStack.popLast()
         if prevData == nil {
             mData = nil
-            SRS.input.resetInput()
+            SRS.input.resetData()
         } else {
             updateData(prevData!, isBackUpdate: true)
         }

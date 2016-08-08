@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30099D781D3ED44200171D56 /* SRS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D771D3ED44200171D56 /* SRS.framework */; };
-		30099D791D3ED44200171D56 /* SRS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30099D771D3ED44200171D56 /* SRS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FD46BF801D58DC4100063C6F /* SRS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD46BF7F1D58DC4100063C6F /* SRS.framework */; };
+		FD46BF811D58DC4100063C6F /* SRS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FD46BF7F1D58DC4100063C6F /* SRS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDA5F7ED1CAEDAD800ED9369 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7EC1CAEDAD800ED9369 /* main.m */; };
 		FDA5F7F01CAEDAD800ED9369 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7EF1CAEDAD800ED9369 /* AppDelegate.m */; };
 		FDA5F7F31CAEDAD800ED9369 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA5F7F21CAEDAD800ED9369 /* ViewController.m */; };
@@ -27,13 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		30099D7A1D3ED44200171D56 /* Embed Frameworks */ = {
+		FD46BF821D58DC4100063C6F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30099D791D3ED44200171D56 /* SRS.framework in Embed Frameworks */,
+				FD46BF811D58DC4100063C6F /* SRS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,7 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		30099D771D3ED44200171D56 /* SRS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRS.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/SRS-doeqhwfozlfbkmfhwkcctkailkit/Build/Products/Debug-iphonesimulator/SRS.framework"; sourceTree = "<absolute>"; };
+		FD46BF7F1D58DC4100063C6F /* SRS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRS.framework; path = "/Users/vickysehrawat/Library/Developer/Xcode/DerivedData/SRS-conoqpeucshvgvfbkzrcvelvmiog/Build/Products/Debug-iphonesimulator/SRS.framework"; sourceTree = "<absolute>"; };
 		FDA5F7E81CAEDAD800ED9369 /* My Account.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Account.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDA5F7EC1CAEDAD800ED9369 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FDA5F7EE1CAEDAD800ED9369 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -52,7 +52,6 @@
 		FDA5F7F71CAEDAD800ED9369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDA5F7FA1CAEDAD800ED9369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FDA5F7FC1CAEDAD800ED9369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDA5F8241CAEEB4D00ED9369 /* SRS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SRS.framework; path = "/Users/vickysehrawat/code/ASAPP/apple/SRS/Output/SRS-Debug-iphoneuniversal/SRS.framework"; sourceTree = "<absolute>"; };
 		FDA5F8271CAF2AA000ED9369 /* SRSProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRSProvider.m; sourceTree = "<group>"; };
 		FDA5F82D1CB2D95500ED9369 /* SRSProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRSProvider.h; sourceTree = "<group>"; };
 		FDA5F8311CB31DB200ED9369 /* home_internet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_internet.png; sourceTree = "<group>"; };
@@ -72,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30099D781D3ED44200171D56 /* SRS.framework in Frameworks */,
+				FD46BF801D58DC4100063C6F /* SRS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,8 +81,7 @@
 		FDA5F7DF1CAEDAD800ED9369 = {
 			isa = PBXGroup;
 			children = (
-				30099D771D3ED44200171D56 /* SRS.framework */,
-				FDA5F8241CAEEB4D00ED9369 /* SRS.framework */,
+				FD46BF7F1D58DC4100063C6F /* SRS.framework */,
 				FDA5F7EA1CAEDAD800ED9369 /* XfinityObjC */,
 				FDA5F7E91CAEDAD800ED9369 /* Products */,
 			);
@@ -151,7 +149,7 @@
 				FDA5F7E41CAEDAD800ED9369 /* Sources */,
 				FDA5F7E51CAEDAD800ED9369 /* Frameworks */,
 				FDA5F7E61CAEDAD800ED9369 /* Resources */,
-				30099D7A1D3ED44200171D56 /* Embed Frameworks */,
+				FD46BF821D58DC4100063C6F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
