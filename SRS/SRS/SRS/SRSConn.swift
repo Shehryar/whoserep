@@ -30,9 +30,19 @@ class SRSConn: NSObject {
         "LPRPVNPCC": "[{\"type\": \"label\",\"key\": \"\",\"value\": \"Password changed\"}]"
     ]
     
+    let HOST_PRODUCTION = "asapp.com"
+    let HOST_STAGING = "preprod.asapp.com"
     
     let priority = DISPATCH_QUEUE_PRIORITY_HIGH
     let maxAuthTries = 1
+    
+    func getHost() -> String {
+        if SRS.isProd() {
+            return HOST_PRODUCTION
+        }
+        
+        return HOST_STAGING
+    }
     
     func createRequestData(query:String) -> String {
         let context = SRS.getContext()
@@ -119,7 +129,7 @@ class SRSConn: NSObject {
     }
     func openRequest() {
         dispatch_async(dispatch_get_global_queue(priority, 0), {
-            let url = NSURL(string: "https://srs-appopen.asapp.com/appopen")
+            let url = NSURL(string: "https://srs-appopen." + self.getHost() + "/appopen")
             let request = NSMutableURLRequest(URL: url!)
             request.HTTPMethod = "POST"
             request.HTTPBody = (self.createRequestData("").stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet()))!.dataUsingEncoding(NSUTF8StringEncoding)
@@ -142,7 +152,7 @@ class SRSConn: NSObject {
     
     func dataRequest(action: String) {
         dispatch_async(dispatch_get_global_queue(priority, 0), {
-            let url = NSURL(string: "https://srs-data.asapp.com/data")
+            let url = NSURL(string: "https://srs-data." + self.getHost() + "/data")
             let request = NSMutableURLRequest(URL: url!)
             request.HTTPMethod = "POST"
             
@@ -165,8 +175,7 @@ class SRSConn: NSObject {
             animTimer = SRS.prompt.addRippleForDuration(1)
         }
         print("MAKE REQUEST",query.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet()))
-//        let url = NSURL(string: "https://ccdemo.asapp.com/hier?q="+query.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!)
-        let url = NSURL(string: "https://srs-hier.asapp.com/hier")
+        let url = NSURL(string: "https://srs-hier." + self.getHost() + "/hier")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = (self.createRequestData(query).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet()))!.dataUsingEncoding(NSUTF8StringEncoding)
@@ -218,7 +227,7 @@ class SRSConn: NSObject {
             animTimer = SRS.prompt.addRippleForDuration(1)
         }
         dispatch_async(dispatch_get_global_queue(priority, 0), {
-            let url = NSURL(string: "https://srs-treewalk.asapp.com/treewalk")
+            let url = NSURL(string: "https://srs-treewalk." + self.getHost() + "/treewalk")
             let request = NSMutableURLRequest(URL: url!)
             request.HTTPMethod = "POST"
             request.HTTPBody = (self.createRequestData(classification).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet()))!.dataUsingEncoding(NSUTF8StringEncoding)

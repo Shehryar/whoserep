@@ -19,6 +19,11 @@ public class SRS: UIView {
     var isExpanded: Bool!
     var isDragEnabled = false
     var didAddBubble = false
+    var environment: EnvironemntType = .Staging
+    
+    public enum EnvironemntType {
+        case Staging, Production
+    }
     
     var originalFrame: CGRect!
     
@@ -57,9 +62,30 @@ public class SRS: UIView {
         self.registerContextProvider(contextProvider)
         self.registerCallback(callback)
     }
+    
+    convenience public init(origin: CGPoint, environment: EnvironemntType, authProvider:AuthProvider, contextProvider:ContextProvider, callback: CallbackHandler) {
+        self.init(origin: origin, authProvider: authProvider, contextProvider: contextProvider, callback: callback)
+        self.setEnvironment(environment)
+    }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func setEnvironment(environment: EnvironemntType) {
+        self.environment = environment
+    }
+    
+    static func isProd() -> Bool {
+        if (SRS.instance == nil) {
+            return false
+        }
+        
+        if (SRS.instance.environment == .Production) {
+            return true
+        }
+        
+        return false
     }
 
     func registerCallback(callback: CallbackHandler) {
