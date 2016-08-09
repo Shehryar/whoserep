@@ -50,6 +50,8 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
+    private let infoMessageView = ChatInfoMessageView()
+    
     private var eventsThatShouldAnimate = Set<Event>()
     
     private let HeaderViewReuseId = "TimeStampHeaderReuseId"
@@ -96,6 +98,15 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
+        
+        // TODO: Localization
+        infoMessageView.frame = bounds
+        infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        infoMessageView.title = "Hi there, how can we help you?"
+        infoMessageView.message = "You can begin this conversation by writing a message below."
+        addSubview(infoMessageView)
+        
+        updateSubviewVisibility()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -116,14 +127,23 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         
         backgroundColor = styles.backgroundColor1
         tableView.backgroundColor = styles.backgroundColor1
-        
         tableView.reloadData()
+        
+        infoMessageView.applyStyles(styles)
     }
 }
 
 // MARK:- Utility
 
 extension ChatMessagesView {
+
+    func updateSubviewVisibility() {
+        if dataSource.isEmpty() {
+            infoMessageView.hidden = false
+        } else {
+            infoMessageView.hidden = true
+        }
+    }
     
     private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
         guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
@@ -367,6 +387,8 @@ extension ChatMessagesView {
         dataSource.reloadWithEvents(newMessageEvents)
         
         tableView.reloadData()
+        
+        updateSubviewVisibility()
     }
     
     func mergeMessageEventsWithEvents(newMessageEvents: [Event]) {
@@ -389,6 +411,8 @@ extension ChatMessagesView {
         } else if let lastVisibleIndexPath = dataSource.indexPathOfEvent(lastVisibleMessageEvent) {
             tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
         }
+        
+        updateSubviewVisibility()
     }
     
     func insertNewMessageEvent(event: Event) {
@@ -409,5 +433,7 @@ extension ChatMessagesView {
         if wasNearBottom {
             scrollToBottomAnimated(true)
         }
+        
+        updateSubviewVisibility()
     }
 }

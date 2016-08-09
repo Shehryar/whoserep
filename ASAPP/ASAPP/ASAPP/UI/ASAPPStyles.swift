@@ -10,19 +10,25 @@ import UIKit
 
 public class ASAPPStyles: NSObject {
 
-    // MARK:- Fonts
+    // MARK:- Fonts: General
     
-    public var messageFont: UIFont = Fonts.latoRegularFont(withSize: 16)
+    public var headerFont: UIFont = Fonts.latoBoldFont(withSize: 24)
     
     public var subheadFont: UIFont = Fonts.latoBoldFont(withSize: 14)
     
+    public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 16)
+    
     public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
+    
+    // MARK:- Fonts: View-Specific
+    
+    public var messageFont: UIFont = Fonts.latoRegularFont(withSize: 16)
     
     public var inputFont: UIFont = Fonts.latoRegularFont(withSize: 16)
     
     public var inputSendButtonFont: UIFont = Fonts.latoBlackFont(withSize: 13)
     
-    // MARK:- Colors - Messages
+    // MARK:- Colors: General
     
     public var backgroundColor1: UIColor = Colors.whiteColor()
     
@@ -36,6 +42,10 @@ public class ASAPPStyles: NSObject {
     
     public var separatorColor2: UIColor = Colors.lightGrayColor()
     
+    public var accentColor: UIColor = Colors.blueColor()
+    
+    // MARK:- Colors; Messages
+    
     public var messageFillColor: UIColor = Colors.whiteColor()
     
     public var messageStrokeColor: UIColor? = Colors.lightGrayColor()
@@ -48,7 +58,7 @@ public class ASAPPStyles: NSObject {
     
     public var replyMessageTextColor: UIColor = Colors.whiteColor()
 
-    // MARK:- Colors - Input
+    // MARK:- Colors: Input
     
     public var inputBackgroundColor: UIColor = Colors.whiteColor()
     

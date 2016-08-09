@@ -99,6 +99,8 @@ class ChatViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
+        
+        view.endEditing(true)
     }
 }
 
