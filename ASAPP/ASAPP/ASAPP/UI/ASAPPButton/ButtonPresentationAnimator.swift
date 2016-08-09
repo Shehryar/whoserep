@@ -27,6 +27,9 @@ class ButtonPresentationAnimator: NSObject {
     private var circleMaskLayer = CAShapeLayer()
     private var expansionPoint: CGPoint?
     
+    private let ANIMATION_KEY_EXPAND = "expand_path"
+    private let ANIMATION_KEY_COLLAPSE = "collapse_path"
+    
     // MARK:- Initialization
     
     required init(withButtonView buttonView: UIView) {
@@ -83,6 +86,9 @@ extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
     func completeTransitionAnimation() {
         if let transitionContext = transitionContext {
             presentedView?.layer.mask = nil
+            if isPresenting {
+                containerView?.backgroundColor = UIColor.blackColor()
+            }
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         }
     }
@@ -101,6 +107,7 @@ extension ButtonPresentationAnimator {
         collapseButton { (collapsedToPoint) in
             self.expansionPoint = collapsedToPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))
             self.expandView(fromPoint: self.expansionPoint!, completion: {
+                
                 // CompleteTransition called by animation
             })
         }
@@ -152,7 +159,7 @@ extension ButtonPresentationAnimator {
         animation.autoreverses = false
         animation.removedOnCompletion = false
         animation.delegate = self
-        circleMaskLayer.addAnimation(animation, forKey: "path")
+        circleMaskLayer.addAnimation(animation, forKey: ANIMATION_KEY_EXPAND)
         
         guard let presentingView = presentingView,
             let containerView = containerView else {
@@ -195,8 +202,10 @@ extension ButtonPresentationAnimator {
             return
         }
         
+        containerView.backgroundColor = UIColor.clearColor()
+        
         collapseView(toPoint: expansionPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))) { 
-            self.expandButton({ 
+            self.expandButton({
                 self.completeTransitionAnimation()
             })
         }
@@ -234,7 +243,7 @@ extension ButtonPresentationAnimator {
         animation.duration = duration
         animation.autoreverses = false
         animation.removedOnCompletion = false
-        circleMaskLayer.addAnimation(animation, forKey: "path")
+        circleMaskLayer.addAnimation(animation, forKey: ANIMATION_KEY_COLLAPSE)
         
         UIView.animateWithDuration(duration, animations: { 
             self.presentingView?.transform = CGAffineTransformIdentity

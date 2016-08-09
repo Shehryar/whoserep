@@ -165,6 +165,8 @@ extension ChatViewController: ChatMessagesViewDelegate {
             return
         }
         
+        view.endEditing(true)
+        
         let imageViewerImage = ImageViewerImage(image: image)
         let imageViewer = ImageViewer(withImages: [imageViewerImage], initialIndex: 0)
         imageViewer.preparePresentationFromImageView(imageView)

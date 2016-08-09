@@ -34,9 +34,9 @@ class ChatsListViewController: UIViewController {
     
     var toggleButtonItem: UIBarButtonItem?
     
-    let chatButton1 = ASAPPButton()
-    let chatButton2 = ASAPPButton()
-    let chatButton3 = ASAPPButton()
+    var chatButton1: ASAPPButton!
+    var chatButton2: ASAPPButton!
+    var chatButton3: ASAPPButton!
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
@@ -58,17 +58,20 @@ class ChatsListViewController: UIViewController {
         title = "Test Chats"
         automaticallyAdjustsScrollViewInsets = true
         
+        chatButton1 = ASAPPButton(withPresentingViewController: self)
         chatButton1.presentingViewController = self
         chatButton1.credentials = defaultCustomerChatCredentials
         chatButton1.styles = ASAPPStyles.darkStyles()
         chatButton1.shadowDisabled = true
         chatButton1.hideUntilAnimateInIsCalled()
         
+        chatButton2 = ASAPPButton(withPresentingViewController: self)
         chatButton2.presentingViewController = self
         chatButton2.credentials = defaultRepChatCredentials
         chatButton2.hideUntilAnimateInIsCalled()
         chatButton2.customPresentationDisabled = true
     
+        chatButton3 = ASAPPButton(withPresentingViewController: self)
         chatButton3.frame = CGRect(x: 0, y: 25, width: 50, height: 50)
         chatButton3.presentingViewController = self
         chatButton3.credentials = defaultCustomerChatCredentials

@@ -10,7 +10,8 @@ import UIKit
 
 public class ASAPPButton: UIView {
 
-    public var presentingViewController: UIViewController?
+    /// The ViewController that will present the ASAPP view controller
+    public var presentingViewController: UIViewController
     
     public var credentials: Credentials?
     
@@ -23,6 +24,9 @@ public class ASAPPButton: UIView {
             updateButtonDisplay()
         }
     }
+    
+    /// This will be called after the user taps the button and the ASAPP view controll is presented
+    public var onTapListenerBlock: (() -> Void)?
     
     // MARK: Private Properties: UI
     
@@ -74,15 +78,19 @@ public class ASAPPButton: UIView {
         contentView.addSubview(imageView)
         addSubview(contentView)
     }
-
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    required public init(withPresentingViewController presentingViewController: UIViewController) {
+        self.presentingViewController = presentingViewController
+        super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         commonInit()
     }
     
+    override public init(frame: CGRect) {
+        fatalError("init(frame:) has not been implemented. Must initialize using init(withPresentingViewController:)")
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented. Must initialize using init(withPresentingViewController:)")
     }
     
     // MARK: Layout
@@ -218,11 +226,13 @@ extension ASAPPButton {
             navigationController.transitioningDelegate = presentationAnimator
         }
         
-        presentingViewController?.presentViewController(navigationController, animated: true, completion: nil)
+        presentingViewController.presentViewController(navigationController, animated: true, completion: nil)
+        
+        onTapListenerBlock?()
     }
     
     func dismissChat() {
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didBeginLongHold() {
