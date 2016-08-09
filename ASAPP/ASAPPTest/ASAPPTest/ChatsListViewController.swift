@@ -60,6 +60,8 @@ class ChatsListViewController: UIViewController {
         
         chatButton1.presentingViewController = self
         chatButton1.credentials = defaultCustomerChatCredentials
+        chatButton1.styles = ASAPPStyles.darkStyles()
+        chatButton1.shadowDisabled = true
         chatButton1.hideUntilAnimateInIsCalled()
         
         chatButton2.presentingViewController = self
@@ -70,8 +72,6 @@ class ChatsListViewController: UIViewController {
         chatButton3.frame = CGRect(x: 0, y: 25, width: 50, height: 50)
         chatButton3.presentingViewController = self
         chatButton3.credentials = defaultCustomerChatCredentials
-        chatButton3.styles = ASAPPStyles.darkStyles()
-        
         chatButton3.hideUntilAnimateInIsCalled()
         
         let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 75))

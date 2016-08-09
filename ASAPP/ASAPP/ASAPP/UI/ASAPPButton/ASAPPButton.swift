@@ -18,6 +18,12 @@ public class ASAPPButton: UIView {
     
     public var customPresentationDisabled: Bool = false
     
+    public var shadowDisabled: Bool = false {
+        didSet {
+            updateButtonDisplay()
+        }
+    }
+    
     // MARK: Private Properties: UI
     
     enum ASAPPButtonState {
@@ -129,18 +135,23 @@ extension ASAPPButton {
             imageView.image = Images.asappButtonIcon(fillColor: UIColor.whiteColor())
         }
         
-        switch currentState {
-        case .Normal:
-            contentView.layer.shadowOpacity = 0.5
-            contentView.layer.shadowRadius = 3
-            contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
-            break
-            
-        case .Highlighted:
-            contentView.layer.shadowOpacity = 0.6
-            contentView.layer.shadowRadius = 1
-            contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-            break
+        if shadowDisabled {
+            contentView.layer.shadowOpacity = 0
+            contentView.layer.shadowColor = nil
+        } else {
+            switch currentState {
+            case .Normal:
+                contentView.layer.shadowOpacity = 0.5
+                contentView.layer.shadowRadius = 3
+                contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
+                break
+                
+            case .Highlighted:
+                contentView.layer.shadowOpacity = 0.6
+                contentView.layer.shadowRadius = 1
+                contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
+                break
+            }
         }
     }
 }
