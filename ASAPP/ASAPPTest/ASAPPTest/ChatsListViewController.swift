@@ -35,6 +35,8 @@ class ChatsListViewController: UIViewController {
     var toggleButtonItem: UIBarButtonItem?
     
     let chatButton1 = ASAPPButton()
+    let chatButton2 = ASAPPButton()
+    let chatButton3 = ASAPPButton()
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
@@ -59,6 +61,20 @@ class ChatsListViewController: UIViewController {
         chatButton1.presentingViewController = self
         chatButton1.credentials = defaultCustomerChatCredentials
         chatButton1.hideUntilAnimateInIsCalled()
+        
+        chatButton2.presentingViewController = self
+        chatButton2.credentials = defaultRepChatCredentials
+        chatButton2.styles = ASAPPStyles.darkStyles()
+        chatButton2.hideUntilAnimateInIsCalled()
+    
+        chatButton3.frame = CGRect(x: 0, y: 15, width: 50, height: 50)
+        chatButton3.presentingViewController = self
+        chatButton3.credentials = defaultCustomerChatCredentials
+        chatButton3.hideUntilAnimateInIsCalled()
+        
+        let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 65))
+        chatButton3ContainerView.addSubview(chatButton3)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: chatButton3ContainerView)
         
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.dataSource = self
@@ -94,6 +110,7 @@ class ChatsListViewController: UIViewController {
         tableView.frame = view.bounds
         view.addSubview(tableView)
         view.addSubview(chatButton1)
+        view.addSubview(chatButton2)
         
         view.setNeedsUpdateConstraints()
     }
@@ -101,7 +118,9 @@ class ChatsListViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        chatButton1.animateIn(afterDelay: 1)
+        chatButton3.animateIn(afterDelay: 1)
+        chatButton1.animateIn(afterDelay: 1.5)
+        chatButton2.animateIn(afterDelay: 1.25)
     }
     
     // MARK:- Layout
@@ -113,6 +132,13 @@ class ChatsListViewController: UIViewController {
             make.width.equalTo(50)
             make.height.equalTo(50)
             make.right.equalTo(view.snp_right).offset(-15)
+            make.bottom.equalTo(view.snp_bottom).offset(-15)
+        }
+        
+        chatButton2.snp_updateConstraints { (make) in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+            make.left.equalTo(view.snp_left).offset(15)
             make.bottom.equalTo(view.snp_bottom).offset(-15)
         }
     }
