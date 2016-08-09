@@ -67,12 +67,12 @@ class ChatsListViewController: UIViewController {
         chatButton2.styles = ASAPPStyles.darkStyles()
         chatButton2.hideUntilAnimateInIsCalled()
     
-        chatButton3.frame = CGRect(x: 0, y: 15, width: 50, height: 50)
+        chatButton3.frame = CGRect(x: 0, y: 25, width: 50, height: 50)
         chatButton3.presentingViewController = self
         chatButton3.credentials = defaultCustomerChatCredentials
         chatButton3.hideUntilAnimateInIsCalled()
         
-        let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 65))
+        let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 75))
         chatButton3ContainerView.addSubview(chatButton3)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: chatButton3ContainerView)
         
