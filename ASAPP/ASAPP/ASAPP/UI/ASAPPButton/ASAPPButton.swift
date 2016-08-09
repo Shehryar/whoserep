@@ -16,6 +16,8 @@ public class ASAPPButton: UIView {
     
     public var styles: ASAPPStyles?
     
+    
+    
     // MARK: Private Properties: UI
     
     enum ASAPPButtonState {
@@ -55,8 +57,10 @@ public class ASAPPButton: UIView {
     
     func commonInit() {
         clipsToBounds = false
+        autoresizesSubviews = false
         
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
+        contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
@@ -86,11 +90,10 @@ public class ASAPPButton: UIView {
         contentView.alpha = 0.0
         contentView.transform = CGAffineTransformIdentity
         contentView.frame = bounds;
-        contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
+        updateCornerRadius()
         
         let imageInset = floor(0.25 * CGRectGetHeight(bounds))
         imageView.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: imageInset, left: imageInset, bottom: imageInset, right: imageInset))
-        
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
@@ -98,6 +101,12 @@ public class ASAPPButton: UIView {
     
     public override func intrinsicContentSize() -> CGSize {
         return CGSize(width: 50, height: 50)
+    }
+    
+    func updateCornerRadius() {
+        if CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity) {
+            contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
+        }
     }
 }
 

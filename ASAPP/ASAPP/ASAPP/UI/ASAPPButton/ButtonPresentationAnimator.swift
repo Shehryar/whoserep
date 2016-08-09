@@ -238,6 +238,10 @@ extension ButtonPresentationAnimator {
         
         UIView.animateWithDuration(duration, animations: { 
             self.presentingView?.transform = CGAffineTransformIdentity
+            if let presentingViewController = self.presentingViewController,
+                let presentingViewFrame = self.transitionContext?.finalFrameForViewController(presentingViewController) {
+                self.presentingView?.frame = presentingViewFrame
+            }
             }) { (completed) in
                 completion?()
         }
@@ -256,9 +260,6 @@ extension ButtonPresentationAnimator {
 // MARK:- CAAnimationDelegate
 
 extension ButtonPresentationAnimator {
-    override func animationDidStart(anim: CAAnimation) {
-        
-    }
     
     override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         completeTransitionAnimation()
