@@ -37,7 +37,7 @@ public class ASAPPButton: UIView {
     
     private let imageView = UIImageView()
     
-    private let presentationAnimator = ButtonPresentationAnimator()
+    private var presentationAnimator: ButtonPresentationAnimator?
     
     // MARK: Private Properties: Touch
     
@@ -58,7 +58,7 @@ public class ASAPPButton: UIView {
         
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
         
-        presentationAnimator.presentFromButtonView = self
+        presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
         updateButtonDisplay()
         contentView.addSubview(imageView)
@@ -183,9 +183,7 @@ extension ASAPPButton {
             DebugLogError("Missing credentials in ASAPPButton.")
             return
         }
-        
-        presentationAnimator.presentFromButtonView = self
-        
+                
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles)
         chatViewController.modalPresentationStyle = .Custom
 //        chatViewController.modalTransitionStyle = .CrossDissolve
@@ -194,6 +192,9 @@ extension ASAPPButton {
         let navigationController = UINavigationController(rootViewController: chatViewController)
         chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ASAPPButton.dismissChat))
         navigationController.navigationBar.barStyle = .Black
+        navigationController.navigationBar.barTintColor = UIColor(red:0.212,  green:0.266,  blue:0.354, alpha:1)
+        navigationController.navigationBar.opaque = true
+        navigationController.navigationBar.translucent = false
         navigationController.modalPresentationStyle = .Custom
         navigationController.transitioningDelegate = presentationAnimator
         

@@ -10,7 +10,7 @@ import UIKit
 
 class ButtonPresentationAnimator: NSObject {
     
-    var presentFromButtonView: UIView?
+    var buttonView: UIView
     
     // MARK: Properties: Context
     
@@ -25,10 +25,12 @@ class ButtonPresentationAnimator: NSObject {
     // MARK: Properties: Internal
 
     private var circleMaskLayer = CAShapeLayer()
+    private var expansionPoint: CGPoint?
     
     // MARK:- Initialization
     
-    required override init() {
+    required init(withButtonView buttonView: UIView) {
+        self.buttonView = buttonView
         super.init()
     }
 }
@@ -36,9 +38,6 @@ class ButtonPresentationAnimator: NSObject {
 // MARK:- UIViewControllerAnimatedTransitioning
 
 extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
-    func transitionDuration(whenPresenting presenting: Bool) -> NSTimeInterval {
-        return 10//isPresenting ? 0.6 : 1.0
-    }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return transitionDuration(whenPresenting: isPresenting)
@@ -74,9 +73,22 @@ extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
     func animationEnded(transitionCompleted: Bool) {
         isPresenting = false
     }
+    
+    // MARK: Utility
+    
+    func transitionDuration(whenPresenting presenting: Bool) -> NSTimeInterval {
+        return isPresenting ? presentationAnimationDuration() : dismissalAnimationDuration()
+    }
+    
+    func completeTransitionAnimation() {
+        if let transitionContext = transitionContext {
+            presentedView?.layer.mask = nil
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+        }
+    }
 }
 
-// MARK:- Animations
+// MARK:- Presentation Animation
 
 extension ButtonPresentationAnimator {
     
@@ -86,54 +98,96 @@ extension ButtonPresentationAnimator {
             return
         }
         
-        let duration = transitionDuration(whenPresenting: true)
-        
-        let smallRect = smallCircleRect()
-        let bigRect = bigCircleRect()
-        var transform: CGAffineTransform?
-        if let presentingView = presentingView {
-            let width = CGRectGetWidth(presentingView.bounds)
-            let biggerWidth = width + CGRectGetWidth(bigRect) - CGRectGetWidth(smallRect)
-            let height = CGRectGetHeight(presentingView.bounds)
-            let biggerHeight = height + CGRectGetHeight(bigRect) - CGRectGetHeight(smallRect)
-            if width > 0 && height > 0 {
-                transform = CGAffineTransformMakeScale(biggerWidth / width, biggerHeight / height)
-                
-//                presentingView.layer.anchorPoint = CGPoint(x: CGRectGetMidX(smallRect) / CGRectGetWidth(presentingView.bounds), y: CGRectGetMidY(smallRect) / CGRectGetHeight(presentingView.bounds))
-            }
+        collapseButton { (collapsedToPoint) in
+            self.expansionPoint = collapsedToPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))
+            self.expandView(fromPoint: self.expansionPoint!, completion: {
+                // CompleteTransition called by animation
+            })
         }
-        
-        let initialDuration = duration * 0.4
-        UIView.animateWithDuration(initialDuration, animations: {
-            self.presentFromButtonView?.transform = CGAffineTransformMakeScale(0.001, 0.001)
-        }) { (completed) in
-            self.presentFromButtonView?.hidden = true
-            
-            let circlePathBegin = self.smallCirclePath()
-            let circlePathEnd = self.bigCirclePath()
-            self.circleMaskLayer.path = circlePathEnd
-            self.presentedView?.layer.mask = self.circleMaskLayer
-            self.presentedView?.hidden = false
-            
-//            UIView.animateWithDuration(duration - initialDuration - 0.01, animations: {
-//                if let transform = transform {
-//                    self.presentingView?.transform = transform
-//                }
-//            })
-            
-            let animation = CABasicAnimation(keyPath: "path")
-            animation.fromValue = circlePathBegin
-            animation.toValue = circlePathEnd
-            animation.duration = duration - initialDuration
-            animation.autoreverses = false
-            animation.removedOnCompletion = false
-            animation.delegate = self
-            self.circleMaskLayer.addAnimation(animation, forKey: "path")
-            
-          
-        }
-    
     }
+    
+    // MARK: Duration Helpers
+    
+    func presentationAnimationDuration() -> NSTimeInterval {
+        return buttonCollapseDuration() + viewExpansionDuration()
+    }
+    
+    func buttonCollapseDuration() -> NSTimeInterval {
+        return 0.3
+    }
+    
+    func viewExpansionDuration() -> NSTimeInterval {
+        return 0.3
+    }
+    
+    // MARK: Animations
+    
+    func collapseButton(completion: ((collapsedToPoint: CGPoint?) -> Void)?) {
+        let buttonCenter = self.buttonView.superview?.convertPoint(self.buttonView.center, toView: self.containerView)
+        UIView.animateWithDuration(buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
+            self.buttonView.transform = CGAffineTransformMakeScale(0.001, 0.001)
+            }) { (completed) in
+                self.buttonView.hidden = true
+                completion?(collapsedToPoint: buttonCenter)
+        }
+    }
+    
+    func expandView(fromPoint expansionPoint: CGPoint, completion: (() -> Void)?) {
+        let duration = viewExpansionDuration()
+        
+        let expandFromRect = CGRect(origin: expansionPoint, size: CGSize(width: 0.1, height: 0.1))
+        let expandToRect = bigCircleRect(withCenter: expansionPoint)
+        let expandFromCirclePath = UIBezierPath(ovalInRect: expandFromRect).CGPath
+        let expandToCirclePath = UIBezierPath(ovalInRect: expandToRect).CGPath
+        
+        circleMaskLayer.path = expandToCirclePath
+        presentedView?.layer.mask = circleMaskLayer
+        presentedView?.hidden = false
+        
+        let animation = CABasicAnimation(keyPath: "path")
+        animation.fromValue = expandFromCirclePath
+        animation.toValue = expandToCirclePath
+        animation.duration = duration
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.autoreverses = false
+        animation.removedOnCompletion = false
+        animation.delegate = self
+        circleMaskLayer.addAnimation(animation, forKey: "path")
+        
+        guard let presentingView = presentingView,
+            let containerView = containerView else {
+                // Nothing else to do here
+                return
+        }
+        
+        var transform: CGAffineTransform?
+        
+        let width = CGRectGetWidth(presentingView.bounds)
+        let height = CGRectGetHeight(presentingView.bounds)
+        if width > 0 && height > 0 {
+            let transformConstantFactor: CGFloat = 0.25
+            // Scale
+            let biggerWidth = width + CGRectGetWidth(expandToRect) - CGRectGetWidth(expandFromRect)
+            let biggerHeight = height + CGRectGetHeight(expandToRect) - CGRectGetHeight(expandFromRect)
+            let scale = max(biggerWidth / width, biggerHeight / height) * 1.5 * transformConstantFactor
+            transform = CGAffineTransformMakeScale(scale, scale)
+            // Translation
+            let translationX = transformConstantFactor * (CGRectGetMidX(containerView.bounds) - CGRectGetMidX(expandFromRect))
+            let translationY = transformConstantFactor * (CGRectGetMidY(containerView.bounds) - CGRectGetMidY(expandFromRect))
+            transform = CGAffineTransformTranslate(transform!, translationX, translationY)
+        }
+       
+        if let transform = transform {
+            UIView.animateWithDuration(duration, delay: 0, options: .BeginFromCurrentState, animations: {
+                self.presentingView?.transform = transform
+                }, completion: nil)
+        }
+    }
+}
+
+// MARK:- Dismissal Animation
+
+extension ButtonPresentationAnimator {
     
     func performDismissalAnimation() {
         guard let containerView = containerView else {
@@ -141,44 +195,60 @@ extension ButtonPresentationAnimator {
             return
         }
         
-        let duration = transitionDuration(whenPresenting: true)
+        collapseView(toPoint: expansionPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))) { 
+            self.expandButton({ 
+                self.completeTransitionAnimation()
+            })
+        }
+    }
+    
+    // MARK: Duration Helpers
+    
+    func dismissalAnimationDuration() -> NSTimeInterval {
+        return collapseViewDuration() + expandButtonDuration()
+    }
+    
+    func collapseViewDuration() -> NSTimeInterval {
+        return 0.3
+    }
+    
+    func expandButtonDuration() -> NSTimeInterval {
+        return 0.5
+    }
+    
+    // MARK: Animations
+    
+    func collapseView(toPoint collapseToPoint: CGPoint, completion: (() -> Void)?) {
+        let duration = collapseViewDuration()
         
-        let circlePathBegin = bigCirclePath()
-        let circlePathEnd = smallCirclePath()
+        let collapseFromCirclePath = bigCirclePath(withCenter: collapseToPoint)
+        let collapseToRect = CGRect(origin: collapseToPoint, size: CGSize(width: 0.01, height: 0.01))
+        let collapseToCirclePath = UIBezierPath(ovalInRect: collapseToRect).CGPath
         
-        circleMaskLayer.path = circlePathEnd
+        circleMaskLayer.path = collapseToCirclePath
         presentedView?.layer.mask = circleMaskLayer
         
-        
-        let initialDuration = duration * 0.3
-        
-//        UIView.animateWithDuration(initialDuration) {
-//            self.presentingView?.transform = CGAffineTransformIdentity
-//        }
-
         let animation = CABasicAnimation(keyPath: "path")
-        animation.fromValue = circlePathBegin
-        animation.toValue = circlePathEnd
-        animation.duration = initialDuration
+        animation.fromValue = collapseFromCirclePath
+        animation.toValue = collapseToCirclePath
+        animation.duration = duration
         animation.autoreverses = false
         animation.removedOnCompletion = false
         circleMaskLayer.addAnimation(animation, forKey: "path")
         
-        
-        
-        
-        UIView.animateWithDuration(duration - initialDuration, delay: initialDuration, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .BeginFromCurrentState, animations: {
-            self.presentFromButtonView?.hidden = false
-            self.presentFromButtonView?.transform = CGAffineTransformIdentity
+        UIView.animateWithDuration(duration, animations: { 
+            self.presentingView?.transform = CGAffineTransformIdentity
             }) { (completed) in
-                self.completeTransitionAnimation()
+                completion?()
         }
     }
     
-    func completeTransitionAnimation() {
-        if let transitionContext = transitionContext {
-            presentedView?.layer.mask = nil
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+    func expandButton(completion: (() -> Void)?) {
+        buttonView.hidden = false
+        UIView.animateWithDuration(expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
+            self.buttonView.transform = CGAffineTransformIdentity
+        }) { (completed) in
+            completion?()
         }
     }
 }
@@ -199,34 +269,18 @@ extension ButtonPresentationAnimator {
 
 extension ButtonPresentationAnimator {
     
-    func smallCircleRect() -> CGRect {
-        if let presentFromButtonView = presentFromButtonView,
-            let buttonFrame = presentFromButtonView.superview?.convertRect(presentFromButtonView.frame, toView: containerView) {
-            return CGRect(x: CGRectGetMidX(buttonFrame), y: CGRectGetMidY(buttonFrame), width: 0.01, height: 0.01)
-//            return buttonFrame
-        }
-        if let containerView = containerView {
-            return CGRect(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds), width: 0.01, height: 0.01)
-        }
-        return CGRectZero
-    }
-    
-    func smallCirclePath() -> CGPath {
-        return UIBezierPath(ovalInRect: smallCircleRect()).CGPath
-    }
-    
-    func bigCircleRect() -> CGRect {
-        let smallRect = smallCircleRect()
-        
+    func bigCircleRect(withCenter centerPoint: CGPoint) -> CGRect {
         let containerRect = (containerView != nil) ? containerView!.bounds : UIScreen.mainScreen().bounds
-        // This calculates the max... could obviously optimize this
-        let negativeInset = -sqrt(CGRectGetWidth(containerRect) * CGRectGetWidth(containerRect) + CGRectGetHeight(containerRect) * CGRectGetHeight(containerRect))
+        
+        let distanceX = max(centerPoint.x, CGRectGetWidth(containerRect) - centerPoint.x)
+        let distanceY = max(centerPoint.y, CGRectGetHeight(containerRect) - centerPoint.y)
+        let radius = sqrt(distanceX * distanceX + distanceY * distanceY)
     
-        return CGRectInset(smallRect, negativeInset, negativeInset)
+        return CGRect(x: centerPoint.x - radius, y: centerPoint.y - radius, width: 2 * radius, height: 2 * radius)
     }
     
-    func bigCirclePath() -> CGPath {
-        return UIBezierPath(ovalInRect: bigCircleRect()).CGPath
+    func bigCirclePath(withCenter centerPoint: CGPoint) -> CGPath {
+        return UIBezierPath(ovalInRect: bigCircleRect(withCenter: centerPoint)).CGPath
     }
 }
 
