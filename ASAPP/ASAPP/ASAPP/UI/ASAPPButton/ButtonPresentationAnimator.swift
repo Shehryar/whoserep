@@ -107,8 +107,7 @@ extension ButtonPresentationAnimator {
         collapseButton { (collapsedToPoint) in
             self.expansionPoint = collapsedToPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))
             self.expandView(fromPoint: self.expansionPoint!, completion: {
-                
-                // CompleteTransition called by animation
+                self.completeTransitionAnimation()
             })
         }
     }
@@ -147,6 +146,8 @@ extension ButtonPresentationAnimator {
         let expandFromCirclePath = UIBezierPath(ovalInRect: expandFromRect).CGPath
         let expandToCirclePath = UIBezierPath(ovalInRect: expandToRect).CGPath
         
+        // Circle Mask
+        
         circleMaskLayer.path = expandToCirclePath
         presentedView?.layer.mask = circleMaskLayer
         presentedView?.hidden = false
@@ -158,36 +159,53 @@ extension ButtonPresentationAnimator {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = false
         animation.removedOnCompletion = false
-        animation.delegate = self
         circleMaskLayer.addAnimation(animation, forKey: ANIMATION_KEY_EXPAND)
         
-        guard let presentingView = presentingView,
-            let containerView = containerView else {
-                // Nothing else to do here
-                return
+        // Transforms + Translations
+        
+        var translationX: CGFloat = 0.0, translationY: CGFloat = 0.0
+        if let containerView = containerView {
+            translationX = CGRectGetMidX(containerView.bounds) - CGRectGetMidX(expandFromRect)
+            translationY = CGRectGetMidY(containerView.bounds) - CGRectGetMidY(expandFromRect)
         }
         
-        var transform: CGAffineTransform?
+        // Presented View Transform
         
-        let width = CGRectGetWidth(presentingView.bounds)
-        let height = CGRectGetHeight(presentingView.bounds)
+        var presentedViewTransform = CGAffineTransformMakeScale(1.05, 1.05)
+        presentedViewTransform = CGAffineTransformTranslate(presentedViewTransform, 0.05 * -translationX, 0.05 * -translationY)
+        presentedView?.transform = presentedViewTransform
+        
+        // Presenting View Transfrom
+        
+        var presentingViewTransform: CGAffineTransform?
+        
+        var width: CGFloat = 0, height: CGFloat = 0
+        if let presentingView = presentingView {
+            width = CGRectGetWidth(presentingView.bounds)
+            height = CGRectGetHeight(presentingView.bounds)
+        }
         if width > 0 && height > 0 {
             let transformConstantFactor: CGFloat = 0.25
             // Scale
             let biggerWidth = width + CGRectGetWidth(expandToRect) - CGRectGetWidth(expandFromRect)
             let biggerHeight = height + CGRectGetHeight(expandToRect) - CGRectGetHeight(expandFromRect)
             let scale = max(biggerWidth / width, biggerHeight / height) * 1.5 * transformConstantFactor
-            transform = CGAffineTransformMakeScale(scale, scale)
+            presentingViewTransform = CGAffineTransformMakeScale(scale, scale)
             // Translation
-            let translationX = transformConstantFactor * (CGRectGetMidX(containerView.bounds) - CGRectGetMidX(expandFromRect))
-            let translationY = transformConstantFactor * (CGRectGetMidY(containerView.bounds) - CGRectGetMidY(expandFromRect))
-            transform = CGAffineTransformTranslate(transform!, translationX, translationY)
+            let presentingTranslationX = transformConstantFactor * translationX
+            let presentingTranslationY = transformConstantFactor * translationY
+            presentingViewTransform = CGAffineTransformTranslate(presentingViewTransform!, presentingTranslationX, presentingTranslationY)
         }
-       
-        if let transform = transform {
-            UIView.animateWithDuration(duration, delay: 0, options: .BeginFromCurrentState, animations: {
-                self.presentingView?.transform = transform
-                }, completion: nil)
+        
+        // Animating Transforms
+        
+        UIView.animateWithDuration(duration, animations: { 
+            self.presentedView?.transform = CGAffineTransformIdentity
+            if let presentingViewTransform = presentingViewTransform {
+                self.presentingView?.transform = presentingViewTransform
+            }
+            }) { (completed) in
+                completion?()
         }
     }
 }
@@ -263,15 +281,6 @@ extension ButtonPresentationAnimator {
         }) { (completed) in
             completion?()
         }
-    }
-}
-
-// MARK:- CAAnimationDelegate
-
-extension ButtonPresentationAnimator {
-    
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        completeTransitionAnimation()
     }
 }
 
