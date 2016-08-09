@@ -16,7 +16,7 @@ public class ASAPPButton: UIView {
     
     public var styles: ASAPPStyles?
     
-    
+    public var customPresentationDisabled: Bool = false
     
     // MARK: Private Properties: UI
     
@@ -194,9 +194,6 @@ extension ASAPPButton {
         }
                 
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles)
-        chatViewController.modalPresentationStyle = .Custom
-//        chatViewController.modalTransitionStyle = .CrossDissolve
-        chatViewController.transitioningDelegate = presentationAnimator
         
         let navigationController = UINavigationController(rootViewController: chatViewController)
         chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ASAPPButton.dismissChat))
@@ -204,8 +201,11 @@ extension ASAPPButton {
         navigationController.navigationBar.barTintColor = UIColor(red:0.212,  green:0.266,  blue:0.354, alpha:1)
         navigationController.navigationBar.opaque = true
         navigationController.navigationBar.translucent = false
-        navigationController.modalPresentationStyle = .Custom
-        navigationController.transitioningDelegate = presentationAnimator
+        
+        if !customPresentationDisabled {
+            navigationController.modalPresentationStyle = .Custom
+            navigationController.transitioningDelegate = presentationAnimator
+        }
         
         presentingViewController?.presentViewController(navigationController, animated: true, completion: nil)
     }
