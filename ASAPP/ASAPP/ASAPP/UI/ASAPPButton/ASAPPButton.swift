@@ -14,6 +14,8 @@ public class ASAPPButton: UIView {
     
     public var credentials: Credentials?
     
+    public var styles: ASAPPStyles?
+    
     // MARK: Private Properties: UI
     
     enum ASAPPButtonState {
@@ -35,6 +37,8 @@ public class ASAPPButton: UIView {
     
     private let imageView = UIImageView()
     
+    private let presentationAnimator = ButtonPresentationAnimator()
+    
     // MARK: Private Properties: Touch
     
     private var isTouching = false {
@@ -53,6 +57,8 @@ public class ASAPPButton: UIView {
         clipsToBounds = false
         
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
+        
+        presentationAnimator.presentFromButtonView = self
         
         updateButtonDisplay()
         contentView.addSubview(imageView)
@@ -173,9 +179,29 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     func didTap() {
-        DebugLog("DidTap()")
+        guard let credentials = credentials else {
+            DebugLogError("Missing credentials in ASAPPButton.")
+            return
+        }
         
-        hideUntilAnimateInIsCalled()
+        presentationAnimator.presentFromButtonView = self
+        
+        let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles)
+        chatViewController.modalPresentationStyle = .Custom
+//        chatViewController.modalTransitionStyle = .CrossDissolve
+        chatViewController.transitioningDelegate = presentationAnimator
+        
+        let navigationController = UINavigationController(rootViewController: chatViewController)
+        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ASAPPButton.dismissChat))
+        navigationController.navigationBar.barStyle = .Black
+        navigationController.modalPresentationStyle = .Custom
+        navigationController.transitioningDelegate = presentationAnimator
+        
+        presentingViewController?.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
+    func dismissChat() {
+        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didBeginLongHold() {
@@ -196,7 +222,7 @@ extension ASAPPButton {
         
         isWaitingToAnimateIn = true
         var transform = CGAffineTransformMakeScale(0.01, 0.01)
-        transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
+        transform = CGAffineTransformRotate(transform, CGFloat(3 * M_PI_4))
         self.contentView.transform = transform
         self.contentView.alpha = 0.0
     }

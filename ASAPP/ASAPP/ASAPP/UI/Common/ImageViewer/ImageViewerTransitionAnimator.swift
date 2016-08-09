@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewerTransitionAnimator: UIPercentDrivenInteractiveTransition {
+class ImageViewerTransitionAnimator: NSObject {
 
     // MARK: Properties: Context
     

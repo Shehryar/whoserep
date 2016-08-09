@@ -30,6 +30,7 @@
 		30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */; };
 		30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E091D3FD1DA00171D56 /* Lato-Light.ttf */; };
 		30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E0A1D3FD1DA00171D56 /* Lato-Regular.ttf */; };
+		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
 		30226CD41D4933F200871453 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC11D4933F200871453 /* Conversation.swift */; };
 		30226CD61D4933F200871453 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC31D4933F200871453 /* Event.swift */; };
 		30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */; };
@@ -84,6 +85,7 @@
 		30099E081D3FD1DA00171D56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		30099E091D3FD1DA00171D56 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		30099E0A1D3FD1DA00171D56 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
 		30226CC11D4933F200871453 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30226CC31D4933F200871453 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				30883F941D54E0E7002414E9 /* ASAPPButton.swift */,
+				3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */,
 			);
 			path = ASAPPButton;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				30226CDB1D4933F200871453 /* ConversationStore.swift in Sources */,
+				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
 				30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
