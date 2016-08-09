@@ -41,6 +41,7 @@ class ChatsListViewController: UIViewController {
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
     let defaultCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil)
+    let emptyCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c9", isCustomer: true, targetCustomerToken: nil)
     let defaultRepChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6")
     
     let customerChatCredentials = [
@@ -60,7 +61,7 @@ class ChatsListViewController: UIViewController {
         
         chatButton1 = ASAPPButton(withPresentingViewController: self)
         chatButton1.presentingViewController = self
-        chatButton1.credentials = defaultCustomerChatCredentials
+        chatButton1.credentials = emptyCustomerChatCredentials
         chatButton1.styles = ASAPPStyles.darkStyles()
         chatButton1.shadowDisabled = true
         chatButton1.hideUntilAnimateInIsCalled()
