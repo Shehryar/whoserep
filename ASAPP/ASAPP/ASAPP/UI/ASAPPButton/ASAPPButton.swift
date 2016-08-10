@@ -15,7 +15,7 @@ public class ASAPPButton: UIView {
     
     public var credentials: Credentials?
     
-    public var styles: ASAPPStyles?
+    public var styles: ASAPPStyles = ASAPPStyles()
     
     public var customPresentationDisabled: Bool = false
     
@@ -213,11 +213,18 @@ extension ASAPPButton {
         }
                 
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles)
+        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.xLightIcon(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
+        
         
         let navigationController = UINavigationController(rootViewController: chatViewController)
-        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ASAPPButton.dismissChat))
-        navigationController.navigationBar.barStyle = .Black
-        navigationController.navigationBar.barTintColor = UIColor(red:0.212,  green:0.266,  blue:0.354, alpha:1)
+        let barTintColor = styles.backgroundColor2
+        navigationController.navigationBar.barTintColor = barTintColor
+        if barTintColor.isBright() {
+            navigationController.navigationBar.barStyle = .Default
+        } else {
+            navigationController.navigationBar.barStyle = .Black
+        }
+        navigationController.navigationBar.tintColor = styles.foregroundColor2
         navigationController.navigationBar.opaque = true
         navigationController.navigationBar.translucent = false
         

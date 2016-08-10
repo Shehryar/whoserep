@@ -236,7 +236,7 @@ extension ButtonPresentationAnimator {
     }
     
     func collapseViewDuration() -> NSTimeInterval {
-        return 0.3
+        return 0.25
     }
     
     func expandButtonDuration() -> NSTimeInterval {
