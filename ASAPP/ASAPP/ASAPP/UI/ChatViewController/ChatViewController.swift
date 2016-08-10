@@ -265,21 +265,33 @@ extension ChatViewController {
     }
     
     func presentCamera() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .Camera
-        imagePickerController.navigationBar.tintColor = Colors.blueColor()
+        let imagePickerController = createImagePickerController(withSourceType: .Camera)
         imagePickerController.delegate = self
         
         presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
     func presentPhotoLibrary() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .PhotoLibrary
-        imagePickerController.navigationBar.tintColor = Colors.blueColor()
+        let imagePickerController = createImagePickerController(withSourceType: .PhotoLibrary)
         imagePickerController.delegate = self
         
         presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func createImagePickerController(withSourceType sourceType: UIImagePickerControllerSourceType) -> UIImagePickerController {
+        let imagePickerController = UIImagePickerController()
+        
+        let barTintColor = styles.backgroundColor2
+        imagePickerController.navigationBar.barTintColor = barTintColor
+        imagePickerController.navigationBar.tintColor = styles.foregroundColor2
+        if barTintColor.isBright() {
+            imagePickerController.navigationBar.barStyle = .Default
+        } else {
+            imagePickerController.navigationBar.barStyle = .Black
+        }
+        imagePickerController.view.backgroundColor = styles.backgroundColor1
+        
+        return imagePickerController
     }
 }
 
