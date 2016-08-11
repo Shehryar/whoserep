@@ -26,7 +26,9 @@ class ChatViewController: UIViewController {
     private var chatMessagesView: ChatMessagesView
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
-    private var shouldShowConnectionStatusView = true
+    private var shouldShowConnectionStatusView: Bool {
+        return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
+    }
     private var isInitialLayout = true
     
     // MARK:- Initialization
@@ -39,7 +41,7 @@ class ChatViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        edgesForExtendedLayout = .None
+        automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
         
@@ -55,8 +57,6 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowOpacity = 0.1
         
         connectionStatusView.applyStyles(self.styles)
-        connectionStatusView.message = "Your connection looks great, bud!"
-        connectionStatusView.loading = true
         
         keyboardObserver.delegate = self
     }
@@ -85,7 +85,8 @@ class ChatViewController: UIViewController {
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         view.addSubview(connectionStatusView)
-                
+        
+        connectionStatusView.status = .Connecting
         conversationManager.enterConversation()
     }
     
@@ -142,6 +143,28 @@ extension ChatViewController {
         let messagesHeight = inputTop
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
+        
+//        DebugLog("\n\n\nMessageView Frame: \(String(chatMessagesView.frame))\nInsetTop: \(String(chatMessagesView.contentInsetTop))\nViewFrame: \(String(view.frame))\nInput Frame: \(String(chatInputView.frame))\nMin Visible Y: \(minVisibleY)\n\n")
+    }
+    
+    func updateFramesAnimated(animated: Bool = true, scrollToBottomIfNearBottom: Bool = false, completion: (() -> Void)? = nil) {
+        let wasNearBottom = chatMessagesView.isNearBottom()
+        if animated {
+            UIView.animateWithDuration(0.2, animations: {
+                self.updateFrames()
+                if wasNearBottom && scrollToBottomIfNearBottom {
+                    self.chatMessagesView.scrollToBottomAnimated(false)
+                }
+                }, completion: { (completed) in
+                completion?()
+            })
+        } else {
+            updateFrames()
+            if wasNearBottom && scrollToBottomIfNearBottom {
+                chatMessagesView.scrollToBottomAnimated(false)
+            }
+            completion?()
+        }
     }
 }
 
@@ -153,13 +176,7 @@ extension ChatViewController: KeyboardObserverDelegate {
         let keyboardWasHidden = keyboardOffset <= 0
         keyboardOffset = height
         
-        let wasNearBottom = chatMessagesView.isNearBottom()
-        UIView.animateWithDuration(duration) {
-            self.view.layoutIfNeeded()
-            if wasNearBottom && keyboardWasHidden && height > 0 {
-                self.chatMessagesView.scrollToBottomAnimated(false)
-            }
-        }
+        updateFramesAnimated(scrollToBottomIfNearBottom: true)
     }
 }
 
@@ -199,13 +216,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
-        let wasNearBottom = chatMessagesView.isNearBottom()
-        UIView.animateWithDuration(0.2) { 
-            self.updateFrames()
-            if wasNearBottom {
-                self.chatMessagesView.scrollToBottomAnimated(false)
-            }
-        }
+        updateFramesAnimated(scrollToBottomIfNearBottom: true)
     }
 }
 
@@ -221,6 +232,9 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
+        connectionStatusView.status = isConnected ? .Connected : .Disconnected
+        updateFramesAnimated()
+        
         if isConnected {
             // Fetch events
             reloadMessageEvents()

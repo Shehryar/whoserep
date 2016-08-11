@@ -10,20 +10,40 @@ import UIKit
 
 class ChatConnectionStatusView: UIView, ASAPPStyleable {
 
+    enum ChatConnectionStatus {
+        case Connected
+        case Connecting
+        case Disconnected
+    }
+    
     var message: String? {
         didSet {
             label.text = message
         }
     }
     
-    var loading: Bool = false {
+    var status: ChatConnectionStatus = .Disconnected {
         didSet {
-            if loading {
-                spinner.startAnimating()
-            } else {
+            switch status {
+            case .Connected:
                 spinner.stopAnimating()
+                message = "Connection Established"
+                break
+                
+            case .Connecting:
+                spinner.startAnimating()
+                message = "Connecting..."
+                break
+                
+                
+            case .Disconnected:
+                spinner.stopAnimating()
+                message = "Not Connected"
+                break
             }
-         }
+            
+            updateColors()
+        }
     }
     
     // MARK: Private Properties
@@ -41,8 +61,6 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
         
         addSubview(label)
         addSubview(spinner)
-        
-        updateConstraints()
     }
     
     override init(frame: CGRect) {
@@ -61,17 +79,39 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
     
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
-        
-        backgroundColor = styles.backgroundColor2
-        if styles.backgroundColor2.isDark() {
-            spinner.activityIndicatorViewStyle = .White
-        } else {
-            spinner.activityIndicatorViewStyle = .Gray
-        }
-        
-        label.textColor = styles.foregroundColor1
+    
         label.font = styles.detailFont
         label.textAlignment = .Center
+        
+        updateColors()
+    }
+    
+    func updateColors() {
+        switch status {
+        case .Connected:
+            backgroundColor = styles.backgroundColor2
+            label.textColor = styles.foregroundColor2
+            break
+            
+        case .Connecting:
+            backgroundColor = styles.backgroundColor2
+            label.textColor = styles.foregroundColor2
+            break
+            
+            
+        case .Disconnected:
+            backgroundColor = Colors.redColor()
+            label.textColor = UIColor.whiteColor()
+            break
+        }
+        
+        if let backgroundColor = backgroundColor {
+            if backgroundColor.isDark() {
+                spinner.activityIndicatorViewStyle = .White
+            } else {
+                spinner.activityIndicatorViewStyle = .Gray
+            }
+        }
     }
     
     // MARK: Layout
