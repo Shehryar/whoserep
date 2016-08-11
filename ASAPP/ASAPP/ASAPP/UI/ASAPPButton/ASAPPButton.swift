@@ -11,13 +11,13 @@ import UIKit
 public class ASAPPButton: UIView {
 
     /// The ViewController that will present the ASAPP view controller
-    public var presentingViewController: UIViewController
+    private(set) public var presentingViewController: UIViewController
     
-    public var credentials: Credentials?
+    private (set) public var credentials: Credentials?
     
     public var styles: ASAPPStyles = ASAPPStyles()
     
-    public var customPresentationDisabled: Bool = false
+    public var expansionPresentationAnimationDisabled: Bool = false
     
     public var shadowDisabled: Bool = false {
         didSet {
@@ -79,18 +79,22 @@ public class ASAPPButton: UIView {
         addSubview(contentView)
     }
     
-    required public init(withPresentingViewController presentingViewController: UIViewController) {
+    required public init(withCredentials credentials: Credentials, presentingViewController: UIViewController, styles: ASAPPStyles? = nil) {
+        self.credentials = credentials
         self.presentingViewController = presentingViewController
+        if let styles = styles {
+            self.styles = styles
+        }
         super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         commonInit()
     }
     
     override public init(frame: CGRect) {
-        fatalError("init(frame:) has not been implemented. Must initialize using init(withPresentingViewController:)")
+        fatalError("init(frame:) has not been implemented. Must initialize using init(withCredentials:presentingViewController:)")
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented. Must initialize using init(withPresentingViewController:)")
+        fatalError("init(coder:) has not been implemented. Must initialize using init(withCredentials:presentingViewController:)")
     }
     
     // MARK: Layout
@@ -228,7 +232,7 @@ extension ASAPPButton {
         navigationController.navigationBar.opaque = true
         navigationController.navigationBar.translucent = false
         
-        if !customPresentationDisabled {
+        if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom
             navigationController.transitioningDelegate = presentationAnimator
         }

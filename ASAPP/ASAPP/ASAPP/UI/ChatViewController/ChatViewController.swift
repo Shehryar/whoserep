@@ -173,7 +173,6 @@ extension ChatViewController {
 extension ChatViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
-        let keyboardWasHidden = keyboardOffset <= 0
         keyboardOffset = height
         
         updateFramesAnimated(scrollToBottomIfNearBottom: true)

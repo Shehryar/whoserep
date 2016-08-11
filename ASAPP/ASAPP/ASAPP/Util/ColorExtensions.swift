@@ -75,7 +75,7 @@ extension UIColor {
             let adjustedBrightness = max(0, min(1, hsba.brightness + brightnessAdjustment))
             return UIColor(hue: hsba.hue,
                            saturation: hsba.saturation,
-                           brightness: hsba.brightness,
+                           brightness: adjustedBrightness,
                            alpha: hsba.alpha)
         }
         

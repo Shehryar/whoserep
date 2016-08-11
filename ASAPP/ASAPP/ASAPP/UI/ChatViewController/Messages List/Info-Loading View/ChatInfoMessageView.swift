@@ -11,14 +11,14 @@ import SnapKit
 
 class ChatInfoMessageView: UIView, ASAPPStyleable {
     
-    public var title: String? {
+    var title: String? {
         didSet {
             titleLabel.text = title
             setNeedsLayout()
         }
     }
     
-    public var message: String? {
+    var message: String? {
         didSet {
             messageLabel.text =  message
             setNeedsLayout()
