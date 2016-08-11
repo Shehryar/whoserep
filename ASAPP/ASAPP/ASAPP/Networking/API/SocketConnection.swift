@@ -49,6 +49,8 @@ class SocketConnection: NSObject {
     
     private var requestHandlers = [Int : IncomingMessageHandler]()
     
+    private var didManuallyDisconnect = false
+    
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
@@ -92,6 +94,8 @@ extension SocketConnection {
         
         DebugLog("Socket connecting with request \(connectionRequest)")
         
+        didManuallyDisconnect = false
+        
         socket = SRWebSocket(URLRequest: connectionRequest)
         socket?.delegate = self
         socket?.open()
@@ -103,9 +107,11 @@ extension SocketConnection {
     func connectIfNeeded(afterDelay delayInSeconds: Int = 0) {
         if delayInSeconds > 0 {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(delayInSeconds) * NSEC_PER_SEC))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                if !self.isConnected {
-                    self.connect()
+            dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] in
+                if let strongSelf = self {
+                    if !strongSelf.isConnected && !strongSelf.didManuallyDisconnect {
+                        self?.connect()
+                    }
                 }
             }
         } else if !isConnected {
@@ -114,6 +120,7 @@ extension SocketConnection {
     }
     
     func disconnect() {
+        didManuallyDisconnect = true
         socket?.delegate = nil
         socket?.close()
         socket = nil

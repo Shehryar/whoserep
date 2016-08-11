@@ -27,24 +27,29 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
             switch status {
             case .Connected:
                 spinner.stopAnimating()
+                // TODO: Localization
                 message = "Connection Established"
                 break
                 
             case .Connecting:
                 spinner.startAnimating()
+                // TODO: Localization
                 message = "Connecting..."
                 break
                 
                 
             case .Disconnected:
                 spinner.stopAnimating()
-                message = "Not Connected"
+                // TODO: Localization
+                message = "Not connected. Retry connection?"
                 break
             }
             
             updateColors()
         }
     }
+    
+    var onTapToConnect: (() -> Void)?
     
     // MARK: Private Properties
     
@@ -61,6 +66,8 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
         
         addSubview(label)
         addSubview(spinner)
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatConnectionStatusView.didTap)))
     }
     
     override init(frame: CGRect) {
@@ -126,5 +133,13 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
         let horizontalInset = CGRectGetWidth(bounds) - CGRectGetMinX(spinner.frame) - 8.0
         let labelWidth = CGRectGetWidth(bounds) - 2 * horizontalInset
         label.frame = CGRect(x: horizontalInset, y: 0, width: labelWidth, height: CGRectGetHeight(bounds))
+    }
+    
+    // MARK: Actions
+    
+    func didTap() {
+        if status == .Disconnected {
+            onTapToConnect?()
+        }
     }
 }

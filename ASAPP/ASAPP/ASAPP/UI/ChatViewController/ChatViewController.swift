@@ -57,6 +57,10 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowOpacity = 0.1
         
         connectionStatusView.applyStyles(self.styles)
+        connectionStatusView.onTapToConnect = { [weak self] in
+            self?.connectionStatusView.status = .Connecting
+            self?.conversationManager.enterConversation()
+        }
         
         keyboardObserver.delegate = self
     }
@@ -368,10 +372,19 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        if let mostRecentEvent = chatMessagesView.mostRecentEvent {
-            conversationManager.getMessageEvents(mostRecentEvent) { [weak self] (fetchedEvents, error) in
-                if let fetchedEvents = fetchedEvents {
-                    self?.chatMessagesView.mergeMessageEventsWithEvents(fetchedEvents)
+        let shouldFetchMostRecentOnly = false
+        if shouldFetchMostRecentOnly {
+            if let mostRecentEvent = chatMessagesView.mostRecentEvent {
+                conversationManager.getMessageEvents(mostRecentEvent) { [weak self] (fetchedEvents, error) in
+                    if let fetchedEvents = fetchedEvents {
+                        self?.chatMessagesView.mergeMessageEventsWithEvents(fetchedEvents)
+                    }
+                }
+            } else {
+                conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
+                    if let fetchedEvents = fetchedEvents {
+                        self?.chatMessagesView.replaceMessageEventsWithEvents(fetchedEvents)
+                    }
                 }
             }
         } else {
