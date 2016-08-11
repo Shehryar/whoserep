@@ -85,7 +85,7 @@ class ChatViewController: UIViewController {
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         view.addSubview(connectionStatusView)
-        
+                
         conversationManager.enterConversation()
     }
     
@@ -106,8 +106,8 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController {
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
         updateFrames()
         
@@ -137,6 +137,7 @@ extension ChatViewController {
         let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
         let inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
+        chatInputView.layoutSubviews()
         
         let messagesHeight = inputTop
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
@@ -198,9 +199,12 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
-        if chatMessagesView.isNearBottom() {
-            view.layoutIfNeeded()
-            chatMessagesView.scrollToBottomAnimated(true)
+        let wasNearBottom = chatMessagesView.isNearBottom()
+        UIView.animateWithDuration(0.2) { 
+            self.updateFrames()
+            if wasNearBottom {
+                self.chatMessagesView.scrollToBottomAnimated(false)
+            }
         }
     }
 }

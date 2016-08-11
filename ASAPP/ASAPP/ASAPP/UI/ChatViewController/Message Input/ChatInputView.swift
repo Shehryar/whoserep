@@ -63,7 +63,6 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     func commonInit() {
         backgroundColor = Colors.whiteColor()
-        translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
         
         borderTopView.backgroundColor = Colors.lighterGrayColor()
@@ -110,7 +109,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         
         // Send Button
         
-        sendButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+        sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         applySendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 13),
                              color: Colors.mediumTextColor())
         sendButton.addTarget(self,
@@ -119,8 +118,6 @@ class ChatInputView: UIView, ASAPPStyleable {
         addSubview(sendButton)
         
         updateSendButtonForCurrentState()
-        
-        setNeedsUpdateConstraints()
     }
     
     deinit {
@@ -211,8 +208,6 @@ class ChatInputView: UIView, ASAPPStyleable {
         resizeIfNeeded(false)
         inputMinHeight = inputHeight
         textView.text = textViewText
-        
-        setNeedsUpdateConstraints()
     }
 }
 
@@ -241,58 +236,19 @@ extension ChatInputView {
     override func sizeThatFits(size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: inputHeight + contentInset.top + contentInset.bottom)
     }
-//    
-//    override func updateConstraints() {
-//        borderTopView.snp_remakeConstraints { (make) in
-//            make.left.equalTo(self.snp_left)
-//            make.right.equalTo(self.snp_right)
-//            make.top.equalTo(self.snp_top)
-//            make.height.equalTo(1)
-//        }
-//        
-//        textView.snp_remakeConstraints { (make) in
-//            make.top.equalTo(self.snp_top).offset(8)
-//            make.left.equalTo(self.snp_left).offset(16)
-//            make.right.equalTo(sendButton.snp_left).offset(-8 + sendButton.titleEdgeInsets.left)
-//            make.bottom.equalTo(mediaButton.snp_bottom)
-//            make.width.greaterThanOrEqualTo(1)
-//            make.height.equalTo(inputHeight)
-//        }
-//        
-//        placeholderTextView.snp_remakeConstraints { (make) in
-//            make.edges.equalTo(textView)
-//        }
-//        
-//        mediaButton.snp_remakeConstraints { (make) in
-//            make.right.equalTo(self.snp_right).offset(-8)
-//            make.bottom.equalTo(self.snp_bottom).offset(-8)
-//            make.height.equalTo(inputMinHeight)
-//            make.width.equalTo(mediaButtonWidth)
-//        }
-//        
-//        let sendButtonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
-//        
-//        sendButton.snp_remakeConstraints { (make) in
-//            make.bottom.equalTo(mediaButton.snp_bottom)
-//            make.right.equalTo(self.snp_right).offset(-16 + sendButton.titleEdgeInsets.right)
-//            make.height.equalTo(inputMinHeight)
-//            make.width.equalTo(sendButtonWidth)
-//        }
-//    
-//        super.updateConstraints()
-//    }
+
 }
 
 // MARK:- UITextViewDelegate
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(textView: UITextView) {
-        resizeIfNeeded(true)
+        resizeIfNeeded(true, notifyDelegateOfChange: true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
     
-    func resizeIfNeeded(animated: Bool) {
+    func resizeIfNeeded(animated: Bool, notifyDelegateOfChange: Bool = false) {
         var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
         if height < inputMinHeight {
             height = inputMinHeight
@@ -308,19 +264,9 @@ extension ChatInputView: UITextViewDelegate {
         
         if height != inputHeight {
             inputHeight = height
-            
-            setNeedsLayout()
-//            setNeedsUpdateConstraints()
-//            updateConstraintsIfNeeded()
-            if animated {
-                UIView.animateWithDuration(0.2) {
-                    self.layoutIfNeeded()
-                }
-            } else {
-                layoutIfNeeded()
+            if notifyDelegateOfChange {
+                delegate?.chatInputViewDidChangeContentSize(self)
             }
-            
-            delegate?.chatInputViewDidChangeContentSize(self)
         }
     }
 }
@@ -330,7 +276,7 @@ extension ChatInputView: UITextViewDelegate {
 extension ChatInputView {
     func clear() {
         textView.text = ""
-        resizeIfNeeded(false)
+        resizeIfNeeded(false, notifyDelegateOfChange: true)
         updateSendButtonForCurrentState()
         
         delegate?.chatInputView(self, didTypeMessageText: nil)
