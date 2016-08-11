@@ -28,7 +28,17 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     var delegate: ChatMessagesViewDelegate?
     
+    var earliestEvent: Event? {
+        return dataSource.allEvents.first
+    }
+    
+    var mostRecentEvent: Event? {
+        return dataSource.allEvents.last
+    }
+    
     // MARK:- Private Properties
+    
+    private let cellAnimationsEnabled = false
     
     private var shouldShowTypingPreview: Bool {
         return false
@@ -81,7 +91,6 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
-        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
         tableView.estimatedRowHeight = 80
@@ -130,6 +139,14 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.reloadData()
         
         infoMessageView.applyStyles(styles)
+    }
+    
+    // MARK: Layout
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        tableView.frame = bounds
     }
 }
 
@@ -291,7 +308,7 @@ extension ChatMessagesView: UITableViewDelegate {
             return
         }
         
-        if eventsThatShouldAnimate.contains(event) {
+        if cellAnimationsEnabled && eventsThatShouldAnimate.contains(event) {
             (cell as? ChatTextMessageCell)?.animate()
             eventsThatShouldAnimate.remove(event)
         }
@@ -319,7 +336,13 @@ extension ChatMessagesView: UITableViewDelegate {
 extension ChatMessagesView {
     
     func isNearBottom(delta: CGFloat = 80) -> Bool {
-        return tableView.contentOffset.y + delta >= tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
+        let offsetWithDelta = tableView.contentOffset.y + delta
+        let offsetAtBottom = tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
+        if offsetWithDelta >= offsetAtBottom {
+            return true
+        }
+        
+        return false
     }
     
     func scrollToBottomIfNeeded(animated: Bool) {
@@ -421,7 +444,7 @@ extension ChatMessagesView {
         dataSource.addEvent(event)
         
         // Only animate the message if the user is near the bottom
-        if wasNearBottom {
+        if cellAnimationsEnabled && wasNearBottom {
             eventsThatShouldAnimate.insert(event)
         }
         
@@ -431,7 +454,7 @@ extension ChatMessagesView {
         })
         
         if wasNearBottom {
-            scrollToBottomAnimated(true)
+            scrollToBottomAnimated(cellAnimationsEnabled)
         }
         
         updateSubviewVisibility()

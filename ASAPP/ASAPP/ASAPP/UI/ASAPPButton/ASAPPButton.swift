@@ -229,8 +229,6 @@ extension ASAPPButton {
             navigationController.navigationBar.barStyle = .Black
         }
         navigationController.navigationBar.tintColor = styles.foregroundColor2
-        navigationController.navigationBar.opaque = true
-        navigationController.navigationBar.translucent = false
         
         if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom

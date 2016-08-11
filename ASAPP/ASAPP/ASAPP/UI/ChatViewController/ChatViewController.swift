@@ -71,6 +71,7 @@ class ChatViewController: UIViewController {
         chatInputView.delegate = nil
         conversationManager.delegate = nil
         
+        // TODO: close this better
         conversationManager.exitConversation()
     }
     
@@ -85,14 +86,18 @@ class ChatViewController: UIViewController {
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         view.addSubview(connectionStatusView)
-        
-        connectionStatusView.status = .Connecting
-        conversationManager.enterConversation()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
+        
+        if conversationManager.isConnected() {
+            reloadMessageEvents()
+        } else {
+            connectionStatusView.status = .Connecting
+            conversationManager.enterConversation()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -100,6 +105,8 @@ class ChatViewController: UIViewController {
         keyboardObserver.deregisterForNotification()
         
         view.endEditing(true)
+        
+        conversationManager.exitConversation()
     }
 }
 
@@ -111,6 +118,10 @@ extension ChatViewController {
         super.viewWillLayoutSubviews()
         
         updateFrames()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         if isInitialLayout {
             chatMessagesView.scrollToBottomAnimated(false)
@@ -122,7 +133,10 @@ extension ChatViewController {
         var minVisibleY: CGFloat = 0
         if let navigationBar = navigationController?.navigationBar {
             if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
-                minVisibleY = CGRectGetHeight(CGRectIntersection(navBarFrame, chatMessagesView.frame))
+                let intersection = CGRectIntersection(chatMessagesView.frame, navBarFrame)
+                if !CGRectIsNull(intersection) {
+                    minVisibleY = CGRectGetMaxY(intersection)
+                }
             }
         }
         
@@ -142,6 +156,7 @@ extension ChatViewController {
         
         let messagesHeight = inputTop
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
+        chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
         
 //        DebugLog("\n\n\nMessageView Frame: \(String(chatMessagesView.frame))\nInsetTop: \(String(chatMessagesView.contentInsetTop))\nViewFrame: \(String(view.frame))\nInput Frame: \(String(chatInputView.frame))\nMin Visible Y: \(minVisibleY)\n\n")
@@ -353,9 +368,17 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
-            if let fetchedEvents = fetchedEvents {
-                self?.chatMessagesView.mergeMessageEventsWithEvents(fetchedEvents)
+        if let mostRecentEvent = chatMessagesView.mostRecentEvent {
+            conversationManager.getMessageEvents(mostRecentEvent) { [weak self] (fetchedEvents, error) in
+                if let fetchedEvents = fetchedEvents {
+                    self?.chatMessagesView.mergeMessageEventsWithEvents(fetchedEvents)
+                }
+            }
+        } else {
+            conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
+                if let fetchedEvents = fetchedEvents {
+                    self?.chatMessagesView.replaceMessageEventsWithEvents(fetchedEvents)
+                }
             }
         }
     }

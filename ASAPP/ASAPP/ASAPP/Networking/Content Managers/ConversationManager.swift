@@ -61,6 +61,10 @@ extension ConversationManager {
         socketConnection.connectIfNeeded()
     }
     
+    func isConnected() -> Bool {
+        return socketConnection.isConnected
+    }
+    
     func exitConversation() {
         socketConnection.disconnect()
     }

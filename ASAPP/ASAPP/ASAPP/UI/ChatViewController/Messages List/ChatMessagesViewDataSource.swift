@@ -16,7 +16,7 @@ class ChatMessagesViewDataSource: NSObject {
     
     let allowedEventTypes: Set<EventType>
     
-    private var allEvents = [Event]()
+    private(set) var allEvents = [Event]()
     
     private var eventsByTime = [[Event]]()
     
