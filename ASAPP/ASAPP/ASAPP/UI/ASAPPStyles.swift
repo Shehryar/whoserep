@@ -114,7 +114,7 @@ public class ASAPPStyles: NSObject {
 
 protocol ASAPPStyleable {
     
-    var styles: ASAPPStyles { get set }
+    var styles: ASAPPStyles { get }
     
     func applyStyles(styles: ASAPPStyles)
 }

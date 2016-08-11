@@ -25,7 +25,7 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
         }
     }
     
-    var styles: ASAPPStyles = ASAPPStyles()
+    private(set) var styles: ASAPPStyles = ASAPPStyles()
     
     // MARK: Private Properties
     

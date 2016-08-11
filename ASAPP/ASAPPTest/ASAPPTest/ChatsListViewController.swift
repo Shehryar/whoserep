@@ -172,13 +172,27 @@ class ChatsListViewController: UIViewController {
     func updateToggleButtonTitle() {
         switch defaultChatStyle {
         case .Light:
-            toggleButtonItem?.title = "Default Style: Light"
+            toggleButtonItem?.title = "Light Style"
             break
             
         case .Dark:
-            toggleButtonItem?.title = "Default Style: Dark"
+            toggleButtonItem?.title = "Dark Style"
             break
         }
+    }
+    
+    func defaultStyles() -> ASAPPStyles {
+        var styles: ASAPPStyles
+        switch defaultChatStyle {
+        case .Light:
+            styles = ASAPPStyles()
+            break
+            
+        case .Dark:
+            styles = ASAPPStyles.darkStyles()
+            break
+        }
+        return styles
     }
 }
 
@@ -273,16 +287,8 @@ extension ChatsListViewController: UITableViewDelegate {
         }
         
         if let chatCredentials = chatCredentials {
-            var styles: ASAPPStyles
-            switch defaultChatStyle {
-            case .Light:
-                styles = ASAPPStyles()
-                break
-                
-            case .Dark:
-                styles = ASAPPStyles.darkStyles()
-                break
-            }
+            let styles = defaultStyles()
+            
             let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: styles)
             chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)

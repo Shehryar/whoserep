@@ -120,7 +120,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    var styles: ASAPPStyles = ASAPPStyles()
+    private(set) var styles: ASAPPStyles = ASAPPStyles()
     
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles

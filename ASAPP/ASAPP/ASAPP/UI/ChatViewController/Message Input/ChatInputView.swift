@@ -27,6 +27,12 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
+    var contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     // MARK: Properties: Data
     
     var inputMinHeight: CGFloat = 36
@@ -182,7 +188,7 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    var styles: ASAPPStyles = ASAPPStyles()
+    private(set) var styles: ASAPPStyles = ASAPPStyles()
     
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
@@ -213,45 +219,68 @@ class ChatInputView: UIView, ASAPPStyleable {
 // MARK:- Layout
 
 extension ChatInputView {
-    override func updateConstraints() {
-        borderTopView.snp_remakeConstraints { (make) in
-            make.left.equalTo(self.snp_left)
-            make.right.equalTo(self.snp_right)
-            make.top.equalTo(self.snp_top)
-            make.height.equalTo(1)
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        textView.snp_remakeConstraints { (make) in
-            make.top.equalTo(self.snp_top).offset(8)
-            make.left.equalTo(self.snp_left).offset(16)
-            make.right.equalTo(sendButton.snp_left).offset(-8 + sendButton.titleEdgeInsets.left)
-            make.bottom.equalTo(mediaButton.snp_bottom)
-            make.width.greaterThanOrEqualTo(1)
-            make.height.equalTo(inputHeight)
-        }
+        borderTopView.frame = CGRect(x: 0, y: 0, width: CGRectGetWidth(bounds), height: 1)
         
-        placeholderTextView.snp_remakeConstraints { (make) in
-            make.edges.equalTo(textView)
-        }
+        let buttonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
+        let sendButtonLeft = CGRectGetWidth(bounds) - buttonWidth - contentInset.right + sendButton.titleEdgeInsets.right
+        let buttonTop = CGRectGetHeight(bounds) - inputMinHeight - contentInset.bottom
+        sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
-        mediaButton.snp_remakeConstraints { (make) in
-            make.right.equalTo(self.snp_right).offset(-8)
-            make.bottom.equalTo(self.snp_bottom).offset(-8)
-            make.height.equalTo(inputMinHeight)
-            make.width.equalTo(mediaButtonWidth)
-        }
+        let mediaButtonLeft = CGRectGetWidth(bounds) - mediaButtonWidth + mediaButton.imageEdgeInsets.right - contentInset.right
+        mediaButton.frame = CGRect(x: mediaButtonLeft, y: buttonTop, width: mediaButtonWidth, height: inputMinHeight)
         
-        let sendButtonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
-        
-        sendButton.snp_remakeConstraints { (make) in
-            make.bottom.equalTo(mediaButton.snp_bottom)
-            make.right.equalTo(self.snp_right).offset(-16 + sendButton.titleEdgeInsets.right)
-            make.height.equalTo(inputMinHeight)
-            make.width.equalTo(sendButtonWidth)
-        }
-    
-        super.updateConstraints()
+        let textViewWidth = sendButtonLeft - 8.0 - contentInset.left
+        let textViewHeight = inputHeight //CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
+        textView.frame = CGRectMake(contentInset.left, contentInset.top, textViewWidth, textViewHeight)
+        placeholderTextView.frame = textView.frame
     }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        return CGSize(width: size.width, height: inputHeight + contentInset.top + contentInset.bottom)
+    }
+//    
+//    override func updateConstraints() {
+//        borderTopView.snp_remakeConstraints { (make) in
+//            make.left.equalTo(self.snp_left)
+//            make.right.equalTo(self.snp_right)
+//            make.top.equalTo(self.snp_top)
+//            make.height.equalTo(1)
+//        }
+//        
+//        textView.snp_remakeConstraints { (make) in
+//            make.top.equalTo(self.snp_top).offset(8)
+//            make.left.equalTo(self.snp_left).offset(16)
+//            make.right.equalTo(sendButton.snp_left).offset(-8 + sendButton.titleEdgeInsets.left)
+//            make.bottom.equalTo(mediaButton.snp_bottom)
+//            make.width.greaterThanOrEqualTo(1)
+//            make.height.equalTo(inputHeight)
+//        }
+//        
+//        placeholderTextView.snp_remakeConstraints { (make) in
+//            make.edges.equalTo(textView)
+//        }
+//        
+//        mediaButton.snp_remakeConstraints { (make) in
+//            make.right.equalTo(self.snp_right).offset(-8)
+//            make.bottom.equalTo(self.snp_bottom).offset(-8)
+//            make.height.equalTo(inputMinHeight)
+//            make.width.equalTo(mediaButtonWidth)
+//        }
+//        
+//        let sendButtonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
+//        
+//        sendButton.snp_remakeConstraints { (make) in
+//            make.bottom.equalTo(mediaButton.snp_bottom)
+//            make.right.equalTo(self.snp_right).offset(-16 + sendButton.titleEdgeInsets.right)
+//            make.height.equalTo(inputMinHeight)
+//            make.width.equalTo(sendButtonWidth)
+//        }
+//    
+//        super.updateConstraints()
+//    }
 }
 
 // MARK:- UITextViewDelegate
@@ -280,8 +309,9 @@ extension ChatInputView: UITextViewDelegate {
         if height != inputHeight {
             inputHeight = height
             
-            setNeedsUpdateConstraints()
-            updateConstraintsIfNeeded()
+            setNeedsLayout()
+//            setNeedsUpdateConstraints()
+//            updateConstraintsIfNeeded()
             if animated {
                 UIView.animateWithDuration(0.2) {
                     self.layoutIfNeeded()

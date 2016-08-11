@@ -130,7 +130,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    var styles: ASAPPStyles = ASAPPStyles()
+    private(set) var styles: ASAPPStyles = ASAPPStyles()
     
     func applyStyles(styles: ASAPPStyles) {
         applyStyles(styles, isReply: isReply)

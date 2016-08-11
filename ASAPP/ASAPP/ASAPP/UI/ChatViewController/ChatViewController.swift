@@ -21,17 +21,12 @@ class ChatViewController: UIViewController {
     private var conversationManager: ConversationManager
     
     private var keyboardObserver = KeyboardObserver()
-    private var keyboardOffset: CGFloat = 0 {
-        didSet {
-            if keyboardOffset != oldValue {
-                view.setNeedsUpdateConstraints()
-                view.updateConstraintsIfNeeded()
-            }
-        }
-    }
+    private var keyboardOffset: CGFloat = 0
     
     private var chatMessagesView: ChatMessagesView
-    private var chatInputView = ChatInputView()
+    private let chatInputView = ChatInputView()
+    private let connectionStatusView = ChatConnectionStatusView()
+    private var shouldShowConnectionStatusView = true
     private var isInitialLayout = true
     
     // MARK:- Initialization
@@ -59,6 +54,10 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowRadius = 2
         chatInputView.layer.shadowOpacity = 0.1
         
+        connectionStatusView.applyStyles(self.styles)
+        connectionStatusView.message = "Your connection looks great, bud!"
+        connectionStatusView.loading = true
+        
         keyboardObserver.delegate = self
     }
     
@@ -85,8 +84,7 @@ class ChatViewController: UIViewController {
         
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
-        
-        view.setNeedsUpdateConstraints()
+        view.addSubview(connectionStatusView)
         
         conversationManager.enterConversation()
     }
@@ -107,37 +105,42 @@ class ChatViewController: UIViewController {
 // MARK:- Layout
 
 extension ChatViewController {
-    override func updateViewConstraints() {
-        chatInputView.snp_updateConstraints { (make) in
-            make.bottom.equalTo(self.view.snp_bottom).offset(-keyboardOffset)
-            make.left.equalTo(self.view.snp_left)
-            make.width.equalTo(self.view.snp_width)
-            make.right.equalTo(self.view.snp_right)
-        }
-        
-        chatMessagesView.snp_updateConstraints { (make) in
-            make.top.equalTo(self.view.snp_top)
-            make.left.equalTo(self.view.snp_left)
-            make.right.equalTo(self.view.snp_right)
-            make.bottom.equalTo(chatInputView.snp_top)
-        }
-
-        super.updateViewConstraints()
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if let navigationBar = navigationController?.navigationBar {
-            if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
-                chatMessagesView.contentInsetTop = CGRectGetHeight(CGRectIntersection(navBarFrame, chatMessagesView.frame))
-            }
-        }
+        updateFrames()
         
         if isInitialLayout {
             chatMessagesView.scrollToBottomAnimated(false)
             isInitialLayout = false
         }
+    }
+    
+    func updateFrames() {
+        var minVisibleY: CGFloat = 0
+        if let navigationBar = navigationController?.navigationBar {
+            if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
+                minVisibleY = CGRectGetHeight(CGRectIntersection(navBarFrame, chatMessagesView.frame))
+            }
+        }
+        
+        let viewWidth = CGRectGetWidth(view.bounds)
+        
+        let connectionStatusHeight: CGFloat = 40
+        var connectionStatusTop = minVisibleY - connectionStatusHeight
+        if shouldShowConnectionStatusView {
+            connectionStatusTop = minVisibleY
+        }
+        connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
+        
+        let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
+        let inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
+        
+        let messagesHeight = inputTop
+        chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
+        chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
     }
 }
 
