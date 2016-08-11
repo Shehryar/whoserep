@@ -121,6 +121,8 @@ class SRSInput: UIView, UITextViewDelegate {
     }
     
     func updateRecommendations(recommendations: [String]) {
+        menu.subviews.forEach({ $0.removeFromSuperview() })
+        
         self.recommendations = recommendations
         
         var count = 0
