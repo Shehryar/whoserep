@@ -235,13 +235,38 @@ public class SRS: UIView {
         self.requestContext()
         SRS.srsCircle.frame = self.frame
         self.frame = CGRect(x: UIScreen.mainScreen().bounds.origin.x, y: UIScreen.mainScreen().bounds.origin.y, width: UIScreen.mainScreen().bounds.size.width, height: UIScreen.mainScreen().bounds.size.height)
-        SRS.srsCircle.expandSRS { 
-            self.setupPrompt("HOW CAN WE HELP?")
-            self.setupInput()
-            self.setupContent()
+        SRS.srsCircle.expandSRS {
+            if SRS.prompt == nil {
+                self.setupPrompt("HOW CAN WE HELP?")
+            } else {
+                UIView.animateWithDuration(0.2, animations: {
+                    SRS.prompt.alpha = 1.0
+                })
+            }
+            if SRS.input == nil {
+                self.setupInput()
+            } else {
+                UIView.animateWithDuration(0.2, animations: {
+                    SRS.input.alpha = 1.0
+                })
+            }
+            if SRS.content == nil {
+                self.setupContent()
+            } else {
+                UIView.animateWithDuration(0.2, animations: { 
+                    SRS.content.alpha = 1.0
+                })
+                SRS.content.layoutSubviews()
+            }
 //            self.setupTutorialIfNeeded()
             SRS.conn.openRequest()
             SRS.conn.fetchRecommendations()
+            
+            UIView.animateWithDuration(0.2, animations: {
+                SRS.content.alpha = 1.0
+                SRS.input.alpha = 1.0
+                SRS.prompt.alpha = 1.0
+            })
         }
     }
     
@@ -254,7 +279,7 @@ public class SRS: UIView {
             SRS.content.alpha = 0.0
             }, completion: nil)
         UIView.animateWithDuration(0.2, animations: { () -> Void in
-            SRS.content.resetData()
+//            SRS.content.resetData()
             SRS.input.alpha = 0.0
             }, completion: nil)
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -336,8 +361,10 @@ public class SRS: UIView {
     }
     
     func setupPrompt(text: String) {
-        SRS.prompt = SRSPrompt()
-        SRS.prompt.setPromptText(text)
+        if SRS.prompt == nil {
+            SRS.prompt = SRSPrompt()
+            SRS.prompt.setPromptText(text)
+        }
         self.addSubview(SRS.prompt)
         self.bringSubviewToFront(SRS.prompt)
         NSLog("ADDED PROMPT")
@@ -362,7 +389,10 @@ public class SRS: UIView {
 //    }
     
     func setupInput() {
-        SRS.input = SRSInput()
+        if SRS.input == nil {
+            SRS.input = SRSInput()
+        }
+        
         self.addSubview(SRS.input)
         self.bringSubviewToFront(SRS.input)
         
@@ -378,7 +408,9 @@ public class SRS: UIView {
     
     static var cheightContraint: NSLayoutConstraint!
     func setupContent() {
-        SRS.content = SRSContent()
+        if SRS.content == nil {
+            SRS.content = SRSContent()
+        }
         SRS.content.parent = self
         self.addSubview(SRS.content)
         self.bringSubviewToFront(SRS.content)
