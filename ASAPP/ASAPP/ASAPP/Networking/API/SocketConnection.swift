@@ -9,6 +9,15 @@
 import UIKit
 import SocketRocket
 
+
+enum ASAPPEnvironment {
+    case Local
+    case Development
+    case Production
+}
+let CURRENT_ENVIRONMENT = ASAPPEnvironment.Development
+
+
 // MARK:- SocketConnectionDelegate
 
 protocol SocketConnectionDelegate {
@@ -55,7 +64,19 @@ class SocketConnection: NSObject {
     
     init(withCredentials credentials: Credentials) {
         let connectionRequest = NSMutableURLRequest()
-        connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+        switch CURRENT_ENVIRONMENT {
+        case .Local:
+            connectionRequest.URL = NSURL(string: "wss://localhost:8443/api/websocket")
+            break
+            
+        case .Development:
+            connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+            break
+            
+        case .Production:
+            // TODO: Add this
+            break
+        }
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
         self.connectionRequest = connectionRequest
