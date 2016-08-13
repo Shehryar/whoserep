@@ -23,6 +23,14 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         setNeedsUpdateConstraints()
     }
     
+    // MARK: Styles
+    
+    override func updateFontsAndColors() {
+        super.updateFontsAndColors()
+        
+        loadingView.tintColor = styles.replyMessageTextColor
+    }
+    
     // MARK: Layout
     
     override func updateConstraints() {

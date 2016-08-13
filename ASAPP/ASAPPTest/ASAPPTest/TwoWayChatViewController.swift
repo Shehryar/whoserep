@@ -21,6 +21,8 @@ class TwoWayChatViewController: UIViewController {
     var dividerView = UIView()
     
     var leftChatCredentials: Credentials
+    
+    
     var rightChatCredentials: Credentials
     
     // MARK:- Init
@@ -31,10 +33,14 @@ class TwoWayChatViewController: UIViewController {
             rightChatCredentials.targetCustomerToken == leftChatCredentials.userToken , "Target customer token must be the user token of the other party")
         
         
+        let leftChatStyles = ASAPPStyles.darkStyles()
+        
+
+        
         self.leftChatCredentials = leftChatCredentials
         self.rightChatCredentials = rightChatCredentials
-        self.leftChatViewController = ASAPP.createChatViewController(withCredentials: self.leftChatCredentials)
-        self.rightChatViewController = ASAPP.createChatViewController(withCredentials: self.rightChatCredentials)
+        self.leftChatViewController = ASAPP.createChatViewController(withCredentials: self.leftChatCredentials, styles: leftChatStyles)
+        self.rightChatViewController = ASAPP.createChatViewController(withCredentials: self.rightChatCredentials, styles: nil)
     
         super.init(nibName: nil, bundle: nil)
         

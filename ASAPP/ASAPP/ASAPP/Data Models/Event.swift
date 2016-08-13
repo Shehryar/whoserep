@@ -72,6 +72,51 @@ struct TypingPreview {
     let previewText: String
 }
 
+struct Issue {
+    let issueId: Int
+    let companyId: Int
+    let companyGroupId: Int
+    let platformType: Int
+    let customerId: Int
+    let repId: Int
+    let repIssuePos: Int
+    let issueStatus: Int
+    let issueStatusTime: Double
+    let firstCompanyEventLogSeq: Int
+    let lastCompanyEventLogSeq: Int
+    let issueSecret: String
+    let issueTopicId: Int
+    let customerState: Int
+    let createdTime: Double
+    let endedTime: Double
+    let resolved: Bool
+    let regionId: Int
+}
+
+struct Rep {
+    let repId: Int
+    let companyId: Int
+    let crmRepId: String
+    let createdTime: Double
+    let makeAdminTime: Double
+    let maxSlot: Int
+    let rolesJSON: String?
+    let name: String
+    let disabledTime: Double
+}
+
+struct ConnectionUpdate {
+    let agentType: Int
+    let connectionId: String
+    let ipAddress: String
+    let geoLocation: String
+    let isOpen: Bool
+}
+
+struct CRMCustomerLinked {
+    let linkedTime: Double
+}
+
 // MARK:- Event
 
 class Event: Object {
@@ -156,6 +201,78 @@ class Event: Object {
         }
         return nil
     }()
+    
+    lazy var connectionUpdate: ConnectionUpdate? = {
+        guard self.eventType == .None && self.ephemeralType == .ConnectionUpdate else { return nil }
+
+        if let agentType = self.eventJSONObject?["AgentType"] as? Int,
+            let connectionId = self.eventJSONObject?["ConnectionId"] as? String,
+            let ipAddress = self.eventJSONObject?["IPAdress"] as? String,
+            let geoLocation = self.eventJSONObject?["GeoLocation"] as? String,
+            let isOpen = self.eventJSONObject?["IsOpen"] as? Bool {
+            return ConnectionUpdate(agentType: agentType, connectionId: connectionId, ipAddress: ipAddress, geoLocation: geoLocation, isOpen: isOpen)
+        }
+        
+        return nil
+    }()
+    
+    lazy var crmCustomerLinked: CRMCustomerLinked? = {
+        guard self.eventType == .CRMCustomerLinked else { return nil }
+        
+        if let linkedTime = self.eventJSONObject?["CRMCustomerLinkedTime"] as? Double {
+            return CRMCustomerLinked(linkedTime: linkedTime)
+        }
+        
+        return nil
+    }()
+    
+    lazy var newIssue: Issue? = {
+        guard self.eventType == .NewIssue else { return nil }
+        guard let issueJSON = self.eventJSONObject?["Issue"] as? [String : AnyObject] else { return nil }
+        
+        if let issueId = issueJSON["IssueId"] as? Int,
+            let companyId = issueJSON["CompanyId"] as? Int,
+            let companyGroupId = issueJSON["CompanyGroupId"] as? Int,
+            let platformType = issueJSON["PlatformType"] as? Int,
+            let customerId = issueJSON["CustomerId"] as? Int,
+            let repId = issueJSON["RepId"] as? Int,
+            let repIssuePos = issueJSON["RepIssuePos"] as? Int,
+            let issueStatus = issueJSON["IssueStatus"] as? Int,
+            let issueStatusTime = issueJSON["IssueStatusTime"] as? Double,
+            let firstCompanyEventLogSeq = issueJSON["FirstCompanyEventLogSeq"] as? Int,
+            let lastCompanyEventLogSeq = issueJSON["LastCompanyEventLogSeq"] as? Int,
+            let issueSecret = issueJSON["IssueSecret"] as? String,
+            let issueTopicId = issueJSON["IssueTopicId"] as? Int,
+            let customerState = issueJSON["CustomerState"] as? Int,
+            let createdTime = issueJSON["CreatedTime"] as? Double,
+            let endedTime = issueJSON["EndedTime"] as? Double,
+            let resolved = issueJSON["Resolved"] as? Bool,
+            let regionId = issueJSON["RegionId"] as? Int {
+            return Issue(issueId: issueId, companyId: companyId, companyGroupId: companyGroupId, platformType: platformType, customerId: customerId, repId: repId, repIssuePos: repIssuePos, issueStatus: issueStatus, issueStatusTime: issueStatusTime, firstCompanyEventLogSeq: firstCompanyEventLogSeq, lastCompanyEventLogSeq: lastCompanyEventLogSeq, issueSecret: issueSecret, issueTopicId: issueTopicId, customerState: customerState, createdTime: createdTime, endedTime: endedTime, resolved: resolved, regionId: regionId)
+        }
+        
+        return nil
+    }()
+    
+    lazy var newRep: Rep? = {
+        guard self.eventType == .NewRep else { return nil }
+        guard let repJSON = self.eventJSONObject?["NewRep"] as? [String : AnyObject] else { return nil }
+        
+        if let repId = repJSON["RepId"] as? Int,
+            let companyId = repJSON["CompanyId"] as? Int,
+            let crmRepId = repJSON["CRMRepId"] as? String,
+            let createdTime = repJSON["CreatedTime"] as? Double,
+            let makeAdminTime = repJSON["MadeAdminTime"] as? Double,
+            let maxSlot = repJSON["MaxSlot"] as? Int,
+            let rolesJSON = repJSON["RolesJSON"] as? String,
+            let name = repJSON["Name"] as? String,
+            let disabledTime = repJSON["DisabledTime"] as? Double {
+            return Rep(repId: repId, companyId: companyId, crmRepId: crmRepId, createdTime: createdTime, makeAdminTime: makeAdminTime, maxSlot: maxSlot, rolesJSON: rolesJSON, name: name, disabledTime: disabledTime)
+        }
+        
+        return nil
+    }()
+
     
     // MARK: Realm Property Methods
     

@@ -123,7 +123,20 @@ extension ConversationStore {
         
         do {
             try realm.write {
-                conversation.messageEvents.append(event)
+                // Check if event with seq id exists already
+                var existingIndex: Int?
+                for (index, existingEvent) in conversation.messageEvents.enumerate() {
+                    if event.eventLogSeq == existingEvent.eventLogSeq {
+                        existingIndex = index
+                        break
+                    }
+                }
+                
+                if let existingIndex = existingIndex {
+                    conversation.messageEvents.replace(existingIndex, object: event)
+                } else {
+                    conversation.messageEvents.append(event)
+                }
             }
         } catch {
             DebugLogError("Failed to write event: \(event)")

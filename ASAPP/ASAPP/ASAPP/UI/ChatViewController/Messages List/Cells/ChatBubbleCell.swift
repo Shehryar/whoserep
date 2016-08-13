@@ -16,14 +16,15 @@ enum MessageBubbleStyling {
     case LastOfMany
 }
 
-class ChatBubbleCell: UITableViewCell {
+class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
 
     // MARK: Public Properties
     
-    var isReply: Bool = false {
+    private(set) var isReply: Bool = false {
         didSet {
             if oldValue != isReply {
-                updateForIsReplyValue()
+                updateBubbleCorners()
+                setNeedsUpdateConstraints()
             }
         }
     }
@@ -69,7 +70,8 @@ class ChatBubbleCell: UITableViewCell {
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
-        updateForIsReplyValue()
+        updateBubbleCorners()
+        updateFontsAndColors()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,21 +85,6 @@ class ChatBubbleCell: UITableViewCell {
     }
     
     // MARK: Styling
-    
-    func updateForIsReplyValue() {
-        if !ignoresReplyBubbleStyling {
-            if isReply {
-                bubbleView.fillColor = Colors.blueColor()
-                bubbleView.strokeColor = nil
-            } else {
-                bubbleView.fillColor = Colors.whiteColor()
-                bubbleView.strokeColor = Colors.lightGrayColor()
-            }
-        }
-        updateBubbleCorners()
-        
-        setNeedsUpdateConstraints()
-    }
     
     func updateBubbleCorners() {
         var roundedCorners: UIRectCorner
@@ -141,7 +128,41 @@ class ChatBubbleCell: UITableViewCell {
         bubbleView.roundedCorners = roundedCorners
     }
     
-    // MARK: Layout
+    // MARK:- ASAPPStyleable
+    
+    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    
+    func applyStyles(styles: ASAPPStyles) {
+        applyStyles(styles, isReply: isReply)
+    }
+    
+    func applyStyles(styles: ASAPPStyles, isReply: Bool) {
+        self.styles = styles
+        self.isReply = isReply
+        
+        updateFontsAndColors()
+    }
+    
+    func updateFontsAndColors() {
+        guard !ignoresReplyBubbleStyling else {
+            return
+        }
+        
+        backgroundColor = styles.backgroundColor1
+        if isReply {
+            bubbleView.fillColor = styles.replyMessageFillColor
+            bubbleView.strokeColor = styles.replyMessageStrokeColor
+        } else {
+            bubbleView.fillColor = styles.messageFillColor
+            bubbleView.strokeColor = styles.messageStrokeColor
+        }
+        bubbleView.backgroundColor = styles.backgroundColor1
+    }
+}
+
+// MARK:- Layout
+
+extension ChatBubbleCell {
     
     override func updateConstraints() {
         leftConstraint?.uninstall()
@@ -163,8 +184,11 @@ class ChatBubbleCell: UITableViewCell {
         }
         super.updateConstraints()
     }
-    
-    // MARK: Instance Methods
+}
+
+// MARK:- Instance Methods
+
+extension ChatBubbleCell {
     
     func animate() {
         // Subclasses can override

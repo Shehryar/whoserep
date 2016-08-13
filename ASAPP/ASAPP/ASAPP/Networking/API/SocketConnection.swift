@@ -9,6 +9,15 @@
 import UIKit
 import SocketRocket
 
+
+enum ASAPPEnvironment {
+    case Local
+    case Development
+    case Production
+}
+let CURRENT_ENVIRONMENT = ASAPPEnvironment.Development
+
+
 // MARK:- SocketConnectionDelegate
 
 protocol SocketConnectionDelegate {
@@ -49,11 +58,25 @@ class SocketConnection: NSObject {
     
     private var requestHandlers = [Int : IncomingMessageHandler]()
     
+    private var didManuallyDisconnect = false
+    
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
         let connectionRequest = NSMutableURLRequest()
-        connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+        switch CURRENT_ENVIRONMENT {
+        case .Local:
+            connectionRequest.URL = NSURL(string: "wss://localhost:8443/api/websocket")
+            break
+            
+        case .Development:
+            connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+            break
+            
+        case .Production:
+            // TODO: Add this
+            break
+        }
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
         self.connectionRequest = connectionRequest
@@ -92,6 +115,8 @@ extension SocketConnection {
         
         DebugLog("Socket connecting with request \(connectionRequest)")
         
+        didManuallyDisconnect = false
+        
         socket = SRWebSocket(URLRequest: connectionRequest)
         socket?.delegate = self
         socket?.open()
@@ -103,9 +128,11 @@ extension SocketConnection {
     func connectIfNeeded(afterDelay delayInSeconds: Int = 0) {
         if delayInSeconds > 0 {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(delayInSeconds) * NSEC_PER_SEC))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                if !self.isConnected {
-                    self.connect()
+            dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] in
+                if let strongSelf = self {
+                    if !strongSelf.isConnected && !strongSelf.didManuallyDisconnect {
+                        self?.connect()
+                    }
                 }
             }
         } else if !isConnected {
@@ -114,6 +141,7 @@ extension SocketConnection {
     }
     
     func disconnect() {
+        didManuallyDisconnect = true
         socket?.delegate = nil
         socket?.close()
         socket = nil
