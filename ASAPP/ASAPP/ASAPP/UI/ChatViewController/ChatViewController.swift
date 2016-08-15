@@ -16,16 +16,20 @@ class ChatViewController: UIViewController {
     
     private(set) var styles: ASAPPStyles
     
+    private var suggestedReplies: NSObject?
+    
     // MARK: Private Properties
     
     private var conversationManager: ConversationManager
     
     private var keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
+    private var keyboardRenderedHeight: CGFloat = 0
     
-    private var chatMessagesView: ChatMessagesView
+    private let chatMessagesView: ChatMessagesView
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
+    private let suggestedRepliesView = ChatSuggestedRepliesView()
     private var shouldShowConnectionStatusView: Bool {
         return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
     }
@@ -55,6 +59,9 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
         chatInputView.layer.shadowRadius = 2
         chatInputView.layer.shadowOpacity = 0.1
+        
+        suggestedRepliesView.delegate = self
+        suggestedRepliesView.applyStyles(self.styles)
         
         connectionStatusView.applyStyles(self.styles)
         connectionStatusView.onTapToConnect = { [weak self] in
@@ -89,6 +96,7 @@ class ChatViewController: UIViewController {
         
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
+        view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
     }
     
@@ -158,12 +166,18 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let messagesHeight = inputTop
+        var repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0)
+        var repliesTop = CGRectGetHeight(view.bounds)
+        if suggestedReplies != nil {
+            repliesTop -= repliesHeight
+        }
+        suggestedRepliesView.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
+        
+        let messagesHeight = min(CGRectGetMinY(chatInputView.frame),
+                                 CGRectGetMinY(suggestedRepliesView.frame))
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
-        
-//        DebugLog("\n\n\nMessageView Frame: \(String(chatMessagesView.frame))\nInsetTop: \(String(chatMessagesView.contentInsetTop))\nViewFrame: \(String(view.frame))\nInput Frame: \(String(chatInputView.frame))\nMin Visible Y: \(minVisibleY)\n\n")
     }
     
     func updateFramesAnimated(animated: Bool = true, scrollToBottomIfNearBottom: Bool = false, completion: (() -> Void)? = nil) {
@@ -193,6 +207,9 @@ extension ChatViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
         keyboardOffset = height
+        if height > 0 {
+            keyboardRenderedHeight = height
+        }
         
         updateFramesAnimated(scrollToBottomIfNearBottom: true)
     }
@@ -238,11 +255,32 @@ extension ChatViewController: ChatInputViewDelegate {
     }
 }
 
+// MARK:- ChatSuggestedRepliesView
+
+extension ChatViewController: ChatSuggestedRepliesViewDelegate {
+    func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
+        suggestedReplies = nil
+        chatInputView.becomeFirstResponder()
+        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+    }
+    
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectReply reply: NSObject) {
+        suggestedReplies = nil
+        
+        chatInputView.becomeFirstResponder()
+        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+    }
+}
+
 // MARK:- ConversationManagerDelegate
 
 extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         chatMessagesView.insertNewMessageEvent(messageEvent)
+        
+        suggestedReplies = NSObject()
+        chatInputView.endEditing(true)
+        updateFramesAnimated(true, scrollToBottomIfNearBottom: true)
     }
     
     func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event) {

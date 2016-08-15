@@ -89,3 +89,15 @@ extension UIColor {
         return nil
     }
 }
+
+// MARK:- Highlight Colors 
+
+extension UIColor {
+    func highlightColor() -> UIColor? {
+        if isBright() {
+            return colorWithRelativeBrightness(-0.14)
+        } else {
+            return colorWithRelativeBrightness(0.14)
+        }
+    }
+}

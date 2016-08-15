@@ -30,6 +30,7 @@ import RealmSwift
     case WhisperMessage = 17
     case CustomerFeedback = 18
     case VCardMessage = 19
+    case ActionableMessage = 20
 }
 
 @objc enum EphemeralType: Int {

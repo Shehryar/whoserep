@@ -211,6 +211,30 @@ class ChatInputView: UIView, ASAPPStyleable {
     }
 }
 
+// MARK:- First Responder
+
+extension ChatInputView {
+    override func becomeFirstResponder() -> Bool {
+        return textView.becomeFirstResponder() || super.becomeFirstResponder()
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return textView.canBecomeFirstResponder() || super.canBecomeFirstResponder()
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        return textView.resignFirstResponder() || super.resignFirstResponder()
+    }
+    
+    override func canResignFirstResponder() -> Bool {
+        return textView.canResignFirstResponder() || super.canResignFirstResponder()
+    }
+    
+    override func isFirstResponder() -> Bool {
+        return textView.isFirstResponder() || super.isFirstResponder()
+    }
+}
+
 // MARK:- Layout
 
 extension ChatInputView {

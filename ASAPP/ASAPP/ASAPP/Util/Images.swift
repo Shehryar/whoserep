@@ -28,11 +28,15 @@ class Images: NSObject {
     // MARK:- Private Helper Methods
     
     private class func imageWithName(name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {
-        return modifiedImage(imageWithName(name), tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+        let image = imageWithName(name)
+        let modImage = modifiedImage(image, tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+        return modImage
     }
     
     private class func imageWithName(name: String) -> UIImage? {
-        return UIImage(named: name, inBundle: ASAPPBundle, compatibleWithTraitCollection: nil)
+        let image = UIImage(named: name, inBundle: ASAPPBundle, compatibleWithTraitCollection: nil)
+        
+        return image
     }
     
     private class func modifiedImage(image: UIImage?, tintColor: UIColor? = nil, fillColor: UIColor?  = nil, alpha: CGFloat = 1) -> UIImage? {
@@ -42,6 +46,6 @@ class Images: NSObject {
         } else if let fillColor = fillColor {
             modifiedImage = image?.fillAlpha(fillColor, alpha: alpha)
         }
-        return modifiedImage
+        return modifiedImage ?? image
     }
 }
