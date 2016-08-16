@@ -8,6 +8,11 @@
 
 import Foundation
 
+// MARK:- DEBUG FLAGS
+
+let TEST_ACTIONABLE_MESSAGES_LOCALLY = true
+
+
 // MARK:- ConversationManagerDelegate
 
 protocol ConversationManagerDelegate {
@@ -98,6 +103,7 @@ extension ConversationManager {
     func sendMessageActionSelection(messageAction: MessageAction, completion: (() -> Void)? = nil) {
         
         // TESTING
+        // TODO: Hit actual endpoint once ready
         
         if let message = messageAction.name {
             sendMessage(message, completion: completion)
@@ -188,14 +194,19 @@ extension ConversationManager: SocketConnectionDelegate {
                     
                     
                     /** BEGIN TESTING **/
-                    if event.eventType == .TextMessage {
-                        if let textMessageText = event.textMessage?.text {
-                            if textMessageText.localizedCaseInsensitiveContainsString("help") {
-                                if let actionableMessage = Event.sampleActionableMessageEvent() {
-                                    delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
+                    if TEST_ACTIONABLE_MESSAGES_LOCALLY {
+                        if event.eventType == .TextMessage {
+                            if let textMessageText = event.textMessage?.text {
+                                if textMessageText.localizedCaseInsensitiveContainsString("help") {
+                                    if let actionableMessage = Event.sampleActionableMessageEvent() {
+                                        Dispatcher.delay(600, closure: {
+                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
+                                        })
+                                        
+                                    }
                                 }
                             }
-                        }
+                    }
                     }
                     /** END TESTING **/
                     

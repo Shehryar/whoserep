@@ -185,7 +185,7 @@ extension ChatViewController {
         }
     }
     
-    func updateFramesAnimated(animated: Bool = true, scrollToBottomIfNearBottom: Bool = false, completion: (() -> Void)? = nil) {
+    func updateFramesAnimated(animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom()
         if animated {
             UIView.animateWithDuration(0.2, animations: {
@@ -216,7 +216,7 @@ extension ChatViewController: KeyboardObserverDelegate {
             keyboardRenderedHeight = height
         }
         
-        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+        updateFramesAnimated()
     }
 }
 
@@ -256,7 +256,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
-        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+        updateFramesAnimated()
     }
 }
 
@@ -266,7 +266,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
         actionableMessage = nil
         chatInputView.becomeFirstResponder()
-        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+        updateFramesAnimated()
     }
     
     func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction action: MessageAction) {
@@ -276,7 +276,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
             // TODO: Check for success
             self?.actionableMessage = nil
             self?.chatInputView.becomeFirstResponder()
-            self?.updateFramesAnimated(scrollToBottomIfNearBottom: true)
+            self?.updateFramesAnimated()
         }
     }
 }
@@ -286,10 +286,13 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
 extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         chatMessagesView.insertNewMessageEvent(messageEvent) {
+            
             if messageEvent.eventType == .ActionableMessage {
-                self.actionableMessage = messageEvent.actionableMessage
-                self.suggestedRepliesView.actionableMessage = messageEvent.actionableMessage
-                self.updateFramesAnimated(true, scrollToBottomIfNearBottom: true)
+                Dispatcher.delay(200, closure: { [weak self] in
+                    self?.actionableMessage = messageEvent.actionableMessage
+                    self?.suggestedRepliesView.actionableMessage = messageEvent.actionableMessage
+                    self?.updateFramesAnimated()
+                })
             }
         }
     }
@@ -300,7 +303,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
         connectionStatusView.status = isConnected ? .Connected : .Disconnected
-        updateFramesAnimated()
+        updateFramesAnimated(scrollToBottomIfNearBottom: false)
         
         if isConnected {
             // Fetch events
