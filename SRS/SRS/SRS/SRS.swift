@@ -19,7 +19,7 @@ public class SRS: UIView {
     var isExpanded: Bool!
     var isDragEnabled = false
     var didAddBubble = false
-    var environment: EnvironemntType = .Staging
+    var environment: EnvironemntType = .Production
     
     public enum EnvironemntType {
         case Staging, Production
