@@ -241,6 +241,7 @@ class SRSInput: UIView, UITextFieldDelegate {
         SRS.content.resetStack()
         showMenuIfNeeded()
         blurInputIfNeeded()
+        showPlaceholderIfNeeded()
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -263,10 +264,7 @@ class SRSInput: UIView, UITextFieldDelegate {
     }
     
     func showPlaceholderIfNeeded() {
-        if input.text!.characters.count > 0 {
-            placeholder.text = ""
-        } else {
-//            placeholder.text = "I want to ..."
+        if !SRS.content.hasData() {
             SRS.prompt.prompt.text = "HOW CAN WE HELP?"
         }
     }
