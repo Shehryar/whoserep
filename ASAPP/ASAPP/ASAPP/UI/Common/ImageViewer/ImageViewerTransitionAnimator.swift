@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewerTransitionAnimator: UIPercentDrivenInteractiveTransition {
+class ImageViewerTransitionAnimator: NSObject {
 
     // MARK: Properties: Context
     
@@ -230,6 +230,9 @@ extension ImageViewerTransitionAnimator {
         
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: initialSpringVelocity, options: .BeginFromCurrentState, animations: {
             self.presentingView?.transform = CGAffineTransformIdentity
+            if let presentingViewController = self.presentingViewController {
+                self.presentingView?.frame = transitionContext.finalFrameForViewController(presentingViewController)
+            }
             self.maskView.alpha = 0.0
             if imageViewer.presentationImageCornerRadius != 0 {
                 self.transitioningImageView.layer.cornerRadius = imageViewer.presentationImageCornerRadius
@@ -274,6 +277,9 @@ extension ImageViewerTransitionAnimator {
         let duration = transitionDuration(whenPresenting: false)
         UIView.animateWithDuration(duration, delay: 0, options: .BeginFromCurrentState, animations: { 
             self.presentingView?.transform = CGAffineTransformIdentity
+            if let presentingViewController = self.presentingViewController {
+                self.presentingView?.frame = transitionContext.finalFrameForViewController(presentingViewController)
+            }
             self.maskView.alpha = 0.0
             self.transitioningImageView.center = center
             }) { (completed) in

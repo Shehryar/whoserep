@@ -16,9 +16,13 @@ class Images: NSObject {
     class func xIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         return imageWithName("temp-icon-x", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
+
+    class func xLightIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("temp-icon-x-light", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
     
-    class func testImage(withAlpha alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("test-image.jpg")
+    class func asappButtonIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("temp-icon-asapp-button", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
     // MARK:- Private Helper Methods

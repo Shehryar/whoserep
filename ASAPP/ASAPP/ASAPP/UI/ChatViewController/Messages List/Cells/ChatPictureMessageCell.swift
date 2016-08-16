@@ -31,38 +31,40 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     override func commonInit() {
         super.commonInit()
-
-        ignoresReplyBubbleStyling = true
         
         pictureImageView.translatesAutoresizingMaskIntoConstraints = false
-        pictureImageView.image = Images.testImage()
         pictureImageView.contentMode = .ScaleAspectFill
-        pictureImageView.backgroundColor = Colors.lightGrayColor()
+        pictureImageView.backgroundColor = Colors.lightGrayColor().colorWithAlphaComponent(0.5)
         pictureImageView.opaque = true
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.clipsToBubblePath = true
-        bubbleView.strokeColor = Colors.bluishGray()
-        bubbleView.fillColor = Colors.lightGrayColor()
         bubbleView.addSubview(pictureImageView)
         
         setNeedsUpdateConstraints()
     }
     
+    // MARK: Styles
+    
+    override func updateFontsAndColors() {
+        super.updateFontsAndColors()
+        
+        bubbleView.strokeColor = nil
+        bubbleView.fillColor = styles.backgroundColor2
+        pictureImageView.backgroundColor = styles.backgroundColor2
+    }
+    
     // MARK: Layout
     
     override func updateConstraints() {
-        
-        
         guard maxMessageWidth > 0 else { return }
         
         var aspectRatio: Double = 1.0
         if let pictureMessage = event?.pictureMessage {
             aspectRatio = pictureMessage.aspectRatio
         }
-        let bubbleHeight = max(maxMessageWidth, floor(maxMessageWidth / CGFloat(aspectRatio)))
- 
+        
         bubbleView.snp_updateConstraints { (make) in
             make.right.equalTo(pictureImageView.snp_right)
             make.bottom.equalTo(pictureImageView.snp_bottom)
@@ -82,6 +84,6 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        pictureImageView.image = nil
+        pictureImageView.image = nil
     }
 }

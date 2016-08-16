@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSFontAttributeName : UIFont.boldSystemFontOfSize(16)
         ]
         navigationController.navigationBar.barStyle = .Black
-        navigationController.navigationBar.opaque = true
-        navigationController.navigationBar.translucent = false
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
             NSFontAttributeName : UIFont.systemFontOfSize(16)

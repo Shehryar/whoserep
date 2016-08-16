@@ -12,9 +12,12 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Public Properties
     
-    var event: Event? {
+    /// *Note* event does not affect the UI -- it is to be used for reference by called only
+    var event: Event?
+    
+    var messageText: String? {
         didSet {
-            textMessageLabel.text = event?.textMessage?.text
+            textMessageLabel.text = messageText
         }
     }
     
@@ -26,7 +29,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     private var animationStartTime: Double = 0.0
     
-    private let textMessageLabel = UILabel()
+    internal let textMessageLabel = UILabel()
     
     // MARK: Init
     
@@ -39,21 +42,22 @@ class ChatTextMessageCell: ChatBubbleCell {
         textMessageLabel.textColor = Colors.whiteColor()
         bubbleView.addSubview(textMessageLabel)
         
-        updateForIsReplyValue()
+        updateFontsAndColors()
         setNeedsUpdateConstraints()
     }
     
     // MARK: Instance Methods
     
-    override func updateForIsReplyValue() {
-        super.updateForIsReplyValue()
+    override func updateFontsAndColors() {
+        super.updateFontsAndColors()
+        
+        textMessageLabel.font = styles.messageFont
         if isReply {
-            textMessageLabel.textColor = Colors.whiteColor()
+            textMessageLabel.textColor = styles.replyMessageTextColor
         } else {
-            textMessageLabel.textColor = Colors.darkTextColor()
+            textMessageLabel.textColor = styles.messageTextColor
         }
         textMessageLabel.backgroundColor = bubbleView.fillColor
-        bubbleView.backgroundColor = Colors.whiteColor()
     }
     
     // MARK: Layout

@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '8.0'
 
 workspace 'ASAPP'
 
@@ -12,7 +12,7 @@ target 'ASAPP' do
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
   pod 'SDWebImage', '~> 3.8.1'
-  project 'ASAPP.xcodeproj'
+  project 'ASAPP.xcodeproj', 'AdHoc' => :release
 
 end
 
@@ -25,13 +25,18 @@ target 'ASAPPTest' do
   pod 'RealmSwift', '~> 1.0.2'
   pod 'SocketRocket', '~> 0.5.1'
   pod 'SDWebImage', '~> 3.8.1'
-  project 'ASAPPTest/ASAPPTest.xcodeproj'
+  project 'ASAPPTest/ASAPPTest.xcodeproj', 'AdHoc' => :release
 
 end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
+            
+            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+            
+            # Maybe get rid of the below later
+            
             config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
             config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
             config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"

@@ -17,11 +17,31 @@ class ChatsListViewController: UIViewController {
         case TwoWayChats = 2
     }
     
+    enum ChatStyle {
+        case Light
+        case Dark
+    }
+    
     // MARK:- Properties
+    
+    var defaultChatStyle = ChatStyle.Light {
+        didSet {
+            if oldValue != defaultChatStyle {
+                updateToggleButtonTitle()
+            }
+        }
+    }
+    
+    var toggleButtonItem: UIBarButtonItem?
+    
+    var chatButton1: ASAPPButton!
+    var chatButton2: ASAPPButton!
+    var chatButton3: ASAPPButton!
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
     let defaultCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c6", isCustomer: true, targetCustomerToken: nil)
+    let emptyCustomerChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct-c9", isCustomer: true, targetCustomerToken: nil)
     let defaultRepChatCredentials = Credentials(withCompany: "vs-dev", userToken: "vs-cct", isCustomer: false, targetCustomerToken: "vs-cct-c6")
     
     let customerChatCredentials = [
@@ -39,9 +59,35 @@ class ChatsListViewController: UIViewController {
         title = "Test Chats"
         automaticallyAdjustsScrollViewInsets = true
         
+        chatButton1 = ASAPPButton(withCredentials: emptyCustomerChatCredentials,
+                                  presentingViewController: self,
+                                  styles: ASAPPStyles.darkStyles())
+        chatButton1.shadowDisabled = true
+        chatButton1.hideUntilAnimateInIsCalled()
+        
+        chatButton2 = ASAPPButton(withCredentials: defaultRepChatCredentials,
+                                  presentingViewController: self,
+                                  styles: nil)
+        chatButton2.hideUntilAnimateInIsCalled()
+        chatButton2.expansionPresentationAnimationDisabled = true
+    
+        chatButton3 = ASAPPButton(withCredentials: defaultCustomerChatCredentials,
+                                  presentingViewController: self,
+                                  styles: nil)
+        chatButton3.frame = CGRect(x: 0, y: 25, width: 50, height: 50)
+        chatButton3.hideUntilAnimateInIsCalled()
+        
+        let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 75))
+        chatButton3ContainerView.addSubview(chatButton3)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: chatButton3ContainerView)
+        
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.dataSource = self
         tableView.delegate = self
+        
+        toggleButtonItem = UIBarButtonItem(title: "Toggle Button", style: .Plain, target: self, action: #selector(ChatsListViewController.didToggleDefaultStyle))
+        updateToggleButtonTitle()
+        navigationItem.rightBarButtonItem = toggleButtonItem
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -68,12 +114,84 @@ class ChatsListViewController: UIViewController {
         
         tableView.frame = view.bounds
         view.addSubview(tableView)
+        view.addSubview(chatButton1)
+        view.addSubview(chatButton2)
+        
+        view.setNeedsUpdateConstraints()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        chatButton3.animateIn(afterDelay: 1)
+        chatButton1.animateIn(afterDelay: 1.5)
+        chatButton2.animateIn(afterDelay: 1.25)
+    }
+    
+    // MARK:- Layout
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        chatButton1.snp_updateConstraints { (make) in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+            make.right.equalTo(view.snp_right).offset(-15)
+            make.bottom.equalTo(view.snp_bottom).offset(-15)
+        }
+        
+        chatButton2.snp_updateConstraints { (make) in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+            make.left.equalTo(view.snp_left).offset(15)
+            make.bottom.equalTo(view.snp_bottom).offset(-15)
+        }
     }
     
     // MARK:- Status Bar
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    // MARK:- Toggling Styles
+    
+    func didToggleDefaultStyle() {
+        switch defaultChatStyle {
+        case .Light:
+            self.defaultChatStyle = .Dark
+            break
+            
+        case .Dark:
+            self.defaultChatStyle = .Light
+            break
+        }
+    }
+    
+    func updateToggleButtonTitle() {
+        switch defaultChatStyle {
+        case .Light:
+            toggleButtonItem?.title = "Light Style"
+            break
+            
+        case .Dark:
+            toggleButtonItem?.title = "Dark Style"
+            break
+        }
+    }
+    
+    func defaultStyles() -> ASAPPStyles {
+        var styles: ASAPPStyles
+        switch defaultChatStyle {
+        case .Light:
+            styles = ASAPPStyles()
+            break
+            
+        case .Dark:
+            styles = ASAPPStyles.darkStyles()
+            break
+        }
+        return styles
     }
 }
 
@@ -168,7 +286,9 @@ extension ChatsListViewController: UITableViewDelegate {
         }
         
         if let chatCredentials = chatCredentials {
-            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials)
+            let styles = defaultStyles()
+            
+            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: styles)
             chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)
         }
