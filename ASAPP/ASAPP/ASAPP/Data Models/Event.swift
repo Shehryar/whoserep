@@ -364,13 +364,15 @@ extension Event {
 extension Event {
     class func sampleActionableMessageEvent() -> Event? {
         
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
         return Event(withJSON: [
-            "CreatedTime" : 1471362546941927.0,
+            "CreatedTime" : eventTime,
             "IssueId" : 350001,
             "CompanyId" : 10001,
             "CustomerId" : 130001,
             "RepId" : 20001,
-            "EventTime" : 1471362546941927.0,
+            "EventTime" : eventTime,
             "EventType" : 20,
             "EphemeralType" : 0,
             "EventFlags" : 0,
