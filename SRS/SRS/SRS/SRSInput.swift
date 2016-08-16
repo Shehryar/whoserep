@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSInput: UIView, UITextViewDelegate {
+class SRSInput: UIView, UITextFieldDelegate {
 
     var srsContent:SRSContent!
     /*
@@ -37,7 +37,7 @@ class SRSInput: UIView, UITextViewDelegate {
     }
     
     var heightConstraint: NSLayoutConstraint!
-    var input: UITextView!
+    var input: ASAPPInputField!
     var placeholder: UILabel!
     var menu: UIView!
     
@@ -45,15 +45,15 @@ class SRSInput: UIView, UITextViewDelegate {
     
     var selfInputBotConstraint: NSLayoutConstraint!
     func addInputView() {
-        input = UITextView()
+        input = ASAPPInputField()
         input.delegate = self
         input.returnKeyType = UIReturnKeyType.Done
         input.textAlignment = NSTextAlignment.Left
         input.textColor = UIColor.darkTextColor()
         input.backgroundColor = UIColor.whiteColor()
         input.font = UIFont(name: "HelveticaNeue", size: 16)
-        input.textContainerInset = UIEdgeInsetsMake(0, 16, 0, 16)
-        input.contentInset = UIEdgeInsetsMake(16, 0, 16, 0)
+        input.clearButtonMode = .Always
+        input.placeholder = "I want to ..."
         self.addSubview(input)
         
         input.translatesAutoresizingMaskIntoConstraints = false
@@ -69,12 +69,24 @@ class SRSInput: UIView, UITextViewDelegate {
         self.addConstraint(bottomContraint)
         self.addConstraint(heightConstraint)
         selfInputBotConstraint = bottomContraint
+        
+        input.addTarget(self, action: #selector(textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+    }
+    
+    class ASAPPInputField: UITextField {
+        override func editingRectForBounds(bounds: CGRect) -> CGRect {
+            return CGRectInset(bounds, 16, 0)
+        }
+        
+        override func textRectForBounds(bounds: CGRect) -> CGRect {
+            return CGRectInset(bounds, 16, 0)
+        }
     }
     
     func addPlaceholderView() {
         placeholder = UILabel()
         placeholder.textColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 0.3)
-        placeholder.text = "I want to ..."
+//        placeholder.text = "I want to ..."
         placeholder.font = UIFont(name: "HelveticaNeue", size: 16)
         self.addSubview(placeholder)
         
@@ -210,17 +222,17 @@ class SRSInput: UIView, UITextViewDelegate {
         return input.sizeThatFits(CGSize(width: UIScreen.mainScreen().bounds.size.width - 32, height: CGFloat.max)).height
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textFieldDidBeginEditing(textField: UITextField) {
         print("GOT FOCUS")
         self.focusInput()
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textFieldDidEndEditing(textField: UITextField) {
         self.blurInputIfNeeded()
     }
     
     func focusInput() {
-        textViewDidChange(self.input)
+        textFieldDidChange(self.input)
         input.backgroundColor = UIColor.whiteColor()
     }
     
@@ -231,30 +243,30 @@ class SRSInput: UIView, UITextViewDelegate {
         blurInputIfNeeded()
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            print("did finsh editing", textView.text)
-            if textView.text != "" {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if string == "\n" {
+            print("did finsh editing", textField.text)
+            if textField.text != "" {
                 resetData()
-                SRS.conn.request(textView.text)
+                SRS.conn.request(textField.text!)
             }
             input.resignFirstResponder()
         }
         return true
     }
     
-    func textViewDidChange(textView: UITextView) {
-        heightConstraint.constant = getHeight() + 32
+    func textFieldDidChange(textField: UITextField) {
+//        heightConstraint.constant = getHeight() + 32
         showPlaceholderIfNeeded()
         showMenuIfNeeded()
 //        SRS.prompt.addRipple()
     }
     
     func showPlaceholderIfNeeded() {
-        if input.text.characters.count > 0 {
+        if input.text!.characters.count > 0 {
             placeholder.text = ""
         } else {
-            placeholder.text = "I want to ..."
+//            placeholder.text = "I want to ..."
             SRS.prompt.prompt.text = "HOW CAN WE HELP?"
         }
     }
@@ -291,6 +303,6 @@ class SRSInput: UIView, UITextViewDelegate {
     }
     
     func getQueryText() -> String {
-        return self.input.text
+        return self.input.text!
     }
 }
