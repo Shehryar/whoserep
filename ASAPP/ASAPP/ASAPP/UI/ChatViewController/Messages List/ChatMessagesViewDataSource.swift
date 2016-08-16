@@ -65,11 +65,11 @@ class ChatMessagesViewDataSource: NSObject {
             return nil
         }
         
-        for (section, eventsAtTime) in eventsByTime.reverse().enumerate() {
+        for (section, eventsAtTime) in eventsByTime.enumerate().reverse() {
             
             // Could skip over arrays here if the event happened before the first event's time
             
-            for (row, currEvent) in eventsAtTime.reverse().enumerate() {
+            for (row, currEvent) in eventsAtTime.enumerate().reverse() {
                 if currEvent.eventLogSeq == event.eventLogSeq {
                     return NSIndexPath(forRow: row, inSection: section)
                 }
