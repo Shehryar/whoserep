@@ -29,9 +29,9 @@
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		3008888C1D620D3700C25802 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008888B1D620D3700C25802 /* Button.swift */; };
 		3008888E1D6258F100C25802 /* ChatSuggestedReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */; };
-		300888901D62744600C25802 /* ActionableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008888F1D62744600C25802 /* ActionableMessage.swift */; };
-		300888921D62745400C25802 /* ActionableMessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888911D62745400C25802 /* ActionableMessageAction.swift */; };
 		300888941D62756D00C25802 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888931D62756D00C25802 /* JSONParser.swift */; };
+		300888991D63B1A200C25802 /* ActionableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888971D63B1A200C25802 /* ActionableMessage.swift */; };
+		3008889A1D63B1A200C25802 /* ActionableMessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888981D63B1A200C25802 /* ActionableMessageAction.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
@@ -95,9 +95,9 @@
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		3008888B1D620D3700C25802 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSuggestedReplyCell.swift; sourceTree = "<group>"; };
-		3008888F1D62744600C25802 /* ActionableMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessage.swift; sourceTree = "<group>"; };
-		300888911D62745400C25802 /* ActionableMessageAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageAction.swift; sourceTree = "<group>"; };
 		300888931D62756D00C25802 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		300888971D63B1A200C25802 /* ActionableMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessage.swift; sourceTree = "<group>"; };
+		300888981D63B1A200C25802 /* ActionableMessageAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageAction.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,6 +187,15 @@
 			path = "Suggested Replies Sheet";
 			sourceTree = "<group>";
 		};
+		300888961D63B1A200C25802 /* Event Payload Objects */ = {
+			isa = PBXGroup;
+			children = (
+				300888971D63B1A200C25802 /* ActionableMessage.swift */,
+				300888981D63B1A200C25802 /* ActionableMessageAction.swift */,
+			);
+			path = "Event Payload Objects";
+			sourceTree = "<group>";
+		};
 		30099DB01D3EDBC400171D56 /* ASAPP */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,8 +282,7 @@
 				30226CC11D4933F200871453 /* Conversation.swift */,
 				30226CC31D4933F200871453 /* Event.swift */,
 				300888931D62756D00C25802 /* JSONParser.swift */,
-				3008888F1D62744600C25802 /* ActionableMessage.swift */,
-				300888911D62745400C25802 /* ActionableMessageAction.swift */,
+				300888961D63B1A200C25802 /* Event Payload Objects */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -603,7 +611,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
-				300888901D62744600C25802 /* ActionableMessage.swift in Sources */,
 				30A4BB271D5240B100795BA7 /* ChatInfoTextCell.swift in Sources */,
 				28A99F321D5F92EF00F9AA84 /* SRSSampleData.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
@@ -621,6 +628,7 @@
 				30226CD41D4933F200871453 /* Conversation.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
+				300888991D63B1A200C25802 /* ActionableMessage.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
@@ -631,7 +639,6 @@
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
-				300888921D62745400C25802 /* ActionableMessageAction.swift in Sources */,
 				3019F5DD1D5A77B00036D74E /* ChatInfoMessageView.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
@@ -648,6 +655,7 @@
 				30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */,
 				30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
+				3008889A1D63B1A200C25802 /* ActionableMessageAction.swift in Sources */,
 				30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */,
