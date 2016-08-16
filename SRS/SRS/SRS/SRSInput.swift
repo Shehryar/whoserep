@@ -177,7 +177,7 @@ class SRSInput: UIView, UITextViewDelegate {
         menu.addConstraint(heightContraint)
         
         // HACKY: Fix this when menu items are retreived from the server.
-        if tag == 2 {
+        if tag == 1 {
             menu.addConstraint(botConstraint)
         }
         
