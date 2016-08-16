@@ -32,6 +32,7 @@
 		300888941D62756D00C25802 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888931D62756D00C25802 /* JSONParser.swift */; };
 		300888991D63B1A200C25802 /* ActionableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888971D63B1A200C25802 /* ActionableMessage.swift */; };
 		3008889A1D63B1A200C25802 /* ActionableMessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888981D63B1A200C25802 /* ActionableMessageAction.swift */; };
+		3008889D1D63C48600C25802 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008889C1D63C48600C25802 /* StackView.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30099E071D3FD1DA00171D56 /* Lato-Black.ttf */; };
@@ -98,6 +99,7 @@
 		300888931D62756D00C25802 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		300888971D63B1A200C25802 /* ActionableMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessage.swift; sourceTree = "<group>"; };
 		300888981D63B1A200C25802 /* ActionableMessageAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionableMessageAction.swift; sourceTree = "<group>"; };
+		3008889C1D63C48600C25802 /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 				300888981D63B1A200C25802 /* ActionableMessageAction.swift */,
 			);
 			path = "Event Payload Objects";
+			sourceTree = "<group>";
+		};
+		3008889B1D63C47900C25802 /* StackView */ = {
+			isa = PBXGroup;
+			children = (
+				3008889C1D63C48600C25802 /* StackView.swift */,
+			);
+			path = StackView;
 			sourceTree = "<group>";
 		};
 		30099DB01D3EDBC400171D56 /* ASAPP */ = {
@@ -372,6 +382,7 @@
 				30226CF01D493F5300871453 /* BubbleView.swift */,
 				28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */,
 				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
+				3008889B1D63C47900C25802 /* StackView */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
 				3008888B1D620D3700C25802 /* Button.swift */,
 			);
@@ -629,6 +640,7 @@
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
 				300888991D63B1A200C25802 /* ActionableMessage.swift in Sources */,
+				3008889D1D63C48600C25802 /* StackView.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
