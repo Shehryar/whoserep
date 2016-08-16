@@ -13,20 +13,23 @@ enum ActionableMessageActionType: Int {
     case DeepLink = 1
 }
 
-class ActionableMessageAction: NSObject {
+class MessageAction: NSObject {
     
     var name: String?
     
     var type: ActionableMessageActionType = .Response
     
-    init(name: String?, type: ActionableMessageActionType) {
+    var deepLinkURL: NSURL? // Temporary; will be changed later
+    
+    init(name: String?, type: ActionableMessageActionType, deepLinkURL: NSURL? = nil) {
         self.name = name
         self.type = type
+        self.deepLinkURL = deepLinkURL
         super.init()
     }
 }
 
-extension ActionableMessageAction: JSONObject {
+extension MessageAction: JSONObject {
     static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json else {
             return nil
@@ -37,6 +40,7 @@ extension ActionableMessageAction: JSONObject {
                 return nil
         }
         
-        return ActionableMessageAction(name: json["Name"] as? String, type: type)
+        return MessageAction(name: json["Name"] as? String,
+                             type: type)
     }
 }

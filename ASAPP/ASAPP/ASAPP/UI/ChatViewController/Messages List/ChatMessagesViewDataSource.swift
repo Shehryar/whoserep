@@ -145,14 +145,14 @@ class ChatMessagesViewDataSource: NSObject {
             return NSIndexPath(forRow: 0, inSection: 0)
         }
         
-        // Insert not-at-end case
-        if event.eventLogSeq < lastEvent.eventLogSeq {
-            
-            // TODO: support this
-            
-            fatalError("Must call addEvent in order.")
-        }
-        
+//        // Insert not-at-end case
+//        if event.eventLogSeq < lastEvent.eventLogSeq {
+//            
+//            // TODO: support this
+//            
+//            fatalError("Must call addEvent in order.")
+//        }
+//        
         // Insert at end
         
         let maxTimeForSameSection = lastEvent.eventTime + Double(secondsBetweenSections * 1000000)

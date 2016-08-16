@@ -13,5 +13,5 @@ protocol JSONObject {
 }
 
 class JSONParser: NSObject {
-
+    // TODO: Parsing json array using generics
 }

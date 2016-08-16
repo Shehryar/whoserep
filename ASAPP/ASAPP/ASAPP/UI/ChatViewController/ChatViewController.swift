@@ -16,7 +16,7 @@ class ChatViewController: UIViewController {
     
     private(set) var styles: ASAPPStyles
     
-    private var suggestedReplies: NSObject?
+    private var actionableMessage: ActionableMessage?
     
     // MARK: Private Properties
     
@@ -166,9 +166,9 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        var repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0)
+        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0 + inputHeight)
         var repliesTop = CGRectGetHeight(view.bounds)
-        if suggestedReplies != nil {
+        if actionableMessage != nil {
             repliesTop -= repliesHeight
         }
         suggestedRepliesView.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
@@ -178,6 +178,11 @@ extension ChatViewController {
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
+        
+        
+        if actionableMessage != nil {
+            chatInputView.endEditing(true)
+        }
     }
     
     func updateFramesAnimated(animated: Bool = true, scrollToBottomIfNearBottom: Bool = false, completion: (() -> Void)? = nil) {
@@ -259,16 +264,20 @@ extension ChatViewController: ChatInputViewDelegate {
 
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
-        suggestedReplies = nil
+        actionableMessage = nil
         chatInputView.becomeFirstResponder()
         updateFramesAnimated(scrollToBottomIfNearBottom: true)
     }
     
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectReply reply: NSObject) {
-        suggestedReplies = nil
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction action: MessageAction) {
         
-        chatInputView.becomeFirstResponder()
-        updateFramesAnimated(scrollToBottomIfNearBottom: true)
+        conversationManager.sendMessageActionSelection(action) { [weak self] in
+            
+            // TODO: Check for success
+            self?.actionableMessage = nil
+            self?.chatInputView.becomeFirstResponder()
+            self?.updateFramesAnimated(scrollToBottomIfNearBottom: true)
+        }
     }
 }
 
@@ -276,11 +285,13 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
 
 extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
-        chatMessagesView.insertNewMessageEvent(messageEvent)
-        
-        suggestedReplies = NSObject()
-        chatInputView.endEditing(true)
-        updateFramesAnimated(true, scrollToBottomIfNearBottom: true)
+        chatMessagesView.insertNewMessageEvent(messageEvent) {
+            if messageEvent.eventType == .ActionableMessage {
+                self.actionableMessage = messageEvent.actionableMessage
+                self.suggestedRepliesView.actionableMessage = messageEvent.actionableMessage
+                self.updateFramesAnimated(true, scrollToBottomIfNearBottom: true)
+            }
+        }
     }
     
     func conversationManager(manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event) {

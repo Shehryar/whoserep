@@ -69,12 +69,14 @@ extension ConversationManager {
         socketConnection.disconnect()
     }
     
-    func sendMessage(message: String) {
+    func sendMessage(message: String, completion: (() -> Void)? = nil) {
         let path = "\(requestPrefix)SendTextMessage"
-        socketConnection.sendRequest(withPath: path, params: ["Text" : message])
+        socketConnection.sendRequest(withPath: path, params: ["Text" : message]) { (incomingMessage) in
+            completion?()
+        }
     }
     
-    func sendPictureMessage(image: UIImage) {
+    func sendPictureMessage(image: UIImage, completion: (() -> Void)? = nil) {
         let path = "\(requestPrefix)SendPictureMessage"
         
         guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
@@ -88,7 +90,18 @@ extension ConversationManager {
                                              "PicHeight" : image.size.height ]
         
         socketConnection.sendRequest(withPath: path, params: params)
-        socketConnection.sendRequestWithData(imageData)
+        socketConnection.sendRequestWithData(imageData) { (incomingMessage) in
+            completion?()
+        }
+    }
+    
+    func sendMessageActionSelection(messageAction: MessageAction, completion: (() -> Void)? = nil) {
+        
+        // TESTING
+        
+        if let message = messageAction.name {
+            sendMessage(message, completion: completion)
+        }
     }
     
     func updateCurrentUserTypingStatus(isTyping: Bool, withText text: String?) {
@@ -172,6 +185,21 @@ extension ConversationManager: SocketConnectionDelegate {
                 switch event.eventType {
                 case .TextMessage, .PictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                    
+                    
+                    /** BEGIN TESTING **/
+                    if event.eventType == .TextMessage {
+                        if let textMessageText = event.textMessage?.text {
+                            if textMessageText.localizedCaseInsensitiveContainsString("help") {
+                                if let actionableMessage = Event.sampleActionableMessageEvent() {
+                                    delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
+                                }
+                            }
+                        }
+                    }
+                    /** END TESTING **/
+                    
+                    
                     break
                   
                 case .None:

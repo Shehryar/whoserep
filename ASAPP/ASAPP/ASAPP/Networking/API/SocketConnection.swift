@@ -159,8 +159,11 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    func sendRequestWithData(data: NSData) {
+    func sendRequestWithData(data: NSData, requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequestWithData(data)
+        if let requestHandler = requestHandler {
+            requestHandlers[request.requestId] = requestHandler
+        }
         sendRequestWithRequest(request)
     }
     

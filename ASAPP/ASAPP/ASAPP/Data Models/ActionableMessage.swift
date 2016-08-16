@@ -12,11 +12,11 @@ class ActionableMessage: NSObject {
     
     var message: String?
     
-    var actions: [ActionableMessageAction]?
+    var actions: [MessageAction]?
     
-    var previousAction: ActionableMessageAction?
+    var previousAction: MessageAction?
     
-    init(message: String?, actions: [ActionableMessageAction]?, previousAction: ActionableMessageAction? = nil) {
+    init(message: String?, actions: [MessageAction]?, previousAction: MessageAction? = nil) {
         self.message = message
         self.actions = actions
         self.previousAction = previousAction
@@ -32,10 +32,10 @@ extension ActionableMessage: JSONObject {
             return nil
         }
         
-        var actions = [ActionableMessageAction]()
+        var actions = [MessageAction]()
         if let actionsJSONArray = json["Actions"] as? [[String : AnyObject]] {
             for actionJSON in actionsJSONArray {
-                if let action = ActionableMessageAction.instanceWithJSON(actionJSON) as? ActionableMessageAction {
+                if let action = MessageAction.instanceWithJSON(actionJSON) as? MessageAction {
                     actions.append(action)
                 }
             }
@@ -51,10 +51,10 @@ extension ActionableMessage {
     class func sample() -> ActionableMessage {
         return ActionableMessage(message: "What kind of internet issue are you experiencing?",
                                  actions: [
-                                    ActionableMessageAction(name: "Connection", type: .Response),
-                                    ActionableMessageAction(name: "Wi-Fi", type: .Response),
-                                    ActionableMessageAction(name: "Something Else", type: .DeepLink),
-                                    ActionableMessageAction(name: "Download Speed", type: .Response)
+                                    MessageAction(name: "Connection", type: .Response),
+                                    MessageAction(name: "Wi-Fi", type: .Response),
+                                    MessageAction(name: "Download Speed", type: .Response),
+                                    MessageAction(name: "Open Photos", type: .DeepLink, deepLinkURL: NSURL(string: "photos://"))
                                     ])
     }
 }

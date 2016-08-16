@@ -38,7 +38,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- Private Properties
     
-    private let cellAnimationsEnabled = false
+    private let cellAnimationsEnabled = true
     
     private var shouldShowTypingPreview: Bool {
         return false
@@ -77,9 +77,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         self.credentials = credentials
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
-            allowedEventTypes = [.TextMessage, .PictureMessage]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage]
         } else {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .NewIssue, .NewRep, .CRMCustomerLinked]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .NewIssue, .NewRep, .CRMCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         
@@ -264,6 +264,15 @@ extension ChatMessagesView: UITableViewDataSource {
             return cell ?? UITableViewCell()
         }
         
+        // Actionable Message (same UI as Text Message)
+        if event.eventType == .ActionableMessage {
+            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
+            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
+            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
+            cell?.messageText = event.actionableMessage?.message
+            return cell ?? UITableViewCell()
+        }
+        
         // Info Cell
         if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
             let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
@@ -438,7 +447,7 @@ extension ChatMessagesView {
         updateSubviewVisibility()
     }
     
-    func insertNewMessageEvent(event: Event) {
+    func insertNewMessageEvent(event: Event, completion: (() -> Void)? = nil) {
         let wasNearBottom = isNearBottom()
         
         dataSource.addEvent(event)
@@ -454,9 +463,11 @@ extension ChatMessagesView {
         })
         
         if wasNearBottom {
-            scrollToBottomAnimated(cellAnimationsEnabled)
+            scrollToBottomAnimated(false)//cellAnimationsEnabled)
         }
         
         updateSubviewVisibility()
+        
+        completion?()
     }
 }

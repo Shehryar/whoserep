@@ -274,6 +274,11 @@ class Event: Object {
         return nil
     }()
 
+    lazy var actionableMessage: ActionableMessage? = {
+        guard self.eventType == .ActionableMessage else { return nil }
+
+        return ActionableMessage.instanceWithJSON(self.eventJSONObject) as? ActionableMessage
+    }()
     
     // MARK: Realm Property Methods
     
@@ -282,7 +287,7 @@ class Event: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview"]
+        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "actionableMessage"]
     }
     
     // MARK:- Initialization
@@ -351,5 +356,27 @@ extension Event {
         let urlString = "https://\(pictureMessage.fileBucket).s3.amazonaws.com/customer/\(customerId)/company/\(companyId)/\(pictureMessage.fileSecret)-\(pictureMessage.width)x\(pictureMessage.height).\(imageSuffix)"
         
         return NSURL(string: urlString)
+    }
+}
+
+// MARK:- Sample Data
+
+extension Event {
+    class func sampleActionableMessageEvent() -> Event? {
+        
+        return Event(withJSON: [
+            "CreatedTime" : 1471362546941927.0,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : 1471362546941927.0,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"What's yo problem?\", \"Actions\" : [ { \"Name\" : \"Internet\", \"Type\" : 0 }, { \"Name\" : \"Cable\", \"Type\" : 0 }, { \"Name\" : \"Phone\", \"Type\" : 0 }, { \"Name\" : \"Relationships\", \"Type\" : 1 } ] }"
+            ])
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectReply reply: NSObject)
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction action: MessageAction)
 }
 
 
@@ -20,7 +20,11 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
 
     // MARK: Public Properties
     
-    var srsItem: SRSItem? = SRSSampleData.sampleResponse()
+    var actionableMessage: ActionableMessage? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     var delegate: ChatSuggestedRepliesViewDelegate?
     
@@ -139,8 +143,9 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let srsItem = srsItem {
-            return srsItem.items.count
+        if let actionableMessage = actionableMessage,
+            let actions = actionableMessage.actions {
+            return actions.count
         }
         return 0
     }
@@ -155,13 +160,24 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     
     // Mark: Utility
     
+    func actionForIndexPath(indexPath: NSIndexPath) -> MessageAction? {
+        if let actionableMessage = actionableMessage,
+            let actions = actionableMessage.actions {
+            
+            if indexPath.row >= 0 && indexPath.row < actions.count {
+                return actions[indexPath.row]
+            }
+        }
+        return nil
+    }
+    
     func styleSuggestedReplyCell(cell: ChatSuggestedReplyCell, atIndexPath indexPath: NSIndexPath) {
         cell.textLabel?.font = styles.bodyFont
         cell.textLabel?.textColor = styles.foregroundColor1
         cell.backgroundColor = styles.backgroundColor1
         cell.selectedBackgroundColor = styles.backgroundColor2
         cell.separatorBottomColor = styles.separatorColor1
-        cell.textLabel?.text = srsItem?.items[indexPath.row].label
+        cell.textLabel?.text = actionForIndexPath(indexPath)?.name
     }
 }
 
@@ -176,7 +192,9 @@ extension ChatSuggestedRepliesView: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        delegate?.chatSuggestedRepliesView(self, didSelectReply: NSObject())
+        if let action = actionForIndexPath(indexPath) {
+            delegate?.chatSuggestedRepliesView(self, didSelectMessageAction: action)
+        }
     }
 }
 

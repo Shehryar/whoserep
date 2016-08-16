@@ -66,8 +66,8 @@ class ChatSuggestedReplyCell: UITableViewCell {
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
-        var maxContentWidth = (size.width > 0 ? size.width : CGFloat.max) - contentInset.left - contentInset.right
-        var maxContentHeight = (size.height > 0 ? size.height : CGFloat.max) - contentInset.top - contentInset.bottom
+        let maxContentWidth = (size.width > 0 ? size.width : CGFloat.max) - contentInset.left - contentInset.right
+        let maxContentHeight = (size.height > 0 ? size.height : CGFloat.max) - contentInset.top - contentInset.bottom
         
         var contentHeight: CGFloat = 0
         if let textLabel = textLabel {
