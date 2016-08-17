@@ -91,8 +91,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.clipsToBounds = false
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
-        tableView.estimatedSectionHeaderHeight = 30
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = 30
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.dataSource = self
@@ -280,9 +279,11 @@ extension ChatMessagesView: UITableViewDelegate {
         
         let isReply = messageEventIsReply(event)
         let listPosition = messageListPositionForIndexPath(indexPath)
-        return cellMaster.heightForCellWithEvent(event,
-                                                 isReply: isReply,
-                                                 listPosition: listPosition)
+        let height = cellMaster.heightForCellWithEvent(event,
+                                                       isReply: isReply,
+                                                       listPosition: listPosition)
+
+        return height
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

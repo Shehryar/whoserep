@@ -71,10 +71,9 @@ class ChatPictureMessageCell: ChatBubbleCell {
             imageHeight = maxImageHeight
             imageWidth = imageHeight * CGFloat(pictureMessage.aspectRatio)
         }
-        
-        print("\n\nAspect Ratio: \(pictureMessage.aspectRatio)\nWidth: \(imageWidth), height: \(imageHeight)\nBounds Size: \(size)\n\n")
-        
-        return CGSize(width: ceil(imageWidth), height: ceil(imageHeight))
+
+        return CGSize(width: ceil(imageWidth),
+                      height: ceil(imageHeight))
     }
     
     override func layoutSubviews() {
@@ -87,14 +86,12 @@ class ChatPictureMessageCell: ChatBubbleCell {
         }
         
         let bubbleHeight = CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
-        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: imageSize.width, height: bubbleHeight)
+        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: imageSize.width, height: imageSize.height)
         pictureImageView.frame = bubbleView.bounds
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
         let imageHeight = ceil(imageViewSizeThatFitsBoundsSize(size).height)
-        
-        print("\n\nSizeThatFits = \(imageHeight) for size: \(size), aspect \(event?.pictureMessage?.aspectRatio ?? 1)\n\n")
         
         return CGSize(width: size.width, height: imageHeight + contentInset.top + contentInset.bottom)
     }

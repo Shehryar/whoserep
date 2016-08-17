@@ -187,18 +187,7 @@ extension ChatMessagesViewCellMaster {
         
         cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
         
-        
-        
-        func printHeightIfPictureMessage(height: CGFloat, isCached: Bool) {
-            guard event.eventType == .PictureMessage else { return }
-            if let pictureMessage = event.pictureMessage {
-                print("\n\n\(isCached ? "CACHED" : "CALCULATED"): \(height) for aspect \(pictureMessage.aspectRatio)\n\n")
-            }
-        }
-        
         if let cachedHeight = cellHeightCache[event] {
-            printHeightIfPictureMessage(cachedHeight, isCached: true)
-            
 //            print("Cached Height: \(cachedHeight)")
             return cachedHeight
         }
@@ -209,7 +198,6 @@ extension ChatMessagesViewCellMaster {
                                                               listPosition: listPosition,
                                                               width: cachedTableViewWidth)
         cellHeightCache[event] = height
-        printHeightIfPictureMessage(height, isCached: false)
 //        print("Calculated Height: \(height)")
         
         return height

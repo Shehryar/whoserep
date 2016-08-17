@@ -51,10 +51,6 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     internal let bubbleView = BubbleView()
     
-    private var leftConstraint: Constraint?
-    
-    private var rightConstraint: Constraint?
-    
     private var animating = false
     
     // MARK: Init
@@ -160,16 +156,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
 extension ChatBubbleCell {
     
     func maxBubbleWidthForBoundsSize(size: CGSize) -> CGFloat{
-        return floor(0.85 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
+        return floor(0.85 * (size.width - contentInset.left - contentInset.right))
     }
-    
-    /**
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Subclasses should override
-    }
-    */
 }
 
 // MARK:- Instance Methods
