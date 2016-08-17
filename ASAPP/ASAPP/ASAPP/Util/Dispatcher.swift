@@ -17,4 +17,8 @@ class Dispatcher {
             ),
             dispatch_get_main_queue(), closure)
     }
+    
+    class func performOnMainThread(closure: (() -> Void)) {
+        dispatch_async(dispatch_get_main_queue(), closure)
+    }
 }

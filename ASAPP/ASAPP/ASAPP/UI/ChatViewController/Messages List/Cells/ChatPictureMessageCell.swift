@@ -17,7 +17,8 @@ class ChatPictureMessageCell: ChatBubbleCell {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
                 if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
                     if !disableImageLoading {
-                        pictureImageView.sd_setImageWithURL(imageURL)
+                        setImageWithURL(imageURL, forEvent: event)
+//                        pictureImageView.sd_setImageWithURL(imageURL)
                     } else {
                         pictureImageView.image = nil
                     }
@@ -44,6 +45,20 @@ class ChatPictureMessageCell: ChatBubbleCell {
 
         bubbleView.clipsToBubblePath = true
         bubbleView.addSubview(pictureImageView)
+    }
+    
+    // MARK: Image Downloading
+    
+    func setImageWithURL(imageURL: NSURL, forEvent eventForImage: Event) {
+        SDWebImageDownloader
+            .sharedDownloader()
+            .downloadImageWithURL(imageURL, options: [.HighPriority, .UseNSURLCache`], progress: nil) { [weak self] (image, data, error, completed) in
+                Dispatcher.performOnMainThread({ 
+                    if self?.event == eventForImage {
+                        self?.pictureImageView.image = image
+                    }
+                })
+        }
     }
     
     // MARK: Styles

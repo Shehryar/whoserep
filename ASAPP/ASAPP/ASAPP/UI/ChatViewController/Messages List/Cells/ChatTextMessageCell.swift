@@ -72,7 +72,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+                
         let messageSize = messageLabelSizeThatFitsBoundsSize(bounds.size)
         let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
                                 height: ceil(messageSize.height + textInset.top + textInset.bottom))
