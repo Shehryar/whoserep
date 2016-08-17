@@ -16,14 +16,20 @@ class ChatPictureMessageCell: ChatBubbleCell {
             if let event = event, let pictureMessage = event.pictureMessage {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
                 if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
-                    pictureImageView.sd_setImageWithURL(imageURL)
+                    if !disableImageLoading {
+                        pictureImageView.sd_setImageWithURL(imageURL)
+                    } else {
+                        pictureImageView.image = nil
+                    }
                 } else {
                     pictureImageView.image = nil
                 }
             }
-            setNeedsUpdateConstraints()
+            setNeedsLayout()
         }
     }
+    
+    var disableImageLoading: Bool = false
     
     let pictureImageView = FixedSizeImageView()
     
@@ -32,17 +38,12 @@ class ChatPictureMessageCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
         
-        pictureImageView.translatesAutoresizingMaskIntoConstraints = false
         pictureImageView.contentMode = .ScaleAspectFill
         pictureImageView.backgroundColor = Colors.lightGrayColor().colorWithAlphaComponent(0.5)
         pictureImageView.opaque = true
 
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        bubbleView.translatesAutoresizingMaskIntoConstraints = false
         bubbleView.clipsToBubblePath = true
         bubbleView.addSubview(pictureImageView)
-        
-        setNeedsUpdateConstraints()
     }
     
     // MARK: Styles
@@ -57,27 +58,45 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    override func updateConstraints() {
-        guard maxMessageWidth > 0 else { return }
-        
-        var aspectRatio: Double = 1.0
-        if let pictureMessage = event?.pictureMessage {
-            aspectRatio = pictureMessage.aspectRatio
+    func imageViewSizeThatFitsBoundsSize(size: CGSize) -> CGSize {
+        guard let event = event,
+            let pictureMessage = event.pictureMessage else {
+                return CGSizeZero
         }
         
-        bubbleView.snp_updateConstraints { (make) in
-            make.right.equalTo(pictureImageView.snp_right)
-            make.bottom.equalTo(pictureImageView.snp_bottom)
+        var imageWidth = maxBubbleWidthForBoundsSize(size)
+        var imageHeight = imageWidth / CGFloat(pictureMessage.aspectRatio)
+        let maxImageHeight = 0.6 * CGRectGetHeight(UIScreen.mainScreen().bounds)
+        if imageHeight > maxImageHeight {
+            imageHeight = maxImageHeight
+            imageWidth = imageHeight * CGFloat(pictureMessage.aspectRatio)
         }
         
-        pictureImageView.snp_remakeConstraints { (make) in
-            make.left.equalTo(bubbleView.snp_left)
-            make.top.equalTo(bubbleView.snp_top)
-            make.width.lessThanOrEqualTo(bubbleView.snp_width)
-            make.height.lessThanOrEqualTo(pictureImageView.snp_width).dividedBy(aspectRatio)
+        print("\n\nAspect Ratio: \(pictureMessage.aspectRatio)\nWidth: \(imageWidth), height: \(imageHeight)\nBounds Size: \(size)\n\n")
+        
+        return CGSize(width: ceil(imageWidth), height: ceil(imageHeight))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let imageSize = imageViewSizeThatFitsBoundsSize(bounds.size)
+        var bubbleLeft = contentInset.left
+        if !isReply {
+            bubbleLeft = CGRectGetWidth(bounds) - contentInset.right - imageSize.width
         }
         
-        super.updateConstraints()
+        let bubbleHeight = CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
+        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: imageSize.width, height: bubbleHeight)
+        pictureImageView.frame = bubbleView.bounds
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let imageHeight = ceil(imageViewSizeThatFitsBoundsSize(size).height)
+        
+        print("\n\nSizeThatFits = \(imageHeight) for size: \(size), aspect \(event?.pictureMessage?.aspectRatio ?? 1)\n\n")
+        
+        return CGSize(width: size.width, height: imageHeight + contentInset.top + contentInset.bottom)
     }
     
     // MARK: Reuse

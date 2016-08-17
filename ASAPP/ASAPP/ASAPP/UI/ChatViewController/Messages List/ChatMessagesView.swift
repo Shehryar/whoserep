@@ -60,16 +60,13 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
     
+    private let cellMaster: ChatMessagesViewCellMaster
+    
     private let infoMessageView = ChatInfoMessageView()
     
     private var eventsThatShouldAnimate = Set<Event>()
     
     private let HeaderViewReuseId = "TimeStampHeaderReuseId"
-    private let TextMessageCellReuseId = "TextMessageCellReuseId"
-    private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
-    private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
-    private let TypingStatusCellReuseId = "TypingStatusCellReuseId"
-    private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK:- Initialization
     
@@ -82,6 +79,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
             allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .NewIssue, .NewRep, .CRMCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
+        self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         
         super.init(frame: CGRectZero)
         
@@ -93,17 +91,10 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.clipsToBounds = false
         tableView.backgroundColor = UIColor.clearColor()
         tableView.separatorStyle = .None
-        tableView.estimatedRowHeight = 80
         tableView.estimatedSectionHeaderHeight = 30
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
-        tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
-        tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
-        tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingStatusCellReuseId)
-        tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
-        tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -134,6 +125,8 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
         
+        cellMaster.applyStyles(styles)
+        
         backgroundColor = styles.backgroundColor1
         tableView.backgroundColor = styles.backgroundColor1
         tableView.reloadData()
@@ -162,7 +155,7 @@ extension ChatMessagesView {
         }
     }
     
-    private func messageBubbleStylingForIndexPath(indexPath: NSIndexPath) -> MessageBubbleStyling {
+    private func messageListPositionForIndexPath(indexPath: NSIndexPath) -> MessageListPosition {
         guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
         
         let messageIsReply = messageEventIsReply(messageEvent)
@@ -182,8 +175,8 @@ extension ChatMessagesView {
         return .Default
     }
     
-    private func messageEventIsReply(messageEvent: Event?) -> Bool? {
-        guard let messageEvent = messageEvent else { return nil }
+    private func messageEventIsReply(messageEvent: Event?) -> Bool {
+        guard let messageEvent = messageEvent else { return true }
         
         return !messageEvent.wasSentByUserWithCredentials(credentials)
     }
@@ -230,75 +223,23 @@ extension ChatMessagesView: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            // Typing Preview
+            var typingCell: UITableViewCell?
             if shouldShowTypingPreview {
-                let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell
-                cell?.messageText = otherParticipantTypingPreview
-                cell?.applyStyles(styles, isReply: true)
-                return cell ?? UITableViewCell()
+                typingCell = cellMaster.typingPreviewCell(forIndexPath: indexPath, withText: otherParticipantTypingPreview)
+            } else {
+                typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
             }
-            
-            // Typing Status
-            let cell = tableView.dequeueReusableCellWithIdentifier(TypingStatusCellReuseId) as? ChatTypingIndicatorCell
-            cell?.applyStyles(styles, isReply: true)
-            cell?.bubbleStyling = .Default
-            return cell ?? UITableViewCell()
+            return typingCell ?? UITableViewCell()
         }
         
-        // Picture Message
-        if event.eventType == .PictureMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell
-            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
-            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
-            cell?.event = event
-            return cell ?? UITableViewCell()
-            
-        }
+        let isReply = messageEventIsReply(event)
+        let listPosition = messageListPositionForIndexPath(indexPath)
+        let cell = cellMaster.cellForEvent(event,
+                                           isReply: isReply,
+                                           listPosition: listPosition,
+                                           atIndexPath: indexPath)
         
-        // Text Message
-        if event.eventType == .TextMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
-            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
-            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
-            cell?.messageText = event.textMessage?.text
-            return cell ?? UITableViewCell()
-        }
-        
-        // Actionable Message (same UI as Text Message)
-        if event.eventType == .ActionableMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
-            cell?.applyStyles(styles, isReply: messageEventIsReply(event) ?? false)
-            cell?.bubbleStyling = messageBubbleStylingForIndexPath(indexPath)
-            cell?.messageText = event.actionableMessage?.message
-            return cell ?? UITableViewCell()
-        }
-        
-        // Info Cell
-        if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
-            let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
-            cell?.applyStyles(styles)
-            
-            switch event.eventType {
-            case .CRMCustomerLinked:
-                cell?.infoText = "Customer Linked"
-                break
-                
-            case .NewIssue:
-                cell?.infoText = "New Issue: \(event.newIssue?.issueId ?? 0)"
-                break
-                
-            case .NewRep:
-                cell?.infoText = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))"
-                break
-                
-            default:  // Other cases not handled
-                break
-            }
-            
-            return cell ?? UITableViewCell()
-        }
-        
-        return UITableViewCell()
+        return cell ?? UITableViewCell()
     }
 }
 
@@ -327,6 +268,21 @@ extension ChatMessagesView: UITableViewDelegate {
         if let cell = cell as? ChatTypingIndicatorCell {
             cell.loadingView.endAnimating()
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        guard let event = dataSource.eventForIndexPath(indexPath) else {
+            if shouldShowTypingPreview {
+                return cellMaster.heightForTypingPreviewCell(withText: otherParticipantTypingPreview)
+            }
+            return cellMaster.heightForTypingIndicatorCell()
+        }
+        
+        let isReply = messageEventIsReply(event)
+        let listPosition = messageListPositionForIndexPath(indexPath)
+        return cellMaster.heightForCellWithEvent(event,
+                                                 isReply: isReply,
+                                                 listPosition: listPosition)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

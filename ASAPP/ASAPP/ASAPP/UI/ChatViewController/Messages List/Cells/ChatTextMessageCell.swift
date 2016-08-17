@@ -18,6 +18,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     var messageText: String? {
         didSet {
             textMessageLabel.text = messageText
+            setNeedsLayout()
         }
     }
     
@@ -36,14 +37,13 @@ class ChatTextMessageCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
         
-        textMessageLabel.translatesAutoresizingMaskIntoConstraints = false
         textMessageLabel.numberOfLines = 0
+        textMessageLabel.lineBreakMode = .ByTruncatingTail
         textMessageLabel.font = Fonts.latoRegularFont(withSize: 16)
         textMessageLabel.textColor = Colors.whiteColor()
         bubbleView.addSubview(textMessageLabel)
         
         updateFontsAndColors()
-        setNeedsUpdateConstraints()
     }
     
     // MARK: Instance Methods
@@ -62,19 +62,33 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    override func updateConstraints() {
-        bubbleView.snp_updateConstraints { (make) in
-            make.height.equalTo(textMessageLabel.snp_height).offset(textInset.top + textInset.bottom)
-            make.width.equalTo(textMessageLabel.snp_width).offset(textInset.left + textInset.right)
+    func messageLabelSizeThatFitsBoundsSize(size: CGSize) -> CGSize {
+        let maxBubbleWidth = maxBubbleWidthForBoundsSize(size)
+        let maxMessageWidth = maxBubbleWidth - textInset.right - textInset.left
+        let messageSize = textMessageLabel.sizeThatFits(CGSize(width: maxMessageWidth, height: 0))
+        
+        return messageSize
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let messageSize = messageLabelSizeThatFitsBoundsSize(bounds.size)
+        let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
+                                height: ceil(messageSize.height + textInset.top + textInset.bottom))
+        var bubbleLeft = contentInset.left
+        if !isReply {
+            bubbleLeft = CGRectGetWidth(bounds) - bubbleSize.width - contentInset.right
         }
         
-        textMessageLabel.snp_updateConstraints { (make) in
-            make.left.equalTo(bubbleView.snp_left).offset(textInset.left)
-            make.top.equalTo(bubbleView.snp_top).offset(textInset.top)
-            make.width.lessThanOrEqualTo(bubbleView.snp_width).offset(-(textInset.left + textInset.right))
-        }
-        
-        super.updateConstraints()
+        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
+        textMessageLabel.frame = UIEdgeInsetsInsetRect(bubbleView.bounds, textInset)
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let textHeight = messageLabelSizeThatFitsBoundsSize(size).height + textInset.top + textInset.bottom
+        let contentHeight = textHeight + contentInset.top + contentInset.bottom
+        return CGSize(width: size.width, height: contentHeight)
     }
     
     // MARK: Reuse

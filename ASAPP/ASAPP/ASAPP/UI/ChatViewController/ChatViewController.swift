@@ -233,7 +233,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
         let imageViewerImage = ImageViewerImage(image: image)
         let imageViewer = ImageViewer(withImages: [imageViewerImage], initialIndex: 0)
         imageViewer.preparePresentationFromImageView(imageView)
-        imageViewer.presentationImageCornerRadius = 18
+        imageViewer.presentationImageCornerRadius = 10
         presentViewController(imageViewer, animated: true, completion: nil)
     }
 }

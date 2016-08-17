@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-enum MessageBubbleStyling {
+enum MessageListPosition {
     case Default
     case FirstOfMany
     case MiddleOfMany
@@ -24,14 +24,14 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         didSet {
             if oldValue != isReply {
                 updateBubbleCorners()
-                setNeedsUpdateConstraints()
+                setNeedsLayout()
             }
         }
     }
     
-    var bubbleStyling: MessageBubbleStyling = .Default {
+    var listPosition: MessageListPosition = .Default {
         didSet {
-            if oldValue != bubbleStyling {
+            if oldValue != listPosition {
                 updateBubbleCorners()
             }
         }
@@ -40,16 +40,12 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     var contentInset = UIEdgeInsets(top: 2, left: 16, bottom: 2, right: 16) {
         didSet {
             if oldValue != contentInset {
-                setNeedsUpdateConstraints()
+                setNeedsLayout()
             }
         }
     }
     
     // MARK: Private Properties
-    
-    internal var maxMessageWidth: CGFloat {
-        return floor(0.8 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
-    }
     
     internal var ignoresReplyBubbleStyling = false
     
@@ -67,7 +63,6 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         selectionStyle = .None
         opaque = true
         
-        bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
         updateBubbleCorners()
@@ -89,7 +84,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     func updateBubbleCorners() {
         var roundedCorners: UIRectCorner
         if isReply {
-            switch bubbleStyling {
+            switch listPosition {
             case .Default:
                 roundedCorners = [.TopLeft, .TopRight, .BottomRight]
                 break
@@ -107,7 +102,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
                 break
             }
         } else {
-            switch bubbleStyling {
+            switch listPosition {
             case .Default:
                 roundedCorners = [.TopRight, .TopLeft, .BottomLeft]
                 break
@@ -164,26 +159,17 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
 
 extension ChatBubbleCell {
     
-    override func updateConstraints() {
-        leftConstraint?.uninstall()
-        rightConstraint?.uninstall()
-        
-        bubbleView.snp_updateConstraints { (make) in
-            if isReply {
-                self.leftConstraint = make.left.equalTo(contentView.snp_left).offset(contentInset.left).constraint
-            } else {
-                self.rightConstraint = make.right.equalTo(contentView.snp_right).offset(-contentInset.right).constraint
-            }
-            make.top.equalTo(contentView.snp_top).offset(contentInset.top)
-            make.width.lessThanOrEqualTo(maxMessageWidth)
-        }
-        
-        contentView.snp_updateConstraints { (make) in
-            make.edges.equalTo(self)
-            make.height.greaterThanOrEqualTo(bubbleView.snp_height).offset(contentInset.top + contentInset.bottom)
-        }
-        super.updateConstraints()
+    func maxBubbleWidthForBoundsSize(size: CGSize) -> CGFloat{
+        return floor(0.85 * (CGRectGetWidth(bounds) - contentInset.left - contentInset.right))
     }
+    
+    /**
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Subclasses should override
+    }
+    */
 }
 
 // MARK:- Instance Methods
