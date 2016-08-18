@@ -66,8 +66,6 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     private var eventsThatShouldAnimate = Set<Event>()
     
-    private let HeaderViewReuseId = "TimeStampHeaderReuseId"
-    
     // MARK:- Initialization
     
     required init(withCredentials credentials: Credentials) {
@@ -181,7 +179,6 @@ extension ChatMessagesView {
     }
 }
 
-
 // MARK:- UITableViewDataSource
 
 extension ChatMessagesView: UITableViewDataSource {
@@ -209,15 +206,8 @@ extension ChatMessagesView: UITableViewDataSource {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < dataSource.numberOfSections() else { return nil }
-        
-        var headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewReuseId) as? ChatMessagesTimeHeaderView
-        if headerView == nil {
-            headerView = ChatMessagesTimeHeaderView(reuseIdentifier: HeaderViewReuseId)
-        }
-        headerView?.applyStyles(styles)
-        headerView?.timeStampInSeconds = dataSource.timeStampInSecondsForSection(section)
-        
-        return headerView
+  
+        return cellMaster.timeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -267,6 +257,12 @@ extension ChatMessagesView: UITableViewDelegate {
         if let cell = cell as? ChatTypingIndicatorCell {
             cell.loadingView.endAnimating()
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+         guard section < dataSource.numberOfSections() else { return 0.0 }
+        
+        return cellMaster.heightForTimeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

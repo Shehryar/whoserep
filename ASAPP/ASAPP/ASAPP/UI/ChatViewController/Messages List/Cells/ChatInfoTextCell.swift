@@ -13,6 +13,7 @@ class ChatInfoTextCell: UITableViewCell, ASAPPStyleable {
     var infoText: String? {
         didSet {
             infoTextLabel.text = infoText
+            setNeedsLayout()
         }
     }
     
@@ -38,11 +39,10 @@ class ChatInfoTextCell: UITableViewCell, ASAPPStyleable {
         infoTextLabel.backgroundColor = textContainerView.backgroundColor
         infoTextLabel.textAlignment = .Center
         infoTextLabel.numberOfLines = 0
+        infoTextLabel.lineBreakMode = .ByTruncatingTail
         infoTextLabel.textColor = Colors.mediumTextColor()
         infoTextLabel.font = Fonts.latoBoldFont(withSize: 14)
         textContainerView.addSubview(infoTextLabel)
-        
-        updateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,31 +67,32 @@ class ChatInfoTextCell: UITableViewCell, ASAPPStyleable {
         infoTextLabel.backgroundColor = textContainerView.backgroundColor
         infoTextLabel.textColor = styles.foregroundColor2
         infoTextLabel.font = styles.detailFont
+        
+        setNeedsLayout()
     }
     
     // MARK: Layout
     
-    override func updateConstraints() {
+    func textSizeForSize(size: CGSize) -> CGSize {
+        let maxTextWidth = size.width - contentInset.left - contentInset.right - textInset.left - textInset.right
+        let textSize = infoTextLabel.sizeThatFits(CGSize(width: maxTextWidth, height: 0))
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        textContainerView.snp_updateConstraints { (make) in
-            make.centerX.equalTo(self.snp_centerX)
-            make.width.lessThanOrEqualTo(self.snp_width).multipliedBy(0.6)
-            make.top.equalTo(self.snp_top).offset(contentInset.top)
-            make.height.equalTo(infoTextLabel.snp_height).offset(textInset.top + textInset.bottom)
-        }
-        
-        infoTextLabel.snp_updateConstraints { (make) in
-            make.top.equalTo(textContainerView.snp_top).offset(textInset.top)
-            make.left.equalTo(textContainerView.snp_left).offset(textInset.left)
-            make.width.equalTo(textContainerView.snp_width).offset(-(textInset.left + textInset.right))
-            make.height.greaterThanOrEqualTo(1)
-            make.bottom.equalTo(textContainerView.snp_bottom).offset(-textInset.bottom)
-        }
-        
-        contentView.snp_updateConstraints { (make) in
-            make.height.equalTo(textContainerView.snp_height).offset(contentInset.top + contentInset.bottom)
-        }
-        
-        super.updateConstraints()
+        let textSize = textSizeForSize(bounds.size)
+        let containerWidth = textSize.width + textInset.left + textInset.right
+        let containerHeight = textSize.height + textInset.top + textInset.bottom
+        let containerLeft = floor((CGRectGetWidth(bounds) - containerWidth) / 2.0)
+        textContainerView.frame = CGRect(x: containerLeft, y: contentInset.top, width: containerWidth, height: containerHeight)
+        infoTextLabel.frame = UIEdgeInsetsInsetRect(textContainerView.bounds, textInset)
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let textSize = textSizeForSize(size)
+        let height = textSize.height + textInset.top + textInset.bottom + contentInset.top + contentInset.bottom
+        return CGSize(width: size.width, height: height)
     }
 }

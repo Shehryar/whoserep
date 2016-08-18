@@ -10,7 +10,11 @@ import UIKit
 
 class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     
-    var contentInset: UIEdgeInsets = UIEdgeInsetsMake(8, 16, 8, 16)
+    var contentInset: UIEdgeInsets = UIEdgeInsetsMake(8, 16, 8, 16) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     var timeStampInSeconds: Double = 0.0 {
         didSet { updateTimeLabel() }
@@ -30,8 +34,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         timeLabel.textAlignment = .Center
         timeLabel.backgroundColor = Colors.whiteColor()
         contentView.addSubview(timeLabel)
-        
-        setNeedsUpdateConstraints()
     }
     
     override init(reuseIdentifier: String?) {
@@ -64,23 +66,29 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     
     func updateTimeLabel() {
         timeLabel.text = timeTextForDate(NSDate(timeIntervalSince1970: timeStampInSeconds ))
+        setNeedsLayout()
     }
     
     // MARK:- Layout
     
-    override func updateConstraints() {
-        timeLabel.snp_updateConstraints(closure: { (make) in
-            make.top.equalTo(contentView.snp_top).offset(contentInset.top)
-            make.left.equalTo(contentView.snp_left).offset(contentInset.left)
-            make.width.equalTo(contentView.snp_width).offset(-(contentInset.left + contentInset.right))
-        })
+    func textSizeForSize(size: CGSize) -> CGSize {
+        let textWidth = size.width - contentInset.left - contentInset.right
+        let textSize = timeLabel.sizeThatFits(CGSize(width: textWidth, height: 0))
         
-        contentView.snp_updateConstraints { (make) in
-            make.width.equalTo(self.snp_width)
-            make.height.greaterThanOrEqualTo(timeLabel.snp_height).offset(contentInset.top + contentInset.bottom)
-        }
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        super.updateConstraints()
+        let textSize = textSizeForSize(bounds.size)
+        let textLeft = floor((CGRectGetWidth(bounds) - textSize.width) / 2.0)
+        timeLabel.frame = CGRect(x: textLeft, y: contentInset.top, width: textSize.width, height: textSize.height)
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let textSize = textSizeForSize(size)
+        return CGSize(width: size.width, height: textSize.height + contentInset.top + contentInset.bottom)
     }
     
     // MARK:- ASAPPStyleable
@@ -94,5 +102,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         timeLabel.backgroundColor = styles.backgroundColor1
         timeLabel.font = styles.subheadFont
         timeLabel.textColor = styles.foregroundColor2
+        
+        setNeedsLayout()
     }
 }

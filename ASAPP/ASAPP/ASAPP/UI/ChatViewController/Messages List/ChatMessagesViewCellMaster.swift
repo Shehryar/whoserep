@@ -18,6 +18,8 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     private var cellHeightCache = [Event : CGFloat]()
     
+    private var timeHeaderHeightCache = [Double : CGFloat]()
+    
     private var cachedTypingIndicatorCellHeight: CGFloat?
     
     private var cachedTableViewWidth: CGFloat = 0.0 {
@@ -28,8 +30,9 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         }
     }
     
-    // MARK: Sizing Cells
+    // MARK: Sizing Cells / Views
     
+    private let timeHeaderSizingView = ChatMessagesTimeHeaderView()
     private let textMessageSizingCell = ChatTextMessageCell()
     private let pictureMessageSizingCell = ChatPictureMessageCell()
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
@@ -37,6 +40,8 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let infoTextSizingCell = ChatInfoTextCell()
     
     // MARK: Reuse IDs
+    
+    private let TimeHeaderViewReuseId = "TimeHeaderViewReuseId"
     
     private let TextMessageCellReuseId = "TextMessageCellReuseId"
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
@@ -51,6 +56,9 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         super.init()
         
         pictureMessageSizingCell.disableImageLoading = true
+        
+        // Register Header
+        tableView.registerClass(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: TimeHeaderViewReuseId)
         
         // Register Cells
         tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
@@ -76,11 +84,42 @@ extension ChatMessagesViewCellMaster {
     
     func clearCache() {
         cellHeightCache.removeAll()
+        timeHeaderHeightCache.removeAll()
         cachedTypingIndicatorCellHeight = nil
     }
 }
 
-// MARK:- Creating Cells
+// MARK:- Header/Footer
+
+extension ChatMessagesViewCellMaster {
+    
+    func timeStampHeaderView(withTimeStamp timeStamp: Double) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
+        headerView?.applyStyles(styles)
+        headerView?.timeStampInSeconds = timeStamp
+        return headerView
+    }
+    
+    func heightForTimeStampHeaderView(withTimeStamp timeStamp: Double?) -> CGFloat {
+        guard let timeStamp = timeStamp else { return 0.0 }
+        
+        cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
+        
+        if let cachedHeight = timeHeaderHeightCache[timeStamp] {
+            return cachedHeight
+        }
+        
+        timeHeaderSizingView.applyStyles(styles)
+        timeHeaderSizingView.timeStampInSeconds = timeStamp
+        
+        let height = heightForStyledView(timeHeaderSizingView, width: cachedTableViewWidth)
+        timeHeaderHeightCache[timeStamp] = height
+    
+        return height
+    }
+}
+
+// MARK:- Cell Creation
 
 extension ChatMessagesViewCellMaster {
 
@@ -170,7 +209,7 @@ extension ChatMessagesViewCellMaster {
 
         typingIndicatorSizingCell.applyStyles(styles, isReply: true)
         cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
-        cachedTypingIndicatorCellHeight = heightForStyledCell(typingIndicatorSizingCell, width: cachedTableViewWidth)
+        cachedTypingIndicatorCellHeight = heightForStyledView(typingIndicatorSizingCell, width: cachedTableViewWidth)
         
         return cachedTypingIndicatorCellHeight ?? 0.0
     }
@@ -179,7 +218,7 @@ extension ChatMessagesViewCellMaster {
         typingPreviewSizingCell.applyStyles(styles, isReply: true)
         typingPreviewSizingCell.messageText = text
         
-        return heightForStyledCell(typingPreviewSizingCell, width: CGRectGetWidth(tableView.bounds))
+        return heightForStyledView(typingPreviewSizingCell, width: CGRectGetWidth(tableView.bounds))
     }
     
     func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition) -> CGFloat {
@@ -213,7 +252,7 @@ extension ChatMessagesViewCellMaster {
             pictureMessageSizingCell.applyStyles(styles, isReply: isReply)
             pictureMessageSizingCell.listPosition = listPosition
             pictureMessageSizingCell.event = event
-            return heightForStyledCell(pictureMessageSizingCell, width: width)
+            return heightForStyledView(pictureMessageSizingCell, width: width)
         }
         
         // Text Message
@@ -221,7 +260,7 @@ extension ChatMessagesViewCellMaster {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
             textMessageSizingCell.messageText = event.textMessage?.text
-            return heightForStyledCell(textMessageSizingCell, width: width)
+            return heightForStyledView(textMessageSizingCell, width: width)
         }
         
         // Actionable Message (same UI as Text Message)
@@ -229,7 +268,7 @@ extension ChatMessagesViewCellMaster {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
             textMessageSizingCell.messageText = event.actionableMessage?.message
-            return heightForStyledCell(textMessageSizingCell, width: width)
+            return heightForStyledView(textMessageSizingCell, width: width)
         }
         
         // Info Cell
@@ -255,15 +294,15 @@ extension ChatMessagesViewCellMaster {
                 break
             }
             
-            return heightForStyledCell(infoTextSizingCell, width: width)
+            return heightForStyledView(infoTextSizingCell, width: width)
         }
         
         return 0.0
     }
     
-    private func heightForStyledCell(cell: UITableViewCell, width: CGFloat) -> CGFloat {
+    private func heightForStyledView(view: UIView, width: CGFloat) -> CGFloat {
         guard width > 0 else { return 0.0 }
         
-        return ceil(cell.sizeThatFits(CGSize(width: width, height: CGFloat.max)).height)
+        return ceil(view.sizeThatFits(CGSize(width: width, height: CGFloat.max)).height)
     }
 }
