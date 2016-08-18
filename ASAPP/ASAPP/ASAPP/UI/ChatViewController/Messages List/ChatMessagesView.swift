@@ -171,8 +171,8 @@ extension ChatMessagesView {
         return .Default
     }
     
-    private func messageEventIsReply(messageEvent: Event?) -> Bool {
-        guard let messageEvent = messageEvent else { return true }
+    private func messageEventIsReply(messageEvent: Event?) -> Bool? {
+        guard let messageEvent = messageEvent else { return nil }
         
         return !messageEvent.wasSentByUserWithCredentials(credentials)
     }
@@ -223,7 +223,7 @@ extension ChatMessagesView: UITableViewDataSource {
         let isReply = messageEventIsReply(event)
         let listPosition = messageListPositionForIndexPath(indexPath)
         let cell = cellMaster.cellForEvent(event,
-                                           isReply: isReply,
+                                           isReply: isReply ?? true,
                                            listPosition: listPosition,
                                            atIndexPath: indexPath)
         
@@ -275,7 +275,7 @@ extension ChatMessagesView: UITableViewDelegate {
         let isReply = messageEventIsReply(event)
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCellWithEvent(event,
-                                                       isReply: isReply,
+                                                       isReply: isReply ?? true,
                                                        listPosition: listPosition)
 
         return height
