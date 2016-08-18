@@ -105,7 +105,11 @@ class ChatTextMessageCell: ChatBubbleCell {
     // MARK: Highlighting
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
+        let wasHighlighted = self.highlighted
+        
         super.setHighlighted(highlighted, animated: animated)
+        
+        guard wasHighlighted != highlighted else { return }
         
         if highlighted {
             if let highlightColor = bubbleFillColor().highlightColor() {
