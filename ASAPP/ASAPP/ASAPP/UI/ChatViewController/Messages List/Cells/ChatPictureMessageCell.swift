@@ -102,8 +102,7 @@ class ChatPictureMessageCell: ChatBubbleCell {
         if !isReply {
             bubbleLeft = CGRectGetWidth(bounds) - contentInset.right - imageSize.width
         }
-        
-        let bubbleHeight = CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
+    
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: imageSize.width, height: imageSize.height)
         pictureImageView.frame = bubbleView.bounds
     }

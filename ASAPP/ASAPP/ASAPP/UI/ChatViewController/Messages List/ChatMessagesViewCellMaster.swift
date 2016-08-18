@@ -114,7 +114,7 @@ extension ChatMessagesViewCellMaster {
         
         let height = heightForStyledView(timeHeaderSizingView, width: cachedTableViewWidth)
         timeHeaderHeightCache[timeStamp] = height
-    
+        
         return height
     }
 }

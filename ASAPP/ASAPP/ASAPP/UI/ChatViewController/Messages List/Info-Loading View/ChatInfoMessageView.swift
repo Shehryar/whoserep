@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class ChatInfoMessageView: UIView, ASAPPStyleable {
     
@@ -34,9 +33,7 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
     private let messageLabel = UILabel()
     
     private let titleMarginBottom: CGFloat = 10.0
-    
-    private var heightConstraint: Constraint?
-    
+        
     // MARK: Init
     
     func commonInit() {
