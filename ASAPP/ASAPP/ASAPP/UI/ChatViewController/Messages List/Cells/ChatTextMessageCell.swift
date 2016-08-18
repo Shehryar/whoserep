@@ -72,7 +72,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-                
+
         let messageSize = messageLabelSizeThatFitsBoundsSize(bounds.size)
         let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
                                 height: ceil(messageSize.height + textInset.top + textInset.bottom))
@@ -174,8 +174,8 @@ extension ChatTextMessageCell {
             self.bubbleView.transform = CGAffineTransformIdentity
             self.bubbleView.center = animationEndCenter
             }, completion: { (completed) in
-                self.setNeedsLayout()
                 self.animating = false
+                self.setNeedsLayout()
         })
     }
 }

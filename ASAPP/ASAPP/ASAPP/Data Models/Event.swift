@@ -381,4 +381,44 @@ extension Event {
             "EventJSON" : "{ \"Message\" : \"What's yo problem?\", \"Actions\" : [ { \"Name\" : \"Internet\", \"Type\" : 0 }, { \"Name\" : \"Cable\", \"Type\" : 0 }, { \"Name\" : \"Phone\", \"Type\" : 0 }, { \"Name\" : \"Relationships\", \"Type\" : 1 } ] }"
             ])
     }
+    
+    class func sampleActionableMessageEvent2() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your internet?\", \"Actions\" : [ { \"Name\" : \"Connection\", \"Type\" : 0 }, { \"Name\" : \"Wi-Fi\", \"Type\" : 0 }, { \"Name\" : \"Slow Download Speeds\", \"Type\" : 0 }, { \"Name\" : \"Not sure...\", \"Type\" : 1 } ] }"
+            ])
+    }
+    
+    class func sampleActionableMessageEvent3() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"Is your modem plugged in?\", \"Actions\" : [ { \"Name\" : \"Yes\", \"Type\" : 0 }, { \"Name\" : \"No\", \"Type\" : 0 }, { \"Name\" : \"You seriously askin' me that?\", \"Type\" : 0 } ] }"
+            ])
+    }
 }

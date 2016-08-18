@@ -415,16 +415,18 @@ extension ChatMessagesView {
                 previousIndexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
             }
             
-            tableView.beginUpdates()
-            if let previousIndexPath = previousIndexPath {
-                tableView.reloadRowsAtIndexPaths([previousIndexPath], withRowAnimation: .None)
-            }
-            if tableView.numberOfSections <= indexPath.section {
-                tableView.insertSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
-            } else {
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-            }
-            tableView.endUpdates()
+            UIView.performWithoutAnimation({ 
+                self.tableView.beginUpdates()
+                if let previousIndexPath = previousIndexPath {
+                    self.tableView.reloadRowsAtIndexPaths([previousIndexPath], withRowAnimation: .None)
+                }
+                if self.tableView.numberOfSections <= indexPath.section {
+                    self.tableView.insertSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
+                } else {
+                    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                }
+                self.tableView.endUpdates()
+            })
         }
         
         if wasNearBottom {

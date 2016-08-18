@@ -204,9 +204,23 @@ extension ConversationManager: SocketConnectionDelegate {
                                         })
                                         
                                     }
+                                } else if textMessageText.localizedCaseInsensitiveContainsString("internet") {
+                                    if let actionableMessage = Event.sampleActionableMessageEvent2() {
+                                        Dispatcher.delay(600, closure: {
+                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
+                                        })
+                                        
+                                    }
+                                } else if textMessageText.localizedCaseInsensitiveContainsString("connection") {
+                                    if let actionableMessage = Event.sampleActionableMessageEvent3() {
+                                        Dispatcher.delay(600, closure: {
+                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
+                                        })
+                                        
+                                    }
                                 }
                             }
-                    }
+                        }
                     }
                     /** END TESTING **/
                     
