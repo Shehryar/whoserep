@@ -12,7 +12,7 @@ class ChatMessagesViewDataSource: NSObject {
 
     // MARK: Properties
     
-    var secondsBetweenSections: Int = (20 * 60)
+    var secondsBetweenSections: Int = (4 * 60)
     
     let allowedEventTypes: Set<EventType>
     
