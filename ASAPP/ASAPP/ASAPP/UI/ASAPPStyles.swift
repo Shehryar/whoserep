@@ -18,6 +18,8 @@ public class ASAPPStyles: NSObject {
     
     public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 16)
     
+    public var buttonFont: UIFont = Fonts.latoBoldFont(withSize: 14)
+    
     public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
     
     // MARK:- Fonts: View-Specific
@@ -38,7 +40,7 @@ public class ASAPPStyles: NSObject {
     
     public var foregroundColor2: UIColor = Colors.mediumTextColor()
     
-    public var separatorColor1: UIColor = Colors.lighterGrayColor()
+    public var separatorColor1: UIColor = Colors.lightGrayColor()
     
     public var separatorColor2: UIColor = Colors.lightGrayColor()
     
@@ -81,7 +83,8 @@ public class ASAPPStyles: NSObject {
         let styles = ASAPPStyles()
         styles.messageFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
         styles.subheadFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
-        styles.detailFont = UIFont(name: "Avenir-Black", size: 12) ?? UIFont.boldSystemFontOfSize(12)
+        styles.detailFont = UIFont(name: "Avenir-Heavy", size: 12) ?? UIFont.boldSystemFontOfSize(12)
+        styles.buttonFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
         styles.inputFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
         styles.inputSendButtonFont = UIFont(name: "Avenir-Black", size: 14) ??  UIFont.boldSystemFontOfSize(13)
         

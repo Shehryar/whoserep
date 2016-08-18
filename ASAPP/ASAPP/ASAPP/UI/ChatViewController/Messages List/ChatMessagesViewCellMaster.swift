@@ -37,6 +37,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let pictureMessageSizingCell = ChatPictureMessageCell()
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
     private let typingPreviewSizingCell = ChatTypingPreviewCell()
+    private let billSummarySizingCell = ChatBillSummaryCell()
     private let infoTextSizingCell = ChatInfoTextCell()
     
     // MARK: Reuse IDs
@@ -47,6 +48,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
+    private let BillSummaryCellReuseId = "BillSummaryCellReuseId"
     private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK: Init
@@ -65,6 +67,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
+        tableView.registerClass(ChatBillSummaryCell.self, forCellReuseIdentifier: BillSummaryCellReuseId)
         tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
     
@@ -163,6 +166,13 @@ extension ChatMessagesViewCellMaster {
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
             cell?.messageText = event.actionableMessage?.message
+            return cell
+        }
+        
+        // Bill Summary
+        if event.eventType == .BillSummary {
+            let cell = tableView.dequeueReusableCellWithIdentifier(BillSummaryCellReuseId) as? ChatBillSummaryCell
+            cell?.applyStyles(styles)
             return cell
         }
         
@@ -269,6 +279,12 @@ extension ChatMessagesViewCellMaster {
             textMessageSizingCell.listPosition = listPosition
             textMessageSizingCell.messageText = event.actionableMessage?.message
             return heightForStyledView(textMessageSizingCell, width: width)
+        }
+        
+        // Bill Summary
+        if event.eventType == .BillSummary {
+            billSummarySizingCell.applyStyles(styles)
+            return heightForStyledView(billSummarySizingCell, width: width)
         }
         
         // Info Cell

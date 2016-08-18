@@ -88,7 +88,7 @@ extension StackView {
         for view in arrangedSubviews {
             let viewHeight = ceil(view.sizeThatFits(CGSize(width: contentWidth, height: CGFloat.max)).height)
             view.frame = CGRect(x: contentInset.left, y: contentTop, width: contentWidth, height: viewHeight)
-            if !view.hidden && view.alpha > 0 {
+            if !view.hidden && view.alpha > 0 && viewHeight > 0 {
                 contentTop = CGRectGetMaxY(view.frame) + viewSpacing
                 contentHeight = CGRectGetMaxY(view.frame) + contentInset.top
             }
@@ -107,9 +107,12 @@ extension StackView {
         
         for (index, view) in arrangedSubviews.enumerate() {
             if !view.hidden && view.alpha > 0 {
-                contentHeight += ceil(view.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
-                if index < arrangedSubviews.count - 1 {
-                    contentHeight += viewSpacing
+                let viewHeight = ceil(view.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
+                if viewHeight > 0 {
+                    contentHeight += viewHeight
+                    if index < arrangedSubviews.count - 1 {
+                        contentHeight += viewSpacing
+                    }
                 }
             }
         }

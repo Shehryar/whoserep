@@ -30,7 +30,11 @@ import RealmSwift
     case WhisperMessage = 17
     case CustomerFeedback = 18
     case VCardMessage = 19
+    
+    // Temp
+    
     case ActionableMessage = 20
+    case BillSummary = 21
 }
 
 @objc enum EphemeralType: Int {
@@ -381,6 +385,11 @@ extension Event {
             action = Event.sampleActionableMessageEventPhoneTopics()
         }
         
+        // Bill Summary
+        else if text.localizedCaseInsensitiveContainsString("bill") || text.localizedCaseInsensitiveContainsString("account") {
+            action = Event.sampleBillSummaryEvent()
+        }
+        
         return action
     }
     
@@ -521,6 +530,25 @@ extension Event {
             "CompanyEventLogSeq":600,
             "CustomerEventLogSeq":0,
             "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your phone?\", \"Actions\" : [ { \"Name\" : \"Unable to find service\", \"Type\" : 0 }, { \"Name\" : \"Poor audio quality\", \"Type\" : 0 }, { \"Name\" : \"Calls keep dropping\", \"Type\" : 0 } ] }"
+            ])
+    }
+    
+    class func sampleBillSummaryEvent() -> Event? {
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 21,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : ""
             ])
     }
 }

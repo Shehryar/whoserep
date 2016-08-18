@@ -1,5 +1,5 @@
 //
-//  ChatStackViewCell.swift
+//  ChatBillSummaryCell.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/17/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatStackViewCell: UITableViewCell {
+class ChatBillSummaryCell: UITableViewCell, ASAPPStyleable {
 
     var contentInset = UIEdgeInsets(top: 2, left: 16, bottom: 2, right: 16) {
         didSet {
@@ -24,11 +24,14 @@ class ChatStackViewCell: UITableViewCell {
         }
     }
     
-    private let stackView = StackView()
+    private let stackView = SummaryDetailsView()
     
     // MARK: Init
     
     func commonInit() {
+        selectionStyle = .None
+        
+        stackView.applyStyles(styles)
         contentView.addSubview(stackView)
     }
     
@@ -41,11 +44,22 @@ class ChatStackViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }
+    
+    // MARK:- ASAPPStyleable
+    
+    private(set) var styles = ASAPPStyles()
+    
+    func applyStyles(styles: ASAPPStyles) {
+        self.styles = styles
+        
+        backgroundColor = styles.backgroundColor1
+        stackView.applyStyles(styles)
+    }
 }
 
 // MARK:- Layout
 
-extension ChatStackViewCell {
+extension ChatBillSummaryCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -56,8 +70,7 @@ extension ChatStackViewCell {
         }
         let stackViewHeight = CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
         
-        stackView.frame = CGRect(x: stackViewLeft, y: stackViewLeft, width: stackViewWidth, height: stackViewHeight)
-        stackView.updateArrangedSubviewFrames(updateFrameToFitContent: false)
+        stackView.frame = CGRect(x: stackViewLeft, y: contentInset.top, width: stackViewWidth, height: stackViewHeight)
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
@@ -71,6 +84,6 @@ extension ChatStackViewCell {
     
     func stackViewWidthForSize(size: CGSize) -> CGFloat {
         let contentWidth = size.width - contentInset.left - contentInset.right
-        return floor(0.67 * contentWidth)
+        return floor(0.95 * contentWidth)
     }
 }
