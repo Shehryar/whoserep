@@ -101,6 +101,22 @@ class ChatTextMessageCell: ChatBubbleCell {
         animationStartTime = 0
         animating = false
     }
+    
+    // MARK: Highlighting
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        if highlighted {
+            if let highlightColor = bubbleFillColor().highlightColor() {
+                bubbleView.fillColor = highlightColor
+                textMessageLabel.backgroundColor = highlightColor
+            }
+        } else {
+            bubbleView.fillColor = bubbleFillColor()
+            textMessageLabel.backgroundColor = bubbleView.fillColor
+        }
+    }
 }
 
 // MARK:- Animations

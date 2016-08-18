@@ -133,20 +133,23 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         updateFontsAndColors()
     }
     
+    func bubbleFillColor() -> UIColor {
+        return isReply ? styles.replyMessageFillColor : styles.messageFillColor
+    }
+    
+    func bubbleStrokeColor() -> UIColor? {
+        return isReply ? styles.replyMessageStrokeColor : styles.messageStrokeColor
+    }
+    
     func updateFontsAndColors() {
         guard !ignoresReplyBubbleStyling else {
             return
         }
         
         backgroundColor = styles.backgroundColor1
-        if isReply {
-            bubbleView.fillColor = styles.replyMessageFillColor
-            bubbleView.strokeColor = styles.replyMessageStrokeColor
-        } else {
-            bubbleView.fillColor = styles.messageFillColor
-            bubbleView.strokeColor = styles.messageStrokeColor
-        }
         bubbleView.backgroundColor = styles.backgroundColor1
+        bubbleView.fillColor = bubbleFillColor()
+        bubbleView.strokeColor = bubbleStrokeColor()
     }
 }
 
