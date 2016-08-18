@@ -41,8 +41,8 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     private let cellAnimationsEnabled = true
     
     private var shouldShowTypingPreview: Bool {
-        return false
-//        return !credentials.isCustomer && otherParticipantTypingPreview != nil
+//        return false
+        return !credentials.isCustomer && otherParticipantTypingPreview != nil
     }
     
     private var otherParticipantIsTyping: Bool = false
@@ -402,20 +402,33 @@ extension ChatMessagesView {
     func insertNewMessageEvent(event: Event, completion: (() -> Void)? = nil) {
         let wasNearBottom = isNearBottom()
         
-        dataSource.addEvent(event)
+        let indexPath = dataSource.addEvent(event)
         
         // Only animate the message if the user is near the bottom
         if cellAnimationsEnabled && wasNearBottom {
             eventsThatShouldAnimate.insert(event)
         }
         
-        UIView.performWithoutAnimation({
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
-        })
+        if let indexPath = indexPath {
+            var previousIndexPath: NSIndexPath?
+            if indexPath.row > 0 {
+                previousIndexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
+            }
+            
+            tableView.beginUpdates()
+            if let previousIndexPath = previousIndexPath {
+                tableView.reloadRowsAtIndexPaths([previousIndexPath], withRowAnimation: .None)
+            }
+            if tableView.numberOfSections <= indexPath.section {
+                tableView.insertSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
+            } else {
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            }
+            tableView.endUpdates()
+        }
         
         if wasNearBottom {
-            scrollToBottomAnimated(false)//cellAnimationsEnabled)
+            scrollToBottomAnimated(cellAnimationsEnabled)
         }
         
         updateSubviewVisibility()
