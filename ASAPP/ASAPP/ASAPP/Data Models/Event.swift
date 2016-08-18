@@ -362,7 +362,29 @@ extension Event {
 // MARK:- Sample Data
 
 extension Event {
-    class func sampleActionableMessageEvent() -> Event? {
+    
+    class func sampleActionableMessageForText(text: String) -> Event? {
+        var action: Event?
+        if text.localizedCaseInsensitiveContainsString("help") {
+            action = sampleActionableMessageEventHelp()
+        } else if text.localizedCaseInsensitiveContainsString("internet not working") {
+            action = Event.sampleActionableMessageEventInternetTroubleShooter()
+        } else if text.localizedCaseInsensitiveContainsString("cable not working") {
+            action = Event.sampleActionableMessageEventCableTroubleShooter()
+        } else if text.localizedCaseInsensitiveContainsString("phone not working") {
+            action = Event.sampleActionableMessageEventPhoneTroubleShooter()
+        } else if text.localizedCaseInsensitiveContainsString("internet") {
+            action = Event.sampleActionableMessageEventInternetTopics()
+        } else if text.localizedCaseInsensitiveContainsString("cable") {
+            action = Event.sampleActionableMessageEventCableTopics()
+        } else if text.localizedCaseInsensitiveContainsString("phone") {
+            action = Event.sampleActionableMessageEventPhoneTopics()
+        }
+        
+        return action
+    }
+    
+    class func sampleActionableMessageEventHelp() -> Event? {
         
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
@@ -378,11 +400,11 @@ extension Event {
             "EventFlags" : 0,
             "CompanyEventLogSeq":600,
             "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"What's yo problem?\", \"Actions\" : [ { \"Name\" : \"Internet\", \"Type\" : 0 }, { \"Name\" : \"Cable\", \"Type\" : 0 }, { \"Name\" : \"Phone\", \"Type\" : 0 }, { \"Name\" : \"Relationships\", \"Type\" : 1 } ] }"
+            "EventJSON" : "{ \"Message\" : \"What do you need help with today?\", \"Actions\" : [ { \"Name\" : \"Internet\", \"Type\" : 0 }, { \"Name\" : \"Cable\", \"Type\" : 0 }, { \"Name\" : \"Phone\", \"Type\" : 0 }, { \"Name\" : \"Account\", \"Type\" : 1 } ] }"
             ])
     }
     
-    class func sampleActionableMessageEvent2() -> Event? {
+    class func sampleActionableMessageEventInternetTopics() -> Event? {
         
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
@@ -398,11 +420,11 @@ extension Event {
             "EventFlags" : 0,
             "CompanyEventLogSeq":600,
             "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your internet?\", \"Actions\" : [ { \"Name\" : \"Connection\", \"Type\" : 0 }, { \"Name\" : \"Wi-Fi\", \"Type\" : 0 }, { \"Name\" : \"Slow Download Speeds\", \"Type\" : 0 }, { \"Name\" : \"Not sure...\", \"Type\" : 1 } ] }"
+            "EventJSON" : "{ \"Message\" : \"How can I help you with your internet service?\", \"Actions\" : [ { \"Name\" : \"Internet not working\", \"Type\" : 0 }, { \"Name\" : \"Upgrade download speeds\", \"Type\" : 0 }, { \"Name\" : \"Check usage summary\", \"Type\" : 0 } ] }"
             ])
     }
     
-    class func sampleActionableMessageEvent3() -> Event? {
+    class func sampleActionableMessageEventInternetTroubleShooter() -> Event? {
         
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
@@ -418,7 +440,87 @@ extension Event {
             "EventFlags" : 0,
             "CompanyEventLogSeq":600,
             "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"Is your modem plugged in?\", \"Actions\" : [ { \"Name\" : \"Yes\", \"Type\" : 0 }, { \"Name\" : \"No\", \"Type\" : 0 }, { \"Name\" : \"You seriously askin' me that?\", \"Type\" : 0 } ] }"
+            "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your internet?\", \"Actions\" : [ { \"Name\" : \"Connection\", \"Type\" : 0 }, { \"Name\" : \"Wi-fi\", \"Type\" : 0 }, { \"Name\" : \"Slow download speeds\", \"Type\" : 0 } ] }"
+            ])
+    }
+    
+    class func sampleActionableMessageEventCableTopics() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"How can I help you with your cable service?\", \"Actions\" : [ { \"Name\" : \"Cable not working\", \"Type\" : 0 }, { \"Name\" : \"Add channel packages\", \"Type\" : 0 } ] }"
+            ])
+    }
+    
+    class func sampleActionableMessageEventCableTroubleShooter() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your cable?\", \"Actions\" : [ { \"Name\" : \"Unable to connect\", \"Type\" : 0 }, { \"Name\" : \"Poor video quality\", \"Type\" : 0 }, { \"Name\" : \"Poor audio quality\", \"Type\" : 0 } ] }"
+            ])
+    }
+    
+    class func sampleActionableMessageEventPhoneTopics() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"How can I help you with your phone service?\", \"Actions\" : [ { \"Name\" : \"Phone not working\", \"Type\" : 0 }, { \"Name\" : \"Check current data usage\", \"Type\" : 0 }, { \"Name\" : \"Add data to current period\", \"Type\" : 0 }, { \"Name\" : \"Upgrade plan\", \"Type\" : 1 } ] }"
+            ])
+    }
+    
+    class func sampleActionableMessageEventPhoneTroubleShooter() -> Event? {
+        
+        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        return Event(withJSON: [
+            "CreatedTime" : eventTime,
+            "IssueId" : 350001,
+            "CompanyId" : 10001,
+            "CustomerId" : 130001,
+            "RepId" : 20001,
+            "EventTime" : eventTime,
+            "EventType" : 20,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq":600,
+            "CustomerEventLogSeq":0,
+            "EventJSON" : "{ \"Message\" : \"What seems to be the problem with your phone?\", \"Actions\" : [ { \"Name\" : \"Unable to find service\", \"Type\" : 0 }, { \"Name\" : \"Poor audio quality\", \"Type\" : 0 }, { \"Name\" : \"Calls keep dropping\", \"Type\" : 0 } ] }"
             ])
     }
 }

@@ -197,27 +197,10 @@ extension ConversationManager: SocketConnectionDelegate {
                     if TEST_ACTIONABLE_MESSAGES_LOCALLY {
                         if event.eventType == .TextMessage {
                             if let textMessageText = event.textMessage?.text {
-                                if textMessageText.localizedCaseInsensitiveContainsString("help") {
-                                    if let actionableMessage = Event.sampleActionableMessageEvent() {
-                                        Dispatcher.delay(600, closure: {
-                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
-                                        })
-                                        
-                                    }
-                                } else if textMessageText.localizedCaseInsensitiveContainsString("internet") {
-                                    if let actionableMessage = Event.sampleActionableMessageEvent2() {
-                                        Dispatcher.delay(600, closure: {
-                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
-                                        })
-                                        
-                                    }
-                                } else if textMessageText.localizedCaseInsensitiveContainsString("connection") {
-                                    if let actionableMessage = Event.sampleActionableMessageEvent3() {
-                                        Dispatcher.delay(600, closure: {
-                                            self.delegate?.conversationManager(self, didReceiveMessageEvent: actionableMessage)
-                                        })
-                                        
-                                    }
+                                if let nextAction = Event.sampleActionableMessageForText(textMessageText) {
+                                    Dispatcher.delay(600, closure: {
+                                        self.delegate?.conversationManager(self, didReceiveMessageEvent: nextAction)
+                                    })
                                 }
                             }
                         }
