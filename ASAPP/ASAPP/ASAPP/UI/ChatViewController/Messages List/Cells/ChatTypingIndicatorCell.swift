@@ -20,7 +20,9 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         loadingView.tintColor = UIColor.whiteColor()
         bubbleView.addSubview(loadingView)
         
-        setNeedsUpdateConstraints()
+        bubbleView.clipsToBounds = true
+        
+        layoutSubviews()
     }
     
     // MARK: Styles
@@ -33,18 +35,21 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    override func updateConstraints() {
-        super.updateConstraints()
-        
-        bubbleView.snp_updateConstraints { (make) in
-            make.width.equalTo(loadingView.snp_width)
-            make.height.equalTo(loadingView.snp_height)
+    override func layoutSubviews() {
+        let loadingSize = loadingView.sizeThatFits(CGSizeZero)
+        var bubbleLeft = contentInset.left
+        if !isReply {
+            bubbleLeft = CGRectGetWidth(bounds) - loadingSize.width - contentInset.right
         }
+        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: loadingSize.width, height: loadingSize.height)
+        loadingView.frame = bubbleView.bounds
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let loadingSize = loadingView.sizeThatFits(size)
         
-        loadingView.snp_updateConstraints { (make) in
-            make.left.equalTo(bubbleView.snp_left)
-            make.top.equalTo(bubbleView.snp_top)
-        }
+        return CGSize(width: loadingSize.width + contentInset.left + contentInset.right,
+                      height: loadingSize.height + contentInset.top + contentInset.bottom)
     }
     
     // MARK: Reuse

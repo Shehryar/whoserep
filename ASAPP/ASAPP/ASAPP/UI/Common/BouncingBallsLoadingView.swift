@@ -22,7 +22,6 @@ class BouncingBallsLoadingView: UIView {
     var contentInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 12, right: 16) {
         didSet {
             setNeedsLayout()
-            setNeedsUpdateConstraints()
         }
     }
     
@@ -83,6 +82,12 @@ class BouncingBallsLoadingView: UIView {
                 contentLeft = CGRectGetMaxX(ballView.frame) + ballMargin
             }
         }
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let totalWidth = contentInset.left + CGFloat(ballViews.count) * ballSize + CGFloat(ballViews.count - 1) * ballMargin + contentInset.right
+        let totalHeight = contentInset.top + ballSize + ballBounceDistance + contentInset.bottom
+        return CGSize(width: totalWidth, height: totalHeight)
     }
     
     // MARK: Instance Methods
@@ -155,19 +160,5 @@ class BouncingBallsLoadingView: UIView {
         }) { (completed) in
             completion?()
         }
-    }
-
-    
-    // MARK: AutoLayout
-    
-    override func updateConstraints() {
-        let totalWidth = contentInset.left + CGFloat(ballViews.count) * ballSize + CGFloat(ballViews.count - 1) * ballMargin + contentInset.right
-        let totalHeight = contentInset.top + ballSize + ballBounceDistance + contentInset.bottom
-        
-        self.snp_updateConstraints { (make) in
-            make.width.equalTo(totalWidth)
-            make.height.equalTo(totalHeight)
-        }
-        super.updateConstraints()
     }
 }
