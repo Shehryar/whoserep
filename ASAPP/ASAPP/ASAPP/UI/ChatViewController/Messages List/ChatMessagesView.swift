@@ -24,6 +24,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
             var newContentInset = defaultContentInset
             newContentInset.top += max(0, contentInsetTop)
             contentInset = newContentInset
+            tableView.scrollIndicatorInsets = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
         }
     }
     
@@ -67,6 +68,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     private var eventsThatShouldAnimate = Set<Event>()
     
+    private var previousScrollOffsetY: CGFloat = 0.0
+    private var maxScrollOffsetY: CGFloat = 0.0
+    
     // MARK:- Initialization
     
     required init(withCredentials credentials: Credentials) {
@@ -92,6 +96,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.separatorStyle = .None
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
+//        tableView.keyboardDismissMode = .Interactive
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -285,9 +290,11 @@ extension ChatMessagesView: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
+        endEditing(true)
         delegate?.chatMessagesViewPerformedKeyboardHidingAction(self)
         
-        if let pictureCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatPictureMessageCell,
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
         }

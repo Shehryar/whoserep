@@ -12,6 +12,7 @@ protocol ChatInputViewDelegate {
     func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?)
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
     func chatInputView(chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
+    func chatInputView(chatInputView: ChatInputView, didUpdateInputFrame inputFrame: CGRect)
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
 }
 
@@ -41,9 +42,10 @@ class ChatInputView: UIView, ASAPPStyleable {
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
-    
+
     private let borderTopView = UIView()
     private let textView = UITextView()
+    private let keyboardFrameTrackingView = FrameTrackingInputAccessoryView()
     private let placeholderTextView = UITextView()
     
     private let mediaButton = UIButton()
@@ -83,6 +85,16 @@ class ChatInputView: UIView, ASAPPStyleable {
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
+        keyboardFrameTrackingView.frame = CGRectMake(0, 0, 0, 0)
+        keyboardFrameTrackingView.backgroundColor = UIColor.blueColor()
+        keyboardFrameTrackingView.onFrameChange = { [weak self] (updatedFrame) in
+            if let strongSelf = self {
+                self?.delegate?.chatInputView(strongSelf, didUpdateInputFrame: updatedFrame)
+            }
+        }
+        textView.inputAccessoryView = keyboardFrameTrackingView
+        
+        
         placeholderTextView.text = "Craft a message..." // TODO: Localization
         placeholderTextView.backgroundColor = UIColor.clearColor()
         placeholderTextView.font = textView.font
@@ -118,10 +130,13 @@ class ChatInputView: UIView, ASAPPStyleable {
         addSubview(sendButton)
         
         updateSendButtonForCurrentState()
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
     }
     
     deinit {
         textView.delegate = nil
+        keyboardFrameTrackingView.removeObserver(self, forKeyPath: "frame")
     }
     
     // MARK:- Appearance

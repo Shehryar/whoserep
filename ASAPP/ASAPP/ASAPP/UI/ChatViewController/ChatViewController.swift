@@ -262,6 +262,18 @@ extension ChatViewController: ChatInputViewDelegate {
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
         updateFramesAnimated()
     }
+    
+    func chatInputView(chatInputView: ChatInputView, didUpdateInputFrame inputFrame: CGRect) {
+        /** This messes up the SRS Animations
+        
+        if chatInputView.isFirstResponder() {
+            let convertedFrame = view.convertRect(inputFrame, fromView: nil)
+            keyboardOffset = CGRectGetHeight(view.bounds) - CGRectGetMinY(convertedFrame)
+            updateFramesAnimated(false, scrollToBottomIfNearBottom: true, completion: nil)
+        }
+ 
+         */
+    }
 }
 
 // MARK:- ChatSuggestedRepliesView

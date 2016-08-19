@@ -30,6 +30,14 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     private var animationStartTime: Double = 0.0
     
+    private var isLongPressing: Bool = false {
+        didSet {
+            if isLongPressing != oldValue {
+                updateFillColor(isLongPressing)
+            }
+        }
+    }
+    
     internal let textMessageLabel = UILabel()
     
     // MARK: Init
@@ -44,6 +52,9 @@ class ChatTextMessageCell: ChatBubbleCell {
         bubbleView.addSubview(textMessageLabel)
         
         updateFontsAndColors()
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextMessageCell.longPressGestureAction(_:)))
+        addGestureRecognizer(longPressGesture)
     }
     
     // MARK: Instance Methods
@@ -58,6 +69,18 @@ class ChatTextMessageCell: ChatBubbleCell {
             textMessageLabel.textColor = styles.messageTextColor
         }
         textMessageLabel.backgroundColor = bubbleView.fillColor
+    }
+    
+    func updateFillColor(isLongPressing: Bool) {
+        if isLongPressing {
+            if let highlightColor = bubbleFillColor().highlightColor() {
+                bubbleView.fillColor = highlightColor
+                textMessageLabel.backgroundColor = highlightColor
+            }
+        } else {
+            bubbleView.fillColor = bubbleFillColor()
+            textMessageLabel.backgroundColor = bubbleView.fillColor
+        }
     }
     
     // MARK: Layout
@@ -96,30 +119,49 @@ class ChatTextMessageCell: ChatBubbleCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         layer.removeAllAnimations()
+        isLongPressing = false
         bubbleView.alpha = 1
         bubbleView.transform = CGAffineTransformIdentity
         animationStartTime = 0
         animating = false
     }
+}
+
+// MARK:- Copying Action
+
+extension ChatTextMessageCell {
     
-    // MARK: Highlighting
-    
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-        let wasHighlighted = self.highlighted
-        
-        super.setHighlighted(highlighted, animated: animated)
-        
-        guard wasHighlighted != highlighted else { return }
-        
-        if highlighted {
-            if let highlightColor = bubbleFillColor().highlightColor() {
-                bubbleView.fillColor = highlightColor
-                textMessageLabel.backgroundColor = highlightColor
-            }
+    func longPressGestureAction(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .Began {
+            isLongPressing = true
+            showCopyMenu()
         } else {
-            bubbleView.fillColor = bubbleFillColor()
-            textMessageLabel.backgroundColor = bubbleView.fillColor
+            isLongPressing = false
         }
+    }
+    
+    func showCopyMenu() {
+        guard let textToCopy = textMessageLabel.text else { return }
+        
+        if !textToCopy.isEmpty {
+            becomeFirstResponder()
+            
+            let menu = UIMenuController.sharedMenuController()
+            menu.setTargetRect(bubbleView.frame, inView: self)
+            menu.setMenuVisible(true, animated: true)
+        }
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func copy(sender: AnyObject?) {
+        UIPasteboard.generalPasteboard().string = textMessageLabel.text
+    }
+    
+    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+        return action == #selector(ChatMessagesView.copy(_:))
     }
 }
 
