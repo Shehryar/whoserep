@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatMessagesViewDelegate {
     func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
+    func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView)
 }
 
 class ChatMessagesView: UIView, ASAPPStyleable {
@@ -283,7 +284,8 @@ extension ChatMessagesView: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        endEditing(true)
+        
+        delegate?.chatMessagesViewPerformedKeyboardHidingAction(self)
         
         if let pictureCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatPictureMessageCell,
             let event = pictureCell.event {

@@ -236,6 +236,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
         imageViewer.presentationImageCornerRadius = 10
         presentViewController(imageViewer, animated: true, completion: nil)
     }
+    
+    func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView) {
+        view.endEditing(true)
+    }
 }
 
 // MARK:- ChatInputViewDelegate
