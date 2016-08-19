@@ -24,7 +24,6 @@
 		28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */; };
-		28A99F321D5F92EF00F9AA84 /* SRSSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F311D5F92EF00F9AA84 /* SRSSampleData.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		3008888C1D620D3700C25802 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008888B1D620D3700C25802 /* Button.swift */; };
@@ -97,7 +96,6 @@
 		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSuggestedRepliesView.swift; sourceTree = "<group>"; };
-		28A99F311D5F92EF00F9AA84 /* SRSSampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSampleData.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		3008888B1D620D3700C25802 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -147,6 +145,7 @@
 		309219301D66608C00E70AEB /* SummaryDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryDetailsView.swift; sourceTree = "<group>"; };
 		309219321D6666F700E70AEB /* TwoColumnLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnLabelView.swift; sourceTree = "<group>"; };
 		309219341D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameTrackingInputAccessoryView.swift; sourceTree = "<group>"; };
+		309219381D67A3E300E70AEB /* sample_bill_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_bill_data.json; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
 		30A4BB091D510A3600795BA7 /* ImageViewerTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -196,7 +195,7 @@
 			children = (
 				28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */,
 				3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */,
-				28A99F311D5F92EF00F9AA84 /* SRSSampleData.swift */,
+				309219381D67A3E300E70AEB /* sample_bill_data.json */,
 			);
 			path = "Suggested Replies Sheet";
 			sourceTree = "<group>";
@@ -652,7 +651,6 @@
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				30A4BB271D5240B100795BA7 /* ChatInfoTextCell.swift in Sources */,
 				309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */,
-				28A99F321D5F92EF00F9AA84 /* SRSSampleData.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
