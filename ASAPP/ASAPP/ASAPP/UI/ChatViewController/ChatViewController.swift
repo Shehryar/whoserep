@@ -373,6 +373,7 @@ extension ChatViewController {
     
     func presentCamera() {
         let imagePickerController = createImagePickerController(withSourceType: .Camera)
+        imagePickerController.sourceType = .Camera
         imagePickerController.delegate = self
         
         presentViewController(imagePickerController, animated: true, completion: nil)
@@ -380,6 +381,7 @@ extension ChatViewController {
     
     func presentPhotoLibrary() {
         let imagePickerController = createImagePickerController(withSourceType: .PhotoLibrary)
+        imagePickerController.sourceType = .PhotoLibrary
         imagePickerController.delegate = self
         
         presentViewController(imagePickerController, animated: true, completion: nil)
