@@ -60,13 +60,19 @@ class ChatsListViewController: UIViewController {
         
         chatButton1 = ASAPPButton(withCredentials: emptyCustomerChatCredentials,
                                   presentingViewController: self,
-                                  styles: ASAPPStyles.darkStyles())
+                                  styles: ASAPPStyles.darkStyles(),
+                                  callback: { (action, userInfo) in
+        
+        })
         chatButton1.shadowDisabled = true
         chatButton1.hideUntilAnimateInIsCalled()
         
         chatButton2 = ASAPPButton(withCredentials: defaultRepChatCredentials,
                                   presentingViewController: self,
-                                  styles: nil)
+                                  styles: nil,
+                                  callback: { (action, userInfo) in
+                                    
+        })
         chatButton2.hideUntilAnimateInIsCalled()
         chatButton2.expansionPresentationAnimationDisabled = true
 
@@ -276,7 +282,9 @@ extension ChatsListViewController: UITableViewDelegate {
         if let chatCredentials = chatCredentials {
             let styles = defaultStyles()
             
-            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: styles)
+            let chatViewController = ASAPP.createChatViewController(withCredentials: chatCredentials, styles: styles, callback: { (action, userInfo) in
+                                                                        
+            })
             chatViewController.title = chatCredentials.description
             navigationController?.pushViewController(chatViewController, animated: true)
         }

@@ -11,11 +11,13 @@ import UIKit
 public class ASAPPButton: UIView {
 
     /// The ViewController that will present the ASAPP view controller
-    private(set) public var presentingViewController: UIViewController
+    let presentingViewController: UIViewController
     
-    private (set) public var credentials: Credentials?
+    let credentials: Credentials?
     
-    public var styles: ASAPPStyles = ASAPPStyles()
+    let styles: ASAPPStyles
+    
+    let callback: ASAPPCallback
     
     public var expansionPresentationAnimationDisabled: Bool = false
     
@@ -79,12 +81,12 @@ public class ASAPPButton: UIView {
         addSubview(contentView)
     }
     
-    required public init(withCredentials credentials: Credentials, presentingViewController: UIViewController, styles: ASAPPStyles? = nil) {
+    required public init(withCredentials credentials: Credentials, presentingViewController: UIViewController, styles: ASAPPStyles? = nil, callback: ASAPPCallback) {
         self.credentials = credentials
         self.presentingViewController = presentingViewController
-        if let styles = styles {
-            self.styles = styles
-        }
+        self.callback = callback
+        self.styles = styles ?? ASAPPStyles()
+
         super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         commonInit()
     }
@@ -110,7 +112,7 @@ public class ASAPPButton: UIView {
         contentView.frame = bounds;
         updateCornerRadius()
         
-        let imageInset = floor(0.25 * CGRectGetHeight(bounds))
+        let imageInset = floor(0.15 * CGRectGetHeight(bounds))
         imageView.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: imageInset, left: imageInset, bottom: imageInset, right: imageInset))
         
         contentView.alpha = currentAlpha
@@ -216,7 +218,7 @@ extension ASAPPButton {
             return
         }
                 
-        let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles)
+        let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
         chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.xLightIcon(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
         
         

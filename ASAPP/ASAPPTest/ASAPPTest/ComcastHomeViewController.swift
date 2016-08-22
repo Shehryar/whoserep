@@ -26,7 +26,10 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         
         chatButton = ASAPPButton(withCredentials: credentials,
                                  presentingViewController: self,
-                                 styles: ASAPPStyles.darkStyles())
+                                 styles: ASAPPStyles.darkStyles(),
+                                 callback: { [weak self] (action, userInfo) in
+                                    self?.handleAction(action, userInfo: userInfo)
+                                })
         chatButton?.hideUntilAnimateInIsCalled()
         
         if let chatButton = chatButton {
@@ -75,5 +78,31 @@ extension ComcastHomeViewController {
     
     func showRestartDevice() {
         showViewControllerWithImage("restartDeviceImage", title: "Device Restart")
+    }
+    
+    func handleAction(action: String, userInfo: [String : AnyObject]?) {
+        switch action {
+        case "tv":
+            showTVHome()
+            break
+            
+        case "tv-troubleshoot":
+            showTvTroubleshoot()
+            break
+            
+        case "internet":
+            showInternetHome()
+            break
+            
+        case "internet-troubleshoot":
+            showInternetTroubleshoot()
+            break
+            
+        case "restart":
+            showRestartDevice()
+            break
+            
+        default: break
+        }
     }
 }

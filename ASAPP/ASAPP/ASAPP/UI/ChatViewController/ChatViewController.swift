@@ -8,13 +8,17 @@
 
 import UIKit
 
+public typealias ASAPPCallback = ((String, [String : AnyObject]?) -> Void)
+
 class ChatViewController: UIViewController {
     
     // MARK: Public Properties
     
-    private(set) var credentials: Credentials
+    let credentials: Credentials
     
-    private(set) var styles: ASAPPStyles
+    let styles: ASAPPStyles
+    
+    let callback: ASAPPCallback
     
     private var actionableMessage: ActionableMessage?
     
@@ -37,9 +41,10 @@ class ChatViewController: UIViewController {
     
     // MARK:- Initialization
     
-    init(withCredentials credentials: Credentials, styles: ASAPPStyles?) {
+    init(withCredentials credentials: Credentials, styles: ASAPPStyles?, callback: ASAPPCallback) {
         self.credentials = credentials
         self.styles = styles ?? ASAPPStyles()
+        self.callback = callback
         self.conversationManager = ConversationManager(withCredentials: credentials)
         self.chatMessagesView = ChatMessagesView(withCredentials: credentials)
         
@@ -285,14 +290,25 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         updateFramesAnimated()
     }
     
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction action: MessageAction) {
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction messageAction: MessageAction) {
         
-        conversationManager.sendMessageActionSelection(action) { [weak self] in
+        switch messageAction.type {
+        case .Response:
+            conversationManager.sendMessageActionSelection(messageAction) { [weak self] in
+                // TODO: Check for success
+                self?.actionableMessage = nil
+                self?.chatInputView.becomeFirstResponder()
+                self?.updateFramesAnimated()
+            }
+            break
             
-            // TODO: Check for success
-            self?.actionableMessage = nil
-            self?.chatInputView.becomeFirstResponder()
-            self?.updateFramesAnimated()
+        case .DeepLink:
+            if let action = messageAction.action {
+                dismissViewControllerAnimated(true, completion: {
+                    self.callback(action, messageAction.userInfo)
+                })
+            }
+            break
         }
     }
 }

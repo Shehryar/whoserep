@@ -39,8 +39,8 @@ class TwoWayChatViewController: UIViewController {
         
         self.leftChatCredentials = leftChatCredentials
         self.rightChatCredentials = rightChatCredentials
-        self.leftChatViewController = ASAPP.createChatViewController(withCredentials: self.leftChatCredentials, styles: leftChatStyles)
-        self.rightChatViewController = ASAPP.createChatViewController(withCredentials: self.rightChatCredentials, styles: nil)
+        self.leftChatViewController = ASAPP.createChatViewController(withCredentials: self.leftChatCredentials, styles: leftChatStyles, callback: { (action, userInfo) in })
+        self.rightChatViewController = ASAPP.createChatViewController(withCredentials: self.rightChatCredentials, styles: nil, callback: { (action, userInfo) in })
     
         super.init(nibName: nil, bundle: nil)
         

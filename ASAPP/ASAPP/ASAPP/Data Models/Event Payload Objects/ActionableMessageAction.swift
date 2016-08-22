@@ -19,12 +19,15 @@ class MessageAction: NSObject {
     
     var type: ActionableMessageActionType = .Response
     
-    var deepLinkURL: NSURL? // Temporary; will be changed later
+    var action: String?
     
-    init(name: String?, type: ActionableMessageActionType, deepLinkURL: NSURL? = nil) {
+    var userInfo: [String : AnyObject]?
+    
+    init(name: String?, type: ActionableMessageActionType, action: String?, userInfo: [String : AnyObject]?) {
         self.name = name
         self.type = type
-        self.deepLinkURL = deepLinkURL
+        self.action = action
+        self.userInfo = userInfo
         super.init()
     }
 }
@@ -41,6 +44,8 @@ extension MessageAction: JSONObject {
         }
         
         return MessageAction(name: json["Name"] as? String,
-                             type: type)
+                             type: type,
+                             action: json["Action"] as? String,
+                             userInfo: json["ActionInfo"] as? [String : AnyObject])
     }
 }

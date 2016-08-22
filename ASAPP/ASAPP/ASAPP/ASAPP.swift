@@ -14,8 +14,10 @@ public class ASAPP: NSObject {
     
     // MARK:- Instance Methods
     
-    public class func createChatViewController(withCredentials credentials: Credentials, styles: ASAPPStyles?) -> UIViewController {
-        return ChatViewController(withCredentials: credentials, styles: styles)
+    public class func createChatViewController(withCredentials credentials: Credentials, styles: ASAPPStyles?, callback: ASAPPCallback) -> UIViewController {
+        return ChatViewController(withCredentials: credentials,
+                                  styles: styles,
+                                  callback: callback)
     }
 }
 

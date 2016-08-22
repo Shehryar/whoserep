@@ -44,17 +44,3 @@ extension ActionableMessage: JSONObject {
         return ActionableMessage(message: json["Message"] as? String, actions: actions)
     }
 }
-
-// MARK:- Sample Data
-
-extension ActionableMessage {
-    class func sample() -> ActionableMessage {
-        return ActionableMessage(message: "What kind of internet issue are you experiencing?",
-                                 actions: [
-                                    MessageAction(name: "Connection", type: .Response),
-                                    MessageAction(name: "Wi-Fi", type: .Response),
-                                    MessageAction(name: "Download Speed", type: .Response),
-                                    MessageAction(name: "Open Photos", type: .DeepLink, deepLinkURL: NSURL(string: "photos://"))
-                                    ])
-    }
-}

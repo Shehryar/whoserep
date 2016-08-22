@@ -22,7 +22,7 @@ class Images: NSObject {
     }
     
     class func asappButtonIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("temp-icon-asapp-button", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+        return imageWithName("asapp-logo", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
     // MARK:- Private Helper Methods
