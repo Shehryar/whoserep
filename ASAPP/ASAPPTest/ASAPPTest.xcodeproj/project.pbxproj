@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2840EC951D6A798D00FA9ED7 /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */; };
 		2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */; };
+		28E8A5D61D6AA94B00C2A27D /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E8A5D51D6AA94B00C2A27D /* ASAPP.framework */; };
+		28E8A5D71D6AA94B00C2A27D /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 28E8A5D51D6AA94B00C2A27D /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
@@ -26,6 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				28E8A5D71D6AA94B00C2A27D /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,6 +39,7 @@
 		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
 		2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastHomeViewController.swift; sourceTree = "<group>"; };
+		28E8A5D51D6AA94B00C2A27D /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitchm/Library/Developer/Xcode/DerivedData/ASAPP-agiknwjsufrxnmgayewuzxzsfwcf/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -55,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E8A5D61D6AA94B00C2A27D /* ASAPP.framework in Frameworks */,
 				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
@@ -94,6 +99,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
+				28E8A5D51D6AA94B00C2A27D /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
