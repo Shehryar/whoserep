@@ -36,7 +36,6 @@ class ChatsListViewController: UIViewController {
     
     var chatButton1: ASAPPButton!
     var chatButton2: ASAPPButton!
-    var chatButton3: ASAPPButton!
     
     let tableView = UITableView(frame: CGRectZero, style: .Grouped)
         
@@ -70,17 +69,7 @@ class ChatsListViewController: UIViewController {
                                   styles: nil)
         chatButton2.hideUntilAnimateInIsCalled()
         chatButton2.expansionPresentationAnimationDisabled = true
-    
-        chatButton3 = ASAPPButton(withCredentials: defaultCustomerChatCredentials,
-                                  presentingViewController: self,
-                                  styles: nil)
-        chatButton3.frame = CGRect(x: 0, y: 25, width: 50, height: 50)
-        chatButton3.hideUntilAnimateInIsCalled()
-        
-        let chatButton3ContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 75))
-        chatButton3ContainerView.addSubview(chatButton3)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: chatButton3ContainerView)
-        
+
         tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.dataSource = self
         tableView.delegate = self
@@ -123,7 +112,6 @@ class ChatsListViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        chatButton3.animateIn(afterDelay: 1)
         chatButton1.animateIn(afterDelay: 1.5)
         chatButton2.animateIn(afterDelay: 1.25)
     }

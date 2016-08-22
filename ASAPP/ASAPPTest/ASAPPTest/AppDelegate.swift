@@ -15,11 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    let comcastHomeController = ComcastHomeViewController()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         Fabric.with([Crashlytics.self])
         
-        let navigationController = UINavigationController(rootViewController: ChatsListViewController())
+//        let navigationController = UINavigationController(rootViewController: ChatsListViewController())
+        let navigationController = UINavigationController(rootViewController: comcastHomeController)
         navigationController.navigationBar.barTintColor = UIColor(red:0.208,  green:0.266,  blue:0.350, alpha:1)
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
         navigationController.navigationBar.titleTextAttributes = [
@@ -59,6 +62,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+// MARK:- Deep-Linking
+
+extension AppDelegate {
+    
+    func application(application: UIApplication,
+                     didReceiveLocalNotification notification: UILocalNotification) {
+        
+    }
+    
+    func application(application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+    }
+    
+    func application(application: UIApplication,
+                     openURL url: NSURL,
+                             sourceApplication: String?,
+                             annotation: AnyObject) -> Bool {
+        guard let host = url.host else { return false }
+        
+        switch host {
+        case "tv":
+            comcastHomeController.showTVHome()
+            return true
+            
+        case "tv-troubleshoot":
+            comcastHomeController.showTvTroubleshoot()
+            return true
+            
+        case "internet":
+            comcastHomeController.showInternetHome()
+            return true
+            
+        case "internet-troubleshoot":
+            comcastHomeController.showInternetTroubleshoot()
+            return true
+            
+        case "restart":
+            comcastHomeController.showRestartDevice()
+            return true
+            
+        default: break
+        }
+        
+        return false
+    }
+    
+    func handleDeeplink(deeplink: String) {
+        
     }
 }
 
