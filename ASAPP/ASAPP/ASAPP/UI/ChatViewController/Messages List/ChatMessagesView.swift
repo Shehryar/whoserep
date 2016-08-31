@@ -101,11 +101,10 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.delegate = self
         addSubview(tableView)
         
-        // TODO: Localization
         infoMessageView.frame = bounds
         infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        infoMessageView.title = "Hi there, how can we help you?"
-        infoMessageView.message = "You can begin this conversation by writing a message below."
+        infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
+        infoMessageView.message = ASAPPLocalizedString("You can begin this conversation by writing a message below.")
         addSubview(infoMessageView)
         
         updateSubviewVisibility()

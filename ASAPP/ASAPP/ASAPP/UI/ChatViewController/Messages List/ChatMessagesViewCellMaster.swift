@@ -181,19 +181,17 @@ extension ChatMessagesViewCellMaster {
             let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
             cell?.applyStyles(styles)
             
-            // TODO: Localization
-            
             switch event.eventType {
             case .CRMCustomerLinked:
-                cell?.infoText = "Customer Linked"
+                cell?.infoText = ASAPPLocalizedString("Customer Linked")
                 break
                 
             case .NewIssue:
-                cell?.infoText = "New Issue: \(event.newIssue?.issueId ?? 0)"
+                cell?.infoText = ASAPPLocalizedString("New Issue: \(event.newIssue?.issueId ?? 0)")
                 break
                 
             case .NewRep:
-                cell?.infoText = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))"
+                cell?.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))")
                 break
                 
             default:  // Other cases not handled
@@ -290,20 +288,18 @@ extension ChatMessagesViewCellMaster {
         // Info Cell
         if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
             infoTextSizingCell.applyStyles(styles)
-            
-            // TODO: Localization
-            
+
             switch event.eventType {
             case .CRMCustomerLinked:
-                infoTextSizingCell.infoText = "Customer Linked"
+                infoTextSizingCell.infoText = ASAPPLocalizedString("Customer Linked")
                 break
                 
             case .NewIssue:
-                infoTextSizingCell.infoText = "New Issue: \(event.newIssue?.issueId ?? 0)"
+                infoTextSizingCell.infoText = ASAPPLocalizedString("New Issue: \(event.newIssue?.issueId ?? 0)")
                 break
                 
             case .NewRep:
-                infoTextSizingCell.infoText = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))"
+                infoTextSizingCell.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))")
                 break
                 
             default:  // Other cases not handled

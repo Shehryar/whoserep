@@ -95,7 +95,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         textView.inputAccessoryView = keyboardFrameTrackingView
         
         
-        placeholderTextView.text = "Craft a message..." // TODO: Localization
+        placeholderTextView.text = ASAPPLocalizedString("Craft a message...")
         placeholderTextView.backgroundColor = UIColor.clearColor()
         placeholderTextView.font = textView.font
         placeholderTextView.textColor = Colors.mediumTextColor()
@@ -174,7 +174,7 @@ class ChatInputView: UIView, ASAPPStyleable {
             NSForegroundColorAttributeName : color.colorWithAlphaComponent(0.4),
             NSFontAttributeName : font
         ]
-        let buttonTitle = "SEND" // TODO: Localization
+        let buttonTitle = ASAPPLocalizedString("SEND")
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), forState: .Normal)
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), forState: .Highlighted)
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), forState: .Disabled)

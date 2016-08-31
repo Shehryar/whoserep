@@ -27,21 +27,18 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
             switch status {
             case .Connected:
                 spinner.stopAnimating()
-                // TODO: Localization
-                message = "Connection Established"
+                message =  ASAPPLocalizedString("Connection Established")
                 break
                 
             case .Connecting:
                 spinner.startAnimating()
-                // TODO: Localization
-                message = "Connecting..."
+                message = ASAPPLocalizedString("Connecting...")
                 break
                 
                 
             case .Disconnected:
                 spinner.stopAnimating()
-                // TODO: Localization
-                message = "Not connected. Retry connection?"
+                message = ASAPPLocalizedString("Not connected. Retry connection?")
                 break
             }
             

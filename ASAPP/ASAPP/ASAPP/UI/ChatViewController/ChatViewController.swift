@@ -353,10 +353,9 @@ extension ChatViewController {
         let photoLibraryIsAvailable = UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary)
         
         if !cameraIsAvailable && !photoLibraryIsAvailable {
-            // TODO: Localization
-            
             // Show alert to check settings
-            showAlert(withTitle: "Photos Unavailable", message: "Please update your settings to allow access to the camera and/or photo library.")
+            showAlert(withTitle: ASAPPLocalizedString("Photos Unavailable"),
+                      message: ASAPPLocalizedString("Please update your settings to allow access to the camera and/or photo library."))
             return
         }
         
@@ -370,16 +369,14 @@ extension ChatViewController {
     }
     
     func presentCameraOrPhotoLibrarySelection(fromView presentFromView: UIView) {
-        // TODO: Localization
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Camera"), style: .Default, handler: { (alert) in
             self.presentCamera()
         }))
-        alertController.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Photo Library"), style: .Default, handler: { (alert) in
             self.presentPhotoLibrary()
         }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Destructive, handler: { (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .Destructive, handler: { (alert) in
             // No-op
         }))
         alertController.popoverPresentationController?.sourceView = presentFromView
