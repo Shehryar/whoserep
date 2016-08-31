@@ -1,9 +1,30 @@
-/* 
-  Localizable.strings
-  ASAPP
-
-  Created by Mitchell Morgan on 8/31/16.
-  Copyright © 2016 asappinc. All rights reserved.
-*/
-
+/**/
+"Camera" = "Camera";
+/**/
+"Cancel" = "Cancel";
+/**/
+"Connecting..." = "Connecting...";
+/**/
+"Connection Established" = "Connection Established";
+/**/
 "Craft a message..." = "Craft a message...";
+/**/
+"Customer Linked" = "Customer Linked";
+/**/
+"Hi there, how can we help you?" = "Hi there, how can we help you?";
+/**/
+"New Issue: \(event.newIssue?.issueId ?? 0)" = "New Issue: \(event.newIssue?.issueId ?? 0)";
+/**/
+"New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))" = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))";
+/**/
+"Not connected. Retry connection?" = "Not connected. Retry connection?";
+/**/
+"Photo Library" = "Photo Library";
+/**/
+"Photos Unavailable" = "Photos Unavailable";
+/**/
+"Please update your settings to allow access to the camera and/or photo library." = "Please update your settings to allow access to the camera and/or photo library.";
+/**/
+"SEND" = "SEND";
+/**/
+"You can begin this conversation by writing a message below." = "You can begin this conversation by writing a message below.";
