@@ -128,7 +128,7 @@ class SRSConn: NSObject {
         SRS.prompt.prompt.text = ""
     }
     
-    var recommendationsJSON = "{\"Recommendations\":[\"pay my bill\",\"troubleshooting help\",\"password reset\"]}"
+    var recommendationsJSON = "{\"Recommendations\":[\"pay my bill\",\"troubleshooting help\"]}"
     func fetchRecommendations() {
         dispatch_async(dispatch_get_global_queue(priority, 0)) { 
             let url = NSURL(string: "https://srs-get." + self.getHost() + "/recommended")
