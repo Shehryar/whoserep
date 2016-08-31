@@ -13,6 +13,7 @@ import SocketRocket
 enum ASAPPEnvironment {
     case Local
     case Development
+    case SRSDevelopment
     case Production
 }
 let CURRENT_ENVIRONMENT = ASAPPEnvironment.Development
@@ -71,6 +72,10 @@ class SocketConnection: NSObject {
             
         case .Development:
             connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
+            break
+            
+        case .SRSDevelopment:
+            connectionRequest.URL = NSURL(string: "wss://srs-api-dev.asapp.com/api/websocket")
             break
             
         case .Production:
