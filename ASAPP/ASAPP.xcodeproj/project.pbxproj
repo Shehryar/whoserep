@@ -62,6 +62,7 @@
 		30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */; };
 		30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
+		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
@@ -90,6 +91,8 @@
 		30A4BB271D5240B100795BA7 /* ChatInfoTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB261D5240B100795BA7 /* ChatInfoTextCell.swift */; };
 		30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB281D52637200795BA7 /* ASAPPStyles.swift */; };
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
+		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
+		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
 		70320168AD14EF4C7E4C7D24 /* Pods_ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F26DD7E105E788FA9D6BCF /* Pods_ASAPP.framework */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +139,7 @@
 		30226CFB1D49554E00871453 /* temp-icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@2x.png"; sourceTree = "<group>"; };
 		30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 		30A4BB261D5240B100795BA7 /* ChatInfoTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoTextCell.swift; sourceTree = "<group>"; };
 		30A4BB281D52637200795BA7 /* ASAPPStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStyles.swift; sourceTree = "<group>"; };
 		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
+		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
 		398862E561A41CE8F8535379 /* Pods-ASAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.release.xcconfig"; sourceTree = "<group>"; };
 		867BB9E9767D8FDC4D42BE45 /* Pods-ASAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.debug.xcconfig"; sourceTree = "<group>"; };
 		884AF161CDBE9B1176DFE03A /* Pods-ASAPP.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPP.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-ASAPP/Pods-ASAPP.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -262,8 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				30099E061D3FD1DA00171D56 /* Fonts */,
+				30CF55B61D7750A000C7DB6D /* Localizations */,
 				30099E0B1D3FD1DA00171D56 /* Images */,
-				3092193E1D77492F00E70AEB /* Strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -407,6 +413,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		303C876F1D775A4800213F6B /* ko.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				303C87701D775A5500213F6B /* Localizable.strings */,
+			);
+			path = ko.lproj;
+			sourceTree = "<group>";
+		};
 		30883F931D54E0CA002414E9 /* ASAPPButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,13 +436,6 @@
 				309219301D66608C00E70AEB /* SummaryDetailsView.swift */,
 			);
 			path = "Custom Views";
-			sourceTree = "<group>";
-		};
-		3092193E1D77492F00E70AEB /* Strings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Strings;
 			sourceTree = "<group>";
 		};
 		30A4BB041D51095400795BA7 /* ImageViewer */ = {
@@ -466,6 +473,32 @@
 				30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */,
 			);
 			path = "Supplementary Views";
+			sourceTree = "<group>";
+		};
+		30CF55B61D7750A000C7DB6D /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				303C876F1D775A4800213F6B /* ko.lproj */,
+				30CF55B71D7750AF00C7DB6D /* en.lproj */,
+				30CF55BB1D77510A00C7DB6D /* es.lproj */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
+		30CF55B71D7750AF00C7DB6D /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				30CF55B81D7750C100C7DB6D /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		30CF55BB1D77510A00C7DB6D /* es.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				30CF55BC1D77511700C7DB6D /* Localizable.strings */,
+			);
+			path = es.lproj;
 			sourceTree = "<group>";
 		};
 		5F7B85B6B6F9A7C1B0B5571A /* Pods */ = {
@@ -572,6 +605,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				ko,
 			);
 			mainGroup = FD8D8AF01D0F6E2A001B420B;
 			productRefGroup = FD8D8AFB1D0F6E2A001B420B /* Products */;
@@ -592,12 +627,15 @@
 				3019F5E31D5B935C0036D74E /* temp-icon-x-light@3x.png in Resources */,
 				30A4BB131D5139CC00795BA7 /* temp-icon-x@2x.png in Resources */,
 				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
+				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 				2840EC9B1D6A95ED00FA9ED7 /* asapp-logo@3x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
+				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
+				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				3019F5E21D5B935C0036D74E /* temp-icon-x-light@2x.png in Resources */,
 				30A4BB141D5139CC00795BA7 /* temp-icon-x@3x.png in Resources */,
 				2840EC9A1D6A95ED00FA9ED7 /* asapp-logo@2x.png in Resources */,
@@ -717,6 +755,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		303C87701D775A5500213F6B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				303C87711D775A5500213F6B /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		30CF55B81D7750C100C7DB6D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30CF55B91D7750C100C7DB6D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		30CF55BC1D77511700C7DB6D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30CF55BD1D77511700C7DB6D /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		30A4BB2A1D52B57E00795BA7 /* AdHoc */ = {

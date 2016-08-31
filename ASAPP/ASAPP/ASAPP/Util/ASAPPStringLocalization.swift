@@ -8,6 +8,6 @@
 
 import Foundation
 
-func ASAPPLocalizedString(key: String, comment: String? = nil) -> String {
-    return NSLocalizedString(key, tableName: nil, bundle: ASAPPBundle, comment: comment ?? "")
+func ASAPPLocalizedString(key: String, comment: String = "") -> String {
+    return NSLocalizedString(key, tableName: nil, bundle: ASAPPBundle, comment: comment)
 }
