@@ -66,8 +66,8 @@ extension UIImage {
         assert(context != nil)
         
         // correctly rotate image
-        CGContextTranslateCTM(context, 0, size.height);
-        CGContextScaleCTM(context, 1.0, -1.0);
+        CGContextTranslateCTM(context, 0, size.height)
+        CGContextScaleCTM(context, 1.0, -1.0)
         
         let rect = CGRectMake(0.0, 0.0, size.width, size.height)
         

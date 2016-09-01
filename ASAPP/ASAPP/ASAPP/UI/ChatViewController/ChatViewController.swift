@@ -20,11 +20,14 @@ class ChatViewController: UIViewController {
     
     let callback: ASAPPCallback
     
-    private var actionableMessage: ActionableMessage?
+    private var actionableMessage: SRSResponse?
     
     // MARK: Private Properties
     
     private var conversationManager: ConversationManager
+    
+    /// If false, messages will be sent to SRS
+    private var liveChat = false
     
     private var keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
@@ -70,8 +73,13 @@ class ChatViewController: UIViewController {
         
         connectionStatusView.applyStyles(self.styles)
         connectionStatusView.onTapToConnect = { [weak self] in
-            self?.connectionStatusView.status = .Connecting
-            self?.conversationManager.enterConversation()
+            if let strongSelf = self {
+                strongSelf.connectionStatusView.status = .Connecting
+                strongSelf.conversationManager.enterConversation()
+                if !strongSelf.liveChat {
+                    strongSelf.conversationManager.startSRS()
+                }
+            }
         }
         
         keyboardObserver.delegate = self
@@ -114,6 +122,9 @@ class ChatViewController: UIViewController {
         } else {
             connectionStatusView.status = .Connecting
             conversationManager.enterConversation()
+            if !liveChat {
+                conversationManager.startSRS()
+            }
         }
     }
     
@@ -199,7 +210,7 @@ extension ChatViewController {
                     self.chatMessagesView.scrollToBottomAnimated(false)
                 }
                 }, completion: { (completed) in
-                completion?()
+                    completion?()
             })
         } else {
             updateFrames()
@@ -251,8 +262,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?) {
-        let isTyping = text != nil && !text!.isEmpty
-        conversationManager.updateCurrentUserTypingStatus(isTyping, withText: text)
+        if liveChat {
+            let isTyping = text != nil && !text!.isEmpty
+            conversationManager.updateCurrentUserTypingStatus(isTyping, withText: text)
+        }
     }
     
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
@@ -270,13 +283,13 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputView(chatInputView: ChatInputView, didUpdateInputFrame inputFrame: CGRect) {
         /** This messes up the SRS Animations
-        
-        if chatInputView.isFirstResponder() {
-            let convertedFrame = view.convertRect(inputFrame, fromView: nil)
-            keyboardOffset = CGRectGetHeight(view.bounds) - CGRectGetMinY(convertedFrame)
-            updateFramesAnimated(false, scrollToBottomIfNearBottom: true, completion: nil)
-        }
- 
+         
+         if chatInputView.isFirstResponder() {
+         let convertedFrame = view.convertRect(inputFrame, fromView: nil)
+         keyboardOffset = CGRectGetHeight(view.bounds) - CGRectGetMinY(convertedFrame)
+         updateFramesAnimated(false, scrollToBottomIfNearBottom: true, completion: nil)
+         }
+         
          */
     }
 }
@@ -290,23 +303,26 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         updateFramesAnimated()
     }
     
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction messageAction: MessageAction) {
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButton button: SRSButton) {
+        guard let buttonValue = button.value else { return }
         
-        switch messageAction.type {
-        case .Response:
-            conversationManager.sendMessageActionSelection(messageAction) { [weak self] in
+        switch buttonValue.type {
+        case .InAppLink, .Link:
+            if let deepLink = buttonValue.deepLink {
+                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonValue.deepLinkData)")
+                
+                dismissViewControllerAnimated(true, completion: { 
+                    self.callback(deepLink, buttonValue.deepLinkData)
+                })
+            }
+            break
+            
+        case .SRS:
+            conversationManager.sendSRSButtonSelection(button) { [weak self] in
                 // TODO: Check for success
                 self?.actionableMessage = nil
                 self?.chatInputView.becomeFirstResponder()
                 self?.updateFramesAnimated()
-            }
-            break
-            
-        case .DeepLink:
-            if let action = messageAction.action {
-                dismissViewControllerAnimated(true, completion: {
-                    self.callback(action, messageAction.userInfo)
-                })
             }
             break
         }
@@ -319,12 +335,18 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         chatMessagesView.insertNewMessageEvent(messageEvent) {
             
-            if messageEvent.eventType == .ActionableMessage {
-                Dispatcher.delay(200, closure: { [weak self] in
-                    self?.actionableMessage = messageEvent.actionableMessage
-                    self?.suggestedRepliesView.actionableMessage = messageEvent.actionableMessage
-                    self?.updateFramesAnimated()
-                })
+            // MITCH MITCH MITCH
+            
+            if messageEvent.eventType == .SRSResponse {
+                if let srsResponse = messageEvent.srsResponse {
+                    if srsResponse.type == .Modal {
+                        Dispatcher.delay(200, closure: { [weak self] in
+                            self?.actionableMessage = srsResponse
+                            self?.suggestedRepliesView.actionableMessage = srsResponse
+                            self?.updateFramesAnimated()
+                            })
+                    }
+                }
             }
         }
     }
@@ -453,6 +475,9 @@ extension ChatViewController {
     
     func sendMessage(withText text: String) {
         conversationManager.sendMessage(text)
+        if !liveChat {
+            conversationManager.sendSRSQuery(text)
+        }
     }
     
     func reloadMessageEvents() {

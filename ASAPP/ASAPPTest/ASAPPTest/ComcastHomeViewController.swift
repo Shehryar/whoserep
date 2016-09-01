@@ -11,10 +11,20 @@ import ASAPP
 
 class ComcastHomeViewController: ImageBackgroundViewController {
 
-    let credentials = Credentials(withCompany: "vs-dev",
+    ///** SRS Dev Server
+    
+    let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
                                   userToken: "vs-cct-c8",
                                   isCustomer: true,
                                   targetCustomerToken: nil)
+    
+    //*/
+     
+//    let credentials = Credentials(withCompany: "vs-dev",
+//                                  userToken: "vs-cct-c8",
+//                                  isCustomer: true,
+//                                  targetCustomerToken: nil)
+    
     
     var chatButton: ASAPPButton?
     
@@ -81,13 +91,26 @@ extension ComcastHomeViewController {
     }
     
     func handleAction(action: String, userInfo: [String : AnyObject]?) {
+        
         switch action {
         case "tv":
             showTVHome()
             break
             
-        case "tv-troubleshoot":
-            showTvTroubleshoot()
+        case "troubleshoot":
+            if let userInfo = userInfo, let service = userInfo["service"] as? String {
+                switch service {
+                case "internet":
+                    showInternetTroubleshoot()
+                    break
+                    
+                default:
+                    showTvTroubleshoot()
+                    break
+                }
+            } else {
+                showTvTroubleshoot()
+            }
             break
             
         case "internet":

@@ -85,7 +85,7 @@ extension OutgoingMessageSerializer {
             if credentials.isCustomer {
                 path = "auth/AuthenticateWithCustomerToken"
                 params = [
-                    "CompanyMarker": "vs-dev",
+                    "CompanyMarker": credentials.companyMarker,
                     "Identifiers": userToken,
                     "App": "ios-sdk"
                 ]
@@ -93,7 +93,7 @@ extension OutgoingMessageSerializer {
                 // Non-customer w/ Token
                 path = "auth/AuthenticateWithSalesForceToken"
                 params = [
-                    "Company": "vs-dev",
+                    "Company": credentials.companyMarker,
                     "AuthCallbackData": userToken,
                     "GhostEmailAddress": "",
                     "CountConnectionForIssueTimeout": false,
@@ -104,7 +104,7 @@ extension OutgoingMessageSerializer {
             // Anonymous User
             path = "auth/CreateAnonCustomerAccount"
             params = [
-                "CompanyMarker": "vs-dev",
+                "CompanyMarker": credentials.companyMarker,
                 "RegionCode": "US"
             ]
         }

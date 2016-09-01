@@ -77,9 +77,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         self.credentials = credentials
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .BillSummary]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .BillSummary, .SRSResponse]
         } else {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .BillSummary, .NewIssue, .NewRep, .CRMCustomerLinked]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .BillSummary, .SRSResponse, .NewIssue, .NewRep, .CRMCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)

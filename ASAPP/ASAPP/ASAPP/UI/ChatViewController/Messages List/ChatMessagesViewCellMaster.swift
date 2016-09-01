@@ -160,13 +160,22 @@ extension ChatMessagesViewCellMaster {
             return cell
         }
         
-        // Actionable Message (same UI as Text Message)
-        if event.eventType == .ActionableMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
-            cell?.applyStyles(styles, isReply: isReply)
-            cell?.listPosition = listPosition
-            cell?.messageText = event.actionableMessage?.message
-            return cell
+        // SRS Response
+        if event.eventType == .SRSResponse {
+            if let srsResponse = event.srsResponse {
+                switch srsResponse.type {
+                case .Inline:
+                    // MITCH MITCH MITCH
+                    break
+                    
+                case .Modal:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
+                    cell?.applyStyles(styles, isReply: isReply)
+                    cell?.listPosition = listPosition
+                    cell?.messageText = srsResponse.itemList?.title
+                    return cell
+                }
+            }
         }
         
         // Bill Summary
@@ -271,12 +280,21 @@ extension ChatMessagesViewCellMaster {
             return heightForStyledView(textMessageSizingCell, width: width)
         }
         
-        // Actionable Message (same UI as Text Message)
-        if event.eventType == .ActionableMessage {
-            textMessageSizingCell.applyStyles(styles, isReply: isReply)
-            textMessageSizingCell.listPosition = listPosition
-            textMessageSizingCell.messageText = event.actionableMessage?.message
-            return heightForStyledView(textMessageSizingCell, width: width)
+        // SRS Response
+        if event.eventType == .SRSResponse {
+            if let srsResponse = event.srsResponse {
+                switch srsResponse.type {
+                case .Inline:
+                    // MITCH MITCH MITCH
+                    break
+                    
+                case .Modal:
+                    textMessageSizingCell.applyStyles(styles, isReply: isReply)
+                    textMessageSizingCell.listPosition = listPosition
+                    textMessageSizingCell.messageText = srsResponse.itemList?.title
+                    return heightForStyledView(textMessageSizingCell, width: width)
+                }
+            }
         }
         
         // Bill Summary

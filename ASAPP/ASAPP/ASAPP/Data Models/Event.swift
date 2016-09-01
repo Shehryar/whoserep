@@ -30,10 +30,10 @@ import RealmSwift
     case WhisperMessage = 17
     case CustomerFeedback = 18
     case VCardMessage = 19
+    case SRSResponse = 20
     
     // Temp
-    
-    case ActionableMessage = 20
+
     case BillSummary = 21
 }
 
@@ -153,6 +153,8 @@ class Event: Object {
     // MARK: Lazy Properties
     
     lazy var eventJSONObject: [String : AnyObject]? = {
+        guard !self.eventJSON.isEmpty else { return nil }
+        
         var eventJSONObject: [String : AnyObject]?
         do {
             eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
@@ -278,10 +280,10 @@ class Event: Object {
         return nil
     }()
 
-    lazy var actionableMessage: ActionableMessage? = {
-        guard self.eventType == .ActionableMessage else { return nil }
-
-        return ActionableMessage.instanceWithJSON(self.eventJSONObject) as? ActionableMessage
+    lazy var srsResponse: SRSResponse? = {
+        guard self.eventType == .SRSResponse else { return nil }
+        
+        return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
     }()
     
     // MARK: Realm Property Methods
@@ -291,7 +293,7 @@ class Event: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "actionableMessage"]
+        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "srsResponse"]
     }
     
     // MARK:- Initialization
@@ -367,14 +369,10 @@ extension Event {
 
 extension Event {
     
-    class func sampleActionableMessageForText(text: String) -> Event? {
+    class func sampleEventForMessageWithText(text: String) -> Event? {
         var action: Event?
-        if text.localizedCaseInsensitiveContainsString("help") {
-            action = sampleActionableMessageEventHelp()
-        } else if text.localizedCaseInsensitiveContainsString("internet") {
-            action = Event.sampleActionableMessageEventInternetTopics()
-        } else if text.localizedCaseInsensitiveContainsString("cable") {
-            action = Event.sampleActionableMessageEventCableTopics()
+        if text.localizedCaseInsensitiveContainsString("srs") {
+            action = sampleSRSResponseEvent()
         }
         
         // Bill Summary
@@ -385,8 +383,7 @@ extension Event {
         return action
     }
     
-    class func sampleActionableMessageEventHelp() -> Event? {
-        
+    class func sampleEvent(type: Int, eventJSON: String) -> Event? {
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
         return Event(withJSON: [
@@ -401,66 +398,15 @@ extension Event {
             "EventFlags" : 0,
             "CompanyEventLogSeq":600,
             "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"What do you need help with today?\", \"Actions\" : [ { \"Name\" : \"Internet\", \"Type\" : 0 }, { \"Name\" : \"Cable\", \"Type\" : 0 }, { \"Name\" : \"Account\", \"Type\" : 1, \"Action\" : \"account\" } ] }"
+            "EventJSON" : eventJSON
             ])
     }
     
-    class func sampleActionableMessageEventInternetTopics() -> Event? {
-        
-        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
-        
-        return Event(withJSON: [
-            "CreatedTime" : eventTime,
-            "IssueId" : 350001,
-            "CompanyId" : 10001,
-            "CustomerId" : 130001,
-            "RepId" : 20001,
-            "EventTime" : eventTime,
-            "EventType" : 20,
-            "EphemeralType" : 0,
-            "EventFlags" : 0,
-            "CompanyEventLogSeq":600,
-            "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"How can I help you with your internet service?\", \"Actions\" : [ { \"Name\" : \"Internet not working\", \"Type\" : 1, \"Action\" : \"internet-troubleshoot\"  }, { \"Name\" : \"Upgrade download speeds\", \"Type\" : 1, \"Action\" : \"internet\"  }, { \"Name\" : \"Check usage summary\", \"Type\" : 1, \"Action\" : \"internet\"  } ] }"
-            ])
+    class func sampleSRSResponseEvent() -> Event? {
+        return nil
     }
-    
-    class func sampleActionableMessageEventCableTopics() -> Event? {
-        
-        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
-        
-        return Event(withJSON: [
-            "CreatedTime" : eventTime,
-            "IssueId" : 350001,
-            "CompanyId" : 10001,
-            "CustomerId" : 130001,
-            "RepId" : 20001,
-            "EventTime" : eventTime,
-            "EventType" : 20,
-            "EphemeralType" : 0,
-            "EventFlags" : 0,
-            "CompanyEventLogSeq":600,
-            "CustomerEventLogSeq":0,
-            "EventJSON" : "{ \"Message\" : \"How can I help you with your cable service?\", \"Actions\" : [ { \"Name\" : \"Cable not working\", \"Type\" : 1, \"Action\" : \"tv-troubleshoot\" }, { \"Name\" : \"Add channel packages\", \"Type\" : 1, \"Action\" : \"tv\"  } ] }"
-            ])
-    }
-    
+
     class func sampleBillSummaryEvent() -> Event? {
-        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
-        
-        return Event(withJSON: [
-            "CreatedTime" : eventTime,
-            "IssueId" : 350001,
-            "CompanyId" : 10001,
-            "CustomerId" : 130001,
-            "RepId" : 20001,
-            "EventTime" : eventTime,
-            "EventType" : 21,
-            "EphemeralType" : 0,
-            "EventFlags" : 0,
-            "CompanyEventLogSeq":600,
-            "CustomerEventLogSeq":0,
-            "EventJSON" : ""
-            ])
+        return sampleEvent(21, eventJSON: "")
     }
 }

@@ -60,9 +60,7 @@ public class ASAPPButton: UIView {
             updateButtonDisplay()
         }
     }
-    
-    private var isLongPressing = false
-    
+
     private var isWaitingToAnimateIn = false
     
     // MARK: Initialization
@@ -109,7 +107,7 @@ public class ASAPPButton: UIView {
         
         contentView.alpha = 0.0
         contentView.transform = CGAffineTransformIdentity
-        contentView.frame = bounds;
+        contentView.frame = bounds
         updateCornerRadius()
         
         let imageInset = floor(0.15 * CGRectGetHeight(bounds))

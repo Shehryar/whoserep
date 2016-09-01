@@ -100,16 +100,6 @@ extension ConversationManager {
         }
     }
     
-    func sendMessageActionSelection(messageAction: MessageAction, completion: (() -> Void)? = nil) {
-        
-        // TESTING
-        // TODO: Hit actual endpoint once ready
-        
-        if let message = messageAction.name {
-            sendMessage(message, completion: completion)
-        }
-    }
-    
     func updateCurrentUserTypingStatus(isTyping: Bool, withText text: String?) {
         if credentials.isCustomer {
             let path = "\(requestPrefix)NotifyTypingPreview"
@@ -177,6 +167,41 @@ extension ConversationManager {
     private var requestPrefix: String {
         return credentials.isCustomer ? "customer/" : "rep/"
     }
+    
+    // MARK:- SRS
+    
+    func startSRS() {
+        socketConnection.sendRequest(withPath: "srs/AppOpen",
+                                     params: [
+                                        "access_token" : "tokentokentoken",
+                                        "expires_in" : 30,
+                                        "issued_time" : NSDate().timeIntervalSince1970
+        ]) { (incomingMessage) in
+            
+        }
+    }
+    
+    func sendSRSQuery(query: String, completion: (() -> Void)? = nil) {
+        socketConnection.sendRequest(withPath: "srs/HierAndTreewalk", params: ["Q" : query]) { (incomingMessage) in
+            completion?()
+        }
+    }
+    
+    private func sendSRSTreewalk(query: String, completion: (() -> Void)? = nil) {
+        socketConnection.sendRequest(withPath: "srs/Treewalk", params: ["Q" : query]) { (incomingMessage) in
+            completion?()
+        }
+    }
+    
+    func sendSRSButtonSelection(button: SRSButton, completion: (() -> Void)? = nil) {
+        guard let buttonValue = button.value,
+            let srsQuery = buttonValue.srsValue else {
+                return
+        }
+        
+        sendMessage(button.title, completion: completion)
+        sendSRSTreewalk(srsQuery)
+    }
 }
 
 // MARK:- SocketConnectionDelegate
@@ -189,25 +214,14 @@ extension ConversationManager: SocketConnectionDelegate {
                 conversationStore.addEvent(event)
                 
                 switch event.eventType {
+                case .SRSResponse:
+                    Dispatcher.delay(600, closure: { 
+                        self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                    })
+                    break
+                    
                 case .TextMessage, .PictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    
-                    
-                    /** BEGIN TESTING **/
-                    if TEST_ACTIONABLE_MESSAGES_LOCALLY {
-                        if event.eventType == .TextMessage {
-                            if let textMessageText = event.textMessage?.text {
-                                if let nextAction = Event.sampleActionableMessageForText(textMessageText) {
-                                    Dispatcher.delay(600, closure: {
-                                        self.delegate?.conversationManager(self, didReceiveMessageEvent: nextAction)
-                                    })
-                                }
-                            }
-                        }
-                    }
-                    /** END TESTING **/
-                    
-                    
                     break
                   
                 case .None:

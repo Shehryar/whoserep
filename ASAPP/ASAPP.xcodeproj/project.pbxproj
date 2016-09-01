@@ -63,6 +63,11 @@
 		30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
+		303C87791D78888F00213F6B /* sample_srs_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 303C87781D78888F00213F6B /* sample_srs_response.json */; };
+		303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877B1D789B9700213F6B /* SRSResponse.swift */; };
+		303C877E1D789BB100213F6B /* SRSItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877D1D789BB100213F6B /* SRSItemList.swift */; };
+		303C87801D789BD900213F6B /* SRSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877F1D789BD900213F6B /* SRSButton.swift */; };
+		303C87821D789BE200213F6B /* SRSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C87811D789BE200213F6B /* SRSLabel.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
@@ -140,6 +145,11 @@
 		30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
+		303C87781D78888F00213F6B /* sample_srs_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_srs_response.json; sourceTree = "<group>"; };
+		303C877B1D789B9700213F6B /* SRSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSResponse.swift; sourceTree = "<group>"; };
+		303C877D1D789BB100213F6B /* SRSItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemList.swift; sourceTree = "<group>"; };
+		303C877F1D789BD900213F6B /* SRSButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButton.swift; sourceTree = "<group>"; };
+		303C87811D789BE200213F6B /* SRSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabel.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 				28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */,
 				3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */,
 				309219381D67A3E300E70AEB /* sample_bill_data.json */,
+				303C87781D78888F00213F6B /* sample_srs_response.json */,
 			);
 			path = "Suggested Replies Sheet";
 			sourceTree = "<group>";
@@ -213,6 +224,7 @@
 			children = (
 				300888971D63B1A200C25802 /* ActionableMessage.swift */,
 				300888981D63B1A200C25802 /* ActionableMessageAction.swift */,
+				303C877A1D789B1300213F6B /* SRS */,
 			);
 			path = "Event Payload Objects";
 			sourceTree = "<group>";
@@ -419,6 +431,17 @@
 				303C87701D775A5500213F6B /* Localizable.strings */,
 			);
 			path = ko.lproj;
+			sourceTree = "<group>";
+		};
+		303C877A1D789B1300213F6B /* SRS */ = {
+			isa = PBXGroup;
+			children = (
+				303C877B1D789B9700213F6B /* SRSResponse.swift */,
+				303C877D1D789BB100213F6B /* SRSItemList.swift */,
+				303C877F1D789BD900213F6B /* SRSButton.swift */,
+				303C87811D789BE200213F6B /* SRSLabel.swift */,
+			);
+			path = SRS;
 			sourceTree = "<group>";
 		};
 		30883F931D54E0CA002414E9 /* ASAPPButton */ = {
@@ -631,6 +654,7 @@
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
+				303C87791D78888F00213F6B /* sample_srs_response.json in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 				2840EC9B1D6A95ED00FA9ED7 /* asapp-logo@3x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
@@ -698,7 +722,9 @@
 				309219351D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift in Sources */,
 				300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
+				303C877E1D789BB100213F6B /* SRSItemList.swift in Sources */,
 				30A4BB271D5240B100795BA7 /* ChatInfoTextCell.swift in Sources */,
+				303C87821D789BE200213F6B /* SRSLabel.swift in Sources */,
 				309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
@@ -739,6 +765,7 @@
 				30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
+				303C87801D789BD900213F6B /* SRSButton.swift in Sources */,
 				28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,
@@ -749,6 +776,7 @@
 				3008889A1D63B1A200C25802 /* ActionableMessageAction.swift in Sources */,
 				30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
+				303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */,
 				300888A51D64D48300C25802 /* ChatMessagesViewCellProtocol.swift in Sources */,
 				30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */,
 			);

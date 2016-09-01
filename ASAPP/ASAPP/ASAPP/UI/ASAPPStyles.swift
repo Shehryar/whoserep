@@ -46,7 +46,7 @@ public class ASAPPStyles: NSObject {
     
     public var accentColor: UIColor = Colors.blueColor()
     
-    // MARK:- Colors; Messages
+    // MARK:- Colors: Messages
     
     public var messageFillColor: UIColor = Colors.whiteColor()
     
