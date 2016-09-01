@@ -44,7 +44,7 @@ public class ASAPPStyles: NSObject {
     
     public var separatorColor2: UIColor = Colors.lightGrayColor()
     
-    public var accentColor: UIColor = Colors.blueColor()
+    public var accentColor: UIColor = Colors.blueGrayColor()
     
     // MARK:- Colors: Messages
     
@@ -54,7 +54,7 @@ public class ASAPPStyles: NSObject {
     
     public var messageTextColor: UIColor = Colors.darkTextColor()
     
-    public var replyMessageFillColor: UIColor = Colors.blueColor()
+    public var replyMessageFillColor: UIColor = Colors.blueGrayColor()
     
     public var replyMessageStrokeColor: UIColor? = nil
     
@@ -72,7 +72,7 @@ public class ASAPPStyles: NSObject {
     
     public var inputTextColor: UIColor = Colors.darkTextColor()
     
-    public var inputSendButtonColor: UIColor = Colors.blueColor()
+    public var inputSendButtonColor: UIColor = Colors.blueGrayColor()
     
     public var inputImageButtonColor: UIColor = Colors.mediumTextColor()
     

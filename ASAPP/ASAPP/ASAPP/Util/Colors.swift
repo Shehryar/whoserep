@@ -10,6 +10,8 @@ import UIKit
 
 class Colors: NSObject {
 
+    
+    
     class func redColor() -> UIColor { return UIColor(red:0.921,  green:0.401,  blue:0.336, alpha:1) }
     
     class func blueColor() -> UIColor { return UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1) }
@@ -17,6 +19,7 @@ class Colors: NSObject {
     class func fadedRedColor() -> UIColor { return UIColor(red:0.927,  green:0.451,  blue:0.376, alpha:1) }
     
     class func bluishGray() -> UIColor { return UIColor(red:0.555,  green:0.595,  blue:0.692, alpha:1) }
+    class func blueGrayColor() -> UIColor { return UIColor(red:0.476,  green:0.498,  blue:0.565, alpha:1) }
     
     // MARK: Grays
     class func darkTextColor() -> UIColor { return UIColor(red:0.283,  green:0.290,  blue:0.307, alpha:1) }

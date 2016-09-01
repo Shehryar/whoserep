@@ -188,11 +188,11 @@ extension ChatTextMessageCell {
     
     private func performAnimation() {
         var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
-        if isReply {
-            animationBeginCenter.x = contentInset.left
-        } else {
-            animationBeginCenter.x = CGRectGetWidth(bounds) - contentInset.right
-        }
+//        if isReply {
+//            animationBeginCenter.x = contentInset.left
+//        } else {
+//            animationBeginCenter.x = CGRectGetWidth(bounds) - contentInset.right
+//        }
         
         var animationEndCenter = CGPoint()
         if bubbleView.bounds.isEmpty {
@@ -206,14 +206,16 @@ extension ChatTextMessageCell {
         } else {
             animationEndCenter = bubbleView.center
         }
+        animationBeginCenter.x = animationEndCenter.x
+        
         
         bubbleView.alpha = 0
-        bubbleView.transform = CGAffineTransformMakeScale(0.01, 0.01)
+//        bubbleView.transform = CGAffineTransformMakeScale(0.01, 0.01)
         bubbleView.center = animationBeginCenter
         
         UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
             self.bubbleView.alpha = 1
-            self.bubbleView.transform = CGAffineTransformIdentity
+//            self.bubbleView.transform = CGAffineTransformIdentity
             self.bubbleView.center = animationEndCenter
             }, completion: { (completed) in
                 self.animating = false

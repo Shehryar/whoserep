@@ -41,8 +41,8 @@ public class ASAPPButton: UIView {
         return isTouching ? .Highlighted : .Normal
     }
     
-    private var backgroundColors = [ASAPPButtonState.Normal : UIColor(red:0.155,  green:0.596,  blue:0.922, alpha:1),
-                                    ASAPPButtonState.Highlighted : UIColor(red:0.109,  green:0.456,  blue:0.711, alpha:1)]
+    private var backgroundColors = [ASAPPButtonState.Normal : Colors.blueGrayColor(),
+                                    ASAPPButtonState.Highlighted : Colors.blueGrayColor().highlightColor()]
     
     private var foregroundColors = [ASAPPButtonState.Normal : Colors.whiteColor(),
                                     ASAPPButtonState.Highlighted : Colors.whiteColor()]

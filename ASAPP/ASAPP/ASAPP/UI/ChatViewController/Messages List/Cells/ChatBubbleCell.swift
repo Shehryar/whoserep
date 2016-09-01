@@ -36,7 +36,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 2, left: 16, bottom: 2, right: 16) {
+    var contentInset = UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 20) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
