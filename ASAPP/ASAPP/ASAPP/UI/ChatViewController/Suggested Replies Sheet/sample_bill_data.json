@@ -61,7 +61,7 @@
             "type": "info"
           }
         ],
-        "orientation": "horizontal",
+        "orientation": "vertical",
         "type": "itemlist"
       },
       {

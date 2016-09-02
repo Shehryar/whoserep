@@ -12,8 +12,10 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
 
     var infoItem: SRSInfoItem? {
         didSet {
+            orientation = infoItem?.orientation ?? .Vertical
             labelLabel.text = infoItem?.label
             valueLabel.text = infoItem?.value
+            applyStyles(styles)
             setNeedsLayout()
         }
     }
@@ -21,6 +23,14 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
     var labelMargin: CGFloat = 4 {
         didSet {
             setNeedsLayout()
+        }
+    }
+    
+    private(set) var orientation: SRSInfoItemOrientation = .Vertical {
+        didSet {
+            if oldValue != orientation {
+                setNeedsLayout()
+            }
         }
     }
     
@@ -60,40 +70,83 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
         
-        labelLabel.font = styles.detailFont
-        labelLabel.textColor = styles.foregroundColor1
-        
-        valueLabel.font = styles.bodyFont
-        valueLabel.textColor = styles.foregroundColor1
+        if orientation == .Vertical {
+            labelLabel.font = styles.subheadFont
+            labelLabel.textColor = styles.foregroundColor1
+            
+            valueLabel.font = styles.headerFont
+            valueLabel.textColor = styles.foregroundColor1
+        } else {
+            labelLabel.font = styles.detailFont
+            labelLabel.textColor = styles.foregroundColor2
+            
+            valueLabel.font = styles.detailFont
+            valueLabel.textColor = styles.foregroundColor1
+        }
         
         setNeedsLayout()
     }
     
     // MARK: Layout
     
+    func labelSizesForSize(size: CGSize) -> (/* label */ CGSize,  /* value */ CGSize) {
+        if orientation == .Vertical {
+            let labelHeight = ceil(labelLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
+            let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
+            
+            return (CGSize(width: size.width, height: labelHeight),
+                    CGSize(width: size.width, height: valueHeight))
+        }
+        
+        var maxValueWidth = floor(size.width / 2.0)
+        var valueSize = valueLabel.sizeThatFits(CGSize(width: maxValueWidth, height: 0))
+        valueSize.width = ceil(valueSize.width)
+        valueSize.height = ceil(valueSize.height)
+        
+        var maxLabelWidth = size.width
+        if valueSize.width > 0 {
+            maxLabelWidth = size.width - valueSize.width - labelMargin
+        }
+        var labelSize = labelLabel.sizeThatFits(CGSize(width: maxLabelWidth, height: 0))
+        labelSize.width = ceil(labelSize.width)
+        labelSize.height = ceil(labelSize.height)
+        
+        return (labelSize, valueSize)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let width = CGRectGetWidth(bounds)
-        let labelHeight = ceil(labelLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
-        labelLabel.frame = CGRect(x: 0, y: 0, width: width, height: labelHeight)
+        let (labelSize, valueSize) = labelSizesForSize(bounds.size)
         
-        let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
-        var valueTop = labelHeight
-        if valueTop > 0 {
-            valueTop += labelMargin
+        if orientation == .Vertical {
+            var origin = CGPointZero
+            labelLabel.frame = CGRect(origin: origin, size: labelSize)
+            
+            origin.y = CGRectGetMaxY(labelLabel.frame)
+            if origin.y > 0 {
+                origin.y += labelMargin
+            }
+            valueLabel.frame = CGRect(origin: origin, size: valueSize)
+        } else {
+            labelLabel.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
+            let valueLeft = CGRectGetWidth(bounds) - valueSize.width
+            valueLabel.frame = CGRect(x: valueLeft, y: 0, width: valueSize.width, height: valueSize.height)
         }
-        valueLabel.frame = CGRect(x: 0, y: valueTop, width: width, height: valueHeight)
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
-        let labelHeight = ceil(labelLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
-        let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
-        var margin: CGFloat = 0
-        if labelHeight > 0 && valueHeight > 0 {
-            margin = labelMargin
-        }
+        let (labelSize, valueSize) = labelSizesForSize(bounds.size)
         
-        return CGSize(width: size.width, height: labelHeight + valueHeight + margin)
+        if orientation == .Vertical {
+            var margin: CGFloat = 0
+            if labelSize.height > 0 || valueSize.height > 0 {
+                margin = labelMargin
+            }
+            return CGSize(width: size.width, height: labelSize.height + valueSize.height + margin)
+        } else {
+            let contentHeight = max(labelSize.height, valueSize.height)
+            return CGSize(width: size.width, height: contentHeight)
+        }
     }
 }

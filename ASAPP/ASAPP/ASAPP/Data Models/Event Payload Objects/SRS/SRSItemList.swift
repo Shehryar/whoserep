@@ -14,7 +14,7 @@ enum SRSItemListOrientation: String {
 }
 
 class SRSItemList: NSObject, JSONObject {
-    var orientation: SRSItemListOrientation = .Vertical
+    var orientation: SRSItemListOrientation
     var items: [AnyObject]
     
     // MARK: Readonly Properties 
@@ -42,11 +42,9 @@ class SRSItemList: NSObject, JSONObject {
     
     // MARK: Init
     
-    init(items: [AnyObject], orientation: SRSItemListOrientation? = nil) {
+    init(items: [AnyObject], orientation: SRSItemListOrientation) {
         self.items = items
-        if let orientation = orientation {
-            self.orientation = orientation
-        }
+        self.orientation = orientation
         super.init()
     }
     
@@ -56,6 +54,12 @@ class SRSItemList: NSObject, JSONObject {
         guard let json = json,
             let itemsJSONArary = json["value"] as? [[String : AnyObject]] else {
                 return nil
+        }
+        
+        var orientation = SRSItemListOrientation.Vertical
+        if let orientationString = json["orientation"] as? String,
+            let parsedOrientation = SRSItemListOrientation(rawValue: orientationString)  {
+            orientation = parsedOrientation
         }
         
         var items = [AnyObject]()
@@ -80,7 +84,13 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Info:
-                item = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
+                let infoItem = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
+                if orientation == .Vertical {
+                    infoItem?.orientation = .Horizontal
+                } else {
+                    infoItem?.orientation = .Vertical
+                }
+                item = infoItem
                 break
                 
             case .Separator:
@@ -100,11 +110,6 @@ class SRSItemList: NSObject, JSONObject {
         guard !items.isEmpty else {
             return nil
             
-        }
-        
-        var orientation: SRSItemListOrientation?
-        if let orientationString = json["orientation"] as? String {
-            orientation = SRSItemListOrientation(rawValue: orientationString)
         }
         
         return SRSItemList(items: items, orientation: orientation)
