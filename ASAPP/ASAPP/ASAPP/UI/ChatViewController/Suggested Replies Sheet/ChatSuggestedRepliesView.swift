@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButton button: SRSButton)
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
 }
 
 
@@ -22,11 +22,11 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     
     var actionableMessage: SRSResponse? {
         didSet {
-            buttons = actionableMessage?.itemList?.buttons
+            buttonItems = actionableMessage?.itemList?.buttonItems
         }
     }
     
-    private var buttons: [SRSButton]? {
+    private var buttonItems: [SRSButtonItem]? {
         didSet {
             tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: false)
@@ -150,8 +150,8 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let buttons = buttons {
-            return buttons.count
+        if let buttonItems = buttonItems {
+            return buttonItems.count
         }
         return 0
     }
@@ -166,10 +166,10 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     
     // Mark: Utility
     
-    func buttonForIndexPath(indexPath: NSIndexPath) -> SRSButton? {
-        if let buttons = buttons {
-            if indexPath.row >= 0 && indexPath.row < buttons.count {
-                return buttons[indexPath.row]
+    func buttonItemForIndexPath(indexPath: NSIndexPath) -> SRSButtonItem? {
+        if let buttonItems = buttonItems {
+            if indexPath.row >= 0 && indexPath.row < buttonItems.count {
+                return buttonItems[indexPath.row]
             }
         }
         return nil
@@ -181,7 +181,7 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
         cell.backgroundColor = styles.backgroundColor1
         cell.selectedBackgroundColor = styles.backgroundColor2
         cell.separatorBottomColor = styles.separatorColor1
-        cell.textLabel?.text = buttonForIndexPath(indexPath)?.title
+        cell.textLabel?.text = buttonItemForIndexPath(indexPath)?.title
     }
 }
 
@@ -196,8 +196,8 @@ extension ChatSuggestedRepliesView: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        if let button = buttonForIndexPath(indexPath) {
-            delegate?.chatSuggestedRepliesView(self, didTapSRSButton: button)
+        if let buttonItem = buttonItemForIndexPath(indexPath) {
+            delegate?.chatSuggestedRepliesView(self, didTapSRSButtonItem: buttonItem)
         }
     }
 }

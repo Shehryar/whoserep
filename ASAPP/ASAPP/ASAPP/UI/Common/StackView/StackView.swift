@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum StackViewOrientation {
+    case Vertical
+    case Horizontal
+}
+
 class StackView: UIView {
 
     var contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16) {
@@ -19,6 +24,14 @@ class StackView: UIView {
     var viewSpacing: CGFloat = 16 {
         didSet {
             setNeedsLayout()
+        }
+    }
+    
+    var orientation: StackViewOrientation = .Vertical {
+        didSet {
+            if oldValue != orientation {
+                setNeedsLayout()
+            }
         }
     }
     
@@ -55,6 +68,24 @@ class StackView: UIView {
 
 extension StackView {
     
+    func subviewWidthForSize(size: CGSize) -> CGFloat {
+        let contentWidth = size.width - contentInset.left - contentInset.right
+        
+        if orientation == .Horizontal {
+            var visibleViewCount: CGFloat = 0.0
+            for view in arrangedSubviews {
+                if view.hidden || view.alpha == 0 {
+                    continue
+                }
+                visibleViewCount += 1.0
+            }
+            
+            return floor((contentWidth - max(0.0, visibleViewCount - 1) * viewSpacing) / max(1.0, visibleViewCount))
+        } else {
+            return contentWidth
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -82,15 +113,22 @@ extension StackView {
             return 0.0
         }
         
-        var contentTop = contentInset.top
         var contentHeight: CGFloat = 0
         
+        var subviewOrigin = CGPoint(x: contentInset.left, y: contentInset.top)
+        let subviewWidth = subviewWidthForSize(bounds.size)
+        
         for view in arrangedSubviews {
-            let viewHeight = ceil(view.sizeThatFits(CGSize(width: contentWidth, height: CGFloat.max)).height)
-            view.frame = CGRect(x: contentInset.left, y: contentTop, width: contentWidth, height: viewHeight)
+            let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: CGFloat.max)).height)
+            view.frame = CGRect(origin: subviewOrigin, size: CGSize(width: subviewWidth, height: viewHeight))
+            
             if !view.hidden && view.alpha > 0 && viewHeight > 0 {
-                contentTop = CGRectGetMaxY(view.frame) + viewSpacing
-                contentHeight = CGRectGetMaxY(view.frame) + contentInset.top
+                if orientation == .Horizontal {
+                    subviewOrigin.x = CGRectGetMaxX(view.frame) + viewSpacing
+                } else {
+                    subviewOrigin.y = CGRectGetMaxY(view.frame) + viewSpacing
+                }
+                contentHeight = max(contentHeight, CGRectGetMaxY(view.frame) + contentInset.bottom)
             }
         }
         
@@ -102,19 +140,26 @@ extension StackView {
     override func sizeThatFits(size: CGSize) -> CGSize {
         guard size.width > 0 else { return CGSizeZero }
         
-        let contentWidth = size.width - contentInset.left - contentInset.right
-        var contentHeight = contentInset.top + contentInset.bottom
-        
+        let subviewWidth = subviewWidthForSize(size)
+        var contentHeight: CGFloat = 0.0
         for (index, view) in arrangedSubviews.enumerate() {
             if !view.hidden && view.alpha > 0 {
-                let viewHeight = ceil(view.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
+                let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: 0)).height)
                 if viewHeight > 0 {
-                    contentHeight += viewHeight
-                    if index < arrangedSubviews.count - 1 {
-                        contentHeight += viewSpacing
+                    if orientation == .Horizontal {
+                        contentHeight = max(contentHeight, viewHeight)
+                    } else {
+                        contentHeight += viewHeight
+                        if index < arrangedSubviews.count - 1 {
+                            contentHeight += viewSpacing
+                        }
                     }
                 }
             }
+        }
+        
+        if contentHeight > 0 {
+            contentHeight += contentInset.top + contentInset.bottom
         }
         
         return CGSize(width: size.width, height: contentHeight)
@@ -167,5 +212,9 @@ extension StackView {
         if didRemoveView {
             updateArrangedSubviewFrames(updateFrameToFitContent: updateFrameToFitContent)
         }
+    }
+    
+    func clear() {
+        removeArrangedViews(arrangedSubviews)
     }
 }

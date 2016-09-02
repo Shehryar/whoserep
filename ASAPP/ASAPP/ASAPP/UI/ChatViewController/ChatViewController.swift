@@ -303,22 +303,28 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         updateFramesAnimated()
     }
     
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButton button: SRSButton) {
-        guard let buttonValue = button.value else { return }
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) {
         
-        switch buttonValue.type {
+        // MITCH MITCH MITCH TESTING TESTING
+        if buttonItem.title.localizedCaseInsensitiveContainsString("make a payment") {
+            buttonItem.type = .SRS
+        }
+        
+        
+        
+        switch buttonItem.type {
         case .InAppLink, .Link:
-            if let deepLink = buttonValue.deepLink {
-                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonValue.deepLinkData)")
+            if let deepLink = buttonItem.deepLink {
+                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
                 
                 dismissViewControllerAnimated(true, completion: { 
-                    self.callback(deepLink, buttonValue.deepLinkData)
+                    self.callback(deepLink, buttonItem.deepLinkData)
                 })
             }
             break
             
         case .SRS:
-            conversationManager.sendSRSButtonSelection(button) { [weak self] in
+            conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
                 // TODO: Check for success
                 self?.actionableMessage = nil
                 self?.chatInputView.becomeFirstResponder()
@@ -339,7 +345,7 @@ extension ChatViewController: ConversationManagerDelegate {
             
             if messageEvent.eventType == .SRSResponse {
                 if let srsResponse = messageEvent.srsResponse {
-                    if srsResponse.type == .Modal {
+                    if srsResponse.displayType == .Modal {
                         Dispatcher.delay(200, closure: { [weak self] in
                             self?.actionableMessage = srsResponse
                             self?.suggestedRepliesView.actionableMessage = srsResponse

@@ -1,5 +1,5 @@
 //
-//  SRSLabel.swift
+//  SRSLabelItem.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/1/16.
@@ -8,20 +8,23 @@
 
 import Foundation
 
-class SRSLabel: NSObject, JSONObject {
-    var text: String?
+class SRSLabelItem: NSObject, JSONObject {
+    
+    var text: String
+    
+    init(text: String) {
+        self.text = text
+        super.init()
+    }
     
     // MARK: JSONObject
     
     class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
-            let title = json["label"] as? String else {
+            let text = json["label"] as? String else {
                 return nil
         }
-        
-        let label = SRSLabel()
-        label.text = title
-        
-        return label
+    
+        return SRSLabelItem(text: text)
     }
 }

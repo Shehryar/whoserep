@@ -193,14 +193,33 @@ extension ConversationManager {
         }
     }
     
-    func sendSRSButtonSelection(button: SRSButton, completion: (() -> Void)? = nil) {
-        guard let buttonValue = button.value,
-            let srsQuery = buttonValue.srsValue else {
+    func sendSRSButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) {
+        
+        // MITCH MITCH MITCH TESTING TESTING
+        if buttonItem.title.localizedCaseInsensitiveContainsString("make a payment") {
+            testSRSButtonSelectionWithBillPayment(buttonItem, completion: completion)
+            return
+        }
+        
+        
+        
+        guard let srsQuery = buttonItem.srsValue else {
                 return
         }
         
-        sendMessage(button.title, completion: completion)
+        sendMessage(buttonItem.title, completion: completion)
+        
         sendSRSTreewalk(srsQuery)
+    }
+    
+    private func testSRSButtonSelectionWithBillPayment(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) {
+        sendMessage(buttonItem.title, completion: completion)
+        
+        Dispatcher.delay(600, closure: {
+            if let sampleBillEvent = Event.sampleBillSummaryEvent() {
+                self.delegate?.conversationManager(self, didReceiveMessageEvent: sampleBillEvent)
+            }
+        })
     }
 }
 

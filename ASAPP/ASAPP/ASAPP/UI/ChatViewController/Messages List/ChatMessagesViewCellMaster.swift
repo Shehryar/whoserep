@@ -38,6 +38,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
     private let typingPreviewSizingCell = ChatTypingPreviewCell()
     private let billSummarySizingCell = ChatBillSummaryCell()
+    private let srsItemListViewSizingCell = ChatSRSItemListViewCell()
     private let infoTextSizingCell = ChatInfoTextCell()
     
     // MARK: Reuse IDs
@@ -48,6 +49,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
+    private let SRSItemListViewCellReuseId = "SRSItemListViewCellReuseId"
     private let BillSummaryCellReuseId = "BillSummaryCellReuseId"
     private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
@@ -68,6 +70,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
         tableView.registerClass(ChatBillSummaryCell.self, forCellReuseIdentifier: BillSummaryCellReuseId)
+        tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSItemListViewCellReuseId)
         tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
     
@@ -163,10 +166,12 @@ extension ChatMessagesViewCellMaster {
         // SRS Response
         if event.eventType == .SRSResponse {
             if let srsResponse = event.srsResponse {
-                switch srsResponse.type {
+                switch srsResponse.displayType {
                 case .Inline:
-                    // MITCH MITCH MITCH
-                    break
+                    let cell = tableView.dequeueReusableCellWithIdentifier(SRSItemListViewCellReuseId) as? ChatSRSItemListViewCell
+                    cell?.applyStyles(styles)
+                    cell?.response = srsResponse
+                    return cell
                     
                 case .Modal:
                     let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
@@ -283,10 +288,11 @@ extension ChatMessagesViewCellMaster {
         // SRS Response
         if event.eventType == .SRSResponse {
             if let srsResponse = event.srsResponse {
-                switch srsResponse.type {
+                switch srsResponse.displayType {
                 case .Inline:
-                    // MITCH MITCH MITCH
-                    break
+                    srsItemListViewSizingCell.applyStyles(styles)
+                    srsItemListViewSizingCell.response = srsResponse
+                    return heightForStyledView(srsItemListViewSizingCell, width: width)
                     
                 case .Modal:
                     textMessageSizingCell.applyStyles(styles, isReply: isReply)

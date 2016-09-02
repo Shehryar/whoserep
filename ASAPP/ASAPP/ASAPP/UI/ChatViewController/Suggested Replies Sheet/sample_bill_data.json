@@ -1,54 +1,151 @@
 {
-  "orientation": "vertical",
-  "type": "itemlist",
-  "value": [
-    {
-        "icon": "",
-        "label": "YOUR CURRENT BALANCE:",
-        "type": "info",
-        "value": "$0.00"
-    },
-    {
-      "type": "separator"
-    },
-    {
-      "type": "icon",
-      "value": "billPaid"
-    },
-    {
-      "label": "No payment due. Thank you!",
-      "type": "label"
-    },
-    {
-            "type": "separator"
-    },
-    {
-        "label": "Make A Payment",
-        "type": "button",
-        "colorScheme": "dark",
+  "content": {
+    "value": [
+      {
+        "label": "It looks like you may have a question on your bill or account. Let's try one of these for help:",
+        "type": "label"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "$-0.11",
+            "label": "YOUR CURRENT BALANCE:",
+            "type": "info"
+          }
+        ],
+        "orientation": "horizontal",
+        "type": "itemlist"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "value": "billDue",
+        "type": "icon"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "09/16/16",
+            "label": "BALANCE DUE DATE:",
+            "type": "info"
+          }
+        ],
+        "orientation": "horizontal",
+        "type": "itemlist"
+      },
+      {
+        "label": "",
+        "type": "label"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "$-0.11",
+            "label": "Your Bill This Month",
+            "type": "info"
+          },
+          {
+            "icon": "",
+            "value": "$0",
+            "label": "Pending Payments",
+            "type": "info"
+          },
+          {
+            "icon": "",
+            "value": "$0",
+            "label": "Recent Payments",
+            "type": "info"
+          }
+        ],
+        "orientation": "horizontal",
+        "type": "itemlist"
+      },
+      {
+        "label": "* Recent transactions may take a few days to reflect on your bill.",
+        "type": "label"
+      },
+      {
+        "type": "filler"
+      },
+      {
         "value": {
-            "type": "LINK",
-            "content": {
-                "deepLink": "payment",
-                "deepLinkData": {
-                    "amount": "135.20"
-                }
+          "content": {
+            "deepLink": "article",
+            "deepLinkData": {
+              "url": "http://customer.xfinity.com/help-and-support/billing/understand-your-bill/?view=app"
             }
-        }
-    },
-    {
-        "label": "Talk to an Agent",
-        "type": "button",
-        "colorScheme": "light",
+          },
+          "type": "LINK"
+        },
+        "label": "Self Help Guide",
+        "type": "button"
+      },
+      {
         "value": {
-            "type": "LINK",
-            "content": {
-                "deepLink": "call",
-                "deepLinkData": {
-                
-                }
+          "content": {
+            "deepLink": "understandBill",
+            "deepLinkData": {
+              
             }
-        }
-    }
-  ]
+          },
+          "type": "_N/A_"
+        },
+        "label": "Understand your bill",
+        "type": "button"
+      },
+      {
+        "value": {
+          "content": {
+            "deepLink": "payment",
+            "deepLinkData": {
+              
+            }
+          },
+          "type": "LINK"
+        },
+        "label": "Make a Payment",
+        "type": "button"
+      },
+      {
+        "value": {
+          "content": "BR",
+          "type": "AID"
+        },
+        "label": "Equipment Returns",
+        "type": "button"
+      },
+      {
+        "value": {
+          "content": {
+            "deepLink": "scheduleCallback",
+            "deepLinkData": {
+              "queue": "other"
+            }
+          },
+          "type": "LINK"
+        },
+        "label": "Talk to an agent",
+        "type": "button"
+      },
+      {
+        "gravity": "down",
+        "value": [
+          {
+            "label": "",
+            "type": "label"
+          }
+        ],
+        "orientation": "vertical",
+        "type": "itemlist"
+      }
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  },
+  "title": "Account > Payment",
+  "classification": "BP"
 }

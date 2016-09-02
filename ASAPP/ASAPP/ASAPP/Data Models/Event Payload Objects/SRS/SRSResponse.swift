@@ -8,19 +8,19 @@
 
 import Foundation
 
-enum SRSResponseType: String {
+enum SRSResponseDisplayType: String {
     case Inline = "inline"
     case Modal = "modal"
 }
 
 class SRSResponse: NSObject, JSONObject {
-    var type: SRSResponseType
+    var displayType: SRSResponseDisplayType
     var title: String?
     var classification: String?
     var itemList: SRSItemList?
     
-    init(type: SRSResponseType) {
-        self.type = type
+    init(displayType: SRSResponseDisplayType) {
+        self.displayType = displayType
         super.init()
     }
     
@@ -33,7 +33,7 @@ class SRSResponse: NSObject, JSONObject {
                 return nil
         }
         
-        var response = SRSResponse(type: .Modal) // MITCH MITCH MITCH
+        let response = SRSResponse(displayType: .Modal) // MITCH MITCH MITCH
         response.title = json["title"] as? String
         response.classification = json["classification"] as? String
         response.itemList = SRSItemList.instanceWithJSON(json["content"] as? [String : AnyObject]) as? SRSItemList

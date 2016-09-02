@@ -369,44 +369,41 @@ extension Event {
 
 extension Event {
     
-    class func sampleEventForMessageWithText(text: String) -> Event? {
-        var action: Event?
-        if text.localizedCaseInsensitiveContainsString("srs") {
-            action = sampleSRSResponseEvent()
-        }
-        
-        // Bill Summary
-        else if text.localizedCaseInsensitiveContainsString("bill") || text.localizedCaseInsensitiveContainsString("account") {
-            action = Event.sampleBillSummaryEvent()
-        }
-        
-        return action
-    }
-    
-    class func sampleEvent(type: Int, eventJSON: String) -> Event? {
+    class func sampleEvent(type: Int, eventJSON: String, afterEvent: Event? = nil) -> Event? {
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+        
+        var companyEventLogSeq = 0
+        var customerEventLogSeq = 0
+        if let previousEventLogSeq = afterEvent?.eventLogSeq {
+            companyEventLogSeq = previousEventLogSeq + 1
+            customerEventLogSeq = companyEventLogSeq
+        }
         
         return Event(withJSON: [
             "CreatedTime" : eventTime,
-            "IssueId" : 350001,
-            "CompanyId" : 10001,
-            "CustomerId" : 130001,
-            "RepId" : 20001,
+            "IssueId" :  afterEvent?.issueId ?? 350001,
+            "CompanyId" : afterEvent?.companyId ?? 10001,
+            "CustomerId" : afterEvent?.customerId ?? 130001,
+            "RepId" : afterEvent?.repId ?? 20001,
             "EventTime" : eventTime,
-            "EventType" : 20,
+            "EventType" : type,
             "EphemeralType" : 0,
             "EventFlags" : 0,
-            "CompanyEventLogSeq":600,
-            "CustomerEventLogSeq":0,
+            "CompanyEventLogSeq" : companyEventLogSeq,
+            "CustomerEventLogSeq" : customerEventLogSeq,
             "EventJSON" : eventJSON
             ])
     }
     
-    class func sampleSRSResponseEvent() -> Event? {
+    class func sampleBillSummaryEvent(afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.pathForResource("sample_bill_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                let event = sampleEvent(20, eventJSON: eventJSONString, afterEvent: afterEvent)
+                event?.srsResponse?.displayType = .Inline
+                return event
+            }
+        }
+        
         return nil
-    }
-
-    class func sampleBillSummaryEvent() -> Event? {
-        return sampleEvent(21, eventJSON: "")
     }
 }

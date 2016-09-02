@@ -65,7 +65,7 @@ class Button: UIView {
     var foregroundColor: UIColor? {
         set {
             foregroundColors[.Normal] = newValue
-            foregroundColors[.Highlighted] = newValue
+            foregroundColors[.Highlighted] = newValue?.highlightColor() ?? newValue
             updateButtonDisplay()
         }
         get { return foregroundColors[.Normal] }

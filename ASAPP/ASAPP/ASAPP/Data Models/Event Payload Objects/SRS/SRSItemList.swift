@@ -15,81 +15,107 @@ enum SRSItemListOrientation: String {
 
 class SRSItemList: NSObject, JSONObject {
     var orientation: SRSItemListOrientation = .Vertical
-    var items: [AnyObject]?
+    var items: [AnyObject]
     
-    // MARK: Readonly Properties for Modals
+    // MARK: Readonly Properties 
+    
     var title: String? {
-        guard let items = items else { return nil }
-        
         var title: String?
         for item in items {
-            if let label = item as? SRSLabel {
-                title = label.text
+            if let labelItem = item as? SRSLabelItem {
+                title = labelItem.text
                 break
             }
         }
         return title
     }
     
-    var buttons: [SRSButton]? {
-        guard let items = items else { return nil }
-        
-        var buttons = [SRSButton]()
+    var buttonItems: [SRSButtonItem]? {
+        var buttons = [SRSButtonItem]()
         for item in items {
-            if let button = item as? SRSButton {
+            if let button = item as? SRSButtonItem {
                 buttons.append(button)
             }
         }
         return buttons
     }
     
+    // MARK: Init
+    
+    init(items: [AnyObject], orientation: SRSItemListOrientation? = nil) {
+        self.items = items
+        if let orientation = orientation {
+            self.orientation = orientation
+        }
+        super.init()
+    }
+    
     // MARK: JSONObject
     
     class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
-        guard let json = json else { return nil }
-        
-        let list = SRSItemList()
-        if let orientationString = json["orientation"] as? String,
-            let orientation = SRSItemListOrientation(rawValue: orientationString) {
-            list.orientation = orientation
+        guard let json = json,
+            let itemsJSONArary = json["value"] as? [[String : AnyObject]] else {
+                return nil
         }
         
-        if let itemsJSONArary = json["value"] as? [[String : AnyObject]] {
-            var items = [AnyObject]()
-            for itemJSON in itemsJSONArary {
-                guard let itemTypeString = itemJSON["type"] as? String,
-                    let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
-                    continue
-                }
-                
-                var item: AnyObject?
-                switch itemType {
-                case .ItemList:
-                    item = SRSItemList.instanceWithJSON(itemJSON) as? SRSItemList
-                    break
-                    
-                case .Button:
-                    item = SRSButton.instanceWithJSON(itemJSON) as? SRSButton
-                    break
-                    
-                case .Label:
-                    item = SRSLabel.instanceWithJSON(itemJSON) as? SRSLabel
-                    break
-                }
-                
-                if let item = item {
-                    items.append(item)
-                }
+        var items = [AnyObject]()
+        for itemJSON in itemsJSONArary {
+            guard let itemTypeString = itemJSON["type"] as? String,
+                let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
+                continue
             }
-            list.items = items
+            
+            var item: AnyObject?
+            switch itemType {
+            case .ItemList:
+                item = SRSItemList.instanceWithJSON(itemJSON) as? SRSItemList
+                break
+                
+            case .Button:
+                item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
+                break
+                
+            case .Label:
+                item = SRSLabelItem.instanceWithJSON(itemJSON) as? SRSLabelItem
+                break
+                
+            case .Info:
+                item = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
+                break
+                
+            case .Separator:
+                item = SRSSeparatorItem.instanceWithJSON(itemJSON) as? SRSSeparatorItem
+                break
+                
+            case .Filler:
+                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
+                break
+            }
+            
+            if let item = item {
+                items.append(item)
+            }
         }
         
-        return list
+        guard !items.isEmpty else {
+            return nil
+            
+        }
+        
+        var orientation: SRSItemListOrientation?
+        if let orientationString = json["orientation"] as? String {
+            orientation = SRSItemListOrientation(rawValue: orientationString)
+        }
+        
+        return SRSItemList(items: items, orientation: orientation)
     }
 }
 
 enum SRSItemListItemType: String {
-    case ItemList = "itemList"
+    case ItemList = "itemlist"
     case Button = "button"
     case Label = "label"
+    case Separator = "separator"
+    case Info = "info"
+    case Filler = "filler"
 }
