@@ -173,7 +173,7 @@ extension ChatMessagesViewCellMaster {
                     cell?.response = srsResponse
                     return cell
                     
-                case .Modal:
+                case .ActionSheet:
                     let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
                     cell?.applyStyles(styles, isReply: isReply)
                     cell?.listPosition = listPosition
@@ -294,7 +294,7 @@ extension ChatMessagesViewCellMaster {
                     srsItemListViewSizingCell.response = srsResponse
                     return heightForStyledView(srsItemListViewSizingCell, width: width)
                     
-                case .Modal:
+                case .ActionSheet:
                     textMessageSizingCell.applyStyles(styles, isReply: isReply)
                     textMessageSizingCell.listPosition = listPosition
                     textMessageSizingCell.messageText = srsResponse.itemList?.title

@@ -268,7 +268,7 @@ extension ChatViewController {
             conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
                 // TODO: Check for success
                 self?.actionableMessage = nil
-                self?.chatInputView.becomeFirstResponder()
+//                self?.chatInputView.becomeFirstResponder()
                 self?.updateFramesAnimated()
             }
             break
@@ -362,7 +362,7 @@ extension ChatViewController: ConversationManagerDelegate {
             
             if messageEvent.eventType == .SRSResponse {
                 if let srsResponse = messageEvent.srsResponse {
-                    if srsResponse.displayType == .Modal {
+                    if srsResponse.displayType == .ActionSheet {
                         Dispatcher.delay(200, closure: { [weak self] in
                             self?.actionableMessage = srsResponse
                             self?.suggestedRepliesView.actionableMessage = srsResponse

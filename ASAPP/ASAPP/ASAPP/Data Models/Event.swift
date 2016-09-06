@@ -399,7 +399,6 @@ extension Event {
         if let path = ASAPPBundle.pathForResource("sample_bill_data", ofType: "json") {
             if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
                 let event = sampleEvent(20, eventJSON: eventJSONString, afterEvent: afterEvent)
-                event?.srsResponse?.displayType = .Inline
                 return event
             }
         }

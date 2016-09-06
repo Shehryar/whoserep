@@ -1,4 +1,7 @@
 {
+  "title": "Account > Payment",
+  "classification": "BP",
+  "display" : "inline",
   "content": {
     "value": [
       {
@@ -145,7 +148,5 @@
     ],
     "orientation": "vertical",
     "type": "itemlist"
-  },
-  "title": "Account > Payment",
-  "classification": "BP"
+  }
 }
