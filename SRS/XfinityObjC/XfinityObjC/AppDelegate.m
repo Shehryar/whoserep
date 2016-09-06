@@ -20,14 +20,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    SRS *srs = [[SRS alloc] initWithOrigin:CGPointMake([[UIScreen mainScreen] bounds].size.width - 70, 20)
-                              authProvider:^NSDictionary<NSString *,id> * {
-        return [SRSProvider getAuthToken];
-    } contextProvider:^NSDictionary<NSString *,id> * {
-        return [SRSProvider getContext];
-    } callback:^(NSString * deepLink, NSDictionary<NSString *,id> * data) {
-        [SRSProvider handleCallback:deepLink data:data];
-    }];
+//    SRS *srs = [[SRS alloc] initWithOrigin:CGPointMake([[UIScreen mainScreen] bounds].size.width - 70, 20)
+//                              authProvider:^NSDictionary<NSString *,id> * {
+//        return [SRSProvider getAuthToken];
+//    } contextProvider:^NSDictionary<NSString *,id> * {
+//        return [SRSProvider getContext];
+//    } callback:^(NSString * deepLink, NSDictionary<NSString *,id> * data) {
+//        [SRSProvider handleCallback:deepLink data:data];
+//    }];
     
     return YES;
 }

@@ -236,28 +236,23 @@ public class SRS: UIView {
         SRS.srsCircle.frame = self.frame
         self.frame = CGRect(x: UIScreen.mainScreen().bounds.origin.x, y: UIScreen.mainScreen().bounds.origin.y, width: UIScreen.mainScreen().bounds.size.width, height: UIScreen.mainScreen().bounds.size.height)
         SRS.srsCircle.expandSRS {
-            if SRS.prompt == nil {
-                self.setupPrompt("HOW CAN WE HELP?")
-            } else {
-                UIView.animateWithDuration(0.2, animations: {
-                    SRS.prompt.alpha = 1.0
-                })
-            }
-            if SRS.input == nil {
-                self.setupInput()
-            } else {
-                UIView.animateWithDuration(0.2, animations: {
-                    SRS.input.alpha = 1.0
-                })
-            }
-            if SRS.content == nil {
-                self.setupContent()
-            } else {
-                UIView.animateWithDuration(0.2, animations: { 
-                    SRS.content.alpha = 1.0
-                })
-                SRS.content.layoutSubviews()
-            }
+            self.setupPrompt("HOW CAN WE HELP?")
+            UIView.animateWithDuration(0.2, animations: {
+                SRS.prompt.alpha = 1.0
+            })
+
+            self.setupInput()
+            UIView.animateWithDuration(0.2, animations: {
+                SRS.input.alpha = 1.0
+            })
+            
+            self.setupContent()
+            SRS.content.refreshData()
+            SRS.content.layoutSubviews()
+            UIView.animateWithDuration(0.2, animations: {
+                SRS.content.alpha = 1.0
+            })
+
 //            self.setupTutorialIfNeeded()
             SRS.conn.openRequest()
             SRS.conn.fetchRecommendations()
@@ -392,7 +387,6 @@ public class SRS: UIView {
         if SRS.input == nil {
             SRS.input = SRSInput()
         }
-        
         self.addSubview(SRS.input)
         self.bringSubviewToFront(SRS.input)
         

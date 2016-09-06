@@ -79,6 +79,13 @@ class SRSContent: UIScrollView {
         return true
     }
     
+    func refreshData() {
+        if mData == nil {
+            return
+        }
+        updateData(mData, isBackUpdate: true)
+    }
+    
     func updateData(data: NSData, isBackUpdate: Bool) {
         resetData()
         SRS.input.blurInput()
