@@ -55,6 +55,14 @@ bool visible = false;
     }
 }
 
+- (IBAction)showHideToggle:(id)sender {
+    if (srs.isHidden) {
+        srs.hidden = false;
+    } else {
+        srs.hidden = true;
+    }
+}
+
 - (void)addSRS:(NSTimer*)sender {
     [SRS viewDidAppear:true];
 //    [srs setHidden:false];
