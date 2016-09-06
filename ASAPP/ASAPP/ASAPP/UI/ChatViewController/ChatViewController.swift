@@ -27,7 +27,11 @@ class ChatViewController: UIViewController {
     private var conversationManager: ConversationManager
     
     /// If false, messages will be sent to SRS
-    private var liveChat = false
+    private var liveChat = false {
+        didSet {
+            chatInputView.displayMediaButton = liveChat
+        }
+    }
     
     private var keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
@@ -63,6 +67,7 @@ class ChatViewController: UIViewController {
         
         chatInputView.delegate = self
         chatInputView.applyStyles(self.styles)
+        chatInputView.displayMediaButton = liveChat
         chatInputView.layer.shadowColor = UIColor.blackColor().CGColor
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
         chatInputView.layer.shadowRadius = 2
@@ -236,6 +241,41 @@ extension ChatViewController: KeyboardObserverDelegate {
     }
 }
 
+// MARK:- SRS Actions
+
+extension ChatViewController {
+    func handleSRSButtonItemSelection(buttonItem: SRSButtonItem) {
+        
+        // MITCH MITCH MITCH TESTING TESTING
+        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") {
+            buttonItem.type = .SRS
+        }
+        
+        
+        
+        switch buttonItem.type {
+        case .InAppLink, .Link:
+            if let deepLink = buttonItem.deepLink {
+                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
+                
+                dismissViewControllerAnimated(true, completion: {
+                    self.callback(deepLink, buttonItem.deepLinkData)
+                })
+            }
+            break
+            
+        case .SRS:
+            conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
+                // TODO: Check for success
+                self?.actionableMessage = nil
+                self?.chatInputView.becomeFirstResponder()
+                self?.updateFramesAnimated()
+            }
+            break
+        }
+    }
+}
+
 // MARK:- ChatMessagesViewDelegate
 
 extension ChatViewController: ChatMessagesViewDelegate {
@@ -251,6 +291,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
         imageViewer.preparePresentationFromImageView(imageView)
         imageViewer.presentationImageCornerRadius = 10
         presentViewController(imageViewer, animated: true, completion: nil)
+    }
+    
+    func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        handleSRSButtonItemSelection(buttonItem)
     }
     
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView) {
@@ -304,34 +348,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     }
     
     func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) {
-        
-        // MITCH MITCH MITCH TESTING TESTING
-        if buttonItem.title.localizedCaseInsensitiveContainsString("make a payment") {
-            buttonItem.type = .SRS
-        }
-        
-        
-        
-        switch buttonItem.type {
-        case .InAppLink, .Link:
-            if let deepLink = buttonItem.deepLink {
-                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
-                
-                dismissViewControllerAnimated(true, completion: { 
-                    self.callback(deepLink, buttonItem.deepLinkData)
-                })
-            }
-            break
-            
-        case .SRS:
-            conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
-                // TODO: Check for success
-                self?.actionableMessage = nil
-                self?.chatInputView.becomeFirstResponder()
-                self?.updateFramesAnimated()
-            }
-            break
-        }
+        handleSRSButtonItemSelection(buttonItem)
     }
 }
 

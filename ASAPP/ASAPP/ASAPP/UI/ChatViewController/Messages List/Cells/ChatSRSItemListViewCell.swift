@@ -25,7 +25,7 @@ class ChatSRSItemListViewCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    private let itemListView = SRSItemListView()
+    let itemListView = SRSItemListView()
     
     // MARK: Init
     
@@ -76,5 +76,13 @@ class ChatSRSItemListViewCell: UITableViewCell, ASAPPStyleable {
         let itemListViewSize = itemListView.sizeThatFits(insetSize)
         
         return CGSize(width: size.width, height: itemListViewSize.height + contentInset.top + contentInset.bottom)
+    }
+    
+    // MARK: Reuse
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        itemListView.delegate = nil
     }
 }

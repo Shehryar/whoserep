@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SRSItemListViewDelegate {
+    func itemListView(itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
+}
+
 class SRSItemListView: StackView, ASAPPStyleable {
     
     var itemList: SRSItemList? {
@@ -21,6 +25,8 @@ class SRSItemListView: StackView, ASAPPStyleable {
             }
         }
     }
+    
+    var delegate: SRSItemListViewDelegate?
     
     // MARK: ASAPPStyleable
     
@@ -47,6 +53,11 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 button.title = buttonItem.title
                 button.foregroundColor = styles.accentColor
                 button.font = styles.buttonFont
+                button.onTap = { [weak self] in
+                    if let strongSelf = self {
+                        strongSelf.delegate?.itemListView(strongSelf, didSelectButtonItem: buttonItem)
+                    }
+                }
                 createdViews.append(button)
             }
             

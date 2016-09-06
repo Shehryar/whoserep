@@ -34,6 +34,13 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
+    var displayMediaButton = true {
+        didSet {
+            mediaButton.alpha = displayMediaButton ? 1 : 0
+            setNeedsLayout()
+        }
+    }
+    
     // MARK: Properties: Data
     
     var inputMinHeight: CGFloat = 36

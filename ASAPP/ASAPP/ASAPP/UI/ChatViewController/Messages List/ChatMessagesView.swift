@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatMessagesViewDelegate {
     func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
+    func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView)
 }
 
@@ -232,6 +233,10 @@ extension ChatMessagesView: UITableViewDataSource {
                                            listPosition: listPosition,
                                            atIndexPath: indexPath)
         
+        if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
+            srsItemViewCell.itemListView.delegate = self
+        }
+        
         return cell ?? UITableViewCell()
     }
 }
@@ -297,6 +302,14 @@ extension ChatMessagesView: UITableViewDelegate {
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
         }
+    }
+}
+
+// MARK:- SRSItemListViewDelegate
+
+extension ChatMessagesView: SRSItemListViewDelegate {
+    func itemListView(itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
     }
 }
 
