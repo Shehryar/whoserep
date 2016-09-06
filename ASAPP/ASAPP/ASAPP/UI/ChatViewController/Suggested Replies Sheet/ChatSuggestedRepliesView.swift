@@ -176,7 +176,7 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     }
     
     func styleSuggestedReplyCell(cell: ChatSuggestedReplyCell, atIndexPath indexPath: NSIndexPath) {
-        cell.textLabel?.font = styles.bodyFont
+        cell.textLabel?.font = styles.buttonFont
         cell.textLabel?.textColor = styles.foregroundColor1
         cell.backgroundColor = styles.backgroundColor1
         cell.selectedBackgroundColor = styles.backgroundColor2

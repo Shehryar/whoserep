@@ -67,7 +67,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 label.numberOfLines = 0
                 label.lineBreakMode = .ByTruncatingTail
                 label.textColor = styles.foregroundColor1
-                label.font = styles.bodyFont
+                label.font = styles.detailFont
                 label.text = labelItem.text
                 createdViews.append(label)
             }

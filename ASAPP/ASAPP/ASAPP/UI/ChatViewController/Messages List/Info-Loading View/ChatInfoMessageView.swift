@@ -66,7 +66,7 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
         backgroundColor = styles.backgroundColor1
         
         titleLabel.textColor = styles.foregroundColor1
-        titleLabel.font = styles.headerFont
+        titleLabel.font = styles.headlineFont
         
         messageLabel.textColor = styles.foregroundColor2
         messageLabel.font = styles.bodyFont

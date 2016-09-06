@@ -100,7 +100,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         
         contentView.backgroundColor = styles.backgroundColor1
         timeLabel.backgroundColor = styles.backgroundColor1
-        timeLabel.font = styles.subheadFont
+        timeLabel.font = styles.captionFont
         timeLabel.textColor = styles.foregroundColor2
         
         setNeedsLayout()

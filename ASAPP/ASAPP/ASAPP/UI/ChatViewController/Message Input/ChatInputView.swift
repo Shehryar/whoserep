@@ -216,13 +216,13 @@ class ChatInputView: UIView, ASAPPStyleable {
         textView.backgroundColor = backgroundColor
         borderTopView.backgroundColor = styles.inputBorderTopColor
         
-        textView.font = styles.inputFont
+        textView.font = styles.bodyFont
         textView.tintColor = styles.inputTintColor
         textView.textColor = styles.inputTextColor
         placeholderTextView.font = textView.font
         placeholderTextView.textColor = styles.inputPlaceholderColor
         
-        applySendButtonStyle(withFont: styles.inputSendButtonFont, color: styles.inputSendButtonColor)
+        applySendButtonStyle(withFont: styles.buttonFont, color: styles.inputSendButtonColor)
         applyMediaButtonColor(styles.inputImageButtonColor)
         
         let textViewText = textView.text

@@ -62,7 +62,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
         
-        textMessageLabel.font = styles.messageFont
+        textMessageLabel.font = styles.bodyFont
         if isReply {
             textMessageLabel.textColor = styles.replyMessageTextColor
         } else {

@@ -96,10 +96,10 @@ class SummaryDetailsView: UIView, ASAPPStyleable {
         layer.borderColor = styles.separatorColor1.CGColor
         layer.borderWidth = 1.0
         
-        subheaderLabel.font = styles.subheadFont
+        subheaderLabel.font = styles.captionFont
         subheaderLabel.textColor = styles.foregroundColor1
         
-        headerLabel.font = styles.headerFont
+        headerLabel.font = styles.headlineFont
         headerLabel.textColor = styles.foregroundColor1
         
         headerDetailLabel.font = styles.detailFont

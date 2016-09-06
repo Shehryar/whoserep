@@ -71,16 +71,16 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         self.styles = styles
         
         if orientation == .Vertical {
-            labelLabel.font = styles.subheadFont
+            labelLabel.font = styles.detailFont
             labelLabel.textColor = styles.foregroundColor1
             
-            valueLabel.font = styles.headerFont
+            valueLabel.font = styles.headlineFont
             valueLabel.textColor = styles.foregroundColor1
         } else {
-            labelLabel.font = styles.detailFont
+            labelLabel.font = styles.bodyFont
             labelLabel.textColor = styles.foregroundColor2
             
-            valueLabel.font = styles.detailFont
+            valueLabel.font = styles.bodyBoldFont
             valueLabel.textColor = styles.foregroundColor1
         }
         
