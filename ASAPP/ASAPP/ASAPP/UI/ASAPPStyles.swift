@@ -26,33 +26,33 @@ public class ASAPPStyles: NSObject {
 
     // MARK:- Colors: Messages
     
-    public var replyMessageFillColor: UIColor = Colors.blueGrayColor()
+    public var replyMessageFillColor: UIColor = Colors.steelLightColor()
     
     public var replyMessageStrokeColor: UIColor? = nil
     
     public var replyMessageTextColor: UIColor = Colors.whiteColor()
     
-    public var messageStrokeColor: UIColor? = Colors.lightGrayColor()
+    public var messageStrokeColor: UIColor? = Colors.steelLightColor().colorWithAlphaComponent(0.5)
     
     public var messageFillColor: UIColor = Colors.whiteColor()
     
-    public var messageTextColor: UIColor = Colors.darkTextColor()
+    public var messageTextColor: UIColor = Colors.steelLightColor()
     
     // MARK:- Colors: General
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
-    internal var backgroundColor2: UIColor = Colors.lighterGrayColor()
+    internal var backgroundColor2: UIColor = Colors.offWhiteColor()
     
-    internal var foregroundColor1: UIColor = Colors.darkTextColor()
+    internal var foregroundColor1: UIColor = Colors.steelLightColor()
     
-    internal var foregroundColor2: UIColor = Colors.mediumTextColor()
+    internal var foregroundColor2: UIColor = Colors.steelMedColor()
     
-    internal var separatorColor1: UIColor = Colors.lightGrayColor()
+    internal var separatorColor1: UIColor = Colors.marbleLightColor()
     
-    internal var separatorColor2: UIColor = Colors.lightGrayColor()
+    internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
-    internal var accentColor: UIColor = Colors.blueGrayColor()
+    internal var accentColor: UIColor = Colors.steelLightColor()
 
     // MARK:- Colors: Input
     

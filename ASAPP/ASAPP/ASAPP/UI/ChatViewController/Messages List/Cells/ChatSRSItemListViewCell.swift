@@ -55,7 +55,7 @@ class ChatSRSItemListViewCell: UITableViewCell, ASAPPStyleable {
         self.styles = styles
     
         itemListView.backgroundColor = styles.backgroundColor2
-        itemListView.layer.borderColor = styles.separatorColor2.CGColor
+        itemListView.layer.borderColor = styles.separatorColor1.CGColor
         itemListView.layer.borderWidth = 1
         itemListView.applyStyles(styles)
         setNeedsLayout()
