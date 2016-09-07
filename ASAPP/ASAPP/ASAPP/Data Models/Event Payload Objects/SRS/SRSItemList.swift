@@ -31,13 +31,13 @@ class SRSItemList: NSObject, JSONObject {
     }
     
     var buttonItems: [SRSButtonItem]? {
-        var buttons = [SRSButtonItem]()
+        var buttonItems = [SRSButtonItem]()
         for item in items {
-            if let button = item as? SRSButtonItem {
-                buttons.append(button)
+            if let buttonItem = item as? SRSButtonItem {
+                buttonItems.append(buttonItem)
             }
         }
-        return buttons
+        return buttonItems
     }
     
     // MARK: Init

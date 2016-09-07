@@ -19,6 +19,15 @@ class SRSResponse: NSObject, JSONObject {
     var classification: String?
     var itemList: SRSItemList?
     
+    var immediateAction: SRSButtonItem? {
+        if let buttonItems = itemList?.buttonItems {
+            if buttonItems.count == 1 {
+                return buttonItems.first
+            }
+        }
+        return nil
+    }
+    
     init(displayType: SRSResponseDisplayType) {
         self.displayType = displayType
         super.init()
