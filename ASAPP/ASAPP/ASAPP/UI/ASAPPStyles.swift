@@ -40,6 +40,10 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Colors: General
     
+    internal var navBarBackgroundColor: UIColor = Colors.whiteColor()
+    
+    public var navBarButtonColor: UIColor = Colors.steelLightColor()
+    
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
     internal var backgroundColor2: UIColor = Colors.offWhiteColor()

@@ -112,9 +112,18 @@ class ChatViewController: UIViewController {
         
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.translucent = true
-            navigationBar.barTintColor = nil
-            navigationBar.barStyle = .Default
-            navigationBar.tintColor = styles.foregroundColor2
+            if styles.navBarBackgroundColor.isDark() {
+                navigationBar.barStyle = .BlackTranslucent
+                if styles.navBarBackgroundColor != UIColor.blackColor() {
+                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                }
+            } else {
+                navigationBar.barStyle = .Default
+                if styles.navBarBackgroundColor != UIColor.whiteColor() {
+                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                }
+            }
+            navigationBar.tintColor = styles.navBarButtonColor
         }
         
         view.clipsToBounds = true
