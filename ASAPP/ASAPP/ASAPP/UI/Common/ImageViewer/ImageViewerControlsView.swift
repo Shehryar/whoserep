@@ -22,9 +22,9 @@ class ImageViewerControlsView: UIView {
     
     func commonInit() {
         dismissButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        dismissButton.setImage(Images.xIcon(fillColor: UIColor.whiteColor(), alpha: 1), forState: .Normal)
-        dismissButton.setImage(Images.xIcon(fillColor: UIColor.whiteColor(), alpha: 0.6), forState: .Highlighted)
-        dismissButton.setImage(Images.xIcon(fillColor: UIColor.whiteColor(), alpha: 0.4), forState: .Disabled)
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 1), forState: .Normal)
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 0.6), forState: .Highlighted)
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 0.4), forState: .Disabled)
         dismissButton.addTarget(self, action: #selector(ImageViewerControlsView.didTapXButton), forControlEvents: .TouchUpInside)
         addSubview(dismissButton)
     }

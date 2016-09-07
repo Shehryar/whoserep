@@ -10,7 +10,7 @@ import UIKit
 
 class ChatBillSummaryCell: UITableViewCell, ASAPPStyleable {
 
-    var contentInset = UIEdgeInsets(top: 2, left: 16, bottom: 2, right: 16) {
+    var contentInset = UIEdgeInsets(top: 5, left: 22, bottom: 5, right: 22) {
         didSet {
             setNeedsLayout()
         }

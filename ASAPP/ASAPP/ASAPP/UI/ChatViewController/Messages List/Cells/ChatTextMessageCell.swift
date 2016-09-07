@@ -24,7 +24,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Private Properties
     
-    private let textInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+    private let textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     
     private var animating = false
     

@@ -36,7 +36,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 20) {
+    var contentInset = UIEdgeInsets(top: 3, left: 22, bottom: 3, right: 22) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -85,15 +85,15 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
                 break
                 
             case .FirstOfMany:
-                roundedCorners =  .AllCorners//[.TopLeft, .TopRight, .BottomRight] // FB-style
+                roundedCorners =  .AllCorners
                 break
                 
             case .MiddleOfMany:
-                roundedCorners =  .AllCorners//[.TopRight, .BottomRight]
+                roundedCorners =  .AllCorners
                 break
                 
             case .LastOfMany:
-                roundedCorners = [.TopLeft, .TopRight, .BottomRight]//[.TopRight, .BottomRight, .BottomLeft]
+                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
                 break
             }
         } else {
@@ -103,15 +103,15 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
                 break
                 
             case .FirstOfMany:
-                roundedCorners = .AllCorners//[.TopRight, .TopLeft, .BottomLeft]
+                roundedCorners = .AllCorners
                 break
                 
             case .MiddleOfMany:
-                roundedCorners = .AllCorners// [.TopLeft, .BottomLeft]
+                roundedCorners = .AllCorners
                 break
                 
             case .LastOfMany:
-                roundedCorners =  [.TopRight, .TopLeft, .BottomLeft] //[.TopLeft, .BottomLeft, .BottomRight]
+                roundedCorners =  [.TopRight, .TopLeft, .BottomLeft] 
                 break
             }
         }

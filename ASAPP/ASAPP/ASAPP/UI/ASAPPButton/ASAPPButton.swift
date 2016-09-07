@@ -221,7 +221,7 @@ extension ASAPPButton {
         }
                 
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
-        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.xLightIcon(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
+        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
         
         let navigationController = UINavigationController(rootViewController: chatViewController)
         if !expansionPresentationAnimationDisabled {

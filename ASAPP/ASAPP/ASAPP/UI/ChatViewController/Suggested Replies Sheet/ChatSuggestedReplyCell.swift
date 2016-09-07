@@ -10,7 +10,7 @@ import UIKit
 
 class ChatSuggestedReplyCell: UITableViewCell {
 
-    var contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    var contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
     var separatorBottomColor: UIColor? {
         didSet {

@@ -65,8 +65,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
                                 forCellReuseIdentifier: CellReuseId)
         addSubview(tableView)
         
-        closeButton.image = Images.xLightIcon()
-        closeButton.imageSize = CGSize(width: 16, height: 16)
+        closeButton.image = Images.iconSmallX()
+        closeButton.imageSize = CGSize(width: 11, height: 11)
         closeButton.foregroundColor = Colors.mediumTextColor()
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
@@ -111,8 +111,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
                                        forState: .Normal)
         closeButton.setForegroundColor(styles.foregroundColor2.highlightColor(),
                                        forState: .Normal)
-        separatorTop.backgroundColor = styles.separatorColor2
-        separatorMiddle.backgroundColor = styles.separatorColor2
+        separatorTop.backgroundColor = styles.separatorColor1
+        separatorMiddle.backgroundColor = styles.separatorColor1
         
         tableView.backgroundColor = styles.backgroundColor1
         
