@@ -1,5 +1,5 @@
 //
-//  SRSPredictiveResponse.swift
+//  SRSAppOpenResponse.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSPredictiveResponse: NSObject, JSONObject {
+class SRSAppOpenResponse: NSObject, JSONObject {
     var greeting: String
     var customizedMessage: String?
     var actions: [String]?
@@ -23,7 +23,7 @@ class SRSPredictiveResponse: NSObject, JSONObject {
     static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json else { return nil }
 
-        let response = SRSPredictiveResponse(greeting: json["greeting"] as? String)
+        let response = SRSAppOpenResponse(greeting: json["greeting"] as? String)
         response.customizedMessage = json["prediction_display_text"] as? String
         response.actions = json["actions"] as? [String]
         
@@ -33,12 +33,12 @@ class SRSPredictiveResponse: NSObject, JSONObject {
 
 // MARK:- Sample Data
 
-extension SRSPredictiveResponse {
-    class func sampleResponse() -> SRSPredictiveResponse? {
+extension SRSAppOpenResponse {
+    class func sampleResponse() -> SRSAppOpenResponse? {
         if let path = ASAPPBundle.pathForResource("sample_predictive_response", ofType: "json") {
             if let jsonData = NSData(contentsOfFile: path) {
                 if let json = try? NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments) as? [String : AnyObject] {
-                    return SRSPredictiveResponse.instanceWithJSON(json) as? SRSPredictiveResponse
+                    return SRSAppOpenResponse.instanceWithJSON(json) as? SRSAppOpenResponse
                 }
             }
         }

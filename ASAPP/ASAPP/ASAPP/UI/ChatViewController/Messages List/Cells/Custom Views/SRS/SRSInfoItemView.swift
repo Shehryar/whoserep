@@ -98,7 +98,7 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
                     CGSize(width: size.width, height: valueHeight))
         }
         
-        var maxValueWidth = floor(size.width / 2.0)
+        let maxValueWidth = floor(size.width / 2.0)
         var valueSize = valueLabel.sizeThatFits(CGSize(width: maxValueWidth, height: 0))
         valueSize.width = ceil(valueSize.width)
         valueSize.height = ceil(valueSize.height)

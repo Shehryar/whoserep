@@ -131,7 +131,7 @@ class ChatViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ChatViewController.dismissChatViewController))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Predictive", style: .Plain, target: self, action: #selector(ChatViewController.showPredictiveViewController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Predictive", style: .Plain, target: self, action: #selector(ChatViewController.showWelcomeViewController))
         
         // View
         
@@ -176,7 +176,7 @@ class ChatViewController: UIViewController {
         if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
             showWelcomeOnViewAppear = false
             Dispatcher.delay(200, closure: { 
-                self.showPredictiveViewController()
+                self.showWelcomeViewController()
             })
         }
     }
@@ -193,12 +193,13 @@ class ChatViewController: UIViewController {
         }
     }
     
-    func showPredictiveViewController() {
-        let predictiveViewController = PredictiveChatViewController(predictiveResponse: SRSPredictiveResponse.sampleResponse(), styles: styles)
-        let predictiveNavigationController = UINavigationController(rootViewController: predictiveViewController)
-        predictiveNavigationController.modalPresentationStyle = .OverCurrentContext
-        predictiveNavigationController.modalTransitionStyle = .CrossDissolve
-        presentViewController(predictiveNavigationController, animated: true, completion: nil)
+    func showWelcomeViewController() {
+        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles)
+        welcomeViewController.delegate = self
+        let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
+        welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
+        welcomeNavigationController.modalTransitionStyle = .CrossDissolve
+        presentViewController(welcomeNavigationController, animated: true, completion: nil)
     }
     
     func dismissChatViewController() {
@@ -388,6 +389,16 @@ extension ChatViewController: ChatMessagesViewDelegate {
     
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView) {
         view.endEditing(true)
+    }
+}
+
+// MARK:- ChatWelcomeViewControllerDelegate
+
+extension ChatViewController: ChatWelcomeViewControllerDelegate {
+    func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String) {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        sendMessage(withText: queryText)
     }
 }
 

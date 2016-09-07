@@ -1,5 +1,5 @@
 //
-//  PredictiveChatButtonsView.swift
+//  ChatWelcomeButtonsView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol PredictiveChatButtonsViewDelegate {
-    func predictiveChatButtonsView(view: PredictiveChatButtonsView, didTapButtonWithTitle buttonTitle: String)
-}
-
-class PredictiveChatButtonsView: UIView {
+class ChatWelcomeButtonsView: UIView {
 
     var onButtonTap: ((buttonTitle: String) -> Void)?
     

@@ -63,13 +63,13 @@
 		302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268451D80690500EC4FB1 /* icon-x@3x.png */; };
 		302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */; };
 		3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */; };
-		3022685E1D8097E700EC4FB1 /* PredictiveChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */; };
-		302268601D80A17100EC4FB1 /* PredictiveChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */; };
-		302268621D80B89900EC4FB1 /* PredictiveChatButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */; };
+		3022685E1D8097E700EC4FB1 /* ChatWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685D1D8097E700EC4FB1 /* ChatWelcomeViewController.swift */; };
+		302268601D80A17100EC4FB1 /* ChatWelcomeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685F1D80A17100EC4FB1 /* ChatWelcomeInputView.swift */; };
+		302268621D80B89900EC4FB1 /* ChatWelcomeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268611D80B89900EC4FB1 /* ChatWelcomeButtonsView.swift */; };
 		302268661D80BD0A00EC4FB1 /* sample_bill_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268641D80BD0A00EC4FB1 /* sample_bill_data.json */; };
 		302268671D80BD0A00EC4FB1 /* sample_srs_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268651D80BD0A00EC4FB1 /* sample_srs_response.json */; };
 		302268691D80BDE600EC4FB1 /* sample_predictive_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268681D80BDE600EC4FB1 /* sample_predictive_response.json */; };
-		3022686B1D80C58300EC4FB1 /* SRSPredictiveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */; };
+		3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022686A1D80C58300EC4FB1 /* SRSAppOpenResponse.swift */; };
 		30226CD41D4933F200871453 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC11D4933F200871453 /* Conversation.swift */; };
 		30226CD61D4933F200871453 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC31D4933F200871453 /* Event.swift */; };
 		30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */; };
@@ -173,13 +173,13 @@
 		302268451D80690500EC4FB1 /* icon-x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-x@3x.png"; sourceTree = "<group>"; };
 		302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalGradientView.swift; sourceTree = "<group>"; };
 		3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalGradientView.swift; sourceTree = "<group>"; };
-		3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatViewController.swift; sourceTree = "<group>"; };
-		3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatInputView.swift; sourceTree = "<group>"; };
-		302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatButtonsView.swift; sourceTree = "<group>"; };
+		3022685D1D8097E700EC4FB1 /* ChatWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWelcomeViewController.swift; sourceTree = "<group>"; };
+		3022685F1D80A17100EC4FB1 /* ChatWelcomeInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWelcomeInputView.swift; sourceTree = "<group>"; };
+		302268611D80B89900EC4FB1 /* ChatWelcomeButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWelcomeButtonsView.swift; sourceTree = "<group>"; };
 		302268641D80BD0A00EC4FB1 /* sample_bill_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_bill_data.json; sourceTree = "<group>"; };
 		302268651D80BD0A00EC4FB1 /* sample_srs_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_srs_response.json; sourceTree = "<group>"; };
 		302268681D80BDE600EC4FB1 /* sample_predictive_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_predictive_response.json; sourceTree = "<group>"; };
-		3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSPredictiveResponse.swift; sourceTree = "<group>"; };
+		3022686A1D80C58300EC4FB1 /* SRSAppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSAppOpenResponse.swift; sourceTree = "<group>"; };
 		30226CC11D4933F200871453 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30226CC31D4933F200871453 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
@@ -387,9 +387,9 @@
 		3022685C1D80961000EC4FB1 /* Predictive */ = {
 			isa = PBXGroup;
 			children = (
-				3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */,
-				302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */,
-				3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */,
+				3022685D1D8097E700EC4FB1 /* ChatWelcomeViewController.swift */,
+				302268611D80B89900EC4FB1 /* ChatWelcomeButtonsView.swift */,
+				3022685F1D80A17100EC4FB1 /* ChatWelcomeInputView.swift */,
 			);
 			path = Predictive;
 			sourceTree = "<group>";
@@ -523,7 +523,7 @@
 		303C877A1D789B1300213F6B /* SRS */ = {
 			isa = PBXGroup;
 			children = (
-				3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */,
+				3022686A1D80C58300EC4FB1 /* SRSAppOpenResponse.swift */,
 				303C877B1D789B9700213F6B /* SRSResponse.swift */,
 				303C877D1D789BB100213F6B /* SRSItemList.swift */,
 				303C877F1D789BD900213F6B /* SRSButtonItem.swift */,
@@ -857,13 +857,13 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
-				302268601D80A17100EC4FB1 /* PredictiveChatInputView.swift in Sources */,
+				302268601D80A17100EC4FB1 /* ChatWelcomeInputView.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
-				3022686B1D80C58300EC4FB1 /* SRSPredictiveResponse.swift in Sources */,
+				3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */,
 				30D2E28F1D7A0E2100502D92 /* SRSInfoItem.swift in Sources */,
 				309219311D66608C00E70AEB /* SummaryDetailsView.swift in Sources */,
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
@@ -895,11 +895,11 @@
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
 				30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */,
-				3022685E1D8097E700EC4FB1 /* PredictiveChatViewController.swift in Sources */,
+				3022685E1D8097E700EC4FB1 /* ChatWelcomeViewController.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */,
-				302268621D80B89900EC4FB1 /* PredictiveChatButtonsView.swift in Sources */,
+				302268621D80B89900EC4FB1 /* ChatWelcomeButtonsView.swift in Sources */,
 				28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,

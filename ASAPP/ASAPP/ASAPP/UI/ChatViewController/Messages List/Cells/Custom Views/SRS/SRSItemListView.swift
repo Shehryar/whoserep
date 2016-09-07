@@ -81,14 +81,14 @@ class SRSItemListView: StackView, ASAPPStyleable {
             }
                 
             // Separator Item
-            else if let separatorItem = item as? SRSSeparatorItem {
+            else if item is SRSSeparatorItem {
                 let separatorView = SRSSeparatorView()
                 separatorView.applyStyles(styles)
                 createdViews.append(separatorView)
             }
             
             // Filler Item
-            else if let fillerItem = item as? SRSFillerItem {
+            else if item is SRSFillerItem {
                 let fillerView = SRSFillerView()
                 createdViews.append(fillerView)
             }

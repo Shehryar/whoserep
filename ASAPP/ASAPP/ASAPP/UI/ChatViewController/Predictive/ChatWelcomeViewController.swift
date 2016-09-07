@@ -1,5 +1,5 @@
 //
-//  PredictiveChatViewController.swift
+//  ChatWelcomeViewController.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,11 +8,17 @@
 
 import UIKit
 
-class PredictiveChatViewController: UIViewController {
+protocol ChatWelcomeViewControllerDelegate {
+    func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String)
+}
 
-    let predictiveResponse: SRSPredictiveResponse
+class ChatWelcomeViewController: UIViewController {
+
+    let appOpenResponse: SRSAppOpenResponse
     
     let styles: ASAPPStyles
+    
+    var delegate: ChatWelcomeViewControllerDelegate?
     
     // MARK: UI Properties
     
@@ -21,15 +27,15 @@ class PredictiveChatViewController: UIViewController {
     private let blurredColorLayer = CALayer()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
-    private let buttonsView: PredictiveChatButtonsView
-    private let messageInputView = PredictiveChatInputView()
+    private let buttonsView: ChatWelcomeButtonsView
+    private let messageInputView = ChatWelcomeInputView()
     
     // MARK: Initialization
     
-    required init(predictiveResponse: SRSPredictiveResponse?, styles: ASAPPStyles?) {
-        self.predictiveResponse = predictiveResponse ?? SRSPredictiveResponse(greeting: nil)
+    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?) {
+        self.appOpenResponse = appOpenResponse ?? SRSAppOpenResponse(greeting: nil)
         self.styles = styles ?? ASAPPStyles()
-        self.buttonsView = PredictiveChatButtonsView(styles: styles)
+        self.buttonsView = ChatWelcomeButtonsView(styles: styles)
         super.init(nibName: nil, bundle: nil)
         
         blurredBgView.tintColor = Colors.blueColor()
@@ -41,18 +47,18 @@ class PredictiveChatViewController: UIViewController {
         titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.font = Fonts.latoRegularFont(withSize: 24)
-        titleLabel.text = self.predictiveResponse.greeting
+        titleLabel.text = self.appOpenResponse.greeting
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByTruncatingTail
         messageLabel.textColor = UIColor.whiteColor()
         messageLabel.font = Fonts.latoRegularFont(withSize: 15)
-        messageLabel.text = self.predictiveResponse.customizedMessage
+        messageLabel.text = self.appOpenResponse.customizedMessage
         messageLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(messageLabel)
         
-        buttonsView.setButtonTitles(self.predictiveResponse.actions, hideButtonsForAnimation: true)
+        buttonsView.setButtonTitles(self.appOpenResponse.actions, hideButtonsForAnimation: true)
         buttonsView.onButtonTap = { [weak self] (buttonTitle) in
             self?.finishWithMessage(buttonTitle)
         }
@@ -81,14 +87,12 @@ class PredictiveChatViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: UIColor.whiteColor()),
                                                             style: .Plain,
                                                             target: self,
-                                                            action: #selector(PredictiveChatViewController.dismissPredictiveViewController))
+                                                            action: #selector(ChatWelcomeViewController.dismissPredictiveViewController))
         
         // View
         
         view.backgroundColor = UIColor.clearColor()
         view.addSubview(blurredBgView)
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PredictiveChatViewController.dismissKeyboard)))
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -160,7 +164,7 @@ class PredictiveChatViewController: UIViewController {
     // MARK: Actions
     
     func finishWithMessage(message: String) {
-        
+        delegate?.chatWelcomeViewController(self, didFinishWithText: message)
     }
     
     func dismissPredictiveViewController() {

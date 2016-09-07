@@ -1,5 +1,5 @@
 //
-//  PredictiveChatInputView.swift
+//  ChatWelcomeInputView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PredictiveChatInputView: UIView {
+class ChatWelcomeInputView: UIView {
     
     private let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
@@ -36,7 +36,7 @@ class PredictiveChatInputView: UIView {
         placeholderTextView.text = ASAPPLocalizedString("Ask a new question...")
         addSubview(placeholderTextView)
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PredictiveChatInputView.beginTyping)))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeInputView.beginTyping)))
     }
     
     override init(frame: CGRect) {
@@ -89,6 +89,6 @@ class PredictiveChatInputView: UIView {
     }
 }
 
-extension PredictiveChatInputView: UITextViewDelegate {
+extension ChatWelcomeInputView: UITextViewDelegate {
     
 }
