@@ -109,6 +109,8 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Nav Bar
+        
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.translucent = true
             if styles.navBarBackgroundColor.isDark() {
@@ -124,6 +126,10 @@ class ChatViewController: UIViewController {
             }
             navigationBar.tintColor = styles.navBarButtonColor
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ChatViewController.dismissChatViewController))
+        
+        // View
         
         view.clipsToBounds = true
         view.backgroundColor = styles.backgroundColor1
@@ -169,6 +175,12 @@ class ChatViewController: UIViewController {
         } else {
             chatInputView.displayMediaButton = false
             chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
+        }
+    }
+    
+    func dismissChatViewController() {
+        if let presentingViewController = presentingViewController {
+            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }

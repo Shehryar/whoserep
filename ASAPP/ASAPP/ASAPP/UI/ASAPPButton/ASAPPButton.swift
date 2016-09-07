@@ -221,9 +221,8 @@ extension ASAPPButton {
         }
                 
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
-        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
-        
         let navigationController = UINavigationController(rootViewController: chatViewController)
+        
         if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom
             navigationController.transitioningDelegate = presentationAnimator
@@ -232,10 +231,6 @@ extension ASAPPButton {
         presentingViewController.presentViewController(navigationController, animated: true, completion: nil)
         
         onTapListenerBlock?()
-    }
-    
-    func dismissChat() {
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didBeginLongHold() {

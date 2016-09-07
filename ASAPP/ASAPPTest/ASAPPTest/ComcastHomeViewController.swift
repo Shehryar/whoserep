@@ -96,7 +96,10 @@ extension ComcastHomeViewController {
         } else {
             showViewControllerWithImage("payment-screen-6", title: "Make Payment")
         }
-        
+    }
+    
+    func showTechnicianMap() {
+        showViewControllerWithImage("tech-map-screen", title: "Where's my Technician?")
     }
     
     func handleAction(action: String, userInfo: [String : AnyObject]?) {
@@ -136,6 +139,10 @@ extension ComcastHomeViewController {
             
         case "payment":
             showPaymentScreen()
+            break
+            
+        case "showTechMap":
+            showTechnicianMap()
             break
             
         default: break
