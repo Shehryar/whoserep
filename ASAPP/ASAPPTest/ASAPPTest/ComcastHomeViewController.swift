@@ -14,7 +14,7 @@ class ComcastHomeViewController: ImageBackgroundViewController {
     ///** SRS Dev Server
     
     let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
-                                  userToken: "vs-cct-c8",
+                                  userToken: "vs-cct-c9",
                                   isCustomer: true,
                                   targetCustomerToken: nil)
     

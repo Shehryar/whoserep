@@ -37,6 +37,8 @@ public class ASAPPButton: UIView {
         case Highlighted
     }
     
+    private var lastPresentationTime: NSDate?
+    
     private var currentState: ASAPPButtonState {
         return isTouching ? .Highlighted : .Normal
     }
@@ -220,7 +222,17 @@ extension ASAPPButton {
             return
         }
                 
-        let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
+        guard let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback) as? ChatViewController else { return }
+        if let lastPresentationTime = lastPresentationTime {
+            
+            let secondsSinceLastPresentation = NSDate().timeIntervalSinceDate(lastPresentationTime)
+            print("\n\n\ntime since: \(secondsSinceLastPresentation)\n\n")
+            
+            if secondsSinceLastPresentation < 180 {
+                chatViewController.showWelcomeOnViewAppear = false
+            }
+        }
+        
         let navigationController = UINavigationController(rootViewController: chatViewController)
         
         if !expansionPresentationAnimationDisabled {
@@ -229,6 +241,7 @@ extension ASAPPButton {
         }
         
         presentingViewController.presentViewController(navigationController, animated: true, completion: nil)
+        lastPresentationTime = NSDate()
         
         onTapListenerBlock?()
     }

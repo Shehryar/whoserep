@@ -39,6 +39,10 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         return dataSource.allEvents.last
     }
     
+    var isEmpty: Bool {
+        return dataSource.isEmpty()
+    }
+    
     // MARK:- Private Properties
     
     private let cellAnimationsEnabled = true

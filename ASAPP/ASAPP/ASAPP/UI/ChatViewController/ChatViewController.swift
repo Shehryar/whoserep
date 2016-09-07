@@ -20,6 +20,8 @@ class ChatViewController: UIViewController {
     
     let callback: ASAPPCallback
     
+    var showWelcomeOnViewAppear = true
+    
     private var actionableMessage: SRSResponse?
     
     // MARK: Private Properties
@@ -46,7 +48,6 @@ class ChatViewController: UIViewController {
     }
     private var isInitialLayout = true
     private let troubleshooterView = TroubleshooterView()
-    private var lastPredictiveViewPresentationTime: NSDate?
     
     // MARK:- Initialization
     
@@ -169,6 +170,17 @@ class ChatViewController: UIViewController {
         conversationManager.exitConversation()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
+            showWelcomeOnViewAppear = false
+            Dispatcher.delay(200, closure: { 
+                self.showPredictiveViewController()
+            })
+        }
+    }
+    
     // MARK: Updates
     
     func updateViewForLiveChat() {
@@ -187,8 +199,6 @@ class ChatViewController: UIViewController {
         predictiveNavigationController.modalPresentationStyle = .OverCurrentContext
         predictiveNavigationController.modalTransitionStyle = .CrossDissolve
         presentViewController(predictiveNavigationController, animated: true, completion: nil)
-        
-        lastPredictiveViewPresentationTime = NSDate()
     }
     
     func dismissChatViewController() {
