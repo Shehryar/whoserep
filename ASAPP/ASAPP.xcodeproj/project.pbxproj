@@ -63,6 +63,13 @@
 		302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268451D80690500EC4FB1 /* icon-x@3x.png */; };
 		302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */; };
 		3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */; };
+		3022685E1D8097E700EC4FB1 /* PredictiveChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */; };
+		302268601D80A17100EC4FB1 /* PredictiveChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */; };
+		302268621D80B89900EC4FB1 /* PredictiveChatButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */; };
+		302268661D80BD0A00EC4FB1 /* sample_bill_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268641D80BD0A00EC4FB1 /* sample_bill_data.json */; };
+		302268671D80BD0A00EC4FB1 /* sample_srs_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268651D80BD0A00EC4FB1 /* sample_srs_response.json */; };
+		302268691D80BDE600EC4FB1 /* sample_predictive_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268681D80BDE600EC4FB1 /* sample_predictive_response.json */; };
+		3022686B1D80C58300EC4FB1 /* SRSPredictiveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */; };
 		30226CD41D4933F200871453 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC11D4933F200871453 /* Conversation.swift */; };
 		30226CD61D4933F200871453 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC31D4933F200871453 /* Event.swift */; };
 		30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */; };
@@ -78,7 +85,6 @@
 		30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
-		303C87791D78888F00213F6B /* sample_srs_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 303C87781D78888F00213F6B /* sample_srs_response.json */; };
 		303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877B1D789B9700213F6B /* SRSResponse.swift */; };
 		303C877E1D789BB100213F6B /* SRSItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877D1D789BB100213F6B /* SRSItemList.swift */; };
 		303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877F1D789BD900213F6B /* SRSButtonItem.swift */; };
@@ -111,7 +117,6 @@
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
-		30D2E2841D79EB4100502D92 /* sample_bill_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 309219381D67A3E300E70AEB /* sample_bill_data.json */; };
 		30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */; };
 		30D2E28B1D79FEE600502D92 /* SRSItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28A1D79FEE600502D92 /* SRSItemListView.swift */; };
 		30D2E28D1D7A0D7500502D92 /* SRSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28C1D7A0D7500502D92 /* SRSButton.swift */; };
@@ -168,6 +173,13 @@
 		302268451D80690500EC4FB1 /* icon-x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-x@3x.png"; sourceTree = "<group>"; };
 		302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalGradientView.swift; sourceTree = "<group>"; };
 		3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalGradientView.swift; sourceTree = "<group>"; };
+		3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatViewController.swift; sourceTree = "<group>"; };
+		3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatInputView.swift; sourceTree = "<group>"; };
+		302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveChatButtonsView.swift; sourceTree = "<group>"; };
+		302268641D80BD0A00EC4FB1 /* sample_bill_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_bill_data.json; sourceTree = "<group>"; };
+		302268651D80BD0A00EC4FB1 /* sample_srs_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_srs_response.json; sourceTree = "<group>"; };
+		302268681D80BDE600EC4FB1 /* sample_predictive_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_predictive_response.json; sourceTree = "<group>"; };
+		3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSPredictiveResponse.swift; sourceTree = "<group>"; };
 		30226CC11D4933F200871453 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30226CC31D4933F200871453 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
@@ -183,7 +195,6 @@
 		30226CFD1D49574A00871453 /* temp-icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "temp-icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
-		303C87781D78888F00213F6B /* sample_srs_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_srs_response.json; sourceTree = "<group>"; };
 		303C877B1D789B9700213F6B /* SRSResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSResponse.swift; sourceTree = "<group>"; };
 		303C877D1D789BB100213F6B /* SRSItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemList.swift; sourceTree = "<group>"; };
 		303C877F1D789BD900213F6B /* SRSButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItem.swift; sourceTree = "<group>"; };
@@ -198,7 +209,6 @@
 		309219301D66608C00E70AEB /* SummaryDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryDetailsView.swift; sourceTree = "<group>"; };
 		309219321D6666F700E70AEB /* TwoColumnLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnLabelView.swift; sourceTree = "<group>"; };
 		309219341D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameTrackingInputAccessoryView.swift; sourceTree = "<group>"; };
-		309219381D67A3E300E70AEB /* sample_bill_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_bill_data.json; sourceTree = "<group>"; };
 		3092193C1D77320600E70AEB /* ASAPPStringLocalization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStringLocalization.swift; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
@@ -259,8 +269,6 @@
 			children = (
 				28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */,
 				3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */,
-				309219381D67A3E300E70AEB /* sample_bill_data.json */,
-				303C87781D78888F00213F6B /* sample_srs_response.json */,
 			);
 			path = "Suggested Replies Sheet";
 			sourceTree = "<group>";
@@ -376,6 +384,26 @@
 			path = "Info-Loading View";
 			sourceTree = "<group>";
 		};
+		3022685C1D80961000EC4FB1 /* Predictive */ = {
+			isa = PBXGroup;
+			children = (
+				3022685D1D8097E700EC4FB1 /* PredictiveChatViewController.swift */,
+				302268611D80B89900EC4FB1 /* PredictiveChatButtonsView.swift */,
+				3022685F1D80A17100EC4FB1 /* PredictiveChatInputView.swift */,
+			);
+			path = Predictive;
+			sourceTree = "<group>";
+		};
+		302268631D80BD0A00EC4FB1 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				302268641D80BD0A00EC4FB1 /* sample_bill_data.json */,
+				302268681D80BDE600EC4FB1 /* sample_predictive_response.json */,
+				302268651D80BD0A00EC4FB1 /* sample_srs_response.json */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
 		30226CC01D4933F200871453 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +468,7 @@
 				30226CE81D493F5300871453 /* ChatViewController.swift */,
 				30226CEB1D493F5300871453 /* Messages List */,
 				30226CE91D493F5300871453 /* Message Input */,
+				3022685C1D80961000EC4FB1 /* Predictive */,
 				28A99F2B1D5F900A00F9AA84 /* Suggested Replies Sheet */,
 				28A99F281D5F8FDA00F9AA84 /* Utility Views */,
 			);
@@ -494,6 +523,7 @@
 		303C877A1D789B1300213F6B /* SRS */ = {
 			isa = PBXGroup;
 			children = (
+				3022686A1D80C58300EC4FB1 /* SRSPredictiveResponse.swift */,
 				303C877B1D789B9700213F6B /* SRSResponse.swift */,
 				303C877D1D789BB100213F6B /* SRSItemList.swift */,
 				303C877F1D789BD900213F6B /* SRSButtonItem.swift */,
@@ -501,6 +531,7 @@
 				30D2E28E1D7A0E2100502D92 /* SRSInfoItem.swift */,
 				30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */,
 				30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */,
+				302268631D80BD0A00EC4FB1 /* Sample Data */,
 			);
 			path = SRS;
 			sourceTree = "<group>";
@@ -724,10 +755,12 @@
 			files = (
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */,
+				302268661D80BD0A00EC4FB1 /* sample_bill_data.json in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
 				30099E101D3FD1DA00171D56 /* Lato-Bold.ttf in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
 				302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */,
+				302268691D80BDE600EC4FB1 /* sample_predictive_response.json in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				302268501D80690500EC4FB1 /* icon-loader@2x.png in Resources */,
 				302268531D80690500EC4FB1 /* icon-x-small@2x.png in Resources */,
@@ -742,15 +775,14 @@
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30099E111D3FD1DA00171D56 /* Lato-Light.ttf in Resources */,
+				302268671D80BD0A00EC4FB1 /* sample_srs_response.json in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
-				303C87791D78888F00213F6B /* sample_srs_response.json in Resources */,
 				30099E121D3FD1DA00171D56 /* Lato-Regular.ttf in Resources */,
 				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				3022684B1D80690500EC4FB1 /* icon-back@3x.png in Resources */,
-				30D2E2841D79EB4100502D92 /* sample_bill_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,11 +857,13 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
+				302268601D80A17100EC4FB1 /* PredictiveChatInputView.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
+				3022686B1D80C58300EC4FB1 /* SRSPredictiveResponse.swift in Sources */,
 				30D2E28F1D7A0E2100502D92 /* SRSInfoItem.swift in Sources */,
 				309219311D66608C00E70AEB /* SummaryDetailsView.swift in Sources */,
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
@@ -861,9 +895,11 @@
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
 				30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */,
+				3022685E1D8097E700EC4FB1 /* PredictiveChatViewController.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */,
+				302268621D80B89900EC4FB1 /* PredictiveChatButtonsView.swift in Sources */,
 				28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,

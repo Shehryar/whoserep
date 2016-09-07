@@ -1,0 +1,9 @@
+{
+  "greeting": "How can we help?",
+  "prediction_display_text": "You have an upcoming payment due in 3 days.",
+  "actions": [
+    "See my bill",
+    "Troubleshooting",
+    "Slow internet"
+  ]
+}

@@ -46,6 +46,7 @@ class ChatViewController: UIViewController {
     }
     private var isInitialLayout = true
     private let troubleshooterView = TroubleshooterView()
+    private var lastPredictiveViewPresentationTime: NSDate?
     
     // MARK:- Initialization
     
@@ -129,6 +130,8 @@ class ChatViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ChatViewController.dismissChatViewController))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Predictive", style: .Plain, target: self, action: #selector(ChatViewController.showPredictiveViewController))
+        
         // View
         
         view.clipsToBounds = true
@@ -176,6 +179,16 @@ class ChatViewController: UIViewController {
             chatInputView.displayMediaButton = false
             chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
         }
+    }
+    
+    func showPredictiveViewController() {
+        let predictiveViewController = PredictiveChatViewController(predictiveResponse: SRSPredictiveResponse.sampleResponse(), styles: styles)
+        let predictiveNavigationController = UINavigationController(rootViewController: predictiveViewController)
+        predictiveNavigationController.modalPresentationStyle = .OverCurrentContext
+        predictiveNavigationController.modalTransitionStyle = .CrossDissolve
+        presentViewController(predictiveNavigationController, animated: true, completion: nil)
+        
+        lastPredictiveViewPresentationTime = NSDate()
     }
     
     func dismissChatViewController() {
@@ -302,8 +315,6 @@ extension ChatViewController {
                 return
             }
         }
-        
-        
         
         if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") {
             buttonItem.type = .SRS
