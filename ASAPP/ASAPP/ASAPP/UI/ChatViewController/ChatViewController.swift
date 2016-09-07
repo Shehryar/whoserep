@@ -110,6 +110,13 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.translucent = true
+            navigationBar.barTintColor = nil
+            navigationBar.barStyle = .Default
+            navigationBar.tintColor = styles.foregroundColor2
+        }
+        
         view.clipsToBounds = true
         view.backgroundColor = styles.backgroundColor1
         

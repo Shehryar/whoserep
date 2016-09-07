@@ -223,17 +223,7 @@ extension ASAPPButton {
         let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
         chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.xLightIcon(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
         
-        
         let navigationController = UINavigationController(rootViewController: chatViewController)
-        let barTintColor = styles.backgroundColor2
-        navigationController.navigationBar.barTintColor = barTintColor
-        if barTintColor.isBright() {
-            navigationController.navigationBar.barStyle = .Default
-        } else {
-            navigationController.navigationBar.barStyle = .Black
-        }
-        navigationController.navigationBar.tintColor = styles.foregroundColor2
-        
         if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom
             navigationController.transitioningDelegate = presentationAnimator
