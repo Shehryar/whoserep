@@ -49,7 +49,7 @@ public class ASAPPButton: UIView {
     
     private let contentView = UIView()
     
-    private let imageView = UIImageView()
+    private let label = UILabel()
     
     private var presentationAnimator: ButtonPresentationAnimator?
     
@@ -69,13 +69,19 @@ public class ASAPPButton: UIView {
         clipsToBounds = false
         autoresizesSubviews = false
         
+        label.text = ASAPPLocalizedString("HELP")
+        label.font = styles.buttonFont
+        label.minimumScaleFactor = 0.2
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .Center
+        contentView.addSubview(label)
+
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
         contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
         updateButtonDisplay()
-        contentView.addSubview(imageView)
         addSubview(contentView)
     }
     
@@ -110,8 +116,8 @@ public class ASAPPButton: UIView {
         contentView.frame = bounds
         updateCornerRadius()
         
-        let imageInset = floor(0.15 * CGRectGetHeight(bounds))
-        imageView.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: imageInset, left: imageInset, bottom: imageInset, right: imageInset))
+        let labelInset = floor(0.15 * CGRectGetHeight(bounds))
+        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: labelInset, bottom: labelInset, right: labelInset))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
@@ -141,10 +147,8 @@ extension ASAPPButton {
             contentView.alpha = 1
         }
         
-        if let buttonForegroundColor = foregroundColors[currentState] {
-            imageView.image = Images.asappButtonIcon(fillColor: buttonForegroundColor)
-        } else if imageView.image == nil {
-            imageView.image = Images.asappButtonIcon(fillColor: UIColor.whiteColor())
+        if let labelForegroundColor = foregroundColors[currentState] {
+            label.textColor = labelForegroundColor
         }
         
         if shadowDisabled {
