@@ -45,6 +45,7 @@ class ChatViewController: UIViewController {
         return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
     }
     private var isInitialLayout = true
+    private let troubleshooterView = TroubleshooterView()
     
     // MARK:- Initialization
     
@@ -116,6 +117,7 @@ class ChatViewController: UIViewController {
         view.addSubview(chatInputView)
         view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
+        view.addSubview(troubleshooterView)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -174,6 +176,8 @@ extension ChatViewController {
         }
         
         let viewWidth = CGRectGetWidth(view.bounds)
+        
+        troubleshooterView.frame = CGRect(x: 0.0, y: minVisibleY, width: viewWidth, height: CGRectGetHeight(view.bounds) - minVisibleY)
         
         let connectionStatusHeight: CGFloat = 40
         var connectionStatusTop = minVisibleY - connectionStatusHeight
@@ -247,10 +251,24 @@ extension ChatViewController {
     func handleSRSButtonItemSelection(buttonItem: SRSButtonItem) {
         
         // MITCH MITCH MITCH TESTING TESTING
+        
+        if buttonItem.deepLink?.lowercaseString == "troubleshoot" {
+            let service = buttonItem.deepLinkData?["service"] as? String
+            if service == "internet" || service == "video" || service == "voice" {
+                actionableMessage = nil
+                updateFramesAnimated(true, completion: { 
+                    self.showDeviceRestartTroubleshooterView()
+                })
+                return
+            }
+        }
+        
+        
+        
         if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") {
             buttonItem.type = .SRS
         }
-        
+        // END TESTING
         
         
         switch buttonItem.type {
@@ -272,6 +290,16 @@ extension ChatViewController {
                 self?.updateFramesAnimated()
             }
             break
+        }
+    }
+    
+    func showDeviceRestartTroubleshooterView() {
+        view.endEditing(true)
+        
+        troubleshooterView.showTroubleshooter { 
+            Dispatcher.delay(5000, closure: { 
+                self.troubleshooterView.hideTroubleshooter()
+            })
         }
     }
 }
