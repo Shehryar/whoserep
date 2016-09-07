@@ -90,6 +90,15 @@ extension ComcastHomeViewController {
         showViewControllerWithImage("restartDeviceImage", title: "Device Restart")
     }
     
+    func showPaymentScreen() {
+        if UIScreen.mainScreen().bounds.size.width > 400 {
+            showViewControllerWithImage("payment-screen-6plus", title: "Make Payment")
+        } else {
+            showViewControllerWithImage("payment-screen-6", title: "Make Payment")
+        }
+        
+    }
+    
     func handleAction(action: String, userInfo: [String : AnyObject]?) {
         
         switch action {
@@ -123,6 +132,10 @@ extension ComcastHomeViewController {
             
         case "restart":
             showRestartDevice()
+            break
+            
+        case "payment":
+            showPaymentScreen()
             break
             
         default: break
