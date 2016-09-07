@@ -28,7 +28,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16) {
+    var contentInset = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 15) {
         didSet {
             setNeedsLayout()
         }
@@ -37,7 +37,14 @@ class ChatInputView: UIView, ASAPPStyleable {
     var displayMediaButton = true {
         didSet {
             mediaButton.alpha = displayMediaButton ? 1 : 0
+            updateSendButtonForCurrentState()
             setNeedsLayout()
+        }
+    }
+    
+    var placeholderText: String = ASAPPLocalizedString("Enter a message...") {
+        didSet {
+            placeholderTextView.text = placeholderText
         }
     }
     
@@ -57,6 +64,7 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     private let mediaButton = UIButton()
     private let sendButton = UIButton()
+    private let buttonSeparator = VerticalGradientView()
     
     // MARK:- Initialization
     
@@ -102,7 +110,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         textView.inputAccessoryView = keyboardFrameTrackingView
         
         
-        placeholderTextView.text = ASAPPLocalizedString("Craft a message...")
+        placeholderTextView.text = placeholderText
         placeholderTextView.backgroundColor = UIColor.clearColor()
         placeholderTextView.font = textView.font
         placeholderTextView.textColor = Colors.mediumTextColor()
@@ -135,6 +143,7 @@ class ChatInputView: UIView, ASAPPStyleable {
                              action: #selector(ChatInputView.didTapSendButton(_:)),
                              forControlEvents: .TouchUpInside)
         addSubview(sendButton)
+        addSubview(buttonSeparator)
         
         updateSendButtonForCurrentState()
         
@@ -161,6 +170,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         
         sendButton.enabled = canSendMessage
         mediaButton.enabled = canSendMessage
+        buttonSeparator.hidden = (mediaButton.hidden || mediaButton.alpha == 0) && sendButton.hidden
     }
     
     // MARK:- Button Colors
@@ -225,6 +235,9 @@ class ChatInputView: UIView, ASAPPStyleable {
         applySendButtonStyle(withFont: styles.buttonFont, color: styles.inputSendButtonColor)
         applyMediaButtonColor(styles.inputImageButtonColor)
         
+        let separatorColor = styles.separatorColor1
+        buttonSeparator.update(separatorColor.colorWithAlphaComponent(0.0), middleColor: separatorColor, bottomColor: separatorColor.colorWithAlphaComponent(0.0))
+        
         let textViewText = textView.text
         textView.text = nil
         resizeIfNeeded(false)
@@ -271,7 +284,11 @@ extension ChatInputView {
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
         let mediaButtonLeft = CGRectGetWidth(bounds) - mediaButtonWidth + mediaButton.imageEdgeInsets.right - contentInset.right
-        mediaButton.frame = CGRect(x: mediaButtonLeft, y: buttonTop, width: mediaButtonWidth, height: inputMinHeight)
+        mediaButton.frame = CGRect(x: mediaButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
+        
+        let separatorStroke: CGFloat = 1.0
+        let separatorLeft = CGRectGetMinX(sendButton.frame) - separatorStroke
+        buttonSeparator.frame = CGRect(x: separatorLeft, y: buttonTop, width: separatorStroke, height: inputMinHeight)
         
         let textViewWidth = sendButtonLeft - 8.0 - contentInset.left
         let textViewHeight = inputHeight //CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom

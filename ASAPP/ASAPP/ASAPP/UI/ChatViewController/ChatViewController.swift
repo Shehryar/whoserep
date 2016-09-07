@@ -29,7 +29,7 @@ class ChatViewController: UIViewController {
     /// If false, messages will be sent to SRS
     private var liveChat = false {
         didSet {
-            chatInputView.displayMediaButton = liveChat
+            updateViewForLiveChat()
         }
     }
     
@@ -68,7 +68,6 @@ class ChatViewController: UIViewController {
         
         chatInputView.delegate = self
         chatInputView.applyStyles(self.styles)
-        chatInputView.displayMediaButton = liveChat
         chatInputView.layer.shadowColor = UIColor.blackColor().CGColor
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
         chatInputView.layer.shadowRadius = 2
@@ -128,6 +127,7 @@ class ChatViewController: UIViewController {
         
         view.clipsToBounds = true
         view.backgroundColor = styles.backgroundColor1
+        updateViewForLiveChat()
         
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
@@ -158,6 +158,18 @@ class ChatViewController: UIViewController {
         view.endEditing(true)
         
         conversationManager.exitConversation()
+    }
+    
+    // MARK: Updates
+    
+    func updateViewForLiveChat() {
+        if liveChat {
+            chatInputView.displayMediaButton = true
+            chatInputView.placeholderText = ASAPPLocalizedString("Enter a message...")
+        } else {
+            chatInputView.displayMediaButton = false
+            chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
+        }
     }
 }
 
