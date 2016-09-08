@@ -108,7 +108,7 @@ class ChatWelcomeButtonsView: UIView {
         setNeedsLayout()
     }
     
-    func animateButtonsIn() {
+    func animateButtonsIn(completion: (() -> Void)? = nil) {
         guard let firstButton = buttons.first else { return }
         guard firstButton.alpha == 0 else { return }
         
@@ -134,6 +134,7 @@ class ChatWelcomeButtonsView: UIView {
                     if button == self.buttons.last {
                         self.animating = false
                         self.setNeedsLayout()
+                        completion?()
                     }
             })
             delay += delayIncrement

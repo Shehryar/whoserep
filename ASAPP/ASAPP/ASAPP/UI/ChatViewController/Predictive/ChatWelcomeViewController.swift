@@ -29,6 +29,7 @@ class ChatWelcomeViewController: UIViewController {
     private let messageLabel = UILabel()
     private let buttonsView: ChatWelcomeButtonsView
     private let messageInputView = ChatInputView()
+    private var finishedInitialAnimation = false
     
     private let keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
@@ -132,7 +133,9 @@ class ChatWelcomeViewController: UIViewController {
                 }, completion: nil)
             }
             Dispatcher.delay(500, closure: {
-                self.buttonsView.animateButtonsIn()
+                self.buttonsView.animateButtonsIn({ 
+                    self.finishedInitialAnimation = true
+                })
             })
         }
     }
@@ -195,9 +198,15 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
         messageInputView.layoutSubviews()
         
-        buttonsView.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(buttonsView.frame) ? 0.0 : 1.0
-        messageLabel.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(messageLabel.frame) ? 0.0 : 1.0
-        titleLabel.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(titleLabel.frame) ? 0.0 : 1.0
+        if finishedInitialAnimation {
+            func shouldHideView(subview: UIView) -> Bool {
+                return CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(subview.frame) + 10
+            }
+            
+            buttonsView.alpha = shouldHideView(buttonsView) ? 0.0 : 1.0
+            messageLabel.alpha = shouldHideView(messageLabel) ? 0.0 : 1.0
+            titleLabel.alpha = shouldHideView(titleLabel) ? 0.0 : 1.0
+        }
     }
     
     func updateFramesAnimated() {
