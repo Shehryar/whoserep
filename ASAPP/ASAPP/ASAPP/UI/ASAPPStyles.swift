@@ -32,7 +32,7 @@ public class ASAPPStyles: NSObject {
     
     public var replyMessageTextColor: UIColor = Colors.whiteColor()
     
-    public var messageStrokeColor: UIColor? = Colors.steelLightColor().colorWithAlphaComponent(0.5)
+    public var messageStrokeColor: UIColor? = Colors.steelLight50Color()
     
     public var messageFillColor: UIColor = Colors.whiteColor()
     
