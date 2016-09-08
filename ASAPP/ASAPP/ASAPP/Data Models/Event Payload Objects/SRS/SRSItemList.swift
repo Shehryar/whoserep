@@ -40,6 +40,17 @@ class SRSItemList: NSObject, JSONObject {
         return buttonItems
     }
     
+    var immediateActionButtonItem: SRSButtonItem? {
+        guard let buttonItems = buttonItems else { return nil }
+        
+        for buttonItem in buttonItems {
+            if buttonItem.isAutoSelect {
+                return buttonItem
+            }
+        }
+        return nil
+    }
+    
     // MARK: Init
     
     init(items: [AnyObject], orientation: SRSItemListOrientation) {

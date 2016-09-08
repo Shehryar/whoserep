@@ -20,6 +20,7 @@ class SRSButtonItem: NSObject, JSONObject {
     
     var title: String
     var type: SRSButtonItemType
+    var isAutoSelect = false
     
     // MARK: Link Properties
     
@@ -52,8 +53,10 @@ class SRSButtonItem: NSObject, JSONObject {
                 return nil
         }
         
-        
         let button = SRSButtonItem(title: title, type: type)
+        if let isAutoSelect = json["isAutoSelect"] as? Bool {
+            button.isAutoSelect = isAutoSelect
+        }
         
         switch button.type {
         case .InAppLink, .Link:

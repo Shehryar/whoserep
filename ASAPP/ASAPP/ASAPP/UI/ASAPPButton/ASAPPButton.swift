@@ -226,10 +226,10 @@ extension ASAPPButton {
         if let lastPresentationTime = lastPresentationTime {
             
             let secondsSinceLastPresentation = NSDate().timeIntervalSinceDate(lastPresentationTime)
-            print("\n\n\ntime since: \(secondsSinceLastPresentation)\n\n")
             
             if secondsSinceLastPresentation < 180 {
-                chatViewController.showWelcomeOnViewAppear = false
+                // MITCH MITCH MITCH TEST TEST TESTING
+//                chatViewController.showWelcomeOnViewAppear = false
             }
         }
         

@@ -192,16 +192,7 @@ class ChatViewController: UIViewController {
             chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
         }
     }
-    
-    func showWelcomeViewController() {
-        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles)
-        welcomeViewController.delegate = self
-        let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
-        welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
-        welcomeNavigationController.modalTransitionStyle = .CrossDissolve
-        presentViewController(welcomeNavigationController, animated: true, completion: nil)
-    }
-    
+
     func dismissChatViewController() {
         if let presentingViewController = presentingViewController {
             presentingViewController.dismissViewControllerAnimated(true, completion: nil)
@@ -327,7 +318,8 @@ extension ChatViewController {
             }
         }
         
-        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") {
+        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") ||
+            buttonItem.title.localizedCaseInsensitiveContainsString("see my bill") {
             buttonItem.type = .SRS
         }
         // END TESTING
@@ -392,12 +384,45 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
 }
 
-// MARK:- ChatWelcomeViewControllerDelegate
+// MARK:- ChatWelcomeViewController
 
 extension ChatViewController: ChatWelcomeViewControllerDelegate {
+    
+    func showWelcomeViewController() {
+        keyboardObserver.deregisterForNotification()
+        
+        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles)
+        welcomeViewController.delegate = self
+        let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
+        welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
+        welcomeNavigationController.modalTransitionStyle = .CrossDissolve
+        presentViewController(welcomeNavigationController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Delegate
+    
     func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String) {
-        dismissViewControllerAnimated(true) { 
+        
+        keyboardObserver.registerForNotifications()
+        dismissViewControllerAnimated(true) {
+            
+            // MITCH MITCH MITCH TEST TEST TESTING
+            if queryText.localizedCaseInsensitiveContainsString("see my bill") {
+                let fakeButtonItem = SRSButtonItem(title: queryText, type: .SRS)
+                self.handleSRSButtonItemSelection(fakeButtonItem)
+                return
+            }
+            
+            
             self.sendMessage(withText: queryText)
+        }
+    }
+    
+    func chatWelcomeViewControllerDidCancel(viewController: ChatWelcomeViewController) {
+        keyboardObserver.registerForNotifications()
+        dismissViewControllerAnimated(true) { 
+            
         }
     }
 }

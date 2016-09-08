@@ -37,7 +37,6 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let pictureMessageSizingCell = ChatPictureMessageCell()
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
     private let typingPreviewSizingCell = ChatTypingPreviewCell()
-    private let billSummarySizingCell = ChatBillSummaryCell()
     private let srsItemListViewSizingCell = ChatSRSItemListViewCell()
     private let infoTextSizingCell = ChatInfoTextCell()
     
@@ -50,7 +49,6 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
     private let SRSItemListViewCellReuseId = "SRSItemListViewCellReuseId"
-    private let BillSummaryCellReuseId = "BillSummaryCellReuseId"
     private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK: Init
@@ -69,7 +67,6 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
-        tableView.registerClass(ChatBillSummaryCell.self, forCellReuseIdentifier: BillSummaryCellReuseId)
         tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSItemListViewCellReuseId)
         tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
@@ -183,13 +180,6 @@ extension ChatMessagesViewCellMaster {
             }
         }
         
-        // Bill Summary
-        if event.eventType == .BillSummary {
-            let cell = tableView.dequeueReusableCellWithIdentifier(BillSummaryCellReuseId) as? ChatBillSummaryCell
-            cell?.applyStyles(styles)
-            return cell
-        }
-        
         // Info Cell
         if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
             let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
@@ -301,12 +291,6 @@ extension ChatMessagesViewCellMaster {
                     return heightForStyledView(textMessageSizingCell, width: width)
                 }
             }
-        }
-        
-        // Bill Summary
-        if event.eventType == .BillSummary {
-            billSummarySizingCell.applyStyles(styles)
-            return heightForStyledView(billSummarySizingCell, width: width)
         }
         
         // Info Cell

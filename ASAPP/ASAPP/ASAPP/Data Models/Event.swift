@@ -30,11 +30,7 @@ import RealmSwift
     case WhisperMessage = 17
     case CustomerFeedback = 18
     case VCardMessage = 19
-    case SRSResponse = 20
-    
-    // Temp
-
-    case BillSummary = 21
+    case SRSResponse = 22
 }
 
 @objc enum EphemeralType: Int {
@@ -369,7 +365,7 @@ extension Event {
 
 extension Event {
     
-    class func sampleEvent(type: Int, eventJSON: String, afterEvent: Event? = nil) -> Event? {
+    class func sampleEvent(type: EventType, eventJSON: String, afterEvent: Event? = nil) -> Event? {
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
         var companyEventLogSeq = 0
@@ -386,7 +382,7 @@ extension Event {
             "CustomerId" : afterEvent?.customerId ?? 130001,
             "RepId" : afterEvent?.repId ?? 20001,
             "EventTime" : eventTime,
-            "EventType" : type,
+            "EventType" : type.rawValue,
             "EphemeralType" : 0,
             "EventFlags" : 0,
             "CompanyEventLogSeq" : companyEventLogSeq,
@@ -398,7 +394,7 @@ extension Event {
     class func sampleBillSummaryEvent(afterEvent: Event? = nil) -> Event? {
         if let path = ASAPPBundle.pathForResource("sample_bill_data", ofType: "json") {
             if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(20, eventJSON: eventJSONString, afterEvent: afterEvent)
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
                 return event
             }
         }

@@ -17,7 +17,6 @@ class ChatPictureMessageCell: ChatBubbleCell {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
                 if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
                     if !disableImageLoading {
-//                        setImageWithURL(imageURL, forEvent: event)
                         pictureImageView.sd_setImageWithURL(imageURL)
                     } else {
                         pictureImageView.image = nil

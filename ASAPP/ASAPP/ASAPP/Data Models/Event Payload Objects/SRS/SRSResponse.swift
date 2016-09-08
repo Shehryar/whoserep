@@ -11,7 +11,6 @@ import Foundation
 enum SRSResponseDisplayType: String {
     case Inline = "inline"
     case ActionSheet = "actionSheet"
-    case ImmediateAction = "immediateAction"
 }
 
 class SRSResponse: NSObject, JSONObject {
@@ -21,9 +20,7 @@ class SRSResponse: NSObject, JSONObject {
     var itemList: SRSItemList?
     
     var immediateAction: SRSButtonItem? {
-        guard displayType == .ImmediateAction else { return nil }
-        
-        return itemList?.buttonItems?.first
+        return itemList?.immediateActionButtonItem
     }
     
     init(displayType: SRSResponseDisplayType) {

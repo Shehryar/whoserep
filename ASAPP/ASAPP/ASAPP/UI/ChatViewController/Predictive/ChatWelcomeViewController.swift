@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatWelcomeViewControllerDelegate {
     func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String)
+    func chatWelcomeViewControllerDidCancel(viewController: ChatWelcomeViewController)
 }
 
 class ChatWelcomeViewController: UIViewController {
@@ -80,6 +81,7 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
         messageInputView.delegate = self
+        messageInputView.alpha = 0.0
         blurredBgView.contentView.addSubview(messageInputView)
         
         keyboardObserver.delegate = self
@@ -110,7 +112,7 @@ class ChatWelcomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: UIColor.whiteColor()),
                                                             style: .Plain,
                                                             target: self,
-                                                            action: #selector(ChatWelcomeViewController.dismissPredictiveViewController))
+                                                            action: #selector(ChatWelcomeViewController.didTapCancel))
         
         // View
         
@@ -134,7 +136,11 @@ class ChatWelcomeViewController: UIViewController {
             }
             Dispatcher.delay(500, closure: {
                 self.buttonsView.animateButtonsIn({ 
-                    self.finishedInitialAnimation = true
+                    UIView.animateWithDuration(0.8, delay: 0.4, options: .CurveEaseInOut, animations: {
+                        self.messageInputView.alpha = 1.0
+                        }, completion: { (completed) in
+                            self.finishedInitialAnimation = true
+                    })
                 })
             })
         }
@@ -191,7 +197,7 @@ class ChatWelcomeViewController: UIViewController {
         let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: 300)).height)
         var inputTop = CGRectGetHeight(view.bounds) - inputHeight
         if keyboardOffset > 0 {
-            inputTop -= keyboardOffset + 15
+            inputTop -= keyboardOffset + min(contentInset.left, contentInset.bottom)
         } else {
            inputTop -= contentInset.bottom
         }
@@ -221,10 +227,8 @@ class ChatWelcomeViewController: UIViewController {
         delegate?.chatWelcomeViewController(self, didFinishWithText: message)
     }
     
-    func dismissPredictiveViewController() {
-        if let presentingViewController = presentingViewController {
-            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
-        }
+    func didTapCancel() {
+        delegate?.chatWelcomeViewControllerDidCancel(self)
     }
     
     func dismissKeyboard() {

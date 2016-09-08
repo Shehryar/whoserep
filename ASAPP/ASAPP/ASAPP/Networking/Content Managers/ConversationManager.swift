@@ -196,7 +196,8 @@ extension ConversationManager {
     func sendSRSButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) {
         
         // MITCH MITCH MITCH TESTING TESTING
-        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") {
+        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") ||
+          buttonItem.title.localizedCaseInsensitiveContainsString("see my bill") {
             testSRSButtonSelectionWithBillPayment(buttonItem, completion: completion)
             return
         }
