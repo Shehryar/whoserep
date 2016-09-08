@@ -43,8 +43,10 @@ class ChatWelcomeViewController: UIViewController {
         self.buttonsView = ChatWelcomeButtonsView(styles: styles)
         super.init(nibName: nil, bundle: nil)
         
-        blurredBgView.tintColor = Colors.blueColor()
-    
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        blurredBgView.addGestureRecognizer(tapGesture)
+        
         blurredColorLayer.backgroundColor = Colors.steelLightColor().colorWithAlphaComponent(0.5).CGColor
         blurredBgView.contentView.layer.insertSublayer(blurredColorLayer, atIndex: 0)
         

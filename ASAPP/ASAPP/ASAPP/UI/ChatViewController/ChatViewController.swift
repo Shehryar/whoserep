@@ -407,6 +407,8 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         keyboardObserver.registerForNotifications()
         dismissViewControllerAnimated(true) {
             
+            self.chatMessagesView.scrollToBottomAnimated(true)
+            
             // MITCH MITCH MITCH TEST TEST TESTING
             if queryText.localizedCaseInsensitiveContainsString("see my bill") {
                 let fakeButtonItem = SRSButtonItem(title: queryText, type: .SRS)
