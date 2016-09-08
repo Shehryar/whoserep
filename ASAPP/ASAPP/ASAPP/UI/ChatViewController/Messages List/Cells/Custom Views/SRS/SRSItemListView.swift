@@ -14,12 +14,10 @@ protocol SRSItemListViewDelegate {
 
 class SRSItemListView: StackView, ASAPPStyleable {
     
-    var itemList: SRSItemList? {
+    var srsItems: /** Must be SRS** Classes */ [AnyObject]? {
         didSet {
-            if let itemList = itemList {
-                if oldValue != itemList {
-                    createSubviewsForCurrentResponse()
-                }
+            if let srsItems = srsItems {
+                createSubviewsForCurrentResponse()
             } else {
                 clear()
             }
@@ -41,7 +39,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
     // MARK: Creating the Views
     
     func createSubviewsForCurrentResponse() {
-        guard let items = itemList?.items else { return }
+        guard let items = srsItems else { return }
         
         clear()
 
@@ -98,7 +96,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 let itemListView = SRSItemListView()
                 itemListView.contentInset = UIEdgeInsetsZero
                 itemListView.applyStyles(styles)
-                itemListView.itemList = itemList
+                itemListView.srsItems = itemList.items
                 if itemList.orientation == .Vertical {
                     itemListView.orientation = .Vertical
                 } else {

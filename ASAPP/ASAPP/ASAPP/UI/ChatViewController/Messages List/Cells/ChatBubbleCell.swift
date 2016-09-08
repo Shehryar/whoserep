@@ -19,7 +19,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
 
     // MARK: Public Properties
     
-    private(set) var isReply: Bool = false {
+    var isReply: Bool = false {
         didSet {
             if oldValue != isReply {
                 updateBubbleCorners()

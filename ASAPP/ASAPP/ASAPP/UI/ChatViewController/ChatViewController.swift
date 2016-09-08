@@ -507,7 +507,7 @@ extension ChatViewController: ConversationManagerDelegate {
                         Dispatcher.delay(500, closure: {
                             self.handleSRSButtonItemSelection(immediateAction)
                         })
-                    } else if srsResponse.displayType == .ActionSheet {
+                    } else if let buttonItems = srsResponse.itemList?.buttonItems {
                         Dispatcher.delay(200, closure: { [weak self] in
                             self?.actionableMessage = srsResponse
                             self?.suggestedRepliesView.actionableMessage = srsResponse

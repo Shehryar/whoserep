@@ -180,12 +180,7 @@ extension ChatTextMessageCell {
     
     private func performAnimation() {
         var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
-//        if isReply {
-//            animationBeginCenter.x = contentInset.left
-//        } else {
-//            animationBeginCenter.x = CGRectGetWidth(bounds) - contentInset.right
-//        }
-        
+
         var animationEndCenter = CGPoint()
         if bubbleView.bounds.isEmpty {
             let messageSize = bubbleView.sizeThatFits(bounds.size)

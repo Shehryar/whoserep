@@ -8,54 +8,50 @@
 
 import UIKit
 
-class ChatSRSItemListViewCell: UITableViewCell, ASAPPStyleable {
-    
-    var contentInset = UIEdgeInsets(top: 4, left: 20, bottom: 4, right: 20) {
-        didSet {
-            if oldValue != contentInset {
-                setNeedsLayout()
-            }
-        }
-    }
+class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     var response: SRSResponse? {
         didSet {
-            itemListView.itemList = response?.itemList
+            if let response = response,
+                let itemList = response.itemList {
+                messageText = itemList.title
+                
+                if response.displayType == .Inline {
+                    if itemList.orientation == .Horizontal {
+                        itemListView.orientation = .Horizontal
+                    } else {
+                        itemListView.orientation = .Vertical
+                    }
+                    itemListView.srsItems = itemList.contentItems
+                } else {
+                    itemListView.srsItems = nil
+                }
+            } else {
+                messageText = nil
+                itemListView.srsItems = nil
+            }
             setNeedsLayout()
         }
     }
     
     let itemListView = SRSItemListView()
     
+    let itemListViewMargin: CGFloat = 10.0
+    
     // MARK: Init
     
-    func commonInit() {
-        selectionStyle = .None
-        
+    override func commonInit() {
+        isReply = true
+        super.commonInit()
         contentView.addSubview(itemListView)
-        
-        applyStyles(styles)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
+    // MARK: Styling
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        commonInit()
-    }
-
-    // MARK: ASAPPStyleable
-    
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(styles: ASAPPStyles) {
-        self.styles = styles
-    
+    override func updateFontsAndColors() {
+        super.updateFontsAndColors()
         itemListView.backgroundColor = styles.backgroundColor2
-        itemListView.layer.borderColor = styles.separatorColor1.CGColor
+        itemListView.layer.borderColor = styles.separatorColor2.CGColor
         itemListView.layer.borderWidth = 1
         itemListView.applyStyles(styles)
         setNeedsLayout()
@@ -63,19 +59,33 @@ class ChatSRSItemListViewCell: UITableViewCell, ASAPPStyleable {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func itemListViewSizeThatFits(size: CGSize) -> CGSize {
+        let maxWidth = size.width - contentInset.left - contentInset.right
+        let insetSize = CGSize(width: maxWidth, height: 0)
         
-        itemListView.frame = UIEdgeInsetsInsetRect(bounds, contentInset)
+        return itemListView.sizeThatFits(insetSize)
+    }
+    
+    override func updateFrames() {
+        super.updateFrames()
+        
+        var itemListTop = CGRectGetMaxY(bubbleView.frame) + itemListViewMargin
+        if !detailLabelHidden && CGRectGetHeight(detailLabel.bounds) > 0 {
+            itemListTop = CGRectGetMaxY(detailLabel.frame) + itemListViewMargin
+        }
+        let itemListSize = itemListViewSizeThatFits(bounds.size)
+        
+        itemListView.frame = CGRect(x: contentInset.left, y: itemListTop, width: itemListSize.width, height: itemListSize.height)
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
-        let insetSize = CGSize(width: size.width - contentInset.left - contentInset.right,
-                               height: size.height - contentInset.top - contentInset.bottom)
+        var contentHeight = super.sizeThatFits(size).height
+        let itemListHeight = itemListViewSizeThatFits(size).height
+        if itemListHeight > 0 {
+            contentHeight += itemListHeight + itemListViewMargin
+        }
         
-        let itemListViewSize = itemListView.sizeThatFits(insetSize)
-        
-        return CGSize(width: size.width, height: itemListViewSize.height + contentInset.top + contentInset.bottom)
+        return CGSize(width: size.width, height: contentHeight)
     }
     
     // MARK: Reuse

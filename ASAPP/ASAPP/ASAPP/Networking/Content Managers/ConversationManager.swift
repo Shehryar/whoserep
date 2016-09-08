@@ -235,6 +235,7 @@ extension ConversationManager: SocketConnectionDelegate {
                 
                 switch event.eventType {
                 case .SRSResponse:
+                    // MITCH MITCH MITCH TEST TEST TESTING - Artifical Delay
                     Dispatcher.delay(600, closure: { 
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })

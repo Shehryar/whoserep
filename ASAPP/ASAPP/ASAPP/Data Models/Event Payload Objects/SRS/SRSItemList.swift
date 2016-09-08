@@ -20,14 +20,26 @@ class SRSItemList: NSObject, JSONObject {
     // MARK: Readonly Properties 
     
     var title: String? {
-        var title: String?
-        for item in items {
-            if let labelItem = item as? SRSLabelItem {
-                title = labelItem.text
-                break
+        return titleItem?.text
+    }
+    
+    var titleItem: SRSLabelItem? {
+        return items.first as? SRSLabelItem
+    }
+    
+    // Returns all items that aren't the titleItem or buttonItems
+    var contentItems: [AnyObject]? {
+        var contentItems = [AnyObject]()
+        for (index, item) in items.enumerate() {
+            if item is SRSLabelItem && index == 0 {
+                continue
             }
+            if item is SRSButtonItem {
+                continue
+            }
+            contentItems.append(item)
         }
-        return title
+        return contentItems
     }
     
     var buttonItems: [SRSButtonItem]? {
@@ -109,7 +121,8 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Filler:
-                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
+                // Disabling for now
+//                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
                 break
             }
             

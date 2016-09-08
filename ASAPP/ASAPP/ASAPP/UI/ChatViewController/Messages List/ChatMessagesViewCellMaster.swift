@@ -50,7 +50,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
-    private let SRSItemListViewCellReuseId = "SRSItemListViewCellReuseId"
+    private let SRSResponseCellReuseId = "SRSResponseCellReuseId"
     private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK: Init
@@ -69,7 +69,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
-        tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSItemListViewCellReuseId)
+        tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSResponseCellReuseId)
         tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
     
@@ -168,18 +168,12 @@ extension ChatMessagesViewCellMaster {
         if event.eventType == .SRSResponse {
             if let srsResponse = event.srsResponse {
                 switch srsResponse.displayType {
-                case .Inline:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(SRSItemListViewCellReuseId) as? ChatSRSItemListViewCell
-                    cell?.applyStyles(styles)
-                    cell?.response = srsResponse
-                    return cell
-                    
-                case .ActionSheet:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
+                case .Inline, .ActionSheet:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(SRSResponseCellReuseId) as? ChatSRSItemListViewCell
                     cell?.applyStyles(styles, isReply: isReply)
                     cell?.listPosition = listPosition
                     cell?.event = event
-                    cell?.messageText = srsResponse.itemList?.title
+                    cell?.response = srsResponse
                     cell?.detailLabelHidden = !detailsVisible
                     return cell
                 }
@@ -296,18 +290,13 @@ extension ChatMessagesViewCellMaster {
         if event.eventType == .SRSResponse {
             if let srsResponse = event.srsResponse {
                 switch srsResponse.displayType {
-                case .Inline:
-                    srsItemListViewSizingCell.applyStyles(styles)
+                case .Inline, .ActionSheet:
+                    srsItemListViewSizingCell.applyStyles(styles, isReply: isReply)
+                    srsItemListViewSizingCell.listPosition = listPosition
+                    srsItemListViewSizingCell.event = event
                     srsItemListViewSizingCell.response = srsResponse
+                    srsItemListViewSizingCell.detailLabelHidden = !detailsVisible
                     return heightForStyledView(srsItemListViewSizingCell, width: width)
-                    
-                case .ActionSheet:
-                    textMessageSizingCell.applyStyles(styles, isReply: isReply)
-                    textMessageSizingCell.listPosition = listPosition
-                    textMessageSizingCell.event = event
-                    textMessageSizingCell.messageText = srsResponse.itemList?.title
-                    textMessageSizingCell.detailLabelHidden = !detailsVisible
-                    return heightForStyledView(textMessageSizingCell, width: width)
                 }
             }
         }
