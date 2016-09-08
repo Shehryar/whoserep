@@ -21,7 +21,7 @@ class StackView: UIView {
         }
     }
 
-    var viewSpacing: CGFloat = 16 {
+    var viewSpacing: CGFloat = 10 {
         didSet {
             setNeedsLayout()
         }

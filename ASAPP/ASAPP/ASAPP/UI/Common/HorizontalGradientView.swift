@@ -35,13 +35,16 @@ class HorizontalGradientView: UIView {
 
     // MARK: Instance Methods
     
-    func update(leftColor: UIColor?, rightColor: UIColor?) {
+    func update(leftColor: UIColor?, middleColor: UIColor? = nil, rightColor: UIColor?) {
         self.leftColor = leftColor
         self.rightColor = rightColor
         
         var gradientColors = [CGColor]()
         if let leftColor = leftColor {
             gradientColors.append(leftColor.CGColor)
+        }
+        if let middleColor = middleColor {
+            gradientColors.append(middleColor.CGColor)
         }
         if let rightColor = rightColor {
             gradientColors.append(rightColor.CGColor)

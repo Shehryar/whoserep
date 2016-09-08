@@ -37,13 +37,9 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     
     // MARK: Private Properties
     
-    private let topBarView = UIView()
-    
     private let closeButton = Button()
     
-    private let separatorTop = UIView()
-    
-    private let separatorMiddle = UIView()
+    private let separatorTopView = UIView()
     
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     
@@ -55,8 +51,9 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     
     func commonInit() {
         tableView.backgroundColor = UIColor.clearColor()
+        
         tableView.scrollsToTop = false
-        tableView.alwaysBounceVertical = false
+        tableView.alwaysBounceVertical = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .None
@@ -64,6 +61,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         tableView.registerClass(ChatSuggestedReplyCell.self,
                                 forCellReuseIdentifier: CellReuseId)
         addSubview(tableView)
+        
+        addSubview(separatorTopView)
         
         closeButton.image = Images.iconSmallX()
         closeButton.imageSize = CGSize(width: 11, height: 11)
@@ -73,12 +72,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
                 blockSelf.delegate?.chatSuggestedRepliesViewDidCancel(blockSelf)
             }
         }
-        topBarView.addSubview(closeButton)
-        
-        topBarView.addSubview(separatorTop)
-        topBarView.addSubview(separatorMiddle)
-        
-        addSubview(topBarView)
+        addSubview(closeButton)
         
         applyStyles(styles)
     }
@@ -106,16 +100,23 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         self.styles = styles
         
         backgroundColor = styles.backgroundColor1
-        topBarView.backgroundColor = styles.backgroundColor2
-        closeButton.setForegroundColor(styles.foregroundColor2,
-                                       forState: .Normal)
-        closeButton.setForegroundColor(styles.foregroundColor2.highlightColor(),
-                                       forState: .Normal)
-        separatorTop.backgroundColor = styles.separatorColor1
-        separatorMiddle.backgroundColor = styles.separatorColor1
         
-        tableView.backgroundColor = styles.backgroundColor1
+        closeButton.setForegroundColor(styles.foregroundColor1, forState: .Normal)
+        closeButton.setForegroundColor(styles.foregroundColor1.highlightColor(), forState: .Normal)
+        closeButton.setBackgroundColor(styles.backgroundColor1, forState: .Normal)
+        closeButton.setBackgroundColor(styles.backgroundColor2, forState: .Highlighted)
+        closeButton.layer.borderColor = styles.separatorColor1.CGColor
+        closeButton.layer.borderWidth = 2
+        closeButton.clipsToBounds = true
         
+        separatorTopView.backgroundColor = styles.separatorColor1
+        
+        if let patternBackgroundColor = Colors.patternBackgroundColor() {
+            tableView.backgroundColor = patternBackgroundColor
+        } else {
+            tableView.backgroundColor = styles.backgroundColor1
+        }
+    
         tableView.reloadData()
     }
 }
@@ -126,19 +127,18 @@ extension ChatSuggestedRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let topBarHeight: CGFloat  = 44.0
-        topBarView.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(bounds), height: topBarHeight)
+        let closeButtonSize: CGFloat = 46.0
+        let closeButtonLeft = CGRectGetWidth(bounds) - closeButtonSize - 15
+        closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: closeButtonSize, height: closeButtonSize)
+        closeButton.layer.cornerRadius = closeButtonSize / 2.0
         
-        let separatorStroke: CGFloat = 1.0
-        separatorTop.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(bounds), height: separatorStroke)
-        separatorMiddle.frame = CGRect(x: 0.0, y: CGRectGetHeight(topBarView.bounds) - separatorStroke, width: CGRectGetWidth(topBarView.bounds), height: separatorStroke)
+        let separatorStroke: CGFloat = 2.0
+        let separatorTop = closeButton.center.y - separatorStroke / 2.0
+        separatorTopView.frame = CGRect(x: 0.0, y: separatorTop, width: CGRectGetWidth(bounds), height: separatorStroke)
         
-        let closeButtonSize: CGFloat = 50.0
-        let closeButtonLeft = CGRectGetWidth(topBarView.bounds) - closeButtonSize
-        closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: closeButtonSize, height: topBarHeight)
-        
-        let tableViewHeight = CGRectGetHeight(bounds) - topBarHeight
-        tableView.frame = CGRect(x: 0.0, y: topBarHeight, width: CGRectGetWidth(bounds), height: tableViewHeight)
+        let tableViewTop = CGRectGetMaxY(separatorTopView.frame)
+        let tableViewHeight = CGRectGetHeight(bounds) - tableViewTop
+        tableView.frame = CGRect(x: 0.0, y: tableViewTop, width: CGRectGetWidth(bounds), height: tableViewHeight)
     }
 }
 
@@ -178,10 +178,10 @@ extension ChatSuggestedRepliesView: UITableViewDataSource {
     func styleSuggestedReplyCell(cell: ChatSuggestedReplyCell, atIndexPath indexPath: NSIndexPath) {
         cell.textLabel?.font = styles.buttonFont
         cell.textLabel?.textColor = styles.foregroundColor1
-        cell.backgroundColor = styles.backgroundColor1
-        cell.selectedBackgroundColor = styles.backgroundColor2
+        cell.backgroundColor = styles.backgroundColor2
+        cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         cell.separatorBottomColor = styles.separatorColor1
-        cell.textLabel?.text = buttonItemForIndexPath(indexPath)?.title
+        cell.textLabel?.text = buttonItemForIndexPath(indexPath)?.title.uppercaseString
     }
 }
 

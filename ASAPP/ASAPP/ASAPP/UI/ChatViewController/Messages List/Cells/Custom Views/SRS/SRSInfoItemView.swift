@@ -72,7 +72,7 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         
         if orientation == .Vertical {
             labelLabel.font = styles.detailFont
-            labelLabel.textColor = styles.foregroundColor1
+            labelLabel.textColor = styles.foregroundColor2
             
             valueLabel.font = styles.headlineFont
             valueLabel.textColor = styles.foregroundColor1
@@ -121,13 +121,14 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         
         if orientation == .Vertical {
             var origin = CGPointZero
-            labelLabel.frame = CGRect(origin: origin, size: labelSize)
+            valueLabel.frame = CGRect(origin: origin, size: valueSize)
             
-            origin.y = CGRectGetMaxY(labelLabel.frame)
-            if origin.y > 0 {
+            origin.y = CGRectGetMaxY(valueLabel.frame)
+            if valueSize.height > 0 && labelSize.height > 0 {
                 origin.y += labelMargin
             }
-            valueLabel.frame = CGRect(origin: origin, size: valueSize)
+            labelLabel.frame = CGRect(origin: origin, size: labelSize)
+            
         } else {
             labelLabel.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
             let valueLeft = CGRectGetWidth(bounds) - valueSize.width

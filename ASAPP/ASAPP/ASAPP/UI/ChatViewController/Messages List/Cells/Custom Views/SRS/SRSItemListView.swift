@@ -64,8 +64,9 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 let label = UILabel()
                 label.numberOfLines = 0
                 label.lineBreakMode = .ByTruncatingTail
-                label.textColor = styles.foregroundColor1
+                label.textColor = styles.foregroundColor2
                 label.font = styles.detailFont
+                label.textAlignment = .Center
                 label.text = labelItem.text
                 createdViews.append(label)
             }
@@ -88,6 +89,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
             // Filler Item
             else if item is SRSFillerItem {
                 let fillerView = SRSFillerView()
+                fillerView.applyStyles(styles)
                 createdViews.append(fillerView)
             }
                 

@@ -43,6 +43,8 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func commonInit() {
         isReply = true
         super.commonInit()
+        
+        itemListView.contentInset = UIEdgeInsetsMake(25, 30, 25, 30)
         contentView.addSubview(itemListView)
     }
     
@@ -51,8 +53,9 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
         itemListView.backgroundColor = styles.backgroundColor2
-        itemListView.layer.borderColor = styles.separatorColor2.CGColor
+        itemListView.layer.borderColor = styles.separatorColor1.CGColor
         itemListView.layer.borderWidth = 1
+        itemListView.layer.cornerRadius = 4
         itemListView.applyStyles(styles)
         setNeedsLayout()
     }
@@ -87,6 +90,9 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         
         return CGSize(width: size.width, height: contentHeight)
     }
+    
+    // MARK: Animations
+
     
     // MARK: Reuse
     

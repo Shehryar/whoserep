@@ -16,7 +16,7 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
         }
     }
     
-    private let separatorView = UIView()
+    private let separatorView = HorizontalGradientView()
     
     // MARK: Initialization
     
@@ -41,7 +41,10 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
         
-        separatorView.backgroundColor = styles.separatorColor1
+        let color = styles.separatorColor1
+        separatorView.update(color.colorWithAlphaComponent(0),
+                             middleColor: color,
+                             rightColor: color.colorWithAlphaComponent(0))
     }
     
     // MARK: Layout

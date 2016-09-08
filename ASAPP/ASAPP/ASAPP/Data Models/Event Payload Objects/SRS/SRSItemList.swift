@@ -121,8 +121,7 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Filler:
-                // Disabling for now
-//                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
+                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
                 break
             }
             

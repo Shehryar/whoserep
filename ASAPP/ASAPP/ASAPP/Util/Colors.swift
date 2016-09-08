@@ -30,6 +30,10 @@ class Colors: NSObject {
         return UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
     }
     
+    class func steelDark50Color() -> UIColor {
+        return UIColor(red: 157 / 255.0, green: 158 / 255.0, blue: 163 / 255.0, alpha: 0.95)
+    }
+    
     class func marbleLightColor() -> UIColor {
         return UIColor(red: 236.0 / 255.0, green: 231.0 / 255.0, blue: 231.0 / 255.0, alpha: 1.0)
     }
@@ -50,7 +54,12 @@ class Colors: NSObject {
         return UIColor.whiteColor()
     }
     
-    
+    class func patternBackgroundColor() -> UIColor? {
+        if let tileImage = Images.tileImageDash() {
+            return UIColor(patternImage: tileImage)
+        }
+        return nil
+    }
     
     
     class func redColor() -> UIColor { return UIColor(red:0.921,  green:0.401,  blue:0.336, alpha:1) }

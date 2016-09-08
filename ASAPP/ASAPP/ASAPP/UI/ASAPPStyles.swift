@@ -48,9 +48,9 @@ public class ASAPPStyles: NSObject {
     
     internal var backgroundColor2: UIColor = Colors.offWhiteColor()
     
-    internal var foregroundColor1: UIColor = Colors.steelLightColor()
+    internal var foregroundColor1: UIColor = Colors.steelDarkColor()
     
-    internal var foregroundColor2: UIColor = Colors.steelMed50Color()
+    internal var foregroundColor2: UIColor = Colors.steelDark50Color()
     
     internal var separatorColor1: UIColor = Colors.marbleLightColor()
     
