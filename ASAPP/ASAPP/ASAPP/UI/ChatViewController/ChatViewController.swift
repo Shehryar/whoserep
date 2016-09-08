@@ -396,9 +396,9 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ChatWelcomeViewControllerDelegate {
     func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String) {
-        dismissViewControllerAnimated(true, completion: nil)
-        
-        sendMessage(withText: queryText)
+        dismissViewControllerAnimated(true) { 
+            self.sendMessage(withText: queryText)
+        }
     }
 }
 
@@ -423,18 +423,6 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
         updateFramesAnimated()
-    }
-    
-    func chatInputView(chatInputView: ChatInputView, didUpdateInputFrame inputFrame: CGRect) {
-        /** This messes up the SRS Animations
-         
-         if chatInputView.isFirstResponder() {
-         let convertedFrame = view.convertRect(inputFrame, fromView: nil)
-         keyboardOffset = CGRectGetHeight(view.bounds) - CGRectGetMinY(convertedFrame)
-         updateFramesAnimated(false, scrollToBottomIfNearBottom: true, completion: nil)
-         }
-         
-         */
     }
 }
 

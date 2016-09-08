@@ -20,7 +20,7 @@ class ChatWelcomeViewController: UIViewController {
     
     var delegate: ChatWelcomeViewControllerDelegate?
     
-    // MARK: UI Properties
+    // MARK: Private Properties
     
     private let contentInset = UIEdgeInsets(top: 20, left: 30, bottom: 40, right: 30)
     private let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
@@ -28,7 +28,10 @@ class ChatWelcomeViewController: UIViewController {
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
     private let buttonsView: ChatWelcomeButtonsView
-    private let messageInputView = ChatWelcomeInputView()
+    private let messageInputView = ChatInputView()
+    
+    private let keyboardObserver = KeyboardObserver()
+    private var keyboardOffset: CGFloat = 0
     
     // MARK: Initialization
     
@@ -64,11 +67,30 @@ class ChatWelcomeViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
+        messageInputView.contentInset = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 20)
+        messageInputView.backgroundColor = Colors.steelDarkColor()
+        messageInputView.layer.cornerRadius = 20
+        messageInputView.font = Fonts.latoRegularFont(withSize: 15)
+        messageInputView.textColor = Colors.whiteColor()
+        messageInputView.placeholderColor = Colors.whiteColor().colorWithAlphaComponent(0.7)
+        messageInputView.separatorColor = Colors.steelMedColor()
+        messageInputView.updateSendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 12), color: Colors.marbleMedColor())
+        messageInputView.displayMediaButton = false
+        messageInputView.displayBorderTop = false
+        messageInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
+        messageInputView.delegate = self
         blurredBgView.contentView.addSubview(messageInputView)
+        
+        keyboardObserver.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        messageInputView.delegate = nil
+        keyboardObserver.delegate = nil
     }
     
     // MARK: View
@@ -95,6 +117,11 @@ class ChatWelcomeViewController: UIViewController {
         view.addSubview(blurredBgView)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardObserver.registerForNotifications()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -108,6 +135,14 @@ class ChatWelcomeViewController: UIViewController {
                 self.buttonsView.animateButtonsIn()
             })
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        dismissKeyboard()
+        
+        keyboardObserver.deregisterForNotification()
     }
     
     // MARK: Layout
@@ -150,15 +185,25 @@ class ChatWelcomeViewController: UIViewController {
         buttonsView.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: buttonsHeight)
         
         // Input View
-        let inputHeight = messageInputView.sizeThatFits(CGSize(width: contentWidth, height: 0)).height
-        let inputTop = CGRectGetHeight(view.bounds) - contentInset.bottom - inputHeight
-        messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
-        
-        if CGRectIntersectsRect(messageInputView.frame, buttonsView.frame) {
-            buttonsView.alpha = 0.0
+        let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: 300)).height)
+        var inputTop = CGRectGetHeight(view.bounds) - inputHeight
+        if keyboardOffset > 0 {
+            inputTop -= keyboardOffset + 15
         } else {
-            buttonsView.alpha = 1.0
+           inputTop -= contentInset.bottom
         }
+        messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
+        messageInputView.layoutSubviews()
+        
+        buttonsView.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(buttonsView.frame) ? 0.0 : 1.0
+        messageLabel.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(messageLabel.frame) ? 0.0 : 1.0
+        titleLabel.alpha = CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(titleLabel.frame) ? 0.0 : 1.0
+    }
+    
+    func updateFramesAnimated() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.updateFrames()
+        })
     }
     
     // MARK: Actions
@@ -175,5 +220,36 @@ class ChatWelcomeViewController: UIViewController {
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+// MARK:- ChatInputViewDelegate
+
+extension ChatWelcomeViewController: ChatInputViewDelegate {
+    func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?) {
+        // No-op
+    }
+    
+    func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
+        chatInputView.clear()
+        finishWithMessage(message)
+    }
+    
+    func chatInputView(chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton) {
+        // No-op
+    }
+    
+    func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
+        updateFramesAnimated()
+    }
+}
+
+// MARK:- KeyboardObserver
+
+extension ChatWelcomeViewController: KeyboardObserverDelegate {
+    
+    func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
+        keyboardOffset = height
+        updateFramesAnimated()
     }
 }

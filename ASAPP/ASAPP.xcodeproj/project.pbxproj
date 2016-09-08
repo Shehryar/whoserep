@@ -98,7 +98,6 @@
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
 		309219311D66608C00E70AEB /* SummaryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309219301D66608C00E70AEB /* SummaryDetailsView.swift */; };
 		309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309219321D6666F700E70AEB /* TwoColumnLabelView.swift */; };
-		309219351D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309219341D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift */; };
 		3092193D1D77320600E70AEB /* ASAPPStringLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3092193C1D77320600E70AEB /* ASAPPStringLocalization.swift */; };
 		30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB051D5109F700795BA7 /* ImageViewer.swift */; };
 		30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */; };
@@ -208,7 +207,6 @@
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		309219301D66608C00E70AEB /* SummaryDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryDetailsView.swift; sourceTree = "<group>"; };
 		309219321D6666F700E70AEB /* TwoColumnLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnLabelView.swift; sourceTree = "<group>"; };
-		309219341D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameTrackingInputAccessoryView.swift; sourceTree = "<group>"; };
 		3092193C1D77320600E70AEB /* ASAPPStringLocalization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStringLocalization.swift; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 			isa = PBXGroup;
 			children = (
 				30226CEA1D493F5300871453 /* ChatInputView.swift */,
-				309219341D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift */,
 			);
 			path = "Message Input";
 			sourceTree = "<group>";
@@ -839,7 +836,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				309219351D678FBD00E70AEB /* FrameTrackingInputAccessoryView.swift in Sources */,
 				30D2E28D1D7A0D7500502D92 /* SRSButton.swift in Sources */,
 				300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */,
 				30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */,
