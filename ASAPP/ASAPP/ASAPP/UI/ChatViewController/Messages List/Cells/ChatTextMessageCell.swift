@@ -23,10 +23,6 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     private let textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     
-    private var animating = false
-    
-    private var animationStartTime: Double = 0.0
-    
     private var isLongPressing: Bool = false {
         didSet {
             if isLongPressing != oldValue {
@@ -110,12 +106,9 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        layer.removeAllAnimations()
         isLongPressing = false
         bubbleView.alpha = 1
         bubbleView.transform = CGAffineTransformIdentity
-        animationStartTime = 0
-        animating = false
     }
 }
 
@@ -154,59 +147,5 @@ extension ChatTextMessageCell {
     
     override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
-    }
-}
-
-// MARK:- Animations
-
-extension ChatTextMessageCell {
-    
-    override func animate() {
-        if animating {
-            return
-        }
-        animating = true
-        animationStartTime = NSDate().timeIntervalSince1970
-        let blockStartTime = animationStartTime
-        
-        bubbleView.alpha = 0
-        
-        Dispatcher.delay(100) {
-            if self.animating && self.animationStartTime == blockStartTime {
-                self.performAnimation()
-            }
-        }
-    }
-    
-    private func performAnimation() {
-        var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
-
-        var animationEndCenter = CGPoint()
-        if bubbleView.bounds.isEmpty {
-            let messageSize = bubbleView.sizeThatFits(bounds.size)
-            animationEndCenter.y = CGRectGetHeight(bounds) - contentInset.bottom - messageSize.height / 2.0
-            if isReply {
-                animationEndCenter.x = contentInset.left + messageSize.width / 2.0
-            } else {
-                animationEndCenter.x = CGRectGetWidth(bounds) - contentInset.right - messageSize.width / 2.0
-            }
-        } else {
-            animationEndCenter = bubbleView.center
-        }
-        animationBeginCenter.x = animationEndCenter.x
-        
-        
-        bubbleView.alpha = 0
-//        bubbleView.transform = CGAffineTransformMakeScale(0.01, 0.01)
-        bubbleView.center = animationBeginCenter
-        
-        UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
-            self.bubbleView.alpha = 1
-//            self.bubbleView.transform = CGAffineTransformIdentity
-            self.bubbleView.center = animationEndCenter
-            }, completion: { (completed) in
-                self.animating = false
-                self.setNeedsLayout()
-        })
     }
 }

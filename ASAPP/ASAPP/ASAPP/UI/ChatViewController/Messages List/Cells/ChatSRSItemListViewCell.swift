@@ -93,6 +93,20 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     // MARK: Animations
 
+    override func prepareToAnimate() {
+        super.prepareToAnimate()
+        
+        itemListView.alpha = 0.0
+    }
+    
+    override func performAnimation() {
+        super.performAnimation()
+        
+        UIView.animateWithDuration(0.3, delay: 0.4, options: .CurveEaseOut, animations: {
+            self.itemListView.alpha = 1
+            }, completion: nil)
+    }
+    
     
     // MARK: Reuse
     
@@ -100,5 +114,6 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         super.prepareForReuse()
         
         itemListView.delegate = nil
+        itemListView.alpha = 1
     }
 }

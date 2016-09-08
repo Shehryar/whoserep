@@ -273,7 +273,7 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0 + inputHeight)
+        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0 + inputHeight) + suggestedRepliesView.transparentInsetTop
         var repliesTop = CGRectGetHeight(view.bounds)
         if actionableMessage != nil {
             repliesTop -= repliesHeight
@@ -649,7 +649,7 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        let shouldFetchMostRecentOnly = true
+        let shouldFetchMostRecentOnly = false
         if shouldFetchMostRecentOnly {
             if let mostRecentEvent = chatMessagesView.mostRecentEvent {
                 conversationManager.getMessageEvents(mostRecentEvent) { [weak self] (fetchedEvents, error) in

@@ -82,6 +82,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     private var animating = false
     
+    private var animationStartTime: Double = 0.0
+    
     // MARK: Init
     
     func commonInit() {
@@ -204,7 +206,11 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        layer.removeAllAnimations()
+        bubbleView.alpha = 1
+        bubbleView.transform = CGAffineTransformIdentity
+        animationStartTime = 0
+        animating = false
         event = nil
         setDetailLabelHidden(true, animated: false, completion: nil)
     }
@@ -274,15 +280,11 @@ extension ChatBubbleCell {
 
 extension ChatBubbleCell {
     
-    func animate() {
-        // Subclasses can override
-    }
-    
     func setDetailLabelHidden(hidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         if hidden == detailLabelHidden { return }
         
         if animated {
-            UIView.animateWithDuration(0.3, animations: { 
+            UIView.animateWithDuration(0.3, animations: {
                 self.detailLabelHidden = hidden
                 self.updateFrames()
                 }, completion: { (completed) in
@@ -293,5 +295,57 @@ extension ChatBubbleCell {
             updateFrames()
             completion?()
         }
+    }
+    
+    // MARK:- Animations
+    
+    func animate() {
+        guard !animating else { return }
+        
+        animating = true
+        animationStartTime = NSDate().timeIntervalSince1970
+        let blockStartTime = animationStartTime
+        
+        prepareToAnimate()
+        
+        Dispatcher.delay(100) {
+            if self.animating && self.animationStartTime == blockStartTime {
+                self.performAnimation()
+            }
+        }
+    }
+    
+    internal func prepareToAnimate() {
+        bubbleView.alpha = 0
+    }
+    
+    internal func performAnimation() {
+        var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
+        
+        var animationEndCenter = CGPoint()
+        if bubbleView.bounds.isEmpty {
+            let messageSize = bubbleView.sizeThatFits(bounds.size)
+            animationEndCenter.y = CGRectGetHeight(bounds) - contentInset.bottom - messageSize.height / 2.0
+            if isReply {
+                animationEndCenter.x = contentInset.left + messageSize.width / 2.0
+            } else {
+                animationEndCenter.x = CGRectGetWidth(bounds) - contentInset.right - messageSize.width / 2.0
+            }
+        } else {
+            animationEndCenter = bubbleView.center
+        }
+        animationBeginCenter.x = animationEndCenter.x
+        
+        
+        bubbleView.alpha = 0
+        bubbleView.center = animationBeginCenter
+        
+        UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.bubbleView.alpha = 1
+            self.bubbleView.center = animationEndCenter
+            }, completion: { (completed) in
+                self.animating = false
+                self.setNeedsLayout()
+        })
     }
 }

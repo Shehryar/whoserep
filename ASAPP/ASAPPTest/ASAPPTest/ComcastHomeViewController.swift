@@ -51,7 +51,7 @@ class ComcastHomeViewController: ImageBackgroundViewController {
             chatButton.animateIn(afterDelay: 1.5)
         }
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
     }
     
     func showTestViewController() {
