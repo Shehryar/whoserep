@@ -12,14 +12,9 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Public Properties
     
-    /// *Note* event does not affect the UI -- it is to be used for reference by called only
-    var event: Event?
-    
     var messageText: String? {
         didSet {
             textMessageLabel.text = messageText
-            
-            detailLabel.text = "Hey mitch"
             setNeedsLayout()
         }
     }

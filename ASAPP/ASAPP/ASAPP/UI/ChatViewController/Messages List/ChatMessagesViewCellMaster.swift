@@ -16,6 +16,8 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     // MARK: Private Properties
     
+    private let dateFormatter = NSDateFormatter()
+    
     private var cellHeightCache = [Event : CGFloat]()
     
     private var timeHeaderHeightCache = [Double : CGFloat]()
@@ -156,6 +158,7 @@ extension ChatMessagesViewCellMaster {
             let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
+            cell?.event = event
             cell?.messageText = event.textMessage?.text
             cell?.detailLabelHidden = !detailsVisible
             return cell
@@ -175,6 +178,7 @@ extension ChatMessagesViewCellMaster {
                     let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
                     cell?.applyStyles(styles, isReply: isReply)
                     cell?.listPosition = listPosition
+                    cell?.event = event
                     cell?.messageText = srsResponse.itemList?.title
                     return cell
                 }
@@ -281,6 +285,7 @@ extension ChatMessagesViewCellMaster {
         if event.eventType == .TextMessage {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
+            textMessageSizingCell.event = event
             textMessageSizingCell.messageText = event.textMessage?.text
             textMessageSizingCell.detailLabelHidden = !detailsVisible
             return heightForStyledView(textMessageSizingCell, width: width)
@@ -298,6 +303,7 @@ extension ChatMessagesViewCellMaster {
                 case .ActionSheet:
                     textMessageSizingCell.applyStyles(styles, isReply: isReply)
                     textMessageSizingCell.listPosition = listPosition
+                    textMessageSizingCell.event = event
                     textMessageSizingCell.messageText = srsResponse.itemList?.title
                     return heightForStyledView(textMessageSizingCell, width: width)
                 }

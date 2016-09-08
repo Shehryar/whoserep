@@ -142,8 +142,11 @@ class Event: Object {
     var isCustomerEvent: Bool {
         return eventFlags == 1
     }
-    var eventTimeInSeconds: Int64 {
-        return Int64(eventTime / 1000000)
+    var eventTimeInSeconds: Double {
+        return Double(Int64(eventTime / 1000000))
+    }
+    var eventDate: NSDate {
+        return NSDate(timeIntervalSince1970: eventTimeInSeconds)
     }
     
     // MARK: Lazy Properties
@@ -289,7 +292,7 @@ class Event: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "srsResponse"]
+        return ["eventJSONObject", "payload", "eventDate", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "srsResponse"]
     }
     
     // MARK:- Initialization

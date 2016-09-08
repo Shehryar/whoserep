@@ -11,7 +11,7 @@ import SDWebImage
 
 class ChatPictureMessageCell: ChatBubbleCell {
     
-    var event: Event? {
+    override var event: Event? {
         didSet {
             if let event = event, let pictureMessage = event.pictureMessage {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)

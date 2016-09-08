@@ -44,6 +44,19 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
+    var event: Event? {
+        didSet {
+            if let event = event {
+                let eventDate = event.eventDate
+                dateFormatter.dateFormat = eventDate.dateFormatForMostRecent()
+                detailLabel.text = dateFormatter.stringFromDate(eventDate)
+            } else {
+                detailLabel.text = nil
+            }
+            setNeedsLayout()
+        }
+    }
+    
     var detailLabelMargin: CGFloat = 5.0 {
         didSet {
             setNeedsLayout()
@@ -64,6 +77,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     internal let bubbleView = BubbleView()
     
     internal let detailLabel = UILabel()
+    
+    private let dateFormatter = NSDateFormatter()
     
     private var animating = false
     
@@ -189,7 +204,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
+        event = nil
         setDetailLabelHidden(true, animated: false, completion: nil)
     }
 }

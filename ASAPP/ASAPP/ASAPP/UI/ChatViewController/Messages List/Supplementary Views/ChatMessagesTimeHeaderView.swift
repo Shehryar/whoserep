@@ -56,23 +56,13 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     // MARK:- Instance Methods
     
     func timeTextForDate(date: NSDate) -> String {
-        var dateFormat: String
-        if date.isToday() {
-            dateFormat = "h:mma"
-        } else if date.isYesterday() {
-            dateFormat = "'Yesterday at' h:mma"
-        } else if date.isThisYear() {
-            dateFormat = "MMMM d 'at' h:mma"
-        } else {
-            dateFormat = "MMMM d, yyyy 'at' h:mma"
-        }
-        dateFormatter.dateFormat = dateFormat
+        dateFormatter.dateFormat = date.dateFormatForMostRecent()
         
         return dateFormatter.stringFromDate(date)
     }
     
     func updateTimeLabel() {
-        timeLabel.text = timeTextForDate(NSDate(timeIntervalSince1970: timeStampInSeconds ))
+        timeLabel.text = timeTextForDate(NSDate(timeIntervalSince1970: timeStampInSeconds))
         setNeedsLayout()
     }
     

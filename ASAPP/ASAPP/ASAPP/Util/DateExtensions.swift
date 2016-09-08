@@ -53,3 +53,19 @@ extension NSDate {
         return todaysComponenets.year == componenets.year
     }
 }
+
+extension NSDate {
+    func dateFormatForMostRecent() -> String {
+        var dateFormat: String
+        if isToday() {
+            dateFormat = "h:mma"
+        } else if isYesterday() {
+            dateFormat = "'Yesterday at' h:mma"
+        } else if isThisYear() {
+            dateFormat = "MMMM d 'at' h:mma"
+        } else {
+            dateFormat = "MMMM d, yyyy 'at' h:mma"
+        }
+        return dateFormat
+    }
+}
