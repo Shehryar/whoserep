@@ -281,7 +281,7 @@ extension ChatViewController {
         suggestedRepliesView.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
         
         let messagesHeight = min(CGRectGetMinY(chatInputView.frame),
-                                 CGRectGetMinY(suggestedRepliesView.frame))
+                                 CGRectGetMinY(suggestedRepliesView.frame) + suggestedRepliesView.transparentInsetTop)
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
@@ -649,7 +649,7 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        let shouldFetchMostRecentOnly = false
+        let shouldFetchMostRecentOnly = true
         if shouldFetchMostRecentOnly {
             if let mostRecentEvent = chatMessagesView.mostRecentEvent {
                 conversationManager.getMessageEvents(mostRecentEvent) { [weak self] (fetchedEvents, error) in

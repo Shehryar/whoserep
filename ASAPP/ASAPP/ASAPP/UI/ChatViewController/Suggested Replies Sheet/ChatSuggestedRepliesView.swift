@@ -26,6 +26,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         }
     }
     
+    var transparentInsetTop: CGFloat {
+        return closeButtonSize / 2.0 - separatorTopStroke / 2.0
+    }
+    
     private var buttonItems: [SRSButtonItem]? {
         didSet {
             tableView.reloadData()
@@ -37,9 +41,17 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     
     // MARK: Private Properties
     
+    private let closeButtonSize: CGFloat = 46.0
+    
+    private let separatorTopStroke: CGFloat = 2.0
+    
     private let closeButton = Button()
     
     private let separatorTopView = UIView()
+    
+    private let patternBackgroundView = UIView()
+    
+    private let patternView = UIView()
     
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     
@@ -50,8 +62,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     // MARK: Initialization
     
     func commonInit() {
-        tableView.backgroundColor = UIColor.clearColor()
+        patternBackgroundView.addSubview(patternView)
+        addSubview(patternBackgroundView)
         
+        tableView.backgroundColor = UIColor.clearColor()
         tableView.scrollsToTop = false
         tableView.alwaysBounceVertical = true
         tableView.dataSource = self
@@ -99,8 +113,6 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
         
-        backgroundColor = styles.backgroundColor1
-        
         closeButton.setForegroundColor(styles.foregroundColor1, forState: .Normal)
         closeButton.setForegroundColor(styles.foregroundColor1.highlightColor(), forState: .Normal)
         closeButton.setBackgroundColor(styles.backgroundColor1, forState: .Normal)
@@ -111,11 +123,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         
         separatorTopView.backgroundColor = styles.separatorColor1
         
-        if let patternBackgroundColor = Colors.patternBackgroundColor() {
-            tableView.backgroundColor = patternBackgroundColor
-        } else {
-            tableView.backgroundColor = styles.backgroundColor1
-        }
+        patternBackgroundView.backgroundColor = styles.backgroundColor2
+        patternView.backgroundColor = Colors.patternBackgroundColor()
     
         tableView.reloadData()
     }
@@ -127,18 +136,18 @@ extension ChatSuggestedRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let closeButtonSize: CGFloat = 46.0
         let closeButtonLeft = CGRectGetWidth(bounds) - closeButtonSize - 15
         closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: closeButtonSize, height: closeButtonSize)
         closeButton.layer.cornerRadius = closeButtonSize / 2.0
         
-        let separatorStroke: CGFloat = 2.0
-        let separatorTop = closeButton.center.y - separatorStroke / 2.0
-        separatorTopView.frame = CGRect(x: 0.0, y: separatorTop, width: CGRectGetWidth(bounds), height: separatorStroke)
+        let separatorTop = closeButton.center.y - separatorTopStroke / 2.0
+        separatorTopView.frame = CGRect(x: 0.0, y: separatorTop, width: CGRectGetWidth(bounds), height: separatorTopStroke)
         
         let tableViewTop = CGRectGetMaxY(separatorTopView.frame)
         let tableViewHeight = CGRectGetHeight(bounds) - tableViewTop
         tableView.frame = CGRect(x: 0.0, y: tableViewTop, width: CGRectGetWidth(bounds), height: tableViewHeight)
+        patternBackgroundView.frame = tableView.frame
+        patternView.frame = patternBackgroundView.bounds
     }
 }
 

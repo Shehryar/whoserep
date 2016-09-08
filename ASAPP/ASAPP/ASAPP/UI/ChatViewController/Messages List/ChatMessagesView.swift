@@ -63,7 +63,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         get { return tableView.contentInset }
     }
     
-    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 5, right: 0)
     
     private var dataSource: ChatMessagesViewDataSource
     
