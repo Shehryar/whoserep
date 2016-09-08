@@ -39,6 +39,7 @@ class ChatViewController: UIViewController {
     private var keyboardOffset: CGFloat = 0
     private var keyboardRenderedHeight: CGFloat = 0
     
+    private let askAQuestionButton = Button()
     private let chatMessagesView: ChatMessagesView
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
@@ -63,6 +64,15 @@ class ChatViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
+        
+        askAQuestionButton.title = ASAPPLocalizedString("ASK A NEW QUESTION")
+        askAQuestionButton.font = self.styles.buttonFont
+        askAQuestionButton.foregroundColor = self.styles.navBarButtonColor
+        askAQuestionButton.onTap = { [weak self] in
+            self?.showWelcomeViewController()
+        }
+        askAQuestionButton.sizeToFit()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: askAQuestionButton)
         
         chatMessagesView.delegate = self
         chatMessagesView.applyStyles(self.styles)
@@ -131,8 +141,6 @@ class ChatViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ChatViewController.dismissChatViewController))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Predictive", style: .Plain, target: self, action: #selector(ChatViewController.showWelcomeViewController))
-        
         // View
         
         view.clipsToBounds = true
@@ -159,6 +167,11 @@ class ChatViewController: UIViewController {
                 conversationManager.startSRS()
             }
         }
+        
+        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
+            showWelcomeOnViewAppear = false
+            showWelcomeViewController()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -173,12 +186,12 @@ class ChatViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
-            showWelcomeOnViewAppear = false
-            Dispatcher.delay(200, closure: { 
-                self.showWelcomeViewController()
-            })
-        }
+//        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
+//            showWelcomeOnViewAppear = false
+//            Dispatcher.delay(200, closure: {
+//                self.showWelcomeViewController()
+//            })
+//        }
     }
     
     // MARK: Updates
@@ -242,7 +255,10 @@ extension ChatViewController {
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
         let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
-        let inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        var inputTop = CGRectGetHeight(view.bounds)
+        if liveChat {
+            inputTop = inputTop - keyboardOffset - inputHeight
+        }
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
@@ -388,7 +404,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ChatWelcomeViewControllerDelegate {
     
-    func showWelcomeViewController() {
+    func showWelcomeViewController(animated: Bool = true) {
         keyboardObserver.deregisterForNotification()
         
         let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles)
@@ -396,9 +412,8 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
         welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
         welcomeNavigationController.modalTransitionStyle = .CrossDissolve
-        presentViewController(welcomeNavigationController, animated: true, completion: nil)
+        presentViewController(welcomeNavigationController, animated: animated, completion: nil)
     }
-    
     
     // MARK: Delegate
     
