@@ -39,7 +39,6 @@ class ChatViewController: UIViewController {
     private var keyboardOffset: CGFloat = 0
     private var keyboardRenderedHeight: CGFloat = 0
     
-    private let askAQuestionButton = Button()
     private let chatMessagesView: ChatMessagesView
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
@@ -65,6 +64,10 @@ class ChatViewController: UIViewController {
         
         conversationManager.delegate = self
         
+        // Buttons
+        
+        let askAQuestionButton = Button()
+        askAQuestionButton.insetLeft = 0
         askAQuestionButton.title = ASAPPLocalizedString("ASK A NEW QUESTION")
         askAQuestionButton.font = self.styles.buttonFont
         askAQuestionButton.foregroundColor = self.styles.navBarButtonColor
@@ -73,6 +76,19 @@ class ChatViewController: UIViewController {
         }
         askAQuestionButton.sizeToFit()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: askAQuestionButton)
+        
+        let closeButton = Button()
+        closeButton.insetRight = 0
+        closeButton.image = Images.iconX()
+        closeButton.foregroundColor = self.styles.navBarButtonColor
+        closeButton.imageSize = CGSize(width: 13, height: 13)
+        closeButton.onTap = { [weak self] in
+            self?.dismissChatViewController()
+        }
+        closeButton.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        // Subviews
         
         chatMessagesView.delegate = self
         chatMessagesView.applyStyles(self.styles)
@@ -138,8 +154,6 @@ class ChatViewController: UIViewController {
             }
             navigationBar.tintColor = styles.navBarButtonColor
         }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ChatViewController.dismissChatViewController))
         
         // View
         
@@ -255,10 +269,7 @@ extension ChatViewController {
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
         let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
-        var inputTop = CGRectGetHeight(view.bounds)
-        if liveChat {
-            inputTop = inputTop - keyboardOffset - inputHeight
-        }
+        var inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         

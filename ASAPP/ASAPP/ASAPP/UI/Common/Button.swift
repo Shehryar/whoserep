@@ -46,6 +46,46 @@ class Button: UIView {
         didSet { setNeedsLayout() }
     }
     
+    var insetRight: CGFloat {
+        get { return contentInset.right }
+        set {
+            var tempInset = contentInset
+            tempInset.right = newValue
+            contentInset = tempInset
+            setNeedsLayout()
+        }
+    }
+    
+    var insetLeft: CGFloat {
+        get { return contentInset.left }
+        set {
+            var tempInset = contentInset
+            tempInset.left = newValue
+            contentInset = tempInset
+            setNeedsLayout()
+        }
+    }
+    
+    var insetTop: CGFloat {
+        get { return contentInset.top }
+        set {
+            var tempInset = contentInset
+            tempInset.top = newValue
+            contentInset = tempInset
+            setNeedsLayout()
+        }
+    }
+    
+    var insetBottom: CGFloat {
+        get { return contentInset.bottom }
+        set {
+            var tempInset = contentInset
+            tempInset.bottom = newValue
+            contentInset = tempInset
+            setNeedsLayout()
+        }
+    }
+    
     var imageTitleMargin: CGFloat = 12.0 {
         didSet { setNeedsLayout() }
     }
@@ -196,13 +236,15 @@ extension Button {
         var imageMargin: CGFloat  = 0.0
         if image != nil {
             imageWidth = imageSize.width
-            imageMargin = imageTitleMargin
         }
         let imageTop = floor((CGRectGetHeight(bounds) - imageSize.height) / 2.0)
         
         let maxTitleWidth = maxContentWidth - imageWidth - imageMargin
         let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
         let titleWidth = ceil(titleSize.width)
+        if titleWidth > 0 && imageWidth > 0 {
+            imageMargin = imageTitleMargin
+        }
         let titleHeight = ceil(titleSize.height)
         let titleTop = floor((CGRectGetHeight(bounds) - titleHeight) / 2.0)
         
@@ -231,7 +273,7 @@ extension Button {
         var contentWidth: CGFloat = 0.0
         var contentHeight: CGFloat = 0.0
         if image != nil {
-            contentWidth += imageSize.width + imageTitleMargin
+            contentWidth += imageSize.width
             contentHeight = imageSize.height
         }
         
@@ -239,6 +281,9 @@ extension Button {
         let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
         
         contentWidth += ceil(titleSize.width)
+        if titleSize.width > 0 && image != nil {
+            contentWidth += imageTitleMargin
+        }
         contentHeight = max(contentHeight, ceil(titleSize.height))
         
         return CGSize(width: contentWidth + contentInset.left + contentInset.right,

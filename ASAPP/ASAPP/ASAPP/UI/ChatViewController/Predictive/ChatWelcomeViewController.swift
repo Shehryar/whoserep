@@ -43,6 +43,18 @@ class ChatWelcomeViewController: UIViewController {
         self.buttonsView = ChatWelcomeButtonsView(styles: styles)
         super.init(nibName: nil, bundle: nil)
         
+        let closeButton = Button()
+        closeButton.insetRight = 0.0
+        closeButton.image = Images.iconX()
+        closeButton.foregroundColor = UIColor.whiteColor()
+        closeButton.imageSize = CGSize(width: 13, height: 13)
+        closeButton.onTap = { [weak self] in
+            self?.didTapCancel()
+        }
+        closeButton.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         blurredBgView.addGestureRecognizer(tapGesture)
@@ -111,10 +123,6 @@ class ChatWelcomeViewController: UIViewController {
             navigationBar.shadowImage = UIImage()
             navigationBar.tintColor = UIColor.whiteColor()
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.iconX(fillColor: UIColor.whiteColor()),
-                                                            style: .Plain,
-                                                            target: self,
-                                                            action: #selector(ChatWelcomeViewController.didTapCancel))
         
         // View
         
