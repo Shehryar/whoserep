@@ -180,6 +180,7 @@ extension ChatMessagesViewCellMaster {
                     cell?.listPosition = listPosition
                     cell?.event = event
                     cell?.messageText = srsResponse.itemList?.title
+                    cell?.detailLabelHidden = !detailsVisible
                     return cell
                 }
             }
@@ -305,6 +306,7 @@ extension ChatMessagesViewCellMaster {
                     textMessageSizingCell.listPosition = listPosition
                     textMessageSizingCell.event = event
                     textMessageSizingCell.messageText = srsResponse.itemList?.title
+                    textMessageSizingCell.detailLabelHidden = !detailsVisible
                     return heightForStyledView(textMessageSizingCell, width: width)
                 }
             }
