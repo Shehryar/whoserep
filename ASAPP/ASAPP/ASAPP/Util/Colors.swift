@@ -22,6 +22,10 @@ class Colors: NSObject {
         return UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0)
     }
     
+    class func steelMed50Color() -> UIColor {
+        return UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
+    }
+    
     class func steelDarkColor() -> UIColor {
         return UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
     }

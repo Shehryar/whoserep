@@ -18,6 +18,8 @@ class ChatTextMessageCell: ChatBubbleCell {
     var messageText: String? {
         didSet {
             textMessageLabel.text = messageText
+            
+            detailLabel.text = "Hey mitch"
             setNeedsLayout()
         }
     }
@@ -85,33 +87,28 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    func messageLabelSizeThatFitsBoundsSize(size: CGSize) -> CGSize {
+    func messageLabelSizeThatFits(size: CGSize) -> CGSize {
         let maxBubbleWidth = maxBubbleWidthForBoundsSize(size)
         let maxMessageWidth = maxBubbleWidth - textInset.right - textInset.left
-        let messageSize = textMessageLabel.sizeThatFits(CGSize(width: maxMessageWidth, height: 0))
+        var messageSize = textMessageLabel.sizeThatFits(CGSize(width: maxMessageWidth, height: 0))
+        messageSize.width = ceil(messageSize.width)
+        messageSize.height = ceil(messageSize.height)
         
         return messageSize
+    }
+    
+    override func bubbleSizeForSize(size: CGSize) -> CGSize {
+        let messageSize = messageLabelSizeThatFits(size)
+        let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
+                                height: ceil(messageSize.height + textInset.top + textInset.bottom))
+        
+        return bubbleSize
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let messageSize = messageLabelSizeThatFitsBoundsSize(bounds.size)
-        let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
-                                height: ceil(messageSize.height + textInset.top + textInset.bottom))
-        var bubbleLeft = contentInset.left
-        if !isReply {
-            bubbleLeft = CGRectGetWidth(bounds) - bubbleSize.width - contentInset.right
-        }
-        
-        bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
         textMessageLabel.frame = UIEdgeInsetsInsetRect(bubbleView.bounds, textInset)
-    }
-    
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        let textHeight = messageLabelSizeThatFitsBoundsSize(size).height + textInset.top + textInset.bottom
-        let contentHeight = textHeight + contentInset.top + contentInset.bottom
-        return CGSize(width: size.width, height: contentHeight)
     }
     
     // MARK: Reuse

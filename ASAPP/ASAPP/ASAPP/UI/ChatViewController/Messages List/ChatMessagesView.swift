@@ -31,6 +31,8 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     var delegate: ChatMessagesViewDelegate?
     
+    var showTimeStampForEvent: Event?
+    
     var earliestEvent: Event? {
         return dataSource.allEvents.first
     }
@@ -235,6 +237,7 @@ extension ChatMessagesView: UITableViewDataSource {
         let cell = cellMaster.cellForEvent(event,
                                            isReply: isReply ?? true,
                                            listPosition: listPosition,
+                                           detailsVisible: (event == showTimeStampForEvent),
                                            atIndexPath: indexPath)
         
         if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
@@ -290,7 +293,8 @@ extension ChatMessagesView: UITableViewDelegate {
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCellWithEvent(event,
                                                        isReply: isReply ?? true,
-                                                       listPosition: listPosition)
+                                                       listPosition: listPosition,
+                                                       detailsVisible: (event == showTimeStampForEvent))
 
         return height
     }
@@ -305,7 +309,36 @@ extension ChatMessagesView: UITableViewDelegate {
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
+        } else if let bubbleCell = cell as? ChatBubbleCell {
+            toggleTimeStampForEventAtIndexPath(indexPath)
         }
+    }
+    
+    func toggleTimeStampForEventAtIndexPath(indexPath: NSIndexPath) {
+        
+        let nextEvent = dataSource.eventForIndexPath(indexPath)
+        var previousEvent = showTimeStampForEvent
+        
+        // Hide timestamp on previous cell
+        if let previousEvent = showTimeStampForEvent,
+            let previousIndexPath = dataSource.indexPathOfEvent(previousEvent),
+            let previousCell = tableView.cellForRowAtIndexPath(previousIndexPath) as? ChatBubbleCell {
+            previousCell.setDetailLabelHidden(true, animated: true)
+        }
+        
+        // Show timestamp on next cell
+        if nextEvent != previousEvent {
+            showTimeStampForEvent = nextEvent
+            if let nextCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatBubbleCell {
+                nextCell.setDetailLabelHidden(false, animated: true)
+            }
+        } else {
+            showTimeStampForEvent = nil
+        }
+        
+        // Update cell heights
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 

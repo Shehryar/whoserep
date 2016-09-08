@@ -561,8 +561,8 @@
 			children = (
 				300888A41D64D48300C25802 /* ChatMessagesViewCellProtocol.swift */,
 				30A4BB161D52400D00795BA7 /* ChatBubbleCell.swift */,
-				30A4BB171D52400D00795BA7 /* ChatPictureMessageCell.swift */,
 				30A4BB181D52400D00795BA7 /* ChatTextMessageCell.swift */,
+				30A4BB171D52400D00795BA7 /* ChatPictureMessageCell.swift */,
 				30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */,
 				30A4BB1A1D52400D00795BA7 /* ChatTypingPreviewCell.swift */,
 				30A4BB261D5240B100795BA7 /* ChatInfoTextCell.swift */,

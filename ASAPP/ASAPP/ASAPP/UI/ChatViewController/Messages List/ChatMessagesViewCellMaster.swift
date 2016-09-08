@@ -140,7 +140,7 @@ extension ChatMessagesViewCellMaster {
         return cell
     }
     
-    func cellForEvent(event: Event, isReply: Bool, listPosition: MessageListPosition, atIndexPath: NSIndexPath) -> UITableViewCell? {
+    func cellForEvent(event: Event, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool, atIndexPath: NSIndexPath) -> UITableViewCell? {
         
         // Picture Message
         if event.eventType == .PictureMessage {
@@ -157,6 +157,7 @@ extension ChatMessagesViewCellMaster {
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
             cell?.messageText = event.textMessage?.text
+            cell?.detailLabelHidden = !detailsVisible
             return cell
         }
         
@@ -233,23 +234,31 @@ extension ChatMessagesViewCellMaster {
         return heightForStyledView(typingPreviewSizingCell, width: CGRectGetWidth(tableView.bounds))
     }
     
-    func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition) -> CGFloat {
+    func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
         guard let event = event else { return 0.0 }
+        
+        let canCacheHeight = !detailsVisible
         
         cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
         
-        if let cachedHeight = cellHeightCache[event] {
+        if canCacheHeight {
+            if let cachedHeight = cellHeightCache[event] {
 //            print("Cached Height: \(cachedHeight)")
-            return cachedHeight
+                return cachedHeight
+            }
         }
         
         // Calculate height
         let height: CGFloat = calculateHeightForCellWithEvent(event,
                                                               isReply: isReply,
                                                               listPosition: listPosition,
+                                                              detailsVisible: detailsVisible,
                                                               width: cachedTableViewWidth)
-        cellHeightCache[event] = height
-//        print("Calculated Height: \(height)")
+        if canCacheHeight {
+            cellHeightCache[event] = height
+        }
+        
+//        print("Calculated Height: \(height)")        
         
         return height
     }
@@ -257,6 +266,7 @@ extension ChatMessagesViewCellMaster {
     private func calculateHeightForCellWithEvent(event: Event,
                                                  isReply: Bool,
                                                  listPosition: MessageListPosition,
+                                                 detailsVisible: Bool,
                                                  width: CGFloat) -> CGFloat {
         
         // Picture Message
@@ -272,6 +282,7 @@ extension ChatMessagesViewCellMaster {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
             textMessageSizingCell.messageText = event.textMessage?.text
+            textMessageSizingCell.detailLabelHidden = !detailsVisible
             return heightForStyledView(textMessageSizingCell, width: width)
         }
         
