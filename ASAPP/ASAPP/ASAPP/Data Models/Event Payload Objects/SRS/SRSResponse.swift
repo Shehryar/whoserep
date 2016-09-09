@@ -47,6 +47,21 @@ class SRSResponse: NSObject, JSONObject {
         response.classification = json["classification"] as? String
         response.itemList = SRSItemList.instanceWithJSON(json["content"] as? [String : AnyObject]) as? SRSItemList
         
+        
+        // MITCH MITCH MITCH TEST TEST TESTING
+        if let classification = response.classification {
+            if classification.lowercaseString == "bpp" {
+                if let buttonItems = response.itemList?.buttonItems {
+                    for buttonItem in buttonItems {
+                        if buttonItem.deepLink?.lowercaseString == "payment" {
+                            buttonItem.isAutoSelect = true
+                            response.displayType = .ActionSheet
+                        }
+                    }
+                }
+            }
+        }
+        
         return response
     }
 }

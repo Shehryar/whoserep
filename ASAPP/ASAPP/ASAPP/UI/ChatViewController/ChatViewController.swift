@@ -278,7 +278,7 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0 + inputHeight) + suggestedRepliesView.transparentInsetTop
+        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 200.0 + inputHeight) + suggestedRepliesView.transparentInsetTop
         var repliesTop = CGRectGetHeight(view.bounds)
         if actionableMessage != nil {
             repliesTop -= repliesHeight
@@ -342,8 +342,7 @@ extension ChatViewController {
         if buttonItem.deepLink?.lowercaseString == "troubleshoot" {
             let service = buttonItem.deepLinkData?["service"] as? String
             if service == "internet" || service == "video" || service == "voice" {
-                actionableMessage = nil
-                updateFramesAnimated(true, completion: { 
+                clearSuggestedRepliesView(true, completion: { 
                     self.showDeviceRestartTroubleshooterView()
                 })
                 return
@@ -366,7 +365,7 @@ extension ChatViewController {
         case .SRS:
             conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
                 // TODO: Check for success
-                self?.actionableMessage = nil
+//                self?.actionableMessage = nil
 //                self?.chatInputView.becomeFirstResponder()
                 self?.updateFramesAnimated()
             }
@@ -423,7 +422,11 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
         welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
         welcomeNavigationController.modalTransitionStyle = .CrossDissolve
-        presentViewController(welcomeNavigationController, animated: animated, completion: nil)
+        presentViewController(welcomeNavigationController, animated: animated) {
+            if self.actionableMessage != nil {
+                self.clearSuggestedRepliesView()
+            }
+        }
         
         didPresentQuestionView = true
     }
@@ -433,8 +436,8 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
     func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String) {
         
         keyboardObserver.registerForNotifications()
+        self.chatMessagesView.scrollToBottomAnimated(false)
         dismissViewControllerAnimated(true) {
-            self.chatMessagesView.scrollToBottomAnimated(true)
             self.sendMessage(withText: queryText)
         }
     }
@@ -474,12 +477,23 @@ extension ChatViewController: ChatInputViewDelegate {
 // MARK:- ChatSuggestedRepliesView
 
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
-    func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
+    
+    func clearSuggestedRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         actionableMessage = nil
+        
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: {
+            self.suggestedRepliesView.clear()
+            completion?()
+        })
+    }
+    
+    // MARK: Delegate
+    
+    func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
         if liveChat {
             chatInputView.becomeFirstResponder()
         }
-        updateFramesAnimated()
+        clearSuggestedRepliesView()
     }
     
     func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) {
@@ -504,7 +518,7 @@ extension ChatViewController: ConversationManagerDelegate {
                     } else if let buttonItems = srsResponse.itemList?.buttonItems {
                         Dispatcher.delay(200, closure: { [weak self] in
                             self?.actionableMessage = srsResponse
-                            self?.suggestedRepliesView.actionableMessage = srsResponse
+                            self?.suggestedRepliesView.setActionableMessage(srsResponse, animated: true)
                             self?.updateFramesAnimated()
                             })
                     }
