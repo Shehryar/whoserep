@@ -86,8 +86,8 @@ class ComcastHomeViewController: ImageBackgroundViewController {
             })
         
         if let chatButton = chatButton {
-            chatButton.frame = CGRect(x: 0, y: 13, width: 65, height: 65)
-            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 78))
+            chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
+            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 88))
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
