@@ -21,6 +21,8 @@ class ChatWelcomeViewController: UIViewController {
     
     var delegate: ChatWelcomeViewControllerDelegate?
     
+    var tapGesture: UITapGestureRecognizer?
+    
     // MARK: Private Properties
     
     private let contentInset = UIEdgeInsets(top: 20, left: 30, bottom: 40, right: 30)
@@ -57,9 +59,12 @@ class ChatWelcomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
         
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        blurredBgView.addGestureRecognizer(tapGesture)
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
+        if let tapGesture = tapGesture {
+            tapGesture.cancelsTouchesInView = false
+            tapGesture.delegate = self
+            blurredBgView.addGestureRecognizer(tapGesture)
+        }
         
         blurredColorLayer.backgroundColor = Colors.steelLightColor().colorWithAlphaComponent(0.5).CGColor
         blurredBgView.contentView.layer.insertSublayer(blurredColorLayer, atIndex: 0)
@@ -114,6 +119,7 @@ class ChatWelcomeViewController: UIViewController {
     deinit {
         messageInputView.delegate = nil
         keyboardObserver.delegate = nil
+        tapGesture?.delegate = nil
     }
     
     // MARK: View
@@ -254,6 +260,19 @@ class ChatWelcomeViewController: UIViewController {
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+// MARK:- UIGestureRecognizerDelegate
+
+extension ChatWelcomeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if let touchView = touch.view {
+            if touchView.isDescendantOfView(buttonsView) || touchView.isDescendantOfView(messageInputView) {
+                return false
+            }
+        }
+        return true
     }
 }
 

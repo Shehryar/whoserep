@@ -476,7 +476,9 @@ extension ChatViewController: ChatInputViewDelegate {
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
         actionableMessage = nil
-        chatInputView.becomeFirstResponder()
+        if liveChat {
+            chatInputView.becomeFirstResponder()
+        }
         updateFramesAnimated()
     }
     
