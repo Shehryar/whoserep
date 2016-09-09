@@ -12,14 +12,16 @@ import ASAPP
 class ComcastHomeViewController: ImageBackgroundViewController {
 
     ///** SRS Dev Server
-    
-    let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
-                                  userToken: "vs-cct-c9",
-                                  isCustomer: true,
-                                  targetCustomerToken: nil)
-    
+
     //*/
-     
+    
+    var userToken = "vs-cct-c0" {
+        didSet {
+            updateUserButton()
+            refreshChatButton()
+        }
+    }
+    
 //    let credentials = Credentials(withCompany: "vs-dev",
 //                                  userToken: "vs-cct-c8",
 //                                  isCustomer: true,
@@ -31,31 +33,64 @@ class ComcastHomeViewController: ImageBackgroundViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Home"
         imageView.image = UIImage(named: "home")
         
-        chatButton = ASAPPButton(withCredentials: credentials,
-                                 presentingViewController: self,
-                                 styles: nil,
-                                 callback: { [weak self] (action, userInfo) in
-                                    self?.handleAction(action, userInfo: userInfo)
-                                })
+        refreshChatButton()
         chatButton?.hideUntilAnimateInIsCalled()
+        chatButton?.animateIn(afterDelay: 1.0)
         
-        if let chatButton = chatButton {
-            chatButton.frame = CGRect(x: 0, y: 13, width: 50, height: 50)
-            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 70))
-            buttonContainerView.addSubview(chatButton)
-            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
-            
-            chatButton.animateIn(afterDelay: 1.5)
-        }
+        updateUserButton()
         
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
     }
     
     func showTestViewController() {
         navigationController?.pushViewController(ChatsListViewController(), animated: true)
+    }
+    
+    func changeUser() {
+        let changeUserVC = ComcastChangeUserViewController()
+        changeUserVC.onUserSelection = { (user) in
+            if let user = user {
+                self.userToken = user
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        let nc = UINavigationController(rootViewController: changeUserVC)
+        if let navBar = navigationController?.navigationBar {
+            nc.navigationBar.barTintColor = navBar.barTintColor
+            nc.navigationBar.tintColor = navBar.tintColor
+            nc.navigationBar.barStyle = navBar.barStyle
+        }
+        presentViewController(nc, animated: true, completion: nil)
+    }
+    
+    func updateUserButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: userToken,
+                                                           style: .Plain, target: self, action: #selector(ComcastHomeViewController.changeUser))
+    }
+    
+    func refreshChatButton() {
+        chatButton?.removeFromSuperview()
+        
+        let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
+            userToken: userToken,
+            isCustomer: true,
+            targetCustomerToken: nil)
+        
+        chatButton = ASAPPButton(withCredentials: credentials,
+                                 presentingViewController: self,
+                                 styles: nil,
+                                 callback: { [weak self] (action, userInfo) in
+                                    self?.handleAction(action, userInfo: userInfo)
+            })
+        
+        if let chatButton = chatButton {
+            chatButton.frame = CGRect(x: 0, y: 13, width: 50, height: 50)
+            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 70))
+            buttonContainerView.addSubview(chatButton)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
+        }
     }
 }
 
