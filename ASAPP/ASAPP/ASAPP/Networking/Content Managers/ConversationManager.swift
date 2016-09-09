@@ -205,7 +205,7 @@ extension ConversationManager {
         
         
         guard let srsQuery = buttonItem.srsValue else {
-                return
+            return
         }
         
         sendMessage(buttonItem.title, completion: completion)
