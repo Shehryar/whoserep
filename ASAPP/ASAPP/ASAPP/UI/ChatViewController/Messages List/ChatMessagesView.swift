@@ -110,7 +110,6 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         infoMessageView.frame = bounds
         infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
-        infoMessageView.message = ASAPPLocalizedString("You can begin this conversation by writing a message below.")
         addSubview(infoMessageView)
         
         updateSubviewVisibility()
