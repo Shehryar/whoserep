@@ -47,7 +47,9 @@ class ChatViewController: UIViewController {
         return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
     }
     private var isInitialLayout = true
+    private var didPresentQuestionView = false
     private let troubleshooterView = TroubleshooterView()
+    
     
     // MARK:- Initialization
     
@@ -269,7 +271,10 @@ extension ChatViewController {
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
         let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
-        var inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        var inputTop = CGRectGetHeight(view.bounds)
+        if liveChat {
+            inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        }
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
@@ -344,13 +349,8 @@ extension ChatViewController {
                 return
             }
         }
-        
-        if buttonItem.title.localizedCaseInsensitiveContainsString("account and billing") ||
-            buttonItem.title.localizedCaseInsensitiveContainsString("see my bill") {
-            buttonItem.type = .SRS
-        }
+
         // END TESTING
-        
         
         switch buttonItem.type {
         case .InAppLink, .Link:
@@ -418,12 +418,14 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
     func showWelcomeViewController(animated: Bool = true) {
         keyboardObserver.deregisterForNotification()
         
-        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles)
+        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles, animateOnOpen: !didPresentQuestionView)
         welcomeViewController.delegate = self
         let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
         welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
         welcomeNavigationController.modalTransitionStyle = .CrossDissolve
         presentViewController(welcomeNavigationController, animated: animated, completion: nil)
+        
+        didPresentQuestionView = true
     }
     
     // MARK: Delegate
@@ -432,17 +434,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         
         keyboardObserver.registerForNotifications()
         dismissViewControllerAnimated(true) {
-            
             self.chatMessagesView.scrollToBottomAnimated(true)
-            
-            // MITCH MITCH MITCH TEST TEST TESTING
-            if queryText.localizedCaseInsensitiveContainsString("see my bill") {
-                let fakeButtonItem = SRSButtonItem(title: queryText, type: .SRS)
-                self.handleSRSButtonItemSelection(fakeButtonItem)
-                return
-            }
-            
-            
             self.sendMessage(withText: queryText)
         }
     }

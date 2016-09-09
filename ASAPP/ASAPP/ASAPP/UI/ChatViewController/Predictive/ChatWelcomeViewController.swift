@@ -31,16 +31,18 @@ class ChatWelcomeViewController: UIViewController {
     private let buttonsView: ChatWelcomeButtonsView
     private let messageInputView = ChatInputView()
     private var finishedInitialAnimation = false
+    private var animateOnOpen: Bool
     
     private let keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?) {
+    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?, animateOnOpen: Bool = true) {
         self.appOpenResponse = appOpenResponse ?? SRSAppOpenResponse(greeting: nil)
         self.styles = styles ?? ASAPPStyles()
         self.buttonsView = ChatWelcomeButtonsView(styles: styles)
+        self.animateOnOpen = animateOnOpen
         super.init(nibName: nil, bundle: nil)
         
         let closeButton = Button()
@@ -74,10 +76,9 @@ class ChatWelcomeViewController: UIViewController {
         messageLabel.textColor = UIColor.whiteColor()
         messageLabel.font = Fonts.latoRegularFont(withSize: 15)
         messageLabel.text = self.appOpenResponse.customizedMessage
-        messageLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(messageLabel)
         
-        buttonsView.setButtonTitles(self.appOpenResponse.actions, hideButtonsForAnimation: true)
+        buttonsView.setButtonTitles(self.appOpenResponse.actions, hideButtonsForAnimation: animateOnOpen)
         buttonsView.onButtonTap = { [weak self] (buttonTitle) in
             self?.finishWithMessage(buttonTitle)
         }
@@ -95,10 +96,15 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
         messageInputView.delegate = self
-        messageInputView.alpha = 0.0
         blurredBgView.contentView.addSubview(messageInputView)
         
         keyboardObserver.delegate = self
+        
+        
+        if animateOnOpen {
+            messageLabel.alpha = 0.0
+            messageInputView.alpha = 0.0
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -137,6 +143,11 @@ class ChatWelcomeViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard animateOnOpen else {
+            return
+        }
+        animateOnOpen = false
         
         Dispatcher.delay(200) {
             if self.messageLabel.alpha == 0 {

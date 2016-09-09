@@ -36,9 +36,10 @@ class SRSResponse: NSObject, JSONObject {
         }
         
         var type = SRSResponseDisplayType.ActionSheet
-        if let typeString = json["display"] as? String,
-            let parsedType = SRSResponseDisplayType(rawValue: typeString)  {
-            type = parsedType
+        if let displayContent = json["displayContent"] as? Bool {
+            if displayContent {
+                type = .Inline
+            }
         }
         
         let response = SRSResponse(displayType: type)

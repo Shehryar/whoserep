@@ -68,6 +68,7 @@
 		302268671D80BD0A00EC4FB1 /* sample_srs_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268651D80BD0A00EC4FB1 /* sample_srs_response.json */; };
 		302268691D80BDE600EC4FB1 /* sample_predictive_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 302268681D80BDE600EC4FB1 /* sample_predictive_response.json */; };
 		3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022686A1D80C58300EC4FB1 /* SRSAppOpenResponse.swift */; };
+		302268701D834BFB00EC4FB1 /* ChatReplyActionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022686F1D834BFB00EC4FB1 /* ChatReplyActionsListView.swift */; };
 		30226CD41D4933F200871453 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC11D4933F200871453 /* Conversation.swift */; };
 		30226CD61D4933F200871453 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC31D4933F200871453 /* Event.swift */; };
 		30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */; };
@@ -174,6 +175,7 @@
 		302268651D80BD0A00EC4FB1 /* sample_srs_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_srs_response.json; sourceTree = "<group>"; };
 		302268681D80BDE600EC4FB1 /* sample_predictive_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_predictive_response.json; sourceTree = "<group>"; };
 		3022686A1D80C58300EC4FB1 /* SRSAppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSAppOpenResponse.swift; sourceTree = "<group>"; };
+		3022686F1D834BFB00EC4FB1 /* ChatReplyActionsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatReplyActionsListView.swift; sourceTree = "<group>"; };
 		30226CC11D4933F200871453 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30226CC31D4933F200871453 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */,
+				3022686F1D834BFB00EC4FB1 /* ChatReplyActionsListView.swift */,
 				3008888D1D6258F100C25802 /* ChatSuggestedReplyCell.swift */,
 			);
 			path = "Suggested Replies Sheet";
@@ -844,6 +847,7 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
+				302268701D834BFB00EC4FB1 /* ChatReplyActionsListView.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
