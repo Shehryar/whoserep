@@ -12,6 +12,7 @@ class SRSAppOpenResponse: NSObject, JSONObject {
     var greeting: String
     var customizedMessage: String?
     var actions: [String]?
+    var firstActionIsForCustomizedMessage = false
     
     init(greeting: String?) {
         self.greeting = greeting ?? ASAPPLocalizedString("How can we help?")
@@ -38,7 +39,9 @@ extension SRSAppOpenResponse {
         if let path = ASAPPBundle.pathForResource("sample_predictive_response", ofType: "json") {
             if let jsonData = NSData(contentsOfFile: path) {
                 if let json = try? NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments) as? [String : AnyObject] {
-                    return SRSAppOpenResponse.instanceWithJSON(json) as? SRSAppOpenResponse
+                    let sample = SRSAppOpenResponse.instanceWithJSON(json) as? SRSAppOpenResponse
+                    sample?.firstActionIsForCustomizedMessage = true
+                    return sample
                 }
             }
         }

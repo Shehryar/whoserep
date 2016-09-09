@@ -35,13 +35,18 @@ class ChatWelcomeButtonsView: UIView {
     
     // MARK: View Creation
     
-    func newButton(title: String) -> Button {
+    func newButton(title: String, highlighted: Bool = false) -> Button {
         let button = Button()
         button.contentInset = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .Normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .Highlighted)
-        button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.2), forState: .Normal)
-        button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.5), forState: .Highlighted)
+        if highlighted {
+            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.35), forState: .Normal)
+            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.08), forState: .Highlighted)
+        } else {
+            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.15), forState: .Normal)
+            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.08), forState: .Highlighted)
+        }
         button.font = Fonts.latoRegularFont(withSize: 15)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
@@ -88,7 +93,7 @@ class ChatWelcomeButtonsView: UIView {
     
     // MARK:- Public Instance Methods
     
-    func setButtonTitles(buttonTitles: [String]?, hideButtonsForAnimation: Bool = false) {
+    func setButtonTitles(buttonTitles: [String]?, highlightFirstButton: Bool, hideButtonsForAnimation: Bool = false) {
         for button in buttons {
             button.removeFromSuperview()
         }
@@ -96,7 +101,7 @@ class ChatWelcomeButtonsView: UIView {
         
         if let buttonTitles = buttonTitles {
             for buttonTitle in buttonTitles {
-                let button = newButton(buttonTitle)
+                let button = newButton(buttonTitle, highlighted: highlightFirstButton && buttonTitle == buttonTitles.first)
                 if hideButtonsForAnimation {
                     button.alpha = 0.0
                 }

@@ -83,7 +83,9 @@ class ChatWelcomeViewController: UIViewController {
         messageLabel.text = self.appOpenResponse.customizedMessage
         blurredBgView.contentView.addSubview(messageLabel)
         
-        buttonsView.setButtonTitles(self.appOpenResponse.actions, hideButtonsForAnimation: animateOnOpen)
+        buttonsView.setButtonTitles(self.appOpenResponse.actions,
+                                    highlightFirstButton: self.appOpenResponse.firstActionIsForCustomizedMessage,
+                                    hideButtonsForAnimation: animateOnOpen)
         buttonsView.onButtonTap = { [weak self] (buttonTitle) in
             self?.finishWithMessage(buttonTitle)
         }
@@ -163,7 +165,7 @@ class ChatWelcomeViewController: UIViewController {
             }
             Dispatcher.delay(500, closure: {
                 self.buttonsView.animateButtonsIn({ 
-                    UIView.animateWithDuration(0.8, delay: 0.4, options: .CurveEaseInOut, animations: {
+                    UIView.animateWithDuration(0.8, delay: 0.4, options: .CurveEaseOut, animations: {
                         self.messageInputView.alpha = 1.0
                         }, completion: { (completed) in
                             self.finishedInitialAnimation = true
