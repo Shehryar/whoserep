@@ -512,7 +512,7 @@ extension ChatViewController: ConversationManagerDelegate {
             if messageEvent.eventType == .SRSResponse {
                 if let srsResponse = messageEvent.srsResponse {
                     if let immediateAction = srsResponse.immediateAction {
-                        Dispatcher.delay(500, closure: {
+                        Dispatcher.delay(1200, closure: {
                             self.handleSRSButtonItemSelection(immediateAction)
                         })
                     } else if let buttonItems = srsResponse.itemList?.buttonItems {

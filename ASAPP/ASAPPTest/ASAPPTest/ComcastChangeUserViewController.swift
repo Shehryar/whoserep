@@ -43,18 +43,31 @@ class ComcastChangeUserViewController: UIViewController {
 }
 
 extension ComcastChangeUserViewController: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        if section == 0 {
+            return 1
+        }
+        return 50
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let reuseId = "ReuseId"
         let cell = (tableView.dequeueReusableCellWithIdentifier(reuseId) ??
             UITableViewCell(style: .Default, reuseIdentifier: reuseId))
-        
-        cell.textLabel?.text = "User \(indexPath.row)"
         cell.textLabel?.font = UIFont.boldSystemFontOfSize(16)
         cell.textLabel?.textColor = UIColor.darkTextColor()
+        
+        if indexPath.section == 0 {
+            cell.textLabel?.text = "Create a New User"
+            cell.textLabel?.textAlignment = .Center
+        } else {
+            cell.textLabel?.text = "User \(indexPath.row)"
+            cell.textLabel?.textAlignment = .Left
+        }
         
         return cell
     }
@@ -62,6 +75,10 @@ extension ComcastChangeUserViewController: UITableViewDataSource {
 
 extension ComcastChangeUserViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        onUserSelection?("vs-cct-c\(indexPath.row)")
+        var userId = indexPath.row
+        if indexPath.section == 0 {
+            userId = Int(NSDate().timeIntervalSince1970)
+        }
+        onUserSelection?("vs-cct-c\(userId)")
     }
 }

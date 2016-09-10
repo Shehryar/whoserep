@@ -15,7 +15,7 @@ class ComcastHomeViewController: ImageBackgroundViewController {
 
     //*/
     
-    var userToken = "vs-cct-c0" {
+    var userToken = "vs-cct-c\(NSDate().timeIntervalSince1970)" {
         didSet {
             updateUserButton()
             refreshChatButton()
@@ -66,7 +66,24 @@ class ComcastHomeViewController: ImageBackgroundViewController {
     }
     
     func updateUserButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: userToken,
+        let userId = userToken.stringByReplacingOccurrencesOfString("vs-cct-c", withString: "").componentsSeparatedByString(".").first
+        var userIdInt: Int?
+        if let userId = userId {
+            userIdInt = Int(userId)
+        }
+  
+        var userString: String
+        if let userIdInt = userIdInt {
+            if userIdInt > 50 {
+                userString = "New User"
+            } else {
+                userString = "User \(userIdInt)"
+            }
+        } else {
+            userString = "Unknown User"
+        }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: userString,
                                                            style: .Plain, target: self, action: #selector(ComcastHomeViewController.changeUser))
     }
     
