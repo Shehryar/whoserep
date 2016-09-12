@@ -200,8 +200,8 @@ extension ComcastHomeViewController {
         default: break
         }
         
-        let alert = UIAlertController(title: "SRS Action Received: '\(action)'",
-                                      message: "The host app is responsible for handling this action appropriately.",
+        let alert = UIAlertController(title: "SRS Action Received",
+                                      message: "The host app is responsible for handling this action (\(action)) appropriately.",
                                       preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
         presentViewController(alert, animated: true, completion: nil)

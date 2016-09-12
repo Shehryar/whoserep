@@ -12,6 +12,7 @@ protocol ChatMessagesViewDelegate {
     func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
     func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView)
+    func chatMessagesView(messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
 }
 
 class ChatMessagesView: UIView, ASAPPStyleable {
@@ -38,7 +39,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     }
     
     var mostRecentEvent: Event? {
-        return dataSource.allEvents.last
+        return dataSource.getLastEvent()
     }
     
     var isEmpty: Bool {
@@ -110,6 +111,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         infoMessageView.frame = bounds
         infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
+        infoMessageView.message = ASAPPLocalizedString("Ask a new question to get started.")
         addSubview(infoMessageView)
         
         updateSubviewVisibility()
@@ -309,6 +311,12 @@ extension ChatMessagesView: UITableViewDelegate {
         } else if let bubbleCell = cell as? ChatBubbleCell {
             toggleTimeStampForEventAtIndexPath(indexPath)
         }
+        
+        if let event = dataSource.eventForIndexPath(indexPath) {
+            if event == dataSource.getLastEvent() {
+                delegate?.chatMessagesView(self, didTapMostRecentEvent: event)
+            }
+        }   
     }
     
     func toggleTimeStampForEventAtIndexPath(indexPath: NSIndexPath) {

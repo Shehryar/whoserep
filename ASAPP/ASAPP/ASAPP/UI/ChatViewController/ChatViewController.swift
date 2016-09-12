@@ -50,6 +50,7 @@ class ChatViewController: UIViewController {
     private var askQuestionVC: ChatWelcomeViewController?
     private var askQuestionNavController: UINavigationController?
     private var didPresentAskQuestionView = false
+    private var askQuestionVCVisible = false
     
     private let troubleshooterView = TroubleshooterView()
     
@@ -192,6 +193,7 @@ class ChatViewController: UIViewController {
             } else {
                 view.addSubview(askQuestionView)
             }
+            askQuestionView.alpha = 0.0
         }
     }
     
@@ -212,6 +214,8 @@ class ChatViewController: UIViewController {
         if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
             showWelcomeOnViewAppear = false
             setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+        } else {
+            showSuggestedRepliesViewIfNecessary(withEvent: chatMessagesView.mostRecentEvent)
         }
     }
     
@@ -428,6 +432,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
         handleSRSButtonItemSelection(buttonItem)
     }
     
+    func chatMessagesView(messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
+        showSuggestedRepliesViewIfNecessary(withEvent: event)
+    }
+    
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView) {
         view.endEditing(true)
     }
@@ -438,6 +446,11 @@ extension ChatViewController: ChatMessagesViewDelegate {
 extension ChatViewController: ChatWelcomeViewControllerDelegate {
     
     func setAskQuestionViewControllerVisible(visible: Bool, animated: Bool, completion: (() -> Void)?) {
+        if askQuestionVCVisible == visible {
+            return
+        }
+        
+        askQuestionVCVisible = visible
         askQuestionVC?.view.endEditing(true)
         view.endEditing(true)
         
@@ -455,17 +468,15 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
             UIView.animateWithDuration(0.3, animations: { 
                 welcomeView.alpha = alpha
                 }, completion: { (completed) in
-                    if !self.didPresentAskQuestionView && visible {
-                        self.askQuestionVC?.setViewContentsVisible()
+                    if visible {
+                        
+                        
                     }
                     self.askQuestionVC?.presentingViewUpdatedVisibility(visible)
                     completion?()
             })
         } else {
             welcomeView.alpha = alpha
-            if !didPresentAskQuestionView && visible {
-                askQuestionVC?.setViewContentsVisible()
-            }
             askQuestionVC?.presentingViewUpdatedVisibility(visible)
             completion?()
         }
@@ -486,7 +497,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
     
     func chatWelcomeViewControllerDidCancel(viewController: ChatWelcomeViewController) {
         setAskQuestionViewControllerVisible(false, animated: true) {
-            
+            self.showSuggestedRepliesViewIfNecessary(withEvent: self.chatMessagesView.mostRecentEvent)
         }
     }
 }
@@ -518,6 +529,29 @@ extension ChatViewController: ChatInputViewDelegate {
 // MARK:- ChatSuggestedRepliesView
 
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
+    
+    func showSuggestedRepliesViewIfNecessary(withEvent event: Event?) {
+        guard let event = event else {
+            return
+        }
+        guard event.eventType == .SRSResponse else {
+            return
+        }
+        guard let srsResponse = event.srsResponse,
+            let buttonItems = srsResponse.itemList?.buttonItems else {
+                return
+        }
+        
+        showSuggestedRepliesView(withSRSResponse: srsResponse)
+    }
+    
+    func showSuggestedRepliesView(withSRSResponse srsResponse: SRSResponse, animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard srsResponse.itemList?.buttonItems != nil else { return }
+        
+        actionableMessage = srsResponse
+        suggestedRepliesView.setActionableMessage(srsResponse, animated: animated)
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
+    }
     
     func clearSuggestedRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         actionableMessage = nil
@@ -558,9 +592,7 @@ extension ChatViewController: ConversationManagerDelegate {
                         })
                     } else if let buttonItems = srsResponse.itemList?.buttonItems {
                         Dispatcher.delay(200, closure: { [weak self] in
-                            self?.actionableMessage = srsResponse
-                            self?.suggestedRepliesView.setActionableMessage(srsResponse, animated: true)
-                            self?.updateFramesAnimated()
+                            self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
                             })
                     }
                 }

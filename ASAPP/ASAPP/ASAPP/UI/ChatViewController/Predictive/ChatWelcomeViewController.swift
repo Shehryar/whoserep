@@ -23,6 +23,8 @@ class ChatWelcomeViewController: UIViewController {
     
     var tapGesture: UITapGestureRecognizer?
     
+    private(set) var viewContentsVisible = true
+    
     // MARK: Private Properties
     
     private let contentInset = UIEdgeInsets(top: 20, left: 30, bottom: 40, right: 30)
@@ -106,6 +108,7 @@ class ChatWelcomeViewController: UIViewController {
         keyboardObserver.delegate = self
         
         if hideViewContents {
+            viewContentsVisible = false
             finishedInitialAnimation = false
             messageLabel.alpha = 0.0
             messageInputView.alpha = 0.0
@@ -287,7 +290,9 @@ extension ChatWelcomeViewController: KeyboardObserverDelegate {
 // MARK:- External API
 
 extension ChatWelcomeViewController {
-    func setViewContentsVisible(completion: (() -> Void)? = nil) {
+    private func setViewContentsVisibleAnimated(completion: (() -> Void)? = nil) {
+        viewContentsVisible = true
+        
         Dispatcher.delay(200) {
             if self.messageLabel.alpha == 0 {
                 UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: {
@@ -310,6 +315,9 @@ extension ChatWelcomeViewController {
     func presentingViewUpdatedVisibility(visible: Bool) {
         if visible {
             keyboardObserver.registerForNotifications()
+            if !viewContentsVisible {
+                setViewContentsVisibleAnimated()
+            }
         } else {
             dismissKeyboard()
             keyboardObserver.deregisterForNotification()
