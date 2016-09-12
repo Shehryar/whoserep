@@ -534,7 +534,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         guard let event = event else {
             return
         }
-        guard event.eventType == .SRSResponse else {
+        guard event.eventType == .SRSResponse && actionableMessage == nil else {
             return
         }
         guard let srsResponse = event.srsResponse,
