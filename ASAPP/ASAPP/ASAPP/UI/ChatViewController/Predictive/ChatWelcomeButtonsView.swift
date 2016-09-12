@@ -113,7 +113,15 @@ class ChatWelcomeButtonsView: UIView {
         setNeedsLayout()
     }
     
-    func animateButtonsIn(completion: (() -> Void)? = nil) {
+    func animateButtonsIn(animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard animated else {
+            for button in buttons {
+                button.alpha = 1
+            }
+            completion?()
+            return
+        }
+        
         guard let firstButton = buttons.first else { return }
         guard firstButton.alpha == 0 else { return }
         

@@ -47,7 +47,10 @@ class ChatViewController: UIViewController {
         return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
     }
     private var isInitialLayout = true
-    private var didPresentQuestionView = false
+    private var askQuestionVC: ChatWelcomeViewController?
+    private var askQuestionNavController: UINavigationController?
+    private var didPresentAskQuestionView = false
+    
     private let troubleshooterView = TroubleshooterView()
     
     
@@ -74,7 +77,7 @@ class ChatViewController: UIViewController {
         askAQuestionButton.font = self.styles.buttonFont
         askAQuestionButton.foregroundColor = self.styles.navBarButtonColor
         askAQuestionButton.onTap = { [weak self] in
-            self?.showWelcomeViewController()
+            self?.setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
         }
         askAQuestionButton.sizeToFit()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: askAQuestionButton)
@@ -116,6 +119,19 @@ class ChatViewController: UIViewController {
                 }
             }
         }
+        
+        // Ask a Question View Controller
+        
+        askQuestionVC = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(),
+                                                  styles: styles,
+                                                  hideViewContents: true)
+        if let askQuestionVC = askQuestionVC {
+            askQuestionVC.delegate = self
+            askQuestionNavController = UINavigationController(rootViewController: askQuestionVC)
+            askQuestionNavController?.view.alpha = 0.0
+        }
+        
+        // Keyboard
         
         keyboardObserver.delegate = self
     }
@@ -168,6 +184,15 @@ class ChatViewController: UIViewController {
         view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
         view.addSubview(troubleshooterView)
+        
+        // Ask Question
+        if let askQuestionView = askQuestionNavController?.view {
+            if let navView = navigationController?.view {
+                navView.addSubview(askQuestionView)
+            } else {
+                view.addSubview(askQuestionView)
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -186,7 +211,7 @@ class ChatViewController: UIViewController {
         
         if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
             showWelcomeOnViewAppear = false
-            showWelcomeViewController()
+            setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
         }
     }
     
@@ -197,17 +222,6 @@ class ChatViewController: UIViewController {
         view.endEditing(true)
         
         conversationManager.exitConversation()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
-//            showWelcomeOnViewAppear = false
-//            Dispatcher.delay(200, closure: {
-//                self.showWelcomeViewController()
-//            })
-//        }
     }
     
     // MARK: Updates
@@ -249,6 +263,15 @@ extension ChatViewController {
     }
     
     func updateFrames() {
+        // Ask Question
+        if let askQuestionView = askQuestionNavController?.view {
+            if let navView = navigationController?.view {
+                askQuestionView.frame = navView.bounds
+            } else {
+                askQuestionView.frame = view.bounds
+            }
+        }
+        
         var minVisibleY: CGFloat = 0
         if let navigationBar = navigationController?.navigationBar {
             if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
@@ -414,21 +437,39 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ChatWelcomeViewControllerDelegate {
     
-    func showWelcomeViewController(animated: Bool = true) {
-        keyboardObserver.deregisterForNotification()
+    func setAskQuestionViewControllerVisible(visible: Bool, animated: Bool, completion: (() -> Void)?) {
+        askQuestionVC?.view.endEditing(true)
+        view.endEditing(true)
         
-        let welcomeViewController = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(), styles: styles, animateOnOpen: !didPresentQuestionView)
-        welcomeViewController.delegate = self
-        let welcomeNavigationController = UINavigationController(rootViewController: welcomeViewController)
-        welcomeNavigationController.modalPresentationStyle = .OverCurrentContext
-        welcomeNavigationController.modalTransitionStyle = .CrossDissolve
-        presentViewController(welcomeNavigationController, animated: animated) {
-            if self.actionableMessage != nil {
-                self.clearSuggestedRepliesView()
-            }
+        if visible {
+            clearSuggestedRepliesView(true)
+            keyboardObserver.deregisterForNotification()
+        } else {
+            keyboardObserver.registerForNotifications()
         }
         
-        didPresentQuestionView = true
+        guard let welcomeView = askQuestionNavController?.view else { return }
+        let alpha: CGFloat = visible ? 1 : 0
+        
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                welcomeView.alpha = alpha
+                }, completion: { (completed) in
+                    if !self.didPresentAskQuestionView && visible {
+                        self.askQuestionVC?.setViewContentsVisible()
+                    }
+                    self.askQuestionVC?.presentingViewUpdatedVisibility(visible)
+                    completion?()
+            })
+        } else {
+            welcomeView.alpha = alpha
+            if !didPresentAskQuestionView && visible {
+                askQuestionVC?.setViewContentsVisible()
+            }
+            askQuestionVC?.presentingViewUpdatedVisibility(visible)
+            completion?()
+        }
+        
     }
     
     // MARK: Delegate
@@ -437,14 +478,14 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         
         keyboardObserver.registerForNotifications()
         self.chatMessagesView.scrollToBottomAnimated(false)
-        dismissViewControllerAnimated(true) {
+        
+        setAskQuestionViewControllerVisible(false, animated: true) {
             self.sendMessage(withText: queryText)
         }
     }
     
     func chatWelcomeViewControllerDidCancel(viewController: ChatWelcomeViewController) {
-        keyboardObserver.registerForNotifications()
-        dismissViewControllerAnimated(true) { 
+        setAskQuestionViewControllerVisible(false, animated: true) {
             
         }
     }

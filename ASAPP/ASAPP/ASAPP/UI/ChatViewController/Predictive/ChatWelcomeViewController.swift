@@ -32,19 +32,17 @@ class ChatWelcomeViewController: UIViewController {
     private let messageLabel = UILabel()
     private let buttonsView: ChatWelcomeButtonsView
     private let messageInputView = ChatInputView()
-    private var finishedInitialAnimation = false
-    private var animateOnOpen: Bool
+    private var finishedInitialAnimation = true
     
     private let keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?, animateOnOpen: Bool = true) {
+    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?, hideViewContents: Bool = true) {
         self.appOpenResponse = appOpenResponse ?? SRSAppOpenResponse(greeting: nil)
         self.styles = styles ?? ASAPPStyles()
         self.buttonsView = ChatWelcomeButtonsView(styles: styles)
-        self.animateOnOpen = animateOnOpen
         super.init(nibName: nil, bundle: nil)
         
         let closeButton = Button()
@@ -85,7 +83,7 @@ class ChatWelcomeViewController: UIViewController {
         
         buttonsView.setButtonTitles(self.appOpenResponse.actions,
                                     highlightFirstButton: self.appOpenResponse.firstActionIsForCustomizedMessage,
-                                    hideButtonsForAnimation: animateOnOpen)
+                                    hideButtonsForAnimation: hideViewContents)
         buttonsView.onButtonTap = { [weak self] (buttonTitle) in
             self?.finishWithMessage(buttonTitle)
         }
@@ -107,8 +105,8 @@ class ChatWelcomeViewController: UIViewController {
         
         keyboardObserver.delegate = self
         
-        
-        if animateOnOpen {
+        if hideViewContents {
+            finishedInitialAnimation = false
             messageLabel.alpha = 0.0
             messageInputView.alpha = 0.0
         }
@@ -147,32 +145,6 @@ class ChatWelcomeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        guard animateOnOpen else {
-            return
-        }
-        animateOnOpen = false
-        
-        Dispatcher.delay(200) {
-            if self.messageLabel.alpha == 0 {
-            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: {
-                self.messageLabel.alpha = 1.0
-                }, completion: nil)
-            }
-            Dispatcher.delay(500, closure: {
-                self.buttonsView.animateButtonsIn({ 
-                    UIView.animateWithDuration(0.8, delay: 0.4, options: .CurveEaseOut, animations: {
-                        self.messageInputView.alpha = 1.0
-                        }, completion: { (completed) in
-                            self.finishedInitialAnimation = true
-                    })
-                })
-            })
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -253,10 +225,13 @@ class ChatWelcomeViewController: UIViewController {
     // MARK: Actions
     
     func finishWithMessage(message: String) {
+        dismissKeyboard()
         delegate?.chatWelcomeViewController(self, didFinishWithText: message)
     }
     
     func didTapCancel() {
+        dismissKeyboard()
+        messageInputView.clear()
         delegate?.chatWelcomeViewControllerDidCancel(self)
     }
     
@@ -306,5 +281,38 @@ extension ChatWelcomeViewController: KeyboardObserverDelegate {
     func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
         keyboardOffset = height
         updateFramesAnimated()
+    }
+}
+
+// MARK:- External API
+
+extension ChatWelcomeViewController {
+    func setViewContentsVisible(completion: (() -> Void)? = nil) {
+        Dispatcher.delay(200) {
+            if self.messageLabel.alpha == 0 {
+                UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: {
+                    self.messageLabel.alpha = 1.0
+                    }, completion: nil)
+            }
+            Dispatcher.delay(500, closure: {
+                self.buttonsView.animateButtonsIn(true, completion: {
+                    UIView.animateWithDuration(0.8, delay: 0.4, options: .CurveEaseOut, animations: {
+                        self.messageInputView.alpha = 1.0
+                        }, completion: { (completed) in
+                            self.finishedInitialAnimation = true
+                            completion?()
+                    })
+                })
+            })
+        }
+    }
+    
+    func presentingViewUpdatedVisibility(visible: Bool) {
+        if visible {
+            keyboardObserver.registerForNotifications()
+        } else {
+            dismissKeyboard()
+            keyboardObserver.deregisterForNotification()
+        }
     }
 }
