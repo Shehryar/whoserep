@@ -159,45 +159,51 @@ extension ComcastHomeViewController {
         switch action {
         case "tv":
             showTVHome()
-            break
+            return
             
         case "troubleshoot":
             if let userInfo = userInfo, let service = userInfo["service"] as? String {
                 switch service {
                 case "internet":
                     showInternetTroubleshoot()
-                    break
+                    return
                     
                 default:
                     showTvTroubleshoot()
-                    break
+                    return
                 }
             } else {
                 showTvTroubleshoot()
+                return
             }
-            break
             
         case "internet":
             showInternetHome()
-            break
+            return
             
         case "internet-troubleshoot":
             showInternetTroubleshoot()
-            break
+            return
             
         case "restart":
             showRestartDevice()
-            break
+            return
             
         case "payment":
             showPaymentScreen()
-            break
+            return
             
         case "showTechMap":
             showTechnicianMap()
-            break
+            return
             
         default: break
         }
+        
+        let alert = UIAlertController(title: "SRS Action Received: '\(action)'",
+                                      message: "The host app is responsible for handling this action appropriately.",
+                                      preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
