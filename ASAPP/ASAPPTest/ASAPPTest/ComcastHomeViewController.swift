@@ -42,6 +42,11 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         updateUserButton()
         
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
+        
+        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let build = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        self.title = "v\(version) (b-\(build))"
+        
     }
     
     func showTestViewController() {
