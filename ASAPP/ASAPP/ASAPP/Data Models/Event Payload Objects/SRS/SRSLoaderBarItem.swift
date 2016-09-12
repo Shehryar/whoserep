@@ -10,6 +10,14 @@ import UIKit
 
 class SRSLoaderBarItem: NSObject, JSONObject {
     
+    var loadingFinishedTime: NSDate?
+    
+    override init() {
+        super.init()
+        
+        self.loadingFinishedTime = NSDate(timeIntervalSinceNow: 10)
+    }
+    
     // MARK: JSONObject
     
     static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {

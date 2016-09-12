@@ -10,6 +10,10 @@ import UIKit
 
 extension NSDate {
     
+    func hasPassed() -> Bool {
+        return timeIntervalSinceNow < 0
+    }
+    
     func getDateComponents() -> NSDateComponents {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: self)
