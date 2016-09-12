@@ -93,6 +93,12 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 createdViews.append(fillerView)
             }
                 
+            else if item is SRSLoaderBarItem {
+                let loaderBarView = SRSLoaderBarView()
+                loaderBarView.applyStyles(styles)
+                createdViews.append(loaderBarView)
+            }
+                
             // Item List
             else if let itemList = item as? SRSItemList {
                 let itemListView = SRSItemListView()

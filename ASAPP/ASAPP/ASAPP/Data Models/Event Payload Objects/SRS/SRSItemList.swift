@@ -49,7 +49,10 @@ class SRSItemList: NSObject, JSONObject {
                 buttonItems.append(buttonItem)
             }
         }
-        return buttonItems
+        if buttonItems.count > 0 {
+            return buttonItems
+        }
+        return nil
     }
     
     var immediateActionButtonItem: SRSButtonItem? {
@@ -89,7 +92,7 @@ class SRSItemList: NSObject, JSONObject {
         for itemJSON in itemsJSONArary {
             guard let itemTypeString = itemJSON["type"] as? String,
                 let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
-                continue
+                    continue
             }
             
             var item: AnyObject?
@@ -123,6 +126,10 @@ class SRSItemList: NSObject, JSONObject {
             case .Filler:
                 item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
                 break
+                
+            case .LoaderBar:
+                item = SRSLoaderBarItem.instanceWithJSON(itemJSON) as? SRSLoaderBarItem
+                break
             }
             
             if let item = item {
@@ -146,4 +153,5 @@ enum SRSItemListItemType: String {
     case Separator = "separator"
     case Info = "info"
     case Filler = "filler"
+    case LoaderBar = "loaderBar"
 }

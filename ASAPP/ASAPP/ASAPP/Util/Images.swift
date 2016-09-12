@@ -37,6 +37,23 @@ class Images: NSObject {
         return imageWithName("bg-dash-tile", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
+    class func gifLoaderBar() -> UIImage? {
+        var imageName: String
+        if (UIScreen.mainScreen().scale > 1) {
+            imageName = "gif-loader-bar@2x"
+        } else {
+            imageName = "gif-loader-bar"
+        }
+        
+        if let imagePath = ASAPPBundle.pathForResource(imageName, ofType: "gif") {
+            if let data = NSData(contentsOfFile: imagePath) {
+                return UIImage.sd_animatedGIFWithData(data)
+            }
+        }
+        
+        return nil
+    }
+    
     // MARK:- Private Helper Methods
     
     private class func imageWithName(name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {

@@ -203,14 +203,26 @@ extension ConversationManager {
         sendSRSTreewalk(srsQuery)
     }
     
-    private func testSRSButtonSelectionWithBillPayment(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) {
+    // MARK:- Mock DATA TESTING
+    
+    func sendFakeTroubleshooterMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
         sendMessage(buttonItem.title, completion: completion)
         
-        Dispatcher.delay(600, closure: {
-            if let sampleBillEvent = Event.sampleBillSummaryEvent() {
-                self.delegate?.conversationManager(self, didReceiveMessageEvent: sampleBillEvent)
-            }
-        })
+        if let fakeEvent = Event.sampleTroubleshooterEvent(afterEvent) {
+            Dispatcher.delay(600, closure: {
+                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
+            })
+        }
+    }
+
+    func sendFakeDeviceRestartMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+        sendMessage(buttonItem.title, completion: completion)
+        
+        if let fakeEvent = Event.sampleDeviceRestartEvent(afterEvent) {
+            Dispatcher.delay(600, closure: {
+                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
+            })
+        }
     }
 }
 

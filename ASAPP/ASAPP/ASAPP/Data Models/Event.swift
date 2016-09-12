@@ -401,7 +401,26 @@ extension Event {
                 return event
             }
         }
-        
+        return nil
+    }
+    
+    class func sampleTroubleshooterEvent(afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.pathForResource("sample_troubleshoot_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+                return event
+            }
+        }
+        return nil
+    }
+    
+    class func sampleDeviceRestartEvent(afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.pathForResource("sample_device_restart_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+                return event
+            }
+        }
         return nil
     }
 }

@@ -52,9 +52,6 @@ class ChatViewController: UIViewController {
     private var didPresentAskQuestionView = false
     private var askQuestionVCVisible = false
     
-    private let troubleshooterView = TroubleshooterView()
-    
-    
     // MARK:- Initialization
     
     init(withCredentials credentials: Credentials, styles: ASAPPStyles?, callback: ASAPPCallback) {
@@ -184,7 +181,6 @@ class ChatViewController: UIViewController {
         view.addSubview(chatInputView)
         view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
-        view.addSubview(troubleshooterView)
         
         // Ask Question
         if let askQuestionView = askQuestionNavController?.view {
@@ -287,9 +283,7 @@ extension ChatViewController {
         }
         
         let viewWidth = CGRectGetWidth(view.bounds)
-        
-        troubleshooterView.frame = CGRect(x: 0.0, y: minVisibleY, width: viewWidth, height: CGRectGetHeight(view.bounds) - minVisibleY)
-        
+            
         let connectionStatusHeight: CGFloat = 40
         var connectionStatusTop = minVisibleY - connectionStatusHeight
         if shouldShowConnectionStatusView {
@@ -366,13 +360,19 @@ extension ChatViewController {
         
         // MITCH MITCH MITCH TESTING TESTING
         
-        if buttonItem.deepLink?.lowercaseString == "troubleshoot" {
-            let service = buttonItem.deepLinkData?["service"] as? String
-            if service == "internet" || service == "video" || service == "voice" {
-                clearSuggestedRepliesView(true, completion: { 
-                    self.showDeviceRestartTroubleshooterView()
-                })
+        if let deepLink = buttonItem.deepLink?.lowercaseString {
+            switch deepLink {
+            case "troubleshoot":
+                conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
                 return
+                
+            case "restartdevicenow":
+                conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return
+                
+            default:
+                // No-op
+                break
             }
         }
 
@@ -397,16 +397,6 @@ extension ChatViewController {
                 self?.updateFramesAnimated()
             }
             break
-        }
-    }
-    
-    func showDeviceRestartTroubleshooterView() {
-        view.endEditing(true)
-        
-        troubleshooterView.showTroubleshooter { 
-            Dispatcher.delay(5000, closure: { 
-                self.troubleshooterView.hideTroubleshooter()
-            })
         }
     }
 }
@@ -594,6 +584,8 @@ extension ChatViewController: ConversationManagerDelegate {
                         Dispatcher.delay(200, closure: { [weak self] in
                             self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
                             })
+                    } else {
+                        self.clearSuggestedRepliesView()
                     }
                 }
             }
