@@ -14,15 +14,14 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
         didSet {
             clearTimer()
             
-            if let loaderItem = loaderItem {
+            if loaderItem != nil {
                 timer = NSTimer.scheduledTimerWithTimeInterval(1,
                                                                target: self,
                                                                selector: #selector(SRSLoaderBarView.updateCurrentView),
                                                                userInfo: nil,
-                                                               repeats: true)
-                
-                updateCurrentView()
+                                                               repeats: true)                
             }
+            updateCurrentView()
         }
     }
     

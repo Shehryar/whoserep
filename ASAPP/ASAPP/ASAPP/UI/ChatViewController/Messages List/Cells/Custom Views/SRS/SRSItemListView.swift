@@ -16,7 +16,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
     
     var srsItems: /** Must be SRS** Classes */ [AnyObject]? {
         didSet {
-            if let srsItems = srsItems {
+            if srsItems != nil {
                 createSubviewsForCurrentResponse()
             } else {
                 clear()

@@ -47,9 +47,9 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         
         versionLabel.textColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)
         versionLabel.font = UIFont.boldSystemFontOfSize(10)
-//        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
         let build = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
-        versionLabel.text = "b-\(build)"
+        versionLabel.text = "\(version) (\(build))"
         versionLabel.sizeToFit()
         if let navView = navigationController?.view {
             var versionFrame = versionLabel.frame

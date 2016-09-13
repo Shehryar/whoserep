@@ -528,7 +528,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
             return
         }
         guard let srsResponse = event.srsResponse,
-            let buttonItems = srsResponse.itemList?.buttonItems else {
+            let _ = srsResponse.itemList?.buttonItems else {
                 return
         }
         

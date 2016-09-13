@@ -321,7 +321,7 @@ extension ChatMessagesView: UITableViewDelegate {
     
     func toggleTimeStampForEventAtIndexPath(indexPath: NSIndexPath) {
         
-        var previousEvent = showTimeStampForEvent
+        let previousEvent = showTimeStampForEvent
         
         // Hide timestamp on previous cell
         if let previousEvent = showTimeStampForEvent,

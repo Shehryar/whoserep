@@ -27,7 +27,7 @@ class ChatWelcomeViewController: UIViewController {
     
     // MARK: Private Properties
     
-    private let contentInset = UIEdgeInsets(top: 20, left: 30, bottom: 40, right: 30)
+    private let contentInset = UIEdgeInsets(top: 5, left: 30, bottom: 30, right: 30)
     private let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
     private let blurredColorLayer = CALayer()
     private let titleLabel = UILabel()
@@ -91,7 +91,7 @@ class ChatWelcomeViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
-        messageInputView.contentInset = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 20)
+        messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         messageInputView.backgroundColor = Colors.steelDarkColor()
         messageInputView.layer.cornerRadius = 20
         messageInputView.font = Fonts.latoRegularFont(withSize: 15)
@@ -111,7 +111,7 @@ class ChatWelcomeViewController: UIViewController {
             viewContentsVisible = false
             finishedInitialAnimation = false
             messageLabel.alpha = 0.0
-            messageInputView.alpha = 0.0
+//            messageInputView.alpha = 0.0
         }
     }
     
@@ -185,17 +185,29 @@ class ChatWelcomeViewController: UIViewController {
         titleLabel.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: titleHeight)
         textTop = CGRectGetMaxY(titleLabel.frame)
         
+        let isExpanded = keyboardOffset <= 0
+        
         // Message
         let messageHeight = ceil(messageLabel.sizeThatFits(CGSize(width: textWidth, height: 0)).height)
-        if titleHeight > 0 && messageHeight > 0 {
+        if titleHeight > 0 && messageHeight > 0 && isExpanded {
             textTop += 10
         }
         messageLabel.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: messageHeight)
-        textTop = CGRectGetMaxY(messageLabel.frame) + 45
+        
+        if isExpanded {
+            if finishedInitialAnimation {
+                messageLabel.alpha = 1
+            }
+            textTop = CGRectGetMaxY(messageLabel.frame) + 38
+        } else {
+            textTop += 25
+            messageLabel.alpha = 0
+        }
         
         // Buttons View
         let buttonsHeight = ceil(buttonsView.sizeThatFits(CGSize(width: textWidth, height: 0)).height)
         buttonsView.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: buttonsHeight)
+        buttonsView.updateFrames()
         
         // Input View
         let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: 300)).height)
@@ -208,15 +220,7 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
         messageInputView.layoutSubviews()
         
-        if finishedInitialAnimation {
-            func shouldHideView(subview: UIView) -> Bool {
-                return CGRectGetMinY(messageInputView.frame) < CGRectGetMaxY(subview.frame) + 10
-            }
-            
-            buttonsView.alpha = shouldHideView(buttonsView) ? 0.0 : 1.0
-            messageLabel.alpha = shouldHideView(messageLabel) ? 0.0 : 1.0
-            titleLabel.alpha = shouldHideView(titleLabel) ? 0.0 : 1.0
-        }
+        buttonsView.maxVisibleHeight = CGRectGetMinY(messageInputView.frame) - CGRectGetMinY(buttonsView.frame)
     }
     
     func updateFramesAnimated() {
@@ -283,6 +287,12 @@ extension ChatWelcomeViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(height: CGFloat, withDuration duration: NSTimeInterval, animationCurve: UIViewAnimationOptions) {
         keyboardOffset = height
+        
+        if keyboardOffset > 0 {
+            buttonsView.expanded = false
+        } else {
+            buttonsView.expanded = true
+        }
         updateFramesAnimated()
     }
 }
