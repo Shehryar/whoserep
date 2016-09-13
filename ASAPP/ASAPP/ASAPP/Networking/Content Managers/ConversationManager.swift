@@ -224,6 +224,14 @@ extension ConversationManager {
             })
         }
     }
+    
+    func sendFakeEquipmentReturnMessage(eventLogSeq: Int? = nil) {
+        if let fakeEvent = Event.sampleEquipmentReturnEvent(eventLogSeq) {
+            Dispatcher.delay(600, closure: {
+                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
+            })
+        }
+    }
 }
 
 // MARK:- SocketConnectionDelegate
@@ -238,6 +246,12 @@ extension ConversationManager: SocketConnectionDelegate {
                 switch event.eventType {
                 case .SRSResponse:
                     // MITCH MITCH MITCH TEST TEST TESTING - Artifical Delay
+                    if event.srsResponse?.classification == "BR" {
+                        sendFakeEquipmentReturnMessage()
+                        return
+                    }
+                    
+                    
                     Dispatcher.delay(600, closure: { 
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })

@@ -1,0 +1,58 @@
+{
+  "title": "Account > Payment",
+  "classification": "BP",
+  "displayContent" : true,
+  "content": {
+    "value": [
+      {
+        "type": "label",
+        "label": "Got it - you'd like help returning equipment. Here is the nearest location:"
+      },
+      {
+        "type": "map"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "0.2 Mi",
+            "label": "10AM - 9PM",
+            "type": "info"
+          }
+        ],
+        "orientation": "horizontal",
+        "type": "itemlist"
+      },
+      {
+        "type": "filler"
+      },
+      {
+        "label": "123 Greenwich St.",
+        "type": "label"
+      },
+      {
+        "label": "New York, NY 10013",
+        "type": "label"
+      },
+      {
+        "label": "(212) 555 - 5555",
+        "type": "label"
+      },
+      {
+        "type": "button",
+        "value": {
+          "content": {
+            "deepLink": "serviceCenter",
+            "deepLinkData": {
+              
+            }
+          },
+          "type": "LINK"
+        },
+        "label": "View All Locations"
+      }
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}

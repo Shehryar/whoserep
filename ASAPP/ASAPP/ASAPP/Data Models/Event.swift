@@ -368,12 +368,15 @@ extension Event {
 
 extension Event {
     
-    class func sampleEvent(type: EventType, eventJSON: String, afterEvent: Event? = nil) -> Event? {
+    class func sampleEvent(type: EventType, eventJSON: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
         var companyEventLogSeq = 0
         var customerEventLogSeq = 0
-        if let previousEventLogSeq = afterEvent?.eventLogSeq {
+        if let eventLogSeq = eventLogSeq {
+            companyEventLogSeq = eventLogSeq
+            customerEventLogSeq = eventLogSeq
+        } else if let previousEventLogSeq = afterEvent?.eventLogSeq {
             companyEventLogSeq = previousEventLogSeq + 1
             customerEventLogSeq = companyEventLogSeq
         }
@@ -418,6 +421,16 @@ extension Event {
         if let path = ASAPPBundle.pathForResource("sample_device_restart_data", ofType: "json") {
             if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
                 let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+                return event
+            }
+        }
+        return nil
+    }
+    
+    class func sampleEquipmentReturnEvent(withEventLogSeq: Int? = nil) -> Event? {
+        if let path = ASAPPBundle.pathForResource("sample_equipment_return_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString)
                 return event
             }
         }
