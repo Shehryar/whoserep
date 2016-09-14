@@ -50,7 +50,20 @@
           "type": "LINK"
         },
         "label": "View All Locations"
-      }
+      },
+      {
+        "type": "button",
+        "value": {
+          "content": {
+            "deepLink": "scheduleCallback",
+            "deepLinkData": {
+               "queue": "other"
+              }
+          },
+          "type": "LINK"
+         },
+         "label": "Talk to an agent"
+      },
     ],
     "orientation": "vertical",
     "type": "itemlist"
