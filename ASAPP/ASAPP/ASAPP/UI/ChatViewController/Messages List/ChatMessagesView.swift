@@ -155,11 +155,25 @@ class ChatMessagesView: UIView, ASAPPStyleable {
 
 extension ChatMessagesView {
 
-    func updateSubviewVisibility() {
+    func updateSubviewVisibility(animated: Bool = false) {
+        let currentAlpha = infoMessageView.alpha
+        var nextAlpha: CGFloat
         if dataSource.isEmpty() {
-            infoMessageView.hidden = false
+            nextAlpha = 1.0
         } else {
-            infoMessageView.hidden = true
+            nextAlpha = 0.0
+        }
+        
+        if currentAlpha == nextAlpha {
+            return
+        }
+    
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                self.infoMessageView.alpha = nextAlpha
+            })
+        } else {
+            infoMessageView.alpha = nextAlpha
         }
     }
     
@@ -496,7 +510,7 @@ extension ChatMessagesView {
             scrollToBottomAnimated(cellAnimationsEnabled)
         }
         
-        updateSubviewVisibility()
+        updateSubviewVisibility(true)
         
         completion?()
     }

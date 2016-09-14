@@ -110,7 +110,7 @@ class ChatWelcomeViewController: UIViewController {
             viewContentsVisible = false
             finishedInitialAnimation = false
             messageLabel.alpha = 0.0
-//            messageInputView.alpha = 0.0
+            messageInputView.alpha = 0.0
         }
     }
     
