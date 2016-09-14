@@ -200,37 +200,60 @@ extension ConversationManager {
         
         sendMessage(buttonItem.title, completion: completion)
         
+        
+        
+        // MITCH MITCH MITCH TESTING TEST TEST
+        if srsQuery == "cancelAppointmentPrompt" {
+            sendFakeCancelAppointmentMessage()
+            return
+        }
+        if srsQuery == "cancelAppointmentConfirmation" {
+            sendFakeCancelAppointmentConfirmationMessage()
+            return
+        }
+        // END TESTING
+        
+
+        
         sendSRSTreewalk(srsQuery)
     }
     
     // MARK:- Mock DATA TESTING
     
+    func sendFakeResponse(message: Event?) {
+        guard let message = message else { return }
+        
+        Dispatcher.delay(600, closure: {
+            self.delegate?.conversationManager(self, didReceiveMessageEvent: message)
+        })
+    }
+    
     func sendFakeTroubleshooterMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
         sendMessage(buttonItem.title, completion: completion)
         
-        if let fakeEvent = Event.sampleTroubleshooterEvent(afterEvent) {
-            Dispatcher.delay(600, closure: {
-                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
-            })
-        }
+        sendFakeResponse(Event.sampleTroubleshooterEvent(afterEvent))
     }
 
     func sendFakeDeviceRestartMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
         sendMessage(buttonItem.title, completion: completion)
         
-        if let fakeEvent = Event.sampleDeviceRestartEvent(afterEvent) {
-            Dispatcher.delay(600, closure: {
-                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
-            })
-        }
+        sendFakeResponse(Event.sampleDeviceRestartEvent(afterEvent))
     }
     
     func sendFakeEquipmentReturnMessage(eventLogSeq: Int? = nil) {
-        if let fakeEvent = Event.sampleEquipmentReturnEvent(eventLogSeq) {
-            Dispatcher.delay(600, closure: {
-                self.delegate?.conversationManager(self, didReceiveMessageEvent: fakeEvent)
-            })
-        }
+        sendFakeResponse(Event.sampleEquipmentReturnEvent(eventLogSeq))
+    }
+    
+    func sendFakeTechLocationMessage(eventLogSeq: Int? = nil) {
+        sendFakeResponse(Event.sampleTechLocationEvent(eventLogSeq))
+    }
+    
+    func sendFakeCancelAppointmentMessage() {
+        sendFakeResponse(Event.sampleCancelAppointmentPromptEvent())
+    }
+    
+    func sendFakeCancelAppointmentConfirmationMessage() {
+        sendFakeResponse(Event.sampleCancelAppointmentConfirmationEvent())
     }
 }
 
@@ -250,6 +273,11 @@ extension ConversationManager: SocketConnectionDelegate {
                         sendFakeEquipmentReturnMessage()
                         return
                     }
+                    if event.srsResponse?.classification == "ST" {
+                        sendFakeTechLocationMessage()
+                        return
+                    }
+                    
                     
                     
                     Dispatcher.delay(600, closure: { 

@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2830D9511D88E2CF008D120A /* sample_tech_location_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2830D9501D88E2CF008D120A /* sample_tech_location_data.json */; };
+		2830D9531D88E9BC008D120A /* sample_cancel_appointment_prompt_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2830D9521D88E9BC008D120A /* sample_cancel_appointment_prompt_data.json */; };
+		2830D9571D88EBB4008D120A /* sample_cancel_appiontment_response_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 2830D9561D88EBB4008D120A /* sample_cancel_appiontment_response_data.json */; };
 		28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */; };
@@ -142,6 +145,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2830D9501D88E2CF008D120A /* sample_tech_location_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_tech_location_data.json; sourceTree = "<group>"; };
+		2830D9521D88E9BC008D120A /* sample_cancel_appointment_prompt_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_cancel_appointment_prompt_data.json; sourceTree = "<group>"; };
+		2830D9561D88EBB4008D120A /* sample_cancel_appiontment_response_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_cancel_appiontment_response_data.json; sourceTree = "<group>"; };
 		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSuggestedRepliesView.swift; sourceTree = "<group>"; };
@@ -436,6 +442,9 @@
 				302268681D80BDE600EC4FB1 /* sample_predictive_response.json */,
 				302268651D80BD0A00EC4FB1 /* sample_srs_response.json */,
 				28AEC0BC1D88B5E600139C7D /* sample_equipment_return_data.json */,
+				2830D9501D88E2CF008D120A /* sample_tech_location_data.json */,
+				2830D9521D88E9BC008D120A /* sample_cancel_appointment_prompt_data.json */,
+				2830D9561D88EBB4008D120A /* sample_cancel_appiontment_response_data.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -802,9 +811,12 @@
 				30C7382C1D87410400E32B78 /* sample_troubleshoot_data.json in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */,
+				2830D9571D88EBB4008D120A /* sample_cancel_appiontment_response_data.json in Resources */,
 				302268501D80690500EC4FB1 /* icon-loader@2x.png in Resources */,
 				302268531D80690500EC4FB1 /* icon-x-small@2x.png in Resources */,
+				2830D9531D88E9BC008D120A /* sample_cancel_appointment_prompt_data.json in Resources */,
 				302268461D80690500EC4FB1 /* bg-dash-tile.png in Resources */,
+				2830D9511D88E2CF008D120A /* sample_tech_location_data.json in Resources */,
 				30099E0F1D3FD1DA00171D56 /* Lato-Black.ttf in Resources */,
 				3022684A1D80690500EC4FB1 /* icon-back@2x.png in Resources */,
 				3022684F1D80690500EC4FB1 /* icon-loader.png in Resources */,

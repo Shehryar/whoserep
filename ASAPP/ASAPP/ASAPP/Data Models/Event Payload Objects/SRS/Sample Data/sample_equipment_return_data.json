@@ -9,7 +9,8 @@
         "label": "Got it - you'd like help returning equipment. Here is the nearest location:"
       },
       {
-        "type": "map"
+        "type": "map",
+        "image_type" : "equipment"
       },
       {
         "value": [

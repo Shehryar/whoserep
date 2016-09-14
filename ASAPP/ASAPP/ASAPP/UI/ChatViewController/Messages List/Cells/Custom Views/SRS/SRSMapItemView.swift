@@ -10,6 +10,22 @@ import UIKit
 
 class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
     
+    var mapItem: SRSMapItem? {
+        didSet {
+            if let imageType = mapItem?.imageType {
+                switch imageType {
+                case .Tech:
+                    mapView.image = Images.imageTechLocationMap()
+                    break
+                    
+                case .Equipment:
+                    mapView.image = Images.imageEquipmentReturnMap()
+                    break
+                }
+            }
+        }
+    }
+    
     let mapView = UIImageView(image: Images.imageEquipmentReturnMap())
     
     // MARK: Initialization
@@ -48,7 +64,7 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
-        let height = floor(size.width * 0.4)
+        let height = floor(size.width * 0.33)
         
         return CGSize(width: size.width, height: height)
     }

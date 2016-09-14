@@ -427,13 +427,35 @@ extension Event {
         return nil
     }
     
-    class func sampleEquipmentReturnEvent(withEventLogSeq: Int? = nil) -> Event? {
+    class func sampleEquipmentReturnEvent(eventLogSeq: Int? = nil) -> Event? {
         if let path = ASAPPBundle.pathForResource("sample_equipment_return_data", ofType: "json") {
             if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString)
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, eventLogSeq: eventLogSeq)
                 return event
             }
         }
         return nil
+    }
+    
+    class func sampleEventWithJSONFile(jsonName: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
+        if let path = ASAPPBundle.pathForResource(jsonName, ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent, eventLogSeq: eventLogSeq)
+                return event
+            }
+        }
+        return nil
+    }
+    
+    class func sampleTechLocationEvent(eventLogSeq: Int? = nil) -> Event? {
+        return sampleEventWithJSONFile("sample_tech_location_data", eventLogSeq: eventLogSeq)
+    }
+    
+    class func sampleCancelAppointmentPromptEvent(eventLogSeq: Int? = nil) -> Event? {
+        return sampleEventWithJSONFile("sample_cancel_appointment_prompt_data", eventLogSeq: eventLogSeq)
+    }
+    
+    class func sampleCancelAppointmentConfirmationEvent(eventLogSeq: Int? = nil) -> Event? {
+        return sampleEventWithJSONFile("sample_cancel_appiontment_response_data", eventLogSeq: eventLogSeq)
     }
 }
