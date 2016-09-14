@@ -58,7 +58,6 @@ class ChatWelcomeViewController: UIViewController {
         closeButton.sizeToFit()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
         
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
         if let tapGesture = tapGesture {
             tapGesture.cancelsTouchesInView = false
@@ -72,14 +71,14 @@ class ChatWelcomeViewController: UIViewController {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.font = Fonts.latoRegularFont(withSize: 24)
+        titleLabel.font = self.styles.bodyFont.fontWithSize(24)
         titleLabel.text = self.appOpenResponse.greeting
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .ByTruncatingTail
         messageLabel.textColor = UIColor.whiteColor()
-        messageLabel.font = Fonts.latoRegularFont(withSize: 15)
+        messageLabel.font = self.styles.bodyFont
         messageLabel.text = self.appOpenResponse.customizedMessage
         blurredBgView.contentView.addSubview(messageLabel)
         
@@ -94,11 +93,11 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         messageInputView.backgroundColor = Colors.steelDarkColor()
         messageInputView.layer.cornerRadius = 20
-        messageInputView.font = Fonts.latoRegularFont(withSize: 15)
+        messageInputView.font = self.styles.bodyFont
         messageInputView.textColor = Colors.whiteColor()
         messageInputView.placeholderColor = Colors.whiteColor().colorWithAlphaComponent(0.7)
-        messageInputView.separatorColor = Colors.steelMedColor()
-        messageInputView.updateSendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 12), color: Colors.marbleMedColor())
+        messageInputView.separatorColor = nil
+        messageInputView.updateSendButtonStyle(withFont: self.styles.buttonFont, color: Colors.marbleMedColor())
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")

@@ -114,7 +114,7 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         
         chatButton = ASAPPButton(withCredentials: credentials,
                                  presentingViewController: self,
-                                 styles: nil,
+                                 styles: ASAPPStyles.comcastStyles(),
                                  callback: { [weak self] (action, userInfo) in
                                     self?.handleAction(action, userInfo: userInfo)
             })

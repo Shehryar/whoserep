@@ -299,7 +299,7 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 200.0 + inputHeight) + suggestedRepliesView.transparentInsetTop
+        let repliesHeight: CGFloat = min(280, max(keyboardRenderedHeight + inputHeight, 200.0 + inputHeight)) + suggestedRepliesView.transparentInsetTop
         var repliesTop = CGRectGetHeight(view.bounds)
         if actionableMessage != nil {
             repliesTop -= repliesHeight

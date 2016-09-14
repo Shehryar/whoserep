@@ -170,6 +170,8 @@ class ChatInputView: UIView, ASAPPStyleable {
         updateSendButtonForCurrentState()
         
         addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
+        
+        updateInputMinHeight()
     }
     
     deinit {
@@ -260,6 +262,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         resizeIfNeeded(false)
         inputMinHeight = inputHeight
         textView.text = textViewText
+        setNeedsLayout()
     }
     
     func applySeparatorColor() {
@@ -316,7 +319,10 @@ extension ChatInputView {
         
         let textViewWidth = sendButtonLeft - 8.0 - contentInset.left
         let textViewHeight = inputHeight //CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
+        let calculatedTextViewHeight = ceil(textView.sizeThatFits(CGSize(width: textViewWidth, height: 0)).height)
+        
         textView.frame = CGRectMake(contentInset.left, contentInset.top, textViewWidth, textViewHeight)
+        
         placeholderTextView.frame = textView.frame
     }
     
@@ -337,9 +343,6 @@ extension ChatInputView: UITextViewDelegate {
     
     func resizeIfNeeded(animated: Bool, notifyDelegateOfChange: Bool = false) {
         var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
-        if height < inputMinHeight {
-            height = inputMinHeight
-        }
         if height > inputMaxHeight {
             height = inputMaxHeight
             textView.scrollEnabled = true

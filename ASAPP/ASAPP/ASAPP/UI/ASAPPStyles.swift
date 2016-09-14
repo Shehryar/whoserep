@@ -76,6 +76,19 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Preset Styles
     
+    public class func comcastStyles() -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        
+        styles.headlineFont = Fonts.xfinitySansBoldFont(withSize: 24)
+        styles.bodyFont = Fonts.xfinitySansRegFont(withSize: 15)
+        styles.bodyBoldFont = Fonts.xfinitySansBoldFont(withSize: 15)
+        styles.detailFont = Fonts.xfinitySansBoldFont(withSize: 12)
+        styles.captionFont = Fonts.xfinitySansMedFont(withSize: 10)
+        styles.buttonFont = Fonts.xfinitySansBoldFont(withSize: 12)
+        
+        return styles
+    }
+    
     public class func darkStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         styles.bodyFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)

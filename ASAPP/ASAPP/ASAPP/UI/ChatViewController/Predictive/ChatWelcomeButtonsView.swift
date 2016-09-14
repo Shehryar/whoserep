@@ -75,7 +75,7 @@ class ChatWelcomeButtonsView: UIView {
             button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.15), forState: .Normal)
             button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.08), forState: .Highlighted)
         }
-        button.font = Fonts.latoRegularFont(withSize: 15)
+        button.font = styles.bodyFont.fontWithSize(15)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title
