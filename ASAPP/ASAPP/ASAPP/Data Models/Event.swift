@@ -31,6 +31,7 @@ import RealmSwift
     case CustomerFeedback = 18
     case VCardMessage = 19
     case SRSResponse = 22
+    case SRSEcho = 23
 }
 
 @objc enum EphemeralType: Int {
@@ -337,6 +338,25 @@ class Event: Object {
         self.eventFlags = eventFlags
         self.eventJSON = eventJSON
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
+        
+        
+        
+        // MITCH MITCH MITCH TESTING TEST TEST
+        
+        if self.eventType == .SRSEcho {
+            var eventJSONObject: [String : AnyObject]?
+            do {
+                eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
+            } catch {
+                // ignore for now....
+                
+            }
+            
+            if let parsedEchoContent = eventJSONObject?["Echo"] as? String {
+                self.eventType = .SRSResponse
+                self.eventJSON = parsedEchoContent
+            }
+        }
     }
 }
 
@@ -368,6 +388,8 @@ extension Event {
 
 extension Event {
     
+    // MARK: Generic
+    
     class func sampleEvent(type: EventType, eventJSON: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
         let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
         
@@ -396,6 +418,26 @@ extension Event {
             "EventJSON" : eventJSON
             ])
     }
+    
+    class func sampleEventWithJSONFile(fileName: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
+        if let jsonString = jsonStringForFile(fileName) {
+            let event = sampleEvent(EventType.SRSResponse, eventJSON: jsonString, afterEvent: afterEvent, eventLogSeq: eventLogSeq)
+            return event
+        }
+        return nil
+    }
+    
+    class func jsonStringForFile(fileName: String) -> String? {
+        if let path = ASAPPBundle.pathForResource(fileName, ofType: "json") {
+            if let jsonString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+                return jsonString
+            }
+        }
+        return nil
+    }
+    
+    
+    // MARK: Specific
     
     class func sampleBillSummaryEvent(afterEvent: Event? = nil) -> Event? {
         if let path = ASAPPBundle.pathForResource("sample_bill_data", ofType: "json") {
@@ -437,15 +479,9 @@ extension Event {
         return nil
     }
     
-    class func sampleEventWithJSONFile(jsonName: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
-        if let path = ASAPPBundle.pathForResource(jsonName, ofType: "json") {
-            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent, eventLogSeq: eventLogSeq)
-                return event
-            }
-        }
-        return nil
-    }
+    
+    
+    
     
     class func sampleTechLocationEvent(eventLogSeq: Int? = nil) -> Event? {
         return sampleEventWithJSONFile("sample_tech_location_data", eventLogSeq: eventLogSeq)
@@ -458,4 +494,6 @@ extension Event {
     class func sampleCancelAppointmentConfirmationEvent(eventLogSeq: Int? = nil) -> Event? {
         return sampleEventWithJSONFile("sample_cancel_appiontment_response_data", eventLogSeq: eventLogSeq)
     }
+    
+    
 }

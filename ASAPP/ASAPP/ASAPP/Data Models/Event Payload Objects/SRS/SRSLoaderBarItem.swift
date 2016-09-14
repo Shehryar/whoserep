@@ -11,16 +11,17 @@ import UIKit
 class SRSLoaderBarItem: NSObject, JSONObject {
     
     var loadingFinishedTime: NSDate?
-    
-    override init() {
-        super.init()
-        
-        self.loadingFinishedTime = NSDate(timeIntervalSinceNow: 10)
-    }
-    
+
     // MARK: JSONObject
     
     class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
-        return SRSLoaderBarItem()
+        var loaderItem =  SRSLoaderBarItem()
+        if let json = json {
+            if let finishedAt = json["finishedAt"] as? Double {
+                loaderItem.loadingFinishedTime = NSDate(timeIntervalSince1970: finishedAt)
+            }
+        }
+        
+        return loaderItem
     }
 }

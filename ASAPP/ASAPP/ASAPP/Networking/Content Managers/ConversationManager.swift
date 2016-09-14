@@ -228,17 +228,40 @@ extension ConversationManager {
         })
     }
     
+    func echoResponseWithContentString(contentString: String?) {
+        guard let contentString = contentString else { return }
+        let editedString = contentString.stringByReplacingOccurrencesOfString("\n", withString: "")
+        
+        socketConnection.sendRequest(withPath: "srs/Echo", params: ["Echo" : editedString]) { (incomingMessage) in
+            // no-op
+        }
+    }
+    
     func sendFakeTroubleshooterMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
         sendMessage(buttonItem.title, completion: completion)
         
-        sendFakeResponse(Event.sampleTroubleshooterEvent(afterEvent))
+        echoResponseWithContentString(Event.jsonStringForFile("sample_troubleshoot_data"))
     }
 
     func sendFakeDeviceRestartMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
         sendMessage(buttonItem.title, completion: completion)
         
-        sendFakeResponse(Event.sampleDeviceRestartEvent(afterEvent))
+        var deviceRestartString = Event.jsonStringForFile("sample_device_restart_data")
+        let finishedAt = Int(NSDate(timeIntervalSinceNow: 15).timeIntervalSince1970)
+        deviceRestartString = deviceRestartString?.stringByReplacingOccurrencesOfString("\"loaderBar\"", withString: "\"loaderBar\", \"finishedAt\" : \(finishedAt)")
+
+        echoResponseWithContentString(deviceRestartString)
     }
+    
+    func sendFakeCancelAppointmentMessage() {
+        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appointment_prompt_data"))
+    }
+    
+    func sendFakeCancelAppointmentConfirmationMessage() {
+        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appiontment_response_data"))
+    }
+    
+    // MARK: Mock Data overriding responses
     
     func sendFakeEquipmentReturnMessage(eventLogSeq: Int? = nil) {
         sendFakeResponse(Event.sampleEquipmentReturnEvent(eventLogSeq))
@@ -246,14 +269,6 @@ extension ConversationManager {
     
     func sendFakeTechLocationMessage(eventLogSeq: Int? = nil) {
         sendFakeResponse(Event.sampleTechLocationEvent(eventLogSeq))
-    }
-    
-    func sendFakeCancelAppointmentMessage() {
-        sendFakeResponse(Event.sampleCancelAppointmentPromptEvent())
-    }
-    
-    func sendFakeCancelAppointmentConfirmationMessage() {
-        sendFakeResponse(Event.sampleCancelAppointmentConfirmationEvent())
     }
 }
 
@@ -280,7 +295,7 @@ extension ConversationManager: SocketConnectionDelegate {
                     
                     
                     
-                    Dispatcher.delay(600, closure: { 
+                    Dispatcher.delay(400, closure: {
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })
                     break
