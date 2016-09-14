@@ -1,10 +1,9 @@
 {
   "greeting": "How can we help?",
-  "prediction_display_text": "You have an upcoming payment due in 3 days.",
+  "prediction_display_text": "We noticed that you have an error (\"one moment please\") on your TV. Can we help you troubleshoot this issue?",
   "actions": [
+    "Troubleshoot my TV",
     "See my bill",
-    "Troubleshooting",
-    "Slow internet",
-    "Return equipment"
+    "Upgrade my service"
   ]
 }
