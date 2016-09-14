@@ -101,6 +101,12 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 createdViews.append(loaderBarView)
             }
                 
+            else if item is SRSMapItem {
+                let mapItemView = SRSMapItemView()
+                mapItemView.applyStyles(styles)
+                createdViews.append(mapItemView)
+            }
+                
             // Item List
             else if let itemList = item as? SRSItemList {
                 let itemListView = SRSItemListView()

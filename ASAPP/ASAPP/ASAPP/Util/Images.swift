@@ -54,6 +54,14 @@ class Images: NSObject {
         return nil
     }
     
+    class func imageEquipmentReturnMap() -> UIImage? {
+        return imageWithName("map-equipment")
+    }
+    
+    class func imageTechLocationMap() -> UIImage? {
+        return imageWithName("map-tech")
+    }
+    
     // MARK:- Private Helper Methods
     
     private class func imageWithName(name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {

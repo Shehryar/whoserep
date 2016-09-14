@@ -32,7 +32,7 @@ class SRSInfoItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
             let label = json["label"] as? String,
             let value = json["value"] as? String else {

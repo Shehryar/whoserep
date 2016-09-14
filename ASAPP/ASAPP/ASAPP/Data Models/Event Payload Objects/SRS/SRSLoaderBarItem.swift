@@ -20,9 +20,7 @@ class SRSLoaderBarItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
         return SRSLoaderBarItem()
     }
-
-
 }

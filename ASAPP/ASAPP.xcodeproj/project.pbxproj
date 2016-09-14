@@ -31,6 +31,9 @@
 		28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B41D888FFD00139C7D /* map-tech@2x.png */; };
 		28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B51D888FFD00139C7D /* map-tech@3x.png */; };
 		28AEC0BD1D88B5E600139C7D /* sample_equipment_return_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0BC1D88B5E600139C7D /* sample_equipment_return_data.json */; };
+		28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */; };
+		28AEC0C11D88C02400139C7D /* SRSMapItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */; };
+		28AEC0C31D88C4AC00139C7D /* StackableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0C21D88C4AC00139C7D /* StackableView.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		3008888C1D620D3700C25802 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008888B1D620D3700C25802 /* Button.swift */; };
@@ -149,6 +152,9 @@
 		28AEC0B41D888FFD00139C7D /* map-tech@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@2x.png"; sourceTree = "<group>"; };
 		28AEC0B51D888FFD00139C7D /* map-tech@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@3x.png"; sourceTree = "<group>"; };
 		28AEC0BC1D88B5E600139C7D /* sample_equipment_return_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_equipment_return_data.json; sourceTree = "<group>"; };
+		28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItem.swift; sourceTree = "<group>"; };
+		28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItemView.swift; sourceTree = "<group>"; };
+		28AEC0C21D88C4AC00139C7D /* StackableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackableView.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		3008888B1D620D3700C25802 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -304,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				3008889C1D63C48600C25802 /* StackView.swift */,
+				28AEC0C21D88C4AC00139C7D /* StackableView.swift */,
 				309219321D6666F700E70AEB /* TwoColumnLabelView.swift */,
 			);
 			path = StackView;
@@ -560,6 +567,7 @@
 				30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */,
 				30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */,
 				30C738311D87492300E32B78 /* SRSLoaderBarItem.swift */,
+				28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */,
 				302268631D80BD0A00EC4FB1 /* Sample Data */,
 			);
 			path = SRS;
@@ -653,6 +661,7 @@
 				30D2E2981D7A230B00502D92 /* SRSFillerView.swift */,
 				30D2E2961D7A137B00502D92 /* SRSSeparatorView.swift */,
 				30C7382F1D8747FC00E32B78 /* SRSLoaderBarView.swift */,
+				28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */,
 			);
 			path = SRS;
 			sourceTree = "<group>";
@@ -883,12 +892,14 @@
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				30D2E2911D7A0F1100502D92 /* SRSSeparatorItem.swift in Sources */,
 				303C877E1D789BB100213F6B /* SRSItemList.swift in Sources */,
+				28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */,
 				302268331D8053FA00EC4FB1 /* TroubleshooterView.swift in Sources */,
 				30A4BB271D5240B100795BA7 /* ChatInfoTextCell.swift in Sources */,
 				303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */,
 				309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
+				28AEC0C11D88C02400139C7D /* SRSMapItemView.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
@@ -904,6 +915,7 @@
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
+				28AEC0C31D88C4AC00139C7D /* StackableView.swift in Sources */,
 				30226CD41D4933F200871453 /* Conversation.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
