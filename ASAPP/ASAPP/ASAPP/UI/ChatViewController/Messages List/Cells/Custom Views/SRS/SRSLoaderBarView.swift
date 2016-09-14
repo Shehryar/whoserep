@@ -19,7 +19,7 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
                                                                target: self,
                                                                selector: #selector(SRSLoaderBarView.updateCurrentView),
                                                                userInfo: nil,
-                                                               repeats: true)                
+                                                               repeats: true)
             }
             updateCurrentView()
         }
@@ -40,8 +40,6 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     // MARK: Initialization
     
     func commonInit() {
-        loaderView.backgroundColor = UIColor.redColor()
-        loaderView.image = Images.gifLoaderBar()
         loaderView.contentMode = .ScaleToFill
         addSubview(loaderView)
         
@@ -108,10 +106,13 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     func updateCurrentView() {
         guard let loaderItem = loaderItem,
             let finishedDate = loaderItem.loadingFinishedTime else {
-            loaderView.alpha = 1
-            finishedLabel.alpha = 0
-            clearTimer()
-            return
+                loaderView.alpha = 1
+                if loaderView.image == nil {
+                    loaderView.image = Images.gifLoaderBar()
+                }
+                finishedLabel.alpha = 0
+                clearTimer()
+                return
         }
         
         if finishedDate.hasPassed() {
@@ -119,12 +120,15 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
             let formatString = ASAPPLocalizedString("Restart completed: %@")
             finishedLabel.text = String(format: formatString, dateFormatter.stringFromDate(finishedDate))
             loaderView.alpha = 0
+            loaderView.image = nil
             finishedLabel.alpha = 1
-            
             clearTimer()
         } else {
             finishedLabel.text = nil
             loaderView.alpha = 1
+            if loaderView.image == nil {
+                loaderView.image = Images.gifLoaderBar()
+            }
             finishedLabel.alpha = 0
         }
     }
