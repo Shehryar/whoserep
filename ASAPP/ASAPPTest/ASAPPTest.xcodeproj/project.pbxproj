@@ -12,10 +12,10 @@
 		28F517721D823BB400223C44 /* ComcastChangeUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */; };
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
-		309615C91D8B396300DF774D /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309615C81D8B396300DF774D /* ASAPP.framework */; };
-		309615CA1D8B396300DF774D /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 309615C81D8B396300DF774D /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
+		30F0F3B21D8B3DD800704E91 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0F3B11D8B3DD800704E91 /* ASAPP.framework */; };
+		30F0F3B31D8B3DD800704E91 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0F3B11D8B3DD800704E91 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
@@ -23,13 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		30B28F451D78C0B500A58D15 /* Embed Frameworks */ = {
+		30F0F3B01D8B3DCC00704E91 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				309615CA1D8B396300DF774D /* ASAPP.framework in Embed Frameworks */,
+				30F0F3B31D8B3DD800704E91 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,9 +45,9 @@
 		303C87731D775BB400213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		303C87741D775BB900213F6B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
-		309615C81D8B396300DF774D /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphonesimulator/ASAPP.framework"; sourceTree = "<absolute>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		30F0F3B11D8B3DD800704E91 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
 		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.release.xcconfig"; sourceTree = "<group>"; };
 		C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				309615C91D8B396300DF774D /* ASAPP.framework in Frameworks */,
+				30F0F3B21D8B3DD800704E91 /* ASAPP.framework in Frameworks */,
 				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
@@ -103,7 +103,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				309615C81D8B396300DF774D /* ASAPP.framework */,
+				30F0F3B11D8B3DD800704E91 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
@@ -150,7 +150,7 @@
 				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
 				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
 				30AE79D61D4AB7FA00651F09 /* ShellScript */,
-				30B28F451D78C0B500A58D15 /* Embed Frameworks */,
+				30F0F3B01D8B3DCC00704E91 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

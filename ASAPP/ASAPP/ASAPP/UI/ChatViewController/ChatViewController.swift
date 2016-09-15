@@ -44,13 +44,22 @@ class ChatViewController: UIViewController {
     private let connectionStatusView = ChatConnectionStatusView()
     private let suggestedRepliesView = ChatSuggestedRepliesView()
     private var shouldShowConnectionStatusView: Bool {
-        return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
+        guard let delayedDisconnectTime = delayedDisconnectTime else { return false }
+        
+        if connectionStatusView.status == .Connecting {
+            return true
+        }
+        if connectionStatusView.status == .Disconnected && delayedDisconnectTime.hasPassed() {
+            return true
+        }
+        return false
     }
     private var isInitialLayout = true
     private var askQuestionVC: ChatWelcomeViewController?
     private var askQuestionNavController: UINavigationController?
     private var didPresentAskQuestionView = false
     private var askQuestionVCVisible = false
+    private var delayedDisconnectTime: NSDate?
     
     // MARK:- Initialization
     
@@ -285,7 +294,7 @@ extension ChatViewController {
         let viewWidth = CGRectGetWidth(view.bounds)
             
         let connectionStatusHeight: CGFloat = 40
-        var connectionStatusTop = minVisibleY - connectionStatusHeight
+        var connectionStatusTop = -connectionStatusHeight
         if shouldShowConnectionStatusView {
             connectionStatusTop = minVisibleY
         }
@@ -310,7 +319,7 @@ extension ChatViewController {
                                  CGRectGetMinY(suggestedRepliesView.frame) + suggestedRepliesView.transparentInsetTop)
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.layoutSubviews()
-        chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
+        chatMessagesView.contentInsetTop = minVisibleY
         
         
         if actionableMessage != nil {
@@ -597,6 +606,16 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
+        
+        if isConnected {
+            delayedDisconnectTime = nil
+        } else if delayedDisconnectTime == nil {
+            delayedDisconnectTime = NSDate(timeIntervalSinceNow: 4) // 4 seconds from now
+            Dispatcher.delay(4300, closure: {
+                self.updateFramesAnimated()
+            })
+        }
+        
         connectionStatusView.status = isConnected ? .Connected : .Disconnected
         updateFramesAnimated(scrollToBottomIfNearBottom: false)
         
