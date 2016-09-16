@@ -163,6 +163,14 @@ extension ChatActionableMessageView: UITableViewDelegate {
 // MARK:- Instance Methods
 
 extension ChatActionableMessageView {
+    func flashScrollIndicatorsIfNecessary() {
+        if tableView.contentSize.height > CGRectGetHeight(tableView.bounds) + 30 {
+            Dispatcher.delay(600) {
+                self.tableView.flashScrollIndicators()
+            }
+        }
+    }
+    
     func clearSelection() {
         selectedButtonItem = nil
         tableView.reloadData()

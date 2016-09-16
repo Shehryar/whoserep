@@ -237,6 +237,7 @@ extension ChatSuggestedRepliesView {
                 self.updateActionableViewFrames()
                 }, completion: { (completed) in
                     self.animating = false
+                    actionableMessageView.flashScrollIndicatorsIfNecessary()
                     for previousView in self.actionableMessageViews {
                         if previousView != actionableMessageView {
                             previousView.clearSelection()
@@ -246,6 +247,7 @@ extension ChatSuggestedRepliesView {
         } else {
             updateBackButtonVisibility()
             updateActionableViewFrames()
+            actionableMessageView.flashScrollIndicatorsIfNecessary()
         }
     }
     
