@@ -46,12 +46,16 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         versionLabel.sizeToFit()
         if let navView = navigationController?.view {
             var versionFrame = versionLabel.frame
-            versionFrame.origin.x = 110
+            versionFrame.origin.x = CGRectGetMidX(UIScreen.mainScreen().bounds) + 40
             versionFrame.origin.y = 0
             versionFrame.size.height = 20
             versionLabel.frame = versionFrame
             navView.addSubview(versionLabel)
         }
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     func showTestViewController() {

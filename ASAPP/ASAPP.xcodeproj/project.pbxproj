@@ -110,6 +110,7 @@
 		303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877F1D789BD900213F6B /* SRSButtonItem.swift */; };
 		303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C87811D789BE200213F6B /* SRSLabelItem.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
+		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
@@ -243,6 +244,7 @@
 		303C877F1D789BD900213F6B /* SRSButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItem.swift; sourceTree = "<group>"; };
 		303C87811D789BE200213F6B /* SRSLabelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelItem.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
 				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
 				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
+				307C54571D8C87C60091E74A /* NavigationController.swift */,
 				3008889B1D63C47900C25802 /* StackView */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
 				3008888B1D620D3700C25802 /* Button.swift */,
@@ -1015,6 +1018,7 @@
 				30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */,
 				30C738301D8747FC00E32B78 /* SRSLoaderBarView.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
+				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */,

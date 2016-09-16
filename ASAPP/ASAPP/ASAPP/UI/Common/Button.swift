@@ -156,6 +156,9 @@ class Button: UIView {
         contentView.addSubview(imageView)
         
         label.numberOfLines = 1
+        label.lineBreakMode = .ByTruncatingTail
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.textAlignment = .Left
         label.clipsToBounds = true
         contentView.addSubview(label)
@@ -241,7 +244,7 @@ extension Button {
         
         let maxTitleWidth = maxContentWidth - imageWidth - imageMargin
         let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
-        let titleWidth = ceil(titleSize.width)
+        let titleWidth = min(maxTitleWidth, ceil(titleSize.width))
         if titleWidth > 0 && imageWidth > 0 {
             imageMargin = imageTitleMargin
         }
@@ -278,7 +281,8 @@ extension Button {
         }
         
         let maxTitleWidth = max(0, maxContentWidth - contentWidth)
-        let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
+        var titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
+        titleSize.width = ceil(min(maxTitleWidth, titleSize.width))
         
         contentWidth += ceil(titleSize.width)
         if titleSize.width > 0 && image != nil {

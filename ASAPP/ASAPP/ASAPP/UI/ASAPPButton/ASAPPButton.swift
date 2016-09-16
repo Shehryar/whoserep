@@ -231,7 +231,7 @@ extension ASAPPButton {
             }
         }
         
-        let navigationController = UINavigationController(rootViewController: chatViewController)
+        let navigationController = NavigationController(rootViewController: chatViewController)
         
         if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom

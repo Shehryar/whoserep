@@ -233,6 +233,30 @@ class ChatViewController: UIViewController {
         conversationManager.exitConversation()
     }
     
+    // MARK: Status Bar Style
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        if showWelcomeOnViewAppear || askQuestionVCVisible {
+            return .LightContent
+        } else {
+            return .Default
+        }
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
+    }
+    
+    func updateStatusBar(animated: Bool) {
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                self.setNeedsStatusBarAppearanceUpdate()
+            })
+        } else {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
     // MARK: Updates
     
     func updateViewForLiveChat() {
@@ -308,7 +332,7 @@ extension ChatViewController {
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let repliesHeight: CGFloat = min(280, max(keyboardRenderedHeight + inputHeight, 200.0 + inputHeight)) + suggestedRepliesView.transparentInsetTop
+        let repliesHeight: CGFloat = min(280, max(keyboardRenderedHeight + inputHeight, 185.0 + inputHeight)) + suggestedRepliesView.transparentInsetTop
         var repliesTop = CGRectGetHeight(view.bounds)
         if actionableMessage != nil {
             repliesTop -= repliesHeight
@@ -466,17 +490,15 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         if animated {
             UIView.animateWithDuration(0.3, animations: { 
                 welcomeView.alpha = alpha
+                self.updateStatusBar(false)
                 }, completion: { (completed) in
-                    if visible {
-                        
-                        
-                    }
                     self.askQuestionVC?.presentingViewUpdatedVisibility(visible)
                     completion?()
             })
         } else {
             welcomeView.alpha = alpha
             askQuestionVC?.presentingViewUpdatedVisibility(visible)
+            updateStatusBar(false)
             completion?()
         }
         

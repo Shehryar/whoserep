@@ -11,6 +11,7 @@
 		2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */; };
 		28F517721D823BB400223C44 /* ComcastChangeUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */; };
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
+		307C545A1D8C88790091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54591D8C88790091E74A /* NavigationController.swift */; };
 		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
@@ -44,6 +45,7 @@
 		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
 		303C87731D775BB400213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		303C87741D775BB900213F6B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		307C54591D8C88790091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */,
 				28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */,
 				2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */,
+				307C54591D8C88790091E74A /* NavigationController.swift */,
 				308F296B1D413F2300EC7055 /* ChatsListViewController.swift */,
 				30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */,
 				FD8D8B231D107A19001B420B /* Assets.xcassets */,
@@ -278,6 +281,7 @@
 				308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */,
 				30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */,
 				2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */,
+				307C545A1D8C88790091E74A /* NavigationController.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

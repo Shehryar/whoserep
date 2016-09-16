@@ -21,15 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
-//        let navigationController = UINavigationController(rootViewController: ChatsListViewController())
-        let navigationController = UINavigationController(rootViewController: comcastHomeController)
+//        let navigationController = NavigationController(rootViewController: ChatsListViewController())
+        let navigationController = NavigationController(rootViewController: comcastHomeController)
         navigationController.navigationBar.barTintColor = UIColor(red:0.208,  green:0.266,  blue:0.350, alpha:1)
         navigationController.navigationBar.tintColor = UIColor.whiteColor()
         navigationController.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.whiteColor(),
             NSFontAttributeName : UIFont.boldSystemFontOfSize(16)
         ]
-        navigationController.navigationBar.barStyle = .Black
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
             NSFontAttributeName : UIFont.systemFontOfSize(16)

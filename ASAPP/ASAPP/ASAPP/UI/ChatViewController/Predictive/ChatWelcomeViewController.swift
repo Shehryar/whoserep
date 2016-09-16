@@ -204,8 +204,8 @@ class ChatWelcomeViewController: UIViewController {
         }
         
         // Buttons View
-        let buttonsHeight = ceil(buttonsView.sizeThatFits(CGSize(width: textWidth, height: 0)).height)
-        buttonsView.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: buttonsHeight)
+        let buttonsHeight = ceil(buttonsView.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
+        buttonsView.frame = CGRect(x: textLeft, y: textTop, width: contentWidth, height: buttonsHeight)
         buttonsView.updateFrames()
         
         // Input View
@@ -219,7 +219,7 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
         messageInputView.layoutSubviews()
         
-        buttonsView.maxVisibleHeight = CGRectGetMinY(messageInputView.frame) - CGRectGetMinY(buttonsView.frame)
+        buttonsView.maxVisibleHeight = CGRectGetMinY(messageInputView.frame) - CGRectGetMinY(buttonsView.frame) - 6
     }
     
     func updateFramesAnimated() {
