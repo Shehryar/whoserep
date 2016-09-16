@@ -129,6 +129,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         textView.clipsToBounds = false
         textView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
+        textView.returnKeyType = .Send
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
@@ -162,7 +163,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         updateSendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 13),
                              color: Colors.mediumTextColor())
         sendButton.addTarget(self,
-                             action: #selector(ChatInputView.didTapSendButton(_:)),
+                             action: #selector(ChatInputView.didTapSendButton),
                              forControlEvents: .TouchUpInside)
         addSubview(sendButton)
         addSubview(buttonSeparator)
@@ -228,7 +229,7 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK:- Button Actions
     
-    func didTapSendButton(sender: UIButton) {
+    func didTapSendButton() {
         if let messageText = textView.text {
             delegate?.chatInputView(self, didTapSendMessage: messageText)
         }
@@ -329,7 +330,6 @@ extension ChatInputView {
     override func sizeThatFits(size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: inputHeight + contentInset.top + contentInset.bottom)
     }
-
 }
 
 // MARK:- UITextViewDelegate
@@ -339,6 +339,18 @@ extension ChatInputView: UITextViewDelegate {
         resizeIfNeeded(true, notifyDelegateOfChange: true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            if textView.text.isEmpty {
+                textView.resignFirstResponder()
+            } else {
+                didTapSendButton()
+            }
+            return false
+        }
+        return true
     }
     
     func resizeIfNeeded(animated: Bool, notifyDelegateOfChange: Bool = false) {
