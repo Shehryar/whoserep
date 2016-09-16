@@ -15,13 +15,6 @@ class ComcastHomeViewController: ImageBackgroundViewController {
 
     //*/
     
-    var userToken = "vs-cct-c\(NSDate().timeIntervalSince1970)" {
-        didSet {
-            updateUserButton()
-            refreshChatButton()
-        }
-    }
-    
 //    let credentials = Credentials(withCompany: "vs-dev",
 //                                  userToken: "vs-cct-c8",
 //                                  isCustomer: true,
@@ -41,9 +34,9 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         chatButton?.hideUntilAnimateInIsCalled()
         chatButton?.animateIn(afterDelay: 1.0)
         
-        updateUserButton()
-        
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Create New User",
+                                                           style: .Plain, target: self, action: #selector(ComcastHomeViewController.promptToChangeUser))
         
         versionLabel.textColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)
         versionLabel.font = UIFont.boldSystemFontOfSize(10)
@@ -65,47 +58,12 @@ class ComcastHomeViewController: ImageBackgroundViewController {
         navigationController?.pushViewController(ChatsListViewController(), animated: true)
     }
     
-    func changeUser() {
-        let changeUserVC = ComcastChangeUserViewController()
-        changeUserVC.onUserSelection = { (user) in
-            if let user = user {
-                self.userToken = user
-            }
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        let nc = UINavigationController(rootViewController: changeUserVC)
-        if let navBar = navigationController?.navigationBar {
-            nc.navigationBar.barTintColor = navBar.barTintColor
-            nc.navigationBar.tintColor = navBar.tintColor
-            nc.navigationBar.barStyle = navBar.barStyle
-        }
-        presentViewController(nc, animated: true, completion: nil)
-    }
-    
-    func updateUserButton() {
-        let userId = userToken.stringByReplacingOccurrencesOfString("vs-cct-c", withString: "").componentsSeparatedByString(".").first
-        var userIdInt: Int?
-        if let userId = userId {
-            userIdInt = Int(userId)
-        }
-  
-        var userString: String
-        if let userIdInt = userIdInt {
-            if userIdInt > 50 {
-                userString = "New User"
-            } else {
-                userString = "User \(userIdInt)"
-            }
-        } else {
-            userString = "Unknown User"
-        }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: userString,
-                                                           style: .Plain, target: self, action: #selector(ComcastHomeViewController.changeUser))
-    }
+    // MARK:- Chat Button
     
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
+        
+        let userToken = existingUserToken() ?? createNewUserToken()
         
         let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
             userToken: userToken,
@@ -125,6 +83,48 @@ class ComcastHomeViewController: ImageBackgroundViewController {
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
+    }
+    
+    // MARK:- User Management
+    
+    func promptToChangeUser() {
+        let alert = UIAlertController(title: "Create a new user?",
+                                      message: "This will delete your existing conversation and replace it with that of a new user.",
+                                      preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Create New User", style: .Default, handler: { (action) in
+            self.createNewUserToken()
+            self.refreshChatButton()
+            self.showNewUserSuccess()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
+            // No action
+        }))
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func showNewUserSuccess() {
+        let alert = UIAlertController(title: "Ok!",
+                                      message: "Your new user is ready.",
+                                      preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Done", style: .Cancel, handler: nil))
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    let USER_TOKEN_STORAGE_KEY = "ASAPP_DEMO_USER_TOKEN"
+    
+    func createNewUserToken() -> String {
+        let freshUserToken = "vs-cct-c\(NSDate().timeIntervalSince1970)"
+        
+        NSUserDefaults.standardUserDefaults().setObject(freshUserToken, forKey: USER_TOKEN_STORAGE_KEY)
+        
+        return freshUserToken
+    }
+    
+    func existingUserToken() -> String? {
+        return NSUserDefaults.standardUserDefaults().stringForKey(USER_TOKEN_STORAGE_KEY)
     }
 }
 
