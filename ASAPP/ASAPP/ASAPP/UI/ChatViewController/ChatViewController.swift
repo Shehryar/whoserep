@@ -20,11 +20,20 @@ class ChatViewController: UIViewController {
     
     let callback: ASAPPCallback
     
-    private var actionableMessage: ActionableMessage?
+    var showWelcomeOnViewAppear = true
+    
+    private var actionableMessage: SRSResponse?
     
     // MARK: Private Properties
     
     private var conversationManager: ConversationManager
+    
+    /// If false, messages will be sent to SRS
+    private var liveChat = false {
+        didSet {
+            updateViewForLiveChat()
+        }
+    }
     
     private var keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
@@ -35,9 +44,22 @@ class ChatViewController: UIViewController {
     private let connectionStatusView = ChatConnectionStatusView()
     private let suggestedRepliesView = ChatSuggestedRepliesView()
     private var shouldShowConnectionStatusView: Bool {
-        return connectionStatusView.status == .Disconnected || connectionStatusView.status == .Connecting
+        guard let delayedDisconnectTime = delayedDisconnectTime else { return false }
+        
+        if connectionStatusView.status == .Connecting {
+            return true
+        }
+        if connectionStatusView.status == .Disconnected && delayedDisconnectTime.hasPassed() {
+            return true
+        }
+        return false
     }
     private var isInitialLayout = true
+    private var askQuestionVC: ChatWelcomeViewController?
+    private var askQuestionNavController: UINavigationController?
+    private var didPresentAskQuestionView = false
+    private var askQuestionVCVisible = false
+    private var delayedDisconnectTime: NSDate?
     
     // MARK:- Initialization
     
@@ -53,6 +75,32 @@ class ChatViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
+        
+        // Buttons
+        
+        let askAQuestionButton = Button()
+        askAQuestionButton.insetLeft = 0
+        askAQuestionButton.title = ASAPPLocalizedString("ASK A NEW QUESTION")
+        askAQuestionButton.font = self.styles.buttonFont
+        askAQuestionButton.foregroundColor = self.styles.navBarButtonColor
+        askAQuestionButton.onTap = { [weak self] in
+            self?.setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+        }
+        askAQuestionButton.sizeToFit()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: askAQuestionButton)
+        
+        let closeButton = Button()
+        closeButton.insetRight = 0
+        closeButton.image = Images.iconX()
+        closeButton.foregroundColor = self.styles.navBarButtonColor
+        closeButton.imageSize = CGSize(width: 13, height: 13)
+        closeButton.onTap = { [weak self] in
+            self?.dismissChatViewController()
+        }
+        closeButton.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        // Subviews
         
         chatMessagesView.delegate = self
         chatMessagesView.applyStyles(self.styles)
@@ -70,9 +118,27 @@ class ChatViewController: UIViewController {
         
         connectionStatusView.applyStyles(self.styles)
         connectionStatusView.onTapToConnect = { [weak self] in
-            self?.connectionStatusView.status = .Connecting
-            self?.conversationManager.enterConversation()
+            if let strongSelf = self {
+                strongSelf.connectionStatusView.status = .Connecting
+                strongSelf.conversationManager.enterConversation()
+                if !strongSelf.liveChat {
+                    strongSelf.conversationManager.startSRS()
+                }
+            }
         }
+        
+        // Ask a Question View Controller
+        
+        askQuestionVC = ChatWelcomeViewController(appOpenResponse: SRSAppOpenResponse.sampleResponse(),
+                                                  styles: styles,
+                                                  hideViewContents: true)
+        if let askQuestionVC = askQuestionVC {
+            askQuestionVC.delegate = self
+            askQuestionNavController = UINavigationController(rootViewController: askQuestionVC)
+            askQuestionNavController?.view.alpha = 0.0
+        }
+        
+        // Keyboard
         
         keyboardObserver.delegate = self
     }
@@ -96,13 +162,44 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Nav Bar
+        
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.translucent = true
+            if styles.navBarBackgroundColor.isDark() {
+                navigationBar.barStyle = .BlackTranslucent
+                if styles.navBarBackgroundColor != UIColor.blackColor() {
+                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                }
+            } else {
+                navigationBar.barStyle = .Default
+                if styles.navBarBackgroundColor != UIColor.whiteColor() {
+                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                }
+            }
+            navigationBar.tintColor = styles.navBarButtonColor
+        }
+        
+        // View
+        
         view.clipsToBounds = true
         view.backgroundColor = styles.backgroundColor1
+        updateViewForLiveChat()
         
         view.addSubview(chatMessagesView)
         view.addSubview(chatInputView)
         view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
+        
+        // Ask Question
+        if let askQuestionView = askQuestionNavController?.view {
+            if let navView = navigationController?.view {
+                navView.addSubview(askQuestionView)
+            } else {
+                view.addSubview(askQuestionView)
+            }
+            askQuestionView.alpha = 0.0
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -114,6 +211,16 @@ class ChatViewController: UIViewController {
         } else {
             connectionStatusView.status = .Connecting
             conversationManager.enterConversation()
+            if !liveChat {
+                conversationManager.startSRS()
+            }
+        }
+        
+        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
+            showWelcomeOnViewAppear = false
+            setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+        } else {
+            showSuggestedRepliesViewIfNecessary(withEvent: chatMessagesView.mostRecentEvent)
         }
     }
     
@@ -124,6 +231,48 @@ class ChatViewController: UIViewController {
         view.endEditing(true)
         
         conversationManager.exitConversation()
+    }
+    
+    // MARK: Status Bar Style
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        if showWelcomeOnViewAppear || askQuestionVCVisible {
+            return .LightContent
+        } else {
+            return .Default
+        }
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
+    }
+    
+    func updateStatusBar(animated: Bool) {
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                self.setNeedsStatusBarAppearanceUpdate()
+            })
+        } else {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    // MARK: Updates
+    
+    func updateViewForLiveChat() {
+        if liveChat {
+            chatInputView.displayMediaButton = true
+            chatInputView.placeholderText = ASAPPLocalizedString("Enter a message...")
+        } else {
+            chatInputView.displayMediaButton = false
+            chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
+        }
+    }
+
+    func dismissChatViewController() {
+        if let presentingViewController = presentingViewController {
+            presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 }
 
@@ -147,6 +296,15 @@ extension ChatViewController {
     }
     
     func updateFrames() {
+        // Ask Question
+        if let askQuestionView = askQuestionNavController?.view {
+            if let navView = navigationController?.view {
+                askQuestionView.frame = navView.bounds
+            } else {
+                askQuestionView.frame = view.bounds
+            }
+        }
+        
         var minVisibleY: CGFloat = 0
         if let navigationBar = navigationController?.navigationBar {
             if let navBarFrame = navigationBar.superview?.convertRect(navigationBar.frame, toView: view) {
@@ -158,20 +316,23 @@ extension ChatViewController {
         }
         
         let viewWidth = CGRectGetWidth(view.bounds)
-        
+            
         let connectionStatusHeight: CGFloat = 40
-        var connectionStatusTop = minVisibleY - connectionStatusHeight
+        var connectionStatusTop = -connectionStatusHeight
         if shouldShowConnectionStatusView {
             connectionStatusTop = minVisibleY
         }
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
         let inputHeight = ceil(chatInputView.sizeThatFits(CGSize(width: viewWidth, height: 300)).height)
-        let inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        var inputTop = CGRectGetHeight(view.bounds)
+        if liveChat {
+            inputTop = CGRectGetHeight(view.bounds) - keyboardOffset - inputHeight
+        }
         chatInputView.frame = CGRect(x: 0, y: inputTop, width: viewWidth, height: inputHeight)
         chatInputView.layoutSubviews()
         
-        let repliesHeight: CGFloat = max(keyboardRenderedHeight + inputHeight, 225.0 + inputHeight)
+        let repliesHeight: CGFloat = min(280, max(keyboardRenderedHeight + inputHeight, 185.0 + inputHeight)) + suggestedRepliesView.transparentInsetTop
         var repliesTop = CGRectGetHeight(view.bounds)
         if actionableMessage != nil {
             repliesTop -= repliesHeight
@@ -179,10 +340,10 @@ extension ChatViewController {
         suggestedRepliesView.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
         
         let messagesHeight = min(CGRectGetMinY(chatInputView.frame),
-                                 CGRectGetMinY(suggestedRepliesView.frame))
+                                 CGRectGetMinY(suggestedRepliesView.frame) + suggestedRepliesView.transparentInsetTop)
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: messagesHeight)
         chatMessagesView.layoutSubviews()
-        chatMessagesView.contentInsetTop = CGRectGetMaxY(connectionStatusView.frame)
+        chatMessagesView.contentInsetTop = minVisibleY
         
         
         if actionableMessage != nil {
@@ -199,7 +360,7 @@ extension ChatViewController {
                     self.chatMessagesView.scrollToBottomAnimated(false)
                 }
                 }, completion: { (completed) in
-                completion?()
+                    completion?()
             })
         } else {
             updateFrames()
@@ -225,6 +386,54 @@ extension ChatViewController: KeyboardObserverDelegate {
     }
 }
 
+// MARK:- SRS Actions
+
+extension ChatViewController {
+    func handleSRSButtonItemSelection(buttonItem: SRSButtonItem) {
+        
+        // MITCH MITCH MITCH TESTING TESTING
+        
+        if let deepLink = buttonItem.deepLink?.lowercaseString {
+            switch deepLink {
+            case "troubleshoot":
+                conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return
+                
+            case "restartdevicenow":
+                conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return
+                
+            default:
+                // No-op
+                break
+            }
+        }
+
+        // END TESTING
+        
+        switch buttonItem.type {
+        case .InAppLink, .Link:
+            if let deepLink = buttonItem.deepLink {
+                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
+                
+                dismissViewControllerAnimated(true, completion: {
+                    self.callback(deepLink, buttonItem.deepLinkData)
+                })
+            }
+            break
+            
+        case .SRS:
+            conversationManager.sendSRSButtonItemSelection(buttonItem) { [weak self] in
+                // TODO: Check for success
+//                self?.actionableMessage = nil
+//                self?.chatInputView.becomeFirstResponder()
+                self?.updateFramesAnimated()
+            }
+            break
+        }
+    }
+}
+
 // MARK:- ChatMessagesViewDelegate
 
 extension ChatViewController: ChatMessagesViewDelegate {
@@ -242,8 +451,75 @@ extension ChatViewController: ChatMessagesViewDelegate {
         presentViewController(imageViewer, animated: true, completion: nil)
     }
     
+    func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        handleSRSButtonItemSelection(buttonItem)
+    }
+    
+    func chatMessagesView(messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
+        showSuggestedRepliesViewIfNecessary(withEvent: event)
+    }
+    
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView) {
         view.endEditing(true)
+    }
+}
+
+// MARK:- ChatWelcomeViewController
+
+extension ChatViewController: ChatWelcomeViewControllerDelegate {
+    
+    func setAskQuestionViewControllerVisible(visible: Bool, animated: Bool, completion: (() -> Void)?) {
+        if askQuestionVCVisible == visible {
+            return
+        }
+        
+        askQuestionVCVisible = visible
+        askQuestionVC?.view.endEditing(true)
+        view.endEditing(true)
+        
+        if visible {
+            clearSuggestedRepliesView(true)
+            keyboardObserver.deregisterForNotification()
+        } else {
+            keyboardObserver.registerForNotifications()
+        }
+        
+        guard let welcomeView = askQuestionNavController?.view else { return }
+        let alpha: CGFloat = visible ? 1 : 0
+        
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                welcomeView.alpha = alpha
+                self.updateStatusBar(false)
+                }, completion: { (completed) in
+                    self.askQuestionVC?.presentingViewUpdatedVisibility(visible)
+                    completion?()
+            })
+        } else {
+            welcomeView.alpha = alpha
+            askQuestionVC?.presentingViewUpdatedVisibility(visible)
+            updateStatusBar(false)
+            completion?()
+        }
+        
+    }
+    
+    // MARK: Delegate
+    
+    func chatWelcomeViewController(viewController: ChatWelcomeViewController, didFinishWithText queryText: String) {
+        
+        keyboardObserver.registerForNotifications()
+        self.chatMessagesView.scrollToBottomAnimated(false)
+        
+        setAskQuestionViewControllerVisible(false, animated: true) {
+            self.sendMessage(withText: queryText)
+        }
+    }
+    
+    func chatWelcomeViewControllerDidCancel(viewController: ChatWelcomeViewController) {
+        setAskQuestionViewControllerVisible(false, animated: true) {
+            self.showSuggestedRepliesViewIfNecessary(withEvent: self.chatMessagesView.mostRecentEvent)
+        }
     }
 }
 
@@ -251,8 +527,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?) {
-        let isTyping = text != nil && !text!.isEmpty
-        conversationManager.updateCurrentUserTypingStatus(isTyping, withText: text)
+        if liveChat {
+            let isTyping = text != nil && !text!.isEmpty
+            conversationManager.updateCurrentUserTypingStatus(isTyping, withText: text)
+        }
     }
     
     func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String) {
@@ -267,49 +545,55 @@ extension ChatViewController: ChatInputViewDelegate {
     func chatInputViewDidChangeContentSize(chatInputView: ChatInputView) {
         updateFramesAnimated()
     }
-    
-    func chatInputView(chatInputView: ChatInputView, didUpdateInputFrame inputFrame: CGRect) {
-        /** This messes up the SRS Animations
-        
-        if chatInputView.isFirstResponder() {
-            let convertedFrame = view.convertRect(inputFrame, fromView: nil)
-            keyboardOffset = CGRectGetHeight(view.bounds) - CGRectGetMinY(convertedFrame)
-            updateFramesAnimated(false, scrollToBottomIfNearBottom: true, completion: nil)
-        }
- 
-         */
-    }
 }
 
 // MARK:- ChatSuggestedRepliesView
 
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
-    func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
-        actionableMessage = nil
-        chatInputView.becomeFirstResponder()
-        updateFramesAnimated()
+    
+    func showSuggestedRepliesViewIfNecessary(withEvent event: Event?) {
+        guard let event = event else {
+            return
+        }
+        guard event.eventType == .SRSResponse && actionableMessage == nil else {
+            return
+        }
+        guard let srsResponse = event.srsResponse,
+            let _ = srsResponse.itemList?.buttonItems else {
+                return
+        }
+        
+        showSuggestedRepliesView(withSRSResponse: srsResponse)
     }
     
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction messageAction: MessageAction) {
+    func showSuggestedRepliesView(withSRSResponse srsResponse: SRSResponse, animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard srsResponse.itemList?.buttonItems != nil else { return }
         
-        switch messageAction.type {
-        case .Response:
-            conversationManager.sendMessageActionSelection(messageAction) { [weak self] in
-                // TODO: Check for success
-                self?.actionableMessage = nil
-                self?.chatInputView.becomeFirstResponder()
-                self?.updateFramesAnimated()
-            }
-            break
-            
-        case .DeepLink:
-            if let action = messageAction.action {
-                dismissViewControllerAnimated(true, completion: {
-                    self.callback(action, messageAction.userInfo)
-                })
-            }
-            break
+        actionableMessage = srsResponse
+        suggestedRepliesView.setActionableMessage(srsResponse, animated: animated)
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
+    }
+    
+    func clearSuggestedRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
+        actionableMessage = nil
+        
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: {
+            self.suggestedRepliesView.clear()
+            completion?()
+        })
+    }
+    
+    // MARK: Delegate
+    
+    func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView) {
+        if liveChat {
+            chatInputView.becomeFirstResponder()
         }
+        clearSuggestedRepliesView()
+    }
+    
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) {
+        handleSRSButtonItemSelection(buttonItem)
     }
 }
 
@@ -319,12 +603,22 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         chatMessagesView.insertNewMessageEvent(messageEvent) {
             
-            if messageEvent.eventType == .ActionableMessage {
-                Dispatcher.delay(200, closure: { [weak self] in
-                    self?.actionableMessage = messageEvent.actionableMessage
-                    self?.suggestedRepliesView.actionableMessage = messageEvent.actionableMessage
-                    self?.updateFramesAnimated()
-                })
+            // MITCH MITCH MITCH
+            
+            if messageEvent.eventType == .SRSResponse {
+                if let srsResponse = messageEvent.srsResponse {
+                    if let immediateAction = srsResponse.immediateAction {
+                        Dispatcher.delay(1200, closure: {
+                            self.handleSRSButtonItemSelection(immediateAction)
+                        })
+                    } else if let buttonItems = srsResponse.itemList?.buttonItems {
+                        Dispatcher.delay(200, closure: { [weak self] in
+                            self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
+                            })
+                    } else {
+                        self.clearSuggestedRepliesView()
+                    }
+                }
             }
         }
     }
@@ -334,6 +628,16 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
+        
+        if isConnected {
+            delayedDisconnectTime = nil
+        } else if delayedDisconnectTime == nil {
+            delayedDisconnectTime = NSDate(timeIntervalSinceNow: 4) // 4 seconds from now
+            Dispatcher.delay(4300, closure: {
+                self.updateFramesAnimated()
+            })
+        }
+        
         connectionStatusView.status = isConnected ? .Connected : .Disconnected
         updateFramesAnimated(scrollToBottomIfNearBottom: false)
         
@@ -453,6 +757,9 @@ extension ChatViewController {
     
     func sendMessage(withText text: String) {
         conversationManager.sendMessage(text)
+        if !liveChat {
+            conversationManager.sendSRSQuery(text)
+        }
     }
     
     func reloadMessageEvents() {

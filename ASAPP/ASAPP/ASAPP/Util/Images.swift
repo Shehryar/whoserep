@@ -13,16 +13,53 @@ class Images: NSObject {
         return imageWithName("temp-icon-paperclip", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
-    class func xIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("temp-icon-x", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    class func iconX(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-x", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
 
-    class func xLightIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("temp-icon-x-light", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    class func iconSmallX(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-x-small", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
-    class func asappButtonIcon(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
-        return imageWithName("asapp-logo", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    class func iconLoader(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-loader", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func iconBack(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-back", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func iconCheckmark(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-checkmark", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func tileImageDash(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("bg-dash-tile", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
+    class func gifLoaderBar() -> UIImage? {
+        var imageName: String
+        if (UIScreen.mainScreen().scale > 1) {
+            imageName = "gif-loader-bar@2x"
+        } else {
+            imageName = "gif-loader-bar"
+        }
+        
+        if let imagePath = ASAPPBundle.pathForResource(imageName, ofType: "gif") {
+            if let data = NSData(contentsOfFile: imagePath) {
+                return UIImage.sd_animatedGIFWithData(data)
+            }
+        }
+        
+        return nil
+    }
+    
+    class func imageEquipmentReturnMap() -> UIImage? {
+        return imageWithName("map-equipment")
+    }
+    
+    class func imageTechLocationMap() -> UIImage? {
+        return imageWithName("map-tech")
     }
     
     // MARK:- Private Helper Methods

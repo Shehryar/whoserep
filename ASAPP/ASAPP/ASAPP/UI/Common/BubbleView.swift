@@ -10,7 +10,7 @@ import UIKit
 
 class BubbleView: UIView {
 
-    var cornerRadius: CGFloat = 10.0 {
+    var cornerRadius: CGFloat = 14.0 {
         didSet {
             if oldValue != cornerRadius {
                 setNeedsDisplay()
@@ -18,7 +18,7 @@ class BubbleView: UIView {
         }
     }
     
-    var smallCornerRadius: CGFloat = 2.0 {
+    var smallCornerRadius: CGFloat = 3.0 {
         didSet {
             if oldValue != smallCornerRadius {
                 setNeedsDisplay()

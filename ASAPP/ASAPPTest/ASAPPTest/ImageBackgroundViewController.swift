@@ -17,7 +17,7 @@ class ImageBackgroundViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .ScaleToFill
         view.addSubview(imageView)
     }
 

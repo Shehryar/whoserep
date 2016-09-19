@@ -10,7 +10,9 @@ import UIKit
 
 protocol ChatMessagesViewDelegate {
     func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
+    func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
     func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView)
+    func chatMessagesView(messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
 }
 
 class ChatMessagesView: UIView, ASAPPStyleable {
@@ -30,12 +32,18 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     var delegate: ChatMessagesViewDelegate?
     
+    var showTimeStampForEvent: Event?
+    
     var earliestEvent: Event? {
         return dataSource.allEvents.first
     }
     
     var mostRecentEvent: Event? {
-        return dataSource.allEvents.last
+        return dataSource.getLastEvent()
+    }
+    
+    var isEmpty: Bool {
+        return dataSource.isEmpty()
     }
     
     // MARK:- Private Properties
@@ -56,7 +64,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         get { return tableView.contentInset }
     }
     
-    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 5, right: 0)
     
     private var dataSource: ChatMessagesViewDataSource
     
@@ -77,9 +85,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         self.credentials = credentials
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .BillSummary]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .SRSResponse]
         } else {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .ActionableMessage, .BillSummary, .NewIssue, .NewRep, .CRMCustomerLinked]
+            allowedEventTypes = [.TextMessage, .PictureMessage, .SRSResponse, .NewIssue, .NewRep, .CRMCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
@@ -96,7 +104,6 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         tableView.separatorStyle = .None
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
-//        tableView.keyboardDismissMode = .Interactive
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -104,7 +111,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         infoMessageView.frame = bounds
         infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
-        infoMessageView.message = ASAPPLocalizedString("You can begin this conversation by writing a message below.")
+        infoMessageView.message = ASAPPLocalizedString("Ask a new question to get started.")
         addSubview(infoMessageView)
         
         updateSubviewVisibility()
@@ -148,11 +155,25 @@ class ChatMessagesView: UIView, ASAPPStyleable {
 
 extension ChatMessagesView {
 
-    func updateSubviewVisibility() {
+    func updateSubviewVisibility(animated: Bool = false) {
+        let currentAlpha = infoMessageView.alpha
+        var nextAlpha: CGFloat
         if dataSource.isEmpty() {
-            infoMessageView.hidden = false
+            nextAlpha = 1.0
         } else {
-            infoMessageView.hidden = true
+            nextAlpha = 0.0
+        }
+        
+        if currentAlpha == nextAlpha {
+            return
+        }
+    
+        if animated {
+            UIView.animateWithDuration(0.3, animations: { 
+                self.infoMessageView.alpha = nextAlpha
+            })
+        } else {
+            infoMessageView.alpha = nextAlpha
         }
     }
     
@@ -230,7 +251,12 @@ extension ChatMessagesView: UITableViewDataSource {
         let cell = cellMaster.cellForEvent(event,
                                            isReply: isReply ?? true,
                                            listPosition: listPosition,
+                                           detailsVisible: event == showTimeStampForEvent,
                                            atIndexPath: indexPath)
+        
+        if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
+            srsItemViewCell.itemListView.delegate = self
+        }
         
         return cell ?? UITableViewCell()
     }
@@ -281,8 +307,8 @@ extension ChatMessagesView: UITableViewDelegate {
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCellWithEvent(event,
                                                        isReply: isReply ?? true,
-                                                       listPosition: listPosition)
-
+                                                       listPosition: listPosition,
+                                                       detailsVisible: event == showTimeStampForEvent)
         return height
     }
     
@@ -296,7 +322,50 @@ extension ChatMessagesView: UITableViewDelegate {
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
+        } else if let bubbleCell = cell as? ChatBubbleCell {
+            toggleTimeStampForEventAtIndexPath(indexPath)
         }
+        
+        if let event = dataSource.eventForIndexPath(indexPath) {
+            if event == dataSource.getLastEvent() {
+                delegate?.chatMessagesView(self, didTapMostRecentEvent: event)
+            }
+        }   
+    }
+    
+    func toggleTimeStampForEventAtIndexPath(indexPath: NSIndexPath) {
+        
+        let previousEvent = showTimeStampForEvent
+        
+        // Hide timestamp on previous cell
+        if let previousEvent = showTimeStampForEvent,
+            let previousIndexPath = dataSource.indexPathOfEvent(previousEvent),
+            let previousCell = tableView.cellForRowAtIndexPath(previousIndexPath) as? ChatBubbleCell {
+            showTimeStampForEvent = nil
+            previousCell.setDetailLabelHidden(true, animated: true)
+        }
+
+        if let nextEvent = dataSource.eventForIndexPath(indexPath) {
+            // Show timestamp on next cell
+            if previousEvent == nil || nextEvent != previousEvent {
+                if let nextCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatBubbleCell {
+                    showTimeStampForEvent = nextEvent
+                    nextCell.setDetailLabelHidden(false, animated: true)
+                }
+            }
+        }
+        
+        // Update cell heights
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+}
+
+// MARK:- SRSItemListViewDelegate
+
+extension ChatMessagesView: SRSItemListViewDelegate {
+    func itemListView(itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
     }
 }
 
@@ -441,7 +510,7 @@ extension ChatMessagesView {
             scrollToBottomAnimated(cellAnimationsEnabled)
         }
         
-        updateSubviewVisibility()
+        updateSubviewVisibility(true)
         
         completion?()
     }

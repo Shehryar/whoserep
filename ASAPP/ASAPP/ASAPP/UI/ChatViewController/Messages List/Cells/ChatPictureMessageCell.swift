@@ -11,13 +11,12 @@ import SDWebImage
 
 class ChatPictureMessageCell: ChatBubbleCell {
     
-    var event: Event? {
+    override var event: Event? {
         didSet {
             if let event = event, let pictureMessage = event.pictureMessage {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
                 if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
                     if !disableImageLoading {
-//                        setImageWithURL(imageURL, forEvent: event)
                         pictureImageView.sd_setImageWithURL(imageURL)
                     } else {
                         pictureImageView.image = nil

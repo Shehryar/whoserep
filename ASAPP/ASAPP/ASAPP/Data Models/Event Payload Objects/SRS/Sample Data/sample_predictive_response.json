@@ -1,0 +1,9 @@
+{
+  "greeting": "How can we help?",
+  "prediction_display_text": "We noticed that you have an error (\"one moment please\") on your TV. Can we help you troubleshoot this issue?",
+  "actions": [
+    "Troubleshoot \"one moment please\" error",
+    "See my bill",
+    "Return equipment"
+  ]
+}

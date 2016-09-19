@@ -1,0 +1,14 @@
+{
+  "title": "Cancel Appointment Confirmation",
+  "classification": "cancelAppointmentConfirmation",
+  "content": {
+    "value": [
+      {
+        "type": "label",
+        "label": "Alright, your appointment has been successfully canceled."
+      }   
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}

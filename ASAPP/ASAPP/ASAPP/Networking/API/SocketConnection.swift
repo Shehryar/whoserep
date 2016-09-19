@@ -16,7 +16,7 @@ enum ASAPPEnvironment {
     case SRSDevelopment
     case Production
 }
-let CURRENT_ENVIRONMENT = ASAPPEnvironment.Development
+let CURRENT_ENVIRONMENT = ASAPPEnvironment.SRSDevelopment
 
 
 // MARK:- SocketConnectionDelegate

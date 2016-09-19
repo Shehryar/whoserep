@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didSelectMessageAction action: MessageAction)
+    func chatSuggestedRepliesView(replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
 }
 
 
@@ -19,60 +19,70 @@ protocol ChatSuggestedRepliesViewDelegate {
 class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
 
     // MARK: Public Properties
-    
-    var actionableMessage: ActionableMessage? {
-        didSet {
-            tableView.reloadData()
-        }
+
+    var transparentInsetTop: CGFloat {
+        return buttonSize / 2.0 - separatorTopStroke / 2.0
     }
     
     var delegate: ChatSuggestedRepliesViewDelegate?
     
     // MARK: Private Properties
     
-    private let topBarView = UIView()
+    private let buttonSize: CGFloat = 46.0
+    
+    private let separatorTopStroke: CGFloat = 2.0
+    
+    private var actionableMessageViews = [ChatActionableMessageView]()
+    
+    private var selectedButtonItem: SRSButtonItem?
+    
+    private var currentActionableViewIndex = 0
+    
+    private var animating = false
+    
+    // MARK: UI Properties
+    
+    private let backButton = Button()
     
     private let closeButton = Button()
     
-    private let separatorTop = UIView()
+    private let separatorTopView = UIView()
     
-    private let separatorMiddle = UIView()
+    private let patternBackgroundView = UIView()
     
-    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    private let patternView = UIView()
     
-    private let CellReuseId = "CellReuseId"
-    
-    private let replySizingCell = ChatSuggestedReplyCell()
+    private let actionableMessageViewsContainer = UIView()
     
     // MARK: Initialization
     
     func commonInit() {
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.scrollsToTop = false
-        tableView.alwaysBounceVertical = false
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .None
-        tableView.tableFooterView = UIView()
-        tableView.registerClass(ChatSuggestedReplyCell.self,
-                                forCellReuseIdentifier: CellReuseId)
-        addSubview(tableView)
+        patternBackgroundView.addSubview(patternView)
+        addSubview(patternBackgroundView)
         
-        closeButton.image = Images.xLightIcon()
-        closeButton.imageSize = CGSize(width: 16, height: 16)
+        addSubview(actionableMessageViewsContainer)
+        addSubview(separatorTopView)
+        
+        backButton.image = Images.iconBack()
+        backButton.imageSize = CGSize(width: 11, height: 11)
+        backButton.foregroundColor = Colors.mediumTextColor()
+        backButton.onTap = { [weak self] in
+            self?.goToPreviousActionableMessage()
+        }
+        addSubview(backButton)
+        
+        closeButton.hidden = true
+        closeButton.image = Images.iconSmallX()
+        closeButton.imageSize = CGSize(width: 11, height: 11)
         closeButton.foregroundColor = Colors.mediumTextColor()
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
                 blockSelf.delegate?.chatSuggestedRepliesViewDidCancel(blockSelf)
             }
         }
-        topBarView.addSubview(closeButton)
+        addSubview(closeButton)
         
-        topBarView.addSubview(separatorTop)
-        topBarView.addSubview(separatorMiddle)
-        
-        addSubview(topBarView)
-        
+        updateBackButtonVisibility()
         applyStyles(styles)
     }
     
@@ -86,11 +96,6 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         commonInit()
     }
     
-    deinit {
-        tableView.dataSource = nil
-        tableView.delegate = nil
-    }
-    
     // MARK: ASAPPStyleable
     
     private(set) var styles = ASAPPStyles()
@@ -98,18 +103,27 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     func applyStyles(styles: ASAPPStyles) {
         self.styles = styles
         
-        backgroundColor = styles.backgroundColor1
-        topBarView.backgroundColor = styles.backgroundColor2
-        closeButton.setForegroundColor(styles.foregroundColor2,
-                                       forState: .Normal)
-        closeButton.setForegroundColor(styles.foregroundColor2.highlightColor(),
-                                       forState: .Normal)
-        separatorTop.backgroundColor = styles.separatorColor2
-        separatorMiddle.backgroundColor = styles.separatorColor2
+        styleButton(backButton, withStyles: styles)
+        styleButton(closeButton, withStyles: styles)
         
-        tableView.backgroundColor = styles.backgroundColor1
+        separatorTopView.backgroundColor = styles.separatorColor1
         
-        tableView.reloadData()
+        patternBackgroundView.backgroundColor = styles.backgroundColor2
+        patternView.backgroundColor = Colors.patternBackgroundColor()
+    
+        for actionableMessageView in actionableMessageViews {
+            actionableMessageView.applyStyles(styles)
+        }
+    }
+    
+    func styleButton(button: Button, withStyles styles: ASAPPStyles) {
+        button.setForegroundColor(styles.foregroundColor1, forState: .Normal)
+        button.setForegroundColor(styles.foregroundColor1.highlightColor(), forState: .Normal)
+        button.setBackgroundColor(styles.backgroundColor1, forState: .Normal)
+        button.setBackgroundColor(styles.backgroundColor2, forState: .Highlighted)
+        button.layer.borderColor = styles.separatorColor1.CGColor
+        button.layer.borderWidth = 2
+        button.clipsToBounds = true
     }
 }
 
@@ -119,82 +133,129 @@ extension ChatSuggestedRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let topBarHeight: CGFloat  = 44.0
-        topBarView.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(bounds), height: topBarHeight)
+        // Buttons
+        let buttonInset: CGFloat = 15
+        let cornerRadius = buttonSize / 2.0
+        let backButtonLeft = buttonInset
+        backButton.frame = CGRect(x: backButtonLeft, y: 0.0, width: buttonSize, height: buttonSize)
+        backButton.layer.cornerRadius = cornerRadius
         
-        let separatorStroke: CGFloat = 1.0
-        separatorTop.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(bounds), height: separatorStroke)
-        separatorMiddle.frame = CGRect(x: 0.0, y: CGRectGetHeight(topBarView.bounds) - separatorStroke, width: CGRectGetWidth(topBarView.bounds), height: separatorStroke)
+        let closeButtonLeft = CGRectGetWidth(bounds) - buttonSize - buttonInset
+        closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: buttonSize, height: buttonSize)
+        closeButton.layer.cornerRadius = cornerRadius
         
-        let closeButtonSize: CGFloat = 50.0
-        let closeButtonLeft = CGRectGetWidth(topBarView.bounds) - closeButtonSize
-        closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: closeButtonSize, height: topBarHeight)
+        // Separator Top
         
-        let tableViewHeight = CGRectGetHeight(bounds) - topBarHeight
-        tableView.frame = CGRect(x: 0.0, y: topBarHeight, width: CGRectGetWidth(bounds), height: tableViewHeight)
+        let separatorTop = closeButton.center.y - separatorTopStroke / 2.0
+        separatorTopView.frame = CGRect(x: 0.0, y: separatorTop, width: CGRectGetWidth(bounds), height: separatorTopStroke)
+        
+        // Background
+        
+        let backgroundTop = CGRectGetMaxY(separatorTopView.frame)
+        let backgroundHeight = CGRectGetHeight(bounds) - backgroundTop
+        patternBackgroundView.frame = CGRect(x: 0.0, y: backgroundTop, width: CGRectGetWidth(bounds), height: backgroundHeight)
+        patternView.frame = patternBackgroundView.bounds
+        
+        // Actionable Views
+        
+        let actionableMessagesTop = CGRectGetMaxY(separatorTopView.frame)
+        let actionableMessagesHeight = CGRectGetHeight(bounds) - actionableMessagesTop
+        actionableMessageViewsContainer.frame = CGRect(x: 0.0, y: actionableMessagesTop, width: CGRectGetWidth(bounds), height: actionableMessagesHeight)
+        
+        if !animating {
+            updateActionableViewFrames()
+        }
+    }
+    
+    func updateActionableViewFrames() {
+        let width = CGRectGetWidth(actionableMessageViewsContainer.bounds)
+        let height = CGRectGetHeight(actionableMessageViewsContainer.bounds)
+        
+        var left = -width * CGFloat(currentActionableViewIndex)
+        for actionableMessageView in actionableMessageViews {
+            actionableMessageView.frame = CGRect(x: left, y: 0, width: width, height: height)
+            left += width
+        }
+    }
+    
+    func updateBackButtonVisibility() {
+        if actionableMessageViews.count > 1 {
+            backButton.alpha = 1
+        } else {
+            backButton.alpha = 0
+        }
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK:- Instance Methods
 
-extension ChatSuggestedRepliesView: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let actionableMessage = actionableMessage,
-            let actions = actionableMessage.actions {
-            return actions.count
-        }
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(CellReuseId) as? ChatSuggestedReplyCell {
-            styleSuggestedReplyCell(cell, atIndexPath: indexPath)
-            return cell
-        }
-        return UITableViewCell()
-    }
-    
-    // Mark: Utility
-    
-    func actionForIndexPath(indexPath: NSIndexPath) -> MessageAction? {
-        if let actionableMessage = actionableMessage,
-            let actions = actionableMessage.actions {
-            
-            if indexPath.row >= 0 && indexPath.row < actions.count {
-                return actions[indexPath.row]
+extension ChatSuggestedRepliesView {
+  
+    private func createActionableMessageView(actionableMessage: SRSResponse) -> ChatActionableMessageView {
+        let actionableMessageView = ChatActionableMessageView()
+        actionableMessageView.srsResponse = actionableMessage
+        actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
+            if let strongSelf = self {
+                strongSelf.delegate?.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
             }
         }
-        return nil
+        actionableMessageViewsContainer.addSubview(actionableMessageView)
+        actionableMessageViews.append(actionableMessageView)
+        updateActionableViewFrames()
+        
+        return actionableMessageView
     }
     
-    func styleSuggestedReplyCell(cell: ChatSuggestedReplyCell, atIndexPath indexPath: NSIndexPath) {
-        cell.textLabel?.font = styles.bodyFont
-        cell.textLabel?.textColor = styles.foregroundColor1
-        cell.backgroundColor = styles.backgroundColor1
-        cell.selectedBackgroundColor = styles.backgroundColor2
-        cell.separatorBottomColor = styles.separatorColor1
-        cell.textLabel?.text = actionForIndexPath(indexPath)?.name
-    }
-}
-
-extension ChatSuggestedRepliesView: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        styleSuggestedReplyCell(replySizingCell, atIndexPath: indexPath)
-        let cellHeight = ceil(replySizingCell.sizeThatFits(CGSize(width: CGRectGetWidth(tableView.bounds), height: 0)).height)
-        
-        return cellHeight
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        if let action = actionForIndexPath(indexPath) {
-            delegate?.chatSuggestedRepliesView(self, didSelectMessageAction: action)
+    private func goToPreviousActionableMessage() {
+        if actionableMessageViews.count > 1 && currentActionableViewIndex > 0 {
+            currentActionableViewIndex -= 1
+            
+            let viewToRemove = self.actionableMessageViews.last
+            UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: {
+                self.updateActionableViewFrames()
+                self.actionableMessageViews.removeLast()
+                self.updateBackButtonVisibility()
+                }, completion: { (completed) in
+                    viewToRemove?.removeFromSuperview()
+            })
         }
+    }
+    
+    // MARK: Public
+    
+    func setActionableMessage(actionableMessage: SRSResponse, animated: Bool = false) {
+        let actionableMessageView = createActionableMessageView(actionableMessage)
+        
+        if let nextIndex = actionableMessageViews.indexOf(actionableMessageView) {
+            currentActionableViewIndex = nextIndex
+        }
+        
+        if actionableMessageViews.count > 1 && animated {
+            animating = true
+            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+                self.updateBackButtonVisibility()
+                self.updateActionableViewFrames()
+                }, completion: { (completed) in
+                    self.animating = false
+                    actionableMessageView.flashScrollIndicatorsIfNecessary()
+                    for previousView in self.actionableMessageViews {
+                        if previousView != actionableMessageView {
+                            previousView.clearSelection()
+                        }
+                    }
+            })
+        } else {
+            updateBackButtonVisibility()
+            updateActionableViewFrames()
+            actionableMessageView.flashScrollIndicatorsIfNecessary()
+        }
+    }
+    
+    func clear() {
+        for view in actionableMessageViews {
+            view.removeFromSuperview()
+        }
+        actionableMessageViews.removeAll()
     }
 }
 

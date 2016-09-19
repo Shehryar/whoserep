@@ -10,6 +10,10 @@ import UIKit
 
 extension NSDate {
     
+    func hasPassed() -> Bool {
+        return timeIntervalSinceNow < 0
+    }
+    
     func getDateComponents() -> NSDateComponents {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: self)
@@ -51,5 +55,21 @@ extension NSDate {
         let componenets = getDateComponents()
         
         return todaysComponenets.year == componenets.year
+    }
+}
+
+extension NSDate {
+    func dateFormatForMostRecent() -> String {
+        var dateFormat: String
+        if isToday() {
+            dateFormat = "h:mma"
+        } else if isYesterday() {
+            dateFormat = "'Yesterday at' h:mma"
+        } else if isThisYear() {
+            dateFormat = "MMMM d 'at' h:mma"
+        } else {
+            dateFormat = "MMMM d, yyyy 'at' h:mma"
+        }
+        return dateFormat
     }
 }

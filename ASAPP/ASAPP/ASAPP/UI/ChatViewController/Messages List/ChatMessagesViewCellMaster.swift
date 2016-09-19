@@ -16,6 +16,8 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     // MARK: Private Properties
     
+    private let dateFormatter = NSDateFormatter()
+    
     private var cellHeightCache = [Event : CGFloat]()
     
     private var timeHeaderHeightCache = [Double : CGFloat]()
@@ -37,7 +39,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let pictureMessageSizingCell = ChatPictureMessageCell()
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
     private let typingPreviewSizingCell = ChatTypingPreviewCell()
-    private let billSummarySizingCell = ChatBillSummaryCell()
+    private let srsItemListViewSizingCell = ChatSRSItemListViewCell()
     private let infoTextSizingCell = ChatInfoTextCell()
     
     // MARK: Reuse IDs
@@ -48,7 +50,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
     private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
-    private let BillSummaryCellReuseId = "BillSummaryCellReuseId"
+    private let SRSResponseCellReuseId = "SRSResponseCellReuseId"
     private let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK: Init
@@ -67,7 +69,7 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
         tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
-        tableView.registerClass(ChatBillSummaryCell.self, forCellReuseIdentifier: BillSummaryCellReuseId)
+        tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSResponseCellReuseId)
         tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
     
@@ -140,7 +142,7 @@ extension ChatMessagesViewCellMaster {
         return cell
     }
     
-    func cellForEvent(event: Event, isReply: Bool, listPosition: MessageListPosition, atIndexPath: NSIndexPath) -> UITableViewCell? {
+    func cellForEvent(event: Event, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool, atIndexPath: NSIndexPath) -> UITableViewCell? {
         
         // Picture Message
         if event.eventType == .PictureMessage {
@@ -156,24 +158,26 @@ extension ChatMessagesViewCellMaster {
             let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
+            cell?.event = event
             cell?.messageText = event.textMessage?.text
+            cell?.detailLabelHidden = !detailsVisible
             return cell
         }
         
-        // Actionable Message (same UI as Text Message)
-        if event.eventType == .ActionableMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
-            cell?.applyStyles(styles, isReply: isReply)
-            cell?.listPosition = listPosition
-            cell?.messageText = event.actionableMessage?.message
-            return cell
-        }
-        
-        // Bill Summary
-        if event.eventType == .BillSummary {
-            let cell = tableView.dequeueReusableCellWithIdentifier(BillSummaryCellReuseId) as? ChatBillSummaryCell
-            cell?.applyStyles(styles)
-            return cell
+        // SRS Response
+        if event.eventType == .SRSResponse {
+            if let srsResponse = event.srsResponse {
+                switch srsResponse.displayType {
+                case .Inline, .ActionSheet:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(SRSResponseCellReuseId) as? ChatSRSItemListViewCell
+                    cell?.applyStyles(styles, isReply: isReply)
+                    cell?.listPosition = listPosition
+                    cell?.event = event
+                    cell?.response = srsResponse
+                    cell?.detailLabelHidden = !detailsVisible
+                    return cell
+                }
+            }
         }
         
         // Info Cell
@@ -229,23 +233,31 @@ extension ChatMessagesViewCellMaster {
         return heightForStyledView(typingPreviewSizingCell, width: CGRectGetWidth(tableView.bounds))
     }
     
-    func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition) -> CGFloat {
+    func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
         guard let event = event else { return 0.0 }
+        
+        let canCacheHeight = !detailsVisible
         
         cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
         
-        if let cachedHeight = cellHeightCache[event] {
+        if canCacheHeight {
+            if let cachedHeight = cellHeightCache[event] {
 //            print("Cached Height: \(cachedHeight)")
-            return cachedHeight
+                return cachedHeight
+            }
         }
         
         // Calculate height
         let height: CGFloat = calculateHeightForCellWithEvent(event,
                                                               isReply: isReply,
                                                               listPosition: listPosition,
+                                                              detailsVisible: detailsVisible,
                                                               width: cachedTableViewWidth)
-        cellHeightCache[event] = height
-//        print("Calculated Height: \(height)")
+        if canCacheHeight {
+            cellHeightCache[event] = height
+        }
+        
+//        print("Calculated Height: \(height)")        
         
         return height
     }
@@ -253,6 +265,7 @@ extension ChatMessagesViewCellMaster {
     private func calculateHeightForCellWithEvent(event: Event,
                                                  isReply: Bool,
                                                  listPosition: MessageListPosition,
+                                                 detailsVisible: Bool,
                                                  width: CGFloat) -> CGFloat {
         
         // Picture Message
@@ -267,22 +280,25 @@ extension ChatMessagesViewCellMaster {
         if event.eventType == .TextMessage {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
+            textMessageSizingCell.event = event
             textMessageSizingCell.messageText = event.textMessage?.text
+            textMessageSizingCell.detailLabelHidden = !detailsVisible
             return heightForStyledView(textMessageSizingCell, width: width)
         }
         
-        // Actionable Message (same UI as Text Message)
-        if event.eventType == .ActionableMessage {
-            textMessageSizingCell.applyStyles(styles, isReply: isReply)
-            textMessageSizingCell.listPosition = listPosition
-            textMessageSizingCell.messageText = event.actionableMessage?.message
-            return heightForStyledView(textMessageSizingCell, width: width)
-        }
-        
-        // Bill Summary
-        if event.eventType == .BillSummary {
-            billSummarySizingCell.applyStyles(styles)
-            return heightForStyledView(billSummarySizingCell, width: width)
+        // SRS Response
+        if event.eventType == .SRSResponse {
+            if let srsResponse = event.srsResponse {
+                switch srsResponse.displayType {
+                case .Inline, .ActionSheet:
+                    srsItemListViewSizingCell.applyStyles(styles, isReply: isReply)
+                    srsItemListViewSizingCell.listPosition = listPosition
+                    srsItemListViewSizingCell.event = event
+                    srsItemListViewSizingCell.response = srsResponse
+                    srsItemListViewSizingCell.detailLabelHidden = !detailsVisible
+                    return heightForStyledView(srsItemListViewSizingCell, width: width)
+                }
+            }
         }
         
         // Info Cell

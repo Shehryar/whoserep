@@ -37,19 +37,21 @@ public class ASAPPButton: UIView {
         case Highlighted
     }
     
+    private var lastPresentationTime: NSDate?
+    
     private var currentState: ASAPPButtonState {
         return isTouching ? .Highlighted : .Normal
     }
     
-    private var backgroundColors = [ASAPPButtonState.Normal : UIColor(red:0.155,  green:0.596,  blue:0.922, alpha:1),
-                                    ASAPPButtonState.Highlighted : UIColor(red:0.109,  green:0.456,  blue:0.711, alpha:1)]
+    private var backgroundColors = [ASAPPButtonState.Normal : Colors.blueGrayColor(),
+                                    ASAPPButtonState.Highlighted : Colors.blueGrayColor().highlightColor()]
     
     private var foregroundColors = [ASAPPButtonState.Normal : Colors.whiteColor(),
                                     ASAPPButtonState.Highlighted : Colors.whiteColor()]
     
     private let contentView = UIView()
     
-    private let imageView = UIImageView()
+    private let label = UILabel()
     
     private var presentationAnimator: ButtonPresentationAnimator?
     
@@ -60,9 +62,7 @@ public class ASAPPButton: UIView {
             updateButtonDisplay()
         }
     }
-    
-    private var isLongPressing = false
-    
+
     private var isWaitingToAnimateIn = false
     
     // MARK: Initialization
@@ -71,13 +71,19 @@ public class ASAPPButton: UIView {
         clipsToBounds = false
         autoresizesSubviews = false
         
+        label.text = ASAPPLocalizedString("HELP")
+        label.font = styles.buttonFont
+        label.minimumScaleFactor = 0.2
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .Center
+        contentView.addSubview(label)
+
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
         contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
         updateButtonDisplay()
-        contentView.addSubview(imageView)
         addSubview(contentView)
     }
     
@@ -109,11 +115,11 @@ public class ASAPPButton: UIView {
         
         contentView.alpha = 0.0
         contentView.transform = CGAffineTransformIdentity
-        contentView.frame = bounds;
+        contentView.frame = bounds
         updateCornerRadius()
         
-        let imageInset = floor(0.15 * CGRectGetHeight(bounds))
-        imageView.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: imageInset, left: imageInset, bottom: imageInset, right: imageInset))
+        let labelInset = floor(0.15 * CGRectGetHeight(bounds))
+        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: labelInset, bottom: labelInset, right: labelInset))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
@@ -143,10 +149,8 @@ extension ASAPPButton {
             contentView.alpha = 1
         }
         
-        if let buttonForegroundColor = foregroundColors[currentState] {
-            imageView.image = Images.asappButtonIcon(fillColor: buttonForegroundColor)
-        } else if imageView.image == nil {
-            imageView.image = Images.asappButtonIcon(fillColor: UIColor.whiteColor())
+        if let labelForegroundColor = foregroundColors[currentState] {
+            label.textColor = labelForegroundColor
         }
         
         if shadowDisabled {
@@ -218,19 +222,16 @@ extension ASAPPButton {
             return
         }
                 
-        let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback)
-        chatViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.xLightIcon(fillColor: styles.foregroundColor2), style: .Plain, target: self, action: #selector(ASAPPButton.dismissChat))
-        
-        
-        let navigationController = UINavigationController(rootViewController: chatViewController)
-        let barTintColor = styles.backgroundColor2
-        navigationController.navigationBar.barTintColor = barTintColor
-        if barTintColor.isBright() {
-            navigationController.navigationBar.barStyle = .Default
-        } else {
-            navigationController.navigationBar.barStyle = .Black
+        guard let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback) as? ChatViewController else { return }
+        if let lastPresentationTime = lastPresentationTime {
+            
+            let secondsSinceLastPresentation = NSDate().timeIntervalSinceDate(lastPresentationTime)
+            if secondsSinceLastPresentation < (60 * 15) {
+                chatViewController.showWelcomeOnViewAppear = false
+            }
         }
-        navigationController.navigationBar.tintColor = styles.foregroundColor2
+        
+        let navigationController = NavigationController(rootViewController: chatViewController)
         
         if !expansionPresentationAnimationDisabled {
             navigationController.modalPresentationStyle = .Custom
@@ -238,12 +239,9 @@ extension ASAPPButton {
         }
         
         presentingViewController.presentViewController(navigationController, animated: true, completion: nil)
+        lastPresentationTime = NSDate()
         
         onTapListenerBlock?()
-    }
-    
-    func dismissChat() {
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didBeginLongHold() {

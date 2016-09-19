@@ -269,7 +269,9 @@ extension ChatsListViewController: UITableViewDelegate {
             case .Regular:
                 let chatViewController = TwoWayChatViewController(withLeftChatCredentials: defaultRepChatCredentials, rightChatCredentials: defaultCustomerChatCredentials)
                 chatViewController.title = "Two-Way Chat"
-                navigationController?.pushViewController(chatViewController, animated: true)
+                
+                let navigationController = UINavigationController(rootViewController: chatViewController)
+                presentViewController(navigationController, animated: true, completion: nil)
                 break
                 
             case .Unspecified:
@@ -286,7 +288,8 @@ extension ChatsListViewController: UITableViewDelegate {
                                                                         
             })
             chatViewController.title = chatCredentials.description
-            navigationController?.pushViewController(chatViewController, animated: true)
+            let navigationController = UINavigationController(rootViewController: chatViewController)
+            presentViewController(navigationController, animated: true, completion: nil)
         }
     }
 }

@@ -12,82 +12,90 @@ public class ASAPPStyles: NSObject {
 
     // MARK:- Fonts: General
     
-    public var headerFont: UIFont = Fonts.latoBoldFont(withSize: 24)
+    public var headlineFont: UIFont = Fonts.latoBoldFont(withSize: 24)
     
-    public var subheadFont: UIFont = Fonts.latoBoldFont(withSize: 14)
+    public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 15)
     
-    public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 16)
-    
-    public var buttonFont: UIFont = Fonts.latoBoldFont(withSize: 14)
+    public var bodyBoldFont: UIFont = Fonts.latoBoldFont(withSize: 15)
     
     public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
     
-    // MARK:- Fonts: View-Specific
+    public var captionFont: UIFont = Fonts.latoBoldFont(withSize: 10)
     
-    public var messageFont: UIFont = Fonts.latoRegularFont(withSize: 16)
+    public var buttonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
+
+    // MARK:- Colors: Messages
     
-    public var inputFont: UIFont = Fonts.latoRegularFont(withSize: 16)
-    
-    public var inputSendButtonFont: UIFont = Fonts.latoBlackFont(withSize: 13)
-    
-    // MARK:- Colors: General
-    
-    public var backgroundColor1: UIColor = Colors.whiteColor()
-    
-    public var backgroundColor2: UIColor = Colors.lighterGrayColor()
-    
-    public var foregroundColor1: UIColor = Colors.darkTextColor()
-    
-    public var foregroundColor2: UIColor = Colors.mediumTextColor()
-    
-    public var separatorColor1: UIColor = Colors.lightGrayColor()
-    
-    public var separatorColor2: UIColor = Colors.lightGrayColor()
-    
-    public var accentColor: UIColor = Colors.blueColor()
-    
-    // MARK:- Colors; Messages
-    
-    public var messageFillColor: UIColor = Colors.whiteColor()
-    
-    public var messageStrokeColor: UIColor? = Colors.lightGrayColor()
-    
-    public var messageTextColor: UIColor = Colors.darkTextColor()
-    
-    public var replyMessageFillColor: UIColor = Colors.blueColor()
+    public var replyMessageFillColor: UIColor = Colors.steelLightColor()
     
     public var replyMessageStrokeColor: UIColor? = nil
     
     public var replyMessageTextColor: UIColor = Colors.whiteColor()
+    
+    public var messageStrokeColor: UIColor? = Colors.steelLight50Color()
+    
+    public var messageFillColor: UIColor = Colors.whiteColor()
+    
+    public var messageTextColor: UIColor = Colors.steelLightColor()
+    
+    // MARK:- Colors: General
+    
+    internal var navBarBackgroundColor: UIColor = Colors.whiteColor()
+    
+    public var navBarButtonColor: UIColor = Colors.steelLightColor()
+    
+    internal var backgroundColor1: UIColor = Colors.whiteColor()
+    
+    internal var backgroundColor2: UIColor = Colors.offWhiteColor()
+    
+    internal var foregroundColor1: UIColor = Colors.steelDarkColor()
+    
+    internal var foregroundColor2: UIColor = Colors.steelDark50Color()
+    
+    internal var separatorColor1: UIColor = Colors.marbleLightColor()
+    
+    internal var separatorColor2: UIColor = Colors.marbleDarkColor()
+    
+    internal var accentColor: UIColor = Colors.steelLightColor()
 
     // MARK:- Colors: Input
     
-    public var inputBackgroundColor: UIColor = Colors.whiteColor()
+    internal var inputBackgroundColor: UIColor = Colors.whiteColor()
     
-    public var inputBorderTopColor: UIColor = Colors.lighterGrayColor()
+    internal var inputBorderTopColor: UIColor = Colors.lighterGrayColor()
     
-    public var inputTintColor: UIColor = Colors.grayColor()
+    internal var inputTintColor: UIColor = Colors.grayColor()
     
-    public var inputPlaceholderColor: UIColor = Colors.mediumTextColor()
+    internal var inputPlaceholderColor: UIColor = Colors.mediumTextColor()
     
-    public var inputTextColor: UIColor = Colors.darkTextColor()
+    internal var inputTextColor: UIColor = Colors.darkTextColor()
     
-    public var inputSendButtonColor: UIColor = Colors.blueColor()
+    internal var inputSendButtonColor: UIColor = Colors.blueGrayColor()
     
-    public var inputImageButtonColor: UIColor = Colors.mediumTextColor()
-    
+    internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
     
     // MARK:- Preset Styles
     
+    public class func comcastStyles() -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        
+        styles.headlineFont = Fonts.xfinitySansBoldFont(withSize: 24)
+        styles.bodyFont = Fonts.xfinitySansRegFont(withSize: 15)
+        styles.bodyBoldFont = Fonts.xfinitySansBoldFont(withSize: 15)
+        styles.detailFont = Fonts.xfinitySansBoldFont(withSize: 12)
+        styles.captionFont = Fonts.xfinitySansMedFont(withSize: 10)
+        styles.buttonFont = Fonts.xfinitySansBoldFont(withSize: 12)
+        
+        return styles
+    }
+    
     public class func darkStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
-        styles.messageFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
-        styles.subheadFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
+        styles.bodyFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
         styles.detailFont = UIFont(name: "Avenir-Heavy", size: 12) ?? UIFont.boldSystemFontOfSize(12)
+        styles.captionFont = UIFont(name: "Avenir-Heavy", size: 10) ?? UIFont.boldSystemFontOfSize(10)
         styles.buttonFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
-        styles.inputFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
-        styles.inputSendButtonFont = UIFont(name: "Avenir-Black", size: 14) ??  UIFont.boldSystemFontOfSize(13)
-        
+            
         styles.backgroundColor1 = UIColor(red:0.094,  green:0.094,  blue:0.094, alpha:1)
         styles.backgroundColor2 = UIColor(red:0.157,  green:0.157,  blue:0.157, alpha:1)
         styles.foregroundColor1 = UIColor.whiteColor()

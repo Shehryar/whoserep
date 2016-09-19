@@ -100,16 +100,6 @@ extension ConversationManager {
         }
     }
     
-    func sendMessageActionSelection(messageAction: MessageAction, completion: (() -> Void)? = nil) {
-        
-        // TESTING
-        // TODO: Hit actual endpoint once ready
-        
-        if let message = messageAction.name {
-            sendMessage(message, completion: completion)
-        }
-    }
-    
     func updateCurrentUserTypingStatus(isTyping: Bool, withText text: String?) {
         if credentials.isCustomer {
             let path = "\(requestPrefix)NotifyTypingPreview"
@@ -177,6 +167,109 @@ extension ConversationManager {
     private var requestPrefix: String {
         return credentials.isCustomer ? "customer/" : "rep/"
     }
+    
+    // MARK:- SRS
+    
+    func startSRS() {
+        socketConnection.sendRequest(withPath: "srs/AppOpen",
+                                     params: [
+                                        "access_token" : "tokentokentoken",
+                                        "expires_in" : 30,
+                                        "issued_time" : NSDate().timeIntervalSince1970
+        ]) { (incomingMessage) in
+            
+        }
+    }
+    
+    func sendSRSQuery(query: String, completion: (() -> Void)? = nil) {
+        socketConnection.sendRequest(withPath: "srs/HierAndTreewalk", params: ["Q" : query]) { (incomingMessage) in
+            completion?()
+        }
+    }
+    
+    private func sendSRSTreewalk(query: String, completion: (() -> Void)? = nil) {
+        socketConnection.sendRequest(withPath: "srs/Treewalk", params: ["Q" : query]) { (incomingMessage) in
+            completion?()
+        }
+    }
+    
+    func sendSRSButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) {
+        guard let srsQuery = buttonItem.srsValue else {
+            return
+        }
+        
+        sendMessage(buttonItem.title, completion: completion)
+        
+        
+        
+        // MITCH MITCH MITCH TESTING TEST TEST
+        if srsQuery == "cancelAppointmentPrompt" {
+            sendFakeCancelAppointmentMessage()
+            return
+        }
+        if srsQuery == "cancelAppointmentConfirmation" {
+            sendFakeCancelAppointmentConfirmationMessage()
+            return
+        }
+        // END TESTING
+        
+
+        
+        sendSRSTreewalk(srsQuery)
+    }
+    
+    // MARK:- Mock DATA TESTING
+    
+    func sendFakeResponse(message: Event?) {
+        guard let message = message else { return }
+        
+        Dispatcher.delay(600, closure: {
+            self.delegate?.conversationManager(self, didReceiveMessageEvent: message)
+        })
+    }
+    
+    func echoResponseWithContentString(contentString: String?) {
+        guard let contentString = contentString else { return }
+        let editedString = contentString.stringByReplacingOccurrencesOfString("\n", withString: "")
+        
+        socketConnection.sendRequest(withPath: "srs/Echo", params: ["Echo" : editedString]) { (incomingMessage) in
+            // no-op
+        }
+    }
+    
+    func sendFakeTroubleshooterMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+        sendMessage(buttonItem.title, completion: completion)
+        
+        echoResponseWithContentString(Event.jsonStringForFile("sample_troubleshoot_data"))
+    }
+
+    func sendFakeDeviceRestartMessage(buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+        sendMessage(buttonItem.title, completion: completion)
+        
+        var deviceRestartString = Event.jsonStringForFile("sample_device_restart_data")
+        let finishedAt = Int(NSDate(timeIntervalSinceNow: 15).timeIntervalSince1970)
+        deviceRestartString = deviceRestartString?.stringByReplacingOccurrencesOfString("\"loaderBar\"", withString: "\"loaderBar\", \"finishedAt\" : \(finishedAt)")
+
+        echoResponseWithContentString(deviceRestartString)
+    }
+    
+    func sendFakeCancelAppointmentMessage() {
+        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appointment_prompt_data"))
+    }
+    
+    func sendFakeCancelAppointmentConfirmationMessage() {
+        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appiontment_response_data"))
+    }
+    
+    // MARK: Mock Data overriding responses
+    
+    func sendFakeEquipmentReturnMessage(eventLogSeq: Int? = nil) {
+        sendFakeResponse(Event.sampleEquipmentReturnEvent(eventLogSeq))
+    }
+    
+    func sendFakeTechLocationMessage(eventLogSeq: Int? = nil) {
+        sendFakeResponse(Event.sampleTechLocationEvent(eventLogSeq))
+    }
 }
 
 // MARK:- SocketConnectionDelegate
@@ -189,25 +282,26 @@ extension ConversationManager: SocketConnectionDelegate {
                 conversationStore.addEvent(event)
                 
                 switch event.eventType {
+                case .SRSResponse:
+                    // MITCH MITCH MITCH TEST TEST TESTING - Artifical Delay
+                    if event.srsResponse?.classification == "BR" {
+                        sendFakeEquipmentReturnMessage()
+                        return
+                    }
+                    if event.srsResponse?.classification == "ST" {
+                        sendFakeTechLocationMessage()
+                        return
+                    }
+                    
+                    
+                    
+                    Dispatcher.delay(400, closure: {
+                        self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                    })
+                    break
+                    
                 case .TextMessage, .PictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    
-                    
-                    /** BEGIN TESTING **/
-                    if TEST_ACTIONABLE_MESSAGES_LOCALLY {
-                        if event.eventType == .TextMessage {
-                            if let textMessageText = event.textMessage?.text {
-                                if let nextAction = Event.sampleActionableMessageForText(textMessageText) {
-                                    Dispatcher.delay(600, closure: {
-                                        self.delegate?.conversationManager(self, didReceiveMessageEvent: nextAction)
-                                    })
-                                }
-                            }
-                        }
-                    }
-                    /** END TESTING **/
-                    
-                    
                     break
                   
                 case .None:
