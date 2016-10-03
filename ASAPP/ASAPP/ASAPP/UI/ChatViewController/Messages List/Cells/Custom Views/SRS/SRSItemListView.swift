@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SRSItemListViewDelegate {
-    func itemListView(itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
+    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
 }
 
 class SRSItemListView: StackView, ASAPPStyleable {
@@ -28,9 +28,9 @@ class SRSItemListView: StackView, ASAPPStyleable {
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         setNeedsLayout()
@@ -63,11 +63,16 @@ class SRSItemListView: StackView, ASAPPStyleable {
             else if let labelItem = item as? SRSLabelItem {
                 let label = UILabel()
                 label.numberOfLines = 0
-                label.lineBreakMode = .ByTruncatingTail
+                label.lineBreakMode = .byTruncatingTail
                 label.textColor = styles.foregroundColor2
                 label.font = styles.detailFont
-                label.textAlignment = .Center
+                label.textAlignment = .center
                 label.text = labelItem.text
+                label.attributedText = NSAttributedString(string: labelItem.text, attributes: [
+                    NSFontAttributeName : styles.detailFont,
+                    NSForegroundColorAttributeName : styles.foregroundColor2,
+                    NSKernAttributeName : 1
+                    ])
                 createdViews.append(label)
             }
                 
@@ -111,13 +116,13 @@ class SRSItemListView: StackView, ASAPPStyleable {
             // Item List
             else if let itemList = item as? SRSItemList {
                 let itemListView = SRSItemListView()
-                itemListView.contentInset = UIEdgeInsetsZero
+                itemListView.contentInset = UIEdgeInsets.zero
                 itemListView.applyStyles(styles)
                 itemListView.srsItems = itemList.items
                 if itemList.orientation == .Vertical {
-                    itemListView.orientation = .Vertical
+                    itemListView.orientation = .vertical
                 } else {
-                    itemListView.orientation = .Horizontal
+                    itemListView.orientation = .horizontal
                 }
                 createdViews.append(itemListView)
             }

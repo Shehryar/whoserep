@@ -9,10 +9,10 @@
 import UIKit
 
 protocol ChatInputViewDelegate {
-    func chatInputView(chatInputView: ChatInputView, didTypeMessageText text: String?)
-    func chatInputView(chatInputView: ChatInputView, didTapSendMessage message: String)
-    func chatInputView(chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
-    func chatInputViewDidChangeContentSize(chatInputView: ChatInputView)
+    func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?)
+    func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String)
+    func chatInputView(_ chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
+    func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
 
 class ChatInputView: UIView, ASAPPStyleable {
@@ -43,7 +43,7 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     var displayBorderTop = true {
         didSet {
-            borderTopView.hidden = !displayBorderTop
+            borderTopView.isHidden = !displayBorderTop
         }
     }
     
@@ -68,7 +68,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
-    var placeholderColor = Colors.whiteColor().colorWithAlphaComponent(0.7) {
+    var placeholderColor = Colors.whiteColor().withAlphaComponent(0.7) {
         didSet {
             placeholderTextView.textColor = placeholderColor
             textView.tintColor = placeholderColor
@@ -90,13 +90,13 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK: Properties: UI
 
-    private let borderTopView = UIView()
-    private let textView = UITextView()
-    private let placeholderTextView = UITextView()
+    fileprivate let borderTopView = UIView()
+    fileprivate let textView = UITextView()
+    fileprivate let placeholderTextView = UITextView()
     
-    private let mediaButton = UIButton()
-    private let sendButton = UIButton()
-    private let buttonSeparator = VerticalGradientView()
+    fileprivate let mediaButton = UIButton()
+    fileprivate let sendButton = UIButton()
+    fileprivate let buttonSeparator = VerticalGradientView()
     
     // MARK:- Initialization
     
@@ -119,27 +119,27 @@ class ChatInputView: UIView, ASAPPStyleable {
         
         // Text View
         
-        textView.backgroundColor = UIColor.clearColor()
+        textView.backgroundColor = UIColor.clear
         textView.tintColor = placeholderColor
         textView.font = font
         textView.textColor = textColor
         textView.bounces = false
-        textView.scrollEnabled = false
+        textView.isScrollEnabled = false
         textView.scrollsToTop = false
         textView.clipsToBounds = false
         textView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
-        textView.returnKeyType = .Send
+        textView.returnKeyType = .send
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
         placeholderTextView.text = placeholderText
-        placeholderTextView.backgroundColor = UIColor.clearColor()
+        placeholderTextView.backgroundColor = UIColor.clear
         placeholderTextView.font = textView.font
         placeholderTextView.textColor = placeholderColor
-        placeholderTextView.userInteractionEnabled = false
+        placeholderTextView.isUserInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
-        placeholderTextView.scrollEnabled = false
+        placeholderTextView.isScrollEnabled = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
         addSubview(textView)
@@ -150,11 +150,11 @@ class ChatInputView: UIView, ASAPPStyleable {
         let imageSize: CGFloat = 20
         let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-        mediaButton.imageView?.contentMode = .ScaleAspectFit
+        mediaButton.imageView?.contentMode = .scaleAspectFit
         updateMediaButtonColor(Colors.mediumTextColor())
         mediaButton.addTarget(self,
                               action: #selector(ChatInputView.didTapMediaButton),
-                              forControlEvents: .TouchUpInside)
+                              for: .touchUpInside)
         addSubview(mediaButton)
         
         // Send Button
@@ -164,7 +164,7 @@ class ChatInputView: UIView, ASAPPStyleable {
                              color: Colors.mediumTextColor())
         sendButton.addTarget(self,
                              action: #selector(ChatInputView.didTapSendButton),
-                             forControlEvents: .TouchUpInside)
+                             for: .touchUpInside)
         addSubview(sendButton)
         addSubview(buttonSeparator)
         
@@ -183,18 +183,18 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     func updateSendButtonForCurrentState() {
         if textView.text.isEmpty {
-            placeholderTextView.hidden = false
-            sendButton.hidden = true
-            mediaButton.hidden = false
+            placeholderTextView.isHidden = false
+            sendButton.isHidden = true
+            mediaButton.isHidden = false
         } else {
-            placeholderTextView.hidden = true
-            sendButton.hidden = false
-            mediaButton.hidden = true
+            placeholderTextView.isHidden = true
+            sendButton.isHidden = false
+            mediaButton.isHidden = true
         }
         
-        sendButton.enabled = canSendMessage
-        mediaButton.enabled = canSendMessage
-        buttonSeparator.hidden = (mediaButton.hidden || mediaButton.alpha == 0) && sendButton.hidden
+        sendButton.isEnabled = canSendMessage
+        mediaButton.isEnabled = canSendMessage
+        buttonSeparator.isHidden = (mediaButton.isHidden || mediaButton.alpha == 0) && sendButton.isHidden
     }
     
     // MARK:- Button Colors
@@ -204,27 +204,27 @@ class ChatInputView: UIView, ASAPPStyleable {
             NSKernAttributeName : 1.5,
             NSForegroundColorAttributeName : color,
             NSFontAttributeName : font
-        ]
+        ] as [String : Any]
         let highlightedAttributes = [
             NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.colorWithAlphaComponent(0.7),
+            NSForegroundColorAttributeName : color.withAlphaComponent(0.7),
             NSFontAttributeName : font
-        ]
+        ] as [String : Any]
         let disabledAttributes = [
             NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.colorWithAlphaComponent(0.4),
+            NSForegroundColorAttributeName : color.withAlphaComponent(0.4),
             NSFontAttributeName : font
-        ]
+        ] as [String : Any]
         let buttonTitle = ASAPPLocalizedString("SEND")
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), forState: .Normal)
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), forState: .Highlighted)
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), forState: .Disabled)
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), for: .disabled)
     }
     
-    func updateMediaButtonColor(color: UIColor) {
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 1), forState: .Normal)
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.7), forState: .Highlighted)
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.4), forState: .Disabled)
+    func updateMediaButtonColor(_ color: UIColor) {
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 1), for: UIControlState())
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.4), for: .disabled)
     }
     
     // MARK:- Button Actions
@@ -241,14 +241,14 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         font = styles.bodyFont
         textColor = styles.inputTextColor
-        placeholderColor = styles.inputTextColor.colorWithAlphaComponent(0.7)
+        placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
         separatorColor = styles.separatorColor1
         
         updateSendButtonStyle(withFont: styles.buttonFont, color: styles.inputSendButtonColor)
@@ -268,9 +268,9 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     func applySeparatorColor() {
         borderTopView.backgroundColor = separatorColor
-        buttonSeparator.update(separatorColor?.colorWithAlphaComponent(0.0),
+        buttonSeparator.update(separatorColor?.withAlphaComponent(0.0),
                                middleColor: separatorColor,
-                               bottomColor: separatorColor?.colorWithAlphaComponent(0.0))
+                               bottomColor: separatorColor?.withAlphaComponent(0.0))
     }
 }
 
@@ -281,20 +281,20 @@ extension ChatInputView {
         return textView.becomeFirstResponder() || super.becomeFirstResponder()
     }
     
-    override func canBecomeFirstResponder() -> Bool {
-        return textView.canBecomeFirstResponder() || super.canBecomeFirstResponder()
+    override var canBecomeFirstResponder : Bool {
+        return textView.canBecomeFirstResponder || super.canBecomeFirstResponder
     }
     
     override func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder() || super.resignFirstResponder()
     }
     
-    override func canResignFirstResponder() -> Bool {
-        return textView.canResignFirstResponder() || super.canResignFirstResponder()
+    override var canResignFirstResponder : Bool {
+        return textView.canResignFirstResponder || super.canResignFirstResponder
     }
     
-    override func isFirstResponder() -> Bool {
-        return textView.isFirstResponder() || super.isFirstResponder()
+    override var isFirstResponder : Bool {
+        return textView.isFirstResponder || super.isFirstResponder
     }
 }
 
@@ -304,30 +304,29 @@ extension ChatInputView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        borderTopView.frame = CGRect(x: 0, y: 0, width: CGRectGetWidth(bounds), height: 1)
+        borderTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
         
-        let buttonWidth = ceil(sendButton.sizeThatFits(CGSizeZero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
-        let sendButtonLeft = CGRectGetWidth(bounds) - buttonWidth - contentInset.right + sendButton.titleEdgeInsets.right
-        let buttonTop = CGRectGetHeight(bounds) - inputMinHeight - contentInset.bottom
+        let buttonWidth = ceil(sendButton.sizeThatFits(CGSize.zero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
+        let sendButtonLeft = bounds.width - buttonWidth - contentInset.right + sendButton.titleEdgeInsets.right
+        let buttonTop = bounds.height - inputMinHeight - contentInset.bottom
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
-        let mediaButtonLeft = CGRectGetWidth(bounds) - mediaButtonWidth + mediaButton.imageEdgeInsets.right - contentInset.right
+        let mediaButtonLeft = bounds.width - mediaButtonWidth + mediaButton.imageEdgeInsets.right - contentInset.right
         mediaButton.frame = CGRect(x: mediaButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
         let separatorStroke: CGFloat = 1.0
-        let separatorLeft = CGRectGetMinX(sendButton.frame) - separatorStroke
+        let separatorLeft = sendButton.frame.minX - separatorStroke
         buttonSeparator.frame = CGRect(x: separatorLeft, y: buttonTop, width: separatorStroke, height: inputMinHeight)
         
         let textViewWidth = sendButtonLeft - 8.0 - contentInset.left
-        let textViewHeight = inputHeight //CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
-        let calculatedTextViewHeight = ceil(textView.sizeThatFits(CGSize(width: textViewWidth, height: 0)).height)
+        let textViewHeight = inputHeight
         
-        textView.frame = CGRectMake(contentInset.left, contentInset.top, textViewWidth, textViewHeight)
+        textView.frame = CGRect(x: contentInset.left, y: contentInset.top, width: textViewWidth, height: textViewHeight)
         
         placeholderTextView.frame = textView.frame
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: inputHeight + contentInset.top + contentInset.bottom)
     }
 }
@@ -335,13 +334,13 @@ extension ChatInputView {
 // MARK:- UITextViewDelegate
 
 extension ChatInputView: UITextViewDelegate {
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         resizeIfNeeded(true, notifyDelegateOfChange: true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if textView.text.isEmpty {
                 textView.resignFirstResponder()
@@ -353,14 +352,14 @@ extension ChatInputView: UITextViewDelegate {
         return true
     }
     
-    func resizeIfNeeded(animated: Bool, notifyDelegateOfChange: Bool = false) {
-        var height = textView.sizeThatFits(CGSize(width: CGRectGetWidth(textView.bounds), height: inputMaxHeight)).height
+    func resizeIfNeeded(_ animated: Bool, notifyDelegateOfChange: Bool = false) {
+        var height = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: inputMaxHeight)).height
         if height > inputMaxHeight {
             height = inputMaxHeight
-            textView.scrollEnabled = true
+            textView.isScrollEnabled = true
             textView.bounces = true
         } else {
-            textView.scrollEnabled = false
+            textView.isScrollEnabled = false
             textView.bounces = false
         }
         

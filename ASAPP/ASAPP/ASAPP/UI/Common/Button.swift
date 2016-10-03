@@ -11,8 +11,8 @@ import UIKit
 class Button: UIView {
 
     enum ButtonState {
-        case Normal
-        case Highlighted
+        case normal
+        case highlighted
     }
     
     // MARK: Public Properties
@@ -93,8 +93,8 @@ class Button: UIView {
     override var backgroundColor: UIColor? {
         didSet {
             if let backgroundColor = backgroundColor {
-                backgroundColors[.Normal] = backgroundColor
-                backgroundColors[.Highlighted] = backgroundColor.highlightColor()
+                backgroundColors[.normal] = backgroundColor
+                backgroundColors[.highlighted] = backgroundColor.highlightColor()
             } else {
                 backgroundColors.removeAll()
             }
@@ -104,11 +104,11 @@ class Button: UIView {
     
     var foregroundColor: UIColor? {
         set {
-            foregroundColors[.Normal] = newValue
-            foregroundColors[.Highlighted] = newValue?.highlightColor() ?? newValue
+            foregroundColors[.normal] = newValue
+            foregroundColors[.highlighted] = newValue?.highlightColor() ?? newValue
             updateButtonDisplay()
         }
-        get { return foregroundColors[.Normal] }
+        get { return foregroundColors[.normal] }
     }
     
     var imageIgnoresForegroundColor: Bool = false {
@@ -119,9 +119,15 @@ class Button: UIView {
     
     var currentState: ButtonState {
         if isTouching {
-            return .Highlighted
+            return .highlighted
         } else {
-            return .Normal
+            return .normal
+        }
+    }
+    
+    var adjustsOpacityForState: Bool = false {
+        didSet {
+            updateButtonDisplay()
         }
     }
     
@@ -129,37 +135,37 @@ class Button: UIView {
     
     // MARK: Private Properties
     
-    private let contentView = UIView()
+    fileprivate let contentView = UIView()
     
-    private let label = UILabel()
+    fileprivate let label = UILabel()
     
-    private let imageView = UIImageView()
+    fileprivate let imageView = UIImageView()
     
-    private var isTouching = false {
+    fileprivate var isTouching = false {
         didSet {
             updateButtonDisplay()
         }
     }
     
-    private var backgroundColors = [ButtonState : UIColor]()
+    fileprivate var backgroundColors = [ButtonState : UIColor]()
     
-    private var foregroundColors: [ButtonState : UIColor] = [
-        .Normal : Colors.blueColor(),
-        .Highlighted : Colors.blueColor()
+    fileprivate var foregroundColors: [ButtonState : UIColor] = [
+        .normal : Colors.blueColor(),
+        .highlighted : Colors.blueColor()
     ]
     
     // MARK: Initialization
     
     func commonInit() {
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
         
         label.numberOfLines = 1
-        label.lineBreakMode = .ByTruncatingTail
+        label.lineBreakMode = .byTruncatingTail
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textAlignment = .Left
+        label.textAlignment = .left
         label.clipsToBounds = true
         contentView.addSubview(label)
         
@@ -180,25 +186,25 @@ class Button: UIView {
     
     // MARK: Property Setters / Getters
     
-    func setBackgroundColor(color: UIColor?, forState state: ButtonState) {
+    func setBackgroundColor(_ color: UIColor?, forState state: ButtonState) {
         backgroundColors[state] = color
         if state == currentState {
             updateButtonDisplay()
         }
     }
     
-    func backgroundColorForState(state: ButtonState) -> UIColor? {
+    func backgroundColorForState(_ state: ButtonState) -> UIColor? {
         return backgroundColors[state]
     }
     
-    func setForegroundColor(color: UIColor?, forState state: ButtonState) {
+    func setForegroundColor(_ color: UIColor?, forState state: ButtonState) {
         foregroundColors[state] = color
         if state == currentState {
             updateButtonDisplay()
         }
     }
     
-    func foregroundColorForState(state: ButtonState) -> UIColor? {
+    func foregroundColorForState(_ state: ButtonState) -> UIColor? {
         return foregroundColors[state]
     }
 }
@@ -220,6 +226,16 @@ extension Button {
                 imageView.image = image?.fillAlpha(fgColor)
             }
         }
+        
+        if adjustsOpacityForState {
+            if currentState == .highlighted {
+                contentView.alpha = 0.5
+            } else {
+                contentView.alpha = 1.0
+            }
+        } else {
+            contentView.alpha = 1.0
+        }
     }
 }
 
@@ -231,16 +247,16 @@ extension Button {
         
         contentView.frame = bounds
         
-        let width = CGRectGetWidth(bounds)
+        let width = bounds.width
         let maxContentWidth = width - contentInset.left - contentInset.right
-        let maxContentHeight = CGRectGetHeight(bounds) - contentInset.top - contentInset.bottom
+        let maxContentHeight = bounds.height - contentInset.top - contentInset.bottom
         
         var imageWidth: CGFloat = 0.0
         var imageMargin: CGFloat  = 0.0
         if image != nil {
             imageWidth = imageSize.width
         }
-        let imageTop = floor((CGRectGetHeight(bounds) - imageSize.height) / 2.0)
+        let imageTop = floor((bounds.height - imageSize.height) / 2.0)
         
         let maxTitleWidth = maxContentWidth - imageWidth - imageMargin
         let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
@@ -249,26 +265,26 @@ extension Button {
             imageMargin = imageTitleMargin
         }
         let titleHeight = ceil(titleSize.height)
-        let titleTop = floor((CGRectGetHeight(bounds) - titleHeight) / 2.0)
+        let titleTop = floor((bounds.height - titleHeight) / 2.0)
         
         let contentWidth = titleWidth + imageWidth + imageMargin
-        let contentLeft = floor((CGRectGetWidth(bounds) - contentWidth) / 2.0)
+        let contentLeft = floor((bounds.width - contentWidth) / 2.0)
         
         imageView.frame = CGRect(x: contentLeft, y: imageTop, width: imageWidth, height: imageSize.height)
         label.frame = CGRect(x: contentLeft + imageWidth + imageMargin, y: titleTop, width: titleWidth, height: titleHeight)
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         var maxContentWidth: CGFloat
         if size.width.isZero {
-            maxContentWidth = CGFloat.max
+            maxContentWidth = CGFloat.greatestFiniteMagnitude
         } else {
             maxContentWidth = max(0, size.width - contentInset.left - contentInset.right)
         }
         
         var maxContentHeight: CGFloat
         if size.height.isZero {
-            maxContentHeight = CGFloat.max
+            maxContentHeight = CGFloat.greatestFiniteMagnitude
         } else {
             maxContentHeight = max(0, size.height - contentInset.top - contentInset.bottom)
         }
@@ -298,39 +314,39 @@ extension Button {
 // MARK:- Touches
 
 extension Button {
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesInBounds(touches) {
             isTouching = true
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && !touchesInBounds(touches) {
-            touchesCancelled(touches, withEvent: event)
+            touchesCancelled(touches, with: event)
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches) {
             didTap()
         }
         isTouching = false
     }
     
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
     }
     
     // MARK: Utilies
     
-    func touchesInBounds(touches: Set<UITouch>) -> Bool {
+    func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
         guard let touch = touches.first else { return false }
         
-        let touchLocation = touch.locationInView(self)
+        let touchLocation = touch.location(in: self)
         let extendedTouchRange: CGFloat = 30.0
-        let touchableArea = CGRectInset(bounds, -extendedTouchRange, -extendedTouchRange)
+        let touchableArea = bounds.insetBy(dx: -extendedTouchRange, dy: -extendedTouchRange)
         
-        return CGRectContainsPoint(touchableArea, touchLocation)
+        return touchableArea.contains(touchLocation)
     }
     
     // MARK: Public Methods

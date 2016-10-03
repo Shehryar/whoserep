@@ -9,7 +9,7 @@
 import UIKit
 
 protocol JSONObject {
-    static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject?
+    static func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject?
 }
 
 class JSONParser: NSObject {

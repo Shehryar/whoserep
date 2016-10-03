@@ -9,17 +9,17 @@
 import UIKit
 
 protocol ChatMessagesViewDelegate {
-    func chatMessagesView(messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
-    func chatMessagesView(messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
-    func chatMessagesViewPerformedKeyboardHidingAction(messagesView: ChatMessagesView)
-    func chatMessagesView(messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
+    func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
 }
 
 class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- Public Properties
     
-    private(set) var credentials: Credentials
+    fileprivate(set) var credentials: Credentials
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
@@ -38,6 +38,10 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         return dataSource.allEvents.first
     }
     
+    var numberOfEvents: Int {
+        return dataSource.allEvents.count
+    }
+    
     var mostRecentEvent: Event? {
         return dataSource.getLastEvent()
     }
@@ -48,36 +52,36 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- Private Properties
     
-    private let cellAnimationsEnabled = true
+    fileprivate let cellAnimationsEnabled = true
     
-    private var shouldShowTypingPreview: Bool {
+    fileprivate var shouldShowTypingPreview: Bool {
 //        return false
         return !credentials.isCustomer && otherParticipantTypingPreview != nil
     }
     
-    private var otherParticipantIsTyping: Bool = false
+    fileprivate var otherParticipantIsTyping: Bool = false
     
-    private var otherParticipantTypingPreview: String?
+    fileprivate var otherParticipantTypingPreview: String?
     
-    private var contentInset: UIEdgeInsets {
+    fileprivate var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
     
-    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 5, right: 0)
+    fileprivate let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
-    private var dataSource: ChatMessagesViewDataSource
+    fileprivate var dataSource: ChatMessagesViewDataSource
     
-    private let tableView = UITableView(frame: CGRectZero, style: .Grouped)
+    fileprivate let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
-    private let cellMaster: ChatMessagesViewCellMaster
+    fileprivate let cellMaster: ChatMessagesViewCellMaster
     
-    private let infoMessageView = ChatInfoMessageView()
+    fileprivate let infoMessageView = ChatInfoMessageView()
     
-    private var eventsThatShouldAnimate = Set<Event>()
+    fileprivate var eventsThatShouldAnimate = Set<Event>()
     
-    private var previousScrollOffsetY: CGFloat = 0.0
-    private var maxScrollOffsetY: CGFloat = 0.0
+    fileprivate var previousScrollOffsetY: CGFloat = 0.0
+    fileprivate var maxScrollOffsetY: CGFloat = 0.0
     
     // MARK:- Initialization
     
@@ -85,23 +89,23 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         self.credentials = credentials
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .SRSResponse]
+            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse]
         } else {
-            allowedEventTypes = [.TextMessage, .PictureMessage, .SRSResponse, .NewIssue, .NewRep, .CRMCustomerLinked]
+            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .newIssue, .newRep, .crmCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         clipsToBounds = false
         
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = .None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.dataSource = self
@@ -109,7 +113,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         addSubview(tableView)
         
         infoMessageView.frame = bounds
-        infoMessageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        infoMessageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
         infoMessageView.message = ASAPPLocalizedString("Ask a new question to get started.")
         addSubview(infoMessageView)
@@ -128,9 +132,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         cellMaster.applyStyles(styles)
@@ -155,7 +159,7 @@ class ChatMessagesView: UIView, ASAPPStyleable {
 
 extension ChatMessagesView {
 
-    func updateSubviewVisibility(animated: Bool = false) {
+    func updateSubviewVisibility(_ animated: Bool = false) {
         let currentAlpha = infoMessageView.alpha
         var nextAlpha: CGFloat
         if dataSource.isEmpty() {
@@ -169,7 +173,7 @@ extension ChatMessagesView {
         }
     
         if animated {
-            UIView.animateWithDuration(0.3, animations: { 
+            UIView.animate(withDuration: 0.3, animations: { 
                 self.infoMessageView.alpha = nextAlpha
             })
         } else {
@@ -177,27 +181,27 @@ extension ChatMessagesView {
         }
     }
     
-    private func messageListPositionForIndexPath(indexPath: NSIndexPath) -> MessageListPosition {
-        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .Default }
+    fileprivate func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
+        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .default }
         
         let messageIsReply = messageEventIsReply(messageEvent)
-        let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row - 1))
-        let nextIsReply = messageEventIsReply(dataSource.getEvent(inSection: indexPath.section, row: indexPath.row + 1))
+        let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row - 1))
+        let nextIsReply = messageEventIsReply(dataSource.getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row + 1))
         
         if messageIsReply == previousIsReply && messageIsReply == nextIsReply {
-            return .MiddleOfMany
+            return .middleOfMany
         }
         if messageIsReply == nextIsReply {
-            return .FirstOfMany
+            return .firstOfMany
         }
         if messageIsReply == previousIsReply {
-            return .LastOfMany
+            return .lastOfMany
         }
         
-        return .Default
+        return .default
     }
     
-    private func messageEventIsReply(messageEvent: Event?) -> Bool? {
+    fileprivate func messageEventIsReply(_ messageEvent: Event?) -> Bool? {
         guard let messageEvent = messageEvent else { return nil }
         
         return !messageEvent.wasSentByUserWithCredentials(credentials)
@@ -206,11 +210,11 @@ extension ChatMessagesView {
 
 // MARK:- UITableViewDataSource
 
-extension ChatMessagesView: UITableViewDataSource {
+extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Number of Item
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         let numberOfSections = dataSource.numberOfSections()
         if otherParticipantIsTyping {
             return max(1, numberOfSections)
@@ -219,7 +223,7 @@ extension ChatMessagesView: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let lastSection = dataSource.numberOfSections() - 1
         if section == lastSection && otherParticipantIsTyping {
             return dataSource.numberOfRowsInSection(section) + 1
@@ -229,13 +233,13 @@ extension ChatMessagesView: UITableViewDataSource {
     
     // MARK: Views / Cells
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < dataSource.numberOfSections() else { return nil }
   
         return cellMaster.timeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
             var typingCell: UITableViewCell?
             if shouldShowTypingPreview {
@@ -260,12 +264,10 @@ extension ChatMessagesView: UITableViewDataSource {
         
         return cell ?? UITableViewCell()
     }
-}
 
-// MARK:- UITableViewDelegate
-
-extension ChatMessagesView: UITableViewDelegate {
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    // MARK:- UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let isTypingCell = cell as? ChatTypingIndicatorCell {
             if !isTypingCell.loadingView.animating {
                 isTypingCell.loadingView.beginAnimating()
@@ -283,19 +285,19 @@ extension ChatMessagesView: UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? ChatTypingIndicatorCell {
             cell.loadingView.endAnimating()
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
          guard section < dataSource.numberOfSections() else { return 0.0 }
         
         return cellMaster.heightForTimeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
             if shouldShowTypingPreview {
                 return cellMaster.heightForTypingPreviewCell(withText: otherParticipantTypingPreview)
@@ -312,17 +314,17 @@ extension ChatMessagesView: UITableViewDelegate {
         return height
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         
         endEditing(true)
         delegate?.chatMessagesViewPerformedKeyboardHidingAction(self)
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        let cell = tableView.cellForRow(at: indexPath)
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
-        } else if let bubbleCell = cell as? ChatBubbleCell {
+        } else if cell is ChatBubbleCell {
             toggleTimeStampForEventAtIndexPath(indexPath)
         }
         
@@ -333,14 +335,14 @@ extension ChatMessagesView: UITableViewDelegate {
         }   
     }
     
-    func toggleTimeStampForEventAtIndexPath(indexPath: NSIndexPath) {
+    func toggleTimeStampForEventAtIndexPath(_ indexPath: IndexPath) {
         
         let previousEvent = showTimeStampForEvent
         
         // Hide timestamp on previous cell
         if let previousEvent = showTimeStampForEvent,
             let previousIndexPath = dataSource.indexPathOfEvent(previousEvent),
-            let previousCell = tableView.cellForRowAtIndexPath(previousIndexPath) as? ChatBubbleCell {
+            let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatBubbleCell {
             showTimeStampForEvent = nil
             previousCell.setDetailLabelHidden(true, animated: true)
         }
@@ -348,7 +350,7 @@ extension ChatMessagesView: UITableViewDelegate {
         if let nextEvent = dataSource.eventForIndexPath(indexPath) {
             // Show timestamp on next cell
             if previousEvent == nil || nextEvent != previousEvent {
-                if let nextCell = tableView.cellForRowAtIndexPath(indexPath) as? ChatBubbleCell {
+                if let nextCell = tableView.cellForRow(at: indexPath) as? ChatBubbleCell {
                     showTimeStampForEvent = nextEvent
                     nextCell.setDetailLabelHidden(false, animated: true)
                 }
@@ -356,15 +358,20 @@ extension ChatMessagesView: UITableViewDelegate {
         }
         
         // Update cell heights
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        if SystemVersionChecker.is8orEarlier() {
+            tableView.reloadData()
+        } else {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            
+        }
     }
 }
 
 // MARK:- SRSItemListViewDelegate
 
 extension ChatMessagesView: SRSItemListViewDelegate {
-    func itemListView(itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
+    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
         delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
     }
 }
@@ -373,9 +380,9 @@ extension ChatMessagesView: SRSItemListViewDelegate {
 
 extension ChatMessagesView {
     
-    func isNearBottom(delta: CGFloat = 80) -> Bool {
+    func isNearBottom(_ delta: CGFloat = 80) -> Bool {
         let offsetWithDelta = tableView.contentOffset.y + delta
-        let offsetAtBottom = tableView.contentSize.height - CGRectGetHeight(tableView.bounds)
+        let offsetAtBottom = tableView.contentSize.height - tableView.bounds.height
         if offsetWithDelta >= offsetAtBottom {
             return true
         }
@@ -383,25 +390,25 @@ extension ChatMessagesView {
         return false
     }
     
-    func scrollToBottomIfNeeded(animated: Bool) {
+    func scrollToBottomIfNeeded(_ animated: Bool) {
         if !isNearBottom(10) {
             return
         }
         scrollToBottomAnimated(animated)
     }
     
-    func scrollToBottomAnimated(animated: Bool) {
-        var indexPath: NSIndexPath?
-        let lastSection = numberOfSectionsInTableView(tableView) - 1
+    func scrollToBottomAnimated(_ animated: Bool) {
+        var indexPath: IndexPath?
+        let lastSection = numberOfSections(in: tableView) - 1
         if lastSection >= 0 {
             let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
             if lastRow >= 0 {
-                indexPath = NSIndexPath(forRow: lastRow, inSection: lastSection)
+                indexPath = IndexPath(row: lastRow, section: lastSection)
             }
         }
         
         if let indexPath = indexPath {
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
+            tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: animated)
         }
     }
 }
@@ -410,7 +417,7 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateOtherParticipantTypingStatus(isTyping: Bool, withPreviewText previewText: String?) {
+    func updateOtherParticipantTypingStatus(_ isTyping: Bool, withPreviewText previewText: String?) {
         var isDifferent = isTyping != otherParticipantIsTyping
         if shouldShowTypingPreview {
             isDifferent = isDifferent || previewText != otherParticipantTypingPreview
@@ -429,13 +436,13 @@ extension ChatMessagesView {
         }
     }
     
-    func indexPathForTypingPreviewCell() -> NSIndexPath {
+    func indexPathForTypingPreviewCell() -> IndexPath {
         let lastSection = dataSource.numberOfSections() - 1
         if lastSection < 0 {
-            return NSIndexPath(forRow: 0, inSection: 0)
+            return IndexPath(row: 0, section: 0)
         } else {
             let lastRow = dataSource.numberOfRowsInSection(lastSection)
-            return NSIndexPath(forRow: lastRow, inSection: lastSection)
+            return IndexPath(row: lastRow, section: lastSection)
         }
     }
 }
@@ -444,7 +451,7 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func replaceMessageEventsWithEvents(newMessageEvents: [Event]) {
+    func replaceMessageEventsWithEvents(_ newMessageEvents: [Event]) {
         dataSource.reloadWithEvents(newMessageEvents)
         
         tableView.reloadData()
@@ -452,7 +459,7 @@ extension ChatMessagesView {
         updateSubviewVisibility()
     }
     
-    func mergeMessageEventsWithEvents(newMessageEvents: [Event]) {
+    func mergeMessageEventsWithEvents(_ newMessageEvents: [Event]) {
         guard newMessageEvents.count > 0 else {
             return
         }
@@ -470,13 +477,13 @@ extension ChatMessagesView {
         if wasNearBottom {
             scrollToBottomAnimated(false)
         } else if let lastVisibleIndexPath = dataSource.indexPathOfEvent(lastVisibleMessageEvent) {
-            tableView.scrollToRowAtIndexPath(lastVisibleIndexPath, atScrollPosition: .Bottom, animated: false)
+            tableView.scrollToRow(at: lastVisibleIndexPath, at: .bottom, animated: false)
         }
         
         updateSubviewVisibility()
     }
     
-    func insertNewMessageEvent(event: Event, completion: (() -> Void)? = nil) {
+    func insertNewMessageEvent(_ event: Event, completion: (() -> Void)? = nil) {
         let wasNearBottom = isNearBottom()
         
         let indexPath = dataSource.addEvent(event)
@@ -487,23 +494,29 @@ extension ChatMessagesView {
         }
         
         if let indexPath = indexPath {
-            var previousIndexPath: NSIndexPath?
-            if indexPath.row > 0 {
-                previousIndexPath = NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section)
+            var previousIndexPath: IndexPath?
+            if (indexPath as NSIndexPath).row > 0 {
+                previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
             }
             
-            UIView.performWithoutAnimation({ 
-                self.tableView.beginUpdates()
-                if let previousIndexPath = previousIndexPath {
-                    self.tableView.reloadRowsAtIndexPaths([previousIndexPath], withRowAnimation: .None)
-                }
-                if self.tableView.numberOfSections <= indexPath.section {
-                    self.tableView.insertSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
-                } else {
-                    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-                }
-                self.tableView.endUpdates()
-            })
+            if SystemVersionChecker.is8orEarlier() {
+                UIView.performWithoutAnimation({
+                    self.tableView.reloadData()
+                })
+            } else {
+                UIView.performWithoutAnimation({
+                    self.tableView.beginUpdates()
+                    if let previousIndexPath = previousIndexPath {
+                        self.tableView.reloadRows(at: [previousIndexPath], with: .none)
+                    }
+                    if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
+                        self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
+                    } else {
+                        self.tableView.insertRows(at: [indexPath], with: .none)
+                    }
+                    self.tableView.endUpdates()
+                })
+            }
         }
         
         if wasNearBottom {
@@ -512,6 +525,13 @@ extension ChatMessagesView {
         
         updateSubviewVisibility(true)
         
+        completion?()
+    }
+    
+    func refreshMessageEvent(event: Event, completion: (() -> Void)? = nil) {
+        if let indexPathToUpdate = dataSource.updateEvent(updatedEvent: event) {
+            tableView.reloadRows(at: [indexPathToUpdate], with: .automatic)
+        }
         completion?()
     }
 }

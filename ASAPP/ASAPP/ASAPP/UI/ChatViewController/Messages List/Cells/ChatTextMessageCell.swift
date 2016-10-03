@@ -21,9 +21,9 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Private Properties
     
-    private let textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+    fileprivate let textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     
-    private var isLongPressing: Bool = false {
+    fileprivate var isLongPressing: Bool = false {
         didSet {
             if isLongPressing != oldValue {
                 updateFillColor(isLongPressing)
@@ -39,7 +39,7 @@ class ChatTextMessageCell: ChatBubbleCell {
         super.commonInit()
         
         textMessageLabel.numberOfLines = 0
-        textMessageLabel.lineBreakMode = .ByTruncatingTail
+        textMessageLabel.lineBreakMode = .byTruncatingTail
         textMessageLabel.font = Fonts.latoRegularFont(withSize: 16)
         textMessageLabel.textColor = Colors.whiteColor()
         bubbleView.addSubview(textMessageLabel)
@@ -64,7 +64,7 @@ class ChatTextMessageCell: ChatBubbleCell {
         textMessageLabel.backgroundColor = bubbleView.fillColor
     }
     
-    func updateFillColor(isLongPressing: Bool) {
+    func updateFillColor(_ isLongPressing: Bool) {
         if isLongPressing {
             if let highlightColor = bubbleFillColor().highlightColor() {
                 bubbleView.fillColor = highlightColor
@@ -78,7 +78,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    func messageLabelSizeThatFits(size: CGSize) -> CGSize {
+    func messageLabelSizeThatFits(_ size: CGSize) -> CGSize {
         let maxBubbleWidth = maxBubbleWidthForBoundsSize(size)
         let maxMessageWidth = maxBubbleWidth - textInset.right - textInset.left
         var messageSize = textMessageLabel.sizeThatFits(CGSize(width: maxMessageWidth, height: 0))
@@ -88,7 +88,7 @@ class ChatTextMessageCell: ChatBubbleCell {
         return messageSize
     }
     
-    override func bubbleSizeForSize(size: CGSize) -> CGSize {
+    override func bubbleSizeForSize(_ size: CGSize) -> CGSize {
         let messageSize = messageLabelSizeThatFits(size)
         let bubbleSize = CGSize(width: ceil(messageSize.width + textInset.left + textInset.right),
                                 height: ceil(messageSize.height + textInset.top + textInset.bottom))
@@ -108,7 +108,7 @@ class ChatTextMessageCell: ChatBubbleCell {
         super.prepareForReuse()
         isLongPressing = false
         bubbleView.alpha = 1
-        bubbleView.transform = CGAffineTransformIdentity
+        bubbleView.transform = CGAffineTransform.identity
     }
 }
 
@@ -116,11 +116,11 @@ class ChatTextMessageCell: ChatBubbleCell {
 
 extension ChatTextMessageCell {
     
-    func longPressGestureAction(gesture: UILongPressGestureRecognizer) {
-        if gesture.state == .Began {
+    func longPressGestureAction(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
             isLongPressing = true
             showCopyMenu()
-        } else {
+        } else if gesture.state != .changed {
             isLongPressing = false
         }
     }
@@ -131,21 +131,21 @@ extension ChatTextMessageCell {
         if !textToCopy.isEmpty {
             becomeFirstResponder()
             
-            let menu = UIMenuController.sharedMenuController()
-            menu.setTargetRect(bubbleView.frame, inView: self)
+            let menu = UIMenuController.shared
+            menu.setTargetRect(bubbleView.frame, in: self)
             menu.setMenuVisible(true, animated: true)
         }
     }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    override func copy(sender: AnyObject?) {
-        UIPasteboard.generalPasteboard().string = textMessageLabel.text
+    override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = textMessageLabel.text
     }
     
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
     }
 }

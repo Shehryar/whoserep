@@ -30,32 +30,36 @@ class SRSResponse: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json else {
                 return nil
         }
         
+        // This may be an action message, in which case the srs response is embedded under an additional key, "BusinessLogic"
+        
+        let srsJSON = json["businessLogic"] as? [String : Any] ?? json["BusinessLogic"] as? [String : Any] ?? json
+    
         var type = SRSResponseDisplayType.ActionSheet
-        if let displayContent = json["displayContent"] as? Bool {
+        if let displayContent = srsJSON["displayContent"] as? Bool {
             if displayContent {
                 type = .Inline
             }
         }
         
         let response = SRSResponse(displayType: type)
-        response.title = json["title"] as? String
-        response.classification = json["classification"] as? String
-        response.itemList = SRSItemList.instanceWithJSON(json["content"] as? [String : AnyObject]) as? SRSItemList
+        response.title = srsJSON["title"] as? String
+        response.classification = srsJSON["classification"] as? String
+        response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemList
         
-        
-        // MITCH MITCH MITCH TEST TEST TESTING
-        if let classification = response.classification {
-            if classification.lowercaseString == "bpp" {
-                if let buttonItems = response.itemList?.buttonItems {
-                    for buttonItem in buttonItems {
-                        if buttonItem.deepLink?.lowercaseString == "payment" {
-                            buttonItem.isAutoSelect = true
-                            response.displayType = .ActionSheet
+        if DEMO_CONTENT_ENABLED {
+            if let classification = response.classification {
+                if classification.lowercased() == "bpp" {
+                    if let buttonItems = response.itemList?.buttonItems {
+                        for buttonItem in buttonItems {
+                            if buttonItem.deepLink?.lowercased() == "payment" {
+                                buttonItem.isAutoSelect = true
+                                response.displayType = .ActionSheet
+                            }
                         }
                     }
                 }

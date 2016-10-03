@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class ChatPictureMessageCell: ChatBubbleCell {
     
@@ -17,7 +16,7 @@ class ChatPictureMessageCell: ChatBubbleCell {
                 pictureImageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
                 if let imageURL = event.imageURLForPictureMessage(pictureMessage) {
                     if !disableImageLoading {
-                        pictureImageView.sd_setImageWithURL(imageURL)
+                        pictureImageView.sd_setImage(with: imageURL)
                     } else {
                         pictureImageView.image = nil
                     }
@@ -38,9 +37,9 @@ class ChatPictureMessageCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
         
-        pictureImageView.contentMode = .ScaleAspectFill
-        pictureImageView.backgroundColor = Colors.lightGrayColor().colorWithAlphaComponent(0.5)
-        pictureImageView.opaque = true
+        pictureImageView.contentMode = .scaleAspectFill
+        pictureImageView.backgroundColor = Colors.lightGrayColor().withAlphaComponent(0.5)
+        pictureImageView.isOpaque = true
 
         bubbleView.clipsToBubblePath = true
         bubbleView.addSubview(pictureImageView)
@@ -48,10 +47,10 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     // MARK: Image Downloading
     
-    func setImageWithURL(imageURL: NSURL, forEvent eventForImage: Event) {
+    func setImageWithURL(_ imageURL: URL, forEvent eventForImage: Event) {
         SDWebImageManager
-            .sharedManager()
-            .downloadImageWithURL(imageURL, options: .HighPriority, progress: nil) { [weak self] (image, error, cacheType, completed, imageURL) in
+            .shared()
+            .downloadImage(with: imageURL, options: .highPriority, progress: nil) { [weak self] (image, error, cacheType, completed, imageURL) in
                 if error == nil {
                 
                     Dispatcher.performOnMainThread({
@@ -75,15 +74,15 @@ class ChatPictureMessageCell: ChatBubbleCell {
     
     // MARK: Layout
     
-    func imageViewSizeThatFitsBoundsSize(size: CGSize) -> CGSize {
+    func imageViewSizeThatFitsBoundsSize(_ size: CGSize) -> CGSize {
         guard let event = event,
             let pictureMessage = event.pictureMessage else {
-                return CGSizeZero
+                return CGSize.zero
         }
         
         var imageWidth = maxBubbleWidthForBoundsSize(size)
         var imageHeight = imageWidth / CGFloat(pictureMessage.aspectRatio)
-        let maxImageHeight = 0.6 * CGRectGetHeight(UIScreen.mainScreen().bounds)
+        let maxImageHeight = 0.6 * UIScreen.main.bounds.height
         if imageHeight > maxImageHeight {
             imageHeight = maxImageHeight
             imageWidth = imageHeight * CGFloat(pictureMessage.aspectRatio)
@@ -99,14 +98,14 @@ class ChatPictureMessageCell: ChatBubbleCell {
         let imageSize = imageViewSizeThatFitsBoundsSize(bounds.size)
         var bubbleLeft = contentInset.left
         if !isReply {
-            bubbleLeft = CGRectGetWidth(bounds) - contentInset.right - imageSize.width
+            bubbleLeft = bounds.width - contentInset.right - imageSize.width
         }
     
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: imageSize.width, height: imageSize.height)
         pictureImageView.frame = bubbleView.bounds
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let imageHeight = ceil(imageViewSizeThatFitsBoundsSize(size).height)
         
         return CGSize(width: size.width, height: imageHeight + contentInset.top + contentInset.bottom)

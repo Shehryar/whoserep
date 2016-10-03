@@ -8,22 +8,14 @@
 
 import UIKit
 
-var DebugLoggingEnabled = true
-
-func DebugLog(message: String) {
-    if DebugLoggingEnabled {
+func DebugLog(_ message: String) {
+    if DEBUG_LOG_LEVEL == .Debug {
         print("[ASAPP] \(message)\n")
     }
 }
 
-func DebugLogError(message: String) {
-    if DebugLoggingEnabled {
+func DebugLogError(_ message: String) {
+    if DEBUG_LOG_LEVEL == .Debug, DEBUG_LOG_LEVEL == .Errors {
         print("[ASAPP] ERROR: \(message)\n")
-    }
-}
-
-func DebugLogWarning(message: String) {
-    if DebugLoggingEnabled {
-        print("[ASAPP] WARNING: \(message)\n")
     }
 }

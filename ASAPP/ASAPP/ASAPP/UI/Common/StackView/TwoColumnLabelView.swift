@@ -10,7 +10,7 @@ import UIKit
 
 class TwoColumnLabelView: UIView {
 
-    var contentInset = UIEdgeInsetsZero {
+    var contentInset = UIEdgeInsets.zero {
         didSet {
             setNeedsLayout()
         }
@@ -28,12 +28,12 @@ class TwoColumnLabelView: UIView {
     
     func commonInit() {
         leftLabel.numberOfLines = 0
-        leftLabel.lineBreakMode = .ByTruncatingTail
+        leftLabel.lineBreakMode = .byTruncatingTail
         leftLabel.font = Fonts.latoRegularFont(withSize: 12)
         addSubview(leftLabel)
         
         rightLabel.numberOfLines = 0
-        rightLabel.lineBreakMode = .ByTruncatingTail
+        rightLabel.lineBreakMode = .byTruncatingTail
         rightLabel.font = Fonts.latoBoldFont(withSize: 12)
         addSubview(rightLabel)
     }
@@ -56,7 +56,7 @@ class TwoColumnLabelView: UIView {
     
     // Layout 
     
-    func labelSizesThatFit(size: CGSize) -> (CGSize, CGSize) {
+    func labelSizesThatFit(_ size: CGSize) -> (CGSize, CGSize) {
         let contentWidth = size.width - contentInset.left - contentInset.right
         
         let leftLabelWidth = floor(contentWidth * leftColumnPercentageWidth) - ceil(labelSpacing / 2.0)
@@ -81,11 +81,11 @@ class TwoColumnLabelView: UIView {
         
         leftLabel.frame = CGRect(x: contentInset.left, y: contentInset.top, width: leftLabelSize.width, height: leftLabelSize.height)
         
-        let rightLabelLeft = CGRectGetMaxX(leftLabel.frame) + labelSpacing
+        let rightLabelLeft = leftLabel.frame.maxX + labelSpacing
         rightLabel.frame = CGRect(x: rightLabelLeft, y: contentInset.top, width: rightLabelSize.width, height: rightLabelSize.height)
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let (leftLabelSize, rightLabelSize) = labelSizesThatFit(size)
         let height = max(leftLabelSize.height, rightLabelSize.height) + contentInset.top + contentInset.bottom
         

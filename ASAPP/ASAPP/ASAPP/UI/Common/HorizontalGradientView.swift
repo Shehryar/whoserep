@@ -10,10 +10,10 @@ import UIKit
 
 class HorizontalGradientView: UIView {
 
-    private(set) var leftColor: UIColor?
-    private(set) var rightColor: UIColor?
+    fileprivate(set) var leftColor: UIColor?
+    fileprivate(set) var rightColor: UIColor?
     
-    private let gradientLayer = CAGradientLayer()
+    fileprivate let gradientLayer = CAGradientLayer()
     
     // MARK: Initialization
     
@@ -35,19 +35,19 @@ class HorizontalGradientView: UIView {
 
     // MARK: Instance Methods
     
-    func update(leftColor: UIColor?, middleColor: UIColor? = nil, rightColor: UIColor?) {
+    func update(_ leftColor: UIColor?, middleColor: UIColor? = nil, rightColor: UIColor?) {
         self.leftColor = leftColor
         self.rightColor = rightColor
         
         var gradientColors = [CGColor]()
         if let leftColor = leftColor {
-            gradientColors.append(leftColor.CGColor)
+            gradientColors.append(leftColor.cgColor)
         }
         if let middleColor = middleColor {
-            gradientColors.append(middleColor.CGColor)
+            gradientColors.append(middleColor.cgColor)
         }
         if let rightColor = rightColor {
-            gradientColors.append(rightColor.CGColor)
+            gradientColors.append(rightColor.cgColor)
         }
         
         if gradientColors.count > 0 {

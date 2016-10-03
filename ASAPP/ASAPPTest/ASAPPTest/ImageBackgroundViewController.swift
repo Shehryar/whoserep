@@ -12,12 +12,28 @@ class ImageBackgroundViewController: UIViewController {
 
     let imageView = UIImageView()
     
+    // MARK:- Initialization
+    
+    func commonInit() {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+    
     // MARK:- View
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageView.contentMode = .ScaleToFill
+        imageView.contentMode = .scaleToFill
         view.addSubview(imageView)
     }
 
@@ -26,9 +42,9 @@ class ImageBackgroundViewController: UIViewController {
         
         var top: CGFloat = 0.0
         if let navController = navigationController {
-            top = CGRectGetMaxY(navController.navigationBar.frame)
+            top = navController.navigationBar.frame.maxY
         }
-        let height = CGRectGetHeight(view.bounds) - top
-        imageView.frame = CGRect(x: 0.0, y: top, width: CGRectGetWidth(view.bounds), height: height)
+        let height = view.bounds.height - top
+        imageView.frame = CGRect(x: 0.0, y: top, width: view.bounds.width, height: height)
     }
 }

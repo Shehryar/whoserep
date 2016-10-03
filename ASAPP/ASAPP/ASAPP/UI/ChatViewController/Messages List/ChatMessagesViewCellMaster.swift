@@ -16,15 +16,15 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     // MARK: Private Properties
     
-    private let dateFormatter = NSDateFormatter()
+    fileprivate let dateFormatter = DateFormatter()
     
-    private var cellHeightCache = [Event : CGFloat]()
+    fileprivate var cellHeightCache = [Event : CGFloat]()
     
-    private var timeHeaderHeightCache = [Double : CGFloat]()
+    fileprivate var timeHeaderHeightCache = [Double : CGFloat]()
     
-    private var cachedTypingIndicatorCellHeight: CGFloat?
+    fileprivate var cachedTypingIndicatorCellHeight: CGFloat?
     
-    private var cachedTableViewWidth: CGFloat = 0.0 {
+    fileprivate var cachedTableViewWidth: CGFloat = 0.0 {
         didSet {
             if oldValue != cachedTableViewWidth {
                 clearCache()
@@ -34,24 +34,24 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     // MARK: Sizing Cells / Views
     
-    private let timeHeaderSizingView = ChatMessagesTimeHeaderView()
-    private let textMessageSizingCell = ChatTextMessageCell()
-    private let pictureMessageSizingCell = ChatPictureMessageCell()
-    private let typingIndicatorSizingCell = ChatTypingIndicatorCell()
-    private let typingPreviewSizingCell = ChatTypingPreviewCell()
-    private let srsItemListViewSizingCell = ChatSRSItemListViewCell()
-    private let infoTextSizingCell = ChatInfoTextCell()
+    fileprivate let timeHeaderSizingView = ChatMessagesTimeHeaderView(reuseIdentifier: nil)
+    fileprivate let textMessageSizingCell = ChatTextMessageCell(style: .default, reuseIdentifier: nil)
+    fileprivate let pictureMessageSizingCell = ChatPictureMessageCell(style: .default, reuseIdentifier: nil)
+    fileprivate let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
+    fileprivate let typingPreviewSizingCell = ChatTypingPreviewCell(style: .default, reuseIdentifier: nil)
+    fileprivate let srsItemListViewSizingCell = ChatSRSItemListViewCell(style: .default, reuseIdentifier: nil)
+    fileprivate let infoTextSizingCell = ChatInfoTextCell(style: .default, reuseIdentifier: nil)
     
     // MARK: Reuse IDs
     
-    private let TimeHeaderViewReuseId = "TimeHeaderViewReuseId"
+    fileprivate let TimeHeaderViewReuseId = "TimeHeaderViewReuseId"
     
-    private let TextMessageCellReuseId = "TextMessageCellReuseId"
-    private let PictureMessageCellReuseId = "PictureMessageCellReuseId"
-    private let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
-    private let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
-    private let SRSResponseCellReuseId = "SRSResponseCellReuseId"
-    private let InfoTextCellReuseId = "InfoTextCellReuseId"
+    fileprivate let TextMessageCellReuseId = "TextMessageCellReuseId"
+    fileprivate let PictureMessageCellReuseId = "PictureMessageCellReuseId"
+    fileprivate let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
+    fileprivate let TypingPreviewCellReuseId = "TypingPreviewCellReuseId"
+    fileprivate let SRSResponseCellReuseId = "SRSResponseCellReuseId"
+    fileprivate let InfoTextCellReuseId = "InfoTextCellReuseId"
     
     // MARK: Init
     
@@ -62,22 +62,22 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         pictureMessageSizingCell.disableImageLoading = true
         
         // Register Header
-        tableView.registerClass(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: TimeHeaderViewReuseId)
+        tableView.register(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: TimeHeaderViewReuseId)
         
         // Register Cells
-        tableView.registerClass(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
-        tableView.registerClass(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
-        tableView.registerClass(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
-        tableView.registerClass(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
-        tableView.registerClass(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSResponseCellReuseId)
-        tableView.registerClass(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
+        tableView.register(ChatTextMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
+        tableView.register(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
+        tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
+        tableView.register(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
+        tableView.register(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSResponseCellReuseId)
+        tableView.register(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
     }
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         clearCache()
     }
@@ -99,7 +99,7 @@ extension ChatMessagesViewCellMaster {
 extension ChatMessagesViewCellMaster {
     
     func timeStampHeaderView(withTimeStamp timeStamp: Double) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier(TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
         headerView?.applyStyles(styles)
         headerView?.timeStampInSeconds = timeStamp
         return headerView
@@ -108,7 +108,7 @@ extension ChatMessagesViewCellMaster {
     func heightForTimeStampHeaderView(withTimeStamp timeStamp: Double?) -> CGFloat {
         guard let timeStamp = timeStamp else { return 0.0 }
         
-        cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
+        cachedTableViewWidth = tableView.bounds.width
         
         if let cachedHeight = timeHeaderHeightCache[timeStamp] {
             return cachedHeight
@@ -128,25 +128,25 @@ extension ChatMessagesViewCellMaster {
 
 extension ChatMessagesViewCellMaster {
 
-    func typingIndicatorCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier(TypingIndicatorCellReuseId) as? ChatTypingIndicatorCell
+    func typingIndicatorCell(forIndexPath indexPath: IndexPath) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TypingIndicatorCellReuseId) as? ChatTypingIndicatorCell
         cell?.applyStyles(styles, isReply: true)
-        cell?.listPosition = .Default
+        cell?.listPosition = .default
         return cell ?? UITableViewCell()
     }
     
-    func typingPreviewCell(forIndexPath indexPath: NSIndexPath, withText text: String?) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier(TypingPreviewCellReuseId) as? ChatTypingPreviewCell
+    func typingPreviewCell(forIndexPath indexPath: IndexPath, withText text: String?) -> UITableViewCell? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TypingPreviewCellReuseId) as? ChatTypingPreviewCell
         cell?.messageText = text
         cell?.applyStyles(styles, isReply: true)
         return cell
     }
     
-    func cellForEvent(event: Event, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool, atIndexPath: NSIndexPath) -> UITableViewCell? {
+    func cellForEvent(_ event: Event, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool, atIndexPath: IndexPath) -> UITableViewCell? {
         
         // Picture Message
-        if event.eventType == .PictureMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(PictureMessageCellReuseId) as? ChatPictureMessageCell
+        if event.eventType == .pictureMessage {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PictureMessageCellReuseId) as? ChatPictureMessageCell
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
             cell?.event = event
@@ -154,8 +154,8 @@ extension ChatMessagesViewCellMaster {
         }
         
         // Text Message
-        if event.eventType == .TextMessage {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TextMessageCellReuseId) as? ChatTextMessageCell
+        if event.eventType == .textMessage {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextMessageCellReuseId) as? ChatTextMessageCell
             cell?.applyStyles(styles, isReply: isReply)
             cell?.listPosition = listPosition
             cell?.event = event
@@ -165,11 +165,11 @@ extension ChatMessagesViewCellMaster {
         }
         
         // SRS Response
-        if event.eventType == .SRSResponse {
+        if event.eventType == .srsResponse {
             if let srsResponse = event.srsResponse {
                 switch srsResponse.displayType {
                 case .Inline, .ActionSheet:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(SRSResponseCellReuseId) as? ChatSRSItemListViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SRSResponseCellReuseId) as? ChatSRSItemListViewCell
                     cell?.applyStyles(styles, isReply: isReply)
                     cell?.listPosition = listPosition
                     cell?.event = event
@@ -181,21 +181,21 @@ extension ChatMessagesViewCellMaster {
         }
         
         // Info Cell
-        if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
-            let cell = tableView.dequeueReusableCellWithIdentifier(InfoTextCellReuseId) as? ChatInfoTextCell
+        if [EventType.crmCustomerLinked, EventType.newIssue, EventType.newRep].contains(event.eventType) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: InfoTextCellReuseId) as? ChatInfoTextCell
             cell?.applyStyles(styles)
             
             switch event.eventType {
-            case .CRMCustomerLinked:
+            case .crmCustomerLinked:
                 cell?.infoText = ASAPPLocalizedString("Customer Linked")
                 break
                 
-            case .NewIssue:
+            case .newIssue:
                 cell?.infoText = ASAPPLocalizedString("New Issue: \(event.newIssue?.issueId ?? 0)")
                 break
                 
-            case .NewRep:
-                cell?.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))")
+            case .newRep:
+                cell?.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(describing: event.newRep?.repId))")
                 break
                 
             default:  // Other cases not handled
@@ -220,7 +220,7 @@ extension ChatMessagesViewCellMaster {
         }
 
         typingIndicatorSizingCell.applyStyles(styles, isReply: true)
-        cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
+        cachedTableViewWidth = tableView.bounds.width
         cachedTypingIndicatorCellHeight = heightForStyledView(typingIndicatorSizingCell, width: cachedTableViewWidth)
         
         return cachedTypingIndicatorCellHeight ?? 0.0
@@ -230,15 +230,15 @@ extension ChatMessagesViewCellMaster {
         typingPreviewSizingCell.applyStyles(styles, isReply: true)
         typingPreviewSizingCell.messageText = text
         
-        return heightForStyledView(typingPreviewSizingCell, width: CGRectGetWidth(tableView.bounds))
+        return heightForStyledView(typingPreviewSizingCell, width: tableView.bounds.width)
     }
     
-    func heightForCellWithEvent(event: Event?, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
+    func heightForCellWithEvent(_ event: Event?, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
         guard let event = event else { return 0.0 }
         
         let canCacheHeight = !detailsVisible
         
-        cachedTableViewWidth = CGRectGetWidth(tableView.bounds)
+        cachedTableViewWidth = tableView.bounds.width
         
         if canCacheHeight {
             if let cachedHeight = cellHeightCache[event] {
@@ -262,14 +262,14 @@ extension ChatMessagesViewCellMaster {
         return height
     }
     
-    private func calculateHeightForCellWithEvent(event: Event,
+    fileprivate func calculateHeightForCellWithEvent(_ event: Event,
                                                  isReply: Bool,
                                                  listPosition: MessageListPosition,
                                                  detailsVisible: Bool,
                                                  width: CGFloat) -> CGFloat {
         
         // Picture Message
-        if event.eventType == .PictureMessage {
+        if event.eventType == .pictureMessage {
             pictureMessageSizingCell.applyStyles(styles, isReply: isReply)
             pictureMessageSizingCell.listPosition = listPosition
             pictureMessageSizingCell.event = event
@@ -277,7 +277,7 @@ extension ChatMessagesViewCellMaster {
         }
         
         // Text Message
-        if event.eventType == .TextMessage {
+        if event.eventType == .textMessage {
             textMessageSizingCell.applyStyles(styles, isReply: isReply)
             textMessageSizingCell.listPosition = listPosition
             textMessageSizingCell.event = event
@@ -287,7 +287,7 @@ extension ChatMessagesViewCellMaster {
         }
         
         // SRS Response
-        if event.eventType == .SRSResponse {
+        if event.eventType == .srsResponse {
             if let srsResponse = event.srsResponse {
                 switch srsResponse.displayType {
                 case .Inline, .ActionSheet:
@@ -302,20 +302,20 @@ extension ChatMessagesViewCellMaster {
         }
         
         // Info Cell
-        if [EventType.CRMCustomerLinked, EventType.NewIssue, EventType.NewRep].contains(event.eventType) {
+        if [EventType.crmCustomerLinked, EventType.newIssue, EventType.newRep].contains(event.eventType) {
             infoTextSizingCell.applyStyles(styles)
 
             switch event.eventType {
-            case .CRMCustomerLinked:
+            case .crmCustomerLinked:
                 infoTextSizingCell.infoText = ASAPPLocalizedString("Customer Linked")
                 break
                 
-            case .NewIssue:
+            case .newIssue:
                 infoTextSizingCell.infoText = ASAPPLocalizedString("New Issue: \(event.newIssue?.issueId ?? 0)")
                 break
                 
-            case .NewRep:
-                infoTextSizingCell.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))")
+            case .newRep:
+                infoTextSizingCell.infoText = ASAPPLocalizedString("New Rep: \(event.newRep?.name ?? String(describing: event.newRep?.repId))")
                 break
                 
             default:  // Other cases not handled
@@ -328,9 +328,9 @@ extension ChatMessagesViewCellMaster {
         return 0.0
     }
     
-    private func heightForStyledView(view: UIView, width: CGFloat) -> CGFloat {
+    fileprivate func heightForStyledView(_ view: UIView, width: CGFloat) -> CGFloat {
         guard width > 0 else { return 0.0 }
         
-        return ceil(view.sizeThatFits(CGSize(width: width, height: CGFloat.max)).height)
+        return ceil(view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height)
     }
 }

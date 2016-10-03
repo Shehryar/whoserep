@@ -16,7 +16,7 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
         }
     }
     
-    private let separatorView = HorizontalGradientView()
+    fileprivate let separatorView = HorizontalGradientView()
     
     // MARK: Initialization
     
@@ -36,15 +36,15 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
 
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         let color = styles.separatorColor1
-        separatorView.update(color.colorWithAlphaComponent(0),
+        separatorView.update(color.withAlphaComponent(0),
                              middleColor: color,
-                             rightColor: color.colorWithAlphaComponent(0))
+                             rightColor: color.withAlphaComponent(0))
     }
     
     // MARK: Layout
@@ -52,10 +52,10 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        separatorView.frame = CGRect(x: 0, y: 0, width: CGRectGetWidth(bounds), height: separatorStroke)
+        separatorView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: separatorStroke)
     }
 
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: separatorStroke)
     }
     

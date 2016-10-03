@@ -30,7 +30,7 @@ class SRSItemList: NSObject, JSONObject {
     // Returns all items that aren't the titleItem or buttonItems
     var contentItems: [AnyObject]? {
         var contentItems = [AnyObject]()
-        for (index, item) in items.enumerate() {
+        for (index, item) in items.enumerated() {
             if item is SRSLabelItem && index == 0 {
                 continue
             }
@@ -76,7 +76,7 @@ class SRSItemList: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
             let itemsJSONArary = json["value"] as? [[String : AnyObject]] else {
                 return nil
@@ -112,9 +112,9 @@ class SRSItemList: NSObject, JSONObject {
             case .Info:
                 let infoItem = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
                 if orientation == .Vertical {
-                    infoItem?.orientation = .Horizontal
+                    infoItem?.orientation = .horizontal
                 } else {
-                    infoItem?.orientation = .Vertical
+                    infoItem?.orientation = .vertical
                 }
                 item = infoItem
                 break

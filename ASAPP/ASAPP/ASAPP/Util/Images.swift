@@ -25,6 +25,10 @@ class Images: NSObject {
         return imageWithName("icon-loader", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
+    class func iconExitLink(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("icon-exit-link", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
+    }
+    
     class func iconBack(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         return imageWithName("icon-back", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
@@ -33,21 +37,37 @@ class Images: NSObject {
         return imageWithName("icon-checkmark", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
+    class func buttonAsk() -> UIImage? {
+        return imageWithName("button-ask")
+    }
+    
+    class func buttonViewChat() -> UIImage? {
+        return imageWithName("button-view-chat")
+    }
+    
+    class func buttonCloseDark() -> UIImage? {
+        return imageWithName("button-close-dark")
+    }
+    
+    class func buttonCloseLight() -> UIImage? {
+        return imageWithName("button-close-light")
+    }
+    
     class func tileImageDash(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         return imageWithName("bg-dash-tile", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
     class func gifLoaderBar() -> UIImage? {
         var imageName: String
-        if (UIScreen.mainScreen().scale > 1) {
+        if (UIScreen.main.scale > 1) {
             imageName = "gif-loader-bar@2x"
         } else {
             imageName = "gif-loader-bar"
         }
         
-        if let imagePath = ASAPPBundle.pathForResource(imageName, ofType: "gif") {
-            if let data = NSData(contentsOfFile: imagePath) {
-                return UIImage.sd_animatedGIFWithData(data)
+        if let imagePath = ASAPPBundle.path(forResource: imageName, ofType: "gif") {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: imagePath)) {
+                return UIImage.sd_animatedGIF(with: data)
             }
         }
         
@@ -64,19 +84,19 @@ class Images: NSObject {
     
     // MARK:- Private Helper Methods
     
-    private class func imageWithName(name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {
+    fileprivate class func imageWithName(_ name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {
         let image = imageWithName(name)
         let modImage = modifiedImage(image, tintColor: tintColor, fillColor: fillColor, alpha: alpha)
         return modImage
     }
     
-    private class func imageWithName(name: String) -> UIImage? {
-        let image = UIImage(named: name, inBundle: ASAPPBundle, compatibleWithTraitCollection: nil)
+    fileprivate class func imageWithName(_ name: String) -> UIImage? {
+        let image = UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
         
         return image
     }
     
-    private class func modifiedImage(image: UIImage?, tintColor: UIColor? = nil, fillColor: UIColor?  = nil, alpha: CGFloat = 1) -> UIImage? {
+    fileprivate class func modifiedImage(_ image: UIImage?, tintColor: UIColor? = nil, fillColor: UIColor?  = nil, alpha: CGFloat = 1) -> UIImage? {
         var modifiedImage: UIImage?
         if let tintColor = tintColor {
             modifiedImage = image?.tint(tintColor, alpha: alpha)

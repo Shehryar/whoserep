@@ -17,36 +17,61 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
         }
     }
     
-    private(set) var selectedButtonItem: SRSButtonItem?
+    class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
+        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.buttonFont)
+    }
+    
+    fileprivate(set) var selectedButtonItem: SRSButtonItem?
     
     var onButtonItemSelection: ((SRSButtonItem) -> Void)?
     
-    private(set) var buttonItems: [SRSButtonItem]? {
+    fileprivate(set) var buttonItems: [SRSButtonItem]? {
         didSet {
+            
+            if DEMO_CONTENT_ENABLED {
+                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
+                testButton.actionName = "DeviceRestart"
+                buttonItems?.append(testButton)
+            }
+            
             tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: false)
+            updateGradientVisibility()
         }
     }
     
-    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    fileprivate let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
-    private let CellReuseId = "CellReuseId"
+    fileprivate let CellReuseId = "CellReuseId"
     
-    private let replySizingCell = ChatSuggestedReplyCell()
+    fileprivate let replySizingCell = ChatSuggestedReplyCell()
+    
+    fileprivate let gradientView = VerticalGradientView()
     
     // MARK: Initialization
     
     func commonInit() {
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = UIColor.clear
         tableView.scrollsToTop = false
         tableView.alwaysBounceVertical = true
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.registerClass(ChatSuggestedReplyCell.self,
+        tableView.register(ChatSuggestedReplyCell.self,
                                 forCellReuseIdentifier: CellReuseId)
         addSubview(tableView)
+        
+        let gradientColor = UIColor(red: 60.0 / 255.0,
+                                    green: 64.0 / 255.0,
+                                    blue: 73.0 / 255.0,
+                                    alpha: 1)
+        gradientView.update(gradientColor.withAlphaComponent(0.0),
+                            middleColor: gradientColor.withAlphaComponent(0.08),
+                            bottomColor: gradientColor.withAlphaComponent(0.3))
+        gradientView.isUserInteractionEnabled = false
+        gradientView.isHidden = true
+        addSubview(gradientView)
     }
     
     override init(frame: CGRect) {
@@ -66,9 +91,9 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         tableView.reloadData()
     }
@@ -79,21 +104,35 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
         super.layoutSubviews()
         
         tableView.frame = bounds
+        
+        let gradientHeight: CGFloat = 30.0
+        let gradientTop = bounds.height - gradientHeight
+        gradientView.frame = CGRect(x: 0, y: gradientTop, width: bounds.width, height: gradientHeight)
+        
+        updateGradientVisibility()
+    }
+    
+    func updateGradientVisibility() {
+        if tableView.contentSize.height > tableView.bounds.height {
+            gradientView.isHidden = false
+        } else {
+            gradientView.isHidden = true
+        }
     }
 }
 
 // MARK:- UITableViewDataSource
 
 extension ChatActionableMessageView: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let buttonItems = buttonItems {
             return buttonItems.count
         }
         return 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(CellReuseId) as? ChatSuggestedReplyCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId) as? ChatSuggestedReplyCell {
             styleSuggestedReplyCell(cell, atIndexPath: indexPath)
             return cell
         }
@@ -102,22 +141,33 @@ extension ChatActionableMessageView: UITableViewDataSource {
     
     // Mark: Utility
     
-    func buttonItemForIndexPath(indexPath: NSIndexPath) -> SRSButtonItem? {
+    func buttonItemForIndexPath(_ indexPath: IndexPath) -> SRSButtonItem? {
         if let buttonItems = buttonItems {
-            if indexPath.row >= 0 && indexPath.row < buttonItems.count {
-                return buttonItems[indexPath.row]
+            if (indexPath as NSIndexPath).row >= 0 && (indexPath as NSIndexPath).row < buttonItems.count {
+                return buttonItems[(indexPath as NSIndexPath).row]
             }
         }
         return nil
     }
     
-    func styleSuggestedReplyCell(cell: ChatSuggestedReplyCell, atIndexPath indexPath: NSIndexPath) {
-        cell.textLabel?.textColor = styles.foregroundColor1
+    func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
+        cell.textLabel?.textColor = styles.buttonColor
         cell.textLabel?.font = styles.buttonFont
         cell.backgroundColor = styles.backgroundColor2
         cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         cell.separatorBottomColor = styles.separatorColor1
-        cell.textLabel?.text = buttonItemForIndexPath(indexPath)?.title.uppercaseString
+        
+        if let buttonItem = buttonItemForIndexPath(indexPath) {
+            cell.textLabel?.attributedText = NSAttributedString(string: buttonItem.title.uppercased(), attributes: [
+                NSFontAttributeName : styles.buttonFont,
+                NSForegroundColorAttributeName : styles.buttonColor,
+                NSKernAttributeName : 1.5
+                ])
+            cell.imageTintColor = styles.buttonColor
+            cell.imageView?.isHidden = buttonItem.type == .SRS || buttonItem.type == .Action
+        } else {
+            cell.textLabel?.text = nil
+        }
         
         if selectedButtonItem != nil {
             if selectedButtonItem == buttonItemForIndexPath(indexPath) {
@@ -134,28 +184,37 @@ extension ChatActionableMessageView: UITableViewDataSource {
 // MARK:- UITableViewDelegate
 
 extension ChatActionableMessageView: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         styleSuggestedReplyCell(replySizingCell, atIndexPath: indexPath)
-        let height = replySizingCell.sizeThatFits(CGSize(width: CGRectGetWidth(tableView.bounds), height: 0)).height
+        let height = replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
         return height
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             selectedButtonItem = buttonItem
             onButtonItemSelection?(buttonItem)
             
-            
-            UIView.animateWithDuration(0.3, animations: { 
-                for cell in tableView.visibleCells {
-                    if let cell = cell as? ChatSuggestedReplyCell,
-                        let cellIdxPath = tableView.indexPathForCell(cell) {
-                        self.styleSuggestedReplyCell(cell, atIndexPath: cellIdxPath)
-                    }
+            updateCellsAnimated(animated: true)
+        }
+    }
+    
+    fileprivate func updateCellsAnimated(animated: Bool) {
+        func updateBlock() {
+            for cell in tableView.visibleCells {
+                if let cell = cell as? ChatSuggestedReplyCell,
+                    let cellIdxPath = tableView.indexPath(for: cell) {
+                    self.styleSuggestedReplyCell(cell, atIndexPath: cellIdxPath)
                 }
-            })
+            }
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: updateBlock)
+        } else {
+            updateBlock()
         }
     }
 }
@@ -164,10 +223,17 @@ extension ChatActionableMessageView: UITableViewDelegate {
 
 extension ChatActionableMessageView {
     func flashScrollIndicatorsIfNecessary() {
-        if tableView.contentSize.height > CGRectGetHeight(tableView.bounds) + 30 {
+        if tableView.contentSize.height > tableView.bounds.height + 30 {
             Dispatcher.delay(600) {
                 self.tableView.flashScrollIndicators()
             }
+        }
+    }
+    
+    func deselectButtonSelection(animated: Bool) {
+        if selectedButtonItem != nil {
+            selectedButtonItem = nil
+            updateCellsAnimated(animated: animated)
         }
     }
     

@@ -15,36 +15,38 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
             clearTimer()
             
             if loaderItem != nil {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1,
-                                                               target: self,
-                                                               selector: #selector(SRSLoaderBarView.updateCurrentView),
-                                                               userInfo: nil,
-                                                               repeats: true)
+                timer = Timer.scheduledTimer(timeInterval: 1,
+                                             target: self,
+                                             selector: #selector(SRSLoaderBarView.updateCurrentView),
+                                             userInfo: nil,
+                                             repeats: true)
             }
             updateCurrentView()
         }
     }
     
-    private var timer: NSTimer?
+    fileprivate var timer: Timer?
     
-    private let dateFormatter = NSDateFormatter()
+    fileprivate let dateFormatter = DateFormatter()
     
-    private let loaderView = UIImageView()
+    fileprivate let loaderView = UIImageView()
     
-    private let finishedLabel = UILabel()
+    fileprivate let finishedLabel = UILabel()
     
-    private let loaderHeight: CGFloat = 20.0
+    fileprivate let loaderHeight: CGFloat = 20.0
     
-    private let contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+    fileprivate let contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
     
     // MARK: Initialization
     
     func commonInit() {
-        loaderView.contentMode = .ScaleToFill
+        loaderView.contentMode = .scaleToFill
         addSubview(loaderView)
         
-        finishedLabel.textAlignment = .Center
+        finishedLabel.textAlignment = .center
         finishedLabel.alpha = 0.0
+        finishedLabel.numberOfLines = 0
+        finishedLabel.lineBreakMode = .byTruncatingTail
         addSubview(finishedLabel)
         
         applyStyles(styles)
@@ -66,9 +68,9 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         finishedLabel.textColor = styles.foregroundColor2
@@ -80,23 +82,27 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let top = floor((CGRectGetHeight(bounds) - loaderHeight) / 2.0)
+        let top = floor((bounds.height - loaderHeight) / 2.0)
         let left = contentInset.left
-        let width = CGRectGetWidth(bounds) - contentInset.left - contentInset.right
+        let width = bounds.width - contentInset.left - contentInset.right
         loaderView.frame = CGRect(x: left, y: top, width: width, height: loaderHeight)
         
-        finishedLabel.frame = CGRect(x: left, y: 0, width: width, height: CGRectGetHeight(bounds))
+        finishedLabel.frame = UIEdgeInsetsInsetRect(bounds, contentInset)
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: loaderHeight + contentInset.top + contentInset.bottom)
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let labelWidth = size.width - contentInset.left - contentInset.right
+        let labelHeight = ceil(finishedLabel.sizeThatFits(CGSize(width: labelWidth, height: 0)).height)
+        let contentHeight = max(loaderHeight, labelHeight)
+        
+        return CGSize(width: size.width, height: contentHeight + contentInset.top + contentInset.bottom)
     }
     
     // MARK: Instance Methods
     
     func clearTimer() {
         if let timer = timer {
-            if timer.valid {
+            if timer.isValid {
                 timer.invalidate()
             }
         }
@@ -104,21 +110,19 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     }
     
     func updateCurrentView() {
-        guard let loaderItem = loaderItem,
-            let finishedDate = loaderItem.loadingFinishedTime else {
-                loaderView.alpha = 1
-                if loaderView.image == nil {
-                    loaderView.image = Images.gifLoaderBar()
-                }
-                finishedLabel.alpha = 0
-                clearTimer()
-                return
+        guard let loaderItem = loaderItem else {
+            finishedLabel.text = nil
+            loaderView.alpha = 1
+            if loaderView.image == nil {
+                loaderView.image = Images.gifLoaderBar()
+            }
+            finishedLabel.alpha = 0
+            clearTimer()
+            return
         }
         
-        if finishedDate.hasPassed() {
-            dateFormatter.dateFormat = finishedDate.dateFormatForMostRecent()
-            let formatString = ASAPPLocalizedString("Restart completed: %@")
-            finishedLabel.text = String(format: formatString, dateFormatter.stringFromDate(finishedDate))
+        if let finishedText = loaderItem.finishedText {
+            finishedLabel.text = finishedText
             loaderView.alpha = 0
             loaderView.image = nil
             finishedLabel.alpha = 1

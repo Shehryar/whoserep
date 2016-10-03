@@ -19,7 +19,7 @@ class SRSLabelItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
             let text = json["label"] as? String else {
                 return nil

@@ -43,9 +43,9 @@ class SRSFillerView: UIView, ASAPPStyleable {
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         fillerView.backgroundColor = styles.foregroundColor2
@@ -56,12 +56,12 @@ class SRSFillerView: UIView, ASAPPStyleable {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let top = floor((CGRectGetHeight(bounds) - fillerSize.height) / 2.0)
-        let left = floor((CGRectGetWidth(bounds) - fillerSize.width) / 2.0)
+        let top = floor((bounds.height - fillerSize.height) / 2.0)
+        let left = floor((bounds.width - fillerSize.width) / 2.0)
         fillerView.frame = CGRect(x: left, y: top, width: fillerSize.width, height: fillerSize.height)
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: fillerSize.width + contentInset.left + contentInset.right,
                       height: fillerSize.height + contentInset.top + contentInset.bottom)
     }

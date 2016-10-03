@@ -10,172 +10,136 @@ import UIKit
 import ASAPP
 
 class ComcastHomeViewController: ImageBackgroundViewController {
-
-    ///** SRS Dev Server
-
-    //*/
-    
-//    let credentials = Credentials(withCompany: "vs-dev",
-//                                  userToken: "vs-cct-c8",
-//                                  isCustomer: true,
-//                                  targetCustomerToken: nil)
-    
     
     var chatButton: ASAPPButton?
     
-    let versionLabel = UILabel()
+    let debugView = DebugInfoView()
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
+    }
+    
+    // MARK:- Initialization
+    
+    override func commonInit() {
+        super.commonInit()
+        
+        ASAPP.setLogLevel(logLevel: .Debug)
+        
+        imageView.image = UIImage(named: "home")
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Create New User",
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(ComcastHomeViewController.promptToChangeUser))
+        
+        debugView.onCustomChatTap = {
+            self.didTapCustomButton()
+        }
+        debugView.onEnvironmentChange = { (usingProduction) in
+            self.refreshChatButton()
+        }
+        
+        refreshChatButton()
+    }
+    
+    // MARK: View
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        imageView.image = UIImage(named: "home")
-        
-        refreshChatButton()
-        chatButton?.hideUntilAnimateInIsCalled()
-        chatButton?.animateIn(afterDelay: 1.0)
-        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ComcastHomeViewController.showTestViewController))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Create New User",
-                                                           style: .Plain, target: self, action: #selector(ComcastHomeViewController.promptToChangeUser))
-        
-        versionLabel.textColor = UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)
-        versionLabel.font = UIFont.boldSystemFontOfSize(10)
-        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-        let build = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
-        versionLabel.text = "\(version) (\(build))"
-        versionLabel.sizeToFit()
-        if let navView = navigationController?.view {
-            var versionFrame = versionLabel.frame
-            versionFrame.origin.x = CGRectGetMidX(UIScreen.mainScreen().bounds) + 40
-            versionFrame.origin.y = 0
-            versionFrame.size.height = 20
-            versionLabel.frame = versionFrame
-            navView.addSubview(versionLabel)
-        }
+        view.addSubview(debugView)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    // MARK: Layout
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let debugHeight: CGFloat = 200
+        let debugTop: CGFloat = view.bounds.height - debugHeight - 100
+        debugView.frame = CGRect(x: 0, y: debugTop, width: view.bounds.width, height: debugHeight)
     }
     
-    func showTestViewController() {
-        navigationController?.pushViewController(ChatsListViewController(), animated: true)
-    }
+    // MARK:- ASAPP Chat Button
     
-    // MARK:- Chat Button
+    func environmentForTesting() -> ASAPPEnvironment {
+        return debugView.isUsingProduction ? .production : .staging
+    }
     
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
         
-        let userToken = existingUserToken() ?? createNewUserToken()
-        
-        let credentials = Credentials(withCompany: "text-rex",//"srs-api-dev",
-            userToken: userToken,
-            isCustomer: true,
-            targetCustomerToken: nil)
-        
-        chatButton = ASAPPButton(withCredentials: credentials,
-                                 presentingViewController: self,
-                                 styles: ASAPPStyles.comcastStyles(),
-                                 callback: { [weak self] (action, userInfo) in
-                                    self?.handleAction(action, userInfo: userInfo)
-            })
+        chatButton = ASAPP.createChatButton(company: ComcastUserManager.getCompany(),
+                                            customerId: ComcastUserManager.getUserToken(),
+                                            environment: environmentForTesting(),
+                                            authProvider: { () -> [String : Any] in
+                                                return ComcastUserManager.getAuthData()
+            },
+                                            contextProvider: { () -> [String : Any] in
+                                                return ComcastUserManager.getContext()
+            },
+                                            callbackHandler: { (deepLink, deepLinkData) in
+                                                self.handleAction(deepLink, userInfo: deepLinkData)
+            },
+                                            styles: nil,
+                                            presentingViewController: self)
         
         if let chatButton = chatButton {
+            chatButton.hideUntilAnimateInIsCalled()
             chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
             let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 88))
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
+            
+            chatButton.animateIn(afterDelay: 1.0)
         }
     }
     
-    // MARK:- User Management
+    // MARK:- Custom Chat Button
     
-    func promptToChangeUser() {
-        let alert = UIAlertController(title: "Create a new user?",
-                                      message: "This will delete your existing conversation and replace it with that of a new user.",
-                                      preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Create New User", style: .Default, handler: { (action) in
-            self.createNewUserToken()
-            self.refreshChatButton()
-            self.showNewUserSuccess()
-        }))
+    func didTapCustomButton() {
+        let chatViewController = ASAPP.createChatViewController(company: ComcastUserManager.getCompany(),
+                                                                customerId: ComcastUserManager.getUserToken(),
+                                                                environment: environmentForTesting(),
+                                                                authProvider: { () -> [String : Any] in
+                                                                    return ComcastUserManager.getAuthData()
+            },
+                                                                contextProvider: { () -> [String : Any] in
+                                                                    return ComcastUserManager.getContext()
+            },
+                                                                callbackHandler: { (deepLink, deepLinkData) in
+                                                                    self.handleAction(deepLink, userInfo: deepLinkData)
+            },
+                                                                styles: nil)
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
-            // No action
-        }))
-        
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func showNewUserSuccess() {
-        let alert = UIAlertController(title: "Ok!",
-                                      message: "Your new user is ready.",
-                                      preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Done", style: .Cancel, handler: nil))
-        
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    let USER_TOKEN_STORAGE_KEY = "ASAPP_DEMO_USER_TOKEN"
-    
-    func createNewUserToken() -> String {
-        let freshUserToken = "vs-cct-c\(NSDate().timeIntervalSince1970)"
-        
-        NSUserDefaults.standardUserDefaults().setObject(freshUserToken, forKey: USER_TOKEN_STORAGE_KEY)
-        
-        return freshUserToken
-    }
-    
-    func existingUserToken() -> String? {
-        return NSUserDefaults.standardUserDefaults().stringForKey(USER_TOKEN_STORAGE_KEY)
+        present(chatViewController, animated: true, completion: nil)
     }
 }
 
-// MARK:- Deep-link
+// MARK:- User Management
 
 extension ComcastHomeViewController {
+    func promptToChangeUser() {
+        let alert = UIAlertController(title: "Create a new user?",
+                                      message: "This will delete your existing conversation and replace it with that of a new user.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Create New User", style: .default, handler: { (action) in
+            _ = ComcastUserManager.createNewUserToken()
+            self.refreshChatButton()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            // No action
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
 
-    internal func showViewControllerWithImage(imageName: String, title: String?) {
-        let viewController = ImageBackgroundViewController()
-        viewController.title = title
-        viewController.imageView.image = UIImage(named: imageName)
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func showInternetHome() {
-        showViewControllerWithImage("home_internet", title: "Internet")
-    }
-    
-    func showTVHome() {
-        showViewControllerWithImage("home_tv", title: "Television")
-    }
-    
-    func showInternetTroubleshoot() {
-        showViewControllerWithImage("speedTroubleshoot", title: "Troubleshooting")
-    }
-    
-    func showTvTroubleshoot() {
-        showViewControllerWithImage("tv_troubleshoot", title: "Troubleshooting")
-    }
-    
-    func showRestartDevice() {
-        showViewControllerWithImage("restartDeviceImage", title: "Device Restart")
-    }
-    
-    func showPaymentScreen() {
-        if UIScreen.mainScreen().bounds.size.width > 400 {
-            showViewControllerWithImage("payment-screen-6plus", title: "Make Payment")
-        } else {
-            showViewControllerWithImage("payment-screen-6", title: "Make Payment")
-        }
-    }
-    
-    func showTechnicianMap() {
-        showViewControllerWithImage("tech-map-screen", title: "Where's my Technician?")
-    }
-    
-    func handleAction(action: String, userInfo: [String : AnyObject]?) {
+// MARK:- Handling ASAPP Actions
+
+extension ComcastHomeViewController {
+    func handleAction(_ action: String, userInfo: [String : Any]?) {
         
         switch action {
         case "tv":
@@ -223,8 +187,52 @@ extension ComcastHomeViewController {
         
         let alert = UIAlertController(title: "SRS Action Received",
                                       message: "The host app is responsible for handling this action (\(action)) appropriately.",
-                                      preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK:- Showing Test View Controllers
+
+extension ComcastHomeViewController {
+    
+    internal func showViewControllerWithImage(_ imageName: String, title: String?) {
+        let viewController = ImageBackgroundViewController()
+        viewController.title = title
+        viewController.imageView.image = UIImage(named: imageName)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func showInternetHome() {
+        showViewControllerWithImage("home_internet", title: "Internet")
+    }
+    
+    func showTVHome() {
+        showViewControllerWithImage("home_tv", title: "Television")
+    }
+    
+    func showInternetTroubleshoot() {
+        showViewControllerWithImage("speedTroubleshoot", title: "Troubleshooting")
+    }
+    
+    func showTvTroubleshoot() {
+        showViewControllerWithImage("tv_troubleshoot", title: "Troubleshooting")
+    }
+    
+    func showRestartDevice() {
+        showViewControllerWithImage("restartDeviceImage", title: "Device Restart")
+    }
+    
+    func showPaymentScreen() {
+        if UIScreen.main.bounds.size.width > 400 {
+            showViewControllerWithImage("payment-screen-6plus", title: "Make Payment")
+        } else {
+            showViewControllerWithImage("payment-screen-6", title: "Make Payment")
+        }
+    }
+    
+    func showTechnicianMap() {
+        showViewControllerWithImage("tech-map-screen", title: "Where's my Technician?")
     }
 }

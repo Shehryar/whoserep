@@ -14,14 +14,14 @@ struct SocketRequest {
     var params: [String : AnyObject]?
     var context: [String : AnyObject]?
     
-    var requestData: NSData?
+    var requestData: Data?
 }
 
 class OutgoingMessageSerializer: NSObject {
     
     // MARK: Pubic Properties
     
-    private(set) var credentials: Credentials
+    fileprivate(set) var credentials: Credentials
     
     var myId: Int = 0
     var issueId: Int = 0
@@ -31,7 +31,7 @@ class OutgoingMessageSerializer: NSObject {
     
     // MARK: Private Properties
     
-    private var currentRequestId = 1
+    fileprivate var currentRequestId = 1
 
     // MARK: Init 
     
@@ -50,7 +50,7 @@ extension OutgoingMessageSerializer {
         return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
     }
     
-    func createRequestWithData(data: NSData) -> SocketRequest {
+    func createRequestWithData(_ data: Data) -> SocketRequest {
         return SocketRequest(requestId: 0, path: "", params: nil, context: nil, requestData: data)
     }
     
@@ -68,7 +68,7 @@ extension OutgoingMessageSerializer {
         var sessionInfoJson: [String : AnyObject]?
         if let sessionInfo = sessionInfo {
             do {
-                sessionInfoJson = try NSJSONSerialization.JSONObjectWithData(sessionInfo.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject]
+                sessionInfoJson = try JSONSerialization.jsonObject(with: sessionInfo.data(using: String.Encoding.utf8)!, options: []) as? [String: AnyObject]
             } catch {}
         }
         
@@ -77,42 +77,45 @@ extension OutgoingMessageSerializer {
     
             path = "auth/AuthenticateWithSession"
             params =  [
-                "SessionInfo": sessionInfoJson, // convert to json?
-                "App": "ios-sdk"
+                "SessionInfo": sessionInfoJson as AnyObject, // convert to json?
+                "App": "ios-sdk" as AnyObject
             ]
         } else if let userToken = credentials.userToken {
             // Customer w/ Token
             if credentials.isCustomer {
-                path = "auth/AuthenticateWithCustomerToken"
+                path = "auth/AuthenticateWithCustomerIdentifier"
+                
                 params = [
-                    "CompanyMarker": credentials.companyMarker,
-                    "Identifiers": userToken,
-                    "App": "ios-sdk"
+                    "CompanyMarker" : credentials.companyMarker as AnyObject,
+                    "CustomerIdentifier" : userToken as AnyObject,
+                    "IdentifierType" : "\(credentials.companyMarker)_CUSTOMER_ACCOUNT_ID" as AnyObject,
+                    "App" : "ios-sdk" as AnyObject,
+                    "RegionCode" : "US" as AnyObject,
                 ]
             } else {
                 // Non-customer w/ Token
                 path = "auth/AuthenticateWithSalesForceToken"
                 params = [
-                    "Company": credentials.companyMarker,
-                    "AuthCallbackData": userToken,
-                    "GhostEmailAddress": "",
-                    "CountConnectionForIssueTimeout": false,
-                    "App": "ios-sdk"
+                    "Company": credentials.companyMarker as AnyObject,
+                    "AuthCallbackData": userToken as AnyObject,
+                    "GhostEmailAddress": "" as AnyObject,
+                    "CountConnectionForIssueTimeout": false as AnyObject,
+                    "App": "ios-sdk" as AnyObject
                 ]
             }
         } else {
             // Anonymous User
             path = "auth/CreateAnonCustomerAccount"
             params = [
-                "CompanyMarker": credentials.companyMarker,
-                "RegionCode": "US"
+                "CompanyMarker": credentials.companyMarker as AnyObject,
+                "RegionCode": "US" as AnyObject
             ]
         }
         
         return (path, params)
     }
     
-    func updateWithAuthResponse(response: IncomingMessage) {
+    func updateWithAuthResponse(_ response: IncomingMessage) {
         guard let jsonObj = response.body else {
             DebugLogError("Authentication response missing body: \(response)")
             return
@@ -123,8 +126,8 @@ extension OutgoingMessageSerializer {
             return
         }
         
-        if let sessionJsonData = try? NSJSONSerialization.dataWithJSONObject(sessionInfoDict, options: []) {
-            sessionInfo = String(data: sessionJsonData, encoding: NSUTF8StringEncoding)
+        if let sessionJsonData = try? JSONSerialization.data(withJSONObject: sessionInfoDict, options: []) {
+            sessionInfo = String(data: sessionJsonData, encoding: String.Encoding.utf8)
         }
         
         if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
@@ -152,19 +155,19 @@ extension OutgoingMessageSerializer {
 // MARK: - Private Utility Methods
 
 extension OutgoingMessageSerializer {
-    private func getNextRequestId() -> Int {
+    fileprivate func getNextRequestId() -> Int {
         currentRequestId += 1
         return currentRequestId
     }
     
-    private func jsonStringify(dictionary: [String : AnyObject]) -> String {
-        guard NSJSONSerialization.isValidJSONObject(dictionary ?? [:]) else {
+    fileprivate func jsonStringify(_ dictionary: [String : AnyObject]) -> String {
+        guard JSONSerialization.isValidJSONObject(dictionary) else {
             DebugLogError("Dictionary is not valid JSON object: \(dictionary)")
             return ""
         }
         
-        if let json = try? NSJSONSerialization.dataWithJSONObject(dictionary, options: .PrettyPrinted) {
-            if let jsonString = String(data: json, encoding: NSUTF8StringEncoding) {
+        if let json = try? JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) {
+            if let jsonString = String(data: json, encoding: String.Encoding.utf8) {
                 return jsonString
             }
             DebugLogError("Unable to create string from json: \(json)")
@@ -175,17 +178,17 @@ extension OutgoingMessageSerializer {
         return ""
     }
     
-    private func requestWithPathIsCustomerEndpoint(path: String) -> Bool {
+    fileprivate func requestWithPathIsCustomerEndpoint(_ path: String) -> Bool {
         return path.hasPrefix("customer/")
     }
     
-    private func contextForRequest(withPath path: String) -> [String : AnyObject] {
+    fileprivate func contextForRequest(withPath path: String) -> [String : AnyObject] {
         var context = [ "CompanyId" : customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {
                 context = [ "IssueId" : issueId ]
             }
         }
-        return context
+        return context as [String : AnyObject]
     }
 }

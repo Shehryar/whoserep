@@ -7,25 +7,57 @@
 //
 
 import UIKit
-import SocketRocket
 
+// MARK:- ASAPPEnvironment
 
-enum ASAPPEnvironment {
-    case Local
-    case Development
-    case SRSDevelopment
-    case Production
+@objc public enum ASAPPEnvironment: Int {
+//    case local
+//    case development
+    case staging
+    case production
 }
-let CURRENT_ENVIRONMENT = ASAPPEnvironment.SRSDevelopment
+public func StringForASAPPEnvironment(environment: ASAPPEnvironment) -> String {
+    switch environment {
+    case .staging:
+        return "Staging"
+    case .production:
+        return "Production"
+    }
+}
 
+internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
+    
+    
+    
+    var connectionURL: URL?
+    switch environment {
+//    case .local:
+//        connectionURL = URL(string: "wss://localhost:8443/api/websocket")
+//        break
+//        
+//    case .development:
+//        connectionURL = URL(string: "wss://vs-dev.asapp.com/api/websocket")
+//        break
+        
+    case .staging:
+        connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
+//        connectionURL = URL(string: "wss://srs-api-dev.asapp.com/api/websocket")
+        break
+        
+    case .production:
+        connectionURL = URL(string: "wss://\(companyMarker).asapp.com/api/websocket")
+        break
+    }
+    return connectionURL
+}
 
 // MARK:- SocketConnectionDelegate
 
 protocol SocketConnectionDelegate {
-    func socketConnectionDidLoseConnection(socketConnection: SocketConnection)
-    func socketConnectionFailedToAuthenticate(socketConnection: SocketConnection)
-    func socketConnectionEstablishedConnection(socketConnection: SocketConnection)
-    func socketConnection(socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
+    func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection)
+    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection)
+    func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection)
+    func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
 
 // MARK:- SocketConnection
@@ -34,7 +66,7 @@ class SocketConnection: NSObject {
     
     // MARK: Public Properties
     
-    private(set) var credentials: Credentials
+    fileprivate(set) var credentials: Credentials
 
     var isConnected: Bool {
         if let socket = socket {
@@ -47,55 +79,39 @@ class SocketConnection: NSObject {
     
     // MARK: Private Properties
     
-    private var connectionRequest: NSURLRequest
+    fileprivate var connectionRequest: URLRequest
     
-    private var socket: SRWebSocket?
+    fileprivate var socket: SRWebSocket?
     
-    private var outgoingMessageSerializer: OutgoingMessageSerializer
+    fileprivate var outgoingMessageSerializer: OutgoingMessageSerializer
     
-    private var incomingMessageSerializer = IncomingMessageSerializer()
+    fileprivate var incomingMessageSerializer = IncomingMessageSerializer()
     
-    private var requestQueue = [SocketRequest]()
+    fileprivate var requestQueue = [SocketRequest]()
     
-    private var requestHandlers = [Int : IncomingMessageHandler]()
+    fileprivate var requestHandlers = [Int : IncomingMessageHandler]()
     
-    private var didManuallyDisconnect = false
+    fileprivate var didManuallyDisconnect = false
     
     // MARK: Initialization
     
     init(withCredentials credentials: Credentials) {
+        self.credentials = credentials
         let connectionRequest = NSMutableURLRequest()
-        switch CURRENT_ENVIRONMENT {
-        case .Local:
-            connectionRequest.URL = NSURL(string: "wss://localhost:8443/api/websocket")
-            break
-            
-        case .Development:
-            connectionRequest.URL = NSURL(string: "wss://vs-dev.asapp.com/api/websocket")
-            break
-            
-        case .SRSDevelopment:
-            connectionRequest.URL = NSURL(string: "wss://srs-api-dev.asapp.com/api/websocket")
-            break
-            
-        case .Production:
-            // TODO: Add this
-            break
-        }
+        connectionRequest.url = ConnectionURLForEnvironment(companyMarker: credentials.companyMarker, environment: credentials.environment)
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
-        self.connectionRequest = connectionRequest
-        self.credentials = credentials
+        self.connectionRequest = connectionRequest as URLRequest
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SocketConnection.connect), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        DebugLog("SocketConnection created with host url: \(connectionRequest.url)")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     deinit {
         socket?.delegate = nil
-        
-        
     }
 }
 
@@ -118,11 +134,9 @@ extension SocketConnection {
             }
         }
         
-        DebugLog("Socket connecting with request \(connectionRequest)")
-        
         didManuallyDisconnect = false
         
-        socket = SRWebSocket(URLRequest: connectionRequest)
+        socket = SRWebSocket(urlRequest: connectionRequest)
         socket?.delegate = self
         socket?.open()
         
@@ -132,8 +146,8 @@ extension SocketConnection {
     
     func connectIfNeeded(afterDelay delayInSeconds: Int = 0) {
         if delayInSeconds > 0 {
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(UInt64(delayInSeconds) * NSEC_PER_SEC))
-            dispatch_after(delayTime, dispatch_get_main_queue()) { [weak self] in
+            let delayTime = DispatchTime.now() + Double(Int64(UInt64(delayInSeconds) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
                 if let strongSelf = self {
                     if !strongSelf.isConnected && !strongSelf.didManuallyDisconnect {
                         self?.connect()
@@ -164,7 +178,7 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    func sendRequestWithData(data: NSData, requestHandler: IncomingMessageHandler? = nil) {
+    func sendRequestWithData(_ data: Data, requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequestWithData(data)
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
@@ -172,10 +186,10 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    func sendRequestWithRequest(request: SocketRequest) {
+    func sendRequestWithRequest(_ request: SocketRequest) {
         if isConnected {
             if let data = request.requestData {
-                DebugLog("Sending data request - (\(data.length) bytes)")
+                DebugLog("Sending data request - (\(data.count) bytes)")
                 socket?.send(data)
             } else {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
@@ -193,9 +207,9 @@ extension SocketConnection {
 // MARK:- Authentication
 
 extension SocketConnection {
-    typealias SocketAuthResponseBlock = ((message: IncomingMessage?, errorMessage: String?) -> Void)
+    typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
     
-    func authenticate(completion: SocketAuthResponseBlock? = nil) {
+    func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
         let (path, params) = outgoingMessageSerializer.createAuthRequest()
         sendRequest(withPath: path, params: params) { [weak self] (message) in
@@ -204,7 +218,7 @@ extension SocketConnection {
             if let targetCustomerToken = self?.credentials.targetCustomerToken {
                 self?.updateCustomerByCRMCustomerId(withTargetCustomerToken: targetCustomerToken, completion: completion)
             } else if let completion = completion {
-                completion(message: message, errorMessage: nil)
+                completion(message, nil)
             }
         }
     }
@@ -213,27 +227,27 @@ extension SocketConnection {
     
     func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/GetCustomerByCRMCustomerId"
-        let params: [String: AnyObject] = [ "CRMCustomerId" : targetCustomerToken ]
+        let params: [String : AnyObject] = [ "CRMCustomerId" : targetCustomerToken as AnyObject]
         
         sendRequest(withPath: path, params: params) { (response) in
             guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
                 DebugLogError("Missing Customer json body in: \(response.fullMessage)")
                 
-                completion?(message: response, errorMessage: "Failed to update customer by CRMCustomerId")
+                completion?(response, "Failed to update customer by CRMCustomerId")
                 return
             }
             
             if let customerId = customerJSON["CustomerId"] as? Int {
                 self.participateInIssueForCustomer(customerId, completion: completion)
             } else if let completion = completion {
-                completion(message: response, errorMessage: "Missing CustomerId in: \(response.fullMessage)")
+                completion(response, "Missing CustomerId in: \(response.fullMessage)")
             }
         }
     }
     
-    func participateInIssueForCustomer(customerId: Int, completion: SocketAuthResponseBlock? = nil) {
+    func participateInIssueForCustomer(_ customerId: Int, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/ParticipateInIssueForCustomer"
-        let context: [String: AnyObject] = [ "CustomerId" : customerId ]
+        let context: [String: AnyObject] = [ "CustomerId" : customerId as AnyObject ]
         
         sendRequest(withPath: path, params: nil, context: context) { (response) in
             var errorMessage: String?
@@ -245,7 +259,7 @@ extension SocketConnection {
             }
             
             if let completion = completion {
-                completion(message: response, errorMessage: errorMessage)
+                completion(response, errorMessage)
             }
         }
     }
@@ -253,7 +267,7 @@ extension SocketConnection {
     func resendQueuedRequestsIfNeeded() {
         while !requestQueue.isEmpty {
             let request = requestQueue[0] 
-            requestQueue.removeAtIndex(0)
+            requestQueue.remove(at: 0)
             sendRequestWithRequest(request)
         }
     }
@@ -265,7 +279,8 @@ extension SocketConnection: SRWebSocketDelegate {
     
     // MARK: Receiving Messages
     
-    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+    public func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+        
         DebugLog("Received message:\n\(message)")
         
         let serializedMessage = incomingMessageSerializer.serializedMessage(message)
@@ -281,7 +296,9 @@ extension SocketConnection: SRWebSocketDelegate {
     
     // MARK: Connection Opening/Closing
     
-    func webSocketDidOpen(webSocket: SRWebSocket!) {
+    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
+        DebugLog("Socket Did Open")
+        
         authenticate { [weak self] (message, errorMessage) in
             guard self != nil else { return }
             
@@ -294,11 +311,15 @@ extension SocketConnection: SRWebSocketDelegate {
         }
     }
     
-    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+    func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        DebugLog("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
+        
         delegate?.socketConnectionDidLoseConnection(self)
     }
     
-    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+    func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: Error!) {
+        DebugLog("Socket Did Fail: \(error)")
+        
         delegate?.socketConnectionFailedToAuthenticate(self)
     }
 }

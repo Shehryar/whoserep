@@ -8,41 +8,43 @@
 
 import UIKit
 
-public class ASAPPStyles: NSObject {
+open class ASAPPStyles: NSObject {
 
     // MARK:- Fonts: General
     
-    public var headlineFont: UIFont = Fonts.latoBoldFont(withSize: 24)
+    open var headlineFont: UIFont = Fonts.latoBoldFont(withSize: 24)
     
-    public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 15)
+    open var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 15)
     
-    public var bodyBoldFont: UIFont = Fonts.latoBoldFont(withSize: 15)
+    open var bodyBoldFont: UIFont = Fonts.latoBoldFont(withSize: 15)
     
-    public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
+    open var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
     
-    public var captionFont: UIFont = Fonts.latoBoldFont(withSize: 10)
+    open var captionFont: UIFont = Fonts.latoBoldFont(withSize: 10)
     
-    public var buttonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
+    open var buttonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
+    
+    open var asappButtonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
 
     // MARK:- Colors: Messages
     
-    public var replyMessageFillColor: UIColor = Colors.steelLightColor()
+    open var replyMessageFillColor: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
     
-    public var replyMessageStrokeColor: UIColor? = nil
+    open var replyMessageStrokeColor: UIColor? = nil
     
-    public var replyMessageTextColor: UIColor = Colors.whiteColor()
+    open var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
-    public var messageStrokeColor: UIColor? = Colors.steelLight50Color()
+    open var messageStrokeColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
     
-    public var messageFillColor: UIColor = Colors.whiteColor()
+    open var messageFillColor: UIColor = Colors.whiteColor()
     
-    public var messageTextColor: UIColor = Colors.steelLightColor()
+    open var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
     
     // MARK:- Colors: General
     
     internal var navBarBackgroundColor: UIColor = Colors.whiteColor()
     
-    public var navBarButtonColor: UIColor = Colors.steelLightColor()
+    internal var navBarButtonColor: UIColor = Colors.steelLightColor()
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
@@ -52,11 +54,17 @@ public class ASAPPStyles: NSObject {
     
     internal var foregroundColor2: UIColor = Colors.steelDark50Color()
     
+    internal var buttonColor: UIColor = Colors.steelMedColor()
+    
     internal var separatorColor1: UIColor = Colors.marbleLightColor()
     
     internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
     internal var accentColor: UIColor = Colors.steelLightColor()
+    
+    public var asappButtonForegroundColor: UIColor = UIColor.white
+    
+    public var asappButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
 
     // MARK:- Colors: Input
     
@@ -76,7 +84,7 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Preset Styles
     
-    public class func comcastStyles() -> ASAPPStyles {
+    open class func comcastStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.headlineFont = Fonts.xfinitySansBoldFont(withSize: 24)
@@ -84,40 +92,8 @@ public class ASAPPStyles: NSObject {
         styles.bodyBoldFont = Fonts.xfinitySansBoldFont(withSize: 15)
         styles.detailFont = Fonts.xfinitySansBoldFont(withSize: 12)
         styles.captionFont = Fonts.xfinitySansMedFont(withSize: 10)
-        styles.buttonFont = Fonts.xfinitySansBoldFont(withSize: 12)
-        
-        return styles
-    }
-    
-    public class func darkStyles() -> ASAPPStyles {
-        let styles = ASAPPStyles()
-        styles.bodyFont = UIFont(name: "Avenir-Medium", size: 16) ?? UIFont.systemFontOfSize(16)
-        styles.detailFont = UIFont(name: "Avenir-Heavy", size: 12) ?? UIFont.boldSystemFontOfSize(12)
-        styles.captionFont = UIFont(name: "Avenir-Heavy", size: 10) ?? UIFont.boldSystemFontOfSize(10)
-        styles.buttonFont = UIFont(name: "Avenir-Heavy", size: 14) ?? UIFont.boldSystemFontOfSize(14)
-            
-        styles.backgroundColor1 = UIColor(red:0.094,  green:0.094,  blue:0.094, alpha:1)
-        styles.backgroundColor2 = UIColor(red:0.157,  green:0.157,  blue:0.157, alpha:1)
-        styles.foregroundColor1 = UIColor.whiteColor()
-        styles.foregroundColor2 = UIColor(red:0.627,  green:0.627,  blue:0.627, alpha:1)
-        styles.separatorColor1 = UIColor(red:0.157,  green:0.157,  blue:0.157, alpha:1)
-        styles.separatorColor2 =  UIColor(red:0.094,  green:0.094,  blue:0.094, alpha:1)
-        
-        styles.messageFillColor = styles.backgroundColor2
-        styles.messageStrokeColor = nil
-        styles.messageTextColor = styles.foregroundColor2
-        
-        styles.replyMessageFillColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
-        styles.replyMessageTextColor = UIColor.whiteColor()
-        styles.replyMessageStrokeColor = nil
-        
-        styles.inputBackgroundColor = styles.backgroundColor2
-        styles.inputBorderTopColor = styles.separatorColor2
-        styles.inputTintColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
-        styles.inputPlaceholderColor = styles.foregroundColor2
-        styles.inputTextColor = styles.foregroundColor1
-        styles.inputSendButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
-        styles.inputImageButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        styles.buttonFont = Fonts.xfinitySansMedCondFont(withSize: 12)
+        styles.asappButtonFont = Fonts.xfinitySansBoldCondFont(withSize: 13)
         
         return styles
     }
@@ -127,5 +103,5 @@ protocol ASAPPStyleable {
     
     var styles: ASAPPStyles { get }
     
-    func applyStyles(styles: ASAPPStyles)
+    func applyStyles(_ styles: ASAPPStyles)
 }

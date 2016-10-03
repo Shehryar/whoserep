@@ -24,17 +24,17 @@ class BouncingBallsLoadingView: UIView {
         }
     }
     
-    private(set) var animating = false
+    fileprivate(set) var animating = false
     
-    private var animationStartTime: NSTimeInterval = 0
+    fileprivate var animationStartTime: TimeInterval = 0
     
-    private let ballViews = [UIView(), UIView(), UIView()]
+    fileprivate let ballViews = [UIView(), UIView(), UIView()]
     
-    private let ballSize: CGFloat = 8
+    fileprivate let ballSize: CGFloat = 8
     
-    private let ballMargin: CGFloat = 6
+    fileprivate let ballMargin: CGFloat = 6
     
-    private let ballBounceDistance: CGFloat = 10
+    fileprivate let ballBounceDistance: CGFloat = 10
     
     // MARK: Init
     
@@ -73,17 +73,17 @@ class BouncingBallsLoadingView: UIView {
         
         if !animating {
             let contentWidth = CGFloat(ballViews.count) * ballSize + CGFloat(ballViews.count - 1) * ballMargin
-            var contentLeft = floor((CGRectGetWidth(bounds) - contentWidth) / 2.0)
-            let centerY = CGRectGetHeight(bounds) - contentInset.bottom - ballSize / 2.0
+            var contentLeft = floor((bounds.width - contentWidth) / 2.0)
+            let centerY = bounds.height - contentInset.bottom - ballSize / 2.0
             for ballView in ballViews {
                 let centerX = contentLeft + ballSize / 2.0
                 ballView.center = CGPoint(x: centerX, y: centerY)
-                contentLeft = CGRectGetMaxX(ballView.frame) + ballMargin
+                contentLeft = ballView.frame.maxX + ballMargin
             }
         }
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let totalWidth = contentInset.left + CGFloat(ballViews.count) * ballSize + CGFloat(ballViews.count - 1) * ballMargin + contentInset.right
         let totalHeight = contentInset.top + ballSize + ballBounceDistance + contentInset.bottom
         return CGSize(width: totalWidth, height: totalHeight)
@@ -97,7 +97,7 @@ class BouncingBallsLoadingView: UIView {
         layoutSubviews()
         
         animating = true
-        animationStartTime = NSDate().timeIntervalSinceNow
+        animationStartTime = Date().timeIntervalSinceNow
         let animationBlockStartTime = animationStartTime
         
         var delay = 0.4
@@ -126,15 +126,15 @@ class BouncingBallsLoadingView: UIView {
     
     // MARK: Utility
     
-    private func centerYDefault() -> CGFloat {
-        return CGRectGetHeight(bounds) - contentInset.bottom - ballSize / 2.0
+    fileprivate func centerYDefault() -> CGFloat {
+        return bounds.height - contentInset.bottom - ballSize / 2.0
     }
     
-    private func centerYUp() -> CGFloat {
+    fileprivate func centerYUp() -> CGFloat {
         return centerYDefault() - ballBounceDistance
     }
     
-    private func animateBallView(ballView: UIView,
+    fileprivate func animateBallView(_ ballView: UIView,
                                  delay: Double,
                                  animationBlockStartTime: Double,
                                  completion: (() -> Void)?) {
@@ -145,16 +145,16 @@ class BouncingBallsLoadingView: UIView {
         })
     }
     
-    private func animateUp(ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
-        UIView.animateWithDuration(0.24, delay: delay, options: [.CurveEaseInOut, .BeginFromCurrentState], animations: {
+    fileprivate func animateUp(_ ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
+        UIView.animate(withDuration: 0.24, delay: delay, options: .beginFromCurrentState, animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYUp())
             }) { (completed) in
                 completion?()
         }
     }
     
-    private func animateDown(ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
-        UIView.animateWithDuration(0.20, delay: delay, options: [.CurveEaseInOut, .BeginFromCurrentState], animations: {
+    fileprivate func animateDown(_ ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
+        UIView.animate(withDuration: 0.20, delay: delay, options: .beginFromCurrentState, animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYDefault())
         }) { (completed) in
             completion?()

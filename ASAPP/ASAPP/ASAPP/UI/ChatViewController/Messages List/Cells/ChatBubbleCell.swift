@@ -9,10 +9,10 @@
 import UIKit
 
 enum MessageListPosition {
-    case Default
-    case FirstOfMany
-    case MiddleOfMany
-    case LastOfMany
+    case `default`
+    case firstOfMany
+    case middleOfMany
+    case lastOfMany
 }
 
 class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
@@ -28,7 +28,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    var listPosition: MessageListPosition = .Default {
+    var listPosition: MessageListPosition = .default {
         didSet {
             if oldValue != listPosition {
                 updateBubbleCorners()
@@ -36,7 +36,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 3, left: 22, bottom: 3, right: 22) {
+    var contentInset = UIEdgeInsets(top: 3, left: 25, bottom: 3, right: 25) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -49,7 +49,11 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
             if let event = event {
                 let eventDate = event.eventDate
                 dateFormatter.dateFormat = eventDate.dateFormatForMostRecent()
-                detailLabel.text = dateFormatter.stringFromDate(eventDate)
+                detailLabel.attributedText = NSAttributedString(string: dateFormatter.string(from: eventDate as Date), attributes: [
+                    NSFontAttributeName : styles.captionFont,
+                    NSForegroundColorAttributeName : styles.foregroundColor2,
+                    NSKernAttributeName : 0.8
+                    ])
             } else {
                 detailLabel.text = nil
             }
@@ -78,17 +82,17 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     internal let detailLabel = UILabel()
     
-    private let dateFormatter = NSDateFormatter()
+    fileprivate let dateFormatter = DateFormatter()
     
-    private var animating = false
+    fileprivate var animating = false
     
-    private var animationStartTime: Double = 0.0
+    fileprivate var animationStartTime: Double = 0.0
     
     // MARK: Init
     
     func commonInit() {
-        selectionStyle = .None
-        opaque = true
+        selectionStyle = .none
+        isOpaque = true
         
         updateDetailLabelVisibility()
         contentView.addSubview(detailLabel)
@@ -115,38 +119,38 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         var roundedCorners: UIRectCorner
         if isReply {
             switch listPosition {
-            case .Default:
-                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
+            case .default:
+                roundedCorners = [.topLeft, .topRight, .bottomRight]
                 break
                 
-            case .FirstOfMany:
-                roundedCorners =  .AllCorners
+            case .firstOfMany:
+                roundedCorners =  .allCorners
                 break
                 
-            case .MiddleOfMany:
-                roundedCorners =  .AllCorners
+            case .middleOfMany:
+                roundedCorners =  .allCorners
                 break
                 
-            case .LastOfMany:
-                roundedCorners = [.TopLeft, .TopRight, .BottomRight]
+            case .lastOfMany:
+                roundedCorners = [.topLeft, .topRight, .bottomRight]
                 break
             }
         } else {
             switch listPosition {
-            case .Default:
-                roundedCorners = [.TopRight, .TopLeft, .BottomLeft]
+            case .default:
+                roundedCorners = [.topRight, .topLeft, .bottomLeft]
                 break
                 
-            case .FirstOfMany:
-                roundedCorners = .AllCorners
+            case .firstOfMany:
+                roundedCorners = .allCorners
                 break
                 
-            case .MiddleOfMany:
-                roundedCorners = .AllCorners
+            case .middleOfMany:
+                roundedCorners = .allCorners
                 break
                 
-            case .LastOfMany:
-                roundedCorners =  [.TopRight, .TopLeft, .BottomLeft] 
+            case .lastOfMany:
+                roundedCorners =  [.topRight, .topLeft, .bottomLeft] 
                 break
             }
         }
@@ -155,17 +159,19 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     
     // MARK:- ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         applyStyles(styles, isReply: isReply)
     }
     
-    func applyStyles(styles: ASAPPStyles, isReply: Bool) {
-        self.styles = styles
-        self.isReply = isReply
+    func applyStyles(_ styles: ASAPPStyles, isReply: Bool) {
+        if styles != self.styles || isReply != self.isReply {
+            self.styles = styles
+            self.isReply = isReply
         
-        updateFontsAndColors()
+            updateFontsAndColors()
+        }
     }
     
     func bubbleFillColor() -> UIColor {
@@ -197,7 +203,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         if detailLabelHidden {
             detailLabel.alpha = 0
         } else {
-            detailLabel.hidden = false
+            detailLabel.isHidden = false
             detailLabel.alpha = 1
         }
     }
@@ -208,7 +214,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         super.prepareForReuse()
         layer.removeAllAnimations()
         bubbleView.alpha = 1
-        bubbleView.transform = CGAffineTransformIdentity
+        bubbleView.transform = CGAffineTransform.identity
         animationStartTime = 0
         animating = false
         event = nil
@@ -221,8 +227,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
 extension ChatBubbleCell {
     
     /// Subclasses can override this method
-    func bubbleSizeForSize(size: CGSize) -> CGSize {
-        return CGSizeZero
+    func bubbleSizeForSize(_ size: CGSize) -> CGSize {
+        return CGSize.zero
     }
     
     /// Subclasses can override this method
@@ -232,26 +238,26 @@ extension ChatBubbleCell {
         var bubbleLeft = contentInset.left
         var detailLeft = contentInset.left
         if !isReply {
-            bubbleLeft = CGRectGetWidth(bounds) - bubbleSize.width - contentInset.right
-            detailLeft = CGRectGetWidth(bounds) - detailSize.width - contentInset.right
+            bubbleLeft = bounds.width - bubbleSize.width - contentInset.right
+            detailLeft = bounds.width - detailSize.width - contentInset.right
         }
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
         
-        var detailTop = CGRectGetMaxY(bubbleView.frame)
+        var detailTop = bubbleView.frame.maxY
         if !detailLabelHidden && detailSize.height > 0 {
             detailTop += detailLabelMargin
         }
         detailLabel.frame = CGRect(x: detailLeft, y: detailTop, width: detailSize.width, height: detailSize.height)
     }
     
-    func detailLabelSizeForSize(size: CGSize) -> CGSize {
+    func detailLabelSizeForSize(_ size: CGSize) -> CGSize {
         let maxWidth = maxBubbleWidthForBoundsSize(size)
         let detailSize = detailLabel.sizeThatFits(CGSize(width: maxWidth, height: 0))
         
         return CGSize(width: ceil(detailSize.width), height: ceil(detailSize.height))
     }
     
-    func maxBubbleWidthForBoundsSize(size: CGSize) -> CGFloat{
+    func maxBubbleWidthForBoundsSize(_ size: CGSize) -> CGFloat{
         return floor(0.85 * (size.width - contentInset.left - contentInset.right))
     }
     
@@ -261,14 +267,14 @@ extension ChatBubbleCell {
         updateFrames()
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         var contentHeight = bubbleSizeForSize(size).height
         
         let maxLabelWidth = maxBubbleWidthForBoundsSize(size)
         if !detailLabelHidden {
-            let detailLabelSize = detailLabel.sizeThatFits(size)
+            let detailLabelSize = detailLabel.sizeThatFits(CGSize(width: maxLabelWidth, height: size.height))
             if detailLabelSize.height > 0 {
-                contentHeight += detailLabelSize.height + detailLabelMargin
+                contentHeight += ceil(detailLabelSize.height) + detailLabelMargin
             }
         }
         
@@ -280,11 +286,11 @@ extension ChatBubbleCell {
 
 extension ChatBubbleCell {
     
-    func setDetailLabelHidden(hidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
+    func setDetailLabelHidden(_ hidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         if hidden == detailLabelHidden { return }
         
         if animated {
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.detailLabelHidden = hidden
                 self.updateFrames()
                 }, completion: { (completed) in
@@ -303,7 +309,7 @@ extension ChatBubbleCell {
         guard !animating else { return }
         
         animating = true
-        animationStartTime = NSDate().timeIntervalSince1970
+        animationStartTime = Date().timeIntervalSince1970
         let blockStartTime = animationStartTime
         
         prepareToAnimate()
@@ -320,16 +326,16 @@ extension ChatBubbleCell {
     }
     
     internal func performAnimation() {
-        var animationBeginCenter = CGPoint(x: 0, y: CGRectGetHeight(bounds) - contentInset.bottom)
+        var animationBeginCenter = CGPoint(x: 0, y: bounds.height - contentInset.bottom)
         
         var animationEndCenter = CGPoint()
         if bubbleView.bounds.isEmpty {
             let messageSize = bubbleView.sizeThatFits(bounds.size)
-            animationEndCenter.y = CGRectGetHeight(bounds) - contentInset.bottom - messageSize.height / 2.0
+            animationEndCenter.y = bounds.height - contentInset.bottom - messageSize.height / 2.0
             if isReply {
                 animationEndCenter.x = contentInset.left + messageSize.width / 2.0
             } else {
-                animationEndCenter.x = CGRectGetWidth(bounds) - contentInset.right - messageSize.width / 2.0
+                animationEndCenter.x = bounds.width - contentInset.right - messageSize.width / 2.0
             }
         } else {
             animationEndCenter = bubbleView.center
@@ -340,7 +346,7 @@ extension ChatBubbleCell {
         bubbleView.alpha = 0
         bubbleView.center = animationBeginCenter
         
-        UIView.animateKeyframesWithDuration(0.2, delay: 0, options: .BeginFromCurrentState, animations: {
+        UIView.animateKeyframes(withDuration: 0.2, delay: 0, options: .beginFromCurrentState, animations: {
             self.bubbleView.alpha = 1
             self.bubbleView.center = animationEndCenter
             }, completion: { (completed) in

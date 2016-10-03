@@ -26,7 +26,7 @@ class BubbleView: UIView {
         }
     }
     
-    var roundedCorners: UIRectCorner = .AllCorners {
+    var roundedCorners: UIRectCorner = .allCorners {
         didSet {
             if oldValue != roundedCorners {
                 setNeedsDisplay()
@@ -66,7 +66,7 @@ class BubbleView: UIView {
         }
     }
     
-    private let maskLayer = CAShapeLayer()
+    fileprivate let maskLayer = CAShapeLayer()
     
     // MARK:- Init
     
@@ -82,13 +82,17 @@ class BubbleView: UIView {
     
     func commonInit() {
         clipsToBounds = false
-        backgroundColor = UIColor.clearColor()
-        contentMode = .Redraw
+        backgroundColor = UIColor.clear
+        contentMode = .redraw
+        
+        if UIScreen.main.scale > 1 {
+            strokeLineWidth = 0.5
+        }
     }
     
     // MARK:- Drawing
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         let path = bubbleViewPath(forRect: rect, insetForStroke: (strokeColor != nil))
     
@@ -102,7 +106,7 @@ class BubbleView: UIView {
         
         if clipsToBubblePath {
             let clippingPath = bubbleViewPath(forRect: rect, insetForStroke: false)
-            maskLayer.path = clippingPath.CGPath
+            maskLayer.path = clippingPath.cgPath
             layer.mask = maskLayer
         } else {
             layer.mask = nil
@@ -113,11 +117,11 @@ class BubbleView: UIView {
         var rect = originalRect
         let strokeInset = strokeLineWidth / 2.0
         if insetForStroke {
-            rect = CGRectInset(originalRect, strokeInset, strokeInset)
+            rect = originalRect.insetBy(dx: strokeInset, dy: strokeInset)
         }
         
-        let maxCornerRadius = CGRectGetHeight(rect) / 2.0
-        func getCornerRadius(corner: UIRectCorner) -> CGFloat {
+        let maxCornerRadius = rect.height / 2.0
+        func getCornerRadius(_ corner: UIRectCorner) -> CGFloat {
             var cornerRadiusForCorner = smallCornerRadius
             if roundedCorners.contains(corner) {
                 cornerRadiusForCorner = cornerRadius
@@ -125,37 +129,36 @@ class BubbleView: UIView {
             return min(cornerRadiusForCorner, maxCornerRadius)
         }
         
-        func move(point: CGPoint, x: CGFloat, y: CGFloat) -> CGPoint {
+        func move(_ point: CGPoint, x: CGFloat, y: CGFloat) -> CGPoint {
             var movedPoint = point
             movedPoint.x += x
             movedPoint.y += y
             return movedPoint
         }
         
-        let topLeft = CGPoint(x: CGRectGetMinX(rect), y: CGRectGetMinY(rect))
-        let topLeftCornerRadius = getCornerRadius(.TopLeft)
+        let topLeft = CGPoint(x: rect.minX, y: rect.minY)
+        let topLeftCornerRadius = getCornerRadius(.topLeft)
         let topLeftCornerCenter = move(topLeft, x: topLeftCornerRadius, y: topLeftCornerRadius)
         
-        let topRight = CGPoint(x: CGRectGetMaxX(rect), y: CGRectGetMinY(rect))
-        let topRightCornerRadius = getCornerRadius(.TopRight)
+        let topRight = CGPoint(x: rect.maxX, y: rect.minY)
+        let topRightCornerRadius = getCornerRadius(.topRight)
         let topRightCornerCenter = move(topRight, x: -topRightCornerRadius, y: topRightCornerRadius)
         
-        let bottomRight = CGPoint(x: CGRectGetMaxX(rect), y: CGRectGetMaxY(rect))
-        let bottomRightCornerRadius = getCornerRadius(.BottomRight)
+        let bottomRight = CGPoint(x: rect.maxX, y: rect.maxY)
+        let bottomRightCornerRadius = getCornerRadius(.bottomRight)
         let bottomRightCornerCenter = move(bottomRight, x: -bottomRightCornerRadius, y: -bottomRightCornerRadius)
         
-        let bottomLeft = CGPoint(x: CGRectGetMinX(rect), y: CGRectGetMaxY(rect))
-        let bottomLeftCornerRadius = getCornerRadius(.BottomLeft)
+        let bottomLeft = CGPoint(x: rect.minX, y: rect.maxY)
+        let bottomLeftCornerRadius = getCornerRadius(.bottomLeft)
         let bottomLeftCornerCenter = move(bottomLeft, x: bottomLeftCornerRadius, y: -bottomLeftCornerRadius)
         
-        let path = CGPathCreateMutable()
-    
-        CGPathAddArc(path, nil, topLeftCornerCenter.x, topLeftCornerCenter.y, topLeftCornerRadius, CGFloat(2 * M_PI_2), CGFloat(3 * M_PI_2), false)
-        CGPathAddArc(path, nil, topRightCornerCenter.x, topRightCornerCenter.y, topRightCornerRadius, CGFloat(3 * M_PI_2), CGFloat(4 * M_PI_2), false)
-        CGPathAddArc(path, nil, bottomRightCornerCenter.x, bottomRightCornerCenter.y, bottomRightCornerRadius, CGFloat(4 * M_PI_2), CGFloat(5 * M_PI_2), false)
-        CGPathAddArc(path, nil, bottomLeftCornerCenter.x, bottomLeftCornerCenter.y, bottomLeftCornerRadius, CGFloat(5 * M_PI_2), CGFloat(6 * M_PI_2), false)
-        CGPathCloseSubpath(path)
+        let path = CGMutablePath()
+        path.addArc(center: CGPoint(x: topLeftCornerCenter.x, y: topLeftCornerCenter.y), radius: topLeftCornerRadius, startAngle: CGFloat(2 * M_PI_2), endAngle: CGFloat(3 * M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: topRightCornerCenter.x, y: topRightCornerCenter.y), radius: topRightCornerRadius, startAngle: CGFloat(3 * M_PI_2), endAngle: CGFloat(4 * M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: bottomRightCornerCenter.x, y: bottomRightCornerCenter.y), radius: bottomRightCornerRadius, startAngle: CGFloat(4 * M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: bottomLeftCornerCenter.x, y: bottomLeftCornerCenter.y), radius: bottomLeftCornerRadius, startAngle: CGFloat(5 * M_PI_2), endAngle: CGFloat(6 * M_PI_2), clockwise: false)
+        path.closeSubpath()
         
-        return UIBezierPath(CGPath: path)
+        return UIBezierPath(cgPath: path)
     }
 }

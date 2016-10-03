@@ -16,9 +16,9 @@ class ChatTypingPreviewCell: ChatTextMessageCell {
         super.updateFontsAndColors()
         
         if isReply {
-            textMessageLabel.textColor = styles.replyMessageTextColor.colorWithAlphaComponent(0.6)
+            textMessageLabel.textColor = styles.replyMessageTextColor.withAlphaComponent(0.6)
         } else {
-            textMessageLabel.textColor = styles.messageTextColor.colorWithAlphaComponent(0.6)
+            textMessageLabel.textColor = styles.messageTextColor.withAlphaComponent(0.6)
         }
     }
 }

@@ -11,8 +11,9 @@ import UIKit
 class SRSAppOpenResponse: NSObject, JSONObject {
     var greeting: String
     var customizedMessage: String?
-    var actions: [String]?
-    var firstActionIsForCustomizedMessage = false
+    var customizedActions: [String]?
+    var genericActions: [String]?
+    var inputPlaceholder: String?
     
     init(greeting: String?) {
         self.greeting = greeting ?? ASAPPLocalizedString("How can we help?")
@@ -21,12 +22,30 @@ class SRSAppOpenResponse: NSObject, JSONObject {
     
     // MARK:- JSONObject
     
-    static func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    static func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json else { return nil }
 
         let response = SRSAppOpenResponse(greeting: json["greeting"] as? String)
-        response.customizedMessage = json["prediction_display_text"] as? String
-        response.actions = json["actions"] as? [String]
+        response.inputPlaceholder = json["input_placeholder"] as? String
+        
+        var actions = [String]()
+        if let predictions = json["predictions"] as? [[String : AnyObject]] {
+            
+            for (idx, predictionJSON) in predictions.enumerated() {
+                if idx == 0 {
+                    response.customizedMessage = predictionJSON["prediction_display_text"] as? String
+                    response.customizedActions = predictionJSON["prediction_actions"] as? [String]
+                } else {
+                    if let predictionActions = predictionJSON["prediction_actions"] as? [String] {
+                        actions.append(contentsOf: predictionActions)
+                    }
+                }
+            }
+        }
+        if let genericActions = json["actions"] as? [String] {
+            actions.append(contentsOf: genericActions)
+        }
+        response.genericActions = actions
         
         return response
     }
@@ -36,11 +55,10 @@ class SRSAppOpenResponse: NSObject, JSONObject {
 
 extension SRSAppOpenResponse {
     class func sampleResponse() -> SRSAppOpenResponse? {
-        if let path = ASAPPBundle.pathForResource("sample_predictive_response", ofType: "json") {
-            if let jsonData = NSData(contentsOfFile: path) {
-                if let json = try? NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments) as? [String : AnyObject] {
+        if let path = ASAPPBundle.path(forResource: "sample_predictive_response", ofType: "json") {
+            if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+                if let json = try? JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String : AnyObject] {
                     let sample = SRSAppOpenResponse.instanceWithJSON(json) as? SRSAppOpenResponse
-                    sample?.firstActionIsForCustomizedMessage = true
                     return sample
                 }
             }

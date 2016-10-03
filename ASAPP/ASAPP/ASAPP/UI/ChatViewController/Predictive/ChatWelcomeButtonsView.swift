@@ -10,50 +10,53 @@ import UIKit
 
 class ChatWelcomeButtonsView: UIView {
 
-    var onButtonTap: ((buttonTitle: String) -> Void)?
+    var onButtonTap: ((_ buttonTitle: String) -> Void)?
     
-    private(set) var buttonTitles: [String]?
+    fileprivate(set) var buttonTitles: [String]?
     
     var expanded: Bool = true {
         didSet {
-            updateSubviewAlphas()
             setNeedsLayout()
-        }
-    }
-    
-    var maxVisibleHeight: CGFloat? {
-        didSet {
-            updateSubviewAlphas()
         }
     }
     
     let styles: ASAPPStyles
     
-    private var waitingToAnimateIn = false
+    fileprivate var waitingToAnimateIn = false
     
-    private var relatedButtons = [Button]()
+    fileprivate var relatedButtons = [Button]()
     
-    private let otherLabel = UILabel()
+    fileprivate let otherLabel = UILabel()
     
-    private var otherButtons = [Button]()
+    fileprivate var otherButtons = [Button]()
     
-    private let otherLabelMarginTop: CGFloat = 25
+    fileprivate let otherLabelMarginTop: CGFloat = 25
     
-    private let otherLabelMarginBottom: CGFloat = 15
+    fileprivate let otherLabelMarginBottom: CGFloat = 15
     
-    private let buttonSpacing: CGFloat = 15
+    fileprivate let buttonSpacing: CGFloat = 15
     
-    private var animating = false
+    fileprivate var animating = false
+    
+    fileprivate var shouldDisplayOtherLabel: Bool {
+        return relatedButtons.count > 0 && otherButtons.count > 0
+    }
     
     // MARK: Initialization
     
     required init(styles: ASAPPStyles?) {
         self.styles = styles ?? ASAPPStyles()
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         otherLabel.font = styles?.detailFont
         otherLabel.textColor = Colors.steelMed50Color()
-        otherLabel.text = ASAPPLocalizedString("OTHER SUGGESTIONS:")
+        otherLabel.attributedText = NSAttributedString(string: ASAPPLocalizedString("OTHER SUGGESTIONS:"),
+                                                       attributes: [
+                                                        NSFontAttributeName : self.styles.detailFont,
+                                                        NSKernAttributeName : 1
+            ])
+        
+        otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
     
@@ -63,24 +66,24 @@ class ChatWelcomeButtonsView: UIView {
     
     // MARK: View Creation
     
-    func newButton(title: String, highlighted: Bool = false) -> Button {
+    func newButton(_ title: String, highlighted: Bool = false) -> Button {
         let button = Button()
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
-        button.setForegroundColor(Colors.whiteColor(), forState: .Normal)
-        button.setForegroundColor(Colors.whiteColor(), forState: .Highlighted)
+        button.setForegroundColor(Colors.whiteColor(), forState: .normal)
+        button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
         if highlighted {
-            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.35), forState: .Normal)
-            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.08), forState: .Highlighted)
+            button.setBackgroundColor(UIColor(red:0.492, green:0.513, blue:0.547, alpha:1), forState: .normal)
+            button.setBackgroundColor(UIColor(red:0.492, green:0.513, blue:0.547, alpha:1).withAlphaComponent(0.5), forState: .highlighted)
         } else {
-            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.15), forState: .Normal)
-            button.setBackgroundColor(Colors.marbleLightColor().colorWithAlphaComponent(0.08), forState: .Highlighted)
+            button.setBackgroundColor(UIColor(red:0.444, green:0.462, blue:0.509, alpha:1), forState: .normal)
+            button.setBackgroundColor(UIColor(red:0.444, green:0.462, blue:0.509, alpha:1).withAlphaComponent(0.5), forState: .highlighted)
         }
-        button.font = styles.bodyFont.fontWithSize(15)
+        button.font = styles.bodyFont.withSize(15)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title
         button.onTap = { [weak self] in
-            self?.onButtonTap?(buttonTitle: title)
+            self?.onButtonTap?(title)
         }
         
         return button
@@ -88,12 +91,8 @@ class ChatWelcomeButtonsView: UIView {
     
     // MARK: Layout
     
-    func viewIsWithinVisibleHeight(view: UIView) -> Bool {
-        guard let maxVisibleHeight = maxVisibleHeight else {
-            return true
-        }
-        
-        return CGRectGetMaxY(view.frame) < maxVisibleHeight
+    func viewIsWithinVisibleHeight(_ view: UIView) -> Bool {
+        return view.frame.maxY < bounds.size.height
     }
     
     func updateSubviewAlphas() {
@@ -102,7 +101,11 @@ class ChatWelcomeButtonsView: UIView {
         for view in subviews {
             if view == otherLabel {
                 if expanded && viewIsWithinVisibleHeight(view) {
-                    view.alpha = 1
+                    if view == otherLabel {
+                        view.alpha = shouldDisplayOtherLabel ? 1 : 0
+                    } else {
+                        view.alpha = 1
+                    }
                 } else {
                     view.alpha = 0
                 }
@@ -113,7 +116,7 @@ class ChatWelcomeButtonsView: UIView {
     }
     
     func updateFrames() {
-        let maxWidth = CGRectGetWidth(bounds)
+        let maxWidth = bounds.width
         let maxSubviewSize = CGSize(width: maxWidth, height: 0)
         
         var top: CGFloat = 0.0
@@ -123,19 +126,19 @@ class ChatWelcomeButtonsView: UIView {
         for button in relatedButtons {
             let buttonSize = button.sizeThatFits(maxSubviewSize)
             button.frame = CGRect(x: 0, y: top, width: ceil(buttonSize.width), height: ceil(buttonSize.height))
-            top = CGRectGetMaxY(button.frame) + buttonSpacing
+            top = button.frame.maxY + buttonSpacing
         }
         
         // Section Header
         
-        if expanded {
+        if expanded && shouldDisplayOtherLabel {
             top += otherLabelMarginTop
         }
         let otherLabelHeight = ceil(otherLabel.sizeThatFits(maxSubviewSize).height)
         otherLabel.frame = CGRect(x: 0, y: top, width: maxWidth, height: otherLabelHeight)
         
-        if expanded {
-            top = CGRectGetMaxY(otherLabel.frame) + otherLabelMarginBottom
+        if expanded && shouldDisplayOtherLabel {
+            top = otherLabel.frame.maxY + otherLabelMarginBottom
         }
         
         // Other Buttons
@@ -143,10 +146,12 @@ class ChatWelcomeButtonsView: UIView {
         for button in otherButtons {
             let buttonSize = button.sizeThatFits(maxSubviewSize)
             button.frame = CGRect(x: 0, y: top, width: ceil(buttonSize.width), height: ceil(buttonSize.height))
-            top = CGRectGetMaxY(button.frame) + buttonSpacing
+            top = button.frame.maxY + buttonSpacing
         }
         
-        updateSubviewAlphas()
+        if !animating && !waitingToAnimateIn {
+            updateSubviewAlphas()
+        }
     }
     
     override func layoutSubviews() {
@@ -157,43 +162,9 @@ class ChatWelcomeButtonsView: UIView {
         }
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        var height: CGFloat = 0.0
-        
-        let maxSubviewSize = CGSize(width: size.width, height: 0)
-        
-        // Related Buttons
-        
-        for button in relatedButtons {
-            height += ceil(button.sizeThatFits(maxSubviewSize).height)
-        }
-        
-        // Section Header
-        
-        if expanded {
-            height += ceil(otherLabel.sizeThatFits(maxSubviewSize).height)
-            height += otherLabelMarginTop + otherLabelMarginBottom
-        }
-        
-        // Other Buttons
-        
-        for button in otherButtons {
-            height += ceil(button.sizeThatFits(maxSubviewSize).height)
-            if button != otherButtons.last {
-                height += buttonSpacing
-            }
-        }
-        
-        return CGSize(width: size.width, height: height)
-    }
-    
     // MARK:- Public Instance Methods
     
-    func setButtonTitles(buttonTitles: [String]?, highlightFirstButton: Bool, hideButtonsForAnimation: Bool = false) {
-        if hideButtonsForAnimation {
-            waitingToAnimateIn = true
-        }
-        
+    func clear() {
         for button in relatedButtons {
             button.removeFromSuperview()
         }
@@ -204,36 +175,55 @@ class ChatWelcomeButtonsView: UIView {
         }
         otherButtons.removeAll()
         
+        otherLabel.alpha = 0.0
+    }
+    
+    func update(relatedButtonTitles: [String]?, otherButtonTitles: [String]?, hideButtonsForAnimation: Bool = false) {
+        clear()
+        
         if hideButtonsForAnimation {
-            otherLabel.alpha = 0.0
+            waitingToAnimateIn = true
         }
         
-        if let buttonTitles = buttonTitles {
+        // Add New Buttons
+        
+        if let buttonTitles = relatedButtonTitles {
             for buttonTitle in buttonTitles {
-                let isRelatedButton = buttonTitle == buttonTitles.first && highlightFirstButton
-                let button = newButton(buttonTitle, highlighted: isRelatedButton)
-                if hideButtonsForAnimation {
-                    button.alpha = 0.0
-                }
+                let button = newButton(buttonTitle, highlighted: true)
+                button.alpha = 0.0
                 addSubview(button)
-                
-                if isRelatedButton {
-                    relatedButtons.append(button)
-                } else {
-                    otherButtons.append(button)
-                }
+                relatedButtons.append(button)
             }
+        }
+        
+        if let buttonTitles = otherButtonTitles {
+            for buttonTitle in buttonTitles {
+                let button = newButton(buttonTitle, highlighted: false)
+                button.alpha = 0.0
+                addSubview(button)
+                otherButtons.append(button)
+            }
+        }
+        
+        if !hideButtonsForAnimation {
+            animateButtonsIn(false)
         }
         
         setNeedsLayout()
     }
     
-    func animateButtonsIn(animated: Bool = true, completion: (() -> Void)? = nil) {
+    func animateButtonsIn(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         guard animated else {
             for button in relatedButtons {
                 button.alpha = 1
             }
-            otherLabel.alpha = 1
+            
+            if shouldDisplayOtherLabel {
+                otherLabel.alpha = 1.0
+            } else {
+                otherLabel.alpha = 0.0
+            }
+            
             for button in otherButtons {
                 button.alpha = 1
             }
@@ -243,53 +233,46 @@ class ChatWelcomeButtonsView: UIView {
         }
         
         updateFrames()
-        
         animating = true
         
+        // Get array of views to animate
+        
+        var viewsToAnimate = [UIView]()
+        for view in relatedButtons { viewsToAnimate.append(view) }
+        if shouldDisplayOtherLabel {
+            viewsToAnimate.append(otherLabel)
+        }
+        for view in otherButtons { viewsToAnimate.append(view) }
+        
+        // Set initial center
+        
         let verticalAdjustment: CGFloat = 20.0
-        for button in relatedButtons {
-            button.center = CGPoint(x: button.center.x, y: button.center.y + verticalAdjustment)
+        for view in viewsToAnimate {
+            view.center = CGPoint(x: view.center.x, y: view.center.y + verticalAdjustment)
         }
-        otherLabel.center = CGPoint(x: otherLabel.center.x, y: otherLabel.center.y + verticalAdjustment)
-        for button in otherButtons {
-            button.center = CGPoint(x: button.center.x, y: button.center.y + verticalAdjustment)
-        }
+
+        // Animate Views
         
         var delay = 0.0
         let delayIncrement = 0.1
-        let duration = 0.6
         
-        func animateInView(view: UIView, delay: Double, animationCompletion: (() -> Void)?) {
-            UIView.animateWithDuration(0.6,
-                                       delay: delay,
-                                       options: .CurveEaseOut,
-                                       animations: {
-                                        if self.viewIsWithinVisibleHeight(view) {
-                                            view.alpha = 1
-                                        }
-                                        view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
-                }) { (completed) in
-                    animationCompletion?()
-            }
-        }
-        
-        for button in relatedButtons {
-            animateInView(button, delay: delay, animationCompletion: nil)
-            delay += delayIncrement
-        }
-        
-        animateInView(otherLabel, delay: delay, animationCompletion: nil)
-        delay += delayIncrement
-        
-        for button in otherButtons {
-            animateInView(button, delay: delay, animationCompletion: { 
-                if button == self.otherButtons.last {
+        for view in viewsToAnimate {
+            UIView.animate(withDuration: 0.6,
+                           delay: delay,
+                           options: .curveEaseOut,
+                           animations: {
+                            if self.viewIsWithinVisibleHeight(view) {
+                                view.alpha = 1
+                            }
+                            view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
+            }) { (completed) in
+                if view == viewsToAnimate.last {
                     self.animating = false
                     self.waitingToAnimateIn = false
                     self.setNeedsLayout()
                     completion?()
                 }
-            })
+            }
             delay += delayIncrement
         }
     }

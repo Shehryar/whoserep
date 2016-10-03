@@ -20,27 +20,27 @@ class IncomingMessage {
     var bodyString: String?
     var body: [String: AnyObject]?
     var debugError: String?
-    var fullMessage: AnyObject?
+    var fullMessage: Any?
     
-    init(withFullMessage fullMessage: AnyObject? = nil) {
+    init(withFullMessage fullMessage: Any? = nil) {
         self.fullMessage = fullMessage
     }
 }
 
 typealias IncomingMessageHandler = ((IncomingMessage) -> Void)
 
-struct IncomingMessageSerializer {
+class IncomingMessageSerializer {
     
-    func serializedMessage(message: AnyObject?) -> (IncomingMessage) {
+    func serializedMessage(_ message: Any?) -> (IncomingMessage) {
         let serializedMessage = IncomingMessage(withFullMessage: message)
         
         guard let messageString = message as? String else {
-            serializedMessage.debugError = "Response not in expcted string format"
+            serializedMessage.debugError = "Response not in expected string format"
             DebugLogError(serializedMessage.debugError!)
             return serializedMessage
         }
         
-        let tokens = messageString.characters.split("|").map(String.init)
+        let tokens = messageString.characters.split(separator: "|").map(String.init)
         
         serializedMessage.type = MessageType(rawValue: tokens[0])
         if let type = serializedMessage.type {
@@ -64,7 +64,7 @@ struct IncomingMessageSerializer {
         
         if let bodyString = serializedMessage.bodyString {
             do {
-                serializedMessage.body = try NSJSONSerialization.JSONObjectWithData(bodyString.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String: AnyObject]
+                serializedMessage.body = try JSONSerialization.jsonObject(with: bodyString.data(using: String.Encoding.utf8)!, options: []) as? [String: AnyObject]
             } catch {}
         }
 

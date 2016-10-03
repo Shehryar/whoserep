@@ -16,15 +16,15 @@ class ImageViewer: UIViewController {
     
     var presentationImage: UIImage?
     
-    var presentationImageContentMode: UIViewContentMode = .ScaleAspectFill
+    var presentationImageContentMode: UIViewContentMode = .scaleAspectFill
     
     var presentationImageCornerRadius: CGFloat = 0
     
     // MARK: Properties: Readonly
     
-    private(set) var images: [ImageViewerImage]
+    fileprivate(set) var images: [ImageViewerImage]
     
-    private(set) var initialIndex: Int
+    fileprivate(set) var initialIndex: Int
     
     var currentImage: ImageViewerImage? {
         return currentImageViewController()?.image
@@ -36,12 +36,12 @@ class ImageViewer: UIViewController {
     
     var currentIndex: Int {
         if let currentImage = currentImage {
-            return images.indexOf(currentImage) ?? 0
+            return images.index(of: currentImage) ?? 0
         }
         return 0
     }
     
-    private(set) var accessoryViewsHidden = false
+    fileprivate(set) var accessoryViewsHidden = false
     
     // MARK: Properties: Private
     
@@ -52,11 +52,11 @@ class ImageViewer: UIViewController {
         }
     }
     
-    private var transitionAnimator = ImageViewerTransitionAnimator()
+    fileprivate var transitionAnimator = ImageViewerTransitionAnimator()
     
-    private let controlsView = ImageViewerControlsView()
+    fileprivate let controlsView = ImageViewerControlsView()
     
-    private let pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey : 10])
+    fileprivate let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey : 10])
     
     // MARK: Initialization
     
@@ -70,13 +70,13 @@ class ImageViewer: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
-        modalPresentationStyle = .Custom
-        modalTransitionStyle = .CrossDissolve
+        modalPresentationStyle = .custom
+        modalTransitionStyle = .crossDissolve
         modalPresentationCapturesStatusBarAppearance = true
         transitioningDelegate = transitionAnimator
         
         controlsView.onDismissButtonTap = {
-            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
         pageViewController.dataSource = self
@@ -97,7 +97,7 @@ class ImageViewer: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         
         view.addSubview(pageViewController.view)
         view.addSubview(controlsView)
@@ -115,7 +115,7 @@ class ImageViewer: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        controlsView.frame = CGRect(x: 0, y: 0, width: CGRectGetWidth(view.bounds), height: 50)
+        controlsView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
         pageViewController.view.frame = view.bounds
     }
 }
@@ -123,39 +123,39 @@ class ImageViewer: UIViewController {
 // MARK:- UIStatusBar
 
 extension ImageViewer {
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         if shouldOverrideStatusBar {
             return true
         }
-        return super.prefersStatusBarHidden()
+        return super.prefersStatusBarHidden
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .None
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .none
     }
 }
 
 // MARK:- Content Utilities
 
 extension ImageViewer {
-    func imageForPage(page: Int) -> ImageViewerImage? {
+    func imageForPage(_ page: Int) -> ImageViewerImage? {
         if page >= 0 && page < images.count {
             return images[page]
         }
         return nil
     }
     
-    func pageForImageViewController(imageViewController: UIViewController?) -> Int? {
+    func pageForImageViewController(_ imageViewController: UIViewController?) -> Int? {
         guard let imageViewController = imageViewController as? ImageViewerImageViewController else {
             return nil
         }
         
         if let imageViewControllerImage = imageViewController.image {
-            return self.images.indexOf(imageViewControllerImage)
+            return self.images.index(of: imageViewControllerImage)
         }
         return nil
     }
@@ -175,26 +175,26 @@ extension ImageViewer {
         return imageViewController
     }
     
-    func setCurrentlyDisplayedViewController(viewController: ImageViewerImageViewController?, animated: Bool) {
+    func setCurrentlyDisplayedViewController(_ viewController: ImageViewerImageViewController?, animated: Bool) {
         guard let viewController = viewController else {
             return
         }
         
-        pageViewController.setViewControllers([viewController], direction: .Forward, animated: animated, completion: nil)
+        pageViewController.setViewControllers([viewController], direction: .forward, animated: animated, completion: nil)
     }
 }
 
 // MARK:- UIPageViewControllerDataSource
 
 extension ImageViewer: UIPageViewControllerDataSource {
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let pageIndex = pageForImageViewController(viewController) {
             return newImageViewController(withImage: imageForPage(pageIndex - 1))
         }
         return nil
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if let pageIndex = pageForImageViewController(viewController) {
             return newImageViewController(withImage: imageForPage(pageIndex + 1))
         }
@@ -205,7 +205,7 @@ extension ImageViewer: UIPageViewControllerDataSource {
 // MARK:- UIPageViewControllerDelegate
 
 extension ImageViewer: UIPageViewControllerDelegate {
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         for imageViewController in pendingViewControllers {
             if let imageViewController = imageViewController as? ImageViewerImageViewController {
                 imageViewController.resetZoomScaleAnimated(false)
@@ -217,15 +217,15 @@ extension ImageViewer: UIPageViewControllerDelegate {
 // MARK:- ImageViewerImageViewControllerDelegate
 
 extension ImageViewer: ImageViewerImageViewControllerDelegate {
-    func imageViewControllerDidSingleTap(viewController: ImageViewerImageViewController) {
+    func imageViewControllerDidSingleTap(_ viewController: ImageViewerImageViewController) {
         setAccessoryViewsHidden(!accessoryViewsHidden, animated: true)
     }
     
-    func imageViewControllerDidBeginZooming(viewController: ImageViewerImageViewController) {
+    func imageViewControllerDidBeginZooming(_ viewController: ImageViewerImageViewController) {
         setAccessoryViewsHidden(true, animated: true)
     }
     
-    func imageViewController(viewController: ImageViewerImageViewController, didZoomToScale zoomScale: CGFloat) {
+    func imageViewController(_ viewController: ImageViewerImageViewController, didZoomToScale zoomScale: CGFloat) {
         if zoomScale == 1 {
             setAccessoryViewsHidden(false, animated: true)
         }
@@ -236,13 +236,13 @@ extension ImageViewer: ImageViewerImageViewControllerDelegate {
 
 extension ImageViewer {
     
-    func preparePresentationFromImageView(imageView: UIImageView) {
+    func preparePresentationFromImageView(_ imageView: UIImageView) {
         presentFromView = imageView
         presentationImage = imageView.image
         presentationImageContentMode = imageView.contentMode
     }
     
-    func setAccessoryViewsHidden(accessoryViewsHidden: Bool, animated: Bool) {
+    func setAccessoryViewsHidden(_ accessoryViewsHidden: Bool, animated: Bool) {
         guard accessoryViewsHidden != self.accessoryViewsHidden else {
             return
         }
@@ -254,7 +254,7 @@ extension ImageViewer {
         }
         
         if animated {
-            UIView.animateWithDuration(0.3, animations: updateAlphas)
+            UIView.animate(withDuration: 0.3, animations: updateAlphas)
         } else {
             updateAlphas()
         }

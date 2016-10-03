@@ -12,20 +12,20 @@ class ImageViewerControlsView: UIView {
 
     var onDismissButtonTap: (() -> Void)?
     
-    private let dismissButton = UIButton()
+    fileprivate let dismissButton = UIButton()
 
-    private let dismissButtonImageSize: CGFloat = 18
+    fileprivate let dismissButtonImageSize: CGFloat = 18
     
-    private let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    fileprivate let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     
     // MARK: Init
     
     func commonInit() {
         dismissButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 1), forState: .Normal)
-        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 0.6), forState: .Highlighted)
-        dismissButton.setImage(Images.iconX(fillColor: UIColor.whiteColor(), alpha: 0.4), forState: .Disabled)
-        dismissButton.addTarget(self, action: #selector(ImageViewerControlsView.didTapXButton), forControlEvents: .TouchUpInside)
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.white, alpha: 1), for: UIControlState())
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.white, alpha: 0.6), for: .highlighted)
+        dismissButton.setImage(Images.iconX(fillColor: UIColor.white, alpha: 0.4), for: .disabled)
+        dismissButton.addTarget(self, action: #selector(ImageViewerControlsView.didTapXButton), for: .touchUpInside)
         addSubview(dismissButton)
     }
     
@@ -48,14 +48,14 @@ class ImageViewerControlsView: UIView {
         let buttonWidth = dismissButtonImageSize + imageInsets.left + imageInsets.right
         let buttonHeight = dismissButtonImageSize + imageInsets.top + imageInsets.bottom
         let top = contentInset.top - imageInsets.top
-        let left = CGRectGetWidth(bounds) - buttonWidth + imageInsets.right - contentInset.right
+        let left = bounds.width - buttonWidth + imageInsets.right - contentInset.right
         dismissButton.frame = CGRect(x: left, y: top, width: buttonWidth, height: buttonHeight)
     }
     
     // MARK: Touches
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        return CGRectContainsPoint(dismissButton.frame, point)
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return dismissButton.frame.contains(point)
     }
 
     // MARK: Actions

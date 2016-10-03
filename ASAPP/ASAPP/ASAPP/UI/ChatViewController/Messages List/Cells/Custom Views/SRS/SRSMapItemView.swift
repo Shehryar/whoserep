@@ -14,11 +14,11 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
         didSet {
             if let imageType = mapItem?.imageType {
                 switch imageType {
-                case .Tech:
+                case .tech:
                     mapView.image = Images.imageTechLocationMap()
                     break
                     
-                case .Equipment:
+                case .equipment:
                     mapView.image = Images.imageEquipmentReturnMap()
                     break
                 }
@@ -32,7 +32,7 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
     
     func commonInit() {
         mapView.clipsToBounds = true
-        mapView.contentMode = .ScaleAspectFill
+        mapView.contentMode = .scaleAspectFill
         mapView.layer.cornerRadius = 4
         addSubview(mapView)
     }
@@ -49,9 +49,9 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
     }
     
@@ -63,7 +63,7 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
         mapView.frame = bounds
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let height = floor(size.width * 0.33)
         
         return CGSize(width: size.width, height: height)

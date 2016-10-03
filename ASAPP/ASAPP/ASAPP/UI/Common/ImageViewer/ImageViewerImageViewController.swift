@@ -9,16 +9,16 @@
 import UIKit
 
 protocol ImageViewerImageViewControllerDelegate {
-    func imageViewControllerDidSingleTap(viewController: ImageViewerImageViewController)
-    func imageViewControllerDidBeginZooming(viewController: ImageViewerImageViewController)
-    func imageViewController(viewController: ImageViewerImageViewController, didZoomToScale zoomScale: CGFloat)
+    func imageViewControllerDidSingleTap(_ viewController: ImageViewerImageViewController)
+    func imageViewControllerDidBeginZooming(_ viewController: ImageViewerImageViewController)
+    func imageViewController(_ viewController: ImageViewerImageViewController, didZoomToScale zoomScale: CGFloat)
 }
 
 class ImageViewerImageViewController: UIViewController {
 
     // MARK: Properties
     
-    private(set) var image: ImageViewerImage?
+    fileprivate(set) var image: ImageViewerImage?
     
     var zoomScale: CGFloat {
         return scrollView.zoomScale
@@ -30,9 +30,9 @@ class ImageViewerImageViewController: UIViewController {
     
     // MARK: Private Properties
     
-    private let scrollView = UIScrollView()
+    fileprivate let scrollView = UIScrollView()
     
-    private var zoomEnabled: Bool {
+    fileprivate var zoomEnabled: Bool {
         return imageView.image != nil
     }
     
@@ -42,11 +42,11 @@ class ImageViewerImageViewController: UIViewController {
         scrollView.scrollsToTop = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.backgroundColor = UIColor.clear
         scrollView.maximumZoomScale = 3
         scrollView.delegate = self
         
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         scrollView.addSubview(imageView)
         
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewerImageViewController.didDoubleTap(_:)))
@@ -55,11 +55,11 @@ class ImageViewerImageViewController: UIViewController {
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewerImageViewController.didSingleTap(_:)))
         singleTap.numberOfTapsRequired = 1
-        singleTap.requireGestureRecognizerToFail(doubleTap)
+        singleTap.require(toFail: doubleTap)
         scrollView.addGestureRecognizer(singleTap)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
@@ -93,18 +93,18 @@ class ImageViewerImageViewController: UIViewController {
 // MARK:- UIScrollViewDelegate
 
 extension ImageViewerImageViewController: UIScrollViewDelegate {
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if zoomEnabled {
             return imageView
         }
         return nil
     }
     
-    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         delegate?.imageViewControllerDidBeginZooming(self)
     }
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         delegate?.imageViewController(self, didZoomToScale: scale)
     }
 }
@@ -113,11 +113,11 @@ extension ImageViewerImageViewController: UIScrollViewDelegate {
 
 extension ImageViewerImageViewController {
     func createZoomRect(forScale scale: CGFloat, withCenter zoomCenter: CGPoint) -> CGRect {
-        var zoomRect = CGRectZero
-        zoomRect.size.width = CGRectGetWidth(scrollView.bounds) / scale
-        zoomRect.size.height = CGRectGetHeight(scrollView.bounds) / scale
-        zoomRect.origin.x = zoomCenter.x - CGRectGetWidth(zoomRect) / 2.0
-        zoomRect.origin.y = zoomCenter.y - CGRectGetHeight(zoomRect) / 2.0
+        var zoomRect = CGRect.zero
+        zoomRect.size.width = scrollView.bounds.width / scale
+        zoomRect.size.height = scrollView.bounds.height / scale
+        zoomRect.origin.x = zoomCenter.x - zoomRect.width / 2.0
+        zoomRect.origin.y = zoomCenter.y - zoomRect.height / 2.0
         return zoomRect
     }
 }
@@ -125,19 +125,19 @@ extension ImageViewerImageViewController {
 // MARK:- Actions
 
 extension ImageViewerImageViewController {
-    func didDoubleTap(tapGesture: UITapGestureRecognizer) {
+    func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
         guard zoomEnabled else { return }
         
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         } else {
-            let point = tapGesture.locationInView(tapGesture.view)
+            let point = tapGesture.location(in: tapGesture.view)
             let zoomRect = createZoomRect(forScale: 2.0, withCenter: point)
-            scrollView.zoomToRect(zoomRect, animated: true)
+            scrollView.zoom(to: zoomRect, animated: true)
         }
     }
     
-    func didSingleTap(tapGesture: UITapGestureRecognizer) {
+    func didSingleTap(_ tapGesture: UITapGestureRecognizer) {
         if scrollView.zoomScale != 1 {
             resetZoomScaleAnimated(true)
         } else {
@@ -149,7 +149,7 @@ extension ImageViewerImageViewController {
 // MARK:- Instance Methods
 
 extension ImageViewerImageViewController {
-    func setImage(image: ImageViewerImage?, placeholderImage: UIImage? = nil) {
+    func setImage(_ image: ImageViewerImage?, placeholderImage: UIImage? = nil) {
         self.image = image
         
         imageView.image = nil
@@ -162,7 +162,7 @@ extension ImageViewerImageViewController {
         }
     }
     
-    func resetZoomScaleAnimated(animated: Bool) {
+    func resetZoomScaleAnimated(_ animated: Bool) {
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: animated)
     }
 }

@@ -42,9 +42,9 @@ struct HSBa {
 
 // MARK:- Brightness
 
-extension UIColor {
+internal extension UIColor {
     func isWhite() -> Bool {
-        return isEqual(UIColor.whiteColor()) || isEqual(UIColor(red: 1, green: 1, blue: 1, alpha: 1))
+        return isEqual(UIColor.white) || isEqual(UIColor(red: 1, green: 1, blue: 1, alpha: 1))
     }
     
     func isBright() -> Bool {
@@ -70,7 +70,7 @@ extension UIColor {
     }
     
     /// Adjustment should be 0<=>1
-    func colorWithRelativeBrightness(brightnessAdjustment: CGFloat) -> UIColor? {
+    func colorWithRelativeBrightness(_ brightnessAdjustment: CGFloat) -> UIColor? {
         if let hsba = HSBa(withColor: self) {
             let adjustedBrightness = max(0, min(1, hsba.brightness + brightnessAdjustment))
             return UIColor(hue: hsba.hue,
@@ -92,7 +92,7 @@ extension UIColor {
 
 // MARK:- Highlight Colors 
 
-extension UIColor {
+internal extension UIColor {
     func highlightColor() -> UIColor? {
         if isBright() {
             return colorWithRelativeBrightness(-0.14)

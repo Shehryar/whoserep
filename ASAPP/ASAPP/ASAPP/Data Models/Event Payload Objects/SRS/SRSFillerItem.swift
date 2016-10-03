@@ -12,7 +12,7 @@ class SRSFillerItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         return SRSFillerItem()
     }
 }

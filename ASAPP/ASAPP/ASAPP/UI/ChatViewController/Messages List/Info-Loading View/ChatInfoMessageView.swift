@@ -24,24 +24,24 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
         }
     }
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
     // MARK: Private Properties
     
-    private let titleLabel = UILabel()
+    fileprivate let titleLabel = UILabel()
     
-    private let messageLabel = UILabel()
+    fileprivate let messageLabel = UILabel()
     
-    private let titleMarginBottom: CGFloat = 10.0
+    fileprivate let titleMarginBottom: CGFloat = 10.0
         
     // MARK: Init
     
     func commonInit() {
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         addSubview(titleLabel)
         
-        messageLabel.textAlignment = .Center
+        messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         addSubview(messageLabel)
         
@@ -60,7 +60,7 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
     
     // MARK: Display
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         backgroundColor = styles.backgroundColor1
@@ -79,14 +79,14 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let width = floor(0.7 * CGRectGetWidth(bounds))
+        let width = floor(0.7 * bounds.width)
         let titleHeight = ceil(titleLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
         let messageHeight = ceil(messageLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
         let margin = (titleHeight > 0 || messageHeight > 0 ? titleMarginBottom : 0.0)
-        let top = floor((CGRectGetHeight(bounds) - titleHeight - messageHeight - margin) / 2.0)
-        let left = floor((CGRectGetWidth(bounds) - width) / 2.0)
+        let top = floor((bounds.height - titleHeight - messageHeight - margin) / 2.0)
+        let left = floor((bounds.width - width) / 2.0)
         
         titleLabel.frame = CGRect(x: left, y: top, width: width, height: titleHeight)
-        messageLabel.frame = CGRect(x: left, y: CGRectGetMaxY(titleLabel.frame) + margin, width: width, height: messageHeight)
+        messageLabel.frame = CGRect(x: left, y: titleLabel.frame.maxY + margin, width: width, height: messageHeight)
     }
 }

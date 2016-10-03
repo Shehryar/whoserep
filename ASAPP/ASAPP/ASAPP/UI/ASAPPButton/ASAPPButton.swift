@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class ASAPPButton: UIView {
-
+open class ASAPPButton: UIView {
+    
     /// The ViewController that will present the ASAPP view controller
     let presentingViewController: UIViewController
     
@@ -17,53 +17,48 @@ public class ASAPPButton: UIView {
     
     let styles: ASAPPStyles
     
-    let callback: ASAPPCallback
+    let callback: ASAPPCallbackHandler
     
-    public var expansionPresentationAnimationDisabled: Bool = false
+    open var expansionPresentationAnimationDisabled: Bool = false
     
-    public var shadowDisabled: Bool = false {
+    open var shadowDisabled: Bool = false {
         didSet {
             updateButtonDisplay()
         }
     }
     
     /// This will be called after the user taps the button and the ASAPP view controll is presented
-    public var onTapListenerBlock: (() -> Void)?
+    open var onTapListenerBlock: (() -> Void)?
     
     // MARK: Private Properties: UI
     
     enum ASAPPButtonState {
-        case Normal
-        case Highlighted
+        case normal
+        case highlighted
     }
     
-    private var lastPresentationTime: NSDate?
-    
-    private var currentState: ASAPPButtonState {
-        return isTouching ? .Highlighted : .Normal
+    fileprivate var currentState: ASAPPButtonState {
+        return isTouching ? .highlighted : .normal
     }
     
-    private var backgroundColors = [ASAPPButtonState.Normal : Colors.blueGrayColor(),
-                                    ASAPPButtonState.Highlighted : Colors.blueGrayColor().highlightColor()]
+    fileprivate var backgroundColors = [ASAPPButtonState.normal : Colors.blueGrayColor(),
+                                        ASAPPButtonState.highlighted : Colors.blueGrayColor().highlightColor()]
     
-    private var foregroundColors = [ASAPPButtonState.Normal : Colors.whiteColor(),
-                                    ASAPPButtonState.Highlighted : Colors.whiteColor()]
+    fileprivate let contentView = UIView()
     
-    private let contentView = UIView()
+    fileprivate let label = UILabel()
     
-    private let label = UILabel()
-    
-    private var presentationAnimator: ButtonPresentationAnimator?
+    fileprivate var presentationAnimator: ButtonPresentationAnimator?
     
     // MARK: Private Properties: Touch
     
-    private var isTouching = false {
+    fileprivate var isTouching = false {
         didSet {
             updateButtonDisplay()
         }
     }
-
-    private var isWaitingToAnimateIn = false
+    
+    fileprivate var isWaitingToAnimateIn = false
     
     // MARK: Initialization
     
@@ -71,15 +66,23 @@ public class ASAPPButton: UIView {
         clipsToBounds = false
         autoresizesSubviews = false
         
-        label.text = ASAPPLocalizedString("HELP")
-        label.font = styles.buttonFont
+        label.font = styles.asappButtonFont
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .Center
+        label.textAlignment = .center
+        label.attributedText = NSAttributedString(string: ASAPPLocalizedString("HELP"), attributes: [
+            NSFontAttributeName : styles.asappButtonFont,
+            NSForegroundColorAttributeName : styles.asappButtonForegroundColor,
+            NSKernAttributeName : 1.3
+            ])
         contentView.addSubview(label)
-
-        contentView.layer.shadowColor = UIColor.blackColor().CGColor
-        contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
+        
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.cornerRadius = frame.height / 2.0
+        
+        
+        backgroundColors = [ASAPPButtonState.normal : styles.asappButtonBackgroundColor,
+                            ASAPPButtonState.highlighted : styles.asappButtonBackgroundColor.highlightColor()]
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
@@ -87,13 +90,17 @@ public class ASAPPButton: UIView {
         addSubview(contentView)
     }
     
-    required public init(withCredentials credentials: Credentials, presentingViewController: UIViewController, styles: ASAPPStyles? = nil, callback: ASAPPCallback) {
+    required public init(withCredentials credentials: Credentials,
+                         presentingViewController: UIViewController,
+                         styles: ASAPPStyles? = nil,
+                         callback: @escaping ASAPPCallbackHandler) {
+        
         self.credentials = credentials
         self.presentingViewController = presentingViewController
         self.callback = callback
         self.styles = styles ?? ASAPPStyles()
-
-        super.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
+        super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
         commonInit()
     }
     
@@ -107,31 +114,31 @@ public class ASAPPButton: UIView {
     
     // MARK: Layout
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         let currentAlpha = contentView.alpha
         let currentTransform = contentView.transform
         
         contentView.alpha = 0.0
-        contentView.transform = CGAffineTransformIdentity
+        contentView.transform = CGAffineTransform.identity
         contentView.frame = bounds
         updateCornerRadius()
         
-        let labelInset = floor(0.15 * CGRectGetHeight(bounds))
+        let labelInset = floor(0.15 * bounds.height)
         label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: labelInset, bottom: labelInset, right: labelInset))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
     }
     
-    public override func intrinsicContentSize() -> CGSize {
+    open override var intrinsicContentSize : CGSize {
         return CGSize(width: 50, height: 50)
     }
     
     func updateCornerRadius() {
-        if CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity) {
-            contentView.layer.cornerRadius = CGRectGetHeight(frame) / 2.0
+        if transform == CGAffineTransform.identity {
+            contentView.layer.cornerRadius = frame.height / 2.0
         }
     }
 }
@@ -149,22 +156,18 @@ extension ASAPPButton {
             contentView.alpha = 1
         }
         
-        if let labelForegroundColor = foregroundColors[currentState] {
-            label.textColor = labelForegroundColor
-        }
-        
         if shadowDisabled {
             contentView.layer.shadowOpacity = 0
             contentView.layer.shadowColor = nil
         } else {
             switch currentState {
-            case .Normal:
+            case .normal:
                 contentView.layer.shadowOpacity = 0.5
                 contentView.layer.shadowRadius = 3
                 contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
                 break
                 
-            case .Highlighted:
+            case .highlighted:
                 contentView.layer.shadowOpacity = 0.6
                 contentView.layer.shadowRadius = 1
                 contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -177,39 +180,39 @@ extension ASAPPButton {
 // MARK:- Touches
 
 extension ASAPPButton {
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesInBounds(touches) {
             isTouching = true
         }
     }
     
-    public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && !touchesInBounds(touches) {
-            touchesCancelled(touches, withEvent: event)
+            touchesCancelled(touches, with: event)
         }
     }
     
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches) {
             didTap()
         }
         isTouching = false
     }
     
-    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
     }
     
     // MARK: Utilies
     
-    func touchesInBounds(touches: Set<UITouch>) -> Bool {
+    func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
         guard let touch = touches.first else { return false }
         
-        let touchLocation = touch.locationInView(self)
+        let touchLocation = touch.location(in: self)
         let extendedTouchRange: CGFloat = 30.0
-        let touchableArea = CGRectInset(bounds, -extendedTouchRange, -extendedTouchRange)
+        let touchableArea = bounds.insetBy(dx: -extendedTouchRange, dy: -extendedTouchRange)
         
-        return CGRectContainsPoint(touchableArea, touchLocation)
+        return touchableArea.contains(touchLocation)
     }
 }
 
@@ -221,25 +224,20 @@ extension ASAPPButton {
             DebugLogError("Missing credentials in ASAPPButton.")
             return
         }
-                
-        guard let chatViewController = ASAPP.createChatViewController(withCredentials: credentials, styles: styles, callback: callback) as? ChatViewController else { return }
-        if let lastPresentationTime = lastPresentationTime {
-            
-            let secondsSinceLastPresentation = NSDate().timeIntervalSinceDate(lastPresentationTime)
-            if secondsSinceLastPresentation < (60 * 15) {
-                chatViewController.showWelcomeOnViewAppear = false
-            }
-        }
+        
+        let chatViewController = ChatViewController(withCredentials: credentials,
+                                                    styles: styles,
+                                                    callback: callback)
         
         let navigationController = NavigationController(rootViewController: chatViewController)
         
         if !expansionPresentationAnimationDisabled {
-            navigationController.modalPresentationStyle = .Custom
+            navigationController.modalPresentationStyle = .custom
             navigationController.transitioningDelegate = presentationAnimator
+            navigationController.modalPresentationCapturesStatusBarAppearance = true
         }
         
-        presentingViewController.presentViewController(navigationController, animated: true, completion: nil)
-        lastPresentationTime = NSDate()
+        presentingViewController.present(navigationController, animated: true, completion: nil)
         
         onTapListenerBlock?()
     }
@@ -261,18 +259,18 @@ extension ASAPPButton {
         layoutSubviews()
         
         isWaitingToAnimateIn = true
-        var transform = CGAffineTransformMakeScale(0.01, 0.01)
-        transform = CGAffineTransformRotate(transform, CGFloat(3 * M_PI_4))
+        var transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        transform = transform.rotated(by: CGFloat(3 * M_PI_4))
         self.contentView.transform = transform
         self.contentView.alpha = 0.0
     }
     
-    public func animateIn(afterDelay delay: NSTimeInterval = 0) {
-        UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .BeginFromCurrentState, animations: {
-            self.contentView.transform = CGAffineTransformIdentity
+    public func animateIn(afterDelay delay: TimeInterval = 0) {
+        UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: {
+            self.contentView.transform = CGAffineTransform.identity
             self.contentView.alpha = 1.0
-            }) { (completed) in
-                self.isWaitingToAnimateIn = false
+        }) { (completed) in
+            self.isWaitingToAnimateIn = false
         }
     }
 }

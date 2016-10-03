@@ -17,7 +17,7 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
         
-        loadingView.tintColor = UIColor.whiteColor()
+        loadingView.tintColor = UIColor.white
         bubbleView.addSubview(loadingView)
         
         bubbleView.clipsToBounds = true
@@ -36,16 +36,16 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     // MARK: Layout
     
     override func layoutSubviews() {
-        let loadingSize = loadingView.sizeThatFits(CGSizeZero)
+        let loadingSize = loadingView.sizeThatFits(CGSize.zero)
         var bubbleLeft = contentInset.left
         if !isReply {
-            bubbleLeft = CGRectGetWidth(bounds) - loadingSize.width - contentInset.right
+            bubbleLeft = bounds.width - loadingSize.width - contentInset.right
         }
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: loadingSize.width, height: loadingSize.height)
         loadingView.frame = bubbleView.bounds
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let loadingSize = loadingView.sizeThatFits(size)
         
         return CGSize(width: loadingSize.width + contentInset.left + contentInset.right,

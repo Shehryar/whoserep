@@ -1,6 +1,6 @@
 //
 //  NavigationController.swift
-//  ASAPPTest
+//  ASAPP
 //
 //  Created by Mitchell Morgan on 9/16/16.
 //  Copyright © 2016 asappinc. All rights reserved.
@@ -9,25 +9,24 @@
 import UIKit
 
 class NavigationController: UINavigationController {
-
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    override var preferredStatusBarStyle : UIStatusBarStyle {
         if let topViewController = topViewController {
-            return topViewController.preferredStatusBarStyle()
+            return topViewController.preferredStatusBarStyle
         }
-        return super.preferredStatusBarStyle()
+        return super.preferredStatusBarStyle
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         if let topViewController = topViewController {
-            return topViewController.prefersStatusBarHidden()
+            return topViewController.prefersStatusBarHidden
         }
-        return super.prefersStatusBarHidden()
+        return super.prefersStatusBarHidden
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
         if let topViewController = topViewController {
-            return topViewController.preferredStatusBarUpdateAnimation()
+            return topViewController.preferredStatusBarUpdateAnimation
         }
-        return super.preferredStatusBarUpdateAnimation()
+        return super.preferredStatusBarUpdateAnimation
     }
 }

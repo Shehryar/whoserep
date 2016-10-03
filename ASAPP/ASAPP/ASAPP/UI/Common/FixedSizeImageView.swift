@@ -10,13 +10,13 @@ import UIKit
 
 class FixedSizeImageView: UIImageView {
 
-    var fixedImageSize: CGSize = CGSizeZero {
+    var fixedImageSize: CGSize = CGSize.zero {
         didSet {
             invalidateIntrinsicContentSize()
         }
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return fixedImageSize
     }
 }

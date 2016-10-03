@@ -9,15 +9,16 @@
 /* Begin PBXBuildFile section */
 		2840EC951D6A798D00FA9ED7 /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */; };
 		2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */; };
-		28F517721D823BB400223C44 /* ComcastChangeUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */; };
 		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
 		307C545A1D8C88790091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54591D8C88790091E74A /* NavigationController.swift */; };
-		308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296B1D413F2300EC7055 /* ChatsListViewController.swift */; };
+		30A515481D9EE5E200FB6C1E /* DebugInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */; };
+		30A5154A1D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */; };
+		30A5154C1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */; };
+		30A6A29F1D90661500688DE9 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A6A29E1D90661500688DE9 /* ASAPP.framework */; };
+		30A6A2A01D90661500688DE9 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A6A29E1D90661500688DE9 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
-		30F0F3B21D8B3DD800704E91 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0F3B11D8B3DD800704E91 /* ASAPP.framework */; };
-		30F0F3B31D8B3DD800704E91 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0F3B11D8B3DD800704E91 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */; };
+		30EE2A0B1D999A0C0079932D /* ComcastUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 		FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */; };
@@ -30,7 +31,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30F0F3B31D8B3DD800704E91 /* ASAPP.framework in Embed Frameworks */,
+				30A6A2A01D90661500688DE9 /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,21 +39,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.debug.xcconfig"; sourceTree = "<group>"; };
 		2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastHomeViewController.swift; sourceTree = "<group>"; };
-		28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastChangeUserViewController.swift; sourceTree = "<group>"; };
 		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
 		303C87731D775BB400213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		303C87741D775BB900213F6B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		307C54591D8C88790091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		308F296B1D413F2300EC7055 /* ChatsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsListViewController.swift; sourceTree = "<group>"; };
+		30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugInfoView.swift; sourceTree = "<group>"; };
+		30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugInfoSettingsView.swift; sourceTree = "<group>"; };
+		30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugStageProdToggleView.swift; sourceTree = "<group>"; };
+		30A6A29E1D90661500688DE9 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		30F0F3B11D8B3DD800704E91 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ASAPP.framework; path = "/Users/mitch/Library/Developer/Xcode/DerivedData/ASAPP-fnybchddhblhmdgawtuexibppngs/Build/Products/Debug-iphoneos/ASAPP.framework"; sourceTree = "<absolute>"; };
-		3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASAPPTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.release.xcconfig"; sourceTree = "<group>"; };
-		C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASAPPTest.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest.adhoc.xcconfig"; sourceTree = "<group>"; };
+		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastUserManager.swift; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,8 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30F0F3B21D8B3DD800704E91 /* ASAPP.framework in Frameworks */,
-				7AD842D54F0230F74DFD73A9 /* Pods_ASAPPTest.framework in Frameworks */,
+				30A6A29F1D90661500688DE9 /* ASAPP.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
 			);
@@ -84,32 +84,68 @@
 			name = "Third-Party";
 			sourceTree = "<group>";
 		};
+		30EE2A0C1D999A1B0079932D /* Comcast */ = {
+			isa = PBXGroup;
+			children = (
+				2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */,
+				30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */,
+				30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */,
+				30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */,
+				30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */,
+			);
+			name = Comcast;
+			sourceTree = "<group>";
+		};
+		30EE2A0D1D999A2C0079932D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */,
+				307C54591D8C88790091E74A /* NavigationController.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		30EE2A0E1D999A3B0079932D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */,
+				FD8D8B281D107A19001B420B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		30EE2A0F1D999A4F0079932D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		30EE2A101D999A590079932D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				FD8D8B231D107A19001B420B /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A368AF0A9AF5E2E85A196F1 /* Pods_ASAPPTest.framework */,
+				30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */,
+				30E87C591D93138D00B5EF9E /* Security.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FCB047A4DE7D9EB0065D7FB9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */,
-				9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */,
-				C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				30F0F3B11D8B3DD800704E91 /* ASAPP.framework */,
+				30A6A29E1D90661500688DE9 /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
-				FCB047A4DE7D9EB0065D7FB9 /* Pods */,
 				DC9BA702B8E37367ED44E868 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -126,15 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				FD8D8B1C1D107A19001B420B /* AppDelegate.swift */,
-				2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */,
-				28F517711D823BB400223C44 /* ComcastChangeUserViewController.swift */,
-				2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */,
-				307C54591D8C88790091E74A /* NavigationController.swift */,
-				308F296B1D413F2300EC7055 /* ChatsListViewController.swift */,
-				30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */,
-				FD8D8B231D107A19001B420B /* Assets.xcassets */,
-				FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */,
-				FD8D8B281D107A19001B420B /* Info.plist */,
+				30EE2A0F1D999A4F0079932D /* Chat */,
+				30EE2A0C1D999A1B0079932D /* Comcast */,
+				30EE2A0D1D999A2C0079932D /* Common */,
+				30EE2A0E1D999A3B0079932D /* Supporting Files */,
+				30EE2A101D999A590079932D /* Assets */,
 			);
 			path = ASAPPTest;
 			sourceTree = "<group>";
@@ -146,12 +178,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD8D8B2B1D107A19001B420B /* Build configuration list for PBXNativeTarget "ASAPPTest" */;
 			buildPhases = (
-				7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */,
 				FD8D8B151D107A19001B420B /* Sources */,
 				FD8D8B161D107A19001B420B /* Frameworks */,
 				FD8D8B171D107A19001B420B /* Resources */,
-				36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */,
-				E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */,
 				30AE79D61D4AB7FA00651F09 /* ShellScript */,
 				30F0F3B01D8B3DCC00704E91 /* Embed Frameworks */,
 			);
@@ -171,12 +200,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = asappinc;
 				TargetAttributes = {
 					FD8D8B181D107A19001B420B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = GHJ79KTB8D;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -224,51 +254,6 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 2cfc5c83c2f6a6414a09cd762fd06d58b4689c6f 157bf3e2d5414d94b30a777ec842e2d80a55799ac93d09548555a9f2e59b1039    ./Fabric.framework/run 2cfc5c83c2f6a6414a09cd762fd06d58b4689c6f 157bf3e2d5414d94b30a777ec842e2d80a55799ac93d09548555a9f2e59b1039";
 		};
-		36651D9877DB843DB2B69C83 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D0630395EE90380BCBCB950 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E2EA9BCDE466655252E626B0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ASAPPTest/Pods-ASAPPTest-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -276,12 +261,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28F517721D823BB400223C44 /* ComcastChangeUserViewController.swift in Sources */,
+				30A5154A1D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift in Sources */,
+				30EE2A0B1D999A0C0079932D /* ComcastUserManager.swift in Sources */,
 				2840EC951D6A798D00FA9ED7 /* ImageBackgroundViewController.swift in Sources */,
-				308F296C1D413F2300EC7055 /* ChatsListViewController.swift in Sources */,
 				30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */,
 				2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */,
+				30A515481D9EE5E200FB6C1E /* DebugInfoView.swift in Sources */,
 				307C545A1D8C88790091E74A /* NavigationController.swift in Sources */,
+				30A5154C1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -316,8 +304,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -342,8 +332,8 @@
 		};
 		30AE79F51D4BACD800651F09 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C8B985EC928BD218F26ABB4D /* Pods-ASAPPTest.adhoc.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP AdHoc";
 				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -360,6 +350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = AdHoc;
@@ -368,6 +359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -378,8 +370,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -413,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -423,8 +418,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -443,14 +440,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		FD8D8B2C1D107A19001B420B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B359F29EF8E6D1F4B453151 /* Pods-ASAPPTest.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP Debug";
 				ASAPP_BUNDLE_ID = com.asappinc.TestAppDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -467,19 +465,20 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		FD8D8B2D1D107A19001B420B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FC04F46CE2A9D7960E994DF /* Pods-ASAPPTest.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASAPP_BUNDLE_DISPLAY_NAME = ASAPP;
 				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -487,9 +486,11 @@
 				INFOPLIST_FILE = ASAPPTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPSDKApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
+				PROVISIONING_PROFILE = "70fa41ed-17d5-403a-bf44-349dd8855431";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP SDK App Distribution Profile";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

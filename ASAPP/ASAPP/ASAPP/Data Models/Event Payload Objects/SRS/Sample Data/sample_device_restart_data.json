@@ -16,7 +16,8 @@
         "type": "filler"
       },
       {
-        "type": "loaderBar"
+        "type": "loaderBar",
+        "finished_text" : "Completed at Sep. 9, 2016"
       }
     ],
     "orientation": "vertical",

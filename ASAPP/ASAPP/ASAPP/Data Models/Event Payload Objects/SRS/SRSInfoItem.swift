@@ -9,8 +9,8 @@
 import Foundation
 
 enum SRSInfoItemOrientation {
-    case Vertical
-    case Horizontal
+    case vertical
+    case horizontal
 }
 
 class SRSInfoItem: NSObject, JSONObject {
@@ -18,7 +18,7 @@ class SRSInfoItem: NSObject, JSONObject {
     var label: String
     var value: String
     var iconName: String?
-    var orientation: SRSInfoItemOrientation = .Vertical
+    var orientation: SRSInfoItemOrientation = .vertical
     
     init(label: String, value: String, iconName: String?, orientation: SRSInfoItemOrientation? = nil) {
         self.label = label
@@ -32,7 +32,7 @@ class SRSInfoItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
             let label = json["label"] as? String,
             let value = json["value"] as? String else {

@@ -14,21 +14,21 @@ class ButtonPresentationAnimator: NSObject {
     
     // MARK: Properties: Context
     
-    private var isPresenting: Bool = false
-    private var presentingViewController: UIViewController?
-    private var presentingView: UIView?
-    private var presentedViewController: UIViewController?
-    private var presentedView: UIView?
-    private var containerView: UIView?
-    private var transitionContext: UIViewControllerContextTransitioning?
+    fileprivate var isPresenting: Bool = false
+    fileprivate var presentingViewController: UIViewController?
+    fileprivate var presentingView: UIView?
+    fileprivate var presentedViewController: UIViewController?
+    fileprivate var presentedView: UIView?
+    fileprivate var containerView: UIView?
+    fileprivate var transitionContext: UIViewControllerContextTransitioning?
     
     // MARK: Properties: Internal
 
-    private var circleMaskLayer = CAShapeLayer()
-    private var expansionPoint: CGPoint?
+    fileprivate var circleMaskLayer = CAShapeLayer()
+    fileprivate var expansionPoint: CGPoint?
     
-    private let ANIMATION_KEY_EXPAND = "expand_path"
-    private let ANIMATION_KEY_COLLAPSE = "collapse_path"
+    fileprivate let ANIMATION_KEY_EXPAND = "expand_path"
+    fileprivate let ANIMATION_KEY_COLLAPSE = "collapse_path"
     
     // MARK:- Initialization
     
@@ -42,44 +42,47 @@ class ButtonPresentationAnimator: NSObject {
 
 extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return transitionDuration(whenPresenting: isPresenting)
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         self.transitionContext = transitionContext
         
         if isPresenting {
-            presentingViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-            presentingView = transitionContext.viewForKey(UITransitionContextFromViewKey) ?? presentingViewController?.view
-            presentedViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-            presentedView = transitionContext.viewForKey(UITransitionContextToViewKey) ?? presentedViewController?.view
-            containerView = transitionContext.containerView()
+            presentingViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
+            presentingView = transitionContext.view(forKey: UITransitionContextViewKey.from) ?? presentingViewController?.view
+            presentedViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+            presentedView = transitionContext.view(forKey: UITransitionContextViewKey.to) ?? presentedViewController?.view
+            containerView = transitionContext.containerView
             
             guard let containerView = containerView,
-                presentedView = presentedView else {
+                let presentedView = presentedView else {
                     DebugLogError("Missing containerView in ButtonPresentationAnimator")
                     return
             }
 
-            presentedView.hidden = true
+            presentedView.isHidden = true
             containerView.addSubview(presentedView)
         }
         
         if isPresenting {
+            presentingViewController?.beginAppearanceTransition(false, animated: true)
             performPresentationAnimation()
         } else {
+            presentingViewController?.beginAppearanceTransition(true, animated: true)
             performDismissalAnimation()
         }
     }
     
-    func animationEnded(transitionCompleted: Bool) {
+    func animationEnded(_ transitionCompleted: Bool) {
         isPresenting = false
+        presentingViewController?.endAppearanceTransition()
     }
     
     // MARK: Utility
     
-    func transitionDuration(whenPresenting presenting: Bool) -> NSTimeInterval {
+    func transitionDuration(whenPresenting presenting: Bool) -> TimeInterval {
         return isPresenting ? presentationAnimationDuration() : dismissalAnimationDuration()
     }
     
@@ -87,9 +90,9 @@ extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
         if let transitionContext = transitionContext {
             presentedView?.layer.mask = nil
             if isPresenting {
-                containerView?.backgroundColor = UIColor.blackColor()
+                containerView?.backgroundColor = UIColor.black
             }
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }
@@ -105,7 +108,7 @@ extension ButtonPresentationAnimator {
         }
         
         collapseButton { (collapsedToPoint) in
-            self.expansionPoint = collapsedToPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))
+            self.expansionPoint = collapsedToPoint ?? CGPoint(x: containerView.bounds.midX, y: containerView.bounds.midY)
             self.expandView(fromPoint: self.expansionPoint!, completion: {
                 self.completeTransitionAnimation()
             })
@@ -114,27 +117,27 @@ extension ButtonPresentationAnimator {
     
     // MARK: Duration Helpers
     
-    func presentationAnimationDuration() -> NSTimeInterval {
+    func presentationAnimationDuration() -> TimeInterval {
         return buttonCollapseDuration() + viewExpansionDuration()
     }
     
-    func buttonCollapseDuration() -> NSTimeInterval {
+    func buttonCollapseDuration() -> TimeInterval {
         return 0.3
     }
     
-    func viewExpansionDuration() -> NSTimeInterval {
+    func viewExpansionDuration() -> TimeInterval {
         return 0.3
     }
     
     // MARK: Animations
     
-    func collapseButton(completion: ((collapsedToPoint: CGPoint?) -> Void)?) {
-        let buttonCenter = self.buttonView.superview?.convertPoint(self.buttonView.center, toView: self.containerView)
-        UIView.animateWithDuration(buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
-            self.buttonView.transform = CGAffineTransformMakeScale(0.001, 0.001)
+    func collapseButton(_ completion: ((_ collapsedToPoint: CGPoint?) -> Void)?) {
+        let buttonCenter = self.buttonView.superview?.convert(self.buttonView.center, to: self.containerView)
+        UIView.animate(withDuration: buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
+            self.buttonView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
             }) { (completed) in
-                self.buttonView.hidden = true
-                completion?(collapsedToPoint: buttonCenter)
+                self.buttonView.isHidden = true
+                completion?(buttonCenter)
         }
     }
     
@@ -143,14 +146,14 @@ extension ButtonPresentationAnimator {
         
         let expandFromRect = CGRect(origin: expansionPoint, size: CGSize(width: 0.1, height: 0.1))
         let expandToRect = bigCircleRect(withCenter: expansionPoint)
-        let expandFromCirclePath = UIBezierPath(ovalInRect: expandFromRect).CGPath
-        let expandToCirclePath = UIBezierPath(ovalInRect: expandToRect).CGPath
+        let expandFromCirclePath = UIBezierPath(ovalIn: expandFromRect).cgPath
+        let expandToCirclePath = UIBezierPath(ovalIn: expandToRect).cgPath
         
         // Circle Mask
         
         circleMaskLayer.path = expandToCirclePath
         presentedView?.layer.mask = circleMaskLayer
-        presentedView?.hidden = false
+        presentedView?.isHidden = false
         
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = expandFromCirclePath
@@ -158,21 +161,21 @@ extension ButtonPresentationAnimator {
         animation.duration = duration
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = false
-        animation.removedOnCompletion = false
-        circleMaskLayer.addAnimation(animation, forKey: ANIMATION_KEY_EXPAND)
+        animation.isRemovedOnCompletion = false
+        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_EXPAND)
         
         // Transforms + Translations
         
         var translationX: CGFloat = 0.0, translationY: CGFloat = 0.0
         if let containerView = containerView {
-            translationX = CGRectGetMidX(containerView.bounds) - CGRectGetMidX(expandFromRect)
-            translationY = CGRectGetMidY(containerView.bounds) - CGRectGetMidY(expandFromRect)
+            translationX = containerView.bounds.midX - expandFromRect.midX
+            translationY = containerView.bounds.midY - expandFromRect.midY
         }
         
         // Presented View Transform
         
-        var presentedViewTransform = CGAffineTransformMakeScale(1.05, 1.05)
-        presentedViewTransform = CGAffineTransformTranslate(presentedViewTransform, 0.05 * -translationX, 0.05 * -translationY)
+        var presentedViewTransform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        presentedViewTransform = presentedViewTransform.translatedBy(x: 0.05 * -translationX, y: 0.05 * -translationY)
         presentedView?.transform = presentedViewTransform
         
         // Presenting View Transfrom
@@ -181,32 +184,32 @@ extension ButtonPresentationAnimator {
         
         var width: CGFloat = 0, height: CGFloat = 0
         if let presentingView = presentingView {
-            width = CGRectGetWidth(presentingView.bounds)
-            height = CGRectGetHeight(presentingView.bounds)
+            width = presentingView.bounds.width
+            height = presentingView.bounds.height
         }
         if width > 0 && height > 0 {
             let transformConstantFactor: CGFloat = 0.25
             // Scale
-            let biggerWidth = width + CGRectGetWidth(expandToRect) - CGRectGetWidth(expandFromRect)
-            let biggerHeight = height + CGRectGetHeight(expandToRect) - CGRectGetHeight(expandFromRect)
+            let biggerWidth = width + expandToRect.width - expandFromRect.width
+            let biggerHeight = height + expandToRect.height - expandFromRect.height
             let scale = max(biggerWidth / width, biggerHeight / height) * 1.5 * transformConstantFactor
-            presentingViewTransform = CGAffineTransformMakeScale(scale, scale)
+            presentingViewTransform = CGAffineTransform(scaleX: scale, y: scale)
             // Translation
             let presentingTranslationX = transformConstantFactor * translationX
             let presentingTranslationY = transformConstantFactor * translationY
-            presentingViewTransform = CGAffineTransformTranslate(presentingViewTransform!, presentingTranslationX, presentingTranslationY)
+            presentingViewTransform = presentingViewTransform!.translatedBy(x: presentingTranslationX, y: presentingTranslationY)
         }
         
         // Animating Transforms
         
-        UIView.animateWithDuration(duration, animations: { 
-            self.presentedView?.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: duration, animations: { 
+            self.presentedView?.transform = CGAffineTransform.identity
             if let presentingViewTransform = presentingViewTransform {
                 self.presentingView?.transform = presentingViewTransform
             }
-            }) { (completed) in
+            }, completion: { (completed) in
                 completion?()
-        }
+        }) 
     }
 }
 
@@ -220,9 +223,9 @@ extension ButtonPresentationAnimator {
             return
         }
         
-        containerView.backgroundColor = UIColor.clearColor()
+        containerView.backgroundColor = UIColor.clear
         
-        collapseView(toPoint: expansionPoint ?? CGPoint(x: CGRectGetMidX(containerView.bounds), y: CGRectGetMidY(containerView.bounds))) { 
+        collapseView(toPoint: expansionPoint ?? CGPoint(x: containerView.bounds.midX, y: containerView.bounds.midY)) { 
             self.expandButton({
                 self.completeTransitionAnimation()
             })
@@ -231,15 +234,15 @@ extension ButtonPresentationAnimator {
     
     // MARK: Duration Helpers
     
-    func dismissalAnimationDuration() -> NSTimeInterval {
+    func dismissalAnimationDuration() -> TimeInterval {
         return collapseViewDuration() + expandButtonDuration()
     }
     
-    func collapseViewDuration() -> NSTimeInterval {
+    func collapseViewDuration() -> TimeInterval {
         return 0.25
     }
     
-    func expandButtonDuration() -> NSTimeInterval {
+    func expandButtonDuration() -> TimeInterval {
         return 0.5
     }
     
@@ -250,7 +253,7 @@ extension ButtonPresentationAnimator {
         
         let collapseFromCirclePath = bigCirclePath(withCenter: collapseToPoint)
         let collapseToRect = CGRect(origin: collapseToPoint, size: CGSize(width: 0.01, height: 0.01))
-        let collapseToCirclePath = UIBezierPath(ovalInRect: collapseToRect).CGPath
+        let collapseToCirclePath = UIBezierPath(ovalIn: collapseToRect).cgPath
         
         circleMaskLayer.path = collapseToCirclePath
         presentedView?.layer.mask = circleMaskLayer
@@ -260,24 +263,24 @@ extension ButtonPresentationAnimator {
         animation.toValue = collapseToCirclePath
         animation.duration = duration
         animation.autoreverses = false
-        animation.removedOnCompletion = false
-        circleMaskLayer.addAnimation(animation, forKey: ANIMATION_KEY_COLLAPSE)
+        animation.isRemovedOnCompletion = false
+        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_COLLAPSE)
         
-        UIView.animateWithDuration(duration, animations: { 
-            self.presentingView?.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: duration, animations: { 
+            self.presentingView?.transform = CGAffineTransform.identity
             if let presentingViewController = self.presentingViewController,
-                let presentingViewFrame = self.transitionContext?.finalFrameForViewController(presentingViewController) {
+                let presentingViewFrame = self.transitionContext?.finalFrame(for: presentingViewController) {
                 self.presentingView?.frame = presentingViewFrame
             }
-            }) { (completed) in
+            }, completion: { (completed) in
                 completion?()
-        }
+        }) 
     }
     
-    func expandButton(completion: (() -> Void)?) {
-        buttonView.hidden = false
-        UIView.animateWithDuration(expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
-            self.buttonView.transform = CGAffineTransformIdentity
+    func expandButton(_ completion: (() -> Void)?) {
+        buttonView.isHidden = false
+        UIView.animate(withDuration: expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.buttonView.transform = CGAffineTransform.identity
         }) { (completed) in
             completion?()
         }
@@ -289,17 +292,17 @@ extension ButtonPresentationAnimator {
 extension ButtonPresentationAnimator {
     
     func bigCircleRect(withCenter centerPoint: CGPoint) -> CGRect {
-        let containerRect = (containerView != nil) ? containerView!.bounds : UIScreen.mainScreen().bounds
+        let containerRect = (containerView != nil) ? containerView!.bounds : UIScreen.main.bounds
         
-        let distanceX = max(centerPoint.x, CGRectGetWidth(containerRect) - centerPoint.x)
-        let distanceY = max(centerPoint.y, CGRectGetHeight(containerRect) - centerPoint.y)
+        let distanceX = max(centerPoint.x, containerRect.width - centerPoint.x)
+        let distanceY = max(centerPoint.y, containerRect.height - centerPoint.y)
         let radius = sqrt(distanceX * distanceX + distanceY * distanceY)
     
         return CGRect(x: centerPoint.x - radius, y: centerPoint.y - radius, width: 2 * radius, height: 2 * radius)
     }
     
     func bigCirclePath(withCenter centerPoint: CGPoint) -> CGPath {
-        return UIBezierPath(ovalInRect: bigCircleRect(withCenter: centerPoint)).CGPath
+        return UIBezierPath(ovalIn: bigCircleRect(withCenter: centerPoint)).cgPath
     }
 }
 
@@ -307,12 +310,12 @@ extension ButtonPresentationAnimator {
 
 extension ButtonPresentationAnimator: UIViewControllerTransitioningDelegate {
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = true
         return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = false
         return self
     }
@@ -321,7 +324,7 @@ extension ButtonPresentationAnimator: UIViewControllerTransitioningDelegate {
 // MARK:- UIGestureRecognizerDelegate
 
 extension ButtonPresentationAnimator: UIGestureRecognizerDelegate {
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
 }

@@ -26,5 +26,9 @@
 	<array>
 		<string>Lato-Black</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows users to upload images to the chat.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows users to take a picture and upload to the chat.</string>
 </dict>
 </plist>

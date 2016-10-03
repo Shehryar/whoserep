@@ -16,9 +16,9 @@ class ChatMessagesViewDataSource: NSObject {
     
     let allowedEventTypes: Set<EventType>
     
-    private(set) var allEvents = [Event]()
+    fileprivate(set) var allEvents = [Event]()
     
-    private var eventsByTime = [[Event]]()
+    fileprivate var eventsByTime = [[Event]]()
     
     // MARK: Init
     
@@ -33,14 +33,14 @@ class ChatMessagesViewDataSource: NSObject {
         return eventsByTime.count
     }
     
-    func numberOfRowsInSection(row: Int) -> Int {
+    func numberOfRowsInSection(_ row: Int) -> Int {
         guard row >= 0 && row < eventsByTime.count else {
             return 0
         }
         return eventsByTime[row].count
     }
     
-    func eventsForSection(section: Int) -> [Event]? {
+    func eventsForSection(_ section: Int) -> [Event]? {
         guard section >= 0 && section < eventsByTime.count else {
             return nil
         }
@@ -56,36 +56,36 @@ class ChatMessagesViewDataSource: NSObject {
         return nil
     }
     
-    func eventForIndexPath(indexPath: NSIndexPath) -> Event? {
-        return getEvent(inSection: indexPath.section, row: indexPath.row)
+    func eventForIndexPath(_ indexPath: IndexPath) -> Event? {
+        return getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row)
     }
     
-    func indexPathOfEvent(event: Event?) -> NSIndexPath? {
+    func indexPathOfEvent(_ event: Event?) -> IndexPath? {
         guard let event = event else {
             return nil
         }
         
-        for (section, eventsAtTime) in eventsByTime.enumerate().reverse() {
+        for (section, eventsAtTime) in eventsByTime.enumerated().reversed() {
             
             // Could skip over arrays here if the event happened before the first event's time
             
-            for (row, currEvent) in eventsAtTime.enumerate().reverse() {
+            for (row, currEvent) in eventsAtTime.enumerated().reversed() {
                 if currEvent.eventLogSeq == event.eventLogSeq {
-                    return NSIndexPath(forRow: row, inSection: section)
+                    return IndexPath(row: row, section: section)
                 }
             }
         }
         return nil
     }
     
-    func timeStampInMicroSecondsForSection(section: Int) -> Double {
+    func timeStampInMicroSecondsForSection(_ section: Int) -> Double {
         guard let event = getEvent(inSection: section, row: 0) else {
             return 0
         }
         return event.eventTime
     }
     
-    func timeStampInSecondsForSection(section: Int) -> Double {
+    func timeStampInSecondsForSection(_ section: Int) -> Double {
         return timeStampInMicroSecondsForSection(section) / 1000000.0
     }
     
@@ -99,20 +99,21 @@ class ChatMessagesViewDataSource: NSObject {
     
     // MARK:- Changing Content
     
-    func reloadWithEvents(events: [Event]) {
+    func reloadWithEvents(_ events: [Event]) {
         allEvents.removeAll()
-        allEvents.appendContentsOf(events)
+        allEvents.append(contentsOf: events)
+        
         eventsByTime.removeAll()
         
-        let sortedEvents = events.sort { (event1, event2) -> Bool in
+        let sortedEvents = allEvents.sorted { (event1, event2) -> Bool in
             return event1.eventLogSeq < event2.eventLogSeq
         }
         for event in sortedEvents {
-            addEvent(event)
+            _ = addEvent(event)
         }
     }
     
-    func mergeWithEvents(newEvents: [Event]) {
+    func mergeWithEvents(_ newEvents: [Event]) {
         guard newEvents.count > 0 else {
             return
         }
@@ -120,7 +121,7 @@ class ChatMessagesViewDataSource: NSObject {
         var dedupedEvents = [Event]()
     
         var setOfMessageEventLogSeqs = Set<Int>()
-        func addOrSkipMessageEvent(event: Event) {
+        func addOrSkipMessageEvent(_ event: Event) {
             if !setOfMessageEventLogSeqs.contains(event.eventLogSeq) {
                 dedupedEvents.append(event)
                 setOfMessageEventLogSeqs.insert(event.eventLogSeq)
@@ -134,15 +135,17 @@ class ChatMessagesViewDataSource: NSObject {
         reloadWithEvents(dedupedEvents)
     }
     
-    func addEvent(event: Event) -> NSIndexPath? {
+    func addEvent(_ event: Event) -> IndexPath? {
         guard allowedEventTypes.contains(event.eventType) else {
             return nil
         }
         
+        allEvents.append(event)
+        
         // Empty case
         guard let lastEvent = getLastEvent() else {
             eventsByTime.append([event])
-            return NSIndexPath(forRow: 0, inSection: 0)
+            return IndexPath(row: 0, section: 0)
         }
         
 //        // Insert not-at-end case
@@ -163,5 +166,46 @@ class ChatMessagesViewDataSource: NSObject {
         }
         
         return indexPathOfEvent(event)
+    }
+    
+    func updateEvent(updatedEvent: Event) -> IndexPath? {
+        var allEventsIndex: Int?
+        for (idx, event) in allEvents.enumerated() {
+            if event.eventLogSeq == updatedEvent.eventLogSeq {
+                // Update the updatedEvent's times to the original times
+                updatedEvent.createdTime = event.createdTime
+                updatedEvent.eventTime = event.eventTime
+                
+                allEventsIndex = idx
+                break
+            }
+        }
+        
+        var eventsByTimeIndex: Int?
+        var eventsByTimeEventsIndex: Int?
+        for (eventsIdx, anEventsByTimeArray) in eventsByTime.enumerated() {
+            
+            for (eventIdx, event) in anEventsByTimeArray.enumerated() {
+                if event.eventLogSeq == updatedEvent.eventLogSeq {
+                    eventsByTimeIndex = eventsIdx
+                    eventsByTimeEventsIndex = eventIdx
+                    break
+                }
+            }
+        }
+        
+        if let allEventsIndex = allEventsIndex,
+            let eventsByTimeIndex = eventsByTimeIndex,
+            let eventsByTimeEventsIndex = eventsByTimeEventsIndex {
+            
+            allEvents[allEventsIndex] = updatedEvent
+            eventsByTime[eventsByTimeIndex][eventsByTimeEventsIndex] = updatedEvent
+            
+            let updatedIndex = indexPathOfEvent(updatedEvent)
+    
+            return updatedIndex
+        }
+        
+        return nil
     }
 }

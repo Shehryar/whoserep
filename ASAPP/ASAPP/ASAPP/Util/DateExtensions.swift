@@ -8,18 +8,18 @@
 
 import UIKit
 
-extension NSDate {
+internal extension Date {
     
     func hasPassed() -> Bool {
         return timeIntervalSinceNow < 0
     }
     
-    func getDateComponents() -> NSDateComponents {
-        let calendar = NSCalendar.currentCalendar()
-        return calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: self)
+    func getDateComponents() -> DateComponents {
+        let calendar = Calendar.current
+        return (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: self)
     }
     
-    func isSameDayAs(date: NSDate) -> Bool {
+    func isSameDayAs(_ date: Date) -> Bool {
         let dateComponents = date.getDateComponents()
         let componenets = getDateComponents()
         
@@ -29,21 +29,21 @@ extension NSDate {
     }
     
     func isToday() -> Bool {
-        return isSameDayAs(NSDate())
+        return isSameDayAs(Date())
     }
     
     func isYesterday() -> Bool {
-        let dateComponents = NSDateComponents()
+        var dateComponents = DateComponents()
         dateComponents.day = -1
         
-        if let yesterday =  NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: NSDate(), options: []) {
+        if let yesterday =  (Calendar.current as NSCalendar).date(byAdding: dateComponents, to: Date(), options: []) {
             return isSameDayAs(yesterday)
         }
         return false
     }
     
     func isThisMonth() -> Bool {
-        let todaysComponenets = NSDate().getDateComponents()
+        let todaysComponenets = Date().getDateComponents()
         let componenets = getDateComponents()
         
         return (todaysComponenets.year == componenets.year &&
@@ -51,14 +51,14 @@ extension NSDate {
     }
     
     func isThisYear() -> Bool {
-        let todaysComponenets = NSDate().getDateComponents()
+        let todaysComponenets = Date().getDateComponents()
         let componenets = getDateComponents()
         
         return todaysComponenets.year == componenets.year
     }
 }
 
-extension NSDate {
+extension Date {
     func dateFormatForMostRecent() -> String {
         var dateFormat: String
         if isToday() {

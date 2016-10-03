@@ -9,27 +9,27 @@
 import UIKit
 
 enum SRSMapItemType {
-    case Tech
-    case Equipment
+    case tech
+    case equipment
 }
 
 class SRSMapItem: NSObject, JSONObject {
     
-    var imageType: SRSMapItemType = .Tech
+    var imageType: SRSMapItemType = .tech
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         let mapItem = SRSMapItem()
         if let json = json,
             let imageTypeString = json["image_type"] as? String {
             switch imageTypeString {
             case "tech":
-                mapItem.imageType = .Tech
+                mapItem.imageType = .tech
                 break
                 
             case "equipment":
-                mapItem.imageType = .Equipment
+                mapItem.imageType = .equipment
                 break
                 
             default: break

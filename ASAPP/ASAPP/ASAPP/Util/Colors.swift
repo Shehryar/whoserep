@@ -47,11 +47,11 @@ class Colors: NSObject {
     }
     
     class func offWhiteColor() -> UIColor {
-        return UIColor(red: 248.0 / 255.0, green: 247.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0)
+        return UIColor(red:0.972, green:0.969, blue:0.968, alpha:1)
     }
     
     class func whiteColor() -> UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
     
     class func patternBackgroundColor() -> UIColor? {

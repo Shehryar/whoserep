@@ -10,16 +10,14 @@ import UIKit
 
 class SRSLoaderBarItem: NSObject, JSONObject {
     
-    var loadingFinishedTime: NSDate?
+    var finishedText: String?
 
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
-        var loaderItem =  SRSLoaderBarItem()
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+        let loaderItem =  SRSLoaderBarItem()
         if let json = json {
-            if let finishedAt = json["finishedAt"] as? Double {
-                loaderItem.loadingFinishedTime = NSDate(timeIntervalSince1970: finishedAt)
-            }
+            loaderItem.finishedText = json["finished_text"] as? String
         }
         
         return loaderItem

@@ -20,22 +20,22 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         didSet { updateTimeLabel() }
     }
     
-    private let timeLabel = UILabel()
+    fileprivate let timeLabel = UILabel()
     
-    private let separatorLeft = HorizontalGradientView()
+    fileprivate let separatorLeft = HorizontalGradientView()
     
-    private let separatorRight = HorizontalGradientView()
+    fileprivate let separatorRight = HorizontalGradientView()
     
-    private let dateFormatter = NSDateFormatter()
+    fileprivate let dateFormatter = DateFormatter()
     
     // MARK:- Init
     
     func commonInit() {
-        opaque = true
+        isOpaque = true
         
         timeLabel.font = Fonts.latoBoldFont(withSize: 12)
         timeLabel.textColor = Colors.mediumTextColor()
-        timeLabel.textAlignment = .Center
+        timeLabel.textAlignment = .center
         timeLabel.backgroundColor = Colors.whiteColor()
         contentView.addSubview(timeLabel)
         
@@ -55,20 +55,25 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     
     // MARK:- Instance Methods
     
-    func timeTextForDate(date: NSDate) -> String {
+    func timeTextForDate(_ date: Date) -> String {
         dateFormatter.dateFormat = date.dateFormatForMostRecent()
         
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
     
     func updateTimeLabel() {
-        timeLabel.text = timeTextForDate(NSDate(timeIntervalSince1970: timeStampInSeconds))
+        timeLabel.attributedText = NSAttributedString(string: timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds)), attributes: [
+            NSFontAttributeName : styles.captionFont,
+            NSForegroundColorAttributeName : styles.foregroundColor2,
+            NSKernAttributeName : 0.8
+            ])
+        
         setNeedsLayout()
     }
     
     // MARK:- Layout
     
-    func textSizeForSize(size: CGSize) -> CGSize {
+    func textSizeForSize(_ size: CGSize) -> CGSize {
         let textWidth = size.width - contentInset.left - contentInset.right
         let textSize = timeLabel.sizeThatFits(CGSize(width: textWidth, height: 0))
         
@@ -79,30 +84,30 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         super.layoutSubviews()
         
         let textSize = textSizeForSize(bounds.size)
-        let textLeft = floor((CGRectGetWidth(bounds) - textSize.width) / 2.0)
+        let textLeft = floor((bounds.width - textSize.width) / 2.0)
         timeLabel.frame = CGRect(x: textLeft, y: contentInset.top, width: textSize.width, height: textSize.height)
         
         let separatorMargin: CGFloat = 15.0
         let separatorStroke: CGFloat = 1.0
         let separatorTop = ceil(timeLabel.center.y - separatorStroke / 2.0)
-        let separatorLeftWidth = CGRectGetMinX(timeLabel.frame) - separatorMargin - contentInset.left
+        let separatorLeftWidth = timeLabel.frame.minX - separatorMargin - contentInset.left
         separatorLeft.frame = CGRect(x: contentInset.left, y: separatorTop, width: separatorLeftWidth, height: separatorStroke)
         
-        let separatorRightLeft = CGRectGetMaxX(timeLabel.frame) + separatorMargin
-        let separatorRightWidth = CGRectGetWidth(bounds) - contentInset.right - separatorRightLeft
+        let separatorRightLeft = timeLabel.frame.maxX + separatorMargin
+        let separatorRightWidth = bounds.width - contentInset.right - separatorRightLeft
         separatorRight.frame = CGRect(x: separatorRightLeft, y: separatorTop, width: separatorRightWidth, height: separatorStroke)
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let textSize = textSizeForSize(size)
         return CGSize(width: size.width, height: textSize.height + contentInset.top + contentInset.bottom)
     }
     
     // MARK:- ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
         contentView.backgroundColor = styles.backgroundColor1
@@ -111,8 +116,8 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         timeLabel.textColor = styles.foregroundColor2
         
         let separatorColor = styles.separatorColor1
-        separatorLeft.update(separatorColor.colorWithAlphaComponent(0.0), rightColor: separatorColor)
-        separatorRight.update(separatorColor, rightColor: separatorColor.colorWithAlphaComponent(0.0))
+        separatorLeft.update(separatorColor.withAlphaComponent(0.0), rightColor: separatorColor)
+        separatorRight.update(separatorColor, rightColor: separatorColor.withAlphaComponent(0.0))
         
         setNeedsLayout()
     }

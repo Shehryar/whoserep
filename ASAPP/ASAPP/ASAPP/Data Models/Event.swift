@@ -7,41 +7,41 @@
 //
 
 import Foundation
-import RealmSwift
 
 @objc enum EventType: Int {
-    case None = 0
-    case TextMessage = 1
-    case NewIssue = 2
-    case NewRep = 3
-    case ConversationEnd = 4
-    case PictureMessage = 5
-    case PrivateNote = 6
-    case NewIssueTopic = 7
-    case IssueEnqueued = 8
-    case ConversationRated = 9
-    case CustomerTimedOut = 10
-    case CRMCustomerLinked = 11
-    case IssueSummarized = 12
-    case TextAnnotation = 13
-    case CustomerPrompt = 14
-    case CustomerConversationEnd = 15
-    case IssueAnnotation = 16
-    case WhisperMessage = 17
-    case CustomerFeedback = 18
-    case VCardMessage = 19
-    case SRSResponse = 22
-    case SRSEcho = 23
+    case none = 0
+    case textMessage = 1
+    case newIssue = 2
+    case newRep = 3
+    case conversationEnd = 4
+    case pictureMessage = 5
+    case privateNote = 6
+    case newIssueTopic = 7
+    case issueEnqueued = 8
+    case conversationRated = 9
+    case customerTimedOut = 10
+    case crmCustomerLinked = 11
+    case issueSummarized = 12
+    case textAnnotation = 13
+    case customerPrompt = 14
+    case customerConversationEnd = 15
+    case issueAnnotation = 16
+    case whisperMessage = 17
+    case customerFeedback = 18
+    case vCardMessage = 19
+    case srsResponse = 22
+    case srsEcho = 23
+    case srsAction = 24
 }
 
 @objc enum EphemeralType: Int {
-    case None = 0
-    case TypingStatus = 1
-    case TypingPreview = 2
-    case CustomerCRMInfo = 3
-    case UpdateCustomerIdentifiers = 4
-    case ConnectionUpdate = 5
-    case IPBlock = 6
+    case none = 0
+    case typingStatus = 1
+    case typingPreview = 2
+    case customerCRMInfo = 3
+    case updateCustomerIdentifiers = 4
+    case connectionUpdate = 5
+    case eventStatus = 6
 }
 
 // MARK:- Payloads
@@ -121,22 +121,22 @@ struct CRMCustomerLinked {
 
 // MARK:- Event
 
-class Event: Object {
+class Event: NSObject {
     
     // MARK: Realm Properties
     
-    dynamic var createdTime: Double = 0 // in micro-seconds
-    dynamic var issueId = 0
-    dynamic var companyId = 0
-    dynamic var customerId = 0
-    dynamic var repId = 0
-    dynamic var eventTime: Double = 0 // in micro-seconds
-    dynamic var eventType = EventType.None
-    dynamic var ephemeralType = EphemeralType.None
-    dynamic var eventFlags = 0
-    dynamic var eventJSON = ""
-    dynamic var eventLogSeq = 0
-    dynamic var uniqueIdentifier: String = NSUUID().UUIDString
+    var createdTime: Double = 0 // in micro-seconds
+    var issueId = 0
+    var companyId = 0
+    var customerId = 0
+    var repId = 0
+    var eventTime: Double = 0 // in micro-seconds
+    var eventType = EventType.none
+    var ephemeralType = EphemeralType.none
+    var eventFlags = 0
+    var eventJSON = ""
+    var eventLogSeq = 0
+    var uniqueIdentifier: String = UUID().uuidString
     
     // MARK: Read-only Properties
     
@@ -146,8 +146,8 @@ class Event: Object {
     var eventTimeInSeconds: Double {
         return Double(Int64(eventTime / 1000000))
     }
-    var eventDate: NSDate {
-        return NSDate(timeIntervalSince1970: eventTimeInSeconds)
+    var eventDate: Date {
+        return Date(timeIntervalSince1970: eventTimeInSeconds)
     }
     
     // MARK: Lazy Properties
@@ -157,7 +157,7 @@ class Event: Object {
         
         var eventJSONObject: [String : AnyObject]?
         do {
-            eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
+            eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
         } catch {
             // Unable to serialize eventJSON
             DebugLogError("Unable to serialize eventJSON: \(self.eventJSON)")
@@ -166,7 +166,7 @@ class Event: Object {
     }()
     
     lazy var textMessage: TextMessage? = {
-        guard self.eventType == .TextMessage else { return nil }
+        guard self.eventType == .textMessage else { return nil }
         guard let eventJSONObject = self.eventJSONObject else { return nil }
         
         if let text = eventJSONObject["Text"] as? String {
@@ -176,7 +176,7 @@ class Event: Object {
     }()
     
     lazy var pictureMessage: PictureMessage? = {
-        guard self.eventType == .PictureMessage else { return nil }
+        guard self.eventType == .pictureMessage else { return nil }
         guard let eventJSONObject = self.eventJSONObject else { return nil }
         
         if let fileBucket = eventJSONObject["FileBucket"] as? String,
@@ -190,7 +190,7 @@ class Event: Object {
     }()
     
     lazy var typingStatus: TypingStatus? = {
-        guard self.eventType == .None && self.ephemeralType == .TypingStatus else { return nil }
+        guard self.eventType == .none && self.ephemeralType == .typingStatus else { return nil }
         guard let eventJSONObject = self.eventJSONObject else { return nil }
         
         if let isTyping = eventJSONObject["IsTyping"] as? Bool {
@@ -200,7 +200,7 @@ class Event: Object {
     }()
     
     lazy var typingPreview: TypingPreview? = {
-        guard self.eventType == .None && self.ephemeralType == .TypingPreview else { return nil }
+        guard self.eventType == .none && self.ephemeralType == .typingPreview else { return nil }
         guard let eventJSONObject = self.eventJSONObject else { return nil }
         
         if let previewText = eventJSONObject["Text"] as? String {
@@ -210,7 +210,7 @@ class Event: Object {
     }()
     
     lazy var connectionUpdate: ConnectionUpdate? = {
-        guard self.eventType == .None && self.ephemeralType == .ConnectionUpdate else { return nil }
+        guard self.eventType == .none && self.ephemeralType == .connectionUpdate else { return nil }
 
         if let agentType = self.eventJSONObject?["AgentType"] as? Int,
             let connectionId = self.eventJSONObject?["ConnectionId"] as? String,
@@ -224,7 +224,7 @@ class Event: Object {
     }()
     
     lazy var crmCustomerLinked: CRMCustomerLinked? = {
-        guard self.eventType == .CRMCustomerLinked else { return nil }
+        guard self.eventType == .crmCustomerLinked else { return nil }
         
         if let linkedTime = self.eventJSONObject?["CRMCustomerLinkedTime"] as? Double {
             return CRMCustomerLinked(linkedTime: linkedTime)
@@ -234,7 +234,7 @@ class Event: Object {
     }()
     
     lazy var newIssue: Issue? = {
-        guard self.eventType == .NewIssue else { return nil }
+        guard self.eventType == .newIssue else { return nil }
         guard let issueJSON = self.eventJSONObject?["Issue"] as? [String : AnyObject] else { return nil }
         
         if let issueId = issueJSON["IssueId"] as? Int,
@@ -262,7 +262,7 @@ class Event: Object {
     }()
     
     lazy var newRep: Rep? = {
-        guard self.eventType == .NewRep else { return nil }
+        guard self.eventType == .newRep else { return nil }
         guard let repJSON = self.eventJSONObject?["NewRep"] as? [String : AnyObject] else { return nil }
         
         if let repId = repJSON["RepId"] as? Int,
@@ -281,24 +281,21 @@ class Event: Object {
     }()
 
     lazy var srsResponse: SRSResponse? = {
-        guard self.eventType == .SRSResponse else { return nil }
+        guard self.eventType == .srsResponse else { return nil }
         
         return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
     }()
     
-    // MARK: Realm Property Methods
-    
-    override class func primaryKey() -> String? {
-        return "uniqueIdentifier"
-    }
-    
-    override static func ignoredProperties() -> [String] {
-        return ["eventJSONObject", "payload", "eventDate", "textMessage", "pictureMessage", "typingStatus", "typingPreview", "srsResponse"]
-    }
+    lazy var parentEventLogSeq: Int? = {
+        guard let json = self.eventJSONObject else {
+            return nil
+        }
+        return json["ParentEventLogSeq"] as? Int
+    }()
     
     // MARK:- Initialization
     
-    convenience init?(withJSON json: [String: AnyObject]?) {
+    convenience init?(withJSON json: [String: Any]?) {
         guard let json = json else {
             return nil
         }
@@ -334,26 +331,26 @@ class Event: Object {
         self.repId = repId
         self.eventTime = eventTime
         self.eventType = eventType
+        if self.eventType == .srsAction {
+            self.eventType = .srsResponse
+        }
         self.ephemeralType = ephemeralType
         self.eventFlags = eventFlags
         self.eventJSON = eventJSON
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
         
         
-        
-        // MITCH MITCH MITCH TESTING TEST TEST
-        
-        if self.eventType == .SRSEcho {
+        if DEMO_CONTENT_ENABLED && self.eventType == .srsEcho {
             var eventJSONObject: [String : AnyObject]?
             do {
-                eventJSONObject =  try NSJSONSerialization.JSONObjectWithData(self.eventJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? [String : AnyObject]
+                eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
             } catch {
                 // ignore for now....
                 
             }
             
             if let parsedEchoContent = eventJSONObject?["Echo"] as? String {
-                self.eventType = .SRSResponse
+                self.eventType = .srsResponse
                 self.eventJSON = parsedEchoContent
             }
         }
@@ -363,7 +360,7 @@ class Event: Object {
 // MARK:- Instance Methods
 
 extension Event {
-    func wasSentByUserWithCredentials(credentials: Credentials) -> Bool {
+    func wasSentByUserWithCredentials(_ credentials: Credentials) -> Bool {
         
         // TODO: Check IDs of some sort... which IDs?
         
@@ -374,13 +371,13 @@ extension Event {
         }
     }
     
-    func imageURLForPictureMessage(pictureMessage: PictureMessage?) -> NSURL? {
+    func imageURLForPictureMessage(_ pictureMessage: PictureMessage?) -> URL? {
         guard let pictureMessage = pictureMessage else { return nil }
         
-        let imageSuffix = pictureMessage.mimeType.componentsSeparatedByString("/").last ?? "jpg"
+        let imageSuffix = pictureMessage.mimeType.components(separatedBy: "/").last ?? "jpg"
         let urlString = "https://\(pictureMessage.fileBucket).s3.amazonaws.com/customer/\(customerId)/company/\(companyId)/\(pictureMessage.fileSecret)-\(pictureMessage.width)x\(pictureMessage.height).\(imageSuffix)"
         
-        return NSURL(string: urlString)
+        return URL(string: urlString)
     }
 }
 
@@ -390,8 +387,8 @@ extension Event {
     
     // MARK: Generic
     
-    class func sampleEvent(type: EventType, eventJSON: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
-        let eventTime: Double = NSDate().timeIntervalSince1970 * 1000000.0
+    class func sampleEvent(_ type: EventType, eventJSON: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
+        let eventTime: Double = Date().timeIntervalSince1970 * 1000000.0
         
         var companyEventLogSeq = 0
         var customerEventLogSeq = 0
@@ -403,7 +400,7 @@ extension Event {
             customerEventLogSeq = companyEventLogSeq
         }
         
-        return Event(withJSON: [
+        let json = [
             "CreatedTime" : eventTime,
             "IssueId" :  afterEvent?.issueId ?? 350001,
             "CompanyId" : afterEvent?.companyId ?? 10001,
@@ -416,20 +413,22 @@ extension Event {
             "CompanyEventLogSeq" : companyEventLogSeq,
             "CustomerEventLogSeq" : customerEventLogSeq,
             "EventJSON" : eventJSON
-            ])
+        ] as [String : Any]
+        
+        return Event(withJSON: json)
     }
     
-    class func sampleEventWithJSONFile(fileName: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
+    class func sampleEventWithJSONFile(_ fileName: String, afterEvent: Event? = nil, eventLogSeq: Int? = nil) -> Event? {
         if let jsonString = jsonStringForFile(fileName) {
-            let event = sampleEvent(EventType.SRSResponse, eventJSON: jsonString, afterEvent: afterEvent, eventLogSeq: eventLogSeq)
+            let event = sampleEvent(EventType.srsResponse, eventJSON: jsonString, afterEvent: afterEvent, eventLogSeq: eventLogSeq)
             return event
         }
         return nil
     }
     
-    class func jsonStringForFile(fileName: String) -> String? {
-        if let path = ASAPPBundle.pathForResource(fileName, ofType: "json") {
-            if let jsonString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
+    class func jsonStringForFile(_ fileName: String) -> String? {
+        if let path = ASAPPBundle.path(forResource: fileName, ofType: "json") {
+            if let jsonString = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) {
                 return jsonString
             }
         }
@@ -439,40 +438,40 @@ extension Event {
     
     // MARK: Specific
     
-    class func sampleBillSummaryEvent(afterEvent: Event? = nil) -> Event? {
-        if let path = ASAPPBundle.pathForResource("sample_bill_data", ofType: "json") {
-            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+    class func sampleBillSummaryEvent(_ afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.path(forResource: "sample_bill_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) {
+                let event = sampleEvent(EventType.srsResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
                 return event
             }
         }
         return nil
     }
     
-    class func sampleTroubleshooterEvent(afterEvent: Event? = nil) -> Event? {
-        if let path = ASAPPBundle.pathForResource("sample_troubleshoot_data", ofType: "json") {
-            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+    class func sampleTroubleshooterEvent(_ afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.path(forResource: "sample_troubleshoot_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) {
+                let event = sampleEvent(EventType.srsResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
                 return event
             }
         }
         return nil
     }
     
-    class func sampleDeviceRestartEvent(afterEvent: Event? = nil) -> Event? {
-        if let path = ASAPPBundle.pathForResource("sample_device_restart_data", ofType: "json") {
-            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
+    class func sampleDeviceRestartEvent(_ afterEvent: Event? = nil) -> Event? {
+        if let path = ASAPPBundle.path(forResource: "sample_device_restart_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) {
+                let event = sampleEvent(EventType.srsResponse, eventJSON: eventJSONString, afterEvent: afterEvent)
                 return event
             }
         }
         return nil
     }
     
-    class func sampleEquipmentReturnEvent(eventLogSeq: Int? = nil) -> Event? {
-        if let path = ASAPPBundle.pathForResource("sample_equipment_return_data", ofType: "json") {
-            if let eventJSONString = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding) {
-                let event = sampleEvent(EventType.SRSResponse, eventJSON: eventJSONString, eventLogSeq: eventLogSeq)
+    class func sampleEquipmentReturnEvent(_ eventLogSeq: Int? = nil) -> Event? {
+        if let path = ASAPPBundle.path(forResource: "sample_equipment_return_data", ofType: "json") {
+            if let eventJSONString = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) {
+                let event = sampleEvent(EventType.srsResponse, eventJSON: eventJSONString, eventLogSeq: eventLogSeq)
                 return event
             }
         }
@@ -483,15 +482,15 @@ extension Event {
     
     
     
-    class func sampleTechLocationEvent(eventLogSeq: Int? = nil) -> Event? {
+    class func sampleTechLocationEvent(_ eventLogSeq: Int? = nil) -> Event? {
         return sampleEventWithJSONFile("sample_tech_location_data", eventLogSeq: eventLogSeq)
     }
     
-    class func sampleCancelAppointmentPromptEvent(eventLogSeq: Int? = nil) -> Event? {
+    class func sampleCancelAppointmentPromptEvent(_ eventLogSeq: Int? = nil) -> Event? {
         return sampleEventWithJSONFile("sample_cancel_appointment_prompt_data", eventLogSeq: eventLogSeq)
     }
     
-    class func sampleCancelAppointmentConfirmationEvent(eventLogSeq: Int? = nil) -> Event? {
+    class func sampleCancelAppointmentConfirmationEvent(_ eventLogSeq: Int? = nil) -> Event? {
         return sampleEventWithJSONFile("sample_cancel_appiontment_response_data", eventLogSeq: eventLogSeq)
     }
     

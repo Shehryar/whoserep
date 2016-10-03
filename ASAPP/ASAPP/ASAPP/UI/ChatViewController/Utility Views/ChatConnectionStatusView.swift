@@ -8,35 +8,35 @@
 
 import UIKit
 
+enum ChatConnectionStatus {
+    case connected
+    case connecting
+    case disconnected
+}
+
 class ChatConnectionStatusView: UIView, ASAPPStyleable {
 
-    enum ChatConnectionStatus {
-        case Connected
-        case Connecting
-        case Disconnected
-    }
-    
     var message: String? {
         didSet {
             label.text = message
         }
     }
     
-    var status: ChatConnectionStatus = .Disconnected {
+    var status: ChatConnectionStatus = .disconnected {
         didSet {
             switch status {
-            case .Connected:
+            case .connected:
                 spinner.stopAnimating()
                 message =  ASAPPLocalizedString("Connection Established")
                 break
                 
-            case .Connecting:
+            case .connecting:
                 spinner.startAnimating()
                 message = ASAPPLocalizedString("Connecting...")
                 break
                 
                 
-            case .Disconnected:
+            case .disconnected:
                 spinner.stopAnimating()
                 message = ASAPPLocalizedString("Not connected. Retry connection?")
                 break
@@ -50,11 +50,11 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
     
     // MARK: Private Properties
     
-    private let label = UILabel()
+    fileprivate let label = UILabel()
     
-    private let spinner = UIActivityIndicatorView()
+    fileprivate let spinner = UIActivityIndicatorView()
     
-    private let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+    fileprivate let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     
     // MARK: Init
     
@@ -79,41 +79,41 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
 
     // MARK: ASAPPStyleable
     
-    private(set) var styles: ASAPPStyles = ASAPPStyles()
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
     
         label.font = styles.detailFont
-        label.textAlignment = .Center
+        label.textAlignment = .center
         
         updateColors()
     }
     
     func updateColors() {
         switch status {
-        case .Connected:
+        case .connected:
             backgroundColor = styles.backgroundColor2
             label.textColor = styles.foregroundColor2
             break
             
-        case .Connecting:
+        case .connecting:
             backgroundColor = styles.backgroundColor2
             label.textColor = styles.foregroundColor2
             break
             
             
-        case .Disconnected:
+        case .disconnected:
             backgroundColor = Colors.redColor()
-            label.textColor = UIColor.whiteColor()
+            label.textColor = UIColor.white
             break
         }
         
         if let backgroundColor = backgroundColor {
             if backgroundColor.isDark() {
-                spinner.activityIndicatorViewStyle = .White
+                spinner.activityIndicatorViewStyle = .white
             } else {
-                spinner.activityIndicatorViewStyle = .Gray
+                spinner.activityIndicatorViewStyle = .gray
             }
         }
     }
@@ -124,18 +124,18 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
         super.layoutSubviews()
         
         spinner.sizeToFit()
-        spinner.center = CGPoint(x: CGRectGetWidth(bounds) - contentInset.right - CGRectGetWidth(spinner.bounds) / 2.0,
-                                 y: CGRectGetMidY(bounds))
+        spinner.center = CGPoint(x: bounds.width - contentInset.right - spinner.bounds.width / 2.0,
+                                 y: bounds.midY)
         
-        let horizontalInset = CGRectGetWidth(bounds) - CGRectGetMinX(spinner.frame) - 8.0
-        let labelWidth = CGRectGetWidth(bounds) - 2 * horizontalInset
-        label.frame = CGRect(x: horizontalInset, y: 0, width: labelWidth, height: CGRectGetHeight(bounds))
+        let horizontalInset = bounds.width - spinner.frame.minX - 8.0
+        let labelWidth = bounds.width - 2 * horizontalInset
+        label.frame = CGRect(x: horizontalInset, y: 0, width: labelWidth, height: bounds.height)
     }
     
     // MARK: Actions
     
     func didTap() {
-        if status == .Disconnected {
+        if status == .disconnected {
             onTapToConnect?()
         }
     }

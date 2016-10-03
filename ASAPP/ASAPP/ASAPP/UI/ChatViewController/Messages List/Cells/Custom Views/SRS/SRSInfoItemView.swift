@@ -12,11 +12,8 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
 
     var infoItem: SRSInfoItem? {
         didSet {
-            orientation = infoItem?.orientation ?? .Vertical
-            labelLabel.text = infoItem?.label
-            valueLabel.text = infoItem?.value
-            applyStyles(styles)
-            setNeedsLayout()
+            orientation = infoItem?.orientation ?? .vertical
+            updateAttributedStrings()
         }
     }
     
@@ -26,7 +23,7 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         }
     }
     
-    private(set) var orientation: SRSInfoItemOrientation = .Vertical {
+    fileprivate(set) var orientation: SRSInfoItemOrientation = .vertical {
         didSet {
             if oldValue != orientation {
                 setNeedsLayout()
@@ -34,20 +31,20 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         }
     }
     
-    private let labelLabel = UILabel()
-    private let valueLabel = UILabel()
+    fileprivate let labelLabel = UILabel()
+    fileprivate let valueLabel = UILabel()
     
     // MARK: Initialization
     
     func commonInit() {
         labelLabel.numberOfLines = 0
-        labelLabel.lineBreakMode = .ByTruncatingTail
-        labelLabel.textAlignment = .Center
+        labelLabel.lineBreakMode = .byTruncatingTail
+        labelLabel.textAlignment = .center
         addSubview(labelLabel)
         
         valueLabel.numberOfLines = 0
-        valueLabel.lineBreakMode = .ByTruncatingTail
-        valueLabel.textAlignment = .Center
+        valueLabel.lineBreakMode = .byTruncatingTail
+        valueLabel.textAlignment = .center
         addSubview(valueLabel)
         
         applyStyles(styles)
@@ -65,32 +62,63 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
     
     // MARK: ASAPPStyleable
     
-    private(set) var styles = ASAPPStyles()
+    fileprivate(set) var styles = ASAPPStyles()
     
-    func applyStyles(styles: ASAPPStyles) {
+    func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         
-        if orientation == .Vertical {
-            labelLabel.font = styles.detailFont
-            labelLabel.textColor = styles.foregroundColor2
-            
-            valueLabel.font = styles.headlineFont
-            valueLabel.textColor = styles.foregroundColor1
-        } else {
-            labelLabel.font = styles.bodyFont
-            labelLabel.textColor = styles.foregroundColor2
-            
-            valueLabel.font = styles.bodyBoldFont
-            valueLabel.textColor = styles.foregroundColor1
-        }
+        updateAttributedStrings()
         
         setNeedsLayout()
     }
     
+    // Updating Labels
+    
+    func getLabelLabelFontAndTextColor() -> (UIFont, UIColor) {
+        if orientation == .vertical {
+            return (styles.detailFont, styles.foregroundColor2)
+        } else {
+            return (styles.bodyFont, styles.foregroundColor2)
+        }
+    }
+    
+    func getValueLabelFontAndTextColor() -> (UIFont, UIColor) {
+        if orientation == .vertical {
+            return (styles.headlineFont, styles.foregroundColor1)
+        } else {
+            return (styles.bodyBoldFont, styles.foregroundColor1)
+        }
+    }
+    
+    func updateAttributedStrings() {
+        let (labelLabelFont, labelLabelTextColor) = getLabelLabelFontAndTextColor()
+        let (valueLabelFont, valueLabelTextColor) = getValueLabelFontAndTextColor()
+        
+        if let labelText = infoItem?.label {
+            labelLabel.attributedText = NSAttributedString(string: labelText, attributes: [
+                NSFontAttributeName : labelLabelFont,
+                NSForegroundColorAttributeName : labelLabelTextColor,
+                NSKernAttributeName : 1.2
+                ])
+        } else {
+            labelLabel.attributedText = nil
+        }
+        
+        if let valueText = infoItem?.value {
+            valueLabel.attributedText = NSAttributedString(string: valueText, attributes: [
+                NSFontAttributeName : valueLabelFont,
+                NSForegroundColorAttributeName : valueLabelTextColor,
+                NSKernAttributeName : 1.2
+                ])
+        } else {
+            valueLabel.text = nil
+        }
+    }
+    
     // MARK: Layout
     
-    func labelSizesForSize(size: CGSize) -> (/* label */ CGSize,  /* value */ CGSize) {
-        if orientation == .Vertical {
+    func labelSizesForSize(_ size: CGSize) -> (/* label */ CGSize,  /* value */ CGSize) {
+        if orientation == .vertical {
             let labelHeight = ceil(labelLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
             let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: size.width, height: 0)).height)
             
@@ -119,11 +147,11 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         
         let (labelSize, valueSize) = labelSizesForSize(bounds.size)
         
-        if orientation == .Vertical {
-            var origin = CGPointZero
+        if orientation == .vertical {
+            var origin = CGPoint.zero
             valueLabel.frame = CGRect(origin: origin, size: valueSize)
             
-            origin.y = CGRectGetMaxY(valueLabel.frame)
+            origin.y = valueLabel.frame.maxY
             if valueSize.height > 0 && labelSize.height > 0 {
                 origin.y += labelMargin
             }
@@ -131,15 +159,15 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
             
         } else {
             labelLabel.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
-            let valueLeft = CGRectGetWidth(bounds) - valueSize.width
+            let valueLeft = bounds.width - valueSize.width
             valueLabel.frame = CGRect(x: valueLeft, y: 0, width: valueSize.width, height: valueSize.height)
         }
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
         let (labelSize, valueSize) = labelSizesForSize(bounds.size)
         
-        if orientation == .Vertical {
+        if orientation == .vertical {
             var margin: CGFloat = 0
             if labelSize.height > 0 || valueSize.height > 0 {
                 margin = labelMargin

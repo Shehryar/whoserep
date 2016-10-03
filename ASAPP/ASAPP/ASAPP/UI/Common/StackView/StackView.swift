@@ -9,8 +9,8 @@
 import UIKit
 
 enum StackViewOrientation {
-    case Vertical
-    case Horizontal
+    case vertical
+    case horizontal
 }
 
 class StackView: UIView {
@@ -27,7 +27,7 @@ class StackView: UIView {
         }
     }
     
-    var orientation: StackViewOrientation = .Vertical {
+    var orientation: StackViewOrientation = .vertical {
         didSet {
             if oldValue != orientation {
                 setNeedsLayout()
@@ -38,14 +38,14 @@ class StackView: UIView {
     var currentContentHeight: CGFloat {
         var currentContentHeight: CGFloat = 0.0
         for view in arrangedSubviews {
-            if !view.hidden && view.alpha > 0 {
-                currentContentHeight = max(currentContentHeight, CGRectGetMaxY(view.frame))
+            if !view.isHidden && view.alpha > 0 {
+                currentContentHeight = max(currentContentHeight, view.frame.maxY)
             }
         }
         return currentContentHeight > 0 ? currentContentHeight + contentInset.bottom : 0.0
     }
     
-    private(set) var arrangedSubviews = [UIView]()
+    fileprivate(set) var arrangedSubviews = [UIView]()
     
     // MARK: Initialization
     
@@ -69,13 +69,13 @@ class StackView: UIView {
 extension StackView {
     
     /// Returns (width, prefersFullWidthDisplay)
-    func getWidthForSubview(view: UIView, forSize size: CGSize) -> (CGFloat, Bool) {
+    func getWidthForSubview(_ view: UIView, forSize size: CGSize) -> (CGFloat, Bool) {
         let contentWidth = size.width - contentInset.left - contentInset.right
         
-        if orientation == .Horizontal {
+        if orientation == .horizontal {
             var visibleViewCount: CGFloat = 0.0
             for view in arrangedSubviews {
-                if view.hidden || view.alpha == 0 {
+                if view.isHidden || view.alpha == 0 {
                     continue
                 }
                 visibleViewCount += 1.0
@@ -97,27 +97,17 @@ extension StackView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        updateArrangedSubviewFrames()
+        _ = updateArrangedSubviewFrames()
     }
     
     /**
      Updates the frames of all arranged subviews and returns the total content height after the updates.
      Can pass updateFrameToFitContentHeight to automatically change the frame's height after updating the frames of subviews.
      */
-    func updateArrangedSubviewFrames(updateFrameToFitContent updateFrameToFitContent: Bool = true) -> CGFloat {
+    func updateArrangedSubviewFrames(updateFrameToFitContent: Bool = true) -> CGFloat {
         
-        func updateFrameWithHeight(height: CGFloat) {
-            if updateFrameToFitContent {
-                var updatedFrame = frame
-                updatedFrame.size.height = height
-                frame = updatedFrame
-            }
-        }
-        
-        
-        let contentWidth = CGRectGetWidth(bounds) - contentInset.left - contentInset.right
+        let contentWidth = bounds.width - contentInset.left - contentInset.right
         guard contentWidth > 0 else {
-            updateFrameWithHeight(0.0)
             return 0.0
         }
         
@@ -126,7 +116,7 @@ extension StackView {
         var subviewOrigin = CGPoint(x: contentInset.left, y: contentInset.top)
         for view in arrangedSubviews {
             let (subviewWidth, prefersFullWidth) = getWidthForSubview(view, forSize: bounds.size)
-            let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: CGFloat.max)).height)
+            let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: CGFloat.greatestFiniteMagnitude)).height)
             if prefersFullWidth {
                 var originY = subviewOrigin.y
                 if view == arrangedSubviews.first {
@@ -137,33 +127,30 @@ extension StackView {
                 view.frame = CGRect(origin: subviewOrigin, size: CGSize(width: subviewWidth, height: viewHeight))
             }
             
-            if !view.hidden && view.alpha > 0 && viewHeight > 0 {
-                if orientation == .Horizontal {
-                    subviewOrigin.x = CGRectGetMaxX(view.frame) + viewSpacing
+            if !view.isHidden && view.alpha > 0 && viewHeight > 0 {
+                if orientation == .horizontal {
+                    subviewOrigin.x = view.frame.maxX + viewSpacing
                 } else {
-                    subviewOrigin.y = CGRectGetMaxY(view.frame) + viewSpacing
+                    subviewOrigin.y = view.frame.maxY + viewSpacing
                 }
-                contentHeight = max(contentHeight, CGRectGetMaxY(view.frame) + contentInset.bottom)
+                contentHeight = max(contentHeight, view.frame.maxY + contentInset.bottom)
             }
         }
-        
-        updateFrameWithHeight(contentHeight)
         
         return contentHeight
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        guard size.width > 0 else { return CGSizeZero }
-        
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        guard size.width > 0 else { return CGSize.zero }
         
         var contentHeight: CGFloat = 0.0
-        for (index, view) in arrangedSubviews.enumerate() {
+        for (index, view) in arrangedSubviews.enumerated() {
             let (subviewWidth, prefersFullWidth) = getWidthForSubview(view, forSize: size)
             
-            if !view.hidden && view.alpha > 0 {
+            if !view.isHidden && view.alpha > 0 {
                 let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: 0)).height)
                 if viewHeight > 0 {
-                    if orientation == .Horizontal {
+                    if orientation == .horizontal {
                         contentHeight = max(contentHeight, viewHeight)
                     } else {
                         contentHeight += viewHeight
@@ -189,40 +176,40 @@ extension StackView {
 // MARK:- Public Interface
 
 extension StackView {
-    func addArrangedView(view: UIView, updateFrameToFitContent: Bool = true) {
+    func addArrangedView(_ view: UIView) {
         if !subviews.contains(view) {
             addSubview(view)
         }
         arrangedSubviews.append(view)
-        updateArrangedSubviewFrames(updateFrameToFitContent: updateFrameToFitContent)
+        _ = updateArrangedSubviewFrames()
     }
     
-    func addArrangedViews(views: [UIView], updateFrameToFitContent: Bool = true) {
+    func addArrangedViews(_ views: [UIView]) {
         for view in views {
             if !subviews.contains(view) {
                 addSubview(view)
             }
             arrangedSubviews.append(view)
         }
-        updateArrangedSubviewFrames(updateFrameToFitContent: updateFrameToFitContent)
+        _ = updateArrangedSubviewFrames()
     }
     
-    func removeArrangedView(view: UIView, updateFrameToFitContent: Bool = true) {
-        if let index = arrangedSubviews.indexOf(view) {
-            arrangedSubviews.removeAtIndex(index)
+    func removeArrangedView(_ view: UIView) {
+        if let index = arrangedSubviews.index(of: view) {
+            arrangedSubviews.remove(at: index)
         }
         
         if subviews.contains(view) {
             view.removeFromSuperview()
-            updateArrangedSubviewFrames(updateFrameToFitContent: updateFrameToFitContent)
+            _ = updateArrangedSubviewFrames()
         }
     }
     
-    func removeArrangedViews(views: [UIView], updateFrameToFitContent: Bool = true) {
+    func removeArrangedViews(_ views: [UIView]) {
         var didRemoveView = false
         for view in views {
-            if let index = arrangedSubviews.indexOf(view) {
-                arrangedSubviews.removeAtIndex(index)
+            if let index = arrangedSubviews.index(of: view) {
+                arrangedSubviews.remove(at: index)
                 didRemoveView = true
             }
             if subviews.contains(view) {
@@ -230,7 +217,7 @@ extension StackView {
             }
         }
         if didRemoveView {
-            updateArrangedSubviewFrames(updateFrameToFitContent: updateFrameToFitContent)
+            _ = updateArrangedSubviewFrames()
         }
     }
     

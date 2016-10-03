@@ -12,6 +12,7 @@ enum SRSButtonItemType: String {
     case Link = "LINK"
     case InAppLink = "_N/A_"
     case SRS = "AID"
+    case Action = "ACTION"
 }
 
 class SRSButtonItem: NSObject, JSONObject {
@@ -27,9 +28,24 @@ class SRSButtonItem: NSObject, JSONObject {
     var deepLink: String?
     var deepLinkData: [String : AnyObject]?
 
+    // MARK: Web URL 
+    
+    var webURL: URL? {
+        if deepLink == "url" {
+            if let urlString = deepLinkData?["url"] as? String {
+                return URL(string: urlString)
+            }
+        }
+        return nil
+    }
+    
     // MARK: SRS Properties
     
     var srsValue: String?
+    
+    // MARK: Action Properties
+    
+    var actionName: String?
     
     // MARK:- Init
     
@@ -41,7 +57,7 @@ class SRSButtonItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
         guard let json = json,
             let title = json["label"] as? String else {
                 return nil
@@ -69,8 +85,12 @@ class SRSButtonItem: NSObject, JSONObject {
         case .SRS:
             button.srsValue = valueJSON["content"] as? String
             break
+            
+        case .Action:
+            button.actionName = valueJSON["content"] as? String
+            break;
         }
-        
+ 
         return button
     }
 }

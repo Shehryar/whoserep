@@ -12,28 +12,28 @@ class ImageViewerTransitionAnimator: NSObject {
 
     // MARK: Properties: Context
     
-    private var isPresenting: Bool = false
-    private var presentingViewController: UIViewController?
-    private var presentingView: UIView?
-    private var imageViewer: ImageViewer?
-    private var imageViewerView: UIView?
-    private var containerView: UIView?
+    fileprivate var isPresenting: Bool = false
+    fileprivate var presentingViewController: UIViewController?
+    fileprivate var presentingView: UIView?
+    fileprivate var imageViewer: ImageViewer?
+    fileprivate var imageViewerView: UIView?
+    fileprivate var containerView: UIView?
     
     // MARK: Properties: Internal
     
-    private var transitioningImageView = ImageViewerImageView()
-    private var maskView = UIView()
-    private var panGesture = UIPanGestureRecognizer()
-    private var panStart: CGPoint?
-    private var animateFromFrame: CGRect?
+    fileprivate var transitioningImageView = ImageViewerImageView()
+    fileprivate var maskView = UIView()
+    fileprivate var panGesture = UIPanGestureRecognizer()
+    fileprivate var panStart: CGPoint?
+    fileprivate var animateFromFrame: CGRect?
     
     // MARK:- Initialization
     
     required override init() {
         super.init()
         
-        maskView.backgroundColor = UIColor.blackColor()
-        maskView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        maskView.backgroundColor = UIColor.black
+        maskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         maskView.alpha = 0.0
         
         transitioningImageView.clipsToBounds = true
@@ -52,21 +52,21 @@ class ImageViewerTransitionAnimator: NSObject {
 // MARK:- UIViewControllerAnimatedTransitioning
 
 extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
-    func transitionDuration(whenPresenting presenting: Bool) -> NSTimeInterval {
+    func transitionDuration(whenPresenting presenting: Bool) -> TimeInterval {
         return 0.3
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return transitionDuration(whenPresenting: isPresenting)
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         if isPresenting {
-            presentingViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-            presentingView = transitionContext.viewForKey(UITransitionContextFromViewKey) ?? presentingViewController?.view
-            imageViewer = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? ImageViewer
-            imageViewerView = transitionContext.viewForKey(UITransitionContextToViewKey) ?? imageViewer?.view
-            containerView = transitionContext.containerView()
+            presentingViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
+            presentingView = transitionContext.view(forKey: UITransitionContextViewKey.from) ?? presentingViewController?.view
+            imageViewer = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? ImageViewer
+            imageViewerView = transitionContext.view(forKey: UITransitionContextViewKey.to) ?? imageViewer?.view
+            containerView = transitionContext.containerView
         
             
             guard let containerView = containerView else {
@@ -79,11 +79,11 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
                 return
             }
             
-            imageViewerView.hidden = true
+            imageViewerView.isHidden = true
             if let presentFromView = imageViewer?.presentFromView {
-                animateFromFrame = presentFromView.superview?.convertRect(presentFromView.frame, toView: containerView)
+                animateFromFrame = presentFromView.superview?.convert(presentFromView.frame, to: containerView)
             } else {
-                animateFromFrame = CGRectZero
+                animateFromFrame = CGRect.zero
             }
             
             maskView.frame = containerView.bounds
@@ -101,7 +101,7 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
         }
     }
     
-    func animationEnded(transitionCompleted: Bool) {
+    func animationEnded(_ transitionCompleted: Bool) {
         if !isPresenting {
             self.maskView.removeFromSuperview()
         }
@@ -112,7 +112,7 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
 // MARK:- Animations: Presentation
 
 extension ImageViewerTransitionAnimator {
-    func performPresentationAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performPresentationAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         if imageViewer?.presentFromView != nil && imageViewer?.presentationImage != nil {
             performZoomPresentationAnimation(transitionContext)
         } else {
@@ -120,10 +120,10 @@ extension ImageViewerTransitionAnimator {
         }
     }
     
-    func performZoomPresentationAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performZoomPresentationAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard let animateFromFrame = animateFromFrame,
-            imageViewer = imageViewer,
-            imageViewerView = imageViewerView else {
+            let imageViewer = imageViewer,
+            let imageViewerView = imageViewerView else {
                 DebugLogError("Unable to performZoomPresentationAnimation")
                 return
         }
@@ -135,63 +135,63 @@ extension ImageViewerTransitionAnimator {
             transitioningImageView.clipsToBounds = true
         }
         transitioningImageView.image = imageViewer.presentationImage
-        imageViewer.presentFromView?.hidden = true
+        imageViewer.presentFromView?.isHidden = true
         imageViewer.setAccessoryViewsHidden(true, animated: false)
-        imageViewerView.hidden = true
+        imageViewerView.isHidden = true
         
-        UIView.animateWithDuration(0.3, animations: {
-            self.presentingView?.transform = CGAffineTransformMakeScale(0.96, 0.96)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.presentingView?.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
             self.maskView.alpha = 1.0
             
-            if self.transitioningImageView.contentMode == .ScaleAspectFit {
+            if self.transitioningImageView.contentMode == .scaleAspectFit {
                 let transform = self.aspectFitTransform(forImage: self.transitioningImageView.image, fromFrame: self.transitioningImageView.frame, toFrame: imageViewerView.frame)
                 self.transitioningImageView.transform = transform
                 
-                let center = CGPoint(x: CGRectGetMidX(imageViewerView.bounds), y: CGRectGetMidY(imageViewerView.bounds))
+                let center = CGPoint(x: imageViewerView.bounds.midX, y: imageViewerView.bounds.midY)
                 self.transitioningImageView.center = center
             } else {
-                self.transitioningImageView.setFrame(imageViewerView.frame, contentMode: .ScaleAspectFit)
+                self.transitioningImageView.setFrame(imageViewerView.frame, contentMode: .scaleAspectFit)
             }
-            }) { (completed) in
+            }, completion: { (completed) in
                 imageViewer.setAccessoryViewsHidden(false, animated: true)
-                imageViewerView.hidden = false
-                self.transitioningImageView.hidden = true
+                imageViewerView.isHidden = false
+                self.transitioningImageView.isHidden = true
                 
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 
                 imageViewer.shouldOverrideStatusBar = true
-        }
+        }) 
     }
     
-    func performFadePresentationAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performFadePresentationAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard let imageViewerView = imageViewerView else {
             return
         }
         
-        imageViewerView.hidden = false
+        imageViewerView.isHidden = false
         imageViewerView.alpha = 0.0
         
-        UIView.animateWithDuration(0.3, animations: { 
-            self.presentingView?.transform = CGAffineTransformMakeScale(0.96, 0.96)
+        UIView.animate(withDuration: 0.3, animations: { 
+            self.presentingView?.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
             self.maskView.alpha = 1.0
-            }) { (completed) in
+            }, completion: { (completed) in
                 
-                UIView.animateWithDuration(0.3, animations: { 
+                UIView.animate(withDuration: 0.3, animations: { 
                     imageViewerView.alpha = 1.0
                     }, completion: { (completed) in
                         self.imageViewer?.setAccessoryViewsHidden(false, animated: true)
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                         
                         self.imageViewer?.shouldOverrideStatusBar = true
                 })
-        }
+        }) 
     }
 }
 
 // MARK:- Animations: Dismissal
 
 extension ImageViewerTransitionAnimator {
-    func performDismissalAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performDismissalAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         self.imageViewer?.shouldOverrideStatusBar = false
         
         if imageViewer?.presentFromView != nil && imageViewer?.presentationImage != nil {
@@ -201,7 +201,7 @@ extension ImageViewerTransitionAnimator {
                 performDismissOffscreenAnimation(transitionContext)
             }
         } else {
-            if CGRectGetMinY(transitioningImageView.frame) != 0 {
+            if transitioningImageView.frame.minY != 0 {
                 performDismissOffscreenAnimation(transitionContext)
             } else {
                 performDismissWithFadeAnimation(transitionContext)
@@ -209,29 +209,29 @@ extension ImageViewerTransitionAnimator {
         }
     }
     
-    func performDismissToImageViewAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performDismissToImageViewAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard let imageViewer = imageViewer,
-            imageViewerView = imageViewerView,
-            animateFromFrame = animateFromFrame else {
+            let imageViewerView = imageViewerView,
+            let animateFromFrame = animateFromFrame else {
                 DebugLogError("Unable to performDismissToImageViewAnimation")
                 return
         }
         
         updateTransitioningImageViewForCurrentImage()
-        transitioningImageView.hidden = false
-        imageViewerView.hidden = true
+        transitioningImageView.isHidden = false
+        imageViewerView.isHidden = true
         
         let contentMode = imageViewer.presentationImageContentMode
-        let mustScaleToFit = contentMode == .ScaleAspectFit
+        let mustScaleToFit = contentMode == .scaleAspectFit
 
         let duration = mustScaleToFit ? 0.6 : 0.5
         let springDamping: CGFloat = mustScaleToFit ? 0.75 : 0.85
         let initialSpringVelocity: CGFloat = mustScaleToFit ? 0.8 : 0.0
         
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: initialSpringVelocity, options: .BeginFromCurrentState, animations: {
-            self.presentingView?.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: springDamping, initialSpringVelocity: initialSpringVelocity, options: .beginFromCurrentState, animations: {
+            self.presentingView?.transform = CGAffineTransform.identity
             if let presentingViewController = self.presentingViewController {
-                self.presentingView?.frame = transitionContext.finalFrameForViewController(presentingViewController)
+                self.presentingView?.frame = transitionContext.finalFrame(for: presentingViewController)
             }
             self.maskView.alpha = 0.0
             if imageViewer.presentationImageCornerRadius != 0 {
@@ -240,7 +240,7 @@ extension ImageViewerTransitionAnimator {
             
             if mustScaleToFit {
                 let transform = self.aspectFitTransform(forImage: self.transitioningImageView.image, fromFrame: self.transitioningImageView.frame, toFrame: animateFromFrame)
-                let center = CGPoint(x: CGRectGetMidX(animateFromFrame), y: CGRectGetMidY(animateFromFrame))
+                let center = CGPoint(x: animateFromFrame.midX, y: animateFromFrame.midY)
                 
                 self.transitioningImageView.transform = transform
                 self.transitioningImageView.center = center
@@ -248,59 +248,59 @@ extension ImageViewerTransitionAnimator {
                 self.transitioningImageView.setFrame(animateFromFrame, contentMode: contentMode)
             }
         }) { (completed) in
-            self.imageViewer?.presentFromView?.hidden = false
-            self.transitioningImageView.hidden = true
+            self.imageViewer?.presentFromView?.isHidden = false
+            self.transitioningImageView.isHidden = true
             
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
     
-    func performDismissOffscreenAnimation(transitionContext: UIViewControllerContextTransitioning) {
+    func performDismissOffscreenAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         guard let containerView = containerView else {
             return
         }
         
         updateTransitioningImageViewForCurrentImage()
-        transitioningImageView.hidden = false
-        imageViewerView?.hidden = true
-        imageViewer?.presentFromView?.hidden = false
+        transitioningImageView.isHidden = false
+        imageViewerView?.isHidden = true
+        imageViewer?.presentFromView?.isHidden = false
         
         var center = transitioningImageView.center
-        if CGRectGetMinY(transitioningImageView.frame) < 0 {
+        if transitioningImageView.frame.minY < 0 {
             // Up
-            center.y = -floor(CGRectGetHeight(containerView.bounds) / 2.0)
+            center.y = -floor(containerView.bounds.height / 2.0)
         } else {
             // Down
-            center.y = ceil(1.5 * CGRectGetHeight(containerView.bounds))
+            center.y = ceil(1.5 * containerView.bounds.height)
         }
         
         let duration = transitionDuration(whenPresenting: false)
-        UIView.animateWithDuration(duration, delay: 0, options: .BeginFromCurrentState, animations: { 
-            self.presentingView?.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: duration, delay: 0, options: .beginFromCurrentState, animations: { 
+            self.presentingView?.transform = CGAffineTransform.identity
             if let presentingViewController = self.presentingViewController {
-                self.presentingView?.frame = transitionContext.finalFrameForViewController(presentingViewController)
+                self.presentingView?.frame = transitionContext.finalFrame(for: presentingViewController)
             }
             self.maskView.alpha = 0.0
             self.transitioningImageView.center = center
             }) { (completed) in
-                self.imageViewer?.presentFromView?.hidden = false
-                self.transitioningImageView.hidden = true
+                self.imageViewer?.presentFromView?.isHidden = false
+                self.transitioningImageView.isHidden = true
                 
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
     
-    func performDismissWithFadeAnimation(transitionContext: UIViewControllerContextTransitioning) {
-        imageViewer?.presentFromView?.hidden = false
-        UIView.animateWithDuration(0.2, animations: { 
+    func performDismissWithFadeAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
+        imageViewer?.presentFromView?.isHidden = false
+        UIView.animate(withDuration: 0.2, animations: { 
             self.imageViewerView?.alpha = 0.0
-            }) { (completed) in
-                UIView.animateWithDuration(0.3, animations: { 
+            }, completion: { (completed) in
+                UIView.animate(withDuration: 0.3, animations: { 
                     self.maskView.alpha = 0.0
                     }, completion: { (completed) in
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 })
-        }
+        }) 
     }
 }
 
@@ -314,15 +314,15 @@ extension ImageViewerTransitionAnimator {
         
         let center = transitioningImageView.center
         transitioningImageView.image = imageViewer.currentlyDisplayedImage
-        transitioningImageView.transform = CGAffineTransformIdentity
+        transitioningImageView.transform = CGAffineTransform.identity
         transitioningImageView.frame = imageViewer.view.bounds
-        transitioningImageView.contentMode = .ScaleAspectFit
+        transitioningImageView.contentMode = .scaleAspectFit
         transitioningImageView.center = center
     }
     
     func aspectFitTransform(forImage image: UIImage?, fromFrame: CGRect, toFrame: CGRect) -> CGAffineTransform {
         let scale = aspectFitTransformScale(forImage: image, fromFrame: fromFrame, toFrame: toFrame)
-        return CGAffineTransformMakeScale(scale, scale)
+        return CGAffineTransform(scaleX: scale, y: scale)
     }
     
     func aspectFitTransformScale(forImage image: UIImage?, fromFrame: CGRect, toFrame: CGRect) -> CGFloat {
@@ -335,22 +335,22 @@ extension ImageViewerTransitionAnimator {
         }
         
         let imageAspect = image.size.width / image.size.height
-        let fromAspect = CGRectGetWidth(fromFrame) / CGRectGetHeight(fromFrame)
-        let toAspect = CGRectGetWidth(toFrame) / CGRectGetHeight(toFrame)
+        let fromAspect = fromFrame.width / fromFrame.height
+        let toAspect = toFrame.width / toFrame.height
         
         var scale: CGFloat
         if toAspect < imageAspect {
             let imageSize = (fromAspect < imageAspect ?
-                CGRectGetWidth(fromFrame) :
-                CGRectGetHeight(fromFrame) * imageAspect)
+                fromFrame.width :
+                fromFrame.height * imageAspect)
             
-            scale = CGRectGetWidth(toFrame) / imageSize
+            scale = toFrame.width / imageSize
         } else {
             let imageSize = (fromAspect < imageAspect ?
-                CGRectGetWidth(fromFrame) / imageAspect :
-                CGRectGetHeight(fromFrame))
+                fromFrame.width / imageAspect :
+                fromFrame.height)
             
-            scale = CGRectGetHeight(toFrame) / imageSize
+            scale = toFrame.height / imageSize
         }
         
         return scale
@@ -361,12 +361,12 @@ extension ImageViewerTransitionAnimator {
 
 extension ImageViewerTransitionAnimator: UIViewControllerTransitioningDelegate {
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = true
         return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = false
         return self
     }
@@ -375,7 +375,7 @@ extension ImageViewerTransitionAnimator: UIViewControllerTransitioningDelegate {
 // MARK:- UIGestureRecognizerDelegate
 
 extension ImageViewerTransitionAnimator: UIGestureRecognizerDelegate {
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
 }
@@ -383,23 +383,23 @@ extension ImageViewerTransitionAnimator: UIGestureRecognizerDelegate {
 // MARK:- Gestures
 
 extension ImageViewerTransitionAnimator {
-    func didPan(withGesture: UIPanGestureRecognizer) {
+    func didPan(_ withGesture: UIPanGestureRecognizer) {
         guard let imageViewer = imageViewer,
             let imageViewerView = imageViewerView else {
                 return
         }
         
-        let location = panGesture.locationInView(panGesture.view?.superview)
-        var viewCenter = CGPoint(x: CGRectGetMidX(imageViewerView.bounds),
-                                 y: CGRectGetMidY(imageViewerView.bounds))
+        let location = panGesture.location(in: panGesture.view?.superview)
+        var viewCenter = CGPoint(x: imageViewerView.bounds.midX,
+                                 y: imageViewerView.bounds.midY)
         
-        if panGesture.state == .Began {
+        if panGesture.state == .began {
             panStart = location
             imageViewer.shouldOverrideStatusBar = false
-            imageViewer.presentFromView?.hidden = imageViewer.initialIndex == imageViewer.currentIndex
-            imageViewerView.hidden = true
+            imageViewer.presentFromView?.isHidden = imageViewer.initialIndex == imageViewer.currentIndex
+            imageViewerView.isHidden = true
             updateTransitioningImageViewForCurrentImage()
-            transitioningImageView.hidden = false
+            transitioningImageView.isHidden = false
 
         }
         
@@ -410,16 +410,16 @@ extension ImageViewerTransitionAnimator {
         
         let panDistance = location.y - panStart.y
         
-        if panGesture.state == .Ended {
+        if panGesture.state == .ended {
             if abs(panDistance) > 70.0 {
                 dismissImageViewer()
             } else {
-                UIView.animateWithDuration(0.3, animations: { 
+                UIView.animate(withDuration: 0.3, animations: { 
                     self.transitioningImageView.center = viewCenter
                     self.maskView.alpha = 1.0
                     }, completion: { (completed) in
-                        imageViewerView.hidden = false
-                        self.transitioningImageView.hidden = true
+                        imageViewerView.isHidden = false
+                        self.transitioningImageView.isHidden = true
                         imageViewer.shouldOverrideStatusBar = true
                 })
             }
@@ -440,6 +440,6 @@ extension ImageViewerTransitionAnimator {
             return
         }
         
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController.dismiss(animated: true, completion: nil)
     }
 }
