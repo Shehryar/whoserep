@@ -15,9 +15,13 @@ protocol ChatInputViewDelegate {
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
 
-class ChatInputView: UIView, ASAPPStyleable {
+class ChatInputView: UIView {
 
     // MARK: Public Properties
+    
+    let styles: ASAPPStyles
+    
+    let strings: ASAPPStrings
     
     var delegate: ChatInputViewDelegate?
     
@@ -47,13 +51,13 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
-    var placeholderText: String = ASAPPLocalizedString("Enter a message...") {
+    var placeholderText: String {
         didSet {
             placeholderTextView.text = placeholderText
         }
     }
     
-    var font = Fonts.latoRegularFont(withSize: 15) {
+    var font: UIFont {
         didSet {
             textView.font = font
             placeholderTextView.font = font
@@ -62,16 +66,34 @@ class ChatInputView: UIView, ASAPPStyleable {
         }
     }
     
-    var textColor = Colors.whiteColor() {
+    var textColor: UIColor {
         didSet {
             textView.textColor = textColor
         }
     }
     
-    var placeholderColor = Colors.whiteColor().withAlphaComponent(0.7) {
+    var placeholderColor: UIColor {
         didSet {
             placeholderTextView.textColor = placeholderColor
             textView.tintColor = placeholderColor
+        }
+    }
+    
+    var sendButtonText: String {
+        didSet {
+            updateSendButtonText()
+        }
+    }
+    
+    var sendButtonFont: UIFont {
+        didSet {
+            updateSendButtonText()
+        }
+    }
+    
+    var sendButtonColor: UIColor {
+        didSet {
+            updateSendButtonText()
         }
     }
     
@@ -100,21 +122,25 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK:- Initialization
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    func commonInit() {
+    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
+        self.styles = styles
+        self.strings = strings
+        self.font = styles.bodyFont
+        self.textColor = styles.inputTextColor
+        self.placeholderText = strings.chatInputPlaceholder
+        self.placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
+        self.sendButtonText = strings.chatInputSend
+        self.sendButtonFont = styles.buttonFont
+        self.sendButtonColor = styles.inputSendButtonColor
+        self.separatorColor = styles.separatorColor1
+        super.init(frame: .zero)
+        
         backgroundColor = Colors.whiteColor()
         clipsToBounds = true
         
-        borderTopView.backgroundColor = Colors.lighterGrayColor()
+        // Subviews
+        
+        borderTopView.backgroundColor = separatorColor
         addSubview(borderTopView)
         
         // Text View
@@ -151,7 +177,7 @@ class ChatInputView: UIView, ASAPPStyleable {
         let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
         mediaButton.imageView?.contentMode = .scaleAspectFit
-        updateMediaButtonColor(Colors.mediumTextColor())
+        updateMediaButtonColor(styles.inputImageButtonColor)
         mediaButton.addTarget(self,
                               action: #selector(ChatInputView.didTapMediaButton),
                               for: .touchUpInside)
@@ -160,20 +186,25 @@ class ChatInputView: UIView, ASAPPStyleable {
         // Send Button
         
         sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        updateSendButtonStyle(withFont: Fonts.latoBlackFont(withSize: 13),
-                             color: Colors.mediumTextColor())
         sendButton.addTarget(self,
                              action: #selector(ChatInputView.didTapSendButton),
                              for: .touchUpInside)
+        updateSendButtonText()
         addSubview(sendButton)
-        addSubview(buttonSeparator)
         
-        updateSendButtonForCurrentState()
+        applySeparatorColor()
+        addSubview(buttonSeparator)
         
         addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
         
+        updateSendButtonForCurrentState()
         updateInputMinHeight()
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     deinit {
         textView.delegate = nil
@@ -199,7 +230,9 @@ class ChatInputView: UIView, ASAPPStyleable {
     
     // MARK:- Button Colors
     
-    func updateSendButtonStyle(withFont font: UIFont, color: UIColor) {
+    func updateSendButtonText() {
+        let font = sendButtonFont
+        let color = sendButtonColor
         let normalAttributes = [
             NSKernAttributeName : 1.5,
             NSForegroundColorAttributeName : color,
@@ -215,7 +248,7 @@ class ChatInputView: UIView, ASAPPStyleable {
             NSForegroundColorAttributeName : color.withAlphaComponent(0.4),
             NSFontAttributeName : font
         ] as [String : Any]
-        let buttonTitle = ASAPPLocalizedString("SEND")
+        let buttonTitle = sendButtonText
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), for: .disabled)
@@ -238,25 +271,7 @@ class ChatInputView: UIView, ASAPPStyleable {
     func didTapMediaButton() {
         delegate?.chatInputView(self, didTapMediaButton: mediaButton)
     }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        font = styles.bodyFont
-        textColor = styles.inputTextColor
-        placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
-        separatorColor = styles.separatorColor1
-        
-        updateSendButtonStyle(withFont: styles.buttonFont, color: styles.inputSendButtonColor)
-        updateMediaButtonColor(styles.inputImageButtonColor)
-        
-        updateInputMinHeight()
-    }
-    
+
     func updateInputMinHeight() {
         let textViewText = textView.text
         textView.text = nil

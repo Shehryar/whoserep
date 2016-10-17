@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
+class ChatMessagesViewCellMaster: NSObject {
 
     // MARK: Public Properties
 
     let tableView: UITableView
+    
+    let styles: ASAPPStyles
     
     // MARK: Private Properties
     
@@ -55,8 +57,9 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
     
     // MARK: Init
     
-    required init(withTableView tableView: UITableView) {
+    required init(withTableView tableView: UITableView, styles: ASAPPStyles) {
         self.tableView = tableView
+        self.styles = styles
         super.init()
         
         pictureMessageSizingCell.disableImageLoading = true
@@ -71,15 +74,6 @@ class ChatMessagesViewCellMaster: NSObject, ASAPPStyleable {
         tableView.register(ChatTypingPreviewCell.self, forCellReuseIdentifier: TypingPreviewCellReuseId)
         tableView.register(ChatSRSItemListViewCell.self, forCellReuseIdentifier: SRSResponseCellReuseId)
         tableView.register(ChatInfoTextCell.self, forCellReuseIdentifier: InfoTextCellReuseId)
-    }
-    
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        clearCache()
     }
 }
 

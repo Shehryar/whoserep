@@ -16,7 +16,6 @@ class ChatSuggestedReplyCell: UITableViewCell {
         return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
     }
     
-    
     let imageSize: CGFloat = 13
     
     var separatorBottomColor: UIColor? {
@@ -76,8 +75,8 @@ class ChatSuggestedReplyCell: UITableViewCell {
     func labelSizeThatFits(size: CGSize) -> CGSize {
         guard let textLabel = textLabel else { return CGSize.zero }
         
-        let sideInset = contentInset.right - imageSize - 10
-        let maxLabelWidth = size.width - sideInset
+        let sideInset = contentInset.right + imageSize + 10
+        let maxLabelWidth = size.width - 2 * sideInset
         let labelSize = textLabel.sizeThatFits(CGSize(width: maxLabelWidth, height: 0))
         
         return CGSize(width: maxLabelWidth, height: ceil(labelSize.height))

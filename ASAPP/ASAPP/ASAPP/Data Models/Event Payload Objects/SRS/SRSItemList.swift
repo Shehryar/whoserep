@@ -131,6 +131,10 @@ class SRSItemList: NSObject, JSONObject {
                 item = SRSLoaderBarItem.instanceWithJSON(itemJSON) as? SRSLoaderBarItem
                 break
                 
+            case .Image:
+                item = SRSImageItem.instanceWithJSON(itemJSON) as? SRSImageItem
+                break
+                
             case .Map:
                 item = SRSMapItem.instanceWithJSON(itemJSON) as? SRSMapItem
                 break
@@ -158,5 +162,6 @@ enum SRSItemListItemType: String {
     case Info = "info"
     case Filler = "filler"
     case LoaderBar = "loaderBar"
+    case Image = "image"
     case Map = "map"
 }

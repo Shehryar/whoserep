@@ -90,6 +90,7 @@ extension StackView {
                 prefersFullWidth = stackableView.prefersFullWidthDisplay()
                 preferredWidth = size.width
             }
+            
             return (preferredWidth, prefersFullWidth)
         }
     }

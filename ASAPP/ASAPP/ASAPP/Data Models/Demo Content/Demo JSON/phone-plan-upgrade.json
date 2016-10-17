@@ -1,0 +1,335 @@
+{
+  "title": "Account > Upgrade > Plan",
+  "classification": "DEMO",
+  "displayContent" : true,
+  "contentType" : "carousel",
+  "content": {
+    "message" : "Here are all of the data plan options. All plans include unlimited 2G data.",
+    "type" : "carousel",
+    "pages" : [
+      
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "1 GB",
+                "label": "XS",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$20 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "1GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 1GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "1GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "3 GB",
+                "label": "S",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$30 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "3GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 3GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "3GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "6 GB",
+                "label": "M",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$45 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "6GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 6GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "6GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "12 GB",
+                "label": "L",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$60 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "12GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 12GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "12GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "24 GB",
+                "label": "XL",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$80 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "24GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 24GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "24GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "40 GB",
+                "label": "XXL",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "$100 MONTHLY",
+            "type": "label"
+          },
+
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "selectPlan",
+                "deepLinkData": {
+                  "plan" : "40GB"
+                }
+              },
+              "type": "LINK"
+            },
+            "label": "Select Plan - 40GB"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": {
+                "deepLink": "viewPlan",
+                "deepLinkData": {
+                   "plan": "40GB"
+                  }
+              },
+              "type": "LINK"
+             },
+             "label": "View more details for this plan"
+          }
+        ]
+      },
+
+    ]
+  }
+}

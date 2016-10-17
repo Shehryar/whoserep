@@ -12,31 +12,89 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     var response: SRSResponse? {
         didSet {
-            if let response = response,
-                let itemList = response.itemList {
-                messageText = itemList.title
-                
-                if response.displayType == .Inline {
-                    if itemList.orientation == .Horizontal {
-                        itemListView.orientation = .horizontal
+            if let response = response {
+                if let itemList = response.itemList {
+                    messageText = itemList.title
+                    
+                    if response.displayType == .Inline {
+                        if itemList.orientation == .Horizontal {
+                            itemListView.orientation = .horizontal
+                        } else {
+                            itemListView.orientation = .vertical
+                        }
+                        itemListView.srsItems = itemList.contentItems
                     } else {
-                        itemListView.orientation = .vertical
+                        itemListView.srsItems = nil
                     }
-                    itemListView.srsItems = itemList.contentItems
-                } else {
+                   
+                    itemCarouselView.itemCarousel = nil
+                } else if let itemCarousel = response.itemCarousel {
+                    messageText = itemCarousel.message
+                    itemCarouselView.itemCarousel = itemCarousel
+                    
                     itemListView.srsItems = nil
                 }
             } else {
                 messageText = nil
                 itemListView.srsItems = nil
             }
+            
+            // Update Visibility
+            switch displayStyle {
+            case .itemCarousel:
+                itemCarouselView.isHidden = false
+                itemListView.isHidden = true
+                break
+                
+            case .itemList:
+                itemCarouselView.isHidden = true
+                itemListView.isHidden = false
+                break
+                
+            case .message:
+                itemCarouselView.isHidden = true
+                itemListView.isHidden = true
+                break
+            }
+            
             setNeedsLayout()
         }
     }
     
-    let itemListView = SRSItemListView()
+    let itemListView = SRSItemListBlockView()
     
-    let itemListViewMargin: CGFloat = 10.0
+    let itemCarouselView = SRSItemCarouselView()
+    
+    // MARK: Private Properties
+    
+    fileprivate enum DisplayStyle {
+        case message
+        case itemList
+        case itemCarousel
+    }
+    
+    fileprivate var displayStyle: DisplayStyle {
+        guard let response = response else {
+            return .message
+        }
+        
+        if response.itemList != nil {
+            return .itemList
+        } else if response.itemCarousel != nil {
+            return .itemCarousel
+        }
+        return .message
+    }
+    
+    fileprivate var srsContentView: UIView? {
+        switch displayStyle {
+        case .itemCarousel: return itemCarouselView
+        case .itemList: return itemListView
+        case .message: return nil
+        }
+    }
+    
+    fileprivate let srsContentViewMargin: CGFloat = 10.0
     
     // MARK: Init
     
@@ -44,56 +102,65 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         isReply = true
         super.commonInit()
         
-        itemListView.contentInset = UIEdgeInsets(top: 25, left: 40, bottom: 25, right: 40)
         contentView.addSubview(itemListView)
+        contentView.addSubview(itemCarouselView)
     }
     
     // MARK: Styling
     
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
-        itemListView.backgroundColor = styles.backgroundColor2
-        itemListView.layer.borderColor = styles.separatorColor1.cgColor
-        itemListView.layer.borderWidth = 1
-        itemListView.layer.cornerRadius = 4
         itemListView.applyStyles(styles)
+        itemCarouselView.applyStyles(styles)
         setNeedsLayout()
     }
     
     // MARK: Layout
     
-    func itemListViewSizeThatFits(_ size: CGSize) -> CGSize {
+    func srsContentViewSizeThatFits(_ size: CGSize) -> CGSize {
         let maxWidth = size.width - contentInset.left - contentInset.right
         let insetSize = CGSize(width: maxWidth, height: 0)
-        
-        return itemListView.sizeThatFits(insetSize)
+        if displayStyle == .itemCarousel {
+            let maxPageWidth = maxBubbleWidthForBoundsSize(size)
+            return itemCarouselView.sizeThatFits(size, maximumPageWidth: maxPageWidth)
+        }
+        if let srsContentView = srsContentView {
+            return srsContentView.sizeThatFits(insetSize)
+        }
+        return CGSize.zero
     }
     
     override func updateFrames() {
         super.updateFrames()
         
-        var itemListTop = bubbleView.frame.maxY + itemListViewMargin
-        if !detailLabelHidden && detailLabel.bounds.height > 0 {
-            itemListTop = detailLabel.frame.maxY + itemListViewMargin
+        guard let srsContentView = srsContentView else {
+            return
         }
-        let itemListSize = itemListViewSizeThatFits(bounds.size)
         
-        let itemListFrame = CGRect(x: contentInset.left, y: itemListTop, width: itemListSize.width, height: itemListSize.height)
-        if itemListFrame.size == itemListView.frame.size {
-            let itemListCenter = CGPoint(x: itemListFrame.midX, y: itemListFrame.midY)
-            itemListView.center = itemListCenter
+        
+        itemCarouselView.maxPageWidth = maxBubbleWidthForBoundsSize(bounds.size)
+        var srsContentTop = bubbleView.frame.maxY + srsContentViewMargin
+        if !detailLabelHidden && detailLabel.bounds.height > 0 {
+            srsContentTop = detailLabel.frame.maxY + srsContentViewMargin
+        }
+        let srsContentSize = srsContentViewSizeThatFits(bounds.size)
+        
+        let srsContentFrame = CGRect(x: contentInset.left, y: srsContentTop, width: srsContentSize.width, height: srsContentSize.height)
+        
+        if srsContentFrame.size == srsContentView.frame.size {
+            srsContentView.center = CGPoint(x: srsContentFrame.midX, y: srsContentFrame.midY)
         } else {
-            itemListView.frame = itemListFrame
+            srsContentView.frame = srsContentFrame
         }
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var contentHeight = super.sizeThatFits(size).height
-        let itemListHeight = itemListViewSizeThatFits(size).height
-        if itemListHeight > 0 {
-            contentHeight += itemListHeight + itemListViewMargin
+        var contentHeight = super.sizeThatFits(size).height    
+        let srsContentViewHeight = srsContentViewSizeThatFits(size).height
+        if srsContentViewHeight > 0 {
+            contentHeight += srsContentViewHeight + srsContentViewMargin
         }
-        
+    
         return CGSize(width: size.width, height: contentHeight)
     }
     
@@ -102,15 +169,27 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func prepareToAnimate() {
         super.prepareToAnimate()
         
-        itemListView.alpha = 0.0
+        srsContentView?.alpha = 0.0
     }
     
     override func performAnimation() {
         super.performAnimation()
         
-        UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseOut, animations: {
-            self.itemListView.alpha = 1
-            }, completion: nil)
+        guard let srsContentView = srsContentView else {
+            return
+        }
+        
+        let centerFinish = srsContentView.center
+        var centerBegin = srsContentView.center
+        centerBegin.y += 12
+        srsContentView.center = centerBegin
+        
+        UIView.animate(withDuration: 0.5, delay: 0.4, options: .curveEaseOut, animations: {
+            srsContentView.center = centerFinish
+            srsContentView.alpha = 1
+            }, completion: { (completed) in
+                self.setNeedsLayout()
+        })
     }
     
     
@@ -121,5 +200,7 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         
         itemListView.delegate = nil
         itemListView.alpha = 1
+        
+        itemCarouselView.alpha = 1
     }
 }

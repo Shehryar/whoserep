@@ -11,15 +11,20 @@ import UIKit
 protocol ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
     func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event)
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
 }
 
-class ChatMessagesView: UIView, ASAPPStyleable {
+class ChatMessagesView: UIView {
     
     // MARK:- Public Properties
     
     fileprivate(set) var credentials: Credentials
+    
+    fileprivate(set) var styles: ASAPPStyles
+    
+    fileprivate(set) var strings: ASAPPStrings
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
@@ -80,13 +85,13 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     
     fileprivate var eventsThatShouldAnimate = Set<Event>()
     
-    fileprivate var previousScrollOffsetY: CGFloat = 0.0
-    fileprivate var maxScrollOffsetY: CGFloat = 0.0
-    
     // MARK:- Initialization
     
-    required init(withCredentials credentials: Credentials) {
+    required init(withCredentials credentials: Credentials, styles: ASAPPStyles, strings: ASAPPStrings) {
         self.credentials = credentials
+        self.styles = styles
+        self.strings = strings
+        
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
             allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse]
@@ -94,17 +99,16 @@ class ChatMessagesView: UIView, ASAPPStyleable {
             allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .newIssue, .newRep, .crmCustomerLinked]
         }
         self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
-        self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
-        
+        self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView, styles: styles)
         super.init(frame: CGRect.zero)
         
-        backgroundColor = UIColor.white
+        backgroundColor = styles.backgroundColor1
         clipsToBounds = false
         
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
-        tableView.backgroundColor = UIColor.clear
+        tableView.backgroundColor = styles.backgroundColor1
         tableView.separatorStyle = .none
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
@@ -114,8 +118,9 @@ class ChatMessagesView: UIView, ASAPPStyleable {
         
         infoMessageView.frame = bounds
         infoMessageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        infoMessageView.title = ASAPPLocalizedString("Hi there, how can we help you?")
-        infoMessageView.message = ASAPPLocalizedString("Ask a new question to get started.")
+        infoMessageView.applyStyles(styles)
+        infoMessageView.title = strings.chatEmptyTitle
+        infoMessageView.message = strings.chatEmptyMessage
         addSubview(infoMessageView)
         
         updateSubviewVisibility()
@@ -128,22 +133,6 @@ class ChatMessagesView: UIView, ASAPPStyleable {
     deinit {
         tableView.dataSource = nil
         tableView.delegate = nil
-    }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        cellMaster.applyStyles(styles)
-        
-        backgroundColor = styles.backgroundColor1
-        tableView.backgroundColor = styles.backgroundColor1
-        tableView.reloadData()
-        
-        infoMessageView.applyStyles(styles)
     }
     
     // MARK: Layout
@@ -260,6 +249,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         
         if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
             srsItemViewCell.itemListView.delegate = self
+            srsItemViewCell.itemCarouselView.delegate = self
+            srsItemViewCell.itemCarouselView.event = event
         }
         
         return cell ?? UITableViewCell()
@@ -373,6 +364,16 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
 extension ChatMessagesView: SRSItemListViewDelegate {
     func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
         delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
+    }
+}
+
+// MARK:- SRSItemCarouselViewDelegate
+
+extension ChatMessagesView: SRSItemCarouselViewDelegate {
+    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didScrollToPage page: Int) {
+        if let event = itemCarouselView.event {
+            delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
+        }
     }
 }
 

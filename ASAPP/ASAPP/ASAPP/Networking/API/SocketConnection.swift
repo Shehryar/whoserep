@@ -26,9 +26,7 @@ public func StringForASAPPEnvironment(environment: ASAPPEnvironment) -> String {
 }
 
 internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
-    
-    
-    
+
     var connectionURL: URL?
     switch environment {
 //    case .local:
@@ -40,7 +38,13 @@ internal func ConnectionURLForEnvironment(companyMarker: String, environment: AS
 //        break
         
     case .staging:
-        connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
+        if DEMO_CONTENT_ENABLED && companyMarker == "text-rex" {
+            connectionURL = URL(string: "wss://srs-api-dev.asapp.com/api/websocket")
+        } else if companyMarker == "sprint" {
+            connectionURL = URL(string: "wss://\(companyMarker).asapp.com/api/websocket")
+        } else {
+            connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
+        }
 //        connectionURL = URL(string: "wss://srs-api-dev.asapp.com/api/websocket")
         break
         

@@ -36,9 +36,9 @@ class ConversationManager: NSObject {
     
     // MARK: Private Properties
     
-    fileprivate var socketConnection: SocketConnection
+    internal var socketConnection: SocketConnection
     
-    fileprivate var fileStore: ConversationFileStore
+    internal var fileStore: ConversationFileStore
     
     // MARK: Initialization
     
@@ -59,11 +59,16 @@ class ConversationManager: NSObject {
 // MARK:- Network Actions
 
 extension ConversationManager {
+    
+    // MARK: Stored Messages
+    
     var storedMessages: [Event] {
         let storedEvents = fileStore.getSavedEvents() ?? [Event]()
         
         return storedEvents
     }
+    
+    // MARK: Entering/Exiting a Conversation
     
     func enterConversation() {
         socketConnection.connectIfNeeded()
@@ -77,6 +82,8 @@ extension ConversationManager {
         fileStore.save()
         socketConnection.disconnect()
     }
+    
+    // MARK: Sending Messages
     
     func sendMessage(_ message: String, completion: (() -> Void)? = nil) {
         let path = "\(requestPrefix)SendTextMessage"
@@ -115,6 +122,8 @@ extension ConversationManager {
             socketConnection.sendRequest(withPath: path, params: params as [String : AnyObject]?)
         }
     }
+    
+    // MARK: Fetching Events
     
     func getLatestMessages(_ completion: @escaping ConversationManagerRequestBlock) {
         getMessageEvents { (fetchedEvents, error) in
@@ -183,30 +192,20 @@ extension ConversationManager {
     fileprivate var requestPrefix: String {
         return credentials.isCustomer ? "customer/" : "rep/"
     }
+}
+
+// MARK:- SRS
+
+extension ConversationManager {
     
-    // MARK:- SRS
-    
-    func sendSRSRequest(path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler?) {
-        Dispatcher.performOnBackgroundThread {
-            var srsParams = params ?? [String : AnyObject]()
-            srsParams["Auth"] = self.credentials.getAuthToken() as AnyObject
-            srsParams["Context"] = self.credentials.getContextString() as AnyObject
-            
-            self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage) in
-                Dispatcher.performOnMainThread {
-                    requestHandler?(incomingMessage)
-                }
-            })
-        }
-    }
+    // MARK: SRS Public
     
     func startSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) {
         sendSRSRequest(path: "srs/AppOpen", params: nil) { (incomingMessage) in
-            if DEMO_CONTENT_ENABLED {
-                if let sampleResponse = SRSAppOpenResponse.sampleResponse() {
-                    completion?(sampleResponse)
-                    return
-                }
+            
+            if let demoResponse = self.demo_AppOpenResponse() {
+                completion?(demoResponse)
+                return
             }
             
             if incomingMessage.type == .Response {
@@ -229,6 +228,10 @@ extension ConversationManager {
     
     /// Original / new-search query to srs
     func sendMessageAsSRSQuery(_ query: String, completion: (() -> Void)? = nil) {
+        if demo_OverrideMessageSend(message: query, completion: completion) {
+            return
+        }
+        
         let params = [
             "Text" : query as AnyObject,
             "SearchQuery" : query as AnyObject
@@ -239,36 +242,15 @@ extension ConversationManager {
         }
     }
     
-    fileprivate func sendSRSTreewalk(_ query: String, withMessage message: String, originalSearchQuery: String?, completion: (() -> Void)? = nil) {
-        var params = ["Text" : message as AnyObject,
-                      "Classification" : query as AnyObject]
-        if let originalSearchQuery = originalSearchQuery {
-            params["SearchQuery"] = originalSearchQuery as AnyObject
-        }
-        
-        sendSRSRequest(path: "srs/SendTextMessageAndHierAndTreewalk", params: params) { (incomingMessage) in
-            completion?()
-        }
-    }
-    
     func sendSRSButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?, completion: (() -> Void)? = nil) {
+        
+        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
+            return
+        }
         
         switch buttonItem.type {
         case .SRS:
             if let srsQuery = buttonItem.srsValue {
-                if DEMO_CONTENT_ENABLED {
-                    if srsQuery == "cancelAppointmentPrompt" {
-                        sendMessage(buttonItem.title, completion: completion)
-                        sendFakeCancelAppointmentMessage()
-                        return
-                    }
-                    if srsQuery == "cancelAppointmentConfirmation" {
-                        sendMessage(buttonItem.title, completion: completion)
-                        sendFakeCancelAppointmentConfirmationMessage()
-                        return
-                    }
-                }
-                
                 sendSRSTreewalk(srsQuery, withMessage: buttonItem.title, originalSearchQuery: originalSearchQuery)
             }
             break
@@ -289,89 +271,57 @@ extension ConversationManager {
             break
         }
     }
-}
-
-// MARK:- Mock DATA TESTING
-
-extension ConversationManager {
     
-    func sendFakeResponse(_ message: Event?) {
-        guard let message = message else { return }
-        
-        Dispatcher.delay(600, closure: {
-            self.delegate?.conversationManager(self, didReceiveMessageEvent: message)
-        })
-    }
+    // MARK: SRS Private
     
-    func echoResponseWithContentString(_ contentString: String?) {
-        guard let contentString = contentString else { return }
-        let editedString = contentString.replacingOccurrences(of: "\n", with: "")
-        
-        socketConnection.sendRequest(withPath: "srs/Echo", params: ["Echo" : editedString as AnyObject]) { (incomingMessage) in
-            // no-op
+    fileprivate func sendSRSRequest(path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler?) {
+        Dispatcher.performOnBackgroundThread {
+            var srsParams = params ?? [String : AnyObject]()
+            if let authToken = self.credentials.getAuthToken() {
+                srsParams["Auth"] = authToken as AnyObject
+            }
+            srsParams["Context"] = self.credentials.getContextString() as AnyObject
+
+            self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage) in
+                Dispatcher.performOnMainThread {
+                    requestHandler?(incomingMessage)
+                }
+            })
         }
     }
     
-    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
-        sendMessage(buttonItem.title, completion: completion)
+    fileprivate func sendSRSTreewalk(_ query: String, withMessage message: String, originalSearchQuery: String?, completion: (() -> Void)? = nil) {
+        var params = ["Text" : message as AnyObject,
+                      "Classification" : query as AnyObject]
+        if let originalSearchQuery = originalSearchQuery {
+            params["SearchQuery"] = originalSearchQuery as AnyObject
+        }
         
-        echoResponseWithContentString(Event.jsonStringForFile("sample_troubleshoot_data"))
-    }
-    
-    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
-        sendMessage(buttonItem.title, completion: completion)
-        
-        var deviceRestartString = Event.jsonStringForFile("sample_device_restart_data")
-        let finishedAt = Int(Date(timeIntervalSinceNow: 15).timeIntervalSince1970)
-        deviceRestartString = deviceRestartString?.replacingOccurrences(of: "\"loaderBar\"", with: "\"loaderBar\", \"finishedAt\" : \(finishedAt)")
-        
-        echoResponseWithContentString(deviceRestartString)
-    }
-    
-    func sendFakeCancelAppointmentMessage() {
-        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appointment_prompt_data"))
-    }
-    
-    func sendFakeCancelAppointmentConfirmationMessage() {
-        echoResponseWithContentString(Event.jsonStringForFile("sample_cancel_appiontment_response_data"))
-    }
-    
-    // MARK: Mock Data overriding responses
-    
-    func sendFakeEquipmentReturnMessage(_ eventLogSeq: Int? = nil) {
-        sendFakeResponse(Event.sampleEquipmentReturnEvent(eventLogSeq))
-    }
-    
-    func sendFakeTechLocationMessage(_ eventLogSeq: Int? = nil) {
-        sendFakeResponse(Event.sampleTechLocationEvent(eventLogSeq))
+        sendSRSRequest(path: "srs/SendTextMessageAndHierAndTreewalk", params: params) { (incomingMessage) in
+            completion?()
+        }
     }
 }
 
 // MARK:- SocketConnectionDelegate
 
 extension ConversationManager: SocketConnectionDelegate {
+    
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
         
         if message.type == .Event {
             if let event = Event(withJSON: message.body) {
                 fileStore.addEventJSONString(eventJSONString: message.bodyString)
                 
+                
+                if demo_OverrideReceivedMessageEvent(event: event) {
+                    return
+                }
+                
+                
                 switch event.eventType {
                 case .srsResponse:
-                    
-                    if DEMO_CONTENT_ENABLED {
-                        if event.srsResponse?.classification == "BR" {
-                            sendFakeEquipmentReturnMessage()
-                            return
-                        }
-                        if event.srsResponse?.classification == "ST" {
-                            sendFakeTechLocationMessage()
-                            return
-                        }
-                    }
-                    
-                    
-                    Dispatcher.delay(400, closure: {
+                    Dispatcher.delay(600, closure: {
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })
                     break
@@ -386,6 +336,7 @@ extension ConversationManager: SocketConnectionDelegate {
                         if let parentEventLogSeq = event.parentEventLogSeq {
                             event.eventLogSeq = parentEventLogSeq
                             event.eventType = .srsResponse
+                            event.srsResponse = SRSResponse.instanceWithJSON(event.eventJSONObject) as? SRSResponse
                             delegate?.conversationManager(self, didReceiveUpdatedMessageEvent: event)
                         }
                         break

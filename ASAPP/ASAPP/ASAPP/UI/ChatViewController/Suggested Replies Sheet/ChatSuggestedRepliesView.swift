@@ -169,7 +169,7 @@ extension ChatSuggestedRepliesView {
     
     func preferredDisplayHeight() -> CGFloat {
         let rowHeight = ChatActionableMessageView.approximateRowHeight(withStyles: styles)
-        let visibleRows: CGFloat = 4.23
+        let visibleRows: CGFloat = 4.6
         return rowHeight * visibleRows + transparentInsetTop
     }
     
@@ -200,6 +200,7 @@ extension ChatSuggestedRepliesView {
     fileprivate func createActionableMessageView(_ actionableMessage: SRSResponse) -> ChatActionableMessageView {
         let actionableMessageView = ChatActionableMessageView()
         actionableMessageView.srsResponse = actionableMessage
+        actionableMessageView.applyStyles(styles)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
             if let strongSelf = self {
                 strongSelf.delegate?.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
@@ -254,6 +255,15 @@ extension ChatSuggestedRepliesView {
             updateBackButtonVisibility()
             updateActionableViewFrames()
             actionableMessageView.flashScrollIndicatorsIfNecessary()
+        }
+    }
+    
+    func reloadButtonItemsForActionableMessage(_ actionableMessage: SRSResponse) {
+        for actionableMessageView in actionableMessageViews {
+            if actionableMessageView.srsResponse == actionableMessage {
+                actionableMessageView.srsResponse = actionableMessage
+                break
+            }
         }
     }
     

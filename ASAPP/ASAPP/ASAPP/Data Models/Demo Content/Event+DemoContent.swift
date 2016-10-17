@@ -1,0 +1,230 @@
+//
+//  Event+DemoContent.swift
+//  ASAPP
+//
+//  Created by Mitchell Morgan on 10/9/16.
+//  Copyright © 2016 asappinc. All rights reserved.
+//
+
+import UIKit
+
+
+enum DemoEventType {
+    case billSummary
+    case troubleshooter
+    case deviceRestart
+    case equipmentReturn
+    case techLocation
+    case cancelAppointment
+    case cancelAppointmentConfirmation
+    case phoneUpgrade
+    case phonePlanUpgrade
+    case deviceTracking
+    
+    static let allTypes = [billSummary,
+                           troubleshooter,
+                           deviceRestart,
+                           equipmentReturn,
+                           techLocation,
+                           cancelAppointment,
+                           cancelAppointmentConfirmation,
+                           phonePlanUpgrade,
+                           phoneUpgrade,
+                           deviceTracking
+                           ]
+}
+
+// MARK: Generic Sample Events
+
+extension Event {
+    
+    class func demoEvent(type: EventType,
+                         eventJSON: String,
+                         afterEvent: Event? = nil,
+                         eventLogSeq: Int? = nil) -> Event? {
+        
+        let eventTime: Double = Date().timeIntervalSince1970 * 1000000.0
+        
+        var companyEventLogSeq = 0
+        var customerEventLogSeq = 0
+        if let eventLogSeq = eventLogSeq {
+            companyEventLogSeq = eventLogSeq
+            customerEventLogSeq = eventLogSeq
+        } else if let previousEventLogSeq = afterEvent?.eventLogSeq {
+            companyEventLogSeq = previousEventLogSeq + 1
+            customerEventLogSeq = companyEventLogSeq
+        }
+        
+        let json = [
+            "CreatedTime" : eventTime,
+            "IssueId" :  afterEvent?.issueId ?? 350001,
+            "CompanyId" : afterEvent?.companyId ?? 10001,
+            "CustomerId" : afterEvent?.customerId ?? 130001,
+            "RepId" : afterEvent?.repId ?? 20001,
+            "EventTime" : eventTime,
+            "EventType" : type.rawValue,
+            "EphemeralType" : 0,
+            "EventFlags" : 0,
+            "CompanyEventLogSeq" : companyEventLogSeq,
+            "CustomerEventLogSeq" : customerEventLogSeq,
+            "EventJSON" : eventJSON
+            ] as [String : Any]
+        
+        return Event(withJSON: json)
+    }
+    
+    class func demoEventWithJSONFile(_ fileName: String,
+                                     afterEvent: Event? = nil,
+                                     eventLogSeq: Int? = nil) -> Event? {
+        
+        if let jsonString = DemoUtils.jsonStringForFile(fileName) {
+            let event = demoEvent(type: EventType.srsResponse,
+                                  eventJSON: jsonString,
+                                  afterEvent: afterEvent,
+                                  eventLogSeq: eventLogSeq)
+            return event
+        }
+        return nil
+    }
+}
+
+// MARK: Specific Demo Events
+
+extension Event {
+    
+    fileprivate class func jsonFileName(forEventType eventType: DemoEventType) -> String {
+        switch eventType {
+        case .billSummary: return "bill-summary"
+        case .troubleshooter: return "troubleshooter"
+        case .deviceRestart: return "device-restart"
+        case .equipmentReturn: return "equipment-return"
+        case .techLocation: return "tech-location"
+        case .cancelAppointment: return "cancel-appointment"
+        case .cancelAppointmentConfirmation: return "cancel-appointment-confirmation"
+        case .phoneUpgrade:
+            if UserDefaults.standard.bool(forKey: "ASAPP_DEMO_PHONE_UPGRADE_INELIGIBLE") {
+                return "phone-upgrade-ineligible"
+            } else {
+                return "phone-upgrade"
+            }
+        case .phonePlanUpgrade: return "phone-plan-upgrade"
+        case .deviceTracking: return "device-tracking"
+        }
+    }
+    
+    class func getDemoEvent(eventType: DemoEventType,
+                            afterEvent: Event? = nil,
+                            eventLogSeq: Int? = nil) -> Event? {
+        let fileName = jsonFileName(forEventType: eventType)
+        let demoEvent = demoEventWithJSONFile(fileName,
+                                              afterEvent: afterEvent,
+                                              eventLogSeq: eventLogSeq)
+        return demoEvent
+    }
+    
+    class func getDemoEventJsonString(eventType: DemoEventType, company: String?) -> String? {
+        let fileName = jsonFileName(forEventType: eventType)
+        let jsonString = DemoUtils.jsonObjectAsStringForFile(fileName, company: company)
+        
+        return jsonString
+    }
+}
+
+// MARK: Matching Demo Events to Queries
+
+extension Event {
+    
+    class func demoResponseForMessage(message: String?, company: String?) -> String? {
+        guard let message = message else { return nil }
+        
+        if let demoEventType = demoEventTypeForResponseToMessage(message: message) {
+            return Event.getDemoEventJsonString(eventType: demoEventType, company: company)
+        }
+        
+        return nil
+    }
+    
+    class func demoEventTypeForResponseToMessage(message: String) -> DemoEventType? {
+        
+        for demoEventType in DemoEventType.allTypes {
+            if let triggeringStringSets = triggeringSubstringSet(demoEventType: demoEventType) {
+                if message.containsAnySet(substringSets: triggeringStringSets) {
+                    return demoEventType
+                }
+            }
+        }
+        return nil
+    }
+    
+    fileprivate class func triggeringSubstringSet(demoEventType: DemoEventType) -> [[String]]? {
+        switch demoEventType {
+        case .billSummary:
+            return [
+                ["what", "bill"],
+                ["see", "bill"],
+                ["what", "owe"],
+                ["how", "owe"]
+            ]
+            
+        case .equipmentReturn:
+            return [
+                ["where", "return"]
+            ]
+            
+        case .phoneUpgrade:
+            return [
+                ["upgrade", "phone"],
+                ["new", "phone"],
+                ["change", "phone"]
+            ]
+            
+        case .phonePlanUpgrade:
+            return [
+                ["add", "data"],
+                ["upgrade", "plan"],
+                ["change", "plan"]
+            ]
+            
+        case .deviceTracking:
+            return [
+                ["where", "is", "device"],
+                ["when", "will", "device"],
+                ["where", "is", "package"],
+                ["where", "is", "phone"],
+                ["when", "will", "phone"]
+            ]
+            
+        case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:
+            return nil
+        }
+    }
+}
+
+extension String {
+    func containsAll(substrings: [String]) -> Bool {
+        guard !substrings.isEmpty else { return false }
+        
+        var containsAllSubstrings = true
+        for substring in substrings {
+            if !localizedCaseInsensitiveContains(substring) {
+                containsAllSubstrings = false
+                break
+            }
+        }
+        return containsAllSubstrings
+    }
+    
+    func containsAnySet(substringSets: [[String]]) -> Bool {
+        guard !substringSets.isEmpty else { return false }
+        
+        for substringSet in substringSets {
+            if containsAll(substrings: substringSet) {
+                return true
+            }
+        }
+        return false
+    }
+}
+
+
+

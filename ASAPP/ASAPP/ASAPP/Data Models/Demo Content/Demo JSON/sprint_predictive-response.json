@@ -1,0 +1,20 @@
+{
+    "greeting": "How can we help?",
+    "predictions": [
+                    {
+                    "prediction_display_text": "Your data usage is currently at 4.6GB of your available 5GB.  Would you like to upgrade your plan?",
+                    "prediction_actions" : [
+                                            "Upgrade data plan",
+                                            ]
+                    },
+                    {
+                    "prediction_display_text": "It looks like you are eligible to upgrade your phone.",
+                    "prediction_actions" : [
+                                            "Upgrade phone",
+                                            ]
+                    }
+                    ],
+    "actions": [
+                "See my bill"
+                ]
+}

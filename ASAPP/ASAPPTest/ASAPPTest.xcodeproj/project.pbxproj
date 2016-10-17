@@ -7,21 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2840EC951D6A798D00FA9ED7 /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */; };
-		2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */; };
-		30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */; };
-		307C545A1D8C88790091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54591D8C88790091E74A /* NavigationController.swift */; };
-		30A515481D9EE5E200FB6C1E /* DebugInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */; };
-		30A5154A1D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */; };
-		30A5154C1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */; };
-		30A6A29F1D90661500688DE9 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A6A29E1D90661500688DE9 /* ASAPP.framework */; };
-		30A6A2A01D90661500688DE9 /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A6A29E1D90661500688DE9 /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		307301BD1DAE949B0002CF3B /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307301BC1DAE949B0002CF3B /* ASAPP.framework */; };
+		307301BE1DAE949B0002CF3B /* ASAPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 307301BC1DAE949B0002CF3B /* ASAPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301C71DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard */; };
+		307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */; };
+		307301DF1DAE9C750002CF3B /* TwoWayChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D41DAE9C750002CF3B /* TwoWayChatViewController.swift */; };
+		307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */; };
+		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
+		307301E21DAE9C750002CF3B /* DemoCurrentSettingsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D91DAE9C750002CF3B /* DemoCurrentSettingsBanner.swift */; };
+		307301E31DAE9C750002CF3B /* DemoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301DA1DAE9C750002CF3B /* DemoHomeViewController.swift */; };
+		307301E41DAE9C750002CF3B /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301DB1DAE9C750002CF3B /* DemoSettings.swift */; };
+		307301E51DAE9C750002CF3B /* DemoSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301DC1DAE9C750002CF3B /* DemoSettingsTableViewCell.swift */; };
+		307301E61DAE9C750002CF3B /* DemoSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301DD1DAE9C750002CF3B /* DemoSettingsViewController.swift */; };
+		307301E71DAE9C750002CF3B /* DemoUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301DE1DAE9C750002CF3B /* DemoUserManager.swift */; };
+		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
-		30EE2A0B1D999A0C0079932D /* ComcastUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
-		FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +34,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30A6A2A01D90661500688DE9 /* ASAPP.framework in Embed Frameworks */,
+				307301BE1DAE949B0002CF3B /* ASAPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,26 +42,27 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
-		2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastHomeViewController.swift; sourceTree = "<group>"; };
-		30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
-		303C87731D775BB400213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		303C87741D775BB900213F6B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		307C54591D8C88790091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugInfoView.swift; sourceTree = "<group>"; };
-		30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugInfoSettingsView.swift; sourceTree = "<group>"; };
-		30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugStageProdToggleView.swift; sourceTree = "<group>"; };
-		30A6A29E1D90661500688DE9 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		307301BC1DAE949B0002CF3B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		307301C81DAE9BAA0002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Sprint.storyboard"; sourceTree = "<group>"; };
+		307301CA1DAE9BAA0002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		307301CD1DAE9BAA0002CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		307301D41DAE9C750002CF3B /* TwoWayChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayChatViewController.swift; sourceTree = "<group>"; };
+		307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
+		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		307301D91DAE9C750002CF3B /* DemoCurrentSettingsBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoCurrentSettingsBanner.swift; sourceTree = "<group>"; };
+		307301DA1DAE9C750002CF3B /* DemoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoHomeViewController.swift; sourceTree = "<group>"; };
+		307301DB1DAE9C750002CF3B /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
+		307301DC1DAE9C750002CF3B /* DemoSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		307301DD1DAE9C750002CF3B /* DemoSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettingsViewController.swift; sourceTree = "<group>"; };
+		307301DE1DAE9C750002CF3B /* DemoUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoUserManager.swift; sourceTree = "<group>"; };
+		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComcastUserManager.swift; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FD8D8B261D107A19001B420B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FD8D8B281D107A19001B420B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,15 +70,56 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30A6A29F1D90661500688DE9 /* ASAPP.framework in Frameworks */,
 				30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */,
 				30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */,
+				307301BD1DAE949B0002CF3B /* ASAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		307301C61DAE9BAA0002CF3B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */,
+				307301C71DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard */,
+				307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */,
+				307301CD1DAE9BAA0002CF3B /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		307301D31DAE9C750002CF3B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				307301D41DAE9C750002CF3B /* TwoWayChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		307301D51DAE9C750002CF3B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */,
+				307301D71DAE9C750002CF3B /* NavigationController.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		307301D81DAE9C750002CF3B /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				307301D91DAE9C750002CF3B /* DemoCurrentSettingsBanner.swift */,
+				307301DA1DAE9C750002CF3B /* DemoHomeViewController.swift */,
+				307301DB1DAE9C750002CF3B /* DemoSettings.swift */,
+				307301DC1DAE9C750002CF3B /* DemoSettingsTableViewCell.swift */,
+				307301DD1DAE9C750002CF3B /* DemoSettingsViewController.swift */,
+				307301DE1DAE9C750002CF3B /* DemoUserManager.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		30AE79DB1D4AB83700651F09 /* Third-Party */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,52 +127,6 @@
 				30AE79D81D4AB83100651F09 /* Crashlytics.framework */,
 			);
 			name = "Third-Party";
-			sourceTree = "<group>";
-		};
-		30EE2A0C1D999A1B0079932D /* Comcast */ = {
-			isa = PBXGroup;
-			children = (
-				2840EC961D6A7AC500FA9ED7 /* ComcastHomeViewController.swift */,
-				30EE2A0A1D999A0C0079932D /* ComcastUserManager.swift */,
-				30A515471D9EE5E200FB6C1E /* DebugInfoView.swift */,
-				30A515491D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift */,
-				30A5154B1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift */,
-			);
-			name = Comcast;
-			sourceTree = "<group>";
-		};
-		30EE2A0D1D999A2C0079932D /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				2840EC941D6A798D00FA9ED7 /* ImageBackgroundViewController.swift */,
-				307C54591D8C88790091E74A /* NavigationController.swift */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
-		30EE2A0E1D999A3B0079932D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */,
-				FD8D8B281D107A19001B420B /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		30EE2A0F1D999A4F0079932D /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				30226CFF1D4A5F8000871453 /* TwoWayChatViewController.swift */,
-			);
-			name = Chat;
-			sourceTree = "<group>";
-		};
-		30EE2A101D999A590079932D /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				FD8D8B231D107A19001B420B /* Assets.xcassets */,
-			);
-			name = Assets;
 			sourceTree = "<group>";
 		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
@@ -142,7 +141,7 @@
 		FD8D8B101D107A19001B420B = {
 			isa = PBXGroup;
 			children = (
-				30A6A29E1D90661500688DE9 /* ASAPP.framework */,
+				307301BC1DAE949B0002CF3B /* ASAPP.framework */,
 				FD8D8B1B1D107A19001B420B /* ASAPPTest */,
 				30AE79DB1D4AB83700651F09 /* Third-Party */,
 				FD8D8B1A1D107A19001B420B /* Products */,
@@ -162,11 +161,11 @@
 			isa = PBXGroup;
 			children = (
 				FD8D8B1C1D107A19001B420B /* AppDelegate.swift */,
-				30EE2A0F1D999A4F0079932D /* Chat */,
-				30EE2A0C1D999A1B0079932D /* Comcast */,
-				30EE2A0D1D999A2C0079932D /* Common */,
-				30EE2A0E1D999A3B0079932D /* Supporting Files */,
-				30EE2A101D999A590079932D /* Assets */,
+				307301D81DAE9C750002CF3B /* Demo */,
+				307301D31DAE9C750002CF3B /* Chat */,
+				307301D51DAE9C750002CF3B /* Common */,
+				FD8D8B231D107A19001B420B /* Assets.xcassets */,
+				307301C61DAE9BAA0002CF3B /* Supporting Files */,
 			);
 			path = ASAPPTest;
 			sourceTree = "<group>";
@@ -217,6 +216,8 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				ko,
 			);
 			mainGroup = FD8D8B101D107A19001B420B;
 			productRefGroup = FD8D8B1A1D107A19001B420B /* Products */;
@@ -233,8 +234,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD8D8B271D107A19001B420B /* LaunchScreen.storyboard in Resources */,
+				307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */,
+				307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */,
 				FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */,
+				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,34 +264,354 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30A5154A1D9EE5EF00FB6C1E /* DebugInfoSettingsView.swift in Sources */,
-				30EE2A0B1D999A0C0079932D /* ComcastUserManager.swift in Sources */,
-				2840EC951D6A798D00FA9ED7 /* ImageBackgroundViewController.swift in Sources */,
-				30226D001D4A5F8000871453 /* TwoWayChatViewController.swift in Sources */,
-				2840EC971D6A7AC500FA9ED7 /* ComcastHomeViewController.swift in Sources */,
-				30A515481D9EE5E200FB6C1E /* DebugInfoView.swift in Sources */,
-				307C545A1D8C88790091E74A /* NavigationController.swift in Sources */,
-				30A5154C1D9EF35E00FB6C1E /* DebugStageProdToggleView.swift in Sources */,
+				307301E31DAE9C750002CF3B /* DemoHomeViewController.swift in Sources */,
+				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
+				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
+				307301E61DAE9C750002CF3B /* DemoSettingsViewController.swift in Sources */,
+				307301E51DAE9C750002CF3B /* DemoSettingsTableViewCell.swift in Sources */,
+				307301E71DAE9C750002CF3B /* DemoUserManager.swift in Sources */,
+				307301E21DAE9C750002CF3B /* DemoCurrentSettingsBanner.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
+				307301DF1DAE9C750002CF3B /* TwoWayChatViewController.swift in Sources */,
+				307301E41DAE9C750002CF3B /* DemoSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FD8D8B251D107A19001B420B /* LaunchScreen.storyboard */ = {
+		307301C71DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FD8D8B261D107A19001B420B /* Base */,
-				303C87731D775BB400213F6B /* ko */,
-				303C87741D775BB900213F6B /* es */,
+				307301C81DAE9BAA0002CF3B /* Base */,
+			);
+			name = "LaunchScreen-Sprint.storyboard";
+			sourceTree = "<group>";
+		};
+		307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				307301CA1DAE9BAA0002CF3B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				307301F21DAEAFB70002CF3B /* Base */,
+			);
+			name = "LaunchScreen-Comcast.storyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		307301B41DAE8EC00002CF3B /* Sprint Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Sprint Debug";
+		};
+		307301B51DAE8EC00002CF3B /* Sprint Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASAPP_BUNDLE_DISPLAY_NAME = "Sprint Debug";
+				ASAPP_BUNDLE_ID = com.asappinc.SprintDemoDebug;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Sprint";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
+				COMPANY_CHANGING_DISABLED = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFAULT_DEMO_COMPANY = sprint;
+				DEMO_CONTENT_ENABLED = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = "LaunchScreen-Sprint";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.SprintDemoDebug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Sprint Debug";
+		};
+		307301B61DAE8EC90002CF3B /* Sprint AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Sprint AdHoc";
+		};
+		307301B71DAE8EC90002CF3B /* Sprint AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASAPP_BUNDLE_DISPLAY_NAME = Sprint;
+				ASAPP_BUNDLE_ID = com.asappinc.SprintDemo;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Sprint";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				COMPANY_CHANGING_DISABLED = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				DEFAULT_DEMO_COMPANY = sprint;
+				DEMO_CONTENT_ENABLED = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/**",
+				);
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = "LaunchScreen-Sprint";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.SprintDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "11ae24c8-c705-4d44-8fcf-fbf393c5dea8";
+				PROVISIONING_PROFILE_SPECIFIER = "Sprint Demo Enterprise Provisioning Profile";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Sprint AdHoc";
+		};
+		307301ED1DAEAF300002CF3B /* Comcast Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Comcast Debug";
+		};
+		307301EE1DAEAF300002CF3B /* Comcast Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASAPP_BUNDLE_DISPLAY_NAME = "Comcast Debug";
+				ASAPP_BUNDLE_ID = com.asappinc.ComcastDemoDebug;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Comcast";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
+				COMPANY_CHANGING_DISABLED = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFAULT_DEMO_COMPANY = comcast;
+				DEMO_CONTENT_ENABLED = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = "LaunchScreen-Comcast";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ComcastDemoDebug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Comcast Debug";
+		};
+		307301EF1DAEAF370002CF3B /* Comcast AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Comcast AdHoc";
+		};
+		307301F01DAEAF370002CF3B /* Comcast AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASAPP_BUNDLE_DISPLAY_NAME = Comcast;
+				ASAPP_BUNDLE_ID = com.asappinc.ComcastDemo;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Comcast";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				COMPANY_CHANGING_DISABLED = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				DEFAULT_DEMO_COMPANY = comcast;
+				DEMO_CONTENT_ENABLED = NO;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/**",
+				);
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = "LaunchScreen-Comcast";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ComcastDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c17253dd-5def-4eae-948c-7290fdfe9cce";
+				PROVISIONING_PROFILE_SPECIFIER = "Comcast Demo Enterprise Provisioning Profile";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Comcast AdHoc";
+		};
 		30AE79F41D4BACD800651F09 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -315,6 +638,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -323,7 +647,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -339,13 +663,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				COMPANY_CHANGING_DISABLED = NO;
+				DEFAULT_DEMO_COMPANY = comcast;
+				DEMO_CONTENT_ENABLED = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/**",
 				);
-				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = LaunchScreen;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -381,6 +709,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -395,7 +724,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -429,6 +758,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -437,7 +767,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -453,18 +783,22 @@
 				ASAPP_BUNDLE_ID = com.asappinc.TestAppDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
+				COMPANY_CHANGING_DISABLED = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFAULT_DEMO_COMPANY = comcast;
+				DEMO_CONTENT_ENABLED = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = LaunchScreen;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
+				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -479,12 +813,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
+				COMPANY_CHANGING_DISABLED = NO;
+				DEFAULT_DEMO_COMPANY = comcast;
+				DEMO_CONTENT_ENABLED = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = ASAPPTest/Info.plist;
+				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LAUNCH_SCREEN = LaunchScreen;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPSDKApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -502,8 +840,12 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD8D8B291D107A19001B420B /* Debug */,
+				307301B41DAE8EC00002CF3B /* Sprint Debug */,
+				307301ED1DAEAF300002CF3B /* Comcast Debug */,
 				FD8D8B2A1D107A19001B420B /* Release */,
 				30AE79F41D4BACD800651F09 /* AdHoc */,
+				307301B61DAE8EC90002CF3B /* Sprint AdHoc */,
+				307301EF1DAEAF370002CF3B /* Comcast AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -512,8 +854,12 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD8D8B2C1D107A19001B420B /* Debug */,
+				307301B51DAE8EC00002CF3B /* Sprint Debug */,
+				307301EE1DAEAF300002CF3B /* Comcast Debug */,
 				FD8D8B2D1D107A19001B420B /* Release */,
 				30AE79F51D4BACD800651F09 /* AdHoc */,
+				307301B71DAE8EC90002CF3B /* Sprint AdHoc */,
+				307301F01DAEAF370002CF3B /* Comcast AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

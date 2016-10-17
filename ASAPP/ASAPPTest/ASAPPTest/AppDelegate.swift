@@ -15,32 +15,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    let comcastHomeController = ComcastHomeViewController()
+    var demoController: DemoHomeViewController!
     
-    let versionLabel = UILabel()
+    // MARK:- Application Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // Settings to mimc Comcast
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.isTranslucent = false
+        navBarAppearance.backgroundColor = UIColor.white
+        
+        
+        var defaultCompany: String
+        if let infoPlistCompany = Bundle.main.infoDictionary?["default-demo-company"] as? String {
+            defaultCompany = infoPlistCompany
+        } else {
+            defaultCompany = "comcast"
+            print("No default company found in info.plist. Setting to \(defaultCompany)")
+        }
+        var canChangeCompany = true
+        if Bundle.main.infoDictionary?["company-changing-disabled"] as? String == "YES" {
+            canChangeCompany = false
+        }
+        var demoContentEnabled = false
+        if Bundle.main.infoDictionary?["demo-content-enabled"] as? String == "YES" {
+            demoContentEnabled = true
+        }
+        
+        demoController = DemoHomeViewController(companyMarker: defaultCompany,
+                                                canChangeCompany: canChangeCompany,
+                                                demoContentEnabled: demoContentEnabled)
+        
         Fabric.with([Crashlytics.self])
         
-        //
-        // Main View Controller
-        //
-        
-        let navigationController = NavigationController(rootViewController: comcastHomeController)
-        navigationController.navigationBar.barTintColor = UIColor.white
-        navigationController.navigationBar.tintColor = UIColor(red:0.247, green:0.293, blue:0.365, alpha:1)
-        navigationController.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : UIColor.darkText,
-            NSFontAttributeName : UIFont.boldSystemFont(ofSize: 16)
-        ]
-        
-        UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : UIFont.systemFont(ofSize: 16)
-            ], for: UIControlState())
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController
+        window?.rootViewController = createRootViewController()
         window?.makeKeyAndVisible()
         
         return true
@@ -66,5 +76,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    // MARK:- Root View Controller
+    
+    func createRootViewController() -> UIViewController {
+        let navigationController = NavigationController(rootViewController: demoController)
+        
+        return navigationController
     }
 }

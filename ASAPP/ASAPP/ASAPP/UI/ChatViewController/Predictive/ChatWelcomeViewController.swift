@@ -20,28 +20,23 @@ class ChatWelcomeViewController: UIViewController {
     
     let styles: ASAPPStyles
     
+    let strings: ASAPPStrings
+    
     var delegate: ChatWelcomeViewControllerDelegate?
     
     var tapGesture: UITapGestureRecognizer?
-    
-    var connectionStatus: ChatConnectionStatus = .disconnected {
-        didSet {
-            updateConnectionStatusLabel()
-        }
-    }
     
     fileprivate(set) var viewContentsVisible = true
     
     // MARK: Private Properties
     
-    fileprivate let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
+    fileprivate let contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 30, right: 16)
     fileprivate let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     fileprivate let blurredColorLayer = VerticalGradientView()
     fileprivate let titleLabel = UILabel()
     fileprivate let messageLabel = UILabel()
     fileprivate let buttonsView: ChatWelcomeButtonsView
-    fileprivate let messageInputView = ChatInputView()
-    fileprivate let connectionStatusLabel = UILabel()
+    fileprivate let messageInputView: ChatInputView
     fileprivate var finishedInitialAnimation = true
     
     fileprivate let keyboardObserver = KeyboardObserver()
@@ -49,37 +44,29 @@ class ChatWelcomeViewController: UIViewController {
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles?) {
-        self.appOpenResponse = appOpenResponse ?? SRSAppOpenResponse(greeting: nil)
-        self.styles = styles ?? ASAPPStyles()
-        self.buttonsView = ChatWelcomeButtonsView(styles: styles)
+    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles, strings: ASAPPStrings) {
+        self.appOpenResponse = appOpenResponse
+        self.styles = styles
+        self.strings = strings
+        self.buttonsView = ChatWelcomeButtonsView(styles: styles, strings: strings)
+        self.messageInputView = ChatInputView(styles: styles, strings: strings)
         super.init(nibName: nil, bundle: nil)
         
-        let viewChatButton = Button()
-        viewChatButton.insetLeft = 0
-        viewChatButton.image = Images.buttonViewChat()
-        viewChatButton.imageSize = CGSize(width: 90, height: 25)  // 79 x 22
-        viewChatButton.imageIgnoresForegroundColor = true
-        viewChatButton.adjustsOpacityForState = true
-        viewChatButton.onTap = { [weak self] in
-            if let blockSelf = self {
-                blockSelf.delegate?.chatWelcomeViewControllerDidTapViewChat(blockSelf)
-            }
-        }
-        viewChatButton.sizeToFit()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: viewChatButton)
+        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
+                                                                     font: styles.navBarButtonFont,
+                                                                     textColor: UIColor.white,
+                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                     style: .respond,
+                                                                     target: self,
+                                                                     action: #selector(ChatWelcomeViewController.didTapViewChat))
+        navigationItem.leftBarButtonItem = viewChatButton
         
-        let closeButton = Button()
-        closeButton.insetRight = 0
-        closeButton.image = Images.buttonCloseDark()
-        closeButton.imageSize = CGSize(width: 24, height: 24)
-        closeButton.imageIgnoresForegroundColor = true
-        closeButton.adjustsOpacityForState = true
-        closeButton.onTap = { [weak self] in
-            self?.didTapCancel()
-        }
-        closeButton.sizeToFit()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
+                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                   target: self,
+                                                                   action: #selector(ChatWelcomeViewController.didTapCancel))
+        navigationItem.rightBarButtonItem = closeButton
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
         if let tapGesture = tapGesture {
@@ -88,9 +75,9 @@ class ChatWelcomeViewController: UIViewController {
             blurredBgView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9),
-                                 middleColor: UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8),
-                                 bottomColor: UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8))
+        blurredColorLayer.update(styles.askViewGradientTopColor,
+                                 middleColor: styles.askViewGradientMiddleColor,
+                                 bottomColor: styles.askViewGradientBottomColor)
         blurredBgView.contentView.addSubview(blurredColorLayer)
         
         
@@ -99,9 +86,9 @@ class ChatWelcomeViewController: UIViewController {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = UIColor.white
-        titleLabel.font = self.styles.bodyFont.withSize(24)
+        titleLabel.font = styles.bodyFont.withSize(24)
         titleLabel.attributedText = NSAttributedString(string: titleText, attributes: [
-            NSFontAttributeName : self.styles.bodyFont.withSize(24),
+            NSFontAttributeName : styles.bodyFont.withSize(24),
             NSKernAttributeName : 0.7
             ])
         blurredBgView.contentView.addSubview(titleLabel)
@@ -109,7 +96,7 @@ class ChatWelcomeViewController: UIViewController {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.textColor = UIColor.white
-        messageLabel.font = self.styles.detailFont.withSize(14)
+        messageLabel.font = styles.detailFont.withSize(14)
         blurredBgView.contentView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle) in
@@ -118,26 +105,18 @@ class ChatWelcomeViewController: UIViewController {
         blurredBgView.contentView.addSubview(buttonsView)
         
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
-        messageInputView.backgroundColor = UIColor(red:0.232, green:0.247, blue:0.284, alpha:1)
+        messageInputView.backgroundColor = styles.askViewInputBgColor
         messageInputView.layer.cornerRadius = 20
-        messageInputView.font = self.styles.bodyFont
+        messageInputView.sendButtonText = strings.predictiveSendButton
         messageInputView.textColor = Colors.whiteColor()
         messageInputView.placeholderColor = Colors.whiteColor().withAlphaComponent(0.7)
         messageInputView.separatorColor = nil
-        messageInputView.updateSendButtonStyle(withFont: self.styles.buttonFont, color: Colors.marbleMedColor())
+        messageInputView.sendButtonColor = Colors.marbleMedColor()
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = placeholderText
         messageInputView.delegate = self
         blurredBgView.contentView.addSubview(messageInputView)
-        
-        connectionStatusLabel.textColor = UIColor.white
-        connectionStatusLabel.font = self.styles.detailFont
-        connectionStatusLabel.numberOfLines = 1
-        connectionStatusLabel.alpha = 0.5
-        updateConnectionStatusLabel()
-        // disabling for now
-//        blurredBgView.contentView.addSubview(connectionStatusLabel)
         
         keyboardObserver.delegate = self
         
@@ -163,9 +142,11 @@ class ChatWelcomeViewController: UIViewController {
         
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.barStyle = .blackTranslucent
+            navigationBar.backgroundColor = UIColor.clear
             navigationBar.setBackgroundImage(UIImage(), for: .default)
             navigationBar.shadowImage = UIImage()
             navigationBar.tintColor = UIColor.white
+            navigationBar.isTranslucent = true
         }
         
         // View
@@ -187,26 +168,10 @@ class ChatWelcomeViewController: UIViewController {
         keyboardObserver.deregisterForNotification()
     }
     
-    // MARK: Content
+    // MARK: Supported Orientations
     
-    func updateConnectionStatusLabel() {
-        // Do stuff
-        switch connectionStatus {
-        case .disconnected:
-            connectionStatusLabel.text = ASAPPLocalizedString("You are not connected.")
-            connectionStatusLabel.alpha = 0.5
-            break
-         
-        case .connecting:
-            connectionStatusLabel.text = ASAPPLocalizedString("Connecting...")
-            connectionStatusLabel.alpha = 0.3
-            break
-            
-        case .connected:
-            connectionStatusLabel.text = ASAPPLocalizedString("Connected")
-            connectionStatusLabel.alpha = 0.0
-            break
-        }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
     
     // MARK: Layout
@@ -221,9 +186,9 @@ class ChatWelcomeViewController: UIViewController {
         blurredBgView.frame = view.bounds
         blurredColorLayer.frame = blurredBgView.bounds
         
-        let additionalTextInset: CGFloat = 5
+        let additionalTextInset: CGFloat = 0.0
         let contentWidth = view.bounds.width - contentInset.left - contentInset.right
-        let textWidth = floor(0.85 * contentWidth - 2 * additionalTextInset)
+        let textWidth = floor(0.91 * contentWidth - 2 * additionalTextInset)
         let textLeft = contentInset.left + additionalTextInset
         
         var textTop = contentInset.top
@@ -266,12 +231,6 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
         messageInputView.layoutSubviews()
         
-        // Connection Status
-        let statusTop = messageInputView.frame.maxY + 2
-        let statusHeight = min(contentInset.bottom - 2, ceil(connectionStatusLabel.font.lineHeight))
-        let statusLeft = messageInputView.frame.minX + floor(messageInputView.layer.cornerRadius / 2.0)
-        connectionStatusLabel.frame = CGRect(x: statusLeft, y: statusTop, width: contentWidth, height: statusHeight)
-        
         // Buttons View
         var buttonsTop: CGFloat
         if isExpanded {
@@ -297,6 +256,11 @@ class ChatWelcomeViewController: UIViewController {
         delegate?.chatWelcomeViewController(self, didFinishWithText: message)
     }
     
+    func didTapViewChat() {
+        dismissKeyboard()
+        delegate?.chatWelcomeViewControllerDidTapViewChat(self)
+    }
+    
     func didTapCancel() {
         dismissKeyboard()
         messageInputView.clear()
@@ -313,8 +277,8 @@ class ChatWelcomeViewController: UIViewController {
     let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
     
     func getTitleAndInputPlaceholder() -> (String /* Title */, String /* Placeholder */) {
-        let title = UserDefaults.standard.string(forKey: storageKeyWelcomeTitle) ?? ASAPPLocalizedString("How can we help?")
-        let placeholder = UserDefaults.standard.string(forKey: storageKeyWelcomeInputPlaceholder) ?? ASAPPLocalizedString("Ask a new question...")
+        let title = UserDefaults.standard.string(forKey: storageKeyWelcomeTitle) ?? strings.predictiveWelcomeText
+        let placeholder = UserDefaults.standard.string(forKey: storageKeyWelcomeInputPlaceholder) ?? strings.predictiveInputPlaceholder
         return (title, placeholder)
     }
     
@@ -413,21 +377,33 @@ extension ChatWelcomeViewController {
             messageLabel.text = nil
         }
         
-        buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
-                           otherButtonTitles: appOpenResponse.genericActions,
-                           hideButtonsForAnimation: animated)
         
-        updateFrames()
-        
-        Dispatcher.delay(300) {
-            UIView.animate(withDuration: 0.4, animations: { 
-                self.messageLabel.alpha = 1.0
-                }, completion: { (completed) in
-                    self.buttonsView.animateButtonsIn(true) {
-                        self.viewContentsVisible = true
-                    }
-            })
+        if keyboardOffset > 0 {
+            buttonsView.expanded = false
+            buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
+                               otherButtonTitles: appOpenResponse.genericActions,
+                               hideButtonsForAnimation: animated)
+            buttonsView.animateButtonsIn()
+            viewContentsVisible = true
+        } else {
+            buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
+                               otherButtonTitles: appOpenResponse.genericActions,
+                               hideButtonsForAnimation: animated)
+            
+            updateFrames()
+            
+            Dispatcher.delay(300) {
+                UIView.animate(withDuration: 0.4, animations: {
+                    
+                    self.messageLabel.alpha = 1.0
+                    }, completion: { (completed) in
+                        self.buttonsView.animateButtonsIn(true) {
+                            self.viewContentsVisible = true
+                        }
+                })
+            }
         }
+        
         
         saveTitle(title: appOpenResponse.greeting, placeholder: appOpenResponse.inputPlaceholder)
     }

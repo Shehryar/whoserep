@@ -80,7 +80,7 @@ public class Credentials: NSObject {
     // MARK: Instance Methods
     
     /// Should be performed asynchronously
-    internal func getAuthToken() -> String {
+    internal func getAuthToken() -> String? {
         if let authMacaroon = authMacaroon {
             if authMacaroon.isValid {
                 return authMacaroon.accessToken
@@ -91,13 +91,23 @@ public class Credentials: NSObject {
         
         let authJSON = authProvider()
     
+        // First try
         if let refreshedAuthMacaroon = ASAPPAuthMacaroon.instanceWithJSON(json: authJSON) {
             refreshedAuthMacaroon.save(withCredentials: self)
             authMacaroon = refreshedAuthMacaroon
             return refreshedAuthMacaroon.accessToken
         } else {
-            fatalError("Missing parameters in authProvider: \(authJSON)\n\nTo resolve this error, you must provide the \"access_token\" (String), and optionally, the \"issued_time\" (Date object), and \"expires_in\" (NSTimeInterval).")
+            DebugLogError("Missing parameters in authProvider: \(authJSON)\n\nTo resolve this error, you must provide the \"access_token\" (String), and optionally, the \"issued_time\" (Date object), and \"expires_in\" (NSTimeInterval).")
         }
+        
+        // Retry
+        if let refreshedAuthMacaroon = ASAPPAuthMacaroon.instanceWithJSON(json: authJSON) {
+            refreshedAuthMacaroon.save(withCredentials: self)
+            authMacaroon = refreshedAuthMacaroon
+            return refreshedAuthMacaroon.accessToken
+        }
+        
+        return nil
     }
  
     /// Can be performed synchronously

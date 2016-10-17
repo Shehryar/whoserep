@@ -10,7 +10,7 @@ import UIKit
 
 class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     
-    var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 22, bottom: 12, right: 22) {
+    var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16) {
         didSet {
             setNeedsLayout()
         }

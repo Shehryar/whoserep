@@ -21,6 +21,10 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
                 case .equipment:
                     mapView.image = Images.imageEquipmentReturnMap()
                     break
+                    
+                case .device:
+                    mapView.image = Images.imageDeviceTrackingMap()
+                    break
                 }
             }
         }

@@ -11,6 +11,7 @@ import UIKit
 enum SRSMapItemType {
     case tech
     case equipment
+    case device
 }
 
 class SRSMapItem: NSObject, JSONObject {
@@ -30,6 +31,10 @@ class SRSMapItem: NSObject, JSONObject {
                 
             case "equipment":
                 mapItem.imageType = .equipment
+                break
+                
+                case "device":
+                mapItem.imageType = .device
                 break
                 
             default: break

@@ -13,7 +13,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     var srsResponse: SRSResponse? {
         didSet {
             selectedButtonItem = nil
-            buttonItems = srsResponse?.itemList?.buttonItems
+            buttonItems = srsResponse?.buttonItems
         }
     }
     
@@ -28,11 +28,11 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
         didSet {
             
-            if DEMO_CONTENT_ENABLED {
-                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
-                testButton.actionName = "DeviceRestart"
-                buttonItems?.append(testButton)
-            }
+//            if DEMO_CONTENT_ENABLED {
+//                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
+//                testButton.actionName = "DeviceRestart"
+//                buttonItems?.append(testButton)
+//            }
             
             tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: false)
@@ -164,7 +164,12 @@ extension ChatActionableMessageView: UITableViewDataSource {
                 NSKernAttributeName : 1.5
                 ])
             cell.imageTintColor = styles.buttonColor
-            cell.imageView?.isHidden = buttonItem.type == .SRS || buttonItem.type == .Action
+            if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
+                buttonItem.type == .SRS || buttonItem.type == .Action {
+                cell.imageView?.isHidden = true
+            } else {
+                cell.imageView?.isHidden = false
+            }
         } else {
             cell.textLabel?.text = nil
         }

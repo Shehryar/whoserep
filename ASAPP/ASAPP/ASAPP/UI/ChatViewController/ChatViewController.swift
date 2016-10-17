@@ -17,6 +17,8 @@ class ChatViewController: UIViewController {
     
     let styles: ASAPPStyles
     
+    let strings: ASAPPStrings
+    
     let callback: ASAPPCallbackHandler
     
     fileprivate var actionableMessage: SRSResponse?
@@ -47,7 +49,6 @@ class ChatViewController: UIViewController {
     fileprivate var connectionStatus: ChatConnectionStatus = .disconnected {
         didSet {
             connectionStatusView.status = connectionStatus
-            askQuestionVC?.connectionStatus = connectionStatus
         }
     }
     fileprivate var connectedAtLeastOnce = false
@@ -59,8 +60,8 @@ class ChatViewController: UIViewController {
     fileprivate var keyboardRenderedHeight: CGFloat = 0
     
     fileprivate let chatMessagesView: ChatMessagesView
-    fileprivate let chatInputView = ChatInputView()
-    fileprivate let connectionStatusView = ChatConnectionStatusView()
+    fileprivate let chatInputView: ChatInputView
+    fileprivate let connectionStatusView: ChatConnectionStatusView
     fileprivate let suggestedRepliesView = ChatSuggestedRepliesView()
     fileprivate var shouldShowConnectionStatusView: Bool {
         if let delayedDisconnectTime = delayedDisconnectTime {
@@ -90,16 +91,19 @@ class ChatViewController: UIViewController {
     
     init(withCredentials credentials: Credentials,
          styles: ASAPPStyles?,
+         strings: ASAPPStrings?,
          callback: @escaping ASAPPCallbackHandler) {
         
         self.credentials = credentials
         self.styles = styles ?? ASAPPStyles()
+        self.strings = strings ?? ASAPPStrings()
         self.callback = callback
         self.conversationManager = ConversationManager(withCredentials: credentials,
                                                        environment: credentials.environment)
-        self.chatMessagesView = ChatMessagesView(withCredentials: credentials)
+        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials, styles: self.styles, strings: self.strings)
+        self.chatInputView = ChatInputView(styles: self.styles, strings: self.strings)
         self.originalSearchQuery = UserDefaults.standard.string(forKey: ORIGINAL_SEARCH_QUERY_KEY)
-        
+        self.connectionStatusView = ChatConnectionStatusView(styles: self.styles, strings: self.strings)
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
@@ -108,34 +112,24 @@ class ChatViewController: UIViewController {
         
         // Buttons
         
-        let askAQuestionButton = Button()
-        askAQuestionButton.insetLeft = 0
-        askAQuestionButton.image = Images.buttonAsk()
-        askAQuestionButton.imageSize = CGSize(width: 45, height: 25)
-        askAQuestionButton.imageIgnoresForegroundColor = true
-        askAQuestionButton.adjustsOpacityForState = true
-        askAQuestionButton.onTap = { [weak self] in
-            self?.setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
-        }
-        askAQuestionButton.sizeToFit()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: askAQuestionButton)
+        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
+                                                                font: self.styles.navBarButtonFont,
+                                                                textColor: self.styles.navBarButtonForegroundColor,
+                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                style: .ask,
+                                                                target: self,
+                                                                action: #selector(ChatViewController.showWelcomeView))
+        navigationItem.leftBarButtonItem = askButton
         
-        let closeButton = Button()
-        closeButton.insetRight = 0
-        closeButton.image = Images.buttonCloseLight()
-        closeButton.imageSize = CGSize(width: 24, height: 24)
-        closeButton.imageIgnoresForegroundColor = true
-        closeButton.adjustsOpacityForState = true
-        closeButton.onTap = { [weak self] in
-            self?.dismissChatViewController()
-        }
-        closeButton.sizeToFit()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
+                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                   target: self,
+                                                                   action: #selector(ChatViewController.dismissChatViewController))
+        navigationItem.rightBarButtonItem = closeButton
         
         // Subviews
         
         chatMessagesView.delegate = self
-        chatMessagesView.applyStyles(self.styles)
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         
         if let mostRecentEvent = chatMessagesView.mostRecentEvent {
@@ -150,7 +144,6 @@ class ChatViewController: UIViewController {
         }
         
         chatInputView.delegate = self
-        chatInputView.applyStyles(self.styles)
         chatInputView.layer.shadowColor = UIColor.black.cgColor
         chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
         chatInputView.layer.shadowRadius = 2
@@ -159,7 +152,6 @@ class ChatViewController: UIViewController {
         suggestedRepliesView.delegate = self
         suggestedRepliesView.applyStyles(self.styles)
         
-        connectionStatusView.applyStyles(self.styles)
         connectionStatusView.onTapToConnect = { [weak self] in
             if let blockSelf = self {
                 blockSelf.connectionStatus = .connecting
@@ -172,7 +164,9 @@ class ChatViewController: UIViewController {
         
         // Ask a Question View Controller
         
-        askQuestionVC = ChatWelcomeViewController(appOpenResponse: nil, styles: styles)
+        askQuestionVC = ChatWelcomeViewController(appOpenResponse: nil,
+                                                  styles: self.styles,
+                                                  strings: self.strings)
         if let askQuestionVC = askQuestionVC {
             askQuestionVC.delegate = self
             askQuestionNavController = UINavigationController(rootViewController: askQuestionVC)
@@ -195,6 +189,10 @@ class ChatViewController: UIViewController {
                 hapticFeedbackGenerator.prepare()
             }
         }
+    }
+    
+    func showWelcomeView() {
+        setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -220,6 +218,7 @@ class ChatViewController: UIViewController {
         
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.isTranslucent = true
+            navigationBar.backgroundColor = UIColor.white
             if styles.navBarBackgroundColor.isDark() {
                 navigationBar.barStyle = .blackTranslucent
                 if styles.navBarBackgroundColor != UIColor.black {
@@ -316,15 +315,21 @@ class ChatViewController: UIViewController {
         }
     }
     
+    // MARK: Supported Orientations
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     // MARK: Updates
     
     func updateViewForLiveChat() {
         if liveChat {
             chatInputView.displayMediaButton = true
-            chatInputView.placeholderText = ASAPPLocalizedString("Enter a message...")
+            chatInputView.placeholderText = strings.chatInputPlaceholder
         } else {
             chatInputView.displayMediaButton = false
-            chatInputView.placeholderText = ASAPPLocalizedString("Ask a new question...")
+            chatInputView.placeholderText = strings.predictiveInputPlaceholder
         }
     }
 
@@ -415,7 +420,7 @@ extension ChatViewController {
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom()
         if animated {
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.35, animations: {
                 self.updateFrames()
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self.chatMessagesView.scrollToBottomAnimated(false)
@@ -560,6 +565,14 @@ extension ChatViewController: ChatMessagesViewDelegate {
         showSuggestedRepliesViewIfNecessary(withEvent: event)
     }
     
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event) {
+        if event == chatMessagesView.mostRecentEvent {
+            if let actionableMessage = event.srsResponse {
+                suggestedRepliesView.reloadButtonItemsForActionableMessage(actionableMessage)
+            }
+        }
+    }
+    
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {
         view.endEditing(true)
     }
@@ -615,7 +628,9 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         self.chatMessagesView.scrollToBottomAnimated(false)
         
         setAskQuestionViewControllerVisible(false, animated: true) {
-            self.sendMessage(withText: queryText)
+            Dispatcher.delay(250, closure: {
+                self.sendMessage(withText: queryText)
+            })
         }
     }
     
@@ -666,7 +681,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
             return
         }
         guard let srsResponse = event.srsResponse,
-            let _ = srsResponse.itemList?.buttonItems else {
+            let _ = srsResponse.buttonItems else {
                 return
         }
         
@@ -674,7 +689,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     }
     
     func showSuggestedRepliesView(withSRSResponse srsResponse: SRSResponse, animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard srsResponse.itemList?.buttonItems != nil else { return }
+        guard srsResponse.buttonItems != nil else { return }
         
         actionableMessage = srsResponse
         suggestedRepliesView.setActionableMessage(srsResponse, animated: animated)
@@ -729,10 +744,16 @@ extension ChatViewController: ConversationManagerDelegate {
                         Dispatcher.delay(1200, closure: {
                             self.handleSRSButtonItemSelection(immediateAction)
                         })
-                    } else if srsResponse.itemList?.buttonItems != nil {
-                        Dispatcher.delay(200, closure: { [weak self] in
-                            self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
-                            })
+                    } else if srsResponse.buttonItems != nil {
+                        if self.suggestedRepliesView.frame.minY < self.view.bounds.height {
+                            Dispatcher.delay(200, closure: { [weak self] in
+                                self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
+                                })
+                        } else {
+                            Dispatcher.delay(1000, closure: { [weak self] in
+                                self?.showSuggestedRepliesView(withSRSResponse: srsResponse)
+                                })
+                        }
                     } else {
                         self.clearSuggestedRepliesView()
                     }

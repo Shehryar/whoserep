@@ -37,22 +37,17 @@ class Images: NSObject {
         return imageWithName("icon-checkmark", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
-    class func buttonAsk() -> UIImage? {
-        return imageWithName("button-ask")
+    class func buttonAskBG(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("button-bg-ask", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
     
-    class func buttonViewChat() -> UIImage? {
-        return imageWithName("button-view-chat")
+    class func buttonRespondBG(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("button-bg-respond", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
-    
-    class func buttonCloseDark() -> UIImage? {
-        return imageWithName("button-close-dark")
+    class func buttonCloseBG(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
+        return imageWithName("button-bg-close", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
-    
-    class func buttonCloseLight() -> UIImage? {
-        return imageWithName("button-close-light")
-    }
-    
+
     class func tileImageDash(withTintColor tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         return imageWithName("bg-dash-tile", tintColor: tintColor, fillColor: fillColor, alpha: alpha)
     }
@@ -76,6 +71,10 @@ class Images: NSObject {
     
     class func imageEquipmentReturnMap() -> UIImage? {
         return imageWithName("map-equipment")
+    }
+    
+    class func imageDeviceTrackingMap() -> UIImage? {
+        return imageWithName("map-device")
     }
     
     class func imageTechLocationMap() -> UIImage? {

@@ -36,7 +36,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 3, left: 25, bottom: 3, right: 25) {
+    var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -326,27 +326,14 @@ extension ChatBubbleCell {
     }
     
     internal func performAnimation() {
-        var animationBeginCenter = CGPoint(x: 0, y: bounds.height - contentInset.bottom)
-        
-        var animationEndCenter = CGPoint()
-        if bubbleView.bounds.isEmpty {
-            let messageSize = bubbleView.sizeThatFits(bounds.size)
-            animationEndCenter.y = bounds.height - contentInset.bottom - messageSize.height / 2.0
-            if isReply {
-                animationEndCenter.x = contentInset.left + messageSize.width / 2.0
-            } else {
-                animationEndCenter.x = bounds.width - contentInset.right - messageSize.width / 2.0
-            }
-        } else {
-            animationEndCenter = bubbleView.center
-        }
-        animationBeginCenter.x = animationEndCenter.x
-        
+        let animationEndCenter = bubbleView.center
+        var animationBeginCenter = bubbleView.center
+        animationBeginCenter.y += 12
         
         bubbleView.alpha = 0
         bubbleView.center = animationBeginCenter
         
-        UIView.animateKeyframes(withDuration: 0.2, delay: 0, options: .beginFromCurrentState, animations: {
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: .beginFromCurrentState, animations: {
             self.bubbleView.alpha = 1
             self.bubbleView.center = animationEndCenter
             }, completion: { (completed) in

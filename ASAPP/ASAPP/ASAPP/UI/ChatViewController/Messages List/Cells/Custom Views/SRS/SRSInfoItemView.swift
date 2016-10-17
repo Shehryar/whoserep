@@ -165,7 +165,7 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (labelSize, valueSize) = labelSizesForSize(bounds.size)
+        let (labelSize, valueSize) = labelSizesForSize(size)
         
         if orientation == .vertical {
             var margin: CGFloat = 0

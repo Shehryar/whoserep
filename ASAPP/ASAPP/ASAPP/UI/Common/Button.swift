@@ -38,9 +38,21 @@ class Button: UIView {
         }
     }
     
+    var foregroundImage: UIImage? {
+        didSet {
+            foregroundImageView.image = foregroundImage
+            setNeedsLayout()
+        }
+    }
+    
     var imageSize = CGSize(width: 20, height: 20) {
         didSet { setNeedsLayout() }
     }
+    
+    var foregroundImageSize = CGSize(width: 20, height: 20) {
+        didSet { setNeedsLayout() }
+    }
+
     
     var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16) {
         didSet { setNeedsLayout() }
@@ -141,6 +153,8 @@ class Button: UIView {
     
     fileprivate let imageView = UIImageView()
     
+    fileprivate let foregroundImageView = UIImageView()
+    
     fileprivate var isTouching = false {
         didSet {
             updateButtonDisplay()
@@ -160,6 +174,10 @@ class Button: UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
+        
+        foregroundImageView.contentMode = .scaleAspectFit
+        foregroundImageView.clipsToBounds = true
+        contentView.addSubview(foregroundImageView)
         
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
@@ -271,6 +289,9 @@ extension Button {
         let contentLeft = floor((bounds.width - contentWidth) / 2.0)
         
         imageView.frame = CGRect(x: contentLeft, y: imageTop, width: imageWidth, height: imageSize.height)
+        foregroundImageView.frame = CGRect(x: 0, y: 0, width: foregroundImageSize.width, height: foregroundImageSize.height)
+        foregroundImageView.center = CGPoint(x: imageView.frame.midX,
+                                             y: imageView.frame.midY)
         label.frame = CGRect(x: contentLeft + imageWidth + imageMargin, y: titleTop, width: titleWidth, height: titleHeight)
     }
     

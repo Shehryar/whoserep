@@ -22,6 +22,8 @@ class ChatWelcomeButtonsView: UIView {
     
     let styles: ASAPPStyles
     
+    let strings: ASAPPStrings
+    
     fileprivate var waitingToAnimateIn = false
     
     fileprivate var relatedButtons = [Button]()
@@ -39,20 +41,21 @@ class ChatWelcomeButtonsView: UIView {
     fileprivate var animating = false
     
     fileprivate var shouldDisplayOtherLabel: Bool {
-        return relatedButtons.count > 0 && otherButtons.count > 0
+        return relatedButtons.count > 0 && otherButtons.count > 0 && expanded
     }
     
     // MARK: Initialization
     
-    required init(styles: ASAPPStyles?) {
-        self.styles = styles ?? ASAPPStyles()
+    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
+        self.styles = styles
+        self.strings = strings
         super.init(frame: CGRect.zero)
         
-        otherLabel.font = styles?.detailFont
-        otherLabel.textColor = Colors.steelMed50Color()
-        otherLabel.attributedText = NSAttributedString(string: ASAPPLocalizedString("OTHER SUGGESTIONS:"),
+        otherLabel.font = styles.detailFont
+        otherLabel.textColor = self.styles.askViewDetailLabelColor
+        otherLabel.attributedText = NSAttributedString(string: strings.predictiveOtherSuggestions,
                                                        attributes: [
-                                                        NSFontAttributeName : self.styles.detailFont,
+                                                        NSFontAttributeName : styles.detailFont,
                                                         NSKernAttributeName : 1
             ])
         
@@ -72,11 +75,11 @@ class ChatWelcomeButtonsView: UIView {
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
         if highlighted {
-            button.setBackgroundColor(UIColor(red:0.492, green:0.513, blue:0.547, alpha:1), forState: .normal)
-            button.setBackgroundColor(UIColor(red:0.492, green:0.513, blue:0.547, alpha:1).withAlphaComponent(0.5), forState: .highlighted)
+            button.setBackgroundColor(styles.askViewButtonBgColor, forState: .normal)
+            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
         } else {
-            button.setBackgroundColor(UIColor(red:0.444, green:0.462, blue:0.509, alpha:1), forState: .normal)
-            button.setBackgroundColor(UIColor(red:0.444, green:0.462, blue:0.509, alpha:1).withAlphaComponent(0.5), forState: .highlighted)
+            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
+            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
         button.font = styles.bodyFont.withSize(15)
         button.layer.cornerRadius = 18.0
@@ -96,7 +99,7 @@ class ChatWelcomeButtonsView: UIView {
     }
     
     func updateSubviewAlphas() {
-        guard !animating && !waitingToAnimateIn else { return }
+        guard !waitingToAnimateIn else { return }
         
         for view in subviews {
             if view == otherLabel {
@@ -149,7 +152,7 @@ class ChatWelcomeButtonsView: UIView {
             top = button.frame.maxY + buttonSpacing
         }
         
-        if !animating && !waitingToAnimateIn {
+        if !waitingToAnimateIn {
             updateSubviewAlphas()
         }
     }
@@ -234,6 +237,7 @@ class ChatWelcomeButtonsView: UIView {
         
         updateFrames()
         animating = true
+        waitingToAnimateIn = false
         
         // Get array of views to animate
         
@@ -261,14 +265,14 @@ class ChatWelcomeButtonsView: UIView {
                            delay: delay,
                            options: .curveEaseOut,
                            animations: {
+                            view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
                             if self.viewIsWithinVisibleHeight(view) {
                                 view.alpha = 1
                             }
-                            view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
             }) { (completed) in
                 if view == viewsToAnimate.last {
                     self.animating = false
-                    self.waitingToAnimateIn = false
+                    
                     self.setNeedsLayout()
                     completion?()
                 }

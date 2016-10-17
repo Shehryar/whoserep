@@ -8,12 +8,11 @@
 
 import Foundation
 
+internal var DEMO_CONTENT_ENABLED = false
+
 // MARK:- Internal Constants
 
 internal let ASAPPBundle = Bundle(for: ASAPP.self)
-
-internal let DEMO_CONTENT_ENABLED = false
-
 
 // MARK:- ASAPP Object
 
@@ -40,8 +39,9 @@ public class ASAPP: NSObject {
         return Fonts.loadedFonts()
     }
     
-    /// Returns a new buttonView that can be manually added to a view.
+    // MARK:- Chat Button
     
+    /// Returns a new buttonView that can be manually added to a view.
     public class func createChatButton(company: String,
                                        customerId: String,
                                        environment: ASAPPEnvironment,
@@ -49,7 +49,11 @@ public class ASAPP: NSObject {
                                        contextProvider: @escaping ASAPPContextProvider,
                                        callbackHandler: @escaping ASAPPCallbackHandler,
                                        styles: ASAPPStyles?,
+                                       strings: ASAPPStrings?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
+        
+//        DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
+//        DebugLog("Demo Content Enabled: \(DEMO_CONTENT_ENABLED)")
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,
@@ -62,19 +66,45 @@ public class ASAPP: NSObject {
         
         return ASAPPButton(withCredentials: credentials,
                            presentingViewController: presentingViewController,
-                           styles: styles ?? ASAPPStyles.comcastStyles(),
+                           styles: styles ?? ASAPPStyles.stylesForCompany(company) ?? ASAPPStyles(),
+                           strings: strings ?? ASAPPStrings(),
                            callback: callbackHandler)
     }
     
-    /// Returns a UINavigationController containing a new instance of the chat view controller.
+    public class func createChatButton(company: String,
+                                       customerId: String,
+                                       environment: ASAPPEnvironment,
+                                       authProvider: @escaping ASAPPAuthProvider,
+                                       contextProvider: @escaping ASAPPContextProvider,
+                                       callbackHandler: @escaping ASAPPCallbackHandler,
+                                       styles: ASAPPStyles?,
+                                       presentingViewController: UIViewController) -> ASAPPButton {
+
+        return createChatButton(company: company,
+                                customerId: customerId,
+                                environment: environment,
+                                authProvider: authProvider,
+                                contextProvider: contextProvider,
+                                callbackHandler: callbackHandler,
+                                styles: styles,
+                                strings: nil,
+                                presentingViewController: presentingViewController)
+    }
     
+    // MARK:- Chat View Controller
+    
+    /// Returns a UINavigationController containing a new instance of the chat view controller.
     public class func createChatViewController(company: String,
                                                customerId: String,
                                                environment: ASAPPEnvironment,
                                                authProvider: @escaping ASAPPAuthProvider,
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler,
-                                               styles: ASAPPStyles?) -> UIViewController {
+                                               styles: ASAPPStyles?,
+                                               strings: ASAPPStrings?) -> UIViewController {
+        
+//        DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
+//        DebugLog("Demo Content Enabled: \(DEMO_CONTENT_ENABLED)")
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,
@@ -86,14 +116,60 @@ public class ASAPP: NSObject {
                                       callbackHandler: callbackHandler)
         
         let chatViewController = ChatViewController(withCredentials: credentials,
-                                                    styles: styles ?? ASAPPStyles.comcastStyles(),
+                                                    styles: styles ?? ASAPPStyles.stylesForCompany(company),
+                                                    strings: strings ?? ASAPPStrings(),
                                                     callback: callbackHandler)
         
         return NavigationController(rootViewController: chatViewController)
     }
+    
+    public class func createChatViewController(company: String,
+                                               customerId: String,
+                                               environment: ASAPPEnvironment,
+                                               authProvider: @escaping ASAPPAuthProvider,
+                                               contextProvider: @escaping ASAPPContextProvider,
+                                               callbackHandler: @escaping ASAPPCallbackHandler,
+                                               styles: ASAPPStyles?) -> UIViewController {
+        
+        return createChatViewController(company: company,
+                                        customerId: customerId,
+                                        environment: environment,
+                                        authProvider: authProvider,
+                                        contextProvider: contextProvider,
+                                        callbackHandler: callbackHandler,
+                                        styles: styles,
+                                        strings: nil)
+    }
+    
+    // MARK:
+    
+    public class func newStrings() -> ASAPPStrings {
+        return ASAPPStrings()
+    }
+    
+    public class func newStyles() -> ASAPPStyles {
+        return ASAPPStyles()
+    }
+    
+    public class func stylesForCompany(_ company: String) -> ASAPPStyles {
+        return ASAPPStyles.stylesForCompany(company) ?? ASAPPStyles()
+    }
+    
+    // MARK: Private
+    
+    fileprivate class func shouldEnableDemoContent(forEnvironment environment: ASAPPEnvironment) -> Bool {
+        if environment == .staging {
+            if UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED") {
+                return true
+            }
+        }
+        return false
+    }
 }
 
+//
 // MARK:- Debug Logging
+//
 
 public enum ASAPPLogLevel: Int {
     case None = 0
@@ -101,80 +177,10 @@ public enum ASAPPLogLevel: Int {
     case Debug = 3
 }
 
-internal var DEBUG_LOG_LEVEL = ASAPPLogLevel.None
+internal var DEBUG_LOG_LEVEL = ASAPPLogLevel.Errors
 
 public extension ASAPP {
     public class func setLogLevel(logLevel: ASAPPLogLevel) {
         DEBUG_LOG_LEVEL = logLevel
     }
 }
-
-
-/***  Remove this code after successul integration
- 
-// MARK:- Deprecated API
-
-public class SRS: NSObject {
-    
-    public var button: ASAPPButton!
-    
-    // MARK: Initialization
-    
-    required public init(withOrigin origin: CGPoint,
-                         authProvider: @escaping ASAPPAuthProvider,
-                         contextProvider: @escaping ASAPPContextProvider,
-                         callback: @escaping ASAPPCallbackHandler,
-                         presentingViewController: UIViewController,
-                         environment: ASAPPEnvironment) {
-        super.init()
-        
-        let context = contextProvider()
-        guard let userToken = context[ASAPP.CONTEXT_KEY_CUST_GUID] as? String else {
-            fatalError("Missing parameter \"\(ASAPP.CONTEXT_KEY_CUST_GUID)\" in contextProvider response:\n\(context)\n\nTo resolve this error, you must provide the \"\(ASAPP.CONTEXT_KEY_CUST_GUID)\" (String) to identify your user.\n\nAlternatively, you could use the updated ASAPP object interface to create your ASAPP-powered chat.")
-        }
-        
-        let creds = Credentials(withCompany: "comcast",
-                                userToken: userToken,
-                                isCustomer: true,
-                                targetCustomerToken: nil,
-                                environment: environment,
-                                authProvider: authProvider,
-                                contextProvider: contextProvider,
-                                callbackHandler: callback)
-        
-        button = ASAPPButton(withCredentials: creds,
-                             presentingViewController: presentingViewController,
-                             styles: ASAPPStyles.comcastStyles(),
-                             callback: callback)
-        button.frame.origin = origin
-        
-        UIApplication.shared.keyWindow?.addSubview(button)
-    }
-    
-    convenience public init(withOrigin origin: CGPoint,
-                            authProvider: @escaping (() -> [String : Any]),
-                            contextProvider: @escaping ASAPPContextProvider,
-                            callback: @escaping ASAPPCallbackHandler) {
-        
-        guard let presentingViewController = UIApplication.shared.keyWindow?.rootViewController else {
-            fatalError("Unable to find the keyWindow's rootViewController. Please make sure you are calling this method after setting the keyWindow and its rootViewController. Alternatively, you can use the init method that allows you to specify a specific viewController as the presentingViewController.  Even better yet, you could use the ASAPP object interface to use the most up-to-date API.")
-        }
-        
-        self.init(withOrigin: origin,
-                  authProvider: authProvider,
-                  contextProvider: contextProvider,
-                  callback: callback,
-                  presentingViewController: presentingViewController,
-                  environment: .production)
-    }
-    
-    // MARK: Instance Methods / Convenience Things
-    
-    public var isHidden: Bool {
-        set { button.isHidden = newValue }
-        get { return button.isHidden }
-    }
-}
-
- ***/
-

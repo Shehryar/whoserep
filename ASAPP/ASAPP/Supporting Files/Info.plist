@@ -20,15 +20,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows users to take a picture and upload to the chat.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows users to upload images to the chat.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows users to upload images to the chat.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allows users to take a picture and upload to the chat.</string>
 </dict>
 </plist>

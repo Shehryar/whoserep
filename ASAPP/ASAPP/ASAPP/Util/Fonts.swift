@@ -28,15 +28,26 @@ class Fonts: NSObject {
         Fonts.loadFont("XFINITYSans-Reg", type: "otf")
         Fonts.loadFont("XFINITYSans-Bold", type: "ttf")
         Fonts.loadFont("XFINITYSans-BoldCond", type: "ttf")
+        
+        // Sprint Fonts
+        Fonts.loadFont("SprintSans-Black", type: "ttf")
+        Fonts.loadFont("SprintSans-Bold", type: "ttf")
+        Fonts.loadFont("SprintSans-Medium", type: "ttf")
+        Fonts.loadFont("SprintSans-RegularItalic", type: "ttf")
+        Fonts.loadFont("SprintSans-Regular", type: "ttf")
+        
+//        loadedFonts()
     }
     
     class func loadedFonts() -> [String] {
         var fontNames = [String]()
         for family in UIFont.familyNames {
-            if family.localizedCaseInsensitiveContains("lato") || family.localizedCaseInsensitiveContains("XFINITY") {
-                print("\n\(family):")
+            if family.localizedCaseInsensitiveContains("lato")
+                || family.localizedCaseInsensitiveContains("XFINITY")
+                || family.localizedCaseInsensitiveContains("sprint") {
+                DebugLog("\n\(family):")
                 for font in UIFont.fontNames(forFamilyName: family) {
-                    print("  \(font)")
+                    DebugLog("  \(font)")
                     fontNames.append(font)
                 }
             }
@@ -113,5 +124,27 @@ class Fonts: NSObject {
     
     class func xfinitySansThinFont(withSize fontSize: CGFloat = 16) -> UIFont {
         return UIFont(name: "XFINITYSans-Thin", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    // MARK:- SprintSans Fonts
+    
+    class func sprintSansRegularFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "SprintSans-Regular", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func sprintSansRegularItalicFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "SprintSans-RegularItalic", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func sprintSansMediumFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "SprintSans-Medium", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func sprintSansBoldFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "SprintSans-Bold", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func sprintSansBlackFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "SprintSans-Black", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
     }
 }

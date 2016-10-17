@@ -8,27 +8,29 @@
 
 import UIKit
 
-open class ASAPPButton: UIView {
+public class ASAPPButton: UIView {
     
     /// The ViewController that will present the ASAPP view controller
     let presentingViewController: UIViewController
     
-    let credentials: Credentials?
+    let credentials: Credentials
     
     let styles: ASAPPStyles
     
+    let strings: ASAPPStrings
+    
     let callback: ASAPPCallbackHandler
     
-    open var expansionPresentationAnimationDisabled: Bool = false
+    public var expansionPresentationAnimationDisabled: Bool = false
     
-    open var shadowDisabled: Bool = false {
+    public var shadowDisabled: Bool = false {
         didSet {
             updateButtonDisplay()
         }
     }
     
     /// This will be called after the user taps the button and the ASAPP view controll is presented
-    open var onTapListenerBlock: (() -> Void)?
+    public var onTapListenerBlock: (() -> Void)?
     
     // MARK: Private Properties: UI
     
@@ -70,7 +72,7 @@ open class ASAPPButton: UIView {
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
-        label.attributedText = NSAttributedString(string: ASAPPLocalizedString("HELP"), attributes: [
+        label.attributedText = NSAttributedString(string: strings.asappButton, attributes: [
             NSFontAttributeName : styles.asappButtonFont,
             NSForegroundColorAttributeName : styles.asappButtonForegroundColor,
             NSKernAttributeName : 1.3
@@ -92,13 +94,15 @@ open class ASAPPButton: UIView {
     
     required public init(withCredentials credentials: Credentials,
                          presentingViewController: UIViewController,
-                         styles: ASAPPStyles? = nil,
+                         styles: ASAPPStyles,
+                         strings: ASAPPStrings,
                          callback: @escaping ASAPPCallbackHandler) {
         
         self.credentials = credentials
         self.presentingViewController = presentingViewController
         self.callback = callback
-        self.styles = styles ?? ASAPPStyles()
+        self.styles = styles
+        self.strings = strings
         
         super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
         commonInit()
@@ -114,7 +118,7 @@ open class ASAPPButton: UIView {
     
     // MARK: Layout
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         let currentAlpha = contentView.alpha
@@ -132,7 +136,7 @@ open class ASAPPButton: UIView {
         contentView.transform = currentTransform
     }
     
-    open override var intrinsicContentSize : CGSize {
+    public override var intrinsicContentSize : CGSize {
         return CGSize(width: 50, height: 50)
     }
     
@@ -180,26 +184,26 @@ extension ASAPPButton {
 // MARK:- Touches
 
 extension ASAPPButton {
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesInBounds(touches) {
             isTouching = true
         }
     }
     
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && !touchesInBounds(touches) {
             touchesCancelled(touches, with: event)
         }
     }
     
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches) {
             didTap()
         }
         isTouching = false
     }
     
-    open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
     }
     
@@ -220,13 +224,9 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     func didTap() {
-        guard let credentials = credentials else {
-            DebugLogError("Missing credentials in ASAPPButton.")
-            return
-        }
-        
         let chatViewController = ChatViewController(withCredentials: credentials,
                                                     styles: styles,
+                                                    strings: strings,
                                                     callback: callback)
         
         let navigationController = NavigationController(rootViewController: chatViewController)

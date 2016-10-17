@@ -17,7 +17,14 @@ class SRSResponse: NSObject, JSONObject {
     var displayType: SRSResponseDisplayType
     var title: String?
     var classification: String?
+    
     var itemList: SRSItemList?
+    
+    var itemCarousel: SRSItemCarousel?
+    
+    var buttonItems: [SRSButtonItem]? {
+        return itemList?.buttonItems ?? itemCarousel?.buttonItems
+    }
     
     var immediateAction: SRSButtonItem? {
         return itemList?.immediateActionButtonItem
@@ -49,7 +56,12 @@ class SRSResponse: NSObject, JSONObject {
         let response = SRSResponse(displayType: type)
         response.title = srsJSON["title"] as? String
         response.classification = srsJSON["classification"] as? String
-        response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemList
+        if srsJSON["contentType"] as? String == "carousel" {
+            response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemCarousel
+        } else {
+            response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemList
+        }
+        
         
         if DEMO_CONTENT_ENABLED {
             if let classification = response.classification {

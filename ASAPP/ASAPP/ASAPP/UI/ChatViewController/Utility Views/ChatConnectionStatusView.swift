@@ -14,8 +14,12 @@ enum ChatConnectionStatus {
     case disconnected
 }
 
-class ChatConnectionStatusView: UIView, ASAPPStyleable {
+class ChatConnectionStatusView: UIView {
 
+    let styles: ASAPPStyles
+    
+    let strings: ASAPPStrings
+    
     var message: String? {
         didSet {
             label.text = message
@@ -27,18 +31,18 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
             switch status {
             case .connected:
                 spinner.stopAnimating()
-                message =  ASAPPLocalizedString("Connection Established")
+                message =  strings.connectionBannerConnected
                 break
                 
             case .connecting:
                 spinner.startAnimating()
-                message = ASAPPLocalizedString("Connecting...")
+                message = strings.connectionBannerConnecting
                 break
                 
                 
             case .disconnected:
                 spinner.stopAnimating()
-                message = ASAPPLocalizedString("Not connected. Retry connection?")
+                message = strings.connectionBannerDisconnected
                 break
             }
             
@@ -57,9 +61,17 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
     fileprivate let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     
     // MARK: Init
-    
-    func commonInit() {
-        applyStyles(styles)
+
+
+    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
+        self.styles = styles
+        self.strings = strings
+        super.init(frame: .zero)
+        
+        label.font = styles.detailFont
+        label.textAlignment = .center
+        
+        updateColors()
         
         addSubview(label)
         addSubview(spinner)
@@ -67,28 +79,11 @@ class ChatConnectionStatusView: UIView, ASAPPStyleable {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatConnectionStatusView.didTap)))
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: ASAPPStyleable
     
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-    
-        label.font = styles.detailFont
-        label.textAlignment = .center
-        
-        updateColors()
-    }
+    // MARK: Styling
     
     func updateColors() {
         switch status {
