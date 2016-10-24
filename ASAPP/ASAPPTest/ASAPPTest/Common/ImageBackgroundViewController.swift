@@ -8,35 +8,9 @@
 
 import UIKit
 
-class ImageBackgroundViewController: UIViewController {
+class ImageBackgroundViewController: BaseViewController {
 
     let imageView = UIImageView()
-    
-    var statusBarStyle: UIStatusBarStyle = .default {
-        didSet {
-            setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return statusBarStyle
-    }
-    
-    // MARK:- Initialization
-    
-    func commonInit() {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        commonInit()
-    }
     
     // MARK:- View
     

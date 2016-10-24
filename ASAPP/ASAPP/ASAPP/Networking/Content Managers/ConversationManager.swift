@@ -8,10 +8,7 @@
 
 import Foundation
 
-// MARK:- DEBUG FLAGS
-
-let TEST_ACTIONABLE_MESSAGES_LOCALLY = true
-
+typealias ConversationManagerRequestBlock = ((_ fetchedEvents: [Event]?, _ error: String?) -> Void)
 
 // MARK:- ConversationManagerDelegate
 
@@ -20,32 +17,38 @@ protocol ConversationManagerDelegate {
     func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event)
     func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event)
     func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool)
+    func conversationManager(_ manager: ConversationManager, conversationEndEventReceived event: Event)
 }
 
 // MARK:- ConversationManager
 
 class ConversationManager: NSObject {
     
-    typealias ConversationManagerRequestBlock = ((_ fetchedEvents: [Event]?, _ error: String?) -> Void)
+    // MARK: Public Properties
     
-    // MARK: Properties
-    
-    var credentials: Credentials
+    let credentials: Credentials
     
     var delegate: ConversationManagerDelegate?
     
+    var isConnected: Bool {
+        return socketConnection.isConnected
+    }
+    
     // MARK: Private Properties
     
-    internal var socketConnection: SocketConnection
+    let socketConnection: SocketConnection
     
-    internal var fileStore: ConversationFileStore
+    let fileStore: ConversationFileStore
+    
+    let requestPrefix: String
     
     // MARK: Initialization
     
-    init(withCredentials credentials: Credentials, environment: ASAPPEnvironment) {
+    init(withCredentials credentials: Credentials) {
         self.credentials = credentials
         self.socketConnection = SocketConnection(withCredentials: self.credentials)
         self.fileStore = ConversationFileStore(credentials: self.credentials)
+        self.requestPrefix = credentials.isCustomer ? "customer/" : "rep/"
         super.init()
         
         self.socketConnection.delegate = self
@@ -56,17 +59,20 @@ class ConversationManager: NSObject {
     }
 }
 
-// MARK:- Network Actions
+// MARK:- Stored Messages 
 
 extension ConversationManager {
-    
-    // MARK: Stored Messages
     
     var storedMessages: [Event] {
         let storedEvents = fileStore.getSavedEvents() ?? [Event]()
         
         return storedEvents
     }
+}
+
+// MARK:- Entering/Leaving a Conversation
+
+extension ConversationManager {
     
     // MARK: Entering/Exiting a Conversation
     
@@ -74,8 +80,23 @@ extension ConversationManager {
         socketConnection.connectIfNeeded()
     }
     
-    func isConnected() -> Bool {
-        return socketConnection.isConnected
+    func startSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) {
+        sendSRSRequest(path: "srs/AppOpen", params: nil) { (incomingMessage) in
+            
+            if self.demo_OverrideStartSRS(completion: completion) {
+                return
+            }
+            
+            guard incomingMessage.type == .Response,
+                let data = incomingMessage.bodyString?.data(using: String.Encoding.utf8),
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject],
+                let appOpenResponse = SRSAppOpenResponse.instanceWithJSON(jsonObject) as? SRSAppOpenResponse
+                else {
+                    return
+            }
+            
+            completion?(appOpenResponse)
+        }
     }
     
     func exitConversation() {
@@ -83,12 +104,65 @@ extension ConversationManager {
         socketConnection.disconnect()
     }
     
-    // MARK: Sending Messages
+    func saveCurrentEvents() {
+        fileStore.save()
+    }
+}
+
+// MARK:- Fetching Events
+
+extension ConversationManager {
     
-    func sendMessage(_ message: String, completion: (() -> Void)? = nil) {
-        let path = "\(requestPrefix)SendTextMessage"
-        socketConnection.sendRequest(withPath: path, params: ["Text" : message as AnyObject]) { (incomingMessage) in
-            completion?()
+    func getLatestMessages(completion: @escaping ConversationManagerRequestBlock) {
+        getMessageEvents(completion: completion)
+    }
+    
+    func getMessageEvents(afterEvent: Event? = nil, completion: @escaping ConversationManagerRequestBlock) {
+        let path = "\(requestPrefix)GetEvents"
+        let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
+        let params = ["AfterSeq" : afterSeq as AnyObject]
+        
+        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage) in
+            Dispatcher.performOnBackgroundThread {
+                
+                let (eventList, eventsJSONArray, errorMessage) = message.parseEventList()
+                if let eventsJSONArray = eventsJSONArray {
+                    self.fileStore.replaceEventsWithJSONArray(eventsJSONArray: eventsJSONArray)
+                }
+                
+                Dispatcher.performOnMainThread {
+                    completion(eventList, errorMessage)
+                }
+            }
+        }
+    }
+}
+
+// MARK:- Sending Messages (PUBLIC)
+
+extension ConversationManager {
+    
+    func sendTextMessage(_ message: String, completion: (() -> Void)? = nil) {
+        if demo_OverrideMessageSend(message: message) {
+            return
+        }
+        
+        _sendMessage(message, completion: completion)
+    }
+    
+    func sendSRSQuery(_ query: String) {
+        if demo_OverrideMessageSend(message: query) {
+            return
+        }
+        
+        let path = "srs/SendTextMessageAndHierAndTreewalk"
+        let params = [
+            "Text" : query as AnyObject,
+            "SearchQuery" : query as AnyObject
+        ]
+        
+        sendSRSRequest(path: path, params: params) { (incomingMessage) in
+            // No-op for now
         }
     }
     
@@ -111,7 +185,7 @@ extension ConversationManager {
         }
     }
     
-    func updateCurrentUserTypingStatus(_ isTyping: Bool, withText text: String?) {
+    func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
         if credentials.isCustomer {
             let path = "\(requestPrefix)NotifyTypingPreview"
             let params = [ "Text" : text ?? "" ]
@@ -123,146 +197,27 @@ extension ConversationManager {
         }
     }
     
-    // MARK: Fetching Events
-    
-    func getLatestMessages(_ completion: @escaping ConversationManagerRequestBlock) {
-        getMessageEvents { (fetchedEvents, error) in
-            if let fetchedEvents = fetchedEvents {
-                completion(fetchedEvents, error)
-            }
-        }
-    }
-    
-    /// Returns all types of events
-    func getMessageEvents(_ afterEvent: Event? = nil, completion: @escaping ConversationManagerRequestBlock) {
-        let path = "\(requestPrefix)GetEvents"
-        var params = [String : AnyObject]()
-        
-        var afterSeq = 0
-        if let afterEvent = afterEvent {
-            afterSeq = afterEvent.eventLogSeq
-        }
-        params["AfterSeq"] = afterSeq as AnyObject?
-        
-        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage) in
-            self.handleGetMessageEventsResponse(message: message, completion: completion)
-        }
-    }
-    
-    fileprivate func handleGetMessageEventsResponse(message: IncomingMessage, completion: @escaping ConversationManagerRequestBlock) {
-        
-        Dispatcher.performOnBackgroundThread {
-            
-            var fetchedEvents: [Event]?
-            var errorMessage: String?
-            
-            if message.type == .Response {
-                if let fetchedEventsJSON = (message.body?["EventList"] as? [AnyObject] ?? message.body?["Events"] as? [AnyObject]) {
-                    
-                    fetchedEvents = [Event]()
-                    for eventJSON in fetchedEventsJSON {
-                        guard let eventJSON = eventJSON as? [String : AnyObject] else {
-                            continue
-                        }
-                        if let event = Event(withJSON: eventJSON) {
-                            fetchedEvents?.append(event)
-                        }
-                    }
-                    if let fetchedEventsJSON = fetchedEventsJSON as? [[String : AnyObject]]  {
-                        self.fileStore.replaceEventsWithJSONArray(eventsJSONArray: fetchedEventsJSON)
-                    }
-                }
-            } else if message.type == .ResponseError {
-                errorMessage = message.debugError
-            }
-            
-            let numberOfEventsFetched = (fetchedEvents != nil ? fetchedEvents!.count : 0)
-            if numberOfEventsFetched == 0 {
-                errorMessage = errorMessage ?? "No results returned."
-            }
-            
-            DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? "with error: \(errorMessage!)" : "")")
-            
-            Dispatcher.performOnMainThread {
-                completion(fetchedEvents, errorMessage)
-            }
-        }
-    }
-    
-    fileprivate var requestPrefix: String {
-        return credentials.isCustomer ? "customer/" : "rep/"
-    }
-}
-
-// MARK:- SRS
-
-extension ConversationManager {
-    
-    // MARK: SRS Public
-    
-    func startSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) {
-        sendSRSRequest(path: "srs/AppOpen", params: nil) { (incomingMessage) in
-            
-            if let demoResponse = self.demo_AppOpenResponse() {
-                completion?(demoResponse)
-                return
-            }
-            
-            if incomingMessage.type == .Response {
-                if let data = incomingMessage.bodyString?.data(using: String.Encoding.utf8) {
-                    if let  jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject] {
-                        if let object = SRSAppOpenResponse.instanceWithJSON(jsonObject) as? SRSAppOpenResponse {
-                            completion?(object)
-                        } else {
-                            
-                        }
-                    } else {
-                        
-                    }
-                } else {
-                    
-                }
-            }
-        }
-    }
-    
-    /// Original / new-search query to srs
-    func sendMessageAsSRSQuery(_ query: String, completion: (() -> Void)? = nil) {
-        if demo_OverrideMessageSend(message: query, completion: completion) {
-            return
-        }
-        
-        let params = [
-            "Text" : query as AnyObject,
-            "SearchQuery" : query as AnyObject
-        ]
-        
-        sendSRSRequest(path: "srs/SendTextMessageAndHierAndTreewalk", params: params) { (incomingMessage) in
-            completion?()
-        }
-    }
-    
-    func sendSRSButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?, completion: (() -> Void)? = nil) {
-        
-        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
+    func sendButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?) {
+        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: nil) {
             return
         }
         
         switch buttonItem.type {
         case .SRS:
-            if let srsQuery = buttonItem.srsValue {
-                sendSRSTreewalk(srsQuery, withMessage: buttonItem.title, originalSearchQuery: originalSearchQuery)
+            if let classification = buttonItem.srsValue {
+                sendSRSTreewalk(classification: classification, message: buttonItem.title, originalSearchQuery: originalSearchQuery)
             }
             break
             
         case .Action:
-            if let actionName = buttonItem.actionName {
-                DebugLog("Sending action: srs/\(actionName)")
-                sendMessage(buttonItem.title)
-                sendSRSRequest(path: "srs/\(actionName)", params: nil, requestHandler: { (incomingMessage) in
-                    DebugLog("\n\nReceived Response from action:\n\(incomingMessage.body)\n")
-                    completion?()
-                })
+            if let action = buttonItem.actionName {
+                sendSRSAction(action: action, withUserMessage: buttonItem.title)
+            }
+            break
+            
+        case .Message:
+            if let message = buttonItem.message {
+                sendTextMessage(message)
             }
             break
             
@@ -270,35 +225,61 @@ extension ConversationManager {
             DebugLogError("ConversationManager cannot handle button with type \(buttonItem.type)")
             break
         }
-    }
-    
-    // MARK: SRS Private
-    
-    fileprivate func sendSRSRequest(path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler?) {
-        Dispatcher.performOnBackgroundThread {
-            var srsParams = params ?? [String : AnyObject]()
-            if let authToken = self.credentials.getAuthToken() {
-                srsParams["Auth"] = authToken as AnyObject
-            }
-            srsParams["Context"] = self.credentials.getContextString() as AnyObject
 
-            self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage) in
-                Dispatcher.performOnMainThread {
-                    requestHandler?(incomingMessage)
-                }
-            })
+    }
+}
+
+// MARK:- Sending Messages (PRIVATE)
+
+extension ConversationManager {
+    
+    internal func _sendMessage(_ message: String, completion: (() -> Void)? = nil) {
+        let path = "\(requestPrefix)SendTextMessage"
+        socketConnection.sendRequest(withPath: path, params: ["Text" : message as AnyObject]) { (incomingMessage) in
+            completion?()
         }
     }
     
-    fileprivate func sendSRSTreewalk(_ query: String, withMessage message: String, originalSearchQuery: String?, completion: (() -> Void)? = nil) {
-        var params = ["Text" : message as AnyObject,
-                      "Classification" : query as AnyObject]
+    // MARK: SRS General
+    
+    fileprivate func sendSRSRequest(path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler? = nil) {
+        Dispatcher.performOnBackgroundThread {
+            var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
+            if let authToken = self.credentials.getAuthToken() {
+                srsParams["Auth"] = authToken as AnyObject
+            }
+            
+            Dispatcher.performOnMainThread {
+                self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage) in
+                    requestHandler?(incomingMessage)
+                })
+            }
+        }
+    }
+    
+    // MARK: SRS Specific
+    
+    fileprivate func sendSRSTreewalk(classification: String, message: String, originalSearchQuery: String?) {
+        let path = "srs/SendTextMessageAndHierAndTreewalk"
+        var params = [
+            "Text" : message as AnyObject,
+            "Classification" : classification as AnyObject
+        ]
         if let originalSearchQuery = originalSearchQuery {
             params["SearchQuery"] = originalSearchQuery as AnyObject
         }
         
-        sendSRSRequest(path: "srs/SendTextMessageAndHierAndTreewalk", params: params) { (incomingMessage) in
-            completion?()
+        sendSRSRequest(path: path, params: params) { (incomingMessage) in
+            // No-op for now
+        }
+    }
+    
+    fileprivate func sendSRSAction(action: String, withUserMessage message: String) {
+        _sendMessage(message)
+        
+        let path = "srs/\(action)"
+        sendSRSRequest(path: path, params: nil) { (incomingMessage) in
+            // No-op for now
         }
     }
 }
@@ -312,7 +293,6 @@ extension ConversationManager: SocketConnectionDelegate {
         if message.type == .Event {
             if let event = Event(withJSON: message.body) {
                 fileStore.addEventJSONString(eventJSONString: message.bodyString)
-                
                 
                 if demo_OverrideReceivedMessageEvent(event: event) {
                     return
@@ -328,6 +308,10 @@ extension ConversationManager: SocketConnectionDelegate {
                     
                 case .textMessage, .pictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
+                    break
+                    
+                case .conversationEnd:
+                    delegate?.conversationManager(self, conversationEndEventReceived: event)
                     break
                     
                 case .none:

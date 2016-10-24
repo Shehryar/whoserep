@@ -21,12 +21,11 @@ public class Credentials: NSObject {
     
     // MARK: Public Properties
     
+    public let environment: ASAPPEnvironment
     public let companyMarker: String
     public let isCustomer: Bool
     public let userToken: String?
-    public let accountToken: String?
     public let targetCustomerToken: String?
-    public let environment: ASAPPEnvironment
     
     public let authProvider: ASAPPAuthProvider
     public let contextProvider: ASAPPContextProvider
@@ -40,7 +39,6 @@ public class Credentials: NSObject {
     
     required public init(withCompany company: String,
                          userToken: String?,
-                         accountToken: String? = nil,
                          isCustomer: Bool,
                          targetCustomerToken: String?,
                          environment: ASAPPEnvironment,
@@ -50,7 +48,6 @@ public class Credentials: NSObject {
         
         self.companyMarker = company
         self.userToken = userToken
-        self.accountToken = accountToken
         self.isCustomer = isCustomer
         self.targetCustomerToken = targetCustomerToken
         self.environment = environment
@@ -75,6 +72,10 @@ public class Credentials: NSObject {
     }
     override open var debugDescription: String {
         return description
+    }
+    
+    func hashKey(withPrefix prefix: String? = nil) -> String {
+        return "\(prefix ?? "")\(StringForASAPPEnvironment(environment))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
     }
     
     // MARK: Instance Methods

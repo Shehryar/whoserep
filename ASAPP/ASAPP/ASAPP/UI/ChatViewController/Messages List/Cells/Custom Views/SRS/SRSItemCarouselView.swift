@@ -124,6 +124,7 @@ class SRSItemCarouselView: UIView {
             scrollView.addSubview(itemListView)
         }
         pageControl.numberOfPages = pageViews.count
+        updatePageViewAlphas()
         
         setNeedsLayout()
     }
@@ -176,6 +177,8 @@ class SRSItemCarouselView: UIView {
             scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
             pageControl.currentPage = itemCarousel.currentPage
         }
+        
+        updatePageViewAlphas()
     }
     
     func sizeThatFits(_ size: CGSize, maximumPageWidth: CGFloat) -> CGSize {
@@ -226,11 +229,25 @@ class SRSItemCarouselView: UIView {
 extension SRSItemCarouselView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updatePageViewAlphas()
+        
         guard scrollView.isDragging else { return }
         
         let previousPage = pageControl.currentPage
         pageControl.currentPage = scrollView.currentPage
         notifyDelegateIfPreviousPageIsDifferent(previousPage: previousPage)
+    }
+    
+    func updatePageViewAlphas() {
+        let scrollOffset = scrollView.contentOffset.x
+        let scrollWidth = scrollView.bounds.width
+        let minAlpha: CGFloat = 0.4
+        for pageView in pageViews {
+            let pageOriginX = pageView.frame.minX
+            let ratio = max(0, (abs(pageOriginX - scrollOffset) - 20.0) / scrollWidth)
+            let alpha = 1.0 - ratio * (1.0 - minAlpha)
+            pageView.alpha = alpha
+        }
     }
 }
 

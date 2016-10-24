@@ -32,6 +32,7 @@ import Foundation
     case srsResponse = 22
     case srsEcho = 23
     case srsAction = 24
+    case scheduleAppointment = 27
 }
 
 @objc enum EphemeralType: Int {
@@ -340,7 +341,7 @@ class Event: NSObject {
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
         
         
-        if DEMO_CONTENT_ENABLED && self.eventType == .srsEcho {
+        if DEMO_CONTENT_ENABLED || DEMO_LIVE_CHAT && self.eventType == .srsEcho {
             var eventJSONObject: [String : AnyObject]?
             do {
                 eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
@@ -352,6 +353,13 @@ class Event: NSObject {
             if let parsedEchoContent = eventJSONObject?["Echo"] as? String {
                 self.eventType = .srsResponse
                 self.eventJSON = parsedEchoContent
+            }
+        }
+        
+        if DEMO_LIVE_CHAT && self.eventType == .scheduleAppointment {
+            if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
+                self.eventType = .srsResponse
+                self.eventJSON = scheduleApptJSON
             }
         }
     }

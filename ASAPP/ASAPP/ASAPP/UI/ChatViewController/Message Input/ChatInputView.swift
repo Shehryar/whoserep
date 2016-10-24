@@ -31,7 +31,7 @@ class ChatInputView: UIView {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 18, left: 35, bottom: 18, right: 35) {
+    var contentInset = UIEdgeInsets(top: 18, left: 24, bottom: 18, right: 0) {
         didSet {
             setNeedsLayout()
         }
@@ -108,6 +108,7 @@ class ChatInputView: UIView {
     var inputMinHeight: CGFloat = 36
     let inputMaxHeight: CGFloat = 150
     let mediaButtonWidth: CGFloat = 44
+    let mediaButtonImageSize: CGFloat = 20
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
@@ -173,9 +174,6 @@ class ChatInputView: UIView {
         
         // Media Button
         
-        let imageSize: CGFloat = 20
-        let insetX: CGFloat = (mediaButtonWidth - imageSize) / 2.0
-        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
         mediaButton.imageView?.contentMode = .scaleAspectFit
         updateMediaButtonColor(styles.inputImageButtonColor)
         mediaButton.addTarget(self,
@@ -185,7 +183,7 @@ class ChatInputView: UIView {
         
         // Send Button
         
-        sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        sendButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         sendButton.addTarget(self,
                              action: #selector(ChatInputView.didTapSendButton),
                              for: .touchUpInside)
@@ -322,13 +320,14 @@ extension ChatInputView {
         borderTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
         
         let buttonWidth = ceil(sendButton.sizeThatFits(CGSize.zero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
-        let sendButtonLeft = bounds.width - buttonWidth - contentInset.right + sendButton.titleEdgeInsets.right
+        let sendButtonLeft = bounds.width - buttonWidth - contentInset.right
         let buttonTop = bounds.height - inputMinHeight - contentInset.bottom
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
-        let mediaButtonLeft = bounds.width - mediaButtonWidth + mediaButton.imageEdgeInsets.right - contentInset.right
-        mediaButton.frame = CGRect(x: mediaButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
-        
+        mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
+        let insetX: CGFloat = (buttonWidth - mediaButtonImageSize) / 2.0
+        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+
         let separatorStroke: CGFloat = 1.0
         let separatorLeft = sendButton.frame.minX - separatorStroke
         buttonSeparator.frame = CGRect(x: separatorLeft, y: buttonTop, width: separatorStroke, height: inputMinHeight)

@@ -13,6 +13,7 @@ enum SRSButtonItemType: String {
     case InAppLink = "_N/A_"
     case SRS = "AID"
     case Action = "ACTION"
+    case Message = "MESSAGE"
 }
 
 class SRSButtonItem: NSObject, JSONObject {
@@ -42,6 +43,10 @@ class SRSButtonItem: NSObject, JSONObject {
     // MARK: SRS Properties
     
     var srsValue: String?
+    
+    // MARK: Message Properties
+    
+    var message: String?
     
     // MARK: Action Properties
     
@@ -88,7 +93,11 @@ class SRSButtonItem: NSObject, JSONObject {
             
         case .Action:
             button.actionName = valueJSON["content"] as? String
-            break;
+            break
+            
+        case .Message:
+            button.message = valueJSON["content"] as? String
+            break
         }
  
         return button

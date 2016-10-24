@@ -10,15 +10,22 @@ import UIKit
 
 class ChatActionableMessageView: UIView, ASAPPStyleable {
 
-    var srsResponse: SRSResponse? {
+    class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
+        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.buttonFont)
+    }
+    
+    func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
+        self.event = event
+        self.srsResponse = srsResponse
+    }
+    
+    fileprivate(set) var event: Event?
+    
+    fileprivate(set) var srsResponse: SRSResponse? {
         didSet {
             selectedButtonItem = nil
             buttonItems = srsResponse?.buttonItems
         }
-    }
-    
-    class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
-        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.buttonFont)
     }
     
     fileprivate(set) var selectedButtonItem: SRSButtonItem?
@@ -70,7 +77,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
                             middleColor: gradientColor.withAlphaComponent(0.08),
                             bottomColor: gradientColor.withAlphaComponent(0.3))
         gradientView.isUserInteractionEnabled = false
-        gradientView.isHidden = true
+        gradientView.alpha = 0.0
         addSubview(gradientView)
     }
     
@@ -114,9 +121,21 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     
     func updateGradientVisibility() {
         if tableView.contentSize.height > tableView.bounds.height {
-            gradientView.isHidden = false
+            
+            let maxContentOffset = tableView.contentSize.height - tableView.bounds.height
+            let visibilityBuffer: CGFloat = 70
+            let maxVisibleGradientOffset = maxContentOffset - visibilityBuffer
+            
+            let offsetY = tableView.contentOffset.y
+            if offsetY < maxVisibleGradientOffset {
+                gradientView.alpha = 1.0
+            } else if offsetY >= maxContentOffset  {
+                gradientView.alpha = 0.0
+            } else {
+                gradientView.alpha = (maxContentOffset - offsetY) / visibilityBuffer
+            }
         } else {
-            gradientView.isHidden = true
+            gradientView.alpha = 0.0
         }
     }
 }
@@ -165,7 +184,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
                 ])
             cell.imageTintColor = styles.buttonColor
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
-                buttonItem.type == .SRS || buttonItem.type == .Action {
+                buttonItem.type == .SRS || buttonItem.type == .Action || buttonItem.type == .Message {
                 cell.imageView?.isHidden = true
             } else {
                 cell.imageView?.isHidden = false
@@ -221,6 +240,15 @@ extension ChatActionableMessageView: UITableViewDelegate {
         } else {
             updateBlock()
         }
+    }
+}
+
+// MARK:- UIScrollViewDelegate
+
+extension ChatActionableMessageView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateGradientVisibility()
     }
 }
 

@@ -30,7 +30,7 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
         
-        loadingView.tintColor = styles.replyMessageTextColor
+        loadingView.tintColor = styles.replyMessageTextColor.withAlphaComponent(0.6)
     }
     
     // MARK: Layout

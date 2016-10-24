@@ -28,12 +28,16 @@ extension DemoUserManager {
     }
     
     func getUserToken() -> String {
+        if DemoSettings.useComcastPhoneUser() {
+            return "+13126089137"
+        }
+        
         return UserDefaults.standard.string(forKey: userTokenStorageKey())
             ?? createNewUserToken()
     }
     
     func createNewUserToken() -> String {
-        let freshUserToken = "\(companyMarker)-Test-Account-\(Date().timeIntervalSince1970)"
+        let freshUserToken = "\(companyMarker)-Test-Account-\(floor(Date().timeIntervalSince1970))"
         
         UserDefaults.standard.set(freshUserToken, forKey: userTokenStorageKey())
         

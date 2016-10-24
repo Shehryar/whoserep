@@ -92,6 +92,13 @@ extension OutgoingMessageSerializer {
                     "App" : "ios-sdk" as AnyObject,
                     "RegionCode" : "US" as AnyObject,
                 ]
+                
+                
+                if DEMO_COMCAST_LIVE_CHAT_USER {
+                    params["IdentifierType"] = "PHONE" as AnyObject
+                    params["CustomerIdentifier"] = "+13126089137" as AnyObject
+                }
+                
             } else {
                 // Non-customer w/ Token
                 path = "auth/AuthenticateWithSalesForceToken"

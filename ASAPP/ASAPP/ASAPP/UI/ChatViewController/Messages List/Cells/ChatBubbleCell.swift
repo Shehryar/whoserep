@@ -97,6 +97,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         updateDetailLabelVisibility()
         contentView.addSubview(detailLabel)
         
+        bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)
         
         updateBubbleCorners()
@@ -269,6 +270,9 @@ extension ChatBubbleCell {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var contentHeight = bubbleSizeForSize(size).height
+        if contentHeight == 0 {
+            return .zero
+        }
         
         let maxLabelWidth = maxBubbleWidthForBoundsSize(size)
         if !detailLabelHidden {

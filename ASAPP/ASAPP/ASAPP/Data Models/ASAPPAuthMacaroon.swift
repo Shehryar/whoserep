@@ -63,7 +63,7 @@ class ASAPPAuthMacaroon: NSObject {
 
 extension ASAPPAuthMacaroon {
     fileprivate class func storageKey(forCredentials credentials: Credentials) -> String {
-        return "AuthMacaroon:\(credentials.environment == .production ? "production" : "staging")-\(credentials.companyMarker)-\(credentials.userToken)-\(credentials.isCustomer ? "customer" : "rep")-\(credentials.accountToken ?? "")-\(credentials.targetCustomerToken ?? "")-\(StringForASAPPEnvironment(environment: credentials.environment))"
+        return credentials.hashKey(withPrefix: "AuthMacaroon:")
     }
     
     func save(withCredentials credentials: Credentials) {

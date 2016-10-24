@@ -15,7 +15,7 @@ func DebugLog(_ message: String) {
 }
 
 func DebugLogError(_ message: String) {
-    if DEBUG_LOG_LEVEL == .Debug, DEBUG_LOG_LEVEL == .Errors {
+    if DEBUG_LOG_LEVEL == .Debug || DEBUG_LOG_LEVEL == .Errors {
         print("[ASAPP] ERROR: \(message)\n")
     }
 }

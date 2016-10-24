@@ -61,4 +61,16 @@ class DemoSettings: NSObject {
         UserDefaults.standard.set(enabled, forKey: KEY_DEMO_CONTENT)
     }
     
+    // MARK:- Force Comcast User
+    
+    static let KEY_COMCAST_PHONE_USER = "ASAPP_DEMO_COMCAST_PHONE_USER"
+    
+    class func useComcastPhoneUser() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_COMCAST_PHONE_USER)
+    }
+    
+    class func setUseComcastPhoneUser(_ enabled: Bool) {
+        UserDefaults.standard.set(enabled, forKey: KEY_COMCAST_PHONE_USER)
+    }
+    
 }

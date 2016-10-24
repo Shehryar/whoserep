@@ -46,20 +46,7 @@ class DemoHomeViewController: ImageBackgroundViewController {
         
         ASAPP.setLogLevel(logLevel: .Debug)
         
-        let userButton = UIBarButtonItem(image: UIImage(named: "icon-user"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(DemoHomeViewController.promptToChangeUser))
-        
-        let settingsButton = UIBarButtonItem(image: UIImage(named: "icon-gear"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(DemoHomeViewController.showSettings))
-        
-        navigationItem.leftBarButtonItems = [
-            userButton,
-            settingsButton
-        ]
+        updateBarButtonItems()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,6 +67,7 @@ class DemoHomeViewController: ImageBackgroundViewController {
         super.viewWillAppear(animated)
         
         settingsBannerView.updateLabels()
+        updateBarButtonItems()
     }
     
     // MARK: Layout
@@ -187,9 +175,11 @@ extension DemoHomeViewController {
 // MARK:- DemoSettingsViewControllerDelegate
 
 extension DemoHomeViewController: DemoSettingsViewControllerDelegate {
-    func demoSettingsViewController(_ viewController: DemoSettingsViewController, didUpdateEnvironment environment: ASAPPEnvironment) {
+    
+    func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController) {
         settingsBannerView.updateLabels()
         refreshChatButton()
+        updateBarButtonItems()
     }
 }
 
@@ -197,8 +187,33 @@ extension DemoHomeViewController: DemoSettingsViewControllerDelegate {
 
 extension DemoHomeViewController {
     
+    func updateBarButtonItems() {
+        let userButton = UIBarButtonItem(image: UIImage(named: "icon-user"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(DemoHomeViewController.promptToChangeUser))
+        
+        let settingsButton = UIBarButtonItem(image: UIImage(named: "icon-gear"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(DemoHomeViewController.showSettings))
+        
+        if DemoSettings.useComcastPhoneUser() {
+            navigationItem.leftBarButtonItems = [
+                settingsButton
+            ]
+        } else {
+            navigationItem.leftBarButtonItems = [
+                userButton,
+                settingsButton
+            ]
+        }
+    }
+    
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
+        
+//        print("Company: \(userManager.companyMarker)\nuserToken: \(userManager.getUserToken())\nEnvironment: \(environment.rawValue)")
         
         chatButton = ASAPP.createChatButton(
             company: userManager.companyMarker,
@@ -334,6 +349,13 @@ extension DemoHomeViewController {
             
         case "showTechMap":
             handled = showViewController("tech-map", title: "Location")
+            break
+            
+        case "understandBill":
+            let billDetailsVC = BillDetailsViewController()
+            billDetailsVC.statusBarStyle = statusBarStyle
+            navigationController?.pushViewController(billDetailsVC, animated: true)
+            handled = true
             break
             
         default:

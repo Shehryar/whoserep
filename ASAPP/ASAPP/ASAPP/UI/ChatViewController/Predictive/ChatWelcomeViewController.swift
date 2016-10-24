@@ -104,7 +104,7 @@ class ChatWelcomeViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
-        messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
         messageInputView.backgroundColor = styles.askViewInputBgColor
         messageInputView.layer.cornerRadius = 20
         messageInputView.sendButtonText = strings.predictiveSendButton

@@ -20,6 +20,10 @@ enum DemoEventType {
     case phoneUpgrade
     case phonePlanUpgrade
     case deviceTracking
+    case switchToLiveChat
+    case switchToSRS
+    case scheduleAppointment
+    case appointmentConfirmation
     
     static let allTypes = [billSummary,
                            troubleshooter,
@@ -30,7 +34,11 @@ enum DemoEventType {
                            cancelAppointmentConfirmation,
                            phonePlanUpgrade,
                            phoneUpgrade,
-                           deviceTracking
+                           deviceTracking,
+                           switchToLiveChat,
+                           switchToSRS,
+                           scheduleAppointment,
+                           appointmentConfirmation
                            ]
 }
 
@@ -109,6 +117,10 @@ extension Event {
             }
         case .phonePlanUpgrade: return "phone-plan-upgrade"
         case .deviceTracking: return "device-tracking"
+        case .switchToLiveChat: return "live-chat"
+        case .switchToSRS: return "srs-chat"
+        case .scheduleAppointment: return "schedule-appointment"
+        case .appointmentConfirmation: return "appointment-confirmation"
         }
     }
     
@@ -193,6 +205,37 @@ extension Event {
                 ["where", "is", "phone"],
                 ["when", "will", "phone"]
             ]
+            
+        case .switchToLiveChat:
+            return [
+                ["talk", "to", "agent"],
+                ["talk", "with", "agent"],
+                ["talk", "to", "rep"],
+                ["talk", "with", "rep"],
+                ["switch", "live", "chat"]
+            ]
+            
+        case .switchToSRS:
+            return [
+                ["talk", "to", "srs"],
+                ["switch", "to", "srs"]
+            ]
+            
+        case .scheduleAppointment:
+            return [
+                ["schedule", "appointment"],
+                ["make", "appointment"]
+            ]
+            
+        case .appointmentConfirmation:
+            return [
+                ["schedule", "on 10/24/2016"],
+                ["schedule", "on 10/25/2016"],
+                ["schedule", "on 10/26/2016"],
+                ["schedule", "on 10/27/2016"],
+                ["schedule", "on 10/28/2016"],
+            ]
+            
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:
             return nil

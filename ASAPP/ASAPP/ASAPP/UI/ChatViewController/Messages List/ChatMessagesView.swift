@@ -51,6 +51,10 @@ class ChatMessagesView: UIView {
         return dataSource.getLastEvent()
     }
     
+    var allEvents: [Event]? {
+        return dataSource.allEvents
+    }
+    
     var isEmpty: Bool {
         return dataSource.isEmpty()
     }

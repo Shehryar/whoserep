@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatSuggestedRepliesViewDelegate {
     func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView)
+    func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
 }
 
@@ -68,6 +69,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         backButton.foregroundColor = Colors.mediumTextColor()
         backButton.onTap = { [weak self] in
             self?.goToPreviousActionableMessage()
+            
+            if let blockSelf = self {
+                blockSelf.delegate?.chatSuggestedRepliesViewDidTapBack(blockSelf)
+            }
         }
         addSubview(backButton)
         
@@ -197,9 +202,9 @@ extension ChatSuggestedRepliesView {
 
 extension ChatSuggestedRepliesView {
   
-    fileprivate func createActionableMessageView(_ actionableMessage: SRSResponse) -> ChatActionableMessageView {
+    fileprivate func createActionableMessageView(_ actionableMessage: SRSResponse, forEvent event: Event) -> ChatActionableMessageView {
         let actionableMessageView = ChatActionableMessageView()
-        actionableMessageView.srsResponse = actionableMessage
+        actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
         actionableMessageView.applyStyles(styles)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
             if let strongSelf = self {
@@ -230,8 +235,8 @@ extension ChatSuggestedRepliesView {
     
     // MARK: Public
     
-    func setActionableMessage(_ actionableMessage: SRSResponse, animated: Bool = false) {
-        let actionableMessageView = createActionableMessageView(actionableMessage)
+    func setActionableMessage(_ actionableMessage: SRSResponse, forEvent event: Event, animated: Bool = false) {
+        let actionableMessageView = createActionableMessageView(actionableMessage, forEvent: event)
         
         if let nextIndex = actionableMessageViews.index(of: actionableMessageView) {
             currentActionableViewIndex = nextIndex
@@ -258,10 +263,10 @@ extension ChatSuggestedRepliesView {
         }
     }
     
-    func reloadButtonItemsForActionableMessage(_ actionableMessage: SRSResponse) {
+    func reloadButtonItemsForActionableMessage(_ actionableMessage: SRSResponse, event: Event) {
         for actionableMessageView in actionableMessageViews {
-            if actionableMessageView.srsResponse == actionableMessage {
-                actionableMessageView.srsResponse = actionableMessage
+            if actionableMessageView.event?.eventLogSeq == event.eventLogSeq {
+                actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
                 break
             }
         }

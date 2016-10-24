@@ -10,6 +10,8 @@ import UIKit
 import Fabric
 import Crashlytics
 
+let COMCAST_LIVE_CHAT_DEMO = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -42,6 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Bundle.main.infoDictionary?["demo-content-enabled"] as? String == "YES" {
             demoContentEnabled = true
         }
+        
+        if COMCAST_LIVE_CHAT_DEMO {
+            defaultCompany = "comcast"
+            canChangeCompany = false
+            demoContentEnabled = false
+            DemoSettings.setCurrentEnvironment(environment: .staging)
+            DemoSettings.setUseComcastPhoneUser(true)
+        } else {
+            DemoSettings.setUseComcastPhoneUser(false)
+        }
+        
         
         demoController = DemoHomeViewController(companyMarker: defaultCompany,
                                                 canChangeCompany: canChangeCompany,

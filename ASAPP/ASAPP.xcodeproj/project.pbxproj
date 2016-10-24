@@ -126,6 +126,13 @@
 		303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877F1D789BD900213F6B /* SRSButtonItem.swift */; };
 		303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C87811D789BE200213F6B /* SRSLabelItem.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
+		305C6C8D1DB5417600FF0AF4 /* live-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8C1DB5417600FF0AF4 /* live-chat.json */; };
+		305C6C8F1DB5418000FF0AF4 /* srs-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8E1DB5418000FF0AF4 /* srs-chat.json */; };
+		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
+		305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */; };
+		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
+		305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */; };
+		305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
 		3066190F1D9458F50092B4C5 /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F21D9458F50092B4C5 /* SDImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -329,6 +336,13 @@
 		303C877F1D789BD900213F6B /* SRSButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItem.swift; sourceTree = "<group>"; };
 		303C87811D789BE200213F6B /* SRSLabelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelItem.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		305C6C8C1DB5417600FF0AF4 /* live-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat.json"; sourceTree = "<group>"; };
+		305C6C8E1DB5418000FF0AF4 /* srs-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "srs-chat.json"; sourceTree = "<group>"; };
+		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
+		305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
+		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
+		305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
+		305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomingMessage+EventList.swift"; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		306618F21D9458F50092B4C5 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -464,6 +478,10 @@
 				301C4BE91DAD7D23002BF4D9 /* device-tracking.json */,
 				307301B81DAE90460002CF3B /* predictive-response.json */,
 				307301B91DAE90460002CF3B /* sprint_predictive-response.json */,
+				305C6C8C1DB5417600FF0AF4 /* live-chat.json */,
+				305C6C8E1DB5418000FF0AF4 /* srs-chat.json */,
+				305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */,
+				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
 			);
 			path = "Demo JSON";
 			sourceTree = "<group>";
@@ -520,15 +538,16 @@
 		30099DBD1D3EDBC400171D56 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
 				308F296F1D4164FE00EC7055 /* Colors.swift */,
 				3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */,
 				3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */,
+				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
 				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
 				308F29711D41665900EC7055 /* Fonts.swift */,
-				3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */,
 				308F29731D4168BE00EC7055 /* Images.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
-				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
+				3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 			);
 			path = Util;
@@ -659,6 +678,7 @@
 				30226CC81D4933F200871453 /* SocketConnection.swift */,
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
 				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
+				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -667,6 +687,7 @@
 			isa = PBXGroup;
 			children = (
 				30226CCA1D4933F200871453 /* ConversationManager.swift */,
+				305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */,
 				285F7AF11DAB2358008C2EF6 /* ConversationManager+DemoContent.swift */,
 			);
 			path = "Content Managers";
@@ -793,6 +814,14 @@
 				28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */,
 			);
 			path = SRS;
+			sourceTree = "<group>";
+		};
+		305C6C981DB6BB0700FF0AF4 /* Response Serializing */ = {
+			isa = PBXGroup;
+			children = (
+				305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */,
+			);
+			path = "Response Serializing";
 			sourceTree = "<group>";
 		};
 		306618EF1D9458F50092B4C5 /* SDWebImage-3.8.2 */ = {
@@ -1079,6 +1108,7 @@
 				30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
 				302472AA1D89B7680005A6C9 /* XFINITYSans-Thin.ttf in Resources */,
+				305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
@@ -1086,6 +1116,7 @@
 				302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */,
 				285F7B051DAB3409008C2EF6 /* cancel-appointment-confirmation.json in Resources */,
 				302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */,
+				305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */,
 				30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */,
 				285F7AE61DA9AD3B008C2EF6 /* button-bg-close@3x.png in Resources */,
 				3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */,
@@ -1131,6 +1162,8 @@
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */,
 				302472A81D89B7680005A6C9 /* XFINITYSans-Med.ttf in Resources */,
+				305C6C8D1DB5417600FF0AF4 /* live-chat.json in Resources */,
+				305C6C8F1DB5418000FF0AF4 /* srs-chat.json in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
 				285F7B081DAB3409008C2EF6 /* equipment-return.json in Resources */,
 				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,
@@ -1215,6 +1248,7 @@
 				3008888E1D6258F100C25802 /* ChatSuggestedReplyCell.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				30D2E2951D7A0FE000502D92 /* SRSInfoItemView.swift in Sources */,
+				305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				30226CD61D4933F200871453 /* Event.swift in Sources */,
@@ -1225,6 +1259,7 @@
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				30C738321D87492300E32B78 /* SRSLoaderBarItem.swift in Sources */,
 				3019F5DD1D5A77B00036D74E /* ChatInfoMessageView.swift in Sources */,
+				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListView.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				3005C4261DB00DD900946934 /* ASAPPStrings.swift in Sources */,
@@ -1245,6 +1280,7 @@
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
+				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */,
