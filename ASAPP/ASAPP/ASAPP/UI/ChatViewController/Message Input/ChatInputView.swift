@@ -54,6 +54,7 @@ class ChatInputView: UIView {
     var placeholderText: String {
         didSet {
             placeholderTextView.text = placeholderText
+            accessibilityLabel = placeholderText
         }
     }
     
@@ -136,6 +137,9 @@ class ChatInputView: UIView {
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)
         
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraitSearchField
+        accessibilityLabel = placeholderText
         backgroundColor = Colors.whiteColor()
         clipsToBounds = true
         

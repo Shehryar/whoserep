@@ -30,4 +30,6 @@ public class ASAPPStrings: NSObject {
     public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     public var chatInputSend: String = ASAPPLocalizedString("SEND")
+    
+    public var accessibilityClose: String = ASAPPLocalizedString("Close")
 }

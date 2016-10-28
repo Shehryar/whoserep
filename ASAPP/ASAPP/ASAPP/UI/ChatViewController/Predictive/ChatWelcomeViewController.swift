@@ -66,6 +66,7 @@ class ChatWelcomeViewController: UIViewController {
                                                                    backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
                                                                    target: self,
                                                                    action: #selector(ChatWelcomeViewController.didTapCancel))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
@@ -156,6 +157,8 @@ class ChatWelcomeViewController: UIViewController {
         
         view.backgroundColor = UIColor.clear
         view.addSubview(blurredBgView)
+        
+        view.accessibilityViewIsModal = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -414,6 +417,8 @@ extension ChatWelcomeViewController {
     func presentingViewUpdatedVisibility(_ visible: Bool) {
         if visible {
             keyboardObserver.registerForNotifications()
+            
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, titleLabel)
         } else {
             dismissKeyboard()
             keyboardObserver.deregisterForNotification()

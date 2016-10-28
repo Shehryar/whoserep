@@ -85,6 +85,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         addSubview(actionableMessageViewsContainer)
         addSubview(separatorTopView)
         
+        backButton.accessibilityLabel = ASAPPLocalizedString("Back")
         backButton.image = Images.iconBack()
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.foregroundColor = Colors.mediumTextColor()

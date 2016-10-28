@@ -52,6 +52,7 @@ class ChatSuggestedReplyCell: UITableViewCell {
     // MARK: Init
     
     func commonInit() {
+        accessibilityTraits = UIAccessibilityTraitButton
         contentView.addSubview(separatorBottomView)
         
         textLabel?.textAlignment = .center
