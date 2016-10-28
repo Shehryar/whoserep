@@ -257,6 +257,10 @@ extension ASAPPButton {
 // MARK:- Animations
 
 extension ASAPPButton {
+    public func triggerTap() {
+        didTap()
+    }
+    
     public func hideUntilAnimateInIsCalled() {
         if isWaitingToAnimateIn { return }
         layoutSubviews()
