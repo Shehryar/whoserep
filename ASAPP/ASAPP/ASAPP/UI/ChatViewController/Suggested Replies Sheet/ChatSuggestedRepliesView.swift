@@ -15,9 +15,6 @@ protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
 }
 
-
-// TODO: Handle Accessibility
-
 class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
 
     // MARK: Public Properties
@@ -85,7 +82,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         addSubview(actionableMessageViewsContainer)
         addSubview(separatorTopView)
         
-        backButton.accessibilityLabel = ASAPPLocalizedString("Back")
+        backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
         backButton.image = Images.iconBack()
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.foregroundColor = Colors.mediumTextColor()
@@ -253,8 +250,12 @@ extension ChatSuggestedRepliesView {
                 self.updateActionableViewFrames()
                 self.actionableMessageViews.removeLast()
                 self.updateBackButtonVisibility()
-                }, completion: { (completed) in
+                }, completion: { [weak self] (completed) in
                     viewToRemove?.removeFromSuperview()
+                    
+                    if let currentView = self?.actionableMessageViews.last {
+                        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, currentView)
+                    }
             })
         }
     }

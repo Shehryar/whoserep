@@ -185,8 +185,10 @@ extension ChatActionableMessageView: UITableViewDataSource {
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
                 buttonItem.type == .SRS || buttonItem.type == .Action || buttonItem.type == .Message {
                 cell.imageView?.isHidden = true
+                cell.accessibilityTraits = UIAccessibilityTraitButton
             } else {
                 cell.imageView?.isHidden = false
+                cell.accessibilityTraits = UIAccessibilityTraitLink
             }
         } else {
             cell.textLabel?.text = nil

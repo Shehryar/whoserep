@@ -293,15 +293,7 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if !showWelcomeOnViewAppear && !askQuestionVCVisible {
-            chatMessagesView.focusAccessibilityOnLastMessage()
-        }
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
@@ -684,10 +676,6 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
                 }, completion: { [weak self] (completed) in
                     self?.askQuestionVC?.presentingViewUpdatedVisibility(visible)
                     completion?()
-                    
-                    if animated && !visible {
-                        self?.chatMessagesView.focusAccessibilityOnLastMessage()
-                    }
             })
         } else {
             welcomeView.alpha = alpha

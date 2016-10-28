@@ -54,7 +54,7 @@ class ChatInputView: UIView {
     var placeholderText: String {
         didSet {
             placeholderTextView.text = placeholderText
-            accessibilityLabel = placeholderText
+            textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         }
     }
     
@@ -137,9 +137,6 @@ class ChatInputView: UIView {
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)
         
-        isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraitSearchField
-        accessibilityLabel = placeholderText
         backgroundColor = Colors.whiteColor()
         clipsToBounds = true
         
@@ -161,6 +158,9 @@ class ChatInputView: UIView {
         textView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
         textView.returnKeyType = .send
+        textView.isAccessibilityElement = true
+        textView.accessibilityTraits = UIAccessibilityTraitSearchField
+        textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.sizeToFit()
         inputHeight = textView.frame.size.height
         
@@ -171,6 +171,7 @@ class ChatInputView: UIView {
         placeholderTextView.isUserInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
         placeholderTextView.isScrollEnabled = false
+        placeholderTextView.isAccessibilityElement = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
         addSubview(textView)
