@@ -266,11 +266,11 @@ extension ASAPPButton {
     }
     
     public func animateIn(afterDelay delay: TimeInterval = 0) {
-        UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: {
-            self.contentView.transform = CGAffineTransform.identity
-            self.contentView.alpha = 1.0
-        }) { (completed) in
-            self.isWaitingToAnimateIn = false
+        UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: { [weak self] in
+            self?.contentView.transform = CGAffineTransform.identity
+            self?.contentView.alpha = 1.0
+        }) { [weak self] (completed) in
+            self?.isWaitingToAnimateIn = false
         }
     }
 }

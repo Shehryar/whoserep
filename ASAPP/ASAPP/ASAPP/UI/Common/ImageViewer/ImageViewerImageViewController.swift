@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ImageViewerImageViewControllerDelegate {
+protocol ImageViewerImageViewControllerDelegate: class {
     func imageViewControllerDidSingleTap(_ viewController: ImageViewerImageViewController)
     func imageViewControllerDidBeginZooming(_ viewController: ImageViewerImageViewController)
     func imageViewController(_ viewController: ImageViewerImageViewController, didZoomToScale zoomScale: CGFloat)
@@ -26,7 +26,7 @@ class ImageViewerImageViewController: UIViewController {
     
     let imageView = ImageViewerImageView()
     
-    var delegate: ImageViewerImageViewControllerDelegate?
+    weak var delegate: ImageViewerImageViewControllerDelegate?
     
     // MARK: Private Properties
     

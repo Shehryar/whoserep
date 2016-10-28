@@ -8,9 +8,10 @@
 
 import UIKit
 
-protocol ChatSuggestedRepliesViewDelegate {
+protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
+    func chatSuggestedRepliesViewWillTapBack(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
 }
 
@@ -25,7 +26,27 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         return buttonSize / 2.0 - separatorTopStroke / 2.0
     }
     
-    var delegate: ChatSuggestedRepliesViewDelegate?
+    weak var delegate: ChatSuggestedRepliesViewDelegate?
+    
+    var actionableEventLogSeqs: [Int]? {
+        var actionableEventLogSeqs = [Int]()
+        for view in actionableMessageViews {
+            if let event = view.event {
+                actionableEventLogSeqs.append(event.eventLogSeq)
+            } else {
+                return nil
+            }
+        }
+        return actionableEventLogSeqs
+    }
+    
+    var currentActionableEvent: Event? {
+        return actionableMessageViews.last?.event
+    }
+    
+    var currentSRSClassification: String? {
+        return currentActionableEvent?.srsResponse?.classification
+    }
     
     // MARK: Private Properties
     
@@ -68,6 +89,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.foregroundColor = Colors.mediumTextColor()
         backButton.onTap = { [weak self] in
+            if let blockSelf = self {
+                blockSelf.delegate?.chatSuggestedRepliesViewWillTapBack(blockSelf)
+            }
+            
             self?.goToPreviousActionableMessage()
             
             if let blockSelf = self {
@@ -234,6 +259,18 @@ extension ChatSuggestedRepliesView {
     }
     
     // MARK: Public
+    
+    func reloadActionableMessagesWithEvents(_ events: [Event]?) {
+        guard let events = events else { return }
+        
+        clear()
+        
+        for event in events {
+            if let srsResponse = event.srsResponse {
+                setActionableMessage(srsResponse, forEvent: event, animated: false)
+            }
+        }
+    }
     
     func setActionableMessage(_ actionableMessage: SRSResponse, forEvent event: Event, animated: Bool = false) {
         let actionableMessageView = createActionableMessageView(actionableMessage, forEvent: event)

@@ -187,8 +187,8 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         UIView.animate(withDuration: 0.5, delay: 0.4, options: .curveEaseOut, animations: {
             srsContentView.center = centerFinish
             srsContentView.alpha = 1
-            }, completion: { (completed) in
-                self.setNeedsLayout()
+            }, completion: { [weak self] (completed) in
+                self?.setNeedsLayout()
         })
     }
     

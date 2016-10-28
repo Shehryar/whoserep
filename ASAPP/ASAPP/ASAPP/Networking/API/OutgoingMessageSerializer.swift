@@ -8,13 +8,25 @@
 
 import Foundation
 
-struct SocketRequest {
-    var requestId: Int
-    var path: String
-    var params: [String : AnyObject]?
-    var context: [String : AnyObject]?
+class SocketRequest {
+    let requestId: Int
+    let path: String
+    let params: [String : AnyObject]?
+    let context: [String : AnyObject]?
+    let requestData: Data?
     
-    var requestData: Data?
+    let requestUUID: String
+    
+    required init(requestId: Int, path: String, params: [String : AnyObject]?, context: [String : AnyObject]?, requestData: Data?) {
+        let uuid = UUID().uuidString
+        
+        self.requestUUID = uuid
+        self.requestId = requestId
+        self.path = path
+        self.params = [ "RequestId" : uuid as AnyObject ].with(params)
+        self.context = context
+        self.requestData = requestData
+    }
 }
 
 class OutgoingMessageSerializer: NSObject {
@@ -51,7 +63,7 @@ extension OutgoingMessageSerializer {
     }
     
     func createRequestWithData(_ data: Data) -> SocketRequest {
-        return SocketRequest(requestId: 0, path: "", params: nil, context: nil, requestData: data)
+        return SocketRequest(requestId: getNextRequestId(), path: "", params: nil, context: nil, requestData: data)
     }
     
     func createRequestString(withRequest request: SocketRequest) -> String {

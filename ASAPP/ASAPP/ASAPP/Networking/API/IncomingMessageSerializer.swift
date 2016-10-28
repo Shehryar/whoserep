@@ -27,7 +27,9 @@ class IncomingMessage {
     }
 }
 
-typealias IncomingMessageHandler = ((IncomingMessage) -> Void)
+typealias ResponseTimeInMilliseconds = Int
+
+typealias IncomingMessageHandler = ((_ message: IncomingMessage, _ request: SocketRequest?, _ responseTime: ResponseTimeInMilliseconds) -> Void)
 
 class IncomingMessageSerializer {
     

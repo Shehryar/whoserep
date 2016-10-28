@@ -17,12 +17,14 @@ class SRSInfoItem: NSObject, JSONObject {
     
     var label: String
     var value: String
+    var valueColor: UIColor?
     var iconName: String?
     var orientation: SRSInfoItemOrientation = .vertical
     
-    init(label: String, value: String, iconName: String?, orientation: SRSInfoItemOrientation? = nil) {
+    init(label: String, value: String, valueColor: UIColor?, iconName: String?, orientation: SRSInfoItemOrientation? = nil) {
         self.label = label
         self.value = value
+        self.valueColor = valueColor
         self.iconName = iconName
         if let orientation = orientation {
             self.orientation = orientation
@@ -38,7 +40,12 @@ class SRSInfoItem: NSObject, JSONObject {
             let value = json["value"] as? String else {
                 return nil
         }
-    
-        return SRSInfoItem(label: label, value: value, iconName: json["icon"] as? String)
+        let valueColorHexString = json["valueColor"] as? String
+        let valueColor = UIColor.colorFromHex(hex: valueColorHexString)
+            
+        return SRSInfoItem(label: label,
+                           value: value,
+                           valueColor: valueColor,
+                           iconName: json["icon"] as? String)
     }
 }

@@ -61,6 +61,13 @@ class DemoHomeViewController: ImageBackgroundViewController {
         updateViewForCompany()
         
         view.addSubview(settingsBannerView)
+        
+//        let button = UIButton(frame: CGRect(x: 100, y: 200, width: 50, height: 50))
+//        button.setTitle("X", for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+//        button.setTitleColor(UIColor.blue, for: .normal)
+//        button.addTarget(self, action: #selector(DemoHomeViewController.didTapCustomButton), for: .touchUpInside)
+//        view.addSubview(button)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -219,15 +226,17 @@ extension DemoHomeViewController {
             company: userManager.companyMarker,
             customerId: userManager.getUserToken(),
             environment: environment,
-            authProvider: { () -> [String : Any] in
-                return self.userManager.getAuthData()
+            authProvider: { [weak self] () -> [String : Any] in
+                return self?.userManager.getAuthData() ?? ["" : "" as AnyObject]
             },
-            contextProvider: { () -> [String : Any] in
-                return self.userManager.getContext()
+            contextProvider: { [weak self] () -> [String : Any] in
+                return self?.userManager.getContext() ?? ["" : "" as AnyObject]
             },
-            callbackHandler: { (deepLink, deepLinkData) in
-                if !self.handleAction(deepLink, userInfo: deepLinkData) {
-                    self.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
+            callbackHandler: { [weak self] (deepLink, deepLinkData) in
+                guard let blockSelf = self else { return }
+                
+                if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
+                    blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
                 }
             },
             styles: nil,
@@ -235,35 +244,35 @@ extension DemoHomeViewController {
         
         
         if let chatButton = chatButton {
-//            chatButton.hideUntilAnimateInIsCalled()
             chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
             let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 88))
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
-            
-//            chatButton.animateIn(afterDelay: 1.0)
         }
     }
     
     func didTapCustomButton() {
+        
         let chatViewController = ASAPP.createChatViewController(
             company: userManager.companyMarker,
             customerId: userManager.getUserToken(),
             environment: environment,
-            authProvider: { () -> [String : Any] in
-                return self.userManager.getAuthData()
+            authProvider: { [weak self] () -> [String : Any] in
+                return self?.userManager.getAuthData() ?? ["" : "" as AnyObject]
             },
-            contextProvider: { () -> [String : Any] in
-                return self.userManager.getContext()
+            contextProvider: { [weak self] () -> [String : Any] in
+                return self?.userManager.getContext() ?? ["" : "" as AnyObject]
             },
-            callbackHandler: { (deepLink, deepLinkData) in
-                if !self.handleAction(deepLink, userInfo: deepLinkData) {
-                    self.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
+            callbackHandler: { [weak self] (deepLink, deepLinkData) in
+                guard let blockSelf = self else { return }
+                
+                if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
+                    blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
                 }
             },
             styles: nil)
         
-        present(chatViewController, animated: true, completion: nil)
+        present(chatViewController, animated: false, completion: nil)
     }
 }
 

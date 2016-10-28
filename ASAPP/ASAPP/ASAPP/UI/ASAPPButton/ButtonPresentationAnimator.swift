@@ -15,12 +15,12 @@ class ButtonPresentationAnimator: NSObject {
     // MARK: Properties: Context
     
     fileprivate var isPresenting: Bool = false
-    fileprivate var presentingViewController: UIViewController?
-    fileprivate var presentingView: UIView?
-    fileprivate var presentedViewController: UIViewController?
-    fileprivate var presentedView: UIView?
-    fileprivate var containerView: UIView?
-    fileprivate var transitionContext: UIViewControllerContextTransitioning?
+    fileprivate weak var presentingViewController: UIViewController?
+    fileprivate weak var presentingView: UIView?
+    fileprivate weak var presentedViewController: UIViewController?
+    fileprivate weak var presentedView: UIView?
+    fileprivate weak var containerView: UIView?
+    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
     
     // MARK: Properties: Internal
 
@@ -107,11 +107,13 @@ extension ButtonPresentationAnimator {
             return
         }
         
-        collapseButton { (collapsedToPoint) in
-            self.expansionPoint = collapsedToPoint ?? CGPoint(x: containerView.bounds.midX, y: containerView.bounds.midY)
-            self.expandView(fromPoint: self.expansionPoint!, completion: {
-                self.completeTransitionAnimation()
-            })
+        collapseButton { [weak self] (collapsedToPoint) in
+            if let blockSelf = self {
+                blockSelf.expansionPoint = collapsedToPoint ?? CGPoint(x: containerView.bounds.midX, y: containerView.bounds.midY)
+                blockSelf.expandView(fromPoint: blockSelf.expansionPoint!, completion: {
+                    blockSelf.completeTransitionAnimation()
+                })
+            }
         }
     }
     
@@ -133,10 +135,10 @@ extension ButtonPresentationAnimator {
     
     func collapseButton(_ completion: ((_ collapsedToPoint: CGPoint?) -> Void)?) {
         let buttonCenter = self.buttonView.superview?.convert(self.buttonView.center, to: self.containerView)
-        UIView.animate(withDuration: buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
-            self.buttonView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-            }) { (completed) in
-                self.buttonView.isHidden = true
+        UIView.animate(withDuration: buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
+            self?.buttonView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+            }) { [weak self] (completed) in
+                self?.buttonView.isHidden = true
                 completion?(buttonCenter)
         }
     }
@@ -202,10 +204,10 @@ extension ButtonPresentationAnimator {
         
         // Animating Transforms
         
-        UIView.animate(withDuration: duration, animations: { 
-            self.presentedView?.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: duration, animations: { [weak self] in
+            self?.presentedView?.transform = CGAffineTransform.identity
             if let presentingViewTransform = presentingViewTransform {
-                self.presentingView?.transform = presentingViewTransform
+                self?.presentingView?.transform = presentingViewTransform
             }
             }, completion: { (completed) in
                 completion?()
@@ -266,11 +268,11 @@ extension ButtonPresentationAnimator {
         animation.isRemovedOnCompletion = false
         circleMaskLayer.add(animation, forKey: ANIMATION_KEY_COLLAPSE)
         
-        UIView.animate(withDuration: duration, animations: { 
-            self.presentingView?.transform = CGAffineTransform.identity
-            if let presentingViewController = self.presentingViewController,
-                let presentingViewFrame = self.transitionContext?.finalFrame(for: presentingViewController) {
-                self.presentingView?.frame = presentingViewFrame
+        UIView.animate(withDuration: duration, animations: { [weak self] in
+            self?.presentingView?.transform = CGAffineTransform.identity
+            if let presentingViewController = self?.presentingViewController,
+                let presentingViewFrame = self?.transitionContext?.finalFrame(for: presentingViewController) {
+                self?.presentingView?.frame = presentingViewFrame
             }
             }, completion: { (completed) in
                 completion?()
@@ -279,8 +281,8 @@ extension ButtonPresentationAnimator {
     
     func expandButton(_ completion: (() -> Void)?) {
         buttonView.isHidden = false
-        UIView.animate(withDuration: expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.buttonView.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseOut, animations: { [weak self] in
+            self?.buttonView.transform = CGAffineTransform.identity
         }) { (completed) in
             completion?()
         }

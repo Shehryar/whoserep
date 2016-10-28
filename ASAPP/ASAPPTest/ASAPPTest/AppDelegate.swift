@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if COMCAST_LIVE_CHAT_DEMO {
-            defaultCompany = "comcast"
+            defaultCompany = "asapp"
             canChangeCompany = false
             demoContentEnabled = false
             DemoSettings.setCurrentEnvironment(environment: .staging)

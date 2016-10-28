@@ -25,19 +25,12 @@ public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String
 
 internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
 
-    if DEMO_LIVE_CHAT && companyMarker == "comcast" {
+    if DEMO_LIVE_CHAT {
         return URL(string: "wss://demo.asapp.com/api/websocket")
     }
     
     var connectionURL: URL?
     switch environment {
-//    case .local:
-//        connectionURL = URL(string: "wss://localhost:8443/api/websocket")
-//        break
-//        
-//    case .development:
-//        connectionURL = URL(string: "wss://vs-dev.asapp.com/api/websocket")
-//        break
         
     case .staging:
         if DEMO_CONTENT_ENABLED && companyMarker == "text-rex" {
@@ -47,7 +40,6 @@ internal func ConnectionURLForEnvironment(companyMarker: String, environment: AS
         } else {
             connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
         }
-//        connectionURL = URL(string: "wss://srs-api-dev.asapp.com/api/websocket")
         break
         
     case .production:
@@ -59,7 +51,7 @@ internal func ConnectionURLForEnvironment(companyMarker: String, environment: AS
 
 // MARK:- SocketConnectionDelegate
 
-protocol SocketConnectionDelegate {
+protocol SocketConnectionDelegate: class {
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection)
     func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection)
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection)
@@ -81,7 +73,7 @@ class SocketConnection: NSObject {
         return false
     }
     
-    var delegate: SocketConnectionDelegate?
+    weak var delegate: SocketConnectionDelegate?
     
     // MARK: Private Properties
     
@@ -96,6 +88,10 @@ class SocketConnection: NSObject {
     fileprivate var requestQueue = [SocketRequest]()
     
     fileprivate var requestHandlers = [Int : IncomingMessageHandler]()
+    
+    fileprivate var requestSendTimes = [Int : TimeInterval]()
+    
+    fileprivate var requestLookup = [Int : SocketRequest]()
     
     fileprivate var didManuallyDisconnect = false
     
@@ -194,6 +190,9 @@ extension SocketConnection {
     
     func sendRequestWithRequest(_ request: SocketRequest) {
         if isConnected {
+            requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
+            requestLookup[request.requestId] = request
+            
             if let data = request.requestData {
                 DebugLog("Sending data request - (\(data.count) bytes)")
                 socket?.send(data)
@@ -218,7 +217,7 @@ extension SocketConnection {
     func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
         let (path, params) = outgoingMessageSerializer.createAuthRequest()
-        sendRequest(withPath: path, params: params) { [weak self] (message) in
+        sendRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
             
             if let targetCustomerToken = self?.credentials.targetCustomerToken {
@@ -235,7 +234,7 @@ extension SocketConnection {
         let path = "rep/GetCustomerByCRMCustomerId"
         let params: [String : AnyObject] = [ "CRMCustomerId" : targetCustomerToken as AnyObject]
         
-        sendRequest(withPath: path, params: params) { (response) in
+        sendRequest(withPath: path, params: params) { (response, request, responseTime) in
             guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
                 DebugLogError("Missing Customer json body in: \(response.fullMessage)")
                 
@@ -255,7 +254,7 @@ extension SocketConnection {
         let path = "rep/ParticipateInIssueForCustomer"
         let context: [String: AnyObject] = [ "CustomerId" : customerId as AnyObject ]
         
-        sendRequest(withPath: path, params: nil, context: context) { (response) in
+        sendRequest(withPath: path, params: nil, context: context) { (response, request, responseTime) in
             var errorMessage: String?
             if let issueId = response.body?["IssueId"] as? Int {
                 self.outgoingMessageSerializer.issueId = issueId
@@ -287,14 +286,41 @@ extension SocketConnection: SRWebSocketDelegate {
     
     public func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
         
-        DebugLog("Received message:\n\(message)")
+        func logMessageReceived(forRequest request: SocketRequest?, responseTime: Int) {
+            let responseTimeString = responseTime > 0 ?  " [\(responseTime) ms]" : ""
+            var originalRequestInfo = ""
+            if let request = request {
+                originalRequestInfo = " [\(request.path)] [\(request.requestUUID)]"
+            }
+            
+            DebugLog("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------\n\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+        }
         
         let serializedMessage = incomingMessageSerializer.serializedMessage(message)
         if let requestId = serializedMessage.requestId {
+            
+            // Original Request
+            var originalRequest = requestLookup[requestId]
+            requestLookup[requestId] = nil
+            
+            // Response Time
+            var responseTime: Int = -1
+            if let requestSendTime = requestSendTimes[requestId] {
+                requestSendTimes[requestId] = nil
+                
+                let currentTime = NSDate.timeIntervalSinceReferenceDate
+                responseTime = Int(floor((currentTime - requestSendTime) * 1000))
+            }
+            
+            logMessageReceived(forRequest: originalRequest, responseTime: responseTime)
+            
             if let requestHandler = requestHandlers[requestId] {
                 requestHandlers[requestId] = nil
-                requestHandler(serializedMessage)
+                requestHandler(serializedMessage, originalRequest, responseTime)
             }
+            
+        } else {
+             logMessageReceived(forRequest: nil, responseTime: -1)
         }
         
         delegate?.socketConnection(self, didReceiveMessage: serializedMessage)

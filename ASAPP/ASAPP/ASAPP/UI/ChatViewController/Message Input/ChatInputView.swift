@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ChatInputViewDelegate {
+protocol ChatInputViewDelegate: class {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?)
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String)
     func chatInputView(_ chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
@@ -23,7 +23,7 @@ class ChatInputView: UIView {
     
     let strings: ASAPPStrings
     
-    var delegate: ChatInputViewDelegate?
+    weak var delegate: ChatInputViewDelegate?
     
     var canSendMessage: Bool = true {
         didSet {

@@ -294,9 +294,9 @@ extension ChatBubbleCell {
         if hidden == detailLabelHidden { return }
         
         if animated {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.detailLabelHidden = hidden
-                self.updateFrames()
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                self?.detailLabelHidden = hidden
+                self?.updateFrames()
                 }, completion: { (completed) in
                     completion?()
             })
@@ -337,12 +337,12 @@ extension ChatBubbleCell {
         bubbleView.alpha = 0
         bubbleView.center = animationBeginCenter
         
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: .beginFromCurrentState, animations: {
-            self.bubbleView.alpha = 1
-            self.bubbleView.center = animationEndCenter
-            }, completion: { (completed) in
-                self.animating = false
-                self.setNeedsLayout()
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: .beginFromCurrentState, animations: { [weak self] in
+            self?.bubbleView.alpha = 1
+            self?.bubbleView.center = animationEndCenter
+            }, completion: { [weak self] (completed) in
+                self?.animating = false
+                self?.setNeedsLayout()
         })
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class ChatWelcomeButtonsView: UIView {
 
-    var onButtonTap: ((_ buttonTitle: String) -> Void)?
+    var onButtonTap: ((_ buttonTitle: String, _ isFromPrediction: Bool) -> Void)?
     
     fileprivate(set) var buttonTitles: [String]?
     
@@ -69,7 +69,7 @@ class ChatWelcomeButtonsView: UIView {
     
     // MARK: View Creation
     
-    func newButton(_ title: String, highlighted: Bool = false) -> Button {
+    func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
         let button = Button()
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
@@ -86,7 +86,7 @@ class ChatWelcomeButtonsView: UIView {
         button.clipsToBounds = true
         button.title = title
         button.onTap = { [weak self] in
-            self?.onButtonTap?(title)
+            self?.onButtonTap?(title, isPrediction)
         }
         
         return button
@@ -192,7 +192,7 @@ class ChatWelcomeButtonsView: UIView {
         
         if let buttonTitles = relatedButtonTitles {
             for buttonTitle in buttonTitles {
-                let button = newButton(buttonTitle, highlighted: true)
+                let button = newButton(buttonTitle, highlighted: true, isPrediction: true)
                 button.alpha = 0.0
                 addSubview(button)
                 relatedButtons.append(button)
@@ -201,7 +201,7 @@ class ChatWelcomeButtonsView: UIView {
         
         if let buttonTitles = otherButtonTitles {
             for buttonTitle in buttonTitles {
-                let button = newButton(buttonTitle, highlighted: false)
+                let button = newButton(buttonTitle, highlighted: false, isPrediction: false)
                 button.alpha = 0.0
                 addSubview(button)
                 otherButtons.append(button)

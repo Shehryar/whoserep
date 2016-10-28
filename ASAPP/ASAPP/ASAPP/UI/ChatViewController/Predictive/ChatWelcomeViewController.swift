@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol ChatWelcomeViewControllerDelegate {
-    func chatWelcomeViewController(_ viewController: ChatWelcomeViewController, didFinishWithText queryText: String)
+protocol ChatWelcomeViewControllerDelegate: class {
+    func chatWelcomeViewController(_ viewController: ChatWelcomeViewController, didFinishWithText queryText: String, fromPrediction: Bool)
     func chatWelcomeViewControllerDidTapViewChat(_ viewController: ChatWelcomeViewController)
     func chatWelcomeViewControllerDidTapX(_ viewController: ChatWelcomeViewController)
 }
@@ -22,7 +22,7 @@ class ChatWelcomeViewController: UIViewController {
     
     let strings: ASAPPStrings
     
-    var delegate: ChatWelcomeViewControllerDelegate?
+    weak var delegate: ChatWelcomeViewControllerDelegate?
     
     var tapGesture: UITapGestureRecognizer?
     
@@ -99,8 +99,8 @@ class ChatWelcomeViewController: UIViewController {
         messageLabel.font = styles.detailFont.withSize(14)
         blurredBgView.contentView.addSubview(messageLabel)
         
-        buttonsView.onButtonTap = { [weak self] (buttonTitle) in
-            self?.finishWithMessage(buttonTitle)
+        buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
+            self?.finishWithMessage(buttonTitle, fromPrediction: isFromPrediction)
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
@@ -141,6 +141,9 @@ class ChatWelcomeViewController: UIViewController {
         // Navigation Bar
         
         if let navigationBar = navigationController?.navigationBar {
+            navigationBar.shadowImage = nil
+            navigationBar.setBackgroundImage(nil, for: .default)
+            navigationBar.setBackgroundImage(nil, for: .compact)
             navigationBar.barStyle = .blackTranslucent
             navigationBar.backgroundColor = UIColor.clear
             navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -244,16 +247,16 @@ class ChatWelcomeViewController: UIViewController {
     }
     
     func updateFramesAnimated() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.updateFrames()
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.updateFrames()
         })
     }
     
     // MARK: Actions
     
-    func finishWithMessage(_ message: String) {
+    func finishWithMessage(_ message: String, fromPrediction: Bool) {
         dismissKeyboard()
-        delegate?.chatWelcomeViewController(self, didFinishWithText: message)
+        delegate?.chatWelcomeViewController(self, didFinishWithText: message, fromPrediction: fromPrediction)
     }
     
     func didTapViewChat() {
@@ -314,7 +317,7 @@ extension ChatWelcomeViewController: ChatInputViewDelegate {
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         chatInputView.clear()
-        finishWithMessage(message)
+        finishWithMessage(message, fromPrediction: false)
     }
     
     func chatInputView(_ chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton) {
@@ -393,12 +396,12 @@ extension ChatWelcomeViewController {
             updateFrames()
             
             Dispatcher.delay(300) {
-                UIView.animate(withDuration: 0.4, animations: {
+                UIView.animate(withDuration: 0.4, animations: { [weak self] in
                     
-                    self.messageLabel.alpha = 1.0
-                    }, completion: { (completed) in
-                        self.buttonsView.animateButtonsIn(true) {
-                            self.viewContentsVisible = true
+                    self?.messageLabel.alpha = 1.0
+                    }, completion: { [weak self] (completed) in
+                        self?.buttonsView.animateButtonsIn(true) {
+                            self?.viewContentsVisible = true
                         }
                 })
             }

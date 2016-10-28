@@ -9,13 +9,13 @@
 import UIKit
 import ASAPP
 
-protocol DemoSettingsViewControllerDelegate {
+protocol DemoSettingsViewControllerDelegate: class {
     func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController)
 }
 
 class DemoSettingsViewController: UIViewController {
 
-    var delegate: DemoSettingsViewControllerDelegate?
+    weak var delegate: DemoSettingsViewControllerDelegate?
     
     var statusBarStyle = UIStatusBarStyle.default {
         didSet {

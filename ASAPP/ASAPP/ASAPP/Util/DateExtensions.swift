@@ -9,6 +9,17 @@
 import UIKit
 
 internal extension Date {
+
+    static func timeSince(date: Date, isGreaterThan numberOfSeconds: TimeInterval) -> Bool {
+        return date.timeSinceIsGreaterThan(numberOfSeconds: numberOfSeconds)
+    }
+    
+    func timeSinceIsGreaterThan(numberOfSeconds: TimeInterval) -> Bool {
+        let referenceDate = self.addingTimeInterval(numberOfSeconds)
+        let referenceDateHasPassed = referenceDate.hasPassed()
+        
+        return referenceDateHasPassed
+    }
     
     func hasPassed() -> Bool {
         return timeIntervalSinceNow < 0

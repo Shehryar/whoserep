@@ -9,11 +9,13 @@
 import UIKit
 
 enum AnalyticsEventType: String {
+    case sessionStart = "SESSION_START"
     case buttonClick = "BUTTON_CLICK"
-    case srsRequest = "SRS_REQUEST"
     case deepLink = "DEEP_LINK"
     case webLink = "EXTERNAL_URL"
+    case treewalk = "TREEWALK"
     case sdkError = "SDK_ERROR"
+    case srsRequestTime = "SRS_REQUEST_CLIENT"
 }
 
 enum AnalyticsButtonName: String {
@@ -25,6 +27,11 @@ enum AnalyticsButtonName: String {
     case srsBack = "srs_back"
 }
 
+enum SDKErrorType: String {
+    case authenticationFailure = "authentication_failure"
+    case apiResponseError = "api_request_error"
+}
+
 typealias AnalyticsAttributes = [String : String]
 
 typealias AnalyticsMetrics = [String : Double]
@@ -33,16 +40,26 @@ typealias AnalyticsMetrics = [String : Double]
 
 extension ConversationManager {
     
-    func trackEvent(eventType: AnalyticsEventType, attributes: AnalyticsAttributes? = nil, metrics: AnalyticsMetrics? = nil) {
+    func trackEvent(eventType: AnalyticsEventType,
+                    attributes: AnalyticsAttributes? = nil,
+                    metrics: AnalyticsMetrics? = nil) {
+        
+        var defaultAttributes = [
+            "device_model" : UIDevice.current.model,
+            "device_platform_name" : UIDevice.current.systemName,
+            "device_platform_version" : UIDevice.current.systemVersion,
+        ]
+        if let currentIntent = currentSRSClassification {
+            defaultAttributes["current_classification"] = currentIntent
+        }
+        
         var params: [String : AnyObject] = [
             "EventType" : eventType.rawValue as AnyObject,
-            "Attributes" : [ "platform" : "iOS" ].with(attributes) as AnyObject
+            "Attributes" : defaultAttributes.with(attributes) as AnyObject
         ]
         if let metrics = metrics {
             params["Metrics"] = metrics as AnyObject
         }
-        
-//        DebugLog("\n\nLogging Event: \(params)\n")
         
         socketConnection.sendRequest(withPath: "srs/PutMAEvent", params: params)
     }
@@ -52,15 +69,13 @@ extension ConversationManager {
 
 extension ConversationManager {
     
+    func trackSessionStart() {
+        trackEvent(eventType: .sessionStart)
+    }
+    
     func trackButtonTap(buttonName: AnalyticsButtonName) {
         trackEvent(eventType: .buttonClick,
                    attributes: [ "button_clicked" : buttonName.rawValue ],
-                   metrics: nil)
-    }
-    
-    func trackSRSQuery(query: String) {
-        trackEvent(eventType: .srsRequest,
-                   attributes: [ "query_text" : query ],
                    metrics: nil)
     }
     
@@ -74,5 +89,49 @@ extension ConversationManager {
         trackEvent(eventType: .webLink,
                    attributes: [ "url" : link ],
                    metrics: nil)
+    }
+    
+    func trackTreewalk(message: String, classification: String) {
+        trackEvent(eventType: .treewalk,
+                   attributes: [
+                    "button_clicked" : message,
+                    "classification" : classification
+            ])
+    }
+    
+    func trackSRSRequest(path: String,
+                         requestUUID: String?,
+                         isPredictive: Bool,
+                         params: [String : AnyObject]?,
+                         responseTimeInMilliseconds: Int) {
+        
+        var attributes = [
+            "endpoint" : path,
+            "query_is_predictive" : isPredictive ? "true" : "false"
+        ]
+        if let requestUUID = requestUUID {
+            attributes["request_id"] = requestUUID
+        }
+        
+        if let paramsString = JSONUtil.stringify(params as AnyObject?) {
+            attributes["request_parameters"] = paramsString
+        }
+        
+        var metrics = [ "elapsed_time" : Double(responseTimeInMilliseconds * 1000) ]
+        
+        trackEvent(eventType: .srsRequestTime,
+                   attributes: attributes,
+                   metrics: metrics)
+    }
+    
+    func trackSDKError(type: SDKErrorType,
+                       attributes: AnalyticsAttributes? = nil,
+                       metrics: AnalyticsMetrics? = nil) {
+        
+        let allAttributes = [ "error" : type.rawValue ].with(attributes)
+        
+        trackEvent(eventType: .sdkError,
+                   attributes: allAttributes,
+                   metrics: metrics)
     }
 }

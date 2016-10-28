@@ -10,6 +10,10 @@ import UIKit
 
 
 enum DemoEventType {
+    case billAutoPay
+    case billCredit
+    case billPaid
+    case billPastDue
     case billSummary
     case troubleshooter
     case deviceRestart
@@ -24,8 +28,13 @@ enum DemoEventType {
     case switchToSRS
     case scheduleAppointment
     case appointmentConfirmation
+    case jsonStyleExample
     
-    static let allTypes = [billSummary,
+    static let allTypes = [billAutoPay,
+                           billCredit,
+                           billPaid,
+                           billPastDue,
+                           billSummary,
                            troubleshooter,
                            deviceRestart,
                            equipmentReturn,
@@ -38,7 +47,8 @@ enum DemoEventType {
                            switchToLiveChat,
                            switchToSRS,
                            scheduleAppointment,
-                           appointmentConfirmation
+                           appointmentConfirmation,
+                           jsonStyleExample
                            ]
 }
 
@@ -102,6 +112,10 @@ extension Event {
     
     fileprivate class func jsonFileName(forEventType eventType: DemoEventType) -> String {
         switch eventType {
+        case .billAutoPay: return "bill-autopay-scheduled"
+        case .billCredit: return "bill-credit"
+        case .billPaid: return "bill-paid"
+        case .billPastDue: return "bill-past-due"
         case .billSummary: return "bill-summary"
         case .troubleshooter: return "troubleshooter"
         case .deviceRestart: return "device-restart"
@@ -121,6 +135,7 @@ extension Event {
         case .switchToSRS: return "srs-chat"
         case .scheduleAppointment: return "schedule-appointment"
         case .appointmentConfirmation: return "appointment-confirmation"
+        case .jsonStyleExample: return "json-style-example"
         }
     }
     
@@ -170,6 +185,27 @@ extension Event {
     
     fileprivate class func triggeringSubstringSet(demoEventType: DemoEventType) -> [[String]]? {
         switch demoEventType {
+        case .billAutoPay:
+            return [
+                ["bill", "auto"]
+            ]
+        
+        case .billCredit:
+            return [
+                ["bill", "credit"]
+            ]
+            
+        case .billPaid:
+            return [
+                ["bill", "paid"]
+            ]
+            
+        case .billPastDue:
+            return [
+                ["bill", "past", "due"],
+                ["bill", "overdue"]
+            ]
+            
         case .billSummary:
             return [
                 ["what", "bill"],
@@ -236,6 +272,10 @@ extension Event {
                 ["schedule", "on 10/28/2016"],
             ]
             
+        case .jsonStyleExample:
+            return [
+                ["json", "styl"]
+            ]
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:
             return nil

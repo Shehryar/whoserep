@@ -8,6 +8,7 @@
 
 import Foundation
 
+internal var DISTRIBUTION_BUILD = true
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
 internal var DEMO_COMCAST_LIVE_CHAT_USER = false
@@ -54,9 +55,11 @@ public class ASAPP: NSObject {
                                        strings: ASAPPStrings?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
-        DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
-        DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
-        DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
+        if !DISTRIBUTION_BUILD {
+            DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
+            DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
+            DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
+        }
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,
@@ -106,9 +109,11 @@ public class ASAPP: NSObject {
                                                styles: ASAPPStyles?,
                                                strings: ASAPPStrings?) -> UIViewController {
         
-        DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
-        DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
-        DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
+        if !DISTRIBUTION_BUILD {
+            DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
+            DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
+            DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
+        }
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,

@@ -12,7 +12,7 @@ typealias ConversationManagerRequestBlock = ((_ fetchedEvents: [Event]?, _ error
 
 // MARK:- ConversationManagerDelegate
 
-protocol ConversationManagerDelegate {
+protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
     func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event)
     func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event)
@@ -28,7 +28,9 @@ class ConversationManager: NSObject {
     
     let credentials: Credentials
     
-    var delegate: ConversationManagerDelegate?
+    weak var delegate: ConversationManagerDelegate?
+    
+    var currentSRSClassification: String?
     
     var isConnected: Bool {
         return socketConnection.isConnected
@@ -77,11 +79,13 @@ extension ConversationManager {
     // MARK: Entering/Exiting a Conversation
     
     func enterConversation() {
+        DebugLog("\n\nEntering Conversation\n")
+        
         socketConnection.connectIfNeeded()
     }
     
     func startSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) {
-        sendSRSRequest(path: "srs/AppOpen", params: nil) { (incomingMessage) in
+        sendSRSRequest(path: "srs/AppOpen", params: nil) { (incomingMessage, request, responseTime) in
             
             if self.demo_OverrideStartSRS(completion: completion) {
                 return
@@ -100,6 +104,8 @@ extension ConversationManager {
     }
     
     func exitConversation() {
+        DebugLog("\n\nExiting Conversation\n")
+        
         fileStore.save()
         socketConnection.disconnect()
     }
@@ -122,7 +128,7 @@ extension ConversationManager {
         let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
         let params = ["AfterSeq" : afterSeq as AnyObject]
         
-        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage) in
+        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage, request: SocketRequest?,  responseTime: ResponseTimeInMilliseconds) in
             Dispatcher.performOnBackgroundThread {
                 
                 let (eventList, eventsJSONArray, errorMessage) = message.parseEventList()
@@ -150,7 +156,7 @@ extension ConversationManager {
         _sendMessage(message, completion: completion)
     }
     
-    func sendSRSQuery(_ query: String) {
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
         if demo_OverrideMessageSend(message: query) {
             return
         }
@@ -161,9 +167,7 @@ extension ConversationManager {
             "SearchQuery" : query as AnyObject
         ]
         
-        sendSRSRequest(path: path, params: params) { (incomingMessage) in
-            // No-op for now
-        }
+        sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }
     
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {
@@ -242,7 +246,11 @@ extension ConversationManager {
     
     // MARK: SRS General
     
-    fileprivate func sendSRSRequest(path: String, params: [String : AnyObject]?, requestHandler: IncomingMessageHandler? = nil) {
+    fileprivate func sendSRSRequest(path: String,
+                                    params: [String : AnyObject]?,
+                                    isRequestFromPrediction: Bool = false,
+                                    requestHandler: IncomingMessageHandler? = nil) {
+        
         Dispatcher.performOnBackgroundThread {
             var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
             if let authToken = self.credentials.getAuthToken() {
@@ -250,8 +258,14 @@ extension ConversationManager {
             }
             
             Dispatcher.performOnMainThread {
-                self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage) in
-                    requestHandler?(incomingMessage)
+                self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
+                    requestHandler?(incomingMessage, request, responseTime)
+                    
+                    self.trackSRSRequest(path: path,
+                                         requestUUID: request?.requestUUID,
+                                         isPredictive: isRequestFromPrediction,
+                                         params: params,
+                                         responseTimeInMilliseconds: responseTime)
                 })
             }
         }
@@ -269,8 +283,8 @@ extension ConversationManager {
             params["SearchQuery"] = originalSearchQuery as AnyObject
         }
         
-        sendSRSRequest(path: path, params: params) { (incomingMessage) in
-            // No-op for now
+        sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
+            self?.trackTreewalk(message: message, classification: classification)
         }
     }
     
@@ -278,9 +292,7 @@ extension ConversationManager {
         _sendMessage(message)
         
         let path = "srs/\(action)"
-        sendSRSRequest(path: path, params: nil) { (incomingMessage) in
-            // No-op for now
-        }
+        sendSRSRequest(path: path, params: nil)
     }
 }
 
@@ -356,6 +368,12 @@ extension ConversationManager: SocketConnectionDelegate {
                 }
                 
             }
+        } else if message.type == .ResponseError {
+//            var attributes: AnalyticsAttributes?
+//            if let errorMessage = message.debugError {
+//                attributes = [ "error_message" : errorMessage ]
+//            }
+//            trackSDKError(type: .apiResponseError, attributes: attributes)
         }
     }
     
@@ -369,6 +387,8 @@ extension ConversationManager: SocketConnectionDelegate {
         DebugLog("ConversationManager: Authentication Failed")
         
         delegate?.conversationManager(self, connectionStatusDidChange: false)
+        
+        trackSDKError(type: .authenticationFailure)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {

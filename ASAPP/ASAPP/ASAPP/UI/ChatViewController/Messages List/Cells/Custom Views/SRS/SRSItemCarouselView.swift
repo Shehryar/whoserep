@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SRSItemCarouselViewDelegate {
+protocol SRSItemCarouselViewDelegate: class {
     func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didScrollToPage page: Int)
 }
 
@@ -29,7 +29,7 @@ class SRSItemCarouselView: UIView {
         }
     }
     
-    var delegate: SRSItemCarouselViewDelegate?
+    weak var delegate: SRSItemCarouselViewDelegate?
     
     // MARK: UI Properties
     

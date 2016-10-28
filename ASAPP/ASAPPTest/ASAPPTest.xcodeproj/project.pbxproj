@@ -704,7 +704,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
 				COMPANY_CHANGING_DISABLED = NO;
-				DEFAULT_DEMO_COMPANY = sprint;
+				DEFAULT_DEMO_COMPANY = comcast;
 				DEMO_CONTENT_ENABLED = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -826,7 +826,7 @@
 				COMPANY_CHANGING_DISABLED = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_DEMO_COMPANY = comcast;
-				DEMO_CONTENT_ENABLED = YES;
+				DEMO_CONTENT_ENABLED = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

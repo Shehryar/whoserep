@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SRSItemListViewDelegate {
+protocol SRSItemListViewDelegate: class {
     func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
 }
 
@@ -24,7 +24,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
         }
     }
     
-    var delegate: SRSItemListViewDelegate?
+    weak var delegate: SRSItemListViewDelegate?
     
     // MARK: ASAPPStyleable
     

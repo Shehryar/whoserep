@@ -173,7 +173,6 @@ extension ChatActionableMessageView: UITableViewDataSource {
         cell.textLabel?.textColor = styles.buttonColor
         cell.textLabel?.font = styles.buttonFont
         cell.backgroundColor = styles.backgroundColor2
-        cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         cell.separatorBottomColor = styles.separatorColor1
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
@@ -199,8 +198,10 @@ extension ChatActionableMessageView: UITableViewDataSource {
             } else {
                 cell.textLabel?.alpha = 0.3
             }
+            cell.selectedBackgroundColor = nil
         } else {
             cell.textLabel?.alpha = 1
+            cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         }
     }
 }
@@ -216,6 +217,8 @@ extension ChatActionableMessageView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard selectedButtonItem == nil else { return }
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             selectedButtonItem = buttonItem

@@ -27,9 +27,11 @@ class ChatSuggestedReplyCell: UITableViewCell {
     var selectedBackgroundColor: UIColor? {
         didSet {
             if let selectedBackgroundColor = selectedBackgroundColor {
+                selectionStyle = .default
                 customSelectedBackgroundView.backgroundColor = selectedBackgroundColor
                 selectedBackgroundView = customSelectedBackgroundView
             } else {
+                selectionStyle = .none
                 selectedBackgroundView = nil
             }
         }

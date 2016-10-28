@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ChatMessagesViewDelegate {
+protocol ChatMessagesViewDelegate: class {
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
     func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
     func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event)
@@ -35,7 +35,7 @@ class ChatMessagesView: UIView {
         }
     }
     
-    var delegate: ChatMessagesViewDelegate?
+    weak var delegate: ChatMessagesViewDelegate?
     
     var showTimeStampForEvent: Event?
     
