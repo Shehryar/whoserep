@@ -421,6 +421,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_DEMO_COMPANY = sprint;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -493,6 +494,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEFAULT_DEMO_COMPANY = sprint;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -573,6 +575,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_DEMO_COMPANY = comcast;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -645,6 +648,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEFAULT_DEMO_COMPANY = comcast;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -726,6 +730,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_DEMO_COMPANY = asapp;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -735,7 +740,7 @@
 				LAUNCH_SCREEN = "LaunchScreen-ASAPP";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ComcastDemoDebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.LiveChatDemoDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
 				SWIFT_VERSION = 3.0;
@@ -798,6 +803,7 @@
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEFAULT_DEMO_COMPANY = asapp;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -808,10 +814,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LAUNCH_SCREEN = "LaunchScreen-ASAPP";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ComcastDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.LiveChatDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c17253dd-5def-4eae-948c-7290fdfe9cce";
-				PROVISIONING_PROFILE_SPECIFIER = "Comcast Demo Enterprise Provisioning Profile";
+				PROVISIONING_PROFILE = "d9bcf262-fd86-4815-ade9-c432af41931d";
+				PROVISIONING_PROFILE_SPECIFIER = "Live Chat Demo Enterprise Provisioning Profile";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -871,6 +877,7 @@
 				COMPANY_CHANGING_DISABLED = NO;
 				DEFAULT_DEMO_COMPANY = comcast;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -992,6 +999,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_DEMO_COMPANY = comcast;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1021,6 +1029,7 @@
 				COMPANY_CHANGING_DISABLED = NO;
 				DEFAULT_DEMO_COMPANY = sprint;
 				DEMO_CONTENT_ENABLED = NO;
+				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

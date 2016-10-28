@@ -26,6 +26,9 @@ public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String
 internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
 
     if DEMO_LIVE_CHAT {
+        if companyMarker == "comcast" {
+            return URL(string: "wss://comcast-demo.asapp.com/api/websocket")
+        }
         return URL(string: "wss://demo.asapp.com/api/websocket")
     }
     

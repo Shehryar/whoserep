@@ -106,7 +106,7 @@ extension DemoSettingsViewController: UITableViewDataSource {
     enum Section: Int {
         case environment = 0
         case demoContent = 1
-        case comcastDemo = 2
+        case liveChatDemo = 2
         case count = 3
     }
     
@@ -124,8 +124,8 @@ extension DemoSettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if COMCAST_LIVE_CHAT_DEMO {
-            if section == Section.comcastDemo.rawValue {
+        if DemoSettings.demoLiveChat() {
+            if section == Section.liveChatDemo.rawValue {
                 return 1
             }
             return 0
@@ -134,15 +134,15 @@ extension DemoSettingsViewController: UITableViewDataSource {
         switch section {
         case Section.environment.rawValue: return 1
         case Section.demoContent.rawValue: return demoContentEnabled ? DemoContentRow.count.rawValue : 1
-        case Section.comcastDemo.rawValue: return 0
+        case Section.liveChatDemo.rawValue: return 0
         default: return 0
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if COMCAST_LIVE_CHAT_DEMO {
-            if section == Section.comcastDemo.rawValue {
-                return "Comcast Demo"
+        if DemoSettings.demoLiveChat() {
+            if section == Section.liveChatDemo.rawValue {
+                return "Live Chat Demo"
             }
             return nil
         }
@@ -150,7 +150,7 @@ extension DemoSettingsViewController: UITableViewDataSource {
         switch section {
         case Section.environment.rawValue: return "Environment"
         case Section.demoContent.rawValue: return "Demo Content"
-        case Section.comcastDemo.rawValue: return nil
+        case Section.liveChatDemo.rawValue: return nil
         default: return nil
         }
     }
@@ -223,11 +223,11 @@ extension DemoSettingsViewController: UITableViewDataSource {
             }
             break
             
-        case Section.comcastDemo.rawValue:
+        case Section.liveChatDemo.rawValue:
             cell.title = "User: +13126089137"
-            cell.isOn = DemoSettings.useComcastPhoneUser()
+            cell.isOn = DemoSettings.useDemoPhoneUser()
             cell.onToggleChange = { (isOn: Bool) in
-                DemoSettings.setUseComcastPhoneUser(isOn)
+                DemoSettings.setUseDemoPhoneUser(isOn)
                 self.delegate?.demoSettingsViewControllerDidUpdateSettings(self)
             }
             break

@@ -10,8 +10,6 @@ import UIKit
 import Fabric
 import Crashlytics
 
-let COMCAST_LIVE_CHAT_DEMO = false
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -28,37 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
         
+        updateDemoSettings()
         
-        var defaultCompany: String
-        if let infoPlistCompany = Bundle.main.infoDictionary?["default-demo-company"] as? String {
-            defaultCompany = infoPlistCompany
-        } else {
-            defaultCompany = "comcast"
-            print("No default company found in info.plist. Setting to \(defaultCompany)")
-        }
-        var canChangeCompany = true
-        if Bundle.main.infoDictionary?["company-changing-disabled"] as? String == "YES" {
-            canChangeCompany = false
-        }
-        var demoContentEnabled = false
-        if Bundle.main.infoDictionary?["demo-content-enabled"] as? String == "YES" {
-            demoContentEnabled = true
-        }
-        
-        if COMCAST_LIVE_CHAT_DEMO {
-            defaultCompany = "asapp"
-            canChangeCompany = false
-            demoContentEnabled = false
-            DemoSettings.setCurrentEnvironment(environment: .staging)
-            DemoSettings.setUseComcastPhoneUser(true)
-        } else {
-            DemoSettings.setUseComcastPhoneUser(false)
-        }
-        
-        
-        demoController = DemoHomeViewController(companyMarker: defaultCompany,
-                                                canChangeCompany: canChangeCompany,
-                                                demoContentEnabled: demoContentEnabled)
+        demoController = DemoHomeViewController(companyMarker: defaultCompany(),
+                                                canChangeCompany: canChangeCompanies())
         
         Fabric.with([Crashlytics.self])
         
@@ -90,8 +61,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+}
+
+// MARK:- Setup
+
+extension AppDelegate {
     
-    // MARK:- Root View Controller
+    func defaultCompany() -> String {
+        if let company = Bundle.main.infoDictionary?["default-demo-company"] as? String {
+            return company
+        }
+        return "comcast"
+    }
+    
+    func canChangeCompanies() -> Bool {
+        return Bundle.main.infoDictionary?["company-changing-disabled"] as? String == "YES"
+    }
+    
+    func updateDemoSettings() {
+        // Demo Content
+        if Bundle.main.infoDictionary?["demo-content-enabled"] as? String == "YES" {
+            DemoSettings.setDemoContentEnabled(true)
+        } else {
+            DemoSettings.setDemoContentEnabled(false)
+        }
+        
+        // Demo Live Chat
+        if Bundle.main.infoDictionary?["demo-live-chat"] as? String == "YES" {
+            DemoSettings.setDemoLiveChat(true)
+            DemoSettings.setUseDemoPhoneUser(true)
+            DemoSettings.setCurrentEnvironment(environment: .staging)
+        } else {
+            DemoSettings.setDemoLiveChat(false)
+            DemoSettings.setUseDemoPhoneUser(false)
+        }
+    }
+    
+    // MARK: UI
     
     func createRootViewController() -> UIViewController {
         let navigationController = NavigationController(rootViewController: demoController)

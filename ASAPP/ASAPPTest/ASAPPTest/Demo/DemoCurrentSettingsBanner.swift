@@ -89,9 +89,9 @@ class DemoCurrentSettingsBanner: UIView {
         demoLabel.isHidden = !DemoSettings.demoContentEnabled()
         
         // MITCH MITCH MITCH
-        if COMCAST_LIVE_CHAT_DEMO {
+        if DemoSettings.demoLiveChat() {
             environmentLabel.text = "Live Chat Demo"
-            if DemoSettings.useComcastPhoneUser() {
+            if DemoSettings.useDemoPhoneUser() {
                 demoLabel.text = " - +13126089137"
             } else {
                 demoLabel.text = " - Default User"

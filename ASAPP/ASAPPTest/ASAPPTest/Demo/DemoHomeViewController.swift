@@ -37,11 +37,10 @@ class DemoHomeViewController: ImageBackgroundViewController {
     
     // MARK:- Initialization
     
-    required init(companyMarker: String, canChangeCompany: Bool, demoContentEnabled: Bool) {
+    required init(companyMarker: String, canChangeCompany: Bool) {
         self.companyMarker = companyMarker
         self.canChangeCompany = canChangeCompany
         self.userManager = DemoUserManager(companyMarker: companyMarker)
-        DemoSettings.setDemoContentEnabled(demoContentEnabled)
         super.init(nibName: nil, bundle: nil)
         
         ASAPP.setLogLevel(logLevel: .Debug)
@@ -205,7 +204,7 @@ extension DemoHomeViewController {
                                              target: self,
                                              action: #selector(DemoHomeViewController.showSettings))
         
-        if DemoSettings.useComcastPhoneUser() {
+        if DemoSettings.useDemoPhoneUser() {
             navigationItem.leftBarButtonItems = [
                 settingsButton
             ]

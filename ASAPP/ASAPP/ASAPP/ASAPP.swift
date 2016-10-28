@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal var DISTRIBUTION_BUILD = true
+internal var DISTRIBUTION_BUILD = false
 
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
@@ -169,13 +169,11 @@ public class ASAPP: NSObject {
                 return
         }
     
-        if environment == .staging {
-            DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
-        } else {
-            DEMO_CONTENT_ENABLED = false
-        }
+        DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
+        DEMO_LIVE_CHAT = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_LIVE_CHAT")
+        DEMO_COMCAST_LIVE_CHAT_USER = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_FORCE_PHONE_USER")
         
-        DEMO_COMCAST_LIVE_CHAT_USER = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_COMCAST_PHONE_USER")
+        DebugLog("\n\n==========\nUPDATING DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\nPhone User = \(DEMO_COMCAST_LIVE_CHAT_USER)\n==========")
     }
 }
 

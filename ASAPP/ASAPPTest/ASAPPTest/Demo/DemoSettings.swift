@@ -61,16 +61,27 @@ class DemoSettings: NSObject {
         UserDefaults.standard.set(enabled, forKey: KEY_DEMO_CONTENT)
     }
     
+    // MARK:- Live Chat Demo
+    
+    static let KEY_DEMO_LIVE_CHAT = "ASAPP_DEMO_LIVE_CHAT"
+    
+    class func demoLiveChat() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_DEMO_LIVE_CHAT)
+    }
+    
+    class func setDemoLiveChat(_ enabled: Bool) {
+        UserDefaults.standard.set(enabled, forKey: KEY_DEMO_LIVE_CHAT)
+    }
+    
     // MARK:- Force Comcast User
     
-    static let KEY_COMCAST_PHONE_USER = "ASAPP_DEMO_COMCAST_PHONE_USER"
+    static let KEY_FORCE_PHONE_USER = "ASAPP_DEMO_FORCE_PHONE_USER"
     
-    class func useComcastPhoneUser() -> Bool {
-        return UserDefaults.standard.bool(forKey: KEY_COMCAST_PHONE_USER)
+    class func useDemoPhoneUser() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_FORCE_PHONE_USER)
     }
     
-    class func setUseComcastPhoneUser(_ enabled: Bool) {
-        UserDefaults.standard.set(enabled, forKey: KEY_COMCAST_PHONE_USER)
+    class func setUseDemoPhoneUser(_ enabled: Bool) {
+        UserDefaults.standard.set(enabled, forKey: KEY_FORCE_PHONE_USER)
     }
-    
 }
