@@ -9,6 +9,7 @@
 import Foundation
 
 internal var DISTRIBUTION_BUILD = true
+
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
 internal var DEMO_COMCAST_LIVE_CHAT_USER = false
@@ -55,11 +56,7 @@ public class ASAPP: NSObject {
                                        strings: ASAPPStrings?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
-        if !DISTRIBUTION_BUILD {
-            DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
-            DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
-            DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
-        }
+        updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,
@@ -109,11 +106,7 @@ public class ASAPP: NSObject {
                                                styles: ASAPPStyles?,
                                                strings: ASAPPStrings?) -> UIViewController {
         
-        if !DISTRIBUTION_BUILD {
-            DEMO_CONTENT_ENABLED = shouldEnableDemoContent(forEnvironment: environment)
-            DEMO_COMCAST_LIVE_CHAT_USER = shouldDemoComcastLiveChatUser()
-            DebugLog("\n\n\nDemo Content Enabled: \(DEMO_CONTENT_ENABLED)\nDemo Comcast User: \(DEMO_COMCAST_LIVE_CHAT_USER)\n\n")
-        }
+        updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,
                                       userToken: customerId,
@@ -166,20 +159,23 @@ public class ASAPP: NSObject {
     
     // MARK: Private
     
-    fileprivate class func shouldEnableDemoContent(forEnvironment environment: ASAPPEnvironment) -> Bool {
-        if environment == .staging {
-            if UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED") {
-                return true
-            }
+    fileprivate class func updateDemoSettings(withEnvironment environment: ASAPPEnvironment) {
+        guard !DISTRIBUTION_BUILD
+            else {
+                DebugLog("All demo settings disabled for distribution build")
+                DEMO_CONTENT_ENABLED = false
+                DEMO_LIVE_CHAT = false
+                DEMO_COMCAST_LIVE_CHAT_USER = false
+                return
         }
-        return false
-    }
     
-    fileprivate class func shouldDemoComcastLiveChatUser() -> Bool {
-        if UserDefaults.standard.bool(forKey: "ASAPP_DEMO_COMCAST_PHONE_USER") {
-            return true
+        if environment == .staging {
+            DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
+        } else {
+            DEMO_CONTENT_ENABLED = false
         }
-        return false
+        
+        DEMO_COMCAST_LIVE_CHAT_USER = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_COMCAST_PHONE_USER")
     }
 }
 

@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="50" image="comcast-logo" translatesAutoresizingMaskIntoConstraints="NO" id="uEm-Fs-Y68">
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="50" image="asapp-logo-light" highlightedImage="asapp-logo-light" translatesAutoresizingMaskIntoConstraints="NO" id="uEm-Fs-Y68">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="DFd-m1-IQY"/>
                                     <constraint firstAttribute="height" constant="120" id="Fum-r7-wgY"/>
@@ -32,7 +32,7 @@
                                 </variation>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.068335263674566021" green="0.067973701432901643" blue="0.068696825916230386" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.22011658549308777" green="0.23112055659294128" blue="0.26462593674659729" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uEm-Fs-Y68" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="KJ6-Zg-0GR"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="uEm-Fs-Y68" secondAttribute="trailing" constant="40" id="NAf-SL-a5Z"/>
@@ -55,6 +55,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="comcast-logo" width="438" height="84"/>
+        <image name="asapp-logo-light" width="219" height="42"/>
     </resources>
 </document>

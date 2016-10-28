@@ -107,7 +107,7 @@ extension DemoHomeViewController {
         // Nav Logo
         let logoImageView = UIImageView(image: UIImage(named: "\(companyMarkerForImage)-logo"))
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: 120, height: 32)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: 120, height: 26)
         logoImageView.isUserInteractionEnabled = true
         
         if canChangeCompany {
