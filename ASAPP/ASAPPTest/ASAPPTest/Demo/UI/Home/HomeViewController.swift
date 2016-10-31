@@ -1,5 +1,5 @@
 //
-//  DemoHomeViewController.swift
+//  HomeViewController.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 10/8/16.
@@ -9,23 +9,19 @@
 import UIKit
 import ASAPP
 
-class DemoHomeViewController: ImageBackgroundViewController {
+class HomeViewController: ImageBackgroundViewController {
     
-    var companyMarker: String {
+    var appSettings: AppSettings {
         didSet {
-            userManager = DemoUserManager(companyMarker: companyMarker)
-            
-            updateViewForCompany()
+            reloadViewForCompany()
         }
     }
     
     let canChangeCompany: Bool
     
-    var userManager: DemoUserManager
-    
     // MARK: Private Properties
     
-    fileprivate var canToggleCompany = true
+    fileprivate var recentlyChangedCompany = false
     
     fileprivate var environment: ASAPPEnvironment {
         return DemoSettings.currentEnvironment()
@@ -33,14 +29,13 @@ class DemoHomeViewController: ImageBackgroundViewController {
     
     fileprivate var chatButton: ASAPPButton?
         
-    fileprivate let settingsBannerView = DemoCurrentSettingsBanner()
+    fileprivate let settingsBannerView = HomeSettingsBanner()
     
     // MARK:- Initialization
     
-    required init(companyMarker: String, canChangeCompany: Bool) {
-        self.companyMarker = companyMarker
+    required init(appSettings: AppSettings, canChangeCompany: Bool) {
+        self.appSettings = appSettings
         self.canChangeCompany = canChangeCompany
-        self.userManager = DemoUserManager(companyMarker: companyMarker)
         super.init(nibName: nil, bundle: nil)
         
         ASAPP.setLogLevel(logLevel: .Debug)
@@ -57,7 +52,7 @@ class DemoHomeViewController: ImageBackgroundViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateViewForCompany()
+        reloadViewForCompany()
         
         view.addSubview(settingsBannerView)
         
@@ -65,7 +60,7 @@ class DemoHomeViewController: ImageBackgroundViewController {
 //        button.setTitle("X", for: .normal)
 //        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
 //        button.setTitleColor(UIColor.blue, for: .normal)
-//        button.addTarget(self, action: #selector(DemoHomeViewController.didTapCustomButton), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(HomeViewController.didTapCustomButton), for: .touchUpInside)
 //        view.addSubview(button)
     }
     
@@ -91,96 +86,74 @@ class DemoHomeViewController: ImageBackgroundViewController {
 
 // MARK:- Company-Specific 
 
-extension DemoHomeViewController {
+extension HomeViewController {
     
-    func updateViewForCompany() {
-        
-        var companyMarkerForImage = companyMarker
-        if companyMarkerForImage == "text-rex" {
-            companyMarkerForImage = "sprint"
-        }
-        
-        // Background
-        imageView.image = UIImage(named: "\(companyMarkerForImage)-home")
+    func reloadViewForCompany() {
+        // Background Image
+        imageView.image = appSettings.homeBackgroundImage
         
         // Nav Logo
-        let logoImageView = UIImageView(image: UIImage(named: "\(companyMarkerForImage)-logo"))
+        let logoImageView = UIImageView(image: appSettings.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: 120, height: 26)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.logoImageSize.width, height: appSettings.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
-        
         if canChangeCompany {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(DemoHomeViewController.toggleCompany))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeCompany))
             tapGesture.numberOfTapsRequired = 4
             logoImageView.addGestureRecognizer(tapGesture)
         }
-        
         navigationItem.titleView = logoImageView
         
         // Nav Bar
-     
-        var companyStatusBarStyle: UIStatusBarStyle = .default
-        if companyMarker == "comcast" {
-            companyStatusBarStyle = .lightContent
-        }
-        styleNavigationController(navController: navigationController)
-        statusBarStyle = companyStatusBarStyle
-        
-        // Settings Banner
-//        settingsBannerView.backgroundColor = barTintColor
-//        settingsBannerView.foregroundColor = titleColor
-        
+        styleNavigationBar(navBar: navigationController?.navigationBar)
+        statusBarStyle = appSettings.statusBarStyle
+
         // Chat Button
         refreshChatButton()
     }
     
-    func styleNavigationController(navController: UINavigationController?) {
-        var barTintColor: UIColor = UIColor.white
-        var buttonTintColor: UIColor = UIColor(red:0.247, green:0.293, blue:0.365, alpha:1)
-        var titleColor: UIColor = UIColor.darkText
-        let titleFont: UIFont = UIFont.boldSystemFont(ofSize: 16)
-        let buttonFont: UIFont = UIFont.systemFont(ofSize: 16)
-        if companyMarker == "comcast" {
-            barTintColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
-            buttonTintColor = UIColor.white
-            titleColor = UIColor.white
-        } else {
-            buttonTintColor = UIColor.darkGray
-        }
-        navController?.navigationBar.barTintColor = barTintColor
-        navController?.navigationBar.tintColor = buttonTintColor
-        UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : buttonFont
-            ], for: UIControlState())
-        navController?.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : titleColor,
-            NSFontAttributeName : titleFont
+    func styleNavigationBar(navBar: UINavigationBar?) {
+        guard let navBar = navBar else { return }
+        
+        navBar.isTranslucent = true
+        navBar.setBackgroundImage(nil, for: .default)
+        navBar.backgroundColor = nil
+        navBar.barTintColor = appSettings.navBarColor
+        navBar.tintColor = appSettings.navBarTintColor
+        navBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : appSettings.navBarTitleColor,
+            NSFontAttributeName : UIFont.boldSystemFont(ofSize: 16)
         ]
-        navController?.navigationBar.isTranslucent = true
     }
     
-    func toggleCompany() {
-        guard canToggleCompany else { return }
+    func changeCompany() {
+        guard canChangeCompany && !recentlyChangedCompany else { return }
         
-        canToggleCompany = false
+        recentlyChangedCompany = true
         
-        if companyMarker == "comcast" {
-            companyMarker = "sprint"
-//            companyMarker = "text-rex"
-        } else {
-            companyMarker = "comcast"
+        let allCompanies = [Company.asapp, Company.comcast, Company.sprint]
+        
+        var nextCompany: Company = allCompanies[0]
+        if let index = allCompanies.index(of: appSettings.company) {
+            if index + 1 >= allCompanies.count {
+                nextCompany = allCompanies[0]
+            } else {
+                nextCompany = allCompanies[index + 1]
+            }
         }
+        
+        appSettings = AppSettings.settingsFor(nextCompany)
         
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(1000 * Double(NSEC_PER_MSEC))) / Double(NSEC_PER_SEC), execute: {
-                self.canToggleCompany = true
+                self.recentlyChangedCompany = false
         })
     }
 }
 
 // MARK:- DemoSettingsViewControllerDelegate
 
-extension DemoHomeViewController: DemoSettingsViewControllerDelegate {
+extension HomeViewController: DemoSettingsViewControllerDelegate {
     
     func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController) {
         settingsBannerView.updateLabels()
@@ -191,18 +164,18 @@ extension DemoHomeViewController: DemoSettingsViewControllerDelegate {
 
 // MARK:- Chat
 
-extension DemoHomeViewController {
+extension HomeViewController {
     
     func updateBarButtonItems() {
         let userButton = UIBarButtonItem(image: UIImage(named: "icon-user"),
                                          style: .plain,
                                          target: self,
-                                         action: #selector(DemoHomeViewController.promptToChangeUser))
+                                         action: #selector(HomeViewController.promptToChangeUser))
         
         let settingsButton = UIBarButtonItem(image: UIImage(named: "icon-gear"),
                                              style: .plain,
                                              target: self,
-                                             action: #selector(DemoHomeViewController.showSettings))
+                                             action: #selector(HomeViewController.showSettings))
         
         if DemoSettings.useDemoPhoneUser() {
             navigationItem.leftBarButtonItems = [
@@ -222,14 +195,14 @@ extension DemoHomeViewController {
 //        print("Company: \(userManager.companyMarker)\nuserToken: \(userManager.getUserToken())\nEnvironment: \(environment.rawValue)")
         
         chatButton = ASAPP.createChatButton(
-            company: userManager.companyMarker,
-            customerId: userManager.getUserToken(),
+            company: appSettings.companyMarker,
+            customerId: appSettings.getUserToken(),
             environment: environment,
             authProvider: { [weak self] () -> [String : Any] in
-                return self?.userManager.getAuthData() ?? ["" : "" as AnyObject]
+                return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
             },
             contextProvider: { [weak self] () -> [String : Any] in
-                return self?.userManager.getContext() ?? ["" : "" as AnyObject]
+                return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
             },
             callbackHandler: { [weak self] (deepLink, deepLinkData) in
                 guard let blockSelf = self else { return }
@@ -253,14 +226,14 @@ extension DemoHomeViewController {
     func didTapCustomButton() {
         
         let chatViewController = ASAPP.createChatViewController(
-            company: userManager.companyMarker,
-            customerId: userManager.getUserToken(),
+            company: appSettings.companyMarker,
+            customerId: appSettings.getUserToken(),
             environment: environment,
             authProvider: { [weak self] () -> [String : Any] in
-                return self?.userManager.getAuthData() ?? ["" : "" as AnyObject]
+                return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
             },
             contextProvider: { [weak self] () -> [String : Any] in
-                return self?.userManager.getContext() ?? ["" : "" as AnyObject]
+                return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
             },
             callbackHandler: { [weak self] (deepLink, deepLinkData) in
                 guard let blockSelf = self else { return }
@@ -277,7 +250,7 @@ extension DemoHomeViewController {
 
 // MARK:- Settings
 
-extension DemoHomeViewController {
+extension HomeViewController {
     
     func promptToChangeUser() {
         let alert = UIAlertController(title: "Create a new user?",
@@ -287,7 +260,7 @@ extension DemoHomeViewController {
         alert.addAction(UIAlertAction(title: "Create New User",
                                       style: .default,
                                       handler: { (action) in
-                                        _ = self.userManager.createNewUserToken()
+                                        _ = self.appSettings.createNewUserToken()
                                         self.refreshChatButton()
         }))
         
@@ -305,14 +278,14 @@ extension DemoHomeViewController {
         settingsViewController.statusBarStyle = statusBarStyle
         settingsViewController.delegate = self
         let navController = NavigationController(rootViewController: settingsViewController)
-        styleNavigationController(navController: navController)
+        styleNavigationBar(navBar: navController.navigationBar)
         present(navController, animated: true, completion: nil)
     }
 }
 
 // MARK:- Handling ASAPP Actions
 
-extension DemoHomeViewController {
+extension HomeViewController {
     
     func displayHandleActionAlert(_ action: String, userInfo: [String : Any]?) {
         let message: String
@@ -377,7 +350,7 @@ extension DemoHomeViewController {
 
 // MARK:- Action View Controllers
 
-extension DemoHomeViewController {
+extension HomeViewController {
     
     func showViewController(_ imageName: String, title: String?) -> Bool {
         guard let image = imageForImageName(imageName: imageName) else {
@@ -396,14 +369,7 @@ extension DemoHomeViewController {
     // MARK: Utility
     
     private func imageForImageName(imageName: String) -> UIImage? {
-        // TODO: Check for device size
-        
-        var companyMarkerForImage = companyMarker
-        if companyMarkerForImage == "text-rex" {
-            companyMarkerForImage = "sprint"
-        }
-        
-        if let image = UIImage(named: "\(companyMarkerForImage)-\(imageName)") {
+        if let image = UIImage(named: "\(appSettings.companyMarker)-\(imageName)") {
             return image
         }
         

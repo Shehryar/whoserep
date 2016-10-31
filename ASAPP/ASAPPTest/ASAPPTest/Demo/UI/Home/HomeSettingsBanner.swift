@@ -1,5 +1,5 @@
 //
-//  DemoCurrentSettingsBanner.swift
+//  HomeSettingsBanner.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 10/11/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DemoCurrentSettingsBanner: UIView {
+class HomeSettingsBanner: UIView {
 
     var foregroundColor: UIColor = UIColor.white {
         didSet {
