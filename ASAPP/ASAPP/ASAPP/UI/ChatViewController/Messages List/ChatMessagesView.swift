@@ -522,6 +522,8 @@ extension ChatMessagesView {
                     self.tableView.endUpdates()
                 })
             }
+            
+            focusAccessibilityOnLastMessage()
         }
         
         if wasNearBottom {
@@ -538,5 +540,11 @@ extension ChatMessagesView {
             tableView.reloadRows(at: [indexPathToUpdate], with: .automatic)
         }
         completion?()
+    }
+    
+    func focusAccessibilityOnLastMessage() {
+        if let lastCell = tableView.visibleCells.last {
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, lastCell)
+        }
     }
 }

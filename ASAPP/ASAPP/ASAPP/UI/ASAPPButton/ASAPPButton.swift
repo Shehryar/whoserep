@@ -68,6 +68,10 @@ public class ASAPPButton: UIView {
         clipsToBounds = false
         autoresizesSubviews = false
         
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraitButton
+        accessibilityLabel = strings.asappButton
+        
         label.font = styles.asappButtonFont
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
@@ -81,7 +85,6 @@ public class ASAPPButton: UIView {
         
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.cornerRadius = frame.height / 2.0
-        
         
         backgroundColors = [ASAPPButtonState.normal : styles.asappButtonBackgroundColor,
                             ASAPPButtonState.highlighted : styles.asappButtonBackgroundColor.highlightColor()]
@@ -254,6 +257,10 @@ extension ASAPPButton {
 // MARK:- Animations
 
 extension ASAPPButton {
+    public func triggerTap() {
+        didTap()
+    }
+    
     public func hideUntilAnimateInIsCalled() {
         if isWaitingToAnimateIn { return }
         layoutSubviews()

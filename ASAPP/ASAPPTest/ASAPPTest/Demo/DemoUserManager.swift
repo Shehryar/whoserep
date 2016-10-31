@@ -28,7 +28,7 @@ extension DemoUserManager {
     }
     
     func getUserToken() -> String {
-        if DemoSettings.useComcastPhoneUser() {
+        if DemoSettings.useDemoPhoneUser() {
             return "+13126089137"
         }
         

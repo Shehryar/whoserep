@@ -122,6 +122,7 @@ class ChatViewController: UIViewController {
                                                                    backgroundColor: self.styles.navBarButtonBackgroundColor,
                                                                    target: self,
                                                                    action: #selector(ChatViewController.didTapCloseButton))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
         // Subviews
@@ -292,7 +293,7 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()

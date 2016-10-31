@@ -37,11 +37,10 @@ class DemoHomeViewController: ImageBackgroundViewController {
     
     // MARK:- Initialization
     
-    required init(companyMarker: String, canChangeCompany: Bool, demoContentEnabled: Bool) {
+    required init(companyMarker: String, canChangeCompany: Bool) {
         self.companyMarker = companyMarker
         self.canChangeCompany = canChangeCompany
         self.userManager = DemoUserManager(companyMarker: companyMarker)
-        DemoSettings.setDemoContentEnabled(demoContentEnabled)
         super.init(nibName: nil, bundle: nil)
         
         ASAPP.setLogLevel(logLevel: .Debug)
@@ -107,7 +106,7 @@ extension DemoHomeViewController {
         // Nav Logo
         let logoImageView = UIImageView(image: UIImage(named: "\(companyMarkerForImage)-logo"))
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: 120, height: 32)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: 120, height: 26)
         logoImageView.isUserInteractionEnabled = true
         
         if canChangeCompany {
@@ -205,7 +204,7 @@ extension DemoHomeViewController {
                                              target: self,
                                              action: #selector(DemoHomeViewController.showSettings))
         
-        if DemoSettings.useComcastPhoneUser() {
+        if DemoSettings.useDemoPhoneUser() {
             navigationItem.leftBarButtonItems = [
                 settingsButton
             ]

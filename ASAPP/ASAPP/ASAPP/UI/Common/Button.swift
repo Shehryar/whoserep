@@ -20,6 +20,7 @@ class Button: UIView {
     var title: String? {
         didSet {
             label.text = title
+            accessibilityLabel = title
             setNeedsLayout()
         }
     }
@@ -171,6 +172,9 @@ class Button: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        self.isAccessibilityElement = true
+        self.accessibilityTraits = UIAccessibilityTraitButton
+        
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)

@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>44</string>
+	<string>45</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -80,5 +80,7 @@
 	<string>$(DEFAULT_DEMO_COMPANY)</string>
 	<key>demo-content-enabled</key>
 	<string>$(DEMO_CONTENT_ENABLED)</string>
+	<key>demo-live-chat</key>
+	<string>$(DEMO_LIVE_CHAT)</string>
 </dict>
 </plist>

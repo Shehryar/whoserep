@@ -387,8 +387,6 @@ extension ConversationManager: SocketConnectionDelegate {
         DebugLog("ConversationManager: Authentication Failed")
         
         delegate?.conversationManager(self, connectionStatusDidChange: false)
-        
-        trackSDKError(type: .authenticationFailure)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
