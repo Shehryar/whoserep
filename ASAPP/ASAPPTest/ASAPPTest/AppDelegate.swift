@@ -78,7 +78,7 @@ extension AppDelegate {
     }
     
     func canChangeCompanies() -> Bool {
-        return Bundle.main.infoDictionary?["company-changing-disabled"] as? String == "NO"
+        return Bundle.main.infoDictionary?["company-changing-enabled"] as? String == "YES"
     }
     
     func updateDemoSettings() {

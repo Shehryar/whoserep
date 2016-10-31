@@ -15,8 +15,6 @@ class HomeViewController: BaseViewController {
     
     // MARK: Private Properties
     
-    fileprivate var recentlyChangedCompany = false
-    
     fileprivate var environment: ASAPPEnvironment {
         return DemoSettings.currentEnvironment()
     }
@@ -155,17 +153,10 @@ extension HomeViewController {
     }
     
     func changeCompany() {
-        guard canChangeCompany && !recentlyChangedCompany else { return }
-        
-        recentlyChangedCompany = true
+        guard canChangeCompany else { return }
         
         let nextCompany = AppSettings.changeCompany(fromCompany: appSettings.company)
         appSettings = AppSettings.settingsFor(nextCompany)
-        
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(1000 * Double(NSEC_PER_MSEC))) / Double(NSEC_PER_SEC), execute: {
-                self.recentlyChangedCompany = false
-        })
     }
 }
 

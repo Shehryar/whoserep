@@ -11,8 +11,12 @@ import UIKit
 class Fonts: NSObject {
     
     // MARK:- Loading Fonts
-        
+    
+    static var fontsLoaded = false
+    
     class func loadAllFonts() {
+        guard !fontsLoaded else { return }
+        
         // Lato Fonts
         Fonts.loadFont("Lato-Regular", type: "ttf")
         Fonts.loadFont("Lato-Bold", type: "ttf")
@@ -37,6 +41,8 @@ class Fonts: NSObject {
         Fonts.loadFont("SprintSans-Regular", type: "ttf")
         
 //        loadedFonts()
+        
+        fontsLoaded = true
     }
     
     class func loadedFonts() -> [String] {
@@ -56,6 +62,7 @@ class Fonts: NSObject {
     }
     
     class func loadFont(_ name: String, type: String) {
+    
         guard let path = ASAPPBundle.path(forResource: name, ofType: type) else {
             DebugLogError("FONT FAILURE: Unable to find path for resource \(name).\(type)")
             return

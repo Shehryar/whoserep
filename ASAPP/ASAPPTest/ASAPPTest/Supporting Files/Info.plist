@@ -74,8 +74,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>company-changing-disabled</key>
-	<string>$(COMPANY_CHANGING_DISABLED)</string>
+	<key>company-changing-enabled</key>
+	<string>$(COMPANY_CHANGING_ENABLED)</string>
 	<key>default-demo-company</key>
 	<string>$(DEFAULT_DEMO_COMPANY)</string>
 	<key>demo-content-enabled</key>

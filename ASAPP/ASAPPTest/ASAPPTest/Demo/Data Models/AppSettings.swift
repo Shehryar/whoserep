@@ -79,7 +79,7 @@ extension AppSettings {
             return settings
             
         case .asapp2:
-            let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
+            let settings = AppSettings(company: .asapp2, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo-light")
             settings.logoImageSize = CGSize(width: 100, height: 22)
             settings.homeBackgroundImage = UIImage(named: "asapp-home")
