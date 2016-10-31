@@ -11,6 +11,7 @@ import ASAPP
 
 enum Company: String {
     case asapp = "asapp"
+    case asapp2 = "asapp2"
     case comcast = "comcast"
     case sprint = "sprint"
 }
@@ -55,9 +56,9 @@ class AppSettings: NSObject {
     
     // MARK: Init
     
-    init(company: Company, styles: ASAPPStyles?) {
+    init(company: Company, companyMarker: String, styles: ASAPPStyles?) {
         self.company = company
-        self.companyMarker = company.rawValue
+        self.companyMarker = companyMarker
         self.styles = styles ?? ASAPPStyles()
         super.init()
     }
@@ -71,15 +72,25 @@ extension AppSettings {
         
         switch company {
         case .asapp:
-            let settings = AppSettings(company: .asapp, styles: ASAPPStyles())
+            let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo")
             settings.logoImageSize = CGSize(width: 100, height: 22)
-            settings.homeBackgroundImage = UIImage(named: "asapp-home")
+//            settings.homeBackgroundImage = UIImage(named: "asapp-home")
             return settings
             
+        case .asapp2:
+            let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
+            settings.logoImage = UIImage(named: "asapp-logo-light")
+            settings.logoImageSize = CGSize(width: 100, height: 22)
+            settings.homeBackgroundImage = UIImage(named: "asapp-home")
+            settings.navBarColor = UIColor.black //UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
+            settings.navBarTintColor = UIColor.white
+            settings.navBarTitleColor = UIColor.white
+            settings.statusBarStyle = .lightContent
+            return settings
             
         case .comcast:
-            let settings = AppSettings(company: .comcast, styles: ASAPP.stylesForCompany(company.rawValue))
+            let settings = AppSettings(company: .comcast, companyMarker: "comcast", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "comcast-logo")
             settings.logoImageSize = CGSize(width: 140, height: 28)
             settings.homeBackgroundImage = UIImage(named: "comcast-home")
@@ -91,9 +102,8 @@ extension AppSettings {
             
             return settings
             
-            
         case .sprint:
-            let settings = AppSettings(company: .sprint, styles: ASAPP.stylesForCompany(company.rawValue))
+            let settings = AppSettings(company: .sprint, companyMarker: "sprint", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "sprint-logo")
             settings.logoImageSize = CGSize(width: 140, height: 36)
             settings.homeBackgroundImage = UIImage(named: "sprint-home")
@@ -103,6 +113,20 @@ extension AppSettings {
             
             return settings
         }
+    }
+    
+    class func changeCompany(fromCompany company: Company) -> Company {
+        let allCompanies: [Company] = [.asapp, .asapp2, .comcast, .sprint]
+        
+        var nextCompany: Company = allCompanies[0]
+        if let index = allCompanies.index(of: company) {
+            if index + 1 >= allCompanies.count {
+                nextCompany = allCompanies[0]
+            } else {
+                nextCompany = allCompanies[index + 1]
+            }
+        }
+        return nextCompany
     }
 }
 

@@ -31,12 +31,12 @@ public class ASAPP: NSObject {
     
     // MARK: Fonts
     
-    override public class func initialize() {
-        Fonts.loadAllFonts()
-    }
+    static var didLoadFonts = false
     
-    class func loadFonts() {
-        Fonts.loadAllFonts()
+    class func loadFontsIfNecessary() {
+        if !didLoadFonts {
+            Fonts.loadAllFonts()
+        }
     }
     
     class func loadedFonts() -> [String] {
@@ -56,6 +56,7 @@ public class ASAPP: NSObject {
                                        strings: ASAPPStrings?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
+        loadFontsIfNecessary()
         updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,
@@ -106,6 +107,7 @@ public class ASAPP: NSObject {
                                                styles: ASAPPStyles?,
                                                strings: ASAPPStrings?) -> UIViewController {
         
+        loadFontsIfNecessary()
         updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,

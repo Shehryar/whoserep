@@ -30,6 +30,8 @@
 		30A003551DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30A003531DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard */; };
 		30AE79D91D4AB83100651F09 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D71D4AB83100651F09 /* Fabric.framework */; };
 		30AE79DA1D4AB83100651F09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AE79D81D4AB83100651F09 /* Crashlytics.framework */; };
+		30D687D61DC7DE8100E0909B /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D687D51DC7DE8100E0909B /* HomeTableView.swift */; };
+		30D687D81DC7E08F00E0909B /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D687D71DC7E08F00E0909B /* HomeTableViewCell.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -72,6 +74,8 @@
 		30A003541DC3EFBA00CFA4CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-ASAPP.storyboard"; sourceTree = "<group>"; };
 		30AE79D71D4AB83100651F09 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		30AE79D81D4AB83100651F09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		30D687D51DC7DE8100E0909B /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
+		30D687D71DC7E08F00E0909B /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +172,7 @@
 			children = (
 				30988EA71DC7BA8700470E09 /* HomeViewController.swift */,
 				30988EA61DC7BA8700470E09 /* HomeSettingsBanner.swift */,
+				30D687D41DC7DE7400E0909B /* Home Table View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -188,6 +193,15 @@
 				30AE79D81D4AB83100651F09 /* Crashlytics.framework */,
 			);
 			name = "Third-Party";
+			sourceTree = "<group>";
+		};
+		30D687D41DC7DE7400E0909B /* Home Table View */ = {
+			isa = PBXGroup;
+			children = (
+				30D687D51DC7DE8100E0909B /* HomeTableView.swift */,
+				30D687D71DC7E08F00E0909B /* HomeTableViewCell.swift */,
+			);
+			path = "Home Table View";
 			sourceTree = "<group>";
 		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
@@ -330,7 +344,9 @@
 				30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */,
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				30988EB01DC7BA8700470E09 /* DemoSettingsTableViewCell.swift in Sources */,
+				30D687D61DC7DE8100E0909B /* HomeTableView.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
+				30D687D81DC7E08F00E0909B /* HomeTableViewCell.swift in Sources */,
 				30988EAC1DC7BA8700470E09 /* BillDetailsLineItemCell.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				30988EB11DC7BA8700470E09 /* DemoSettingsViewController.swift in Sources */,
@@ -752,7 +768,7 @@
 				COMPANY_CHANGING_DISABLED = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = asapp;
+				DEFAULT_DEMO_COMPANY = asapp2;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -825,7 +841,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
 				COMPANY_CHANGING_DISABLED = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFAULT_DEMO_COMPANY = asapp;
+				DEFAULT_DEMO_COMPANY = asapp2;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
@@ -899,7 +915,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
 				COMPANY_CHANGING_DISABLED = NO;
-				DEFAULT_DEMO_COMPANY = comcast;
+				DEFAULT_DEMO_COMPANY = asapp;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1021,7 +1037,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
 				COMPANY_CHANGING_DISABLED = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = comcast;
+				DEFAULT_DEMO_COMPANY = asapp;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1051,7 +1067,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				COMPANY_CHANGING_DISABLED = NO;
-				DEFAULT_DEMO_COMPANY = sprint;
+				DEFAULT_DEMO_COMPANY = asapp;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -8,8 +8,18 @@
 
 import UIKit
 
+protocol AppSettingsViewController {
+    func reloadViewForUpdatedSettings()
+}
+
 class BaseViewController: UIViewController {
 
+    var appSettings: AppSettings = AppSettings.settingsFor(.asapp) {
+        didSet {
+            reloadViewForUpdatedSettings()
+        }
+    }
+    
     var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
@@ -22,17 +32,31 @@ class BaseViewController: UIViewController {
     
     // MARK:- Initialization
     
-    func commonInit() {
-        
+    required init(appSettings: AppSettings) {
+        self.appSettings = appSettings
+        self.statusBarStyle = self.appSettings.statusBarStyle
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        commonInit()
+    // MARK:- View 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        reloadViewForUpdatedSettings()
+    }
+}
+
+extension BaseViewController: AppSettingsViewController {
+    
+    func reloadViewForUpdatedSettings() {
+        
+        statusBarStyle = appSettings.statusBarStyle
+        
+        view.backgroundColor = appSettings.backgroundColor
     }
 }

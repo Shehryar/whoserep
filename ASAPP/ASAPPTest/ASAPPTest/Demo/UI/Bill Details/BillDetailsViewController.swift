@@ -41,13 +41,17 @@ class BillDetailsViewController: BaseTableViewController {
     
     // MARK: Init
     
-    override func commonInit() {
-        super.commonInit()
-        
+    required init(appSettings: AppSettings) {
+        super.init(appSettings: appSettings)
+
         title = "Bill Details"
         
         tableView.delegate = self
         tableView.register(BillDetailsLineItemCell.self, forCellReuseIdentifier: lineItemReuseId)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: View

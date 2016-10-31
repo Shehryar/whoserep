@@ -9,13 +9,7 @@
 import UIKit
 import ASAPP
 
-class HomeViewController: ImageBackgroundViewController {
-    
-    var appSettings: AppSettings {
-        didSet {
-            reloadViewForCompany()
-        }
-    }
+class HomeViewController: BaseViewController {
     
     let canChangeCompany: Bool
     
@@ -27,20 +21,43 @@ class HomeViewController: ImageBackgroundViewController {
         return DemoSettings.currentEnvironment()
     }
     
+    fileprivate var authProvider: ASAPPAuthProvider!
+    fileprivate var contextProvider: ASAPPContextProvider!
+    fileprivate var callbackHandler: ASAPPCallbackHandler!
+
+    // MARK: UI
+
+    fileprivate let backgroundImageView = UIImageView()
+    
+    fileprivate let homeTableView = HomeTableView()
+    
     fileprivate var chatButton: ASAPPButton?
         
     fileprivate let settingsBannerView = HomeSettingsBanner()
     
     // MARK:- Initialization
-    
+
     required init(appSettings: AppSettings, canChangeCompany: Bool) {
-        self.appSettings = appSettings
         self.canChangeCompany = canChangeCompany
-        super.init(nibName: nil, bundle: nil)
+        super.init(appSettings: appSettings)
         
-        ASAPP.setLogLevel(logLevel: .Debug)
-        
-        updateBarButtonItems()
+        self.authProvider = { [weak self] in
+            return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
+        }
+        self.contextProvider = { [weak self] in
+            return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
+        }
+        self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
+            guard let blockSelf = self else { return }
+            
+            if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
+                blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
+            }
+        }
+    }
+    
+    required init(appSettings: AppSettings) {
+        fatalError("init(appSettings:) has not been implemented")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,8 +69,11 @@ class HomeViewController: ImageBackgroundViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reloadViewForCompany()
+        ASAPP.setLogLevel(logLevel: .Debug)
+        updateBarButtonItems()
         
+        view.addSubview(homeTableView)
+        view.addSubview(backgroundImageView)
         view.addSubview(settingsBannerView)
         
 //        let button = UIButton(frame: CGRect(x: 100, y: 200, width: 50, height: 50))
@@ -81,6 +101,11 @@ class HomeViewController: ImageBackgroundViewController {
             settingsBannerTop = navBar.frame.maxY
         }
         settingsBannerView.frame = CGRect(x: 0.0, y: settingsBannerTop, width: view.bounds.width, height: 20)
+        
+        homeTableView.frame = view.bounds
+        homeTableView.contentInset = UIEdgeInsets(top: settingsBannerView.frame.maxY, left: 0, bottom: 0, right: 0)
+        
+        backgroundImageView.frame = CGRect(x: 0, y: settingsBannerTop, width: view.bounds.width, height: view.bounds.height - settingsBannerTop)
     }
 }
 
@@ -88,9 +113,12 @@ class HomeViewController: ImageBackgroundViewController {
 
 extension HomeViewController {
     
-    func reloadViewForCompany() {
+    override func reloadViewForUpdatedSettings() {
+        super.reloadViewForUpdatedSettings()
+        
         // Background Image
-        imageView.image = appSettings.homeBackgroundImage
+        backgroundImageView.image = appSettings.homeBackgroundImage
+        backgroundImageView.isHidden = backgroundImageView.image == nil
         
         // Nav Logo
         let logoImageView = UIImageView(image: appSettings.logoImage)
@@ -131,34 +159,13 @@ extension HomeViewController {
         
         recentlyChangedCompany = true
         
-        let allCompanies = [Company.asapp, Company.comcast, Company.sprint]
-        
-        var nextCompany: Company = allCompanies[0]
-        if let index = allCompanies.index(of: appSettings.company) {
-            if index + 1 >= allCompanies.count {
-                nextCompany = allCompanies[0]
-            } else {
-                nextCompany = allCompanies[index + 1]
-            }
-        }
-        
+        let nextCompany = AppSettings.changeCompany(fromCompany: appSettings.company)
         appSettings = AppSettings.settingsFor(nextCompany)
         
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(1000 * Double(NSEC_PER_MSEC))) / Double(NSEC_PER_SEC), execute: {
                 self.recentlyChangedCompany = false
         })
-    }
-}
-
-// MARK:- DemoSettingsViewControllerDelegate
-
-extension HomeViewController: DemoSettingsViewControllerDelegate {
-    
-    func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController) {
-        settingsBannerView.updateLabels()
-        refreshChatButton()
-        updateBarButtonItems()
     }
 }
 
@@ -198,19 +205,9 @@ extension HomeViewController {
             company: appSettings.companyMarker,
             customerId: appSettings.getUserToken(),
             environment: environment,
-            authProvider: { [weak self] () -> [String : Any] in
-                return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
-            },
-            contextProvider: { [weak self] () -> [String : Any] in
-                return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
-            },
-            callbackHandler: { [weak self] (deepLink, deepLinkData) in
-                guard let blockSelf = self else { return }
-                
-                if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
-                    blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
-                }
-            },
+            authProvider: authProvider,
+            contextProvider: contextProvider,
+            callbackHandler: callbackHandler,
             styles: nil,
             presentingViewController: self)
         
@@ -229,22 +226,24 @@ extension HomeViewController {
             company: appSettings.companyMarker,
             customerId: appSettings.getUserToken(),
             environment: environment,
-            authProvider: { [weak self] () -> [String : Any] in
-                return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
-            },
-            contextProvider: { [weak self] () -> [String : Any] in
-                return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
-            },
-            callbackHandler: { [weak self] (deepLink, deepLinkData) in
-                guard let blockSelf = self else { return }
-                
-                if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
-                    blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
-                }
-            },
+            authProvider: authProvider,
+            contextProvider: contextProvider,
+            callbackHandler: callbackHandler,
             styles: nil)
         
         present(chatViewController, animated: false, completion: nil)
+    }
+}
+
+
+// MARK:- DemoSettingsViewControllerDelegate
+
+extension HomeViewController: DemoSettingsViewControllerDelegate {
+    
+    func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController) {
+        settingsBannerView.updateLabels()
+        refreshChatButton()
+        updateBarButtonItems()
     }
 }
 
@@ -253,6 +252,7 @@ extension HomeViewController {
 extension HomeViewController {
     
     func promptToChangeUser() {
+        
         let alert = UIAlertController(title: "Create a new user?",
                                       message: "This will delete your existing conversation and replace it with that of a new user.",
                                       preferredStyle: .alert)
@@ -274,6 +274,7 @@ extension HomeViewController {
     }
     
     func showSettings() {
+        
         let settingsViewController = DemoSettingsViewController()
         settingsViewController.statusBarStyle = statusBarStyle
         settingsViewController.delegate = self
@@ -333,7 +334,7 @@ extension HomeViewController {
             break
             
         case "understandBill":
-            let billDetailsVC = BillDetailsViewController()
+            let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
             billDetailsVC.statusBarStyle = statusBarStyle
             navigationController?.pushViewController(billDetailsVC, animated: true)
             handled = true
@@ -357,7 +358,7 @@ extension HomeViewController {
             return false
         }
         
-        let viewController = ImageBackgroundViewController()
+        let viewController = ImageBackgroundViewController(appSettings: appSettings)
         viewController.title = title
         viewController.imageView.image = image
         viewController.statusBarStyle = statusBarStyle

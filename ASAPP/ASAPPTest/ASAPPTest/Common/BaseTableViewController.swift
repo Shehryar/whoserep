@@ -16,14 +16,18 @@ class BaseTableViewController: BaseViewController {
     
     // MARK:- Initialization
     
-    override func commonInit() {
-        super.commonInit()
+    required init(appSettings: AppSettings) {
+        super.init(appSettings: appSettings)
         
         automaticallyAdjustsScrollViewInsets = false
         
         tableView.backgroundColor = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     deinit {
