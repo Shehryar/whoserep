@@ -33,7 +33,7 @@ public class ASAPP: NSObject {
     
     static var didLoadFonts = false
     
-    class func loadFontsIfNecessary() {
+    public class func loadFontsIfNecessary() {
         if !didLoadFonts {
             Fonts.loadAllFonts()
             didLoadFonts = true

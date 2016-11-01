@@ -30,3 +30,24 @@ class DemoFonts: NSObject {
         return UIFont(name: "Avenir-Black", size: size)
     }
 }
+
+// MARK:- Lato
+
+extension DemoFonts {
+   
+    class func latoLightFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "Lato-Light", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func latoRegularFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "Lato-Regular", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
+    }
+    
+    class func latoBoldFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "Lato-Bold", size: fontSize) ?? UIFont.boldSystemFont(ofSize: fontSize)
+    }
+    
+    class func latoBlackFont(withSize fontSize: CGFloat = 16) -> UIFont {
+        return UIFont(name: "Lato-Black", size: fontSize) ?? UIFont.boldSystemFont(ofSize: fontSize)
+    }
+}

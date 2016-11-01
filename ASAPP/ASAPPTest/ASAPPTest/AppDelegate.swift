@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ASAPP
 import Fabric
 import Crashlytics
 
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK:- Application Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        ASAPP.loadFontsIfNecessary()
         
         // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()

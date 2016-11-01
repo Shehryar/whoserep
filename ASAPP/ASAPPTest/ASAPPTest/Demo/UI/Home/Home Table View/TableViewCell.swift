@@ -1,5 +1,5 @@
 //
-//  HomeTableViewCell.swift
+//  TableViewCell.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 10/31/16.
@@ -8,9 +8,19 @@
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
-
+class TableViewCell: UITableViewCell {
     
+    var appSettings: AppSettings? {
+        didSet {
+            applyAppSettings()
+        }
+    }
+    
+    var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     // MARK: Init
     
@@ -26,5 +36,11 @@ class HomeTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
+    }
+    
+    // MARK: View
+    
+    func applyAppSettings() {
+        
     }
 }

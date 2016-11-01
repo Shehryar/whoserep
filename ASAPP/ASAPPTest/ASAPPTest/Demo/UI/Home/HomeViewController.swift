@@ -25,9 +25,11 @@ class HomeViewController: BaseViewController {
 
     // MARK: UI
 
+    fileprivate var viewLayedOut = false
+    
     fileprivate let backgroundImageView = UIImageView()
     
-    fileprivate let homeTableView = HomeTableView()
+    fileprivate let homeTableView: HomeTableView
     
     fileprivate var chatButton: ASAPPButton?
         
@@ -37,8 +39,10 @@ class HomeViewController: BaseViewController {
 
     required init(appSettings: AppSettings, canChangeCompany: Bool) {
         self.canChangeCompany = canChangeCompany
+        self.homeTableView = HomeTableView(appSettings: appSettings)
         super.init(appSettings: appSettings)
         
+        self.homeTableView.delegate = self
         self.authProvider = { [weak self] in
             return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
         }
@@ -62,6 +66,10 @@ class HomeViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        homeTableView.delegate = nil
+    }
+    
     // MARK: View
     
     override func viewDidLoad() {
@@ -73,13 +81,6 @@ class HomeViewController: BaseViewController {
         view.addSubview(homeTableView)
         view.addSubview(backgroundImageView)
         view.addSubview(settingsBannerView)
-        
-//        let button = UIButton(frame: CGRect(x: 100, y: 200, width: 50, height: 50))
-//        button.setTitle("X", for: .normal)
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-//        button.setTitleColor(UIColor.blue, for: .normal)
-//        button.addTarget(self, action: #selector(HomeViewController.didTapCustomButton), for: .touchUpInside)
-//        view.addSubview(button)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,8 +149,14 @@ extension HomeViewController {
         navBar.tintColor = appSettings.navBarTintColor
         navBar.titleTextAttributes = [
             NSForegroundColorAttributeName : appSettings.navBarTitleColor,
-            NSFontAttributeName : UIFont.boldSystemFont(ofSize: 16)
+            NSFontAttributeName : DemoFonts.latoBoldFont(withSize: 17),
         ]
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName : DemoFonts.latoBoldFont(withSize: 16),
+            NSForegroundColorAttributeName : appSettings.navBarTintColor
+            ],
+                                                            for: .normal)
     }
     
     func changeCompany() {
@@ -275,6 +282,15 @@ extension HomeViewController {
     }
 }
 
+// MARK:- HomeTableViewDelegate
+
+extension HomeViewController: HomeTableViewDelegate {
+    
+    func homeTableViewDidTapBillDetails(homeTableView: HomeTableView) {
+        showBillDetails()
+    }
+}
+
 // MARK:- Handling ASAPP Actions
 
 extension HomeViewController {
@@ -325,9 +341,7 @@ extension HomeViewController {
             break
             
         case "understandBill":
-            let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
-            billDetailsVC.statusBarStyle = statusBarStyle
-            navigationController?.pushViewController(billDetailsVC, animated: true)
+            showBillDetails()
             handled = true
             break
             
@@ -337,6 +351,12 @@ extension HomeViewController {
         }
         
         return handled
+    }
+    
+    func showBillDetails() {
+        let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
+        billDetailsVC.statusBarStyle = statusBarStyle
+        navigationController?.pushViewController(billDetailsVC, animated: true)
     }
 }
 
