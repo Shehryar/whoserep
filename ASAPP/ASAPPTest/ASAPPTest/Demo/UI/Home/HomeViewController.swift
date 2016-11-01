@@ -24,8 +24,6 @@ class HomeViewController: BaseViewController {
     fileprivate var callbackHandler: ASAPPCallbackHandler!
 
     // MARK: UI
-
-    fileprivate var viewLayedOut = false
     
     fileprivate let backgroundImageView = UIImageView()
     
@@ -118,6 +116,8 @@ extension HomeViewController {
         // Background Image
         backgroundImageView.image = appSettings.homeBackgroundImage
         backgroundImageView.isHidden = backgroundImageView.image == nil
+        
+        homeTableView.appSettings = appSettings
         
         // Nav Logo
         let logoImageView = UIImageView(image: appSettings.logoImage)
@@ -217,20 +217,6 @@ extension HomeViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
     }
-    
-    func didTapCustomButton() {
-        
-        let chatViewController = ASAPP.createChatViewController(
-            company: appSettings.companyMarker,
-            customerId: appSettings.getUserToken(),
-            environment: environment,
-            authProvider: authProvider,
-            contextProvider: contextProvider,
-            callbackHandler: callbackHandler,
-            styles: nil)
-        
-        present(chatViewController, animated: false, completion: nil)
-    }
 }
 
 
@@ -288,6 +274,10 @@ extension HomeViewController: HomeTableViewDelegate {
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView) {
         showBillDetails()
+    }
+    
+    func homeTableViewDidTapHelp(homeTableView: HomeTableView) {
+        showHelp()
     }
 }
 
@@ -358,6 +348,20 @@ extension HomeViewController {
         billDetailsVC.statusBarStyle = statusBarStyle
         navigationController?.pushViewController(billDetailsVC, animated: true)
     }
+    
+    func showHelp() {
+        let chatViewController = ASAPP.createChatViewController(
+            company: appSettings.companyMarker,
+            customerId: appSettings.getUserToken(),
+            environment: environment,
+            authProvider: authProvider,
+            contextProvider: contextProvider,
+            callbackHandler: callbackHandler,
+            styles: nil)
+        
+        present(chatViewController, animated: true, completion: nil)
+    }
+
 }
 
 // MARK:- Action View Controllers

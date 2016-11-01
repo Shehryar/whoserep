@@ -47,6 +47,16 @@ class BaseTableViewController: BaseViewController {
         view.addSubview(tableView)
     }
     
+    // MARK:- Updates
+    
+    override func reloadViewForUpdatedSettings() {
+        super.reloadViewForUpdatedSettings()
+        
+        tableView.backgroundColor = appSettings.backgroundColor2
+        tableView.separatorColor = appSettings.separatorColor
+        tableView.reloadData()
+    }
+    
     // MARK:- Layout
     
     override func viewWillLayoutSubviews() {

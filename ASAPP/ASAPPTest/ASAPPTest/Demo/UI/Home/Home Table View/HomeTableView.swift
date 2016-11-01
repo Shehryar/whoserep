@@ -10,6 +10,7 @@ import UIKit
 
 protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
+    func homeTableViewDidTapHelp(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -54,10 +55,10 @@ class HomeTableView: UIView {
     fileprivate enum SettingsRow: Int {
         case paymentMethods
         case usage
-        case messages
         case invite
-        case rewards
+//        case rewards
         case notifications
+        case help
         case touchId
         case privacy
         case settings
@@ -96,6 +97,7 @@ class HomeTableView: UIView {
     
     func applyAppSettings() {
         tableView.backgroundColor = appSettings.backgroundColor2
+        tableView.separatorColor = appSettings.separatorColor
         tableView.reloadData()
     }
 
@@ -169,24 +171,29 @@ extension HomeTableView: UITableViewDataSource {
             imageName = "icon-line-graph"
             break
             
-        case SettingsRow.messages.rawValue:
-            title = "Messages"
-            imageName = "icon-chat-bubble"
-            break
+//        case SettingsRow.messages.rawValue:
+//            title = "Messages"
+//            imageName = "icon-chat-bubble"
+//            break
             
         case SettingsRow.invite.rawValue:
             title = "Refer Friends"
             imageName = "icon-users"
             break
             
-        case SettingsRow.rewards.rawValue:
-            title = "Rewards"
-            imageName = "icon-dollar"
-            break
+//        case SettingsRow.rewards.rawValue:
+//            title = "Rewards"
+//            imageName = "icon-dollar"
+//            break
             
         case SettingsRow.notifications.rawValue:
             title = "Notifications"
             imageName = "icon-bell"
+            break
+            
+        case SettingsRow.help.rawValue:
+            title = "Help"
+            imageName = "icon-chat-bubble"
             break
             
         case SettingsRow.touchId.rawValue:
@@ -306,6 +313,15 @@ extension HomeTableView: UITableViewDelegate {
             break
             
         case Section.settings.rawValue:
+            switch indexPath.row {
+            case SettingsRow.help.rawValue:
+                delegate?.homeTableViewDidTapHelp(homeTableView: self)
+                break
+                
+            default:
+                // No-op
+                break
+            }
             break
             
         default:

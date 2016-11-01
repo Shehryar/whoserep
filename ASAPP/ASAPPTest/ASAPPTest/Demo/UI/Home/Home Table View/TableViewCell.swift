@@ -12,7 +12,9 @@ class TableViewCell: UITableViewCell {
     
     var appSettings: AppSettings? {
         didSet {
-            applyAppSettings()
+            if appSettings != oldValue {
+                applyAppSettings()
+            }
         }
     }
     
@@ -21,6 +23,8 @@ class TableViewCell: UITableViewCell {
             setNeedsLayout()
         }
     }
+    
+    fileprivate let selectedView = UIView()
     
     // MARK: Init
     
@@ -41,6 +45,11 @@ class TableViewCell: UITableViewCell {
     // MARK: View
     
     func applyAppSettings() {
-        
+        if let appSettings = appSettings {
+            backgroundColor = appSettings.backgroundColor
+            
+            selectedView.backgroundColor = appSettings.backgroundColor.highlightColor()
+            selectedBackgroundView = selectedView
+        }
     }
 }

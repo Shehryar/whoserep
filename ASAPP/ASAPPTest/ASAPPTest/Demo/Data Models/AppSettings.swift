@@ -44,7 +44,7 @@ class AppSettings: NSObject {
     
     var foregroundColor2: UIColor = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
     
-    var separatorColor: UIColor = UIColor(red:0.644, green:0.662, blue:0.717, alpha:1)
+    var separatorColor: UIColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
     
     var navBarColor: UIColor = UIColor.white
     
@@ -75,30 +75,42 @@ extension AppSettings {
             let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo")
             settings.logoImageSize = CGSize(width: 100, height: 22)
-//            settings.homeBackgroundImage = UIImage(named: "asapp-home")
             return settings
             
         case .asapp2:
             let settings = AppSettings(company: .asapp2, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo-light")
             settings.logoImageSize = CGSize(width: 100, height: 22)
-            settings.homeBackgroundImage = UIImage(named: "asapp-home")
-            settings.navBarColor = UIColor.black //UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
+            
+            settings.navBarColor = UIColor(red:0.01, green:0.01, blue:0.03, alpha:1)
             settings.navBarTintColor = UIColor.white
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
+            
+//            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
+//            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
+//            settings.foregroundColor = UIColor.white
+//            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
+//            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
+            
             return settings
             
         case .comcast:
             let settings = AppSettings(company: .comcast, companyMarker: "comcast", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "comcast-logo")
             settings.logoImageSize = CGSize(width: 140, height: 28)
-            settings.homeBackgroundImage = UIImage(named: "comcast-home")
+//            settings.homeBackgroundImage = UIImage(named: "comcast-home")
             
             settings.navBarColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
             settings.navBarTintColor = UIColor.white
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
+            
+            settings.foregroundColor = UIColor(red:0.027, green:0.027, blue:0.027, alpha:1)
+            settings.foregroundColor2 = UIColor(red:0.580, green:0.580, blue:0.580, alpha:1)
+            settings.backgroundColor = UIColor.white
+            settings.backgroundColor2 = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
+            settings.separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
             
             return settings
             
@@ -106,10 +118,15 @@ extension AppSettings {
             let settings = AppSettings(company: .sprint, companyMarker: "sprint", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "sprint-logo")
             settings.logoImageSize = CGSize(width: 140, height: 36)
-            settings.homeBackgroundImage = UIImage(named: "sprint-home")
+//            settings.homeBackgroundImage = UIImage(named: "sprint-home")
             
             settings.navBarTintColor = UIColor.darkGray
             settings.navBarTitleColor = UIColor.black
+            
+            settings.foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
+            settings.foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
+            settings.backgroundColor = UIColor.white
+            settings.separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
             
             return settings
         }
