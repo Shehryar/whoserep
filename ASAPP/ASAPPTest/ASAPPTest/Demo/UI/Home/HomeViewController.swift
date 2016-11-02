@@ -13,9 +13,11 @@ class HomeViewController: BaseViewController {
     
     let canChangeCompany: Bool
     
-    var currentAccount: UserAccount? = UserAccount.account(forPresetAccount: .gustavo) {
+    var currentAccount: UserAccount {
         didSet {
+            appSettings.setCurrentAccount(account: currentAccount)
             homeTableView.currentAccount = currentAccount
+            refreshChatButton()
         }
     }
     
@@ -44,8 +46,10 @@ class HomeViewController: BaseViewController {
     required init(appSettings: AppSettings, canChangeCompany: Bool) {
         self.canChangeCompany = canChangeCompany
         self.homeTableView = HomeTableView(appSettings: appSettings)
+        self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
         
+        self.homeTableView.currentAccount = currentAccount
         self.homeTableView.delegate = self
         self.authProvider = { [weak self] in
             return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
@@ -178,26 +182,10 @@ extension HomeViewController {
 extension HomeViewController {
     
     func updateBarButtonItems() {
-        let userButton = UIBarButtonItem(image: UIImage(named: "icon-user"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(HomeViewController.promptToChangeUser))
-        
-        let settingsButton = UIBarButtonItem(image: UIImage(named: "icon-gear"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(HomeViewController.showSettings))
-        
-        if DemoSettings.useDemoPhoneUser() {
-            navigationItem.leftBarButtonItems = [
-                settingsButton
-            ]
-        } else {
-            navigationItem.leftBarButtonItems = [
-                userButton,
-                settingsButton
-            ]
-        }
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-gear"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(HomeViewController.showSettings))
     }
     
     func refreshChatButton() {
@@ -207,7 +195,7 @@ extension HomeViewController {
         
         chatButton = ASAPP.createChatButton(
             company: appSettings.companyMarker,
-            customerId: appSettings.getUserToken(),
+            customerId: currentAccount.userToken,
             environment: environment,
             authProvider: authProvider,
             contextProvider: contextProvider,
@@ -240,29 +228,7 @@ extension HomeViewController: DemoSettingsViewControllerDelegate {
 // MARK:- Settings
 
 extension HomeViewController {
-    
-    func promptToChangeUser() {
-        
-        let alert = UIAlertController(title: "Create a new user?",
-                                      message: "This will delete your existing conversation and replace it with that of a new user.",
-                                      preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Create New User",
-                                      style: .default,
-                                      handler: { (action) in
-                                        _ = self.appSettings.createNewUserToken()
-                                        self.refreshChatButton()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel",
-                                      style: .cancel,
-                                      handler: { (action) in
-                                        // No action
-        }))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
+
     func showSettings() {
         
         let settingsViewController = DemoSettingsViewController()
@@ -371,7 +337,7 @@ extension HomeViewController {
     func showHelp() {
         let chatViewController = ASAPP.createChatViewController(
             company: appSettings.companyMarker,
-            customerId: appSettings.getUserToken(),
+            customerId: currentAccount.userToken,
             environment: environment,
             authProvider: authProvider,
             contextProvider: contextProvider,

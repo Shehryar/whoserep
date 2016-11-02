@@ -183,25 +183,27 @@ extension AppSettings {
 
 extension AppSettings {
     
+    private func accountStorageKey() -> String {
+        return "\(company)-Demo-Account-Key"
+    }
+    
     private func userTokenStorageKey() -> String {
         return "\(company)-Demo-User-Token"
     }
     
-    func getUserToken() -> String {
-        if DemoSettings.useDemoPhoneUser() {
-            return "+13126089137"
+    func getCurrentAccount() -> UserAccount {
+        if let savedAccount = UserAccount.getSavedAccount(withKey: accountStorageKey()) {
+            return savedAccount
         }
         
-        return UserDefaults.standard.string(forKey: userTokenStorageKey())
-            ?? createNewUserToken()
+        let account = UserAccount.newRandomAccount()
+        account.save(withKey: accountStorageKey())
+        
+        return account
     }
     
-    func createNewUserToken() -> String {
-        let freshUserToken = "\(company)-Test-Account-\(Int(Date().timeIntervalSince1970))"
-        
-        UserDefaults.standard.set(freshUserToken, forKey: userTokenStorageKey())
-        
-        return freshUserToken
+    func setCurrentAccount(account: UserAccount) {
+        account.save(withKey: accountStorageKey())
     }
 }
 

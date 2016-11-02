@@ -134,13 +134,18 @@ extension UserAccount {
 extension UserAccount {
     
     func save(withKey key: String) {
+        DemoLog("Saving account with key \(key):\n\(toJSON())\n")
+        
         UserDefaults.standard.set(toJSON(), forKey: key)
     }
     
     class func getSavedAccount(withKey key: String) -> UserAccount? {
-        if let savedAccount = UserDefaults.standard.object(forKey: key) as? UserAccount {
+        if let savedAccountJSON = UserDefaults.standard.object(forKey: key) as? [String : String],
+            let savedAccount = UserAccount.accountWith(json: savedAccountJSON) {
+            DemoLog("Found account with key \(key):\n\(savedAccount.toJSON())")
             return savedAccount
         }
+        DemoLog("No account found with key \(key)")
         return nil
     }
 }

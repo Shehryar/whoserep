@@ -22,7 +22,7 @@ class HomeTableView: UIView {
         }
     }
     
-    var currentAccount: UserAccount? = UserAccount.account(forPresetAccount: .gustavo) {
+    var currentAccount: UserAccount? {
         didSet {
             tableView.reloadData()
         }
