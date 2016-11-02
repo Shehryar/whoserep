@@ -14,7 +14,7 @@ protocol AppSettingsViewController {
 
 class BaseViewController: UIViewController {
 
-    var appSettings: AppSettings = AppSettings.settingsFor(.asapp) {
+    var appSettings: AppSettings {
         didSet {
             reloadViewForUpdatedSettings()
         }
