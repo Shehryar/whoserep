@@ -116,14 +116,14 @@ extension AppSettings {
     func supportedEnvironments() -> [DemoEnvironment] {
         if DemoSettings.demoLiveChat() {
             switch company {
-            case .asapp, .asapp2: return [.demo, .gustavoSpecial]
+            case .asapp, .asapp2: return [.demo, .demo2]
             case .comcast: return [.demo]
             case .sprint: return [.production]
             }
         }
         
         switch company {
-        case .asapp, .asapp2: return [.demo, .gustavoSpecial]
+        case .asapp, .asapp2: return [.demo, .demo2]
         case .comcast: return [.staging, .production]
         case .sprint: return [.production]
         }

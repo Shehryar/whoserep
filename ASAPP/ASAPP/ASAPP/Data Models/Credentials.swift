@@ -75,7 +75,8 @@ public class Credentials: NSObject {
     }
     
     func hashKey(withPrefix prefix: String? = nil) -> String {
-        return "\(prefix ?? "")\(StringForASAPPEnvironment(environment))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
+        let key = "\(prefix ?? "")\(StringForASAPPEnvironment(environment))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
+        return key
     }
     
     // MARK: Instance Methods

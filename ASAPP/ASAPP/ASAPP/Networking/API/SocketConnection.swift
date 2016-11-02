@@ -17,6 +17,15 @@ import UIKit
     case production
 }
 public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String {
+    if DEMO_LIVE_CHAT {
+        if DEMO_ENVIRONMENT_STRING == "demo2" {
+            return "demo2-live"
+        }
+        return "demo-live"
+    } else if DEMO_ENVIRONMENT_STRING == "demo2" {
+        return "demo2"
+    }
+    
     switch environment {
     case .staging: return "Staging"
     case .production: return "Production"
@@ -28,6 +37,9 @@ internal func ConnectionURLForEnvironment(companyMarker: String, environment: AS
     if DEMO_LIVE_CHAT && companyMarker == "comcast" {
         return URL(string: "wss://comcast-demo.asapp.com/api/websocket")
     } else if DEMO_LIVE_CHAT || companyMarker == "asapp" {
+        if DEMO_ENVIRONMENT_STRING == "demo2" {
+            return URL(string: "wss://demo2.asapp.com/api/websocket")
+        }
         return URL(string: "wss://demo.asapp.com/api/websocket")
     }
     

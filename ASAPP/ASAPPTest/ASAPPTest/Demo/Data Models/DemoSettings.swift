@@ -17,7 +17,7 @@ class DemoSettings: NSObject {
     
     class func currentEnvironment() -> ASAPPEnvironment {
         switch demoEnvironment() {
-        case .staging, .demo, .gustavoSpecial: return .staging
+        case .staging, .demo, .demo2: return .staging
         case .production: return .production
         }
     }
@@ -29,7 +29,7 @@ enum DemoEnvironment: String {
     case staging = "staging"
     case production = "production"
     case demo = "demo"
-    case gustavoSpecial = "gustavo_special"
+    case demo2 = "demo2"
 }
 
 func DemoEnvironmentDescription(environment: DemoEnvironment, withCompany company: Company) -> String {
@@ -52,7 +52,7 @@ func DemoEnvironmentDescription(environment: DemoEnvironment, withCompany compan
     case .asapp, .asapp2:
         switch environment {
         case .demo, .production, .staging: return "demo"
-        case .gustavoSpecial: return "demo2"
+        case .demo2: return "demo2"
         }
     }
     
