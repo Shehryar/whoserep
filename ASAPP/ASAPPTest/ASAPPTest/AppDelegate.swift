@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         ASAPP.loadFontsIfNecessary()
+        ASAPP.setLogLevel(logLevel: .Debug)
+        
         
         // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()
@@ -100,12 +102,10 @@ extension AppDelegate {
         
         // Demo Live Chat
         if Bundle.main.infoDictionary?["demo-live-chat"] as? String == "YES" {
+            DemoSettings.setDemoEnvironment(environment: .demo)
             DemoSettings.setDemoLiveChat(true)
-            DemoSettings.setUseDemoPhoneUser(true)
-            DemoSettings.setCurrentEnvironment(environment: .staging)
         } else {
             DemoSettings.setDemoLiveChat(false)
-            DemoSettings.setUseDemoPhoneUser(false)
         }
     }
 }

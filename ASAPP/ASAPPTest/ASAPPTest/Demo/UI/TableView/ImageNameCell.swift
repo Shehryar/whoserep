@@ -43,7 +43,11 @@ class ImageNameCell: TableViewCell {
     
     let nameLabelMarginBottom: CGFloat = 4
     
-    let imageSize: CGFloat = 64
+    var imageSize: CGFloat = 64 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     let imageMargin: CGFloat = 20
     

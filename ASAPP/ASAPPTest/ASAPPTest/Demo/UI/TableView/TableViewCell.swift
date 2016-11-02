@@ -40,6 +40,7 @@ class TableViewCell: UITableViewCell {
     
     func commonInit() {
         separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+        clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {

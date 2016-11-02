@@ -38,8 +38,6 @@ class HomeViewController: BaseViewController {
     fileprivate let homeTableView: HomeTableView
     
     fileprivate var chatButton: ASAPPButton?
-        
-    fileprivate let settingsBannerView = HomeSettingsBanner()
     
     // MARK:- Initialization
 
@@ -83,19 +81,8 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ASAPP.setLogLevel(logLevel: .Debug)
-        updateBarButtonItems()
-        
         view.addSubview(homeTableView)
         view.addSubview(backgroundImageView)
-        view.addSubview(settingsBannerView)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        settingsBannerView.updateLabels()
-        updateBarButtonItems()
     }
     
     // MARK: Layout
@@ -103,20 +90,19 @@ class HomeViewController: BaseViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        var settingsBannerTop: CGFloat = 0.0
+        var visibleTop: CGFloat = 0.0
         if let navBar = navigationController?.navigationBar {
-            settingsBannerTop = navBar.frame.maxY
+            visibleTop = navBar.frame.maxY
         }
-        settingsBannerView.frame = CGRect(x: 0.0, y: settingsBannerTop, width: view.bounds.width, height: 20)
         
         homeTableView.frame = view.bounds
-        homeTableView.contentInset = UIEdgeInsets(top: settingsBannerView.frame.maxY, left: 0, bottom: 0, right: 0)
+        homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
         
-        backgroundImageView.frame = CGRect(x: 0, y: settingsBannerTop, width: view.bounds.width, height: view.bounds.height - settingsBannerTop)
+        backgroundImageView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: view.bounds.height - visibleTop)
     }
 }
 
-// MARK:- Company-Specific 
+// MARK:- Styling 
 
 extension HomeViewController {
     
@@ -173,20 +159,20 @@ extension HomeViewController {
         guard canChangeCompany else { return }
         
         let nextCompany = AppSettings.changeCompany(fromCompany: appSettings.company)
-        appSettings = AppSettings.settingsFor(nextCompany)
+        let nextAppSettings = AppSettings.settingsFor(nextCompany)
+        
+        if !nextAppSettings.supportsLiveChatDemo() {
+            DemoSettings.setDemoLiveChat(false)
+        }
+        nextAppSettings.updateDemoEnvironment()
+        
+        self.appSettings = nextAppSettings
     }
 }
 
 // MARK:- Chat
 
 extension HomeViewController {
-    
-    func updateBarButtonItems() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon-gear"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(HomeViewController.showSettings))
-    }
     
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
@@ -213,33 +199,6 @@ extension HomeViewController {
     }
 }
 
-
-// MARK:- DemoSettingsViewControllerDelegate
-
-extension HomeViewController: DemoSettingsViewControllerDelegate {
-    
-    func demoSettingsViewControllerDidUpdateSettings(_ viewController: DemoSettingsViewController) {
-        settingsBannerView.updateLabels()
-        refreshChatButton()
-        updateBarButtonItems()
-    }
-}
-
-// MARK:- Settings
-
-extension HomeViewController {
-
-    func showSettings() {
-        
-        let settingsViewController = DemoSettingsViewController()
-        settingsViewController.statusBarStyle = statusBarStyle
-        settingsViewController.delegate = self
-        let navController = NavigationController(rootViewController: settingsViewController)
-        styleNavigationBar(navBar: navController.navigationBar)
-        present(navController, animated: true, completion: nil)
-    }
-}
-
 // MARK:- HomeTableViewDelegate
 
 extension HomeViewController: HomeTableViewDelegate {
@@ -255,6 +214,14 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView) {
         showAccountsPage()
     }
+    
+    func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView) {
+        refreshChatButton()
+    }
+    
+    func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView) {
+        showEnvironmentSettings()
+    }
 }
 
 // MARK:- AccountsViewControllerDelegate
@@ -264,6 +231,16 @@ extension HomeViewController: AccountsViewControllerDelegate {
     func accountsViewController(viewController: AccountsViewController, didSelectAccount account: UserAccount) {
         currentAccount = account
         _ = navigationController?.popToViewController(self, animated: true)
+    }
+}
+
+// MARK:- DemoEnvironmentViewControllerDelegate
+
+extension HomeViewController: DemoEnvironmentViewControllerDelegate {
+    
+    func demoEnvironmentViewControllerDidUpdateEnvironment(_ viewController: DemoEnvironmentViewController) {
+        homeTableView.appSettings = appSettings
+        refreshChatButton()
     }
 }
 
@@ -328,6 +305,11 @@ extension HomeViewController {
         
         return handled
     }
+}
+
+// MARK:- Navigation to View Controllers
+
+extension HomeViewController {
     
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
@@ -346,18 +328,19 @@ extension HomeViewController {
         
         present(chatViewController, animated: true, completion: nil)
     }
-
+    
     func showAccountsPage() {
         let accountsVC = AccountsViewController(appSettings: appSettings)
         accountsVC.currentAccount = currentAccount
         accountsVC.delegate = self
         navigationController?.pushViewController(accountsVC, animated: true)
     }
-}
-
-// MARK:- Action View Controllers
-
-extension HomeViewController {
+    
+    func showEnvironmentSettings() {
+        let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
+        environmentVC.delegate = self
+        navigationController?.pushViewController(environmentVC, animated: true)
+    }
     
     func showViewController(_ imageName: String, title: String?) -> Bool {
         guard let image = imageForImageName(imageName: imageName) else {

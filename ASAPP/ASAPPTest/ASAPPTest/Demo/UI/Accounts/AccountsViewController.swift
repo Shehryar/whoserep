@@ -16,8 +16,8 @@ class AccountsViewController: BaseTableViewController {
 
     enum Section: Int {
         case current
-        case all
         case create
+        case all
         case count
     }
     
@@ -106,6 +106,8 @@ extension AccountsViewController {
         
         cell.appSettings = appSettings
         cell.detailText = nil
+        cell.imageSize = 50
+        cell.nameLabel.font = appSettings.blackFont.withSize(22)
         
         switch indexPath.section {
         case Section.current.rawValue:

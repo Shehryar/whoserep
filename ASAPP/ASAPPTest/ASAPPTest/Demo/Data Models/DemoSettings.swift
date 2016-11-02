@@ -9,48 +9,76 @@
 import UIKit
 import ASAPP
 
-class DemoSettings: NSObject {
+let NotificationDemoSettingsUpdate = Notification(name: Notification.Name(rawValue: "DemoSettingsUpdate"))
 
-    // MARK:- Environment
-    
-    static let KEY_ENVIRONMENT = "ASAPP_DEMO_KEY_ENVIRONMENT"
-    
-    class func environmentString(environment: ASAPPEnvironment) -> String {
-        switch environment {
-        case .production: return "Production"
-        case .staging: return "Staging"
-        }
-    }
+// MARK:- Environment
+
+class DemoSettings: NSObject {
     
     class func currentEnvironment() -> ASAPPEnvironment {
-        if let storedEnvironmentString = UserDefaults.standard.string(forKey: KEY_ENVIRONMENT) {
-            if storedEnvironmentString == environmentString(environment: .production) {
-                return .production
-            } else {
-                return .staging
-            }
+        switch demoEnvironment() {
+        case .staging, .demo, .gustavoSpecial: return .staging
+        case .production: return .production
         }
-        return .staging
+    }
+}
+
+// MARK:- Demo Environment
+
+enum DemoEnvironment: String {
+    case staging = "staging"
+    case production = "production"
+    case demo = "demo"
+    case gustavoSpecial = "gustavo_special"
+}
+
+func DemoEnvironmentDescription(environment: DemoEnvironment, withCompany company: Company) -> String {
+    switch company {
+    case .comcast:
+        switch environment {
+        case .staging: return "comcast.preprod"
+        case .production: return "comcast"
+        case .demo: return "comcast-demo"
+        default: break
+        }
+        break
+        
+    case .sprint:
+        switch environment {
+        case .staging, .production: return "sprint"
+        default: break
+        }
+        
+    case .asapp, .asapp2:
+        switch environment {
+        case .demo, .production, .staging: return "demo"
+        case .gustavoSpecial: return "demo2"
+        }
     }
     
-    class func setCurrentEnvironment(environment: ASAPPEnvironment) {
-        UserDefaults.standard.set(environmentString(environment: environment), forKey: KEY_ENVIRONMENT)
+    return "unknown"
+}
+
+extension DemoSettings {
+    
+    static let KEY_DEMO_ENVIRONMENT = "ASAPP_DEMO_KEY_DEMO_ENVIRONMENT"
+    
+    class func demoEnvironment() -> DemoEnvironment {
+        if let envString = UserDefaults.standard.string(forKey: KEY_DEMO_ENVIRONMENT),
+            let environment = DemoEnvironment(rawValue: envString) {
+            return environment
+        }
+        return .demo
     }
     
-    // MARK:- Phone Upgrade Eligibility
-    
-    static let KEY_PHONE_UPGRADE_INELIGIBLE = "ASAPP_DEMO_PHONE_UPGRADE_INELIGIBLE"
-    
-    class func ineligibleForPhoneUpgrade() -> Bool {
-        return UserDefaults.standard.bool(forKey: KEY_PHONE_UPGRADE_INELIGIBLE)
+    class func setDemoEnvironment(environment: DemoEnvironment) {
+        UserDefaults.standard.set(environment.rawValue, forKey: KEY_DEMO_ENVIRONMENT)
     }
-    
-    class func setIneligibleForPhoneUpgrade(eligible: Bool) {
-        UserDefaults.standard.set(eligible, forKey: KEY_PHONE_UPGRADE_INELIGIBLE)
-    }
-    
-    // MARK:- Demo Content
-    
+}
+
+// MARK:- Demo Content
+
+extension DemoSettings {
     static let KEY_DEMO_CONTENT = "ASAPP_DEMO_CONTENT_ENABLED"
     
     class func demoContentEnabled() -> Bool {
@@ -59,10 +87,15 @@ class DemoSettings: NSObject {
     
     class func setDemoContentEnabled(_ enabled: Bool) {
         UserDefaults.standard.set(enabled, forKey: KEY_DEMO_CONTENT)
+        
+        postUpdateNotification()
     }
-    
-    // MARK:- Live Chat Demo
-    
+}
+
+// MARK:- Live Chat Demo
+
+extension DemoSettings {
+
     static let KEY_DEMO_LIVE_CHAT = "ASAPP_DEMO_LIVE_CHAT"
     
     class func demoLiveChat() -> Bool {
@@ -71,17 +104,16 @@ class DemoSettings: NSObject {
     
     class func setDemoLiveChat(_ enabled: Bool) {
         UserDefaults.standard.set(enabled, forKey: KEY_DEMO_LIVE_CHAT)
+        
+        postUpdateNotification()
     }
+}
+
+// MARK:- Notifications
+
+extension DemoSettings {
     
-    // MARK:- Force Comcast User
-    
-    static let KEY_FORCE_PHONE_USER = "ASAPP_DEMO_FORCE_PHONE_USER"
-    
-    class func useDemoPhoneUser() -> Bool {
-        return UserDefaults.standard.bool(forKey: KEY_FORCE_PHONE_USER)
-    }
-    
-    class func setUseDemoPhoneUser(_ enabled: Bool) {
-        UserDefaults.standard.set(enabled, forKey: KEY_FORCE_PHONE_USER)
+    fileprivate class func postUpdateNotification() {
+        NotificationCenter.default.post(NotificationDemoSettingsUpdate)
     }
 }

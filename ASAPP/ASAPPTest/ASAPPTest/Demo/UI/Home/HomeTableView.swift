@@ -12,6 +12,8 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
+    func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView)
+    func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -48,9 +50,11 @@ class HomeTableView: UIView {
     let billSizingCell = BillSummaryCell()
     let labelIconSizingCell = LabelIconCell()
     let buttonSizingCell = ButtonCell()
+    let titleDetailValueSizingCell = TitleDetailValueCell()
     
     fileprivate enum Section: Int {
         case profile
+        case demoSettings
         case bill
         case settings
         case count
@@ -66,7 +70,6 @@ class HomeTableView: UIView {
         case paymentMethods
         case usage
         case invite
-//        case rewards
         case notifications
         case help
         case touchId
@@ -88,6 +91,7 @@ class HomeTableView: UIView {
         tableView.register(BillSummaryCell.self, forCellReuseIdentifier: BillSummaryCell.reuseId)
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
+        tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -132,6 +136,7 @@ extension HomeTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Section.profile.rawValue: return ProfileRow.count.rawValue
+        case Section.demoSettings.rawValue: return 1
         case Section.bill.rawValue: return 1
         case Section.settings.rawValue: return SettingsRow.count.rawValue
         default: return 0
@@ -142,6 +147,9 @@ extension HomeTableView: UITableViewDataSource {
         var cell: TableViewCell?
         
         switch indexPath.section {
+        //
+        // Profile
+        //
         case Section.profile.rawValue:
             switch indexPath.row {
             case ProfileRow.profile.rawValue:
@@ -155,29 +163,80 @@ extension HomeTableView: UITableViewDataSource {
                 break
             
             default:
+                DemoLog("Missing cell for indexPath: \(indexPath)")
                 break
             }
             break
+         
+    
+        //
+        // Demo Settings
+        //
+        case Section.demoSettings.rawValue:
+            cell = tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TableViewCell
+            styleTitleDetailValueCell(cell as? TitleDetailValueCell, forIndexPath: indexPath)
+            break
             
+            
+        //
+        // Bill
+        //
         case Section.bill.rawValue:
             cell = tableView.dequeueReusableCell(withIdentifier: BillSummaryCell.reuseId, for: indexPath) as? TableViewCell
             break
             
+        //
+        // Settings
+        //
         case Section.settings.rawValue:
             cell = tableView.dequeueReusableCell(withIdentifier: LabelIconCell.reuseId, for: indexPath) as? LabelIconCell
             styleLabelIconCell(cell: cell as? LabelIconCell, forRow: indexPath.row)
             break
             
         default:
-            return UITableViewCell()
+            DemoLog("Missing cell for indexPath: \(indexPath)")
+            break
         }
         
         cell?.appSettings = appSettings
         
-        return cell ?? UITableViewCell()
+        return cell ?? TableViewCell()
     }
     
     // MARK: Cell Style Utility
+    
+    func styleTitleDetailValueCell(_ cell: TitleDetailValueCell?, forIndexPath indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        cell.appSettings = appSettings
+        
+        switch indexPath.section {
+        case Section.demoSettings.rawValue:
+            let environmentString =  appSettings.environmentString()
+            
+            var featureStrings = [String]()
+            if DemoSettings.demoLiveChat() {
+                featureStrings.append("• Live Chat")
+            }
+            if DemoSettings.demoContentEnabled() {
+                featureStrings.append("• Demo Content")
+            }
+            var featuresString: String?
+            if featureStrings.count > 0 {
+                featuresString = featureStrings.joined(separator: "\n")
+            }
+            
+            cell.titleLabel.font = appSettings.regularFont.withSize(16)
+            cell.selectionStyle = .default
+            cell.update(titleText: "Environment:",
+                        detailText: featuresString,
+                        valueText: environmentString)
+            break
+        
+        default:
+            break
+        }
+    }
     
     func styleUserAccountCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
         guard let cell = cell else { return }
@@ -294,6 +353,10 @@ extension HomeTableView: UITableViewDelegate {
             title = "Profile"
             break
             
+        case Section.demoSettings.rawValue:
+            title = "DEMO SETTINGS - \(appSettings.versionString)"
+            break
+            
         case Section.bill.rawValue:
             title = "Billing"
             break
@@ -357,6 +420,10 @@ extension HomeTableView: UITableViewDelegate {
                 return 0
             }
             
+        case Section.demoSettings.rawValue:
+            styleTitleDetailValueCell(titleDetailValueSizingCell, forIndexPath: indexPath)
+            return titleDetailValueSizingCell.sizeThatFits(sizer).height
+            
         case Section.bill.rawValue:
             billSizingCell.appSettings = appSettings
             return billSizingCell.sizeThatFits(sizer).height
@@ -382,6 +449,10 @@ extension HomeTableView: UITableViewDelegate {
             default:
                 break
             }
+            break
+            
+        case Section.demoSettings.rawValue:
+            delegate?.homeTableViewDidTapEnvironmentSettings(homeTableView: self)
             break
             
         case Section.bill.rawValue:

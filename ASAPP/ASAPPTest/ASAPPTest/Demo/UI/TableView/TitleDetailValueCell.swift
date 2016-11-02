@@ -22,11 +22,11 @@ class TitleDetailValueCell: TableViewCell {
         return "TitleDetailValueCellReuseId"
     }
     
-    fileprivate let titleLabel = UILabel()
+    let titleLabel = UILabel()
     
-    fileprivate let detailLabel = UILabel()
+    let detailLabel = UILabel()
     
-    fileprivate let valueLabel = UILabel()
+    let valueLabel = UILabel()
     
     // MARK: Init
     
@@ -50,6 +50,8 @@ class TitleDetailValueCell: TableViewCell {
         valueLabel.font = DemoFonts.latoBoldFont(withSize: 16)
         valueLabel.textColor = UIColor.darkText
         valueLabel.textAlignment = .right
+        valueLabel.adjustsFontSizeToFitWidth = true
+        valueLabel.minimumScaleFactor = 0.4
         contentView.addSubview(valueLabel)
     }
     

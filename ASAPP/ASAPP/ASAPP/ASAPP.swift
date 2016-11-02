@@ -12,7 +12,6 @@ internal var DISTRIBUTION_BUILD = false
 
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
-internal var DEMO_COMCAST_LIVE_CHAT_USER = false
 
 // MARK:- Internal Constants
 
@@ -168,15 +167,13 @@ public class ASAPP: NSObject {
                 DebugLog("All demo settings disabled for distribution build")
                 DEMO_CONTENT_ENABLED = false
                 DEMO_LIVE_CHAT = false
-                DEMO_COMCAST_LIVE_CHAT_USER = false
                 return
         }
     
         DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
         DEMO_LIVE_CHAT = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_LIVE_CHAT")
-        DEMO_COMCAST_LIVE_CHAT_USER = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_FORCE_PHONE_USER")
         
-        DebugLog("\n\n==========\nUPDATING DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\nPhone User = \(DEMO_COMCAST_LIVE_CHAT_USER)\n==========")
+        DebugLog("\n\n==========\nUPDATING DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\n==========")
     }
 }
 
