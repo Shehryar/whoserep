@@ -8,16 +8,22 @@
 
 import UIKit
 
+struct LineItem {
+    let name: String?
+    let date: String?
+    let amount: String?
+}
+
 class BillDetailsViewController: BaseTableViewController {
     
     // MARK: Cells
     
     let billSummaryCellReuseId = "BillSummaryCellReuseId"
-    let textIconCellReuseId = "TextIconCellReuseId"
+    let labelIconCellReuseId = "LabelIconCellReuseId"
     let titleDetailValueCellReuseId = "TitleDetailValueCellReuseId"
     
     let summarySizingCell = BillSummaryCell()
-    let textIconSizingCell = HomeTextIconCell()
+    let labelIconSizingCell = LabelIconCell()
     let titleDetailValueSizingCell = TitleDetailValueCell()
     
     // MARK: Data
@@ -65,7 +71,7 @@ class BillDetailsViewController: BaseTableViewController {
         title = "Bill Details"
         
         tableView.register(BillSummaryCell.self, forCellReuseIdentifier: billSummaryCellReuseId)
-        tableView.register(HomeTextIconCell.self, forCellReuseIdentifier: textIconCellReuseId)
+        tableView.register(LabelIconCell.self, forCellReuseIdentifier: labelIconCellReuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: titleDetailValueCellReuseId)
     }
     
@@ -100,7 +106,7 @@ extension BillDetailsViewController {
             return cell ?? UITableViewCell()
             
         case Section.payment.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: textIconCellReuseId, for: indexPath) as? HomeTextIconCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: labelIconCellReuseId, for: indexPath) as? LabelIconCell
             stylePaymentCell(cell, forRow: indexPath.row)
             return cell ?? UITableViewCell()
             
@@ -120,7 +126,7 @@ extension BillDetailsViewController {
     
     // MARK: Internal
     
-    func stylePaymentCell(_ cell: HomeTextIconCell?, forRow row: Int) {
+    func stylePaymentCell(_ cell: LabelIconCell?, forRow row: Int) {
         guard let cell = cell else { return }
         cell.appSettings = appSettings
         
@@ -176,8 +182,8 @@ extension BillDetailsViewController {
             return summarySizingCell.sizeThatFits(sizer).height
             
         case Section.payment.rawValue:
-            stylePaymentCell(textIconSizingCell, forRow: indexPath.row)
-            return textIconSizingCell.sizeThatFits(sizer).height
+            stylePaymentCell(labelIconSizingCell, forRow: indexPath.row)
+            return labelIconSizingCell.sizeThatFits(sizer).height
             
         case Section.lineItems.rawValue:
             styleLineItemCell(titleDetailValueSizingCell, forRow: indexPath.row)

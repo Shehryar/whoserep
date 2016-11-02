@@ -11,6 +11,7 @@ import UIKit
 protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
+    func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -18,6 +19,12 @@ class HomeTableView: UIView {
     var appSettings: AppSettings {
         didSet {
             applyAppSettings()
+        }
+    }
+    
+    var currentAccount: UserAccount? = UserAccount.account(forName: "Gustavo") {
+        didSet {
+            tableView.reloadData()
         }
     }
     
@@ -37,18 +44,21 @@ class HomeTableView: UIView {
     let tableView = UITableView(frame: .zero, style: .grouped)
     
     let headerSizingView = TableHeaderView()
-    let nameSizingCell = HomeNameCell()
+    let nameSizingCell = ImageNameCell()
     let billSizingCell = BillSummaryCell()
-    let textIconSizingCell = HomeTextIconCell()
-    
-    let nameCellReuseId = "NameCellReuseId"
-    let billCellReuseId = "BillCellReuseId"
-    let textIconCellReuseId = "TextIconCellReuseId"
+    let labelIconSizingCell = LabelIconCell()
+    let buttonSizingCell = ButtonCell()
     
     fileprivate enum Section: Int {
         case profile
         case bill
         case settings
+        case count
+    }
+    
+    fileprivate enum ProfileRow: Int {
+        case profile
+        case signOut
         case count
     }
     
@@ -74,9 +84,10 @@ class HomeTableView: UIView {
         backgroundColor = UIColor.clear
         
         tableView.backgroundColor = UIColor.clear
-        tableView.register(HomeNameCell.self, forCellReuseIdentifier: nameCellReuseId)
-        tableView.register(BillSummaryCell.self, forCellReuseIdentifier: billCellReuseId)
-        tableView.register(HomeTextIconCell.self, forCellReuseIdentifier: textIconCellReuseId)
+        tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
+        tableView.register(BillSummaryCell.self, forCellReuseIdentifier: BillSummaryCell.reuseId)
+        tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -120,7 +131,8 @@ extension HomeTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Section.profile.rawValue, Section.bill.rawValue: return 1
+        case Section.profile.rawValue: return ProfileRow.count.rawValue
+        case Section.bill.rawValue: return 1
         case Section.settings.rawValue: return SettingsRow.count.rawValue
         default: return 0
         }
@@ -131,16 +143,29 @@ extension HomeTableView: UITableViewDataSource {
         
         switch indexPath.section {
         case Section.profile.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: nameCellReuseId, for: indexPath) as? TableViewCell
+            switch indexPath.row {
+            case ProfileRow.profile.rawValue:
+                cell = tableView.dequeueReusableCell(withIdentifier: ImageNameCell.reuseId, for: indexPath) as? TableViewCell
+                styleUserAccountCell(cell as? ImageNameCell, forIndexPath: indexPath)
+                break
+                
+            case ProfileRow.signOut.rawValue:
+                cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
+                styleButtonCell(cell: cell as? ButtonCell, forIndexPath: indexPath)
+                break
+            
+            default:
+                break
+            }
             break
             
         case Section.bill.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: billCellReuseId, for: indexPath) as? TableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: BillSummaryCell.reuseId, for: indexPath) as? TableViewCell
             break
             
         case Section.settings.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: textIconCellReuseId, for: indexPath) as? TableViewCell
-            styleTextIconCell(cell: cell as? HomeTextIconCell, forRow: indexPath.row)
+            cell = tableView.dequeueReusableCell(withIdentifier: LabelIconCell.reuseId, for: indexPath) as? LabelIconCell
+            styleLabelIconCell(cell: cell as? LabelIconCell, forRow: indexPath.row)
             break
             
         default:
@@ -154,7 +179,39 @@ extension HomeTableView: UITableViewDataSource {
     
     // MARK: Cell Style Utility
     
-    func styleTextIconCell(cell: HomeTextIconCell?, forRow row: Int) {
+    func styleUserAccountCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        cell.appSettings = appSettings
+        cell.name = currentAccount?.name ?? "Sign In"
+        cell.detailText = currentAccount != nil ? "View and edit profile" : nil
+        cell.imageName = currentAccount?.imageName
+    }
+    
+    func styleButtonCell(cell: ButtonCell?, forIndexPath indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        cell.appSettings = appSettings
+        cell.titleAlignment = .left
+        
+        switch indexPath.section {
+        case Section.profile.rawValue:
+            switch indexPath.row {
+            case ProfileRow.signOut.rawValue:
+                cell.title = "Switch Account"
+                break
+                
+            default:
+                break
+            }
+            break
+            
+        default:
+            break
+        }
+    }
+    
+    func styleLabelIconCell(cell: LabelIconCell?, forRow row: Int) {
         guard let cell = cell else { return }
         cell.appSettings = appSettings
         
@@ -286,16 +343,26 @@ extension HomeTableView: UITableViewDelegate {
         
         switch indexPath.section {
         case Section.profile.rawValue:
-            nameSizingCell.appSettings = appSettings
-            return nameSizingCell.sizeThatFits(sizer).height
+            switch indexPath.row {
+            case ProfileRow.profile.rawValue:
+                styleUserAccountCell(nameSizingCell, forIndexPath: indexPath)
+                return nameSizingCell.sizeThatFits(sizer).height
+                
+            case ProfileRow.signOut.rawValue:
+                styleButtonCell(cell: buttonSizingCell, forIndexPath: indexPath)
+                return buttonSizingCell.sizeThatFits(sizer).height
+                
+            default:
+                return 0
+            }
             
         case Section.bill.rawValue:
             billSizingCell.appSettings = appSettings
             return billSizingCell.sizeThatFits(sizer).height
         
         case Section.settings.rawValue:
-            styleTextIconCell(cell: textIconSizingCell, forRow: indexPath.row)
-            return textIconSizingCell.sizeThatFits(sizer).height
+            styleLabelIconCell(cell: labelIconSizingCell, forRow: indexPath.row)
+            return labelIconSizingCell.sizeThatFits(sizer).height
             
         default: return 50.0
         }
@@ -306,6 +373,14 @@ extension HomeTableView: UITableViewDelegate {
      
         switch indexPath.section {
         case Section.profile.rawValue:
+            switch indexPath.row {
+            case ProfileRow.signOut.rawValue:
+                delegate?.homeTableViewDidTapSwitchAccount(homeTableView: self)
+                break
+                
+            default:
+                break
+            }
             break
             
         case Section.bill.rawValue:

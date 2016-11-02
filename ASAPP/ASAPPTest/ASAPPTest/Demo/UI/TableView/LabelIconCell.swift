@@ -1,5 +1,5 @@
 //
-//  HomeTextIconCell.swift
+//  LabelIconCell.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 11/1/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTextIconCell: TableViewCell {
+class LabelIconCell: TableViewCell {
 
     var title: String? {
         didSet {
@@ -23,6 +23,10 @@ class HomeTextIconCell: TableViewCell {
             setNeedsLayout()
         }
     }
+    
+    override class var reuseId: String {
+        return "LabelIconCellReuseId"
+    }
   
     // MARK: Private Properties
     
@@ -35,6 +39,8 @@ class HomeTextIconCell: TableViewCell {
     // MARK: Init
     
     override func commonInit() {
+        super.commonInit()
+        
         titleLabel.textColor = UIColor.darkText
         titleLabel.font = DemoFonts.latoRegularFont(withSize: 20)
         contentView.addSubview(titleLabel)

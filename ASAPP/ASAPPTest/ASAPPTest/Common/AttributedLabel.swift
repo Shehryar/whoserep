@@ -34,6 +34,23 @@ class AttributedLabel: UILabel {
         }
     }
     
+    // MARK: Init
+    
+    func commonInit() {
+        numberOfLines = 0
+        lineBreakMode = .byTruncatingTail
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
     // MARK: Updates
     
     fileprivate var updatingMultipleProperties = false
@@ -58,7 +75,7 @@ class AttributedLabel: UILabel {
             let attributes: [String : Any] = [
                 NSFontAttributeName : font ?? DemoFonts.latoRegularFont(withSize: 14),
                 NSForegroundColorAttributeName : textColor ?? UIColor.darkText,
-                NSKernAttributeName : kerning
+                NSKernAttributeName : kerning,
             ]
             attributedText = NSAttributedString(string: text, attributes: attributes)
         } else {

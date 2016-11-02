@@ -25,11 +25,15 @@ class TableViewCell: UITableViewCell {
     }
     
     fileprivate let selectedView = UIView()
+
+    class var reuseId: String {
+        fatalError("Subclass must override +reuseId")
+    }
     
     // MARK: Init
     
     func commonInit() {
-        
+        separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

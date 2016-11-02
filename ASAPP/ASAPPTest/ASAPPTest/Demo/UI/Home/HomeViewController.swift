@@ -13,6 +13,12 @@ class HomeViewController: BaseViewController {
     
     let canChangeCompany: Bool
     
+    var currentAccount: UserAccount? = UserAccount.account(forName: "Gustavo") {
+        didSet {
+            homeTableView.currentAccount = currentAccount
+        }
+    }
+    
     // MARK: Private Properties
     
     fileprivate var environment: ASAPPEnvironment {
@@ -279,6 +285,20 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidTapHelp(homeTableView: HomeTableView) {
         showHelp()
     }
+    
+    func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView) {
+        showAccountsPage()
+    }
+}
+
+// MARK:- AccountsViewControllerDelegate
+
+extension HomeViewController: AccountsViewControllerDelegate {
+    
+    func accountsViewController(viewController: AccountsViewController, didSelectAccount account: UserAccount) {
+        currentAccount = account
+        _ = navigationController?.popToViewController(self, animated: true)
+    }
 }
 
 // MARK:- Handling ASAPP Actions
@@ -345,7 +365,6 @@ extension HomeViewController {
     
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
-        billDetailsVC.statusBarStyle = statusBarStyle
         navigationController?.pushViewController(billDetailsVC, animated: true)
     }
     
@@ -362,6 +381,12 @@ extension HomeViewController {
         present(chatViewController, animated: true, completion: nil)
     }
 
+    func showAccountsPage() {
+        let accountsVC = AccountsViewController(appSettings: appSettings)
+        accountsVC.currentAccount = currentAccount
+        accountsVC.delegate = self
+        navigationController?.pushViewController(accountsVC, animated: true)
+    }
 }
 
 // MARK:- Action View Controllers
