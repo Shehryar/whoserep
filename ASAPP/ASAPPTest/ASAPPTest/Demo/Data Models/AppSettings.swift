@@ -14,10 +14,17 @@ enum Company: String {
     case asapp2 = "asapp2"
     case comcast = "comcast"
     case sprint = "sprint"
+    
+    static let all = [
+        asapp,
+        asapp2,
+        comcast,
+        sprint
+    ]
 }
 
 class AppSettings: NSObject {
-
+    
     let company: Company
     
     let companyMarker: String
@@ -31,8 +38,6 @@ class AppSettings: NSObject {
     var logoImageSize: CGSize = CGSize(width: 140, height: 28)
     
     var homeBackgroundImage: UIImage?
-    
-    // MARK: Fonts
     
     // MARK: Colors
     
@@ -53,6 +58,16 @@ class AppSettings: NSObject {
     var navBarTitleColor: UIColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
     
     var statusBarStyle: UIStatusBarStyle = .default
+    
+    // MARK: Fonts
+    
+    var lightFont: UIFont = DemoFonts.latoLightFont(withSize: 14)
+    
+    var regularFont: UIFont = DemoFonts.latoRegularFont(withSize: 14)
+    
+    var boldFont: UIFont = DemoFonts.latoBoldFont(withSize: 14)
+    
+    var blackFont: UIFont = DemoFonts.latoBlackFont(withSize: 14)
     
     // MARK: Init
     
@@ -87,11 +102,11 @@ extension AppSettings {
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
             
-//            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
-//            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
-//            settings.foregroundColor = UIColor.white
-//            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
-//            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
+            //            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
+            //            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
+            //            settings.foregroundColor = UIColor.white
+            //            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
+            //            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
             
             return settings
             
@@ -101,16 +116,25 @@ extension AppSettings {
             settings.logoImageSize = CGSize(width: 140, height: 28)
 //            settings.homeBackgroundImage = UIImage(named: "comcast-home")
             
+            
+            // Nav Bar Colors
             settings.navBarColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
             settings.navBarTintColor = UIColor.white
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
             
+            // Colors
             settings.foregroundColor = UIColor(red:0.027, green:0.027, blue:0.027, alpha:1)
             settings.foregroundColor2 = UIColor(red:0.580, green:0.580, blue:0.580, alpha:1)
             settings.backgroundColor = UIColor.white
             settings.backgroundColor2 = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
             settings.separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
+            
+            // Fonts
+            settings.lightFont = DemoFonts.xfinitySansLgtFont()
+            settings.regularFont = DemoFonts.xfinitySansRegFont()
+            settings.boldFont = DemoFonts.xfinitySansMedFont()
+            settings.blackFont = DemoFonts.xfinitySansBoldFont()
             
             return settings
             
@@ -120,21 +144,28 @@ extension AppSettings {
             settings.logoImageSize = CGSize(width: 140, height: 36)
 //            settings.homeBackgroundImage = UIImage(named: "sprint-home")
             
+            // Nav Bar Colors
             settings.navBarTintColor = UIColor.darkGray
             settings.navBarTitleColor = UIColor.black
             
+            // Colors
             settings.foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
             settings.foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
             settings.backgroundColor = UIColor.white
             settings.separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
+            
+            // Fonts
+            settings.lightFont = DemoFonts.sprintSansRegularFont()
+            settings.regularFont = DemoFonts.sprintSansRegularFont()
+            settings.boldFont = DemoFonts.sprintSansMediumFont()
+            settings.blackFont = DemoFonts.sprintSansBoldFont()
             
             return settings
         }
     }
     
     class func changeCompany(fromCompany company: Company) -> Company {
-        let allCompanies: [Company] = [.asapp, .asapp2, .comcast, .sprint]
-        
+        let allCompanies = Company.all
         var nextCompany: Company = allCompanies[0]
         if let index = allCompanies.index(of: company) {
             if index + 1 >= allCompanies.count {

@@ -85,11 +85,11 @@ extension BaseTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellReuseId) ?? UITableViewCell(style: .value1, reuseIdentifier: textCellReuseId)
         
         cell.textLabel?.text = title
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        cell.textLabel?.font = appSettings.boldFont.withSize(16)
         cell.textLabel?.textColor = UIColor.darkGray
         
         cell.detailTextLabel?.text = detailText
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell.detailTextLabel?.font = appSettings.regularFont.withSize(16)
         cell.detailTextLabel?.textColor = UIColor.gray
         
         cell.accessoryType = accessoryType

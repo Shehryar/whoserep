@@ -155,11 +155,11 @@ extension HomeViewController {
         navBar.tintColor = appSettings.navBarTintColor
         navBar.titleTextAttributes = [
             NSForegroundColorAttributeName : appSettings.navBarTitleColor,
-            NSFontAttributeName : DemoFonts.latoBoldFont(withSize: 17),
+            NSFontAttributeName : appSettings.boldFont.withSize(17)
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : DemoFonts.latoBoldFont(withSize: 16),
+            NSFontAttributeName : appSettings.boldFont.withSize(16),
             NSForegroundColorAttributeName : appSettings.navBarTintColor
             ],
                                                             for: .normal)

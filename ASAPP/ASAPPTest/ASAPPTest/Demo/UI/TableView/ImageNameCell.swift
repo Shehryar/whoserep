@@ -78,10 +78,10 @@ class ImageNameCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            nameLabel.font = DemoFonts.latoBlackFont(withSize: 28)
+            nameLabel.font = appSettings.blackFont.withSize(28)
             nameLabel.textColor = appSettings.foregroundColor
             
-            detailLabel.font = DemoFonts.latoLightFont(withSize: 14)
+            detailLabel.font = appSettings.lightFont.withSize(14)
             detailLabel.textColor = appSettings.foregroundColor
             
             userImageView.backgroundColor = appSettings.backgroundColor2

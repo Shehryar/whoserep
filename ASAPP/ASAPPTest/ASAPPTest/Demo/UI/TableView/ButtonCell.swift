@@ -71,7 +71,7 @@ class ButtonCell: TableViewCell {
     func updateLabel() {
         titleLabel.update(text: title,
                           textColor: appSettings?.foregroundColor2 ?? UIColor.darkText,
-                          font: DemoFonts.latoBlackFont(withSize: 14),
+                          font: appSettings?.blackFont.withSize(14) ?? DemoFonts.latoBlackFont(withSize: 14),
                           kerning: 1)
     }
     

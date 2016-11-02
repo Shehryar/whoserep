@@ -59,6 +59,10 @@ class TitleDetailValueCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
+            titleLabel.font = appSettings.regularFont.withSize(16)
+            detailLabel.font = appSettings.lightFont.withSize(14)
+            valueLabel.font = appSettings.boldFont.withSize(16)
+            
             titleLabel.textColor = appSettings.foregroundColor
             detailLabel.textColor = appSettings.foregroundColor2
             valueLabel.textColor = appSettings.foregroundColor

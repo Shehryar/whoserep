@@ -48,7 +48,7 @@ class BillSummaryCell: TableViewCell {
         
         currentBalanceLabel.attributedText = NSAttributedString(string: "Current Balance", attributes: [
             NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText,
-            NSFontAttributeName : DemoFonts.latoRegularFont(withSize: 20),
+            NSFontAttributeName : appSettings?.regularFont.withSize(20) ?? DemoFonts.latoRegularFont(withSize: 20),
             NSKernAttributeName : 0.2
             ])
         
@@ -57,13 +57,13 @@ class BillSummaryCell: TableViewCell {
         dateFormatter.dateFormat = "MMMM dd"
         dueDateLabel.attributedText = NSAttributedString(string: "Due on \(dateFormatter.string(from: dueDate))", attributes: [
             NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText,
-            NSFontAttributeName : DemoFonts.latoLightFont(withSize: 14),
+            NSFontAttributeName : appSettings?.lightFont.withSize(14) ?? DemoFonts.latoLightFont(withSize: 14),
             NSKernAttributeName : 0.5
             ])
         
         amountLabel.attributedText = NSAttributedString(string: "$126.22", attributes: [
             NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText,
-            NSFontAttributeName : DemoFonts.latoBoldFont(withSize: 22),
+            NSFontAttributeName : appSettings?.boldFont.withSize(22) ?? DemoFonts.latoBoldFont(withSize: 22),
             NSKernAttributeName : 0.4
             ])
         
