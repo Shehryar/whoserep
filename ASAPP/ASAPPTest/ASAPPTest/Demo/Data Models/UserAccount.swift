@@ -42,4 +42,15 @@ class UserAccount: NSObject {
         }
         return nil
     }
+    
+    class func account(forUserToken userToken: String) -> UserAccount {
+        let allAccounts = all
+        for account in allAccounts {
+            if account.userToken == userToken {
+                return account
+            }
+        }
+        
+        return UserAccount(name: "Anonymous", imageName: "user-anonymous", userToken: userToken)
+    }
 }

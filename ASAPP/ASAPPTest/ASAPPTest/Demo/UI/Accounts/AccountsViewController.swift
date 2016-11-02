@@ -17,6 +17,7 @@ class AccountsViewController: BaseTableViewController {
     enum Section: Int {
         case current
         case all
+        case create
         case count
     }
     
@@ -33,6 +34,7 @@ class AccountsViewController: BaseTableViewController {
     fileprivate let allAccounts = UserAccount.all
     
     fileprivate let imageNameSizingCell = ImageNameCell()
+    fileprivate let buttonSizingCell = ButtonCell()
     
     // MARK: Init
     
@@ -42,6 +44,7 @@ class AccountsViewController: BaseTableViewController {
         title = "Accounts"
         
         tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,6 +71,9 @@ extension AccountsViewController {
             
         case Section.all.rawValue:
             return allAccounts.count
+            
+        case Section.create.rawValue:
+            return 1
 
         default:
             return 0
@@ -75,14 +81,27 @@ extension AccountsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == Section.create.rawValue {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
+            styleButtonCell(cell, forIndexPath: indexPath)
+            return cell ?? UITableViewCell()
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: ImageNameCell.reuseId, for: indexPath)
-        styleCell(cell as? ImageNameCell, forIndexPath: indexPath)
+        styleAccountCell(cell as? ImageNameCell, forIndexPath: indexPath)
         return cell
     }
     
     // MARK: Internal
     
-    func styleCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
+    func styleButtonCell(_ cell: ButtonCell?, forIndexPath indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        cell.appSettings = appSettings
+        cell.title = "+ Create New Account"
+    }
+    
+    func styleAccountCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
         guard let cell = cell else { return }
         
         cell.appSettings = appSettings
@@ -122,19 +141,36 @@ extension AccountsViewController {
         case Section.all.rawValue:
             return "Select account:"
             
+        case Section.create.rawValue:
+            return ""
+            
+            
         default:
             return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        styleCell(imageNameSizingCell, forIndexPath: indexPath)
+        if indexPath.section == Section.create.rawValue {
+            styleButtonCell(buttonSizingCell, forIndexPath: indexPath)
+            let height = ceil(buttonSizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height)
+            return height
+        }
+        
+        styleAccountCell(imageNameSizingCell, forIndexPath: indexPath)
         let height = ceil(imageNameSizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height)
         return height
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == Section.create.rawValue {
+            let userToken = "UserToken-\(floor(Date().timeIntervalSince1970))"
+            let account = UserAccount.account(forUserToken: userToken)
+            delegate?.accountsViewController(viewController: self, didSelectAccount: account)
+            return
+        }
         
         var account: UserAccount?
         if indexPath.section == Section.all.rawValue {
