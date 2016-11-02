@@ -13,7 +13,7 @@ class HomeViewController: BaseViewController {
     
     let canChangeCompany: Bool
     
-    var currentAccount: UserAccount? = UserAccount.account(forName: "Gustavo") {
+    var currentAccount: UserAccount? = UserAccount.account(forPresetAccount: .gustavo) {
         didSet {
             homeTableView.currentAccount = currentAccount
         }

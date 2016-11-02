@@ -31,7 +31,7 @@ class AccountsViewController: BaseTableViewController {
     
     weak var delegate: AccountsViewControllerDelegate?
     
-    fileprivate let allAccounts = UserAccount.all
+    fileprivate let allAccounts = UserAccount.allPresetAccounts()
     
     fileprivate let imageNameSizingCell = ImageNameCell()
     fileprivate let buttonSizingCell = ButtonCell()
@@ -166,8 +166,7 @@ extension AccountsViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == Section.create.rawValue {
-            let userToken = "UserToken-\(floor(Date().timeIntervalSince1970))"
-            let account = UserAccount.account(forUserToken: userToken)
+            let account = UserAccount.newRandomAccount()
             delegate?.accountsViewController(viewController: self, didSelectAccount: account)
             return
         }

@@ -102,6 +102,7 @@ extension BillDetailsViewController {
         switch indexPath.section {
         case Section.summary.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: billSummaryCellReuseId, for: indexPath) as? TableViewCell
+            cell?.selectionStyle = .none
             cell?.appSettings = appSettings
             return cell ?? UITableViewCell()
             

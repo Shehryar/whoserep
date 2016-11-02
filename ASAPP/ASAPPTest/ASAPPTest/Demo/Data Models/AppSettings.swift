@@ -166,7 +166,7 @@ extension AppSettings {
     }
     
     func createNewUserToken() -> String {
-        let freshUserToken = "\(company)-Test-Account-\(floor(Date().timeIntervalSince1970))"
+        let freshUserToken = "\(company)-Test-Account-\(Int(Date().timeIntervalSince1970))"
         
         UserDefaults.standard.set(freshUserToken, forKey: userTokenStorageKey())
         

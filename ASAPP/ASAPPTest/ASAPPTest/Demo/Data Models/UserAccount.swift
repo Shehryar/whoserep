@@ -9,9 +9,30 @@
 import UIKit
 
 class UserAccount: NSObject {
+    
+    enum PresetAccount {
+        case gustavo
+        case josh
+        case jane
+        case rachel
+        case vicky
+        case mitch
+        
+        static let all = [
+            gustavo,
+            josh,
+            jane,
+            rachel,
+            vicky,
+            mitch
+        ]
+    }
+    
     var name: String
     var imageName: String
     var userToken: String
+    
+    fileprivate static let defaultImageName = "user-anonymous"
     
     required init(name: String, imageName: String, userToken: String) {
         self.name = name
@@ -19,38 +40,107 @@ class UserAccount: NSObject {
         self.userToken = userToken
         super.init()
     }
+}
 
-    // MARK: Class
+// MARK:- Preset Accounts
+
+extension UserAccount {
     
-    class var all: [UserAccount] {
-        return [
-            UserAccount(name: "Gustavo", imageName: "user-gustavo", userToken: ""),
-            UserAccount(name: "Josh", imageName: "user-josh", userToken: ""),
-            UserAccount(name: "Jane", imageName: "user-jane", userToken: ""),
-            UserAccount(name: "Rachel", imageName: "user-rachel", userToken: ""),
-            UserAccount(name: "Vicky", imageName: "user-vicky", userToken: ""),
-            UserAccount(name: "Mitch", imageName: "user-mitch", userToken: ""),
-        ]
-    }
-    
-    class func account(forName name: String) -> UserAccount? {
-        let allAccounts = all
-        for account in allAccounts {
-            if account.name == name {
-                return account
-            }
+    class func account(forPresetAccount presetAccount: PresetAccount) -> UserAccount {
+        switch presetAccount {
+        case .gustavo: return UserAccount(name: "Gustavo",
+                                          imageName: "user-gustavo",
+                                          userToken: "+13126089137")
+            
+        case .josh: return UserAccount(name: "Josh",
+                                       imageName: "user-josh",
+                                       userToken: "test-token-josh")
+            
+        case .jane: return UserAccount(name: "Jane",
+                                       imageName: "user-jane",
+                                       userToken: "test-token-jane")
+            
+        case .rachel: return UserAccount(name: "Rachel",
+                                         imageName: "user-rachel",
+                                         userToken: "test-token-rachel")
+            
+        case .vicky: return UserAccount(name: "Vicky",
+                                        imageName: "user-vicky",
+                                        userToken: "test-token-vicky")
+            
+        case .mitch: return UserAccount(name: "Mitch",
+                                        imageName: "user-mitch",
+                                        userToken: "test-token-mitch")
         }
-        return nil
     }
     
-    class func account(forUserToken userToken: String) -> UserAccount {
-        let allAccounts = all
-        for account in allAccounts {
-            if account.userToken == userToken {
-                return account
-            }
+    class func allPresetAccounts() -> [UserAccount] {
+        var userAccounts = [UserAccount]()
+        for preset in PresetAccount.all {
+            userAccounts.append(account(forPresetAccount: preset))
+        }
+        return userAccounts
+    }
+}
+
+// MARK:- Creating New Accounts
+
+extension UserAccount {
+    
+    class func newRandomAccount() -> UserAccount {
+        let name = RandomNameGenerator.firstName()
+        let userToken = "test-token-\(Int(Date().timeIntervalSince1970))"
+        
+        return UserAccount(name: name,
+                           imageName: UserAccount.defaultImageName,
+                           userToken: userToken)
+    }
+}
+
+// MARK:- JSON
+
+extension UserAccount {
+
+    static let keyName = "name"
+    static let keyUserToken = "user_token"
+    static let keyImageName = "image_name"
+    
+    class func accountWith(json: [String : String]?) -> UserAccount? {
+        guard let json = json,
+            let name = json[keyName],
+            let userToken = json[keyUserToken]
+            else {
+                return nil
         }
         
-        return UserAccount(name: "Anonymous", imageName: "user-anonymous", userToken: userToken)
+        let account = UserAccount(name: name,
+                                  imageName: json[keyImageName] ?? defaultImageName,
+                                  userToken: userToken)
+        
+        return account
+    }
+ 
+    func toJSON() -> [String : String] {
+        return [
+            UserAccount.keyName : name,
+            UserAccount.keyUserToken : userToken,
+            UserAccount.keyImageName : imageName
+        ]
+    }
+}
+
+// MARK:- Saving
+
+extension UserAccount {
+    
+    func save(withKey key: String) {
+        UserDefaults.standard.set(toJSON(), forKey: key)
+    }
+    
+    class func getSavedAccount(withKey key: String) -> UserAccount? {
+        if let savedAccount = UserDefaults.standard.object(forKey: key) as? UserAccount {
+            return savedAccount
+        }
+        return nil
     }
 }

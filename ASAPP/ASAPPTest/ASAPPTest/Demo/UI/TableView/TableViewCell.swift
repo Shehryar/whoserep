@@ -24,6 +24,12 @@ class TableViewCell: UITableViewCell {
         }
     }
     
+    override var selectionStyle: UITableViewCellSelectionStyle {
+        didSet {
+            updateSelectedView()
+        }
+    }
+    
     fileprivate let selectedView = UIView()
 
     class var reuseId: String {
@@ -51,9 +57,21 @@ class TableViewCell: UITableViewCell {
     func applyAppSettings() {
         if let appSettings = appSettings {
             backgroundColor = appSettings.backgroundColor
-            
-            selectedView.backgroundColor = appSettings.backgroundColor.highlightColor()
+        }
+        updateSelectedView()
+    }
+    
+    func updateSelectedView() {
+        if selectionStyle == .none {
+            selectedView.backgroundColor = UIColor.clear
             selectedBackgroundView = selectedView
+        } else {
+            if let appSettings = appSettings {
+                selectedView.backgroundColor = appSettings.backgroundColor.highlightColor()
+                selectedBackgroundView = selectedView
+            } else {
+                selectedBackgroundView = nil
+            }
         }
     }
 }

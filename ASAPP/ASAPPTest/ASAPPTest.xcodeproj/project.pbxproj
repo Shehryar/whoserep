@@ -39,8 +39,8 @@
 		30C24C261DC9104100529785 /* BillSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C251DC9104100529785 /* BillSummaryCell.swift */; };
 		30C24C2C1DC921AE00529785 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C2B1DC921AE00529785 /* UIImageExtensions.swift */; };
 		30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C2D1DC9396800529785 /* AttributedLabel.swift */; };
-		30C24C321DC9477700529785 /* TitleDetailValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C311DC9477700529785 /* TitleDetailValueCell.swift */; };
 		30C24C341DC9523A00529785 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C331DC9523A00529785 /* UIColorExtensions.swift */; };
+		30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C351DCA39E100529785 /* RandomNameGenerator.swift */; };
 		30D687D61DC7DE8100E0909B /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D687D51DC7DE8100E0909B /* HomeTableView.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
@@ -93,8 +93,8 @@
 		30C24C251DC9104100529785 /* BillSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSummaryCell.swift; sourceTree = "<group>"; };
 		30C24C2B1DC921AE00529785 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		30C24C2D1DC9396800529785 /* AttributedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedLabel.swift; sourceTree = "<group>"; };
-		30C24C311DC9477700529785 /* TitleDetailValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleDetailValueCell.swift; sourceTree = "<group>"; };
 		30C24C331DC9523A00529785 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		30C24C351DCA39E100529785 /* RandomNameGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNameGenerator.swift; sourceTree = "<group>"; };
 		30D687D51DC7DE8100E0909B /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -170,6 +170,7 @@
 				307022C51DBE592F0027908C /* DemoFonts.swift */,
 				30C24C2B1DC921AE00529785 /* UIImageExtensions.swift */,
 				30C24C2D1DC9396800529785 /* AttributedLabel.swift */,
+				30C24C351DCA39E100529785 /* RandomNameGenerator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -395,6 +396,7 @@
 				30D687D61DC7DE8100E0909B /* HomeTableView.swift in Sources */,
 				281D8E031DC9696A00E4A65B /* TitleDetailValueCell.swift in Sources */,
 				281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */,
+				30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */,
 				30C24C2C1DC921AE00529785 /* UIImageExtensions.swift in Sources */,
 				30C24C341DC9523A00529785 /* UIColorExtensions.swift in Sources */,
 				281D8E001DC9681300E4A65B /* TableHeaderView.swift in Sources */,

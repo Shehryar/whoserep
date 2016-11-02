@@ -22,7 +22,7 @@ class HomeTableView: UIView {
         }
     }
     
-    var currentAccount: UserAccount? = UserAccount.account(forName: "Gustavo") {
+    var currentAccount: UserAccount? = UserAccount.account(forPresetAccount: .gustavo) {
         didSet {
             tableView.reloadData()
         }
@@ -182,9 +182,10 @@ extension HomeTableView: UITableViewDataSource {
     func styleUserAccountCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
         guard let cell = cell else { return }
         
+        cell.selectionStyle = .none
         cell.appSettings = appSettings
         cell.name = currentAccount?.name ?? "Sign In"
-        cell.detailText = currentAccount != nil ? "View and edit profile" : nil
+        cell.detailText = currentAccount != nil ? currentAccount!.userToken : nil
         cell.imageName = currentAccount?.imageName
     }
     
