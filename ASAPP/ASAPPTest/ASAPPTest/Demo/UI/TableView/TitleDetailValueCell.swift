@@ -18,6 +18,10 @@ class TitleDetailValueCell: TableViewCell {
         }
     }
     
+    override class var reuseId: String {
+        return "TitleDetailValueCellReuseId"
+    }
+    
     fileprivate let titleLabel = UILabel()
     
     fileprivate let detailLabel = UILabel()

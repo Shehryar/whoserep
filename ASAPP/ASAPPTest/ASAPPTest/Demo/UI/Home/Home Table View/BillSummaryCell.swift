@@ -20,6 +20,10 @@ class BillSummaryCell: TableViewCell {
     
     let amountLabel = UILabel()
     
+    override class var reuseId: String {
+        return "BillSummaryCellReuseId"
+    }
+    
     override func commonInit() {
         super.commonInit()
         

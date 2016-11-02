@@ -1,5 +1,5 @@
 //
-//  HomeNameCell.swift
+//  ImageNameCell.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 11/1/16.
@@ -8,32 +8,68 @@
 
 import UIKit
 
-class HomeNameCell: TableViewCell {
+class ImageNameCell: TableViewCell {
     
-    let nameLabel = UILabel()
+    var name: String? {
+        didSet {
+            nameLabel.text = name
+            setNeedsLayout()
+        }
+    }
+    
+    var detailText: String? {
+        didSet {
+            detailLabel.text = detailText
+            setNeedsLayout()
+        }
+    }
+    
+    var imageName: String? {
+        didSet {
+            if let imageName = imageName {
+                userImageView.image = UIImage(named: imageName)
+            } else {
+                userImageView.image = nil
+            }
+            setNeedsLayout()
+        }
+    }
+    
+    let userImageView = UIImageView()
+    
+    let nameLabel = AttributedLabel()
+    
+    let detailLabel = AttributedLabel()
     
     let nameLabelMarginBottom: CGFloat = 4
-    
-    let viewProfileLabel = UILabel()
     
     let imageSize: CGFloat = 64
     
     let imageMargin: CGFloat = 20
     
-    let userImageView = UIImageView()
+    override class var reuseId: String {
+        return "HomeNameCellReuseId"
+    }
+    
+    // MARK: Init
     
     override func commonInit() {
         super.commonInit()
-    
+
+        nameLabel.text = "Gustavo"
+        nameLabel.textColor = UIColor.darkText
+        nameLabel.kerning = 0.4
         contentView.addSubview(nameLabel)
-        contentView.addSubview(viewProfileLabel)
+        
+        detailLabel.text = "View and edit profile"
+        detailLabel.textColor = UIColor.darkText
+        detailLabel.kerning = 0.5
+        contentView.addSubview(detailLabel)
         
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
         userImageView.image = UIImage(named: "user-image")
         contentView.addSubview(userImageView)
-        
-        updateLabels()
     }
     
     // MARK:- App Settings
@@ -42,8 +78,11 @@ class HomeNameCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
+            nameLabel.font = DemoFonts.latoBlackFont(withSize: 28)
+            nameLabel.textColor = appSettings.foregroundColor
             
-            updateLabels()
+            detailLabel.font = DemoFonts.latoLightFont(withSize: 14)
+            detailLabel.textColor = appSettings.foregroundColor
             
             userImageView.backgroundColor = appSettings.backgroundColor2
             userImageView.layer.borderWidth = 1
@@ -52,21 +91,7 @@ class HomeNameCell: TableViewCell {
         
         setNeedsLayout()
     }
-    
-    func updateLabels() {
-        nameLabel.attributedText = NSAttributedString(string: "Gustavo", attributes: [
-            NSFontAttributeName : DemoFonts.latoBlackFont(withSize: 28),
-            NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText,
-            NSKernAttributeName : 0.4
-            ])
-        
-        viewProfileLabel.attributedText = NSAttributedString(string: "View and edit profile", attributes: [
-            NSFontAttributeName : DemoFonts.latoLightFont(withSize: 14),
-            NSKernAttributeName : 0.5,
-            NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText
-            ])
-    }
-    
+
     // MARK:- Layout
     
     func framesThatFit(size: CGSize) -> (CGRect, CGRect, CGRect) {
@@ -76,14 +101,17 @@ class HomeNameCell: TableViewCell {
         let labelSizer = CGSize(width: labelWidth, height: 0)
         
         let nameHeight = ceil(nameLabel.sizeThatFits(labelSizer).height)
-        let viewProfileHeight = ceil(viewProfileLabel.sizeThatFits(labelSizer).height)
-        let totalLabelHeight = nameHeight + viewProfileHeight + nameLabelMarginBottom
+        let detailHeight = ceil(detailLabel.sizeThatFits(labelSizer).height)
+        var totalLabelHeight = nameHeight + detailHeight
+        if nameHeight > 0 && detailHeight > 0 {
+            totalLabelHeight += nameLabelMarginBottom
+        }
         
         let labelTop = contentInset.top + max(0, floor((imageSize - totalLabelHeight) / 2.0))
         
         let nameLabelFrame = CGRect(x: labelLeft, y: labelTop, width: labelWidth, height: nameHeight)
         let viewProfileLabelFrame = CGRect(x: labelLeft, y: nameLabelFrame.maxY + nameLabelMarginBottom,
-                                           width: labelWidth, height: viewProfileHeight)
+                                           width: labelWidth, height: detailHeight)
         
         let imageTop = contentInset.top + max(0, floor((totalLabelHeight - imageSize) / 2.0))
         let imageViewFrame = CGRect(x: contentInset.left, y: imageTop, width: imageSize, height: imageSize)
@@ -99,7 +127,7 @@ class HomeNameCell: TableViewCell {
         userImageView.layer.cornerRadius = imageViewFrame.height / 2.0
     
         nameLabel.frame = nameLabelFrame
-        viewProfileLabel.frame = viewProfileLabelFrame
+        detailLabel.frame = viewProfileLabelFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

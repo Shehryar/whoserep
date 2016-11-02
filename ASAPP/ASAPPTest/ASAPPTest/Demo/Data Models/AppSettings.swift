@@ -75,14 +75,12 @@ extension AppSettings {
             let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo")
             settings.logoImageSize = CGSize(width: 100, height: 22)
-//            settings.homeBackgroundImage = UIImage(named: "asapp-home")
             return settings
             
         case .asapp2:
             let settings = AppSettings(company: .asapp2, companyMarker: "asapp", styles: ASAPPStyles())
             settings.logoImage = UIImage(named: "asapp-logo-light")
             settings.logoImageSize = CGSize(width: 100, height: 22)
-            settings.homeBackgroundImage = UIImage(named: "asapp-home")
             settings.navBarColor = UIColor.black //UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
             settings.navBarTintColor = UIColor.white
             settings.navBarTitleColor = UIColor.white
