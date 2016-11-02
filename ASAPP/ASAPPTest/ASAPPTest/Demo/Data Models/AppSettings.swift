@@ -164,11 +164,11 @@ extension AppSettings {
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
             
-            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
-            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
-            settings.foregroundColor = UIColor.white
-            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
-            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
+//            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
+//            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
+//            settings.foregroundColor = UIColor.white
+//            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
+//            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
             
             return settings
             
