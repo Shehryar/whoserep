@@ -26,6 +26,7 @@
 		307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */; };
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
+		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988E891DC7B69A00470E09 /* DemoSettings.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
 		30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA71DC7BA8700470E09 /* HomeViewController.swift */; };
@@ -81,6 +82,7 @@
 		307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
+		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		30988E891DC7B69A00470E09 /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
 		30988EA71DC7BA8700470E09 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				30C24C2D1DC9396800529785 /* AttributedLabel.swift */,
 				30C24C351DCA39E100529785 /* RandomNameGenerator.swift */,
 				30C24C371DCA4BEF00529785 /* DemoLog.swift */,
+				308CB1131DCBE86400477013 /* DemoDispatcher.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
+				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
 				307022C61DBE592F0027908C /* DemoFonts.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
 				30988EB31DC7BD7E00470E09 /* AppSettings.swift in Sources */,

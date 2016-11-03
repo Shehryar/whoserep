@@ -127,32 +127,8 @@ extension HomeViewController {
         }
         navigationItem.titleView = logoImageView
         
-        // Nav Bar
-        styleNavigationBar(navBar: navigationController?.navigationBar)
-        statusBarStyle = appSettings.statusBarStyle
-
         // Chat Button
         refreshChatButton()
-    }
-    
-    func styleNavigationBar(navBar: UINavigationBar?) {
-        guard let navBar = navBar else { return }
-        
-        navBar.isTranslucent = true
-        navBar.setBackgroundImage(nil, for: .default)
-        navBar.backgroundColor = nil
-        navBar.barTintColor = appSettings.navBarColor
-        navBar.tintColor = appSettings.navBarTintColor
-        navBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : appSettings.navBarTitleColor,
-            NSFontAttributeName : appSettings.boldFont.withSize(17)
-        ]
-        
-        UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : appSettings.boldFont.withSize(16),
-            NSForegroundColorAttributeName : appSettings.navBarTintColor
-            ],
-                                                            for: .normal)
     }
     
     func changeCompany() {
@@ -241,6 +217,10 @@ extension HomeViewController: DemoEnvironmentViewControllerDelegate {
     func demoEnvironmentViewControllerDidUpdateEnvironment(_ viewController: DemoEnvironmentViewController) {
         homeTableView.appSettings = appSettings
         refreshChatButton()
+    }
+    
+    func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController, didUpdateAppSettings appSettings: AppSettings) {
+        self.appSettings = appSettings
     }
 }
 

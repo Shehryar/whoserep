@@ -96,51 +96,6 @@ class AppSettings: NSObject {
     }
 }
 
-// MARK:- Environment
-
-extension AppSettings {
-    
-    func environmentString() -> String {
-        let demoEnvironment = DemoSettings.demoEnvironment()
-        return DemoEnvironmentDescription(environment: demoEnvironment,
-                                          withCompany: company)
-    }
-    
-    func supportsLiveChatDemo() -> Bool {
-        switch company {
-        case .asapp, .asapp2, .comcast: return true
-        case .sprint: return false
-        }
-    }
-    
-    func supportedEnvironments() -> [DemoEnvironment] {
-        if DemoSettings.demoLiveChat() {
-            switch company {
-            case .asapp, .asapp2: return [.demo, .demo2]
-            case .comcast: return [.demo]
-            case .sprint: return [.production]
-            }
-        }
-        
-        switch company {
-        case .asapp, .asapp2: return [.demo, .demo2]
-        case .comcast: return [.staging, .production]
-        case .sprint: return [.production]
-        }
-    }
-    
-    @objc func updateDemoEnvironment() {
-        let environments = supportedEnvironments()
-        
-        if !environments.contains(DemoSettings.demoEnvironment()) {
-            if let defaultEnvironment = environments.first {
-                DemoSettings.setDemoEnvironment(environment: defaultEnvironment)
-            }
-        }
-
-    }
-}
-
 // MARK:- Presets
 
 extension AppSettings {
@@ -163,12 +118,6 @@ extension AppSettings {
             settings.navBarTintColor = UIColor.white
             settings.navBarTitleColor = UIColor.white
             settings.statusBarStyle = .lightContent
-            
-//            settings.backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
-//            settings.backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
-//            settings.foregroundColor = UIColor.white
-//            settings.foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
-//            settings.separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
             
             return settings
             
@@ -240,6 +189,115 @@ extension AppSettings {
     }
 }
 
+// MARK:- Color Schemes
+
+extension AppSettings {
+    
+    var canChangeColors: Bool {
+        return [Company.asapp, Company.asapp2].contains(company) 
+    }
+    
+    // MARK: Nav Bar
+    
+    var isDarkNavStyle: Bool {
+        return navBarColor.isDark()
+    }
+    
+    func useDarkNavStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        logoImage = UIImage(named: "asapp-logo-light")
+        logoImageSize = CGSize(width: 100, height: 22)
+        
+        navBarColor = UIColor.black
+        navBarTintColor = UIColor.white
+        navBarTitleColor = UIColor.white
+        statusBarStyle = .lightContent
+    }
+    
+    func useLightNavStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        logoImage = UIImage(named: "asapp-logo")
+        logoImageSize = CGSize(width: 100, height: 22)
+        
+        navBarColor = UIColor.white
+        navBarTintColor = UIColor(red:0.220, green:0.231, blue:0.265, alpha:1)
+        navBarTitleColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
+        statusBarStyle = .default
+    }
+    
+    // MARK: Content
+    
+    var isDarkContentStyle: Bool  {
+        return backgroundColor.isDark()
+    }
+    
+    func useDarkContentStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
+        backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
+        foregroundColor = UIColor.white
+        foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
+        separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
+    }
+    
+    func useLightContentStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        backgroundColor = UIColor.white
+        backgroundColor2 = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
+        foregroundColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
+        foregroundColor2 = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
+        separatorColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
+    }
+}
+
+
+// MARK:- Environment
+
+extension AppSettings {
+    
+    func environmentString() -> String {
+        let demoEnvironment = DemoSettings.demoEnvironment()
+        return DemoEnvironmentDescription(environment: demoEnvironment,
+                                          withCompany: company)
+    }
+    
+    func supportsLiveChatDemo() -> Bool {
+        switch company {
+        case .asapp, .asapp2, .comcast: return true
+        case .sprint: return false
+        }
+    }
+    
+    func supportedEnvironments() -> [DemoEnvironment] {
+        if DemoSettings.demoLiveChat() {
+            switch company {
+            case .asapp, .asapp2: return [.demo, .demo2]
+            case .comcast: return [.demo]
+            case .sprint: return [.production]
+            }
+        }
+        
+        switch company {
+        case .asapp, .asapp2: return [.demo, .demo2]
+        case .comcast: return [.staging, .production]
+        case .sprint: return [.production]
+        }
+    }
+    
+    @objc func updateDemoEnvironment() {
+        let environments = supportedEnvironments()
+        
+        if !environments.contains(DemoSettings.demoEnvironment()) {
+            if let defaultEnvironment = environments.first {
+                DemoSettings.setDemoEnvironment(environment: defaultEnvironment)
+            }
+        }
+    }
+}
 
 // MARK:- User Token
 

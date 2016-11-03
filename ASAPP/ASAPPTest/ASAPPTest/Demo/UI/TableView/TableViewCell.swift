@@ -12,9 +12,7 @@ class TableViewCell: UITableViewCell {
     
     var appSettings: AppSettings? {
         didSet {
-            if appSettings != oldValue {
-                applyAppSettings()
-            }
+            applyAppSettings()
         }
     }
     

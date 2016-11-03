@@ -10,6 +10,7 @@ import UIKit
 
 protocol DemoEnvironmentViewControllerDelegate: class {
     func demoEnvironmentViewControllerDidUpdateEnvironment(_ viewController: DemoEnvironmentViewController)
+    func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController, didUpdateAppSettings appSettings: AppSettings)
 }
 
 class DemoEnvironmentViewController: BaseTableViewController {
@@ -18,6 +19,13 @@ class DemoEnvironmentViewController: BaseTableViewController {
         case demoContent
         case liveChat
         case environment
+        case colors
+        case count
+    }
+    
+    enum ColorsRow: Int {
+        case navigation
+        case content
         case count
     }
     
@@ -78,6 +86,12 @@ extension DemoEnvironmentViewController {
         case Section.environment.rawValue:
             return supportedEnvironments.count
             
+        case Section.colors.rawValue:
+            if appSettings.canChangeColors {
+                return ColorsRow.count.rawValue
+            }
+            return 0
+            
         default:
             return 0
         }
@@ -100,6 +114,12 @@ extension DemoEnvironmentViewController {
             styleCheckmarkCell(cell, indexPath: indexPath)
             return cell ?? TableViewCell()
             
+        case Section.colors.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
+            styleToggleCell(cell, for: indexPath)
+            return cell ?? TableViewCell()
+            
+            
         default: return TableViewCell()
         }
     }
@@ -109,9 +129,10 @@ extension DemoEnvironmentViewController {
     func styleToggleCell(_ cell: TitleToggleCell?, for indexPath: IndexPath) {
         guard let cell = cell else { return }
         
+        cell.appSettings = appSettings
+        
         switch indexPath.section {
         case Section.demoContent.rawValue:
-            cell.appSettings = appSettings
             cell.title = "Demo Content Enabled"
             cell.isOn = DemoSettings.demoContentEnabled()
             cell.onToggleChange = { [weak self] (isOn: Bool) in
@@ -124,7 +145,6 @@ extension DemoEnvironmentViewController {
             break
             
         case Section.liveChat.rawValue:
-            cell.appSettings = appSettings
             cell.title = "Demo Live Chat"
             cell.isOn = DemoSettings.demoLiveChat()
             cell.onToggleChange = { [weak self] (isOn: Bool) in
@@ -134,6 +154,50 @@ extension DemoEnvironmentViewController {
                     blockSelf.updateSupportedEnvironments()
                     blockSelf.delegate?.demoEnvironmentViewControllerDidUpdateEnvironment(blockSelf)
                 }
+            }
+            break
+            
+        case Section.colors.rawValue:
+            switch indexPath.row {
+            case ColorsRow.navigation.rawValue:
+                cell.title = "Dark Nav Style"
+                cell.isOn = appSettings.isDarkNavStyle
+                cell.onToggleChange = { [weak self] (isOn: Bool) in
+                    guard let blockSelf = self else { return }
+                    
+                    if isOn {
+                        blockSelf.appSettings.useDarkNavStyle()
+                    } else {
+                        blockSelf.appSettings.useLightNavStyle()
+                    }
+                    DemoDispatcher.performOnMainThread {
+                        blockSelf.appSettings = blockSelf.appSettings
+                    }
+                    
+                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
+                }
+                break
+                
+            case ColorsRow.content.rawValue:
+                cell.title = "Dark Content Style"
+                cell.isOn = appSettings.isDarkContentStyle
+                cell.onToggleChange = { [weak self] (isOn: Bool) in
+                    guard let blockSelf = self else { return }
+                    
+                    if isOn {
+                        blockSelf.appSettings.useDarkContentStyle()
+                    } else {
+                        blockSelf.appSettings.useLightContentStyle()
+                    }
+                    DemoDispatcher.performOnMainThread {
+                        blockSelf.appSettings = blockSelf.appSettings
+                    }
+                    
+                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
+                }
+                break
+                
+            default: break
             }
             break
             
@@ -171,6 +235,13 @@ extension DemoEnvironmentViewController {
         case Section.environment.rawValue:
             return "AVAILABLE ENVIRONMENTS"
             
+        case Section.colors.rawValue:
+            if appSettings.canChangeColors {
+                return "COLORS"
+            } else {
+                return nil
+            }
+            
         default: return nil
         }
     }
@@ -182,7 +253,7 @@ extension DemoEnvironmentViewController {
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
             
-        case Section.liveChat.rawValue:
+        case Section.liveChat.rawValue, Section.colors.rawValue:
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
             

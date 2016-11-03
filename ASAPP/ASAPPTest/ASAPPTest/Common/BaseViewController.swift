@@ -58,5 +58,38 @@ extension BaseViewController: AppSettingsViewController {
         statusBarStyle = appSettings.statusBarStyle
         
         view.backgroundColor = appSettings.backgroundColor
+        
+        styleNavigationBarWithAppSettings(navBar: navigationController?.navigationBar)
+    }
+    
+    func styleNavigationBarWithAppSettings(navBar: UINavigationBar?) {
+        guard let navBar = navBar else { return }
+        
+        navBar.isTranslucent = true
+        navBar.setBackgroundImage(nil, for: .default)
+        navBar.backgroundColor = nil
+        if appSettings.navBarColor == UIColor.black {
+            navBar.barTintColor = nil
+            navBar.barStyle = .black
+        } else if appSettings.navBarColor == UIColor.white {
+            navBar.barTintColor = nil
+            navBar.barStyle = .default
+        } else {
+            navBar.barTintColor = appSettings.navBarColor
+        }
+        
+        
+        navBar.tintColor = appSettings.navBarTintColor
+        navBar.titleTextAttributes = [
+            NSForegroundColorAttributeName : appSettings.navBarTitleColor,
+            NSFontAttributeName : appSettings.boldFont.withSize(17)
+        ]
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName : appSettings.boldFont.withSize(16),
+            //NSForegroundColorAttributeName : appSettings.navBarTintColor
+            ],
+                                                            for: .normal)
+
     }
 }
