@@ -20,6 +20,7 @@ public class ASAPPStrings: NSObject {
     public var predictiveOtherSuggestions: String = ASAPPLocalizedString("OTHER SUGGESTIONS:")
     public var predictiveInputPlaceholder: String = ASAPPLocalizedString("Ask a new question...")
     public var predictiveSendButton: String = ASAPPLocalizedString("SEND")
+    public var predictiveNoConnectionText: String = ASAPPLocalizedString("Please check connection")
     
     public var connectionBannerConnected: String = ASAPPLocalizedString("Connection Established")
     public var connectionBannerConnecting: String = ASAPPLocalizedString("Connecting...")

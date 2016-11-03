@@ -717,6 +717,10 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         
         dismissChatViewController()
     }
+    
+    func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool {
+        return connectionStatus == .connected
+    }
 }
 
 // MARK:- ChatInputViewDelegate
