@@ -182,13 +182,13 @@ extension ASAPPStyles {
         styles.replyMessageTextColor = UIColor.white
         styles.replyMessageStrokeColor = nil
         
-        styles.inputBackgroundColor = styles.backgroundColor2
-        styles.inputBorderTopColor = styles.separatorColor2
+        styles.inputBackgroundColor = UIColor(red:0.127,  green:0.127,  blue:0.127, alpha:1)
+        styles.inputBorderTopColor = UIColor(red:0.08,  green:0.08,  blue:0.08, alpha:1)
         styles.inputTintColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
         styles.inputPlaceholderColor = styles.foregroundColor2
         styles.inputTextColor = styles.foregroundColor1
-        styles.inputSendButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
-        styles.inputImageButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        styles.inputSendButtonColor = UIColor.white
+        styles.inputImageButtonColor = UIColor.white
         
         styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.6)
         styles.askViewGradientMiddleColor = UIColor(red:0.08, green:0.08, blue:0.08, alpha:0.6)

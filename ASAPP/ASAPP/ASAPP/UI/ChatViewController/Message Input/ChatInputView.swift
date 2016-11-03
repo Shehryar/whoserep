@@ -137,7 +137,7 @@ class ChatInputView: UIView {
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)
         
-        backgroundColor = Colors.whiteColor()
+        backgroundColor = styles.inputBackgroundColor
         clipsToBounds = true
         
         // Subviews
