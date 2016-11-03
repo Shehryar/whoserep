@@ -314,7 +314,6 @@ class ChatWelcomeViewController: UIViewController {
             messageInputView.clear()
         } else {
             flashNoConnectionLabel()
-            DebugLog("Not connected, jabroni!")
         }
     }
     
