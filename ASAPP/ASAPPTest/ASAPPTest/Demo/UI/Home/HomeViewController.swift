@@ -162,7 +162,7 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: nil,
+            styles: appSettings.styles,
             presentingViewController: self)
         
         
@@ -221,6 +221,7 @@ extension HomeViewController: DemoEnvironmentViewControllerDelegate {
     
     func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController, didUpdateAppSettings appSettings: AppSettings) {
         self.appSettings = appSettings
+        refreshChatButton()
     }
 }
 
@@ -304,7 +305,7 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: nil)
+            styles: appSettings.styles)
         
         present(chatViewController, animated: true, completion: nil)
     }

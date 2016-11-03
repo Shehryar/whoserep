@@ -211,9 +211,9 @@ class ChatViewController: UIViewController {
             navigationBar.shadowImage = nil
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
-            navigationBar.backgroundColor = UIColor.white
+            navigationBar.backgroundColor = nil
             if styles.navBarBackgroundColor.isDark() {
-                navigationBar.barStyle = .blackTranslucent
+                navigationBar.barStyle = .black
                 if styles.navBarBackgroundColor != UIColor.black {
                     navigationBar.barTintColor = styles.navBarBackgroundColor
                 }
@@ -224,6 +224,7 @@ class ChatViewController: UIViewController {
                 }
             }
             navigationBar.tintColor = styles.navBarButtonColor
+            setNeedsStatusBarAppearanceUpdate()
         }
         
         // View
@@ -305,7 +306,11 @@ class ChatViewController: UIViewController {
         if showWelcomeOnViewAppear || askQuestionVCVisible {
             return .lightContent
         } else {
-            return .default
+            if styles.navBarBackgroundColor.isDark() {
+                return .lightContent
+            } else {
+                return .default
+            }
         }
     }
     

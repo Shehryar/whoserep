@@ -157,6 +157,48 @@ extension ASAPPStyles {
         
         return styles
     }
+    
+    public class func darkStyles() -> ASAPPStyles {
+        let styles = ASAPPStyles()
+
+        styles.navBarBackgroundColor = UIColor.black
+        styles.navBarButtonColor = UIColor.lightGray
+        styles.navBarButtonBackgroundColor = UIColor(red:0.201, green:0.215, blue:0.249, alpha:1)
+        styles.navBarButtonForegroundColor = UIColor.white
+        styles.buttonColor = UIColor.white
+        
+        styles.backgroundColor1 = UIColor(red:0.094,  green:0.094,  blue:0.094, alpha:1)
+        styles.backgroundColor2 = UIColor(red:0.127,  green:0.127,  blue:0.127, alpha:1)
+        styles.foregroundColor1 = UIColor.white
+        styles.foregroundColor2 = UIColor(red:0.627,  green:0.627,  blue:0.627, alpha:1)
+        styles.separatorColor1 = UIColor(red:0.197,  green:0.197,  blue:0.197, alpha:1)
+        styles.separatorColor2 =  UIColor(red:0.08,  green:0.08,  blue:0.08, alpha:1)
+        
+        styles.messageFillColor = UIColor(red:0.167,  green:0.167,  blue:0.167, alpha:1)
+        styles.messageStrokeColor = nil
+        styles.messageTextColor = UIColor.white
+        
+        styles.replyMessageFillColor = UIColor(red:0.241, green:0.255, blue:0.289, alpha:1)  //UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        styles.replyMessageTextColor = UIColor.white
+        styles.replyMessageStrokeColor = nil
+        
+        styles.inputBackgroundColor = styles.backgroundColor2
+        styles.inputBorderTopColor = styles.separatorColor2
+        styles.inputTintColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        styles.inputPlaceholderColor = styles.foregroundColor2
+        styles.inputTextColor = styles.foregroundColor1
+        styles.inputSendButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        styles.inputImageButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
+        
+        styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
+        styles.askViewGradientMiddleColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:0.8)
+        styles.askViewGradientBottomColor = UIColor(red:0.3, green:0.3, blue:0.3, alpha:0.8)
+        styles.askViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
+        styles.askViewButtonBgColor = UIColor(red:0.384, green:0.384, blue:0.384, alpha:1)
+        styles.askViewInputBgColor = UIColor(red:0.012, green:0.012, blue:0.012, alpha:1)
+        
+        return styles
+    }
 }
 
 protocol ASAPPStyleable {

@@ -29,7 +29,7 @@ class AppSettings: NSObject {
     
     let companyMarker: String
     
-    let styles: ASAPPStyles
+    var styles: ASAPPStyles
     
     let versionString: String
     
@@ -236,6 +236,8 @@ extension AppSettings {
     func useDarkContentStyle() {
         guard [Company.asapp, Company.asapp2].contains(company) else { return }
         
+        styles = ASAPPStyles.darkStyles()
+        
         backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
         backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
         foregroundColor = UIColor.white
@@ -245,6 +247,8 @@ extension AppSettings {
     
     func useLightContentStyle() {
         guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        styles = ASAPPStyles()
         
         backgroundColor = UIColor.white
         backgroundColor2 = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
