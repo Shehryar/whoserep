@@ -152,11 +152,7 @@ class ChatViewController: UIViewController {
         suggestedRepliesView.applyStyles(self.styles)
         
         connectionStatusView.onTapToConnect = { [weak self] in
-            if let blockSelf = self {
-                blockSelf.connectionStatus = .connecting
-                blockSelf.conversationManager.enterConversation()
-                blockSelf.conversationManager.startSRS()
-            }
+            self?.reconnect()
         }
         
         // Ask a Question View Controller
@@ -331,6 +327,16 @@ class ChatViewController: UIViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    // MARK: Connection
+    
+    func reconnect() {
+        if connectionStatus == .disconnected {
+            connectionStatus = .connecting
+            conversationManager.enterConversation()
+            conversationManager.startSRS()
+        }
     }
     
     // MARK: Updates
@@ -719,7 +725,13 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
     }
     
     func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool {
-        return connectionStatus == .connected
+        if connectionStatus == .connected {
+            return true
+        }
+        
+        reconnect()
+        
+        return false
     }
 }
 
