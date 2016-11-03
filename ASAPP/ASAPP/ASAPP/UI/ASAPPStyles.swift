@@ -190,9 +190,9 @@ extension ASAPPStyles {
         styles.inputSendButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
         styles.inputImageButtonColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
         
-        styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
-        styles.askViewGradientMiddleColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:0.8)
-        styles.askViewGradientBottomColor = UIColor(red:0.3, green:0.3, blue:0.3, alpha:0.8)
+        styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.6)
+        styles.askViewGradientMiddleColor = UIColor(red:0.08, green:0.08, blue:0.08, alpha:0.6)
+        styles.askViewGradientBottomColor = UIColor(red:0.1, green:0.1, blue:0.1, alpha:0.6)
         styles.askViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
         styles.askViewButtonBgColor = UIColor(red:0.384, green:0.384, blue:0.384, alpha:1)
         styles.askViewInputBgColor = UIColor(red:0.012, green:0.012, blue:0.012, alpha:1)
