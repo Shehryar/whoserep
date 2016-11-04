@@ -28,6 +28,7 @@
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
+		308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1171DCD01B200477013 /* DemoEnums.swift */; };
 		30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988E891DC7B69A00470E09 /* DemoSettings.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
 		30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA71DC7BA8700470E09 /* HomeViewController.swift */; };
@@ -43,7 +44,6 @@
 		30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */; };
 		30E78EDA1DCA62C0006A2AD8 /* TitleToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
-		30E78EDE1DCA6D38006A2AD8 /* BillSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDD1DCA6D38006A2AD8 /* BillSummaryCell.swift */; };
 		30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
@@ -85,6 +85,7 @@
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
+		308CB1171DCD01B200477013 /* DemoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnums.swift; sourceTree = "<group>"; };
 		30988E891DC7B69A00470E09 /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
 		30988EA71DC7BA8700470E09 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCheckmarkCell.swift; sourceTree = "<group>"; };
 		30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleToggleCell.swift; sourceTree = "<group>"; };
 		30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
-		30E78EDD1DCA6D38006A2AD8 /* BillSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillSummaryCell.swift; sourceTree = "<group>"; };
 		30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnvironmentViewController.swift; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -133,7 +133,6 @@
 				281D8E021DC9696A00E4A65B /* TitleDetailValueCell.swift */,
 				281D8E071DC973F500E4A65B /* ImageNameCell.swift */,
 				30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */,
-				30E78EDD1DCA6D38006A2AD8 /* BillSummaryCell.swift */,
 				30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */,
 			);
 			path = TableView;
@@ -201,6 +200,7 @@
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
 				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
+				308CB1171DCD01B200477013 /* DemoEnums.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
 			);
 			path = "Data Models";
@@ -388,7 +388,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30E78EDE1DCA6D38006A2AD8 /* BillSummaryCell.swift in Sources */,
 				307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */,
 				30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */,
 				30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */,
@@ -404,6 +403,7 @@
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
+				308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,

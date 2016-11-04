@@ -9,20 +9,6 @@
 import UIKit
 import ASAPP
 
-enum Company: String {
-    case asapp = "asapp"
-    case asapp2 = "asapp2"
-    case comcast = "comcast"
-    case sprint = "sprint"
-    
-    static let all = [
-        asapp,
-        asapp2,
-        comcast,
-        sprint
-    ]
-}
-
 class AppSettings: NSObject {
     
     let company: Company
@@ -33,7 +19,7 @@ class AppSettings: NSObject {
     
     let versionString: String
     
-    // MARK: Images
+    // MARK: Logo
     
     var logoImage: UIImage?
     
@@ -71,28 +57,91 @@ class AppSettings: NSObject {
     
     var boldFont: UIFont = DemoFonts.latoBoldFont(withSize: 14)
     
-    // MARK: Init
+    // MARK: Demo Settings
+    
+    var liveChatEnabled: Bool {
+        didSet {
+            if liveChatEnabled && !supportsLiveChat {
+                liveChatEnabled = false
+            }
+            
+            if !supportedEnvironmentPrefixes.contains(environmentPrefix) {
+                environmentPrefix = defaultEnvironmentPrefix
+            }
+        }
+    }
+    
+    var demoContentEnabled: Bool
+    
+    var environmentPrefix: EnvironmentPrefix! {
+        didSet {
+            if !supportedEnvironmentPrefixes.contains(environmentPrefix) {
+                environmentPrefix = defaultEnvironmentPrefix
+            }
+        }
+    }
+    
+    //
+    // MARK:- Init
+    //
     
     init(company: Company, companyMarker: String, styles: ASAPPStyles?) {
         self.company = company
         self.companyMarker = companyMarker
         self.styles = styles ?? ASAPPStyles()
         
+        // Version Info
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
         self.versionString = "\(version) (\(build))"
+        
+        // Demo Settings
+        self.demoContentEnabled = false
+        self.liveChatEnabled = false
         super.init()
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AppSettings.updateDemoEnvironment),
-                                               name: NotificationDemoSettingsUpdate.name,
-                                               object: nil)
-        
-        updateDemoEnvironment()
+        self.environmentPrefix = defaultEnvironmentPrefix
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+// MARK:- Environment Settings
+
+extension AppSettings {
+    
+    var asappEnvironment: ASAPPEnvironment {
+        return ASAPPEnvironmentForEnvironmentPrefix(environmentPrefix)
+    }
+    
+    var supportsLiveChat: Bool {
+        switch company {
+        case .asapp, .asapp2, .comcast: return true
+        case .sprint: return false
+        }
+    }
+    
+    var supportedEnvironmentPrefixes: [EnvironmentPrefix] {
+        switch company {
+        case .comcast:
+            if liveChatEnabled {
+                return [.comcastDemo]
+            } else {
+                return [.comcastStaging, .comcastStaging2, .comcastProd, .comcastProd2]
+            }
+            
+        case .sprint:
+            return [.sprint]
+            
+        case .asapp, .asapp2:
+            return [.asappDemo, .asappDemo2]
+        }
+    }
+    
+    var defaultEnvironmentPrefix: EnvironmentPrefix {
+        return supportedEnvironmentPrefixes.first ?? .unknown
     }
 }
 
@@ -166,19 +215,6 @@ extension AppSettings {
             
             return settings
         }
-    }
-    
-    class func changeCompany(fromCompany company: Company) -> Company {
-        let allCompanies = Company.all
-        var nextCompany: Company = allCompanies[0]
-        if let index = allCompanies.index(of: company) {
-            if index + 1 >= allCompanies.count {
-                nextCompany = allCompanies[0]
-            } else {
-                nextCompany = allCompanies[index + 1]
-            }
-        }
-        return nextCompany
     }
 }
 
@@ -256,51 +292,6 @@ extension AppSettings {
         foregroundColor2 = UIColor(red:0.346, green:0.392, blue:0.409, alpha:1)
         separatorColor = UIColor(red:0.15, green:0.18, blue:0.19, alpha:1)
         accentColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
-    }
-}
-
-
-// MARK:- Environment
-
-extension AppSettings {
-    
-    func environmentString() -> String {
-        let demoEnvironment = DemoSettings.demoEnvironment()
-        return DemoEnvironmentDescription(environment: demoEnvironment,
-                                          withCompany: company)
-    }
-    
-    func supportsLiveChatDemo() -> Bool {
-        switch company {
-        case .asapp, .asapp2, .comcast: return true
-        case .sprint: return false
-        }
-    }
-    
-    func supportedEnvironments() -> [DemoEnvironment] {
-        if DemoSettings.demoLiveChat() {
-            switch company {
-            case .asapp, .asapp2: return [.demo, .demo2]
-            case .comcast: return [.demo]
-            case .sprint: return [.production]
-            }
-        }
-        
-        switch company {
-        case .asapp, .asapp2: return [.demo, .demo2]
-        case .comcast: return [.staging, .production]
-        case .sprint: return [.production]
-        }
-    }
-    
-    @objc func updateDemoEnvironment() {
-        let environments = supportedEnvironments()
-        
-        if !environments.contains(DemoSettings.demoEnvironment()) {
-            if let defaultEnvironment = environments.first {
-                DemoSettings.setDemoEnvironment(environment: defaultEnvironment)
-            }
-        }
     }
 }
 

@@ -13,7 +13,6 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
     func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView)
-    func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -203,13 +202,13 @@ extension HomeTableView: UITableViewDataSource {
         
         switch indexPath.section {
         case Section.demoSettings.rawValue:
-            let environmentString =  appSettings.environmentString()
+            let environmentString =  appSettings.environmentPrefix.rawValue
             
             var featureStrings = [String]()
-            if DemoSettings.demoLiveChat() {
+            if appSettings.liveChatEnabled {
                 featureStrings.append("• Live Chat")
             }
-            if DemoSettings.demoContentEnabled() {
+            if appSettings.demoContentEnabled {
                 featureStrings.append("• Demo Content")
             }
             var featuresString: String?

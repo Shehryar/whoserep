@@ -23,10 +23,6 @@ class HomeViewController: BaseViewController {
     
     // MARK: Private Properties
     
-    fileprivate var environment: ASAPPEnvironment {
-        return DemoSettings.currentEnvironment()
-    }
-    
     fileprivate var authProvider: ASAPPAuthProvider!
     fileprivate var contextProvider: ASAPPContextProvider!
     fileprivate var callbackHandler: ASAPPCallbackHandler!
@@ -44,6 +40,8 @@ class HomeViewController: BaseViewController {
         self.homeTableView = HomeTableView(appSettings: appSettings)
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
+        
+        DemoSettings.applySettings(for: appSettings)
         
         self.homeTableView.currentAccount = currentAccount
         self.homeTableView.delegate = self
@@ -104,6 +102,8 @@ extension HomeViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
+        DemoSettings.applySettings(for: appSettings)
+        
         homeTableView.appSettings = appSettings
         
         // Nav Logo
@@ -125,13 +125,12 @@ extension HomeViewController {
     func changeCompany() {
         guard canChangeCompany else { return }
         
-        let nextCompany = AppSettings.changeCompany(fromCompany: appSettings.company)
+        let nextCompany = CompanyAfter(company: appSettings.company)
         let nextAppSettings = AppSettings.settingsFor(nextCompany)
-        
-        if !nextAppSettings.supportsLiveChatDemo() {
-            DemoSettings.setDemoLiveChat(false)
+        nextAppSettings.demoContentEnabled = appSettings.demoContentEnabled
+        if nextAppSettings.supportsLiveChat && appSettings.liveChatEnabled {
+            nextAppSettings.liveChatEnabled = true
         }
-        nextAppSettings.updateDemoEnvironment()
         
         self.appSettings = nextAppSettings
     }
@@ -149,7 +148,7 @@ extension HomeViewController {
         chatButton = ASAPP.createChatButton(
             company: appSettings.companyMarker,
             customerId: currentAccount.userToken,
-            environment: environment,
+            environment: appSettings.asappEnvironment,
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
@@ -205,14 +204,9 @@ extension HomeViewController: AccountsViewControllerDelegate {
 
 extension HomeViewController: DemoEnvironmentViewControllerDelegate {
     
-    func demoEnvironmentViewControllerDidUpdateEnvironment(_ viewController: DemoEnvironmentViewController) {
-        homeTableView.appSettings = appSettings
-        refreshChatButton()
-    }
-    
-    func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController, didUpdateAppSettings appSettings: AppSettings) {
+    func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController,
+                                       didUpdateAppSettings appSettings: AppSettings) {
         self.appSettings = appSettings
-        refreshChatButton()
     }
 }
 
@@ -292,7 +286,7 @@ extension HomeViewController {
         let chatViewController = ASAPP.createChatViewController(
             company: appSettings.companyMarker,
             customerId: currentAccount.userToken,
-            environment: environment,
+            environment: appSettings.asappEnvironment,
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,

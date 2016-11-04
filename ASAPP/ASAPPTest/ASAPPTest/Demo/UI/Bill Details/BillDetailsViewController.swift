@@ -133,7 +133,7 @@ extension BillDetailsViewController {
             break
             
         case Section.lineItems.rawValue:
-            cell.titleLabel.font = appSettings.regularFont.withSize(14)
+            cell.titleLabel.font = appSettings.regularFont.withSize(16)
             cell.valueLabel.font = appSettings.lightFont.withSize(16)
             cell.detailLabel.font = appSettings.lightFont.withSize(14)
             let lineItem = billDetails.lineItems[indexPath.row]

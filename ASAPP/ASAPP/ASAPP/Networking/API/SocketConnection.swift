@@ -17,13 +17,8 @@ import UIKit
     case production
 }
 public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String {
-    if DEMO_LIVE_CHAT {
-        if DEMO_ENVIRONMENT_STRING == "demo2" {
-            return "demo2-live"
-        }
-        return "demo-live"
-    } else if DEMO_ENVIRONMENT_STRING == "demo2" {
-        return "demo2"
+    if !DISTRIBUTION_BUILD && DEMO_ENVIRONMENT_PREFIX != nil {
+        return DEMO_ENVIRONMENT_PREFIX!
     }
     
     switch environment {
@@ -33,27 +28,15 @@ public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String
 }
 
 internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
-
-    if DEMO_LIVE_CHAT && companyMarker == "comcast" {
-        return URL(string: "wss://comcast-demo.asapp.com/api/websocket")
-    } else if DEMO_LIVE_CHAT || companyMarker == "asapp" {
-        if DEMO_ENVIRONMENT_STRING == "demo2" {
-            return URL(string: "wss://demo2.asapp.com/api/websocket")
-        }
-        return URL(string: "wss://demo.asapp.com/api/websocket")
+    
+    if !DISTRIBUTION_BUILD && DEMO_ENVIRONMENT_PREFIX != nil {
+        return URL(string: "wss://\(DEMO_ENVIRONMENT_PREFIX!).asapp.com/api/websocket")
     }
     
     var connectionURL: URL?
     switch environment {
-        
     case .staging:
-        if DEMO_CONTENT_ENABLED && companyMarker == "text-rex" {
-            connectionURL = URL(string: "wss://srs-api-dev.asapp.com/api/websocket")
-        } else if companyMarker == "sprint" {
-            connectionURL = URL(string: "wss://\(companyMarker).asapp.com/api/websocket")
-        } else {
-            connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
-        }
+        connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
         break
         
     case .production:

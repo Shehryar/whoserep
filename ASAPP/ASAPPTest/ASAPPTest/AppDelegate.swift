@@ -31,10 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
         
-        updateDemoSettings()
+        let appSettings = buildAppSettings()
+        let canChangeCompany = Bundle.main.infoDictionary?["company-changing-enabled"] as? String == "YES"
         
-        let appSettings = defaultAppSettings()
-        let canChangeCompany = canChangeCompanies()
         homeController = HomeViewController(appSettings: appSettings, canChangeCompany: canChangeCompany)
         
         Fabric.with([Crashlytics.self])
@@ -79,40 +78,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     
-    func defaultAppSettings() -> AppSettings {
-        if let companyString = Bundle.main.infoDictionary?["default-demo-company"] as? String {
-            if let company = Company(rawValue: companyString) {
-                let appSettings = AppSettings.settingsFor(company)
-                
-                if companyString == "asapp" {
-                    appSettings.useDarkNavStyle()
-                    appSettings.useDarkContentStyle()
-                }
-                
-                return appSettings
-            }
-        }
-        return AppSettings.settingsFor(.asapp)
-    }
-    
-    func canChangeCompanies() -> Bool {
-        return Bundle.main.infoDictionary?["company-changing-enabled"] as? String == "YES"
-    }
-    
-    func updateDemoSettings() {
-        // Demo Content
-        if Bundle.main.infoDictionary?["demo-content-enabled"] as? String == "YES" {
-            DemoSettings.setDemoContentEnabled(true)
+    func buildAppSettings() -> AppSettings {
+        let infoDict = Bundle.main.infoDictionary
+        let liveChatEnabled = infoDict?["demo-live-chat"] as? String == "YES"
+        let demoContentEnabled = infoDict?["demo-content-enabled"] as? String == "YES"
+        
+        let company: Company
+        if let companyString = infoDict?["default-demo-company"] as? String {
+            company = Company(rawValue: companyString) ?? .asapp
         } else {
-            DemoSettings.setDemoContentEnabled(false)
+            company = .asapp
         }
         
-        // Demo Live Chat
-        if Bundle.main.infoDictionary?["demo-live-chat"] as? String == "YES" {
-            DemoSettings.setDemoEnvironment(environment: .demo)
-            DemoSettings.setDemoLiveChat(true)
-        } else {
-            DemoSettings.setDemoLiveChat(false)
+        let appSettings = AppSettings.settingsFor(company)
+        appSettings.liveChatEnabled = liveChatEnabled
+        appSettings.demoContentEnabled = demoContentEnabled
+        
+
+        if appSettings.company == .asapp2 {
+            appSettings.useDarkNavStyle()
+            appSettings.useDarkContentStyle()
         }
+
+        DemoSettings.applySettings(for: appSettings)
+        
+        return appSettings
     }
 }
