@@ -26,7 +26,7 @@ class TitleDetailValueCell: TableViewCell {
     
     let detailLabel = UILabel()
     
-    let valueLabel = AttributedLabel()
+    let valueLabel = UILabel()
     
     // MARK: Init
     
@@ -48,7 +48,6 @@ class TitleDetailValueCell: TableViewCell {
         
         valueLabel.font = DemoFonts.latoLightFont(withSize: 16)
         valueLabel.textColor = UIColor.darkText
-        valueLabel.kerning = 0.5
         valueLabel.textAlignment = .right
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.4

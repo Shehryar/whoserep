@@ -132,6 +132,7 @@ extension AppSettings {
             settings.backgroundColor = UIColor.white
             settings.backgroundColor2 = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
             settings.separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
+            settings.accentColor = UIColor(red:1, green:0.216, blue:0.212, alpha:1)
             
             // Fonts
             settings.lightFont = DemoFonts.xfinitySansLgtFont()
@@ -155,6 +156,7 @@ extension AppSettings {
             settings.foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
             settings.backgroundColor = UIColor.white
             settings.separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
+            settings.accentColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
             
             // Fonts
             settings.lightFont = DemoFonts.sprintSansRegularFont()
