@@ -93,12 +93,6 @@ extension AppDelegate {
         let appSettings = AppSettings.settingsFor(company)
         appSettings.liveChatEnabled = liveChatEnabled
         appSettings.demoContentEnabled = demoContentEnabled
-        
-
-        if appSettings.company == .asapp2 {
-            appSettings.useDarkNavStyle()
-            appSettings.useDarkContentStyle()
-        }
 
         DemoSettings.applySettings(for: appSettings)
         

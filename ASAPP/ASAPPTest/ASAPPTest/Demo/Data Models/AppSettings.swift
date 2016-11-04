@@ -267,7 +267,8 @@ extension AppSettings {
         
         styles = ASAPPStyles()
         
-        styles.asappButtonBackgroundColor = UIColor(red:0.03, green:0.114, blue:0.18, alpha:1)//UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
+        //styles.asappButtonBackgroundColor = UIColor(red:0.03, green:0.114, blue:0.18, alpha:1)
+        styles.asappButtonBackgroundColor = UIColor(red:0.22, green:0.23, blue:0.24, alpha:1)
         styles.asappButtonForegroundColor = UIColor.white
         
         backgroundColor = UIColor.white
