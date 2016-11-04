@@ -67,9 +67,9 @@ class AppSettings: NSObject {
     
     var regularFont: UIFont = DemoFonts.latoRegularFont(withSize: 14)
     
-    var boldFont: UIFont = DemoFonts.latoBoldFont(withSize: 14)
+    var mediumFont: UIFont = DemoFonts.latoRegularFont(withSize: 14)
     
-    var blackFont: UIFont = DemoFonts.latoBlackFont(withSize: 14)
+    var boldFont: UIFont = DemoFonts.latoBoldFont(withSize: 14)
     
     // MARK: Init
     
@@ -136,8 +136,8 @@ extension AppSettings {
             // Fonts
             settings.lightFont = DemoFonts.xfinitySansLgtFont()
             settings.regularFont = DemoFonts.xfinitySansRegFont()
-            settings.boldFont = DemoFonts.xfinitySansMedFont()
-            settings.blackFont = DemoFonts.xfinitySansBoldFont()
+            settings.mediumFont = DemoFonts.xfinitySansMedFont()
+            settings.boldFont = DemoFonts.xfinitySansBoldFont()
             
             return settings
             
@@ -159,8 +159,8 @@ extension AppSettings {
             // Fonts
             settings.lightFont = DemoFonts.sprintSansRegularFont()
             settings.regularFont = DemoFonts.sprintSansRegularFont()
-            settings.boldFont = DemoFonts.sprintSansMediumFont()
-            settings.blackFont = DemoFonts.sprintSansBoldFont()
+            settings.mediumFont = DemoFonts.sprintSansMediumFont()
+            settings.boldFont = DemoFonts.sprintSansBoldFont()
             
             return settings
         }

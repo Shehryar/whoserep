@@ -43,11 +43,12 @@ class HomeTableView: UIView {
     
     // MARK: Private Properties
     
+    let billDetails = BillDetails()
+    
     let tableView = UITableView(frame: .zero, style: .grouped)
     
     let headerSizingView = TableHeaderView()
     let nameSizingCell = ImageNameCell()
-    let billSizingCell = BillSummaryCell()
     let labelIconSizingCell = LabelIconCell()
     let buttonSizingCell = ButtonCell()
     let titleDetailValueSizingCell = TitleDetailValueCell()
@@ -88,7 +89,6 @@ class HomeTableView: UIView {
         
         tableView.backgroundColor = UIColor.clear
         tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
-        tableView.register(BillSummaryCell.self, forCellReuseIdentifier: BillSummaryCell.reuseId)
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
@@ -170,19 +170,11 @@ extension HomeTableView: UITableViewDataSource {
          
     
         //
-        // Demo Settings
+        // Demo Settings, Bill Summary
         //
-        case Section.demoSettings.rawValue:
+        case Section.demoSettings.rawValue, Section.bill.rawValue:
             cell = tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TableViewCell
             styleTitleDetailValueCell(cell as? TitleDetailValueCell, forIndexPath: indexPath)
-            break
-            
-            
-        //
-        // Bill
-        //
-        case Section.bill.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: BillSummaryCell.reuseId, for: indexPath) as? TableViewCell
             break
             
         //
@@ -198,8 +190,6 @@ extension HomeTableView: UITableViewDataSource {
             break
         }
         
-        cell?.appSettings = appSettings
-        
         return cell ?? TableViewCell()
     }
     
@@ -209,6 +199,7 @@ extension HomeTableView: UITableViewDataSource {
         guard let cell = cell else { return }
         
         cell.appSettings = appSettings
+        cell.selectionStyle = .default
         
         switch indexPath.section {
         case Section.demoSettings.rawValue:
@@ -225,14 +216,17 @@ extension HomeTableView: UITableViewDataSource {
             if featureStrings.count > 0 {
                 featuresString = featureStrings.joined(separator: "\n")
             }
-            
-            cell.titleLabel.font = appSettings.regularFont.withSize(16)
-            cell.selectionStyle = .default
-            cell.update(titleText: "Environment:",
+            cell.update(titleText: "Environment",
                         detailText: featuresString,
                         valueText: environmentString)
             break
         
+        case Section.bill.rawValue:
+            cell.update(titleText: "Current Balance",
+                        detailText: billDetails.dueDateString,
+                        valueText: billDetails.total)
+            break
+            
         default:
             break
         }
@@ -420,13 +414,9 @@ extension HomeTableView: UITableViewDelegate {
                 return 0
             }
             
-        case Section.demoSettings.rawValue:
+        case Section.demoSettings.rawValue, Section.bill.rawValue:
             styleTitleDetailValueCell(titleDetailValueSizingCell, forIndexPath: indexPath)
             return titleDetailValueSizingCell.sizeThatFits(sizer).height
-            
-        case Section.bill.rawValue:
-            billSizingCell.appSettings = appSettings
-            return billSizingCell.sizeThatFits(sizer).height
         
         case Section.settings.rawValue:
             styleLabelIconCell(cell: labelIconSizingCell, forRow: indexPath.row)

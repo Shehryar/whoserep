@@ -22,11 +22,11 @@ class TitleDetailValueCell: TableViewCell {
         return "TitleDetailValueCellReuseId"
     }
     
-    let titleLabel = UILabel()
+    let titleLabel = AttributedLabel()
     
     let detailLabel = UILabel()
     
-    let valueLabel = UILabel()
+    let valueLabel = AttributedLabel()
     
     // MARK: Init
     
@@ -37,8 +37,7 @@ class TitleDetailValueCell: TableViewCell {
         
         titleLabel.font = DemoFonts.latoRegularFont(withSize: 16)
         titleLabel.textColor = UIColor.darkText
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.kerning = 1
         contentView.addSubview(titleLabel)
         
         detailLabel.font = DemoFonts.latoLightFont(withSize: 14)
@@ -47,8 +46,9 @@ class TitleDetailValueCell: TableViewCell {
         detailLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(detailLabel)
         
-        valueLabel.font = DemoFonts.latoBoldFont(withSize: 16)
+        valueLabel.font = DemoFonts.latoLightFont(withSize: 16)
         valueLabel.textColor = UIColor.darkText
+        valueLabel.kerning = 0.5
         valueLabel.textAlignment = .right
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.4
@@ -63,7 +63,7 @@ class TitleDetailValueCell: TableViewCell {
         if let appSettings = appSettings {
             titleLabel.font = appSettings.regularFont.withSize(16)
             detailLabel.font = appSettings.lightFont.withSize(14)
-            valueLabel.font = appSettings.boldFont.withSize(16)
+            valueLabel.font = appSettings.lightFont.withSize(16)
             
             titleLabel.textColor = appSettings.foregroundColor
             detailLabel.textColor = appSettings.foregroundColor2
@@ -74,27 +74,27 @@ class TitleDetailValueCell: TableViewCell {
     // MARK:- Layout
     
     func labelFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
-        var nameLabelFrame, dateLabelFrame, amountLabelFrame: CGRect
-        nameLabelFrame = .zero
-        dateLabelFrame = .zero
-        amountLabelFrame = .zero
-        
         let contentWidth = size.width - contentInset.left - contentInset.right
         let leftWidth = floor(contentWidth * 0.6)
         let leftRightMargin: CGFloat = 10
         let rightWidth = contentWidth - leftWidth - leftRightMargin
         
         let nameHeight = ceil(titleLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
-        nameLabelFrame = CGRect(x: contentInset.left, y: contentInset.top, width: leftWidth, height: nameHeight)
+        let nameLabelFrame = CGRect(x: contentInset.left, y: contentInset.top, width: leftWidth, height: nameHeight)
         
-        let dateHeight = ceil(detailLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
-        dateLabelFrame = CGRect(x: contentInset.left, y: nameLabelFrame.maxY + titleDetailMargin, width: leftWidth, height: dateHeight)
+        let detailHeight = ceil(detailLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
+        let detailLabelFrame: CGRect
+        if detailHeight > 0 {
+            detailLabelFrame = CGRect(x: contentInset.left, y: nameLabelFrame.maxY + titleDetailMargin, width: leftWidth, height: detailHeight)
+        } else {
+            detailLabelFrame = .zero
+        }
         
-        let amountLeft = size.width - contentInset.right - rightWidth
-        let amountHeight = ceil(valueLabel.sizeThatFits(CGSize(width: rightWidth, height: 0)).height)
-        amountLabelFrame = CGRect(x: amountLeft, y: contentInset.top, width: rightWidth, height: amountHeight)
+        let valueLeft = size.width - contentInset.right - rightWidth
+        let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: rightWidth, height: 0)).height)
+        let valueLabelFrame = CGRect(x: valueLeft, y: contentInset.top, width: rightWidth, height: valueHeight)
         
-        return (nameLabelFrame, dateLabelFrame, amountLabelFrame)
+        return (nameLabelFrame, detailLabelFrame, valueLabelFrame)
     }
     
     override func layoutSubviews() {
@@ -112,11 +112,8 @@ class TitleDetailValueCell: TableViewCell {
         
         return CGSize(width: size.width, height: height)
     }
-}
 
-// MARK: Public Intance Methods
-
-extension TitleDetailValueCell {
+    // MARK: Public Intance Methods
     
     func update(titleText: String?, detailText: String?, valueText: String?) {
         titleLabel.text = titleText

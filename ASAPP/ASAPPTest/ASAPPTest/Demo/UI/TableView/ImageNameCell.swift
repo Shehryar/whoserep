@@ -82,7 +82,7 @@ class ImageNameCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            nameLabel.font = appSettings.blackFont.withSize(28)
+            nameLabel.font = appSettings.lightFont.withSize(34)
             nameLabel.textColor = appSettings.foregroundColor
             
             detailLabel.font = appSettings.lightFont.withSize(14)

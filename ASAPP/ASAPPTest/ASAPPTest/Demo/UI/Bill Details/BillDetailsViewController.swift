@@ -8,45 +8,19 @@
 
 import UIKit
 
-struct LineItem {
-    let name: String?
-    let date: String?
-    let amount: String?
-}
-
 class BillDetailsViewController: BaseTableViewController {
     
     // MARK: Cells
     
-    let billSummaryCellReuseId = "BillSummaryCellReuseId"
     let labelIconCellReuseId = "LabelIconCellReuseId"
     let titleDetailValueCellReuseId = "TitleDetailValueCellReuseId"
     
-    let summarySizingCell = BillSummaryCell()
     let labelIconSizingCell = LabelIconCell()
     let titleDetailValueSizingCell = TitleDetailValueCell()
     
     // MARK: Data
     
-    let billingPeriod = "10/15/2016 - 11/14/2016"
-    
-    let lineItems = [
-        LineItem(name: "Movie: Avengers 2",
-                 date: "10/11/2016",
-                 amount: "$5.99"),
-        LineItem(name: "Internet: Misc Charge",
-                 date: "10/10/2016",
-                 amount: "$5.99"),
-        LineItem(name: "HBO: Charge",
-                 date: "10/10/2016",
-                 amount: "$5.99"),
-        LineItem(name: "Internet: Misc Charge",
-                 date: "10/5/2016",
-                 amount: "$5.99"),
-        LineItem(name: "Internet: Misc Charge",
-                 date: "10/1/2016",
-                 amount: "$5.99"),
-        ]
+    let billDetails = BillDetails()
     
     // MARK: Enums
     
@@ -70,7 +44,6 @@ class BillDetailsViewController: BaseTableViewController {
         
         title = "Bill Details"
         
-        tableView.register(BillSummaryCell.self, forCellReuseIdentifier: billSummaryCellReuseId)
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: labelIconCellReuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: titleDetailValueCellReuseId)
     }
@@ -92,7 +65,7 @@ extension BillDetailsViewController {
         switch section {
         case Section.summary.rawValue: return 1
         case Section.payment.rawValue: return PaymentRow.count.rawValue
-        case Section.lineItems.rawValue: return lineItems.count
+        case Section.lineItems.rawValue: return billDetails.lineItems.count
         default: return 0
         }
     }
@@ -100,20 +73,15 @@ extension BillDetailsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-        case Section.summary.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: billSummaryCellReuseId, for: indexPath) as? TableViewCell
-            cell?.selectionStyle = .none
-            cell?.appSettings = appSettings
+
+        case Section.summary.rawValue, Section.lineItems.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: titleDetailValueCellReuseId, for: indexPath) as? TitleDetailValueCell
+            styleLineItemCell(cell, for: indexPath)
             return cell ?? UITableViewCell()
             
         case Section.payment.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: labelIconCellReuseId, for: indexPath) as? LabelIconCell
             stylePaymentCell(cell, forRow: indexPath.row)
-            return cell ?? UITableViewCell()
-            
-        case Section.lineItems.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: titleDetailValueCellReuseId, for: indexPath) as? TitleDetailValueCell
-            styleLineItemCell(cell, forRow: indexPath.row)
             return cell ?? UITableViewCell()
             
         default:
@@ -148,15 +116,34 @@ extension BillDetailsViewController {
         }
     }
     
-    func styleLineItemCell(_ cell: TitleDetailValueCell?, forRow row: Int) {
+    func styleLineItemCell(_ cell: TitleDetailValueCell?, for indexPath: IndexPath) {
         guard let cell = cell else { return }
         cell.appSettings = appSettings
+        cell.selectionStyle = .none
         
-        let lineItem = lineItems[row]
-        cell.update(titleText: lineItem.name,
-                    detailText: lineItem.date,
-                    valueText: lineItem.amount)
-        
+        switch indexPath.section {
+        case Section.summary.rawValue:
+            
+            cell.titleLabel.font = appSettings.regularFont.withSize(18)
+            cell.valueLabel.font = appSettings.lightFont.withSize(22)
+            cell.detailLabel.font = appSettings.lightFont.withSize(16)
+            cell.update(titleText: "Current Balance",
+                        detailText: billDetails.dueDateString,
+                        valueText: billDetails.total)
+            break
+            
+        case Section.lineItems.rawValue:
+            cell.titleLabel.font = appSettings.regularFont.withSize(14)
+            cell.valueLabel.font = appSettings.lightFont.withSize(16)
+            cell.detailLabel.font = appSettings.lightFont.withSize(14)
+            let lineItem = billDetails.lineItems[indexPath.row]
+            cell.update(titleText: lineItem.name,
+                        detailText: lineItem.date,
+                        valueText: lineItem.amount)
+            break
+            
+        default: break
+        }
     }
     
 }
@@ -178,18 +165,14 @@ extension BillDetailsViewController {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
         
         switch indexPath.section {
-        case Section.summary.rawValue:
-            summarySizingCell.appSettings = appSettings
-            return summarySizingCell.sizeThatFits(sizer).height
+        case Section.summary.rawValue, Section.lineItems.rawValue:
+            styleLineItemCell(titleDetailValueSizingCell, for: indexPath)
+            return titleDetailValueSizingCell.sizeThatFits(sizer).height
             
         case Section.payment.rawValue:
             stylePaymentCell(labelIconSizingCell, forRow: indexPath.row)
             return labelIconSizingCell.sizeThatFits(sizer).height
-            
-        case Section.lineItems.rawValue:
-            styleLineItemCell(titleDetailValueSizingCell, forRow: indexPath.row)
-            return titleDetailValueSizingCell.sizeThatFits(sizer).height
-            
+        
         default:
             return 50.0
         }

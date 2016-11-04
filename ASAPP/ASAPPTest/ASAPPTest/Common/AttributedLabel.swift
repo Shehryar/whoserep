@@ -39,6 +39,7 @@ class AttributedLabel: UILabel {
     func commonInit() {
         numberOfLines = 0
         lineBreakMode = .byTruncatingTail
+        isUserInteractionEnabled = false
     }
     
     override init(frame: CGRect) {

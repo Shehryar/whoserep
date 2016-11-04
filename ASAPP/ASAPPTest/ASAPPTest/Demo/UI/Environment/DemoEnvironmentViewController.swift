@@ -169,6 +169,7 @@ extension DemoEnvironmentViewController {
                         blockSelf.appSettings.useDarkNavStyle()
                     } else {
                         blockSelf.appSettings.useLightNavStyle()
+                        blockSelf.appSettings.useLightContentStyle()
                     }
                     DemoDispatcher.performOnMainThread {
                         blockSelf.appSettings = blockSelf.appSettings
@@ -186,6 +187,7 @@ extension DemoEnvironmentViewController {
                     
                     if isOn {
                         blockSelf.appSettings.useDarkContentStyle()
+                        blockSelf.appSettings.useDarkNavStyle()
                     } else {
                         blockSelf.appSettings.useLightContentStyle()
                     }
