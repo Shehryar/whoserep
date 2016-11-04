@@ -82,7 +82,14 @@ extension AppDelegate {
     func defaultAppSettings() -> AppSettings {
         if let companyString = Bundle.main.infoDictionary?["default-demo-company"] as? String {
             if let company = Company(rawValue: companyString) {
-                return AppSettings.settingsFor(company)
+                let appSettings = AppSettings.settingsFor(company)
+                
+                if companyString == "asapp" {
+                    appSettings.useDarkNavStyle()
+                    appSettings.useDarkContentStyle()
+                }
+                
+                return appSettings
             }
         }
         return AppSettings.settingsFor(.asapp)

@@ -33,8 +33,6 @@ class HomeViewController: BaseViewController {
 
     // MARK: UI
     
-    fileprivate let backgroundImageView = UIImageView()
-    
     fileprivate let homeTableView: HomeTableView
     
     fileprivate var chatButton: ASAPPButton?
@@ -82,7 +80,6 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(homeTableView)
-        view.addSubview(backgroundImageView)
     }
     
     // MARK: Layout
@@ -97,8 +94,6 @@ class HomeViewController: BaseViewController {
         
         homeTableView.frame = view.bounds
         homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
-        
-        backgroundImageView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: view.bounds.height - visibleTop)
     }
 }
 
@@ -108,10 +103,6 @@ extension HomeViewController {
     
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
-        
-        // Background Image
-        backgroundImageView.image = appSettings.homeBackgroundImage
-        backgroundImageView.isHidden = backgroundImageView.image == nil
         
         homeTableView.appSettings = appSettings
         

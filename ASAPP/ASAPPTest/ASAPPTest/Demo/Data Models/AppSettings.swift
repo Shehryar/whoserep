@@ -38,9 +38,7 @@ class AppSettings: NSObject {
     var logoImage: UIImage?
     
     var logoImageSize: CGSize = CGSize(width: 140, height: 28)
-    
-    var homeBackgroundImage: UIImage?
-    
+        
     // MARK: Colors
     
     var backgroundColor: UIColor = UIColor.white
@@ -52,6 +50,8 @@ class AppSettings: NSObject {
     var foregroundColor2: UIColor = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
     
     var separatorColor: UIColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
+    
+    var accentColor: UIColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
     
     var navBarColor: UIColor = UIColor.white
     
@@ -105,29 +105,21 @@ extension AppSettings {
         switch company {
         case .asapp:
             let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
-            settings.logoImage = UIImage(named: "asapp-logo")
-            settings.logoImageSize = CGSize(width: 100, height: 22)
+            settings.useLightNavStyle()
+            settings.useLightContentStyle()
             return settings
             
         case .asapp2:
             let settings = AppSettings(company: .asapp2, companyMarker: "asapp", styles: ASAPPStyles())
-            settings.logoImage = UIImage(named: "asapp-logo-light")
-            settings.logoImageSize = CGSize(width: 100, height: 22)
-            
-            settings.navBarColor = UIColor(red:0.01, green:0.01, blue:0.03, alpha:1)
-            settings.navBarTintColor = UIColor.white
-            settings.navBarTitleColor = UIColor.white
-            settings.statusBarStyle = .lightContent
-            
+            settings.useDarkNavStyle()
+            settings.useLightContentStyle()
             return settings
             
         case .comcast:
             let settings = AppSettings(company: .comcast, companyMarker: "comcast", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "comcast-logo")
             settings.logoImageSize = CGSize(width: 140, height: 28)
-//            settings.homeBackgroundImage = UIImage(named: "comcast-home")
-            
-            
+
             // Nav Bar Colors
             settings.navBarColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
             settings.navBarTintColor = UIColor.white
@@ -153,8 +145,7 @@ extension AppSettings {
             let settings = AppSettings(company: .sprint, companyMarker: "sprint", styles: ASAPP.stylesForCompany(company.rawValue))
             settings.logoImage = UIImage(named: "sprint-logo")
             settings.logoImageSize = CGSize(width: 140, height: 36)
-//            settings.homeBackgroundImage = UIImage(named: "sprint-home")
-            
+
             // Nav Bar Colors
             settings.navBarTintColor = UIColor.darkGray
             settings.navBarTitleColor = UIColor.black
@@ -203,18 +194,6 @@ extension AppSettings {
         return navBarColor.isDark()
     }
     
-    func useDarkNavStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
-        
-        logoImage = UIImage(named: "asapp-logo-light")
-        logoImageSize = CGSize(width: 100, height: 22)
-        
-        navBarColor = UIColor.black
-        navBarTintColor = UIColor.white
-        navBarTitleColor = UIColor.white
-        statusBarStyle = .lightContent
-    }
-    
     func useLightNavStyle() {
         guard [Company.asapp, Company.asapp2].contains(company) else { return }
         
@@ -227,22 +206,22 @@ extension AppSettings {
         statusBarStyle = .default
     }
     
+    func useDarkNavStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        logoImage = UIImage(named: "asapp-logo-light")
+        logoImageSize = CGSize(width: 100, height: 22)
+        
+        navBarColor = UIColor.black
+        navBarTintColor = UIColor.white
+        navBarTitleColor = UIColor.white
+        statusBarStyle = .lightContent
+    }
+    
     // MARK: Content
     
     var isDarkContentStyle: Bool  {
         return backgroundColor.isDark()
-    }
-    
-    func useDarkContentStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
-        
-        styles = ASAPPStyles.darkStyles()
-        
-        backgroundColor = UIColor(red:0.075, green:0.078, blue:0.078, alpha:1)
-        backgroundColor2 = UIColor(red:0.110, green:0.110, blue:0.122, alpha:1)
-        foregroundColor = UIColor.white
-        foregroundColor2 = UIColor(red:0.682, green:0.686, blue:0.703, alpha:1)
-        separatorColor = UIColor(red:0.259, green:0.259, blue:0.263, alpha:1)
     }
     
     func useLightContentStyle() {
@@ -250,11 +229,31 @@ extension AppSettings {
         
         styles = ASAPPStyles()
         
+        styles.asappButtonBackgroundColor = UIColor(red:0.03, green:0.114, blue:0.18, alpha:1)//UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
+        styles.asappButtonForegroundColor = UIColor.white
+        
         backgroundColor = UIColor.white
         backgroundColor2 = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
         foregroundColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
         foregroundColor2 = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
         separatorColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
+        accentColor = UIColor(red:0.10, green:0.33, blue:0.52, alpha:1)
+    }
+    
+    func useDarkContentStyle() {
+        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        
+        styles = ASAPPStyles.darkStyles()
+        
+        styles.asappButtonBackgroundColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
+        styles.asappButtonForegroundColor = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
+        
+        backgroundColor = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
+        backgroundColor2 = UIColor(red: 0.07, green: 0.09, blue: 0.1, alpha: 1)
+        foregroundColor = UIColor.white
+        foregroundColor2 = UIColor(red:0.346, green:0.392, blue:0.409, alpha:1)
+        separatorColor = UIColor(red:0.15, green:0.18, blue:0.19, alpha:1)
+        accentColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
     }
 }
 

@@ -66,6 +66,8 @@ class TitleToggleCell: TableViewCell {
         if let appSettings = appSettings {
             titleLabel.font = appSettings.regularFont.withSize(16)
             titleLabel.textColor = appSettings.foregroundColor
+            
+            toggle.onTintColor = appSettings.accentColor
         }
         
         setNeedsLayout()
