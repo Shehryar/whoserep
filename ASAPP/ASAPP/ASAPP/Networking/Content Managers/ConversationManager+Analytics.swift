@@ -117,7 +117,7 @@ extension ConversationManager {
             attributes["request_parameters"] = paramsString
         }
         
-        var metrics = [ "elapsed_time" : Double(responseTimeInMilliseconds * 1000) ]
+        let metrics = [ "elapsed_time" : Double(responseTimeInMilliseconds * 1000) ]
         
         trackEvent(eventType: .srsRequestTime,
                    attributes: attributes,

@@ -362,7 +362,7 @@ class ChatViewController: UIViewController {
         }
         
         var tempLiveChat = false
-        for (idx, event) in events.enumerated().reversed() {
+        for (_, event) in events.enumerated().reversed() {
             if event.eventType == .newRep {
                 tempLiveChat = true
                 break
@@ -1105,7 +1105,9 @@ extension ChatViewController {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            conversationManager.sendPictureMessage(image)
+        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
         }
         

@@ -107,7 +107,6 @@ class TooltipView: UIView {
         
         let bubbleWidth = ceil(labelSize.width + textInset.left + textInset.right)
         let bubbleHeight = ceil(labelSize.height + textInset.top + textInset.bottom)
-        let totalHeight = bubbleHeight + arrowHeight
         
         let bubbleFrame = CGRect(x: 0, y: arrowHeight, width: bubbleWidth, height: bubbleHeight)
         

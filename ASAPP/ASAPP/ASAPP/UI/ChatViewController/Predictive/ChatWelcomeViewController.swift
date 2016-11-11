@@ -276,7 +276,7 @@ class ChatWelcomeViewController: UIViewController {
     
     func flashNoConnectionLabel() {
         
-        noConnectionFlashTime = floor(NSDate().timeIntervalSince1970) ?? 0
+        noConnectionFlashTime = floor(NSDate().timeIntervalSince1970)
         
         let delayBeforeHiding: TimeInterval = 5
         

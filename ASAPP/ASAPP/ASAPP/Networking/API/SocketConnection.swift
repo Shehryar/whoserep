@@ -297,7 +297,7 @@ extension SocketConnection: SRWebSocketDelegate {
         if let requestId = serializedMessage.requestId {
             
             // Original Request
-            var originalRequest = requestLookup[requestId]
+            let originalRequest = requestLookup[requestId]
             requestLookup[requestId] = nil
             
             // Response Time

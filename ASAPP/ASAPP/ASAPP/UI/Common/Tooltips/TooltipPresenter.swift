@@ -108,7 +108,7 @@ extension TooltipPresenter {
         
         let ttTop = targetFrame.maxY + 5
         var arrowOffset: CGFloat?
-        var ttSize = tooltipView.sizeThatFits(containerFrame.size)
+        let ttSize = tooltipView.sizeThatFits(containerFrame.size)
         let ttHalfWidth = ceil(ttSize.width / 2.0)
         
         let shouldLeftAlign = targetFrame.midX - ttHalfWidth < minSidePadding

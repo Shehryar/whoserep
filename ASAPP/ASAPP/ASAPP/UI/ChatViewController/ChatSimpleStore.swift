@@ -100,7 +100,7 @@ extension ChatSimpleStore {
         let eventLogSeqSet = Set(eventLogSeqs)
         
         var suggestedReplyEvents = [Event]()
-        for (idx, event) in allEvents.enumerated().reversed() {
+        for (_, event) in allEvents.enumerated().reversed() {
             if eventLogSeqSet.contains(event.eventLogSeq) {
                 suggestedReplyEvents.append(event)
             }

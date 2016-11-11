@@ -154,7 +154,7 @@ class SRSItemCarouselView: UIView {
         
         let pageWidth = pageWidthThatFits(bounds.size, maximumPageWidth: maxPageWidth)
         
-        var (pageControlHeight, pageControlMargin) = pageControlHeightMarginForWidth(pageWidth)
+        let (pageControlHeight, pageControlMargin) = pageControlHeightMarginForWidth(pageWidth)
         let pageControlTop = bounds.height - pageControlHeight
         pageControl.frame = CGRect(x: 0, y: pageControlTop, width: pageWidth, height: pageControlHeight)
         
