@@ -53,6 +53,7 @@ class ChatViewController: UIViewController {
     
     fileprivate var showWelcomeOnViewAppear = true
     
+    fileprivate var askTooltipPresenter: TooltipPresenter?
     fileprivate var keyboardObserver = KeyboardObserver()
     fileprivate var keyboardOffset: CGFloat = 0
     fileprivate var keyboardRenderedHeight: CGFloat = 0
@@ -152,11 +153,7 @@ class ChatViewController: UIViewController {
         suggestedRepliesView.applyStyles(self.styles)
         
         connectionStatusView.onTapToConnect = { [weak self] in
-            if let blockSelf = self {
-                blockSelf.connectionStatus = .connecting
-                blockSelf.conversationManager.enterConversation()
-                blockSelf.conversationManager.startSRS()
-            }
+            self?.reconnect()
         }
         
         // Ask a Question View Controller
@@ -215,9 +212,9 @@ class ChatViewController: UIViewController {
             navigationBar.shadowImage = nil
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
-            navigationBar.backgroundColor = UIColor.white
+            navigationBar.backgroundColor = nil
             if styles.navBarBackgroundColor.isDark() {
-                navigationBar.barStyle = .blackTranslucent
+                navigationBar.barStyle = .black
                 if styles.navBarBackgroundColor != UIColor.black {
                     navigationBar.barTintColor = styles.navBarBackgroundColor
                 }
@@ -228,6 +225,7 @@ class ChatViewController: UIViewController {
                 }
             }
             navigationBar.tintColor = styles.navBarButtonColor
+            setNeedsStatusBarAppearanceUpdate()
         }
         
         // View
@@ -281,11 +279,11 @@ class ChatViewController: UIViewController {
             conversationManager.enterConversation()
             Dispatcher.delay(2300, closure: { [weak self] in
                 self?.updateFramesAnimated()
-                })
+            })
             
             conversationManager.startSRS(completion: { [weak self] (appOpenResponse) in
                 self?.askQuestionVC?.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
-                })
+            })
         }
     }
     
@@ -293,7 +291,15 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Dispatcher.delay(500, closure: { [weak self] in
+            self?.showAskButtonTooltipIfNecessary()
+        })
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
@@ -309,7 +315,11 @@ class ChatViewController: UIViewController {
         if showWelcomeOnViewAppear || askQuestionVCVisible {
             return .lightContent
         } else {
-            return .default
+            if styles.navBarBackgroundColor.isDark() {
+                return .lightContent
+            } else {
+                return .default
+            }
         }
     }
     
@@ -333,6 +343,16 @@ class ChatViewController: UIViewController {
         return .portrait
     }
     
+    // MARK: Connection
+    
+    func reconnect() {
+        if connectionStatus == .disconnected {
+            connectionStatus = .connecting
+            conversationManager.enterConversation()
+            conversationManager.startSRS()
+        }
+    }
+    
     // MARK: Updates
     
     func updateIsLiveChat(withEvents events: [Event]) {
@@ -342,7 +362,7 @@ class ChatViewController: UIViewController {
         }
         
         var tempLiveChat = false
-        for (idx, event) in events.enumerated().reversed() {
+        for (_, event) in events.enumerated().reversed() {
             if event.eventType == .newRep {
                 tempLiveChat = true
                 break
@@ -397,6 +417,45 @@ class ChatViewController: UIViewController {
         conversationManager.trackButtonTap(buttonName: .closeChatFromChat)
         
         dismissChatViewController()
+    }
+}
+
+// MARK:- Tooltip
+
+extension ChatViewController {
+    
+    func hasShownAskTooltipKey() -> String {
+        return credentials.hashKey(withPrefix: "AskTooltipShown")
+    }
+    
+    func hasShownAskTooltip() -> Bool {
+        return UserDefaults.standard.bool(forKey: hasShownAskTooltipKey())
+    }
+    
+    func setHasShownTooltipTrue() {
+        UserDefaults.standard.set(true, forKey: hasShownAskTooltipKey())
+    }
+    
+    func showAskButtonTooltipIfNecessary() {
+        guard !showWelcomeOnViewAppear && !askQuestionVCVisible && !hasShownAskTooltip() else {
+                return
+        }
+        
+        guard let navView = navigationController?.view,
+            let buttonItem = navigationItem.leftBarButtonItem else {
+            return
+        }
+        
+        setHasShownTooltipTrue()
+        
+        askTooltipPresenter = TooltipView.showTooltip(withText: strings.chatAskTooltip,
+                                                      styles: styles,
+                                                      targetBarButtonItem: buttonItem,
+                                                      parentView: navView,
+                                                      onDismiss: { [weak self] in
+                                                        self?.askTooltipPresenter = nil
+        })
+        
     }
 }
 
@@ -676,6 +735,12 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
                 }, completion: { [weak self] (completed) in
                     self?.askQuestionVC?.presentingViewUpdatedVisibility(visible)
                     completion?()
+                    
+                    if !visible {
+                        Dispatcher.delay(4000, closure: {
+                            self?.showAskButtonTooltipIfNecessary()
+                        })
+                    }
             })
         } else {
             welcomeView.alpha = alpha
@@ -716,6 +781,16 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         conversationManager.trackButtonTap(buttonName: .closeChatFromPredictive)
         
         dismissChatViewController()
+    }
+    
+    func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool {
+        if connectionStatus == .connected {
+            return true
+        }
+        
+        reconnect()
+        
+        return false
     }
 }
 
@@ -818,7 +893,7 @@ extension ChatViewController {
 // MARK:- ChatSuggestedRepliesViewDelegate
 
 extension ChatViewController: ChatSuggestedRepliesViewDelegate {
-
+    
     // MARK: Delegate
     
     func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView) {
@@ -913,7 +988,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     func didReceiveSRSMessage(message: Event) {
         guard let srsResponse = message.srsResponse else { return }
-    
+        
         // Immediate Action
         if let immediateAction = srsResponse.immediateAction {
             Dispatcher.delay(1200, closure: { [weak self] in
@@ -926,12 +1001,12 @@ extension ChatViewController: ConversationManagerDelegate {
             if suggestedRepliesView.frame.minY < view.bounds.height {
                 Dispatcher.delay(200, closure: { [weak self] in
                     self?.showSuggestedRepliesView(withSRSResponse: srsResponse, forEvent: message)
-                    })
+                })
             } else {
                 // Not visible yet
                 Dispatcher.delay(1000, closure: { [weak self] in
                     self?.showSuggestedRepliesView(withSRSResponse: srsResponse, forEvent: message)
-                    })
+                })
             }
         }
             // Hide Suggested Replies View
@@ -1030,7 +1105,9 @@ extension ChatViewController {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = (info[UIImagePickerControllerEditedImage] ?? info[UIImagePickerControllerOriginalImage]) as? UIImage {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            conversationManager.sendPictureMessage(image)
+        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
         }
         

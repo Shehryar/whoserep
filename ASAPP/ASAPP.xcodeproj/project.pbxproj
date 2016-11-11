@@ -50,6 +50,9 @@
 		28AEC0C31D88C4AC00139C7D /* StackableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0C21D88C4AC00139C7D /* StackableView.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
+		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
+		300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C41DD4D26E007226B9 /* TriangleView.swift */; };
+		300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C61DD4F95A007226B9 /* TooltipPresenter.swift */; };
 		3005C4261DB00DD900946934 /* ASAPPStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005C4251DB00DD900946934 /* ASAPPStrings.swift */; };
 		3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */; };
 		3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */ = {isa = PBXBuildFile; fileRef = 3005C4291DB02BFD00946934 /* button-bg-respond.png */; };
@@ -199,6 +202,7 @@
 		30C738321D87492300E32B78 /* SRSLoaderBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C738311D87492300E32B78 /* SRSLoaderBarItem.swift */; };
 		30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738331D874B2200E32B78 /* gif-loader-bar.gif */; };
 		30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */; };
+		30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
 		30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */; };
@@ -265,6 +269,9 @@
 		28AEC0C21D88C4AC00139C7D /* StackableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackableView.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
+		300012C41DD4D26E007226B9 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
+		300012C61DD4F95A007226B9 /* TooltipPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipPresenter.swift; sourceTree = "<group>"; };
 		3005C4251DB00DD900946934 /* ASAPPStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStrings.swift; sourceTree = "<group>"; };
 		3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleBarButtonItem.swift; sourceTree = "<group>"; };
 		3005C4291DB02BFD00946934 /* button-bg-respond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg-respond.png"; sourceTree = "<group>"; };
@@ -416,6 +423,7 @@
 		30C738311D87492300E32B78 /* SRSLoaderBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLoaderBarItem.swift; sourceTree = "<group>"; };
 		30C738331D874B2200E32B78 /* gif-loader-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar.gif"; sourceTree = "<group>"; };
 		30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar@2x.gif"; sourceTree = "<group>"; };
+		30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
 		30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSRSItemListViewCell.swift; sourceTree = "<group>"; };
@@ -524,6 +532,17 @@
 			path = "Suggested Replies Sheet";
 			sourceTree = "<group>";
 		};
+		300012C11DD4D10E007226B9 /* Tooltips */ = {
+			isa = PBXGroup;
+			children = (
+				300012C61DD4F95A007226B9 /* TooltipPresenter.swift */,
+				300012C21DD4D148007226B9 /* TooltipView.swift */,
+				300012C41DD4D26E007226B9 /* TriangleView.swift */,
+			);
+			name = Tooltips;
+			path = ASAPP/ASAPP/UI/Common/Tooltips;
+			sourceTree = SOURCE_ROOT;
+		};
 		300888961D63B1A200C25802 /* Event Payload Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,6 +588,7 @@
 				3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
+				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -777,9 +797,10 @@
 				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
 				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
 				307C54571D8C87C60091E74A /* NavigationController.swift */,
+				3008888B1D620D3700C25802 /* Button.swift */,
+				300012C11DD4D10E007226B9 /* Tooltips */,
 				3008889B1D63C47900C25802 /* StackView */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
-				3008888B1D620D3700C25802 /* Button.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1257,6 +1278,7 @@
 				30D2E28F1D7A0E2100502D92 /* SRSInfoItem.swift in Sources */,
 				285F7B1F1DAC3CBE008C2EF6 /* SRSImageItemView.swift in Sources */,
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
+				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
@@ -1265,6 +1287,7 @@
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
+				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				3008889D1D63C48600C25802 /* StackView.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
@@ -1311,6 +1334,7 @@
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
+				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */,
 				30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */,
 				30C738301D8747FC00E32B78 /* SRSLoaderBarView.swift in Sources */,
@@ -1320,6 +1344,7 @@
 				30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */,
+				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
 				300888A51D64D48300C25802 /* ChatMessagesViewCellProtocol.swift in Sources */,
 				30D2E2991D7A230B00502D92 /* SRSFillerView.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,

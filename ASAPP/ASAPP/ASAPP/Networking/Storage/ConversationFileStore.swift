@@ -28,7 +28,7 @@ class ConversationFileStore: NSObject {
     
     required init(credentials: Credentials) {
         self.credentials = credentials
-        self.fileName = "\(credentials.environment == .production ? "production" : "staging")-\(credentials.companyMarker)-\(credentials.isCustomer ? "customer" : "rep")-\(credentials.userToken ?? "")->\(credentials.targetCustomerToken ?? "").txt"
+        self.fileName = "\(credentials.hashKey(withPrefix: "Stored-Events_")).txt"
         super.init()
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {

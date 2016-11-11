@@ -20,6 +20,7 @@ public class ASAPPStrings: NSObject {
     public var predictiveOtherSuggestions: String = ASAPPLocalizedString("OTHER SUGGESTIONS:")
     public var predictiveInputPlaceholder: String = ASAPPLocalizedString("Ask a new question...")
     public var predictiveSendButton: String = ASAPPLocalizedString("SEND")
+    public var predictiveNoConnectionText: String = ASAPPLocalizedString("PLEASE CHECK YOUR CONNECTION...")
     
     public var connectionBannerConnected: String = ASAPPLocalizedString("Connection Established")
     public var connectionBannerConnecting: String = ASAPPLocalizedString("Connecting...")
@@ -28,6 +29,7 @@ public class ASAPPStrings: NSObject {
     public var chatEmptyTitle: String = ASAPPLocalizedString("Hi there, how can we help you?")
     public var chatEmptyMessage: String = ASAPPLocalizedString("Ask a new question to get started.")
     public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
+    public var chatAskTooltip: String = ASAPPLocalizedString("Tap 'ASK' to ask a new question.")
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     public var chatInputSend: String = ASAPPLocalizedString("SEND")
     

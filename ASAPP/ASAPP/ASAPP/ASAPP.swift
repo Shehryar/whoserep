@@ -8,11 +8,11 @@
 
 import Foundation
 
-internal var DISTRIBUTION_BUILD = false
+internal var DISTRIBUTION_BUILD = true
 
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
-internal var DEMO_COMCAST_LIVE_CHAT_USER = false
+internal var DEMO_ENVIRONMENT_PREFIX: String? = nil
 
 // MARK:- Internal Constants
 
@@ -31,12 +31,13 @@ public class ASAPP: NSObject {
     
     // MARK: Fonts
     
-    override public class func initialize() {
-        Fonts.loadAllFonts()
-    }
+    static var didLoadFonts = false
     
-    class func loadFonts() {
-        Fonts.loadAllFonts()
+    public class func loadFontsIfNecessary() {
+        if !didLoadFonts {
+            Fonts.loadAllFonts()
+            didLoadFonts = true
+        }
     }
     
     class func loadedFonts() -> [String] {
@@ -56,6 +57,7 @@ public class ASAPP: NSObject {
                                        strings: ASAPPStrings?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
+        loadFontsIfNecessary()
         updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,
@@ -106,6 +108,7 @@ public class ASAPP: NSObject {
                                                styles: ASAPPStyles?,
                                                strings: ASAPPStrings?) -> UIViewController {
         
+        loadFontsIfNecessary()
         updateDemoSettings(withEnvironment: environment)
         
         let credentials = Credentials(withCompany: company,
@@ -165,15 +168,15 @@ public class ASAPP: NSObject {
                 DebugLog("All demo settings disabled for distribution build")
                 DEMO_CONTENT_ENABLED = false
                 DEMO_LIVE_CHAT = false
-                DEMO_COMCAST_LIVE_CHAT_USER = false
+                DEMO_ENVIRONMENT_PREFIX = nil
                 return
         }
     
         DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
         DEMO_LIVE_CHAT = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_LIVE_CHAT")
-        DEMO_COMCAST_LIVE_CHAT_USER = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_FORCE_PHONE_USER")
+        DEMO_ENVIRONMENT_PREFIX = UserDefaults.standard.string(forKey: "ASAPP_DEMO_ENVIRONMENT_PREFIX")
         
-        DebugLog("\n\n==========\nUPDATING DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\nPhone User = \(DEMO_COMCAST_LIVE_CHAT_USER)\n==========")
+        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\nDemo Environment String = \(DEMO_ENVIRONMENT_PREFIX != nil ? DEMO_ENVIRONMENT_PREFIX! : "nil")\n==========")
     }
 }
 

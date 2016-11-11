@@ -104,6 +104,11 @@ class ChatInputView: UIView {
         }
     }
     
+    var keyboardAppearance: UIKeyboardAppearance {
+        set { textView.keyboardAppearance = newValue }
+        get { return textView.keyboardAppearance }
+    }
+    
     // MARK: Properties: Data
     
     var inputMinHeight: CGFloat = 36
@@ -137,7 +142,7 @@ class ChatInputView: UIView {
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)
         
-        backgroundColor = Colors.whiteColor()
+        backgroundColor = styles.inputBackgroundColor
         clipsToBounds = true
         
         // Subviews
@@ -162,6 +167,11 @@ class ChatInputView: UIView {
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.sizeToFit()
+        if styles.backgroundColor1.isDark() {
+            textView.keyboardAppearance = .dark
+        } else {
+            textView.keyboardAppearance = .default
+        }
         inputHeight = textView.frame.size.height
         
         placeholderTextView.text = placeholderText

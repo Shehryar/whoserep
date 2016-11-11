@@ -105,12 +105,10 @@ extension OutgoingMessageSerializer {
                     "RegionCode" : "US" as AnyObject,
                 ]
                 
-                
-                if DEMO_COMCAST_LIVE_CHAT_USER {
+                if DEMO_LIVE_CHAT && userToken.isLikelyASAPPPhoneNumber { // userToken == "+13126089137" ||
                     params["IdentifierType"] = "PHONE" as AnyObject
-                    params["CustomerIdentifier"] = "+13126089137" as AnyObject
+                    params["CustomerIdentifier"] = userToken as AnyObject
                 }
-                
             } else {
                 // Non-customer w/ Token
                 path = "auth/AuthenticateWithSalesForceToken"

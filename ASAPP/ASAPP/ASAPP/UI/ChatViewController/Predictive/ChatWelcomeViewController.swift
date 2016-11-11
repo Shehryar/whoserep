@@ -12,6 +12,7 @@ protocol ChatWelcomeViewControllerDelegate: class {
     func chatWelcomeViewController(_ viewController: ChatWelcomeViewController, didFinishWithText queryText: String, fromPrediction: Bool)
     func chatWelcomeViewControllerDidTapViewChat(_ viewController: ChatWelcomeViewController)
     func chatWelcomeViewControllerDidTapX(_ viewController: ChatWelcomeViewController)
+    func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool
 }
 
 class ChatWelcomeViewController: UIViewController {
@@ -37,7 +38,9 @@ class ChatWelcomeViewController: UIViewController {
     fileprivate let messageLabel = UILabel()
     fileprivate let buttonsView: ChatWelcomeButtonsView
     fileprivate let messageInputView: ChatInputView
+    fileprivate let connectionStatusLabel = UILabel()
     fileprivate var finishedInitialAnimation = true
+    fileprivate var noConnectionFlashTime: TimeInterval?
     
     fileprivate let keyboardObserver = KeyboardObserver()
     fileprivate var keyboardOffset: CGFloat = 0
@@ -118,6 +121,16 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.placeholderText = placeholderText
         messageInputView.delegate = self
         blurredBgView.contentView.addSubview(messageInputView)
+    
+        connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
+        connectionStatusLabel.attributedText = NSAttributedString(string: strings.predictiveNoConnectionText, attributes: [
+            NSFontAttributeName : styles.buttonFont.withSize(10),
+            NSKernAttributeName : 1,
+            NSForegroundColorAttributeName : UIColor.white
+            ])
+        connectionStatusLabel.textAlignment = .center
+        connectionStatusLabel.alpha = 0.0
+        blurredBgView.contentView.addSubview(connectionStatusLabel)
         
         keyboardObserver.delegate = self
         
@@ -237,6 +250,12 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
         messageInputView.layoutSubviews()
         
+        let noConnectionMargin: CGFloat = 4
+        let noConnectionPadding: CGFloat = 10
+        let noConnectionHeight = min(contentInset.bottom - noConnectionMargin, ceil(connectionStatusLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height) + noConnectionPadding)
+        let noConnectionTop = visibleBottom - noConnectionHeight
+        connectionStatusLabel.frame = CGRect(x: 0, y: noConnectionTop, width: view.bounds.width, height: noConnectionHeight)
+        
         // Buttons View
         var buttonsTop: CGFloat
         if isExpanded {
@@ -255,11 +274,52 @@ class ChatWelcomeViewController: UIViewController {
         })
     }
     
+    func flashNoConnectionLabel() {
+        
+        noConnectionFlashTime = floor(NSDate().timeIntervalSince1970)
+        
+        let delayBeforeHiding: TimeInterval = 5
+        
+        func hideNoConnectionLabel() {
+            if connectionStatusLabel.alpha == 0 {
+                return
+            }
+            
+            let currentTime = ceil(NSDate().timeIntervalSince1970)
+            if currentTime > noConnectionFlashTime! + delayBeforeHiding {
+                UIView.animate(withDuration: 1.0, animations: { [weak self] in
+                    self?.connectionStatusLabel.alpha = 0.0
+                })
+            }
+        }
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.connectionStatusLabel.alpha = 1.0
+            self?.connectionStatusLabel.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+            }, completion: { [weak self] (completed) in
+                
+                UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                    self?.connectionStatusLabel.transform = .identity
+                })
+                
+                Dispatcher.delay(delayBeforeHiding * 1000 + 10, closure: {
+                    hideNoConnectionLabel()
+                })
+        })
+    }
+    
     // MARK: Actions
     
     func finishWithMessage(_ message: String, fromPrediction: Bool) {
-        dismissKeyboard()
-        delegate?.chatWelcomeViewController(self, didFinishWithText: message, fromPrediction: fromPrediction)
+        guard let delegate = delegate else { return }
+        
+        if delegate.chatWelcomeViewControllerIsConnected(self) {
+            dismissKeyboard()
+            delegate.chatWelcomeViewController(self, didFinishWithText: message, fromPrediction: fromPrediction)
+            messageInputView.clear()
+        } else {
+            flashNoConnectionLabel()
+        }
     }
     
     func didTapViewChat() {
@@ -319,7 +379,6 @@ extension ChatWelcomeViewController: ChatInputViewDelegate {
     }
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
-        chatInputView.clear()
         finishWithMessage(message, fromPrediction: false)
     }
     
