@@ -621,7 +621,7 @@ extension ChatViewController {
             if let deepLink = buttonItem.deepLink {
                 DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
                 
-                conversationManager.trackDeepLink(link: deepLink)
+                conversationManager.trackDeepLink(link: deepLink, deepLinkData: buttonItem.deepLinkData as? AnyObject)
                 
                 dismiss(animated: true, completion: { [weak self] in
                     self?.callback(deepLink, buttonItem.deepLinkData)

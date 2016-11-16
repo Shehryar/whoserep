@@ -79,9 +79,15 @@ extension ConversationManager {
                    metrics: nil)
     }
     
-    func trackDeepLink(link: String) {
+    func trackDeepLink(link: String, deepLinkData: AnyObject?) {
+        var attributes = [ "url" : link ]
+        if let deepLinkData = deepLinkData,
+            let deepLinkDataString = JSONUtil.stringify(deepLinkData) {
+            attributes["deep_link_data"] = deepLinkDataString
+        }
+        
         trackEvent(eventType: .deepLink,
-                   attributes: [ "url" : link ],
+                   attributes: attributes,
                    metrics: nil)
     }
     
