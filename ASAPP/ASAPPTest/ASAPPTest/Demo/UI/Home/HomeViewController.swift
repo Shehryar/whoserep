@@ -215,15 +215,17 @@ extension HomeViewController: DemoEnvironmentViewControllerDelegate {
 extension HomeViewController {
     
     func displayHandleActionAlert(_ action: String, userInfo: [String : Any]?) {
-        let message: String
+        var message = "The host app is responsible for handling this action appropriately."
+        
         let userInfo = userInfo ?? [:]
         if !userInfo.isEmpty {
-            message = "The host app is responsible for handling this action appropriately.\n\(userInfo)"
-        } else {
-            message = "The host app is responsible for handling this action appropriately."
+            if let jsonData = try? JSONSerialization.data(withJSONObject: userInfo, options: .prettyPrinted),
+                let prettyJSON = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
+                message = "Data: \(prettyJSON)"
+            }
         }
         
-        let alert = UIAlertController(title: "Action Received: \(action)",
+        let alert = UIAlertController(title: "Deep Link: \(action)",
             message: message,
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
