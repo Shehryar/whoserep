@@ -110,6 +110,7 @@ class SocketConnection: NSObject {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self);
         socket?.delegate = nil
     }
 }
