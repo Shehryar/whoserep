@@ -428,7 +428,7 @@ extension ChatWelcomeViewController {
         
         if animated {
             messageLabel.alpha = 0.0
-        } else {
+        } else if keyboardOffset <= 0 {
             messageLabel.alpha = 1.0
         }
         
@@ -459,8 +459,11 @@ extension ChatWelcomeViewController {
             
             Dispatcher.delay(300) {
                 UIView.animate(withDuration: 0.4, animations: { [weak self] in
-                    
-                    self?.messageLabel.alpha = 1.0
+                    if let blockSelf = self {
+                        if blockSelf.keyboardOffset <= 0 {
+                            self?.messageLabel.alpha = 1.0
+                        }
+                    }
                     }, completion: { [weak self] (completed) in
                         self?.buttonsView.animateButtonsIn(true) {
                             self?.viewContentsVisible = true
