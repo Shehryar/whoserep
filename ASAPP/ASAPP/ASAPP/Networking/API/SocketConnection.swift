@@ -59,6 +59,8 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
+    private let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
+    
     // MARK: Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -100,6 +102,8 @@ class SocketConnection: NSObject {
         connectionRequest.url = ConnectionURLForEnvironment(companyMarker: credentials.companyMarker, environment: credentials.environment)
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
+        // TODO: Refactor this out
+        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: "ASAPP-ClientSecret")
         self.connectionRequest = connectionRequest as URLRequest
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
