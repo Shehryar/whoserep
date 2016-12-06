@@ -408,6 +408,8 @@ class ChatViewController: UIViewController {
     // MARK: Button Actions
     
     func didTapAskButton() {
+        increaseTooltipActionsCount()
+        
         showWelcomeView()
         
         conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
@@ -428,17 +430,21 @@ extension ChatViewController {
         return credentials.hashKey(withPrefix: "AskTooltipShown")
     }
     
-    func hasShownAskTooltip() -> Bool {
-        return UserDefaults.standard.bool(forKey: hasShownAskTooltipKey())
+    func numberOfTooltipActions() -> Int {
+        return UserDefaults.standard.integer(forKey: hasShownAskTooltipKey())
     }
     
-    func setHasShownTooltipTrue() {
-        UserDefaults.standard.set(true, forKey: hasShownAskTooltipKey())
+    private static let MAX_TOOLTIP_ACTIONS_COUNT = 2
+    
+    func increaseTooltipActionsCount() {
+        var numberOfTimesShown = numberOfTooltipActions() + 1
+        UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
     }
     
     func showAskButtonTooltipIfNecessary() {
-        guard !showWelcomeOnViewAppear && !askQuestionVCVisible && !hasShownAskTooltip() else {
-                return
+        guard !showWelcomeOnViewAppear && !askQuestionVCVisible
+            && numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
+            return
         }
         
         guard let navView = navigationController?.view,
@@ -446,7 +452,7 @@ extension ChatViewController {
             return
         }
         
-        setHasShownTooltipTrue()
+        increaseTooltipActionsCount()
         
         askTooltipPresenter = TooltipView.showTooltip(withText: strings.chatAskTooltip,
                                                       styles: styles,
@@ -455,7 +461,6 @@ extension ChatViewController {
                                                       onDismiss: { [weak self] in
                                                         self?.askTooltipPresenter = nil
         })
-        
     }
 }
 
