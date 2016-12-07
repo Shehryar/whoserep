@@ -27,6 +27,7 @@ class ConversationManager: NSObject {
     // MARK: Public Properties
     
     let credentials: Credentials
+    let sessionManager: SessionManager
     
     weak var delegate: ConversationManagerDelegate?
     
@@ -48,6 +49,7 @@ class ConversationManager: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
+        self.sessionManager = SessionManager(credentials: credentials)
         self.socketConnection = SocketConnection(withCredentials: self.credentials)
         self.fileStore = ConversationFileStore(credentials: self.credentials)
         self.requestPrefix = credentials.isCustomer ? "customer/" : "rep/"

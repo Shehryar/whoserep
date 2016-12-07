@@ -129,6 +129,7 @@
 		303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877F1D789BD900213F6B /* SRSButtonItem.swift */; };
 		303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C87811D789BE200213F6B /* SRSLabelItem.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
+		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
 		305C6C8D1DB5417600FF0AF4 /* live-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8C1DB5417600FF0AF4 /* live-chat.json */; };
 		305C6C8F1DB5418000FF0AF4 /* srs-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8E1DB5418000FF0AF4 /* srs-chat.json */; };
 		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
@@ -350,6 +351,7 @@
 		303C877F1D789BD900213F6B /* SRSButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItem.swift; sourceTree = "<group>"; };
 		303C87811D789BE200213F6B /* SRSLabelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelItem.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		305C6C8C1DB5417600FF0AF4 /* live-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat.json"; sourceTree = "<group>"; };
 		305C6C8E1DB5418000FF0AF4 /* srs-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "srs-chat.json"; sourceTree = "<group>"; };
 		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				300888931D62756D00C25802 /* JSONParser.swift */,
 				285F7AF51DAB33C2008C2EF6 /* Demo Content */,
 				300888961D63B1A200C25802 /* Event Payload Objects */,
+				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -1300,6 +1303,7 @@
 				30D2E2951D7A0FE000502D92 /* SRSInfoItemView.swift in Sources */,
 				305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
+				3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */,
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				30226CD61D4933F200871453 /* Event.swift in Sources */,
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,

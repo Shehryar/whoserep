@@ -44,10 +44,12 @@ extension ConversationManager {
                     attributes: AnalyticsAttributes? = nil,
                     metrics: AnalyticsMetrics? = nil) {
         
-        var defaultAttributes = [
+        var defaultAttributes: [String : Any] = [
             "device_model" : UIDevice.current.model,
             "device_platform_name" : UIDevice.current.systemName,
             "device_platform_version" : UIDevice.current.systemVersion,
+            "device_uuid" : sessionManager.deviceIdentifier,
+            "device_event_sequence" : sessionManager.getNextEventSequence()
         ]
         if let currentIntent = currentSRSClassification {
             defaultAttributes["current_classification"] = currentIntent
