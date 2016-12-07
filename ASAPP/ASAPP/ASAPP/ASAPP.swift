@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal var DISTRIBUTION_BUILD = true
+internal var DISTRIBUTION_BUILD = false
 
 internal var DEMO_CONTENT_ENABLED = false
 internal var DEMO_LIVE_CHAT = false
