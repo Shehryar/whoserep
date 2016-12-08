@@ -49,7 +49,7 @@ extension ConversationManager {
             "device_platform_name" : UIDevice.current.systemName,
             "device_platform_version" : UIDevice.current.systemVersion,
             "device_uuid" : sessionManager.deviceIdentifier,
-            "device_event_sequence" : sessionManager.getNextEventSequence()
+            "device_event_sequence" : String(sessionManager.getNextEventSequence())
         ]
         if let currentIntent = currentSRSClassification {
             defaultAttributes["current_classification"] = currentIntent
