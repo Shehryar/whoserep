@@ -408,7 +408,7 @@ class ChatViewController: UIViewController {
     // MARK: Button Actions
     
     func didTapAskButton() {
-        increaseTooltipActionsCount()
+        increaseTooltipActionsCount(increaseAmount: 2)
         
         showWelcomeView()
         
@@ -434,10 +434,10 @@ extension ChatViewController {
         return UserDefaults.standard.integer(forKey: hasShownAskTooltipKey())
     }
     
-    private static let MAX_TOOLTIP_ACTIONS_COUNT = 2
+    private static let MAX_TOOLTIP_ACTIONS_COUNT = 3
     
-    func increaseTooltipActionsCount() {
-        var numberOfTimesShown = numberOfTooltipActions() + 1
+    func increaseTooltipActionsCount(increaseAmount: Int = 1) {
+        var numberOfTimesShown = numberOfTooltipActions() + increaseAmount
         UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
     }
     
