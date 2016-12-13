@@ -227,7 +227,7 @@ extension ConversationManager {
             }
             break
             
-        case .InAppLink, .Link:
+        case .InAppLink, .Link, .AppAction:
             DebugLogError("ConversationManager cannot handle button with type \(buttonItem.type)")
             break
         }

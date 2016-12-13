@@ -442,7 +442,7 @@ extension ChatViewController {
     }
     
     func showAskButtonTooltipIfNecessary() {
-        guard !showWelcomeOnViewAppear && !askQuestionVCVisible
+        guard !showWelcomeOnViewAppear && !askQuestionVCVisible && !isLiveChat
             && numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
             return
         }
@@ -642,6 +642,22 @@ extension ChatViewController {
             let originalQuery = simpleStore.getSRSOriginalSearchQuery()
             conversationManager.sendButtonItemSelection(buttonItem,
                                                         originalSearchQuery: originalQuery)
+            break
+            
+        case .AppAction:
+            if DEMO_LIVE_CHAT {
+                if let appAction = buttonItem.appAction {
+                    switch appAction {
+                    case .Ask:
+                        setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+                        break
+                        
+                    case .BeginLiveChat:
+                        isLiveChat = true
+                        break
+                    }
+                }
+            }
             break
         }
     }

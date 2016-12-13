@@ -118,7 +118,7 @@ extension AppSettings {
     
     var supportsLiveChat: Bool {
         switch company {
-        case .asapp, .asapp2, .comcast: return true
+        case .asapp, .asapp2, .comcast, .mitch: return true
         case .sprint: return false
         }
     }
@@ -137,6 +137,9 @@ extension AppSettings {
             
         case .asapp, .asapp2:
             return [.asappDemo, .asappDemo2]
+            
+        case .mitch:
+            return [.mitch]
         }
     }
     
@@ -163,6 +166,13 @@ extension AppSettings {
             settings.useDarkNavStyle()
             settings.useLightContentStyle()
             return settings
+            
+        case .mitch:
+            let settings = AppSettings(company: .mitch, companyMarker: "mitch", styles: ASAPPStyles())
+            settings.useDarkNavStyle()
+            settings.useDarkContentStyle()
+            return settings
+            
             
         case .comcast:
             let settings = AppSettings(company: .comcast, companyMarker: "comcast", styles: ASAPP.stylesForCompany(company.rawValue))
@@ -222,8 +232,12 @@ extension AppSettings {
 
 extension AppSettings {
     
+    var companiesThatCanChangeColors: [Company] {
+        return [Company.asapp, Company.asapp2, Company.mitch]
+    }
+    
     var canChangeColors: Bool {
-        return [Company.asapp, Company.asapp2].contains(company) 
+        return companiesThatCanChangeColors.contains(company)
     }
     
     // MARK: Nav Bar
@@ -233,7 +247,7 @@ extension AppSettings {
     }
     
     func useLightNavStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        guard companiesThatCanChangeColors.contains(company) else { return }
         
         logoImage = UIImage(named: "asapp-logo")
         logoImageSize = CGSize(width: 100, height: 22)
@@ -245,7 +259,7 @@ extension AppSettings {
     }
     
     func useDarkNavStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        guard companiesThatCanChangeColors.contains(company) else { return }
         
         logoImage = UIImage(named: "asapp-logo-light")
         logoImageSize = CGSize(width: 100, height: 22)
@@ -263,7 +277,7 @@ extension AppSettings {
     }
     
     func useLightContentStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        guard companiesThatCanChangeColors.contains(company) else { return }
         
         styles = ASAPPStyles()
         
@@ -280,7 +294,7 @@ extension AppSettings {
     }
     
     func useDarkContentStyle() {
-        guard [Company.asapp, Company.asapp2].contains(company) else { return }
+        guard companiesThatCanChangeColors.contains(company) else { return }
         
         styles = ASAPPStyles.darkStyles()
         

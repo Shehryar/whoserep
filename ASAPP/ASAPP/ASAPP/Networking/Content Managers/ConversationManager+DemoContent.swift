@@ -54,6 +54,16 @@ extension ConversationManager {
     }
     
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) -> Bool {
+        if DEMO_LIVE_CHAT {
+            if let srsQuery = buttonItem.srsValue {
+                if srsQuery == "beginLiveChat" {
+                    _sendMessage(buttonItem.title, completion: completion)
+                    sendFakeLiveChatBeganMessage()
+                    return true
+                }
+            }
+        }
+        
         guard DEMO_CONTENT_ENABLED else { return false }
         
         if let srsQuery = buttonItem.srsValue {
@@ -74,8 +84,9 @@ extension ConversationManager {
     
     func demo_OverrideMessageSend(message: String, completion: (() -> Void)? = nil) -> Bool {
         if DEMO_LIVE_CHAT &&
-            (message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]]) ||
-                message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]]) ) {
+            (message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
+                || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]])
+            ) {
             if let demoResponse = Event.demoResponseForMessage(message: message,
                                                                company: credentials.companyMarker) {
                 _sendMessage(message)
@@ -190,6 +201,12 @@ extension ConversationManager {
     
     func sendFakeCancelAppointmentConfirmationMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .cancelAppointmentConfirmation,
+                                                      company: credentials.companyMarker)
+        echoMessageResponse(withJSONString: jsonString)
+    }
+    
+    func sendFakeLiveChatBeganMessage() {
+        let jsonString = Event.getDemoEventJsonString(eventType: .chatWithAnAgentConfirmation,
                                                       company: credentials.companyMarker)
         echoMessageResponse(withJSONString: jsonString)
     }

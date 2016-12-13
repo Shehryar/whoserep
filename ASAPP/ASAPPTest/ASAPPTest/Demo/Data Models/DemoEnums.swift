@@ -16,12 +16,14 @@ enum Company: String {
     case asapp2 = "asapp2"
     case comcast = "comcast"
     case sprint = "sprint"
+    case mitch = "mitch"
     
     static let all = [
         asapp,
+        mitch,
         asapp2,
         comcast,
-        sprint
+        sprint,
     ]
 }
 
@@ -49,6 +51,7 @@ enum EnvironmentPrefix: String {
     case comcastDemo = "comcast-demo"
     case asappDemo = "demo"
     case asappDemo2 = "demo2"
+    case mitch = "mitch"
     case unknown = "unknown"
 }
 
@@ -64,6 +67,7 @@ func ASAPPEnvironmentForEnvironmentPrefix(_ prefix: EnvironmentPrefix) -> ASAPPE
     case .comcastDemo: return .staging
     case .asappDemo: return .staging
     case .asappDemo2: return .staging
+    case .mitch: return .staging
     case .unknown: return .staging
     }
 }

@@ -182,8 +182,9 @@ extension ChatActionableMessageView: UITableViewDataSource {
                 NSKernAttributeName : 1.5
                 ])
             cell.imageTintColor = styles.buttonColor
+            
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
-                buttonItem.type == .SRS || buttonItem.type == .Action || buttonItem.type == .Message {
+                [.SRS, .Action, .Message, .AppAction].contains(buttonItem.type) {
                 cell.imageView?.isHidden = true
                 cell.accessibilityTraits = UIAccessibilityTraitButton
             } else {
