@@ -38,7 +38,6 @@
 		285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B261DAC881C008C2EF6 /* SRSItemCarouselView.swift */; };
 		285F7B291DACFC33008C2EF6 /* SRSItemListBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B281DACFC33008C2EF6 /* SRSItemListBlockView.swift */; };
 		2860A61E1E00469F00DF5CA7 /* chat-with-an-agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */; };
-		2860A6201E004B4200DF5CA7 /* chat-with-an-agent-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 2860A61F1E004B4200DF5CA7 /* chat-with-an-agent-confirmation.json */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
@@ -260,7 +259,6 @@
 		285F7B261DAC881C008C2EF6 /* SRSItemCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemCarouselView.swift; sourceTree = "<group>"; };
 		285F7B281DACFC33008C2EF6 /* SRSItemListBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListBlockView.swift; sourceTree = "<group>"; };
 		2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-with-an-agent.json"; sourceTree = "<group>"; };
-		2860A61F1E004B4200DF5CA7 /* chat-with-an-agent-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-with-an-agent-confirmation.json"; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSuggestedRepliesView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
 				30A003491DC258A700CFA4CD /* json-style-example.json */,
 				2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */,
-				2860A61F1E004B4200DF5CA7 /* chat-with-an-agent-confirmation.json */,
 			);
 			path = "Demo JSON";
 			sourceTree = "<group>";
@@ -1200,7 +1197,6 @@
 				3022684F1D80690500EC4FB1 /* icon-loader.png in Resources */,
 				285F7B061DAB3409008C2EF6 /* cancel-appointment.json in Resources */,
 				302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */,
-				2860A6201E004B4200DF5CA7 /* chat-with-an-agent-confirmation.json in Resources */,
 				285F7AD11DA9A526008C2EF6 /* SprintSans-Bold.ttf in Resources */,
 				302268491D80690500EC4FB1 /* icon-back.png in Resources */,
 				301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */,

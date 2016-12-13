@@ -363,7 +363,7 @@ class ChatViewController: UIViewController {
         
         var tempLiveChat = false
         for (_, event) in events.enumerated().reversed() {
-            if event.eventType == .newRep {
+            if event.eventType == .newRep || event.eventType == .switchSRSToChat {
                 tempLiveChat = true
                 break
             }
@@ -653,7 +653,7 @@ extension ChatViewController {
                         break
                         
                     case .BeginLiveChat:
-                        isLiveChat = true
+                        conversationManager.sendSRSSwitchToChat()
                         break
                     }
                 }
@@ -983,9 +983,9 @@ extension ChatViewController: ConversationManagerDelegate {
         DebugLog("ChatViewController: Connection -> \(isConnected ? "connected" : "not connected")")
     }
     
-    func conversationManager(_ manager: ConversationManager, conversationEndEventReceived event: Event) {
-        if event.eventType == .conversationEnd {
-            isLiveChat = false
+    func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
+        if DEMO_LIVE_CHAT {
+            self.isLiveChat = isLiveChat
         }
     }
     
@@ -1036,11 +1036,13 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         
-        // Update for live-chat/srs-chat
-        if srsResponse.classification == SRSClassifications.enterLiveChat.rawValue {
-            isLiveChat = true
-        } else if srsResponse.classification == SRSClassifications.enterSRSChat.rawValue {
-            isLiveChat = false
+        if DEMO_LIVE_CHAT {
+            // Update for live-chat/srs-chat
+            if srsResponse.classification == SRSClassifications.enterLiveChat.rawValue {
+                isLiveChat = true
+            } else if srsResponse.classification == SRSClassifications.enterSRSChat.rawValue {
+                isLiveChat = false
+            }
         }
     }
 }

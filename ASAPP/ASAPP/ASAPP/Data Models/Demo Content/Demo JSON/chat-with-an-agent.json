@@ -12,14 +12,6 @@
       },
       {
          "type": "button",
-         "label": "Chat with an agent",
-         "value": {
-            "content": "beginLiveChat",
-            "type": "AID"
-          }
-      },
-      {
-         "type": "button",
          "label": "Chat with an agent right now!",
          "value": {
             "content": "live_chat",

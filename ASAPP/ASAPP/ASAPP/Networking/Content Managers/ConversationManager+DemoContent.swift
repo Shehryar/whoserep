@@ -54,16 +54,6 @@ extension ConversationManager {
     }
     
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) -> Bool {
-        if DEMO_LIVE_CHAT {
-            if let srsQuery = buttonItem.srsValue {
-                if srsQuery == "beginLiveChat" {
-                    _sendMessage(buttonItem.title, completion: completion)
-                    sendFakeLiveChatBeganMessage()
-                    return true
-                }
-            }
-        }
-        
         guard DEMO_CONTENT_ENABLED else { return false }
         
         if let srsQuery = buttonItem.srsValue {
@@ -201,12 +191,6 @@ extension ConversationManager {
     
     func sendFakeCancelAppointmentConfirmationMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .cancelAppointmentConfirmation,
-                                                      company: credentials.companyMarker)
-        echoMessageResponse(withJSONString: jsonString)
-    }
-    
-    func sendFakeLiveChatBeganMessage() {
-        let jsonString = Event.getDemoEventJsonString(eventType: .chatWithAnAgentConfirmation,
                                                       company: credentials.companyMarker)
         echoMessageResponse(withJSONString: jsonString)
     }

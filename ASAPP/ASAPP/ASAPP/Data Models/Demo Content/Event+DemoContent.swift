@@ -30,7 +30,6 @@ enum DemoEventType {
     case appointmentConfirmation
     case jsonStyleExample
     case chatWithAnAgent
-    case chatWithAnAgentConfirmation
     
     static let allTypes = [billAutoPay,
                            billCredit,
@@ -52,7 +51,6 @@ enum DemoEventType {
                            appointmentConfirmation,
                            jsonStyleExample,
                            chatWithAnAgent,
-                           chatWithAnAgentConfirmation
                            ]
 }
 
@@ -141,7 +139,6 @@ extension Event {
         case .appointmentConfirmation: return "appointment-confirmation"
         case .jsonStyleExample: return "json-style-example"
         case .chatWithAnAgent: return "chat-with-an-agent"
-        case .chatWithAnAgentConfirmation: return "chat-with-an-agent-confirmation"
         }
     }
     
@@ -292,7 +289,7 @@ extension Event {
                 ["chat", "someone"]
             ]
             
-        case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation, .chatWithAnAgentConfirmation:
+        case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:
             return nil
         }
     }

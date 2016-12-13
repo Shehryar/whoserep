@@ -33,6 +33,7 @@ import Foundation
     case srsEcho = 23
     case srsAction = 24
     case scheduleAppointment = 27
+    case switchSRSToChat = 28
 }
 
 @objc enum EphemeralType: Int {

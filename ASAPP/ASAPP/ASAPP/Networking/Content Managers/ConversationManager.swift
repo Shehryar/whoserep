@@ -17,7 +17,7 @@ protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event)
     func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event)
     func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool)
-    func conversationManager(_ manager: ConversationManager, conversationEndEventReceived event: Event)
+    func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool)
 }
 
 // MARK:- ConversationManager
@@ -156,6 +156,10 @@ extension ConversationManager {
         }
         
         _sendMessage(message, completion: completion)
+    }
+    
+    func sendSRSSwitchToChat() {
+        socketConnection.sendRequest(withPath: "srs/SwitchSRSToChat", params: nil);
     }
     
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
@@ -324,8 +328,9 @@ extension ConversationManager: SocketConnectionDelegate {
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     break
                     
-                case .conversationEnd:
-                    delegate?.conversationManager(self, conversationEndEventReceived: event)
+                case .conversationEnd, .switchSRSToChat:
+                    let isLiveChat = event.eventType == .switchSRSToChat
+                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
                     break
                     
                 case .none:
