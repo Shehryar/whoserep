@@ -889,7 +889,7 @@ extension ChatViewController {
     }
     
     func showSuggestedRepliesView(withSRSResponse srsResponse: SRSResponse, forEvent event: Event, animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard srsResponse.buttonItems != nil else { return }
+        guard srsResponse.buttonItems != nil && !isLiveChat else { return }
         
         actionableMessage = srsResponse
         suggestedRepliesView.setActionableMessage(srsResponse, forEvent: event, animated: animated)

@@ -105,20 +105,6 @@ extension ConversationManager {
 extension ConversationManager {
     
     func demo_OverrideReceivedMessageEvent(event: Event) -> Bool {
-        if DEMO_LIVE_CHAT {
-            // Slow internet, switch to live chat
-            if event.srsResponse?.classification == "RICS" ||
-                event.srsResponse?.classification == "BC" {
-                sendSwitchToLiveChatMessage(event.eventLogSeq)
-                return true
-            }
-            // Schedule Appointment
-//            if event.eventType == .scheduleAppointment {
-//                sendScheduleAppointmentMessage(event.eventLogSeq)
-//                return true
-//            }
-        }
-        
         guard DEMO_CONTENT_ENABLED else { return false }
         
         if event.srsResponse?.classification == "BR" {
