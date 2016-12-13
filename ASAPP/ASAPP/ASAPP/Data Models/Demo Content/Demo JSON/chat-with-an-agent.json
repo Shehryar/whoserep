@@ -12,7 +12,7 @@
       },
       {
          "type": "button",
-         "label": "Chat with an agent right now!",
+         "label": "Chat with an agent",
          "value": {
             "content": "live_chat",
             "type": "APP_ACTION"
