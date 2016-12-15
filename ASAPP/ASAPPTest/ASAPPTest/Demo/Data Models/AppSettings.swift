@@ -350,7 +350,7 @@ extension AppSettings {
         //        sleep(1) // Mimic slow response from Comcast
         
         return [
-            ASAPP.AUTH_KEY_ACCESS_TOKEN : "fake_access_token_abc12345",
+            ASAPP.AUTH_KEY_ACCESS_TOKEN : "asapp_ios_fake_access_token",
             ASAPP.AUTH_KEY_ISSUED_TIME : Date(),
             ASAPP.AUTH_KEY_EXPIRES_IN : 60 * 60
         ]
