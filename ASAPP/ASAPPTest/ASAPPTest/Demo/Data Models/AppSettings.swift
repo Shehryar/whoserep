@@ -129,7 +129,7 @@ extension AppSettings {
             if liveChatEnabled {
                 return [.comcastDemo]
             } else {
-                return [.comcastStaging, .comcastStaging2, .comcastProd, .comcastProd2]
+                return [.comcastStaging]
             }
             
         case .sprint:

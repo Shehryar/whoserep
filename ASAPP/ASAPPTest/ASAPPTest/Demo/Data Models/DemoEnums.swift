@@ -45,9 +45,7 @@ func CompanyAfter(company: Company) -> Company {
 enum EnvironmentPrefix: String {
     case sprint = "sprint"
     case comcastStaging = "comcast.preprod"
-    case comcastStaging2 = "comcast-api.preprod"
-    case comcastProd = "comcast"
-    case comcastProd2 = "comcast-api"
+//    case comcastProd = "comcast"
     case comcastDemo = "comcast-demo"
     case asappDemo = "demo"
     case asappDemo2 = "demo2"
@@ -61,9 +59,7 @@ func ASAPPEnvironmentForEnvironmentPrefix(_ prefix: EnvironmentPrefix) -> ASAPPE
     switch prefix {
     case .sprint: return .staging
     case .comcastStaging: return .staging
-    case .comcastStaging2: return .staging
-    case .comcastProd: return .production
-    case .comcastProd2: return .production
+//    case .comcastProd: return .production
     case .comcastDemo: return .staging
     case .asappDemo: return .staging
     case .asappDemo2: return .staging
