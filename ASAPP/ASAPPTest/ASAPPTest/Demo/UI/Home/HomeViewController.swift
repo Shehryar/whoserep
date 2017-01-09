@@ -135,7 +135,6 @@ extension HomeViewController {
         
         self.appSettings = nextAppSettings
         self.currentAccount = appSettings.getCurrentAccount()
-        
     }
 }
 
@@ -146,7 +145,7 @@ extension HomeViewController {
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
         
-//        print("Company: \(userManager.companyMarker)\nuserToken: \(userManager.getUserToken())\nEnvironment: \(environment.rawValue)")
+        print("Company: \(currentAccount.company)\nuserToken: \(currentAccount.userToken)\nEnvironment: \(appSettings.environment)")
         
         chatButton = ASAPP.createChatButton(
             company: currentAccount.company,

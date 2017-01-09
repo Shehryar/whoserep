@@ -75,6 +75,13 @@ class AppSettings: NSObject {
     
     var demoContentEnabled: Bool
     
+    var canUseDifferentCompany: Bool {
+        switch environment {
+        case .asapp, .mitch: return true
+        case .comcast, .sprint: return false
+        }
+    }
+    
     //
     // MARK:- Init
     //

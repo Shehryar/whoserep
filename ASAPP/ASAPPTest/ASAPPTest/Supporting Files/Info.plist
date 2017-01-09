@@ -76,6 +76,8 @@
 	<true/>
 	<key>can-change-environment</key>
 	<string>$(CAN_CHANGE_ENVIRONMENT)</string>
+	<key>can-user-different-company</key>
+	<string>CAN_USE_DIFFERENT_COMPANY</string>
 	<key>company-changing-enabled</key>
 	<string>$(COMPANY_CHANGING_ENABLED)</string>
 	<key>default-environment</key>

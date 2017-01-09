@@ -23,6 +23,10 @@ class DemoSettings: NSObject {
      
         // Live Chat
         UserDefaults.standard.set(appSettings.liveChatEnabled, forKey: KEY_DEMO_LIVE_CHAT)
+        
+        
+        // Environment Prefix
+        UserDefaults.standard.set(appSettings.environment.rawValue, forKey: KEY_DEMO_ENVIRONMENT_PREFIX)
     }
     
     // MARK:- Public Methods: GET

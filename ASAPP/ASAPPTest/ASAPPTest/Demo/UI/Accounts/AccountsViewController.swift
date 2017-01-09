@@ -31,7 +31,7 @@ class AccountsViewController: BaseTableViewController {
     
     weak var delegate: AccountsViewControllerDelegate?
     
-    fileprivate let allAccounts = UserAccount.allPresetAccounts()
+    fileprivate var allAccounts = UserAccount.allPresetAccounts()
     
     fileprivate let imageNameSizingCell = ImageNameCell()
     fileprivate let buttonSizingCell = ButtonCell()
@@ -42,6 +42,19 @@ class AccountsViewController: BaseTableViewController {
         super.init(appSettings: appSettings)
         
         title = "Accounts"
+        
+        if appSettings.canUseDifferentCompany {
+            allAccounts = UserAccount.allPresetAccounts()
+        } else {
+            let company = appSettings.defaultCompany
+            var userAccounts = [UserAccount]()
+            for (_, userAccount) in UserAccount.allPresetAccounts().enumerated() {
+                if userAccount.company == company {
+                    userAccounts.append(userAccount)
+                }
+            }
+            allAccounts = userAccounts
+        }
         
         tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
@@ -112,12 +125,18 @@ extension AccountsViewController {
         switch indexPath.section {
         case Section.current.rawValue:
             cell.name = currentAccount?.name
+            if let currentAccount = currentAccount {
+                cell.detailText = "Company: \(currentAccount.company)\n\(currentAccount.userToken)"
+            } else {
+                cell.detailText = nil
+            }
             cell.imageName = currentAccount?.imageName
             break
             
         case Section.all.rawValue:
             let account = allAccounts[indexPath.row]
             cell.name = account.name
+            cell.detailText = "Company: \(account.company)\n\(account.userToken)"
             cell.imageName = account.imageName
             break
             
@@ -141,7 +160,7 @@ extension AccountsViewController {
             }
             
         case Section.all.rawValue:
-            return "Select account:"
+            return allAccounts.count > 0 ? "Select account:" : nil
             
         case Section.create.rawValue:
             return ""
