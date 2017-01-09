@@ -280,9 +280,6 @@ extension AppSettings {
     }
     
     func getCurrentAccount() -> UserAccount {
-        DemoLog("\n\n\n\n\nGetting current acount with key: \(accountStorageKey())\n\n\n\n")
-        
-        
         if let savedAccount = UserAccount.getSavedAccount(withKey: accountStorageKey()) {
             return savedAccount
         }
