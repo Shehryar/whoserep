@@ -74,10 +74,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>can-change-environment</key>
+	<string>$(CAN_CHANGE_ENVIRONMENT)</string>
 	<key>company-changing-enabled</key>
 	<string>$(COMPANY_CHANGING_ENABLED)</string>
-	<key>default-demo-company</key>
-	<string>$(DEFAULT_DEMO_COMPANY)</string>
+	<key>default-environment</key>
+	<string>$(DEFAULT_ENVIRONMENT)</string>
 	<key>demo-content-enabled</key>
 	<string>$(DEMO_CONTENT_ENABLED)</string>
 	<key>demo-live-chat</key>

@@ -17,7 +17,6 @@ class DemoEnvironmentViewController: BaseTableViewController {
     enum Section: Int {
         case demoContent
         case liveChat
-        case environment
         case colors
         case count
     }
@@ -32,35 +31,22 @@ class DemoEnvironmentViewController: BaseTableViewController {
     
     weak var delegate: DemoEnvironmentViewControllerDelegate?
     
-    fileprivate var supportedEnvironmentPrefixes: [EnvironmentPrefix]
     fileprivate let toggleSizingCell = TitleToggleCell()
     fileprivate let checkmarkSizingCell = TitleCheckmarkCell()
     
     // MARK: Init
     
     required init(appSettings: AppSettings) {
-        self.supportedEnvironmentPrefixes = appSettings.supportedEnvironmentPrefixes
-        
         super.init(appSettings: appSettings)
         
         title = "Environment Settings"
         
         tableView.register(TitleToggleCell.self, forCellReuseIdentifier: TitleToggleCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
-        
-        updateSupportedEnvironments()
-    }
+            }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Data
-    
-    func updateSupportedEnvironments() {
-        supportedEnvironmentPrefixes = appSettings.supportedEnvironmentPrefixes
-        
-        tableView.reloadSections([Section.environment.rawValue], with: .automatic)
     }
 }
 
@@ -80,9 +66,6 @@ extension DemoEnvironmentViewController {
         case Section.liveChat.rawValue:
             return appSettings.supportsLiveChat ? 1 : 0
             
-        case Section.environment.rawValue:
-            return supportedEnvironmentPrefixes.count
-            
         case Section.colors.rawValue:
             return appSettings.canChangeColors ? ColorsRow.count.rawValue : 0
             
@@ -101,11 +84,6 @@ extension DemoEnvironmentViewController {
         case Section.liveChat.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
             styleToggleCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-            
-        case Section.environment.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleCheckmarkCell.reuseId, for: indexPath) as? TitleCheckmarkCell
-            styleCheckmarkCell(cell, indexPath: indexPath)
             return cell ?? TableViewCell()
             
         case Section.colors.rawValue:
@@ -143,7 +121,6 @@ extension DemoEnvironmentViewController {
             cell.onToggleChange = { [weak self] (isOn: Bool) in
                 if let blockSelf = self {
                     blockSelf.appSettings.liveChatEnabled = isOn
-                    blockSelf.updateSupportedEnvironments()
                     blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
                 }
             }
@@ -198,16 +175,6 @@ extension DemoEnvironmentViewController {
         default: break
         }
     }
-    
-    func styleCheckmarkCell(_ cell: TitleCheckmarkCell?, indexPath: IndexPath) {
-        guard let cell = cell else { return }
-        
-        cell.appSettings = appSettings
-        
-        let environmentPrefix = supportedEnvironmentPrefixes[indexPath.row]
-        cell.title = environmentPrefix.rawValue
-        cell.isChecked = appSettings.environmentPrefix == environmentPrefix
-    }
 }
 
 // MARK:- UITableViewDelegate
@@ -221,10 +188,7 @@ extension DemoEnvironmentViewController {
             
         case Section.liveChat.rawValue:
             return appSettings.supportsLiveChat ? "LIVE CHAT" : nil
-            
-        case Section.environment.rawValue:
-            return "AVAILABLE ENVIRONMENTS"
-            
+
         case Section.colors.rawValue:
             return appSettings.canChangeColors ? "COLORS" : nil
             
@@ -243,25 +207,11 @@ extension DemoEnvironmentViewController {
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
             
-        case Section.environment.rawValue:
-            styleCheckmarkCell(checkmarkSizingCell, indexPath: indexPath)
-            return checkmarkSizingCell.sizeThatFits(sizer).height
-            
         default: return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        
-        guard indexPath.section == Section.environment.rawValue else { return }
-        
-        let nextEnvironmentPrefix = supportedEnvironmentPrefixes[indexPath.row]
-        if nextEnvironmentPrefix != appSettings.environmentPrefix {
-            appSettings.environmentPrefix = nextEnvironmentPrefix
-            tableView.reloadData()
-        
-            delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
-        }
     }
 }

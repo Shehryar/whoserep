@@ -11,7 +11,7 @@ import ASAPP
 
 class HomeViewController: BaseViewController {
     
-    let canChangeCompany: Bool
+    let canChangeEnvironment: Bool
     
     var currentAccount: UserAccount {
         didSet {
@@ -35,8 +35,8 @@ class HomeViewController: BaseViewController {
     
     // MARK:- Initialization
 
-    required init(appSettings: AppSettings, canChangeCompany: Bool) {
-        self.canChangeCompany = canChangeCompany
+    required init(appSettings: AppSettings, canChangeEnvironment: Bool) {
+        self.canChangeEnvironment = canChangeEnvironment
         self.homeTableView = HomeTableView(appSettings: appSettings)
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
@@ -111,8 +111,8 @@ extension HomeViewController {
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.logoImageSize.width, height: appSettings.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
-        if canChangeCompany {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeCompany))
+        if canChangeEnvironment {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeEnvironment))
             tapGesture.numberOfTapsRequired = 4
             logoImageView.addGestureRecognizer(tapGesture)
         }
@@ -122,17 +122,20 @@ extension HomeViewController {
         refreshChatButton()
     }
     
-    func changeCompany() {
-        guard canChangeCompany else { return }
+    func changeEnvironment() {
+        guard canChangeEnvironment else { return }
         
-        let nextCompany = CompanyAfter(company: appSettings.company)
-        let nextAppSettings = AppSettings.settingsFor(nextCompany)
+        let nextEnvironment = AppSettings.environmentAfter(environment: appSettings.environment)
+        
+        let nextAppSettings = AppSettings.settingsFor(environment: nextEnvironment)
         nextAppSettings.demoContentEnabled = appSettings.demoContentEnabled
         if nextAppSettings.supportsLiveChat && appSettings.liveChatEnabled {
             nextAppSettings.liveChatEnabled = true
         }
         
         self.appSettings = nextAppSettings
+        self.currentAccount = appSettings.getCurrentAccount()
+        
     }
 }
 
@@ -146,7 +149,7 @@ extension HomeViewController {
 //        print("Company: \(userManager.companyMarker)\nuserToken: \(userManager.getUserToken())\nEnvironment: \(environment.rawValue)")
         
         chatButton = ASAPP.createChatButton(
-            company: appSettings.companyMarker,
+            company: currentAccount.company,
             customerId: currentAccount.userToken,
             environment: appSettings.asappEnvironment,
             authProvider: authProvider,
@@ -286,7 +289,7 @@ extension HomeViewController {
     
     func showHelp() {
         let chatViewController = ASAPP.createChatViewController(
-            company: appSettings.companyMarker,
+            company: currentAccount.company,
             customerId: currentAccount.userToken,
             environment: appSettings.asappEnvironment,
             authProvider: authProvider,
@@ -327,7 +330,8 @@ extension HomeViewController {
     // MARK: Utility
     
     private func imageForImageName(imageName: String) -> UIImage? {
-        if let image = UIImage(named: "\(appSettings.companyMarker)-\(imageName)") {
+        let company = AppSettings.defaultCompanyForEnvironment(environment: appSettings.environment)
+        if let image = UIImage(named: "\(company)-\(imageName)") {
             return image
         }
         

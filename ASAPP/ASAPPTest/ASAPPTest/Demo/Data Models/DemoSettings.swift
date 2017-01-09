@@ -18,13 +18,6 @@ class DemoSettings: NSObject {
     
     class func applySettings(for appSettings: AppSettings) {
         
-        // Environment Prefix
-        if appSettings.environmentPrefix != .unknown {
-            UserDefaults.standard.set(appSettings.environmentPrefix.rawValue, forKey: KEY_DEMO_ENVIRONMENT_PREFIX)
-        } else {
-            UserDefaults.standard.removeObject(forKey: KEY_DEMO_ENVIRONMENT_PREFIX)
-        }
-        
         // Demo Content
         UserDefaults.standard.set(appSettings.demoContentEnabled, forKey: KEY_DEMO_CONTENT)
      
@@ -34,12 +27,12 @@ class DemoSettings: NSObject {
     
     // MARK:- Public Methods: GET
     
-    class func environmentPrefix() -> EnvironmentPrefix {
+    class func environmentPrefix() -> Environment {
         if let stringValue = UserDefaults.standard.string(forKey: KEY_DEMO_ENVIRONMENT_PREFIX),
-            let environmentPrefix = EnvironmentPrefix(rawValue: stringValue) {
+            let environmentPrefix = Environment(rawValue: stringValue) {
             return environmentPrefix
         }
-        return .unknown
+        return .asapp
     }
     
     class func isDemoContentEnabled() -> Bool {

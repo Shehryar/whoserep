@@ -9,11 +9,17 @@
 import UIKit
 import ASAPP
 
+
+enum Environment: String {
+    case asapp = "demo"
+    case mitch = "mitch"
+    case comcast = "comcast.preprod"
+    case sprint = "sprint"
+}
+
 class AppSettings: NSObject {
     
-    let company: Company
-    
-    let companyMarker: String
+    let environment: Environment
     
     var styles: ASAPPStyles
     
@@ -64,30 +70,17 @@ class AppSettings: NSObject {
             if liveChatEnabled && !supportsLiveChat {
                 liveChatEnabled = false
             }
-            
-            if !supportedEnvironmentPrefixes.contains(environmentPrefix) {
-                environmentPrefix = defaultEnvironmentPrefix
-            }
         }
     }
     
     var demoContentEnabled: Bool
     
-    var environmentPrefix: EnvironmentPrefix! {
-        didSet {
-            if !supportedEnvironmentPrefixes.contains(environmentPrefix) {
-                environmentPrefix = defaultEnvironmentPrefix
-            }
-        }
-    }
-    
     //
     // MARK:- Init
     //
     
-    init(company: Company, companyMarker: String, styles: ASAPPStyles?) {
-        self.company = company
-        self.companyMarker = companyMarker
+    init(environment: Environment, styles: ASAPPStyles?) {
+        self.environment = environment
         self.styles = styles ?? ASAPPStyles()
         
         // Version Info
@@ -99,8 +92,6 @@ class AppSettings: NSObject {
         self.demoContentEnabled = false
         self.liveChatEnabled = false
         super.init()
-        
-        self.environmentPrefix = defaultEnvironmentPrefix
     }
     
     deinit {
@@ -113,38 +104,15 @@ class AppSettings: NSObject {
 extension AppSettings {
     
     var asappEnvironment: ASAPPEnvironment {
-        return ASAPPEnvironmentForEnvironmentPrefix(environmentPrefix)
+        return .staging
     }
     
     var supportsLiveChat: Bool {
-        switch company {
-        case .asapp, .asapp2, .comcast, .mitch: return true
-        case .sprint: return false
-        }
+        return AppSettings.canDemoLiveChat(environment: environment)
     }
-    
-    var supportedEnvironmentPrefixes: [EnvironmentPrefix] {
-        switch company {
-        case .comcast:
-            if liveChatEnabled {
-                return [.comcastDemo]
-            } else {
-                return [.comcastStaging]
-            }
-            
-        case .sprint:
-            return [.sprint]
-            
-        case .asapp, .asapp2:
-            return [.asappDemo, .asappDemo2]
-            
-        case .mitch:
-            return [.mitch]
-        }
-    }
-    
-    var defaultEnvironmentPrefix: EnvironmentPrefix {
-        return supportedEnvironmentPrefixes.first ?? .unknown
+
+    var defaultCompany: String {
+        return AppSettings.defaultCompanyForEnvironment(environment: environment)
     }
 }
 
@@ -152,30 +120,25 @@ extension AppSettings {
 
 extension AppSettings {
     
-    class func settingsFor(_ company: Company) -> AppSettings {
+    class func settingsFor(environment: Environment) -> AppSettings {
         
-        switch company {
+        switch environment {
         case .asapp:
-            let settings = AppSettings(company: .asapp, companyMarker: "asapp", styles: ASAPPStyles())
+            let settings = AppSettings(environment: .asapp, styles: ASAPPStyles())
             settings.useLightNavStyle()
             settings.useLightContentStyle()
             return settings
-            
-        case .asapp2:
-            let settings = AppSettings(company: .asapp2, companyMarker: "asapp", styles: ASAPPStyles())
-            settings.useDarkNavStyle()
-            settings.useLightContentStyle()
-            return settings
+
             
         case .mitch:
-            let settings = AppSettings(company: .mitch, companyMarker: "mitch", styles: ASAPPStyles())
+            let settings = AppSettings(environment: .mitch, styles: ASAPPStyles())
             settings.useDarkNavStyle()
             settings.useDarkContentStyle()
             return settings
             
-            
         case .comcast:
-            let settings = AppSettings(company: .comcast, companyMarker: "comcast", styles: ASAPP.stylesForCompany(company.rawValue))
+            let styles = ASAPP.stylesForCompany(AppSettings.defaultCompanyForEnvironment(environment: .comcast))
+            let settings = AppSettings(environment: .comcast, styles: styles)
             settings.logoImage = UIImage(named: "comcast-logo")
             settings.logoImageSize = CGSize(width: 140, height: 28)
 
@@ -202,7 +165,8 @@ extension AppSettings {
             return settings
             
         case .sprint:
-            let settings = AppSettings(company: .sprint, companyMarker: "sprint", styles: ASAPP.stylesForCompany(company.rawValue))
+            let styles = ASAPP.stylesForCompany(AppSettings.defaultCompanyForEnvironment(environment: .comcast))
+            let settings = AppSettings(environment: .sprint, styles: styles)
             settings.logoImage = UIImage(named: "sprint-logo")
             settings.logoImageSize = CGSize(width: 140, height: 36)
 
@@ -232,12 +196,8 @@ extension AppSettings {
 
 extension AppSettings {
     
-    var companiesThatCanChangeColors: [Company] {
-        return [Company.asapp, Company.asapp2, Company.mitch]
-    }
-    
     var canChangeColors: Bool {
-        return companiesThatCanChangeColors.contains(company)
+        return AppSettings.canChangeColors(environment: environment)
     }
     
     // MARK: Nav Bar
@@ -247,7 +207,7 @@ extension AppSettings {
     }
     
     func useLightNavStyle() {
-        guard companiesThatCanChangeColors.contains(company) else { return }
+        guard canChangeColors else { return }
         
         logoImage = UIImage(named: "asapp-logo")
         logoImageSize = CGSize(width: 100, height: 22)
@@ -259,7 +219,7 @@ extension AppSettings {
     }
     
     func useDarkNavStyle() {
-        guard companiesThatCanChangeColors.contains(company) else { return }
+        guard canChangeColors else { return }
         
         logoImage = UIImage(named: "asapp-logo-light")
         logoImageSize = CGSize(width: 100, height: 22)
@@ -277,7 +237,7 @@ extension AppSettings {
     }
     
     func useLightContentStyle() {
-        guard companiesThatCanChangeColors.contains(company) else { return }
+        guard canChangeColors else { return }
         
         styles = ASAPPStyles()
         
@@ -294,7 +254,7 @@ extension AppSettings {
     }
     
     func useDarkContentStyle() {
-        guard companiesThatCanChangeColors.contains(company) else { return }
+        guard canChangeColors else { return }
         
         styles = ASAPPStyles.darkStyles()
         
@@ -315,15 +275,19 @@ extension AppSettings {
 extension AppSettings {
     
     private func accountStorageKey() -> String {
-        return "\(company)-Demo-Account-Key"
+        
+        return "\(environment)-Demo-Account-Key"
     }
     
     func getCurrentAccount() -> UserAccount {
+        DemoLog("\n\n\n\n\nGetting current acount with key: \(accountStorageKey())\n\n\n\n")
+        
+        
         if let savedAccount = UserAccount.getSavedAccount(withKey: accountStorageKey()) {
             return savedAccount
         }
         
-        let account = UserAccount.newRandomAccount()
+        let account = UserAccount.newRandomAccount(company: defaultCompany)
         account.save(withKey: accountStorageKey())
         
         return account
@@ -331,6 +295,37 @@ extension AppSettings {
     
     func setCurrentAccount(account: UserAccount) {
         account.save(withKey: accountStorageKey())
+    }
+}
+
+// MARK:- Static Environment Functions
+
+extension AppSettings {
+    
+    static func defaultCompanyForEnvironment(environment: Environment) -> String {
+        switch environment {
+        case .asapp: return "asapp"
+        case .mitch: return "mitch"
+        case .comcast: return "comcast"
+        case .sprint: return "sprint"
+        }
+    }
+    
+    static func canChangeColors(environment: Environment) -> Bool {
+        return [Environment.asapp, Environment.mitch].contains(environment)
+    }
+    
+    static func canDemoLiveChat(environment: Environment) -> Bool {
+        return [Environment.asapp, Environment.mitch].contains(environment)
+    }
+    
+    static func environmentAfter(environment: Environment) -> Environment {
+        switch environment {
+        case .asapp: return .mitch
+        case .mitch: return .comcast
+        case .comcast: return .sprint
+        case .sprint: return .asapp
+        }
     }
 }
 

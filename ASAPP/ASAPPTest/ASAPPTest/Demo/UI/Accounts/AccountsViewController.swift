@@ -168,7 +168,7 @@ extension AccountsViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == Section.create.rawValue {
-            let account = UserAccount.newRandomAccount()
+            let account = UserAccount.newRandomAccount(company: appSettings.defaultCompany)
             delegate?.accountsViewController(viewController: self, didSelectAccount: account)
             return
         }

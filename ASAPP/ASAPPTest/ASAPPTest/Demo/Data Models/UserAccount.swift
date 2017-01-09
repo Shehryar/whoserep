@@ -30,13 +30,15 @@ class UserAccount: NSObject {
     
     var name: String
     var imageName: String
+    var company: String
     var userToken: String
     
     fileprivate static let defaultImageName = "user-anonymous"
     
-    required init(name: String, imageName: String, userToken: String) {
+    required init(name: String, imageName: String, company: String, userToken: String) {
         self.name = name
         self.imageName = imageName
+        self.company = company
         self.userToken = userToken
         super.init()
     }
@@ -46,30 +48,36 @@ class UserAccount: NSObject {
 
 extension UserAccount {
     
-    class func account(forPresetAccount presetAccount: PresetAccount) -> UserAccount {
+    class func account(forPresetAccount presetAccount: PresetAccount, company: String) -> UserAccount {
         switch presetAccount {
         case .gustavo: return UserAccount(name: "Gustavo",
                                           imageName: "user-gustavo",
+                                          company: company,
                                           userToken: "+13126089137")
             
         case .josh: return UserAccount(name: "Josh",
                                        imageName: "user-josh",
+                                       company: company,
                                        userToken: "test-token-josh")
             
         case .jane: return UserAccount(name: "Jane",
                                        imageName: "user-jane",
+                                       company: company,
                                        userToken: "test-token-jane")
             
         case .rachel: return UserAccount(name: "Rachel",
                                          imageName: "user-rachel",
+                                         company: company,
                                          userToken: "test-token-rachel")
             
         case .vicky: return UserAccount(name: "Vicky",
                                         imageName: "user-vicky",
+                                        company: company,
                                         userToken: "test-token-vicky")
             
         case .mitch: return UserAccount(name: "Mitch",
                                         imageName: "user-mitch",
+                                        company: company,
                                         userToken: "test-token-mitch")
         }
     }
@@ -77,7 +85,7 @@ extension UserAccount {
     class func allPresetAccounts() -> [UserAccount] {
         var userAccounts = [UserAccount]()
         for preset in PresetAccount.all {
-            userAccounts.append(account(forPresetAccount: preset))
+            userAccounts.append(account(forPresetAccount: preset, company: "asapp"))
         }
         return userAccounts
     }
@@ -87,12 +95,13 @@ extension UserAccount {
 
 extension UserAccount {
     
-    class func newRandomAccount() -> UserAccount {
+    class func newRandomAccount(company: String) -> UserAccount {
         let name = RandomNameGenerator.firstName()
         let userToken = "test-token-\(Int(Date().timeIntervalSince1970))"
         
         return UserAccount(name: name,
                            imageName: UserAccount.defaultImageName,
+                           company: company,
                            userToken: userToken)
     }
 }
@@ -102,19 +111,22 @@ extension UserAccount {
 extension UserAccount {
 
     static let keyName = "name"
+    static let keyCompany = "company"
     static let keyUserToken = "user_token"
     static let keyImageName = "image_name"
     
     class func accountWith(json: [String : String]?) -> UserAccount? {
         guard let json = json,
             let name = json[keyName],
-            let userToken = json[keyUserToken]
+            let userToken = json[keyUserToken],
+            let company = json[keyCompany]
             else {
                 return nil
         }
         
         let account = UserAccount(name: name,
                                   imageName: json[keyImageName] ?? defaultImageName,
+                                  company: company,
                                   userToken: userToken)
         
         return account
@@ -123,6 +135,7 @@ extension UserAccount {
     func toJSON() -> [String : String] {
         return [
             UserAccount.keyName : name,
+            UserAccount.keyCompany : company,
             UserAccount.keyUserToken : userToken,
             UserAccount.keyImageName : imageName
         ]
@@ -143,7 +156,7 @@ extension UserAccount {
     class func getSavedAccount(withKey key: String) -> UserAccount? {
         if let savedAccountJSON = UserDefaults.standard.object(forKey: key) as? [String : String],
             let savedAccount = UserAccount.accountWith(json: savedAccountJSON) {
-            DemoLog("Found account with key \(key): [\(savedAccount.name) : \(savedAccount.userToken)]")
+            DemoLog("Found account with key \(key): \(savedAccount.toJSON())")
             return savedAccount
         }
         DemoLog("No account found with key \(key)")

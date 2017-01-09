@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.backgroundColor = UIColor.white
         
         let appSettings = buildAppSettings()
-        let canChangeCompany = Bundle.main.infoDictionary?["company-changing-enabled"] as? String == "YES"
+        let canChangeEnvironment = Bundle.main.infoDictionary?["can-change-environment"] as? String == "YES"
         
-        homeController = HomeViewController(appSettings: appSettings, canChangeCompany: canChangeCompany)
+        homeController = HomeViewController(appSettings: appSettings, canChangeEnvironment: canChangeEnvironment)
         
         Fabric.with([Crashlytics.self])
         
@@ -83,14 +83,14 @@ extension AppDelegate {
         let liveChatEnabled = infoDict?["demo-live-chat"] as? String == "YES"
         let demoContentEnabled = infoDict?["demo-content-enabled"] as? String == "YES"
         
-        let company: Company
-        if let companyString = infoDict?["default-demo-company"] as? String {
-            company = Company(rawValue: companyString) ?? .asapp
+        let environment: Environment
+        if let environmentString = infoDict?["default-environment"] as? String {
+            environment = Environment(rawValue: environmentString) ?? .asapp
         } else {
-            company = .asapp
+            environment = .asapp
         }
-        
-        let appSettings = AppSettings.settingsFor(company)
+
+        let appSettings = AppSettings.settingsFor(environment: environment)
         appSettings.liveChatEnabled = liveChatEnabled
         appSettings.demoContentEnabled = demoContentEnabled
 
