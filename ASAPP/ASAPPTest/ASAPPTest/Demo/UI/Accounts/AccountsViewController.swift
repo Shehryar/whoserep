@@ -126,7 +126,7 @@ extension AccountsViewController {
         case Section.current.rawValue:
             cell.name = currentAccount?.name
             if let currentAccount = currentAccount {
-                cell.detailText = "Company: \(currentAccount.company)\n\(currentAccount.userToken)"
+                cell.detailText = "Company: \(currentAccount.company)\nToken: \(currentAccount.userToken)"
             } else {
                 cell.detailText = nil
             }
@@ -136,7 +136,7 @@ extension AccountsViewController {
         case Section.all.rawValue:
             let account = allAccounts[indexPath.row]
             cell.name = account.name
-            cell.detailText = "Company: \(account.company)\n\(account.userToken)"
+            cell.detailText = "Company: \(account.company)\nToken: \(account.userToken)"
             cell.imageName = account.imageName
             break
             

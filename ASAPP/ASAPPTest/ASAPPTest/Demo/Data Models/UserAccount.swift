@@ -12,17 +12,31 @@ class UserAccount: NSObject {
     
     enum PresetAccount {
         case gustavo
-        case josh
-        case jane
+        case alan
+        case joshua
+        case susan
+        case tim
+        case tony
+        case lori
+        case sandy
         case rachel
+        case max
+        case jane
         case vicky
         case mitch
         
         static let all = [
             gustavo,
-            josh,
-            jane,
+            alan,
+            joshua,
+            susan,
+            tim,
+            tony,
+            lori,
+            sandy,
             rachel,
+            max,
+            jane,
             vicky,
             mitch
         ]
@@ -52,33 +66,68 @@ extension UserAccount {
         switch presetAccount {
         case .gustavo: return UserAccount(name: "Gustavo",
                                           imageName: "user-gustavo",
-                                          company: company,
+                                          company: "company1",
                                           userToken: "+13126089137")
             
-        case .josh: return UserAccount(name: "Josh",
-                                       imageName: "user-josh",
-                                       company: company,
-                                       userToken: "test-token-josh")
+        case .alan:return UserAccount(name: "Alan",
+                                      imageName: "user-alan",
+                                      company: "company2",
+                                      userToken: "test-user-alan")
             
-        case .jane: return UserAccount(name: "Jane",
-                                       imageName: "user-jane",
-                                       company: company,
-                                       userToken: "test-token-jane")
+        case .joshua: return UserAccount(name: "Joshua",
+                                         imageName: "user-joshua",
+                                         company: "company3",
+                                         userToken: "test-user-joshua")
+            
+        case .susan: return UserAccount(name: "Susan",
+                                        imageName: "user-susan",
+                                        company: "company4",
+                                        userToken: "test-user-susan")
+            
+        case .tim: return UserAccount(name: "Tim",
+                                     imageName: "user-tim",
+                                     company: "company5",
+                                     userToken: "test-user-tim")
+            
+        case .tony: return UserAccount(name: "Tony",
+                                       imageName: "user-tony",
+                                       company: "company6",
+                                       userToken: "test-user-tony")
+            
+        case .lori: return UserAccount(name: "Lori",
+                                       imageName: "user-lori",
+                                       company: "company7",
+                                       userToken: "test-user-lori")
+            
+        case .sandy: return UserAccount(name: "Sandy",
+                                        imageName: "user-sandy",
+                                        company: "company8",
+                                        userToken: "test-user-sandy")
             
         case .rachel: return UserAccount(name: "Rachel",
                                          imageName: "user-rachel",
-                                         company: company,
-                                         userToken: "test-token-rachel")
+                                         company: "company9",
+                                         userToken: "test-user-rachel")
+            
+        case .max: return UserAccount(name: "Max",
+                                      imageName: "user-max",
+                                      company: "company10",
+                                      userToken: "test-user-max")
+            
+        case .jane: return UserAccount(name: "Jane",
+                                       imageName: "user-jane",
+                                       company: "company11",
+                                       userToken: "test-user-jane")
             
         case .vicky: return UserAccount(name: "Vicky",
                                         imageName: "user-vicky",
-                                        company: company,
-                                        userToken: "test-token-vicky")
+                                        company: "company12",
+                                        userToken: "test-user-vicky")
             
         case .mitch: return UserAccount(name: "Mitch",
                                         imageName: "user-mitch",
-                                        company: company,
-                                        userToken: "test-token-mitch")
+                                        company: "company13",
+                                        userToken: "test-user-mitch")
         }
     }
     

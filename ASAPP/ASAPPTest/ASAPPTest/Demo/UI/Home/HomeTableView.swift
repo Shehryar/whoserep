@@ -239,7 +239,7 @@ extension HomeTableView: UITableViewDataSource {
         cell.appSettings = appSettings
         cell.name = currentAccount?.name ?? "Sign In"
         if let currentAccount = currentAccount {
-            cell.detailText = "Company: \(currentAccount.company)\n\(currentAccount.userToken)"
+            cell.detailText = "Company: \(currentAccount.company)\nToken: \(currentAccount.userToken)"
         } else {
             cell.detailText = nil
         }
