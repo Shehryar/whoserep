@@ -28,7 +28,6 @@
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
-		308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1171DCD01B200477013 /* DemoEnums.swift */; };
 		30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988E891DC7B69A00470E09 /* DemoSettings.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
 		30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA71DC7BA8700470E09 /* HomeViewController.swift */; };
@@ -85,7 +84,6 @@
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
-		308CB1171DCD01B200477013 /* DemoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnums.swift; sourceTree = "<group>"; };
 		30988E891DC7B69A00470E09 /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
 		30988EA71DC7BA8700470E09 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
 				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
-				308CB1171DCD01B200477013 /* DemoEnums.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
 			);
 			path = "Data Models";
@@ -403,7 +400,6 @@
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
-				308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
@@ -1108,7 +1104,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = NO;
+				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1141,7 +1137,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = NO;
+				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
