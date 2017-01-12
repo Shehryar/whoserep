@@ -93,7 +93,7 @@ extension UserAccount {
         case .tony: return UserAccount(name: "Tony",
                                        imageName: "user-tony",
                                        company: "company7",
-                                       userToken: "+14167622262")
+                                       userToken: "+19173241544")
             
         case .lori: return UserAccount(name: "Lori",
                                        imageName: "user-lori",
