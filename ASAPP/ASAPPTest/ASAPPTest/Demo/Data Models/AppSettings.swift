@@ -48,20 +48,24 @@ class AppSettings: NSObject {
     // MARK:- Init
     //
     
-    init(environment: Environment) {
+    init(environment: Environment, branding: Branding? = nil) {
         self.environment = environment
-        switch environment {
-        case .comcast:
-            branding = Branding(brandingType: .xfinity)
-            break
-        
-        case .sprint:
-            branding = Branding(brandingType: .sprint)
-            break
+        if let branding = branding {
+            self.branding = branding
+        } else {
+            switch environment {
+            case .comcast:
+                self.branding = Branding(brandingType: .xfinity)
+                break
             
-        case .mitch, .asapp:
-            branding = Branding(brandingType: .asapp)
-            break
+            case .sprint:
+                self.branding = Branding(brandingType: .sprint)
+                break
+                
+            case .mitch, .asapp:
+                self.branding = Branding(brandingType: .asapp)
+                break
+            }
         }
         
         // Version Info
@@ -94,15 +98,6 @@ extension AppSettings {
 
     var defaultCompany: String {
         return AppSettings.defaultCompanyForEnvironment(environment: environment)
-    }
-}
-
-// MARK:- Presets
-
-extension AppSettings {
-    
-    class func settingsFor(environment: Environment) -> AppSettings {
-        return AppSettings(environment: environment)
     }
 }
 

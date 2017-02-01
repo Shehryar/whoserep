@@ -143,6 +143,8 @@ extension HomeViewController {
     func changeBranding(brandingType: BrandingType) {
         self.appSettings.branding = Branding(brandingType: brandingType)
         reloadViewForUpdatedSettings()
+        
+        Branding.saveBrandingTypeBetweenSessions(brandingType: brandingType)
     }
     
     func changeEnvironment() {
@@ -150,7 +152,7 @@ extension HomeViewController {
         
         let nextEnvironment = AppSettings.environmentAfter(environment: appSettings.environment)
         
-        let nextAppSettings = AppSettings.settingsFor(environment: nextEnvironment)
+        let nextAppSettings = AppSettings(environment: nextEnvironment)
         nextAppSettings.demoContentEnabled = appSettings.demoContentEnabled
         if nextAppSettings.supportsLiveChat && appSettings.liveChatEnabled {
             nextAppSettings.liveChatEnabled = true

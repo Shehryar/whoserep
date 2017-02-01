@@ -89,11 +89,11 @@ extension AppDelegate {
         } else {
             environment = .asapp
         }
-
-        let appSettings = AppSettings.settingsFor(environment: environment)
+        
+        let appSettings = AppSettings(environment: environment, branding: Branding.getSavedBranding())
         appSettings.liveChatEnabled = liveChatEnabled
         appSettings.demoContentEnabled = demoContentEnabled
-
+        
         DemoSettings.applySettings(for: appSettings)
         
         return appSettings
