@@ -67,10 +67,10 @@ class TitleCheckmarkCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            titleLabel.font = appSettings.regularFont.withSize(16)
-            titleLabel.textColor = appSettings.foregroundColor
+            titleLabel.font = appSettings.branding.fonts.regularFont.withSize(16)
+            titleLabel.textColor = appSettings.branding.colors.foregroundColor
             
-            checkmarkView.image = UIImage(named: "icon-checkmark")?.fillAlpha(appSettings.accentColor)
+            checkmarkView.image = UIImage(named: "icon-checkmark")?.fillAlpha(appSettings.branding.colors.accentColor)
         }
         
         setNeedsLayout()

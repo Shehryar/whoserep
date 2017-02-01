@@ -120,7 +120,7 @@ extension AccountsViewController {
         cell.appSettings = appSettings
         cell.detailText = nil
         cell.imageSize = 50
-        cell.nameLabel.font = appSettings.lightFont.withSize(24)
+        cell.nameLabel.font = appSettings.branding.fonts.lightFont.withSize(24)
         
         switch indexPath.section {
         case Section.current.rawValue:

@@ -39,9 +39,15 @@ class Branding: NSObject {
     
     var logoImageName: String!
     
+    var logoImage: UIImage? {
+        return UIImage(named: logoImageName)
+    }
+    
     let colors: BrandingColors
     
     let fonts: BrandingFonts
+    
+    private(set) var styles: ASAPPStyles!
     
     // MARK:- Init
     
@@ -53,21 +59,25 @@ class Branding: NSObject {
         
         switch self.brandingType {
         case .asapp:
+            styles = ASAPP.stylesForCompany("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
             break
             
         case .xfinity:
+            styles = ASAPP.stylesForCompany("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
             break
             
         case .sprint:
+            styles = ASAPP.stylesForCompany("sprint")
             logoImageName = "sprint-logo"
             logoImageSize = CGSize(width: 140, height: 36)
             break
             
         case .boostMobile:
+            styles = ASAPP.stylesForCompany("sprint")
             logoImageName = "boost-logo"
             logoImageSize = CGSize(width: 140, height: 42)
             break
@@ -82,8 +92,6 @@ class Branding: NSObject {
 class BrandingColors: NSObject {
     
     let brandingType: BrandingType
-    
-    private(set) var styles: ASAPPStyles
     
     private(set) var backgroundColor: UIColor = UIColor.white
     private(set) var backgroundColor2: UIColor = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
@@ -103,7 +111,6 @@ class BrandingColors: NSObject {
     
     required init(brandingType: BrandingType) {
         self.brandingType = brandingType
-        self.styles = ASAPPStyles()
         super.init()
         
         switch self.brandingType {
@@ -112,8 +119,6 @@ class BrandingColors: NSObject {
             break
             
         case .xfinity:
-            styles = ASAPP.stylesForCompany("comcast")
-            
             navBarColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
             navBarTintColor = UIColor.white
             navBarTitleColor = UIColor.white
@@ -128,8 +133,6 @@ class BrandingColors: NSObject {
             break
             
         case .sprint:
-            styles = ASAPP.stylesForCompany("sprint")
-            
             navBarTintColor = UIColor.darkGray
             navBarTitleColor = UIColor.black
         
@@ -141,8 +144,6 @@ class BrandingColors: NSObject {
             break
             
         case .boostMobile:
-            styles = ASAPP.stylesForCompany("sprint")
-            
             navBarTintColor = UIColor.darkGray
             navBarTitleColor = UIColor.black
             

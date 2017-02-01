@@ -82,15 +82,15 @@ class ImageNameCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            nameLabel.font = appSettings.lightFont.withSize(34)
-            nameLabel.textColor = appSettings.foregroundColor
+            nameLabel.font = appSettings.branding.fonts.lightFont.withSize(34)
+            nameLabel.textColor = appSettings.branding.colors.foregroundColor
             
-            detailLabel.font = appSettings.lightFont.withSize(14)
-            detailLabel.textColor = appSettings.foregroundColor
+            detailLabel.font = appSettings.branding.fonts.lightFont.withSize(14)
+            detailLabel.textColor = appSettings.branding.colors.foregroundColor
             
-            userImageView.backgroundColor = appSettings.backgroundColor2
+            userImageView.backgroundColor = appSettings.branding.colors.backgroundColor2
             userImageView.layer.borderWidth = 1
-            userImageView.layer.borderColor = appSettings.foregroundColor.cgColor
+            userImageView.layer.borderColor = appSettings.branding.colors.foregroundColor.cgColor
         }
         
         setNeedsLayout()

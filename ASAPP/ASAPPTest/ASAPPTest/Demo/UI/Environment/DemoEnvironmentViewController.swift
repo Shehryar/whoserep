@@ -17,7 +17,6 @@ class DemoEnvironmentViewController: BaseTableViewController {
     enum Section: Int {
         case demoContent
         case liveChat
-        case colors
         case count
     }
     
@@ -65,10 +64,7 @@ extension DemoEnvironmentViewController {
             
         case Section.liveChat.rawValue:
             return appSettings.supportsLiveChat ? 1 : 0
-            
-        case Section.colors.rawValue:
-            return appSettings.canChangeColors ? ColorsRow.count.rawValue : 0
-            
+        
         default:
             return 0
         }
@@ -85,13 +81,7 @@ extension DemoEnvironmentViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
             styleToggleCell(cell, for: indexPath)
             return cell ?? TableViewCell()
-            
-        case Section.colors.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
-            styleToggleCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-            
-            
+
         default: return TableViewCell()
         }
     }
@@ -126,52 +116,6 @@ extension DemoEnvironmentViewController {
             }
             break
             
-        case Section.colors.rawValue:
-            switch indexPath.row {
-            case ColorsRow.navigation.rawValue:
-                cell.title = "Dark Nav Style"
-                cell.isOn = appSettings.isDarkNavStyle
-                cell.onToggleChange = { [weak self] (isOn: Bool) in
-                    guard let blockSelf = self else { return }
-                    
-                    if isOn {
-                        blockSelf.appSettings.useDarkNavStyle()
-                    } else {
-                        blockSelf.appSettings.useLightNavStyle()
-                        blockSelf.appSettings.useLightContentStyle()
-                    }
-                    DemoDispatcher.performOnMainThread {
-                        blockSelf.appSettings = blockSelf.appSettings
-                    }
-                    
-                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
-                }
-                break
-                
-            case ColorsRow.content.rawValue:
-                cell.title = "Dark Content Style"
-                cell.isOn = appSettings.isDarkContentStyle
-                cell.onToggleChange = { [weak self] (isOn: Bool) in
-                    guard let blockSelf = self else { return }
-                    
-                    if isOn {
-                        blockSelf.appSettings.useDarkContentStyle()
-                        blockSelf.appSettings.useDarkNavStyle()
-                    } else {
-                        blockSelf.appSettings.useLightContentStyle()
-                    }
-                    DemoDispatcher.performOnMainThread {
-                        blockSelf.appSettings = blockSelf.appSettings
-                    }
-                    
-                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
-                }
-                break
-                
-            default: break
-            }
-            break
-            
         default: break
         }
     }
@@ -189,9 +133,6 @@ extension DemoEnvironmentViewController {
         case Section.liveChat.rawValue:
             return appSettings.supportsLiveChat ? "LIVE CHAT" : nil
 
-        case Section.colors.rawValue:
-            return appSettings.canChangeColors ? "COLORS" : nil
-            
         default: return nil
         }
     }
@@ -202,11 +143,7 @@ extension DemoEnvironmentViewController {
         case Section.demoContent.rawValue:
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
-            
-        case Section.liveChat.rawValue, Section.colors.rawValue:
-            styleToggleCell(toggleSizingCell, for: indexPath)
-            return toggleSizingCell.sizeThatFits(sizer).height
-            
+
         default: return 0
         }
     }

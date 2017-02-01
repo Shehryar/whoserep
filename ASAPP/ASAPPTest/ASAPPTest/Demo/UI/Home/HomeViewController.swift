@@ -61,10 +61,8 @@ class HomeViewController: BaseViewController {
             }
         }
         
-        
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
-            
-            
+            self?.changeBranding(brandingType: type)
             self?.brandingSwitcherView.setExpanded(false, animated: true)
         }
     }
@@ -120,9 +118,9 @@ extension HomeViewController {
         homeTableView.appSettings = appSettings
         
         // Nav Logo
-        let logoImageView = UIImageView(image: appSettings.logoImage)
+        let logoImageView = UIImageView(image: appSettings.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.logoImageSize.width, height: appSettings.logoImageSize.height)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.branding.logoImageSize.width, height: appSettings.branding.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
 
         //        if canChangeEnvironment {
@@ -140,6 +138,11 @@ extension HomeViewController {
         
         // Chat Button
         refreshChatButton()
+    }
+    
+    func changeBranding(brandingType: BrandingType) {
+        self.appSettings.branding = Branding(brandingType: brandingType)
+        reloadViewForUpdatedSettings()
     }
     
     func changeEnvironment() {
@@ -178,7 +181,7 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: appSettings.styles,
+            styles: appSettings.branding.styles,
             presentingViewController: self)
         
         
@@ -318,7 +321,7 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: appSettings.styles)
+            styles: appSettings.branding.styles)
         
         present(chatViewController, animated: true, completion: nil)
     }

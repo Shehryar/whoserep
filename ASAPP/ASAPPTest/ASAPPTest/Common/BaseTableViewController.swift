@@ -25,7 +25,7 @@ class BaseTableViewController: BaseViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        tableView.backgroundColor = appSettings.backgroundColor2
+        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -52,8 +52,8 @@ class BaseTableViewController: BaseViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        tableView.backgroundColor = appSettings.backgroundColor2
-        tableView.separatorColor = appSettings.separatorColor
+        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
+        tableView.separatorColor = appSettings.branding.colors.separatorColor
         tableView.reloadData()
     }
     
@@ -85,11 +85,11 @@ extension BaseTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellReuseId) ?? UITableViewCell(style: .value1, reuseIdentifier: textCellReuseId)
         
         cell.textLabel?.text = title
-        cell.textLabel?.font = appSettings.boldFont.withSize(16)
+        cell.textLabel?.font = appSettings.branding.fonts.boldFont.withSize(16)
         cell.textLabel?.textColor = UIColor.darkGray
         
         cell.detailTextLabel?.text = detailText
-        cell.detailTextLabel?.font = appSettings.regularFont.withSize(16)
+        cell.detailTextLabel?.font = appSettings.branding.fonts.regularFont.withSize(16)
         cell.detailTextLabel?.textColor = UIColor.gray
         
         cell.accessoryType = accessoryType

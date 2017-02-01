@@ -62,9 +62,9 @@ class LabelIconCell: TableViewCell {
     func updateLabel() {
         if let title = title {
             titleLabel.attributedText = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName : appSettings?.regularFont.withSize(16) ?? DemoFonts.latoRegularFont(withSize: 16),
+                NSFontAttributeName : appSettings?.branding.fonts.regularFont.withSize(16) ?? DemoFonts.latoRegularFont(withSize: 16),
                 NSKernAttributeName : 1,
-                NSForegroundColorAttributeName : appSettings?.foregroundColor ?? UIColor.darkText
+                NSForegroundColorAttributeName : appSettings?.branding.colors.foregroundColor ?? UIColor.darkText
                 ])
         } else {
             titleLabel.attributedText = nil
@@ -74,7 +74,7 @@ class LabelIconCell: TableViewCell {
     
     func updateImage() {
         if let image = iconImage,
-            let tintColor = appSettings?.foregroundColor {
+            let tintColor = appSettings?.branding.colors.foregroundColor {
             iconImageView.image = image.fillAlpha(tintColor)
         }
     }
