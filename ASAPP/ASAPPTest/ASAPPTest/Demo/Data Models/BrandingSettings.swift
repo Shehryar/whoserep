@@ -78,8 +78,16 @@ class Branding: NSObject {
             
         case .boostMobile:
             styles = ASAPP.stylesForCompany("sprint")
-            logoImageName = "boost-logo"
-            logoImageSize = CGSize(width: 140, height: 42)
+            
+            styles.asappButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
+            styles.asappButtonForegroundColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
+            styles.asappButtonFont = DemoFonts.latoBlackFont().withSize(styles.asappButtonFont.pointSize)
+            
+            styles.navBarButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
+            styles.navBarButtonForegroundColor = UIColor.black
+            
+            logoImageName = "boost-logo-light"
+            logoImageSize = CGSize(width: 140, height: 32)
             break
         }
     }
@@ -144,14 +152,16 @@ class BrandingColors: NSObject {
             break
             
         case .boostMobile:
-            navBarTintColor = UIColor.darkGray
-            navBarTitleColor = UIColor.black
+            navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
+            navBarTintColor = UIColor.white
+            navBarTitleColor = UIColor.white
+            statusBarStyle = .lightContent
             
             foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
             foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
             backgroundColor = UIColor.white
             separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
-            accentColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
+            accentColor = UIColor(red:0.961, green:0.514, blue:0.071, alpha:1)
             break
         }
     }

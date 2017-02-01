@@ -24,6 +24,13 @@ class BrandingPreview: UIView {
     
     private var branding: Branding = Branding(brandingType: .asapp) {
         didSet {
+            if branding.colors.navBarColor.isEqual(UIColor.black)
+                || branding.colors.navBarColor.isEqual(UIColor.white) {
+                backgroundColor =  UIColor.clear
+            } else {
+                backgroundColor = branding.colors.navBarColor
+            }
+        
             backgroundView.effect = branding.colors.isDarkNavStyle
                 ? UIBlurEffect(style: .dark)
                 : UIBlurEffect(style: .light)

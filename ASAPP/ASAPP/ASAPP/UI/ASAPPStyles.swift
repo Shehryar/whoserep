@@ -46,13 +46,13 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Colors: General
     
-    internal var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
+    public var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
     
-    internal var navBarBackgroundColor: UIColor = Colors.whiteColor()
+    public var navBarBackgroundColor: UIColor = Colors.whiteColor()
     
-    internal var navBarButtonForegroundColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
+    public var navBarButtonForegroundColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
-    internal var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
+    public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
