@@ -29,6 +29,8 @@ class HomeViewController: BaseViewController {
 
     // MARK: UI
     
+    fileprivate let brandingSwitcherView = BrandingSwitcherView()
+    
     fileprivate let homeTableView: HomeTableView
     
     fileprivate var chatButton: ASAPPButton?
@@ -58,6 +60,13 @@ class HomeViewController: BaseViewController {
                 blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
             }
         }
+        
+        
+        brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
+            
+            
+            self?.brandingSwitcherView.setExpanded(false, animated: true)
+        }
     }
     
     required init(appSettings: AppSettings) {
@@ -78,6 +87,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(homeTableView)
+        view.addSubview(brandingSwitcherView)
     }
     
     // MARK: Layout
@@ -89,6 +99,9 @@ class HomeViewController: BaseViewController {
         if let navBar = navigationController?.navigationBar {
             visibleTop = navBar.frame.maxY
         }
+        
+        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: 0)
+        brandingSwitcherView.setExpanded(brandingSwitcherView.expanded, animated: false)
         
         homeTableView.frame = view.bounds
         homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
@@ -111,11 +124,18 @@ extension HomeViewController {
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.logoImageSize.width, height: appSettings.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
-        if canChangeEnvironment {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeEnvironment))
-            tapGesture.numberOfTapsRequired = 4
-            logoImageView.addGestureRecognizer(tapGesture)
-        }
+
+        //        if canChangeEnvironment {
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeEnvironment))
+//            tapGesture.numberOfTapsRequired = 4
+//            logoImageView.addGestureRecognizer(tapGesture)
+//        }
+        
+        
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        logoImageView.addGestureRecognizer(singleTapGesture)
+        
         navigationItem.titleView = logoImageView
         
         // Chat Button
@@ -135,6 +155,10 @@ extension HomeViewController {
         
         self.appSettings = nextAppSettings
         self.currentAccount = appSettings.getCurrentAccount()
+    }
+    
+    func toggleBrandingViewExpanded(gesture: UITapGestureRecognizer?) {
+        brandingSwitcherView.setExpanded(!brandingSwitcherView.expanded, animated: true)
     }
 }
 

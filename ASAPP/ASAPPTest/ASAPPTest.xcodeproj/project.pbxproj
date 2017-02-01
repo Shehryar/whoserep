@@ -15,6 +15,9 @@
 		281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E051DC973D900E4A65B /* AccountsViewController.swift */; };
 		281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E071DC973F500E4A65B /* ImageNameCell.swift */; };
 		281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E091DC9781200E4A65B /* UserAccount.swift */; };
+		300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A276F1E427D74000A624A /* BrandingSwitcherView.swift */; };
+		300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27711E427F6C000A624A /* BrandingPreview.swift */; };
+		300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* BrandingSettings.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -71,6 +74,9 @@
 		281D8E051DC973D900E4A65B /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		281D8E071DC973F500E4A65B /* ImageNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNameCell.swift; sourceTree = "<group>"; };
 		281D8E091DC9781200E4A65B /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		300A276F1E427D74000A624A /* BrandingSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSwitcherView.swift; sourceTree = "<group>"; };
+		300A27711E427F6C000A624A /* BrandingPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreview.swift; sourceTree = "<group>"; };
+		300A27731E4289C9000A624A /* BrandingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSettings.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -199,6 +205,7 @@
 				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
+				300A27731E4289C9000A624A /* BrandingSettings.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -228,6 +235,8 @@
 			children = (
 				30988EA71DC7BA8700470E09 /* HomeViewController.swift */,
 				30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */,
+				300A276F1E427D74000A624A /* BrandingSwitcherView.swift */,
+				300A27711E427F6C000A624A /* BrandingPreview.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -401,10 +410,13 @@
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
+				300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
+				300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
+				300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */,
 				281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
