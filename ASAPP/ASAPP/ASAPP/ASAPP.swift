@@ -49,7 +49,7 @@ public class ASAPP: NSObject {
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
     
-    // MARK: Fonts
+    // MARK: Fonts + Setup
     
     static var didLoadFonts = false
     
@@ -64,6 +64,15 @@ public class ASAPP: NSObject {
         return Fonts.loadedFonts()
     }
     
+    private class func commontSetup(testMode: Bool) {
+        loadFontsIfNecessary()
+        if !DISTRIBUTION_BUILD {
+            DEMO_CONTENT_ENABLED = testMode
+        } else {
+            DEMO_CONTENT_ENABLED = false
+        }
+    }
+    
     // MARK:- Chat Button
     
     /// Returns a new buttonView that can be manually added to a view.
@@ -75,10 +84,10 @@ public class ASAPP: NSObject {
                                        callbackHandler: @escaping ASAPPCallbackHandler,
                                        styles: ASAPPStyles?,
                                        strings: ASAPPStrings?,
+                                       testMode: Bool,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
-        loadFontsIfNecessary()
-        updateDemoSettings()
+        commontSetup(testMode: testMode)
         
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
@@ -113,6 +122,7 @@ public class ASAPP: NSObject {
                                 callbackHandler: callbackHandler,
                                 styles: styles,
                                 strings: nil,
+                                testMode: false,
                                 presentingViewController: presentingViewController)
     }
     
@@ -126,9 +136,10 @@ public class ASAPP: NSObject {
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler,
                                                styles: ASAPPStyles?,
-                                               strings: ASAPPStrings?) -> UIViewController {
+                                               strings: ASAPPStrings?,
+                                               testMode: Bool) -> UIViewController {
         
-        loadFontsIfNecessary()
+        commontSetup(testMode: testMode)
         
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
@@ -162,7 +173,8 @@ public class ASAPP: NSObject {
                                         contextProvider: contextProvider,
                                         callbackHandler: callbackHandler,
                                         styles: styles,
-                                        strings: nil)
+                                        strings: nil,
+                                        testMode: false)
     }
     
     // MARK:

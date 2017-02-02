@@ -40,8 +40,6 @@ class HomeViewController: BaseViewController {
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
         
-        DemoSettings.applySettings(for: appSettings)
-        
         self.homeTableView.currentAccount = currentAccount
         self.homeTableView.delegate = self
         self.authProvider = { [weak self] in
@@ -106,8 +104,6 @@ extension HomeViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        DemoSettings.applySettings(for: appSettings)
-        
         homeTableView.appSettings = appSettings
         
         // Nav Logo
@@ -157,6 +153,7 @@ extension HomeViewController {
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
             strings: nil,
+            testMode: appSettings.demoContentEnabled,
             presentingViewController: self)
         
         
@@ -297,7 +294,8 @@ extension HomeViewController {
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
-            strings: nil)
+            strings: nil,
+            testMode: appSettings.demoContentEnabled)
         
         present(chatViewController, animated: true, completion: nil)
     }

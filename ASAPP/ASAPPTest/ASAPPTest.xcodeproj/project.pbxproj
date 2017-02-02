@@ -17,7 +17,7 @@
 		281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E091DC9781200E4A65B /* UserAccount.swift */; };
 		300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A276F1E427D74000A624A /* BrandingSwitcherView.swift */; };
 		300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27711E427F6C000A624A /* BrandingPreview.swift */; };
-		300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* BrandingSettings.swift */; };
+		300A27741E4289C9000A624A /* Branding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* Branding.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -31,7 +31,6 @@
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
-		30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988E891DC7B69A00470E09 /* DemoSettings.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
 		30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA71DC7BA8700470E09 /* HomeViewController.swift */; };
 		30988EB31DC7BD7E00470E09 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EB21DC7BD7E00470E09 /* AppSettings.swift */; };
@@ -77,7 +76,7 @@
 		281D8E091DC9781200E4A65B /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		300A276F1E427D74000A624A /* BrandingSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSwitcherView.swift; sourceTree = "<group>"; };
 		300A27711E427F6C000A624A /* BrandingPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreview.swift; sourceTree = "<group>"; };
-		300A27731E4289C9000A624A /* BrandingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSettings.swift; sourceTree = "<group>"; };
+		300A27731E4289C9000A624A /* Branding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branding.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
-		30988E891DC7B69A00470E09 /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
 		30988EA71DC7BA8700470E09 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		30988EB21DC7BD7E00470E09 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -205,10 +203,9 @@
 			children = (
 				30CFF4031E43BD62009A0655 /* DemoEnums.swift */,
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
-				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
+				300A27731E4289C9000A624A /* Branding.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
-				300A27731E4289C9000A624A /* BrandingSettings.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -398,7 +395,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */,
-				30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */,
 				30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */,
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */,
@@ -415,7 +411,7 @@
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
 				300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
-				300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */,
+				300A27741E4289C9000A624A /* Branding.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
