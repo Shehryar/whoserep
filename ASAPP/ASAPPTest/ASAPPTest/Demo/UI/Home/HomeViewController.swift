@@ -58,7 +58,6 @@ class HomeViewController: BaseViewController {
         
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
             self?.changeBranding(brandingType: type)
-            self?.brandingSwitcherView.setExpanded(false, animated: true)
         }
     }
     
@@ -89,8 +88,8 @@ class HomeViewController: BaseViewController {
             visibleTop = navBar.frame.maxY
         }
         
-        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: 0)
-        brandingSwitcherView.setExpanded(brandingSwitcherView.expanded, animated: false)
+        let visibleHeight = view.bounds.height - visibleTop
+        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
         
         homeTableView.frame = view.bounds
         homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
@@ -131,7 +130,7 @@ extension HomeViewController {
     }
     
     func toggleBrandingViewExpanded(gesture: UITapGestureRecognizer?) {
-        brandingSwitcherView.setExpanded(!brandingSwitcherView.expanded, animated: true)
+        brandingSwitcherView.setSwitcherViewHidden(!brandingSwitcherView.switcherViewHidden, animated: true)
     }
 }
 
