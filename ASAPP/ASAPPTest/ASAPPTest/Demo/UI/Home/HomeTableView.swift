@@ -110,8 +110,8 @@ class HomeTableView: UIView {
     // MARK: View
     
     func applyAppSettings() {
-        tableView.backgroundColor = appSettings.backgroundColor2
-        tableView.separatorColor = appSettings.separatorColor
+        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
+        tableView.separatorColor = appSettings.branding.colors.separatorColor
         tableView.reloadData()
     }
 
@@ -202,8 +202,6 @@ extension HomeTableView: UITableViewDataSource {
         
         switch indexPath.section {
         case Section.demoSettings.rawValue:
-            let environmentString =  appSettings.environmentPrefix.rawValue
-            
             var featureStrings = [String]()
             if appSettings.liveChatEnabled {
                 featureStrings.append("• Live Chat")
@@ -211,13 +209,16 @@ extension HomeTableView: UITableViewDataSource {
             if appSettings.demoContentEnabled {
                 featureStrings.append("• Demo Content")
             }
-            var featuresString: String?
+            var featuresString: String = ""
             if featureStrings.count > 0 {
                 featuresString = featureStrings.joined(separator: "\n")
+            } else {
+                featuresString = "Default Configuration"
             }
-            cell.update(titleText: "Environment",
+            
+            cell.update(titleText: "Environment:",
                         detailText: featuresString,
-                        valueText: environmentString)
+                        valueText: "\(appSettings.environment.rawValue).asapp.com")
             break
         
         case Section.bill.rawValue:
@@ -237,7 +238,11 @@ extension HomeTableView: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.appSettings = appSettings
         cell.name = currentAccount?.name ?? "Sign In"
-        cell.detailText = currentAccount != nil ? currentAccount!.userToken : nil
+        if let currentAccount = currentAccount {
+            cell.detailText = "Company: \(currentAccount.company)\nToken: \(currentAccount.userToken)"
+        } else {
+            cell.detailText = nil
+        }
         cell.imageName = currentAccount?.imageName
     }
     

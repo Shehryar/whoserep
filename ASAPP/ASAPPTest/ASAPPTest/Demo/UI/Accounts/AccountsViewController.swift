@@ -31,7 +31,7 @@ class AccountsViewController: BaseTableViewController {
     
     weak var delegate: AccountsViewControllerDelegate?
     
-    fileprivate let allAccounts = UserAccount.allPresetAccounts()
+    fileprivate var allAccounts = UserAccount.allPresetAccounts()
     
     fileprivate let imageNameSizingCell = ImageNameCell()
     fileprivate let buttonSizingCell = ButtonCell()
@@ -42,6 +42,19 @@ class AccountsViewController: BaseTableViewController {
         super.init(appSettings: appSettings)
         
         title = "Accounts"
+        
+        if appSettings.canUseDifferentCompany {
+            allAccounts = UserAccount.allPresetAccounts()
+        } else {
+            let company = appSettings.defaultCompany
+            var userAccounts = [UserAccount]()
+            for (_, userAccount) in UserAccount.allPresetAccounts().enumerated() {
+                if userAccount.company == company {
+                    userAccounts.append(userAccount)
+                }
+            }
+            allAccounts = userAccounts
+        }
         
         tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
@@ -107,17 +120,23 @@ extension AccountsViewController {
         cell.appSettings = appSettings
         cell.detailText = nil
         cell.imageSize = 50
-        cell.nameLabel.font = appSettings.lightFont.withSize(24)
+        cell.nameLabel.font = appSettings.branding.fonts.lightFont.withSize(24)
         
         switch indexPath.section {
         case Section.current.rawValue:
             cell.name = currentAccount?.name
+            if let currentAccount = currentAccount {
+                cell.detailText = "Company: \(currentAccount.company)\nToken: \(currentAccount.userToken)"
+            } else {
+                cell.detailText = nil
+            }
             cell.imageName = currentAccount?.imageName
             break
             
         case Section.all.rawValue:
             let account = allAccounts[indexPath.row]
             cell.name = account.name
+            cell.detailText = "Company: \(account.company)\nToken: \(account.userToken)"
             cell.imageName = account.imageName
             break
             
@@ -141,7 +160,7 @@ extension AccountsViewController {
             }
             
         case Section.all.rawValue:
-            return "Select account:"
+            return allAccounts.count > 0 ? "Select account:" : nil
             
         case Section.create.rawValue:
             return ""
@@ -168,7 +187,7 @@ extension AccountsViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == Section.create.rawValue {
-            let account = UserAccount.newRandomAccount()
+            let account = UserAccount.newRandomAccount(company: appSettings.defaultCompany)
             delegate?.accountsViewController(viewController: self, didSelectAccount: account)
             return
         }

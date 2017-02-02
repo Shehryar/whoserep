@@ -11,7 +11,7 @@ import ASAPP
 
 class HomeViewController: BaseViewController {
     
-    let canChangeCompany: Bool
+    let canChangeEnvironment: Bool
     
     var currentAccount: UserAccount {
         didSet {
@@ -29,14 +29,16 @@ class HomeViewController: BaseViewController {
 
     // MARK: UI
     
+    fileprivate let brandingSwitcherView = BrandingSwitcherView()
+    
     fileprivate let homeTableView: HomeTableView
     
     fileprivate var chatButton: ASAPPButton?
     
     // MARK:- Initialization
 
-    required init(appSettings: AppSettings, canChangeCompany: Bool) {
-        self.canChangeCompany = canChangeCompany
+    required init(appSettings: AppSettings, canChangeEnvironment: Bool) {
+        self.canChangeEnvironment = canChangeEnvironment
         self.homeTableView = HomeTableView(appSettings: appSettings)
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
@@ -58,6 +60,11 @@ class HomeViewController: BaseViewController {
                 blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
             }
         }
+        
+        brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
+            self?.changeBranding(brandingType: type)
+            self?.brandingSwitcherView.setExpanded(false, animated: true)
+        }
     }
     
     required init(appSettings: AppSettings) {
@@ -78,6 +85,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(homeTableView)
+        view.addSubview(brandingSwitcherView)
     }
     
     // MARK: Layout
@@ -89,6 +97,9 @@ class HomeViewController: BaseViewController {
         if let navBar = navigationController?.navigationBar {
             visibleTop = navBar.frame.maxY
         }
+        
+        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: 0)
+        brandingSwitcherView.setExpanded(brandingSwitcherView.expanded, animated: false)
         
         homeTableView.frame = view.bounds
         homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
@@ -107,32 +118,52 @@ extension HomeViewController {
         homeTableView.appSettings = appSettings
         
         // Nav Logo
-        let logoImageView = UIImageView(image: appSettings.logoImage)
+        let logoImageView = UIImageView(image: appSettings.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.logoImageSize.width, height: appSettings.logoImageSize.height)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.branding.logoImageSize.width, height: appSettings.branding.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
-        if canChangeCompany {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeCompany))
-            tapGesture.numberOfTapsRequired = 4
-            logoImageView.addGestureRecognizer(tapGesture)
-        }
+
+        //        if canChangeEnvironment {
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.changeEnvironment))
+//            tapGesture.numberOfTapsRequired = 4
+//            logoImageView.addGestureRecognizer(tapGesture)
+//        }
+        
+        
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        logoImageView.addGestureRecognizer(singleTapGesture)
+        
         navigationItem.titleView = logoImageView
         
         // Chat Button
         refreshChatButton()
     }
     
-    func changeCompany() {
-        guard canChangeCompany else { return }
+    func changeBranding(brandingType: BrandingType) {
+        self.appSettings.branding = Branding(brandingType: brandingType)
+        reloadViewForUpdatedSettings()
         
-        let nextCompany = CompanyAfter(company: appSettings.company)
-        let nextAppSettings = AppSettings.settingsFor(nextCompany)
+        Branding.saveBrandingTypeBetweenSessions(brandingType: brandingType)
+    }
+    
+    func changeEnvironment() {
+        guard canChangeEnvironment else { return }
+        
+        let nextEnvironment = AppSettings.environmentAfter(environment: appSettings.environment)
+        
+        let nextAppSettings = AppSettings(environment: nextEnvironment)
         nextAppSettings.demoContentEnabled = appSettings.demoContentEnabled
         if nextAppSettings.supportsLiveChat && appSettings.liveChatEnabled {
             nextAppSettings.liveChatEnabled = true
         }
         
         self.appSettings = nextAppSettings
+        self.currentAccount = appSettings.getCurrentAccount()
+    }
+    
+    func toggleBrandingViewExpanded(gesture: UITapGestureRecognizer?) {
+        brandingSwitcherView.setExpanded(!brandingSwitcherView.expanded, animated: true)
     }
 }
 
@@ -143,16 +174,16 @@ extension HomeViewController {
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
         
-//        print("Company: \(userManager.companyMarker)\nuserToken: \(userManager.getUserToken())\nEnvironment: \(environment.rawValue)")
+        print("Company: \(currentAccount.company)\nuserToken: \(currentAccount.userToken)\nEnvironment: \(appSettings.environment)")
         
         chatButton = ASAPP.createChatButton(
-            company: appSettings.companyMarker,
+            company: currentAccount.company,
             customerId: currentAccount.userToken,
             environment: appSettings.asappEnvironment,
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: appSettings.styles,
+            styles: appSettings.branding.styles,
             presentingViewController: self)
         
         
@@ -286,13 +317,13 @@ extension HomeViewController {
     
     func showHelp() {
         let chatViewController = ASAPP.createChatViewController(
-            company: appSettings.companyMarker,
+            company: currentAccount.company,
             customerId: currentAccount.userToken,
             environment: appSettings.asappEnvironment,
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: appSettings.styles)
+            styles: appSettings.branding.styles)
         
         present(chatViewController, animated: true, completion: nil)
     }
@@ -327,7 +358,8 @@ extension HomeViewController {
     // MARK: Utility
     
     private func imageForImageName(imageName: String) -> UIImage? {
-        if let image = UIImage(named: "\(appSettings.companyMarker)-\(imageName)") {
+        let company = AppSettings.defaultCompanyForEnvironment(environment: appSettings.environment)
+        if let image = UIImage(named: "\(company)-\(imageName)") {
             return image
         }
         

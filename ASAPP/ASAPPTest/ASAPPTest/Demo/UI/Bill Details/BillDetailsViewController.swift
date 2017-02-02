@@ -124,18 +124,18 @@ extension BillDetailsViewController {
         switch indexPath.section {
         case Section.summary.rawValue:
             
-            cell.titleLabel.font = appSettings.regularFont.withSize(18)
-            cell.valueLabel.font = appSettings.lightFont.withSize(22)
-            cell.detailLabel.font = appSettings.lightFont.withSize(16)
+            cell.titleLabel.font = appSettings.branding.fonts.regularFont.withSize(18)
+            cell.valueLabel.font = appSettings.branding.fonts.lightFont.withSize(22)
+            cell.detailLabel.font = appSettings.branding.fonts.lightFont.withSize(16)
             cell.update(titleText: "Current Balance",
                         detailText: billDetails.dueDateString,
                         valueText: billDetails.total)
             break
             
         case Section.lineItems.rawValue:
-            cell.titleLabel.font = appSettings.regularFont.withSize(16)
-            cell.valueLabel.font = appSettings.lightFont.withSize(16)
-            cell.detailLabel.font = appSettings.lightFont.withSize(14)
+            cell.titleLabel.font = appSettings.branding.fonts.regularFont.withSize(16)
+            cell.valueLabel.font = appSettings.branding.fonts.lightFont.withSize(16)
+            cell.detailLabel.font = appSettings.branding.fonts.lightFont.withSize(14)
             let lineItem = billDetails.lineItems[indexPath.row]
             cell.update(titleText: lineItem.name,
                         detailText: lineItem.date,

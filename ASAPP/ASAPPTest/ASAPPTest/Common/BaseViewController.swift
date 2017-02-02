@@ -34,7 +34,7 @@ class BaseViewController: UIViewController {
     
     required init(appSettings: AppSettings) {
         self.appSettings = appSettings
-        self.statusBarStyle = self.appSettings.statusBarStyle
+        self.statusBarStyle = self.appSettings.branding.colors.statusBarStyle
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,9 +55,9 @@ extension BaseViewController: AppSettingsViewController {
     
     func reloadViewForUpdatedSettings() {
         
-        statusBarStyle = appSettings.statusBarStyle
+        statusBarStyle = appSettings.branding.colors.statusBarStyle
         
-        view.backgroundColor = appSettings.backgroundColor
+        view.backgroundColor = appSettings.branding.colors.backgroundColor
         
         styleNavigationBarWithAppSettings(navBar: navigationController?.navigationBar)
     }
@@ -68,25 +68,25 @@ extension BaseViewController: AppSettingsViewController {
         navBar.isTranslucent = true
         navBar.setBackgroundImage(nil, for: .default)
         navBar.backgroundColor = nil
-        if appSettings.navBarColor == UIColor.black {
+        if appSettings.branding.colors.navBarColor == UIColor.black {
             navBar.barTintColor = nil
             navBar.barStyle = .black
-        } else if appSettings.navBarColor == UIColor.white {
+        } else if appSettings.branding.colors.navBarColor == UIColor.white {
             navBar.barTintColor = nil
             navBar.barStyle = .default
         } else {
-            navBar.barTintColor = appSettings.navBarColor
+            navBar.barTintColor = appSettings.branding.colors.navBarColor
         }
         
         
-        navBar.tintColor = appSettings.navBarTintColor
+        navBar.tintColor = appSettings.branding.colors.navBarTintColor
         navBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : appSettings.navBarTitleColor,
-            NSFontAttributeName : appSettings.lightFont.withSize(19)
+            NSForegroundColorAttributeName : appSettings.branding.colors.navBarTitleColor,
+            NSFontAttributeName : appSettings.branding.fonts.lightFont.withSize(19)
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : appSettings.regularFont.withSize(16),
+            NSFontAttributeName : appSettings.branding.fonts.regularFont.withSize(16),
             //NSForegroundColorAttributeName : appSettings.navBarTintColor
             ],
                                                             for: .normal)

@@ -15,6 +15,9 @@
 		281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E051DC973D900E4A65B /* AccountsViewController.swift */; };
 		281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E071DC973F500E4A65B /* ImageNameCell.swift */; };
 		281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E091DC9781200E4A65B /* UserAccount.swift */; };
+		300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A276F1E427D74000A624A /* BrandingSwitcherView.swift */; };
+		300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27711E427F6C000A624A /* BrandingPreview.swift */; };
+		300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* BrandingSettings.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -28,7 +31,6 @@
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
-		308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1171DCD01B200477013 /* DemoEnums.swift */; };
 		30988E951DC7B69A00470E09 /* DemoSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988E891DC7B69A00470E09 /* DemoSettings.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
 		30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA71DC7BA8700470E09 /* HomeViewController.swift */; };
@@ -72,6 +74,9 @@
 		281D8E051DC973D900E4A65B /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		281D8E071DC973F500E4A65B /* ImageNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNameCell.swift; sourceTree = "<group>"; };
 		281D8E091DC9781200E4A65B /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		300A276F1E427D74000A624A /* BrandingSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSwitcherView.swift; sourceTree = "<group>"; };
+		300A27711E427F6C000A624A /* BrandingPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreview.swift; sourceTree = "<group>"; };
+		300A27731E4289C9000A624A /* BrandingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSettings.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -85,7 +90,6 @@
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
-		308CB1171DCD01B200477013 /* DemoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnums.swift; sourceTree = "<group>"; };
 		30988E891DC7B69A00470E09 /* DemoSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoSettings.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
 		30988EA71DC7BA8700470E09 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -200,8 +204,8 @@
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
 				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
-				308CB1171DCD01B200477013 /* DemoEnums.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
+				300A27731E4289C9000A624A /* BrandingSettings.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -231,6 +235,8 @@
 			children = (
 				30988EA71DC7BA8700470E09 /* HomeViewController.swift */,
 				30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */,
+				300A276F1E427D74000A624A /* BrandingSwitcherView.swift */,
+				300A27711E427F6C000A624A /* BrandingPreview.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -403,12 +409,14 @@
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
-				308CB1181DCD01B200477013 /* DemoEnums.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
+				300A27701E427D74000A624A /* BrandingSwitcherView.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
+				300A27741E4289C9000A624A /* BrandingSettings.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
+				300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */,
 				281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
@@ -516,11 +524,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "Sprint Debug";
 				ASAPP_BUNDLE_ID = com.asappinc.SprintDemoDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Sprint";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = sprint;
+				DEFAULT_ENVIRONMENT = sprint;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -589,11 +598,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = Sprint;
 				ASAPP_BUNDLE_ID = com.asappinc.SprintDemo;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Sprint";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFAULT_DEMO_COMPANY = sprint;
+				DEFAULT_ENVIRONMENT = sprint;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -670,11 +680,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "Comcast Debug";
 				ASAPP_BUNDLE_ID = com.asappinc.ComcastDemoDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Comcast";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = comcast;
+				DEFAULT_ENVIRONMENT = comcast.preprod;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -688,7 +699,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ComcastDemoDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -743,11 +754,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = Comcast;
 				ASAPP_BUNDLE_ID = com.asappinc.ComcastDemo;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Comcast";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFAULT_DEMO_COMPANY = comcast;
+				DEFAULT_ENVIRONMENT = comcast.preprod;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
@@ -825,11 +837,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP Chat Debug";
 				ASAPP_BUNDLE_ID = com.asappinc.LiveChatDemoDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ASAPP";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = asapp2;
+				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -843,7 +856,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.LiveChatDemoDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
+				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -898,11 +911,12 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP Chat";
 				ASAPP_BUNDLE_ID = com.asappinc.LiveChatDemo;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ASAPP";
+				CAN_CHANGE_ENVIRONMENT = NO;
+				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
-				COMPANY_CHANGING_ENABLED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFAULT_DEMO_COMPANY = asapp2;
+				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
@@ -973,12 +987,13 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP AdHoc";
 				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CAN_CHANGE_ENVIRONMENT = YES;
+				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
-				COMPANY_CHANGING_ENABLED = YES;
-				DEFAULT_DEMO_COMPANY = asapp;
+				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = NO;
+				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1095,12 +1110,14 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = "ASAPP Debug";
 				ASAPP_BUNDLE_ID = com.asappinc.TestAppDebug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CAN_CHANGE_ENVIRONMENT = YES;
+				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
-				COMPANY_CHANGING_ENABLED = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFAULT_DEMO_COMPANY = asapp;
+				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = NO;
+				DEMO_LIVE_CHAT = YES;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1113,6 +1130,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Development Profile";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1125,12 +1143,13 @@
 				ASAPP_BUNDLE_DISPLAY_NAME = ASAPP;
 				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CAN_CHANGE_ENVIRONMENT = YES;
+				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
-				COMPANY_CHANGING_ENABLED = NO;
-				DEFAULT_DEMO_COMPANY = asapp;
+				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = NO;
+				DEMO_LIVE_CHAT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

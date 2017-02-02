@@ -55,7 +55,7 @@ class TableViewCell: UITableViewCell {
     
     func applyAppSettings() {
         if let appSettings = appSettings {
-            backgroundColor = appSettings.backgroundColor
+            backgroundColor = appSettings.branding.colors.backgroundColor
         }
         updateSelectedView()
     }
@@ -66,7 +66,7 @@ class TableViewCell: UITableViewCell {
             selectedBackgroundView = selectedView
         } else {
             if let appSettings = appSettings {
-                selectedView.backgroundColor = appSettings.backgroundColor.highlightColor()
+                selectedView.backgroundColor = appSettings.branding.colors.backgroundColor.highlightColor()
                 selectedBackgroundView = selectedView
             } else {
                 selectedBackgroundView = nil

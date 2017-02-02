@@ -14,7 +14,6 @@ enum AnalyticsEventType: String {
     case deepLink = "DEEP_LINK"
     case webLink = "EXTERNAL_URL"
     case treewalk = "TREEWALK"
-    case sdkError = "SDK_ERROR"
     case srsRequestTime = "SRS_REQUEST_CLIENT"
 }
 
@@ -129,17 +128,6 @@ extension ConversationManager {
         
         trackEvent(eventType: .srsRequestTime,
                    attributes: attributes,
-                   metrics: metrics)
-    }
-    
-    func trackSDKError(type: SDKErrorType,
-                       attributes: AnalyticsAttributes? = nil,
-                       metrics: AnalyticsMetrics? = nil) {
-        
-        let allAttributes = [ "error" : type.rawValue ].with(attributes)
-        
-        trackEvent(eventType: .sdkError,
-                   attributes: allAttributes,
                    metrics: metrics)
     }
 }
