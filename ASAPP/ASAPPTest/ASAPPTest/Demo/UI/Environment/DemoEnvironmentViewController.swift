@@ -140,7 +140,7 @@ extension DemoEnvironmentViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
         switch indexPath.section {
-        case Section.demoContent.rawValue:
+        case Section.demoContent.rawValue, Section.liveChat.rawValue:
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
 
