@@ -11,9 +11,17 @@ import ASAPP
 
 class AppSettings: NSObject {
     
-    let subdomain: String
+    var subdomain: String {
+        didSet {
+            AppSettings.saveSubdomain(subdomain)
+        }
+    }
     
-    let defaultCompany: String
+    var defaultCompany: String {
+        didSet {
+            AppSettings.saveDefaultCompany(defaultCompany)
+        }
+    }
     
     let versionString: String
     
@@ -75,7 +83,6 @@ class AppSettings: NSObject {
 extension AppSettings {
     
     private func accountStorageKey() -> String {
-        
         return "\(subdomain)-Demo-Account-Key"
     }
     
@@ -107,6 +114,21 @@ extension AppSettings {
     
     class func getSavedSubdomain() -> String? {
         return UserDefaults.standard.string(forKey: KEY_SUBDOMAIN)
+    }
+}
+
+// MARK:- Saving: Default Company
+
+extension AppSettings {
+    private static let KEY_DEFAULT_COMPANY = "ASAPP_DEMO_KEY_DEFAULT_COMPANY"
+    
+    class func saveDefaultCompany(_ company: String) {
+        UserDefaults.standard.set(company, forKey: KEY_DEFAULT_COMPANY)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func getSavedDefaultCompany() -> String? {
+        return UserDefaults.standard.string(forKey: KEY_DEFAULT_COMPANY)
     }
 }
 

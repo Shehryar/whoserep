@@ -97,7 +97,7 @@ extension AppDelegate {
         
  
         let appSettings = AppSettings(subdomain: AppSettings.getSavedSubdomain(),
-                                      defaultCompany: nil,
+                                      defaultCompany: AppSettings.getSavedDefaultCompany(),
                                       branding: AppSettings.getSavedBranding())
                 
         return appSettings

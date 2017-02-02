@@ -38,6 +38,13 @@ enum CompanyPreset: String {
         }
         return asapp
     }
+    
+    static let all = [
+        asapp,
+        mitch,
+        comcast,
+        sprint
+    ]
 }
 
 enum BrandingType: String {
