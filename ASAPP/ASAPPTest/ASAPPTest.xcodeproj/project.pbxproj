@@ -44,6 +44,7 @@
 		30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C351DCA39E100529785 /* RandomNameGenerator.swift */; };
 		30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C371DCA4BEF00529785 /* DemoLog.swift */; };
 		30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */; };
+		30CFF4041E43BD62009A0655 /* DemoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CFF4031E43BD62009A0655 /* DemoEnums.swift */; };
 		30E78EDA1DCA62C0006A2AD8 /* TitleToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
 		30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */; };
@@ -103,6 +104,7 @@
 		30C24C351DCA39E100529785 /* RandomNameGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNameGenerator.swift; sourceTree = "<group>"; };
 		30C24C371DCA4BEF00529785 /* DemoLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoLog.swift; sourceTree = "<group>"; };
 		30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCheckmarkCell.swift; sourceTree = "<group>"; };
+		30CFF4031E43BD62009A0655 /* DemoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnums.swift; sourceTree = "<group>"; };
 		30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleToggleCell.swift; sourceTree = "<group>"; };
 		30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
 		30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnvironmentViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		30988E881DC7B69A00470E09 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				30CFF4031E43BD62009A0655 /* DemoEnums.swift */,
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
 				30988E891DC7B69A00470E09 /* DemoSettings.swift */,
 				281D8E091DC9781200E4A65B /* UserAccount.swift */,
@@ -417,6 +420,7 @@
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				300A27721E427F6C000A624A /* BrandingPreview.swift in Sources */,
+				30CFF4041E43BD62009A0655 /* DemoEnums.swift in Sources */,
 				281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,

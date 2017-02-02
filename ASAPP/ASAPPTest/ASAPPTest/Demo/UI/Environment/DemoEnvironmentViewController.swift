@@ -16,13 +16,6 @@ class DemoEnvironmentViewController: BaseTableViewController {
 
     enum Section: Int {
         case demoContent
-        case liveChat
-        case count
-    }
-    
-    enum ColorsRow: Int {
-        case navigation
-        case content
         case count
     }
     
@@ -42,7 +35,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
         
         tableView.register(TitleToggleCell.self, forCellReuseIdentifier: TitleToggleCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
-            }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,9 +55,6 @@ extension DemoEnvironmentViewController {
         case Section.demoContent.rawValue:
             return 1
             
-        case Section.liveChat.rawValue:
-            return appSettings.supportsLiveChat ? 1 : 0
-        
         default:
             return 0
         }
@@ -73,11 +63,6 @@ extension DemoEnvironmentViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case Section.demoContent.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
-            styleToggleCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-            
-        case Section.liveChat.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
             styleToggleCell(cell, for: indexPath)
             return cell ?? TableViewCell()
@@ -105,17 +90,6 @@ extension DemoEnvironmentViewController {
             }
             break
             
-        case Section.liveChat.rawValue:
-            cell.title = "Demo Live Chat"
-            cell.isOn = appSettings.liveChatEnabled
-            cell.onToggleChange = { [weak self] (isOn: Bool) in
-                if let blockSelf = self {
-                    blockSelf.appSettings.liveChatEnabled = isOn
-                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
-                }
-            }
-            break
-            
         default: break
         }
     }
@@ -130,9 +104,6 @@ extension DemoEnvironmentViewController {
         case Section.demoContent.rawValue:
             return "DEMO CONTENT"
             
-        case Section.liveChat.rawValue:
-            return appSettings.supportsLiveChat ? "LIVE CHAT" : nil
-
         default: return nil
         }
     }
@@ -140,7 +111,7 @@ extension DemoEnvironmentViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
         switch indexPath.section {
-        case Section.demoContent.rawValue, Section.liveChat.rawValue:
+        case Section.demoContent.rawValue:
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
 

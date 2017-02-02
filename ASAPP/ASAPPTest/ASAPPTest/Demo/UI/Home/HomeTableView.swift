@@ -218,7 +218,7 @@ extension HomeTableView: UITableViewDataSource {
             
             cell.update(titleText: "Environment:",
                         detailText: featuresString,
-                        valueText: "\(appSettings.environment.rawValue).asapp.com")
+                        valueText: "\(appSettings.subdomain).asapp.com")
             break
         
         case Section.bill.rawValue:

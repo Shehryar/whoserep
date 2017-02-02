@@ -9,28 +9,6 @@
 import UIKit
 import ASAPP
 
-/**
- BrandingType
- */
-
-enum BrandingType: String {
-    case asapp = "asapp"
-    case xfinity = "xfinity"
-    case sprint = "sprint"
-    case boostMobile = "boostMobile"
-    
-    static let all = [
-        asapp,
-        xfinity,
-        sprint,
-        boostMobile
-    ]
-}
-
-/**
- Branding
- */
-
 class Branding: NSObject {
 
     let brandingType: BrandingType
@@ -90,29 +68,6 @@ class Branding: NSObject {
             logoImageSize = CGSize(width: 140, height: 32)
             break
         }
-    }
-    
-    // MARK:- Storage
-    
-    private static let KEY_BRANDING_TYPE = "ASAPP_KEY_BRANDING_TYPE"
-    
-    class func saveBrandingTypeBetweenSessions(brandingType: BrandingType) {
-        UserDefaults.standard.set(brandingType.rawValue, forKey: KEY_BRANDING_TYPE)
-        UserDefaults.standard.synchronize()
-    }
-    
-    class func getSavedBrandingType() -> BrandingType? {
-        if let rawValue = UserDefaults.standard.string(forKey: KEY_BRANDING_TYPE) {
-            return BrandingType(rawValue: rawValue)
-        }
-        return nil
-    }
-    
-    class func getSavedBranding() -> Branding? {
-        if let brandingType = getSavedBrandingType() {
-            return Branding(brandingType: brandingType)
-        }
-        return nil
     }
 }
 

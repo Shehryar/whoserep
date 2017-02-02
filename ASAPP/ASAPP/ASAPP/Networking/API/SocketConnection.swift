@@ -8,44 +8,6 @@
 
 import UIKit
 
-// MARK:- ASAPPEnvironment
-
-@objc public enum ASAPPEnvironment: Int {
-//    case local
-//    case development
-    case staging
-    case production
-}
-public func StringForASAPPEnvironment(_ environment: ASAPPEnvironment) -> String {
-    if !DISTRIBUTION_BUILD && DEMO_ENVIRONMENT_PREFIX != nil {
-        return DEMO_ENVIRONMENT_PREFIX!
-    }
-    
-    switch environment {
-    case .staging: return "Staging"
-    case .production: return "Production"
-    }
-}
-
-internal func ConnectionURLForEnvironment(companyMarker: String, environment: ASAPPEnvironment) -> URL? {
-    
-    if !DISTRIBUTION_BUILD && DEMO_ENVIRONMENT_PREFIX != nil {
-        return URL(string: "wss://\(DEMO_ENVIRONMENT_PREFIX!).asapp.com/api/websocket")
-    }
-    
-    var connectionURL: URL?
-    switch environment {
-    case .staging:
-        connectionURL = URL(string: "wss://\(companyMarker).preprod.asapp.com/api/websocket")
-        break
-        
-    case .production:
-        connectionURL = URL(string: "wss://\(companyMarker).asapp.com/api/websocket")
-        break
-    }
-    return connectionURL
-}
-
 // MARK:- SocketConnectionDelegate
 
 protocol SocketConnectionDelegate: class {
@@ -99,7 +61,7 @@ class SocketConnection: NSObject {
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
         let connectionRequest = NSMutableURLRequest()
-        connectionRequest.url = ConnectionURLForEnvironment(companyMarker: credentials.companyMarker, environment: credentials.environment)
+        connectionRequest.url = SocketConnection.createConnectionURL(subdomain: credentials.subdomain)
         connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
         connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
         // TODO: Refactor this out
@@ -110,12 +72,24 @@ class SocketConnection: NSObject {
         
         DebugLog("SocketConnection created with host url: \(connectionRequest.url)")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SocketConnection.connect),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self);
         socket?.delegate = nil
+    }
+}
+
+// MARK:- Connection URL
+
+extension SocketConnection {
+    class func createConnectionURL(subdomain: String) -> URL? {
+        let urlString = "wss://\(subdomain).asapp.com/api/websocket"
+        return URL(string: urlString)
     }
 }
 

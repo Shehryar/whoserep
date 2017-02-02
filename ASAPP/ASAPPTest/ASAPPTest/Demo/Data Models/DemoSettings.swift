@@ -10,9 +10,8 @@ import UIKit
 
 class DemoSettings: NSObject {
     
-    static let KEY_DEMO_ENVIRONMENT_PREFIX  = "ASAPP_DEMO_ENVIRONMENT_PREFIX"
-    static let KEY_DEMO_CONTENT             = "ASAPP_DEMO_CONTENT_ENABLED"
-    static let KEY_DEMO_LIVE_CHAT           = "ASAPP_DEMO_LIVE_CHAT"
+    static let KEY_DEMO_SUBDOMAIN = "ASAPP_KEY_DEMO_SUBDOMAIN"
+    static let KEY_DEMO_CONTENT   = "ASAPP_KEY_DEMO_CONTENT"
     
     // MARK:- Public Methods: SET
     
@@ -21,29 +20,11 @@ class DemoSettings: NSObject {
         // Demo Content
         UserDefaults.standard.set(appSettings.demoContentEnabled, forKey: KEY_DEMO_CONTENT)
      
-        // Live Chat
-        UserDefaults.standard.set(appSettings.liveChatEnabled, forKey: KEY_DEMO_LIVE_CHAT)
-        
-        
-        // Environment Prefix
-        UserDefaults.standard.set(appSettings.environment.rawValue, forKey: KEY_DEMO_ENVIRONMENT_PREFIX)
-    }
-    
-    // MARK:- Public Methods: GET
-    
-    class func environmentPrefix() -> Environment {
-        if let stringValue = UserDefaults.standard.string(forKey: KEY_DEMO_ENVIRONMENT_PREFIX),
-            let environmentPrefix = Environment(rawValue: stringValue) {
-            return environmentPrefix
-        }
-        return .asapp
+        // Subdomain
+        UserDefaults.standard.set(appSettings.subdomain, forKey: KEY_DEMO_SUBDOMAIN)
     }
     
     class func isDemoContentEnabled() -> Bool {
         return UserDefaults.standard.bool(forKey: KEY_DEMO_CONTENT)
-    }
-
-    class func isLiveChatEnabled() -> Bool {
-        return UserDefaults.standard.bool(forKey: KEY_DEMO_LIVE_CHAT)
     }
 }
