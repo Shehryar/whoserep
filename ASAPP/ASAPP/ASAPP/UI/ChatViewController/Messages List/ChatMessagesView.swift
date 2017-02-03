@@ -18,6 +18,14 @@ protocol ChatMessagesViewDelegate: class {
 
 class ChatMessagesView: UIView {
     
+    var overrideToHideInfoView = false {
+        didSet {
+            if oldValue != overrideToHideInfoView {
+                updateSubviewVisibility()
+            }
+        }
+    }
+    
     // MARK:- Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -155,10 +163,10 @@ extension ChatMessagesView {
     func updateSubviewVisibility(_ animated: Bool = false) {
         let currentAlpha = infoMessageView.alpha
         var nextAlpha: CGFloat
-        if dataSource.isEmpty() {
-            nextAlpha = 1.0
-        } else {
+        if overrideToHideInfoView || !dataSource.isEmpty() {
             nextAlpha = 0.0
+        } else {
+            nextAlpha = 1.0
         }
         
         if currentAlpha == nextAlpha {

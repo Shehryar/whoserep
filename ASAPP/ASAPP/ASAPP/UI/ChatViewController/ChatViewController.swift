@@ -781,6 +781,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         simpleStore.updateSRSOriginalSearchQuery(query: queryText)
         
         keyboardObserver.registerForNotifications()
+        chatMessagesView.overrideToHideInfoView = true
         chatMessagesView.scrollToBottomAnimated(false)
         
         setAskQuestionViewControllerVisible(false, animated: true) { [weak self] in
