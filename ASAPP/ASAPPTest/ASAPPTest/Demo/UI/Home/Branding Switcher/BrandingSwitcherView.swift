@@ -177,13 +177,11 @@ class BrandingSwitcherView: UIView {
             let velocity = gesture.velocity(in: gestureSuperview)
             
             let magnitude = sqrt(velocity.x * velocity.x + velocity.y * velocity.y)
-            let angle = fabs(Double(atan2(velocity.y, velocity.x)) - M_PI_2)
-            
-        
-            // If we aren't dragging it down, just snap it back and quit
+
+//            let angle = fabs(Double(atan2(velocity.y, velocity.x)) - M_PI_2)
 //            if (fabs(Double(atan2(velocity.y, velocity.x)) - M_PI_2) > M_PI_4) {
         
-            if magnitude < 1000.0 || angle > M_PI_2 {
+            if magnitude < 800.0 {
                 let snap = UISnapBehavior(item: gestureView, snapTo: getPreviewListCenter(whenHidden: false))
                 animator.addBehavior(snap)
                 return;
