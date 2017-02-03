@@ -582,8 +582,6 @@ extension ChatViewController {
     
     func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) {
         
-        simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
-        
         if DEMO_CONTENT_ENABLED {
             if let deepLink = buttonItem.deepLink?.lowercased() {
                 switch deepLink {
@@ -635,6 +633,8 @@ extension ChatViewController {
             break
             
         case .SRS, .Action, .Message:
+            simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
+            
             if !chatMessagesView.isNearBottom() {
                 chatMessagesView.scrollToBottomAnimated(true)
             }
