@@ -11,6 +11,11 @@ import UIKit
 public class ASAPPStyles: NSObject {
     
     public var strings: ASAPPStrings = ASAPPStrings()
+    
+    public var fontNameLight: String = "Lato-Light"
+    public var fontNameRegular: String = "Lato-Regular"
+    public var fontNameBold: String = "Lato-Bold"
+    public var fontNameBlack: String = "Lato-Black"
 
     // MARK:- Fonts: General
     
