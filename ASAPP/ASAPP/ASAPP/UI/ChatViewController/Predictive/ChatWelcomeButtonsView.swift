@@ -67,6 +67,7 @@ class ChatWelcomeButtonsView: UIView {
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
         let button = Button()
+        button.font = styles.font(for: .predictiveButton)
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
@@ -77,7 +78,6 @@ class ChatWelcomeButtonsView: UIView {
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
-        button.font = styles.font(for: .predictiveButton)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title

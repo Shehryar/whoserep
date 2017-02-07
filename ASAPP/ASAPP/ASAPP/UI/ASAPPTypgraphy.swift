@@ -37,7 +37,7 @@ extension TextStyle {
     // Predictive
     
     static let predictiveGreeting = TextStyle(size: 24, weight: .regular, letterSpacing: 0.7)
-    static let predictiveMessage = TextStyle(size: 14, weight: .bold)
+    static let predictiveMessage = TextStyle(size: 14, weight: .bold, letterSpacing: 1.2)
     static let predictiveDetailLabel = TextStyle(size: 12, weight: .bold, letterSpacing: 1)
     static let predictiveButton = TextStyle(size: 15, weight: .regular)
     

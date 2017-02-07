@@ -99,7 +99,6 @@ class ChatWelcomeViewController: UIViewController {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.textColor = UIColor.white
-        messageLabel.updateFont(for: .predictiveMessage, styles: styles)
         blurredBgView.contentView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
@@ -431,11 +430,10 @@ extension ChatWelcomeViewController {
         }
         
         if let customMessage = appOpenResponse.customizedMessage {
-            let attrString = NSAttributedString(string: customMessage, attributes: [
-                NSFontAttributeName : messageLabel.font,
-                NSKernAttributeName : 1.2
-                ])
-            messageLabel.attributedText = attrString
+            messageLabel.setAttributedText(customMessage,
+                                           textStyle: .predictiveMessage,
+                                           color: UIColor.white,
+                                           styles: styles)
         } else {
             messageLabel.text = nil
         }
