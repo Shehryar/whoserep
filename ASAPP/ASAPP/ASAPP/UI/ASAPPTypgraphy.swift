@@ -8,37 +8,61 @@
 
 import UIKit
 
+// MARK:- TextStyle
 
-/**
- UIFont Utilities
- */
-
-extension UIFont {
+struct TextStyle {
     
-    class func fontForTextStyle(_ textStyle: TextStyle, styles: ASAPPStyles) -> UIFont {
-        let (size, weight) = textStyle.styling()
-        let dynamicFontSize = TextSizeCategory.dynamicFontSize(size)
-        
-        return fontForWeight(weight, size: dynamicFontSize, styles: styles)
+    let weight: FontWeight
+    let letterSpacing: CGFloat
+    var size: CGFloat {
+        return TextSizeCategory.dynamicFontSize(defaultSize)
     }
     
-    class func fontForWeight(_ weight: FontWeight, size: CGFloat, styles: ASAPPStyles) -> UIFont {
+    private let defaultSize: CGFloat
+    
+    // MARK: Init
+    
+    init(size: CGFloat, weight: FontWeight = .regular, letterSpacing: CGFloat = 0) {
+        self.defaultSize = size
+        self.weight = weight
+        self.letterSpacing = letterSpacing
+    }
+}
+
+
+// MARK:- Preset TextStyles
+
+extension TextStyle {
+    static let headline = TextStyle(size: 20, weight: .light, letterSpacing: 0)
+    static let body = TextStyle(size: 16, weight: .regular, letterSpacing: 0)
+}
+
+
+// MARK:- ASAPPStyles (TextStyle)
+
+extension ASAPPStyles {
+    
+    func font(for style: TextStyle) -> UIFont {
+        return font(with: style.weight, size: style.size)
+    }
+    
+    func font(with weight: FontWeight, size: CGFloat) -> UIFont {
         let font: UIFont
         switch weight {
         case .light:
-            font = UIFont(name: styles.fontNameLight, size: size) ?? UIFont.systemFont(ofSize: size)
+            font = UIFont(name: fontNameLight, size: size) ?? UIFont.systemFont(ofSize: size)
             break
             
         case .regular:
-            font = UIFont(name: styles.fontNameRegular, size: size) ?? UIFont.systemFont(ofSize: size)
+            font = UIFont(name: fontNameRegular, size: size) ?? UIFont.systemFont(ofSize: size)
             break
             
         case .bold:
-            font = UIFont(name: styles.fontNameBold, size: size) ?? UIFont.boldSystemFont(ofSize: size)
+            font = UIFont(name: fontNameBold, size: size) ?? UIFont.boldSystemFont(ofSize: size)
             break
             
         case .black:
-            font = UIFont(name: styles.fontNameBlack, size: size) ?? UIFont.boldSystemFont(ofSize: size)
+            font = UIFont(name: fontNameBlack, size: size) ?? UIFont.boldSystemFont(ofSize: size)
             break
         }
         
@@ -46,49 +70,30 @@ extension UIFont {
     }
 }
 
-/**
- UILabel Utilities
- */
+
+// MARK:- UILabel Utilities
 
 extension UILabel {
     
-    func applyTextStyle(_ textStyle: TextStyle, styles: ASAPPStyles) {
-        font = UIFont.fontForTextStyle(textStyle, styles: styles)
-        
-    }
-    
-    
-    
-}
-
-
-/**
- ASAPPTextStyle
- */
-
-enum TextStyle {
-    case headline
-    case body
-    case detail
-    case caption
-    case button
-    case navButton
-    
-    func styling() -> (/* point size */ CGFloat, FontWeight) {
-        switch self {
-        case .headline: 	return (20, .light)
-        case .body:     	return (16, .regular)
-        case .detail:       return (12, .black)
-        case .caption:      return (10, .bold)
-        case .button:       return (12, .black)
-        case .navButton:    return (11, .black)
+    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, styles: ASAPPStyles) {
+        if let text = text {
+            attributedText = NSAttributedString(string: text, attributes: [
+                NSFontAttributeName : styles.font(for: textStyle),
+                NSForegroundColorAttributeName : color,
+                NSKernAttributeName : textStyle.letterSpacing
+                ])
+        } else {
+            attributedText = nil
         }
     }
+    
+    func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
+        font = styles.font(with: textStyle.weight, size: textStyle.size)
+    }
 }
 
-/**
- FontWeight
- */
+
+// MARK:- FontWeight
 
 enum FontWeight {
     case light
@@ -97,9 +102,8 @@ enum FontWeight {
     case black
 }
 
-/**
- TextSizeCategory
- */
+
+// MARK:- TextSizeCategory
 
 enum TextSizeCategory: Int {
     case xSmall
