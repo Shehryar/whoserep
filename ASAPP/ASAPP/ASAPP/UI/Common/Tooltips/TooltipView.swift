@@ -88,7 +88,7 @@ class TooltipView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .left
-        label.font = styles.detailFont.withSize(14)
+        label.font = styles.font(for: .tooltip)
         label.textColor = UIColor.white
         bubbleView.addSubview(label)
     }

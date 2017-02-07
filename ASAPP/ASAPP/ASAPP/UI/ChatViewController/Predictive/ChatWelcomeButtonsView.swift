@@ -50,15 +50,11 @@ class ChatWelcomeButtonsView: UIView {
         self.styles = styles
         self.strings = strings
         super.init(frame: CGRect.zero)
-        
-        otherLabel.font = styles.detailFont
-        otherLabel.textColor = self.styles.askViewDetailLabelColor
-        otherLabel.attributedText = NSAttributedString(string: strings.predictiveOtherSuggestions,
-                                                       attributes: [
-                                                        NSFontAttributeName : styles.detailFont,
-                                                        NSKernAttributeName : 1
-            ])
-        
+    
+        otherLabel.setAttributedText(strings.predictiveOtherSuggestions,
+                                     textStyle: .predictiveDetailLabel,
+                                     color: styles.askViewDetailLabelColor,
+                                     styles: styles)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -81,7 +77,7 @@ class ChatWelcomeButtonsView: UIView {
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
-        button.font = styles.bodyFont.withSize(15)
+        button.font = styles.font(for: .predictiveButton)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title

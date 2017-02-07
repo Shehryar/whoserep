@@ -11,7 +11,7 @@ import UIKit
 class ChatActionableMessageView: UIView, ASAPPStyleable {
 
     class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
-        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.buttonFont)
+        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.font(for: .srsButton))
     }
     
     func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
@@ -171,16 +171,14 @@ extension ChatActionableMessageView: UITableViewDataSource {
     
     func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
         cell.textLabel?.textColor = styles.buttonColor
-        cell.textLabel?.font = styles.buttonFont
         cell.backgroundColor = styles.backgroundColor2
         cell.separatorBottomColor = styles.separatorColor1
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
-            cell.textLabel?.attributedText = NSAttributedString(string: buttonItem.title.uppercased(), attributes: [
-                NSFontAttributeName : styles.buttonFont,
-                NSForegroundColorAttributeName : styles.buttonColor,
-                NSKernAttributeName : 1.5
-                ])
+            cell.textLabel?.setAttributedText(buttonItem.title.uppercased(),
+                                              textStyle: .srsButton,
+                                              color: styles.buttonColor,
+                                              styles: styles)
             cell.imageTintColor = styles.buttonColor
             
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||

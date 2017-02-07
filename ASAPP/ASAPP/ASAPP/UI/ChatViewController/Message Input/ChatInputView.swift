@@ -132,12 +132,12 @@ class ChatInputView: UIView {
     required init(styles: ASAPPStyles, strings: ASAPPStrings) {
         self.styles = styles
         self.strings = strings
-        self.font = styles.bodyFont
+        self.font = styles.font(for: .chatInputViewText)
         self.textColor = styles.inputTextColor
         self.placeholderText = strings.chatInputPlaceholder
         self.placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
         self.sendButtonText = strings.chatInputSend
-        self.sendButtonFont = styles.buttonFont
+        self.sendButtonFont = styles.font(for: .chatInputViewButton)
         self.sendButtonColor = styles.inputSendButtonColor
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)

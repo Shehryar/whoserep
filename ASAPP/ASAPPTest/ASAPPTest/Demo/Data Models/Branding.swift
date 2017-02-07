@@ -59,7 +59,6 @@ class Branding: NSObject {
             
             styles.asappButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
             styles.asappButtonForegroundColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
-            styles.asappButtonFont = DemoFonts.latoBlackFont().withSize(styles.asappButtonFont.pointSize)
             
             styles.navBarButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
             styles.navBarButtonForegroundColor = UIColor.black

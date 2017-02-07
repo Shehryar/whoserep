@@ -68,7 +68,7 @@ class ChatConnectionStatusView: UIView {
         self.strings = strings
         super.init(frame: .zero)
         
-        label.font = styles.detailFont
+        label.updateFont(for: .connectionStatusBanner, styles: styles)
         label.textAlignment = .center
         
         updateColors()

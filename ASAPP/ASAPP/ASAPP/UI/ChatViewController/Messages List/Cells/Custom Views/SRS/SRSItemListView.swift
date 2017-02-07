@@ -50,7 +50,7 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 let button = Button()
                 button.title = buttonItem.title
                 button.foregroundColor = styles.accentColor
-                button.font = styles.buttonFont
+                button.updateFont(for: .srsButton, styles: styles)
                 button.onTap = { [weak self] in
                     if let strongSelf = self {
                         strongSelf.delegate?.itemListView(strongSelf, didSelectButtonItem: buttonItem)
@@ -65,14 +65,13 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 label.numberOfLines = 0
                 label.lineBreakMode = .byTruncatingTail
                 label.textColor = styles.foregroundColor2
-                label.font = styles.detailFont
                 label.textAlignment = .center
                 label.text = labelItem.text
-                label.attributedText = NSAttributedString(string: labelItem.text, attributes: [
-                    NSFontAttributeName : styles.detailFont,
-                    NSForegroundColorAttributeName : styles.foregroundColor2,
-                    NSKernAttributeName : 1
-                    ])
+                label.setAttributedText(labelItem.text,
+                                        textStyle: .srsLabel,
+                                        color: styles.foregroundColor2,
+                                        styles: styles)
+                
                 createdViews.append(label)
             }
                 

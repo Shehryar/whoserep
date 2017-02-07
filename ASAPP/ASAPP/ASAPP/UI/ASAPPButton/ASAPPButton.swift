@@ -72,15 +72,13 @@ public class ASAPPButton: UIView {
         accessibilityTraits = UIAccessibilityTraitButton
         accessibilityLabel = strings.asappButton
         
-        label.font = styles.asappButtonFont
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
-        label.attributedText = NSAttributedString(string: strings.asappButton, attributes: [
-            NSFontAttributeName : styles.asappButtonFont,
-            NSForegroundColorAttributeName : styles.asappButtonForegroundColor,
-            NSKernAttributeName : 1.3
-            ])
+        label.setAttributedText(strings.asappButton,
+                                textStyle: .asappButton,
+                                color: styles.asappButtonForegroundColor,
+                                styles: styles)
         contentView.addSubview(label)
         
         contentView.layer.shadowColor = UIColor.black.cgColor

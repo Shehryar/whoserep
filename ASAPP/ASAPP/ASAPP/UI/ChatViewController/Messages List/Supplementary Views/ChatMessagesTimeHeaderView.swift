@@ -33,7 +33,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     func commonInit() {
         isOpaque = true
         
-        timeLabel.font = Fonts.latoBoldFont(withSize: 12)
         timeLabel.textColor = Colors.mediumTextColor()
         timeLabel.textAlignment = .center
         timeLabel.backgroundColor = Colors.whiteColor()
@@ -62,12 +61,11 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     }
     
     func updateTimeLabel() {
-        timeLabel.attributedText = NSAttributedString(string: timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds)), attributes: [
-            NSFontAttributeName : styles.captionFont,
-            NSForegroundColorAttributeName : styles.foregroundColor2,
-            NSKernAttributeName : 0.8
-            ])
-        
+        let timestamp = timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds))
+        timeLabel.setAttributedText(timestamp,
+                                    textStyle: .chatTimestamp,
+                                    color: styles.foregroundColor2,
+                                    styles: styles)
         setNeedsLayout()
     }
     
@@ -112,7 +110,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         
         contentView.backgroundColor = styles.backgroundColor1
         timeLabel.backgroundColor = styles.backgroundColor1
-        timeLabel.font = styles.captionFont
+        timeLabel.updateFont(for: .chatTimestamp, styles: styles)
         timeLabel.textColor = styles.foregroundColor2
         
         let separatorColor = styles.separatorColor1

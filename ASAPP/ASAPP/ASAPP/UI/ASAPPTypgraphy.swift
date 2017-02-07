@@ -22,7 +22,7 @@ struct TextStyle {
     
     // MARK: Init
     
-    init(size: CGFloat, weight: FontWeight = .regular, letterSpacing: CGFloat = 0) {
+    init(size: CGFloat, weight: FontWeight, letterSpacing: CGFloat = 0) {
         self.defaultSize = size
         self.weight = weight
         self.letterSpacing = letterSpacing
@@ -33,8 +33,45 @@ struct TextStyle {
 // MARK:- Preset TextStyles
 
 extension TextStyle {
-    static let headline = TextStyle(size: 20, weight: .light, letterSpacing: 0)
-    static let body = TextStyle(size: 16, weight: .regular, letterSpacing: 0)
+    
+    // Predictive
+    
+    static let predictiveGreeting = TextStyle(size: 24, weight: .regular, letterSpacing: 0.7)
+    static let predictiveMessage = TextStyle(size: 14, weight: .bold)
+    static let predictiveDetailLabel = TextStyle(size: 12, weight: .bold, letterSpacing: 1)
+    static let predictiveButton = TextStyle(size: 15, weight: .regular)
+    
+    // Chat Input View
+    
+    static let chatInputViewText = TextStyle(size: 15, weight: .regular)
+    static let chatInputViewButton = TextStyle(size: 12, weight: .black)
+    
+    // Chat Empty View
+    
+    static let emptyChatTitle = TextStyle(size: 24, weight: .bold)
+    static let emptyChatMessage = TextStyle(size: 15, weight: .regular)
+    
+    // Chat Messages View
+    
+    static let chatStatusUpdate = TextStyle(size: 12, weight: .bold)
+    static let chatTimestamp = TextStyle(size: 10, weight: .bold, letterSpacing: 0.8)
+    static let chatMessageText = TextStyle(size: 15, weight: .regular)
+
+    // SRS Views
+    
+    static let srsLabel = TextStyle(size: 12, weight: .bold, letterSpacing: 1)
+    static let srsInfoLabelV = TextStyle(size: 12, weight: .bold, letterSpacing: 1.2)
+    static let srsInfoValueV = TextStyle(size: 24, weight: .bold, letterSpacing: 1.2)
+    static let srsInfoLabelH = TextStyle(size: 13, weight: .bold, letterSpacing: 1.2)
+    static let srsInfoValueH = TextStyle(size: 15, weight: .bold, letterSpacing: 1.2)
+    static let srsButton = TextStyle(size: 12, weight: .black, letterSpacing: 1.5)
+    
+    // Other
+    
+    static let navBarButton = TextStyle(size: 11, weight: .black)
+    static let asappButton = TextStyle(size: 12, weight: .black, letterSpacing: 1.3)
+    static let connectionStatusBanner = TextStyle(size: 12, weight: .bold)
+    static let tooltip = TextStyle(size: 14, weight: .bold)
 }
 
 
@@ -71,11 +108,13 @@ extension ASAPPStyles {
 }
 
 
-// MARK:- UILabel Utilities
+// MARK:- UILabel (TextStyle)
 
 extension UILabel {
     
     func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, styles: ASAPPStyles) {
+        updateFont(for: textStyle, styles: styles)
+        
         if let text = text {
             attributedText = NSAttributedString(string: text, attributes: [
                 NSFontAttributeName : styles.font(for: textStyle),
@@ -89,6 +128,38 @@ extension UILabel {
     
     func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
         font = styles.font(with: textStyle.weight, size: textStyle.size)
+    }
+}
+
+// MARK:- Button (TextStyle)
+
+extension Button {
+    
+    func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
+        font = styles.font(with: textStyle.weight, size: textStyle.size)
+    }
+}
+
+// MARK:- UIButton (TextStyle)
+
+extension UIButton {
+    
+    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, styles: ASAPPStyles, state: UIControlState) {
+        updateFont(for: textStyle, styles: styles)
+        
+        if let text = text {
+            setAttributedTitle(NSAttributedString(string: text, attributes: [
+                    NSFontAttributeName : styles.font(for: textStyle),
+                    NSForegroundColorAttributeName : color,
+                    NSKernAttributeName : textStyle.letterSpacing
+                ]), for: state)
+        } else {
+            setAttributedTitle(nil, for: state)
+        }
+    }
+    
+    func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
+        titleLabel?.font = styles.font(with: textStyle.weight, size: textStyle.size)
     }
 }
 
@@ -156,7 +227,7 @@ enum TextSizeCategory: Int {
     
     // Dynamic Font Sizes
     
-    private static let minimumFontSize: CGFloat = 11
+    private static let minimumFontSize: CGFloat = 10
     
     static func dynamicFontSize(_ size: CGFloat, sizeCategory: TextSizeCategory? = nil) -> CGFloat {
         let sizeCategory = sizeCategory ?? current()

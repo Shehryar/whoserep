@@ -12,28 +12,12 @@ public class ASAPPStyles: NSObject {
     
     public var strings: ASAPPStrings = ASAPPStrings()
     
+    // MARK:- Fonts
+    
     public var fontNameLight: String = "Lato-Light"
     public var fontNameRegular: String = "Lato-Regular"
     public var fontNameBold: String = "Lato-Bold"
     public var fontNameBlack: String = "Lato-Black"
-
-    // MARK:- Fonts: General
-    
-    public var headlineFont: UIFont = Fonts.latoBoldFont(withSize: 24)
-    
-    public var bodyFont: UIFont = Fonts.latoRegularFont(withSize: 15)
-    
-    public var bodyBoldFont: UIFont = Fonts.latoBoldFont(withSize: 15)
-    
-    public var detailFont: UIFont = Fonts.latoBoldFont(withSize: 12)
-    
-    public var captionFont: UIFont = Fonts.latoBoldFont(withSize: 10)
-    
-    public var buttonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
-    
-    public var asappButtonFont: UIFont = Fonts.latoBlackFont(withSize: 12)
-
-    public var navBarButtonFont: UIFont = Fonts.latoBlackFont(withSize: 11)
     
     // MARK:- Colors: Messages
     
@@ -120,14 +104,10 @@ extension ASAPPStyles {
     class func comcastStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
-        styles.headlineFont = Fonts.xfinitySansBoldFont(withSize: 24)
-        styles.bodyFont = Fonts.xfinitySansRegFont(withSize: 15)
-        styles.bodyBoldFont = Fonts.xfinitySansBoldFont(withSize: 15)
-        styles.detailFont = Fonts.xfinitySansBoldFont(withSize: 12)
-        styles.captionFont = Fonts.xfinitySansMedFont(withSize: 10)
-        styles.buttonFont = Fonts.xfinitySansBoldCondFont(withSize: 12)
-        styles.asappButtonFont = Fonts.xfinitySansBoldCondFont(withSize: 13)
-        styles.navBarButtonFont = Fonts.xfinitySansBoldCondFont(withSize: 11)
+        styles.fontNameLight = "XFINITYSans-Lgt"
+        styles.fontNameRegular = "XFINITYSans-Reg"
+        styles.fontNameBold = "XFINITYSans-Med"
+        styles.fontNameBlack = "XFINITYSans-Bold"
         
         return styles
     }
@@ -135,18 +115,18 @@ extension ASAPPStyles {
     class func sprintStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
 
+        // Fonts
+        
+        styles.fontNameLight = "SprintSans-Regular"
+        styles.fontNameRegular = "SprintSans-Regular"
+        styles.fontNameBold = "SprintSans-Bold"
+        styles.fontNameBlack = "SprintSans-Black"
+        
+        // Colors
+    
         styles.asappButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
         styles.asappButtonForegroundColor = UIColor.black
-        styles.asappButtonFont = Fonts.sprintSansBoldFont(withSize: 12)
-        
-        styles.headlineFont = Fonts.sprintSansBoldFont(withSize: 24)
-        styles.bodyFont = Fonts.sprintSansRegularFont(withSize: 15)
-        styles.bodyBoldFont = Fonts.sprintSansBoldFont(withSize: 15)
-        styles.detailFont = Fonts.sprintSansBoldFont(withSize: 12)
-        styles.captionFont = Fonts.sprintSansMediumFont(withSize: 10)
-        styles.buttonFont = Fonts.sprintSansBoldFont(withSize: 12)
-        
-        styles.navBarButtonFont = Fonts.sprintSansBlackFont(withSize: 11)
+       
         styles.navBarButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
         styles.navBarButtonForegroundColor = UIColor(red:0.330, green:0.268, blue:0, alpha:1)
         

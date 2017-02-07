@@ -56,7 +56,7 @@ class ChatWelcomeViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
-                                                                     font: styles.navBarButtonFont,
+                                                                     font: styles.font(for: .navBarButton),
                                                                      textColor: UIColor.white,
                                                                      backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
                                                                      style: .respond,
@@ -90,17 +90,16 @@ class ChatWelcomeViewController: UIViewController {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = UIColor.white
-        titleLabel.font = styles.bodyFont.withSize(24)
-        titleLabel.attributedText = NSAttributedString(string: titleText, attributes: [
-            NSFontAttributeName : styles.bodyFont.withSize(24),
-            NSKernAttributeName : 0.7
-            ])
+        titleLabel.setAttributedText(titleText,
+                                     textStyle: .predictiveGreeting,
+                                     color: UIColor.white,
+                                     styles: styles)
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.textColor = UIColor.white
-        messageLabel.font = styles.detailFont.withSize(14)
+        messageLabel.updateFont(for: .predictiveMessage, styles: styles)
         blurredBgView.contentView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
@@ -123,11 +122,10 @@ class ChatWelcomeViewController: UIViewController {
         blurredBgView.contentView.addSubview(messageInputView)
     
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
-        connectionStatusLabel.attributedText = NSAttributedString(string: strings.predictiveNoConnectionText, attributes: [
-            NSFontAttributeName : styles.buttonFont.withSize(10),
-            NSKernAttributeName : 1,
-            NSForegroundColorAttributeName : UIColor.white
-            ])
+        connectionStatusLabel.setAttributedText(strings.predictiveNoConnectionText,
+                                                textStyle: .connectionStatusBanner,
+                                                color: UIColor.white,
+                                                styles: styles)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)

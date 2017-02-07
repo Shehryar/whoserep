@@ -66,7 +66,7 @@ class ChatInfoTextCell: UITableViewCell, ASAPPStyleable {
         textContainerView.backgroundColor = styles.backgroundColor2
         infoTextLabel.backgroundColor = textContainerView.backgroundColor
         infoTextLabel.textColor = styles.foregroundColor2
-        infoTextLabel.font = styles.detailFont
+        infoTextLabel.updateFont(for: .chatStatusUpdate, styles: styles)
         
         setNeedsLayout()
     }

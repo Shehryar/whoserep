@@ -111,7 +111,7 @@ class ChatViewController: UIViewController {
         // Buttons
         
         let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
-                                                                font: self.styles.navBarButtonFont,
+                                                                font: self.styles.font(for: .navBarButton),
                                                                 textColor: self.styles.navBarButtonForegroundColor,
                                                                 backgroundColor: self.styles.navBarButtonBackgroundColor,
                                                                 style: .ask,
