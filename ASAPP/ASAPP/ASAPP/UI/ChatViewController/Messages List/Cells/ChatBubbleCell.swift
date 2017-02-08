@@ -167,12 +167,10 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     }
     
     func applyStyles(_ styles: ASAPPStyles, isReply: Bool) {
-        if styles != self.styles || isReply != self.isReply {
-            self.styles = styles
-            self.isReply = isReply
+        self.styles = styles
+        self.isReply = isReply
         
-            updateFontsAndColors()
-        }
+        updateFontsAndColors()
     }
     
     func bubbleFillColor() -> UIColor {

@@ -40,7 +40,6 @@ class ChatTextMessageCell: ChatBubbleCell {
         
         textMessageLabel.numberOfLines = 0
         textMessageLabel.lineBreakMode = .byTruncatingTail
-        textMessageLabel.font = Fonts.latoRegularFont(withSize: 16)
         textMessageLabel.textColor = Colors.whiteColor()
         bubbleView.addSubview(textMessageLabel)
         
