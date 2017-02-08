@@ -136,10 +136,6 @@ class ChatMessagesView: UIView {
         addSubview(infoMessageView)
         
         updateSubviewVisibility()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatMessagesView.reloadData),
-                                               name: Notification.Name.UIContentSizeCategoryDidChange,
-                                               object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -149,8 +145,6 @@ class ChatMessagesView: UIView {
     deinit {
         tableView.dataSource = nil
         tableView.delegate = nil
-        
-        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Layout
@@ -163,9 +157,11 @@ class ChatMessagesView: UIView {
     
     // MARK: 
     
-    func reloadData() {
+    func refreshDisplay() {
         cellMaster.clearCache()
         tableView.reloadData()
+        
+        scrollToBottomAnimated(false)
     }
 }
 

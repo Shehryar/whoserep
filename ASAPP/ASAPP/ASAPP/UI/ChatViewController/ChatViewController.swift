@@ -110,22 +110,6 @@ class ChatViewController: UIViewController {
         
         // Buttons
         
-        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
-                                                                font: self.styles.font(for: .navBarButton),
-                                                                textColor: self.styles.navBarButtonForegroundColor,
-                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
-                                                                style: .ask,
-                                                                target: self,
-                                                                action: #selector(ChatViewController.didTapAskButton))
-        navigationItem.leftBarButtonItem = askButton
-        
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
-                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
-                                                                   target: self,
-                                                                   action: #selector(ChatViewController.didTapCloseButton))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
-        
         // Subviews
         
         chatMessagesView.delegate = self
@@ -183,6 +167,12 @@ class ChatViewController: UIViewController {
                 hapticFeedbackGenerator.prepare()
             }
         }
+        
+        refreshDisplay()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.refreshDisplay),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -198,6 +188,8 @@ class ChatViewController: UIViewController {
         suggestedRepliesView.delegate = nil
         
         conversationManager.exitConversation()
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK:- View
@@ -307,6 +299,29 @@ class ChatViewController: UIViewController {
         view.endEditing(true)
         
         conversationManager.saveCurrentEvents()
+    }
+    
+    // MARK: Display Update
+    
+    func refreshDisplay() {
+        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
+                                                                font: self.styles.font(for: .navBarButton),
+                                                                textColor: self.styles.navBarButtonForegroundColor,
+                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                style: .ask,
+                                                                target: self,
+                                                                action: #selector(ChatViewController.didTapAskButton))
+        navigationItem.leftBarButtonItem = askButton
+        
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
+                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                   target: self,
+                                                                   action: #selector(ChatViewController.didTapCloseButton))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        navigationItem.rightBarButtonItem = closeButton
+        
+        chatMessagesView.refreshDisplay()
+        suggestedRepliesView.refreshDisplay()
     }
     
     // MARK: Status Bar Style

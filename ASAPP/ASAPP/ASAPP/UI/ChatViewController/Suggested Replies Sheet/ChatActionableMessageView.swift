@@ -103,6 +103,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         tableView.reloadData()
+        setNeedsLayout()
     }
     
     // MARK:- Layout
@@ -170,16 +171,17 @@ extension ChatActionableMessageView: UITableViewDataSource {
     }
     
     func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
-        cell.textLabel?.textColor = styles.buttonColor
-        cell.textLabel?.textAlignment = .center
+        cell.label.textColor = styles.buttonColor
+        cell.label.textAlignment = .center
         cell.backgroundColor = styles.backgroundColor2
+        cell.label.font = styles.font(for: .srsButton)
         cell.separatorBottomColor = styles.separatorColor1
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
-            cell.textLabel?.setAttributedText(buttonItem.title.uppercased(),
-                                              textStyle: .srsButton,
-                                              color: styles.buttonColor,
-                                              styles: styles)
+            cell.label.setAttributedText(buttonItem.title.uppercased(),
+                                         textStyle: .srsButton,
+                                         color: styles.buttonColor,
+                                         styles: styles)
             cell.imageTintColor = styles.buttonColor
             
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
@@ -191,20 +193,23 @@ extension ChatActionableMessageView: UITableViewDataSource {
                 cell.accessibilityTraits = UIAccessibilityTraitLink
             }
         } else {
-            cell.textLabel?.text = nil
+            cell.label.text = nil
         }
         
         if selectedButtonItem != nil {
             if selectedButtonItem == buttonItemForIndexPath(indexPath) {
-                cell.textLabel?.alpha = 1
+                cell.label.alpha = 1
             } else {
-                cell.textLabel?.alpha = 0.3
+                cell.label.alpha = 0.3
             }
             cell.selectedBackgroundColor = nil
         } else {
-            cell.textLabel?.alpha = 1
+            cell.label.alpha = 1
             cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         }
+        
+        
+        cell.layoutSubviews()
     }
 }
 

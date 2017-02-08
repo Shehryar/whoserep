@@ -123,7 +123,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     // MARK: ASAPPStyleable
     
     fileprivate(set) var styles = ASAPPStyles()
@@ -142,6 +142,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         for actionableMessageView in actionableMessageViews {
             actionableMessageView.applyStyles(styles)
         }
+        
+        setNeedsLayout()
     }
     
     func styleButton(_ button: Button, withStyles styles: ASAPPStyles) {
@@ -152,6 +154,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         button.layer.borderColor = styles.separatorColor1.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
+    }
+    
+    func refreshDisplay() {
+        applyStyles(styles)
     }
 }
 

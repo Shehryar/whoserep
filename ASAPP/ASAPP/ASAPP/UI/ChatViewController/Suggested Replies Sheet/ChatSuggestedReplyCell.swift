@@ -16,6 +16,8 @@ class ChatSuggestedReplyCell: UITableViewCell {
         return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
     }
     
+    let label = UILabel()
+    
     let imageSize: CGFloat = 13
     
     var separatorBottomColor: UIColor? {
@@ -55,9 +57,10 @@ class ChatSuggestedReplyCell: UITableViewCell {
         accessibilityTraits = UIAccessibilityTraitButton
         contentView.addSubview(separatorBottomView)
         
-        textLabel?.textAlignment = .center
-        textLabel?.numberOfLines = 0
-        textLabel?.lineBreakMode = .byTruncatingTail
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byTruncatingTail
+        contentView.addSubview(label)
         
         imageView?.contentMode = .scaleAspectFit
         updateImageView()
@@ -76,22 +79,20 @@ class ChatSuggestedReplyCell: UITableViewCell {
     // MARK: Layout
     
     func labelSizeThatFits(size: CGSize) -> CGSize {
-        guard let textLabel = textLabel else { return CGSize.zero }
-        
         let sideInset = contentInset.right + imageSize + 10
         let maxLabelWidth = size.width - 2 * sideInset
-        let labelSize = textLabel.sizeThatFits(CGSize(width: maxLabelWidth, height: 0))
+        let labelSize = label.sizeThatFits(CGSize(width: maxLabelWidth, height: 0))
         
         return CGSize(width: maxLabelWidth, height: ceil(labelSize.height))
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         let labelSize = labelSizeThatFits(size: bounds.size)
         let labelLeft = floor((bounds.size.width - labelSize.width) / 2.0)
         let labelTop = floor((bounds.size.height - labelSize.height) / 2.0)
-        textLabel?.frame = CGRect(x: labelLeft, y: labelTop, width: labelSize.width, height: labelSize.height)
+        label.frame = CGRect(x: labelLeft, y: labelTop, width: labelSize.width, height: labelSize.height)
         
         let imageLeft = bounds.size.width - contentInset.right - imageSize
         let imageTop = floor((bounds.size.height - imageSize) / 2.0)
