@@ -171,6 +171,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
     
     func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
         cell.textLabel?.textColor = styles.buttonColor
+        cell.textLabel?.textAlignment = .center
         cell.backgroundColor = styles.backgroundColor2
         cell.separatorBottomColor = styles.separatorColor1
         
