@@ -322,6 +322,11 @@ class ChatViewController: UIViewController {
         
         chatMessagesView.refreshDisplay()
         suggestedRepliesView.refreshDisplay()
+        connectionStatusView.refreshDisplay()
+        
+        if isViewLoaded {
+            view.setNeedsLayout()
+        }
     }
     
     // MARK: Status Bar Style
