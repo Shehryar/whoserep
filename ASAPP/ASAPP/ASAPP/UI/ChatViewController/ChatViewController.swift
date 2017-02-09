@@ -51,7 +51,7 @@ class ChatViewController: UIViewController {
     }
     fileprivate var connectedAtLeastOnce = false
     
-    fileprivate var showWelcomeOnViewAppear = true
+    fileprivate var showPredictiveOnViewAppear = true
     
     fileprivate var askTooltipPresenter: TooltipPresenter?
     fileprivate var keyboardObserver = KeyboardObserver()
@@ -78,10 +78,10 @@ class ChatViewController: UIViewController {
         return connectionStatus == .connecting || connectionStatus == .disconnected
     }
     fileprivate var isInitialLayout = true
-    fileprivate var askQuestionVC: ChatWelcomeViewController?
-    fileprivate var askQuestionNavController: UINavigationController?
-    fileprivate var didPresentAskQuestionView = false
-    fileprivate var askQuestionVCVisible = false
+    fileprivate var predictiveVC: PredictiveViewController?
+    fileprivate var predictiveNavController: UINavigationController?
+    fileprivate var didPresentPredictiveView = false
+    fileprivate var predictiveVCVisible = false
     fileprivate var delayedDisconnectTime: Date?
     
     fileprivate var hapticFeedbackGenerator: Any?
@@ -118,12 +118,12 @@ class ChatViewController: UIViewController {
         if let mostRecentEvent = chatMessagesView.mostRecentEvent {
             let secondsSinceLastEvent = Date().timeIntervalSince(mostRecentEvent.eventDate)
             
-            showWelcomeOnViewAppear = secondsSinceLastEvent > (15 * 60)
+            showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
             if secondsSinceLastEvent < (60 * 15) {
-                showWelcomeOnViewAppear = false
+                showPredictiveOnViewAppear = false
             }
         } else {
-            showWelcomeOnViewAppear = true
+            showPredictiveOnViewAppear = true
         }
         
         chatInputView.delegate = self
@@ -140,15 +140,15 @@ class ChatViewController: UIViewController {
             self?.reconnect()
         }
         
-        // Ask a Question View Controller
+        // Predictive View Controller
         
-        askQuestionVC = ChatWelcomeViewController(appOpenResponse: nil,
-                                                  styles: self.styles,
-                                                  strings: self.strings)
-        if let askQuestionVC = askQuestionVC {
-            askQuestionVC.delegate = self
-            askQuestionNavController = UINavigationController(rootViewController: askQuestionVC)
-            askQuestionNavController?.view.alpha = 0.0
+        predictiveVC = PredictiveViewController(appOpenResponse: nil,
+                                                 styles: self.styles,
+                                                 strings: self.strings)
+        if let predictiveVC = predictiveVC {
+            predictiveVC.delegate = self
+            predictiveNavController = UINavigationController(rootViewController: predictiveVC)
+            predictiveNavController?.view.alpha = 0.0
         }
         
         // Keyboard
@@ -180,7 +180,7 @@ class ChatViewController: UIViewController {
     }
     
     deinit {
-        askQuestionVC?.delegate = nil
+        predictiveVC?.delegate = nil
         keyboardObserver.delegate = nil
         chatMessagesView.delegate = nil
         chatInputView.delegate = nil
@@ -231,14 +231,14 @@ class ChatViewController: UIViewController {
         view.addSubview(suggestedRepliesView)
         view.addSubview(connectionStatusView)
         
-        // Ask Question
-        if let askQuestionView = askQuestionNavController?.view {
+        // Predictive
+        if let predictiveView = predictiveNavController?.view {
             if let navView = navigationController?.view {
-                navView.addSubview(askQuestionView)
+                navView.addSubview(predictiveView)
             } else {
-                view.addSubview(askQuestionView)
+                view.addSubview(predictiveView)
             }
-            askQuestionView.alpha = 0.0
+            predictiveView.alpha = 0.0
         }
         
         updateIsLiveChat(withEvents: conversationManager.storedMessages)
@@ -254,9 +254,9 @@ class ChatViewController: UIViewController {
         conversationManager.trackButtonTap(buttonName: .openChat)
         
         
-        if showWelcomeOnViewAppear || chatMessagesView.isEmpty {
-            showWelcomeOnViewAppear = false
-            setAskQuestionViewControllerVisible(true, animated: false, completion: nil)
+        if showPredictiveOnViewAppear || chatMessagesView.isEmpty {
+            showPredictiveOnViewAppear = false
+            setPredictiveViewControllerVisible(true, animated: false, completion: nil)
         } else if !isLiveChat {
             showSuggestedRepliesViewIfNecessary(animated: false)
         }
@@ -274,7 +274,7 @@ class ChatViewController: UIViewController {
             })
             
             conversationManager.startSRS(completion: { [weak self] (appOpenResponse) in
-                self?.askQuestionVC?.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
+                self?.predictiveVC?.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             })
         }
     }
@@ -332,7 +332,7 @@ class ChatViewController: UIViewController {
     // MARK: Status Bar Style
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        if showWelcomeOnViewAppear || askQuestionVCVisible {
+        if showPredictiveOnViewAppear || predictiveVCVisible {
             return .lightContent
         } else {
             if styles.navBarBackgroundColor.isDark() {
@@ -414,8 +414,8 @@ class ChatViewController: UIViewController {
         }
     }
     
-    func showWelcomeView() {
-        setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+    func showPredictiveView() {
+        setPredictiveViewControllerVisible(true, animated: true, completion: nil)
     }
     
     
@@ -430,7 +430,7 @@ class ChatViewController: UIViewController {
     func didTapAskButton() {
         increaseTooltipActionsCount(increaseAmount: 2)
         
-        showWelcomeView()
+        showPredictiveView()
         
         conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
     }
@@ -462,14 +462,14 @@ extension ChatViewController {
     }
     
     func showAskButtonTooltipIfNecessary() {
-        guard !showWelcomeOnViewAppear && !askQuestionVCVisible && !isLiveChat
+        guard !showPredictiveOnViewAppear && !predictiveVCVisible && !isLiveChat
             && numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
-            return
+                return
         }
         
         guard let navView = navigationController?.view,
             let buttonItem = navigationItem.leftBarButtonItem else {
-            return
+                return
         }
         
         increaseTooltipActionsCount()
@@ -506,12 +506,12 @@ extension ChatViewController {
     }
     
     func updateFrames() {
-        // Ask Question
-        if let askQuestionView = askQuestionNavController?.view {
+        // Predictive
+        if let predictiveView = predictiveNavController?.view {
             if let navView = navigationController?.view {
-                askQuestionView.frame = navView.bounds
+                predictiveView.frame = navView.bounds
             } else {
-                askQuestionView.frame = view.bounds
+                predictiveView.frame = view.bounds
             }
         }
         
@@ -669,7 +669,7 @@ extension ChatViewController {
                 if let appAction = buttonItem.appAction {
                     switch appAction {
                     case .Ask:
-                        setAskQuestionViewControllerVisible(true, animated: true, completion: nil)
+                        setPredictiveViewControllerVisible(true, animated: true, completion: nil)
                         break
                         
                     case .BeginLiveChat:
@@ -746,17 +746,17 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
 }
 
-// MARK:- ChatWelcomeViewController
+// MARK:- PredictiveViewController
 
-extension ChatViewController: ChatWelcomeViewControllerDelegate {
+extension ChatViewController: PredictiveViewControllerDelegate {
     
-    func setAskQuestionViewControllerVisible(_ visible: Bool, animated: Bool, completion: (() -> Void)?) {
-        if askQuestionVCVisible == visible {
+    func setPredictiveViewControllerVisible(_ visible: Bool, animated: Bool, completion: (() -> Void)?) {
+        if predictiveVCVisible == visible {
             return
         }
         
-        askQuestionVCVisible = visible
-        askQuestionVC?.view.endEditing(true)
+        predictiveVCVisible = visible
+        predictiveVC?.view.endEditing(true)
         view.endEditing(true)
         
         if visible {
@@ -766,7 +766,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
             keyboardObserver.registerForNotifications()
         }
         
-        guard let welcomeView = askQuestionNavController?.view else { return }
+        guard let welcomeView = predictiveNavController?.view else { return }
         let alpha: CGFloat = visible ? 1 : 0
         
         if animated {
@@ -774,7 +774,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
                 welcomeView.alpha = alpha
                 self?.updateStatusBar(false)
                 }, completion: { [weak self] (completed) in
-                    self?.askQuestionVC?.presentingViewUpdatedVisibility(visible)
+                    self?.predictiveVC?.presentingViewUpdatedVisibility(visible)
                     completion?()
                     
                     if !visible {
@@ -785,7 +785,7 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
             })
         } else {
             welcomeView.alpha = alpha
-            askQuestionVC?.presentingViewUpdatedVisibility(visible)
+            predictiveVC?.presentingViewUpdatedVisibility(visible)
             updateStatusBar(false)
             completion?()
         }
@@ -794,9 +794,9 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
     
     // MARK: Delegate
     
-    func chatWelcomeViewController(_ viewController: ChatWelcomeViewController,
-                                   didFinishWithText queryText: String,
-                                   fromPrediction: Bool) {
+    func predictiveViewController(_ viewController: PredictiveViewController,
+                                  didFinishWithText queryText: String,
+                                  fromPrediction: Bool) {
         
         simpleStore.updateSRSOriginalSearchQuery(query: queryText)
         
@@ -804,28 +804,28 @@ extension ChatViewController: ChatWelcomeViewControllerDelegate {
         chatMessagesView.overrideToHideInfoView = true
         chatMessagesView.scrollToBottomAnimated(false)
         
-        setAskQuestionViewControllerVisible(false, animated: true) { [weak self] in
+        setPredictiveViewControllerVisible(false, animated: true) { [weak self] in
             Dispatcher.delay(250, closure: {
                 self?.sendMessage(withText: queryText, fromPrediction: fromPrediction)
             })
         }
     }
     
-    func chatWelcomeViewControllerDidTapViewChat(_ viewController: ChatWelcomeViewController) {
-        setAskQuestionViewControllerVisible(false, animated: true) { [weak self] in
+    func predictiveViewControllerDidTapViewChat(_ viewController: PredictiveViewController) {
+        setPredictiveViewControllerVisible(false, animated: true) { [weak self] in
             self?.showSuggestedRepliesViewIfNecessary()
         }
         
         conversationManager.trackButtonTap(buttonName: .showChatFromPredictive)
     }
     
-    func chatWelcomeViewControllerDidTapX(_ viewController: ChatWelcomeViewController) {
+    func predictiveViewControllerDidTapX(_ viewController: PredictiveViewController) {
         conversationManager.trackButtonTap(buttonName: .closeChatFromPredictive)
         
         dismissChatViewController()
     }
     
-    func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool {
+    func predictiveViewControllerIsConnected(_ viewController: PredictiveViewController) -> Bool {
         if connectionStatus == .connected {
             return true
         }
