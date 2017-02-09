@@ -25,7 +25,7 @@ public class ASAPPButton: UIView {
     
     public var shadowDisabled: Bool = false {
         didSet {
-            updateButtonDisplay()
+            refreshDisplay()
         }
     }
     
@@ -56,7 +56,7 @@ public class ASAPPButton: UIView {
     
     fileprivate var isTouching = false {
         didSet {
-            updateButtonDisplay()
+            refreshDisplay()
         }
     }
     
@@ -75,10 +75,6 @@ public class ASAPPButton: UIView {
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
-        label.setAttributedText(strings.asappButton,
-                                textStyle: .asappButton,
-                                color: styles.asappButtonForegroundColor,
-                                styles: styles)
         contentView.addSubview(label)
         
         contentView.layer.shadowColor = UIColor.black.cgColor
@@ -89,8 +85,13 @@ public class ASAPPButton: UIView {
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
-        updateButtonDisplay()
         addSubview(contentView)
+        
+        refreshDisplay()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ASAPPButton.refreshDisplay),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
     }
     
     required public init(withCredentials credentials: Credentials,
@@ -115,6 +116,10 @@ public class ASAPPButton: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented. Must initialize using init(withCredentials:presentingViewController:)")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Layout
@@ -151,7 +156,12 @@ public class ASAPPButton: UIView {
 // MARK:- Button Display
 
 extension ASAPPButton {
-    func updateButtonDisplay() {
+    func refreshDisplay() {
+        label.setAttributedText(strings.asappButton,
+                                textStyle: .asappButton,
+                                color: styles.asappButtonForegroundColor,
+                                styles: styles)
+        
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1
             contentView.backgroundColor = buttonBackgroundColor
