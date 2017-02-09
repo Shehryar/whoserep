@@ -36,7 +36,7 @@ class PredictiveViewController: UIViewController {
     fileprivate let blurredColorLayer = VerticalGradientView()
     fileprivate let titleLabel = UILabel()
     fileprivate let messageLabel = UILabel()
-    fileprivate let buttonsView: ChatWelcomeButtonsView
+    fileprivate let buttonsView: PredictiveButtonsView
     fileprivate let messageInputView: ChatInputView
     fileprivate let connectionStatusLabel = UILabel()
     fileprivate var finishedInitialAnimation = true
@@ -51,7 +51,7 @@ class PredictiveViewController: UIViewController {
         self.appOpenResponse = appOpenResponse
         self.styles = styles
         self.strings = strings
-        self.buttonsView = ChatWelcomeButtonsView(styles: styles, strings: strings)
+        self.buttonsView = PredictiveButtonsView(styles: styles, strings: strings)
         self.messageInputView = ChatInputView(styles: styles, strings: strings)
         super.init(nibName: nil, bundle: nil)
         
