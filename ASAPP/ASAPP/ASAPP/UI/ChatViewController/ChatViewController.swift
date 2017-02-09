@@ -323,6 +323,7 @@ class ChatViewController: UIViewController {
         chatMessagesView.refreshDisplay()
         suggestedRepliesView.refreshDisplay()
         connectionStatusView.refreshDisplay()
+        chatInputView.refreshFonts()
         
         if isViewLoaded {
             view.setNeedsLayout()

@@ -63,6 +63,22 @@ class PredictiveButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Dispaly
+    
+    func refreshDisplay() {
+        otherLabel.updateFont(for: .predictiveDetailLabel, styles: styles)
+        
+        for button in relatedButtons {
+            button.font = styles.font(for: .predictiveButton)
+        }
+        
+        for button in otherButtons {
+            button.font = styles.font(for: .predictiveButton)
+        }
+        
+        setNeedsLayout()
+    }
+    
     // MARK: View Creation
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {

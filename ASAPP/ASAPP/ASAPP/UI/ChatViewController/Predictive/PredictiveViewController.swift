@@ -55,23 +55,6 @@ class PredictiveViewController: UIViewController {
         self.messageInputView = ChatInputView(styles: styles, strings: strings)
         super.init(nibName: nil, bundle: nil)
         
-        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
-                                                                     font: styles.font(for: .navBarButton),
-                                                                     textColor: UIColor.white,
-                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                     style: .respond,
-                                                                     target: self,
-                                                                     action: #selector(PredictiveViewController.didTapViewChat))
-        navigationItem.leftBarButtonItem = viewChatButton
-        
-        
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
-                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                   target: self,
-                                                                   action: #selector(PredictiveViewController.didTapCancel))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(PredictiveViewController.dismissKeyboard))
         if let tapGesture = tapGesture {
             tapGesture.cancelsTouchesInView = false
@@ -132,6 +115,12 @@ class PredictiveViewController: UIViewController {
         keyboardObserver.delegate = self
         
         setAppOpenResponse(appOpenResponse: appOpenResponse, animated: appOpenResponse != nil)
+        
+        refreshDisplay()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PredictiveViewController.refreshDisplay),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -142,6 +131,40 @@ class PredictiveViewController: UIViewController {
         messageInputView.delegate = nil
         keyboardObserver.delegate = nil
         tapGesture?.delegate = nil
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: Display
+    
+    
+    func refreshDisplay() {
+        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
+                                                                     font: styles.font(for: .navBarButton),
+                                                                     textColor: UIColor.white,
+                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                     style: .respond,
+                                                                     target: self,
+                                                                     action: #selector(PredictiveViewController.didTapViewChat))
+        navigationItem.leftBarButtonItem = viewChatButton
+        
+        
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
+                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                   target: self,
+                                                                   action: #selector(PredictiveViewController.didTapCancel))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        navigationItem.rightBarButtonItem = closeButton
+        
+        titleLabel.updateFont(for: .predictiveGreeting, styles: styles)
+        messageLabel.updateFont(for: .predictiveMessage, styles: styles)
+        
+        buttonsView.refreshDisplay()
+        messageInputView.refreshFonts()
+        
+        if isViewLoaded {
+            view.setNeedsLayout()
+        }
     }
     
     // MARK: View

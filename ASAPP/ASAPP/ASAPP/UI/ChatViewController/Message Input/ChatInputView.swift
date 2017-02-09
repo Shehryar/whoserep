@@ -58,15 +58,6 @@ class ChatInputView: UIView {
         }
     }
     
-    var font: UIFont {
-        didSet {
-            textView.font = font
-            placeholderTextView.font = font
-            updateInputMinHeight()
-            setNeedsLayout()
-        }
-    }
-    
     var textColor: UIColor {
         didSet {
             textView.textColor = textColor
@@ -81,12 +72,6 @@ class ChatInputView: UIView {
     }
     
     var sendButtonText: String {
-        didSet {
-            updateSendButtonText()
-        }
-    }
-    
-    var sendButtonFont: UIFont {
         didSet {
             updateSendButtonText()
         }
@@ -132,12 +117,10 @@ class ChatInputView: UIView {
     required init(styles: ASAPPStyles, strings: ASAPPStrings) {
         self.styles = styles
         self.strings = strings
-        self.font = styles.font(for: .chatInputViewText)
         self.textColor = styles.inputTextColor
         self.placeholderText = strings.chatInputPlaceholder
         self.placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
         self.sendButtonText = strings.chatInputSend
-        self.sendButtonFont = styles.font(for: .chatInputViewButton)
         self.sendButtonColor = styles.inputSendButtonColor
         self.separatorColor = styles.separatorColor1
         super.init(frame: .zero)
@@ -154,7 +137,7 @@ class ChatInputView: UIView {
         
         textView.backgroundColor = UIColor.clear
         textView.tintColor = placeholderColor
-        textView.font = font
+        textView.font = styles.font(for: .chatInputViewText)
         textView.textColor = textColor
         textView.bounces = false
         textView.isScrollEnabled = false
@@ -225,6 +208,14 @@ class ChatInputView: UIView {
     
     // MARK:- Appearance
     
+    func refreshFonts() {
+        textView.font = styles.font(for: .chatInputViewText)
+        placeholderTextView.font = styles.font(for: .chatInputViewText)
+        updateSendButtonText()
+        updateInputMinHeight()
+        setNeedsLayout()
+    }
+    
     func updateSendButtonForCurrentState() {
         if textView.text.isEmpty {
             placeholderTextView.isHidden = false
@@ -244,7 +235,7 @@ class ChatInputView: UIView {
     // MARK:- Button Colors
     
     func updateSendButtonText() {
-        let font = sendButtonFont
+        let font = styles.font(for: .chatInputViewButton)
         let color = sendButtonColor
         let normalAttributes = [
             NSKernAttributeName : 1.5,
