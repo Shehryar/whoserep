@@ -110,6 +110,13 @@ class ChatViewController: UIViewController {
         
         // Buttons
         
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
+                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                   target: self,
+                                                                   action: #selector(ChatViewController.didTapCloseButton))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        navigationItem.rightBarButtonItem = closeButton
+        
         // Subviews
         
         chatMessagesView.delegate = self
@@ -304,21 +311,7 @@ class ChatViewController: UIViewController {
     // MARK: Display Update
     
     func refreshDisplay() {
-        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
-                                                                font: self.styles.font(for: .navBarButton),
-                                                                textColor: self.styles.navBarButtonForegroundColor,
-                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
-                                                                style: .ask,
-                                                                target: self,
-                                                                action: #selector(ChatViewController.didTapAskButton))
-        navigationItem.leftBarButtonItem = askButton
-        
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
-                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
-                                                                   target: self,
-                                                                   action: #selector(ChatViewController.didTapCloseButton))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
+        updateAskButton()
         
         chatMessagesView.refreshDisplay()
         suggestedRepliesView.refreshDisplay()
@@ -328,6 +321,22 @@ class ChatViewController: UIViewController {
         if isViewLoaded {
             view.setNeedsLayout()
         }
+    }
+    
+    func updateAskButton() {
+        if isLiveChat {
+            navigationItem.leftBarButtonItem = nil
+            return
+        }
+        
+        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
+                                                                font: self.styles.font(for: .navBarButton),
+                                                                textColor: self.styles.navBarButtonForegroundColor,
+                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
+                                                                style: .ask,
+                                                                target: self,
+                                                                action: #selector(ChatViewController.didTapAskButton))
+        navigationItem.leftBarButtonItem = askButton
     }
     
     // MARK: Status Bar Style
@@ -400,6 +409,8 @@ class ChatViewController: UIViewController {
     }
     
     func updateViewForLiveChat(animated: Bool = true) {
+        updateAskButton()
+        
         if isLiveChat {
             clearSuggestedRepliesView(true, completion: nil)
             chatInputView.placeholderText = strings.chatInputPlaceholder
