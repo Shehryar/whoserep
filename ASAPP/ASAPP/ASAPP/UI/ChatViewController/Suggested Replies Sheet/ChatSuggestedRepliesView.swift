@@ -12,7 +12,8 @@ protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewWillTapBack(_ repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
+    /// Delegate returns YES if the button was successfully acted upon
+    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool
 }
 
 class ChatSuggestedRepliesView: UIView, ASAPPStyleable {

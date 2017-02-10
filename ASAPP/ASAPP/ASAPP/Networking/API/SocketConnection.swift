@@ -21,8 +21,6 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
-    private let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
-    
     // MARK: Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -60,13 +58,7 @@ class SocketConnection: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        let connectionRequest = NSMutableURLRequest()
-        connectionRequest.url = SocketConnection.createConnectionURL(subdomain: credentials.subdomain)
-        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
-        connectionRequest.addValue("0.1.0", forHTTPHeaderField: "ASAPP-ClientVersion")
-        // TODO: Refactor this out
-        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: "ASAPP-ClientSecret")
-        self.connectionRequest = connectionRequest as URLRequest
+        self.connectionRequest = SocketConnection.createConnectionRequestion(subdomain: credentials.subdomain)
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
         
@@ -87,9 +79,20 @@ class SocketConnection: NSObject {
 // MARK:- Connection URL
 
 extension SocketConnection {
-    class func createConnectionURL(subdomain: String) -> URL? {
-        let urlString = "wss://\(subdomain).asapp.com/api/websocket"
-        return URL(string: urlString)
+    
+    private static let ASAPP_CLIENT_VERSION = "2.1.0"
+    private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
+
+    class func createConnectionRequestion(subdomain: String) -> URLRequest {
+        let urlString = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
+        
+        let connectionRequest = NSMutableURLRequest()
+        connectionRequest.url = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
+        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
+        connectionRequest.addValue(ASAPP_CLIENT_VERSION, forHTTPHeaderField: "ASAPP-ClientVersion")
+        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: "ASAPP-ClientSecret")
+        
+        return connectionRequest as URLRequest
     }
 }
 
@@ -148,7 +151,11 @@ extension SocketConnection {
 // MARK:- Sending Messages
 
 extension SocketConnection {
-    func sendRequest(withPath path: String, params: [String : AnyObject]?, context: [String : AnyObject]? = nil, requestHandler: IncomingMessageHandler? = nil) {
+    func sendRequest(withPath path: String,
+                     params: [String : AnyObject]?,
+                     context: [String : AnyObject]? = nil,
+                     requestHandler: IncomingMessageHandler? = nil) {
+
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: context)
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
@@ -156,7 +163,10 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    func sendRequestWithData(_ data: Data, requestHandler: IncomingMessageHandler? = nil) {
+    /// Returns true if the message is sent
+    
+    func sendRequestWithData(_ data: Data,
+                             requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequestWithData(data)
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
@@ -164,7 +174,7 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    func sendRequestWithRequest(_ request: SocketRequest) {
+    fileprivate func sendRequestWithRequest(_ request: SocketRequest) {
         if isConnected {
             requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
             requestLookup[request.requestId] = request

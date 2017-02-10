@@ -852,7 +852,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
-        if isLiveChat {
+        if isLiveChat && conversationManager.isConnected {
             let isTyping = text != nil && !text!.isEmpty
             conversationManager.sendUserTypingStatus(isTyping: isTyping, withText: text)
         }
@@ -965,8 +965,10 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         conversationManager.currentSRSClassification = suggestedRepliesView.currentSRSClassification
     }
     
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) {
+    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool {
         handleSRSButtonItemSelection(buttonItem)
+        
+        return true
     }
 }
 
