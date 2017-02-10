@@ -21,6 +21,8 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
+    fileprivate let LOG_ANALYTICS_EVENTS_VERBOSE = false
+    
     // MARK: Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -184,7 +186,13 @@ extension SocketConnection {
                 socket?.send(data)
             } else {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
-                DebugLog("Sending request: \(requestString)")
+                
+                if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
+                    DebugLog("Sending request: \(requestString)")
+                } else {
+                    DebugLog("Sending analytics request")
+                }
+                
                 socket?.send(requestString)
             }
         } else {

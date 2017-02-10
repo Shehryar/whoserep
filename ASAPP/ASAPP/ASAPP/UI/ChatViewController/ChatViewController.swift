@@ -678,7 +678,8 @@ extension ChatViewController {
             
                 let originalQuery = simpleStore.getSRSOriginalSearchQuery()
                 conversationManager.sendButtonItemSelection(buttonItem,
-                                                            originalSearchQuery: originalQuery)
+                                                            originalSearchQuery: originalQuery,
+                                                            currentSRSEvent: suggestedRepliesView.currentActionableEvent)
                 return true
             }
             break

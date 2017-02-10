@@ -215,7 +215,7 @@ extension ConversationManager {
         }
     }
     
-    func sendButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?) {
+    func sendButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?, currentSRSEvent: Event?) {
         if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: nil) {
             return
         }
@@ -223,7 +223,10 @@ extension ConversationManager {
         switch buttonItem.type {
         case .SRS:
             if let classification = buttonItem.srsValue {
-                sendSRSTreewalk(classification: classification, message: buttonItem.title, originalSearchQuery: originalSearchQuery)
+                sendSRSTreewalk(classification: classification,
+                                message: buttonItem.title,
+                                originalSearchQuery: originalSearchQuery,
+                                currentSRSEvent: currentSRSEvent)
             }
             break
             
@@ -287,7 +290,7 @@ extension ConversationManager {
     
     // MARK: SRS Specific
     
-    fileprivate func sendSRSTreewalk(classification: String, message: String, originalSearchQuery: String?) {
+    fileprivate func sendSRSTreewalk(classification: String, message: String, originalSearchQuery: String?, currentSRSEvent: Event?) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params = [
             "Text" : message as AnyObject,
@@ -295,6 +298,9 @@ extension ConversationManager {
         ]
         if let originalSearchQuery = originalSearchQuery {
             params["SearchQuery"] = originalSearchQuery as AnyObject
+        }
+        if let currentSRSEvent = currentSRSEvent {
+            params["ParentEventLogSeq"] = currentSRSEvent.eventLogSeq as AnyObject
         }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in

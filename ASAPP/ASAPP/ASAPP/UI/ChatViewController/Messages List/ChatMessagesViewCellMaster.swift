@@ -236,7 +236,6 @@ extension ChatMessagesViewCellMaster {
         
         if canCacheHeight {
             if let cachedHeight = cellHeightCache[event] {
-//            print("Cached Height: \(cachedHeight)")
                 return cachedHeight
             }
         }
@@ -250,9 +249,7 @@ extension ChatMessagesViewCellMaster {
         if canCacheHeight {
             cellHeightCache[event] = height
         }
-        
-//        print("Calculated Height: \(height)")        
-        
+                
         return height
     }
     
