@@ -23,6 +23,7 @@ class ChatConnectionStatusView: UIView {
     var message: String? {
         didSet {
             label.text = message
+            setNeedsLayout()
         }
     }
     
@@ -68,10 +69,8 @@ class ChatConnectionStatusView: UIView {
         self.strings = strings
         super.init(frame: .zero)
         
-        label.font = styles.detailFont
-        label.textAlignment = .center
-        
         updateColors()
+        refreshDisplay()
         
         addSubview(label)
         addSubview(spinner)
@@ -111,6 +110,13 @@ class ChatConnectionStatusView: UIView {
                 spinner.activityIndicatorViewStyle = .gray
             }
         }
+    }
+    
+    func refreshDisplay() {
+        label.updateFont(for: .connectionStatusBanner, styles: styles)
+        label.textAlignment = .center
+        
+        setNeedsLayout()
     }
     
     // MARK: Layout

@@ -9,17 +9,19 @@
 import UIKit
 import ASAPP
 
-
-enum Environment: String {
-    case asapp = "demo"
-    case mitch = "mitch"
-    case comcast = "comcast.preprod"
-    case sprint = "sprint"
-}
-
 class AppSettings: NSObject {
     
-    let environment: Environment
+    var subdomain: String {
+        didSet {
+            AppSettings.saveSubdomain(subdomain)
+        }
+    }
+    
+    var defaultCompany: String {
+        didSet {
+            AppSettings.saveDefaultCompany(defaultCompany)
+        }
+    }
     
     let versionString: String
     
@@ -27,33 +29,23 @@ class AppSettings: NSObject {
     
     // MARK: Demo Settings
     
-    var liveChatEnabled: Bool {
-        didSet {
-            if liveChatEnabled && !supportsLiveChat {
-                liveChatEnabled = false
-            }
-        }
-    }
+    var liveChatEnabled: Bool = true
     
     var demoContentEnabled: Bool
-    
-    var canUseDifferentCompany: Bool {
-        switch environment {
-        case .asapp, .mitch: return true
-        case .comcast, .sprint: return false
-        }
-    }
     
     //
     // MARK:- Init
     //
     
-    init(environment: Environment, branding: Branding? = nil) {
-        self.environment = environment
+    init(subdomain: String?, defaultCompany: String?, branding: Branding? = nil) {
+        let nonNilSubdomain = subdomain ?? SubdomainPreset.asapp.rawValue
+        self.subdomain = nonNilSubdomain
+        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(subdomain: nonNilSubdomain).rawValue
+        
         if let branding = branding {
             self.branding = branding
-        } else {
-            switch environment {
+        } else if let subdomainPreset = SubdomainPreset(rawValue: self.subdomain) {
+            switch subdomainPreset {
             case .comcast:
                 self.branding = Branding(brandingType: .xfinity)
                 break
@@ -66,6 +58,8 @@ class AppSettings: NSObject {
                 self.branding = Branding(brandingType: .asapp)
                 break
             }
+        } else {
+            self.branding = Branding(brandingType: .asapp)
         }
         
         // Version Info
@@ -84,30 +78,12 @@ class AppSettings: NSObject {
     }
 }
 
-// MARK:- Environment Settings
-
-extension AppSettings {
-    
-    var asappEnvironment: ASAPPEnvironment {
-        return .staging
-    }
-    
-    var supportsLiveChat: Bool {
-        return AppSettings.canDemoLiveChat(environment: environment)
-    }
-
-    var defaultCompany: String {
-        return AppSettings.defaultCompanyForEnvironment(environment: environment)
-    }
-}
-
 // MARK:- User Token
 
 extension AppSettings {
     
     private func accountStorageKey() -> String {
-        
-        return "\(environment)-Demo-Account-Key"
+        return "\(subdomain)-Demo-Account-Key"
     }
     
     func getCurrentAccount() -> UserAccount {
@@ -126,34 +102,52 @@ extension AppSettings {
     }
 }
 
-// MARK:- Static Environment Functions
+// MARK:- Saving: Subdomain
 
 extension AppSettings {
+    private static let KEY_SUBDOMAIN = "ASAPP_DEMO_KEY_SUBDOMAIN"
     
-    static func defaultCompanyForEnvironment(environment: Environment) -> String {
-        switch environment {
-        case .asapp: return "asapp"
-        case .mitch: return "mitch"
-        case .comcast: return "comcast"
-        case .sprint: return "sprint"
+    class func saveSubdomain(_ subdomain: String) {
+        UserDefaults.standard.set(subdomain, forKey: KEY_SUBDOMAIN)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func getSavedSubdomain() -> String? {
+        return UserDefaults.standard.string(forKey: KEY_SUBDOMAIN)
+    }
+}
+
+// MARK:- Saving: Default Company
+
+extension AppSettings {
+    private static let KEY_DEFAULT_COMPANY = "ASAPP_DEMO_KEY_DEFAULT_COMPANY"
+    
+    class func saveDefaultCompany(_ company: String) {
+        UserDefaults.standard.set(company, forKey: KEY_DEFAULT_COMPANY)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func getSavedDefaultCompany() -> String? {
+        return UserDefaults.standard.string(forKey: KEY_DEFAULT_COMPANY)
+    }
+}
+
+// MARK:- Saving: Branding
+
+extension AppSettings {
+    private static let KEY_BRANDING_PRESET = "ASAPP_DEMO_KEY_BRANDING_PRESET"
+    
+    class func saveBranding(_ branding: Branding) {
+        UserDefaults.standard.set(branding.brandingType.rawValue, forKey: KEY_BRANDING_PRESET)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func getSavedBranding() -> Branding? {
+        if let rawValue = UserDefaults.standard.string(forKey: KEY_BRANDING_PRESET),
+            let brandingType = BrandingType(rawValue: rawValue) {
+            return Branding(brandingType: brandingType)
         }
-    }
-    
-    static func canChangeColors(environment: Environment) -> Bool {
-        return [Environment.asapp, Environment.mitch].contains(environment)
-    }
-    
-    static func canDemoLiveChat(environment: Environment) -> Bool {
-        return [Environment.asapp, Environment.mitch].contains(environment)
-    }
-    
-    static func environmentAfter(environment: Environment) -> Environment {
-        switch environment {
-        case .asapp: return .mitch
-        case .mitch: return .comcast
-        case .comcast: return .sprint
-        case .sprint: return .asapp
-        }
+        return nil
     }
 }
 

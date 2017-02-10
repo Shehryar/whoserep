@@ -66,10 +66,10 @@ class ChatInfoMessageView: UIView, ASAPPStyleable {
         backgroundColor = styles.backgroundColor1
         
         titleLabel.textColor = styles.foregroundColor1
-        titleLabel.font = styles.headlineFont
+        titleLabel.updateFont(for: .emptyChatTitle, styles: styles)
         
         messageLabel.textColor = styles.foregroundColor2
-        messageLabel.font = styles.bodyFont
+        messageLabel.updateFont(for: .emptyChatMessage, styles: styles)
         
         setNeedsUpdateConstraints()
     }

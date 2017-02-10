@@ -27,7 +27,7 @@ public class ASAPPStrings: NSObject {
     public var connectionBannerDisconnected: String = ASAPPLocalizedString("Not connected. Retry connection?")
     
     public var chatEmptyTitle: String = ASAPPLocalizedString("Hi there, how can we help you?")
-    public var chatEmptyMessage: String = ASAPPLocalizedString("Ask a new question to get started.")
+    public var chatEmptyMessage: String = ASAPPLocalizedString("Tap 'ASK' to get started.")
     public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
     public var chatAskTooltip: String = ASAPPLocalizedString("Tap 'ASK' to ask a new question.")
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")

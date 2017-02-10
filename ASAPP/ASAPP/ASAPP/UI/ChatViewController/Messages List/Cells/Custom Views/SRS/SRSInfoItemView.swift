@@ -76,9 +76,9 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
     
     func getLabelLabelFontAndTextColor() -> (UIFont, UIColor) {
         if orientation == .vertical {
-            return (styles.detailFont, styles.foregroundColor2)
+            return (styles.font(for: .srsInfoLabelV), styles.foregroundColor2)
         } else {
-            return (styles.detailFont.withSize(styles.bodyBoldFont.pointSize - 2), styles.foregroundColor1)
+            return (styles.font(for: .srsInfoLabelH), styles.foregroundColor1)
         }
     }
     
@@ -86,9 +86,9 @@ class SRSInfoItemView: UIView, ASAPPStyleable {
         let color = infoItem?.valueColor ?? styles.foregroundColor1
         
         if orientation == .vertical {
-            return (styles.headlineFont, color)
+            return (styles.font(for: .srsInfoValueV), color)
         } else {
-            return (styles.bodyBoldFont, color)
+            return (styles.font(for: .srsInfoLabelH), color)
         }
     }
     

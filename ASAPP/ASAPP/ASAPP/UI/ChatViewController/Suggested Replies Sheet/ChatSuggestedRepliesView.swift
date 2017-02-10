@@ -12,7 +12,8 @@ protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewWillTapBack(_ repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem)
+    /// Delegate returns YES if the button was successfully acted upon
+    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool
 }
 
 class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
@@ -123,7 +124,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     // MARK: ASAPPStyleable
     
     fileprivate(set) var styles = ASAPPStyles()
@@ -142,6 +143,8 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         for actionableMessageView in actionableMessageViews {
             actionableMessageView.applyStyles(styles)
         }
+        
+        setNeedsLayout()
     }
     
     func styleButton(_ button: Button, withStyles styles: ASAPPStyles) {
@@ -152,6 +155,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         button.layer.borderColor = styles.separatorColor1.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
+    }
+    
+    func refreshDisplay() {
+        applyStyles(styles)
     }
 }
 
@@ -230,9 +237,11 @@ extension ChatSuggestedRepliesView {
         actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
         actionableMessageView.applyStyles(styles)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
-            if let strongSelf = self {
-                strongSelf.delegate?.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
+            if let strongSelf = self,
+                let delegate = strongSelf.delegate {
+                return delegate.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
             }
+            return false
         }
         actionableMessageViewsContainer.addSubview(actionableMessageView)
         actionableMessageViews.append(actionableMessageView)

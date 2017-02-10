@@ -43,18 +43,7 @@ class AccountsViewController: BaseTableViewController {
         
         title = "Accounts"
         
-        if appSettings.canUseDifferentCompany {
-            allAccounts = UserAccount.allPresetAccounts()
-        } else {
-            let company = appSettings.defaultCompany
-            var userAccounts = [UserAccount]()
-            for (_, userAccount) in UserAccount.allPresetAccounts().enumerated() {
-                if userAccount.company == company {
-                    userAccounts.append(userAccount)
-                }
-            }
-            allAccounts = userAccounts
-        }
+        allAccounts = UserAccount.allPresetAccounts()
         
         tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)

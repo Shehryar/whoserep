@@ -1,5 +1,5 @@
 //
-//  ChatWelcomeViewController.swift
+//  PredictiveViewController.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ChatWelcomeViewControllerDelegate: class {
-    func chatWelcomeViewController(_ viewController: ChatWelcomeViewController, didFinishWithText queryText: String, fromPrediction: Bool)
-    func chatWelcomeViewControllerDidTapViewChat(_ viewController: ChatWelcomeViewController)
-    func chatWelcomeViewControllerDidTapX(_ viewController: ChatWelcomeViewController)
-    func chatWelcomeViewControllerIsConnected(_ viewController: ChatWelcomeViewController) -> Bool
+protocol PredictiveViewControllerDelegate: class {
+    func predictiveViewController(_ viewController: PredictiveViewController, didFinishWithText queryText: String, fromPrediction: Bool)
+    func predictiveViewControllerDidTapViewChat(_ viewController: PredictiveViewController)
+    func predictiveViewControllerDidTapX(_ viewController: PredictiveViewController)
+    func predictiveViewControllerIsConnected(_ viewController: PredictiveViewController) -> Bool
 }
 
-class ChatWelcomeViewController: UIViewController {
+class PredictiveViewController: UIViewController {
 
     fileprivate(set) var appOpenResponse: SRSAppOpenResponse?
     
@@ -23,7 +23,7 @@ class ChatWelcomeViewController: UIViewController {
     
     let strings: ASAPPStrings
     
-    weak var delegate: ChatWelcomeViewControllerDelegate?
+    weak var delegate: PredictiveViewControllerDelegate?
     
     var tapGesture: UITapGestureRecognizer?
     
@@ -36,7 +36,7 @@ class ChatWelcomeViewController: UIViewController {
     fileprivate let blurredColorLayer = VerticalGradientView()
     fileprivate let titleLabel = UILabel()
     fileprivate let messageLabel = UILabel()
-    fileprivate let buttonsView: ChatWelcomeButtonsView
+    fileprivate let buttonsView: PredictiveButtonsView
     fileprivate let messageInputView: ChatInputView
     fileprivate let connectionStatusLabel = UILabel()
     fileprivate var finishedInitialAnimation = true
@@ -51,28 +51,11 @@ class ChatWelcomeViewController: UIViewController {
         self.appOpenResponse = appOpenResponse
         self.styles = styles
         self.strings = strings
-        self.buttonsView = ChatWelcomeButtonsView(styles: styles, strings: strings)
+        self.buttonsView = PredictiveButtonsView(styles: styles, strings: strings)
         self.messageInputView = ChatInputView(styles: styles, strings: strings)
         super.init(nibName: nil, bundle: nil)
         
-        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
-                                                                     font: styles.navBarButtonFont,
-                                                                     textColor: UIColor.white,
-                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                     style: .respond,
-                                                                     target: self,
-                                                                     action: #selector(ChatWelcomeViewController.didTapViewChat))
-        navigationItem.leftBarButtonItem = viewChatButton
-        
-        
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
-                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                   target: self,
-                                                                   action: #selector(ChatWelcomeViewController.didTapCancel))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
-        
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatWelcomeViewController.dismissKeyboard))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(PredictiveViewController.dismissKeyboard))
         if let tapGesture = tapGesture {
             tapGesture.cancelsTouchesInView = false
             tapGesture.delegate = self
@@ -90,17 +73,15 @@ class ChatWelcomeViewController: UIViewController {
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = UIColor.white
-        titleLabel.font = styles.bodyFont.withSize(24)
-        titleLabel.attributedText = NSAttributedString(string: titleText, attributes: [
-            NSFontAttributeName : styles.bodyFont.withSize(24),
-            NSKernAttributeName : 0.7
-            ])
+        titleLabel.setAttributedText(titleText,
+                                     textStyle: .predictiveGreeting,
+                                     color: UIColor.white,
+                                     styles: styles)
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.textColor = UIColor.white
-        messageLabel.font = styles.detailFont.withSize(14)
         blurredBgView.contentView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
@@ -123,11 +104,10 @@ class ChatWelcomeViewController: UIViewController {
         blurredBgView.contentView.addSubview(messageInputView)
     
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
-        connectionStatusLabel.attributedText = NSAttributedString(string: strings.predictiveNoConnectionText, attributes: [
-            NSFontAttributeName : styles.buttonFont.withSize(10),
-            NSKernAttributeName : 1,
-            NSForegroundColorAttributeName : UIColor.white
-            ])
+        connectionStatusLabel.setAttributedText(strings.predictiveNoConnectionText,
+                                                textStyle: .connectionStatusBanner,
+                                                color: UIColor.white,
+                                                styles: styles)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)
@@ -135,6 +115,12 @@ class ChatWelcomeViewController: UIViewController {
         keyboardObserver.delegate = self
         
         setAppOpenResponse(appOpenResponse: appOpenResponse, animated: appOpenResponse != nil)
+        
+        refreshDisplay()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PredictiveViewController.refreshDisplay),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -145,6 +131,40 @@ class ChatWelcomeViewController: UIViewController {
         messageInputView.delegate = nil
         keyboardObserver.delegate = nil
         tapGesture?.delegate = nil
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: Display
+    
+    
+    func refreshDisplay() {
+        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
+                                                                     font: styles.font(for: .navBarButton),
+                                                                     textColor: UIColor.white,
+                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                     style: .respond,
+                                                                     target: self,
+                                                                     action: #selector(PredictiveViewController.didTapViewChat))
+        navigationItem.leftBarButtonItem = viewChatButton
+        
+        
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
+                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
+                                                                   target: self,
+                                                                   action: #selector(PredictiveViewController.didTapCancel))
+        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        navigationItem.rightBarButtonItem = closeButton
+        
+        titleLabel.updateFont(for: .predictiveGreeting, styles: styles)
+        messageLabel.updateFont(for: .predictiveMessage, styles: styles)
+        
+        buttonsView.refreshDisplay()
+        messageInputView.refreshFonts()
+        
+        if isViewLoaded {
+            view.setNeedsLayout()
+        }
     }
     
     // MARK: View
@@ -313,9 +333,9 @@ class ChatWelcomeViewController: UIViewController {
     func finishWithMessage(_ message: String, fromPrediction: Bool) {
         guard let delegate = delegate else { return }
         
-        if delegate.chatWelcomeViewControllerIsConnected(self) {
+        if delegate.predictiveViewControllerIsConnected(self) {
             dismissKeyboard()
-            delegate.chatWelcomeViewController(self, didFinishWithText: message, fromPrediction: fromPrediction)
+            delegate.predictiveViewController(self, didFinishWithText: message, fromPrediction: fromPrediction)
             messageInputView.clear()
         } else {
             flashNoConnectionLabel()
@@ -324,13 +344,13 @@ class ChatWelcomeViewController: UIViewController {
     
     func didTapViewChat() {
         dismissKeyboard()
-        delegate?.chatWelcomeViewControllerDidTapViewChat(self)
+        delegate?.predictiveViewControllerDidTapViewChat(self)
     }
     
     func didTapCancel() {
         dismissKeyboard()
         messageInputView.clear()
-        delegate?.chatWelcomeViewControllerDidTapX(self)
+        delegate?.predictiveViewControllerDidTapX(self)
     }
     
     func dismissKeyboard() {
@@ -360,7 +380,7 @@ class ChatWelcomeViewController: UIViewController {
 
 // MARK:- UIGestureRecognizerDelegate
 
-extension ChatWelcomeViewController: UIGestureRecognizerDelegate {
+extension PredictiveViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let touchView = touch.view {
             if touchView.isDescendant(of: buttonsView) || touchView.isDescendant(of: messageInputView) {
@@ -373,7 +393,7 @@ extension ChatWelcomeViewController: UIGestureRecognizerDelegate {
 
 // MARK:- ChatInputViewDelegate
 
-extension ChatWelcomeViewController: ChatInputViewDelegate {
+extension PredictiveViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
         // No-op
     }
@@ -393,7 +413,7 @@ extension ChatWelcomeViewController: ChatInputViewDelegate {
 
 // MARK:- KeyboardObserver
 
-extension ChatWelcomeViewController: KeyboardObserverDelegate {
+extension PredictiveViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
         keyboardOffset = height
@@ -409,7 +429,7 @@ extension ChatWelcomeViewController: KeyboardObserverDelegate {
 
 // MARK:- External API
 
-extension ChatWelcomeViewController {
+extension PredictiveViewController {
     func setAppOpenResponse(appOpenResponse: SRSAppOpenResponse?, animated: Bool) {
         guard let appOpenResponse = appOpenResponse else {
             self.appOpenResponse = nil
@@ -433,11 +453,10 @@ extension ChatWelcomeViewController {
         }
         
         if let customMessage = appOpenResponse.customizedMessage {
-            let attrString = NSAttributedString(string: customMessage, attributes: [
-                NSFontAttributeName : messageLabel.font,
-                NSKernAttributeName : 1.2
-                ])
-            messageLabel.attributedText = attrString
+            messageLabel.setAttributedText(customMessage,
+                                           textStyle: .predictiveMessage,
+                                           color: UIColor.white,
+                                           styles: styles)
         } else {
             messageLabel.text = nil
         }

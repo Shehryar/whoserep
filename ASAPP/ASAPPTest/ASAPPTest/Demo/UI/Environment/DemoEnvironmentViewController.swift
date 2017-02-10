@@ -16,13 +16,8 @@ class DemoEnvironmentViewController: BaseTableViewController {
 
     enum Section: Int {
         case demoContent
-        case liveChat
-        case count
-    }
-    
-    enum ColorsRow: Int {
-        case navigation
-        case content
+        case defaultCompany
+        case subdomain
         case count
     }
     
@@ -42,7 +37,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
         
         tableView.register(TitleToggleCell.self, forCellReuseIdentifier: TitleToggleCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
-            }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,9 +57,12 @@ extension DemoEnvironmentViewController {
         case Section.demoContent.rawValue:
             return 1
             
-        case Section.liveChat.rawValue:
-            return appSettings.supportsLiveChat ? 1 : 0
+        case Section.defaultCompany.rawValue:
+            return CompanyPreset.all.count
         
+        case Section.subdomain.rawValue:
+            return SubdomainPreset.all.count
+            
         default:
             return 0
         }
@@ -77,11 +75,12 @@ extension DemoEnvironmentViewController {
             styleToggleCell(cell, for: indexPath)
             return cell ?? TableViewCell()
             
-        case Section.liveChat.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleToggleCell.reuseId, for: indexPath) as? TitleToggleCell
-            styleToggleCell(cell, for: indexPath)
+        case Section.defaultCompany.rawValue,
+             Section.subdomain.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TitleCheckmarkCell.reuseId, for: indexPath) as? TitleCheckmarkCell
+            styleTitleCheckmarkCell(cell, for: indexPath)
             return cell ?? TableViewCell()
-
+            
         default: return TableViewCell()
         }
     }
@@ -105,19 +104,33 @@ extension DemoEnvironmentViewController {
             }
             break
             
-        case Section.liveChat.rawValue:
-            cell.title = "Demo Live Chat"
-            cell.isOn = appSettings.liveChatEnabled
-            cell.onToggleChange = { [weak self] (isOn: Bool) in
-                if let blockSelf = self {
-                    blockSelf.appSettings.liveChatEnabled = isOn
-                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
-                }
-            }
+        default: break
+        }
+    }
+    
+    func styleTitleCheckmarkCell(_ cell: TitleCheckmarkCell?, for indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        cell.appSettings = appSettings
+        cell.title = nil
+        cell.isChecked = false
+        
+        switch indexPath.section {
+        case Section.defaultCompany.rawValue:
+            let preset = CompanyPreset.all[indexPath.row]
+            cell.title = preset.rawValue
+            cell.isChecked = appSettings.defaultCompany == preset.rawValue
+            break
+            
+        case Section.subdomain.rawValue:
+            let preset = SubdomainPreset.all[indexPath.row]
+            cell.title = "\(preset.rawValue).asapp.com"
+            cell.isChecked = appSettings.subdomain == preset.rawValue
             break
             
         default: break
         }
+        
     }
 }
 
@@ -127,12 +140,10 @@ extension DemoEnvironmentViewController {
 
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.demoContent.rawValue:
-            return "DEMO CONTENT"
+        case Section.demoContent.rawValue: return "DEMO CONTENT"
+        case Section.defaultCompany.rawValue: return "DEFAULT COMPANY"
+        case Section.subdomain.rawValue: return "ENVIRONMENT"
             
-        case Section.liveChat.rawValue:
-            return appSettings.supportsLiveChat ? "LIVE CHAT" : nil
-
         default: return nil
         }
     }
@@ -143,6 +154,10 @@ extension DemoEnvironmentViewController {
         case Section.demoContent.rawValue:
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
+            
+        case Section.defaultCompany.rawValue, Section.subdomain.rawValue:
+            styleTitleCheckmarkCell(checkmarkSizingCell, for: indexPath)
+            return checkmarkSizingCell.sizeThatFits(sizer).height
 
         default: return 0
         }
@@ -150,5 +165,23 @@ extension DemoEnvironmentViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        switch indexPath.section {
+        case Section.defaultCompany.rawValue:
+            let companyPreset = CompanyPreset.all[indexPath.row]
+            appSettings.defaultCompany = companyPreset.rawValue
+            delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
+            tableView.reloadData()
+            break
+            
+        case Section.subdomain.rawValue:
+            let subdomainPreset = SubdomainPreset.all[indexPath.row]
+            appSettings.subdomain = subdomainPreset.rawValue
+            delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
+            tableView.reloadData()
+            break
+            
+        default: break
+        }
     }
 }

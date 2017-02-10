@@ -18,6 +18,14 @@ protocol ChatMessagesViewDelegate: class {
 
 class ChatMessagesView: UIView {
     
+    var overrideToHideInfoView = false {
+        didSet {
+            if oldValue != overrideToHideInfoView {
+                updateSubviewVisibility()
+            }
+        }
+    }
+    
     // MARK:- Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -146,6 +154,15 @@ class ChatMessagesView: UIView {
         
         tableView.frame = bounds
     }
+    
+    // MARK: 
+    
+    func refreshDisplay() {
+        cellMaster.clearCache()
+        tableView.reloadData()
+        
+        scrollToBottomAnimated(false)
+    }
 }
 
 // MARK:- Utility
@@ -155,10 +172,10 @@ extension ChatMessagesView {
     func updateSubviewVisibility(_ animated: Bool = false) {
         let currentAlpha = infoMessageView.alpha
         var nextAlpha: CGFloat
-        if dataSource.isEmpty() {
-            nextAlpha = 1.0
-        } else {
+        if overrideToHideInfoView || !dataSource.isEmpty() {
             nextAlpha = 0.0
+        } else {
+            nextAlpha = 1.0
         }
         
         if currentAlpha == nextAlpha {
@@ -385,9 +402,9 @@ extension ChatMessagesView: SRSItemCarouselViewDelegate {
 
 extension ChatMessagesView {
     
-    func isNearBottom(_ delta: CGFloat = 80) -> Bool {
+    func isNearBottom(_ delta: CGFloat = 120) -> Bool {
         let offsetWithDelta = tableView.contentOffset.y + delta
-        let offsetAtBottom = tableView.contentSize.height - tableView.bounds.height
+        let offsetAtBottom = tableView.contentSize.height - tableView.bounds.height - tableView.contentInset.bottom
         if offsetWithDelta >= offsetAtBottom {
             return true
         }

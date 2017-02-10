@@ -22,6 +22,7 @@ class UserAccount: NSObject {
         case sandy
         case rachel
         case max
+        case rachelBoost
         
         static let all = [
             gustavo,
@@ -35,6 +36,7 @@ class UserAccount: NSObject {
             sandy,
             rachel,
             max,
+            rachelBoost
         ]
     }
     
@@ -115,7 +117,10 @@ extension UserAccount {
                                       company: "company11",
                                       userToken: "+12152065821")
             
-        
+        case .rachelBoost: return UserAccount(name: "Rachel (Boost)",
+                                              imageName: "user-rachel",
+                                              company: "boost",
+                                              userToken: "+16173317845")
         }
     }
     

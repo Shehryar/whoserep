@@ -49,11 +49,11 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
             if let event = event {
                 let eventDate = event.eventDate
                 dateFormatter.dateFormat = eventDate.dateFormatForMostRecent()
-                detailLabel.attributedText = NSAttributedString(string: dateFormatter.string(from: eventDate as Date), attributes: [
-                    NSFontAttributeName : styles.captionFont,
-                    NSForegroundColorAttributeName : styles.foregroundColor2,
-                    NSKernAttributeName : 0.8
-                    ])
+                let timestamp = dateFormatter.string(from: eventDate as Date)
+                detailLabel.setAttributedText(timestamp,
+                                              textStyle: .chatTimestamp,
+                                              color: styles.foregroundColor2,
+                                              styles: styles)
             } else {
                 detailLabel.text = nil
             }
@@ -167,12 +167,10 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
     }
     
     func applyStyles(_ styles: ASAPPStyles, isReply: Bool) {
-        if styles != self.styles || isReply != self.isReply {
-            self.styles = styles
-            self.isReply = isReply
+        self.styles = styles
+        self.isReply = isReply
         
-            updateFontsAndColors()
-        }
+        updateFontsAndColors()
     }
     
     func bubbleFillColor() -> UIColor {
@@ -193,7 +191,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         bubbleView.fillColor = bubbleFillColor()
         bubbleView.strokeColor = bubbleStrokeColor()
         
-        detailLabel.font = styles.captionFont
+        detailLabel.font = styles.font(for: .chatTimestamp)
         detailLabel.textColor = styles.foregroundColor2
         detailLabel.backgroundColor = backgroundColor
         

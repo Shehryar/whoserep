@@ -1,5 +1,5 @@
 //
-//  ChatWelcomeButtonsView.swift
+//  PredictiveButtonsView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatWelcomeButtonsView: UIView {
+class PredictiveButtonsView: UIView {
 
     var onButtonTap: ((_ buttonTitle: String, _ isFromPrediction: Bool) -> Void)?
     
@@ -50,15 +50,11 @@ class ChatWelcomeButtonsView: UIView {
         self.styles = styles
         self.strings = strings
         super.init(frame: CGRect.zero)
-        
-        otherLabel.font = styles.detailFont
-        otherLabel.textColor = self.styles.askViewDetailLabelColor
-        otherLabel.attributedText = NSAttributedString(string: strings.predictiveOtherSuggestions,
-                                                       attributes: [
-                                                        NSFontAttributeName : styles.detailFont,
-                                                        NSKernAttributeName : 1
-            ])
-        
+    
+        otherLabel.setAttributedText(strings.predictiveOtherSuggestions,
+                                     textStyle: .predictiveDetailLabel,
+                                     color: styles.askViewDetailLabelColor,
+                                     styles: styles)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -67,10 +63,27 @@ class ChatWelcomeButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Dispaly
+    
+    func refreshDisplay() {
+        otherLabel.updateFont(for: .predictiveDetailLabel, styles: styles)
+        
+        for button in relatedButtons {
+            button.font = styles.font(for: .predictiveButton)
+        }
+        
+        for button in otherButtons {
+            button.font = styles.font(for: .predictiveButton)
+        }
+        
+        setNeedsLayout()
+    }
+    
     // MARK: View Creation
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
         let button = Button()
+        button.font = styles.font(for: .predictiveButton)
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
@@ -81,7 +94,6 @@ class ChatWelcomeButtonsView: UIView {
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
             button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
-        button.font = styles.bodyFont.withSize(15)
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title

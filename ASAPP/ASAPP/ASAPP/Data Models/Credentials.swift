@@ -8,21 +8,14 @@
 
 import Foundation
 
-public typealias ASAPPCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
-
-public typealias ASAPPContextProvider = (() -> [String : Any])
-
-public typealias ASAPPAuthProvider = (() -> [String : Any])
-
-
 // MARK:- Credentials
 
 public class Credentials: NSObject {
     
     // MARK: Public Properties
     
-    public let environment: ASAPPEnvironment
     public let companyMarker: String
+    public let subdomain: String
     public let isCustomer: Bool
     public let userToken: String?
     public let targetCustomerToken: String?
@@ -31,26 +24,25 @@ public class Credentials: NSObject {
     public let contextProvider: ASAPPContextProvider
     public let callbackHandler: ASAPPCallbackHandler
     
-    // MARK: Internal Properties
+    // MARK:- Internal Properties
     
     internal var authMacaroon: ASAPPAuthMacaroon?
     
-    // MARK: Initialization
-    
-    required public init(withCompany company: String,
+    // MARK:- Initialization
+        
+    public required init(withCompany company: String,
+                         subdomain: String,
                          userToken: String?,
                          isCustomer: Bool,
                          targetCustomerToken: String?,
-                         environment: ASAPPEnvironment,
                          authProvider: @escaping ASAPPAuthProvider,
                          contextProvider: @escaping ASAPPContextProvider,
                          callbackHandler: @escaping ASAPPCallbackHandler) {
-        
         self.companyMarker = company
+        self.subdomain = subdomain
         self.userToken = userToken
         self.isCustomer = isCustomer
         self.targetCustomerToken = targetCustomerToken
-        self.environment = environment
         
         self.authProvider = authProvider
         self.contextProvider = contextProvider
@@ -75,7 +67,7 @@ public class Credentials: NSObject {
     }
     
     func hashKey(withPrefix prefix: String? = nil) -> String {
-        let key = "\(prefix ?? "")\(StringForASAPPEnvironment(environment))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
+        let key = "\(prefix ?? "")\(subdomain))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
         return key
     }
     

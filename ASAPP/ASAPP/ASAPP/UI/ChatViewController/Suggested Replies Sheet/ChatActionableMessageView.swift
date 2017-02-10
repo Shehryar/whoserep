@@ -11,7 +11,7 @@ import UIKit
 class ChatActionableMessageView: UIView, ASAPPStyleable {
 
     class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
-        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.buttonFont)
+        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.font(for: .srsButton))
     }
     
     func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
@@ -30,7 +30,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     
     fileprivate(set) var selectedButtonItem: SRSButtonItem?
     
-    var onButtonItemSelection: ((SRSButtonItem) -> Void)?
+    var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
         didSet {
@@ -103,6 +103,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
         tableView.reloadData()
+        setNeedsLayout()
     }
     
     // MARK:- Layout
@@ -170,17 +171,17 @@ extension ChatActionableMessageView: UITableViewDataSource {
     }
     
     func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
-        cell.textLabel?.textColor = styles.buttonColor
-        cell.textLabel?.font = styles.buttonFont
+        cell.label.textColor = styles.buttonColor
+        cell.label.textAlignment = .center
         cell.backgroundColor = styles.backgroundColor2
+        cell.label.font = styles.font(for: .srsButton)
         cell.separatorBottomColor = styles.separatorColor1
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
-            cell.textLabel?.attributedText = NSAttributedString(string: buttonItem.title.uppercased(), attributes: [
-                NSFontAttributeName : styles.buttonFont,
-                NSForegroundColorAttributeName : styles.buttonColor,
-                NSKernAttributeName : 1.5
-                ])
+            cell.label.setAttributedText(buttonItem.title.uppercased(),
+                                         textStyle: .srsButton,
+                                         color: styles.buttonColor,
+                                         styles: styles)
             cell.imageTintColor = styles.buttonColor
             
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
@@ -192,20 +193,23 @@ extension ChatActionableMessageView: UITableViewDataSource {
                 cell.accessibilityTraits = UIAccessibilityTraitLink
             }
         } else {
-            cell.textLabel?.text = nil
+            cell.label.text = nil
         }
         
         if selectedButtonItem != nil {
             if selectedButtonItem == buttonItemForIndexPath(indexPath) {
-                cell.textLabel?.alpha = 1
+                cell.label.alpha = 1
             } else {
-                cell.textLabel?.alpha = 0.3
+                cell.label.alpha = 0.3
             }
             cell.selectedBackgroundColor = nil
         } else {
-            cell.textLabel?.alpha = 1
+            cell.label.alpha = 1
             cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
         }
+        
+        
+        cell.layoutSubviews()
     }
 }
 
@@ -223,10 +227,12 @@ extension ChatActionableMessageView: UITableViewDelegate {
         
         guard selectedButtonItem == nil else { return }
         
-        if let buttonItem = buttonItemForIndexPath(indexPath) {
+        if let buttonItem = buttonItemForIndexPath(indexPath),
+            let onButtonItemSelection = onButtonItemSelection {
             selectedButtonItem = buttonItem
-            onButtonItemSelection?(buttonItem)
-            
+            if !onButtonItemSelection(buttonItem) {
+                selectedButtonItem = nil
+            }
             updateCellsAnimated(animated: true)
         }
     }

@@ -42,6 +42,7 @@ class IncomingMessageSerializer {
             return serializedMessage
         }
         
+    
         let tokens = messageString.characters.split(separator: "|").map(String.init)
         
         serializedMessage.type = MessageType(rawValue: tokens[0])
@@ -49,16 +50,16 @@ class IncomingMessageSerializer {
             switch type {
             case .Response:
                 serializedMessage.requestId = Int(tokens[1])
-                serializedMessage.bodyString = tokens[2]
+                serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
                 break
                 
             case .Event:
-                serializedMessage.bodyString = tokens[1]
+                serializedMessage.bodyString = tokens[1...(tokens.count-1)].joined(separator: "|")
                 break
                 
             case .ResponseError:
                 serializedMessage.requestId = Int(tokens[1])
-                serializedMessage.bodyString = tokens[2]
+                serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
                 serializedMessage.debugError = serializedMessage.bodyString
                 break
             }

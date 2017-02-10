@@ -74,7 +74,7 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
         self.styles = styles
         
         finishedLabel.textColor = styles.foregroundColor2
-        finishedLabel.font = styles.detailFont
+        finishedLabel.font = styles.font(for: .srsLabel)
     }
     
     // MARK: Layout

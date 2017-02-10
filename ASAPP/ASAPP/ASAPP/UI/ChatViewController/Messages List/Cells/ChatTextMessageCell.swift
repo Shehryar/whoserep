@@ -40,7 +40,6 @@ class ChatTextMessageCell: ChatBubbleCell {
         
         textMessageLabel.numberOfLines = 0
         textMessageLabel.lineBreakMode = .byTruncatingTail
-        textMessageLabel.font = Fonts.latoRegularFont(withSize: 16)
         textMessageLabel.textColor = Colors.whiteColor()
         bubbleView.addSubview(textMessageLabel)
         
@@ -55,7 +54,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     override func updateFontsAndColors() {
         super.updateFontsAndColors()
         
-        textMessageLabel.font = styles.bodyFont
+        textMessageLabel.font = styles.font(for: .chatMessageText)
         if isReply {
             textMessageLabel.textColor = styles.replyMessageTextColor
         } else {

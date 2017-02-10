@@ -32,9 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.backgroundColor = UIColor.white
         
         let appSettings = buildAppSettings()
-        let canChangeEnvironment = Bundle.main.infoDictionary?["can-change-environment"] as? String == "YES"
         
-        homeController = HomeViewController(appSettings: appSettings, canChangeEnvironment: canChangeEnvironment)
+        homeController = HomeViewController(appSettings: appSettings)
         
         Fabric.with([Crashlytics.self])
         
@@ -79,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func buildAppSettings() -> AppSettings {
+        /*
         let infoDict = Bundle.main.infoDictionary
         let liveChatEnabled = infoDict?["demo-live-chat"] as? String == "YES"
         let demoContentEnabled = infoDict?["demo-content-enabled"] as? String == "YES"
@@ -88,14 +88,18 @@ extension AppDelegate {
             environment = Environment(rawValue: environmentString) ?? .asapp
         } else {
             environment = .asapp
+         
         }
+         
+         let canChangeEnvironment = Bundle.main.infoDictionary?["can-change-environment"] as? String == "YES"
+        */
         
-        let appSettings = AppSettings(environment: environment, branding: Branding.getSavedBranding())
-        appSettings.liveChatEnabled = liveChatEnabled
-        appSettings.demoContentEnabled = demoContentEnabled
         
-        DemoSettings.applySettings(for: appSettings)
-        
+ 
+        let appSettings = AppSettings(subdomain: AppSettings.getSavedSubdomain(),
+                                      defaultCompany: AppSettings.getSavedDefaultCompany(),
+                                      branding: AppSettings.getSavedBranding())
+                
         return appSettings
     }
 }

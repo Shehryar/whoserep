@@ -10,9 +10,30 @@ import Foundation
 
 internal var DISTRIBUTION_BUILD = false
 
+internal var DEMO_LIVE_CHAT = true
 internal var DEMO_CONTENT_ENABLED = false
-internal var DEMO_LIVE_CHAT = false
-internal var DEMO_ENVIRONMENT_PREFIX: String? = nil
+
+
+// MARK- Enums & Typealiases
+
+@objc public enum ASAPPEnvironment: Int {
+    case staging
+    case production
+}
+
+public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -> String {
+    switch environment {
+    case .staging: return "\(company).preprod"
+    case .production: return "\(company)"
+    }
+}
+
+public typealias ASAPPCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
+
+public typealias ASAPPContextProvider = (() -> [String : Any])
+
+public typealias ASAPPAuthProvider = (() -> [String : Any])
+
 
 // MARK:- Internal Constants
 
@@ -27,9 +48,8 @@ public class ASAPP: NSObject {
     public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
-    public static let CONTEXT_KEY_CUST_GUID = "custGUID"
     
-    // MARK: Fonts
+    // MARK: Fonts + Setup
     
     static var didLoadFonts = false
     
@@ -44,27 +64,36 @@ public class ASAPP: NSObject {
         return Fonts.loadedFonts()
     }
     
+    private class func commontSetup(testMode: Bool) {
+        loadFontsIfNecessary()
+        if !DISTRIBUTION_BUILD {
+            DEMO_CONTENT_ENABLED = testMode
+        } else {
+            DEMO_CONTENT_ENABLED = false
+        }
+    }
+    
     // MARK:- Chat Button
     
     /// Returns a new buttonView that can be manually added to a view.
     public class func createChatButton(company: String,
+                                       subdomain: String,
                                        customerId: String,
-                                       environment: ASAPPEnvironment,
                                        authProvider: @escaping ASAPPAuthProvider,
                                        contextProvider: @escaping ASAPPContextProvider,
                                        callbackHandler: @escaping ASAPPCallbackHandler,
                                        styles: ASAPPStyles?,
                                        strings: ASAPPStrings?,
+                                       testMode: Bool,
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
-        loadFontsIfNecessary()
-        updateDemoSettings(withEnvironment: environment)
+        commontSetup(testMode: testMode)
         
         let credentials = Credentials(withCompany: company,
+                                      subdomain: subdomain,
                                       userToken: customerId,
                                       isCustomer: true,
                                       targetCustomerToken: nil,
-                                      environment: environment,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
                                       callbackHandler: callbackHandler)
@@ -86,13 +115,14 @@ public class ASAPP: NSObject {
                                        presentingViewController: UIViewController) -> ASAPPButton {
 
         return createChatButton(company: company,
+                                subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
                                 customerId: customerId,
-                                environment: environment,
                                 authProvider: authProvider,
                                 contextProvider: contextProvider,
                                 callbackHandler: callbackHandler,
                                 styles: styles,
                                 strings: nil,
+                                testMode: false,
                                 presentingViewController: presentingViewController)
     }
     
@@ -100,22 +130,22 @@ public class ASAPP: NSObject {
     
     /// Returns a UINavigationController containing a new instance of the chat view controller.
     public class func createChatViewController(company: String,
+                                               subdomain: String,
                                                customerId: String,
-                                               environment: ASAPPEnvironment,
                                                authProvider: @escaping ASAPPAuthProvider,
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler,
                                                styles: ASAPPStyles?,
-                                               strings: ASAPPStrings?) -> UIViewController {
+                                               strings: ASAPPStrings?,
+                                               testMode: Bool) -> UIViewController {
         
-        loadFontsIfNecessary()
-        updateDemoSettings(withEnvironment: environment)
+        commontSetup(testMode: testMode)
         
         let credentials = Credentials(withCompany: company,
+                                      subdomain: subdomain,
                                       userToken: customerId,
                                       isCustomer: true,
                                       targetCustomerToken: nil,
-                                      environment: environment,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
                                       callbackHandler: callbackHandler)
@@ -137,13 +167,14 @@ public class ASAPP: NSObject {
                                                styles: ASAPPStyles?) -> UIViewController {
         
         return createChatViewController(company: company,
+                                        subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
                                         customerId: customerId,
-                                        environment: environment,
                                         authProvider: authProvider,
                                         contextProvider: contextProvider,
                                         callbackHandler: callbackHandler,
                                         styles: styles,
-                                        strings: nil)
+                                        strings: nil,
+                                        testMode: false)
     }
     
     // MARK:
@@ -162,21 +193,16 @@ public class ASAPP: NSObject {
     
     // MARK: Private
     
-    fileprivate class func updateDemoSettings(withEnvironment environment: ASAPPEnvironment) {
+    fileprivate class func updateDemoSettings() {
         guard !DISTRIBUTION_BUILD
             else {
                 DebugLog("All demo settings disabled for distribution build")
                 DEMO_CONTENT_ENABLED = false
-                DEMO_LIVE_CHAT = false
-                DEMO_ENVIRONMENT_PREFIX = nil
                 return
         }
-    
         DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
-        DEMO_LIVE_CHAT = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_LIVE_CHAT")
-        DEMO_ENVIRONMENT_PREFIX = UserDefaults.standard.string(forKey: "ASAPP_DEMO_ENVIRONMENT_PREFIX")
         
-        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)\nDemo Environment String = \(DEMO_ENVIRONMENT_PREFIX != nil ? DEMO_ENVIRONMENT_PREFIX! : "nil")\n==========")
+        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)n==========")
     }
 }
 
