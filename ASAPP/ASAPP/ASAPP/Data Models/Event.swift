@@ -342,7 +342,7 @@ class Event: NSObject {
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
         
         
-        if (DEMO_CONTENT_ENABLED || DEMO_LIVE_CHAT) && self.eventType == .srsEcho {
+        if  self.eventType == .srsEcho {
             var eventJSONObject: [String : AnyObject]?
             do {
                 eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
@@ -357,7 +357,7 @@ class Event: NSObject {
             }
         }
         
-        if DEMO_LIVE_CHAT && self.eventType == .scheduleAppointment {
+        if self.eventType == .scheduleAppointment {
             if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
                 self.eventType = .srsResponse
                 self.eventJSON = scheduleApptJSON

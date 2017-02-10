@@ -73,10 +73,10 @@ extension ConversationManager {
     }
     
     func demo_OverrideMessageSend(message: String, completion: (() -> Void)? = nil) -> Bool {
-        if DEMO_LIVE_CHAT &&
-            (message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
-                || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]])
-            ) {
+        guard DEMO_CONTENT_ENABLED else { return false }
+        
+        if message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
+                || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]]) {
             if let demoResponse = Event.demoResponseForMessage(message: message,
                                                                company: credentials.companyMarker) {
                 _sendMessage(message)
@@ -84,10 +84,6 @@ extension ConversationManager {
                 return true
             }
         }
-        
-        
-        
-        guard DEMO_CONTENT_ENABLED else { return false }
         
         if let demoResponse = Event.demoResponseForMessage(message: message,
                                                            company: credentials.companyMarker) {
@@ -191,18 +187,6 @@ extension ConversationManager {
     
     func sendFakeTechLocationMessage(_ eventLogSeq: Int? = nil) {
         let demoEvent = Event.getDemoEvent(eventType: .techLocation,
-                                           eventLogSeq: eventLogSeq)
-        sendDemoMessageEvent(demoEvent)
-    }
-    
-    func sendSwitchToLiveChatMessage(_ eventLogSeq: Int? = nil) {
-        let demoEvent = Event.getDemoEvent(eventType: .switchToLiveChat,
-                                           eventLogSeq: eventLogSeq)
-        sendDemoMessageEvent(demoEvent)
-    }
-    
-    func sendSwitchToSRSMessage(_ eventLogSeq: Int? = nil) {
-        let demoEvent = Event.getDemoEvent(eventType: .switchToSRS,
                                            eventLogSeq: eventLogSeq)
         sendDemoMessageEvent(demoEvent)
     }

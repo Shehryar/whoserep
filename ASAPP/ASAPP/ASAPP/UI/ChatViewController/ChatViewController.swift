@@ -386,11 +386,6 @@ class ChatViewController: UIViewController {
     // MARK: Updates
     
     func updateIsLiveChat(withEvents events: [Event]) {
-        guard DEMO_LIVE_CHAT else {
-            isLiveChat = false
-            return
-        }
-        
         var tempLiveChat = false
         for (_, event) in events.enumerated().reversed() {
             if event.eventType == .newRep || event.eventType == .switchSRSToChat {
@@ -689,19 +684,17 @@ extension ChatViewController {
             break
             
         case .AppAction:
-            if DEMO_LIVE_CHAT {
-                if let appAction = buttonItem.appAction {
-                    switch appAction {
-                    case .Ask:
-                        setPredictiveViewControllerVisible(true, animated: true, completion: nil)
-                        return true
-                        break
-                        
-                    case .BeginLiveChat:
-                        conversationManager.sendSRSSwitchToChat()
-                        return true
-                        break
-                    }
+            if let appAction = buttonItem.appAction {
+                switch appAction {
+                case .Ask:
+                    setPredictiveViewControllerVisible(true, animated: true, completion: nil)
+                    return true
+                    break
+                    
+                case .BeginLiveChat:
+                    conversationManager.sendSRSSwitchToChat()
+                    return true
+                    break
                 }
             }
             break
@@ -1035,9 +1028,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
-        if DEMO_LIVE_CHAT {
-            self.isLiveChat = isLiveChat
-        }
+        self.isLiveChat = isLiveChat
     }
     
     // MARK: Handling Received Messages
@@ -1084,16 +1075,6 @@ extension ChatViewController: ConversationManagerDelegate {
             // Hide Suggested Replies View
         else {
             clearSuggestedRepliesView()
-        }
-        
-        
-        if DEMO_LIVE_CHAT {
-            // Update for live-chat/srs-chat
-            if srsResponse.classification == SRSClassifications.enterLiveChat.rawValue {
-                isLiveChat = true
-            } else if srsResponse.classification == SRSClassifications.enterSRSChat.rawValue {
-                isLiveChat = false
-            }
         }
     }
 }

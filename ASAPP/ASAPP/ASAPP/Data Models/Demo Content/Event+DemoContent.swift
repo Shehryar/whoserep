@@ -24,12 +24,9 @@ enum DemoEventType {
     case phoneUpgrade
     case phonePlanUpgrade
     case deviceTracking
-    case switchToLiveChat
-    case switchToSRS
     case scheduleAppointment
     case appointmentConfirmation
     case jsonStyleExample
-    case chatWithAnAgent
     
     static let allTypes = [billAutoPay,
                            billCredit,
@@ -45,12 +42,9 @@ enum DemoEventType {
                            phonePlanUpgrade,
                            phoneUpgrade,
                            deviceTracking,
-                           switchToLiveChat,
-                           switchToSRS,
                            scheduleAppointment,
                            appointmentConfirmation,
                            jsonStyleExample,
-                           chatWithAnAgent,
                            ]
 }
 
@@ -133,12 +127,9 @@ extension Event {
             }
         case .phonePlanUpgrade: return "phone-plan-upgrade"
         case .deviceTracking: return "device-tracking"
-        case .switchToLiveChat: return "live-chat"
-        case .switchToSRS: return "srs-chat"
         case .scheduleAppointment: return "schedule-appointment"
         case .appointmentConfirmation: return "appointment-confirmation"
         case .jsonStyleExample: return "json-style-example"
-        case .chatWithAnAgent: return "chat-with-an-agent"
         }
     }
     
@@ -245,21 +236,6 @@ extension Event {
                 ["when", "will", "phone"]
             ]
             
-        case .switchToLiveChat:
-            return [
-                ["talk", "to", "agent"],
-                ["talk", "with", "agent"],
-                ["talk", "to", "rep"],
-                ["talk", "with", "rep"],
-                ["switch", "live", "chat"]
-            ]
-            
-        case .switchToSRS:
-            return [
-                ["talk", "to", "srs"],
-                ["switch", "to", "srs"]
-            ]
-            
         case .scheduleAppointment:
             return [
                 ["schedule", "appointment"],
@@ -278,15 +254,6 @@ extension Event {
         case .jsonStyleExample:
             return [
                 ["json", "styl"]
-            ]
-            
-        case .chatWithAnAgent:
-            return [
-                ["chat", "agent"],
-                ["chat", "person"],
-                ["chat", "human"],
-                ["chat", "live"],
-                ["chat", "someone"]
             ]
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:

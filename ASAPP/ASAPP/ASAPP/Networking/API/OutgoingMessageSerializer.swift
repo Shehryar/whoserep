@@ -105,7 +105,8 @@ extension OutgoingMessageSerializer {
                     "RegionCode" : "US" as AnyObject,
                 ]
                 
-                if DEMO_LIVE_CHAT && userToken.isLikelyASAPPPhoneNumber { // userToken == "+13126089137" ||
+                // TODO: Better way to check this?
+                if !DISTRIBUTION_BUILD && userToken.isLikelyASAPPPhoneNumber { // userToken == "+13126089137" ||
                     params["IdentifierType"] = "PHONE" as AnyObject
                     params["CustomerIdentifier"] = userToken as AnyObject
                 }

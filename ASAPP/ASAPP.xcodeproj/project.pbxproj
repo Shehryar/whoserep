@@ -37,7 +37,6 @@
 		285F7B251DAC81AA008C2EF6 /* SRSItemCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B241DAC81AA008C2EF6 /* SRSItemCarousel.swift */; };
 		285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B261DAC881C008C2EF6 /* SRSItemCarouselView.swift */; };
 		285F7B291DACFC33008C2EF6 /* SRSItemListBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B281DACFC33008C2EF6 /* SRSItemListBlockView.swift */; };
-		2860A61E1E00469F00DF5CA7 /* chat-with-an-agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
@@ -131,8 +130,6 @@
 		303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C87811D789BE200213F6B /* SRSLabelItem.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
-		305C6C8D1DB5417600FF0AF4 /* live-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8C1DB5417600FF0AF4 /* live-chat.json */; };
-		305C6C8F1DB5418000FF0AF4 /* srs-chat.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C8E1DB5418000FF0AF4 /* srs-chat.json */; };
 		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
 		305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */; };
 		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
@@ -260,7 +257,6 @@
 		285F7B241DAC81AA008C2EF6 /* SRSItemCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemCarousel.swift; sourceTree = "<group>"; };
 		285F7B261DAC881C008C2EF6 /* SRSItemCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemCarouselView.swift; sourceTree = "<group>"; };
 		285F7B281DACFC33008C2EF6 /* SRSItemListBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListBlockView.swift; sourceTree = "<group>"; };
-		2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-with-an-agent.json"; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28A99F2F1D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSuggestedRepliesView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
@@ -356,8 +352,6 @@
 		303C87811D789BE200213F6B /* SRSLabelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelItem.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		305C6C8C1DB5417600FF0AF4 /* live-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat.json"; sourceTree = "<group>"; };
-		305C6C8E1DB5418000FF0AF4 /* srs-chat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "srs-chat.json"; sourceTree = "<group>"; };
 		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
 		305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
 		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
@@ -512,12 +506,9 @@
 				301C4BE91DAD7D23002BF4D9 /* device-tracking.json */,
 				307301B81DAE90460002CF3B /* predictive-response.json */,
 				307301B91DAE90460002CF3B /* sprint_predictive-response.json */,
-				305C6C8C1DB5417600FF0AF4 /* live-chat.json */,
-				305C6C8E1DB5418000FF0AF4 /* srs-chat.json */,
 				305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */,
 				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
 				30A003491DC258A700CFA4CD /* json-style-example.json */,
-				2860A61D1E00469F00DF5CA7 /* chat-with-an-agent.json */,
 			);
 			path = "Demo JSON";
 			sourceTree = "<group>";
@@ -705,9 +696,9 @@
 				30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */,
 				30226CC31D4933F200871453 /* Event.swift */,
 				300888931D62756D00C25802 /* JSONParser.swift */,
+				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 				285F7AF51DAB33C2008C2EF6 /* Demo Content */,
 				300888961D63B1A200C25802 /* Event Payload Objects */,
-				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -1180,7 +1171,6 @@
 				285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
-				2860A61E1E00469F00DF5CA7 /* chat-with-an-agent.json in Resources */,
 				30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */,
 				301C4BF01DAD804C002BF4D9 /* map-device@3x.png in Resources */,
 				3005C42E1DB02BFD00946934 /* button-bg-respond@3x.png in Resources */,
@@ -1221,8 +1211,6 @@
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */,
 				302472A81D89B7680005A6C9 /* XFINITYSans-Med.ttf in Resources */,
-				305C6C8D1DB5417600FF0AF4 /* live-chat.json in Resources */,
-				305C6C8F1DB5418000FF0AF4 /* srs-chat.json in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
 				285F7B081DAB3409008C2EF6 /* equipment-return.json in Resources */,
 				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,

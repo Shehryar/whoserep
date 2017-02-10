@@ -13,11 +13,6 @@ enum SRSResponseDisplayType: String {
     case ActionSheet = "actionSheet"
 }
 
-enum SRSClassifications: String {
-    case enterLiveChat = "DEMO_LIVE_CHAT"
-    case enterSRSChat = "DEMO_SRS_CHAT"
-}
-
 class SRSResponse: NSObject, JSONObject {
     var displayType: SRSResponseDisplayType
     var title: String?

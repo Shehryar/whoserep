@@ -10,7 +10,6 @@ import Foundation
 
 internal var DISTRIBUTION_BUILD = false
 
-internal var DEMO_LIVE_CHAT = true
 internal var DEMO_CONTENT_ENABLED = false
 
 
@@ -202,7 +201,7 @@ public class ASAPP: NSObject {
         }
         DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
         
-        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\nLive Chat = \(DEMO_LIVE_CHAT)n==========")
+        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\n==========")
     }
 }
 
