@@ -115,6 +115,14 @@ extension ConversationManager {
     func saveCurrentEvents() {
         fileStore.save()
     }
+    
+    func isConnected(retryConnectionIfNeeded: Bool = false) -> Bool {
+        if !isConnected && retryConnectionIfNeeded {
+            socketConnection.connectIfNeeded()
+        }
+        
+        return isConnected
+    }
 }
 
 // MARK:- Fetching Events

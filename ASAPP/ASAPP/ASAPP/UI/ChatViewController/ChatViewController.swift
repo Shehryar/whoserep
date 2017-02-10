@@ -612,24 +612,35 @@ extension ChatViewController: KeyboardObserverDelegate {
 
 extension ChatViewController {
     
-    func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) {
+    func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) -> Bool {
         
         if DEMO_CONTENT_ENABLED {
             if let deepLink = buttonItem.deepLink?.lowercased() {
                 switch deepLink {
                 case "troubleshoot":
-                    if !chatMessagesView.isNearBottom() {
-                        chatMessagesView.scrollToBottomAnimated(true)
+                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+                        if !chatMessagesView.isNearBottom() {
+                            chatMessagesView.scrollToBottomAnimated(true)
+                        }
+                        conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                        
+                        return true
+                    } else {
+                        return false
                     }
-                    conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                    return
+                    break
                     
                 case "restartdevicenow":
-                    if !chatMessagesView.isNearBottom() {
-                        chatMessagesView.scrollToBottomAnimated(true)
+                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+                        if !chatMessagesView.isNearBottom() {
+                            chatMessagesView.scrollToBottomAnimated(true)
+                        }
+                        conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                        return true
+                    } else {
+                        return false
                     }
-                    conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                    return
+                    break
                     
                 default:
                     // No-op
@@ -639,7 +650,6 @@ extension ChatViewController {
         }
         
         
-        
         // Check if this is a web url
         if let webURL = buttonItem.webURL {
             if openWebURL(url: webURL) {
@@ -647,7 +657,7 @@ extension ChatViewController {
                 DebugLog("Did select button with web url: \(webURL)")
                 
                 conversationManager.trackWebLink(link: webURL.absoluteString)
-                return
+                return true
             }
         }
         
@@ -661,19 +671,21 @@ extension ChatViewController {
                 dismiss(animated: true, completion: { [weak self] in
                     self?.callback(deepLink, buttonItem.deepLinkData)
                 })
+                return true
             }
             break
             
         case .SRS, .Action, .Message:
-            simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
+            if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+                simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
             
-            if !chatMessagesView.isNearBottom() {
                 chatMessagesView.scrollToBottomAnimated(true)
-            }
             
-            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
-            conversationManager.sendButtonItemSelection(buttonItem,
-                                                        originalSearchQuery: originalQuery)
+                let originalQuery = simpleStore.getSRSOriginalSearchQuery()
+                conversationManager.sendButtonItemSelection(buttonItem,
+                                                            originalSearchQuery: originalQuery)
+                return true
+            }
             break
             
         case .AppAction:
@@ -682,16 +694,20 @@ extension ChatViewController {
                     switch appAction {
                     case .Ask:
                         setPredictiveViewControllerVisible(true, animated: true, completion: nil)
+                        return true
                         break
                         
                     case .BeginLiveChat:
                         conversationManager.sendSRSSwitchToChat()
+                        return true
                         break
                     }
                 }
             }
             break
         }
+        
+        return false
     }
     
     func openWebURL(url: URL) -> Bool {
@@ -859,7 +875,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
-        if conversationManager.isConnected {
+        if conversationManager.isConnected(retryConnectionIfNeeded: true) {
             chatInputView.clear()
             sendMessage(withText: message)
         }
@@ -968,9 +984,7 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
     }
     
     func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool {
-        handleSRSButtonItemSelection(buttonItem)
-        
-        return true
+        return handleSRSButtonItemSelection(buttonItem)
     }
 }
 

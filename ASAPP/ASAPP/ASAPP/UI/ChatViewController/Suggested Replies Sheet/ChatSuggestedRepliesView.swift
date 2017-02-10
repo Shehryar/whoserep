@@ -237,9 +237,11 @@ extension ChatSuggestedRepliesView {
         actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
         actionableMessageView.applyStyles(styles)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
-            if let strongSelf = self {
-                strongSelf.delegate?.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
+            if let strongSelf = self,
+                let delegate = strongSelf.delegate {
+                return delegate.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
             }
+            return false
         }
         actionableMessageViewsContainer.addSubview(actionableMessageView)
         actionableMessageViews.append(actionableMessageView)

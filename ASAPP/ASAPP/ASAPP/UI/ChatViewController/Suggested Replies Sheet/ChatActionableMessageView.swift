@@ -30,7 +30,7 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
     
     fileprivate(set) var selectedButtonItem: SRSButtonItem?
     
-    var onButtonItemSelection: ((SRSButtonItem) -> Void)?
+    var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
         didSet {
@@ -227,10 +227,12 @@ extension ChatActionableMessageView: UITableViewDelegate {
         
         guard selectedButtonItem == nil else { return }
         
-        if let buttonItem = buttonItemForIndexPath(indexPath) {
+        if let buttonItem = buttonItemForIndexPath(indexPath),
+            let onButtonItemSelection = onButtonItemSelection {
             selectedButtonItem = buttonItem
-            onButtonItemSelection?(buttonItem)
-            
+            if !onButtonItemSelection(buttonItem) {
+                selectedButtonItem = nil
+            }
             updateCellsAnimated(animated: true)
         }
     }
