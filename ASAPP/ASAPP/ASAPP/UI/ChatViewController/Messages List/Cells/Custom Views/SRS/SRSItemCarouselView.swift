@@ -119,7 +119,7 @@ class SRSItemCarouselView: UIView {
                 itemListView.orientation = .vertical
             }
             itemListView.applyStyles(styles)
-            itemListView.srsItems = itemList.contentItems
+            itemListView.setContentItems(itemList.contentItems)
             pageViews.append(itemListView)
             scrollView.addSubview(itemListView)
         }

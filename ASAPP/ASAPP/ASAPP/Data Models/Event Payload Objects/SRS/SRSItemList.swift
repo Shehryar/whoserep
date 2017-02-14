@@ -42,6 +42,21 @@ class SRSItemList: NSObject, JSONObject {
         return contentItems
     }
     
+    var inlineButtonItems: [SRSButtonItem]? {
+        var buttonItems = [SRSButtonItem]()
+        for item in items {
+            if let buttonItem = item as? SRSButtonItem {
+                if buttonItem.isInline {
+                    buttonItems.append(buttonItem)
+                }
+            }
+        }
+        if buttonItems.count > 0 {
+            return buttonItems
+        }
+        return nil
+    }
+    
     var buttonItems: [SRSButtonItem]? {
         var buttonItems = [SRSButtonItem]()
         for item in items {
@@ -144,6 +159,10 @@ class SRSItemList: NSObject, JSONObject {
             case .InlineButton:
                 item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
                 break
+                
+            case .Icon:
+                item = SRSIconItem.instanceWithJSON(itemJSON) as? SRSIconItem
+                break
             }
             
             if let item = item {
@@ -171,4 +190,5 @@ enum SRSItemListItemType: String {
     case LoaderBar = "loaderBar"
     case Image = "image"
     case Map = "map"
+    case Icon = "icon"
 }

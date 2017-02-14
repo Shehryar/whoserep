@@ -78,4 +78,8 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
     func prefersFullWidthDisplay() -> Bool {
         return true
     }
+    
+    func sticksToEdges() -> Bool {
+        return true
+    }
 }

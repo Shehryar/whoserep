@@ -8,10 +8,23 @@
 
 import UIKit
 
+// MARK:- StackableView Protocol
+
+protocol StackableView {
+    func prefersFullWidthDisplay() -> Bool
+    
+    /// If true, when this view appears as the first or last element
+    func sticksToEdges() -> Bool
+}
+
+// MARK:- StackViewOrientation
+
 enum StackViewOrientation {
     case vertical
     case horizontal
 }
+
+// MARK:- StackView
 
 class StackView: UIView {
 
@@ -118,6 +131,8 @@ extension StackView {
         for view in arrangedSubviews {
             let (subviewWidth, prefersFullWidth) = getWidthForSubview(view, forSize: bounds.size)
             let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: CGFloat.greatestFiniteMagnitude)).height)
+            
+            
             if prefersFullWidth {
                 var originY = subviewOrigin.y
                 if view == arrangedSubviews.first {
@@ -167,6 +182,7 @@ extension StackView {
         }
         
         if contentHeight > 0 {
+            // NOTE: Don't always want to add contentInset.top/bottom. FIX THIS
             contentHeight += contentInset.top + contentInset.bottom
         }
         

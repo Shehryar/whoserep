@@ -22,9 +22,9 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                         } else {
                             itemListView.orientation = .vertical
                         }
-                        itemListView.srsItems = itemList.contentItems
+                        itemListView.setContentItems(itemList.contentItems)
                     } else {
-                        itemListView.srsItems = nil
+                        itemListView.setContentItems(nil)
                     }
                    
                     itemCarouselView.itemCarousel = nil
@@ -32,11 +32,11 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                     messageText = itemCarousel.message
                     itemCarouselView.itemCarousel = itemCarousel
                     
-                    itemListView.srsItems = nil
+                    itemListView.setContentItems(nil)
                 }
             } else {
                 messageText = nil
-                itemListView.srsItems = nil
+                itemListView.setContentItems(nil)
             }
             
             // Update Visibility

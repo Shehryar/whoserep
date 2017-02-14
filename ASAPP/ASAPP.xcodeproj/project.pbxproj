@@ -47,7 +47,6 @@
 		28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B51D888FFD00139C7D /* map-tech@3x.png */; };
 		28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */; };
 		28AEC0C11D88C02400139C7D /* SRSMapItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */; };
-		28AEC0C31D88C4AC00139C7D /* StackableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0C21D88C4AC00139C7D /* StackableView.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
@@ -152,6 +151,10 @@
 		3025D9D81E528068004149D7 /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */; };
 		3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */; };
 		3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9DA1E5351AB004149D7 /* add-credit-card.json */; };
+		3025D9DD1E535739004149D7 /* SRSIconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9DC1E535739004149D7 /* SRSIconItem.swift */; };
+		3025D9DF1E5358CC004149D7 /* SRSIconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */; };
+		3025D9E11E5358DE004149D7 /* SRSButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */; };
+		3025D9E31E5365A9004149D7 /* SRSInlineButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
@@ -298,7 +301,6 @@
 		28AEC0B51D888FFD00139C7D /* map-tech@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@3x.png"; sourceTree = "<group>"; };
 		28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItem.swift; sourceTree = "<group>"; };
 		28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItemView.swift; sourceTree = "<group>"; };
-		28AEC0C21D88C4AC00139C7D /* StackableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackableView.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
@@ -404,6 +406,10 @@
 		3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
 		3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckmarkView.swift; sourceTree = "<group>"; };
 		3025D9DA1E5351AB004149D7 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
+		3025D9DC1E535739004149D7 /* SRSIconItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIconItem.swift; sourceTree = "<group>"; };
+		3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIconItemView.swift; sourceTree = "<group>"; };
+		3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItemView.swift; sourceTree = "<group>"; };
+		3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInlineButtonsContainer.swift; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -619,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				3008889C1D63C48600C25802 /* StackView.swift */,
-				28AEC0C21D88C4AC00139C7D /* StackableView.swift */,
 				309219321D6666F700E70AEB /* TwoColumnLabelView.swift */,
 			);
 			path = StackView;
@@ -958,6 +963,7 @@
 				30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */,
 				30C738311D87492300E32B78 /* SRSLoaderBarItem.swift */,
 				28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */,
+				3025D9DC1E535739004149D7 /* SRSIconItem.swift */,
 			);
 			path = SRS;
 			sourceTree = "<group>";
@@ -1098,6 +1104,9 @@
 				30C7382F1D8747FC00E32B78 /* SRSLoaderBarView.swift */,
 				28AEC0C01D88C02400139C7D /* SRSMapItemView.swift */,
 				285F7B1E1DAC3CBE008C2EF6 /* SRSImageItemView.swift */,
+				3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */,
+				3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */,
+				3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */,
 			);
 			path = SRS;
 			sourceTree = "<group>";
@@ -1383,6 +1392,7 @@
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
 				30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
+				3025D9DF1E5358CC004149D7 /* SRSIconItemView.swift in Sources */,
 				28AEC0C11D88C02400139C7D /* SRSMapItemView.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -1398,8 +1408,10 @@
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,
+				3025D9DD1E535739004149D7 /* SRSIconItem.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */,
+				3025D9E11E5358DE004149D7 /* SRSButtonItemView.swift in Sources */,
 				285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */,
@@ -1408,10 +1420,10 @@
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
+				3025D9E31E5365A9004149D7 /* SRSInlineButtonsContainer.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
-				28AEC0C31D88C4AC00139C7D /* StackableView.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
