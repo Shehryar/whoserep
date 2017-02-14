@@ -48,6 +48,14 @@ class SRSItemListView: StackView, ASAPPStyleable {
         if let contentItems = contentItems {
             for item in contentItems {
              
+                // Icon
+                if let iconItem = item as? SRSIconItem {
+                    let iconItemView = SRSIconItemView()
+                    iconItemView.applyStyles(styles)
+                    iconItemView.iconItem = iconItem
+                    createdViews.append(iconItemView)
+                }
+                
                 // Label Item
                 if let labelItem = item as? SRSLabelItem {
                     let label = UILabel()
@@ -64,12 +72,22 @@ class SRSItemListView: StackView, ASAPPStyleable {
                     createdViews.append(label)
                 }
                     
-                // Info Item
-                else if let infoItem = item as? SRSInfoItem {
-                    let infoItemView = SRSInfoItemView()
-                    infoItemView.applyStyles(styles)
-                    infoItemView.infoItem = infoItem
-                    createdViews.append(infoItemView)
+                // Label Value Item
+                else if let labelValueItem = item as? SRSLabelValueItem {
+                    let labelValueItemView: SRSLabelValueItemView
+                    switch labelValueItem.type {
+                    case .horizontal:
+                        labelValueItemView = SRSLabelValueHorizontalItemView()
+                        break
+                        
+                    case .vertical:
+                        labelValueItemView = SRSLabelValueVerticalItemView()
+                        break
+                    }
+                    
+                    labelValueItemView.applyStyles(styles)
+                    labelValueItemView.labelValueItem = labelValueItem
+                    createdViews.append(labelValueItemView)
                 }
                     
                 // Separator Item
@@ -108,28 +126,6 @@ class SRSItemListView: StackView, ASAPPStyleable {
                     mapItemView.applyStyles(styles)
                     mapItemView.mapItem = mapItem
                     createdViews.append(mapItemView)
-                }
-                    
-                // Icon
-                else if let iconItem = item as? SRSIconItem {
-                    let iconItemView = SRSIconItemView()
-                    iconItemView.applyStyles(styles)
-                    iconItemView.iconItem = iconItem
-                    createdViews.append(iconItemView)
-                }
-                    
-                // Item List
-                else if let itemList = item as? SRSItemList {
-                    let itemListView = SRSItemListView()
-                    itemListView.contentInset = UIEdgeInsets.zero
-                    itemListView.applyStyles(styles)
-                    itemListView.setContentItems(itemList.items)
-                    if itemList.orientation == .Vertical {
-                        itemListView.orientation = .vertical
-                    } else {
-                        itemListView.orientation = .horizontal
-                    }
-                    createdViews.append(itemListView)
                 }
             }
         }

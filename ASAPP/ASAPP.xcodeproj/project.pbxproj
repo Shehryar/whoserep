@@ -155,6 +155,11 @@
 		3025D9DF1E5358CC004149D7 /* SRSIconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */; };
 		3025D9E11E5358DE004149D7 /* SRSButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */; };
 		3025D9E31E5365A9004149D7 /* SRSInlineButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */; };
+		3025D9E91E536FC7004149D7 /* SRSLabelValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */; };
+		3025D9EC1E5371F3004149D7 /* SRSNestedItemListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9EB1E5371F3004149D7 /* SRSNestedItemListParser.swift */; };
+		3025D9EE1E537F0D004149D7 /* SRSLabelValueItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9ED1E537F0D004149D7 /* SRSLabelValueItemView.swift */; };
+		3025D9F01E537F18004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9EF1E537F18004149D7 /* SRSLabelValueVerticalItemView.swift */; };
+		3025D9F21E5383C2004149D7 /* SRSLabelValueHorizontalItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9F11E5383C2004149D7 /* SRSLabelValueHorizontalItemView.swift */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
@@ -242,10 +247,8 @@
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
 		30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */; };
 		30D2E28B1D79FEE600502D92 /* SRSItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28A1D79FEE600502D92 /* SRSItemListView.swift */; };
-		30D2E28F1D7A0E2100502D92 /* SRSInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28E1D7A0E2100502D92 /* SRSInfoItem.swift */; };
 		30D2E2911D7A0F1100502D92 /* SRSSeparatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */; };
 		30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */; };
-		30D2E2951D7A0FE000502D92 /* SRSInfoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2941D7A0FE000502D92 /* SRSInfoItemView.swift */; };
 		30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2961D7A137B00502D92 /* SRSSeparatorView.swift */; };
 		30D2E2991D7A230B00502D92 /* SRSFillerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2981D7A230B00502D92 /* SRSFillerView.swift */; };
 		30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875031D9AFC3600E55A88 /* icon-exit-link.png */; };
@@ -410,6 +413,11 @@
 		3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIconItemView.swift; sourceTree = "<group>"; };
 		3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItemView.swift; sourceTree = "<group>"; };
 		3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInlineButtonsContainer.swift; sourceTree = "<group>"; };
+		3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueItem.swift; sourceTree = "<group>"; };
+		3025D9EB1E5371F3004149D7 /* SRSNestedItemListParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSNestedItemListParser.swift; sourceTree = "<group>"; };
+		3025D9ED1E537F0D004149D7 /* SRSLabelValueItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueItemView.swift; sourceTree = "<group>"; };
+		3025D9EF1E537F18004149D7 /* SRSLabelValueVerticalItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueVerticalItemView.swift; sourceTree = "<group>"; };
+		3025D9F11E5383C2004149D7 /* SRSLabelValueHorizontalItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueHorizontalItemView.swift; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -498,10 +506,8 @@
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
 		30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSRSItemListViewCell.swift; sourceTree = "<group>"; };
 		30D2E28A1D79FEE600502D92 /* SRSItemListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListView.swift; sourceTree = "<group>"; };
-		30D2E28E1D7A0E2100502D92 /* SRSInfoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInfoItem.swift; sourceTree = "<group>"; };
 		30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSeparatorItem.swift; sourceTree = "<group>"; };
 		30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFillerItem.swift; sourceTree = "<group>"; };
-		30D2E2941D7A0FE000502D92 /* SRSInfoItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInfoItemView.swift; sourceTree = "<group>"; };
 		30D2E2961D7A137B00502D92 /* SRSSeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSeparatorView.swift; sourceTree = "<group>"; };
 		30D2E2981D7A230B00502D92 /* SRSFillerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFillerView.swift; sourceTree = "<group>"; };
 		30E875031D9AFC3600E55A88 /* icon-exit-link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-exit-link.png"; sourceTree = "<group>"; };
@@ -940,6 +946,14 @@
 			path = "Credit Card";
 			sourceTree = "<group>";
 		};
+		3025D9EA1E5371DD004149D7 /* Old Data Format */ = {
+			isa = PBXGroup;
+			children = (
+				3025D9EB1E5371F3004149D7 /* SRSNestedItemListParser.swift */,
+			);
+			path = "Old Data Format";
+			sourceTree = "<group>";
+		};
 		303C876F1D775A4800213F6B /* ko.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,12 +972,13 @@
 				303C877F1D789BD900213F6B /* SRSButtonItem.swift */,
 				303C87811D789BE200213F6B /* SRSLabelItem.swift */,
 				285F7B1C1DAC3A98008C2EF6 /* SRSImageItem.swift */,
-				30D2E28E1D7A0E2100502D92 /* SRSInfoItem.swift */,
+				3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */,
 				30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */,
 				30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */,
 				30C738311D87492300E32B78 /* SRSLoaderBarItem.swift */,
 				28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */,
 				3025D9DC1E535739004149D7 /* SRSIconItem.swift */,
+				3025D9EA1E5371DD004149D7 /* Old Data Format */,
 			);
 			path = SRS;
 			sourceTree = "<group>";
@@ -1098,7 +1113,6 @@
 				285F7B261DAC881C008C2EF6 /* SRSItemCarouselView.swift */,
 				285F7B281DACFC33008C2EF6 /* SRSItemListBlockView.swift */,
 				30D2E28A1D79FEE600502D92 /* SRSItemListView.swift */,
-				30D2E2941D7A0FE000502D92 /* SRSInfoItemView.swift */,
 				30D2E2981D7A230B00502D92 /* SRSFillerView.swift */,
 				30D2E2961D7A137B00502D92 /* SRSSeparatorView.swift */,
 				30C7382F1D8747FC00E32B78 /* SRSLoaderBarView.swift */,
@@ -1106,6 +1120,9 @@
 				285F7B1E1DAC3CBE008C2EF6 /* SRSImageItemView.swift */,
 				3025D9DE1E5358CC004149D7 /* SRSIconItemView.swift */,
 				3025D9E01E5358DE004149D7 /* SRSButtonItemView.swift */,
+				3025D9ED1E537F0D004149D7 /* SRSLabelValueItemView.swift */,
+				3025D9F11E5383C2004149D7 /* SRSLabelValueHorizontalItemView.swift */,
+				3025D9EF1E537F18004149D7 /* SRSLabelValueVerticalItemView.swift */,
 				3025D9E21E5365A9004149D7 /* SRSInlineButtonsContainer.swift */,
 			);
 			path = SRS;
@@ -1397,6 +1414,8 @@
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				3025D9D81E528068004149D7 /* PlaceholderTextInputView.swift in Sources */,
+				3025D9EC1E5371F3004149D7 /* SRSNestedItemListParser.swift in Sources */,
+				3025D9F01E537F18004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */,
 				306619181D9458F50092B4C5 /* SDWebImageDownloaderOperation.m in Sources */,
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
@@ -1404,6 +1423,7 @@
 				303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */,
 				30EE2A091D9970EB0079932D /* Credentials.swift in Sources */,
 				302268701D834BFB00EC4FB1 /* ChatActionableMessageView.swift in Sources */,
+				3025D9EE1E537F0D004149D7 /* SRSLabelValueItemView.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */,
@@ -1415,8 +1435,8 @@
 				285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */,
-				30D2E28F1D7A0E2100502D92 /* SRSInfoItem.swift in Sources */,
 				285F7B1F1DAC3CBE008C2EF6 /* SRSImageItemView.swift in Sources */,
+				3025D9E91E536FC7004149D7 /* SRSLabelValueItem.swift in Sources */,
 				30D2E2971D7A137B00502D92 /* SRSSeparatorView.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
@@ -1439,9 +1459,9 @@
 				30A4BB211D52400D00795BA7 /* ChatTypingPreviewCell.swift in Sources */,
 				3008888E1D6258F100C25802 /* ChatSuggestedReplyCell.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
-				30D2E2951D7A0FE000502D92 /* SRSInfoItemView.swift in Sources */,
 				305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
+				3025D9F21E5383C2004149D7 /* SRSLabelValueHorizontalItemView.swift in Sources */,
 				3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */,
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				306079741E492D90008F3DAE /* ASAPPTypgraphy.swift in Sources */,

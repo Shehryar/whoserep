@@ -113,9 +113,11 @@ class SRSItemList: NSObject, JSONObject {
             }
             
             var item: AnyObject?
+            var nestedItems: [AnyObject]?
+            
             switch itemType {
             case .ItemList:
-                item = SRSItemList.instanceWithJSON(itemJSON) as? SRSItemList
+                nestedItems = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON)
                 break
                 
             case .Button:
@@ -123,17 +125,11 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Label:
-                item = SRSLabelItem.instanceWithJSON(itemJSON) as? SRSLabelItem
+                item = SRSLabelItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Info:
-                let infoItem = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
-                if orientation == .Vertical {
-                    infoItem?.orientation = .horizontal
-                } else {
-                    infoItem?.orientation = .vertical
-                }
-                item = infoItem
+                item = SRSNestedItemListParser.getSRSLabelValueItemFromInfoItemJSON(itemJSON, listOrientation: orientation)
                 break
                 
             case .Separator:
@@ -167,13 +163,18 @@ class SRSItemList: NSObject, JSONObject {
             
             if let item = item {
                 items.append(item)
+            } else if let nestedItems = nestedItems {
+                items.append(contentsOf: nestedItems)
             }
         }
         
-        guard !items.isEmpty else {
+        if items.isEmpty {
             return nil
             
         }
+        
+        print("\n\n\nItems: \(items)\n\n\n")
+        
         
         return SRSItemList(items: items, orientation: orientation)
     }
