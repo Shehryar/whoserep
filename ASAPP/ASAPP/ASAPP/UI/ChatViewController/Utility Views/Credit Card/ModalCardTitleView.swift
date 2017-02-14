@@ -22,7 +22,7 @@ class ModalCardTitleView: UIView {
     let imageMargin: CGFloat = 10
     let font = Fonts.latoBoldFont(withSize: 18)
     let textColor = UIColor(red:0.263, green:0.278, blue:0.318, alpha:1.000)
-    let image =  Images.imageWithName("icon-credit-card", fillColor: UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000))
+    let image =  Images.imageWithName("icon-credit-card")?.tinted(UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000))
     
     fileprivate let label = UILabel()
     fileprivate let imageView = UIImageView()

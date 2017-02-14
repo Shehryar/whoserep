@@ -245,7 +245,7 @@ extension Button {
             if imageIgnoresForegroundColor {
                 imageView.image = image
             } else {
-                imageView.image = image?.fillAlpha(fgColor)
+                imageView.image = image?.tinted(fgColor)
             }
         }
         
