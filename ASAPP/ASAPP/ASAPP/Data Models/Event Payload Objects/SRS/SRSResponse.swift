@@ -8,18 +8,11 @@
 
 import Foundation
 
-enum SRSResponseDisplayType: String {
-    case Inline = "inline"
-    case ActionSheet = "actionSheet"
-}
-
 class SRSResponse: NSObject, JSONObject {
-    var displayType: SRSResponseDisplayType
     var title: String?
     var classification: String?
     
     var itemList: SRSItemList?
-    
     var itemCarousel: SRSItemCarousel?
     
     var buttonItems: [SRSButtonItem]? {
@@ -30,8 +23,10 @@ class SRSResponse: NSObject, JSONObject {
         return itemList?.immediateActionButtonItem
     }
     
-    init(displayType: SRSResponseDisplayType) {
-        self.displayType = displayType
+    var displayContent: Bool
+    
+    init(displayContent: Bool) {
+        self.displayContent = displayContent
         super.init()
     }
     
@@ -46,14 +41,12 @@ class SRSResponse: NSObject, JSONObject {
         
         let srsJSON = json["businessLogic"] as? [String : Any] ?? json["BusinessLogic"] as? [String : Any] ?? json
     
-        var type = SRSResponseDisplayType.ActionSheet
-        if let displayContent = srsJSON["displayContent"] as? Bool {
-            if displayContent {
-                type = .Inline
-            }
+        var displayContent = false
+        if let displayContentValue = srsJSON["displayContent"] as? Bool {
+            displayContent = displayContentValue
         }
         
-        let response = SRSResponse(displayType: type)
+        let response = SRSResponse(displayContent: displayContent)
         response.title = srsJSON["title"] as? String
         response.classification = srsJSON["classification"] as? String
         if srsJSON["contentType"] as? String == "carousel" {
@@ -70,7 +63,7 @@ class SRSResponse: NSObject, JSONObject {
                         for buttonItem in buttonItems {
                             if buttonItem.deepLink?.lowercased() == "payment" {
                                 buttonItem.isAutoSelect = true
-                                response.displayType = .ActionSheet
+                                response.displayContent = false
                             }
                         }
                     }

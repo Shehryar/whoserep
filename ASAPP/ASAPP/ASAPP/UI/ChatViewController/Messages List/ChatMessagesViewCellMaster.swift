@@ -161,16 +161,13 @@ extension ChatMessagesViewCellMaster {
         // SRS Response
         if event.eventType == .srsResponse {
             if let srsResponse = event.srsResponse {
-                switch srsResponse.displayType {
-                case .Inline, .ActionSheet:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: SRSResponseCellReuseId) as? ChatSRSItemListViewCell
-                    cell?.applyStyles(styles, isReply: isReply)
-                    cell?.listPosition = listPosition
-                    cell?.event = event
-                    cell?.response = srsResponse
-                    cell?.detailLabelHidden = !detailsVisible
-                    return cell
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: SRSResponseCellReuseId) as? ChatSRSItemListViewCell
+                cell?.applyStyles(styles, isReply: isReply)
+                cell?.listPosition = listPosition
+                cell?.event = event
+                cell?.response = srsResponse
+                cell?.detailLabelHidden = !detailsVisible
+                return cell
             }
         }
         
@@ -280,15 +277,12 @@ extension ChatMessagesViewCellMaster {
         // SRS Response
         if event.eventType == .srsResponse {
             if let srsResponse = event.srsResponse {
-                switch srsResponse.displayType {
-                case .Inline, .ActionSheet:
-                    srsItemListViewSizingCell.applyStyles(styles, isReply: isReply)
-                    srsItemListViewSizingCell.listPosition = listPosition
-                    srsItemListViewSizingCell.event = event
-                    srsItemListViewSizingCell.response = srsResponse
-                    srsItemListViewSizingCell.detailLabelHidden = !detailsVisible
-                    return heightForStyledView(srsItemListViewSizingCell, width: width)
-                }
+                srsItemListViewSizingCell.applyStyles(styles, isReply: isReply)
+                srsItemListViewSizingCell.listPosition = listPosition
+                srsItemListViewSizingCell.event = event
+                srsItemListViewSizingCell.response = srsResponse
+                srsItemListViewSizingCell.detailLabelHidden = !detailsVisible
+                return heightForStyledView(srsItemListViewSizingCell, width: width)
             }
         }
         

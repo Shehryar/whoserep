@@ -16,12 +16,12 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                 if let itemList = response.itemList {
                     messageText = itemList.title
                     
-                    if response.displayType == .Inline {
+                    if response.displayContent {
                         itemListView.itemList = itemList
                     } else {
                         itemListView.itemList = nil
                     }
-                   
+                    
                     itemCarouselView.itemCarousel = nil
                 } else if let itemCarousel = response.itemCarousel {
                     messageText = itemCarousel.message

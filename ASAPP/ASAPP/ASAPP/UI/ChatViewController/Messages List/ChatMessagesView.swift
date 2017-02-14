@@ -396,6 +396,10 @@ extension ChatMessagesView: SRSItemCarouselViewDelegate {
             delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
         }
     }
+    
+    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
+    }
 }
 
 // MARK:- Scroll
