@@ -151,6 +151,7 @@
 		3025D9D71E528068004149D7 /* ModalCardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CE1E528068004149D7 /* ModalCardTitleView.swift */; };
 		3025D9D81E528068004149D7 /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */; };
 		3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */; };
+		3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9DA1E5351AB004149D7 /* add-credit-card.json */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
@@ -402,6 +403,7 @@
 		3025D9CE1E528068004149D7 /* ModalCardTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTitleView.swift; sourceTree = "<group>"; };
 		3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
 		3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckmarkView.swift; sourceTree = "<group>"; };
+		3025D9DA1E5351AB004149D7 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -552,8 +554,8 @@
 				285F7AFA1DAB3409008C2EF6 /* bill-summary.json */,
 				30BD87871DC00C350008042D /* bill-autopay-scheduled.json */,
 				30BD87881DC00C350008042D /* bill-credit.json */,
-				30BD87891DC00C350008042D /* bill-paid.json */,
 				30BD878A1DC00C350008042D /* bill-past-due.json */,
+				30BD87891DC00C350008042D /* bill-paid.json */,
 				285F7AFB1DAB3409008C2EF6 /* cancel-appointment-confirmation.json */,
 				285F7AFC1DAB3409008C2EF6 /* cancel-appointment.json */,
 				285F7AFD1DAB3409008C2EF6 /* device-restart.json */,
@@ -569,6 +571,7 @@
 				305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */,
 				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
 				30A003491DC258A700CFA4CD /* json-style-example.json */,
+				3025D9DA1E5351AB004149D7 /* add-credit-card.json */,
 			);
 			path = "Demo JSON";
 			sourceTree = "<group>";
@@ -1335,6 +1338,7 @@
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
 				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
+				3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,

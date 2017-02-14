@@ -27,6 +27,7 @@ enum DemoEventType {
     case scheduleAppointment
     case appointmentConfirmation
     case jsonStyleExample
+    case addCreditCard
     
     static let allTypes = [billAutoPay,
                            billCredit,
@@ -45,6 +46,7 @@ enum DemoEventType {
                            scheduleAppointment,
                            appointmentConfirmation,
                            jsonStyleExample,
+                           addCreditCard
                            ]
 }
 
@@ -130,6 +132,7 @@ extension Event {
         case .scheduleAppointment: return "schedule-appointment"
         case .appointmentConfirmation: return "appointment-confirmation"
         case .jsonStyleExample: return "json-style-example"
+        case .addCreditCard: return "add-credit-card"
         }
     }
     
@@ -254,6 +257,11 @@ extension Event {
         case .jsonStyleExample:
             return [
                 ["json", "styl"]
+            ]
+            
+        case .addCreditCard:
+            return [
+                ["add", "card"]
             ]
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:

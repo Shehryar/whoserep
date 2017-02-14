@@ -689,13 +689,16 @@ extension ChatViewController {
                 switch appAction {
                 case .Ask:
                     setPredictiveViewControllerVisible(true, animated: true, completion: nil)
-                    return true
-                    break
+                    return false
                     
                 case .BeginLiveChat:
                     conversationManager.sendSRSSwitchToChat()
                     return true
-                    break
+                    
+                case .AddCreditCard:
+                    let creditCardViewController = CreditCardInputViewController()
+                    present(creditCardViewController, animated: true, completion: nil)
+                    return false
                 }
             }
             break

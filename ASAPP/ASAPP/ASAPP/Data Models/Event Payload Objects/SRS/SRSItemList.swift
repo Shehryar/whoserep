@@ -46,7 +46,9 @@ class SRSItemList: NSObject, JSONObject {
         var buttonItems = [SRSButtonItem]()
         for item in items {
             if let buttonItem = item as? SRSButtonItem {
-                buttonItems.append(buttonItem)
+                if !buttonItem.isInline {
+                    buttonItems.append(buttonItem)
+                }
             }
         }
         if buttonItems.count > 0 {
@@ -138,6 +140,10 @@ class SRSItemList: NSObject, JSONObject {
             case .Map:
                 item = SRSMapItem.instanceWithJSON(itemJSON) as? SRSMapItem
                 break
+                
+            case .InlineButton:
+                item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
+                break
             }
             
             if let item = item {
@@ -157,6 +163,7 @@ class SRSItemList: NSObject, JSONObject {
 enum SRSItemListItemType: String {
     case ItemList = "itemlist"
     case Button = "button"
+    case InlineButton = "inlineButton"
     case Label = "label"
     case Separator = "separator"
     case Info = "info"
