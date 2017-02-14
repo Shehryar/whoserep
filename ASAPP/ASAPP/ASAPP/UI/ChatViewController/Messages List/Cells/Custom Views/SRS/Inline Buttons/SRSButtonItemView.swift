@@ -26,6 +26,10 @@ class SRSButtonItemView: UIButton {
     func commonInit() {
         contentEdgeInsets = UIEdgeInsets(top: 20, left: 24, bottom: 20, right: 24)
         
+        titleLabel?.numberOfLines = 0
+        titleLabel?.lineBreakMode = .byWordWrapping
+        titleLabel?.textAlignment = .center
+        
         addSubview(borderTop)
         
         addTarget(self, action: #selector(SRSButtonItemView.didTap), for: .touchUpInside)
