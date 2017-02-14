@@ -46,7 +46,7 @@ class ChatTextMessageCell: ChatBubbleCell {
         updateFontsAndColors()
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextMessageCell.longPressGestureAction(_:)))
-        addGestureRecognizer(longPressGesture)
+        bubbleView.addGestureRecognizer(longPressGesture)
     }
     
     // MARK: Instance Methods

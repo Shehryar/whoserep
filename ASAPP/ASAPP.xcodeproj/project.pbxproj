@@ -153,7 +153,7 @@
 		3025D9E91E536FC7004149D7 /* SRSLabelValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */; };
 		3025D9EC1E5371F3004149D7 /* SRSNestedItemListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9EB1E5371F3004149D7 /* SRSNestedItemListParser.swift */; };
 		3025DA001E539591004149D7 /* SRSButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9F41E539591004149D7 /* SRSButtonItemView.swift */; };
-		3025DA011E539591004149D7 /* SRSInlineButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9F51E539591004149D7 /* SRSInlineButtonsContainer.swift */; };
+		3025DA011E539591004149D7 /* SRSInlineButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9F51E539591004149D7 /* SRSInlineButtonsView.swift */; };
 		3025DA181E539B9E004149D7 /* SRSFillerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025DA0E1E539B9E004149D7 /* SRSFillerView.swift */; };
 		3025DA191E539B9E004149D7 /* SRSIconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025DA0F1E539B9E004149D7 /* SRSIconItemView.swift */; };
 		3025DA1A1E539B9E004149D7 /* SRSImageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025DA101E539B9E004149D7 /* SRSImageItemView.swift */; };
@@ -412,7 +412,7 @@
 		3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueItem.swift; sourceTree = "<group>"; };
 		3025D9EB1E5371F3004149D7 /* SRSNestedItemListParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSNestedItemListParser.swift; sourceTree = "<group>"; };
 		3025D9F41E539591004149D7 /* SRSButtonItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItemView.swift; sourceTree = "<group>"; };
-		3025D9F51E539591004149D7 /* SRSInlineButtonsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInlineButtonsContainer.swift; sourceTree = "<group>"; };
+		3025D9F51E539591004149D7 /* SRSInlineButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInlineButtonsView.swift; sourceTree = "<group>"; };
 		3025DA0E1E539B9E004149D7 /* SRSFillerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFillerView.swift; sourceTree = "<group>"; };
 		3025DA0F1E539B9E004149D7 /* SRSIconItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIconItemView.swift; sourceTree = "<group>"; };
 		3025DA101E539B9E004149D7 /* SRSImageItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSImageItemView.swift; sourceTree = "<group>"; };
@@ -959,7 +959,7 @@
 		3025D9F31E539591004149D7 /* Inline Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				3025D9F51E539591004149D7 /* SRSInlineButtonsContainer.swift */,
+				3025D9F51E539591004149D7 /* SRSInlineButtonsView.swift */,
 				3025D9F41E539591004149D7 /* SRSButtonItemView.swift */,
 			);
 			path = "Inline Buttons";
@@ -1481,7 +1481,7 @@
 				3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */,
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				3025DA191E539B9E004149D7 /* SRSIconItemView.swift in Sources */,
-				3025DA011E539591004149D7 /* SRSInlineButtonsContainer.swift in Sources */,
+				3025DA011E539591004149D7 /* SRSInlineButtonsView.swift in Sources */,
 				306079741E492D90008F3DAE /* ASAPPTypgraphy.swift in Sources */,
 				3025D9D61E528068004149D7 /* ModalCardPresentationAnimator.swift in Sources */,
 				3025D9D51E528068004149D7 /* ModalCardErrorView.swift in Sources */,

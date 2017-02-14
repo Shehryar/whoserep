@@ -8,14 +8,76 @@
 
 import UIKit
 
-class SRSButtonItemView: UIView {
+class SRSButtonItemView: UIButton {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var buttonItem: SRSButtonItem? {
+        didSet {
+            updateDisplay()
+        }
     }
-    */
+    
+    var onTap: (() -> Void)?
 
+    private let borderTop = UIView()
+    private let borderStrokeWidth: CGFloat = 1.0
+    
+    // MARK: Initialization
+    
+    func commonInit() {
+        contentEdgeInsets = UIEdgeInsets(top: 20, left: 24, bottom: 20, right: 24)
+        
+        addSubview(borderTop)
+        
+        addTarget(self, action: #selector(SRSButtonItemView.didTap), for: .touchUpInside)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
+    // MARK: ASAPPStyleable
+    
+    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
+    
+    func applyStyles(_ styles: ASAPPStyles) {
+        self.styles = styles
+        updateDisplay()
+    }
+
+    // MARK: Display
+    
+    func updateDisplay() {
+        borderTop.backgroundColor = styles.separatorColor1
+        
+        setBackgroundImage(UIImage.imageWithColor(UIColor.white), for: .normal)
+        setBackgroundImage(UIImage.imageWithColor(UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)), for: .highlighted)
+        
+        setTitleColor(styles.foregroundColor1, for: .normal)
+        setTitleColor(styles.foregroundColor1, for: .highlighted)
+        
+        setAttributedText(buttonItem?.title.uppercased(),
+                          textStyle: .srsButton,
+                          color: UIColor(red:0.310, green:0.357, blue:0.463, alpha:1.000),
+                          styles: styles, state: .normal)
+    }
+    
+    // MARK: Layout
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        borderTop.frame = CGRect(x: 0, y: 0, width: bounds.width, height: borderStrokeWidth)
+    }
+    
+    // MARK: Actions
+    
+    func didTap() {
+        onTap?()
+    }
 }

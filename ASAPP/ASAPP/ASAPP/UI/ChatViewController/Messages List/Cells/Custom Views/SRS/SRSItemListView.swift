@@ -17,6 +17,7 @@ class SRSItemListView: UIView {
     var itemList: SRSItemList? {
         didSet {
             itemListView.contentItems = itemList?.contentItems
+            buttonsView.buttonItems = itemList?.inlineButtonItems
             setNeedsLayout()
         }
     }
@@ -24,7 +25,7 @@ class SRSItemListView: UIView {
     weak var delegate: SRSItemListViewDelegate?
     
     private let itemListView = SRSItemListContentView()
-    private let buttonsView = SRSInlineButtonsContainer()
+    private let buttonsView = SRSInlineButtonsView()
     
     // MARK: Initialization
     
@@ -34,6 +35,12 @@ class SRSItemListView: UIView {
         addSubview(itemListView)
         
         buttonsView.clipsToBounds = true
+        buttonsView.onButtonItemTap =  { [weak self] (buttonItem) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.delegate?.itemListView(strongSelf, didSelectButtonItem: buttonItem)
+        }
         addSubview(buttonsView)
     }
     
