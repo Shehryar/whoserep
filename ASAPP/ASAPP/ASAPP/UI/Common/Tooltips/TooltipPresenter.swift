@@ -25,7 +25,6 @@ class TooltipPresenter: NSObject {
         tappableView.backgroundColor = UIColor.clear
         tappableView.isUserInteractionEnabled = true
         tappableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TooltipPresenter.dismiss)))
-        tappableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(TooltipPresenter.dismiss)))
         tappableView.addSubview(tooltipView)
     }
 }
@@ -65,6 +64,8 @@ extension TooltipPresenter {
     }
     
     func dismissAnimated(_ animated: Bool) {
+        self.tappableView.isUserInteractionEnabled = false
+        
         if animated {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 guard let tooltip = self?.tooltipView else { return }

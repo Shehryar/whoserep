@@ -83,7 +83,7 @@ class Images: NSObject {
     
     // MARK:- Private Helper Methods
     
-    fileprivate class func imageWithName(_ name: String, tintColor: UIColor?, fillColor: UIColor?, alpha: CGFloat = 1) -> UIImage? {
+    class func imageWithName(_ name: String, tintColor: UIColor? = nil, fillColor: UIColor? = nil, alpha: CGFloat = 1) -> UIImage? {
         let image = imageWithName(name)
         let modImage = modifiedImage(image, tintColor: tintColor, fillColor: fillColor, alpha: alpha)
         return modImage
