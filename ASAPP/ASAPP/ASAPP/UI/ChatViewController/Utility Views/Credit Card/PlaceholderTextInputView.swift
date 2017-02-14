@@ -78,6 +78,12 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
+    var placeholderColorError: UIColor? = UIColor(red:0.945, green:0.459, blue:0.388, alpha:1.000) {
+        didSet {
+            updatePlaceholderText()
+        }
+    }
+    
     // MARK: Underline
     
     var underlineColorDefault: UIColor = UIColor(red:0.663, green:0.682, blue:0.729, alpha:1) {
@@ -92,7 +98,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var underlineColorError: UIColor?  {
+    var underlineColorError: UIColor? = UIColor(red:0.945, green:0.459, blue:0.388, alpha:1.000)  {
         didSet {
             updateUnderlineColor()
         }
@@ -361,9 +367,11 @@ class PlaceholderTextInputView: UIView {
     
     func updatePlaceholderText() {
         if let placeholderText = placeholderText {
+            let color = (invalid ? placeholderColorError : placeholderColor) ?? placeholderColor
+            
             placeholderLabel.attributedText = NSAttributedString(string: placeholderText, attributes: [
                 NSFontAttributeName : placeholderFont,
-                NSForegroundColorAttributeName : placeholderColor,
+                NSForegroundColorAttributeName : color,
                 NSKernAttributeName : 0.8
                 ])
         } else {

@@ -20,7 +20,6 @@ class CreditCardInputView: UIView {
     fileprivate let numberTextView = PlaceholderTextInputView()
     fileprivate let expiryTextView = PlaceholderTextInputView()
     fileprivate let cvvTextView = PlaceholderTextInputView()
-    fileprivate let errorLabel = UILabel()
     
     // MARK: Initialization
     
@@ -30,20 +29,11 @@ class CreditCardInputView: UIView {
         scrollView.clipsToBounds = false
         scrollView.alwaysBounceVertical = false
         addSubview(scrollView)
-
+        
         // Title View
         titleView.text = "Add a New Card"
         scrollView.addSubview(titleView)
-        
-        // Error
-        
-        errorLabel.font = Fonts.latoBoldFont(withSize: 12)
-        errorLabel.textColor = UIColor(red:0.853, green:0, blue:0, alpha:1)
-        errorLabel.textAlignment = .center
-        errorLabel.numberOfLines = 0
-        errorLabel.lineBreakMode = .byTruncatingTail
-        scrollView.addSubview(errorLabel)
-        
+
         // Name
         
         nameTextView.placeholderText = "NAME ON CARD"
@@ -250,5 +240,39 @@ extension CreditCardInputView {
         let cvvFrame = CGRect(x: expFrame.maxX + spacing, y: contentTop, width: halfWidth, height: textInputHeight)
 
         return (titleFrame, nameFrame, numberFrame, expFrame, cvvFrame)
+    }
+}
+
+// MARK:- Current Credit Card Information
+
+extension CreditCardInputView {
+    
+    func getCurrentCreditCard() -> CreditCard {
+        return CreditCard(name: nameTextView.text,
+                          number: numberTextView.text,
+                          expiry: expiryTextView.text,
+                          cvv: cvvTextView.text)
+    }
+    
+    func highlightInvalidFields(invalidFields: [CreditCardField]) {
+        for field in invalidFields {
+            switch field {
+            case .name:
+                nameTextView.invalid = true
+                break
+                
+            case .number:
+                numberTextView.invalid = true
+                break
+                
+            case .expiry:
+                expiryTextView.invalid = true
+                break
+                
+            case .cvv:
+                cvvTextView.invalid = true
+                break
+            }
+        }
     }
 }

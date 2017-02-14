@@ -49,6 +49,20 @@ class CreditCardInputViewController: UIViewController {
             guard let strongSelf = self else {
                 return
             }
+            
+            let creditCard = strongSelf.creditCardView.getCurrentCreditCard()
+            
+            if let invalidFields = creditCard.getInvalidFields() {
+                strongSelf.errorView.text = "Please check that your information is correct and try again."
+                strongSelf.creditCardView.highlightInvalidFields(invalidFields: invalidFields)
+                strongSelf.presentationAnimator.updatePresentedViewFrame()
+                return
+            }
+            
+            
+            
+            
+            
             self?.view.endEditing(true)
             self?.errorView.text = nil
             self?.startLoading()
