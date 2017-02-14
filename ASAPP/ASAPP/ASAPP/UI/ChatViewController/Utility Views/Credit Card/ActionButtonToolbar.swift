@@ -60,8 +60,8 @@ class ActionButtonToolbar: UIToolbar {
     
     // MARK:- Display
     
-    fileprivate func createImageButton(named imageName: String, action: Selector?) -> UIBarButtonItem {
-        let item = UIBarButtonItem(image: Images.imageWithName(imageName), style: .plain, target: self, action: action)
+    fileprivate func createImageButton(image: UIImage?, action: Selector?) -> UIBarButtonItem {
+        let item = UIBarButtonItem(image: image, style: .plain, target: self, action: action)
         item.tintColor = buttonTintColor
         return item
     }
@@ -71,7 +71,7 @@ class ActionButtonToolbar: UIToolbar {
         
         // Hide Keyboard
         if onHideKeyboardTap != nil {
-            buttonItems.append(createImageButton(named: "icon-hide-keyboard", action: #selector(ActionButtonToolbar.didTapHideKeyboard)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconHideKeyboard), action: #selector(ActionButtonToolbar.didTapHideKeyboard)))
         }
         
         // Flexible Space
@@ -81,10 +81,10 @@ class ActionButtonToolbar: UIToolbar {
         
         // Previous / Next
         if onPreviousButtonTap != nil {
-            buttonItems.append(createImageButton(named: "icon-arrow-left", action: #selector(ActionButtonToolbar.didTapPreviousButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowLeft), action: #selector(ActionButtonToolbar.didTapPreviousButton)))
         }
         if onNextButtonTap != nil {
-            buttonItems.append(createImageButton(named: "icon-arrow-right", action: #selector(ActionButtonToolbar.didTapNextButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowRight), action: #selector(ActionButtonToolbar.didTapNextButton)))
         }
         
         // Done

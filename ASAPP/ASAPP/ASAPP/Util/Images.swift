@@ -20,6 +20,13 @@ class Images: NSObject {
         case iconExitLink = "icon-exit-link"
         case iconBack = "icon-back"
         case iconCheckmark = "icon-checkmark"
+        case iconCreditCard = "icon-credit-card"
+        case iconCircleCheckmark = "icon-circle-checkmark"
+        case iconErrorAlert = "icon-error-alert"
+        case iconErrorAlertFilled = "icon-error-alert-filled"
+        case iconHideKeyboard = "icon-hide-keyboard"
+        case iconArrowLeft = "icon-arrow-left"
+        case iconArrowRight = "icon-arrow-right"
         
         case buttonAskBG = "button-bg-ask"
         case buttonRespondBG = "button-bg-respond"
@@ -38,7 +45,7 @@ class Images: NSObject {
         return imageWithName(image.rawValue)
     }
 
-    class func imageWithName(_ name: String) -> UIImage? {
+    private class func imageWithName(_ name: String) -> UIImage? {
         let image = UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
         return image
     }

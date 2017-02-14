@@ -30,7 +30,7 @@ class SuccessCheckmarkView: UIView {
         }
     }
     
-    private let imageView = UIImageView(image: Images.imageWithName("icon-circle-checkmark"))
+    private let imageView = UIImageView(image: Images.asappImage(.iconCircleCheckmark))
     private let label = UILabel()
     
     // MARK: Initialization
