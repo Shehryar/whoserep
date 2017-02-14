@@ -609,10 +609,6 @@ extension ChatViewController {
     
     func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) -> Bool {
         
-        let creditCardViewController = CreditCardInputViewController()
-        present(creditCardViewController, animated: true, completion: nil)
-        return false
-        
         if DEMO_CONTENT_ENABLED {
             if let deepLink = buttonItem.deepLink?.lowercased() {
                 switch deepLink {
