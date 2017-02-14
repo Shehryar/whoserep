@@ -55,7 +55,7 @@ class Colors: NSObject {
     }
     
     class func patternBackgroundColor() -> UIColor? {
-        if let tileImage = Images.tileImageDash() {
+        if let tileImage = Images.asappImage(.tileImageDash) {
             return UIColor(patternImage: tileImage)
         }
         return nil

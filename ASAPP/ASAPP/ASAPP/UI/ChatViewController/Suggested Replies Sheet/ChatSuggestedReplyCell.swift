@@ -130,6 +130,6 @@ class ChatSuggestedReplyCell: UITableViewCell {
     // MARK: Content
     
     func updateImageView() {
-        imageView?.image = Images.iconExitLink()?.tinted(imageTintColor)
+        imageView?.image = Images.asappImage(.iconExitLink)?.tinted(imageTintColor)
     }
 }

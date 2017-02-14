@@ -65,11 +65,11 @@ extension UIBarButtonItem {
         var image: UIImage?
         switch style {
         case .ask:
-            image = Images.buttonAskBG()?.tinted(color, alpha: alpha)
+            image = Images.asappImage(.buttonAskBG)?.tinted(color, alpha: alpha)
             break
             
         case .respond:
-            image = Images.buttonRespondBG()?.tinted(color, alpha: alpha)
+            image = Images.asappImage(.buttonRespondBG)?.tinted(color, alpha: alpha)
             break
         }
         
@@ -90,10 +90,10 @@ extension UIBarButtonItem {
         
         // Styling
         button.imageView?.contentMode = .scaleAspectFit
-        button.setImage(Images.iconX()?.tinted(foregroundColor, alpha: 1), for: .normal)
-        button.setImage(Images.iconX()?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
-        button.setBackgroundImage(Images.buttonCloseBG()?.tinted(backgroundColor, alpha: 1), for: .normal)
-        button.setBackgroundImage(Images.buttonCloseBG()?.tinted(backgroundColor, alpha: 0.6), for: .highlighted)
+        button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 1), for: .normal)
+        button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
+        button.setBackgroundImage(Images.asappImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 1), for: .normal)
+        button.setBackgroundImage(Images.asappImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 0.6), for: .highlighted)
         
         // Sizing
         let imageSize: CGFloat = 8

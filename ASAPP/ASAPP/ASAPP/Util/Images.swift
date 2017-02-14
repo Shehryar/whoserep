@@ -9,49 +9,41 @@
 import UIKit
 
 class Images: NSObject {
-
-    class func paperclipIcon() -> UIImage? {
-        return imageWithName("temp-icon-paperclip")
+    
+    // MARK: Image Names
+    
+    enum ASAPPImage: String {
+        case iconPaperclip = "temp-icon-paperclip"
+        case iconX = "icon-x"
+        case iconSmallX = "icon-x-small"
+        case iconLoader = "icon-loader"
+        case iconExitLink = "icon-exit-link"
+        case iconBack = "icon-back"
+        case iconCheckmark = "icon-checkmark"
+        
+        case buttonAskBG = "button-bg-ask"
+        case buttonRespondBG = "button-bg-respond"
+        case buttonCloseBG = "button-bg-close"
+        
+        case tileImageDash = "bg-dash-tile"
+        
+        case imageEquipmentReturnMap = "map-equipment"
+        case imageDeviceTrackingMap = "map-device"
+        case imageTechLocationMap = "map-tech"
     }
     
-    class func iconX() -> UIImage? {
-        return imageWithName("icon-x")
-    }
-
-    class func iconSmallX() -> UIImage? {
-        return imageWithName("icon-x-small")
-    }
+    // MARK: Images
     
-    class func iconLoader() -> UIImage? {
-        return imageWithName("icon-loader")
-    }
-    
-    class func iconExitLink() -> UIImage? {
-        return imageWithName("icon-exit-link")
-    }
-    
-    class func iconBack() -> UIImage? {
-        return imageWithName("icon-back")
-    }
-    
-    class func iconCheckmark() -> UIImage? {
-        return imageWithName("icon-checkmark")
-    }
-    
-    class func buttonAskBG() -> UIImage? {
-        return imageWithName("button-bg-ask")
-    }
-    
-    class func buttonRespondBG() -> UIImage? {
-        return imageWithName("button-bg-respond")
-    }
-    class func buttonCloseBG() -> UIImage? {
-        return imageWithName("button-bg-close")
+    class func asappImage(_ image: ASAPPImage) -> UIImage? {
+        return imageWithName(image.rawValue)
     }
 
-    class func tileImageDash() -> UIImage? {
-        return imageWithName("bg-dash-tile")
+    class func imageWithName(_ name: String) -> UIImage? {
+        let image = UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
+        return image
     }
+    
+    // MARK: Gifs
     
     class func gifLoaderBar() -> UIImage? {
         var imageName: String
@@ -70,22 +62,5 @@ class Images: NSObject {
         return nil
     }
     
-    class func imageEquipmentReturnMap() -> UIImage? {
-        return imageWithName("map-equipment")
-    }
-    
-    class func imageDeviceTrackingMap() -> UIImage? {
-        return imageWithName("map-device")
-    }
-    
-    class func imageTechLocationMap() -> UIImage? {
-        return imageWithName("map-tech")
-    }
-    
-    // MARK:- Private Helper Methods
-    
-    class func imageWithName(_ name: String) -> UIImage? {
-        let image = UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
-        return image
-    }
+
 }
