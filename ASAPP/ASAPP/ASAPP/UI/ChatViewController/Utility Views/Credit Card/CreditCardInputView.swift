@@ -42,8 +42,6 @@ class CreditCardInputView: UIView {
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 0
         errorLabel.lineBreakMode = .byTruncatingTail
-//        errorLabel.adjustsFontSizeToFitWidth = true
-//        errorLabel.minimumScaleFactor = 0.5
         scrollView.addSubview(errorLabel)
         
         // Name
@@ -100,7 +98,7 @@ class CreditCardInputView: UIView {
                 if text == "/" {
                     updateToText = previousExpiryText
                 }else if !["0", "1"].contains(text) {
-                    updateToText = "0\(text)"
+                    updateToText = "0\(text)/"
                 }
                 break
                 
