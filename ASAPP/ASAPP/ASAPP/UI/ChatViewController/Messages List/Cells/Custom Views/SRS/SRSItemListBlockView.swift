@@ -24,6 +24,6 @@ class SRSItemListBlockView: SRSItemListView {
         backgroundColor = styles.backgroundColor2
         layer.borderColor = styles.separatorColor1.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = 4
+        layer.cornerRadius = 6
     }
 }

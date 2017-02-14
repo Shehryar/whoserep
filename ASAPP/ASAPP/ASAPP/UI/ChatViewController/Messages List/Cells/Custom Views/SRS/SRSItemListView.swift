@@ -58,18 +58,10 @@ class SRSItemListView: StackView, ASAPPStyleable {
                 
                 // Label Item
                 if let labelItem = item as? SRSLabelItem {
-                    let label = UILabel()
-                    label.numberOfLines = 0
-                    label.lineBreakMode = .byTruncatingTail
-                    label.textColor = styles.foregroundColor2
-                    label.textAlignment = .center
-                    label.text = labelItem.text
-                    label.setAttributedText(labelItem.text,
-                                            textStyle: .srsLabel,
-                                            color: styles.foregroundColor2,
-                                            styles: styles)
-                    
-                    createdViews.append(label)
+                    let labelItemView = SRSLabelItemView()
+                    labelItemView.applyStyles(styles)
+                    labelItemView.labelItem = labelItem
+                    createdViews.append(labelItemView)
                 }
                     
                 // Label Value Item

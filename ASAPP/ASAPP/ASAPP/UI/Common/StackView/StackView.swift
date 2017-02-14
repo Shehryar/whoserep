@@ -12,9 +12,6 @@ import UIKit
 
 protocol StackableView {
     func prefersFullWidthDisplay() -> Bool
-    
-    /// If true, when this view appears as the first or last element
-    func sticksToEdges() -> Bool
 }
 
 // MARK:- StackView
