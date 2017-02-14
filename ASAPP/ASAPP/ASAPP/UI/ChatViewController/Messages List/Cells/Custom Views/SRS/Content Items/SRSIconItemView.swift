@@ -18,7 +18,7 @@ class SRSIconItemView: UIView, ASAPPStyleable {
     
     let iconWidth: CGFloat = 36.0
     
-    let contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+    let contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 8, right: 0)
     
     private let imageView = UIImageView()
     

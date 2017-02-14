@@ -18,7 +18,7 @@ class SRSIconItem: NSObject, JSONObject {
     
     func getImage() -> UIImage? {
         switch icon {
-        case .creditCard: return Images.asappImage(.iconCreditCard)
+        case .creditCard: return Images.asappImage(.iconCreditCardMedium)
         }
     }
     
