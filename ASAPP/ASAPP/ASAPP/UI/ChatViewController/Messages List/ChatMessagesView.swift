@@ -269,7 +269,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
                                            atIndexPath: indexPath)
         
         if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
-            srsItemViewCell.itemListView.delegate = self
+//            srsItemViewCell.itemListView.delegate = self
             srsItemViewCell.itemCarouselView.delegate = self
             srsItemViewCell.itemCarouselView.event = event
         }

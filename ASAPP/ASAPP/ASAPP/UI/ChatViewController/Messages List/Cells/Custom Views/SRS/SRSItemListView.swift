@@ -2,132 +2,94 @@
 //  SRSItemListView.swift
 //  ASAPP
 //
-//  Created by Mitchell Morgan on 9/2/16.
+//  Created by Mitchell Morgan on 10/11/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
 import UIKit
 
 protocol SRSItemListViewDelegate: class {
-    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
+    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem);
 }
 
-class SRSItemListView: StackView, ASAPPStyleable {
+class SRSItemListView: UIView {
+
+    var itemList: SRSItemList? {
+        didSet {
+            itemListView.contentItems = itemList?.contentItems
+            setNeedsLayout()
+        }
+    }
     
     weak var delegate: SRSItemListViewDelegate?
     
-    private var contentItems: [AnyObject]?
-    private var inlineButtonItems: [SRSButtonItem]?
+    private let itemListView = SRSItemListContentView()
+    private let buttonsView = SRSInlineButtonsContainer()
     
+    // MARK: Initialization
+    
+    func commonInit() {
+        itemListView.contentInset = UIEdgeInsets(top: 25, left: 40, bottom: 25, right: 40)
+        itemListView.clipsToBounds = true
+        addSubview(itemListView)
+        
+        buttonsView.clipsToBounds = true
+        addSubview(buttonsView)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
     // MARK: ASAPPStyleable
     
     fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
     
     func applyStyles(_ styles: ASAPPStyles) {
         self.styles = styles
+    
+        backgroundColor = styles.backgroundColor2
+        layer.borderColor = styles.separatorColor1.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 6
+        
+        itemListView.applyStyles(styles)
+        buttonsView.applyStyles(styles)
         
         setNeedsLayout()
     }
     
-    // MARK: Content
+    // MARK: Layout
     
-    func setContentItems(_ contentItems: [AnyObject]?, inlineButtonItems: [SRSButtonItem]? = nil) {
-        self.contentItems = contentItems
-        self.inlineButtonItems = inlineButtonItems
+    func getFramesThatFit(_ size: CGSize) -> (/* ItemListView */ CGRect, /* Buttons View */ CGRect) {
+        let itemListHeight = ceil(itemListView.sizeThatFits(CGSize(width: size.width, height: 0)).height)
+        let itemListFrame = CGRect(x: 0, y: 0, width: size.width, height: itemListHeight)
         
-        reloadSubviews()
+        let buttonsViewHeight = ceil(buttonsView.sizeThatFits(CGSize(width: size.width, height: 0)).height)
+        let buttonsViewTop = itemListFrame.maxY
+        let buttonsViewFrame = CGRect(x: 0, y: buttonsViewTop, width: size.width, height: buttonsViewHeight)
+        
+        return (itemListFrame, buttonsViewFrame)
     }
     
-    // MARK: Creating the Views
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let (itemsListFrame, buttonsViewFrame) = getFramesThatFit(bounds.size)
+        itemListView.frame = itemsListFrame
+        buttonsView.frame = buttonsViewFrame
+    }
     
-    private func reloadSubviews() {
-        clear()
-
-        var createdViews = [UIView]()
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let (itemsListFrame, buttonsViewFrame) = getFramesThatFit(size)
+        let height = buttonsViewFrame.maxY
         
-        if let contentItems = contentItems {
-            for item in contentItems {
-             
-                // Icon
-                if let iconItem = item as? SRSIconItem {
-                    let iconItemView = SRSIconItemView()
-                    iconItemView.applyStyles(styles)
-                    iconItemView.iconItem = iconItem
-                    createdViews.append(iconItemView)
-                }
-                
-                // Label Item
-                if let labelItem = item as? SRSLabelItem {
-                    let labelItemView = SRSLabelItemView()
-                    labelItemView.applyStyles(styles)
-                    labelItemView.labelItem = labelItem
-                    createdViews.append(labelItemView)
-                }
-                    
-                // Label Value Item
-                else if let labelValueItem = item as? SRSLabelValueItem {
-                    let labelValueItemView: SRSLabelValueItemView
-                    switch labelValueItem.type {
-                    case .horizontal:
-                        labelValueItemView = SRSLabelValueHorizontalItemView()
-                        break
-                        
-                    case .vertical:
-                        labelValueItemView = SRSLabelValueVerticalItemView()
-                        break
-                    }
-                    
-                    labelValueItemView.applyStyles(styles)
-                    labelValueItemView.labelValueItem = labelValueItem
-                    createdViews.append(labelValueItemView)
-                }
-                    
-                // Separator Item
-                else if item is SRSSeparatorItem {
-                    let separatorView = SRSSeparatorView()
-                    separatorView.applyStyles(styles)
-                    createdViews.append(separatorView)
-                }
-                
-                // Filler Item
-                else if item is SRSFillerItem {
-                    let fillerView = SRSFillerView()
-                    fillerView.applyStyles(styles)
-                    createdViews.append(fillerView)
-                }
-                    
-                // Loader Bar Item
-                else if let loaderBarItem = item as? SRSLoaderBarItem {
-                    let loaderBarView = SRSLoaderBarView()
-                    loaderBarView.applyStyles(styles)
-                    loaderBarView.loaderItem = loaderBarItem
-                    createdViews.append(loaderBarView)
-                }
-                    
-                // Image Item
-                else if let imageItem = item as? SRSImageItem {
-                    let imageItemView = SRSImageItemView()
-                    imageItemView.applyStyles(styles)
-                    imageItemView.imageItem = imageItem
-                    createdViews.append(imageItemView)
-                }
-                    
-                // Map Item
-                else if let mapItem = item as? SRSMapItem {
-                    let mapItemView = SRSMapItemView()
-                    mapItemView.applyStyles(styles)
-                    mapItemView.mapItem = mapItem
-                    createdViews.append(mapItemView)
-                }
-            }
-        }
-        
-        if let inlineButtonItems = inlineButtonItems {
-            if inlineButtonItems.count > 0 {
-                
-            }
-        }
-        
-        addArrangedViews(createdViews)
+        return CGSize(width: size.width, height: height)
     }
 }

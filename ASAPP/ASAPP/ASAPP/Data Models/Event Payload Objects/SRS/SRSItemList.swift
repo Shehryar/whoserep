@@ -173,9 +173,6 @@ class SRSItemList: NSObject, JSONObject {
             
         }
         
-        print("\n\n\nItems: \(items)\n\n\n")
-        
-        
         return SRSItemList(items: items, orientation: orientation)
     }
 }

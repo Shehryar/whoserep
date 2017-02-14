@@ -112,9 +112,10 @@ class SRSItemCarouselView: UIView {
         }
         
         for itemList in itemCarousel.pages {
-            let itemListView = SRSItemListBlockView()
+            let itemListView = SRSItemListView()
             itemListView.applyStyles(styles)
-            itemListView.setContentItems(itemList.contentItems)
+            itemListView.itemList = itemList
+            // MITCH MITCH MITCH - Delegate
             pageViews.append(itemListView)
             scrollView.addSubview(itemListView)
         }

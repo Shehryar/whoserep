@@ -17,9 +17,9 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                     messageText = itemList.title
                     
                     if response.displayType == .Inline {
-                        itemListView.setContentItems(itemList.contentItems)
+                        itemListView.itemList = itemList
                     } else {
-                        itemListView.setContentItems(nil)
+                        itemListView.itemList = nil
                     }
                    
                     itemCarouselView.itemCarousel = nil
@@ -27,11 +27,11 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                     messageText = itemCarousel.message
                     itemCarouselView.itemCarousel = itemCarousel
                     
-                    itemListView.setContentItems(nil)
+                    itemListView.itemList = nil
                 }
             } else {
                 messageText = nil
-                itemListView.setContentItems(nil)
+                itemListView.itemList = nil
             }
             
             // Update Visibility
@@ -56,7 +56,7 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         }
     }
     
-    let itemListView = SRSItemListBlockView()
+    let itemListView = SRSItemListView()
     
     let itemCarouselView = SRSItemCarouselView()
     
