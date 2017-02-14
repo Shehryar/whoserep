@@ -113,11 +113,6 @@ class SRSItemCarouselView: UIView {
         
         for itemList in itemCarousel.pages {
             let itemListView = SRSItemListBlockView()
-            if itemList.orientation == .Horizontal {
-                itemListView.orientation = .horizontal
-            } else {
-                itemListView.orientation = .vertical
-            }
             itemListView.applyStyles(styles)
             itemListView.setContentItems(itemList.contentItems)
             pageViews.append(itemListView)

@@ -17,13 +17,6 @@ protocol StackableView {
     func sticksToEdges() -> Bool
 }
 
-// MARK:- StackViewOrientation
-
-enum StackViewOrientation {
-    case vertical
-    case horizontal
-}
-
 // MARK:- StackView
 
 class StackView: UIView {
@@ -37,14 +30,6 @@ class StackView: UIView {
     var viewSpacing: CGFloat = 10 {
         didSet {
             setNeedsLayout()
-        }
-    }
-    
-    var orientation: StackViewOrientation = .vertical {
-        didSet {
-            if oldValue != orientation {
-                setNeedsLayout()
-            }
         }
     }
     
@@ -85,27 +70,15 @@ extension StackView {
     func getWidthForSubview(_ view: UIView, forSize size: CGSize) -> (CGFloat, Bool) {
         let contentWidth = size.width - contentInset.left - contentInset.right
         
-        if orientation == .horizontal {
-            var visibleViewCount: CGFloat = 0.0
-            for view in arrangedSubviews {
-                if view.isHidden || view.alpha == 0 {
-                    continue
-                }
-                visibleViewCount += 1.0
-            }
-            let viewWidth = floor((contentWidth - max(0.0, visibleViewCount - 1) * viewSpacing) / max(1.0, visibleViewCount))
-            
-            return (viewWidth, false)
-        } else {
-            var preferredWidth = contentWidth
-            var prefersFullWidth = false
-            if let stackableView = view as? StackableView {
-                prefersFullWidth = stackableView.prefersFullWidthDisplay()
-                preferredWidth = size.width
-            }
-            
-            return (preferredWidth, prefersFullWidth)
+  
+        var preferredWidth = contentWidth
+        var prefersFullWidth = false
+        if let stackableView = view as? StackableView {
+            prefersFullWidth = stackableView.prefersFullWidthDisplay()
+            preferredWidth = size.width
         }
+        
+        return (preferredWidth, prefersFullWidth)
     }
     
     override func layoutSubviews() {
@@ -144,11 +117,7 @@ extension StackView {
             }
             
             if !view.isHidden && view.alpha > 0 && viewHeight > 0 {
-                if orientation == .horizontal {
-                    subviewOrigin.x = view.frame.maxX + viewSpacing
-                } else {
-                    subviewOrigin.y = view.frame.maxY + viewSpacing
-                }
+                subviewOrigin.y = view.frame.maxY + viewSpacing
                 contentHeight = max(contentHeight, view.frame.maxY + contentInset.bottom)
             }
         }
@@ -166,16 +135,12 @@ extension StackView {
             if !view.isHidden && view.alpha > 0 {
                 let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: 0)).height)
                 if viewHeight > 0 {
-                    if orientation == .horizontal {
-                        contentHeight = max(contentHeight, viewHeight)
-                    } else {
-                        contentHeight += viewHeight
-                        if prefersFullWidth && view == arrangedSubviews.first {
-                            contentHeight -= contentInset.top
-                        }
-                        if index < arrangedSubviews.count - 1 {
-                            contentHeight += viewSpacing
-                        }
+                    contentHeight += viewHeight
+                    if prefersFullWidth && view == arrangedSubviews.first {
+                        contentHeight -= contentInset.top
+                    }
+                    if index < arrangedSubviews.count - 1 {
+                        contentHeight += viewSpacing
                     }
                 }
             }

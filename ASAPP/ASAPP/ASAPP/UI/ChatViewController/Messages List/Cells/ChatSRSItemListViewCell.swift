@@ -17,11 +17,6 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
                     messageText = itemList.title
                     
                     if response.displayType == .Inline {
-                        if itemList.orientation == .Horizontal {
-                            itemListView.orientation = .horizontal
-                        } else {
-                            itemListView.orientation = .vertical
-                        }
                         itemListView.setContentItems(itemList.contentItems)
                     } else {
                         itemListView.setContentItems(nil)
