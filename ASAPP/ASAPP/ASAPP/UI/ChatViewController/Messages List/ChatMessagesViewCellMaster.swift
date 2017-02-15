@@ -159,7 +159,7 @@ extension ChatMessagesViewCellMaster {
         }
         
         // SRS Response
-        if event.eventType == .srsResponse {
+        if [EventType.srsResponse, EventType.switchSRSToChat, EventType.conversationEnd].contains(event.eventType) {
             if let srsResponse = event.srsResponse {
                 let cell = tableView.dequeueReusableCell(withIdentifier: SRSResponseCellReuseId) as? ChatSRSItemListViewCell
                 cell?.applyStyles(styles, isReply: isReply)
@@ -275,7 +275,7 @@ extension ChatMessagesViewCellMaster {
         }
         
         // SRS Response
-        if event.eventType == .srsResponse {
+        if [EventType.srsResponse, EventType.switchSRSToChat, EventType.conversationEnd].contains(event.eventType) {
             if let srsResponse = event.srsResponse {
                 srsItemListViewSizingCell.applyStyles(styles, isReply: isReply)
                 srsItemListViewSizingCell.listPosition = listPosition

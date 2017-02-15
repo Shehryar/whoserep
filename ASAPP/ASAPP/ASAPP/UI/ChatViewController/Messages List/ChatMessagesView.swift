@@ -106,7 +106,7 @@ class ChatMessagesView: UIView {
         
         var allowedEventTypes: Set<EventType>
         if self.credentials.isCustomer {
-            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse]
+            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .switchSRSToChat, .conversationEnd]
         } else {
             allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .newIssue, .newRep, .crmCustomerLinked]
         }
@@ -336,8 +336,10 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
-        } else if cell is ChatBubbleCell {
-            toggleTimeStampForEventAtIndexPath(indexPath)
+        } else if let cell = cell as? ChatBubbleCell {
+            if cell.canShowDetailLabel() {
+                toggleTimeStampForEventAtIndexPath(indexPath)
+            }
         }
         
         if let event = dataSource.eventForIndexPath(indexPath) {

@@ -216,6 +216,8 @@
 		30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */; };
 		30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B361E53AF9700D78E8E /* CreditCard.swift */; };
 		30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B381E54E26A00D78E8E /* CreditCardResponse.swift */; };
+		30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3A1E5503A400D78E8E /* live-chat-begin.json */; };
+		30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3C1E5503B400D78E8E /* live-chat-end.json */; };
 		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
@@ -481,6 +483,8 @@
 		30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@3x.png"; sourceTree = "<group>"; };
 		30756B361E53AF9700D78E8E /* CreditCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
 		30756B381E54E26A00D78E8E /* CreditCardResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardResponse.swift; sourceTree = "<group>"; };
+		30756B3A1E5503A400D78E8E /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
+		30756B3C1E5503B400D78E8E /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
 		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
@@ -587,6 +591,8 @@
 				285F7B011DAB3409008C2EF6 /* tech-location.json */,
 				285F7B021DAB3409008C2EF6 /* troubleshooter.json */,
 				285F7B201DAC7D33008C2EF6 /* phone-upgrade.json */,
+				30756B3A1E5503A400D78E8E /* live-chat-begin.json */,
+				30756B3C1E5503B400D78E8E /* live-chat-end.json */,
 				301C4BF11DAD91FF002BF4D9 /* phone-upgrade-ineligible.json */,
 				285F7B1A1DAC388A008C2EF6 /* phone-plan-upgrade.json */,
 				301C4BE91DAD7D23002BF4D9 /* device-tracking.json */,
@@ -1324,6 +1330,7 @@
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
 				302472AA1D89B7680005A6C9 /* XFINITYSans-Thin.ttf in Resources */,
 				305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */,
+				30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */,
 				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
@@ -1399,6 +1406,7 @@
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
+				30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */,
 				285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */,
 				302472A81D89B7680005A6C9 /* XFINITYSans-Med.ttf in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,

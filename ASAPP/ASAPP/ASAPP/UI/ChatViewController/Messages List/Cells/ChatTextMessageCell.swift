@@ -109,6 +109,7 @@ class ChatTextMessageCell: ChatBubbleCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         isLongPressing = false
+        textMessageLabel.text = nil
         bubbleView.alpha = 1
         bubbleView.transform = CGAffineTransform.identity
     }

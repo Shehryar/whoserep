@@ -1,0 +1,19 @@
+{
+  "title": "Live Chat Begin",
+  "classification": "LIVE_CHAT_BEGIN",
+  "displayContent": 1,
+  "content": {
+    "value": [
+      {
+        "label": "",
+        "type": "label"
+      },
+      {
+        "label": "You are now in a live chat.",
+        "type": "label"
+      }
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}

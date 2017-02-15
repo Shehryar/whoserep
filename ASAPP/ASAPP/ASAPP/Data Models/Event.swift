@@ -283,7 +283,11 @@ class Event: NSObject {
     }()
 
     lazy var srsResponse: SRSResponse? = {
-        guard self.eventType == .srsResponse else { return nil }
+        guard self.eventType == .srsResponse ||
+            self.eventType == .switchSRSToChat ||
+            self.eventType == .conversationEnd else {
+                return nil
+        }
         
         return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
     }()
@@ -357,10 +361,26 @@ class Event: NSObject {
             }
         }
         
-        if self.eventType == .scheduleAppointment {
-            if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
-                self.eventType = .srsResponse
-                self.eventJSON = scheduleApptJSON
+        if DEMO_CONTENT_ENABLED {
+            if self.eventType == .scheduleAppointment {
+                if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
+                    self.eventType = .srsResponse
+                    self.eventJSON = scheduleApptJSON
+                }
+                
+            }
+        }
+        
+        
+        if DEMO_CONTENT_ENABLED {
+            if self.eventType == .newRep || self.eventType == .switchSRSToChat {
+                if let liveChatBeginJson = Event.getDemoEventJsonString(eventType: .liveChatBegin, company: nil) {
+                    self.eventJSON = liveChatBeginJson
+                }
+            } else if self.eventType == .conversationEnd {
+                if let liveChatEndJson = Event.getDemoEventJsonString(eventType: .liveChatEnd, company: nil) {
+                    self.eventJSON = liveChatEndJson
+                }
             }
         }
     }

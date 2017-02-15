@@ -12,6 +12,9 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     var response: SRSResponse? {
         didSet {
+            messageText = nil
+            itemListView.itemList = nil
+            
             if let response = response {
                 if let itemList = response.itemList {
                     messageText = itemList.title
@@ -107,6 +110,7 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         super.updateFontsAndColors()
         itemListView.applyStyles(styles)
         itemCarouselView.applyStyles(styles)
+        
         setNeedsLayout()
     }
     
@@ -152,11 +156,21 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var contentHeight = super.sizeThatFits(size).height    
         let srsContentViewHeight = srsContentViewSizeThatFits(size).height
-        if srsContentViewHeight > 0 {
+        if srsContentViewHeight > 0 && contentHeight <= 0 {
+            contentHeight = contentInset.top + contentInset.bottom
+        }
+        if srsContentViewHeight > 0 && contentHeight > 0 {
             contentHeight += srsContentViewHeight + srsContentViewMargin
         }
     
         return CGSize(width: size.width, height: contentHeight)
+    }
+    
+    override func canShowDetailLabel() -> Bool {
+        if let messageText = messageText {
+            return !messageText.isEmpty
+        }
+        return false
     }
     
     // MARK: Animations
@@ -192,6 +206,10 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        messageText = nil
+        itemListView.itemList = nil
+        itemCarouselView.itemCarousel = nil
         
         itemListView.delegate = nil
         itemListView.alpha = 1

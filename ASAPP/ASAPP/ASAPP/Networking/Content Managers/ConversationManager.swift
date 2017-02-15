@@ -368,19 +368,19 @@ extension ConversationManager: SocketConnectionDelegate {
                 
                 
                 switch event.eventType {
-                case .srsResponse:
+                case .srsResponse, .switchSRSToChat, .conversationEnd:
                     Dispatcher.delay(600, closure: {
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })
+                    
+                    if [EventType.conversationEnd, EventType.switchSRSToChat].contains(event.eventType) {
+                        let isLiveChat = event.eventType == .switchSRSToChat
+                        delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
+                    }
                     break
                     
                 case .textMessage, .pictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    break
-                    
-                case .conversationEnd, .switchSRSToChat:
-                    let isLiveChat = event.eventType == .switchSRSToChat
-                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
                     break
                     
                 case .none:
