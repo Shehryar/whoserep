@@ -80,6 +80,28 @@ extension ConversationManager {
                    metrics: nil)
     }
     
+    func trackSRSButtonItemTap(buttonItem: SRSButtonItem) {
+        if let webURL = buttonItem.webURL {
+            trackWebLink(webURL.absoluteString)
+        }
+        
+        switch buttonItem.type {
+        case .InAppLink, .Link:
+            if let deepLink = buttonItem.deepLink {
+                trackDeepLink(link: deepLink, deepLinkData: buttonItem.deepLinkData as AnyObject?)
+            }
+            break
+            
+        case .SRS, .Action, .Message:
+            // Tracked via events
+            break
+            
+        case .AppAction:
+            // Not tracked yet
+            break
+        }
+    }
+    
     func trackDeepLink(link: String, deepLinkData: AnyObject?) {
         var attributes = [ "url" : link ]
         if let deepLinkData = deepLinkData,
@@ -92,7 +114,7 @@ extension ConversationManager {
                    metrics: nil)
     }
     
-    func trackWebLink(link: String) {
+    func trackWebLink(_ link: String) {
         trackEvent(eventType: .webLink,
                    attributes: [ "url" : link ],
                    metrics: nil)

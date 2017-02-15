@@ -608,51 +608,40 @@ extension ChatViewController: KeyboardObserverDelegate {
 extension ChatViewController {
     
     func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) -> Bool {
-        
-        if DEMO_CONTENT_ENABLED {
-            if let deepLink = buttonItem.deepLink?.lowercased() {
-                switch deepLink {
-                case "troubleshoot":
-                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                        if !chatMessagesView.isNearBottom() {
-                            chatMessagesView.scrollToBottomAnimated(true)
-                        }
-                        conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                        
-                        return true
-                    } else {
-                        return false
-                    }
-                    break
-                    
-                case "restartdevicenow":
-                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                        if !chatMessagesView.isNearBottom() {
-                            chatMessagesView.scrollToBottomAnimated(true)
-                        }
-                        conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                        return true
-                    } else {
-                        return false
-                    }
-                    break
-                    
-                default:
-                    // No-op
-                    break
-                }
-            }
+        if _handleDemoButtonItemTapped(buttonItem) {
+            return true
         }
+    
+        
+        func sendButtonTap() -> Bool {
+            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+                return false
+            }
+            
+            
+            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
+            conversationManager.sendButtonItemSelection(buttonItem,
+                                                        originalSearchQuery: originalQuery,
+                                                        currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+            
+            return true
+        }
+        
+        conversationManager.trackSRSButtonItemTap(buttonItem: buttonItem)
         
         
         // Check if this is a web url
         if let webURL = buttonItem.webURL {
             if openWebURL(url: webURL) {
-                suggestedRepliesView.deselectCurrentSelection(animated: true)
                 DebugLog("Did select button with web url: \(webURL)")
                 
-                conversationManager.trackWebLink(link: webURL.absoluteString)
-                return true
+                if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+                    conversationManager.sendButtonItemSelection(
+                        buttonItem,
+                        originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                        currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+                }
+                return false
             }
         }
         
@@ -661,48 +650,34 @@ extension ChatViewController {
             if let deepLink = buttonItem.deepLink {
                 DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
                 
-                conversationManager.trackDeepLink(link: deepLink, deepLinkData: buttonItem.deepLinkData as? AnyObject)
-                
-                dismiss(animated: true, completion: { [weak self] in
-                    self?.callback(deepLink, buttonItem.deepLinkData)
-                })
-                return true
-            }
-            break
-            
-        case .SRS, .Action, .Message:
-            if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
-            
-                chatMessagesView.scrollToBottomAnimated(true)
-            
                 let originalQuery = simpleStore.getSRSOriginalSearchQuery()
                 conversationManager.sendButtonItemSelection(buttonItem,
                                                             originalSearchQuery: originalQuery,
                                                             currentSRSEvent: suggestedRepliesView.currentActionableEvent)
-                return true
+                
+                dismiss(animated: true, completion: { [weak self] in
+                    self?.callback(deepLink, buttonItem.deepLinkData)
+                })
+                return false
             }
             break
             
-        case .AppAction:
-            if let appAction = buttonItem.appAction {
-                switch appAction {
-                case .Ask:
-                    setPredictiveViewControllerVisible(true, animated: true, completion: nil)
-                    return false
-                    
-                case .BeginLiveChat:
-                    conversationManager.sendSRSSwitchToChat()
-                    return true
-                    
-                case .AddCreditCard:
-                    let creditCardViewController = CreditCardInputViewController()
-                    creditCardViewController.delegate = self
-                    present(creditCardViewController, animated: true, completion: nil)
-                    return false
-                }
+        case .SRS, .Action, .Message:
+            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+                return false
             }
-            break
+            
+            simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
+            chatMessagesView.scrollToBottomAnimated(true)
+        
+            conversationManager.sendButtonItemSelection(
+                buttonItem,
+                originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+            return true
+            
+        case .AppAction:
+            return performAppAction(buttonItem.appAction)
         }
         
         return false
@@ -728,6 +703,52 @@ extension ChatViewController {
             UIApplication.shared.openURL(url)
             return true
         }
+        return false
+    }
+    
+    func performAppAction(_ action: AppAction?) -> Bool {
+        guard let action = action else {
+            return false
+        }
+        
+        switch action {
+        case .Ask:
+            setPredictiveViewControllerVisible(true, animated: true, completion: nil)
+            return false
+            
+        case .BeginLiveChat:
+            conversationManager.sendSRSSwitchToChat()
+            return true
+            
+        case .AddCreditCard:
+            let creditCardViewController = CreditCardInputViewController()
+            creditCardViewController.delegate = self
+            present(creditCardViewController, animated: true, completion: nil)
+            return false
+        }
+    }
+    
+    func _handleDemoButtonItemTapped(_ buttonItem: SRSButtonItem) -> Bool {
+        guard DEMO_CONTENT_ENABLED && conversationManager.isConnected() else {
+             return false
+        }
+        
+        if let deepLink = buttonItem.deepLink?.lowercased() {
+            switch deepLink {
+            case "troubleshoot":
+                chatMessagesView.scrollToBottomAnimated(true)
+                conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return true
+                
+            case "restartdevicenow":
+                chatMessagesView.scrollToBottomAnimated(true)
+                conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return true
+                
+            default: break
+            }
+        }
+    
         return false
     }
 }

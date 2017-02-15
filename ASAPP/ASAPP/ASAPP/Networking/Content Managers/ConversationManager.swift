@@ -254,10 +254,12 @@ extension ConversationManager {
             }
             break
             
-        case .InAppLink, .Link, .AppAction:
+        case .InAppLink, .Link:
+            sendSRSLinkButtonTapped(buttonItem: buttonItem)
+            break
             
+        case .AppAction:
             
-            DebugLogError("ConversationManager cannot handle button with type \(buttonItem.type)")
             break
         }
 
@@ -329,6 +331,23 @@ extension ConversationManager {
         sendSRSRequest(path: path, params: nil)
     }
     
+    fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem) {
+        guard let deepLink = buttonItem.deepLink else {
+            return
+        }
+        
+        var params: [String : AnyObject] = [
+            "Title" : buttonItem.title as AnyObject,
+            "Link" : deepLink as AnyObject
+        ]
+        if let deepLinkData = buttonItem.deepLinkData as? AnyObject,
+            let deepLinkDataJson = JSONUtil.stringify(deepLinkData) {
+            params["Data"] = deepLinkDataJson as AnyObject
+        }
+        
+        let path = "srs/CreateLinkButtonTapEvent"
+        sendSRSRequest(path: path, params: params)
+    }
     
 }
 
