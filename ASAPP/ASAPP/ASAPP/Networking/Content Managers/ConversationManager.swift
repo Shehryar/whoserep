@@ -255,6 +255,8 @@ extension ConversationManager {
             break
             
         case .InAppLink, .Link, .AppAction:
+            
+            
             DebugLogError("ConversationManager cannot handle button with type \(buttonItem.type)")
             break
         }
@@ -326,6 +328,8 @@ extension ConversationManager {
         let path = "srs/\(action)"
         sendSRSRequest(path: path, params: nil)
     }
+    
+    
 }
 
 // MARK:- SocketConnectionDelegate

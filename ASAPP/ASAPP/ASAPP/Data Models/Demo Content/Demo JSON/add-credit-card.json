@@ -25,7 +25,9 @@
       },
       {
         "value": {
-          "content": "addCreditCard",
+          "content": {
+          	"action" : "addCreditCard"
+          },
           "type": "APP_ACTION"
         },
         "label": "Enter Card Details",
