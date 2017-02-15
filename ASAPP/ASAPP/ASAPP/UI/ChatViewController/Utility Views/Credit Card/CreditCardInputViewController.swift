@@ -10,14 +10,12 @@ import UIKit
 
 protocol CreditCardAPIDelegate: class {
     /// Returns true if the request was sent. False if the request was unable to be sent (most likely connection issues)
-    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((_ success: Bool, _ errorMessage: String?) -> Void)) -> Bool
+    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((CreditCardResponse) -> Void)) -> Bool
 }
 
 class CreditCardInputViewController: UIViewController {
     
     weak var delegate: CreditCardAPIDelegate?
-    
-    let defaultErrorMessage: String = "Oops! We were unable to process your request. Please check your information and try again."
     
     let errorView = ModalCardErrorView()
     let creditCardView = CreditCardInputView()
@@ -76,13 +74,13 @@ class CreditCardInputViewController: UIViewController {
             self?.startLoading()
             self?.presentationAnimator.updatePresentedViewFrame()
             
-            let requestSent = delegate.uploadCreditCard(creditCard: creditCard, completion: { (success, errorMessage) in
-                if success {
+            let requestSent = delegate.uploadCreditCard(creditCard: creditCard, completion: { (response: CreditCardResponse) in
+                if response.success {
                     self?.stopLoading(removeBlurView: false)
                     self?.showSuccessView()
                 } else {
                     self?.stopLoading()
-                    self?.errorView.text = errorMessage ?? self?.defaultErrorMessage
+                    self?.errorView.text = response.errorMessage ?? CreditCardResponse.DEFAULT_ERROR_MESSAGE
                     self?.presentationAnimator.updatePresentedViewFrame()
                 }
             })

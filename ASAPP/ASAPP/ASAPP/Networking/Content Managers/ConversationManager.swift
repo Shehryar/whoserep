@@ -203,15 +203,14 @@ extension ConversationManager {
         }
     }
     
-    func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ success: Bool, _ errorMessage: String?) -> Void)) {
+    func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ response: CreditCardResponse) -> Void)) {
         let path = "\(requestPrefix)SendCreditCard"
         let params = creditCard.toASAPPParams()
         
         socketConnection.sendRequest(withPath: path, params: params, context: nil)
         { (message: IncomingMessage, request: SocketRequest?, responseTime: ResponseTimeInMilliseconds) in
-            let success = message.type == .Response
-            let errorMessage = success ? nil : message.bodyString
-            completion(success, errorMessage)
+            let creditCardResponse = CreditCardResponse.from(json: message.body)
+            completion(creditCardResponse)
         }
     }
     

@@ -1248,7 +1248,7 @@ extension ChatViewController {
 
 extension ChatViewController: CreditCardAPIDelegate {
     
-    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((Bool, String?) -> Void)) -> Bool {
+    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((CreditCardResponse) -> Void)) -> Bool {
         guard conversationManager.isConnected else {
             return false
         }

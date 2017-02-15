@@ -8,11 +8,11 @@
 
 import UIKit
 
-enum CreditCardField {
-    case name
-    case number
-    case expiry
-    case cvv
+enum CreditCardField: String {
+    case name = "Name"
+    case number = "CardNumber"
+    case expiry = "Expiry"
+    case cvv = "CVV"
 }
 
 class CreditCard: NSObject {
@@ -125,17 +125,16 @@ class CreditCard: NSObject {
     func toASAPPParams() -> [String : AnyObject]? {
         guard let name = name,
             let number = number,
-            let (expiryMonth, expiryYear) = getExpiryComponents(),
+            let expiry = expiry,
             let cvv = cvv else {
             return nil
         }
         
         return [
-            "Name" : name as AnyObject,
-            "Number" : number as AnyObject,
-            "ExpiryMonth" : expiryMonth as AnyObject,
-            "ExpiryYear" : expiryYear as AnyObject,
-            "CVV" : cvv as AnyObject
+            CreditCardField.name.rawValue : name as AnyObject,
+            CreditCardField.number.rawValue : number as AnyObject,
+            CreditCardField.expiry.rawValue : expiry as AnyObject,
+            CreditCardField.cvv.rawValue : cvv as AnyObject
         ]
     }
 }
