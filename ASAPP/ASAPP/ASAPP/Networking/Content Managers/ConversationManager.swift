@@ -285,6 +285,8 @@ extension ConversationManager {
         
         Dispatcher.performOnBackgroundThread {
             var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
+            srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE as AnyObject
+            srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.CLIENT_VERSION_VALUE as AnyObject
             if let authToken = self.credentials.getAuthToken() {
                 srsParams["Auth"] = authToken as AnyObject
             }

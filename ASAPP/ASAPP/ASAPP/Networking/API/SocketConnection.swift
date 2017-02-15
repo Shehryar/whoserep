@@ -82,7 +82,6 @@ class SocketConnection: NSObject {
 
 extension SocketConnection {
     
-    private static let ASAPP_CLIENT_VERSION = "2.1.0"
     private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
 
     class func createConnectionRequestion(subdomain: String) -> URLRequest {
@@ -90,9 +89,9 @@ extension SocketConnection {
         
         let connectionRequest = NSMutableURLRequest()
         connectionRequest.url = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
-        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
-        connectionRequest.addValue(ASAPP_CLIENT_VERSION, forHTTPHeaderField: "ASAPP-ClientVersion")
-        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: "ASAPP-ClientSecret")
+        connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
+        connectionRequest.addValue(ASAPP.CLIENT_VERSION_VALUE, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
+        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
         
         return connectionRequest as URLRequest
     }

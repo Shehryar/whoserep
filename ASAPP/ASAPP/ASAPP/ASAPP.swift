@@ -42,6 +42,14 @@ internal let ASAPPBundle = Bundle(for: ASAPP.self)
 
 public class ASAPP: NSObject {
     
+    public static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
+    public static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
+    
+    public static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
+    public static let CLIENT_VERSION_VALUE = "2.1.0"
+    
+    public static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    
     // MARK: Constats
     
     public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
