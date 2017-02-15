@@ -188,7 +188,7 @@ extension SocketConnection {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
                 
                 if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
-                    DebugLog("Sending request: \(requestString)")
+                    request.logRequest(with: requestString)
                 } else {
                     DebugLog("Sending analytics request")
                 }

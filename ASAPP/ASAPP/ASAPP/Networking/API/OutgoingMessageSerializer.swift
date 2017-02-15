@@ -27,6 +27,46 @@ class SocketRequest {
         self.context = context
         self.requestData = requestData
     }
+    
+    // MARK: Print Utilities
+    
+    var containsSensitiveData: Bool {
+        return path.contains("CreditCard")
+    }
+    
+    func getParametersCleanedOfSensitiveData() -> [String : AnyObject] {
+        var cleanedParams = [String : AnyObject]()
+        cleanedParams.add(params)
+        if path.contains("CreditCard") {
+            if cleanedParams["Number"] != nil {
+                cleanedParams["Number"] = "xxxx" as AnyObject
+            }
+            if cleanedParams["CVV"] != nil {
+                cleanedParams["CVV"] = "xxx" as AnyObject
+            }
+            
+        }
+        
+        return cleanedParams
+    }
+    
+    func getLoggableDescription() -> String {
+        let cleanedParams = getParametersCleanedOfSensitiveData()
+        let paramsJSONString = JSONUtil.stringify(cleanedParams as AnyObject, prettyPrinted: true) ?? "{}"
+        let contextJSONString = JSONUtil.stringify((context ?? [:]) as AnyObject, prettyPrinted: true) ?? "{}"
+        
+        return "\(path)|\(requestId)|\(contextJSONString)|\(paramsJSONString)"
+    }
+    
+    func logRequest(with requestString: String) {
+        let loggableRequestString: String
+        if containsSensitiveData {
+            loggableRequestString = getLoggableDescription()
+        } else {
+            loggableRequestString = requestString
+        }
+        DebugLog("Sending request:\n\n\(loggableRequestString)")
+    }
 }
 
 class OutgoingMessageSerializer: NSObject {
