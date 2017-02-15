@@ -8,15 +8,16 @@
 
 import UIKit
 
+protocol CreditCardAPIDelegate: class {
+    /// Returns true if the request was sent. False if the request was unable to be sent (most likely connection issues)
+    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((_ success: Bool, _ errorMessage: String?) -> Void)) -> Bool
+}
+
 class CreditCardInputViewController: UIViewController {
     
-    enum TestState {
-        case start
-        case error
-        case success
-    }
+    weak var delegate: CreditCardAPIDelegate?
     
-    var testState = TestState.start
+    let defaultErrorMessage: String = "Oops! We were unable to process your request. Please check your information and try again."
     
     let errorView = ModalCardErrorView()
     let creditCardView = CreditCardInputView()
@@ -29,7 +30,6 @@ class CreditCardInputViewController: UIViewController {
     
     fileprivate var isLoading = false
     fileprivate var isShowingSuccessView = false
-
     fileprivate let presentationAnimator = ModalCardPresentationAnimator()
     
     // MARK:- Initialization
@@ -50,6 +50,12 @@ class CreditCardInputViewController: UIViewController {
                 return
             }
             
+            guard !strongSelf.isShowingSuccessView else {
+                strongSelf.dismiss(animated: true, completion: nil)
+                return
+            }
+            
+            
             let creditCard = strongSelf.creditCardView.getCurrentCreditCard()
             
             if let invalidFields = creditCard.getInvalidFields() {
@@ -59,44 +65,27 @@ class CreditCardInputViewController: UIViewController {
                 return
             }
             
-            
-            
-            
+            guard let delegate = strongSelf.delegate else {
+                strongSelf.errorView.text = "Unable to send your request."
+                strongSelf.presentationAnimator.updatePresentedViewFrame()
+                return
+            }
             
             self?.view.endEditing(true)
             self?.errorView.text = nil
             self?.startLoading()
             self?.presentationAnimator.updatePresentedViewFrame()
             
-            var block: (() -> Void)? = nil
-            switch strongSelf.testState {
-            case .start:
-                block = {
-                    self?.stopLoading()
-                    self?.errorView.text = "Oops! There was an error :("
-                        // "Oops! We were unable to process your request. Please check your information and try again."
-                    self?.presentationAnimator.updatePresentedViewFrame()
-                }
-                strongSelf.testState = .error
-                break
-                
-            case .error:
-                block = {
+            let requestSent = delegate.uploadCreditCard(creditCard: creditCard, completion: { (success, errorMessage) in
+                if success {
                     self?.stopLoading(removeBlurView: false)
                     self?.showSuccessView()
+                } else {
+                    self?.stopLoading()
+                    self?.errorView.text = errorMessage ?? self?.defaultErrorMessage
+                    self?.presentationAnimator.updatePresentedViewFrame()
                 }
-                strongSelf.testState = .success
-                break
-                
-            case .success:
-                self?.dismiss(animated: true, completion: nil)
-                break
-            }
-            if let block = block {
-                Dispatcher.delay(1500, closure: { 
-                    block()
-                })
-            }
+            })
         }
         
         // Loader

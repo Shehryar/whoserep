@@ -697,6 +697,7 @@ extension ChatViewController {
                     
                 case .AddCreditCard:
                     let creditCardViewController = CreditCardInputViewController()
+                    creditCardViewController.delegate = self
                     present(creditCardViewController, animated: true, completion: nil)
                     return false
                 }
@@ -1219,5 +1220,20 @@ extension ChatViewController {
                 self?.updateIsLiveChat(withEvents: fetchedEvents)
             }
         }
+    }
+}
+
+// MARK:- CreditCardAPIDelegate
+
+extension ChatViewController: CreditCardAPIDelegate {
+    
+    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((Bool, String?) -> Void)) -> Bool {
+        guard conversationManager.isConnected else {
+            return false
+        }
+        
+        conversationManager.sendCreditCard(creditCard, completion: completion)
+        
+        return true
     }
 }
