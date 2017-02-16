@@ -611,7 +611,6 @@ extension ChatViewController {
         if _handleDemoButtonItemTapped(buttonItem) {
             return true
         }
-    
         
         func sendButtonTap() -> Bool {
             guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {

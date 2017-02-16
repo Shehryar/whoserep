@@ -285,6 +285,7 @@ class Event: NSObject {
     lazy var srsResponse: SRSResponse? = {
         guard self.eventType == .srsResponse ||
             self.eventType == .switchSRSToChat ||
+            self.eventType == .newRep ||
             self.eventType == .conversationEnd else {
                 return nil
         }

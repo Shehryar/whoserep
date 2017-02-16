@@ -250,12 +250,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            var typingCell: UITableViewCell?
-            if shouldShowTypingPreview {
-                typingCell = cellMaster.typingPreviewCell(forIndexPath: indexPath, withText: otherParticipantTypingPreview)
-            } else {
-                typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
-            }
+            var typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
             return typingCell ?? UITableViewCell()
         }
         
@@ -310,9 +305,6 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            if shouldShowTypingPreview {
-                return cellMaster.heightForTypingPreviewCell(withText: otherParticipantTypingPreview)
-            }
             return cellMaster.heightForTypingIndicatorCell()
         }
         
