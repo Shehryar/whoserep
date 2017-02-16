@@ -93,7 +93,7 @@ class CreditCard: NSObject {
         //
         // Expiry
         //
-        if let (expiryMonth, expiryYear) = getExpiryComponents() {
+        if let (expiryMonth, _) = getExpiryComponents() {
             // Expiry month must be a valid month
             if expiryMonth < 1 || expiryMonth > 12 {
                 invalidFields.append(.expiry)

@@ -94,7 +94,7 @@ class SRSItemListView: UIView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (itemsListFrame, buttonsViewFrame) = getFramesThatFit(size)
+        let (_, buttonsViewFrame) = getFramesThatFit(size)
         let height = buttonsViewFrame.maxY
         
         return CGSize(width: size.width, height: height)

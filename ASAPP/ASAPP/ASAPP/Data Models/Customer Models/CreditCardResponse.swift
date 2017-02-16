@@ -20,6 +20,24 @@ class CreditCardResponse: NSObject {
     let expiryErrorMessage: String?
     let cvvErrorMessage: String?
     
+    var invalidFields: [CreditCardField]? {
+        var invalidFields = [CreditCardField]()
+        if nameErrorMessage != nil {
+            invalidFields.append(.name)
+        }
+        if numberErrorMessage != nil {
+            invalidFields.append(.number)
+        }
+        if expiryErrorMessage != nil {
+            invalidFields.append(.expiry)
+        }
+        if cvvErrorMessage != nil {
+            invalidFields.append(.cvv)
+        }
+        
+        return invalidFields.isEmpty ? nil : invalidFields
+    }
+    
     init(success: Bool,
          errorMessage: String? = nil,
          nameErrorMessage: String? = nil,

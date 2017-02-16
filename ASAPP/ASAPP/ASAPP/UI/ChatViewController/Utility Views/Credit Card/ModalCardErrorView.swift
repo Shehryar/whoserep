@@ -13,6 +13,11 @@ class ModalCardErrorView: UIView {
     var text: String? {
         didSet {
             label.text = text
+            if label.text == nil || label.text!.isEmpty {
+                imageView.alpha = 0.0
+            } else {
+                imageView.alpha = 1.0
+            }
             setNeedsLayout()
         }
     }

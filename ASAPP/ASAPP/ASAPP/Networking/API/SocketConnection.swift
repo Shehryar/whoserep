@@ -84,13 +84,11 @@ extension SocketConnection {
     
     private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
 
-    class func createConnectionRequestion(subdomain: String) -> URLRequest {
-        let urlString = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
-        
+    class func createConnectionRequestion(subdomain: String) -> URLRequest {        
         let connectionRequest = NSMutableURLRequest()
         connectionRequest.url = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
         connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
-        connectionRequest.addValue(ASAPP.CLIENT_VERSION_VALUE, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
+        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
         connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
         
         return connectionRequest as URLRequest

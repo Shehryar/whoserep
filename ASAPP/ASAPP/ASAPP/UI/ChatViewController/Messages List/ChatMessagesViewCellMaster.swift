@@ -270,7 +270,7 @@ extension ChatMessagesViewCellMaster {
         
         // SRS Response
         if [EventType.srsResponse, EventType.newRep, EventType.conversationEnd].contains(event.eventType) {
-            if let srsResponse = event.srsResponse {
+            if event.srsResponse != nil {
                 styleSRSItemListCell(srsItemListViewSizingCell,
                                      withEvent: event,
                                      isReply: isReply,

@@ -250,7 +250,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            var typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
+            let typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
             return typingCell ?? UITableViewCell()
         }
         

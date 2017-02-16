@@ -81,9 +81,16 @@ class CreditCardInputViewController: UIViewController {
                 } else {
                     self?.stopLoading()
                     self?.errorView.text = response.errorMessage ?? CreditCardResponse.DEFAULT_ERROR_MESSAGE
+                    self?.creditCardView.highlightInvalidFields(invalidFields: response.invalidFields)
                     self?.presentationAnimator.updatePresentedViewFrame()
                 }
             })
+            if !requestSent {
+                self?.stopLoading()
+                self?.errorView.text = "Please check your connection and try again."
+                self?.presentationAnimator.updatePresentedViewFrame()
+            }
+            
         }
         
         // Loader

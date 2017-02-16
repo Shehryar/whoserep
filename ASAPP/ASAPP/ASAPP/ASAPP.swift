@@ -42,19 +42,18 @@ internal let ASAPPBundle = Bundle(for: ASAPP.self)
 
 public class ASAPP: NSObject {
     
-    public static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
-    public static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
-    
-    public static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
-    public static let CLIENT_VERSION_VALUE = "2.1.0"
-    
-    public static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
-    
-    // MARK: Constats
+    public static let clientVersion: String = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.2.0"
+
+    // MARK: Constants
     
     public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
+    
+    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
+    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
+    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
+    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
     
     // MARK: Fonts + Setup
     

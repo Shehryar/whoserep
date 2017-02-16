@@ -254,25 +254,18 @@ extension CreditCardInputView {
                           cvv: cvvTextView.text)
     }
     
-    func highlightInvalidFields(invalidFields: [CreditCardField]) {
-        for field in invalidFields {
-            switch field {
-            case .name:
-                nameTextView.invalid = true
-                break
-                
-            case .number:
-                numberTextView.invalid = true
-                break
-                
-            case .expiry:
-                expiryTextView.invalid = true
-                break
-                
-            case .cvv:
-                cvvTextView.invalid = true
-                break
-            }
+    func highlightInvalidFields(invalidFields: [CreditCardField]?) {
+        guard let invalidFields = invalidFields else {
+            nameTextView.invalid = false
+            numberTextView.invalid = false
+            expiryTextView.invalid = false
+            cvvTextView.invalid = false
+            return
         }
+        
+        nameTextView.invalid = invalidFields.contains(.name)
+        numberTextView.invalid = invalidFields.contains(.number)
+        expiryTextView.invalid = invalidFields.contains(.expiry)
+        cvvTextView.invalid = invalidFields.contains(.cvv)
     }
 }

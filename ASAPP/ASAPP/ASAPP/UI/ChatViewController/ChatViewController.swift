@@ -464,7 +464,7 @@ extension ChatViewController {
     private static let MAX_TOOLTIP_ACTIONS_COUNT = 3
     
     func increaseTooltipActionsCount(increaseAmount: Int = 1) {
-        var numberOfTimesShown = numberOfTooltipActions() + increaseAmount
+        let numberOfTimesShown = numberOfTooltipActions() + increaseAmount
         UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
     }
     
@@ -771,8 +771,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        
-        handleSRSButtonItemSelection(buttonItem)
+        _ = handleSRSButtonItemSelection(buttonItem)
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
@@ -1080,7 +1079,7 @@ extension ChatViewController: ConversationManagerDelegate {
         // Immediate Action
         if let immediateAction = srsResponse.immediateAction {
             Dispatcher.delay(1200, closure: { [weak self] in
-                self?.handleSRSButtonItemSelection(immediateAction)
+                _ = self?.handleSRSButtonItemSelection(immediateAction)
             })
         }
             // Show Suggested Replies View
@@ -1248,7 +1247,7 @@ extension ChatViewController {
 extension ChatViewController: CreditCardAPIDelegate {
     
     func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((CreditCardResponse) -> Void)) -> Bool {
-        guard conversationManager.isConnected else {
+        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
             return false
         }
         
