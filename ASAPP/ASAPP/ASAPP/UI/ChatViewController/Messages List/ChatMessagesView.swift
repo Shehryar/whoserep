@@ -435,9 +435,7 @@ extension ChatMessagesView {
                     guard let strongSelf = self else {
                         return
                     }
-                    
-                    let maxOffsetY: CGFloat = strongSelf.tableView.contentSize.height - strongSelf.tableView.bounds.height + strongSelf.tableView.contentInset.bottom
-                    strongSelf.tableView.setContentOffset(CGPoint(x: 0, y: maxOffsetY), animated: animated)
+                    strongSelf.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
                 }
             }
         }
