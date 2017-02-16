@@ -283,14 +283,14 @@ class Event: NSObject {
     }()
 
     lazy var srsResponse: SRSResponse? = {
-        guard self.eventType == .srsResponse ||
-            self.eventType == .switchSRSToChat ||
-            self.eventType == .newRep ||
-            self.eventType == .conversationEnd else {
-                return nil
+        if self.eventType == .srsResponse {
+            return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
         }
         
-        return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
+        if let messageBody = self.eventJSONObject?["Message"] as? [String : AnyObject] {
+            return SRSResponse.instanceWithJSON(messageBody) as? SRSResponse
+        }
+        return nil
     }()
     
     lazy var parentEventLogSeq: Int? = {

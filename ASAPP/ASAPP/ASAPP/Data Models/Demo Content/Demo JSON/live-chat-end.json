@@ -1,19 +1,19 @@
 {
-  "title": "Live Chat End",
-  "classification": "LIVE_CHAT_END",
-  "displayContent": 1,
-  "content": {
-    "value": [
-      {
-        "label": "",
-        "type": "label"
-      },
-      {
-        "label": "Your conversation has ended.",
-        "type": "label"
-      }
-    ],
+  "Message": {
+    "displayContent": true,
     "orientation": "vertical",
-    "type": "itemlist"
+    "type": "itemlist",
+    "content": {
+      "value": [
+        {
+          "label": "",
+          "type": "label"
+        },
+        {
+          "label": "Your conversation has ended.",
+          "type": "label"
+        }
+      ]
+    }
   }
 }
