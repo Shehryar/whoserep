@@ -166,7 +166,6 @@ class ChatInputView: UIView {
         placeholderTextView.isScrollEnabled = false
         placeholderTextView.isAccessibilityElement = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
-        textView.delegate = self
         addSubview(textView)
         addSubview(placeholderTextView)
         
@@ -200,7 +199,6 @@ class ChatInputView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     deinit {
         textView.delegate = nil

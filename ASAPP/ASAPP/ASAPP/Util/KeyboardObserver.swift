@@ -23,6 +23,10 @@ class KeyboardObserver: NSObject {
     
     weak var delegate: KeyboardObserverDelegate?
     
+    deinit {
+        deregisterForNotification()
+    }
+    
     // MARK: Public Methods
     
     func registerForNotifications() {

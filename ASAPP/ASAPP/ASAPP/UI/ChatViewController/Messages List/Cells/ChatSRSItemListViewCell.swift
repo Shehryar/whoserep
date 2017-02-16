@@ -209,12 +209,13 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         super.prepareForReuse()
         
         messageText = nil
-        itemListView.itemList = nil
-        itemCarouselView.itemCarousel = nil
         
         itemListView.delegate = nil
+        itemListView.itemList = nil
         itemListView.alpha = 1
         
+        itemCarouselView.delegate = nil
+        itemCarouselView.itemCarousel = nil
         itemCarouselView.alpha = 1
     }
 }
