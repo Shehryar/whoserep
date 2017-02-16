@@ -427,8 +427,24 @@ extension ChatMessagesView {
         }
         
         if let indexPath = indexPath {
-            tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: animated)
+            if SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: "9.0") {
+                tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+            } else {
+                // iOS 8 and below bug
+                Dispatcher.performOnMainThread { [weak self] in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    let maxOffsetY: CGFloat = strongSelf.tableView.contentSize.height - strongSelf.tableView.bounds.height + strongSelf.tableView.contentInset.bottom
+                    strongSelf.tableView.setContentOffset(CGPoint(x: 0, y: maxOffsetY), animated: animated)
+                }
+            }
         }
+    }
+    
+    func SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: String) -> Bool {
+        return UIDevice.current.systemVersion.compare(version, options: .numeric) != .orderedAscending
     }
 }
 
