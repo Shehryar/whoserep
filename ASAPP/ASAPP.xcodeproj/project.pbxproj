@@ -177,7 +177,6 @@
 		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
 		305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */; };
 		305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */; };
-		306079721E48F959008F3DAE /* DynamicTypeSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306079711E48F959008F3DAE /* DynamicTypeSizes.swift */; };
 		306079741E492D90008F3DAE /* ASAPPTypgraphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306079731E492D90008F3DAE /* ASAPPTypgraphy.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
@@ -442,7 +441,6 @@
 		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
 		305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomingMessage+EventList.swift"; sourceTree = "<group>"; };
-		306079711E48F959008F3DAE /* DynamicTypeSizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTypeSizes.swift; sourceTree = "<group>"; };
 		306079731E492D90008F3DAE /* ASAPPTypgraphy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTypgraphy.swift; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
@@ -854,7 +852,6 @@
 				30A4BB281D52637200795BA7 /* ASAPPStyles.swift */,
 				3005C4251DB00DD900946934 /* ASAPPStrings.swift */,
 				306079731E492D90008F3DAE /* ASAPPTypgraphy.swift */,
-				306079711E48F959008F3DAE /* DynamicTypeSizes.swift */,
 				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
 				30226CEE1D493F5300871453 /* Common */,
@@ -1442,7 +1439,6 @@
 				30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */,
 				3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
-				306079721E48F959008F3DAE /* DynamicTypeSizes.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */,
 				30D2E2911D7A0F1100502D92 /* SRSSeparatorItem.swift in Sources */,
