@@ -10,6 +10,8 @@ import UIKit
 
 class ChatMessagesViewCellMaster: NSObject {
 
+    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .switchSRSToChat, .newRep, .conversationEnd]
+    
     // MARK: Public Properties
 
     let tableView: UITableView

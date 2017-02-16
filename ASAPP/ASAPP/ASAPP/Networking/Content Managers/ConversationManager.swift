@@ -366,17 +366,16 @@ extension ConversationManager: SocketConnectionDelegate {
                     return
                 }
                 
+                if [EventType.conversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
+                    let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
+                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
+                }
                 
                 switch event.eventType {
-                case .srsResponse, .switchSRSToChat, .conversationEnd:
+                case .srsResponse, .conversationEnd, .switchSRSToChat, .newRep:
                     Dispatcher.delay(600, closure: {
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })
-                    
-                    if [EventType.conversationEnd, EventType.switchSRSToChat].contains(event.eventType) {
-                        let isLiveChat = event.eventType == .switchSRSToChat
-                        delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
-                    }
                     break
                     
                 case .textMessage, .pictureMessage:

@@ -204,7 +204,7 @@ extension ChatSuggestedRepliesView {
     
     func preferredDisplayHeight() -> CGFloat {
         let rowHeight = ChatActionableMessageView.approximateRowHeight(withStyles: styles)
-        let visibleRows: CGFloat = 4.6
+        let visibleRows: CGFloat = UIScreen.main.bounds.height > 575 ? 4.6 : 3.5
         return rowHeight * visibleRows + transparentInsetTop
     }
     

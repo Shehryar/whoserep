@@ -67,6 +67,10 @@ class ChatMessagesView: UIView {
         return dataSource.isEmpty()
     }
     
+    var supportedEventTypes: Set<EventType> {
+        return cellMaster.supportedEventTypes
+    }
+    
     // MARK:- Private Properties
     
     fileprivate let cellAnimationsEnabled = true
@@ -104,14 +108,9 @@ class ChatMessagesView: UIView {
         self.styles = styles
         self.strings = strings
         
-        var allowedEventTypes: Set<EventType>
-        if self.credentials.isCustomer {
-            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .switchSRSToChat, .conversationEnd]
-        } else {
-            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .newIssue, .newRep, .crmCustomerLinked]
-        }
-        self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView, styles: styles)
+        self.dataSource = ChatMessagesViewDataSource(withSupportedEventTypes: self.cellMaster.supportedEventTypes)
+        
         super.init(frame: CGRect.zero)
         
         backgroundColor = styles.backgroundColor1

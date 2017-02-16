@@ -98,6 +98,8 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     override func commonInit() {
         isReply = true
+        selectionStyle = .none
+        
         super.commonInit()
         
         contentView.addSubview(itemListView)
@@ -135,7 +137,6 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         guard let srsContentView = srsContentView else {
             return
         }
-        
         
         itemCarouselView.maxPageWidth = maxBubbleWidthForBoundsSize(bounds.size)
         var srsContentTop = bubbleView.frame.maxY + srsContentViewMargin
