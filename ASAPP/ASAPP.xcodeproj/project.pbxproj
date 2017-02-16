@@ -64,7 +64,6 @@
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
-		3019F5DD1D5A77B00036D74E /* ChatInfoMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DC1D5A77B00036D74E /* ChatInfoMessageView.swift */; };
 		3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DE1D5B92760036D74E /* ColorExtensions.swift */; };
 		301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BE91DAD7D23002BF4D9 /* device-tracking.json */; };
 		301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEB1DAD804C002BF4D9 /* map-device.png */; };
@@ -218,6 +217,7 @@
 		30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B381E54E26A00D78E8E /* CreditCardResponse.swift */; };
 		30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3A1E5503A400D78E8E /* live-chat-begin.json */; };
 		30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3C1E5503B400D78E8E /* live-chat-end.json */; };
+		30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */; };
 		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
@@ -328,7 +328,6 @@
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
-		3019F5DC1D5A77B00036D74E /* ChatInfoMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInfoMessageView.swift; sourceTree = "<group>"; };
 		3019F5DE1D5B92760036D74E /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		301C4BE91DAD7D23002BF4D9 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
 		301C4BEB1DAD804C002BF4D9 /* map-device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device.png"; sourceTree = "<group>"; };
@@ -483,6 +482,7 @@
 		30756B381E54E26A00D78E8E /* CreditCardResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardResponse.swift; sourceTree = "<group>"; };
 		30756B3A1E5503A400D78E8E /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
 		30756B3C1E5503B400D78E8E /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
+		30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesEmptyView.swift; sourceTree = "<group>"; };
 		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
@@ -785,14 +785,6 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		3019F5DB1D5A76BD0036D74E /* Info-Loading View */ = {
-			isa = PBXGroup;
-			children = (
-				3019F5DC1D5A77B00036D74E /* ChatInfoMessageView.swift */,
-			);
-			path = "Info-Loading View";
-			sourceTree = "<group>";
-		};
 		3022685C1D80961000EC4FB1 /* Predictive */ = {
 			isa = PBXGroup;
 			children = (
@@ -898,7 +890,7 @@
 				30226CED1D493F5300871453 /* ChatMessagesView.swift */,
 				30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */,
 				300888A21D64BE4900C25802 /* ChatMessagesViewCellMaster.swift */,
-				3019F5DB1D5A76BD0036D74E /* Info-Loading View */,
+				30756B3E1E56142800D78E8E /* Empty View */,
 				30A4BB231D52402800795BA7 /* Supplementary Views */,
 				30A4BB151D52400D00795BA7 /* Cells */,
 			);
@@ -1078,6 +1070,14 @@
 				30756B381E54E26A00D78E8E /* CreditCardResponse.swift */,
 			);
 			path = "Customer Models";
+			sourceTree = "<group>";
+		};
+		30756B3E1E56142800D78E8E /* Empty View */ = {
+			isa = PBXGroup;
+			children = (
+				30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */,
+			);
+			path = "Empty View";
 			sourceTree = "<group>";
 		};
 		30883F931D54E0CA002414E9 /* ASAPPButton */ = {
@@ -1521,7 +1521,6 @@
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				30C738321D87492300E32B78 /* SRSLoaderBarItem.swift in Sources */,
-				3019F5DD1D5A77B00036D74E /* ChatInfoMessageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
@@ -1557,6 +1556,7 @@
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
+				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
 				30A4BB291D52637200795BA7 /* ASAPPStyles.swift in Sources */,
 				3025DA1B1E539B9E004149D7 /* SRSLabelItemView.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,

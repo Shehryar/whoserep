@@ -97,7 +97,7 @@ class ChatMessagesView: UIView {
     
     fileprivate let cellMaster: ChatMessagesViewCellMaster
     
-    fileprivate let infoMessageView = ChatInfoMessageView()
+    fileprivate let emptyView = ChatMessagesEmptyView()
     
     fileprivate var eventsThatShouldAnimate = Set<Event>()
     
@@ -127,12 +127,12 @@ class ChatMessagesView: UIView {
         tableView.delegate = self
         addSubview(tableView)
         
-        infoMessageView.frame = bounds
-        infoMessageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        infoMessageView.applyStyles(styles)
-        infoMessageView.title = strings.chatEmptyTitle
-        infoMessageView.message = strings.chatEmptyMessage
-        addSubview(infoMessageView)
+        emptyView.frame = bounds
+        emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        emptyView.applyStyles(styles)
+        emptyView.title = strings.chatEmptyTitle
+        emptyView.message = strings.chatEmptyMessage
+        addSubview(emptyView)
         
         updateSubviewVisibility()
     }
@@ -169,7 +169,7 @@ class ChatMessagesView: UIView {
 extension ChatMessagesView {
 
     func updateSubviewVisibility(_ animated: Bool = false) {
-        let currentAlpha = infoMessageView.alpha
+        let currentAlpha = emptyView.alpha
         var nextAlpha: CGFloat
         if overrideToHideInfoView || !dataSource.isEmpty() {
             nextAlpha = 0.0
@@ -183,10 +183,10 @@ extension ChatMessagesView {
     
         if animated {
             UIView.animate(withDuration: 0.3, animations: { 
-                self.infoMessageView.alpha = nextAlpha
+                self.emptyView.alpha = nextAlpha
             })
         } else {
-            infoMessageView.alpha = nextAlpha
+            emptyView.alpha = nextAlpha
         }
     }
     

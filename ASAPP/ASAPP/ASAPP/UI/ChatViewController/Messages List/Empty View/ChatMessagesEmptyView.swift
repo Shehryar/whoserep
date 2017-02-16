@@ -1,5 +1,5 @@
 //
-//  ChatInfoMessageView.swift
+//  ChatMessagesEmptyView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/9/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatInfoMessageView: UIView, ASAPPStyleable {
+class ChatMessagesEmptyView: UIView, ASAPPStyleable {
     
     var title: String? {
         didSet {
