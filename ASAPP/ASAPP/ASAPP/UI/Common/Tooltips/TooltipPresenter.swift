@@ -26,6 +26,8 @@ class TooltipPresenter: NSObject {
         tappableView.isUserInteractionEnabled = true
         tappableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TooltipPresenter.dismiss)))
         tappableView.addSubview(tooltipView)
+        
+        tappableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(TooltipPresenter.didPan(with:))))
     }
 }
 
@@ -58,6 +60,12 @@ extension TooltipPresenter {
 // MARK:- Dismissal
 
 extension TooltipPresenter {
+    
+    func didPan(with gesture: UIPanGestureRecognizer) {
+        if gesture.state == .began {
+            dismiss()
+        }
+    }
     
     func dismiss() {
         dismissAnimated(true)
