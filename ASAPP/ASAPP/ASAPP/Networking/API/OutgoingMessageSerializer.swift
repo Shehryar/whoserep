@@ -146,7 +146,7 @@ extension OutgoingMessageSerializer {
                 ]
                 
                 // TODO: Better way to check this?
-                if !DISTRIBUTION_BUILD && userToken.isLikelyASAPPPhoneNumber { // userToken == "+13126089137" ||
+                if ASAPP.isInternalBuild && userToken.isLikelyASAPPPhoneNumber { // userToken == "+13126089137" ||
                     params["IdentifierType"] = "PHONE" as AnyObject
                     params["CustomerIdentifier"] = userToken as AnyObject
                 }

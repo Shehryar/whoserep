@@ -8,11 +8,6 @@
 
 import Foundation
 
-internal var DISTRIBUTION_BUILD = false
-
-internal var DEMO_CONTENT_ENABLED = false
-
-
 // MARK- Enums & Typealiases
 
 @objc public enum ASAPPEnvironment: Int {
@@ -42,14 +37,28 @@ internal let ASAPPBundle = Bundle(for: ASAPP.self)
 
 public class ASAPP: NSObject {
     
-    public static let clientVersion: String = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.2.0"
-
-    // MARK: Constants
+    // MARK: Public Constants
     
     public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
     
+    public static var clientVersion: String {
+        if let bundleVersion = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            return bundleVersion
+        }
+        return "2.2.0"
+    }
+    
+    // MARK: Internal Static Variables
+    
+    internal static var isInternalBuild: Bool {
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            return bundleIdentifier.contains("com.asappinc.")
+        }
+        return false
+    }
+
     internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
     internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
     internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
@@ -70,15 +79,6 @@ public class ASAPP: NSObject {
         return Fonts.loadedFonts()
     }
     
-    private class func commontSetup(testMode: Bool) {
-        loadFontsIfNecessary()
-        if !DISTRIBUTION_BUILD {
-            DEMO_CONTENT_ENABLED = testMode
-        } else {
-            DEMO_CONTENT_ENABLED = false
-        }
-    }
-    
     // MARK:- Chat Button
     
     /// Returns a new buttonView that can be manually added to a view.
@@ -90,10 +90,8 @@ public class ASAPP: NSObject {
                                        callbackHandler: @escaping ASAPPCallbackHandler,
                                        styles: ASAPPStyles?,
                                        strings: ASAPPStrings?,
-                                       testMode: Bool,
                                        presentingViewController: UIViewController) -> ASAPPButton {
-        
-        commontSetup(testMode: testMode)
+        loadFontsIfNecessary()
         
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
@@ -128,7 +126,6 @@ public class ASAPP: NSObject {
                                 callbackHandler: callbackHandler,
                                 styles: styles,
                                 strings: nil,
-                                testMode: false,
                                 presentingViewController: presentingViewController)
     }
     
@@ -142,10 +139,9 @@ public class ASAPP: NSObject {
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler,
                                                styles: ASAPPStyles?,
-                                               strings: ASAPPStrings?,
-                                               testMode: Bool) -> UIViewController {
+                                               strings: ASAPPStrings?) -> UIViewController {
         
-        commontSetup(testMode: testMode)
+        loadFontsIfNecessary()
         
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
@@ -179,8 +175,7 @@ public class ASAPP: NSObject {
                                         contextProvider: contextProvider,
                                         callbackHandler: callbackHandler,
                                         styles: styles,
-                                        strings: nil,
-                                        testMode: false)
+                                        strings: nil)
     }
     
     // MARK:
@@ -197,18 +192,25 @@ public class ASAPP: NSObject {
         return ASAPPStyles.stylesForCompany(company) ?? ASAPPStyles()
     }
     
-    // MARK: Private
+    // MARK: Demo Content
     
-    fileprivate class func updateDemoSettings() {
-        guard !DISTRIBUTION_BUILD
-            else {
-                DebugLog("All demo settings disabled for distribution build")
-                DEMO_CONTENT_ENABLED = false
-                return
+    private static var demoContentEnabled = false
+    
+    public class func isDemoContentEnabled() -> Bool {
+        if isInternalBuild {
+            return demoContentEnabled
+        } else {
+            return false
         }
-        DEMO_CONTENT_ENABLED = UserDefaults.standard.bool(forKey: "ASAPP_DEMO_CONTENT_ENABLED")
-        
-        DebugLog("\n\n==========\nASAPP DEMO SETTINGS:\nDemo Content = \(DEMO_CONTENT_ENABLED)\n==========")
+    }
+    
+    public class func setDemoContentEnabled(_ enabled: Bool) {
+        if isInternalBuild {
+            demoContentEnabled = enabled
+            DebugLog("Demo Content: \(enabled)")
+        } else {
+            DebugLogError("Demo Content Disabled")
+        }
     }
 }
 

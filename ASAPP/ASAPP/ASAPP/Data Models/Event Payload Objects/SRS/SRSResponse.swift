@@ -56,7 +56,7 @@ class SRSResponse: NSObject, JSONObject {
         }
         
         
-        if DEMO_CONTENT_ENABLED {
+        if ASAPP.isDemoContentEnabled() {
             if let classification = response.classification {
                 if classification.lowercased() == "bpp" {
                     if let buttonItems = response.itemList?.buttonItems {

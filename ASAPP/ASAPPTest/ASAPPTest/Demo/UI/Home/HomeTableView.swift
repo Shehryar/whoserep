@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ASAPP
 
 protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
@@ -202,20 +203,12 @@ extension HomeTableView: UITableViewDataSource {
         
         switch indexPath.section {
         case Section.demoSettings.rawValue:
-            var featureStrings = [String]()
-            if appSettings.liveChatEnabled {
-                featureStrings.append("• Live Chat")
-            }
-            if appSettings.demoContentEnabled {
-                featureStrings.append("• Demo Content")
-            }
-            var featuresString: String = ""
-            if featureStrings.count > 0 {
-                featuresString = featureStrings.joined(separator: "\n")
+            var featuresString: String
+            if ASAPP.isDemoContentEnabled() {
+                featuresString = "DEMO CONTENT ENABLED"
             } else {
                 featuresString = "Default Configuration"
             }
-            
             cell.update(titleText: "Environment:",
                         detailText: featuresString,
                         valueText: "\(appSettings.subdomain).asapp.com")

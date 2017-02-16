@@ -728,7 +728,7 @@ extension ChatViewController {
     }
     
     func _handleDemoButtonItemTapped(_ buttonItem: SRSButtonItem) -> Bool {
-        guard DEMO_CONTENT_ENABLED && conversationManager.isConnected() else {
+        guard ASAPP.isDemoContentEnabled() && conversationManager.isConnected() else {
              return false
         }
         

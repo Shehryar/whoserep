@@ -152,7 +152,6 @@ extension HomeViewController {
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
             strings: nil,
-            testMode: appSettings.demoContentEnabled,
             presentingViewController: self)
         
         
@@ -293,8 +292,7 @@ extension HomeViewController {
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
-            strings: nil,
-            testMode: appSettings.demoContentEnabled)
+            strings: nil)
         
         present(chatViewController, animated: true, completion: nil)
     }

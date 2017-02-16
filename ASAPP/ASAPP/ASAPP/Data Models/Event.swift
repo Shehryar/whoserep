@@ -362,7 +362,7 @@ class Event: NSObject {
             }
         }
         
-        if DEMO_CONTENT_ENABLED {
+        if ASAPP.isDemoContentEnabled() {
             if self.eventType == .scheduleAppointment {
                 if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
                     self.eventType = .srsResponse
@@ -373,7 +373,7 @@ class Event: NSObject {
         }
         
         
-        if DEMO_CONTENT_ENABLED {
+        if ASAPP.isDemoContentEnabled() {
             if self.eventType == .newRep || self.eventType == .switchSRSToChat {
                 if let liveChatBeginJson = Event.getDemoEventJsonString(eventType: .liveChatBegin, company: nil) {
                     self.eventJSON = liveChatBeginJson

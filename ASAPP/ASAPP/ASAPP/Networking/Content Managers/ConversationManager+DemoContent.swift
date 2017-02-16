@@ -13,7 +13,7 @@ extension ConversationManager {
     // MARK: Sample Responses
     
     func demo_AppOpenResponse() -> SRSAppOpenResponse? {
-        guard DEMO_CONTENT_ENABLED else { return nil }
+        guard ASAPP.isDemoContentEnabled() else { return nil }
         
         return SRSAppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
     }
@@ -24,7 +24,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     class func demo_CanOverrideButtonItemSelection(buttonItem: SRSButtonItem) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let  srsQuery = buttonItem.srsValue {
             if srsQuery == "cancelAppointmentPrompt"
@@ -43,7 +43,7 @@ extension ConversationManager {
     }
     
     func demo_OverrideStartSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let demoResponse = self.demo_AppOpenResponse() {
             completion?(demoResponse)
@@ -54,7 +54,7 @@ extension ConversationManager {
     }
     
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let srsQuery = buttonItem.srsValue {
             if srsQuery == "cancelAppointmentPrompt" {
@@ -73,7 +73,7 @@ extension ConversationManager {
     }
     
     func demo_OverrideMessageSend(message: String, completion: (() -> Void)? = nil) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
                 || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]]) {
@@ -101,7 +101,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     func demo_OverrideReceivedMessageEvent(event: Event) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if event.srsResponse?.classification == "BR" {
             sendFakeEquipmentReturnMessage()

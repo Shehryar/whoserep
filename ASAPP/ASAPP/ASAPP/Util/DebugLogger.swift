@@ -9,8 +9,8 @@
 import UIKit
 
 func DebugLog(_ message: String) {
-    if DEBUG_LOG_LEVEL == .Debug && !DISTRIBUTION_BUILD {
-        print("[ASAPP] \(message)\n")
+    if DEBUG_LOG_LEVEL == .Debug {
+        NSLog("[ASAPP] \(message)\n")
     }
 }
 
