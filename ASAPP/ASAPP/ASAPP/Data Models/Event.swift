@@ -287,7 +287,7 @@ class Event: NSObject {
             return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
         }
         
-        if let messageBody = self.eventJSONObject?["Message"] as? [String : AnyObject] {
+        if let messageBody = self.eventJSONObject?["ClientMessage"] as? [String : AnyObject] {
             return SRSResponse.instanceWithJSON(messageBody) as? SRSResponse
         }
         return nil

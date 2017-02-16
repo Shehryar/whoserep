@@ -1,5 +1,5 @@
 {
-  "Message": {
+  "ClientMessage": {
     "displayContent": true,
     "orientation": "vertical",
     "type": "itemlist",
