@@ -97,7 +97,7 @@ public class ASAPPStyles: NSObject {
 // MARK:- Presets
 
 extension ASAPPStyles {
-    public class func stylesForCompany(_ company: String) -> ASAPPStyles? {
+    public class func stylesForCompany(_ company: String) -> ASAPPStyles {
         if company.localizedCaseInsensitiveContains("comcast") {
             return comcastStyles()
         }
@@ -105,7 +105,7 @@ extension ASAPPStyles {
             || company.localizedCaseInsensitiveContains("text-rex") {
             return sprintStyles()
         }
-        return nil
+        return ASAPPStyles()
     }
     
     class func comcastStyles() -> ASAPPStyles {

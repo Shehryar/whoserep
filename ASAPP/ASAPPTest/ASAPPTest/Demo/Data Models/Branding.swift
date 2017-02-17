@@ -36,25 +36,25 @@ class Branding: NSObject {
     
         switch self.brandingType {
         case .asapp:
-            self.styles = ASAPPStyles.stylesForCompany("asapp") ?? ASAPPStyles()
+            self.styles = ASAPPStyles.stylesForCompany("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
             break
             
         case .xfinity:
-            self.styles = ASAPPStyles.stylesForCompany("comcast") ?? ASAPPStyles()
+            self.styles = ASAPPStyles.stylesForCompany("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
             break
             
         case .sprint:
-            self.styles = ASAPPStyles.stylesForCompany("sprint") ?? ASAPPStyles()
+            self.styles = ASAPPStyles.stylesForCompany("sprint")
             logoImageName = "sprint-logo"
             logoImageSize = CGSize(width: 140, height: 36)
             break
             
         case .boostMobile:
-            self.styles = ASAPPStyles.stylesForCompany("sprint") ?? ASAPPStyles()
+            self.styles = ASAPPStyles.stylesForCompany("sprint")
             
             styles.asappButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
             styles.asappButtonForegroundColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
