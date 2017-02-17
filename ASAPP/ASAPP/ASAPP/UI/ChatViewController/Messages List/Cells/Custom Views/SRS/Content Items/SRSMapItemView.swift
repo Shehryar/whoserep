@@ -15,22 +15,22 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
             if let imageType = mapItem?.imageType {
                 switch imageType {
                 case .tech:
-                    mapView.image = Images.imageTechLocationMap()
+                    mapView.image = Images.asappImage(.imageTechLocationMap)
                     break
                     
                 case .equipment:
-                    mapView.image = Images.imageEquipmentReturnMap()
+                    mapView.image = Images.asappImage(.imageEquipmentReturnMap)
                     break
                     
                 case .device:
-                    mapView.image = Images.imageDeviceTrackingMap()
+                    mapView.image = Images.asappImage(.imageDeviceTrackingMap)
                     break
                 }
             }
         }
     }
     
-    let mapView = UIImageView(image: Images.imageEquipmentReturnMap())
+    let mapView = UIImageView(image: Images.asappImage(.imageEquipmentReturnMap))
     
     // MARK: Initialization
     

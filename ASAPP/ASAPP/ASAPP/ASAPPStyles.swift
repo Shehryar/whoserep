@@ -9,7 +9,7 @@
 import UIKit
 
 public class ASAPPStyles: NSObject {
-    
+        
     public var strings: ASAPPStrings = ASAPPStrings()
     
     // MARK:- Fonts

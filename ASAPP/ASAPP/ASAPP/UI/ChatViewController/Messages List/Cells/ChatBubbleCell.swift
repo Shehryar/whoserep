@@ -214,6 +214,7 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         layer.removeAllAnimations()
         bubbleView.alpha = 1
         bubbleView.transform = CGAffineTransform.identity
+        detailLabel.text = nil
         animationStartTime = 0
         animating = false
         event = nil
@@ -268,10 +269,7 @@ extension ChatBubbleCell {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var contentHeight = bubbleSizeForSize(size).height
-        if contentHeight == 0 {
-            return .zero
-        }
-        
+  
         let maxLabelWidth = maxBubbleWidthForBoundsSize(size)
         if !detailLabelHidden {
             let detailLabelSize = detailLabel.sizeThatFits(CGSize(width: maxLabelWidth, height: size.height))
@@ -280,7 +278,11 @@ extension ChatBubbleCell {
             }
         }
         
-        return CGSize(width: size.width, height: contentHeight + contentInset.top + contentInset.bottom)
+        if contentHeight > 0 {
+            contentHeight += contentInset.top + contentInset.bottom
+        }
+        
+        return CGSize(width: size.width, height: contentHeight)
     }
 }
 
@@ -288,8 +290,17 @@ extension ChatBubbleCell {
 
 extension ChatBubbleCell {
     
+    func canShowDetailLabel() -> Bool {
+        return true
+    }
+    
     func setDetailLabelHidden(_ hidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         if hidden == detailLabelHidden { return }
+        if !hidden && !canShowDetailLabel() {
+            detailLabelHidden = true
+            completion?()
+            return
+        }
         
         if animated {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in

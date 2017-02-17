@@ -1,0 +1,19 @@
+{
+  "ClientMessage": {
+    "displayContent": true,
+    "orientation": "vertical",
+    "type": "itemlist",
+    "content": {
+      "value": [
+        {
+          "label": "",
+          "type": "label"
+        },
+        {
+          "label": "Your conversation has ended.",
+          "type": "label"
+        }
+      ]
+    }
+  }
+}

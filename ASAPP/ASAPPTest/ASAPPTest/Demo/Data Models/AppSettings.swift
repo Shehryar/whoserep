@@ -27,12 +27,6 @@ class AppSettings: NSObject {
     
     var branding: Branding
     
-    // MARK: Demo Settings
-    
-    var liveChatEnabled: Bool = true
-    
-    var demoContentEnabled: Bool
-    
     //
     // MARK:- Init
     //
@@ -68,8 +62,6 @@ class AppSettings: NSObject {
         self.versionString = "\(version) (\(build))"
         
         // Demo Settings
-        self.demoContentEnabled = false
-        self.liveChatEnabled = false
         super.init()
     }
     

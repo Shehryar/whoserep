@@ -8,10 +8,13 @@
 
 import UIKit
 
-enum StackViewOrientation {
-    case vertical
-    case horizontal
+// MARK:- StackableView Protocol
+
+protocol StackableView {
+    func prefersFullWidthDisplay() -> Bool
 }
+
+// MARK:- StackView
 
 class StackView: UIView {
 
@@ -24,14 +27,6 @@ class StackView: UIView {
     var viewSpacing: CGFloat = 10 {
         didSet {
             setNeedsLayout()
-        }
-    }
-    
-    var orientation: StackViewOrientation = .vertical {
-        didSet {
-            if oldValue != orientation {
-                setNeedsLayout()
-            }
         }
     }
     
@@ -72,27 +67,15 @@ extension StackView {
     func getWidthForSubview(_ view: UIView, forSize size: CGSize) -> (CGFloat, Bool) {
         let contentWidth = size.width - contentInset.left - contentInset.right
         
-        if orientation == .horizontal {
-            var visibleViewCount: CGFloat = 0.0
-            for view in arrangedSubviews {
-                if view.isHidden || view.alpha == 0 {
-                    continue
-                }
-                visibleViewCount += 1.0
-            }
-            let viewWidth = floor((contentWidth - max(0.0, visibleViewCount - 1) * viewSpacing) / max(1.0, visibleViewCount))
-            
-            return (viewWidth, false)
-        } else {
-            var preferredWidth = contentWidth
-            var prefersFullWidth = false
-            if let stackableView = view as? StackableView {
-                prefersFullWidth = stackableView.prefersFullWidthDisplay()
-                preferredWidth = size.width
-            }
-            
-            return (preferredWidth, prefersFullWidth)
+  
+        var preferredWidth = contentWidth
+        var prefersFullWidth = false
+        if let stackableView = view as? StackableView {
+            prefersFullWidth = stackableView.prefersFullWidthDisplay()
+            preferredWidth = size.width
         }
+        
+        return (preferredWidth, prefersFullWidth)
     }
     
     override func layoutSubviews() {
@@ -118,6 +101,8 @@ extension StackView {
         for view in arrangedSubviews {
             let (subviewWidth, prefersFullWidth) = getWidthForSubview(view, forSize: bounds.size)
             let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: CGFloat.greatestFiniteMagnitude)).height)
+            
+            
             if prefersFullWidth {
                 var originY = subviewOrigin.y
                 if view == arrangedSubviews.first {
@@ -129,11 +114,7 @@ extension StackView {
             }
             
             if !view.isHidden && view.alpha > 0 && viewHeight > 0 {
-                if orientation == .horizontal {
-                    subviewOrigin.x = view.frame.maxX + viewSpacing
-                } else {
-                    subviewOrigin.y = view.frame.maxY + viewSpacing
-                }
+                subviewOrigin.y = view.frame.maxY + viewSpacing
                 contentHeight = max(contentHeight, view.frame.maxY + contentInset.bottom)
             }
         }
@@ -151,22 +132,19 @@ extension StackView {
             if !view.isHidden && view.alpha > 0 {
                 let viewHeight = ceil(view.sizeThatFits(CGSize(width: subviewWidth, height: 0)).height)
                 if viewHeight > 0 {
-                    if orientation == .horizontal {
-                        contentHeight = max(contentHeight, viewHeight)
-                    } else {
-                        contentHeight += viewHeight
-                        if prefersFullWidth && view == arrangedSubviews.first {
-                            contentHeight -= contentInset.top
-                        }
-                        if index < arrangedSubviews.count - 1 {
-                            contentHeight += viewSpacing
-                        }
+                    contentHeight += viewHeight
+                    if prefersFullWidth && view == arrangedSubviews.first {
+                        contentHeight -= contentInset.top
+                    }
+                    if index < arrangedSubviews.count - 1 {
+                        contentHeight += viewSpacing
                     }
                 }
             }
         }
         
         if contentHeight > 0 {
+            // NOTE: Don't always want to add contentInset.top/bottom. FIX THIS
             contentHeight += contentInset.top + contentInset.bottom
         }
         

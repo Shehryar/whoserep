@@ -83,18 +83,41 @@ extension ChatSimpleStore {
         return nil
     }
     
+    /**
+     If the most recent reply-event is an SRSResponse, this will return (true, event). Otherwise, will return (false, nil)
+     */
+    func mostRecentReplyIsSRSResponse(fromEvent events: [Event]?) -> (Bool, Event?) {
+        guard let events = events else {
+            return (false, nil)
+        }
+        
+        for (_, event) in events.enumerated().reversed() {
+            if event.isCustomerEvent {
+                continue
+            }
+            
+            if event.eventType == .srsResponse {
+                return (true, event)
+            } else {
+                return (false, nil)
+            }
+        }
+        return (false, nil)
+    }
+    
     func getSuggestedReplyEvents(fromEvents allEvents: [Event]?) -> [Event]? {
         guard let allEvents = allEvents,
-            let lastEvent = allEvents.last,
             let eventLogSeqs = getSuggestedReplyEventLogSeqs()
             else {
                 return nil
         }
         
-        guard lastEvent.eventType == .srsResponse &&
-            eventLogSeqs.contains(lastEvent.eventLogSeq)
-            else {
-                return nil
+        let (mostRecentReplyIsSRS, mostRecentSRSEvent) = mostRecentReplyIsSRSResponse(fromEvent: allEvents)
+        guard let lastSRSEvent = mostRecentSRSEvent else {
+            return nil
+        }
+        guard mostRecentReplyIsSRS && eventLogSeqs.contains(lastSRSEvent.eventLogSeq) else {
+            return nil
         }
 
         let eventLogSeqSet = Set(eventLogSeqs)

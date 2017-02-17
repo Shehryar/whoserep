@@ -1,14 +1,13 @@
 {
   "title": "Account > Payment",
   "classification": "BP",
-  "displayContent" : 1,
+  "displayContent": 1,
   "content": {
     "value": [
       {
         "label": "Here is your current statement.",
         "type": "label"
       },
-
       {
         "value": [
           {
@@ -32,11 +31,9 @@
         "type": "separator"
       },
       {
-        "label": "*Recent transactions may take a few days to reflect on your bill.",
+        "label": "*Recent transactions may take several days to reflect on your bill.",
         "type": "label"
       },
-
-
       {
         "value": {
           "content": {
@@ -50,7 +47,6 @@
         "label": "View Details",
         "type": "button"
       },
-
       {
         "value": {
           "content": {
@@ -64,6 +60,7 @@
         "label": "Make a Payment",
         "type": "button"
       },
+      
     ],
     "orientation": "vertical",
     "type": "itemlist"

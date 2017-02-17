@@ -20,6 +20,7 @@ enum SRSButtonItemType: String {
 enum AppAction: String {
     case Ask = "ask"
     case BeginLiveChat = "live_chat"
+    case AddCreditCard = "addCreditCard"
 }
 
 class SRSButtonItem: NSObject, JSONObject {
@@ -29,6 +30,7 @@ class SRSButtonItem: NSObject, JSONObject {
     var title: String
     var type: SRSButtonItemType
     var isAutoSelect = false
+    var isInline = false
     
     // MARK: Link Properties
     
@@ -89,6 +91,10 @@ class SRSButtonItem: NSObject, JSONObject {
             button.isAutoSelect = isAutoSelect
         }
         
+        if json["type"] as? String == SRSItemListItemType.InlineButton.rawValue {
+            button.isInline = true
+        }
+        
         switch button.type {
         case .InAppLink, .Link:
             if let content = valueJSON["content"] as? [String : AnyObject] {
@@ -110,9 +116,10 @@ class SRSButtonItem: NSObject, JSONObject {
             break
             
         case .AppAction:
-            button.actionName = valueJSON["content"] as? String
-            if let actionName = button.actionName {
-                button.appAction = AppAction(rawValue: actionName)
+            if let content = valueJSON["content"] as? [String : AnyObject] {
+                if let actionString = content["action"] as? String {
+                    button.appAction = AppAction(rawValue: actionString)
+                }
             }
             break
         }

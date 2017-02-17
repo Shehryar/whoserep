@@ -13,7 +13,7 @@ extension ConversationManager {
     // MARK: Sample Responses
     
     func demo_AppOpenResponse() -> SRSAppOpenResponse? {
-        guard DEMO_CONTENT_ENABLED else { return nil }
+        guard ASAPP.isDemoContentEnabled() else { return nil }
         
         return SRSAppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
     }
@@ -24,7 +24,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     class func demo_CanOverrideButtonItemSelection(buttonItem: SRSButtonItem) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let  srsQuery = buttonItem.srsValue {
             if srsQuery == "cancelAppointmentPrompt"
@@ -43,7 +43,7 @@ extension ConversationManager {
     }
     
     func demo_OverrideStartSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let demoResponse = self.demo_AppOpenResponse() {
             completion?(demoResponse)
@@ -53,8 +53,8 @@ extension ConversationManager {
         return false
     }
     
-    func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+    func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) -> Bool {
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let srsQuery = buttonItem.srsValue {
             if srsQuery == "cancelAppointmentPrompt" {
@@ -73,10 +73,10 @@ extension ConversationManager {
     }
     
     func demo_OverrideMessageSend(message: String, completion: (() -> Void)? = nil) -> Bool {
-        if DEMO_LIVE_CHAT &&
-            (message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
-                || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]])
-            ) {
+        guard ASAPP.isDemoContentEnabled() else { return false }
+        
+        if message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
+                || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]]) {
             if let demoResponse = Event.demoResponseForMessage(message: message,
                                                                company: credentials.companyMarker) {
                 _sendMessage(message)
@@ -84,10 +84,6 @@ extension ConversationManager {
                 return true
             }
         }
-        
-        
-        
-        guard DEMO_CONTENT_ENABLED else { return false }
         
         if let demoResponse = Event.demoResponseForMessage(message: message,
                                                            company: credentials.companyMarker) {
@@ -105,7 +101,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     func demo_OverrideReceivedMessageEvent(event: Event) -> Bool {
-        guard DEMO_CONTENT_ENABLED else { return false }
+        guard ASAPP.isDemoContentEnabled() else { return false }
         
         if event.srsResponse?.classification == "BR" {
             sendFakeEquipmentReturnMessage()
@@ -149,7 +145,9 @@ extension ConversationManager {
     
     // MARK: Specific
     
-    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem,
+                                       afterEvent: Event?,
+                                       completion: IncomingMessageHandler? = nil) {
         _sendMessage(buttonItem.title, completion: completion)
         
         let jsonString = Event.getDemoEventJsonString(eventType: .troubleshooter,
@@ -157,7 +155,9 @@ extension ConversationManager {
         echoMessageResponse(withJSONString: jsonString)
     }
     
-    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem,
+                                      afterEvent: Event?,
+                                      completion: IncomingMessageHandler? = nil) {
         _sendMessage(buttonItem.title, completion: completion)
         
         var deviceRestartString = Event.getDemoEventJsonString(eventType: .deviceRestart,
@@ -191,18 +191,6 @@ extension ConversationManager {
     
     func sendFakeTechLocationMessage(_ eventLogSeq: Int? = nil) {
         let demoEvent = Event.getDemoEvent(eventType: .techLocation,
-                                           eventLogSeq: eventLogSeq)
-        sendDemoMessageEvent(demoEvent)
-    }
-    
-    func sendSwitchToLiveChatMessage(_ eventLogSeq: Int? = nil) {
-        let demoEvent = Event.getDemoEvent(eventType: .switchToLiveChat,
-                                           eventLogSeq: eventLogSeq)
-        sendDemoMessageEvent(demoEvent)
-    }
-    
-    func sendSwitchToSRSMessage(_ eventLogSeq: Int? = nil) {
-        let demoEvent = Event.getDemoEvent(eventType: .switchToSRS,
                                            eventLogSeq: eventLogSeq)
         sendDemoMessageEvent(demoEvent)
     }

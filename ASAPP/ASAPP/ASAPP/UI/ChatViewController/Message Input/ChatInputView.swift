@@ -166,7 +166,6 @@ class ChatInputView: UIView {
         placeholderTextView.isScrollEnabled = false
         placeholderTextView.isAccessibilityElement = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
-        textView.delegate = self
         addSubview(textView)
         addSubview(placeholderTextView)
         
@@ -200,7 +199,6 @@ class ChatInputView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     deinit {
         textView.delegate = nil
@@ -259,9 +257,9 @@ class ChatInputView: UIView {
     }
     
     func updateMediaButtonColor(_ color: UIColor) {
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 1), for: UIControlState())
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.7), for: .highlighted)
-        mediaButton.setImage(Images.paperclipIcon(fillColor: color, alpha: 0.4), for: .disabled)
+        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 1), for: UIControlState())
+        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 0.4), for: .disabled)
     }
     
     // MARK:- Button Actions

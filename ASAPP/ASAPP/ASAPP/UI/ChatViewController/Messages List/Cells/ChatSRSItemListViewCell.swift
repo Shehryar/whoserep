@@ -12,31 +12,29 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     var response: SRSResponse? {
         didSet {
+            messageText = nil
+            itemListView.itemList = nil
+            
             if let response = response {
                 if let itemList = response.itemList {
                     messageText = itemList.title
                     
-                    if response.displayType == .Inline {
-                        if itemList.orientation == .Horizontal {
-                            itemListView.orientation = .horizontal
-                        } else {
-                            itemListView.orientation = .vertical
-                        }
-                        itemListView.srsItems = itemList.contentItems
+                    if response.displayContent {
+                        itemListView.itemList = itemList
                     } else {
-                        itemListView.srsItems = nil
+                        itemListView.itemList = nil
                     }
-                   
+                    
                     itemCarouselView.itemCarousel = nil
                 } else if let itemCarousel = response.itemCarousel {
                     messageText = itemCarousel.message
                     itemCarouselView.itemCarousel = itemCarousel
                     
-                    itemListView.srsItems = nil
+                    itemListView.itemList = nil
                 }
             } else {
                 messageText = nil
-                itemListView.srsItems = nil
+                itemListView.itemList = nil
             }
             
             // Update Visibility
@@ -61,7 +59,7 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         }
     }
     
-    let itemListView = SRSItemListBlockView()
+    let itemListView = SRSItemListView()
     
     let itemCarouselView = SRSItemCarouselView()
     
@@ -100,6 +98,8 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     
     override func commonInit() {
         isReply = true
+        selectionStyle = .none
+        
         super.commonInit()
         
         contentView.addSubview(itemListView)
@@ -112,6 +112,7 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         super.updateFontsAndColors()
         itemListView.applyStyles(styles)
         itemCarouselView.applyStyles(styles)
+        
         setNeedsLayout()
     }
     
@@ -137,7 +138,6 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
             return
         }
         
-        
         itemCarouselView.maxPageWidth = maxBubbleWidthForBoundsSize(bounds.size)
         var srsContentTop = bubbleView.frame.maxY + srsContentViewMargin
         if !detailLabelHidden && detailLabel.bounds.height > 0 {
@@ -157,11 +157,21 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var contentHeight = super.sizeThatFits(size).height    
         let srsContentViewHeight = srsContentViewSizeThatFits(size).height
-        if srsContentViewHeight > 0 {
+        if srsContentViewHeight > 0 && contentHeight <= 0 {
+            contentHeight = contentInset.top + contentInset.bottom
+        }
+        if srsContentViewHeight > 0 && contentHeight > 0 {
             contentHeight += srsContentViewHeight + srsContentViewMargin
         }
     
         return CGSize(width: size.width, height: contentHeight)
+    }
+    
+    override func canShowDetailLabel() -> Bool {
+        if let messageText = messageText {
+            return !messageText.isEmpty
+        }
+        return false
     }
     
     // MARK: Animations
@@ -198,9 +208,14 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        messageText = nil
+        
         itemListView.delegate = nil
+        itemListView.itemList = nil
         itemListView.alpha = 1
         
+        itemCarouselView.delegate = nil
+        itemCarouselView.itemCarousel = nil
         itemCarouselView.alpha = 1
     }
 }

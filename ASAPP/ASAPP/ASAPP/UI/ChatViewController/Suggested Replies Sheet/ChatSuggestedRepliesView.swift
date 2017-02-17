@@ -84,7 +84,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
-        backButton.image = Images.iconBack()
+        backButton.image = Images.asappImage(.iconBack)
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.foregroundColor = Colors.mediumTextColor()
         backButton.onTap = { [weak self] in
@@ -101,7 +101,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         addSubview(backButton)
         
         closeButton.isHidden = true
-        closeButton.image = Images.iconSmallX()
+        closeButton.image = Images.asappImage(.iconSmallX)
         closeButton.imageSize = CGSize(width: 11, height: 11)
         closeButton.foregroundColor = Colors.mediumTextColor()
         closeButton.onTap = { [weak self] in
@@ -204,7 +204,7 @@ extension ChatSuggestedRepliesView {
     
     func preferredDisplayHeight() -> CGFloat {
         let rowHeight = ChatActionableMessageView.approximateRowHeight(withStyles: styles)
-        let visibleRows: CGFloat = 4.6
+        let visibleRows: CGFloat = UIScreen.main.bounds.height > 575 ? 4.6 : 3.5
         return rowHeight * visibleRows + transparentInsetTop
     }
     

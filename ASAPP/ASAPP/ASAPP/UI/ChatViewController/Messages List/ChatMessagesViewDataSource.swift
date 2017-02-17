@@ -14,7 +14,7 @@ class ChatMessagesViewDataSource: NSObject {
     
     var secondsBetweenSections: Int = (4 * 60)
     
-    let allowedEventTypes: Set<EventType>
+    let supportedEventTypes: Set<EventType>
     
     fileprivate(set) var allEvents = [Event]()
     
@@ -22,8 +22,8 @@ class ChatMessagesViewDataSource: NSObject {
     
     // MARK: Init
     
-    init(withAllowedEventTypes allowedEventTypes: Set<EventType>) {
-        self.allowedEventTypes = allowedEventTypes
+    init(withSupportedEventTypes supportedEventTypes: Set<EventType>) {
+        self.supportedEventTypes = supportedEventTypes
         super.init()
     }
     
@@ -136,7 +136,7 @@ class ChatMessagesViewDataSource: NSObject {
     }
     
     func addEvent(_ event: Event) -> IndexPath? {
-        guard allowedEventTypes.contains(event.eventType) else {
+        guard supportedEventTypes.contains(event.eventType) else {
             return nil
         }
         

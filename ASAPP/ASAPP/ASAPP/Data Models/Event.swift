@@ -283,9 +283,14 @@ class Event: NSObject {
     }()
 
     lazy var srsResponse: SRSResponse? = {
-        guard self.eventType == .srsResponse else { return nil }
+        if self.eventType == .srsResponse {
+            return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
+        }
         
-        return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
+        if let messageBody = self.eventJSONObject?["ClientMessage"] as? [String : AnyObject] {
+            return SRSResponse.instanceWithJSON(messageBody) as? SRSResponse
+        }
+        return nil
     }()
     
     lazy var parentEventLogSeq: Int? = {
@@ -342,7 +347,7 @@ class Event: NSObject {
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
         
         
-        if (DEMO_CONTENT_ENABLED || DEMO_LIVE_CHAT) && self.eventType == .srsEcho {
+        if  self.eventType == .srsEcho {
             var eventJSONObject: [String : AnyObject]?
             do {
                 eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
@@ -357,10 +362,26 @@ class Event: NSObject {
             }
         }
         
-        if DEMO_LIVE_CHAT && self.eventType == .scheduleAppointment {
-            if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
-                self.eventType = .srsResponse
-                self.eventJSON = scheduleApptJSON
+        if ASAPP.isDemoContentEnabled() {
+            if self.eventType == .scheduleAppointment {
+                if let scheduleApptJSON = Event.getDemoEventJsonString(eventType: .scheduleAppointment, company: nil) {
+                    self.eventType = .srsResponse
+                    self.eventJSON = scheduleApptJSON
+                }
+                
+            }
+        }
+        
+        
+        if ASAPP.isDemoContentEnabled() {
+            if self.eventType == .newRep || self.eventType == .switchSRSToChat {
+                if let liveChatBeginJson = Event.getDemoEventJsonString(eventType: .liveChatBegin, company: nil) {
+                    self.eventJSON = liveChatBeginJson
+                }
+            } else if self.eventType == .conversationEnd {
+                if let liveChatEndJson = Event.getDemoEventJsonString(eventType: .liveChatEnd, company: nil) {
+                    self.eventJSON = liveChatEndJson
+                }
             }
         }
     }

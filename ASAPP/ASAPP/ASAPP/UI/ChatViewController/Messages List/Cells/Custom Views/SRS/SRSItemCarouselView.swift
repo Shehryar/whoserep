@@ -10,6 +10,7 @@ import UIKit
 
 protocol SRSItemCarouselViewDelegate: class {
     func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didScrollToPage page: Int)
+    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem)
 }
 
 class SRSItemCarouselView: UIView {
@@ -90,7 +91,6 @@ class SRSItemCarouselView: UIView {
             pageView.applyStyles(styles)
         }
         
-        // TODO: Style pageControl
         pageControl.currentPageIndicatorTintColor = styles.foregroundColor1.withAlphaComponent(0.4)
         pageControl.pageIndicatorTintColor = styles.foregroundColor2.withAlphaComponent(0.4)
         
@@ -101,6 +101,7 @@ class SRSItemCarouselView: UIView {
     
     func reloadPageViews() {
         for pageView in pageViews {
+            pageView.delegate = nil
             pageView.removeFromSuperview()
         }
         pageViews.removeAll()
@@ -112,14 +113,10 @@ class SRSItemCarouselView: UIView {
         }
         
         for itemList in itemCarousel.pages {
-            let itemListView = SRSItemListBlockView()
-            if itemList.orientation == .Horizontal {
-                itemListView.orientation = .horizontal
-            } else {
-                itemListView.orientation = .vertical
-            }
+            let itemListView = SRSItemListView()
             itemListView.applyStyles(styles)
-            itemListView.srsItems = itemList.contentItems
+            itemListView.itemList = itemList
+            itemListView.delegate = self
             pageViews.append(itemListView)
             scrollView.addSubview(itemListView)
         }
@@ -226,6 +223,13 @@ class SRSItemCarouselView: UIView {
     }
 }
 
+extension SRSItemCarouselView: SRSItemListViewDelegate {
+    
+    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        delegate?.itemCarouselView(self, didSelectButtonItem: buttonItem)
+    }
+}
+
 extension SRSItemCarouselView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -282,7 +286,7 @@ class TouchPassThroughView: UIView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)
         if hitView == self {
-            return targetView
+            return targetView.hitTest(point, with: event) ?? targetView
         }
         return hitView
     }

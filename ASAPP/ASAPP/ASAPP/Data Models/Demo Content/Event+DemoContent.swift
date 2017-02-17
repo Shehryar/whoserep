@@ -24,12 +24,12 @@ enum DemoEventType {
     case phoneUpgrade
     case phonePlanUpgrade
     case deviceTracking
-    case switchToLiveChat
-    case switchToSRS
     case scheduleAppointment
     case appointmentConfirmation
     case jsonStyleExample
-    case chatWithAnAgent
+    case addCreditCard
+    case liveChatBegin
+    case liveChatEnd
     
     static let allTypes = [billAutoPay,
                            billCredit,
@@ -45,12 +45,12 @@ enum DemoEventType {
                            phonePlanUpgrade,
                            phoneUpgrade,
                            deviceTracking,
-                           switchToLiveChat,
-                           switchToSRS,
                            scheduleAppointment,
                            appointmentConfirmation,
                            jsonStyleExample,
-                           chatWithAnAgent,
+                           addCreditCard,
+                           liveChatBegin,
+                           liveChatEnd
                            ]
 }
 
@@ -133,12 +133,12 @@ extension Event {
             }
         case .phonePlanUpgrade: return "phone-plan-upgrade"
         case .deviceTracking: return "device-tracking"
-        case .switchToLiveChat: return "live-chat"
-        case .switchToSRS: return "srs-chat"
         case .scheduleAppointment: return "schedule-appointment"
         case .appointmentConfirmation: return "appointment-confirmation"
         case .jsonStyleExample: return "json-style-example"
-        case .chatWithAnAgent: return "chat-with-an-agent"
+        case .addCreditCard: return "add-credit-card"
+        case .liveChatBegin: return "live-chat-begin"
+        case .liveChatEnd: return "live-chat-end"
         }
     }
     
@@ -245,21 +245,6 @@ extension Event {
                 ["when", "will", "phone"]
             ]
             
-        case .switchToLiveChat:
-            return [
-                ["talk", "to", "agent"],
-                ["talk", "with", "agent"],
-                ["talk", "to", "rep"],
-                ["talk", "with", "rep"],
-                ["switch", "live", "chat"]
-            ]
-            
-        case .switchToSRS:
-            return [
-                ["talk", "to", "srs"],
-                ["switch", "to", "srs"]
-            ]
-            
         case .scheduleAppointment:
             return [
                 ["schedule", "appointment"],
@@ -280,16 +265,13 @@ extension Event {
                 ["json", "styl"]
             ]
             
-        case .chatWithAnAgent:
+        case .addCreditCard:
             return [
-                ["chat", "agent"],
-                ["chat", "person"],
-                ["chat", "human"],
-                ["chat", "live"],
-                ["chat", "someone"]
+                ["add", "card"]
             ]
             
-        case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment, .cancelAppointmentConfirmation:
+        case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,
+             .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd:
             return nil
         }
     }

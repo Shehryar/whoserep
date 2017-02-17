@@ -158,7 +158,7 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    func sendTextMessage(_ message: String, completion: (() -> Void)? = nil) {
+    func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         if demo_OverrideMessageSend(message: message) {
             return
         }
@@ -203,6 +203,17 @@ extension ConversationManager {
         }
     }
     
+    func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ response: CreditCardResponse) -> Void)) {
+        let path = "\(requestPrefix)SendCreditCard"
+        let params = creditCard.toASAPPParams()
+        
+        socketConnection.sendRequest(withPath: path, params: params, context: nil)
+        { (message: IncomingMessage, request: SocketRequest?, responseTime: ResponseTimeInMilliseconds) in
+            let creditCardResponse = CreditCardResponse.from(json: message.body)
+            completion(creditCardResponse)
+        }
+    }
+    
     func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
         if credentials.isCustomer {
             let path = "\(requestPrefix)NotifyTypingPreview"
@@ -215,32 +226,45 @@ extension ConversationManager {
         }
     }
     
-    func sendButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?) {
-        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: nil) {
+    func sendButtonItemSelection(_ buttonItem: SRSButtonItem,
+                                 originalSearchQuery: String?,
+                                 currentSRSEvent: Event?,
+                                 completion: IncomingMessageHandler? = nil) {
+        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
             return
         }
         
         switch buttonItem.type {
         case .SRS:
             if let classification = buttonItem.srsValue {
-                sendSRSTreewalk(classification: classification, message: buttonItem.title, originalSearchQuery: originalSearchQuery)
+                sendSRSTreewalk(classification: classification,
+                                message: buttonItem.title,
+                                originalSearchQuery: originalSearchQuery,
+                                currentSRSEvent: currentSRSEvent,
+                                completion: completion)
             }
             break
             
         case .Action:
             if let action = buttonItem.actionName {
-                sendSRSAction(action: action, withUserMessage: buttonItem.title)
+                sendSRSAction(action: action,
+                              withUserMessage: buttonItem.title,
+                              completion: completion)
             }
             break
             
         case .Message:
             if let message = buttonItem.message {
-                sendTextMessage(message)
+                sendTextMessage(message, completion: completion)
             }
             break
             
-        case .InAppLink, .Link, .AppAction:
-            DebugLogError("ConversationManager cannot handle button with type \(buttonItem.type)")
+        case .InAppLink, .Link:
+            sendSRSLinkButtonTapped(buttonItem: buttonItem, completion: completion)
+            break
+            
+        case .AppAction:
+            
             break
         }
 
@@ -251,11 +275,11 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    internal func _sendMessage(_ message: String, completion: (() -> Void)? = nil) {
+    internal func _sendMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         let path = "\(requestPrefix)SendTextMessage"
-        socketConnection.sendRequest(withPath: path, params: ["Text" : message as AnyObject]) { (incomingMessage) in
-            completion?()
-        }
+        socketConnection.sendRequest(withPath: path,
+                                     params: ["Text" : message as AnyObject],
+                                     requestHandler: completion)
     }
     
     // MARK: SRS General
@@ -263,17 +287,19 @@ extension ConversationManager {
     fileprivate func sendSRSRequest(path: String,
                                     params: [String : AnyObject]?,
                                     isRequestFromPrediction: Bool = false,
-                                    requestHandler: IncomingMessageHandler? = nil) {
+                                    completion: IncomingMessageHandler? = nil) {
         
         Dispatcher.performOnBackgroundThread {
             var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
+            srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE as AnyObject
+            srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion as AnyObject
             if let authToken = self.credentials.getAuthToken() {
                 srsParams["Auth"] = authToken as AnyObject
             }
             
             Dispatcher.performOnMainThread {
                 self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
-                    requestHandler?(incomingMessage, request, responseTime)
+                    completion?(incomingMessage, request, responseTime)
                     
                     self.trackSRSRequest(path: path,
                                          requestUUID: request?.requestUUID,
@@ -287,7 +313,11 @@ extension ConversationManager {
     
     // MARK: SRS Specific
     
-    fileprivate func sendSRSTreewalk(classification: String, message: String, originalSearchQuery: String?) {
+    fileprivate func sendSRSTreewalk(classification: String,
+                                     message: String,
+                                     originalSearchQuery: String?,
+                                     currentSRSEvent: Event?,
+                                     completion: IncomingMessageHandler? = nil) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params = [
             "Text" : message as AnyObject,
@@ -296,18 +326,43 @@ extension ConversationManager {
         if let originalSearchQuery = originalSearchQuery {
             params["SearchQuery"] = originalSearchQuery as AnyObject
         }
+        if let currentSRSEvent = currentSRSEvent {
+            params["ParentEventLogSeq"] = currentSRSEvent.eventLogSeq as AnyObject
+        }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
+            completion?(incomingMessage, request, responseTime)
             self?.trackTreewalk(message: message, classification: classification)
         }
     }
     
-    fileprivate func sendSRSAction(action: String, withUserMessage message: String) {
+    fileprivate func sendSRSAction(action: String,
+                                   withUserMessage message: String,
+                                   completion: IncomingMessageHandler? = nil) {
         _sendMessage(message)
         
         let path = "srs/\(action)"
-        sendSRSRequest(path: path, params: nil)
+        sendSRSRequest(path: path, params: nil, completion: completion)
     }
+    
+    fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) {
+        guard let deepLink = buttonItem.deepLink else {
+            return
+        }
+        
+        var params: [String : AnyObject] = [
+            "Title" : buttonItem.title as AnyObject,
+            "Link" : deepLink as AnyObject
+        ]
+        if let deepLinkData = buttonItem.deepLinkData as? AnyObject,
+            let deepLinkDataJson = JSONUtil.stringify(deepLinkData) {
+            params["Data"] = deepLinkDataJson as AnyObject
+        }
+        
+        let path = "srs/CreateLinkButtonTapEvent"
+        sendSRSRequest(path: path, params: params, completion: completion)
+    }
+    
 }
 
 // MARK:- SocketConnectionDelegate
@@ -324,9 +379,13 @@ extension ConversationManager: SocketConnectionDelegate {
                     return
                 }
                 
+                if [EventType.conversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
+                    let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
+                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
+                }
                 
                 switch event.eventType {
-                case .srsResponse:
+                case .srsResponse, .conversationEnd, .switchSRSToChat, .newRep:
                     Dispatcher.delay(600, closure: {
                         self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
                     })
@@ -334,11 +393,6 @@ extension ConversationManager: SocketConnectionDelegate {
                     
                 case .textMessage, .pictureMessage:
                     delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    break
-                    
-                case .conversationEnd, .switchSRSToChat:
-                    let isLiveChat = event.eventType == .switchSRSToChat
-                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
                     break
                     
                 case .none:

@@ -21,6 +21,8 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
+    fileprivate let LOG_ANALYTICS_EVENTS_VERBOSE = false
+    
     // MARK: Public Properties
     
     fileprivate(set) var credentials: Credentials
@@ -80,17 +82,14 @@ class SocketConnection: NSObject {
 
 extension SocketConnection {
     
-    private static let ASAPP_CLIENT_VERSION = "2.1.0"
     private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
 
-    class func createConnectionRequestion(subdomain: String) -> URLRequest {
-        let urlString = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
-        
+    class func createConnectionRequestion(subdomain: String) -> URLRequest {        
         let connectionRequest = NSMutableURLRequest()
         connectionRequest.url = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
-        connectionRequest.addValue("consumer-ios-sdk", forHTTPHeaderField: "ASAPP-ClientType")
-        connectionRequest.addValue(ASAPP_CLIENT_VERSION, forHTTPHeaderField: "ASAPP-ClientVersion")
-        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: "ASAPP-ClientSecret")
+        connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
+        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
+        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
         
         return connectionRequest as URLRequest
     }
@@ -184,7 +183,13 @@ extension SocketConnection {
                 socket?.send(data)
             } else {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
-                DebugLog("Sending request: \(requestString)")
+                
+                if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
+                    request.logRequest(with: requestString)
+                } else {
+                    DebugLog("Sending analytics request")
+                }
+                
                 socket?.send(requestString)
             }
         } else {

@@ -8,47 +8,17 @@
 
 import UIKit
 
-// MARK:- Tint/Fill Colors 
-// Source: (source (slightly modified): https://gist.github.com/fabb/007d30ba0759de9be8a3)
+// MARK:- Tint Colors
 
 internal extension UIImage {
-    
-    // colorize image with given tint color
-    // this is similar to Photoshop's "Color" layer blend mode
-    // this is perfect for non-greyscale source images, and images that have both highlights and shadows that should be preserved
-    // white will stay white and black will stay black as the lightness of the image is preserved
-    func tint(_ tintColor: UIColor, alpha: CGFloat = 1.0) -> UIImage {
-        
-        return modifiedImage { context, rect in
-            // draw black background - workaround to preserve color of partially transparent pixels
-            context.setBlendMode(.normal)
-            UIColor.black.setFill()
-            context.fill(rect)
-            
-            // draw original image
-            context.setBlendMode(.normal)
-            context.draw(self.cgImage!, in: rect)
-            
-            // tint image (loosing alpha) - the luminosity of the original image is preserved
-            context.setBlendMode(.color)
-            tintColor.setFill()
-            context.fill(rect)
-            
-            // mask by alpha values of original image
-            context.setBlendMode(.destinationIn)
-            context.setAlpha(alpha)
-            context.draw(self.cgImage!, in: rect)
-        }
-    }
-    
-    // fills the alpha channel of the source image with the given color
-    // any color information except to the alpha channel will be ignored
-    func fillAlpha(_ fillColor: UIColor, alpha: CGFloat = 1.0) -> UIImage {
+
+    func tinted(_ color: UIColor, alpha: CGFloat = 1.0) -> UIImage {
+        // Source: (source (slightly modified): https://gist.github.com/fabb/007d30ba0759de9be8a3)
         
         return modifiedImage { context, rect in
             // draw tint color
             context.setBlendMode(.normal)
-            fillColor.setFill()
+            color.setFill()
             context.fill(rect)
             
             // mask by alpha values of original image
@@ -58,7 +28,7 @@ internal extension UIImage {
         }
     }
     
-    fileprivate func modifiedImage(_ draw: (CGContext, CGRect) -> ()) -> UIImage {
+    private func modifiedImage(_ draw: (CGContext, CGRect) -> ()) -> UIImage {
         
         // using scale correctly preserves retina images
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
@@ -77,5 +47,19 @@ internal extension UIImage {
         UIGraphicsEndImageContext()
         return image!
     }
+}
+
+// MARK:- Color Image
+
+internal extension UIImage {
     
+    class func imageWithColor(_ color: UIColor) -> UIImage? {
+        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }

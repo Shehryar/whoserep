@@ -42,11 +42,28 @@ class SRSItemList: NSObject, JSONObject {
         return contentItems
     }
     
+    var inlineButtonItems: [SRSButtonItem]? {
+        var buttonItems = [SRSButtonItem]()
+        for item in items {
+            if let buttonItem = item as? SRSButtonItem {
+                if buttonItem.isInline {
+                    buttonItems.append(buttonItem)
+                }
+            }
+        }
+        if buttonItems.count > 0 {
+            return buttonItems
+        }
+        return nil
+    }
+    
     var buttonItems: [SRSButtonItem]? {
         var buttonItems = [SRSButtonItem]()
         for item in items {
             if let buttonItem = item as? SRSButtonItem {
-                buttonItems.append(buttonItem)
+                if !buttonItem.isInline {
+                    buttonItems.append(buttonItem)
+                }
             }
         }
         if buttonItems.count > 0 {
@@ -96,9 +113,11 @@ class SRSItemList: NSObject, JSONObject {
             }
             
             var item: AnyObject?
+            var nestedItems: [AnyObject]?
+            
             switch itemType {
             case .ItemList:
-                item = SRSItemList.instanceWithJSON(itemJSON) as? SRSItemList
+                nestedItems = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON)
                 break
                 
             case .Button:
@@ -106,17 +125,11 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Label:
-                item = SRSLabelItem.instanceWithJSON(itemJSON) as? SRSLabelItem
+                item = SRSLabelItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Info:
-                let infoItem = SRSInfoItem.instanceWithJSON(itemJSON) as? SRSInfoItem
-                if orientation == .Vertical {
-                    infoItem?.orientation = .horizontal
-                } else {
-                    infoItem?.orientation = .vertical
-                }
-                item = infoItem
+                item = SRSNestedItemListParser.getSRSLabelValueItemFromInfoItemJSON(itemJSON, listOrientation: orientation)
                 break
                 
             case .Separator:
@@ -138,14 +151,24 @@ class SRSItemList: NSObject, JSONObject {
             case .Map:
                 item = SRSMapItem.instanceWithJSON(itemJSON) as? SRSMapItem
                 break
+                
+            case .InlineButton:
+                item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
+                break
+                
+            case .Icon:
+                item = SRSIconItem.instanceWithJSON(itemJSON) as? SRSIconItem
+                break
             }
             
             if let item = item {
                 items.append(item)
+            } else if let nestedItems = nestedItems {
+                items.append(contentsOf: nestedItems)
             }
         }
         
-        guard !items.isEmpty else {
+        if items.isEmpty {
             return nil
             
         }
@@ -157,6 +180,7 @@ class SRSItemList: NSObject, JSONObject {
 enum SRSItemListItemType: String {
     case ItemList = "itemlist"
     case Button = "button"
+    case InlineButton = "inlineButton"
     case Label = "label"
     case Separator = "separator"
     case Info = "info"
@@ -164,4 +188,5 @@ enum SRSItemListItemType: String {
     case LoaderBar = "loaderBar"
     case Image = "image"
     case Map = "map"
+    case Icon = "icon"
 }

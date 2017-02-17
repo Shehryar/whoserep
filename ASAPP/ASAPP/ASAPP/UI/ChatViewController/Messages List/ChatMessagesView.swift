@@ -67,6 +67,10 @@ class ChatMessagesView: UIView {
         return dataSource.isEmpty()
     }
     
+    var supportedEventTypes: Set<EventType> {
+        return cellMaster.supportedEventTypes
+    }
+    
     // MARK:- Private Properties
     
     fileprivate let cellAnimationsEnabled = true
@@ -93,7 +97,7 @@ class ChatMessagesView: UIView {
     
     fileprivate let cellMaster: ChatMessagesViewCellMaster
     
-    fileprivate let infoMessageView = ChatInfoMessageView()
+    fileprivate let emptyView = ChatMessagesEmptyView()
     
     fileprivate var eventsThatShouldAnimate = Set<Event>()
     
@@ -104,14 +108,9 @@ class ChatMessagesView: UIView {
         self.styles = styles
         self.strings = strings
         
-        var allowedEventTypes: Set<EventType>
-        if self.credentials.isCustomer {
-            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse]
-        } else {
-            allowedEventTypes = [.textMessage, .pictureMessage, .srsResponse, .newIssue, .newRep, .crmCustomerLinked]
-        }
-        self.dataSource = ChatMessagesViewDataSource(withAllowedEventTypes: allowedEventTypes)
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView, styles: styles)
+        self.dataSource = ChatMessagesViewDataSource(withSupportedEventTypes: self.cellMaster.supportedEventTypes)
+        
         super.init(frame: CGRect.zero)
         
         backgroundColor = styles.backgroundColor1
@@ -128,12 +127,12 @@ class ChatMessagesView: UIView {
         tableView.delegate = self
         addSubview(tableView)
         
-        infoMessageView.frame = bounds
-        infoMessageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        infoMessageView.applyStyles(styles)
-        infoMessageView.title = strings.chatEmptyTitle
-        infoMessageView.message = strings.chatEmptyMessage
-        addSubview(infoMessageView)
+        emptyView.frame = bounds
+        emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        emptyView.applyStyles(styles)
+        emptyView.title = strings.chatEmptyTitle
+        emptyView.message = strings.chatEmptyMessage
+        addSubview(emptyView)
         
         updateSubviewVisibility()
     }
@@ -170,7 +169,7 @@ class ChatMessagesView: UIView {
 extension ChatMessagesView {
 
     func updateSubviewVisibility(_ animated: Bool = false) {
-        let currentAlpha = infoMessageView.alpha
+        let currentAlpha = emptyView.alpha
         var nextAlpha: CGFloat
         if overrideToHideInfoView || !dataSource.isEmpty() {
             nextAlpha = 0.0
@@ -184,10 +183,10 @@ extension ChatMessagesView {
     
         if animated {
             UIView.animate(withDuration: 0.3, animations: { 
-                self.infoMessageView.alpha = nextAlpha
+                self.emptyView.alpha = nextAlpha
             })
         } else {
-            infoMessageView.alpha = nextAlpha
+            emptyView.alpha = nextAlpha
         }
     }
     
@@ -251,12 +250,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            var typingCell: UITableViewCell?
-            if shouldShowTypingPreview {
-                typingCell = cellMaster.typingPreviewCell(forIndexPath: indexPath, withText: otherParticipantTypingPreview)
-            } else {
-                typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
-            }
+            let typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
             return typingCell ?? UITableViewCell()
         }
         
@@ -311,9 +305,6 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let event = dataSource.eventForIndexPath(indexPath) else {
-            if shouldShowTypingPreview {
-                return cellMaster.heightForTypingPreviewCell(withText: otherParticipantTypingPreview)
-            }
             return cellMaster.heightForTypingIndicatorCell()
         }
         
@@ -336,8 +327,10 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
                 delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
-        } else if cell is ChatBubbleCell {
-            toggleTimeStampForEventAtIndexPath(indexPath)
+        } else if let cell = cell as? ChatBubbleCell {
+            if cell.canShowDetailLabel() {
+                toggleTimeStampForEventAtIndexPath(indexPath)
+            }
         }
         
         if let event = dataSource.eventForIndexPath(indexPath) {
@@ -396,6 +389,10 @@ extension ChatMessagesView: SRSItemCarouselViewDelegate {
             delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
         }
     }
+    
+    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
+    }
 }
 
 // MARK:- Scroll
@@ -430,8 +427,22 @@ extension ChatMessagesView {
         }
         
         if let indexPath = indexPath {
-            tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: animated)
+            if SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: "9.0") {
+                tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+            } else {
+                // iOS 8 and below bug
+                Dispatcher.performOnMainThread { [weak self] in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    strongSelf.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+                }
+            }
         }
+    }
+    
+    func SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: String) -> Bool {
+        return UIDevice.current.systemVersion.compare(version, options: .numeric) != .orderedAscending
     }
 }
 

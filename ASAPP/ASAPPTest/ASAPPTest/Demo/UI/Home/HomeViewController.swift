@@ -141,7 +141,7 @@ extension HomeViewController {
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
         
-        print("Company: \(currentAccount.company)\nSubdomain: \(appSettings.subdomain)\nuserToken: \(currentAccount.userToken)")
+        DemoLog("Company: \(currentAccount.company)\nSubdomain: \(appSettings.subdomain)\nuserToken: \(currentAccount.userToken)")
         
         chatButton = ASAPP.createChatButton(
             company: currentAccount.company,
@@ -152,7 +152,6 @@ extension HomeViewController {
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
             strings: nil,
-            testMode: appSettings.demoContentEnabled,
             presentingViewController: self)
         
         
@@ -293,8 +292,7 @@ extension HomeViewController {
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
             styles: appSettings.branding.styles,
-            strings: nil,
-            testMode: appSettings.demoContentEnabled)
+            strings: nil)
         
         present(chatViewController, animated: true, completion: nil)
     }

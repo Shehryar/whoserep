@@ -386,11 +386,6 @@ class ChatViewController: UIViewController {
     // MARK: Updates
     
     func updateIsLiveChat(withEvents events: [Event]) {
-        guard DEMO_LIVE_CHAT else {
-            isLiveChat = false
-            return
-        }
-        
         var tempLiveChat = false
         for (_, event) in events.enumerated().reversed() {
             if event.eventType == .newRep || event.eventType == .switchSRSToChat {
@@ -469,7 +464,7 @@ extension ChatViewController {
     private static let MAX_TOOLTIP_ACTIONS_COUNT = 3
     
     func increaseTooltipActionsCount(increaseAmount: Int = 1) {
-        var numberOfTimesShown = numberOfTooltipActions() + increaseAmount
+        let numberOfTimesShown = numberOfTooltipActions() + increaseAmount
         UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
     }
     
@@ -613,51 +608,39 @@ extension ChatViewController: KeyboardObserverDelegate {
 extension ChatViewController {
     
     func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) -> Bool {
-        
-        if DEMO_CONTENT_ENABLED {
-            if let deepLink = buttonItem.deepLink?.lowercased() {
-                switch deepLink {
-                case "troubleshoot":
-                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                        if !chatMessagesView.isNearBottom() {
-                            chatMessagesView.scrollToBottomAnimated(true)
-                        }
-                        conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                        
-                        return true
-                    } else {
-                        return false
-                    }
-                    break
-                    
-                case "restartdevicenow":
-                    if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                        if !chatMessagesView.isNearBottom() {
-                            chatMessagesView.scrollToBottomAnimated(true)
-                        }
-                        conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
-                        return true
-                    } else {
-                        return false
-                    }
-                    break
-                    
-                default:
-                    // No-op
-                    break
-                }
-            }
+        if _handleDemoButtonItemTapped(buttonItem) {
+            return true
         }
+        
+        func sendButtonTap() -> Bool {
+            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+                return false
+            }
+            
+            
+            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
+            conversationManager.sendButtonItemSelection(buttonItem,
+                                                        originalSearchQuery: originalQuery,
+                                                        currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+            
+            return true
+        }
+        
+        conversationManager.trackSRSButtonItemTap(buttonItem: buttonItem)
         
         
         // Check if this is a web url
         if let webURL = buttonItem.webURL {
             if openWebURL(url: webURL) {
-                suggestedRepliesView.deselectCurrentSelection(animated: true)
                 DebugLog("Did select button with web url: \(webURL)")
                 
-                conversationManager.trackWebLink(link: webURL.absoluteString)
-                return true
+                if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+                    conversationManager.sendButtonItemSelection(
+                        buttonItem,
+                        originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                        currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+                }
+                return false
             }
         }
         
@@ -666,45 +649,39 @@ extension ChatViewController {
             if let deepLink = buttonItem.deepLink {
                 DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
                 
-                conversationManager.trackDeepLink(link: deepLink, deepLinkData: buttonItem.deepLinkData as? AnyObject)
+                let originalQuery = simpleStore.getSRSOriginalSearchQuery()
+                conversationManager.sendButtonItemSelection(buttonItem,
+                                                            originalSearchQuery: originalQuery,
+                                                            currentSRSEvent: suggestedRepliesView.currentActionableEvent)
                 
                 dismiss(animated: true, completion: { [weak self] in
                     self?.callback(deepLink, buttonItem.deepLinkData)
                 })
-                return true
+                return false
             }
             break
             
         case .SRS, .Action, .Message:
-            if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
-            
-                chatMessagesView.scrollToBottomAnimated(true)
-            
-                let originalQuery = simpleStore.getSRSOriginalSearchQuery()
-                conversationManager.sendButtonItemSelection(buttonItem,
-                                                            originalSearchQuery: originalQuery)
-                return true
+            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+                return false
             }
-            break
+            
+            simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
+            chatMessagesView.scrollToBottomAnimated(true)
+        
+            conversationManager.sendButtonItemSelection(
+                buttonItem,
+                originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                currentSRSEvent: suggestedRepliesView.currentActionableEvent,
+                completion: { [weak self] (message, request, responseTime) in
+                    if message.type != .Response {
+                        self?.suggestedRepliesView.deselectCurrentSelection(animated: true)
+                    }
+            })
+            return true
             
         case .AppAction:
-            if DEMO_LIVE_CHAT {
-                if let appAction = buttonItem.appAction {
-                    switch appAction {
-                    case .Ask:
-                        setPredictiveViewControllerVisible(true, animated: true, completion: nil)
-                        return true
-                        break
-                        
-                    case .BeginLiveChat:
-                        conversationManager.sendSRSSwitchToChat()
-                        return true
-                        break
-                    }
-                }
-            }
-            break
+            return performAppAction(buttonItem.appAction)
         }
         
         return false
@@ -732,6 +709,52 @@ extension ChatViewController {
         }
         return false
     }
+    
+    func performAppAction(_ action: AppAction?) -> Bool {
+        guard let action = action else {
+            return false
+        }
+        
+        switch action {
+        case .Ask:
+            setPredictiveViewControllerVisible(true, animated: true, completion: nil)
+            return false
+            
+        case .BeginLiveChat:
+            conversationManager.sendSRSSwitchToChat()
+            return true
+            
+        case .AddCreditCard:
+            let creditCardViewController = CreditCardInputViewController()
+            creditCardViewController.delegate = self
+            present(creditCardViewController, animated: true, completion: nil)
+            return false
+        }
+    }
+    
+    func _handleDemoButtonItemTapped(_ buttonItem: SRSButtonItem) -> Bool {
+        guard ASAPP.isDemoContentEnabled() && conversationManager.isConnected() else {
+             return false
+        }
+        
+        if let deepLink = buttonItem.deepLink?.lowercased() {
+            switch deepLink {
+            case "troubleshoot":
+                chatMessagesView.scrollToBottomAnimated(true)
+                conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return true
+                
+            case "restartdevicenow":
+                chatMessagesView.scrollToBottomAnimated(true)
+                conversationManager.sendFakeDeviceRestartMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)
+                return true
+                
+            default: break
+            }
+        }
+    
+        return false
+    }
 }
 
 // MARK:- ChatMessagesViewDelegate
@@ -753,8 +776,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        
-        handleSRSButtonItemSelection(buttonItem)
+        _ = handleSRSButtonItemSelection(buttonItem)
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
@@ -1035,9 +1057,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
-        if DEMO_LIVE_CHAT {
-            self.isLiveChat = isLiveChat
-        }
+        self.isLiveChat = isLiveChat
     }
     
     // MARK: Handling Received Messages
@@ -1064,7 +1084,7 @@ extension ChatViewController: ConversationManagerDelegate {
         // Immediate Action
         if let immediateAction = srsResponse.immediateAction {
             Dispatcher.delay(1200, closure: { [weak self] in
-                self?.handleSRSButtonItemSelection(immediateAction)
+                _ = self?.handleSRSButtonItemSelection(immediateAction)
             })
         }
             // Show Suggested Replies View
@@ -1084,16 +1104,6 @@ extension ChatViewController: ConversationManagerDelegate {
             // Hide Suggested Replies View
         else {
             clearSuggestedRepliesView()
-        }
-        
-        
-        if DEMO_LIVE_CHAT {
-            // Update for live-chat/srs-chat
-            if srsResponse.classification == SRSClassifications.enterLiveChat.rawValue {
-                isLiveChat = true
-            } else if srsResponse.classification == SRSClassifications.enterSRSChat.rawValue {
-                isLiveChat = false
-            }
         }
     }
 }
@@ -1234,5 +1244,20 @@ extension ChatViewController {
                 self?.updateIsLiveChat(withEvents: fetchedEvents)
             }
         }
+    }
+}
+
+// MARK:- CreditCardAPIDelegate
+
+extension ChatViewController: CreditCardAPIDelegate {
+    
+    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((CreditCardResponse) -> Void)) -> Bool {
+        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+            return false
+        }
+        
+        conversationManager.sendCreditCard(creditCard, completion: completion)
+        
+        return true
     }
 }

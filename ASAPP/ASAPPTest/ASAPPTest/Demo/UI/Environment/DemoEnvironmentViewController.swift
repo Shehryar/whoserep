@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ASAPP
 
 protocol DemoEnvironmentViewControllerDelegate: class {
     func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController, didUpdateAppSettings appSettings: AppSettings)
@@ -95,11 +96,11 @@ extension DemoEnvironmentViewController {
         switch indexPath.section {
         case Section.demoContent.rawValue:
             cell.title = "Demo Content Enabled"
-            cell.isOn = appSettings.demoContentEnabled
+            cell.isOn = ASAPP.isDemoContentEnabled()
             cell.onToggleChange = { [weak self] (isOn: Bool) in
-                if let blockSelf = self {
-                    blockSelf.appSettings.demoContentEnabled = isOn
-                    blockSelf.delegate?.demoEnvironmentViewController(blockSelf, didUpdateAppSettings: blockSelf.appSettings)
+                ASAPP.setDemoContentEnabled(isOn)
+                if let strongSelf = self {
+                    self?.delegate?.demoEnvironmentViewController(strongSelf, didUpdateAppSettings: strongSelf.appSettings)
                 }
             }
             break
