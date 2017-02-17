@@ -1,5 +1,5 @@
 //
-//  ASAPPTypography.swift
+//  TextStyle.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 2/6/17.
@@ -7,6 +7,15 @@
 //
 
 import UIKit
+
+// MARK:- FontWeight
+
+enum FontWeight {
+    case light
+    case regular
+    case bold
+    case black
+}
 
 // MARK:- TextStyle
 
@@ -28,7 +37,6 @@ struct TextStyle {
         self.letterSpacing = letterSpacing
     }
 }
-
 
 // MARK:- Preset TextStyles
 
@@ -107,7 +115,6 @@ extension ASAPPStyles {
     }
 }
 
-
 // MARK:- UILabel (TextStyle)
 
 extension UILabel {
@@ -162,17 +169,6 @@ extension UIButton {
         titleLabel?.font = styles.font(with: textStyle.weight, size: textStyle.size)
     }
 }
-
-
-// MARK:- FontWeight
-
-enum FontWeight {
-    case light
-    case regular
-    case bold
-    case black
-}
-
 
 // MARK:- TextSizeCategory
 
