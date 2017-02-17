@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatMessagesEmptyView: UIView, ASAPPStyleable {
+class ChatMessagesEmptyView: UIView {
     
     var title: String? {
         didSet {
@@ -24,8 +24,6 @@ class ChatMessagesEmptyView: UIView, ASAPPStyleable {
         }
     }
     
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
     // MARK: Private Properties
     
     fileprivate let titleLabel = UILabel()
@@ -37,15 +35,19 @@ class ChatMessagesEmptyView: UIView, ASAPPStyleable {
     // MARK: Init
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor1
+        
+        titleLabel.textColor = ASAPP.styles.foregroundColor1
+        titleLabel.updateFont(for: .emptyChatTitle, styles: ASAPP.styles)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         addSubview(titleLabel)
         
+        messageLabel.textColor = ASAPP.styles.foregroundColor2
+        messageLabel.updateFont(for: .emptyChatMessage, styles: ASAPP.styles)
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         addSubview(messageLabel)
-        
-        applyStyles(styles)
     }
     
     override init(frame: CGRect) {
@@ -56,22 +58,6 @@ class ChatMessagesEmptyView: UIView, ASAPPStyleable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    // MARK: Display
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        backgroundColor = styles.backgroundColor1
-        
-        titleLabel.textColor = styles.foregroundColor1
-        titleLabel.updateFont(for: .emptyChatTitle, styles: styles)
-        
-        messageLabel.textColor = styles.foregroundColor2
-        messageLabel.updateFont(for: .emptyChatMessage, styles: styles)
-        
-        setNeedsUpdateConstraints()
     }
     
     // MARK: Layout

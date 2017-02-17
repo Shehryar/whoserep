@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSInlineButtonsView: UIView, ASAPPStyleable {
+class SRSInlineButtonsView: UIView {
 
     var buttonItems: [SRSButtonItem]? {
         didSet {
@@ -19,36 +19,6 @@ class SRSInlineButtonsView: UIView, ASAPPStyleable {
     var onButtonItemTap: ((_ buttonItem: SRSButtonItem) -> Void)?
     
     private var buttonItemViews = [SRSButtonItemView]()
-    
-    // MARK: Initialization
-    
-    func commonInit() {
-        
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        for buttonItemView in buttonItemViews {
-            buttonItemView.applyStyles(styles)
-        }
-        
-        setNeedsLayout()
-    }
     
     // MARK: Display
     
@@ -68,7 +38,6 @@ class SRSInlineButtonsView: UIView, ASAPPStyleable {
         
         for buttonItem in buttonItems {
             let buttonItemView = SRSButtonItemView()
-            buttonItemView.applyStyles(styles)
             buttonItemView.buttonItem = buttonItem
             buttonItemView.onTap = { [weak self] in
                 self?.onButtonItemTap?(buttonItem)

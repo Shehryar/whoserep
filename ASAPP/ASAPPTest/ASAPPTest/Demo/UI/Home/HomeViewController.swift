@@ -143,6 +143,8 @@ extension HomeViewController {
 
         DemoLog("Company: \(currentAccount.company)\nSubdomain: \(appSettings.subdomain)\nuserToken: \(currentAccount.userToken)")
         
+        ASAPP.styles = appSettings.branding.styles
+        
         chatButton = ASAPP.createChatButton(
             company: currentAccount.company,
             subdomain: appSettings.subdomain,
@@ -150,7 +152,7 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: appSettings.branding.styles,
+            styles: nil,
             strings: nil,
             presentingViewController: self)
         

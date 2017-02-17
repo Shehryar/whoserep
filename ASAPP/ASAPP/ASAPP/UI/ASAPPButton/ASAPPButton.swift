@@ -14,18 +14,14 @@ public class ASAPPButton: UIView {
     let presentingViewController: UIViewController
     
     let credentials: Credentials
-    
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
+            
     let callback: ASAPPCallbackHandler
     
     public var expansionPresentationAnimationDisabled: Bool = false
     
     public var shadowDisabled: Bool = false {
         didSet {
-            refreshDisplay()
+            updateDisplay()
         }
     }
     
@@ -56,7 +52,7 @@ public class ASAPPButton: UIView {
     
     fileprivate var isTouching = false {
         didSet {
-            refreshDisplay()
+            updateDisplay()
         }
     }
     
@@ -70,7 +66,7 @@ public class ASAPPButton: UIView {
         
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitButton
-        accessibilityLabel = strings.asappButton
+        accessibilityLabel = ASAPP.strings.asappButton
         
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
@@ -80,31 +76,27 @@ public class ASAPPButton: UIView {
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.cornerRadius = frame.height / 2.0
         
-        backgroundColors = [ASAPPButtonState.normal : styles.asappButtonBackgroundColor,
-                            ASAPPButtonState.highlighted : styles.asappButtonBackgroundColor.highlightColor()]
+        backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.asappButtonBackgroundColor,
+                            ASAPPButtonState.highlighted : ASAPP.styles.asappButtonBackgroundColor.highlightColor()]
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
         addSubview(contentView)
         
-        refreshDisplay()
+        updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ASAPPButton.refreshDisplay),
+        NotificationCenter.default.addObserver(self, selector: #selector(ASAPPButton.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
     }
     
     required public init(withCredentials credentials: Credentials,
                          presentingViewController: UIViewController,
-                         styles: ASAPPStyles,
-                         strings: ASAPPStrings,
                          callback: @escaping ASAPPCallbackHandler) {
         
         self.credentials = credentials
         self.presentingViewController = presentingViewController
         self.callback = callback
-        self.styles = styles
-        self.strings = strings
         
         super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
         commonInit()
@@ -156,11 +148,11 @@ public class ASAPPButton: UIView {
 // MARK:- Button Display
 
 extension ASAPPButton {
-    func refreshDisplay() {
-        label.setAttributedText(strings.asappButton,
+    func updateDisplay() {
+        label.setAttributedText(ASAPP.strings.asappButton,
                                 textStyle: .asappButton,
-                                color: styles.asappButtonForegroundColor,
-                                styles: styles)
+                                color: ASAPP.styles.asappButtonForegroundColor,
+                                styles: ASAPP.styles)
         
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1
@@ -236,8 +228,6 @@ extension ASAPPButton {
 extension ASAPPButton {
     func didTap() {
         let chatViewController = ChatViewController(withCredentials: credentials,
-                                                    styles: styles,
-                                                    strings: strings,
                                                     callback: callback)
         
         let navigationController = NavigationController(rootViewController: chatViewController)

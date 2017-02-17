@@ -17,22 +17,14 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     override func commonInit() {
         super.commonInit()
         
-        loadingView.tintColor = UIColor.white
+        loadingView.tintColor = ASAPP.styles.replyMessageTextColor.withAlphaComponent(0.6)
         bubbleView.addSubview(loadingView)
         
         bubbleView.clipsToBounds = true
         
         layoutSubviews()
     }
-    
-    // MARK: Styles
-    
-    override func updateFontsAndColors() {
-        super.updateFontsAndColors()
         
-        loadingView.tintColor = styles.replyMessageTextColor.withAlphaComponent(0.6)
-    }
-    
     // MARK: Layout
     
     override func layoutSubviews() {

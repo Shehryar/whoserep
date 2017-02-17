@@ -9,9 +9,7 @@
 import UIKit
 
 public class ASAPPStyles: NSObject {
-        
-    public var strings: ASAPPStrings = ASAPPStrings()
-    
+            
     // MARK:- Fonts
     
     public var fontNameLight: String = "Lato-Light"
@@ -59,18 +57,26 @@ public class ASAPPStyles: NSObject {
     
     internal var accentColor: UIColor = Colors.steelLightColor()
     
+    // MARK:- Colors: ASAPP Button
+    
     public var asappButtonForegroundColor: UIColor = UIColor.white
     
     public var asappButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
     
+    // MARK:- Colors: Predictive
+    
     internal var askViewGradientTopColor: UIColor = UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9)
+    
     internal var askViewGradientMiddleColor: UIColor = UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8)
+    
     internal var askViewGradientBottomColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8)
     internal var askViewDetailLabelColor: UIColor = Colors.steelMed50Color()
+    
     internal var askViewButtonBgColor: UIColor = UIColor(red:0.492, green:0.513, blue:0.547, alpha:1)
+    
     internal var askViewInputBgColor: UIColor = UIColor(red:0.232, green:0.247, blue:0.284, alpha:1)
     
-    // MARK:- Colors: Input
+    // MARK:- Colors: Chat Input
     
     internal var inputBackgroundColor: UIColor = Colors.whiteColor()
     
@@ -86,6 +92,7 @@ public class ASAPPStyles: NSObject {
     
     internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
 }
+
 
 // MARK:- Presets
 
@@ -184,11 +191,4 @@ extension ASAPPStyles {
         
         return styles
     }
-}
-
-protocol ASAPPStyleable {
-    
-    var styles: ASAPPStyles { get }
-    
-    func applyStyles(_ styles: ASAPPStyles)
 }

@@ -19,10 +19,6 @@ class ChatInputView: UIView {
 
     // MARK: Public Properties
     
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
     weak var delegate: ChatInputViewDelegate?
     
     var canSendMessage: Bool = true {
@@ -114,18 +110,16 @@ class ChatInputView: UIView {
     
     // MARK:- Initialization
     
-    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
-        self.styles = styles
-        self.strings = strings
-        self.textColor = styles.inputTextColor
-        self.placeholderText = strings.chatInputPlaceholder
-        self.placeholderColor = styles.inputTextColor.withAlphaComponent(0.7)
-        self.sendButtonText = strings.chatInputSend
-        self.sendButtonColor = styles.inputSendButtonColor
-        self.separatorColor = styles.separatorColor1
+    required init() {
+        self.textColor = ASAPP.styles.inputTextColor
+        self.placeholderText = ASAPP.strings.chatInputPlaceholder
+        self.placeholderColor = ASAPP.styles.inputTextColor.withAlphaComponent(0.7)
+        self.sendButtonText = ASAPP.strings.chatInputSend
+        self.sendButtonColor = ASAPP.styles.inputSendButtonColor
+        self.separatorColor = ASAPP.styles.separatorColor1
         super.init(frame: .zero)
         
-        backgroundColor = styles.inputBackgroundColor
+        backgroundColor = ASAPP.styles.inputBackgroundColor
         clipsToBounds = true
         
         // Subviews
@@ -137,7 +131,7 @@ class ChatInputView: UIView {
         
         textView.backgroundColor = UIColor.clear
         textView.tintColor = placeholderColor
-        textView.font = styles.font(for: .chatInputViewText)
+        textView.font = ASAPP.styles.font(for: .chatInputViewText)
         textView.textColor = textColor
         textView.bounces = false
         textView.isScrollEnabled = false
@@ -150,7 +144,7 @@ class ChatInputView: UIView {
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.sizeToFit()
-        if styles.backgroundColor1.isDark() {
+        if ASAPP.styles.backgroundColor1.isDark() {
             textView.keyboardAppearance = .dark
         } else {
             textView.keyboardAppearance = .default
@@ -172,7 +166,7 @@ class ChatInputView: UIView {
         // Media Button
         
         mediaButton.imageView?.contentMode = .scaleAspectFit
-        updateMediaButtonColor(styles.inputImageButtonColor)
+        updateMediaButtonColor(ASAPP.styles.inputImageButtonColor)
         mediaButton.addTarget(self,
                               action: #selector(ChatInputView.didTapMediaButton),
                               for: .touchUpInside)
@@ -206,9 +200,9 @@ class ChatInputView: UIView {
     
     // MARK:- Appearance
     
-    func refreshFonts() {
-        textView.font = styles.font(for: .chatInputViewText)
-        placeholderTextView.font = styles.font(for: .chatInputViewText)
+    func updateDisplay() {
+        textView.font = ASAPP.styles.font(for: .chatInputViewText)
+        placeholderTextView.font = ASAPP.styles.font(for: .chatInputViewText)
         updateSendButtonText()
         updateInputMinHeight()
         setNeedsLayout()
@@ -233,7 +227,7 @@ class ChatInputView: UIView {
     // MARK:- Button Colors
     
     func updateSendButtonText() {
-        let font = styles.font(for: .chatInputViewButton)
+        let font = ASAPP.styles.font(for: .chatInputViewButton)
         let color = sendButtonColor
         let normalAttributes = [
             NSKernAttributeName : 1.5,

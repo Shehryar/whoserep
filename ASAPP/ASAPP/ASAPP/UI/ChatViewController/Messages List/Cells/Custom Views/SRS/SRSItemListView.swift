@@ -30,10 +30,15 @@ class SRSItemListView: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor2
+        layer.borderColor = ASAPP.styles.separatorColor1.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 6
+        
         itemListView.contentInset = UIEdgeInsets(top: 25, left: 40, bottom: 25, right: 40)
         itemListView.clipsToBounds = true
         addSubview(itemListView)
-        
+    
         buttonsView.clipsToBounds = true
         buttonsView.onButtonItemTap =  { [weak self] (buttonItem) in
             guard let strongSelf = self else {
@@ -54,24 +59,6 @@ class SRSItemListView: UIView {
         commonInit()
     }
 
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-    
-        backgroundColor = styles.backgroundColor2
-        layer.borderColor = styles.separatorColor1.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 6
-        
-        itemListView.applyStyles(styles)
-        buttonsView.applyStyles(styles)
-        
-        setNeedsLayout()
-    }
-    
     // MARK: Layout
     
     func getFramesThatFit(_ size: CGSize) -> (/* ItemListView */ CGRect, /* Buttons View */ CGRect) {

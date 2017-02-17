@@ -13,11 +13,11 @@ class SRSLabelValueHorizontalItemView: SRSLabelValueItemView {
     // MARK:- Properties
     
     override var labelFont: UIFont {
-        return styles.font(for: .srsInfoLabelH)
+        return ASAPP.styles.font(for: .srsInfoLabelH)
     }
     
     override var labelColor: UIColor {
-        return labelValueItem?.label?.color ?? styles.foregroundColor1
+        return labelValueItem?.label?.color ?? ASAPP.styles.foregroundColor1
     }
     
     override var labelKern: CGFloat {
@@ -29,11 +29,11 @@ class SRSLabelValueHorizontalItemView: SRSLabelValueItemView {
     }
     
     override var valueFont: UIFont {
-        return styles.font(for: .srsInfoValueH)
+        return ASAPP.styles.font(for: .srsInfoValueH)
     }
     
     override var valueColor: UIColor {
-        return labelValueItem?.value?.color ?? styles.foregroundColor1
+        return labelValueItem?.value?.color ?? ASAPP.styles.foregroundColor1
     }
     
     override var valueKern: CGFloat {

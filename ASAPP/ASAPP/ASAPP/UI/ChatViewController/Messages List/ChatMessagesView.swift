@@ -28,11 +28,7 @@ class ChatMessagesView: UIView {
     
     // MARK:- Public Properties
     
-    fileprivate(set) var credentials: Credentials
-    
-    fileprivate(set) var styles: ASAPPStyles
-    
-    fileprivate(set) var strings: ASAPPStrings
+    let credentials: Credentials
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
@@ -75,15 +71,8 @@ class ChatMessagesView: UIView {
     
     fileprivate let cellAnimationsEnabled = true
     
-    fileprivate var shouldShowTypingPreview: Bool {
-//        return false
-        return !credentials.isCustomer && otherParticipantTypingPreview != nil
-    }
-    
     fileprivate var otherParticipantIsTyping: Bool = false
-    
-    fileprivate var otherParticipantTypingPreview: String?
-    
+        
     fileprivate var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
@@ -103,23 +92,20 @@ class ChatMessagesView: UIView {
     
     // MARK:- Initialization
     
-    required init(withCredentials credentials: Credentials, styles: ASAPPStyles, strings: ASAPPStrings) {
+    required init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        self.styles = styles
-        self.strings = strings
-        
-        self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView, styles: styles)
+        self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         self.dataSource = ChatMessagesViewDataSource(withSupportedEventTypes: self.cellMaster.supportedEventTypes)
         
         super.init(frame: CGRect.zero)
         
-        backgroundColor = styles.backgroundColor1
+        backgroundColor = ASAPP.styles.backgroundColor1
         clipsToBounds = false
         
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
-        tableView.backgroundColor = styles.backgroundColor1
+        tableView.backgroundColor = ASAPP.styles.backgroundColor1
         tableView.separatorStyle = .none
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
@@ -129,9 +115,8 @@ class ChatMessagesView: UIView {
         
         emptyView.frame = bounds
         emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        emptyView.applyStyles(styles)
-        emptyView.title = strings.chatEmptyTitle
-        emptyView.message = strings.chatEmptyMessage
+        emptyView.title = ASAPP.strings.chatEmptyTitle
+        emptyView.message = ASAPP.strings.chatEmptyMessage
         addSubview(emptyView)
         
         updateSubviewVisibility()
@@ -154,9 +139,9 @@ class ChatMessagesView: UIView {
         tableView.frame = bounds
     }
     
-    // MARK: 
+    // MARK: Display
     
-    func refreshDisplay() {
+    func updateDisplay() {
         cellMaster.clearCache()
         tableView.reloadData()
         
@@ -452,13 +437,9 @@ extension ChatMessagesView {
     
     func updateOtherParticipantTypingStatus(_ isTyping: Bool, withPreviewText previewText: String?) {
         var isDifferent = isTyping != otherParticipantIsTyping
-        if shouldShowTypingPreview {
-            isDifferent = isDifferent || previewText != otherParticipantTypingPreview
-        }
         let shouldScrollToBottom = isNearBottom() && isDifferent
         
         otherParticipantIsTyping = isTyping
-        otherParticipantTypingPreview = previewText
         
         if isDifferent {
             tableView.reloadData()

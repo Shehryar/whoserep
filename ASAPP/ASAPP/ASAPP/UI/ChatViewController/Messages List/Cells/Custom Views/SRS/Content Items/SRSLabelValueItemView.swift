@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSLabelValueItemView: UIView, ASAPPStyleable {
+class SRSLabelValueItemView: UIView {
 
     var labelValueItem: SRSLabelValueItem? {
         didSet {
@@ -41,16 +41,6 @@ class SRSLabelValueItemView: UIView, ASAPPStyleable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        updateDisplay()
     }
     
     // MARK: Display
@@ -111,11 +101,11 @@ class SRSLabelValueItemView: UIView, ASAPPStyleable {
     // MARK: Properties
     
     var labelFont: UIFont {
-        return styles.font(for: .srsInfoLabelV)
+        return ASAPP.styles.font(for: .srsInfoLabelV)
     }
     
     var labelColor: UIColor {
-        return labelValueItem?.label?.color ?? styles.foregroundColor1
+        return labelValueItem?.label?.color ?? ASAPP.styles.foregroundColor1
     }
     
     var labelKern: CGFloat {
@@ -127,11 +117,11 @@ class SRSLabelValueItemView: UIView, ASAPPStyleable {
     }
     
     var valueFont: UIFont {
-        return styles.font(for: .srsInfoValueV)
+        return ASAPP.styles.font(for: .srsInfoValueV)
     }
     
     var valueColor: UIColor {
-        return labelValueItem?.value?.color ?? styles.foregroundColor1
+        return labelValueItem?.value?.color ?? ASAPP.styles.foregroundColor1
     }
     
     var valueKern: CGFloat {

@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol ChatMessagesViewCell: ASAPPStyleable {
+protocol ChatMessagesViewCell {
     
     var contentInset: UIEdgeInsets { get set }
 
-    func styleCell(withStyles styles: ASAPPStyles, listPosition: MessageListPosition, isReply: Bool)
+    func styleCell(listPosition: MessageListPosition, isReply: Bool)
 }

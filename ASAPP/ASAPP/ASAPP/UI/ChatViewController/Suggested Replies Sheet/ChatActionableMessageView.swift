@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ChatActionableMessageView: UIView, ASAPPStyleable {
+class ChatActionableMessageView: UIView {
 
-    class func approximateRowHeight(withStyles styles: ASAPPStyles) -> CGFloat {
-        return ChatSuggestedReplyCell.approximateHeight(withFont: styles.font(for: .srsButton))
+    class func approximateRowHeight() -> CGFloat {
+        return ChatSuggestedReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
     }
     
     func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
@@ -96,12 +96,9 @@ class ChatActionableMessageView: UIView, ASAPPStyleable {
         tableView.delegate = nil
     }
     
-    // MARK:- ASAPPStyleable
+    // MARK:- Display
     
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
+    func updateDisplay() {
         tableView.reloadData()
         setNeedsLayout()
     }
@@ -171,18 +168,18 @@ extension ChatActionableMessageView: UITableViewDataSource {
     }
     
     func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
-        cell.label.textColor = styles.buttonColor
+        cell.label.textColor = ASAPP.styles.buttonColor
         cell.label.textAlignment = .center
-        cell.backgroundColor = styles.backgroundColor2
-        cell.label.font = styles.font(for: .srsButton)
-        cell.separatorBottomColor = styles.separatorColor1
+        cell.backgroundColor = ASAPP.styles.backgroundColor2
+        cell.label.font = ASAPP.styles.font(for: .srsButton)
+        cell.separatorBottomColor = ASAPP.styles.separatorColor1
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             cell.label.setAttributedText(buttonItem.title.uppercased(),
                                          textStyle: .srsButton,
-                                         color: styles.buttonColor,
-                                         styles: styles)
-            cell.imageTintColor = styles.buttonColor
+                                         color: ASAPP.styles.buttonColor,
+                                         styles: ASAPP.styles)
+            cell.imageTintColor = ASAPP.styles.buttonColor
             
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
                 [.SRS, .Action, .Message, .AppAction].contains(buttonItem.type) {
@@ -205,7 +202,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
             cell.selectedBackgroundColor = nil
         } else {
             cell.label.alpha = 1
-            cell.selectedBackgroundColor = styles.backgroundColor2.highlightColor()
+            cell.selectedBackgroundColor = ASAPP.styles.backgroundColor2.highlightColor()
         }
         
         

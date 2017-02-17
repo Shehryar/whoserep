@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
+class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     
     var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16) {
         didSet {
@@ -31,13 +31,18 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     // MARK:- Init
     
     func commonInit() {
+        contentView.backgroundColor = ASAPP.styles.backgroundColor1
         isOpaque = true
         
-        timeLabel.textColor = Colors.mediumTextColor()
+        timeLabel.backgroundColor = ASAPP.styles.backgroundColor1
+        timeLabel.updateFont(for: .chatTimestamp, styles: ASAPP.styles)
+        timeLabel.textColor = ASAPP.styles.foregroundColor2
         timeLabel.textAlignment = .center
-        timeLabel.backgroundColor = Colors.whiteColor()
         contentView.addSubview(timeLabel)
         
+        let separatorColor = ASAPP.styles.separatorColor1
+        separatorLeft.update(separatorColor.withAlphaComponent(0.0), rightColor: separatorColor)
+        separatorRight.update(separatorColor, rightColor: separatorColor.withAlphaComponent(0.0))
         contentView.addSubview(separatorLeft)
         contentView.addSubview(separatorRight)
     }
@@ -64,8 +69,8 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
         let timestamp = timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds))
         timeLabel.setAttributedText(timestamp,
                                     textStyle: .chatTimestamp,
-                                    color: styles.foregroundColor2,
-                                    styles: styles)
+                                    color: ASAPP.styles.foregroundColor2,
+                                    styles: ASAPP.styles)
         setNeedsLayout()
     }
     
@@ -99,24 +104,5 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView, ASAPPStyleable {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let textSize = textSizeForSize(size)
         return CGSize(width: size.width, height: textSize.height + contentInset.top + contentInset.bottom)
-    }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        contentView.backgroundColor = styles.backgroundColor1
-        timeLabel.backgroundColor = styles.backgroundColor1
-        timeLabel.updateFont(for: .chatTimestamp, styles: styles)
-        timeLabel.textColor = styles.foregroundColor2
-        
-        let separatorColor = styles.separatorColor1
-        separatorLeft.update(separatorColor.withAlphaComponent(0.0), rightColor: separatorColor)
-        separatorRight.update(separatorColor, rightColor: separatorColor.withAlphaComponent(0.0))
-        
-        setNeedsLayout()
     }
 }

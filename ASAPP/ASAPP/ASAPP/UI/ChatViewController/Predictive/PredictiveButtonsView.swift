@@ -20,10 +20,6 @@ class PredictiveButtonsView: UIView {
         }
     }
     
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
     fileprivate var waitingToAnimateIn = false
     
     fileprivate var relatedButtons = [Button]()
@@ -46,15 +42,13 @@ class PredictiveButtonsView: UIView {
     
     // MARK: Initialization
     
-    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
-        self.styles = styles
-        self.strings = strings
+    required init() {
         super.init(frame: CGRect.zero)
     
-        otherLabel.setAttributedText(strings.predictiveOtherSuggestions,
+        otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
                                      textStyle: .predictiveDetailLabel,
-                                     color: styles.askViewDetailLabelColor,
-                                     styles: styles)
+                                     color: ASAPP.styles.askViewDetailLabelColor,
+                                     styles: ASAPP.styles)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -63,17 +57,17 @@ class PredictiveButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Dispaly
+    // MARK: Display
     
-    func refreshDisplay() {
-        otherLabel.updateFont(for: .predictiveDetailLabel, styles: styles)
+    func updateDisplay() {
+        otherLabel.updateFont(for: .predictiveDetailLabel, styles: ASAPP.styles)
         
         for button in relatedButtons {
-            button.font = styles.font(for: .predictiveButton)
+            button.font = ASAPP.styles.font(for: .predictiveButton)
         }
         
         for button in otherButtons {
-            button.font = styles.font(for: .predictiveButton)
+            button.font = ASAPP.styles.font(for: .predictiveButton)
         }
         
         setNeedsLayout()
@@ -83,16 +77,16 @@ class PredictiveButtonsView: UIView {
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
         let button = Button()
-        button.font = styles.font(for: .predictiveButton)
+        button.font = ASAPP.styles.font(for: .predictiveButton)
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
         if highlighted {
-            button.setBackgroundColor(styles.askViewButtonBgColor, forState: .normal)
-            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor, forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
         } else {
-            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
-            button.setBackgroundColor(styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true

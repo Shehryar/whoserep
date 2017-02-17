@@ -59,11 +59,12 @@ class SRSItemCarouselView: UIView {
         touchPassThroughView = TouchPassThroughView(withTargetView: scrollView)
         addSubview(touchPassThroughView!)
         
+        pageControl.currentPageIndicatorTintColor = ASAPP.styles.foregroundColor1.withAlphaComponent(0.4)
+        pageControl.pageIndicatorTintColor = ASAPP.styles.foregroundColor2.withAlphaComponent(0.4)
+        
         pageControl.hidesForSinglePage = true
         pageControl.addTarget(self, action: #selector(SRSItemCarouselView.pageControlDidChange), for: .valueChanged)
         addSubview(pageControl)
-        
-        applyStyles(styles)
     }
     
     override init(frame: CGRect) {
@@ -78,23 +79,6 @@ class SRSItemCarouselView: UIView {
     
     deinit {
         scrollView.delegate = nil
-    }
-    
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-     
-        for pageView in pageViews {
-            pageView.applyStyles(styles)
-        }
-        
-        pageControl.currentPageIndicatorTintColor = styles.foregroundColor1.withAlphaComponent(0.4)
-        pageControl.pageIndicatorTintColor = styles.foregroundColor2.withAlphaComponent(0.4)
-        
-        setNeedsLayout()
     }
     
     // MARK: Updating Views
@@ -114,7 +98,6 @@ class SRSItemCarouselView: UIView {
         
         for itemList in itemCarousel.pages {
             let itemListView = SRSItemListView()
-            itemListView.applyStyles(styles)
             itemListView.itemList = itemList
             itemListView.delegate = self
             pageViews.append(itemListView)

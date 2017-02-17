@@ -16,8 +16,6 @@ class ChatMessagesViewCellMaster: NSObject {
 
     let tableView: UITableView
     
-    let styles: ASAPPStyles
-    
     // MARK: Private Properties
     
     fileprivate let dateFormatter = DateFormatter()
@@ -55,9 +53,8 @@ class ChatMessagesViewCellMaster: NSObject {
     
     // MARK: Init
     
-    required init(withTableView tableView: UITableView, styles: ASAPPStyles) {
+    required init(withTableView tableView: UITableView) {
         self.tableView = tableView
-        self.styles = styles
         super.init()
         
         pictureMessageSizingCell.disableImageLoading = true
@@ -89,7 +86,6 @@ extension ChatMessagesViewCellMaster {
 extension ChatMessagesViewCellMaster {
     
     private func styleTimeHeaderView(_ view: ChatMessagesTimeHeaderView?, withTime timeStamp: Double) {
-        view?.applyStyles(styles)
         view?.timeStampInSeconds = timeStamp
     }
     
@@ -166,7 +162,6 @@ extension ChatMessagesViewCellMaster {
                               isReply: Bool,
                               listPosition: MessageListPosition,
                               detailsVisible: Bool) {
-        cell?.applyStyles(styles, isReply: isReply)
         cell?.listPosition = listPosition
         cell?.event = event
         cell?.messageText = event.textMessage?.text
@@ -177,7 +172,6 @@ extension ChatMessagesViewCellMaster {
                                  withEvent event: Event,
                                  isReply: Bool,
                                  listPosition: MessageListPosition) {
-        cell?.applyStyles(styles, isReply: isReply)
         cell?.listPosition = listPosition
         cell?.event = event
         cell?.detailLabelHidden = true
@@ -188,7 +182,6 @@ extension ChatMessagesViewCellMaster {
                               isReply: Bool,
                               listPosition: MessageListPosition,
                               detailsVisible: Bool) {
-        cell?.applyStyles(styles, isReply: isReply)
         cell?.listPosition = listPosition
         cell?.event = event
         cell?.response = event.srsResponse
@@ -196,7 +189,6 @@ extension ChatMessagesViewCellMaster {
     }
     
     func styleTypingIndicatorCell(_ cell: ChatTypingIndicatorCell?) {
-        cell?.applyStyles(styles, isReply: true)
         cell?.listPosition = .default
     }
 }

@@ -106,16 +106,6 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         contentView.addSubview(itemCarouselView)
     }
     
-    // MARK: Styling
-    
-    override func updateFontsAndColors() {
-        super.updateFontsAndColors()
-        itemListView.applyStyles(styles)
-        itemCarouselView.applyStyles(styles)
-        
-        setNeedsLayout()
-    }
-    
     // MARK: Layout
     
     func srsContentViewSizeThatFits(_ size: CGSize) -> CGSize {

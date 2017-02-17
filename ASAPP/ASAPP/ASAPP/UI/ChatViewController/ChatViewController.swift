@@ -15,10 +15,6 @@ class ChatViewController: UIViewController {
     
     let credentials: Credentials
     
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
     let callback: ASAPPCallbackHandler
     
     // MARK: Private Properties
@@ -50,7 +46,6 @@ class ChatViewController: UIViewController {
         }
     }
     fileprivate var connectedAtLeastOnce = false
-    
     fileprivate var showPredictiveOnViewAppear = true
     
     fileprivate var askTooltipPresenter: TooltipPresenter?
@@ -89,19 +84,15 @@ class ChatViewController: UIViewController {
     // MARK:- Initialization
     
     init(withCredentials credentials: Credentials,
-         styles: ASAPPStyles?,
-         strings: ASAPPStrings?,
          callback: @escaping ASAPPCallbackHandler) {
         
         self.credentials = credentials
-        self.styles = styles ?? ASAPPStyles()
-        self.strings = strings ?? ASAPPStrings()
         self.callback = callback
         self.simpleStore = ChatSimpleStore(credentials: credentials)
         self.conversationManager = ConversationManager(withCredentials: credentials)
-        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials, styles: self.styles, strings: self.strings)
-        self.chatInputView = ChatInputView(styles: self.styles, strings: self.strings)
-        self.connectionStatusView = ChatConnectionStatusView(styles: self.styles, strings: self.strings)
+        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
+        self.chatInputView = ChatInputView()
+        self.connectionStatusView = ChatConnectionStatusView()
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
@@ -110,11 +101,11 @@ class ChatViewController: UIViewController {
         
         // Buttons
         
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
-                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                   backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
                                                                    target: self,
                                                                    action: #selector(ChatViewController.didTapCloseButton))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
         // Subviews
@@ -141,7 +132,6 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowOpacity = 0.1
         
         suggestedRepliesView.delegate = self
-        suggestedRepliesView.applyStyles(self.styles)
         
         connectionStatusView.onTapToConnect = { [weak self] in
             self?.reconnect()
@@ -149,9 +139,7 @@ class ChatViewController: UIViewController {
         
         // Predictive View Controller
         
-        predictiveVC = PredictiveViewController(appOpenResponse: nil,
-                                                 styles: self.styles,
-                                                 strings: self.strings)
+        predictiveVC = PredictiveViewController(appOpenResponse: nil)
         if let predictiveVC = predictiveVC {
             predictiveVC.delegate = self
             predictiveNavController = UINavigationController(rootViewController: predictiveVC)
@@ -175,9 +163,9 @@ class ChatViewController: UIViewController {
             }
         }
         
-        refreshDisplay()
+        updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.refreshDisplay),
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
     }
@@ -212,25 +200,25 @@ class ChatViewController: UIViewController {
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
             navigationBar.backgroundColor = nil
-            if styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.navBarBackgroundColor.isDark() {
                 navigationBar.barStyle = .black
-                if styles.navBarBackgroundColor != UIColor.black {
-                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                if ASAPP.styles.navBarBackgroundColor != UIColor.black {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
                 }
             } else {
                 navigationBar.barStyle = .default
-                if styles.navBarBackgroundColor != UIColor.white {
-                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                if ASAPP.styles.navBarBackgroundColor != UIColor.white {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
                 }
             }
-            navigationBar.tintColor = styles.navBarButtonColor
+            navigationBar.tintColor = ASAPP.styles.navBarButtonColor
             setNeedsStatusBarAppearanceUpdate()
         }
         
         // View
         
         view.clipsToBounds = true
-        view.backgroundColor = styles.backgroundColor1
+        view.backgroundColor = ASAPP.styles.backgroundColor1
         updateViewForLiveChat(animated: false)
         
         view.addSubview(chatMessagesView)
@@ -310,13 +298,13 @@ class ChatViewController: UIViewController {
     
     // MARK: Display Update
     
-    func refreshDisplay() {
+    func updateDisplay() {
         updateAskButton()
         
-        chatMessagesView.refreshDisplay()
-        suggestedRepliesView.refreshDisplay()
-        connectionStatusView.refreshDisplay()
-        chatInputView.refreshFonts()
+        chatMessagesView.updateDisplay()
+        suggestedRepliesView.updateDisplay()
+        connectionStatusView.updateDisplay()
+        chatInputView.updateDisplay()
         
         if isViewLoaded {
             view.setNeedsLayout()
@@ -329,10 +317,10 @@ class ChatViewController: UIViewController {
             return
         }
         
-        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
-                                                                font: self.styles.font(for: .navBarButton),
-                                                                textColor: self.styles.navBarButtonForegroundColor,
-                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
+        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
+                                                                font: ASAPP.styles.font(for: .navBarButton),
+                                                                textColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
                                                                 style: .ask,
                                                                 target: self,
                                                                 action: #selector(ChatViewController.didTapAskButton))
@@ -345,7 +333,7 @@ class ChatViewController: UIViewController {
         if showPredictiveOnViewAppear || predictiveVCVisible {
             return .lightContent
         } else {
-            if styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.navBarBackgroundColor.isDark() {
                 return .lightContent
             } else {
                 return .default
@@ -408,10 +396,10 @@ class ChatViewController: UIViewController {
         
         if isLiveChat {
             clearSuggestedRepliesView(true, completion: nil)
-            chatInputView.placeholderText = strings.chatInputPlaceholder
+            chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
         } else {
             view.endEditing(true)
-            chatInputView.placeholderText = strings.predictiveInputPlaceholder
+            chatInputView.placeholderText = ASAPP.strings.predictiveInputPlaceholder
         }
         
         if animated {
@@ -481,8 +469,7 @@ extension ChatViewController {
         
         increaseTooltipActionsCount()
         
-        askTooltipPresenter = TooltipView.showTooltip(withText: strings.chatAskTooltip,
-                                                      styles: styles,
+        askTooltipPresenter = TooltipView.showTooltip(withText: ASAPP.strings.chatAskTooltip,
                                                       targetBarButtonItem: buttonItem,
                                                       parentView: navView,
                                                       onDismiss: { [weak self] in
@@ -1168,17 +1155,17 @@ extension ChatViewController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         
-        let barTintColor = styles.backgroundColor2
+        let barTintColor = ASAPP.styles.backgroundColor2
         imagePickerController.navigationBar.shadowImage = nil
         imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
         imagePickerController.navigationBar.barTintColor = barTintColor
-        imagePickerController.navigationBar.tintColor = styles.foregroundColor2
+        imagePickerController.navigationBar.tintColor = ASAPP.styles.foregroundColor2
         if barTintColor.isBright() {
             imagePickerController.navigationBar.barStyle = .default
         } else {
             imagePickerController.navigationBar.barStyle = .black
         }
-        imagePickerController.view.backgroundColor = styles.backgroundColor1
+        imagePickerController.view.backgroundColor = ASAPP.styles.backgroundColor1
         
         return imagePickerController
     }
