@@ -18,14 +18,6 @@ protocol ChatMessagesViewDelegate: class {
 
 class ChatMessagesView: UIView {
     
-    var overrideToHideInfoView = false {
-        didSet {
-            if oldValue != overrideToHideInfoView {
-                updateSubviewVisibility()
-            }
-        }
-    }
-    
     // MARK:- Public Properties
     
     let credentials: Credentials
@@ -65,6 +57,14 @@ class ChatMessagesView: UIView {
     
     var supportedEventTypes: Set<EventType> {
         return cellMaster.supportedEventTypes
+    }
+    
+    var overrideToHideInfoView = false {
+        didSet {
+            if oldValue != overrideToHideInfoView {
+                updateSubviewVisibility()
+            }
+        }
     }
     
     // MARK:- Private Properties
@@ -353,7 +353,6 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         } else {
             tableView.beginUpdates()
             tableView.endUpdates()
-            
         }
     }
 }

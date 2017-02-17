@@ -67,7 +67,6 @@ class SRSLabelItemView: UIView {
         super.layoutSubviews()
         
         label.frame = getLabelFrameThatFits(bounds.size)
-        
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

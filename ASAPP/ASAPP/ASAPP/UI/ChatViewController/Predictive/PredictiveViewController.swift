@@ -43,7 +43,7 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse?) {
+    required init(appOpenResponse: SRSAppOpenResponse? = nil) {
         self.appOpenResponse = appOpenResponse
         self.buttonsView = PredictiveButtonsView()
         self.messageInputView = ChatInputView()

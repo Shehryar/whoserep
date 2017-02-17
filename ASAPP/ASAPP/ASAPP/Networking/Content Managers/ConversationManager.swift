@@ -112,8 +112,8 @@ extension ConversationManager {
         socketConnection.disconnect()
     }
     
-    func saveCurrentEvents() {
-        fileStore.save()
+    func saveCurrentEvents(async: Bool = false) {
+        fileStore.save(async: async)
     }
     
     func isConnected(retryConnectionIfNeeded: Bool = false) -> Bool {

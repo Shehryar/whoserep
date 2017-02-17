@@ -11,19 +11,31 @@ import SafariServices
 
 class ChatViewController: UIViewController {
     
-    // MARK: Public Properties
+    // MARK: Properties: Public
     
     let credentials: Credentials
     
     let callback: ASAPPCallbackHandler
     
-    // MARK: Private Properties
+    // MARK: Properties: Views / UI
+    
+    fileprivate let predictiveVC = PredictiveViewController()
+    fileprivate let predictiveNavController: UINavigationController!
+    
+    fileprivate let chatMessagesView: ChatMessagesView
+    fileprivate let chatInputView = ChatInputView()
+    fileprivate let connectionStatusView = ChatConnectionStatusView()
+    fileprivate let suggestedRepliesView = ChatSuggestedRepliesView()
+    fileprivate var askTooltipPresenter: TooltipPresenter?
+    fileprivate var hapticFeedbackGenerator: Any?
+    
+    // MARK: Properties: Storage
     
     fileprivate let simpleStore: ChatSimpleStore
-    
     fileprivate let conversationManager: ConversationManager
-    
     fileprivate var actionableMessage: SRSResponse?
+    
+    // MARK: Properties: Status
     
     fileprivate var isLiveChat = false {
         didSet {
@@ -45,18 +57,7 @@ class ChatViewController: UIViewController {
             connectionStatusView.status = connectionStatus
         }
     }
-    fileprivate var connectedAtLeastOnce = false
-    fileprivate var showPredictiveOnViewAppear = true
     
-    fileprivate var askTooltipPresenter: TooltipPresenter?
-    fileprivate var keyboardObserver = KeyboardObserver()
-    fileprivate var keyboardOffset: CGFloat = 0
-    fileprivate var keyboardRenderedHeight: CGFloat = 0
-    
-    fileprivate let chatMessagesView: ChatMessagesView
-    fileprivate let chatInputView: ChatInputView
-    fileprivate let connectionStatusView: ChatConnectionStatusView
-    fileprivate let suggestedRepliesView = ChatSuggestedRepliesView()
     fileprivate var shouldShowConnectionStatusView: Bool {
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
@@ -72,32 +73,43 @@ class ChatViewController: UIViewController {
         
         return connectionStatus == .connecting || connectionStatus == .disconnected
     }
+    
+    
+    
+    fileprivate var connectedAtLeastOnce = false
+    fileprivate var showPredictiveOnViewAppear = true
     fileprivate var isInitialLayout = true
-    fileprivate var predictiveVC: PredictiveViewController?
-    fileprivate var predictiveNavController: UINavigationController?
     fileprivate var didPresentPredictiveView = false
     fileprivate var predictiveVCVisible = false
     fileprivate var delayedDisconnectTime: Date?
     
-    fileprivate var hapticFeedbackGenerator: Any?
     
+    // MARK: Properties: Keyboard
+    
+    fileprivate var keyboardObserver = KeyboardObserver()
+    fileprivate var keyboardOffset: CGFloat = 0
+    fileprivate var keyboardRenderedHeight: CGFloat = 0
+
     // MARK:- Initialization
     
-    init(withCredentials credentials: Credentials,
-         callback: @escaping ASAPPCallbackHandler) {
-        
+    init(withCredentials credentials: Credentials, callback: @escaping ASAPPCallbackHandler) {
         self.credentials = credentials
         self.callback = callback
         self.simpleStore = ChatSimpleStore(credentials: credentials)
         self.conversationManager = ConversationManager(withCredentials: credentials)
         self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
-        self.chatInputView = ChatInputView()
-        self.connectionStatusView = ChatConnectionStatusView()
+        self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
+        
+    
+        // Predictive View Controller
+        
+        predictiveVC.delegate = self
+        predictiveNavController.view.alpha = 0.0
         
         // Buttons
         
@@ -137,15 +149,8 @@ class ChatViewController: UIViewController {
             self?.reconnect()
         }
         
-        // Predictive View Controller
-        
-        predictiveVC = PredictiveViewController(appOpenResponse: nil)
-        if let predictiveVC = predictiveVC {
-            predictiveVC.delegate = self
-            predictiveNavController = UINavigationController(rootViewController: predictiveVC)
-            predictiveNavController?.view.alpha = 0.0
-        }
-        
+
+
         // Keyboard
         
         keyboardObserver.delegate = self
@@ -163,9 +168,11 @@ class ChatViewController: UIViewController {
             }
         }
         
-        updateDisplay()
+        // Fonts (+ Accessibility Font Sizes Support)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateDisplay),
+        updateFonts()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
     }
@@ -175,7 +182,7 @@ class ChatViewController: UIViewController {
     }
     
     deinit {
-        predictiveVC?.delegate = nil
+        predictiveVC.delegate = nil
         keyboardObserver.delegate = nil
         chatMessagesView.delegate = nil
         chatInputView.delegate = nil
@@ -269,7 +276,7 @@ class ChatViewController: UIViewController {
             })
             
             conversationManager.startSRS(completion: { [weak self] (appOpenResponse) in
-                self?.predictiveVC?.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
+                self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             })
         }
     }
@@ -298,7 +305,7 @@ class ChatViewController: UIViewController {
     
     // MARK: Display Update
     
-    func updateDisplay() {
+    func updateFonts() {
         updateAskButton()
         
         chatMessagesView.updateDisplay()
@@ -793,7 +800,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         }
         
         predictiveVCVisible = visible
-        predictiveVC?.view.endEditing(true)
+        predictiveVC.view.endEditing(true)
         view.endEditing(true)
         
         if visible {
@@ -811,7 +818,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
                 welcomeView.alpha = alpha
                 self?.updateStatusBar(false)
                 }, completion: { [weak self] (completed) in
-                    self?.predictiveVC?.presentingViewUpdatedVisibility(visible)
+                    self?.predictiveVC.presentingViewUpdatedVisibility(visible)
                     completion?()
                     
                     if !visible {
@@ -822,7 +829,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
             })
         } else {
             welcomeView.alpha = alpha
-            predictiveVC?.presentingViewUpdatedVisibility(visible)
+            predictiveVC.presentingViewUpdatedVisibility(visible)
             updateStatusBar(false)
             completion?()
         }
@@ -1045,6 +1052,8 @@ extension ChatViewController: ConversationManagerDelegate {
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
         self.isLiveChat = isLiveChat
+        
+        conversationManager.saveCurrentEvents(async: true)
     }
     
     // MARK: Handling Received Messages
