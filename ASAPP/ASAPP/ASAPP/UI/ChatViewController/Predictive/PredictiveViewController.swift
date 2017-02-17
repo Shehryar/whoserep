@@ -19,10 +19,6 @@ class PredictiveViewController: UIViewController {
 
     fileprivate(set) var appOpenResponse: SRSAppOpenResponse?
     
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
     weak var delegate: PredictiveViewControllerDelegate?
     
     var tapGesture: UITapGestureRecognizer?
@@ -47,12 +43,10 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse?, styles: ASAPPStyles, strings: ASAPPStrings) {
+    required init(appOpenResponse: SRSAppOpenResponse? = nil) {
         self.appOpenResponse = appOpenResponse
-        self.styles = styles
-        self.strings = strings
-        self.buttonsView = PredictiveButtonsView(styles: styles, strings: strings)
-        self.messageInputView = ChatInputView(styles: styles, strings: strings)
+        self.buttonsView = PredictiveButtonsView()
+        self.messageInputView = ChatInputView()
         super.init(nibName: nil, bundle: nil)
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(PredictiveViewController.dismissKeyboard))
@@ -62,9 +56,9 @@ class PredictiveViewController: UIViewController {
             blurredBgView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(styles.askViewGradientTopColor,
-                                 middleColor: styles.askViewGradientMiddleColor,
-                                 bottomColor: styles.askViewGradientBottomColor)
+        blurredColorLayer.update(ASAPP.styles.askViewGradientTopColor,
+                                 middleColor: ASAPP.styles.askViewGradientMiddleColor,
+                                 bottomColor: ASAPP.styles.askViewGradientBottomColor)
         blurredBgView.contentView.addSubview(blurredColorLayer)
         
         
@@ -76,7 +70,7 @@ class PredictiveViewController: UIViewController {
         titleLabel.setAttributedText(titleText,
                                      textStyle: .predictiveGreeting,
                                      color: UIColor.white,
-                                     styles: styles)
+                                     styles: ASAPP.styles)
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
@@ -90,9 +84,9 @@ class PredictiveViewController: UIViewController {
         blurredBgView.contentView.addSubview(buttonsView)
         
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
-        messageInputView.backgroundColor = styles.askViewInputBgColor
+        messageInputView.backgroundColor = ASAPP.styles.askViewInputBgColor
         messageInputView.layer.cornerRadius = 20
-        messageInputView.sendButtonText = strings.predictiveSendButton
+        messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
         messageInputView.textColor = Colors.whiteColor()
         messageInputView.placeholderColor = Colors.whiteColor().withAlphaComponent(0.7)
         messageInputView.separatorColor = nil
@@ -104,10 +98,10 @@ class PredictiveViewController: UIViewController {
         blurredBgView.contentView.addSubview(messageInputView)
     
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
-        connectionStatusLabel.setAttributedText(strings.predictiveNoConnectionText,
+        connectionStatusLabel.setAttributedText(ASAPP.strings.predictiveNoConnectionText,
                                                 textStyle: .connectionStatusBanner,
                                                 color: UIColor.white,
-                                                styles: styles)
+                                                styles: ASAPP.styles)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)
@@ -116,9 +110,9 @@ class PredictiveViewController: UIViewController {
         
         setAppOpenResponse(appOpenResponse: appOpenResponse, animated: appOpenResponse != nil)
         
-        refreshDisplay()
+        updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PredictiveViewController.refreshDisplay),
+        NotificationCenter.default.addObserver(self, selector: #selector(PredictiveViewController.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
     }
@@ -138,9 +132,9 @@ class PredictiveViewController: UIViewController {
     // MARK: Display
     
     
-    func refreshDisplay() {
-        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: strings.predictiveBackToChatButton,
-                                                                     font: styles.font(for: .navBarButton),
+    func updateDisplay() {
+        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.predictiveBackToChatButton,
+                                                                     font: ASAPP.styles.font(for: .navBarButton),
                                                                      textColor: UIColor.white,
                                                                      backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
                                                                      style: .respond,
@@ -153,14 +147,14 @@ class PredictiveViewController: UIViewController {
                                                                    backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
                                                                    target: self,
                                                                    action: #selector(PredictiveViewController.didTapCancel))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
-        titleLabel.updateFont(for: .predictiveGreeting, styles: styles)
-        messageLabel.updateFont(for: .predictiveMessage, styles: styles)
+        titleLabel.updateFont(for: .predictiveGreeting, styles: ASAPP.styles)
+        messageLabel.updateFont(for: .predictiveMessage, styles: ASAPP.styles)
         
-        buttonsView.refreshDisplay()
-        messageInputView.refreshFonts()
+        buttonsView.updateDisplay()
+        messageInputView.updateDisplay()
         
         if isViewLoaded {
             view.setNeedsLayout()
@@ -363,8 +357,8 @@ class PredictiveViewController: UIViewController {
     let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
     
     func getTitleAndInputPlaceholder() -> (String /* Title */, String /* Placeholder */) {
-        let title = UserDefaults.standard.string(forKey: storageKeyWelcomeTitle) ?? strings.predictiveWelcomeText
-        let placeholder = UserDefaults.standard.string(forKey: storageKeyWelcomeInputPlaceholder) ?? strings.predictiveInputPlaceholder
+        let title = UserDefaults.standard.string(forKey: storageKeyWelcomeTitle) ?? ASAPP.strings.predictiveWelcomeText
+        let placeholder = UserDefaults.standard.string(forKey: storageKeyWelcomeInputPlaceholder) ?? ASAPP.strings.predictiveInputPlaceholder
         return (title, placeholder)
     }
     
@@ -456,7 +450,7 @@ extension PredictiveViewController {
             messageLabel.setAttributedText(customMessage,
                                            textStyle: .predictiveMessage,
                                            color: UIColor.white,
-                                           styles: styles)
+                                           styles: ASAPP.styles)
         } else {
             messageLabel.text = nil
         }

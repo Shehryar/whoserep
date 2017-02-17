@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSImageItemView: UIView, ASAPPStyleable, StackableView {
+class SRSImageItemView: UIView {
 
     var imageItem: SRSImageItem? {
         didSet {
@@ -25,6 +25,8 @@ class SRSImageItemView: UIView, ASAPPStyleable, StackableView {
     // MARK: Init
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor1
+        
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
@@ -40,16 +42,6 @@ class SRSImageItemView: UIView, ASAPPStyleable, StackableView {
         commonInit()
     }
     
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        backgroundColor = styles.backgroundColor1
-    }
-    
     // MARK: Layout
     
     override func layoutSubviews() {
@@ -61,8 +53,11 @@ class SRSImageItemView: UIView, ASAPPStyleable, StackableView {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: floor(size.width * 0.4))
     }
-    
-    // MARK: StackableView
+}
+
+// MARK:- StackableView
+
+extension SRSImageItemView: StackableView {
     
     func prefersFullWidthDisplay() -> Bool {
         return true

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
+class SRSMapItemView: UIView {
     
     var mapItem: SRSMapItem? {
         didSet {
@@ -30,7 +30,7 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
         }
     }
     
-    let mapView = UIImageView(image: Images.asappImage(.imageEquipmentReturnMap))
+    fileprivate let mapView = UIImageView(image: Images.asappImage(.imageEquipmentReturnMap))
     
     // MARK: Initialization
     
@@ -51,14 +51,6 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
         commonInit()
     }
     
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-    }
-    
     // MARK: Layout
     
     override func layoutSubviews() {
@@ -72,8 +64,11 @@ class SRSMapItemView: UIView, ASAPPStyleable, StackableView {
         
         return CGSize(width: size.width, height: height)
     }
-    
-    // MARK: StackableView
+}
+
+// MARK:- StackableView
+
+extension SRSMapItemView: StackableView {
     
     func prefersFullWidthDisplay() -> Bool {
         return true

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSSeparatorView: UIView, ASAPPStyleable {
+class SRSSeparatorView: UIView {
 
     var separatorStroke: CGFloat = 1 {
         didSet {
@@ -21,6 +21,10 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
     // MARK: Initialization
     
     func commonInit() {
+        let color = ASAPP.styles.separatorColor1
+        separatorView.update(color.withAlphaComponent(0),
+                             middleColor: color,
+                             rightColor: color.withAlphaComponent(0))
         addSubview(separatorView)
     }
     
@@ -34,18 +38,6 @@ class SRSSeparatorView: UIView, ASAPPStyleable {
         commonInit()
     }
 
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        let color = styles.separatorColor1
-        separatorView.update(color.withAlphaComponent(0),
-                             middleColor: color,
-                             rightColor: color.withAlphaComponent(0))
-    }
     
     // MARK: Layout
     

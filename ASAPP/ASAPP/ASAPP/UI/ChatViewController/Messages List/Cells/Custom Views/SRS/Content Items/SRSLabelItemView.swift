@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSLabelItemView: UIView, ASAPPStyleable {
+class SRSLabelItemView: UIView {
 
     var labelItem: SRSLabelItem? {
         didSet {
@@ -26,6 +26,8 @@ class SRSLabelItemView: UIView, ASAPPStyleable {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         addSubview(label)
+        
+        updateDisplay()
     }
     
     override init(frame: CGRect) {
@@ -37,26 +39,17 @@ class SRSLabelItemView: UIView, ASAPPStyleable {
         super.init(coder: aDecoder)
         commonInit()
     }
-
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        updateDisplay()
-    }
     
     // MARK: Display
     
     func updateDisplay() {
         label.textAlignment = labelItem?.alignment?.getNSTextAlignment() ?? .center
         
-        let textColor = labelItem?.color ?? styles.foregroundColor2
+        let textColor = labelItem?.color ?? ASAPP.styles.foregroundColor2
         label.setAttributedText(labelItem?.text,
                                 textStyle: .srsLabel,
                                 color: textColor,
-                                styles: styles)
+                                styles: ASAPP.styles)
         
         setNeedsLayout()
     }
@@ -74,7 +67,6 @@ class SRSLabelItemView: UIView, ASAPPStyleable {
         super.layoutSubviews()
         
         label.frame = getLabelFrameThatFits(bounds.size)
-        
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

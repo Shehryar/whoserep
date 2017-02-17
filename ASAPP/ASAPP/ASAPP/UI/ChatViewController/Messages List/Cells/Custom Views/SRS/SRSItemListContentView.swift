@@ -8,23 +8,12 @@
 
 import UIKit
 
-class SRSItemListContentView: StackView, ASAPPStyleable {
+class SRSItemListContentView: StackView {
 
     var contentItems: [AnyObject]? {
         didSet {
             reloadSubviews()
         }
-    }
-
-    
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        setNeedsLayout()
     }
     
     // MARK: Creating the Views
@@ -40,7 +29,6 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                 // Icon
                 if let iconItem = item as? SRSIconItem {
                     let iconItemView = SRSIconItemView()
-                    iconItemView.applyStyles(styles)
                     iconItemView.iconItem = iconItem
                     createdViews.append(iconItemView)
                 }
@@ -48,7 +36,6 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                 // Label Item
                 if let labelItem = item as? SRSLabelItem {
                     let labelItemView = SRSLabelItemView()
-                    labelItemView.applyStyles(styles)
                     labelItemView.labelItem = labelItem
                     createdViews.append(labelItemView)
                 }
@@ -66,7 +53,6 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                         break
                     }
                     
-                    labelValueItemView.applyStyles(styles)
                     labelValueItemView.labelValueItem = labelValueItem
                     createdViews.append(labelValueItemView)
                 }
@@ -74,21 +60,18 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                 // Separator Item
                 else if item is SRSSeparatorItem {
                     let separatorView = SRSSeparatorView()
-                    separatorView.applyStyles(styles)
                     createdViews.append(separatorView)
                 }
                 
                 // Filler Item
                 else if item is SRSFillerItem {
                     let fillerView = SRSFillerView()
-                    fillerView.applyStyles(styles)
                     createdViews.append(fillerView)
                 }
                     
                 // Loader Bar Item
                 else if let loaderBarItem = item as? SRSLoaderBarItem {
                     let loaderBarView = SRSLoaderBarView()
-                    loaderBarView.applyStyles(styles)
                     loaderBarView.loaderItem = loaderBarItem
                     createdViews.append(loaderBarView)
                 }
@@ -96,7 +79,6 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                 // Image Item
                 else if let imageItem = item as? SRSImageItem {
                     let imageItemView = SRSImageItemView()
-                    imageItemView.applyStyles(styles)
                     imageItemView.imageItem = imageItem
                     createdViews.append(imageItemView)
                 }
@@ -104,7 +86,6 @@ class SRSItemListContentView: StackView, ASAPPStyleable {
                 // Map Item
                 else if let mapItem = item as? SRSMapItem {
                     let mapItemView = SRSMapItemView()
-                    mapItemView.applyStyles(styles)
                     mapItemView.mapItem = mapItem
                     createdViews.append(mapItemView)
                 }

@@ -10,7 +10,7 @@ import UIKit
 
 class CreditCardResponse: NSObject {
 
-    static let DEFAULT_ERROR_MESSAGE = "Unable to process your request at this time."
+    static let DEFAULT_ERROR_MESSAGE = ASAPP.strings.creditCardDefaultError
     
     let success: Bool
     

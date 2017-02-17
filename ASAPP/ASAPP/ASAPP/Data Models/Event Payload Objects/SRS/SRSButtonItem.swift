@@ -58,7 +58,8 @@ class SRSButtonItem: NSObject, JSONObject {
     
     // MARK: Action Properties
     
-    var actionName: String?
+    var actionEndpoint: String?
+    var actionPayload: [String : AnyObject]?
     
     // MARK: App Action
     
@@ -108,7 +109,12 @@ class SRSButtonItem: NSObject, JSONObject {
             break
             
         case .Action:
-            button.actionName = valueJSON["content"] as? String
+            if let contentJSON = valueJSON["content"] as? [String : AnyObject] {
+                button.actionEndpoint = contentJSON["endpoint"] as? String
+                button.actionPayload = contentJSON["endpointPayload"] as? [String : AnyObject]
+            } else {
+                button.actionEndpoint = valueJSON["content"] as? String
+            }
             break
             
         case .Message:

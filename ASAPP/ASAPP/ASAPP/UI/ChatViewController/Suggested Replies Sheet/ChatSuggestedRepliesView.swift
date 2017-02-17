@@ -16,7 +16,7 @@ protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool
 }
 
-class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
+class ChatSuggestedRepliesView: UIView {
 
     // MARK: Public Properties
 
@@ -77,10 +77,15 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
     // MARK: Initialization
     
     func commonInit() {
+        patternView.backgroundColor = Colors.patternBackgroundColor()
         patternBackgroundView.addSubview(patternView)
+        
+        patternBackgroundView.backgroundColor = ASAPP.styles.backgroundColor2
         addSubview(patternBackgroundView)
         
         addSubview(actionableMessageViewsContainer)
+        
+        separatorTopView.backgroundColor = ASAPP.styles.separatorColor1
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
@@ -98,6 +103,7 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
                 blockSelf.delegate?.chatSuggestedRepliesViewDidTapBack(blockSelf)
             }
         }
+        styleButton(backButton)
         addSubview(backButton)
         
         closeButton.isHidden = true
@@ -109,10 +115,10 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
                 blockSelf.delegate?.chatSuggestedRepliesViewDidCancel(blockSelf)
             }
         }
+        styleButton(closeButton)
         addSubview(closeButton)
         
         updateBackButtonVisibility()
-        applyStyles(styles)
     }
     
     override init(frame: CGRect) {
@@ -124,41 +130,23 @@ class ChatSuggestedRepliesView: UIView, ASAPPStyleable {
         super.init(coder: aDecoder)
         commonInit()
     }
-
-    // MARK: ASAPPStyleable
     
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        styleButton(backButton, withStyles: styles)
-        styleButton(closeButton, withStyles: styles)
-        
-        separatorTopView.backgroundColor = styles.separatorColor1
-        
-        patternBackgroundView.backgroundColor = styles.backgroundColor2
-        patternView.backgroundColor = Colors.patternBackgroundColor()
-    
-        for actionableMessageView in actionableMessageViews {
-            actionableMessageView.applyStyles(styles)
-        }
-        
-        setNeedsLayout()
-    }
-    
-    func styleButton(_ button: Button, withStyles styles: ASAPPStyles) {
-        button.setForegroundColor(styles.foregroundColor1, forState: .normal)
-        button.setForegroundColor(styles.foregroundColor1.highlightColor(), forState: .normal)
-        button.setBackgroundColor(styles.backgroundColor1, forState: .normal)
-        button.setBackgroundColor(styles.backgroundColor2, forState: .highlighted)
-        button.layer.borderColor = styles.separatorColor1.cgColor
+    func styleButton(_ button: Button) {
+        button.setForegroundColor(ASAPP.styles.foregroundColor1, forState: .normal)
+        button.setForegroundColor(ASAPP.styles.foregroundColor1.highlightColor(), forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.backgroundColor1, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.backgroundColor2, forState: .highlighted)
+        button.layer.borderColor = ASAPP.styles.separatorColor1.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
     }
     
-    func refreshDisplay() {
-        applyStyles(styles)
+    // MARK: Display
+    
+    func updateDisplay() {
+        for view in actionableMessageViews {
+            view.updateDisplay()
+        }
     }
 }
 
@@ -203,7 +191,7 @@ extension ChatSuggestedRepliesView {
     }
     
     func preferredDisplayHeight() -> CGFloat {
-        let rowHeight = ChatActionableMessageView.approximateRowHeight(withStyles: styles)
+        let rowHeight = ChatActionableMessageView.approximateRowHeight()
         let visibleRows: CGFloat = UIScreen.main.bounds.height > 575 ? 4.6 : 3.5
         return rowHeight * visibleRows + transparentInsetTop
     }
@@ -235,7 +223,6 @@ extension ChatSuggestedRepliesView {
     fileprivate func createActionableMessageView(_ actionableMessage: SRSResponse, forEvent event: Event) -> ChatActionableMessageView {
         let actionableMessageView = ChatActionableMessageView()
         actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
-        actionableMessageView.applyStyles(styles)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
             if let strongSelf = self,
                 let delegate = strongSelf.delegate {

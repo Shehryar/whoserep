@@ -57,14 +57,14 @@ class CreditCardInputViewController: UIViewController {
             let creditCard = strongSelf.creditCardView.getCurrentCreditCard()
             
             if let invalidFields = creditCard.getInvalidFields() {
-                strongSelf.errorView.text = "Please check that your information is correct and try again."
+                strongSelf.errorView.text = ASAPP.strings.creditCardInvalidFieldsError
                 strongSelf.creditCardView.highlightInvalidFields(invalidFields: invalidFields)
                 strongSelf.presentationAnimator.updatePresentedViewFrame()
                 return
             }
             
             guard let delegate = strongSelf.delegate else {
-                strongSelf.errorView.text = "Unable to send your request."
+                strongSelf.errorView.text = ASAPP.strings.creditCardNoConnectionError
                 strongSelf.presentationAnimator.updatePresentedViewFrame()
                 return
             }
@@ -87,7 +87,7 @@ class CreditCardInputViewController: UIViewController {
             })
             if !requestSent {
                 self?.stopLoading()
-                self?.errorView.text = "Please check your connection and try again."
+                self?.errorView.text = ASAPP.strings.creditCardNoConnectionError
                 self?.presentationAnimator.updatePresentedViewFrame()
             }
             
@@ -362,7 +362,7 @@ extension CreditCardInputViewController {
         successView.alpha = 1.0
         
         presentationAnimator.updatePresentedViewFrame(additionalUpdates: { 
-            self.controlsView.confirmText = "FINISH"
+            self.controlsView.confirmText = ASAPP.strings.creditCardFinishButton
             self.controlsView.cancelButtonHidden = true
             self.controlsView.updateFrames()
         }, completion: {
@@ -387,7 +387,7 @@ extension CreditCardInputViewController {
         isShowingSuccessView = false
         
         presentationAnimator.updatePresentedViewFrame(additionalUpdates: { 
-            self.controlsView.confirmText = "CONFIRM"
+            self.controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
             self.controlsView.cancelButtonHidden = false
             self.controlsView.updateFrames()
         }, completion: nil)

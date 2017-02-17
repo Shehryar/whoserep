@@ -25,7 +25,7 @@ class Branding: NSObject {
     
     let fonts: BrandingFonts
     
-    private(set) var styles: ASAPPStyles!
+    let styles: ASAPPStyles
     
     // MARK:- Init
     
@@ -33,29 +33,28 @@ class Branding: NSObject {
         self.brandingType = brandingType
         self.colors = BrandingColors(brandingType: brandingType)
         self.fonts = BrandingFonts(brandingType: brandingType)
-        super.init()
-        
+    
         switch self.brandingType {
         case .asapp:
-            styles = ASAPP.stylesForCompany("asapp")
+            self.styles = ASAPPStyles.stylesForCompany("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
             break
             
         case .xfinity:
-            styles = ASAPP.stylesForCompany("comcast")
+            self.styles = ASAPPStyles.stylesForCompany("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
             break
             
         case .sprint:
-            styles = ASAPP.stylesForCompany("sprint")
+            self.styles = ASAPPStyles.stylesForCompany("sprint")
             logoImageName = "sprint-logo"
             logoImageSize = CGSize(width: 140, height: 36)
             break
             
         case .boostMobile:
-            styles = ASAPP.stylesForCompany("sprint")
+            self.styles = ASAPPStyles.stylesForCompany("sprint")
             
             styles.asappButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
             styles.asappButtonForegroundColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
@@ -67,6 +66,7 @@ class Branding: NSObject {
             logoImageSize = CGSize(width: 140, height: 32)
             break
         }
+        super.init()
     }
 }
 

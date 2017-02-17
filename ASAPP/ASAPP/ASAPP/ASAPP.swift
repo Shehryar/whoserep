@@ -8,11 +8,15 @@
 
 import Foundation
 
-// MARK- Enums & Typealiases
-
 @objc public enum ASAPPEnvironment: Int {
     case staging
     case production
+}
+
+@objc public enum ASAPPLogLevel: Int {
+    case none = 0
+    case errors = 1
+    case debug = 3
 }
 
 public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -> String {
@@ -23,13 +27,8 @@ public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -
 }
 
 public typealias ASAPPCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
-
 public typealias ASAPPContextProvider = (() -> [String : Any])
-
 public typealias ASAPPAuthProvider = (() -> [String : Any])
-
-
-// MARK:- Internal Constants
 
 internal let ASAPPBundle = Bundle(for: ASAPP.self)
 
@@ -43,6 +42,13 @@ public class ASAPP: NSObject {
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
     
+    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
+    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
+    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
+    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    
+    public static var debugLogLevel: ASAPPLogLevel = .errors
+    
     public static var clientVersion: String {
         if let bundleVersion = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
@@ -50,19 +56,13 @@ public class ASAPP: NSObject {
         return "2.2.0"
     }
     
-    // MARK: Internal Static Variables
+    /// This is used to style all ASAPP views. This should be set before creating any ASAPP views.
+    public static var styles: ASAPPStyles = ASAPPStyles()
     
-    internal static var isInternalBuild: Bool {
-        if let bundleIdentifier = Bundle.main.bundleIdentifier {
-            return bundleIdentifier.contains("com.asappinc.")
-        }
-        return false
-    }
-
-    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
-    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
-    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
-    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    /// This is used for all ASAPP views. This should be set before creating any ASAPP views.
+    public static var strings: ASAPPStrings = ASAPPStrings()
+    
+    internal static let soundEffectPlayer = SoundEffectPlayer()
     
     // MARK: Fonts + Setup
     
@@ -93,6 +93,13 @@ public class ASAPP: NSObject {
                                        presentingViewController: UIViewController) -> ASAPPButton {
         loadFontsIfNecessary()
         
+        if let styles = styles {
+            ASAPP.styles = styles
+        }
+        if let strings = strings {
+            ASAPP.strings = strings
+        }
+        
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
                                       userToken: customerId,
@@ -104,8 +111,6 @@ public class ASAPP: NSObject {
         
         return ASAPPButton(withCredentials: credentials,
                            presentingViewController: presentingViewController,
-                           styles: styles ?? ASAPPStyles.stylesForCompany(company) ?? ASAPPStyles(),
-                           strings: strings ?? ASAPPStrings(),
                            callback: callbackHandler)
     }
     
@@ -143,6 +148,13 @@ public class ASAPP: NSObject {
         
         loadFontsIfNecessary()
         
+        if let styles = styles {
+            ASAPP.styles = styles
+        }
+        if let strings = strings {
+            ASAPP.strings = strings
+        }
+        
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
                                       userToken: customerId,
@@ -153,8 +165,6 @@ public class ASAPP: NSObject {
                                       callbackHandler: callbackHandler)
         
         let chatViewController = ChatViewController(withCredentials: credentials,
-                                                    styles: styles ?? ASAPPStyles.stylesForCompany(company),
-                                                    strings: strings ?? ASAPPStrings(),
                                                     callback: callbackHandler)
         
         return NavigationController(rootViewController: chatViewController)
@@ -177,19 +187,19 @@ public class ASAPP: NSObject {
                                         styles: styles,
                                         strings: nil)
     }
+}
+
+//
+// MARK:- Internal-Use Only
+//
+
+public extension ASAPP {
     
-    // MARK:
-    
-    public class func newStrings() -> ASAPPStrings {
-        return ASAPPStrings()
-    }
-    
-    public class func newStyles() -> ASAPPStyles {
-        return ASAPPStyles()
-    }
-    
-    public class func stylesForCompany(_ company: String) -> ASAPPStyles {
-        return ASAPPStyles.stylesForCompany(company) ?? ASAPPStyles()
+    internal static var isInternalBuild: Bool {
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            return bundleIdentifier.contains("com.asappinc.")
+        }
+        return false
     }
     
     // MARK: Demo Content
@@ -211,23 +221,5 @@ public class ASAPP: NSObject {
         } else {
             DebugLogError("Demo Content Disabled")
         }
-    }
-}
-
-//
-// MARK:- Debug Logging
-//
-
-public enum ASAPPLogLevel: Int {
-    case None = 0
-    case Errors = 1
-    case Debug = 3
-}
-
-internal var DEBUG_LOG_LEVEL = ASAPPLogLevel.Errors
-
-public extension ASAPP {
-    public class func setLogLevel(logLevel: ASAPPLogLevel) {
-        DEBUG_LOG_LEVEL = logLevel
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSFillerView: UIView, ASAPPStyleable {
+class SRSFillerView: UIView {
 
     var contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5) {
         didSet {
@@ -22,13 +22,13 @@ class SRSFillerView: UIView, ASAPPStyleable {
         }
     }
     
-    let fillerView = UIView()
+    fileprivate let fillerView = UIView()
     
     // MARK: Initialization
     
     func commonInit() {
+        fillerView.backgroundColor = ASAPP.styles.foregroundColor2
         addSubview(fillerView)
-        applyStyles(styles)
     }
     
     override init(frame: CGRect) {
@@ -39,16 +39,6 @@ class SRSFillerView: UIView, ASAPPStyleable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        fillerView.backgroundColor = styles.foregroundColor2
     }
     
     // MARK: Layout

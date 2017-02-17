@@ -11,23 +11,31 @@ import SafariServices
 
 class ChatViewController: UIViewController {
     
-    // MARK: Public Properties
+    // MARK: Properties: Public
     
     let credentials: Credentials
     
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
-    
     let callback: ASAPPCallbackHandler
     
-    // MARK: Private Properties
+    // MARK: Properties: Views / UI
+    
+    fileprivate let predictiveVC = PredictiveViewController()
+    fileprivate let predictiveNavController: UINavigationController!
+    
+    fileprivate let chatMessagesView: ChatMessagesView
+    fileprivate let chatInputView = ChatInputView()
+    fileprivate let connectionStatusView = ChatConnectionStatusView()
+    fileprivate let suggestedRepliesView = ChatSuggestedRepliesView()
+    fileprivate var askTooltipPresenter: TooltipPresenter?
+    fileprivate var hapticFeedbackGenerator: Any?
+    
+    // MARK: Properties: Storage
     
     fileprivate let simpleStore: ChatSimpleStore
-    
     fileprivate let conversationManager: ConversationManager
-    
     fileprivate var actionableMessage: SRSResponse?
+    
+    // MARK: Properties: Status
     
     fileprivate var isLiveChat = false {
         didSet {
@@ -41,6 +49,11 @@ class ChatViewController: UIViewController {
                 
                 updateViewForLiveChat()
             }
+            
+            if isLiveChat && askTooltipPresenter != nil {
+                askTooltipPresenter?.dismiss()
+                askTooltipPresenter = nil
+            }
         }
     }
     
@@ -49,19 +62,7 @@ class ChatViewController: UIViewController {
             connectionStatusView.status = connectionStatus
         }
     }
-    fileprivate var connectedAtLeastOnce = false
     
-    fileprivate var showPredictiveOnViewAppear = true
-    
-    fileprivate var askTooltipPresenter: TooltipPresenter?
-    fileprivate var keyboardObserver = KeyboardObserver()
-    fileprivate var keyboardOffset: CGFloat = 0
-    fileprivate var keyboardRenderedHeight: CGFloat = 0
-    
-    fileprivate let chatMessagesView: ChatMessagesView
-    fileprivate let chatInputView: ChatInputView
-    fileprivate let connectionStatusView: ChatConnectionStatusView
-    fileprivate let suggestedRepliesView = ChatSuggestedRepliesView()
     fileprivate var shouldShowConnectionStatusView: Bool {
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
@@ -77,44 +78,51 @@ class ChatViewController: UIViewController {
         
         return connectionStatus == .connecting || connectionStatus == .disconnected
     }
+    
+    
+    
+    fileprivate var connectedAtLeastOnce = false
+    fileprivate var showPredictiveOnViewAppear = true
     fileprivate var isInitialLayout = true
-    fileprivate var predictiveVC: PredictiveViewController?
-    fileprivate var predictiveNavController: UINavigationController?
     fileprivate var didPresentPredictiveView = false
     fileprivate var predictiveVCVisible = false
     fileprivate var delayedDisconnectTime: Date?
     
-    fileprivate var hapticFeedbackGenerator: Any?
     
+    // MARK: Properties: Keyboard
+    
+    fileprivate var keyboardObserver = KeyboardObserver()
+    fileprivate var keyboardOffset: CGFloat = 0
+    fileprivate var keyboardRenderedHeight: CGFloat = 0
+
     // MARK:- Initialization
     
-    init(withCredentials credentials: Credentials,
-         styles: ASAPPStyles?,
-         strings: ASAPPStrings?,
-         callback: @escaping ASAPPCallbackHandler) {
-        
+    init(withCredentials credentials: Credentials, callback: @escaping ASAPPCallbackHandler) {
         self.credentials = credentials
-        self.styles = styles ?? ASAPPStyles()
-        self.strings = strings ?? ASAPPStrings()
         self.callback = callback
         self.simpleStore = ChatSimpleStore(credentials: credentials)
         self.conversationManager = ConversationManager(withCredentials: credentials)
-        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials, styles: self.styles, strings: self.strings)
-        self.chatInputView = ChatInputView(styles: self.styles, strings: self.strings)
-        self.connectionStatusView = ChatConnectionStatusView(styles: self.styles, strings: self.strings)
+        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
+        self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
         
+    
+        // Predictive View Controller
+        
+        predictiveVC.delegate = self
+        predictiveNavController.view.alpha = 0.0
+        
         // Buttons
         
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: self.styles.navBarButtonForegroundColor,
-                                                                   backgroundColor: self.styles.navBarButtonBackgroundColor,
+        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                   backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
                                                                    target: self,
                                                                    action: #selector(ChatViewController.didTapCloseButton))
-        closeButton.accessibilityLabel = self.strings.accessibilityClose
+        closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
         // Subviews
@@ -141,23 +149,13 @@ class ChatViewController: UIViewController {
         chatInputView.layer.shadowOpacity = 0.1
         
         suggestedRepliesView.delegate = self
-        suggestedRepliesView.applyStyles(self.styles)
         
         connectionStatusView.onTapToConnect = { [weak self] in
             self?.reconnect()
         }
         
-        // Predictive View Controller
-        
-        predictiveVC = PredictiveViewController(appOpenResponse: nil,
-                                                 styles: self.styles,
-                                                 strings: self.strings)
-        if let predictiveVC = predictiveVC {
-            predictiveVC.delegate = self
-            predictiveNavController = UINavigationController(rootViewController: predictiveVC)
-            predictiveNavController?.view.alpha = 0.0
-        }
-        
+
+
         // Keyboard
         
         keyboardObserver.delegate = self
@@ -175,9 +173,11 @@ class ChatViewController: UIViewController {
             }
         }
         
-        refreshDisplay()
+        // Fonts (+ Accessibility Font Sizes Support)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.refreshDisplay),
+        updateFonts()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
     }
@@ -187,7 +187,7 @@ class ChatViewController: UIViewController {
     }
     
     deinit {
-        predictiveVC?.delegate = nil
+        predictiveVC.delegate = nil
         keyboardObserver.delegate = nil
         chatMessagesView.delegate = nil
         chatInputView.delegate = nil
@@ -212,25 +212,25 @@ class ChatViewController: UIViewController {
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
             navigationBar.backgroundColor = nil
-            if styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.navBarBackgroundColor.isDark() {
                 navigationBar.barStyle = .black
-                if styles.navBarBackgroundColor != UIColor.black {
-                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                if ASAPP.styles.navBarBackgroundColor != UIColor.black {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
                 }
             } else {
                 navigationBar.barStyle = .default
-                if styles.navBarBackgroundColor != UIColor.white {
-                    navigationBar.barTintColor = styles.navBarBackgroundColor
+                if ASAPP.styles.navBarBackgroundColor != UIColor.white {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
                 }
             }
-            navigationBar.tintColor = styles.navBarButtonColor
+            navigationBar.tintColor = ASAPP.styles.navBarButtonColor
             setNeedsStatusBarAppearanceUpdate()
         }
         
         // View
         
         view.clipsToBounds = true
-        view.backgroundColor = styles.backgroundColor1
+        view.backgroundColor = ASAPP.styles.backgroundColor1
         updateViewForLiveChat(animated: false)
         
         view.addSubview(chatMessagesView)
@@ -281,7 +281,7 @@ class ChatViewController: UIViewController {
             })
             
             conversationManager.startSRS(completion: { [weak self] (appOpenResponse) in
-                self?.predictiveVC?.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
+                self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             })
         }
     }
@@ -310,13 +310,13 @@ class ChatViewController: UIViewController {
     
     // MARK: Display Update
     
-    func refreshDisplay() {
+    func updateFonts() {
         updateAskButton()
         
-        chatMessagesView.refreshDisplay()
-        suggestedRepliesView.refreshDisplay()
-        connectionStatusView.refreshDisplay()
-        chatInputView.refreshFonts()
+        chatMessagesView.updateDisplay()
+        suggestedRepliesView.updateDisplay()
+        connectionStatusView.updateDisplay()
+        chatInputView.updateDisplay()
         
         if isViewLoaded {
             view.setNeedsLayout()
@@ -329,10 +329,10 @@ class ChatViewController: UIViewController {
             return
         }
         
-        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: self.strings.chatAskNavBarButton,
-                                                                font: self.styles.font(for: .navBarButton),
-                                                                textColor: self.styles.navBarButtonForegroundColor,
-                                                                backgroundColor: self.styles.navBarButtonBackgroundColor,
+        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
+                                                                font: ASAPP.styles.font(for: .navBarButton),
+                                                                textColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
                                                                 style: .ask,
                                                                 target: self,
                                                                 action: #selector(ChatViewController.didTapAskButton))
@@ -345,7 +345,7 @@ class ChatViewController: UIViewController {
         if showPredictiveOnViewAppear || predictiveVCVisible {
             return .lightContent
         } else {
-            if styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.navBarBackgroundColor.isDark() {
                 return .lightContent
             } else {
                 return .default
@@ -408,10 +408,10 @@ class ChatViewController: UIViewController {
         
         if isLiveChat {
             clearSuggestedRepliesView(true, completion: nil)
-            chatInputView.placeholderText = strings.chatInputPlaceholder
+            chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
         } else {
             view.endEditing(true)
-            chatInputView.placeholderText = strings.predictiveInputPlaceholder
+            chatInputView.placeholderText = ASAPP.strings.predictiveInputPlaceholder
         }
         
         if animated {
@@ -481,8 +481,7 @@ extension ChatViewController {
         
         increaseTooltipActionsCount()
         
-        askTooltipPresenter = TooltipView.showTooltip(withText: strings.chatAskTooltip,
-                                                      styles: styles,
+        askTooltipPresenter = TooltipView.showTooltip(withText: ASAPP.strings.chatAskTooltip,
                                                       targetBarButtonItem: buttonItem,
                                                       parentView: navView,
                                                       onDismiss: { [weak self] in
@@ -806,7 +805,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         }
         
         predictiveVCVisible = visible
-        predictiveVC?.view.endEditing(true)
+        predictiveVC.view.endEditing(true)
         view.endEditing(true)
         
         if visible {
@@ -824,7 +823,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
                 welcomeView.alpha = alpha
                 self?.updateStatusBar(false)
                 }, completion: { [weak self] (completed) in
-                    self?.predictiveVC?.presentingViewUpdatedVisibility(visible)
+                    self?.predictiveVC.presentingViewUpdatedVisibility(visible)
                     completion?()
                     
                     if !visible {
@@ -835,7 +834,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
             })
         } else {
             welcomeView.alpha = alpha
-            predictiveVC?.presentingViewUpdatedVisibility(visible)
+            predictiveVC.presentingViewUpdatedVisibility(visible)
             updateStatusBar(false)
             completion?()
         }
@@ -1016,6 +1015,10 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         provideHapticFeedbackForMessageIfNecessary(message: messageEvent)
         
+        if messageEvent.eventType == .newRep && messageEvent.srsResponse != nil {
+            ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
+        }
+        
         chatMessagesView.insertNewMessageEvent(messageEvent) { [weak self] in
             if messageEvent.eventType == .srsResponse {
                 self?.didReceiveSRSMessage(message: messageEvent)
@@ -1057,7 +1060,16 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
+        let wasLiveChat = self.isLiveChat
         self.isLiveChat = isLiveChat
+        
+        if !wasLiveChat && self.isLiveChat {
+            conversationManager.trackLiveChatBegan(issueId: event.issueId)
+        } else if wasLiveChat && !self.isLiveChat {
+            conversationManager.trackLiveChatEnded(issueId: event.issueId)
+        }
+        
+        conversationManager.saveCurrentEvents(async: true)
     }
     
     // MARK: Handling Received Messages
@@ -1168,17 +1180,17 @@ extension ChatViewController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         
-        let barTintColor = styles.backgroundColor2
+        let barTintColor = ASAPP.styles.backgroundColor2
         imagePickerController.navigationBar.shadowImage = nil
         imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
         imagePickerController.navigationBar.barTintColor = barTintColor
-        imagePickerController.navigationBar.tintColor = styles.foregroundColor2
+        imagePickerController.navigationBar.tintColor = ASAPP.styles.foregroundColor2
         if barTintColor.isBright() {
             imagePickerController.navigationBar.barStyle = .default
         } else {
             imagePickerController.navigationBar.barStyle = .black
         }
-        imagePickerController.view.backgroundColor = styles.backgroundColor1
+        imagePickerController.view.backgroundColor = ASAPP.styles.backgroundColor1
         
         return imagePickerController
     }

@@ -45,30 +45,22 @@ class SRSButtonItemView: UIButton {
         commonInit()
     }
 
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        updateDisplay()
-    }
-
     // MARK: Display
     
     func updateDisplay() {
-        borderTop.backgroundColor = styles.separatorColor1
+        borderTop.backgroundColor = ASAPP.styles.separatorColor1
         
         setBackgroundImage(UIImage.imageWithColor(UIColor.white), for: .normal)
         setBackgroundImage(UIImage.imageWithColor(UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)), for: .highlighted)
         
-        setTitleColor(styles.foregroundColor1, for: .normal)
-        setTitleColor(styles.foregroundColor1, for: .highlighted)
+        setTitleColor(ASAPP.styles.foregroundColor1, for: .normal)
+        setTitleColor(ASAPP.styles.foregroundColor1, for: .highlighted)
         
         setAttributedText(buttonItem?.title.uppercased(),
                           textStyle: .srsButton,
                           color: UIColor(red:0.310, green:0.357, blue:0.463, alpha:1.000),
-                          styles: styles, state: .normal)
+                          styles: ASAPP.styles,
+                          state: .normal)
     }
     
     // MARK: Layout

@@ -18,8 +18,6 @@ class TooltipView: UIView {
     
     let text: String
     
-    let styles: ASAPPStyles
-    
     var maxTooltipWidth: CGFloat = 260 {
         didSet {
             setNeedsLayout()
@@ -71,9 +69,8 @@ class TooltipView: UIView {
     
     // MARK: Initialization
     
-    required init(text: String, styles: ASAPPStyles) {
+    required init(text: String) {
         self.text = text
-        self.styles = styles
         super.init(frame: .zero)
         
         let fillColor = UIColor.black.withAlphaComponent(0.9)
@@ -88,7 +85,7 @@ class TooltipView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .left
-        label.font = styles.font(for: .tooltip)
+        label.font = ASAPP.styles.font(for: .tooltip)
         label.textColor = UIColor.white
         bubbleView.addSubview(label)
     }
@@ -148,12 +145,11 @@ class TooltipView: UIView {
 extension TooltipView {
     
     class func showTooltip(withText text: String,
-                           styles: ASAPPStyles,
                            targetView: UIView,
                            parentView: UIView,
                            onDismiss: (() -> Void)?) -> TooltipPresenter? {
         
-        let tooltip = TooltipView(text: text, styles: styles)
+        let tooltip = TooltipView(text: text)
         
         let tooltipPresenter = TooltipPresenter(withTooltip: tooltip)
         tooltipPresenter.onDismiss = onDismiss
@@ -163,7 +159,6 @@ extension TooltipView {
     }
     
     class func showTooltip(withText text: String,
-                           styles: ASAPPStyles,
                            targetBarButtonItem: UIBarButtonItem,
                            parentView: UIView,
                            onDismiss: (() -> Void)?) -> TooltipPresenter?  {
@@ -174,7 +169,6 @@ extension TooltipView {
         }
         
         return showTooltip(withText: text,
-                           styles: styles,
                            targetView: targetView,
                            parentView: parentView,
                            onDismiss: onDismiss)

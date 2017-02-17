@@ -15,16 +15,15 @@ enum MessageListPosition {
     case lastOfMany
 }
 
-class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
+class ChatBubbleCell: UITableViewCell {
 
     // MARK: Public Properties
     
     var isReply: Bool = false {
         didSet {
-            if oldValue != isReply {
-                updateBubbleCorners()
-                setNeedsLayout()
-            }
+            updateFontsAndColors()
+            updateBubbleCorners()
+            setNeedsLayout()
         }
     }
     
@@ -52,8 +51,8 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
                 let timestamp = dateFormatter.string(from: eventDate as Date)
                 detailLabel.setAttributedText(timestamp,
                                               textStyle: .chatTimestamp,
-                                              color: styles.foregroundColor2,
-                                              styles: styles)
+                                              color: ASAPP.styles.foregroundColor2,
+                                              styles: ASAPP.styles)
             } else {
                 detailLabel.text = nil
             }
@@ -158,27 +157,12 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
         bubbleView.roundedCorners = roundedCorners
     }
     
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles: ASAPPStyles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        applyStyles(styles, isReply: isReply)
-    }
-    
-    func applyStyles(_ styles: ASAPPStyles, isReply: Bool) {
-        self.styles = styles
-        self.isReply = isReply
-        
-        updateFontsAndColors()
-    }
-    
     func bubbleFillColor() -> UIColor {
-        return isReply ? styles.replyMessageFillColor : styles.messageFillColor
+        return isReply ? ASAPP.styles.replyMessageFillColor : ASAPP.styles.messageFillColor
     }
     
     func bubbleStrokeColor() -> UIColor? {
-        return isReply ? styles.replyMessageStrokeColor : styles.messageStrokeColor
+        return isReply ? ASAPP.styles.replyMessageStrokeColor : ASAPP.styles.messageStrokeColor
     }
     
     func updateFontsAndColors() {
@@ -186,13 +170,13 @@ class ChatBubbleCell: UITableViewCell, ASAPPStyleable {
             return
         }
         
-        backgroundColor = styles.backgroundColor1
-        bubbleView.backgroundColor = styles.backgroundColor1
+        backgroundColor = ASAPP.styles.backgroundColor1
+        bubbleView.backgroundColor = ASAPP.styles.backgroundColor1
         bubbleView.fillColor = bubbleFillColor()
         bubbleView.strokeColor = bubbleStrokeColor()
         
-        detailLabel.font = styles.font(for: .chatTimestamp)
-        detailLabel.textColor = styles.foregroundColor2
+        detailLabel.font = ASAPP.styles.font(for: .chatTimestamp)
+        detailLabel.textColor = ASAPP.styles.foregroundColor2
         detailLabel.backgroundColor = backgroundColor
         
         setNeedsLayout()

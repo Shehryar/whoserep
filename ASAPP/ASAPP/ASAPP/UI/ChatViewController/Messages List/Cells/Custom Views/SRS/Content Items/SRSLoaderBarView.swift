@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSLoaderBarView: UIView, ASAPPStyleable {
+class SRSLoaderBarView: UIView {
     
     var loaderItem: SRSLoaderBarItem? {
         didSet {
@@ -43,13 +43,12 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
         loaderView.contentMode = .scaleToFill
         addSubview(loaderView)
         
+        finishedLabel.textColor = ASAPP.styles.foregroundColor2
         finishedLabel.textAlignment = .center
         finishedLabel.alpha = 0.0
         finishedLabel.numberOfLines = 0
         finishedLabel.lineBreakMode = .byTruncatingTail
         addSubview(finishedLabel)
-        
-        applyStyles(styles)
     }
     
     override init(frame: CGRect) {
@@ -64,17 +63,6 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     
     deinit {
         clearTimer()
-    }
-    
-    // MARK: ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        finishedLabel.textColor = styles.foregroundColor2
-        finishedLabel.font = styles.font(for: .srsLabel)
     }
     
     // MARK: Layout
@@ -110,6 +98,8 @@ class SRSLoaderBarView: UIView, ASAPPStyleable {
     }
     
     func updateCurrentView() {
+        finishedLabel.font = ASAPP.styles.font(for: .srsLabel)
+        
         guard let loaderItem = loaderItem else {
             finishedLabel.text = nil
             loaderView.alpha = 1

@@ -38,11 +38,13 @@ class ChatPictureMessageCell: ChatBubbleCell {
         super.commonInit()
         
         pictureImageView.contentMode = .scaleAspectFill
-        pictureImageView.backgroundColor = Colors.lightGrayColor().withAlphaComponent(0.5)
+        pictureImageView.backgroundColor = ASAPP.styles.backgroundColor2
         pictureImageView.isOpaque = true
 
+        bubbleView.fillColor = ASAPP.styles.backgroundColor2
+        bubbleView.strokeColor = nil
         bubbleView.clipsToBubblePath = true
-        bubbleView.addSubview(pictureImageView)
+        bubbleView.addSubview(pictureImageView)        
     }
     
     // MARK: Image Downloading
@@ -60,16 +62,6 @@ class ChatPictureMessageCell: ChatBubbleCell {
                     })
                 }
         }
-    }
-    
-    // MARK: Styles
-    
-    override func updateFontsAndColors() {
-        super.updateFontsAndColors()
-        
-        bubbleView.strokeColor = nil
-        bubbleView.fillColor = styles.backgroundColor2
-        pictureImageView.backgroundColor = styles.backgroundColor2
     }
     
     // MARK: Layout

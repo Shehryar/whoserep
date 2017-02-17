@@ -15,10 +15,6 @@ enum ChatConnectionStatus {
 }
 
 class ChatConnectionStatusView: UIView {
-
-    let styles: ASAPPStyles
-    
-    let strings: ASAPPStrings
     
     var message: String? {
         didSet {
@@ -32,18 +28,18 @@ class ChatConnectionStatusView: UIView {
             switch status {
             case .connected:
                 spinner.stopAnimating()
-                message =  strings.connectionBannerConnected
+                message =  ASAPP.strings.connectionBannerConnected
                 break
                 
             case .connecting:
                 spinner.startAnimating()
-                message = strings.connectionBannerConnecting
+                message = ASAPP.strings.connectionBannerConnecting
                 break
                 
                 
             case .disconnected:
                 spinner.stopAnimating()
-                message = strings.connectionBannerDisconnected
+                message = ASAPP.strings.connectionBannerDisconnected
                 break
             }
             
@@ -64,13 +60,11 @@ class ChatConnectionStatusView: UIView {
     // MARK: Init
 
 
-    required init(styles: ASAPPStyles, strings: ASAPPStrings) {
-        self.styles = styles
-        self.strings = strings
+    required init() {
         super.init(frame: .zero)
         
         updateColors()
-        refreshDisplay()
+        updateDisplay()
         
         addSubview(label)
         addSubview(spinner)
@@ -87,13 +81,13 @@ class ChatConnectionStatusView: UIView {
     func updateColors() {
         switch status {
         case .connected:
-            backgroundColor = styles.backgroundColor2
-            label.textColor = styles.foregroundColor2
+            backgroundColor = ASAPP.styles.backgroundColor2
+            label.textColor = ASAPP.styles.foregroundColor2
             break
             
         case .connecting:
-            backgroundColor = styles.backgroundColor2
-            label.textColor = styles.foregroundColor2
+            backgroundColor = ASAPP.styles.backgroundColor2
+            label.textColor = ASAPP.styles.foregroundColor2
             break
             
             
@@ -112,8 +106,8 @@ class ChatConnectionStatusView: UIView {
         }
     }
     
-    func refreshDisplay() {
-        label.updateFont(for: .connectionStatusBanner, styles: styles)
+    func updateDisplay() {
+        label.updateFont(for: .connectionStatusBanner, styles: ASAPP.styles)
         label.textAlignment = .center
         
         setNeedsLayout()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSIconItemView: UIView, ASAPPStyleable {
+class SRSIconItemView: UIView {
 
     var iconItem: SRSIconItem? {
         didSet {
@@ -38,16 +38,6 @@ class SRSIconItemView: UIView, ASAPPStyleable {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    // MARK:- ASAPPStyleable
-    
-    fileprivate(set) var styles = ASAPPStyles()
-    
-    func applyStyles(_ styles: ASAPPStyles) {
-        self.styles = styles
-        
-        setNeedsLayout()
     }
 
     // MARK:- Display
