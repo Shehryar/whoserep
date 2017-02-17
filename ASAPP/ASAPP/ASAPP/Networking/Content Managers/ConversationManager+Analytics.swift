@@ -15,6 +15,8 @@ enum AnalyticsEventType: String {
     case webLink = "EXTERNAL_URL"
     case treewalk = "TREEWALK"
     case srsRequestTime = "SRS_REQUEST_CLIENT"
+    case liveChatBegan = "LIVE_CHAT_BEGAN"
+    case liveChatEnded = "LIVE_CHAT_ENDED"
 }
 
 enum AnalyticsButtonName: String {
@@ -151,5 +153,25 @@ extension ConversationManager {
         trackEvent(eventType: .srsRequestTime,
                    attributes: attributes,
                    metrics: metrics)
+    }
+    
+    func trackLiveChatBegan(issueId: Int) {
+        let requestResponse = ["issueId" : issueId]
+        guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
+            DebugLogError("Unabled to stringify JSON for trackLiveChatBegan")
+            return
+        }
+        
+        trackEvent(eventType: .liveChatBegan, attributes: ["request_response" : responseJson])
+    }
+    
+    func trackLiveChatEnded(issueId: Int) {
+        let requestResponse = ["issueId" : issueId]
+        guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
+            DebugLogError("Unabled to stringify JSON for trackLiveChatBegan")
+            return
+        }
+        
+        trackEvent(eventType: .liveChatEnded, attributes: ["request_response" : responseJson])
     }
 }

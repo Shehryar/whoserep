@@ -62,6 +62,8 @@ public class ASAPP: NSObject {
     /// This is used for all ASAPP views. This should be set before creating any ASAPP views.
     public static var strings: ASAPPStrings = ASAPPStrings()
     
+    internal static let soundEffectPlayer = SoundEffectPlayer()
+    
     // MARK: Fonts + Setup
     
     static var didLoadFonts = false

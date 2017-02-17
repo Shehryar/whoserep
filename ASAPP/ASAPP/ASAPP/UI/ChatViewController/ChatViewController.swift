@@ -1010,6 +1010,10 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
         provideHapticFeedbackForMessageIfNecessary(message: messageEvent)
         
+        if messageEvent.eventType == .newRep && messageEvent.srsResponse != nil {
+            ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
+        }
+        
         chatMessagesView.insertNewMessageEvent(messageEvent) { [weak self] in
             if messageEvent.eventType == .srsResponse {
                 self?.didReceiveSRSMessage(message: messageEvent)
@@ -1051,7 +1055,14 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
+        let wasLiveChat = self.isLiveChat
         self.isLiveChat = isLiveChat
+        
+        if !wasLiveChat && self.isLiveChat {
+            conversationManager.trackLiveChatBegan(issueId: event.issueId)
+        } else if wasLiveChat && !self.isLiveChat {
+            conversationManager.trackLiveChatEnded(issueId: event.issueId)
+        }
         
         conversationManager.saveCurrentEvents(async: true)
     }

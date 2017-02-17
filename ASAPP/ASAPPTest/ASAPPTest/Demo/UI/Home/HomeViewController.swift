@@ -144,6 +144,7 @@ extension HomeViewController {
         DemoLog("Company: \(currentAccount.company)\nSubdomain: \(appSettings.subdomain)\nuserToken: \(currentAccount.userToken)")
         
         ASAPP.styles = appSettings.branding.styles
+        ASAPP.debugLogLevel = .debug
         
         chatButton = ASAPP.createChatButton(
             company: currentAccount.company,

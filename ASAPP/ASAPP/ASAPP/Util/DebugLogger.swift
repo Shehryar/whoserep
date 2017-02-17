@@ -10,12 +10,12 @@ import UIKit
 
 func DebugLog(_ message: String) {
     if ASAPP.debugLogLevel == .debug {
-        NSLog("[ASAPP] \(message)\n")
+        print("[ASAPP] \(message)\n")
     }
 }
 
 func DebugLogError(_ message: String) {
     if ASAPP.debugLogLevel == .debug || ASAPP.debugLogLevel == .errors {
-        NSLog("[ASAPP] ERROR: \(message)\n")
+        print("[ASAPP] ERROR: \(message)\n")
     }
 }

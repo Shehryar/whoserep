@@ -92,14 +92,14 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         }
     }
     
-    fileprivate let srsContentViewMargin: CGFloat = 10.0
+    fileprivate let srsContentViewMargin: CGFloat = 6.0
     
     // MARK: Init
     
     override func commonInit() {
         isReply = true
         selectionStyle = .none
-        
+
         super.commonInit()
         
         contentView.addSubview(itemListView)
@@ -129,7 +129,10 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         }
         
         itemCarouselView.maxPageWidth = maxBubbleWidthForBoundsSize(bounds.size)
-        var srsContentTop = bubbleView.frame.maxY + srsContentViewMargin
+        var srsContentTop = contentInset.top
+        if bubbleView.bounds.height > 0 {
+            srsContentTop = bubbleView.frame.maxY + srsContentViewMargin
+        }
         if !detailLabelHidden && detailLabel.bounds.height > 0 {
             srsContentTop = detailLabel.frame.maxY + srsContentViewMargin
         }
@@ -145,15 +148,16 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var contentHeight = super.sizeThatFits(size).height    
+        var contentHeight = super.sizeThatFits(size).height
         let srsContentViewHeight = srsContentViewSizeThatFits(size).height
-        if srsContentViewHeight > 0 && contentHeight <= 0 {
-            contentHeight = contentInset.top + contentInset.bottom
-        }
-        if srsContentViewHeight > 0 && contentHeight > 0 {
+        if srsContentViewHeight <= 0 {
+            // simply return super's content height
+        } else if contentHeight <= 0 {
+            contentHeight = srsContentViewHeight + contentInset.top + contentInset.bottom
+        } else {
             contentHeight += srsContentViewHeight + srsContentViewMargin
         }
-    
+        
         return CGSize(width: size.width, height: contentHeight)
     }
     
@@ -184,7 +188,8 @@ class ChatSRSItemListViewCell: ChatTextMessageCell {
         centerBegin.y += 12
         srsContentView.center = centerBegin
         
-        UIView.animate(withDuration: 0.5, delay: 0.4, options: .curveEaseOut, animations: {
+        let delay: Double = messageText != nil && !messageText!.isEmpty ? 0.4 : 0
+        UIView.animate(withDuration: 0.5, delay: delay, options: .curveEaseOut, animations: {
             srsContentView.center = centerFinish
             srsContentView.alpha = 1
             }, completion: { [weak self] (completed) in

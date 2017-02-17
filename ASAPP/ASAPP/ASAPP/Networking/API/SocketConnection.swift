@@ -21,7 +21,7 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
-    fileprivate let LOG_ANALYTICS_EVENTS_VERBOSE = false
+    fileprivate let LOG_ANALYTICS_EVENTS_VERBOSE = true
     
     // MARK: Public Properties
     

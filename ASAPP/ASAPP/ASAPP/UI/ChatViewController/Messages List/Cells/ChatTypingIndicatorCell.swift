@@ -21,6 +21,7 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         bubbleView.addSubview(loadingView)
         
         bubbleView.clipsToBounds = true
+        isReply = true
         
         layoutSubviews()
     }
@@ -30,9 +31,7 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     override func layoutSubviews() {
         let loadingSize = loadingView.sizeThatFits(CGSize.zero)
         var bubbleLeft = contentInset.left
-        if !isReply {
-            bubbleLeft = bounds.width - loadingSize.width - contentInset.right
-        }
+      
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: loadingSize.width, height: loadingSize.height)
         loadingView.frame = bubbleView.bounds
     }

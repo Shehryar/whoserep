@@ -223,6 +223,8 @@ extension ASAPPButton {
 // MARK:- Actions
 
 extension ASAPPButton {
+    
+    
     func didTap() {
         let chatViewController = ChatViewController(withCredentials: credentials,
                                                     callback: callback)
