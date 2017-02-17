@@ -22,7 +22,7 @@ class SuccessCheckmarkView: UIView {
     
     var font: UIFont = Fonts.latoBoldFont(withSize: 24)
     
-    var text: String = "New Card Added Successfully!"
+    var text: String = ASAPP.strings.creditCardSuccessText
     
     var primaryColor: UIColor = UIColor(red:0.192, green:0.208, blue:0.247, alpha:1.000) {
         didSet {

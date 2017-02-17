@@ -31,12 +31,12 @@ class CreditCardInputView: UIView {
         addSubview(scrollView)
         
         // Title View
-        titleView.text = "Add a New Card"
+        titleView.text = ASAPP.strings.creditCardViewTitle
         scrollView.addSubview(titleView)
 
         // Name
         
-        nameTextView.placeholderText = "NAME ON CARD"
+        nameTextView.placeholderText = ASAPP.strings.creditCardPlaceholderName
         nameTextView.autocapitalizationType = .words
         nameTextView.autocorrectionType = .no
         nameTextView.returnKeyType = .next
@@ -55,7 +55,7 @@ class CreditCardInputView: UIView {
         
         // Card Number
         
-        numberTextView.placeholderText = "CARD NUMER"
+        numberTextView.placeholderText = ASAPP.strings.creditCardPlaceholderNumber
         numberTextView.keyboardType = .numberPad
         numberTextView.characterLimit = 19
         let numberToolbar = ActionButtonToolbar()
@@ -73,7 +73,7 @@ class CreditCardInputView: UIView {
         
         // Expiration
         
-        expiryTextView.placeholderText = "EXP DATE (MM/YY)"
+        expiryTextView.placeholderText = ASAPP.strings.creditCardPlaceholderExpiry
         expiryTextView.keyboardType = .numberPad
         expiryTextView.returnKeyType = .next
         expiryTextView.characterLimit = 5
@@ -153,7 +153,7 @@ class CreditCardInputView: UIView {
         
         // CVV
         
-        cvvTextView.placeholderText = "SECURITY CODE"
+        cvvTextView.placeholderText = ASAPP.strings.creditCardPlaceholderCVV
         cvvTextView.keyboardType = .numberPad
         cvvTextView.returnKeyType = .done
         cvvTextView.characterLimit = 4

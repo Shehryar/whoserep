@@ -13,13 +13,13 @@ class CancelConfirmControlsView: UIView {
     var onCancelButtonTap: (() -> Void)?
     var onConfirmButtonTap: (() -> Void)?
     
-    var cancelText: String = "CANCEL" {
+    var cancelText: String = ASAPP.strings.creditCardCancelButton {
         didSet {
             styleButton(cancelButton, withText: cancelText, font: cancelFont)
         }
     }
     
-    var confirmText: String = "CONFIRM" {
+    var confirmText: String = ASAPP.strings.creditCardConfirmButton {
         didSet {
             styleButton(confirmButton, withText: confirmText, font: confirmFont)
         }
