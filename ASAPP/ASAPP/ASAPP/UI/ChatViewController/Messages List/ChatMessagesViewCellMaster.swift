@@ -164,6 +164,7 @@ extension ChatMessagesViewCellMaster {
                               detailsVisible: Bool) {
         cell?.listPosition = listPosition
         cell?.event = event
+        cell?.isReply = isReply
         cell?.messageText = event.textMessage?.text
         cell?.detailLabelHidden = !detailsVisible
     }
@@ -174,6 +175,7 @@ extension ChatMessagesViewCellMaster {
                                  listPosition: MessageListPosition) {
         cell?.listPosition = listPosition
         cell?.event = event
+        cell?.isReply = isReply
         cell?.detailLabelHidden = true
     }
     
@@ -184,6 +186,7 @@ extension ChatMessagesViewCellMaster {
                               detailsVisible: Bool) {
         cell?.listPosition = listPosition
         cell?.event = event
+        cell?.isReply = isReply
         cell?.response = event.srsResponse
         cell?.detailLabelHidden = !detailsVisible
     }

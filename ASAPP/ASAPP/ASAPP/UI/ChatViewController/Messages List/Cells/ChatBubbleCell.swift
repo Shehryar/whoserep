@@ -21,11 +21,9 @@ class ChatBubbleCell: UITableViewCell {
     
     var isReply: Bool = false {
         didSet {
-            if oldValue != isReply {
-                updateFontsAndColors()
-                updateBubbleCorners()
-                setNeedsLayout()
-            }
+            updateFontsAndColors()
+            updateBubbleCorners()
+            setNeedsLayout()
         }
     }
     
