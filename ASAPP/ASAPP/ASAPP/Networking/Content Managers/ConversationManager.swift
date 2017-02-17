@@ -339,10 +339,8 @@ extension ConversationManager {
     fileprivate func sendSRSAction(action: String,
                                    withUserMessage message: String,
                                    completion: IncomingMessageHandler? = nil) {
-        _sendMessage(message)
-        
         let path = "srs/\(action)"
-        sendSRSRequest(path: path, params: nil, completion: completion)
+        sendSRSRequest(path: path, params: ["Text" : message as AnyObject], completion: completion)
     }
     
     fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) {
