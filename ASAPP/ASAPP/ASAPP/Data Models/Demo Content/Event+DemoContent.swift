@@ -31,6 +31,11 @@ enum DemoEventType {
     case liveChatBegin
     case liveChatEnd
     
+    case chatFlowPayBill
+    case chatFlowWaitOrCallback
+    case chatFlowQueueEntered
+    case chatFlowAgentEntered
+    
     static let allTypes = [billAutoPay,
                            billCredit,
                            billPaid,
@@ -50,7 +55,11 @@ enum DemoEventType {
                            jsonStyleExample,
                            addCreditCard,
                            liveChatBegin,
-                           liveChatEnd
+                           liveChatEnd,
+                           chatFlowPayBill,
+                           chatFlowWaitOrCallback,
+                           chatFlowQueueEntered,
+                           chatFlowAgentEntered
                            ]
 }
 
@@ -139,6 +148,10 @@ extension Event {
         case .addCreditCard: return "add-credit-card"
         case .liveChatBegin: return "live-chat-begin"
         case .liveChatEnd: return "live-chat-end"
+        case .chatFlowPayBill: return "chat-flow-pay-bill"
+        case .chatFlowWaitOrCallback: return "chat-flow-wait-or-callback"
+        case .chatFlowQueueEntered: return "chat-flow-queue-entered"
+        case .chatFlowAgentEntered: return "chat-flow-agent-entered"
         }
     }
     
@@ -188,6 +201,11 @@ extension Event {
     
     fileprivate class func triggeringSubstringSet(demoEventType: DemoEventType) -> [[String]]? {
         switch demoEventType {
+        case .chatFlowPayBill:
+            return [
+                ["pay", "my", "bill"]
+            ]
+            
         case .billAutoPay:
             return [
                 ["bill", "auto"]
@@ -271,7 +289,8 @@ extension Event {
             ]
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,
-             .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd:
+             .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd,
+             .chatFlowWaitOrCallback, .chatFlowQueueEntered, .chatFlowAgentEntered:
             return nil
         }
     }
@@ -302,6 +321,3 @@ extension String {
         return false
     }
 }
-
-
-

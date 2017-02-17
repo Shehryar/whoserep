@@ -550,7 +550,7 @@ extension ChatViewController {
         
         let repliesHeight: CGFloat = suggestedRepliesView.preferredDisplayHeight()
         var repliesTop = view.bounds.height
-        if actionableMessage != nil {
+        if actionableMessage != nil && !isLiveChat {
             repliesTop -= repliesHeight
         }
         suggestedRepliesView.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
@@ -736,6 +736,10 @@ extension ChatViewController {
              return false
         }
         
+        if conversationManager.demo_OverrideButtonItemSelection(buttonItem: buttonItem) {
+            return true
+        }
+        
         if let deepLink = buttonItem.deepLink?.lowercased() {
             switch deepLink {
             case "troubleshoot":
@@ -779,7 +783,9 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
-        showSuggestedRepliesViewIfNecessary()
+        if !isLiveChat {
+            showSuggestedRepliesViewIfNecessary()
+        }
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event) {
@@ -940,7 +946,6 @@ extension ChatViewController {
         suggestedRepliesView.reloadActionableMessagesWithEvents(events)
         conversationManager.currentSRSClassification = suggestedRepliesView.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
-        
         
         simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: suggestedRepliesView.actionableEventLogSeqs)
     }

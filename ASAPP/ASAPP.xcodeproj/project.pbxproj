@@ -108,6 +108,10 @@
 		3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */; };
 		3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */; };
 		3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C21E578DEA003BE6AB /* chat-notification.wav */; };
+		3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */; };
+		3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */; };
+		3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */; };
+		3023A5CB1E57BA36003BE6AB /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */; };
 		302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472921D89A07B0005A6C9 /* Lato-Black.ttf */; };
 		302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472931D89A07B0005A6C9 /* Lato-Bold.ttf */; };
 		302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472941D89A07B0005A6C9 /* Lato-Light.ttf */; };
@@ -374,6 +378,10 @@
 		3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSimpleStore.swift; sourceTree = "<group>"; };
 		3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffectPlayer.swift; sourceTree = "<group>"; };
 		3023A5C21E578DEA003BE6AB /* chat-notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chat-notification.wav"; sourceTree = "<group>"; };
+		3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
+		3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
+		3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
+		3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
 		302472921D89A07B0005A6C9 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		302472931D89A07B0005A6C9 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		302472941D89A07B0005A6C9 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -602,6 +610,10 @@
 				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
 				30A003491DC258A700CFA4CD /* json-style-example.json */,
 				3025D9DA1E5351AB004149D7 /* add-credit-card.json */,
+				3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */,
+				3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */,
+				3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */,
+				3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */,
 			);
 			path = "Demo JSON";
 			sourceTree = "<group>";
@@ -1348,6 +1360,7 @@
 				305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */,
 				30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */,
 				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
+				3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
@@ -1370,6 +1383,7 @@
 				3025D9C51E528048004149D7 /* icon-arrow-right@2x.png in Resources */,
 				3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */,
 				285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */,
+				3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
 				30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */,
@@ -1386,6 +1400,7 @@
 				3025D9B91E52802B004149D7 /* icon-circle-checkmark@2x.png in Resources */,
 				3025D9AE1E527FDB004149D7 /* icon-credit-card@3x.png in Resources */,
 				302472A41D89B7680005A6C9 /* XFINITYSans-Bold.ttf in Resources */,
+				3023A5CB1E57BA36003BE6AB /* chat-flow-agent-entered.json in Resources */,
 				3025D9BE1E52803C004149D7 /* icon-arrow-left.png in Resources */,
 				301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */,
 				285F7AE51DA9AD3B008C2EF6 /* button-bg-close@2x.png in Resources */,
@@ -1419,6 +1434,7 @@
 				302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */,
 				285F7B071DAB3409008C2EF6 /* device-restart.json in Resources */,
 				302268521D80690500EC4FB1 /* icon-x-small.png in Resources */,
+				3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */,
 				28AEC0B91D888FFD00139C7D /* map-tech.png in Resources */,
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,

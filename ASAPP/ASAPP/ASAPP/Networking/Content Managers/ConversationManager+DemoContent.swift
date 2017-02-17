@@ -28,7 +28,9 @@ extension ConversationManager {
         
         if let  srsQuery = buttonItem.srsValue {
             if srsQuery == "cancelAppointmentPrompt"
-                || srsQuery == "cancelAppointmentConfirmation" {
+                || srsQuery == "cancelAppointmentConfirmation"
+                || srsQuery == "chatWithAnAgent"
+                || srsQuery == "waitForAnAgent" {
                 return true
             }
         }
@@ -53,6 +55,12 @@ extension ConversationManager {
         return false
     }
     
+    func demo_TriggerFakeAgentEntered() {
+        guard ASAPP.isDemoContentEnabled() else { return }
+        
+        sendFakeAgentEnteredConversationEvent()
+    }
+    
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
         
@@ -65,6 +73,16 @@ extension ConversationManager {
             if srsQuery == "cancelAppointmentConfirmation" {
                 _sendMessage(buttonItem.title, completion: completion)
                 sendFakeCancelAppointmentConfirmationMessage()
+                return true
+            }
+            if srsQuery == "chatWithAnAgent" {
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeChatWithAnAgentMessage()
+                return true
+            }
+            if srsQuery == "waitForAnAgent" {
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeWaitForAnAgentMessage()
                 return true
             }
         }
@@ -177,6 +195,24 @@ extension ConversationManager {
     
     func sendFakeCancelAppointmentConfirmationMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .cancelAppointmentConfirmation,
+                                                      company: credentials.companyMarker)
+        echoMessageResponse(withJSONString: jsonString)
+    }
+    
+    func sendFakeChatWithAnAgentMessage() {
+        let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowWaitOrCallback,
+                                                      company: credentials.companyMarker)
+        echoMessageResponse(withJSONString: jsonString)
+    }
+    
+    func sendFakeWaitForAnAgentMessage() {
+        let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowQueueEntered,
+                                                      company: credentials.companyMarker)
+        echoMessageResponse(withJSONString: jsonString)
+    }
+    
+    func sendFakeAgentEnteredConversationEvent() {
+        let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowAgentEntered,
                                                       company: credentials.companyMarker)
         echoMessageResponse(withJSONString: jsonString)
     }
