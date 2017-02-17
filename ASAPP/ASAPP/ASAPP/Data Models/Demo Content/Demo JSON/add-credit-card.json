@@ -26,7 +26,7 @@
       {
         "value": {
           "content": {
-          	"action" : "addCreditCard"
+            "action": "addCreditCard"
           },
           "type": "APP_ACTION"
         },
@@ -43,7 +43,7 @@
           },
           "type": "_N/A_"
         },
-        "label": "View Details",
+        "label": "ViewDetails",
         "type": "button"
       },
       {
@@ -56,7 +56,7 @@
           },
           "type": "LINK"
         },
-        "label": "Make a Payment",
+        "label": "MakeaPayment",
         "type": "button"
       },
       

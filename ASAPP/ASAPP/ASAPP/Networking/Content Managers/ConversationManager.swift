@@ -246,9 +246,10 @@ extension ConversationManager {
             break
             
         case .Action:
-            if let action = buttonItem.actionName {
+            if let action = buttonItem.actionEndpoint {
                 sendSRSAction(action: action,
                               withUserMessage: buttonItem.title,
+                              payload: buttonItem.actionPayload,
                               completion: completion)
             }
             break
@@ -338,9 +339,15 @@ extension ConversationManager {
     
     fileprivate func sendSRSAction(action: String,
                                    withUserMessage message: String,
+                                   payload: [String : AnyObject]?,
                                    completion: IncomingMessageHandler? = nil) {
         let path = "srs/\(action)"
-        sendSRSRequest(path: path, params: ["Text" : message as AnyObject], completion: completion)
+        var params = ["Text" : message as AnyObject]
+        if let payload = payload {
+            params["Payload"] = payload as AnyObject
+        }
+        
+        sendSRSRequest(path: path, params: params, completion: completion)
     }
     
     fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) {
