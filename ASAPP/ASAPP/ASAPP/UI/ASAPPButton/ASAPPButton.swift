@@ -39,8 +39,8 @@ public class ASAPPButton: UIView {
         return isTouching ? .highlighted : .normal
     }
     
-    fileprivate var backgroundColors = [ASAPPButtonState.normal : Colors.blueGrayColor(),
-                                        ASAPPButtonState.highlighted : Colors.blueGrayColor().highlightColor()]
+    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.asappButtonBackgroundColor,
+                                        ASAPPButtonState.highlighted : ASAPP.styles.asappButtonBackgroundColor.highlightColor()]
     
     fileprivate let contentView = UIView()
     
@@ -75,9 +75,6 @@ public class ASAPPButton: UIView {
         
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.cornerRadius = frame.height / 2.0
-        
-        backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.asappButtonBackgroundColor,
-                            ASAPPButtonState.highlighted : ASAPP.styles.asappButtonBackgroundColor.highlightColor()]
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
