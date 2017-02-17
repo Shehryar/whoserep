@@ -8,8 +8,6 @@
 
 import Foundation
 
-// MARK- Enums & Typealiases
-
 @objc public enum ASAPPEnvironment: Int {
     case staging
     case production
@@ -23,13 +21,8 @@ public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -
 }
 
 public typealias ASAPPCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
-
 public typealias ASAPPContextProvider = (() -> [String : Any])
-
 public typealias ASAPPAuthProvider = (() -> [String : Any])
-
-
-// MARK:- Internal Constants
 
 internal let ASAPPBundle = Bundle(for: ASAPP.self)
 
@@ -43,6 +36,11 @@ public class ASAPP: NSObject {
     public static let AUTH_KEY_ISSUED_TIME = "issued_time"
     public static let AUTH_KEY_EXPIRES_IN = "expires_in"
     
+    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
+    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
+    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
+    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    
     public static var clientVersion: String {
         if let bundleVersion = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
@@ -50,19 +48,16 @@ public class ASAPP: NSObject {
         return "2.2.0"
     }
     
-    // MARK: Internal Static Variables
-    
     internal static var isInternalBuild: Bool {
         if let bundleIdentifier = Bundle.main.bundleIdentifier {
             return bundleIdentifier.contains("com.asappinc.")
         }
         return false
     }
-
-    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
-    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
-    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
-    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    
+    public static var styles = ASAPPStyles.self
+    
+    public static var strings = ASAPPStrings.self
     
     // MARK: Fonts + Setup
     
