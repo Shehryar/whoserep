@@ -49,6 +49,11 @@ class ChatViewController: UIViewController {
                 
                 updateViewForLiveChat()
             }
+            
+            if isLiveChat && askTooltipPresenter != nil {
+                askTooltipPresenter?.dismiss()
+                askTooltipPresenter = nil
+            }
         }
     }
     
