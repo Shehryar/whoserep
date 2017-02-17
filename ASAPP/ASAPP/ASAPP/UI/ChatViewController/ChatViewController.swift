@@ -674,7 +674,7 @@ extension ChatViewController {
                 originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
                 currentSRSEvent: suggestedRepliesView.currentActionableEvent,
                 completion: { [weak self] (message, request, responseTime) in
-                    if message.type == .ResponseError {
+                    if message.type != .Response {
                         self?.suggestedRepliesView.deselectCurrentSelection(animated: true)
                     }
             })
