@@ -158,7 +158,7 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    func sendTextMessage(_ message: String, completion: (() -> Void)? = nil) {
+    func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         if demo_OverrideMessageSend(message: message) {
             return
         }
@@ -226,8 +226,11 @@ extension ConversationManager {
         }
     }
     
-    func sendButtonItemSelection(_ buttonItem: SRSButtonItem, originalSearchQuery: String?, currentSRSEvent: Event?) {
-        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: nil) {
+    func sendButtonItemSelection(_ buttonItem: SRSButtonItem,
+                                 originalSearchQuery: String?,
+                                 currentSRSEvent: Event?,
+                                 completion: IncomingMessageHandler? = nil) {
+        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
             return
         }
         
@@ -237,24 +240,27 @@ extension ConversationManager {
                 sendSRSTreewalk(classification: classification,
                                 message: buttonItem.title,
                                 originalSearchQuery: originalSearchQuery,
-                                currentSRSEvent: currentSRSEvent)
+                                currentSRSEvent: currentSRSEvent,
+                                completion: completion)
             }
             break
             
         case .Action:
             if let action = buttonItem.actionName {
-                sendSRSAction(action: action, withUserMessage: buttonItem.title)
+                sendSRSAction(action: action,
+                              withUserMessage: buttonItem.title,
+                              completion: completion)
             }
             break
             
         case .Message:
             if let message = buttonItem.message {
-                sendTextMessage(message)
+                sendTextMessage(message, completion: completion)
             }
             break
             
         case .InAppLink, .Link:
-            sendSRSLinkButtonTapped(buttonItem: buttonItem)
+            sendSRSLinkButtonTapped(buttonItem: buttonItem, completion: completion)
             break
             
         case .AppAction:
@@ -269,11 +275,11 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    internal func _sendMessage(_ message: String, completion: (() -> Void)? = nil) {
+    internal func _sendMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         let path = "\(requestPrefix)SendTextMessage"
-        socketConnection.sendRequest(withPath: path, params: ["Text" : message as AnyObject]) { (incomingMessage) in
-            completion?()
-        }
+        socketConnection.sendRequest(withPath: path,
+                                     params: ["Text" : message as AnyObject],
+                                     requestHandler: completion)
     }
     
     // MARK: SRS General
@@ -281,7 +287,7 @@ extension ConversationManager {
     fileprivate func sendSRSRequest(path: String,
                                     params: [String : AnyObject]?,
                                     isRequestFromPrediction: Bool = false,
-                                    requestHandler: IncomingMessageHandler? = nil) {
+                                    completion: IncomingMessageHandler? = nil) {
         
         Dispatcher.performOnBackgroundThread {
             var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
@@ -293,7 +299,7 @@ extension ConversationManager {
             
             Dispatcher.performOnMainThread {
                 self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
-                    requestHandler?(incomingMessage, request, responseTime)
+                    completion?(incomingMessage, request, responseTime)
                     
                     self.trackSRSRequest(path: path,
                                          requestUUID: request?.requestUUID,
@@ -307,7 +313,11 @@ extension ConversationManager {
     
     // MARK: SRS Specific
     
-    fileprivate func sendSRSTreewalk(classification: String, message: String, originalSearchQuery: String?, currentSRSEvent: Event?) {
+    fileprivate func sendSRSTreewalk(classification: String,
+                                     message: String,
+                                     originalSearchQuery: String?,
+                                     currentSRSEvent: Event?,
+                                     completion: IncomingMessageHandler? = nil) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params = [
             "Text" : message as AnyObject,
@@ -321,18 +331,21 @@ extension ConversationManager {
         }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
+            completion?(incomingMessage, request, responseTime)
             self?.trackTreewalk(message: message, classification: classification)
         }
     }
     
-    fileprivate func sendSRSAction(action: String, withUserMessage message: String) {
+    fileprivate func sendSRSAction(action: String,
+                                   withUserMessage message: String,
+                                   completion: IncomingMessageHandler? = nil) {
         _sendMessage(message)
         
         let path = "srs/\(action)"
-        sendSRSRequest(path: path, params: nil)
+        sendSRSRequest(path: path, params: nil, completion: completion)
     }
     
-    fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem) {
+    fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) {
         guard let deepLink = buttonItem.deepLink else {
             return
         }
@@ -347,7 +360,7 @@ extension ConversationManager {
         }
         
         let path = "srs/CreateLinkButtonTapEvent"
-        sendSRSRequest(path: path, params: params)
+        sendSRSRequest(path: path, params: params, completion: completion)
     }
     
 }

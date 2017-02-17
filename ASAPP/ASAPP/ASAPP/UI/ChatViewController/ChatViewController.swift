@@ -672,7 +672,12 @@ extension ChatViewController {
             conversationManager.sendButtonItemSelection(
                 buttonItem,
                 originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
-                currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+                currentSRSEvent: suggestedRepliesView.currentActionableEvent,
+                completion: { [weak self] (message, request, responseTime) in
+                    if message.type == .ResponseError {
+                        self?.suggestedRepliesView.deselectCurrentSelection(animated: true)
+                    }
+            })
             return true
             
         case .AppAction:

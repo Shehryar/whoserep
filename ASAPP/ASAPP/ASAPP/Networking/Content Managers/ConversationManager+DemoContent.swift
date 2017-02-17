@@ -53,7 +53,7 @@ extension ConversationManager {
         return false
     }
     
-    func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: (() -> Void)? = nil) -> Bool {
+    func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let srsQuery = buttonItem.srsValue {
@@ -145,7 +145,9 @@ extension ConversationManager {
     
     // MARK: Specific
     
-    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem,
+                                       afterEvent: Event?,
+                                       completion: IncomingMessageHandler? = nil) {
         _sendMessage(buttonItem.title, completion: completion)
         
         let jsonString = Event.getDemoEventJsonString(eventType: .troubleshooter,
@@ -153,7 +155,9 @@ extension ConversationManager {
         echoMessageResponse(withJSONString: jsonString)
     }
     
-    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem, afterEvent: Event?, completion: (() -> Void)? = nil) {
+    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem,
+                                      afterEvent: Event?,
+                                      completion: IncomingMessageHandler? = nil) {
         _sendMessage(buttonItem.title, completion: completion)
         
         var deviceRestartString = Event.getDemoEventJsonString(eventType: .deviceRestart,
