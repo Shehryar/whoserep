@@ -78,33 +78,82 @@ public class ASAPP: NSObject {
     class func loadedFonts() -> [String] {
         return Fonts.loadedFonts()
     }
+}
+
+//
+// MARK:- Public API: Chat View Controller
+//
+
+public extension ASAPP {
     
-    // MARK:- Chat Button
+    // MARK: Private
     
-    /// Returns a new buttonView that can be manually added to a view.
-    public class func createChatButton(company: String,
-                                       subdomain: String,
-                                       customerId: String,
-                                       authProvider: @escaping ASAPPAuthProvider,
-                                       contextProvider: @escaping ASAPPContextProvider,
-                                       callbackHandler: @escaping ASAPPCallbackHandler,
-                                       styles: ASAPPStyles?,
-                                       strings: ASAPPStrings?,
-                                       presentingViewController: UIViewController) -> ASAPPButton {
+    fileprivate class func createChatViewController(credentials: Credentials,
+                                                    callbackHandler: @escaping ASAPPCallbackHandler) -> UIViewController {
         loadFontsIfNecessary()
         
-        if let styles = styles {
-            ASAPP.styles = styles
-        }
-        if let strings = strings {
-            ASAPP.strings = strings
-        }
+        let chatViewController = ChatViewController(withCredentials: credentials,
+                                                    callback: callbackHandler)
         
+        return NavigationController(rootViewController: chatViewController)
+    }
+    
+    // MARK: Public: Chat View Controller
+    
+    /**
+     Returns a UINavigationController containing an ASAPP ChatViewController instance.
+     */
+    public class func createChatViewController(company: String,
+                                               customerId: String,
+                                               environment: ASAPPEnvironment,
+                                               authProvider: @escaping ASAPPAuthProvider,
+                                               contextProvider: @escaping ASAPPContextProvider,
+                                               callbackHandler: @escaping ASAPPCallbackHandler) -> UIViewController {
+        let credentials = Credentials(withCompany: company,
+                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      userToken: customerId,
+                                      authProvider: authProvider,
+                                      contextProvider: contextProvider,
+                                      callbackHandler: callbackHandler)
+        
+        return createChatViewController(credentials: credentials, callbackHandler: callbackHandler)
+    }
+    
+    /**
+     Returns a UINavigationController containing an ASAPP ChatViewController instance.
+     */
+    public class func createChatViewController(company: String,
+                                               subdomain: String,
+                                               customerId: String,
+                                               authProvider: @escaping ASAPPAuthProvider,
+                                               contextProvider: @escaping ASAPPContextProvider,
+                                               callbackHandler: @escaping ASAPPCallbackHandler) -> UIViewController {
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
                                       userToken: customerId,
-                                      isCustomer: true,
-                                      targetCustomerToken: nil,
+                                      authProvider: authProvider,
+                                      contextProvider: contextProvider,
+                                      callbackHandler: callbackHandler)
+        
+        return createChatViewController(credentials: credentials, callbackHandler: callbackHandler)
+    }
+    
+    // MARK: Public: Chat Button
+    
+    /**
+     Returns a button that will show an ASAPP ChatViewController when pressed.
+     */
+    public class func createChatButton(company: String,
+                                       customerId: String,
+                                       environment: ASAPPEnvironment,
+                                       authProvider: @escaping ASAPPAuthProvider,
+                                       contextProvider: @escaping ASAPPContextProvider,
+                                       callbackHandler: @escaping ASAPPCallbackHandler,
+                                       presentingViewController: UIViewController) -> ASAPPButton {
+        
+        let credentials = Credentials(withCompany: company,
+                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
                                       callbackHandler: callbackHandler)
@@ -114,80 +163,31 @@ public class ASAPP: NSObject {
                            callback: callbackHandler)
     }
     
+    /**
+     Returns a button that will show an ASAPP ChatViewController when pressed.
+     */
     public class func createChatButton(company: String,
+                                       subdomain: String,
                                        customerId: String,
-                                       environment: ASAPPEnvironment,
                                        authProvider: @escaping ASAPPAuthProvider,
                                        contextProvider: @escaping ASAPPContextProvider,
                                        callbackHandler: @escaping ASAPPCallbackHandler,
-                                       styles: ASAPPStyles?,
                                        presentingViewController: UIViewController) -> ASAPPButton {
-
-        return createChatButton(company: company,
-                                subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
-                                customerId: customerId,
-                                authProvider: authProvider,
-                                contextProvider: contextProvider,
-                                callbackHandler: callbackHandler,
-                                styles: styles,
-                                strings: nil,
-                                presentingViewController: presentingViewController)
-    }
-    
-    // MARK:- Chat View Controller
-    
-    /// Returns a UINavigationController containing a new instance of the chat view controller.
-    public class func createChatViewController(company: String,
-                                               subdomain: String,
-                                               customerId: String,
-                                               authProvider: @escaping ASAPPAuthProvider,
-                                               contextProvider: @escaping ASAPPContextProvider,
-                                               callbackHandler: @escaping ASAPPCallbackHandler,
-                                               styles: ASAPPStyles?,
-                                               strings: ASAPPStrings?) -> UIViewController {
-        
-        loadFontsIfNecessary()
-        
-        if let styles = styles {
-            ASAPP.styles = styles
-        }
-        if let strings = strings {
-            ASAPP.strings = strings
-        }
         
         let credentials = Credentials(withCompany: company,
                                       subdomain: subdomain,
                                       userToken: customerId,
-                                      isCustomer: true,
-                                      targetCustomerToken: nil,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
                                       callbackHandler: callbackHandler)
         
-        let chatViewController = ChatViewController(withCredentials: credentials,
-                                                    callback: callbackHandler)
-        
-        return NavigationController(rootViewController: chatViewController)
-    }
-    
-    public class func createChatViewController(company: String,
-                                               customerId: String,
-                                               environment: ASAPPEnvironment,
-                                               authProvider: @escaping ASAPPAuthProvider,
-                                               contextProvider: @escaping ASAPPContextProvider,
-                                               callbackHandler: @escaping ASAPPCallbackHandler,
-                                               styles: ASAPPStyles?) -> UIViewController {
-        
-        return createChatViewController(company: company,
-                                        subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
-                                        customerId: customerId,
-                                        authProvider: authProvider,
-                                        contextProvider: contextProvider,
-                                        callbackHandler: callbackHandler,
-                                        styles: styles,
-                                        strings: nil)
+        return ASAPPButton(withCredentials: credentials,
+                           presentingViewController: presentingViewController,
+                           callback: callbackHandler)
     }
 }
+
+
 
 //
 // MARK:- Internal-Use Only
@@ -221,5 +221,87 @@ public extension ASAPP {
         } else {
             DebugLogError("Demo Content Disabled")
         }
+    }
+}
+
+
+
+
+
+
+
+
+
+// Remove after 2.2.0
+
+
+//
+// MARK:- Deprecated API
+//
+
+public extension ASAPP {
+    
+    // MARK:- Common Setup
+    
+    private class func performDeprecatedSetup(for company: String, styles: ASAPPStyles?, strings: ASAPPStrings?) {
+        loadFontsIfNecessary()
+        
+        if let styles = styles {
+            ASAPP.styles = styles
+        } else {
+            ASAPP.styles = ASAPPStyles.stylesForCompany(company)
+        }
+        if let strings = strings {
+            ASAPP.strings = strings
+        }
+    }
+    
+    /**
+     **This method is deprecated.** Returns a UINavigationController containing an ASAPP ChatViewController instance.
+     */
+    public class func createChatViewController(company: String,
+                                               customerId: String,
+                                               environment: ASAPPEnvironment,
+                                               authProvider: @escaping ASAPPAuthProvider,
+                                               contextProvider: @escaping ASAPPContextProvider,
+                                               callbackHandler: @escaping ASAPPCallbackHandler,
+                                               styles: ASAPPStyles?) -> UIViewController {
+        
+        performDeprecatedSetup(for: company, styles: styles, strings: strings)
+        
+        let credentials = Credentials(withCompany: company,
+                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      userToken: customerId,
+                                      authProvider: authProvider,
+                                      contextProvider: contextProvider,
+                                      callbackHandler: callbackHandler)
+        
+        return createChatViewController(credentials: credentials, callbackHandler: callbackHandler)
+    }
+    
+    /**
+     **This method is deprecated.** Returns a button that will show an ASAPP ChatViewController when pressed.
+     */
+    public class func createChatButton(company: String,
+                                       customerId: String,
+                                       environment: ASAPPEnvironment,
+                                       authProvider: @escaping ASAPPAuthProvider,
+                                       contextProvider: @escaping ASAPPContextProvider,
+                                       callbackHandler: @escaping ASAPPCallbackHandler,
+                                       styles: ASAPPStyles?,
+                                       presentingViewController: UIViewController) -> ASAPPButton {
+        
+        performDeprecatedSetup(for: company, styles: styles, strings: strings)
+        
+        let credentials = Credentials(withCompany: company,
+                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      userToken: customerId,
+                                      authProvider: authProvider,
+                                      contextProvider: contextProvider,
+                                      callbackHandler: callbackHandler)
+        
+        return ASAPPButton(withCredentials: credentials,
+                           presentingViewController: presentingViewController,
+                           callback: callbackHandler)
     }
 }

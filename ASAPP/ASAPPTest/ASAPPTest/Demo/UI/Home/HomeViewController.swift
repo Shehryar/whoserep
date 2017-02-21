@@ -153,8 +153,6 @@ extension HomeViewController {
             authProvider: authProvider,
             contextProvider: contextProvider,
             callbackHandler: callbackHandler,
-            styles: nil,
-            strings: nil,
             presentingViewController: self)
         
         
@@ -293,9 +291,7 @@ extension HomeViewController {
             customerId: currentAccount.userToken,
             authProvider: authProvider,
             contextProvider: contextProvider,
-            callbackHandler: callbackHandler,
-            styles: appSettings.branding.styles,
-            strings: nil)
+            callbackHandler: callbackHandler)
         
         present(chatViewController, animated: true, completion: nil)
     }

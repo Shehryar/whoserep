@@ -33,8 +33,8 @@ public class Credentials: NSObject {
     public required init(withCompany company: String,
                          subdomain: String,
                          userToken: String?,
-                         isCustomer: Bool,
-                         targetCustomerToken: String?,
+                         isCustomer: Bool = true,
+                         targetCustomerToken: String? = nil,
                          authProvider: @escaping ASAPPAuthProvider,
                          contextProvider: @escaping ASAPPContextProvider,
                          callbackHandler: @escaping ASAPPCallbackHandler) {
