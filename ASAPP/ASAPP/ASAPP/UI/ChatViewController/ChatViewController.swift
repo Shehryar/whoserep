@@ -474,6 +474,10 @@ extension ChatViewController {
                 return
         }
         
+        if askTooltipPresenter != nil {
+            return
+        }
+        
         guard let navView = navigationController?.view,
             let buttonItem = navigationItem.leftBarButtonItem else {
                 return
