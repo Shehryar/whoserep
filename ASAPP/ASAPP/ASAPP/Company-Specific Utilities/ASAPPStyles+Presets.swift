@@ -20,7 +20,7 @@ public extension ASAPPStyles {
         return ASAPPStyles()
     }
     
-    class func comcastStyles() -> ASAPPStyles {
+    internal class func comcastStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.fontNameLight = "XFINITYSans-Lgt"
@@ -31,7 +31,7 @@ public extension ASAPPStyles {
         return styles
     }
     
-    class func sprintStyles() -> ASAPPStyles {
+    internal class func sprintStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         // Fonts
@@ -62,7 +62,7 @@ public extension ASAPPStyles {
         return styles
     }
     
-    public class func darkStyles() -> ASAPPStyles {
+    internal class func darkStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.navBarBackgroundColor = UIColor.black
