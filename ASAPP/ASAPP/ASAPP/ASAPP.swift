@@ -65,14 +65,9 @@ public class ASAPP: NSObject {
     internal static let soundEffectPlayer = SoundEffectPlayer()
     
     // MARK: Fonts + Setup
-    
-    static var didLoadFonts = false
-    
+        
     public class func loadFontsIfNecessary() {
-        if !didLoadFonts {
-            Fonts.loadAllFonts()
-            didLoadFonts = true
-        }
+        Fonts.loadFontsIfNecessary()
     }
     
     class func loadedFonts() -> [String] {

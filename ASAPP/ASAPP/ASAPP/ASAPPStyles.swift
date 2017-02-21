@@ -95,4 +95,14 @@ public class ASAPPStyles: NSObject {
     internal var inputSendButtonColor: UIColor = Colors.blueGrayColor()
     
     internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
+    
+    
+    
+    // MARK:- Init
+    
+    override init() {
+        Fonts.loadFontsIfNecessary()
+        
+        super.init()
+    }
 }

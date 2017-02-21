@@ -14,7 +14,7 @@ class Fonts: NSObject {
     
     static var fontsLoaded = false
     
-    class func loadAllFonts() {
+    class func loadFontsIfNecessary() {
         guard !fontsLoaded else { return }
         
         // Lato Fonts
