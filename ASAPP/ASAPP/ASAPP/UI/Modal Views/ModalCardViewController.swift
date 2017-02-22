@@ -56,7 +56,7 @@ class ModalCardViewController: UIViewController {
     func commonInit() {
         modalPresentationStyle = .custom
         transitioningDelegate = presentationAnimator
-                
+        
         contentScrollView.addSubview(successView)
         
         // Controls
@@ -120,6 +120,12 @@ class ModalCardViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    // MARK:- Status Bar
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
     // MARK:- View
     
     override func viewDidLoad() {
@@ -129,10 +135,23 @@ class ModalCardViewController: UIViewController {
         view.clipsToBounds = true
         view.layer.cornerRadius = 5.0
         
+        if let contentView = contentView {
+            if !contentScrollView.subviews.contains(contentView) {
+                contentScrollView.addSubview(contentView)
+            }
+        }
         view.addSubview(contentScrollView)
         view.addSubview(errorView)
         view.addSubview(controlsView)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+    }
+    
+    // MARK:- View Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -252,6 +271,51 @@ extension ModalCardViewController {
 // MARK:- Loading
 
 extension ModalCardViewController {
+    
+    func startLoading() {
+        guard !isLoading else {
+            return
+        }
+        isLoading = true
+        
+        controlsView.confirmButtonEnabled = false
+        view.addSubview(loadingView)
+        
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut,
+            animations: { [weak self] in
+                self?.loadingView.isBlurred = true
+                self?.loadingView.isLoading = true
+            },
+            completion: nil)
+    }
+    
+    func stopLoading(hideContentView: Bool = false, completion: (() -> Void)? = nil) {
+        guard isLoading else {
+            return
+        }
+        isLoading = false
+        
+        if hideContentView {
+            contentView?.alpha = 0.0
+        }
+        
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut,
+            animations: { [weak self] in
+                self?.loadingView.isLoading = false
+                self?.loadingView.isBlurred = false
+            },
+            completion: { [weak self] (completed) in
+                self?.controlsView.confirmButtonEnabled = true
+                self?.loadingView.removeFromSuperview()
+            })
+        
+    }
     
     func setIsLoading(_ isLoading: Bool, removeBlur: Bool = true, animated: Bool) {
         guard isLoading != self.isLoading && isViewLoaded else {
