@@ -28,6 +28,8 @@ class Images: NSObject {
         case iconHideKeyboard = "icon-hide-keyboard"
         case iconArrowLeft = "icon-arrow-left"
         case iconArrowRight = "icon-arrow-right"
+        case iconStar = "icon-star"
+        case iconStarFilled = "icon-star-filled"
         
         case buttonAskBG = "button-bg-ask"
         case buttonRespondBG = "button-bg-respond"
