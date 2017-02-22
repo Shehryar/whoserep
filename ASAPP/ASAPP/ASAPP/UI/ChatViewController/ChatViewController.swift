@@ -734,8 +734,7 @@ extension ChatViewController {
             return false
             
         case .LeaveFeedback:
-            let leaveFeedbackViewController = ModalCardViewController()
-            leaveFeedbackViewController.contentView = LeaveFeedbackView()
+            let leaveFeedbackViewController = LeaveFeedbackViewController()
             present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
         }

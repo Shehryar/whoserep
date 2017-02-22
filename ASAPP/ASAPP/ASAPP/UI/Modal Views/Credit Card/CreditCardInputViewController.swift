@@ -76,7 +76,6 @@ class CreditCardInputViewController: ModalCardViewController {
                 self?.errorView.text = ASAPP.strings.creditCardNoConnectionError
                 self?.presentationAnimator.updatePresentedViewFrame()
             }
-            
         }
     }
 }

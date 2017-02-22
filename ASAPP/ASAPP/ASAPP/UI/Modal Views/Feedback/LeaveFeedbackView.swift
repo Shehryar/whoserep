@@ -8,37 +8,26 @@
 
 import UIKit
 
-class LeaveFeedbackView: UIView, ModalCardContentView {
-
+class LeaveFeedbackView: ModalCardContentView {
+    
     // MARK: Initialization
     
-    func commonInit() {
-        backgroundColor = UIColor.red
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-
-    // MARK: Layout
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateFrames()
-    }
-    
-    func updateFrames() {
+    override func commonInit() {
+        super.commonInit()
         
+        titleView.text = "Leave Feedback"
+        titleView.image = Images.asappImage(.iconErrorAlertFilled)
     }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: 200)
-    }
+}
 
+// MARK:- Layout
+
+extension LeaveFeedbackView {
+    override func updateFrames() {
+        super.updateFrames()
+    }
+//    
+//    override func sizeThatFits(_ size: CGSize) -> CGSize {
+//        return CGSize(width: size.width, height: 200)
+//    }
 }

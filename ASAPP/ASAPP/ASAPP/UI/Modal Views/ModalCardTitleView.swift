@@ -17,12 +17,17 @@ class ModalCardTitleView: UIView {
         }
     }
     
+    var image: UIImage? {
+        didSet {
+            updateImageView()
+        }
+    }
+    
     let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     let imageWidth: CGFloat = 28
     let imageMargin: CGFloat = 10
     let font = Fonts.latoBoldFont(withSize: 18)
     let textColor = UIColor(red:0.263, green:0.278, blue:0.318, alpha:1.000)
-    let image =  Images.asappImage(.iconCreditCard)?.tinted(UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000))
     
     fileprivate let label = UILabel()
     fileprivate let imageView = UIImageView()
@@ -37,8 +42,8 @@ class ModalCardTitleView: UIView {
         label.lineBreakMode = .byTruncatingTail
         addSubview(label)
         
-        imageView.image = image
         imageView.contentMode = .scaleAspectFit
+        updateImageView()
         addSubview(imageView)
     }
     
@@ -88,5 +93,15 @@ class ModalCardTitleView: UIView {
         let (labelFrame, imageFrame) = getFrames(for: size)
         let height = contentInset.top + max(imageFrame.height, labelFrame.height) + contentInset.bottom
         return CGSize(width: size.width, height: height)
+    }
+    
+    // MARK: Image
+    
+    func updateImageView() {
+        if let image = image {
+            imageView.image = image.tinted(UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000))
+        } else {
+            imageView.image = nil
+        }
     }
 }

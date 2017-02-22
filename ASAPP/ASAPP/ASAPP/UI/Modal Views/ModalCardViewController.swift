@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol ModalCardContentView {
-    func updateFrames()
-}
-
 /**
  Subclassable base class for displaying ocntent as an animated modal view controller.
  
@@ -48,7 +44,7 @@ class ModalCardViewController: UIViewController {
     let contentScrollView = UIScrollView()
     let controlsView = ModalCardControlsView()
     let loadingView = ModalCardLoadingView()
-    let successView = SuccessCheckmarkView()
+    let successView = ModalCardSuccessView()
     let presentationAnimator = ModalCardPresentationAnimator()
     
     // MARK:- Initialization
@@ -57,6 +53,8 @@ class ModalCardViewController: UIViewController {
         modalPresentationStyle = .custom
         transitioningDelegate = presentationAnimator
         
+        contentScrollView.clipsToBounds = false
+        contentScrollView.alwaysBounceVertical = false
         contentScrollView.addSubview(successView)
         
         // Controls

@@ -1,5 +1,5 @@
 //
-//  SuccessCheckmarkView.swift
+//  ModalCardSuccessView.swift
 //  AnimationTestingGround
 //
 //  Created by Mitchell Morgan on 2/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SuccessCheckmarkView: UIView {
+class ModalCardSuccessView: UIView {
 
     var contentInset = UIEdgeInsets(top: 46, left: 30, bottom: 35, right: 30) {
         didSet {

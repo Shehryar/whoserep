@@ -8,14 +8,8 @@
 
 import UIKit
 
-class CreditCardInputView: UIView {
+class CreditCardInputView: ModalCardContentView {
 
-    let contentInset = UIEdgeInsets(top: 26, left: 28, bottom: 32, right: 28)
-    let titleMarginBottom: CGFloat = 20.0
-    let errorLabelMarginBottom: CGFloat = 10.0
-
-    fileprivate let scrollView = UIScrollView()
-    fileprivate let titleView = ModalCardTitleView()
     fileprivate let nameTextView = PlaceholderTextInputView()
     fileprivate let numberTextView = PlaceholderTextInputView()
     fileprivate let expiryTextView = PlaceholderTextInputView()
@@ -23,19 +17,18 @@ class CreditCardInputView: UIView {
     
     // MARK: Initialization
     
-    func commonInit() {
-        clipsToBounds = false
+    override func commonInit() {
+        super.commonInit()
         
-        scrollView.clipsToBounds = false
-        scrollView.alwaysBounceVertical = false
-        addSubview(scrollView)
-        
+        //
         // Title View
+        //
         titleView.text = ASAPP.strings.creditCardViewTitle
-        scrollView.addSubview(titleView)
-
-        // Name
+        titleView.image = Images.asappImage(.iconCreditCard)
         
+        //
+        // Name
+        //
         nameTextView.placeholderText = ASAPP.strings.creditCardPlaceholderName
         nameTextView.autocapitalizationType = .words
         nameTextView.autocorrectionType = .no
@@ -51,10 +44,11 @@ class CreditCardInputView: UIView {
             _ = self?.numberTextView.becomeFirstResponder()
         }
         nameTextView.inputToolbar = nameToolbar
-        scrollView.addSubview(nameTextView)
+        addSubview(nameTextView)
         
+        //
         // Card Number
-        
+        //
         numberTextView.placeholderText = ASAPP.strings.creditCardPlaceholderNumber
         numberTextView.keyboardType = .numberPad
         numberTextView.characterLimit = 19
@@ -69,10 +63,11 @@ class CreditCardInputView: UIView {
             _ = self?.expiryTextView.becomeFirstResponder()
         }
         numberTextView.inputToolbar = numberToolbar
-        scrollView.addSubview(numberTextView)
+        addSubview(numberTextView)
         
+        //
         // Expiration
-        
+        //
         expiryTextView.placeholderText = ASAPP.strings.creditCardPlaceholderExpiry
         expiryTextView.keyboardType = .numberPad
         expiryTextView.returnKeyType = .next
@@ -149,10 +144,11 @@ class CreditCardInputView: UIView {
             _ = self?.cvvTextView.becomeFirstResponder()
         }
         expiryTextView.inputToolbar = expiryToolbar
-        scrollView.addSubview(expiryTextView)
+        addSubview(expiryTextView)
         
+        //
         // CVV
-        
+        //
         cvvTextView.placeholderText = ASAPP.strings.creditCardPlaceholderCVV
         cvvTextView.keyboardType = .numberPad
         cvvTextView.returnKeyType = .done
@@ -168,16 +164,7 @@ class CreditCardInputView: UIView {
             self?.endEditing(true)
         }
         cvvTextView.inputToolbar = cvvToolbar
-        scrollView.addSubview(cvvTextView)
-    }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        addSubview(cvvTextView)
     }
 }
 
@@ -185,14 +172,8 @@ class CreditCardInputView: UIView {
 
 extension CreditCardInputView {
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
-    func updateFrames() {
-        scrollView.frame = bounds
+    override func updateFrames() {
+        super.updateFrames()
         
         let (titleFrame, nameFrame, numberFrame, expFrame, cvvFrame) = getFrames(for: bounds.size)
         
@@ -201,8 +182,6 @@ extension CreditCardInputView {
         numberTextView.frame = numberFrame
         expiryTextView.frame = expFrame
         cvvTextView.frame = cvvFrame
-        
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: cvvFrame.maxY + contentInset.bottom)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -221,8 +200,7 @@ extension CreditCardInputView {
         var contentTop = contentInset.top
         
         // Title
-        let titleHeight = ceil(titleView.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
-        let titleFrame = CGRect(x: contentInset.left, y: contentTop, width: contentWidth, height: titleHeight)
+        let titleFrame = getTitleViewFrameThatFits(size)
         contentTop = titleFrame.maxY + titleMarginBottom
     
         // Name

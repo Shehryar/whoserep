@@ -260,10 +260,9 @@ extension ModalCardPresentationAnimator {
         let updatedBounds = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         if !updatedBounds.equalTo(presentedView.bounds) {
             presentedView.bounds = updatedBounds
-            
-            if let modalVC = presentedViewController as? ResizableModalCardViewController {
-                modalVC.updateFrames()
-            }
+        }
+        if let modalVC = presentedViewController as? ResizableModalCardViewController {
+            modalVC.updateFrames()
         }
         
         let centerX = containerView.bounds.midX
