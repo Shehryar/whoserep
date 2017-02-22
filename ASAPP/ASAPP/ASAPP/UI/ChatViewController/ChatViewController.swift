@@ -732,6 +732,12 @@ extension ChatViewController {
             creditCardViewController.delegate = self
             present(creditCardViewController, animated: true, completion: nil)
             return false
+            
+        case .LeaveFeedback:
+            let leaveFeedbackViewController = ModalCardViewController()
+            leaveFeedbackViewController.contentView = LeaveFeedbackView()
+            present(leaveFeedbackViewController, animated: true, completion: nil)
+            return false
         }
     }
     

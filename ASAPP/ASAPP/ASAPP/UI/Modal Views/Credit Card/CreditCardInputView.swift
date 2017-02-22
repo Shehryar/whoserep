@@ -43,7 +43,7 @@ class CreditCardInputView: UIView {
         nameTextView.onReturn = { [weak self] in
             _ = self?.numberTextView.becomeFirstResponder()
         }
-        let nameToolbar = ActionButtonToolbar()
+        let nameToolbar = KeyboardActionButtonToolbar()
         nameToolbar.onHideKeyboardTap = { [weak self] in
             self?.endEditing(true)
         }
@@ -58,7 +58,7 @@ class CreditCardInputView: UIView {
         numberTextView.placeholderText = ASAPP.strings.creditCardPlaceholderNumber
         numberTextView.keyboardType = .numberPad
         numberTextView.characterLimit = 19
-        let numberToolbar = ActionButtonToolbar()
+        let numberToolbar = KeyboardActionButtonToolbar()
         numberToolbar.onHideKeyboardTap = { [weak self] in
             self?.endEditing(true)
         }
@@ -138,7 +138,7 @@ class CreditCardInputView: UIView {
                 previousExpiryText = text
             }
         }
-        let expiryToolbar = ActionButtonToolbar()
+        let expiryToolbar = KeyboardActionButtonToolbar()
         expiryToolbar.onHideKeyboardTap = { [weak self] in
             self?.endEditing(true)
         }
@@ -157,7 +157,7 @@ class CreditCardInputView: UIView {
         cvvTextView.keyboardType = .numberPad
         cvvTextView.returnKeyType = .done
         cvvTextView.characterLimit = 4
-        let cvvToolbar = ActionButtonToolbar()
+        let cvvToolbar = KeyboardActionButtonToolbar()
         cvvToolbar.onHideKeyboardTap = { [weak self] in
             self?.endEditing(true)
         }

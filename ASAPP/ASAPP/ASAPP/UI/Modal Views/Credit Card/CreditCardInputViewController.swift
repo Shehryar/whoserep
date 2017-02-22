@@ -187,9 +187,9 @@ class CreditCardInputViewController: UIViewController {
     }
 }
 
-// MARK:- ModalCardViewController
+// MARK:- ResizableModalCardViewController
 
-extension CreditCardInputViewController: ModalCardViewController {
+extension CreditCardInputViewController: ResizableModalCardViewController {
     
     func getControlsViewHeight(for size: CGSize) -> CGFloat {
         return ceil(controlsView.sizeThatFits(CGSize(width: size.width, height: 0)).height)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ModalCardViewController {
+protocol ResizableModalCardViewController {
     func viewSizeThatFits(_ size: CGSize) -> CGSize
     func updateFrames()
 }
@@ -253,7 +253,7 @@ extension ModalCardPresentationAnimator {
         let viewWidth = containerView.bounds.width - 2 * viewInsetSides
         let maxHeight = containerView.bounds.height - viewInsetTop - viewInsetBottom - keyboardHeight
         var viewHeight = maxHeight
-        if let modalVC = presentedViewController as? ModalCardViewController {
+        if let modalVC = presentedViewController as? ResizableModalCardViewController {
             viewHeight = min(maxHeight, modalVC.viewSizeThatFits(CGSize(width: viewWidth, height: maxHeight)).height)
         }
                 
@@ -261,7 +261,7 @@ extension ModalCardPresentationAnimator {
         if !updatedBounds.equalTo(presentedView.bounds) {
             presentedView.bounds = updatedBounds
             
-            if let modalVC = presentedViewController as? ModalCardViewController {
+            if let modalVC = presentedViewController as? ResizableModalCardViewController {
                 modalVC.updateFrames()
             }
         }
