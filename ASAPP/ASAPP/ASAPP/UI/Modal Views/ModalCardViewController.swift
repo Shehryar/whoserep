@@ -39,7 +39,7 @@ class ModalCardViewController: UIViewController {
         }
     }
     
-    var shouldCoverScreenWhenBackgrounded = false
+    var shouldHideContentWhenBackgrounded = false
     
     fileprivate(set) var isLoading: Bool = false
     fileprivate(set) var isShowingSuccessView: Bool = false
@@ -56,7 +56,7 @@ class ModalCardViewController: UIViewController {
     func commonInit() {
         modalPresentationStyle = .custom
         transitioningDelegate = presentationAnimator
-        
+                
         contentScrollView.addSubview(successView)
         
         // Controls
@@ -237,12 +237,14 @@ extension ModalCardViewController: ResizableModalCardViewController {
 extension ModalCardViewController {
     
     func hideContentWhileBackgrounded() {
-        contentScrollView.isHidden = true
+        if shouldHideContentWhenBackgrounded {
+            contentView?.alpha = 0.0
+        }
     }
     
     func showContent() {
         if !isShowingSuccessView {
-            contentScrollView.isHidden = false
+            contentView?.alpha = 1.0
         }
     }
 }
