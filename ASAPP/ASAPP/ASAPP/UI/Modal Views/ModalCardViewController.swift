@@ -46,7 +46,7 @@ class ModalCardViewController: UIViewController {
     
     let errorView = ModalCardErrorView()
     let contentScrollView = UIScrollView()
-    let controlsView = CancelConfirmControlsView()
+    let controlsView = ModalCardControlsView()
     let loadingView = ModalCardLoadingView()
     let successView = SuccessCheckmarkView()
     let presentationAnimator = ModalCardPresentationAnimator()
@@ -56,6 +56,25 @@ class ModalCardViewController: UIViewController {
     func commonInit() {
         modalPresentationStyle = .custom
         transitioningDelegate = presentationAnimator
+        
+        contentScrollView.addSubview(successView)
+        
+        // Controls
+        controlsView.onCancelButtonTap = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
+        controlsView.onConfirmButtonTap = { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if strongSelf.isShowingSuccessView {
+                strongSelf.hideSuccessView()
+            } else {
+                strongSelf.showSuccessView()
+            }
+        }
         
         // Notifications
         NotificationCenter.default
@@ -105,6 +124,10 @@ class ModalCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = UIColor(red:0.973, green:0.969, blue:0.969, alpha:1)
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5.0
         
         view.addSubview(contentScrollView)
         view.addSubview(errorView)
@@ -135,15 +158,14 @@ extension ModalCardViewController: ResizableModalCardViewController {
         return ceil(controlsView.sizeThatFits(CGSize(width: size.width, height: 0)).height)
     }
     
-    private func getContentViewHeight(for size: CGSize) -> CGFloat {
+    private func getSuccessViewHeight(for size: CGSize) -> CGFloat {
+        return ceil(successView.sizeThatFits(CGSize(width: size.width, height: size.height)).height)
+    }
+    
+    private func getContentViewHeight(for width: CGFloat) -> CGFloat {
         var contentHeight: CGFloat = 0.0
-        if isShowingSuccessView {
-            contentHeight = ceil(successView.sizeThatFits(CGSize(width: size.width, height: size.height)).height)
-        } else if let contentView = contentView {
-            contentHeight = ceil(contentView.sizeThatFits(CGSize(width: size.width, height: size.height)).height)
-        }
-        if size.height > 0 && contentHeight > size.height {
-            contentHeight = size.height
+        if let contentView = contentView {
+            contentHeight = ceil(contentView.sizeThatFits(CGSize(width: width, height: 0)).height)
         }
         return contentHeight
     }
@@ -151,33 +173,41 @@ extension ModalCardViewController: ResizableModalCardViewController {
     // MARK: Public API
     
     func updateFrames() {
-        let maxHeight = view.bounds.height
-        let errorHeight = getErrorViewHeight(for: view.bounds.size)
-        let controlsHeight = getControlsViewHeight(for: view.bounds.size)
-        let maxContentHeight = maxHeight - controlsHeight - errorHeight
-        let contentHeight = getContentViewHeight(for: CGSize(width: view.bounds.width, height: maxContentHeight))
         
         // Error View
+        let errorHeight = getErrorViewHeight(for: view.bounds.size)
         errorView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: errorHeight)
         
         // Controls View
+        let controlsHeight = getControlsViewHeight(for: view.bounds.size)
         let controlsTop = view.bounds.height - controlsHeight
         controlsView.frame = CGRect(x: 0, y: controlsTop, width: view.bounds.width, height: controlsHeight)
         
-        // Content View
-        let contentViewFrame = CGRect(x: 0, y: errorHeight, width: view.bounds.width, height: contentHeight)
-        contentView?.frame = contentViewFrame
-        if let contentView = contentView as? ModalCardContentView {
-            contentView.updateFrames()
-        }
-        
-        // Success View
-        if successView.transform.isIdentity {
-            successView.frame = contentViewFrame
-        }
+        // Content Scroll View
+        let contentScrollViewTop = errorView.frame.maxY
+        let contentScrollViewHeight = controlsView.frame.minY - contentScrollViewTop
+        contentScrollView.frame = CGRect(x: 0, y: contentScrollViewTop,
+                                         width: view.bounds.width, height: contentScrollViewHeight)
         
         // Loading View
-        loadingView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: errorHeight + contentHeight)
+        loadingView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: controlsView.frame.minY)
+        
+        // Content View
+        let contentViewHeight = getContentViewHeight(for: view.bounds.width)
+        contentView?.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: contentViewHeight)
+    
+        // Success View
+        var successViewHeight = contentViewHeight
+        if successView.transform.isIdentity {
+            successViewHeight = getSuccessViewHeight(for: view.bounds.size)
+            successView.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: successViewHeight)
+        }
+    
+        let contentHeight = isShowingSuccessView ? successViewHeight : contentViewHeight
+        contentScrollView.contentSize = CGSize(width: contentScrollView.bounds.width, height: contentHeight)
+        
+        successView.alpha = isShowingSuccessView ? 1.0 : 0.0
+        contentView?.alpha = isShowingSuccessView ? 0.0 : 1.0
     }
     
     func viewSizeThatFits(_ size: CGSize) -> CGSize {
@@ -185,14 +215,19 @@ extension ModalCardViewController: ResizableModalCardViewController {
         
         let errorHeight = getErrorViewHeight(for: size)
         let controlsHeight = getControlsViewHeight(for: size)
-        let maxContentHeight = maxHeight - controlsHeight - errorHeight
-        let contentHeight = getContentViewHeight(for: CGSize(width: size.width, height: maxContentHeight))
         
-        var totalHeight = errorHeight + controlsHeight + contentHeight
-        if size.height > 0 && size.height < totalHeight {
-            totalHeight = size.height
+        let maxContentHeight = max(0, maxHeight - controlsHeight - errorHeight)
+        var contentHeight: CGFloat = 0.0
+        if isShowingSuccessView {
+            contentHeight = getSuccessViewHeight(for: size)
+        } else {
+            contentHeight = getContentViewHeight(for: size.width)
+        }
+        if contentHeight > maxContentHeight {
+            contentHeight = maxContentHeight
         }
         
+        let totalHeight = errorHeight + controlsHeight + contentHeight
         return CGSize(width: size.width, height: totalHeight)
     }
 }
@@ -264,7 +299,7 @@ extension ModalCardViewController {
         }
         isShowingSuccessView = true
         
-        view.addSubview(successView)
+        contentScrollView.bringSubview(toFront: successView)
         
         successView.alpha = 0.0
         successView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
@@ -297,13 +332,9 @@ extension ModalCardViewController {
         
         presentationAnimator.updatePresentedViewFrame(
             additionalUpdates: { [weak self] in
-                self?.successView.alpha = 0.0
                 self?.controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
                 self?.controlsView.cancelButtonHidden = false
                 self?.controlsView.updateFrames()
-            },
-            completion: { [weak self] (completed) in
-                self?.successView.removeFromSuperview()
-        })
+            }, completion: nil)
     }
 }

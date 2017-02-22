@@ -169,7 +169,7 @@
 		302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */; };
 		302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */; };
 		302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A21E5DF090007C522A /* ModalCardViewController.swift */; };
-		302A20A91E5DF110007C522A /* CancelConfirmControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A41E5DF110007C522A /* CancelConfirmControlsView.swift */; };
+		302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A41E5DF110007C522A /* ModalCardControlsView.swift */; };
 		302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A51E5DF110007C522A /* ModalCardErrorView.swift */; };
 		302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */; };
 		302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A71E5DF110007C522A /* ModalCardTitleView.swift */; };
@@ -443,7 +443,7 @@
 		302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackViewController.swift; sourceTree = "<group>"; };
 		302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackView.swift; sourceTree = "<group>"; };
 		302A20A21E5DF090007C522A /* ModalCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardViewController.swift; sourceTree = "<group>"; };
-		302A20A41E5DF110007C522A /* CancelConfirmControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelConfirmControlsView.swift; sourceTree = "<group>"; };
+		302A20A41E5DF110007C522A /* ModalCardControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardControlsView.swift; sourceTree = "<group>"; };
 		302A20A51E5DF110007C522A /* ModalCardErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardErrorView.swift; sourceTree = "<group>"; };
 		302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardPresentationAnimator.swift; sourceTree = "<group>"; };
 		302A20A71E5DF110007C522A /* ModalCardTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTitleView.swift; sourceTree = "<group>"; };
@@ -1021,7 +1021,7 @@
 			children = (
 				302A20A21E5DF090007C522A /* ModalCardViewController.swift */,
 				302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */,
-				302A20A41E5DF110007C522A /* CancelConfirmControlsView.swift */,
+				302A20A41E5DF110007C522A /* ModalCardControlsView.swift */,
 				302A20A51E5DF110007C522A /* ModalCardErrorView.swift */,
 				302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */,
 				302A20A71E5DF110007C522A /* ModalCardTitleView.swift */,
@@ -1528,7 +1528,7 @@
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				3025DA1D1E539B9E004149D7 /* SRSLabelValueItemView.swift in Sources */,
 				3025D9EC1E5371F3004149D7 /* SRSNestedItemListParser.swift in Sources */,
-				302A20A91E5DF110007C522A /* CancelConfirmControlsView.swift in Sources */,
+				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,
 				306619181D9458F50092B4C5 /* SDWebImageDownloaderOperation.m in Sources */,
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,

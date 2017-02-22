@@ -19,7 +19,7 @@ class CreditCardInputViewController: UIViewController {
     
     let errorView = ModalCardErrorView()
     let creditCardView = CreditCardInputView()
-    let controlsView = CancelConfirmControlsView()
+    let controlsView = ModalCardControlsView()
     let loadingView = UIVisualEffectView(effect: nil)
     let loadingVibrancyView = UIVisualEffectView(effect: nil)
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)

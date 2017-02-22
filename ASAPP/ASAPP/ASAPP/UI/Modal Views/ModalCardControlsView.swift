@@ -1,5 +1,5 @@
 //
-//  CancelConfirmControlsView.swift
+//  ModalCardControlsView.swift
 //  AnimationTestingGround
 //
 //  Created by Mitchell Morgan on 2/10/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CancelConfirmControlsView: UIView {
+class ModalCardControlsView: UIView {
 
     var onCancelButtonTap: (() -> Void)?
     var onConfirmButtonTap: (() -> Void)?
@@ -72,13 +72,13 @@ class CancelConfirmControlsView: UIView {
         
         styleButton(cancelButton, withText: cancelText, font: cancelFont)
         cancelButton.addTarget(self,
-                               action: #selector(CancelConfirmControlsView.didTapCancelButton),
+                               action: #selector(ModalCardControlsView.didTapCancelButton),
                                for: .touchUpInside)
         addSubview(cancelButton)
         
         styleButton(confirmButton, withText: confirmText, font: confirmFont)
         confirmButton.addTarget(self,
-                               action: #selector(CancelConfirmControlsView.didTapConfirmButton),
+                               action: #selector(ModalCardControlsView.didTapConfirmButton),
                                for: .touchUpInside)
         addSubview(confirmButton)
         
