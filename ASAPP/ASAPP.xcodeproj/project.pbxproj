@@ -45,6 +45,11 @@
 		28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B41D888FFD00139C7D /* map-tech@2x.png */; };
 		28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B51D888FFD00139C7D /* map-tech@3x.png */; };
 		28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */; };
+		28C008931E5E8AE300260883 /* wow-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088E1E5E8AE300260883 /* wow-1.wav */; };
+		28C008941E5E8AE300260883 /* wow-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088F1E5E8AE300260883 /* wow-2.wav */; };
+		28C008951E5E8AE300260883 /* wow-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008901E5E8AE300260883 /* wow-3.wav */; };
+		28C008961E5E8AE300260883 /* wow-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008911E5E8AE300260883 /* wow-4.wav */; };
+		28C008971E5E8AE300260883 /* wow-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008921E5E8AE300260883 /* wow-5.wav */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
@@ -327,6 +332,11 @@
 		28AEC0B41D888FFD00139C7D /* map-tech@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@2x.png"; sourceTree = "<group>"; };
 		28AEC0B51D888FFD00139C7D /* map-tech@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@3x.png"; sourceTree = "<group>"; };
 		28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItem.swift; sourceTree = "<group>"; };
+		28C0088E1E5E8AE300260883 /* wow-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-1.wav"; sourceTree = "<group>"; };
+		28C0088F1E5E8AE300260883 /* wow-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-2.wav"; sourceTree = "<group>"; };
+		28C008901E5E8AE300260883 /* wow-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-3.wav"; sourceTree = "<group>"; };
+		28C008911E5E8AE300260883 /* wow-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-4.wav"; sourceTree = "<group>"; };
+		28C008921E5E8AE300260883 /* wow-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-5.wav"; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
@@ -976,6 +986,11 @@
 			isa = PBXGroup;
 			children = (
 				3023A5C21E578DEA003BE6AB /* chat-notification.wav */,
+				28C0088E1E5E8AE300260883 /* wow-1.wav */,
+				28C0088F1E5E8AE300260883 /* wow-2.wav */,
+				28C008901E5E8AE300260883 /* wow-3.wav */,
+				28C008911E5E8AE300260883 /* wow-4.wav */,
+				28C008921E5E8AE300260883 /* wow-5.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -1408,6 +1423,7 @@
 				30BD878E1DC00C350008042D /* bill-past-due.json in Resources */,
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				302472A31D89B7680005A6C9 /* XFINITYSans-Reg.otf in Resources */,
+				28C008971E5E8AE300260883 /* wow-5.wav in Resources */,
 				302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */,
 				30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
@@ -1417,6 +1433,7 @@
 				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
 				3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */,
 				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
+				28C008961E5E8AE300260883 /* wow-4.wav in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
@@ -1432,6 +1449,7 @@
 				3025D9B41E527FEB004149D7 /* icon-hide-keyboard@3x.png in Resources */,
 				305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */,
 				30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */,
+				28C008941E5E8AE300260883 /* wow-2.wav in Resources */,
 				30756B331E53A67D00D78E8E /* icon-credit-card-medium@2x.png in Resources */,
 				285F7AE61DA9AD3B008C2EF6 /* button-bg-close@3x.png in Resources */,
 				3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */,
@@ -1441,6 +1459,7 @@
 				3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */,
 				285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */,
 				3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */,
+				28C008951E5E8AE300260883 /* wow-3.wav in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
@@ -1452,6 +1471,7 @@
 				3025D9A61E527FCC004149D7 /* icon-error-alert-filled.png in Resources */,
 				285F7AD01DA9A526008C2EF6 /* SprintSans-Black.ttf in Resources */,
 				307301BA1DAE90460002CF3B /* predictive-response.json in Resources */,
+				28C008931E5E8AE300260883 /* wow-1.wav in Resources */,
 				285F7AD41DA9A526008C2EF6 /* SprintSans-Regular.ttf in Resources */,
 				302268501D80690500EC4FB1 /* icon-loader@2x.png in Resources */,
 				301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */,
