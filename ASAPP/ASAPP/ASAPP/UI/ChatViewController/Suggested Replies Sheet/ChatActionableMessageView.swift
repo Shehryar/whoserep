@@ -177,8 +177,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             cell.label.setAttributedText(buttonItem.title.uppercased(),
                                          textStyle: .srsButton,
-                                         color: ASAPP.styles.buttonColor,
-                                         styles: ASAPP.styles)
+                                         color: ASAPP.styles.buttonColor)
             cell.imageTintColor = ASAPP.styles.buttonColor
             
             if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||

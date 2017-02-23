@@ -51,8 +51,7 @@ class ChatBubbleCell: UITableViewCell {
                 let timestamp = dateFormatter.string(from: eventDate as Date)
                 detailLabel.setAttributedText(timestamp,
                                               textStyle: .chatTimestamp,
-                                              color: ASAPP.styles.foregroundColor2,
-                                              styles: ASAPP.styles)
+                                              color: ASAPP.styles.foregroundColor2)
             } else {
                 detailLabel.text = nil
             }

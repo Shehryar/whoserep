@@ -47,8 +47,7 @@ class PredictiveButtonsView: UIView {
     
         otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
                                      textStyle: .predictiveDetailLabel,
-                                     color: ASAPP.styles.askViewDetailLabelColor,
-                                     styles: ASAPP.styles)
+                                     color: ASAPP.styles.askViewDetailLabelColor)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -60,7 +59,7 @@ class PredictiveButtonsView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        otherLabel.updateFont(for: .predictiveDetailLabel, styles: ASAPP.styles)
+        otherLabel.updateFont(for: .predictiveDetailLabel)
         
         for button in relatedButtons {
             button.font = ASAPP.styles.font(for: .predictiveButton)

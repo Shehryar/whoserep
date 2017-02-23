@@ -11,7 +11,7 @@ import UIKit
 class FeedbackRatingView: UIView {
 
     let contentInset = UIEdgeInsets.zero
-    let starSpacing: CGFloat = 12.0
+    let starSpacing: CGFloat = 18.0
     
     fileprivate(set) var currentRating: Int?
     
@@ -51,7 +51,7 @@ class FeedbackRatingView: UIView {
     
         if size.height > 0 {
             let maxStarHeight = size.height - contentInset.top - contentInset.bottom
-            starSize = min(starSize, maxStarHeight)
+            starSize = floor(min(starSize, maxStarHeight))
         }
         
         return CGSize(width: starSize, height: starSize)

@@ -18,13 +18,13 @@ class StarView: UIView {
         }
     }
     
-    var defaultTintColor: UIColor = UIColor(red:0.243, green:0.635, blue:0.851, alpha:1.000) {
+    var defaultTintColor: UIColor = UIColor(red:1.00, green:0.73, blue:0.00, alpha:1.0) {
         didSet {
             updateImage()
         }
     }
     
-    var filledTintColor: UIColor = UIColor(red:0.243, green:0.635, blue:0.851, alpha:1.000) {
+    var filledTintColor: UIColor = UIColor(red:1.00, green:0.73, blue:0.00, alpha:1.0) {
         didSet {
             updateImage()
         }

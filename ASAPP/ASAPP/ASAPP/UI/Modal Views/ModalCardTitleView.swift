@@ -12,8 +12,7 @@ class ModalCardTitleView: UIView {
 
     var text: String? {
         didSet {
-            label.text = text
-            setNeedsLayout()
+            updateText()
         }
     }
     
@@ -41,6 +40,8 @@ class ModalCardTitleView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         addSubview(label)
+        
+        updateText()
         
         imageView.contentMode = .scaleAspectFit
         updateImageView()
@@ -96,6 +97,11 @@ class ModalCardTitleView: UIView {
     }
     
     // MARK: Image
+    
+    func updateText() {
+        label.setAttributedText(text, textStyle: .modalTitle, color: textColor)
+        setNeedsLayout()
+    }
     
     func updateImageView() {
         if let image = image {

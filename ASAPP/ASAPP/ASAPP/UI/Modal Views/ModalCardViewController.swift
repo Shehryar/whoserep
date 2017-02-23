@@ -214,9 +214,8 @@ extension ModalCardViewController: ResizableModalCardViewController {
         contentView?.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: contentViewHeight)
     
         // Success View
-        var successViewHeight = contentViewHeight
+        var successViewHeight = getSuccessViewHeight(for: view.bounds.size)
         if successView.transform.isIdentity {
-            successViewHeight = getSuccessViewHeight(for: view.bounds.size)
             successView.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: successViewHeight)
         }
     
@@ -357,7 +356,7 @@ extension ModalCardViewController {
 
 extension ModalCardViewController {
     
-    func showSuccessView() {
+    func showSuccessView(buttonText: String? = nil) {
         guard !isShowingSuccessView else {
             return
         }
@@ -370,7 +369,7 @@ extension ModalCardViewController {
         successView.alpha = 1.0
         
         presentationAnimator.updatePresentedViewFrame(additionalUpdates: { [weak self] in
-            self?.controlsView.confirmText = ASAPP.strings.creditCardFinishButton
+            self?.controlsView.confirmText = buttonText ?? ASAPP.strings.modalViewDoneButton
             self?.controlsView.cancelButtonHidden = true
             self?.controlsView.updateFrames()
             }, completion: {
@@ -396,7 +395,7 @@ extension ModalCardViewController {
         
         presentationAnimator.updatePresentedViewFrame(
             additionalUpdates: { [weak self] in
-                self?.controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
+                self?.controlsView.confirmText = ASAPP.strings.modalViewSubmitButton
                 self?.controlsView.cancelButtonHidden = false
                 self?.controlsView.updateFrames()
             }, completion: nil)

@@ -48,8 +48,7 @@ class SRSLabelItemView: UIView {
         let textColor = labelItem?.color ?? ASAPP.styles.foregroundColor2
         label.setAttributedText(labelItem?.text,
                                 textStyle: .srsLabel,
-                                color: textColor,
-                                styles: ASAPP.styles)
+                                color: textColor)
         
         setNeedsLayout()
     }

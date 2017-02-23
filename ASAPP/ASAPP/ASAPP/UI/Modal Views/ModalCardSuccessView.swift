@@ -22,7 +22,11 @@ class ModalCardSuccessView: UIView {
     
     var font: UIFont = Fonts.latoBoldFont(withSize: 24)
     
-    var text: String = ASAPP.strings.creditCardSuccessText
+    var text: String? {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     var primaryColor: UIColor = UIColor(red:0.192, green:0.208, blue:0.247, alpha:1.000) {
         didSet {
@@ -45,6 +49,7 @@ class ModalCardSuccessView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
+        label.clipsToBounds = true
         addSubview(label)
     }
     override init(frame: CGRect) {
@@ -60,36 +65,47 @@ class ModalCardSuccessView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        label.attributedText = NSAttributedString(string: text, attributes: [
-            NSFontAttributeName : font,
-            NSForegroundColorAttributeName : primaryColor,
-            NSKernAttributeName : 1
-            ])
+        if let text = text {
+            label.attributedText = NSAttributedString(string: text, attributes: [
+                NSFontAttributeName : font,
+                NSForegroundColorAttributeName : primaryColor,
+                NSKernAttributeName : 1
+                ])
+        } else {
+            label.attributedText = nil
+        }
         
         setNeedsLayout()
     }
 
     // MARK: Layout
     
+    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
+        let imageLeft = floor((size.width - imageSize) / 2.0)
+        let imageFrame = CGRect(x: imageLeft, y: contentInset.top, width: imageSize, height: imageSize)
+        
+        let labelWidth = size.width - contentInset.left - contentInset.right
+        let labelHeight = ceil(label.sizeThatFits(CGSize(width: labelWidth, height: 0)).height)
+        var labelTop = imageFrame.maxY
+        if labelHeight > 0 {
+            labelTop += imageMarginBottom
+        }
+        let labelFrame = CGRect(x: contentInset.left, y: labelTop, width: labelWidth, height: labelHeight)
+        
+        return (imageFrame, labelFrame)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let labelWidth = bounds.width - contentInset.left - contentInset.right
-        let labelHeight = ceil(label.sizeThatFits(CGSize(width: labelWidth, height: 0)).height)
-        let contentHeight = imageSize + imageMarginBottom + labelHeight
-        
-        let imageTop = floor((bounds.height - contentHeight) / 2.0)
-        let imageLeft = floor((bounds.width - imageSize) / 2.0)
-        imageView.frame = CGRect(x: imageLeft, y: imageTop, width: imageSize, height: imageSize)
-        
-        let labelTop = imageView.frame.maxY + imageMarginBottom
-        label.frame = CGRect(x: contentInset.left, y: labelTop, width: labelWidth, height: labelHeight)
+        let (imageFrame, labelFrame) = getFramesThatFit(bounds.size)
+        imageView.frame = imageFrame
+        label.frame = labelFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let labelHeight = ceil(label.sizeThatFits(CGSize(width: size.width - contentInset.left - contentInset.right, height: 0)).height)
-        let height = contentInset.top + imageSize + imageMarginBottom + labelHeight + contentInset.bottom
-        
+        let (imageFrame, labelFrame) = getFramesThatFit(bounds.size)
+        let height = labelFrame.maxY + contentInset.bottom
         return CGSize(width: size.width, height: height)
     }
 }

@@ -27,6 +27,10 @@ class CreditCardInputViewController: ModalCardViewController {
         contentView = creditCardView
         shouldHideContentWhenBackgrounded = true
         
+        controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
+        
+//        successView.text = ASAPP.strings.creditCardSuccessText
+        
         // Controls
         
         controlsView.onConfirmButtonTap = { [weak self] in
@@ -63,7 +67,7 @@ class CreditCardInputViewController: ModalCardViewController {
             let requestSent = delegate.uploadCreditCard(creditCard: creditCard, completion: { (response: CreditCardResponse) in
                 if response.success {
                     self?.stopLoading(hideContentView: true)
-                    self?.showSuccessView()
+                    self?.showSuccessView(buttonText: ASAPP.strings.creditCardFinishButton)
                 } else {
                     self?.stopLoading()
                     self?.errorView.text = response.errorMessage ?? CreditCardResponse.DEFAULT_ERROR_MESSAGE

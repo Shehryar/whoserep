@@ -35,7 +35,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         isOpaque = true
         
         timeLabel.backgroundColor = ASAPP.styles.backgroundColor1
-        timeLabel.updateFont(for: .chatTimestamp, styles: ASAPP.styles)
+        timeLabel.updateFont(for: .chatTimestamp)
         timeLabel.textColor = ASAPP.styles.foregroundColor2
         timeLabel.textAlignment = .center
         contentView.addSubview(timeLabel)
@@ -69,8 +69,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         let timestamp = timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds))
         timeLabel.setAttributedText(timestamp,
                                     textStyle: .chatTimestamp,
-                                    color: ASAPP.styles.foregroundColor2,
-                                    styles: ASAPP.styles)
+                                    color: ASAPP.styles.foregroundColor2)
         setNeedsLayout()
     }
     

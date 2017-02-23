@@ -16,5 +16,6 @@ class LeaveFeedbackViewController: ModalCardViewController {
         super.commonInit()
         
         contentView = feedbackView
+        
     }
 }
