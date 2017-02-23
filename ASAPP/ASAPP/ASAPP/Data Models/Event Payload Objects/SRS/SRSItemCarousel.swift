@@ -10,7 +10,7 @@ import UIKit
 
 class SRSItemCarousel: NSObject, JSONObject {
     
-    var message: String
+    var messageText: String
     
     var pages: [SRSItemList]
     
@@ -25,8 +25,8 @@ class SRSItemCarousel: NSObject, JSONObject {
     
     // MARK: Init
     
-    init(message: String, pages: [SRSItemList]) {
-        self.message = message
+    init(messageText: String, pages: [SRSItemList]) {
+        self.messageText = messageText
         self.pages = pages
         super.init()
     }
@@ -38,7 +38,7 @@ class SRSItemCarousel: NSObject, JSONObject {
             return nil
         }
 
-        guard let message = json["message"] as? String else {
+        guard let messageText = json["message"] as? String else {
             return nil
         }
         
@@ -51,7 +51,7 @@ class SRSItemCarousel: NSObject, JSONObject {
             }
             
             if pages.count > 0 {
-                let itemCarousel = SRSItemCarousel(message: message, pages: pages)
+                let itemCarousel = SRSItemCarousel(messageText: messageText, pages: pages)
                 return itemCarousel
             }
         }

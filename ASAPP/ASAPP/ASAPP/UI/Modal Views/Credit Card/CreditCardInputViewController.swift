@@ -43,7 +43,6 @@ class CreditCardInputViewController: ModalCardViewController {
                 return
             }
             
-            
             let creditCard = strongSelf.creditCardView.getCurrentCreditCard()
             
             if let invalidFields = creditCard.getInvalidFields() {

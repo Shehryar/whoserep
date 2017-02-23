@@ -10,6 +10,10 @@ import UIKit
 
 class ChatTypingIndicatorCell: ChatBubbleCell {
 
+    override var isReply: Bool {
+        return true
+    }
+    
     let loadingView = BouncingBallsLoadingView()
     
     // MARK: Init
@@ -20,10 +24,8 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
         loadingView.tintColor = ASAPP.styles.replyMessageTextColor.withAlphaComponent(0.6)
         bubbleView.addSubview(loadingView)
         
-        bubbleView.clipsToBounds = true
-        isReply = true
-        
         layoutSubviews()
+        
     }
         
     // MARK: Layout
@@ -47,6 +49,7 @@ class ChatTypingIndicatorCell: ChatBubbleCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         loadingView.endAnimating()
     }
 }

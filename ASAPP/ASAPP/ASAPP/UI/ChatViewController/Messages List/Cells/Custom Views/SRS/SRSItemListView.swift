@@ -22,6 +22,8 @@ class SRSItemListView: UIView {
         }
     }
     
+    var event: Event?
+    
     weak var delegate: SRSItemListViewDelegate?
     
     private let itemListView = SRSItemListContentView()

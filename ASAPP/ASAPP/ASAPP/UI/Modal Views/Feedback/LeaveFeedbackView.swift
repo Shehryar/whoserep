@@ -62,11 +62,7 @@ extension LeaveFeedbackView {
         let detailFrame = CGRect(x: contentInset.left, y: detailTop, width: contentWidth, height: detailHeight)
         
         let textViewTop = detailFrame.maxY + detailMarginBottom
-        var textViewHeight = defaultTextViewHeight
-        if size.height > 0 {
-            let maxTextViewHeight = size.height - contentInset.bottom - detailFrame.maxY - detailMarginBottom
-            textViewHeight = min(maxTextViewHeight, defaultTextViewHeight)
-        }
+        let textViewHeight = defaultTextViewHeight
         let textViewFrame = CGRect(x: contentInset.left, y: textViewTop, width: contentWidth, height: textViewHeight)
         
         return (titleFrame, ratingFrame, detailFrame, textViewFrame)

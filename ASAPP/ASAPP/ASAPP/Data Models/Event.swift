@@ -151,6 +151,14 @@ class Event: NSObject {
     var eventDate: Date {
         return Date(timeIntervalSince1970: eventTimeInSeconds)
     }
+    var messageText: String? {
+        switch eventType {
+        case .textMessage: return textMessage?.text
+        case .pictureMessage: return nil
+            
+        default: return srsResponse?.messageText
+        }
+    }
     
     // MARK: Lazy Properties
     
@@ -298,6 +306,12 @@ class Event: NSObject {
             return nil
         }
         return json["ParentEventLogSeq"] as? Int
+    }()
+    
+    lazy var sendTimeString: String? = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = self.eventDate.dateFormatForMostRecent()
+        return dateFormatter.string(from: self.eventDate as Date)
     }()
     
     // MARK:- Initialization

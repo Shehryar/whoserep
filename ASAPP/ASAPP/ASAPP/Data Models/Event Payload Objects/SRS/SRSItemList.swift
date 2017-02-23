@@ -19,11 +19,11 @@ class SRSItemList: NSObject, JSONObject {
     
     // MARK: Readonly Properties 
     
-    var title: String? {
-        return titleItem?.text
+    var messageText: String? {
+        return messageTextItem?.text
     }
     
-    var titleItem: SRSLabelItem? {
+    var messageTextItem: SRSLabelItem? {
         return items.first as? SRSLabelItem
     }
     

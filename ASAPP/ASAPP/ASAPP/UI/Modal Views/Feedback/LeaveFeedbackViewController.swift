@@ -8,8 +8,19 @@
 
 import UIKit
 
+protocol LeaveFeedbackViewControllerDelegate: class {
+    func sendFeedback(rating: Int,
+                      feedback: String?,
+                      issueId: Int,
+                      completion: @escaping ((CreditCardResponse) -> Void)) -> Bool
+}
+
 class LeaveFeedbackViewController: ModalCardViewController {
 
+    weak var delegate: LeaveFeedbackViewControllerDelegate?
+    
+    var issueId: Int?
+    
     fileprivate let feedbackView = LeaveFeedbackView()
     
     override func commonInit() {

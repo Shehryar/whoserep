@@ -9,7 +9,7 @@
 import UIKit
 
 enum MessageListPosition {
-    case `default`
+    case none
     case firstOfMany
     case middleOfMany
     case lastOfMany
@@ -18,30 +18,6 @@ enum MessageListPosition {
 class ChatBubbleCell: UITableViewCell {
 
     // MARK: Public Properties
-    
-    var isReply: Bool = false {
-        didSet {
-            updateFontsAndColors()
-            updateBubbleCorners()
-            setNeedsLayout()
-        }
-    }
-    
-    var listPosition: MessageListPosition = .default {
-        didSet {
-            if oldValue != listPosition {
-                updateBubbleCorners()
-            }
-        }
-    }
-    
-    var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
-        didSet {
-            if oldValue != contentInset {
-                setNeedsLayout()
-            }
-        }
-    }
     
     var event: Event? {
         didSet {
@@ -59,9 +35,13 @@ class ChatBubbleCell: UITableViewCell {
         }
     }
     
-    var detailLabelMargin: CGFloat = 5.0 {
+    var listPosition: MessageListPosition = .none {
         didSet {
-            setNeedsLayout()
+            if oldValue != listPosition {
+                updateBubbleCorners()
+                
+                // TODO: update contentInset?
+            }
         }
     }
     
@@ -72,7 +52,27 @@ class ChatBubbleCell: UITableViewCell {
         }
     }
     
+    // MARK: Readonly Properties
+    
+    fileprivate(set) var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
+        didSet {
+            if oldValue != contentInset {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    var isReply: Bool {
+        if let event = event {
+            return !event.isCustomerEvent
+        } else {
+            return false
+        }
+    }
+    
     // MARK: Private Properties
+    
+    let detailLabelMargin: CGFloat = 5.0
     
     internal var ignoresReplyBubbleStyling = false
     
@@ -118,7 +118,7 @@ class ChatBubbleCell: UITableViewCell {
         var roundedCorners: UIRectCorner
         if isReply {
             switch listPosition {
-            case .default:
+            case .none:
                 roundedCorners = [.topLeft, .topRight, .bottomRight]
                 break
                 
@@ -136,7 +136,7 @@ class ChatBubbleCell: UITableViewCell {
             }
         } else {
             switch listPosition {
-            case .default:
+            case .none:
                 roundedCorners = [.topRight, .topLeft, .bottomLeft]
                 break
                 
