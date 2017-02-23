@@ -12,11 +12,13 @@ class StarView: UIView {
 
     var isFilled: Bool = false {
         didSet {
-            updateImage()
+            if isFilled != oldValue {
+                updateImage()
+            }
         }
     }
     
-    var defaultTintColor: UIColor = UIColor(red:0.475, green:0.498, blue:0.565, alpha:1.000) {
+    var defaultTintColor: UIColor = UIColor(red:0.243, green:0.635, blue:0.851, alpha:1.000) {
         didSet {
             updateImage()
         }
@@ -37,6 +39,8 @@ class StarView: UIView {
         
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
+        
+        updateImage()
     }
     
     override init(frame: CGRect) {
@@ -66,6 +70,10 @@ class StarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        updateFrames()
+    }
+    
+    func updateFrames() {
         if imageView.transform.isIdentity {
             imageView.frame = bounds
         }

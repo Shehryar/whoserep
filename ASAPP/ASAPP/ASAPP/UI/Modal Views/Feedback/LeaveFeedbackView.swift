@@ -30,8 +30,10 @@ extension LeaveFeedbackView {
         let titleFrame = getTitleViewFrameThatFits(size)
         
         let contentWidth = size.width - contentInset.left - contentInset.right
+        
+        let ratingHeight = ceil(ratingView.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
         let ratingFrame = CGRect(x: contentInset.left, y: titleFrame.maxY + titleMarginBottom,
-                                 width: contentWidth, height: 80)
+                                 width: contentWidth, height: ratingHeight)
         let inputFrame = CGRect(x: contentInset.left, y: ratingFrame.maxY, width: ratingFrame.width, height: 0)
         
         return (titleFrame, ratingFrame, inputFrame)
