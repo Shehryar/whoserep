@@ -43,6 +43,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
         
         title = "Environment Settings"
         
+        tableView.allowsMultipleSelectionDuringEditing = false
         tableView.register(TitleToggleCell.self, forCellReuseIdentifier: TitleToggleCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
@@ -174,6 +175,40 @@ extension DemoEnvironmentViewController {
         cell.appSettings = appSettings
         cell.title = "+ Add API Host Name"
     }
+}
+
+// MARK:- UITableView Editing 
+
+extension DemoEnvironmentViewController {
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard indexPath.section == Section.apiHostName.rawValue &&
+            indexPath.row < apiHostNames.count else {
+                return false
+        }
+        
+        let apiHostName = apiHostNames[indexPath.row]
+        if let _ = APIHostNamePreset(rawValue: apiHostName) {
+            // Cannot delete presets
+            return false
+        }
+        if apiHostName == appSettings.apiHostName {
+            // Cannote delete current host name
+            return false
+        }
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+            && indexPath.section == Section.apiHostName.rawValue
+            && indexPath.row < apiHostNames.count {
+            let apiHostName = apiHostNames[indexPath.row]
+            AppSettings.deleteCustomAPIHostName(apiHostName)
+            refreshAPIHostNames()
+        }
+    }
+    
 }
 
 // MARK:- UITableViewDelegate
