@@ -11,9 +11,9 @@ import ASAPP
 
 class AppSettings: NSObject {
     
-    var subdomain: String {
+    var apiHostName: String {
         didSet {
-            AppSettings.saveSubdomain(subdomain)
+            AppSettings.saveAPIHostName(apiHostName)
         }
     }
     
@@ -31,15 +31,15 @@ class AppSettings: NSObject {
     // MARK:- Init
     //
     
-    init(subdomain: String?, defaultCompany: String?, branding: Branding? = nil) {
-        let nonNilSubdomain = subdomain ?? SubdomainPreset.asapp.rawValue
-        self.subdomain = nonNilSubdomain
-        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(subdomain: nonNilSubdomain).rawValue
+    init(apiHostName: String?, defaultCompany: String?, branding: Branding? = nil) {
+        let nonNilAPIHostName = apiHostName ?? APIHostNamePreset.asapp.rawValue
+        self.apiHostName = nonNilAPIHostName
+        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(apiHostName: nonNilAPIHostName).rawValue
         
         if let branding = branding {
             self.branding = branding
-        } else if let subdomainPreset = SubdomainPreset(rawValue: self.subdomain) {
-            switch subdomainPreset {
+        } else if let apiHostNamePreset = APIHostNamePreset(rawValue: self.apiHostName) {
+            switch apiHostNamePreset {
             case .comcast:
                 self.branding = Branding(brandingType: .xfinity)
                 break
@@ -75,7 +75,7 @@ class AppSettings: NSObject {
 extension AppSettings {
     
     private func accountStorageKey() -> String {
-        return "\(subdomain)-Demo-Account-Key"
+        return "\(apiHostName)-Demo-Account-Key"
     }
     
     func getCurrentAccount() -> UserAccount {
@@ -97,15 +97,15 @@ extension AppSettings {
 // MARK:- Saving: Subdomain
 
 extension AppSettings {
-    private static let KEY_SUBDOMAIN = "ASAPP_DEMO_KEY_SUBDOMAIN"
+    private static let KEY_API_HOST_NAME = "ASAPP_DEMO_KEY_API_HOST_NAME"
     
-    class func saveSubdomain(_ subdomain: String) {
-        UserDefaults.standard.set(subdomain, forKey: KEY_SUBDOMAIN)
+    class func saveAPIHostName(_ apiHostName: String) {
+        UserDefaults.standard.set(apiHostName, forKey: KEY_API_HOST_NAME)
         UserDefaults.standard.synchronize()
     }
     
-    class func getSavedSubdomain() -> String? {
-        return UserDefaults.standard.string(forKey: KEY_SUBDOMAIN)
+    class func getSavedAPIHostName() -> String? {
+        return UserDefaults.standard.string(forKey: KEY_API_HOST_NAME)
     }
 }
 

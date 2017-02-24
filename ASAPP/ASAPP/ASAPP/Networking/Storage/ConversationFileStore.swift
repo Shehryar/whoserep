@@ -22,7 +22,7 @@ class ConversationFileStore: NSObject {
     
     fileprivate var needsWriteToFile = false
     
-    fileprivate let debugLoggingEnabled = true
+    fileprivate let debugLoggingEnabled = false
     
     // MARK: Init
     

@@ -18,7 +18,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
     enum Section: Int {
         case demoContent
         case defaultCompany
-        case subdomain
+        case apiHostName
         case count
     }
     
@@ -61,8 +61,8 @@ extension DemoEnvironmentViewController {
         case Section.defaultCompany.rawValue:
             return CompanyPreset.all.count
         
-        case Section.subdomain.rawValue:
-            return SubdomainPreset.all.count
+        case Section.apiHostName.rawValue:
+            return APIHostNamePreset.all.count
             
         default:
             return 0
@@ -77,7 +77,7 @@ extension DemoEnvironmentViewController {
             return cell ?? TableViewCell()
             
         case Section.defaultCompany.rawValue,
-             Section.subdomain.rawValue:
+             Section.apiHostName.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleCheckmarkCell.reuseId, for: indexPath) as? TitleCheckmarkCell
             styleTitleCheckmarkCell(cell, for: indexPath)
             return cell ?? TableViewCell()
@@ -123,10 +123,10 @@ extension DemoEnvironmentViewController {
             cell.isChecked = appSettings.defaultCompany == preset.rawValue
             break
             
-        case Section.subdomain.rawValue:
-            let preset = SubdomainPreset.all[indexPath.row]
-            cell.title = "\(preset.rawValue).asapp.com"
-            cell.isChecked = appSettings.subdomain == preset.rawValue
+        case Section.apiHostName.rawValue:
+            let preset = APIHostNamePreset.all[indexPath.row]
+            cell.title = "\(preset.rawValue)"
+            cell.isChecked = appSettings.apiHostName == preset.rawValue
             break
             
         default: break
@@ -143,7 +143,7 @@ extension DemoEnvironmentViewController {
         switch section {
         case Section.demoContent.rawValue: return "DEMO CONTENT"
         case Section.defaultCompany.rawValue: return "DEFAULT COMPANY"
-        case Section.subdomain.rawValue: return "ENVIRONMENT"
+        case Section.apiHostName.rawValue: return "API HOST NAME"
             
         default: return nil
         }
@@ -156,7 +156,7 @@ extension DemoEnvironmentViewController {
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
             
-        case Section.defaultCompany.rawValue, Section.subdomain.rawValue:
+        case Section.defaultCompany.rawValue, Section.apiHostName.rawValue:
             styleTitleCheckmarkCell(checkmarkSizingCell, for: indexPath)
             return checkmarkSizingCell.sizeThatFits(sizer).height
 
@@ -175,9 +175,9 @@ extension DemoEnvironmentViewController {
             tableView.reloadData()
             break
             
-        case Section.subdomain.rawValue:
-            let subdomainPreset = SubdomainPreset.all[indexPath.row]
-            appSettings.subdomain = subdomainPreset.rawValue
+        case Section.apiHostName.rawValue:
+            let apiHostNamePreset = APIHostNamePreset.all[indexPath.row]
+            appSettings.apiHostName = apiHostNamePreset.rawValue
             delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
             tableView.reloadData()
             break

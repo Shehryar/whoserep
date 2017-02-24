@@ -104,7 +104,7 @@ class ModalCardSuccessView: UIView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (imageFrame, labelFrame) = getFramesThatFit(bounds.size)
+        let (_, labelFrame) = getFramesThatFit(bounds.size)
         let height = labelFrame.maxY + contentInset.bottom
         return CGSize(width: size.width, height: height)
     }

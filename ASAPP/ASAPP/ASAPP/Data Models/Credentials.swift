@@ -15,7 +15,7 @@ public class Credentials: NSObject {
     // MARK: Public Properties
     
     public let companyMarker: String
-    public let subdomain: String
+    public let apiHostName: String
     public let isCustomer: Bool
     public let userToken: String?
     public let targetCustomerToken: String?
@@ -31,7 +31,7 @@ public class Credentials: NSObject {
     // MARK:- Initialization
         
     public required init(withCompany company: String,
-                         subdomain: String,
+                         apiHostName: String,
                          userToken: String?,
                          isCustomer: Bool = true,
                          targetCustomerToken: String? = nil,
@@ -39,7 +39,7 @@ public class Credentials: NSObject {
                          contextProvider: @escaping ASAPPContextProvider,
                          callbackHandler: @escaping ASAPPCallbackHandler) {
         self.companyMarker = company
-        self.subdomain = subdomain
+        self.apiHostName = apiHostName
         self.userToken = userToken
         self.isCustomer = isCustomer
         self.targetCustomerToken = targetCustomerToken
@@ -67,7 +67,7 @@ public class Credentials: NSObject {
     }
     
     func hashKey(withPrefix prefix: String? = nil) -> String {
-        let key = "\(prefix ?? "")\(subdomain))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
+        let key = "\(prefix ?? "")\(apiHostName))-\(companyMarker)-\(isCustomer ? "cust" : "rep")-\(userToken ?? "0")-\(targetCustomerToken ?? "0")"
         return key
     }
     
