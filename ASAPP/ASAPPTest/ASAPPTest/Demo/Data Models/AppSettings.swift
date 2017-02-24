@@ -94,7 +94,7 @@ extension AppSettings {
     }
 }
 
-// MARK:- Saving: Subdomain
+// MARK:- Saving: API Host Name
 
 extension AppSettings {
     private static let KEY_API_HOST_NAME = "ASAPP_DEMO_KEY_API_HOST_NAME"
@@ -107,6 +107,45 @@ extension AppSettings {
     class func getSavedAPIHostName() -> String? {
         return UserDefaults.standard.string(forKey: KEY_API_HOST_NAME)
     }
+}
+
+// MARK:- Custom API Host Names
+
+extension AppSettings {
+     private static let KEY_CUSTOM_API_HOST_NAMES = "ASAPP_DEMO_KEY_CUSTOM_API_HOST_NAMES"
+    
+    class func getSavedCustomAPIHostNames() -> [String] {
+        if let apiHostNames = UserDefaults.standard.array(forKey: KEY_CUSTOM_API_HOST_NAMES) as? [String] {
+            return apiHostNames
+        }
+        return [String]()
+    }
+    
+    class func saveCustomAPIHostNames(_ apiHostNames: [String]?) {
+        guard let apiHostNames = apiHostNames else {
+            return
+        }
+        
+        UserDefaults.standard.set(apiHostNames, forKey: KEY_CUSTOM_API_HOST_NAMES)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func addCustomAPIHostName(_ apiHostName: String) {
+        var apiHostNames = getSavedCustomAPIHostNames()
+        if !apiHostNames.contains(apiHostName) {
+            apiHostNames.append(apiHostName)
+        }
+        saveCustomAPIHostNames(apiHostNames)
+    }
+    
+    class func deleteCustomAPIHostName(_ apiHostName: String) {
+        var apiHostNames = getSavedCustomAPIHostNames()
+        if let existingIndex = apiHostNames.index(of: apiHostName) {
+            apiHostNames.remove(at: existingIndex)
+        }
+        saveCustomAPIHostNames(apiHostNames)
+    }
+    
 }
 
 // MARK:- Saving: Default Company

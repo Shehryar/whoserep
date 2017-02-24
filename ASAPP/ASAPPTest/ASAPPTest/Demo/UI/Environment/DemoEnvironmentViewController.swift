@@ -26,7 +26,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
     
     weak var delegate: DemoEnvironmentViewControllerDelegate?
     
-    var apiHostNames: [String] = APIHostNamePreset.allRawValues {
+    var apiHostNames: [String] = DemoEnvironmentViewController.getAPIHostNames() {
         didSet {
             tableView.reloadData()
         }
@@ -34,6 +34,7 @@ class DemoEnvironmentViewController: BaseTableViewController {
     
     fileprivate let toggleSizingCell = TitleToggleCell()
     fileprivate let checkmarkSizingCell = TitleCheckmarkCell()
+    fileprivate let buttonSizingCell = ButtonCell()
     
     // MARK: Init
     
@@ -44,10 +45,24 @@ class DemoEnvironmentViewController: BaseTableViewController {
         
         tableView.register(TitleToggleCell.self, forCellReuseIdentifier: TitleToggleCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK:- All API Host Names
+    
+    func refreshAPIHostNames() {
+        apiHostNames = DemoEnvironmentViewController.getAPIHostNames()
+    }
+    
+    class func getAPIHostNames() -> [String] {
+        var apiHostNames = APIHostNamePreset.allRawValues
+        apiHostNames.append(contentsOf: AppSettings.getSavedCustomAPIHostNames())
+        return apiHostNames
     }
 }
 
@@ -68,7 +83,7 @@ extension DemoEnvironmentViewController {
             return CompanyPreset.all.count
         
         case Section.apiHostName.rawValue:
-            return apiHostNames.count
+            return apiHostNames.count + 1
             
         default:
             return 0
@@ -82,11 +97,22 @@ extension DemoEnvironmentViewController {
             styleToggleCell(cell, for: indexPath)
             return cell ?? TableViewCell()
             
-        case Section.defaultCompany.rawValue,
-             Section.apiHostName.rawValue:
+        case Section.defaultCompany.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleCheckmarkCell.reuseId, for: indexPath) as? TitleCheckmarkCell
             styleTitleCheckmarkCell(cell, for: indexPath)
             return cell ?? TableViewCell()
+            
+        case Section.apiHostName.rawValue:
+            if indexPath.row == apiHostNames.count {
+                let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
+                styleButtonCell(cell, for: indexPath)
+                return cell ?? TableViewCell()
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: TitleCheckmarkCell.reuseId, for: indexPath) as? TitleCheckmarkCell
+                styleTitleCheckmarkCell(cell, for: indexPath)
+                return cell ?? TableViewCell()
+            }
+            
             
         default: return TableViewCell()
         }
@@ -130,14 +156,23 @@ extension DemoEnvironmentViewController {
             break
             
         case Section.apiHostName.rawValue:
-            let apiHostName = apiHostNames[indexPath.row]
-            cell.title = "\(apiHostName)"
-            cell.isChecked = appSettings.apiHostName == apiHostName
+            if indexPath.row < apiHostNames.count {
+                let apiHostName = apiHostNames[indexPath.row]
+                cell.title = "\(apiHostName)"
+                cell.isChecked = appSettings.apiHostName == apiHostName
+            }
             break
             
         default: break
         }
-        
+    }
+    
+    func styleButtonCell(_ cell: ButtonCell?, for indexPath: IndexPath) {
+        guard let cell = cell, indexPath.section == Section.apiHostName.rawValue && indexPath.row == apiHostNames.count else {
+            return
+        }
+        cell.appSettings = appSettings
+        cell.title = "+ Add API Host Name"
     }
 }
 
@@ -162,10 +197,20 @@ extension DemoEnvironmentViewController {
             styleToggleCell(toggleSizingCell, for: indexPath)
             return toggleSizingCell.sizeThatFits(sizer).height
             
-        case Section.defaultCompany.rawValue, Section.apiHostName.rawValue:
+        case Section.defaultCompany.rawValue:
             styleTitleCheckmarkCell(checkmarkSizingCell, for: indexPath)
             return checkmarkSizingCell.sizeThatFits(sizer).height
 
+        case Section.apiHostName.rawValue:
+            if indexPath.row == apiHostNames.count {
+                styleButtonCell(buttonSizingCell, for: indexPath)
+                return ceil(buttonSizingCell.sizeThatFits(sizer).height)
+            } else {
+                styleTitleCheckmarkCell(checkmarkSizingCell, for: indexPath)
+                return checkmarkSizingCell.sizeThatFits(sizer).height
+            }
+
+            
         default: return 0
         }
     }
@@ -182,10 +227,25 @@ extension DemoEnvironmentViewController {
             break
             
         case Section.apiHostName.rawValue:
-            let apiHostName = apiHostNames[indexPath.row]
-            appSettings.apiHostName = apiHostName
-            delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
-            tableView.reloadData()
+            if indexPath.row == apiHostNames.count {
+                let viewController = AddAPIHostNameViewController(appSettings: appSettings)
+                viewController.onFinish = { [weak self] (apiHostName) in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    AppSettings.addCustomAPIHostName(apiHostName)
+                    strongSelf.appSettings.apiHostName = apiHostName
+                    strongSelf.delegate?.demoEnvironmentViewController(strongSelf, didUpdateAppSettings: strongSelf.appSettings)
+                    strongSelf.refreshAPIHostNames()
+                    _ = strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+                }
+                navigationController?.pushViewController(viewController, animated: true)
+            } else {
+                let apiHostName = apiHostNames[indexPath.row]
+                appSettings.apiHostName = apiHostName
+                delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
+                tableView.reloadData()
+            }
             break
             
         default: break
