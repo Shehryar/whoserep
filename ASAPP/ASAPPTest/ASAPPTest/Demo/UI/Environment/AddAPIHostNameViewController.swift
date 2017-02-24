@@ -106,6 +106,7 @@ extension AddAPIHostNameViewController {
         cell.placeholderText = "e.g. mitch.asapp.com"
         cell.textField.autocorrectionType = .no
         cell.textField.autocapitalizationType = .none
+        cell.textField.keyboardType = .URL
         cell.textField.returnKeyType = .done
         cell.dismissKeyboardOnReturn = true
         cell.onTextChange = { [weak self] (text) in
@@ -118,7 +119,7 @@ extension AddAPIHostNameViewController {
             return
         }
         cell.appSettings = appSettings
-        cell.title = "SAVE"
+        cell.title = "Save"
     }
 }
 
