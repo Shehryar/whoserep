@@ -59,6 +59,7 @@ class LeaveFeedbackViewController: ModalCardViewController {
             }
             let feedback = strongSelf.feedbackView.feedback
             
+            strongSelf.view.endEditing(true)
             strongSelf.showErrorMessage(nil)
             strongSelf.startLoading()
             let canSendMessage = delegate.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: { (success) in
