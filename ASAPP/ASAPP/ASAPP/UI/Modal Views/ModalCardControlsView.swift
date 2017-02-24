@@ -136,12 +136,12 @@ class ModalCardControlsView: UIView {
                                         color: buttonColor,
                                         state: .normal)
         
-        confirmButton.setAttributedText(cancelText,
+        confirmButton.setAttributedText(confirmText,
                                         textStyle: .modalPrimaryButton,
                                         color: buttonColor,
                                         state: .highlighted)
         
-        confirmButton.setAttributedText(cancelText,
+        confirmButton.setAttributedText(confirmText,
                                         textStyle: .modalPrimaryButton,
                                         color: buttonColorDisabled,
                                         state: .disabled)

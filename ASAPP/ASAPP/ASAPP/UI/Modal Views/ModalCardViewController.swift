@@ -265,6 +265,16 @@ extension ModalCardViewController {
     }
 }
 
+// MARK:- Error
+
+extension ModalCardViewController {
+    
+    func showErrorMessage(_ errorMessage: String?) {
+        errorView.text = errorMessage
+        presentationAnimator.updatePresentedViewFrame()
+    }
+}
+
 // MARK:- Loading
 
 extension ModalCardViewController {

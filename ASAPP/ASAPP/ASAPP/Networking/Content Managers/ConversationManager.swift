@@ -203,6 +203,22 @@ extension ConversationManager {
         }
     }
     
+    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
+        let path = "customer/SendRatingAndFeedback"
+        
+        var params = [
+            "FiveStarRating" : rating as AnyObject,
+            "IssueId" : issueId as AnyObject
+        ]
+        if let feedback = feedback {
+            params["Feedback"] = feedback as AnyObject
+        }
+        
+        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, request, responseTime) in
+            completion?(message.type == .Response)
+        }
+    }
+    
     func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ response: CreditCardResponse) -> Void)) {
         let path = "\(requestPrefix)SendCreditCard"
         let params = creditCard.toASAPPParams()

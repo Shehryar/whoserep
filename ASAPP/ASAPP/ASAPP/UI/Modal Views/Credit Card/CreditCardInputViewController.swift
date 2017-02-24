@@ -27,12 +27,10 @@ class CreditCardInputViewController: ModalCardViewController {
         contentView = creditCardView
         shouldHideContentWhenBackgrounded = true
         
-        controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
-        
-//        successView.text = ASAPP.strings.creditCardSuccessText
+        successView.text = ASAPP.strings.creditCardSuccessText
         
         // Controls
-        
+        controlsView.confirmText = ASAPP.strings.creditCardConfirmButton
         controlsView.onConfirmButtonTap = { [weak self] in
             guard let strongSelf = self else {
                 return
@@ -46,22 +44,19 @@ class CreditCardInputViewController: ModalCardViewController {
             let creditCard = strongSelf.creditCardView.getCurrentCreditCard()
             
             if let invalidFields = creditCard.getInvalidFields() {
-                strongSelf.errorView.text = ASAPP.strings.creditCardInvalidFieldsError
                 strongSelf.creditCardView.highlightInvalidFields(invalidFields: invalidFields)
-                strongSelf.presentationAnimator.updatePresentedViewFrame()
+                strongSelf.showErrorMessage(ASAPP.strings.creditCardInvalidFieldsError)
                 return
             }
             
             guard let delegate = strongSelf.delegate else {
-                strongSelf.errorView.text = ASAPP.strings.creditCardNoConnectionError
-                strongSelf.presentationAnimator.updatePresentedViewFrame()
+                strongSelf.showErrorMessage(ASAPP.strings.creditCardNoConnectionError)
                 return
             }
             
             self?.view.endEditing(true)
-            self?.errorView.text = nil
             self?.startLoading()
-            self?.presentationAnimator.updatePresentedViewFrame()
+            self?.showErrorMessage(nil)
             
             let requestSent = delegate.uploadCreditCard(creditCard: creditCard, completion: { (response: CreditCardResponse) in
                 if response.success {
@@ -69,15 +64,13 @@ class CreditCardInputViewController: ModalCardViewController {
                     self?.showSuccessView(buttonText: ASAPP.strings.creditCardFinishButton)
                 } else {
                     self?.stopLoading()
-                    self?.errorView.text = response.errorMessage ?? CreditCardResponse.DEFAULT_ERROR_MESSAGE
                     self?.creditCardView.highlightInvalidFields(invalidFields: response.invalidFields)
-                    self?.presentationAnimator.updatePresentedViewFrame()
+                    self?.showErrorMessage(response.errorMessage ?? CreditCardResponse.DEFAULT_ERROR_MESSAGE)
                 }
             })
             if !requestSent {
                 self?.stopLoading()
-                self?.errorView.text = ASAPP.strings.creditCardNoConnectionError
-                self?.presentationAnimator.updatePresentedViewFrame()
+                self?.showErrorMessage(ASAPP.strings.creditCardNoConnectionError)
             }
         }
     }

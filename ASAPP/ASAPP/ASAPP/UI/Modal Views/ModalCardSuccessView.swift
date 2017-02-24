@@ -24,7 +24,7 @@ class ModalCardSuccessView: UIView {
     
     var text: String? {
         didSet {
-            setNeedsLayout()
+            updateDisplay()
         }
     }
     

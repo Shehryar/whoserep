@@ -10,15 +10,25 @@ import UIKit
 
 class LeaveFeedbackView: ModalCardContentView {
     
-    let ratingView = FeedbackRatingView()
+    var rating: Int? {
+        return ratingView.currentRating
+    }
     
-    let detailLabel = UILabel()
+    var feedback: String? {
+        return textView.text
+    }
     
-    let textView = UITextView()
+    // MARK: Layout
     
     fileprivate let defaultTextViewHeight: CGFloat = 80.0
     fileprivate let ratingMarginBottom: CGFloat = 24.0
     fileprivate let detailMarginBottom: CGFloat = 12.0
+    
+    // MARK: UI
+    
+    fileprivate let ratingView = FeedbackRatingView()
+    fileprivate let detailLabel = UILabel()
+    fileprivate let textView = UITextView()
     
     // MARK: Initialization
     

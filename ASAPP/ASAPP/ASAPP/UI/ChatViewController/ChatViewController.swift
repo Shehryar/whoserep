@@ -736,6 +736,7 @@ extension ChatViewController {
         case .LeaveFeedback:
             let leaveFeedbackViewController = LeaveFeedbackViewController()
             leaveFeedbackViewController.issueId = event.issueId
+            leaveFeedbackViewController.delegate = self
             present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
         }
@@ -1286,6 +1287,21 @@ extension ChatViewController: CreditCardAPIDelegate {
         }
         
         conversationManager.sendCreditCard(creditCard, completion: completion)
+        
+        return true
+    }
+}
+
+// MARK:- RatingAPIDelegate
+
+extension ChatViewController: RatingAPIDelegate {
+    
+    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: @escaping ((Bool) -> Void)) -> Bool {
+        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+            return false
+        }
+        
+        conversationManager.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: completion)
         
         return true
     }
