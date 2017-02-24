@@ -27,6 +27,7 @@ class SRSFillerView: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor2
         fillerView.backgroundColor = ASAPP.styles.foregroundColor2
         addSubview(fillerView)
     }

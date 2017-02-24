@@ -23,6 +23,8 @@ class SRSItemListContentView: StackView {
 
         var createdViews = [UIView]()
         
+        let contentBg = ASAPP.styles.backgroundColor2
+        
         if let contentItems = contentItems {
             for item in contentItems {
              
@@ -37,6 +39,7 @@ class SRSItemListContentView: StackView {
                 if let labelItem = item as? SRSLabelItem {
                     let labelItemView = SRSLabelItemView()
                     labelItemView.labelItem = labelItem
+                    labelItemView.backgroundColor = contentBg
                     createdViews.append(labelItemView)
                 }
                     
@@ -54,18 +57,21 @@ class SRSItemListContentView: StackView {
                     }
                     
                     labelValueItemView.labelValueItem = labelValueItem
+                    labelValueItemView.backgroundColor = contentBg
                     createdViews.append(labelValueItemView)
                 }
                     
                 // Separator Item
                 else if item is SRSSeparatorItem {
                     let separatorView = SRSSeparatorView()
+                    separatorView.backgroundColor = contentBg
                     createdViews.append(separatorView)
                 }
                 
                 // Filler Item
                 else if item is SRSFillerItem {
                     let fillerView = SRSFillerView()
+                    fillerView.backgroundColor = contentBg
                     createdViews.append(fillerView)
                 }
                     

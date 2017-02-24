@@ -37,6 +37,7 @@ class SRSItemListView: UIView {
         layer.borderWidth = 1
         layer.cornerRadius = 6
         
+        itemListView.backgroundColor = backgroundColor
         itemListView.contentInset = UIEdgeInsets(top: 25, left: 40, bottom: 25, right: 40)
         itemListView.clipsToBounds = true
         addSubview(itemListView)

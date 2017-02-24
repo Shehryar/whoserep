@@ -23,8 +23,11 @@ class SRSLabelItemView: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor2
+        
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
+        label.backgroundColor = ASAPP.styles.backgroundColor2
         addSubview(label)
         
         updateDisplay()

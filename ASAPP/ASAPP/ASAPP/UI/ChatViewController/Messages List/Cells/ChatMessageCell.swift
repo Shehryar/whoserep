@@ -97,10 +97,12 @@ class ChatMessageCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         isOpaque = true
+        backgroundColor = ASAPP.styles.backgroundColor1
     
         contentView.addSubview(textBubbleView)
         
         timeLabel.alpha = 0.0
+        timeLabel.backgroundColor = ASAPP.styles.backgroundColor1
         contentView.insertSubview(timeLabel, belowSubview: textBubbleView)
     }
     

@@ -24,12 +24,16 @@ class SRSLabelValueItemView: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        backgroundColor = ASAPP.styles.backgroundColor2
+        
         labelLabel.numberOfLines = 0
         labelLabel.lineBreakMode = .byTruncatingTail
+        labelLabel.backgroundColor = ASAPP.styles.backgroundColor2
         addSubview(labelLabel)
         
         valueLabel.numberOfLines = 0
         valueLabel.lineBreakMode = .byTruncatingTail
+        valueLabel.backgroundColor = ASAPP.styles.backgroundColor2
         addSubview(valueLabel)
     }
     
