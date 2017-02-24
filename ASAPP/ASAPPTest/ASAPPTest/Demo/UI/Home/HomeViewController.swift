@@ -155,6 +155,15 @@ extension HomeViewController {
             callbackHandler: callbackHandler,
             presentingViewController: self)
         
+//        chatButton = ASAPP.createChatButton(
+//            company: currentAccount.company,
+//            customerId: currentAccount.userToken,
+//            environment: .production,
+//            authProvider: authProvider,
+//            contextProvider: contextProvider,
+//            callbackHandler: callbackHandler,
+//            presentingViewController: self)
+        
         
         if let chatButton = chatButton {
             chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)

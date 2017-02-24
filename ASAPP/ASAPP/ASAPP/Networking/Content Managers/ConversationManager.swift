@@ -81,7 +81,7 @@ extension ConversationManager {
     // MARK: Entering/Exiting a Conversation
     
     func enterConversation() {
-        DebugLog("\n\nEntering Conversation\n")
+        DebugLog("Entering Conversation")
         
         socketConnection.connectIfNeeded()
     }

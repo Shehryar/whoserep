@@ -18,6 +18,13 @@ enum APIHostNamePreset: String {
         comcast,
         sprint,
         ]
+    
+    static let allRawValues = [
+        asapp.rawValue,
+        mitch.rawValue,
+        comcast.rawValue,
+        sprint.rawValue
+    ]
 }
 
 enum CompanyPreset: String {

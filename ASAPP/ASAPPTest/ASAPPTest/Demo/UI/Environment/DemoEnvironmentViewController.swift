@@ -26,6 +26,12 @@ class DemoEnvironmentViewController: BaseTableViewController {
     
     weak var delegate: DemoEnvironmentViewControllerDelegate?
     
+    var apiHostNames: [String] = APIHostNamePreset.allRawValues {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     fileprivate let toggleSizingCell = TitleToggleCell()
     fileprivate let checkmarkSizingCell = TitleCheckmarkCell()
     
@@ -62,7 +68,7 @@ extension DemoEnvironmentViewController {
             return CompanyPreset.all.count
         
         case Section.apiHostName.rawValue:
-            return APIHostNamePreset.all.count
+            return apiHostNames.count
             
         default:
             return 0
@@ -124,9 +130,9 @@ extension DemoEnvironmentViewController {
             break
             
         case Section.apiHostName.rawValue:
-            let preset = APIHostNamePreset.all[indexPath.row]
-            cell.title = "\(preset.rawValue)"
-            cell.isChecked = appSettings.apiHostName == preset.rawValue
+            let apiHostName = apiHostNames[indexPath.row]
+            cell.title = "\(apiHostName)"
+            cell.isChecked = appSettings.apiHostName == apiHostName
             break
             
         default: break
@@ -176,8 +182,8 @@ extension DemoEnvironmentViewController {
             break
             
         case Section.apiHostName.rawValue:
-            let apiHostNamePreset = APIHostNamePreset.all[indexPath.row]
-            appSettings.apiHostName = apiHostNamePreset.rawValue
+            let apiHostName = apiHostNames[indexPath.row]
+            appSettings.apiHostName = apiHostName
             delegate?.demoEnvironmentViewController(self, didUpdateAppSettings: appSettings)
             tableView.reloadData()
             break
