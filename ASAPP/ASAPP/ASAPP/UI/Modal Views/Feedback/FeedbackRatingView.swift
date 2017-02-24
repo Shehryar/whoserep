@@ -106,37 +106,37 @@ extension FeedbackRatingView {
             return
         }
         
-//        if ASAPP.isInternalBuild {
-//            var sound: SoundEffectPlayer.Sound?
-//            switch rating {
-//            case 1:
-//                sound = .wow1
-//                break
-//                
-//            case 2:
-//                sound = .wow2
-//                break
-//                
-//            case 3:
-//                sound = .wow3
-//                break
-//                
-//            case 4:
-//                sound = .wow4
-//                break
-//                
-//            case 5:
-//                sound = .wow5
-//                break
-//                
-//            default:
-//                // No-op
-//                break
-//            }
-//            if let sound = sound {
-//                ASAPP.soundEffectPlayer.playSound(sound)
-//            }
-//        }
+        if ASAPP.isInternalBuild {
+            var sound: SoundEffectPlayer.Sound?
+            switch rating {
+            case 1:
+                sound = .wow1
+                break
+                
+            case 2:
+                sound = .wow2
+                break
+                
+            case 3:
+                sound = .wow3
+                break
+                
+            case 4:
+                sound = .wow4
+                break
+                
+            case 5:
+                sound = .wow5
+                break
+                
+            default:
+                // No-op
+                break
+            }
+            if let sound = sound {
+                ASAPP.soundEffectPlayer.playSound(sound)
+            }
+        }
         
         if oldRating == nil || rating > oldRating! {
             let starView = starViews[rating - 1]
