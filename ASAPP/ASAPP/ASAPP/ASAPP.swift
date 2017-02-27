@@ -60,7 +60,7 @@ public class ASAPP: NSObject {
         if let bundleVersion = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
         }
-        return "2.2.0"
+        return "2.2.1"
     }
     
     /// This is used to style all ASAPP views. This should be set before creating any ASAPP views.
