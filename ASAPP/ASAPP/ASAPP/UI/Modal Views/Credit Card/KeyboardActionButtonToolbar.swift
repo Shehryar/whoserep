@@ -1,5 +1,5 @@
 //
-//  ActionButtonToolbar.swift
+//  KeyboardActionButtonToolbar.swift
 //  AnimationTestingGround
 //
 //  Created by Mitchell Morgan on 2/10/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActionButtonToolbar: UIToolbar {
+class KeyboardActionButtonToolbar: UIToolbar {
     
     var onNextButtonTap: (() -> Void)? {
         didSet {
@@ -71,7 +71,7 @@ class ActionButtonToolbar: UIToolbar {
         
         // Hide Keyboard
         if onHideKeyboardTap != nil {
-            buttonItems.append(createImageButton(image: Images.asappImage(.iconHideKeyboard), action: #selector(ActionButtonToolbar.didTapHideKeyboard)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconHideKeyboard), action: #selector(KeyboardActionButtonToolbar.didTapHideKeyboard)))
         }
         
         // Flexible Space
@@ -81,15 +81,15 @@ class ActionButtonToolbar: UIToolbar {
         
         // Previous / Next
         if onPreviousButtonTap != nil {
-            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowLeft), action: #selector(ActionButtonToolbar.didTapPreviousButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowLeft), action: #selector(KeyboardActionButtonToolbar.didTapPreviousButton)))
         }
         if onNextButtonTap != nil {
-            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowRight), action: #selector(ActionButtonToolbar.didTapNextButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowRight), action: #selector(KeyboardActionButtonToolbar.didTapNextButton)))
         }
         
         // Done
         if onDoneButtonTap != nil {
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ActionButtonToolbar.didTapDoneButton))
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(KeyboardActionButtonToolbar.didTapDoneButton))
             doneButton.tintColor = buttonTintColor
             doneButton.setTitleTextAttributes([
                 NSForegroundColorAttributeName : buttonTintColor

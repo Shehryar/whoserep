@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatMessagesViewDelegate: class {
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
-    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, fromEvent event: Event)
     func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event)
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
@@ -176,7 +176,7 @@ extension ChatMessagesView {
     }
     
     fileprivate func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
-        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .default }
+        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .none }
         
         let messageIsReply = messageEventIsReply(messageEvent)
         let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row - 1))
@@ -192,7 +192,7 @@ extension ChatMessagesView {
             return .lastOfMany
         }
         
-        return .default
+        return .none
     }
     
     fileprivate func messageEventIsReply(_ messageEvent: Event?) -> Bool? {
@@ -247,10 +247,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
                                            detailsVisible: event == showTimeStampForEvent,
                                            atIndexPath: indexPath)
         
-        if let srsItemViewCell = cell as? ChatSRSItemListViewCell {
-            srsItemViewCell.itemListView.delegate = self
-            srsItemViewCell.itemCarouselView.delegate = self
-            srsItemViewCell.itemCarouselView.event = event
+        if let chatMessageCell = cell as? ChatMessageCell {
+            chatMessageCell.delegate = self
         }
         
         return cell ?? UITableViewCell()
@@ -271,7 +269,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         }
         
         if cellAnimationsEnabled && eventsThatShouldAnimate.contains(event) {
-            (cell as? ChatTextMessageCell)?.animate()
+            (cell as? ChatMessageCell)?.animate()
             eventsThatShouldAnimate.remove(event)
         }
     }
@@ -311,11 +309,9 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         if let pictureCell = cell as? ChatPictureMessageCell,
             let event = pictureCell.event {
-                delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureImageView, forEvent: event)
-        } else if let cell = cell as? ChatBubbleCell {
-            if cell.canShowDetailLabel() {
-                toggleTimeStampForEventAtIndexPath(indexPath)
-            }
+                delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureView.imageView, forEvent: event)
+        } else if let cell = cell as? ChatMessageCell {
+            toggleTimeStampForEventAtIndexPath(indexPath)
         }
         
         if let event = dataSource.eventForIndexPath(indexPath) {
@@ -332,17 +328,17 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         // Hide timestamp on previous cell
         if let previousEvent = showTimeStampForEvent,
             let previousIndexPath = dataSource.indexPathOfEvent(previousEvent),
-            let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatBubbleCell {
+            let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
             showTimeStampForEvent = nil
-            previousCell.setDetailLabelHidden(true, animated: true)
+            previousCell.setTimeLabelVisible(false, animated: true)
         }
 
         if let nextEvent = dataSource.eventForIndexPath(indexPath) {
             // Show timestamp on next cell
             if previousEvent == nil || nextEvent != previousEvent {
-                if let nextCell = tableView.cellForRow(at: indexPath) as? ChatBubbleCell {
+                if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
                     showTimeStampForEvent = nextEvent
-                    nextCell.setDetailLabelHidden(false, animated: true)
+                    nextCell.setTimeLabelVisible(true, animated: true)
                 }
             }
         }
@@ -359,23 +355,30 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK:- SRSItemListViewDelegate
 
-extension ChatMessagesView: SRSItemListViewDelegate {
-    func itemListView(_ itemListView: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
-    }
-}
-
-// MARK:- SRSItemCarouselViewDelegate
-
-extension ChatMessagesView: SRSItemCarouselViewDelegate {
-    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didScrollToPage page: Int) {
-        if let event = itemCarouselView.event {
+extension ChatMessagesView: ChatMessageCellDelegate {
+    
+    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int) {
+        if let event = cell.event {
             delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
+        } else {
+            DebugLogError("Missing event on itemCarouselView")
         }
     }
     
-    func itemCarouselView(_ itemCarouselView: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem)
+    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        if let event = cell.event {
+            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
+        } else {
+            DebugLogError("Missing event on itemCarouselView")
+        }
+    }
+    
+    func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
+        if let event = cell.event {
+            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
+        } else {
+            DebugLogError("Missing event on itemListView")
+        }
     }
 }
 
@@ -479,7 +482,7 @@ extension ChatMessagesView {
         
         let wasNearBottom = isNearBottom()
         var lastVisibleMessageEvent: Event?
-        if let lastVisibleCell = tableView.visibleCells.last as? ChatTextMessageCell {
+        if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageCell {
             lastVisibleMessageEvent = lastVisibleCell.event
         }
         

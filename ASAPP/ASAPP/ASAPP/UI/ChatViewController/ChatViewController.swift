@@ -610,7 +610,7 @@ extension ChatViewController: KeyboardObserverDelegate {
 
 extension ChatViewController {
     
-    func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem) -> Bool {
+    func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem, fromEvent event: Event) -> Bool {
         if _handleDemoButtonItemTapped(buttonItem) {
             return true
         }
@@ -684,7 +684,7 @@ extension ChatViewController {
             return true
             
         case .AppAction:
-            return performAppAction(buttonItem.appAction)
+            return performAppAction(buttonItem.appAction, forEvent: event)
         }
         
         return false
@@ -713,7 +713,7 @@ extension ChatViewController {
         return false
     }
     
-    func performAppAction(_ action: AppAction?) -> Bool {
+    func performAppAction(_ action: AppAction?, forEvent event: Event) -> Bool {
         guard let action = action else {
             return false
         }
@@ -731,6 +731,13 @@ extension ChatViewController {
             let creditCardViewController = CreditCardInputViewController()
             creditCardViewController.delegate = self
             present(creditCardViewController, animated: true, completion: nil)
+            return false
+            
+        case .LeaveFeedback:
+            let leaveFeedbackViewController = LeaveFeedbackViewController()
+            leaveFeedbackViewController.issueId = event.issueId
+            leaveFeedbackViewController.delegate = self
+            present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
         }
     }
@@ -782,8 +789,8 @@ extension ChatViewController: ChatMessagesViewDelegate {
         present(imageViewer, animated: true, completion: nil)
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        _ = handleSRSButtonItemSelection(buttonItem)
+    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, fromEvent event: Event) {
+        _ = handleSRSButtonItemSelection(buttonItem, fromEvent: event)
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
@@ -1013,8 +1020,10 @@ extension ChatViewController: ChatSuggestedRepliesViewDelegate {
         conversationManager.currentSRSClassification = suggestedRepliesView.currentSRSClassification
     }
     
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool {
-        return handleSRSButtonItemSelection(buttonItem)
+    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView,
+                                  didTapSRSButtonItem buttonItem: SRSButtonItem,
+                                  fromEvent event: Event) -> Bool {
+        return handleSRSButtonItemSelection(buttonItem, fromEvent: event)
     }
 }
 
@@ -1105,7 +1114,7 @@ extension ChatViewController: ConversationManagerDelegate {
         // Immediate Action
         if let immediateAction = srsResponse.immediateAction {
             Dispatcher.delay(1200, closure: { [weak self] in
-                _ = self?.handleSRSButtonItemSelection(immediateAction)
+                _ = self?.handleSRSButtonItemSelection(immediateAction, fromEvent: message)
             })
         }
             // Show Suggested Replies View
@@ -1278,6 +1287,21 @@ extension ChatViewController: CreditCardAPIDelegate {
         }
         
         conversationManager.sendCreditCard(creditCard, completion: completion)
+        
+        return true
+    }
+}
+
+// MARK:- RatingAPIDelegate
+
+extension ChatViewController: RatingAPIDelegate {
+    
+    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: @escaping ((Bool) -> Void)) -> Bool {
+        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
+            return false
+        }
+        
+        conversationManager.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: completion)
         
         return true
     }

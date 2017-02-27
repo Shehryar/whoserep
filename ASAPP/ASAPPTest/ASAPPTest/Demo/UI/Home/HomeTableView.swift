@@ -209,9 +209,9 @@ extension HomeTableView: UITableViewDataSource {
             } else {
                 featuresString = "Default Configuration"
             }
-            cell.update(titleText: "Environment:",
+            cell.update(titleText: "API Host:",
                         detailText: featuresString,
-                        valueText: "\(appSettings.subdomain).asapp.com")
+                        valueText: "\(appSettings.apiHostName)")
             break
         
         case Section.bill.rawValue:

@@ -16,6 +16,7 @@
 		281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E071DC973F500E4A65B /* ImageNameCell.swift */; };
 		281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E091DC9781200E4A65B /* UserAccount.swift */; };
 		300A27741E4289C9000A624A /* Branding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* Branding.swift */; };
+		302A20D61E60BC55007C522A /* AddAPIHostNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -44,6 +45,7 @@
 		30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C38B1E43E97F0061BFA3 /* BrandingSwitcherView.swift */; };
 		30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C38F1E43EBC60061BFA3 /* BrandingPreview.swift */; };
 		30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */; };
+		30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */; };
 		30E78EDA1DCA62C0006A2AD8 /* TitleToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
 		30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */; };
@@ -75,6 +77,7 @@
 		281D8E071DC973F500E4A65B /* ImageNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNameCell.swift; sourceTree = "<group>"; };
 		281D8E091DC9781200E4A65B /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		300A27731E4289C9000A624A /* Branding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branding.swift; sourceTree = "<group>"; };
+		302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAPIHostNameViewController.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		30D4C38B1E43E97F0061BFA3 /* BrandingSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSwitcherView.swift; sourceTree = "<group>"; };
 		30D4C38F1E43EBC60061BFA3 /* BrandingPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreview.swift; sourceTree = "<group>"; };
 		30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreviewListView.swift; sourceTree = "<group>"; };
+		30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
 		30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleToggleCell.swift; sourceTree = "<group>"; };
 		30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
 		30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnvironmentViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 				281D8E071DC973F500E4A65B /* ImageNameCell.swift */,
 				30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */,
 				30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */,
+				30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */,
+				302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -407,7 +413,9 @@
 				30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */,
 				281D8E001DC9681300E4A65B /* TableHeaderView.swift in Sources */,
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
+				30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
+				302A20D61E60BC55007C522A /* AddAPIHostNameViewController.swift in Sources */,
 				30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,

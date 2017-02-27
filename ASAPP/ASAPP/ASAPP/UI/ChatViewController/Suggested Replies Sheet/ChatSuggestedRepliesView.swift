@@ -13,7 +13,9 @@ protocol ChatSuggestedRepliesViewDelegate: class {
     func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
     func chatSuggestedRepliesViewWillTapBack(_ repliesView: ChatSuggestedRepliesView)
     /// Delegate returns YES if the button was successfully acted upon
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView, didTapSRSButtonItem buttonItem: SRSButtonItem) -> Bool
+    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView,
+                                  didTapSRSButtonItem buttonItem: SRSButtonItem,
+                                  fromEvent event: Event) -> Bool
 }
 
 class ChatSuggestedRepliesView: UIView {
@@ -226,7 +228,7 @@ extension ChatSuggestedRepliesView {
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
             if let strongSelf = self,
                 let delegate = strongSelf.delegate {
-                return delegate.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem)
+                return delegate.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem, fromEvent: event)
             }
             return false
         }

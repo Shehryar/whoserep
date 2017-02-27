@@ -26,6 +26,13 @@ public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -
     }
 }
 
+public let ASAPP_DEFAULT_API_HOST = "asapp.com"
+
+public func ASAPPAPIHostNameFrom(company: String, environment: ASAPPEnvironment) -> String {
+    let subdomain = ASAPPSubdomainFrom(company: company, environment: environment)
+    return "\(subdomain).\(ASAPP_DEFAULT_API_HOST)"
+}
+
 public typealias ASAPPCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
 public typealias ASAPPContextProvider = (() -> [String : Any])
 public typealias ASAPPAuthProvider = (() -> [String : Any])
@@ -53,7 +60,7 @@ public class ASAPP: NSObject {
         if let bundleVersion = ASAPPBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
         }
-        return "2.2.0"
+        return "2.2.1"
     }
     
     /// This is used to style all ASAPP views. This should be set before creating any ASAPP views.
@@ -105,7 +112,7 @@ public extension ASAPP {
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler) -> UIViewController {
         let credentials = Credentials(withCompany: company,
-                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      apiHostName: ASAPPAPIHostNameFrom(company: company, environment: environment),
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
@@ -118,13 +125,13 @@ public extension ASAPP {
      Returns a UINavigationController containing an ASAPP ChatViewController instance.
      */
     public class func createChatViewController(company: String,
-                                               subdomain: String,
+                                               apiHostName: String,
                                                customerId: String,
                                                authProvider: @escaping ASAPPAuthProvider,
                                                contextProvider: @escaping ASAPPContextProvider,
                                                callbackHandler: @escaping ASAPPCallbackHandler) -> UIViewController {
         let credentials = Credentials(withCompany: company,
-                                      subdomain: subdomain,
+                                      apiHostName: apiHostName,
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
@@ -147,7 +154,7 @@ public extension ASAPP {
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
         let credentials = Credentials(withCompany: company,
-                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      apiHostName: ASAPPAPIHostNameFrom(company: company, environment: environment),
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
@@ -162,7 +169,7 @@ public extension ASAPP {
      Returns a button that will show an ASAPP ChatViewController when pressed.
      */
     public class func createChatButton(company: String,
-                                       subdomain: String,
+                                       apiHostName: String,
                                        customerId: String,
                                        authProvider: @escaping ASAPPAuthProvider,
                                        contextProvider: @escaping ASAPPContextProvider,
@@ -170,7 +177,7 @@ public extension ASAPP {
                                        presentingViewController: UIViewController) -> ASAPPButton {
         
         let credentials = Credentials(withCompany: company,
-                                      subdomain: subdomain,
+                                      apiHostName: apiHostName,
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
@@ -265,7 +272,7 @@ public extension ASAPP {
         performDeprecatedSetup(for: company, styles: styles, strings: strings)
         
         let credentials = Credentials(withCompany: company,
-                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      apiHostName: ASAPPAPIHostNameFrom(company: company, environment: environment),
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,
@@ -289,7 +296,7 @@ public extension ASAPP {
         performDeprecatedSetup(for: company, styles: styles, strings: strings)
         
         let credentials = Credentials(withCompany: company,
-                                      subdomain: ASAPPSubdomainFrom(company: company, environment: environment),
+                                      apiHostName: ASAPPAPIHostNameFrom(company: company, environment: environment),
                                       userToken: customerId,
                                       authProvider: authProvider,
                                       contextProvider: contextProvider,

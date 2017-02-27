@@ -6,11 +6,11 @@
 //  Copyright © 2017 asappinc. All rights reserved.
 //
 
-enum SubdomainPreset: String {
-    case asapp = "demo"
-    case mitch = "mitch"
-    case comcast = "comcast.preprod"
-    case sprint = "sprint"
+enum APIHostNamePreset: String {
+    case asapp = "demo.asapp.com"
+    case mitch = "mitch.asapp.com"
+    case comcast = "comcast.preprod.asapp.com"
+    case sprint = "sprint.asapp.com"
     
     static let all = [
         asapp,
@@ -18,6 +18,13 @@ enum SubdomainPreset: String {
         comcast,
         sprint,
         ]
+    
+    static let allRawValues = [
+        asapp.rawValue,
+        mitch.rawValue,
+        comcast.rawValue,
+        sprint.rawValue
+    ]
 }
 
 enum CompanyPreset: String {
@@ -26,10 +33,10 @@ enum CompanyPreset: String {
     case comcast = "comcast"
     case sprint = "sprint"
     
-    static func defaultCompanyFor(subdomain: String?) -> CompanyPreset {
-        if let subdomain = subdomain,
-            let subdomainPreset = SubdomainPreset(rawValue: subdomain) {
-            switch subdomainPreset {
+    static func defaultCompanyFor(apiHostName: String?) -> CompanyPreset {
+        if let apiHostName = apiHostName,
+            let apiHostNamePreset = APIHostNamePreset(rawValue: apiHostName) {
+            switch apiHostNamePreset {
             case .asapp: return asapp
             case .mitch: return mitch
             case .comcast: return comcast

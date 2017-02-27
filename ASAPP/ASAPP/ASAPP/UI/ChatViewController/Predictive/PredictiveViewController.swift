@@ -69,8 +69,7 @@ class PredictiveViewController: UIViewController {
         titleLabel.textColor = UIColor.white
         titleLabel.setAttributedText(titleText,
                                      textStyle: .predictiveGreeting,
-                                     color: UIColor.white,
-                                     styles: ASAPP.styles)
+                                     color: UIColor.white)
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
@@ -100,8 +99,7 @@ class PredictiveViewController: UIViewController {
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
         connectionStatusLabel.setAttributedText(ASAPP.strings.predictiveNoConnectionText,
                                                 textStyle: .connectionStatusBanner,
-                                                color: UIColor.white,
-                                                styles: ASAPP.styles)
+                                                color: UIColor.white)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)
@@ -150,8 +148,8 @@ class PredictiveViewController: UIViewController {
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
-        titleLabel.updateFont(for: .predictiveGreeting, styles: ASAPP.styles)
-        messageLabel.updateFont(for: .predictiveMessage, styles: ASAPP.styles)
+        titleLabel.updateFont(for: .predictiveGreeting)
+        messageLabel.updateFont(for: .predictiveMessage)
         
         buttonsView.updateDisplay()
         messageInputView.updateDisplay()
@@ -449,8 +447,7 @@ extension PredictiveViewController {
         if let customMessage = appOpenResponse.customizedMessage {
             messageLabel.setAttributedText(customMessage,
                                            textStyle: .predictiveMessage,
-                                           color: UIColor.white,
-                                           styles: ASAPP.styles)
+                                           color: UIColor.white)
         } else {
             messageLabel.text = nil
         }

@@ -84,20 +84,34 @@ extension ASAPPAuthMacaroon {
         if let storedJSON = UserDefaults.standard.object(forKey: key) as? [String : Any] {
             if let storedInstance = instanceWithJSON(json: storedJSON) {
                 if storedInstance.isValid {
-                    DebugLog("Successfully fetched and serialized valid auth macaroon")
+                    _debugLog("Successfully fetched and serialized valid auth macaroon")
                     return storedInstance
                 } else {
-                    DebugLog("Fetched expired auth macaroon.")
+                    _debugLog("Fetched expired auth macaroon.")
                     UserDefaults.standard.removeObject(forKey: key)
                 }
             } else {
-                DebugLog("Unable to serialize auth macaroon from json: \(storedJSON)")
+                _debugLog("Unable to serialize auth macaroon from json: \(storedJSON)")
                 UserDefaults.standard.removeObject(forKey: key)
             }
         } else {
-            DebugLog("No auth macaroon json found.")
+            _debugLog("No auth macaroon json found.")
         }
         
         return nil
     }
 }
+
+// MARK:- Logging
+
+extension ASAPPAuthMacaroon {
+    
+    static let debugLoggingEnabled = false
+    
+    class func _debugLog(_ message: String) {
+        if debugLoggingEnabled {
+            DebugLog(message)
+        }
+    }
+}
+

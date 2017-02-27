@@ -59,7 +59,6 @@ class SRSButtonItemView: UIButton {
         setAttributedText(buttonItem?.title.uppercased(),
                           textStyle: .srsButton,
                           color: UIColor(red:0.310, green:0.357, blue:0.463, alpha:1.000),
-                          styles: ASAPP.styles,
                           state: .normal)
     }
     

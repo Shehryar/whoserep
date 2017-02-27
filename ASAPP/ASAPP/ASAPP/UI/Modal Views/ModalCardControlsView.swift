@@ -1,5 +1,5 @@
 //
-//  CancelConfirmControlsView.swift
+//  ModalCardControlsView.swift
 //  AnimationTestingGround
 //
 //  Created by Mitchell Morgan on 2/10/17.
@@ -8,20 +8,20 @@
 
 import UIKit
 
-class CancelConfirmControlsView: UIView {
+class ModalCardControlsView: UIView {
 
     var onCancelButtonTap: (() -> Void)?
     var onConfirmButtonTap: (() -> Void)?
     
-    var cancelText: String = ASAPP.strings.creditCardCancelButton {
+    var cancelText: String = ASAPP.strings.modalViewCancelButton {
         didSet {
-            styleButton(cancelButton, withText: cancelText, font: cancelFont)
+            updateCancelButton()
         }
     }
     
-    var confirmText: String = ASAPP.strings.creditCardConfirmButton {
+    var confirmText: String = ASAPP.strings.modalViewSubmitButton {
         didSet {
-            styleButton(confirmButton, withText: confirmText, font: confirmFont)
+            updateConfirmButton()
         }
     }
     
@@ -43,6 +43,9 @@ class CancelConfirmControlsView: UIView {
         }
     }
     
+    let buttonColor =  UIColor(red:0.357, green:0.396, blue:0.494, alpha:1)
+    let buttonColorDisabled = UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.3)
+    
     var borderColor: UIColor = UIColor(red: 0.925, green: 0.906, blue: 0.906, alpha: 1) {
         didSet {
             borderTop.backgroundColor = borderColor
@@ -56,9 +59,6 @@ class CancelConfirmControlsView: UIView {
         }
     }
     
-    fileprivate let cancelFont = Fonts.latoRegularFont(withSize: 12)
-    fileprivate let confirmFont = Fonts.latoBoldFont(withSize: 12)
-    
     fileprivate let buttonPaddingY: CGFloat = 17.0
     fileprivate let cancelButton = UIButton()
     fileprivate let confirmButton = UIButton()
@@ -70,18 +70,29 @@ class CancelConfirmControlsView: UIView {
     func commonInit() {
         clipsToBounds = true
         
-        styleButton(cancelButton, withText: cancelText, font: cancelFont)
+        let buttonBg = UIImage.imageWithColor(UIColor.white)
+        let buttonBgHighlighted = UIImage.imageWithColor(UIColor(red: 0.905, green: 0.886, blue: 0.886, alpha: 1))
+        
+        cancelButton.clipsToBounds = true
+        cancelButton.setBackgroundImage(buttonBg, for: .normal)
+        cancelButton.setBackgroundImage(buttonBgHighlighted, for: .highlighted)
+        cancelButton.setBackgroundImage(buttonBg, for: .disabled)
         cancelButton.addTarget(self,
-                               action: #selector(CancelConfirmControlsView.didTapCancelButton),
+                               action: #selector(ModalCardControlsView.didTapCancelButton),
                                for: .touchUpInside)
         addSubview(cancelButton)
         
-        styleButton(confirmButton, withText: confirmText, font: confirmFont)
+        confirmButton.clipsToBounds = true
+        confirmButton.setBackgroundImage(buttonBg, for: .normal)
+        confirmButton.setBackgroundImage(buttonBgHighlighted, for: .highlighted)
+        confirmButton.setBackgroundImage(buttonBg, for: .disabled)
         confirmButton.addTarget(self,
-                               action: #selector(CancelConfirmControlsView.didTapConfirmButton),
+                               action: #selector(ModalCardControlsView.didTapConfirmButton),
                                for: .touchUpInside)
         addSubview(confirmButton)
         
+        updateCancelButton()
+        updateConfirmButton()
         
         borderMiddle.backgroundColor = borderColor
         addSubview(borderMiddle)
@@ -102,32 +113,38 @@ class CancelConfirmControlsView: UIView {
 
     // MARK:- Display
     
-    fileprivate func styleButton(_ button: UIButton,
-                                 withText text: String,
-                                 font: UIFont = Fonts.latoBoldFont(withSize: 12)) {
+    func updateCancelButton() {
+        cancelButton.setAttributedText(cancelText,
+                                       textStyle: .modalSecondayButton,
+                                       color: buttonColor,
+                                       state: .normal)
         
-        button.clipsToBounds = true
-        button.titleLabel?.font = font
+        cancelButton.setAttributedText(cancelText,
+                                       textStyle: .modalSecondayButton,
+                                       color: buttonColor,
+                                       state: .highlighted)
         
-        let attrTitle = NSAttributedString(string: text, attributes: [
-            NSForegroundColorAttributeName : UIColor(red:0.357, green:0.396, blue:0.494, alpha:1),
-            NSFontAttributeName : font,
-            NSKernAttributeName : 1.0
-            ])
+        cancelButton.setAttributedText(cancelText,
+                                       textStyle: .modalSecondayButton,
+                                       color: buttonColorDisabled,
+                                       state: .disabled)
+    }
+    
+    func updateConfirmButton() {
+        confirmButton.setAttributedText(confirmText,
+                                        textStyle: .modalPrimaryButton,
+                                        color: buttonColor,
+                                        state: .normal)
         
-        let attrTitleDisabled = NSAttributedString(string: text, attributes: [
-            NSForegroundColorAttributeName : UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.3),
-            NSFontAttributeName : font,
-            NSKernAttributeName : 1.0
-            ])
+        confirmButton.setAttributedText(confirmText,
+                                        textStyle: .modalPrimaryButton,
+                                        color: buttonColor,
+                                        state: .highlighted)
         
-        button.setAttributedTitle(attrTitle, for: .normal)
-        button.setAttributedTitle(attrTitle, for: .highlighted)
-        button.setAttributedTitle(attrTitleDisabled, for: .disabled)
-        
-        button.setBackgroundImage(UIImage.imageWithColor(UIColor.white), for: .normal)
-        button.setBackgroundImage(UIImage.imageWithColor(UIColor(red: 0.905, green: 0.886, blue: 0.886, alpha: 1)), for: .highlighted)
-        button.setBackgroundImage(UIImage.imageWithColor(UIColor.white), for: .disabled)
+        confirmButton.setAttributedText(confirmText,
+                                        textStyle: .modalPrimaryButton,
+                                        color: buttonColorDisabled,
+                                        state: .disabled)
     }
     
     // MARK:- Layout

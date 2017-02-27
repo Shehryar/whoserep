@@ -80,6 +80,14 @@ extension TextStyle {
     static let asappButton = TextStyle(size: 12, weight: .black, letterSpacing: 1.3)
     static let connectionStatusBanner = TextStyle(size: 12, weight: .bold)
     static let tooltip = TextStyle(size: 14, weight: .bold)
+    
+    // Modal
+    
+    static let modalTitle = TextStyle(size: 18, weight: .bold, letterSpacing: 1.2)
+    static let modalBody = TextStyle(size: 15, weight: .regular)
+    static let modalDetail = TextStyle(size: 13, weight: .bold)
+    static let modalPrimaryButton = TextStyle(size: 12, weight: .black, letterSpacing: 1)
+    static let modalSecondayButton = TextStyle(size: 12, weight: .regular, letterSpacing: 1)
 }
 
 
@@ -119,12 +127,12 @@ extension ASAPPStyles {
 
 extension UILabel {
     
-    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, styles: ASAPPStyles) {
-        updateFont(for: textStyle, styles: styles)
+    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor) {
+        updateFont(for: textStyle)
         
         if let text = text {
             attributedText = NSAttributedString(string: text, attributes: [
-                NSFontAttributeName : styles.font(for: textStyle),
+                NSFontAttributeName : ASAPP.styles.font(for: textStyle),
                 NSForegroundColorAttributeName : color,
                 NSKernAttributeName : textStyle.letterSpacing
                 ])
@@ -133,8 +141,8 @@ extension UILabel {
         }
     }
     
-    func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
-        font = styles.font(with: textStyle.weight, size: textStyle.size)
+    func updateFont(for textStyle: TextStyle) {
+        font = ASAPP.styles.font(with: textStyle.weight, size: textStyle.size)
     }
 }
 
@@ -151,12 +159,12 @@ extension Button {
 
 extension UIButton {
     
-    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, styles: ASAPPStyles, state: UIControlState) {
-        updateFont(for: textStyle, styles: styles)
+    func setAttributedText(_ text: String?, textStyle: TextStyle, color: UIColor, state: UIControlState) {
+        updateFont(for: textStyle)
         
         if let text = text {
             setAttributedTitle(NSAttributedString(string: text, attributes: [
-                    NSFontAttributeName : styles.font(for: textStyle),
+                    NSFontAttributeName : ASAPP.styles.font(for: textStyle),
                     NSForegroundColorAttributeName : color,
                     NSKernAttributeName : textStyle.letterSpacing
                 ]), for: state)
@@ -165,8 +173,8 @@ extension UIButton {
         }
     }
     
-    func updateFont(for textStyle: TextStyle, styles: ASAPPStyles) {
-        titleLabel?.font = styles.font(with: textStyle.weight, size: textStyle.size)
+    func updateFont(for textStyle: TextStyle) {
+        titleLabel?.font = ASAPP.styles.font(with: textStyle.weight, size: textStyle.size)
     }
 }
 

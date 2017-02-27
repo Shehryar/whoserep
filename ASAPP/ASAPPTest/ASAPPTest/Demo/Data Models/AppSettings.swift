@@ -11,9 +11,9 @@ import ASAPP
 
 class AppSettings: NSObject {
     
-    var subdomain: String {
+    var apiHostName: String {
         didSet {
-            AppSettings.saveSubdomain(subdomain)
+            AppSettings.saveAPIHostName(apiHostName)
         }
     }
     
@@ -31,15 +31,15 @@ class AppSettings: NSObject {
     // MARK:- Init
     //
     
-    init(subdomain: String?, defaultCompany: String?, branding: Branding? = nil) {
-        let nonNilSubdomain = subdomain ?? SubdomainPreset.asapp.rawValue
-        self.subdomain = nonNilSubdomain
-        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(subdomain: nonNilSubdomain).rawValue
+    init(apiHostName: String?, defaultCompany: String?, branding: Branding? = nil) {
+        let nonNilAPIHostName = apiHostName ?? APIHostNamePreset.asapp.rawValue
+        self.apiHostName = nonNilAPIHostName
+        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(apiHostName: nonNilAPIHostName).rawValue
         
         if let branding = branding {
             self.branding = branding
-        } else if let subdomainPreset = SubdomainPreset(rawValue: self.subdomain) {
-            switch subdomainPreset {
+        } else if let apiHostNamePreset = APIHostNamePreset(rawValue: self.apiHostName) {
+            switch apiHostNamePreset {
             case .comcast:
                 self.branding = Branding(brandingType: .xfinity)
                 break
@@ -75,7 +75,7 @@ class AppSettings: NSObject {
 extension AppSettings {
     
     private func accountStorageKey() -> String {
-        return "\(subdomain)-Demo-Account-Key"
+        return "\(apiHostName)-Demo-Account-Key"
     }
     
     func getCurrentAccount() -> UserAccount {
@@ -94,19 +94,58 @@ extension AppSettings {
     }
 }
 
-// MARK:- Saving: Subdomain
+// MARK:- Saving: API Host Name
 
 extension AppSettings {
-    private static let KEY_SUBDOMAIN = "ASAPP_DEMO_KEY_SUBDOMAIN"
+    private static let KEY_API_HOST_NAME = "ASAPP_DEMO_KEY_API_HOST_NAME"
     
-    class func saveSubdomain(_ subdomain: String) {
-        UserDefaults.standard.set(subdomain, forKey: KEY_SUBDOMAIN)
+    class func saveAPIHostName(_ apiHostName: String) {
+        UserDefaults.standard.set(apiHostName, forKey: KEY_API_HOST_NAME)
         UserDefaults.standard.synchronize()
     }
     
-    class func getSavedSubdomain() -> String? {
-        return UserDefaults.standard.string(forKey: KEY_SUBDOMAIN)
+    class func getSavedAPIHostName() -> String? {
+        return UserDefaults.standard.string(forKey: KEY_API_HOST_NAME)
     }
+}
+
+// MARK:- Custom API Host Names
+
+extension AppSettings {
+     private static let KEY_CUSTOM_API_HOST_NAMES = "ASAPP_DEMO_KEY_CUSTOM_API_HOST_NAMES"
+    
+    class func getSavedCustomAPIHostNames() -> [String] {
+        if let apiHostNames = UserDefaults.standard.array(forKey: KEY_CUSTOM_API_HOST_NAMES) as? [String] {
+            return apiHostNames
+        }
+        return [String]()
+    }
+    
+    class func saveCustomAPIHostNames(_ apiHostNames: [String]?) {
+        guard let apiHostNames = apiHostNames else {
+            return
+        }
+        
+        UserDefaults.standard.set(apiHostNames, forKey: KEY_CUSTOM_API_HOST_NAMES)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func addCustomAPIHostName(_ apiHostName: String) {
+        var apiHostNames = getSavedCustomAPIHostNames()
+        if !apiHostNames.contains(apiHostName) {
+            apiHostNames.append(apiHostName)
+        }
+        saveCustomAPIHostNames(apiHostNames)
+    }
+    
+    class func deleteCustomAPIHostName(_ apiHostName: String) {
+        var apiHostNames = getSavedCustomAPIHostNames()
+        if let existingIndex = apiHostNames.index(of: apiHostName) {
+            apiHostNames.remove(at: existingIndex)
+        }
+        saveCustomAPIHostNames(apiHostNames)
+    }
+    
 }
 
 // MARK:- Saving: Default Company

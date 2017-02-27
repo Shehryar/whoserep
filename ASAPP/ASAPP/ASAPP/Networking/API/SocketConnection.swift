@@ -60,7 +60,7 @@ class SocketConnection: NSObject {
     
     init(withCredentials credentials: Credentials) {
         self.credentials = credentials
-        self.connectionRequest = SocketConnection.createConnectionRequestion(subdomain: credentials.subdomain)
+        self.connectionRequest = SocketConnection.createConnectionRequestion(apiHostName: credentials.apiHostName)
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
         
@@ -84,9 +84,9 @@ extension SocketConnection {
     
     private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
 
-    class func createConnectionRequestion(subdomain: String) -> URLRequest {        
+    class func createConnectionRequestion(apiHostName: String) -> URLRequest {
         let connectionRequest = NSMutableURLRequest()
-        connectionRequest.url = URL(string: "wss://\(subdomain).asapp.com/api/websocket")
+        connectionRequest.url = URL(string: "wss://\(apiHostName)/api/websocket")
         connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
         connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
         connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)

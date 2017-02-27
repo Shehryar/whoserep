@@ -12,7 +12,20 @@
         {
           "label": "Your conversation has ended.",
           "type": "label"
-        }
+        },
+        {
+          "value": {
+            "content": {
+              "action": "leaveFeedback",
+              "params" : {
+                "some_key" : "some_value"
+              }
+            },
+            "type": "APP_ACTION"
+          },
+          "label": "How did we do?",
+          "type": "inlineButton"
+        },
       ]
     }
   }

@@ -38,13 +38,13 @@ class ChatMessagesEmptyView: UIView {
         backgroundColor = ASAPP.styles.backgroundColor1
         
         titleLabel.textColor = ASAPP.styles.foregroundColor1
-        titleLabel.updateFont(for: .emptyChatTitle, styles: ASAPP.styles)
+        titleLabel.updateFont(for: .emptyChatTitle)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         addSubview(titleLabel)
         
         messageLabel.textColor = ASAPP.styles.foregroundColor2
-        messageLabel.updateFont(for: .emptyChatMessage, styles: ASAPP.styles)
+        messageLabel.updateFont(for: .emptyChatMessage)
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         addSubview(messageLabel)

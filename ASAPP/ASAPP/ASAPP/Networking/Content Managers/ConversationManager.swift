@@ -81,7 +81,7 @@ extension ConversationManager {
     // MARK: Entering/Exiting a Conversation
     
     func enterConversation() {
-        DebugLog("\n\nEntering Conversation\n")
+        DebugLog("Entering Conversation")
         
         socketConnection.connectIfNeeded()
     }
@@ -200,6 +200,22 @@ extension ConversationManager {
         socketConnection.sendRequest(withPath: path, params: params)
         socketConnection.sendRequestWithData(imageData) { (incomingMessage) in
             completion?()
+        }
+    }
+    
+    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
+        let path = "customer/SendRatingAndFeedback"
+        
+        var params = [
+            "FiveStarRating" : rating as AnyObject,
+            "IssueId" : issueId as AnyObject
+        ]
+        if let feedback = feedback {
+            params["Feedback"] = feedback as AnyObject
+        }
+        
+        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, request, responseTime) in
+            completion?(message.type == .Response)
         }
     }
     

@@ -24,7 +24,7 @@ class SessionManager: NSObject {
 
         super.init()
         
-        DebugLog("\nDevice Identifier: \(deviceIdentifier)\nEvent sequence: \(previousEventSequence())\n\n")
+        DebugLog("Created Session:\nDevice Identifier: \(deviceIdentifier)\nEvent sequence: \(previousEventSequence())")
     }
     
     func getNextEventSequence() -> Int {

@@ -45,6 +45,11 @@
 		28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B41D888FFD00139C7D /* map-tech@2x.png */; };
 		28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B51D888FFD00139C7D /* map-tech@3x.png */; };
 		28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */; };
+		28C008931E5E8AE300260883 /* wow-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088E1E5E8AE300260883 /* wow-1.wav */; };
+		28C008941E5E8AE300260883 /* wow-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088F1E5E8AE300260883 /* wow-2.wav */; };
+		28C008951E5E8AE300260883 /* wow-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008901E5E8AE300260883 /* wow-3.wav */; };
+		28C008961E5E8AE300260883 /* wow-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008911E5E8AE300260883 /* wow-4.wav */; };
+		28C008971E5E8AE300260883 /* wow-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008921E5E8AE300260883 /* wow-5.wav */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
@@ -145,15 +150,6 @@
 		3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C11E528048004149D7 /* icon-arrow-right.png */; };
 		3025D9C51E528048004149D7 /* icon-arrow-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C21E528048004149D7 /* icon-arrow-right@2x.png */; };
 		3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C31E528048004149D7 /* icon-arrow-right@3x.png */; };
-		3025D9D11E528068004149D7 /* ActionButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9C81E528068004149D7 /* ActionButtonToolbar.swift */; };
-		3025D9D21E528068004149D7 /* CancelConfirmControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9C91E528068004149D7 /* CancelConfirmControlsView.swift */; };
-		3025D9D31E528068004149D7 /* CreditCardInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CA1E528068004149D7 /* CreditCardInputView.swift */; };
-		3025D9D41E528068004149D7 /* CreditCardInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CB1E528068004149D7 /* CreditCardInputViewController.swift */; };
-		3025D9D51E528068004149D7 /* ModalCardErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CC1E528068004149D7 /* ModalCardErrorView.swift */; };
-		3025D9D61E528068004149D7 /* ModalCardPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CD1E528068004149D7 /* ModalCardPresentationAnimator.swift */; };
-		3025D9D71E528068004149D7 /* ModalCardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CE1E528068004149D7 /* ModalCardTitleView.swift */; };
-		3025D9D81E528068004149D7 /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */; };
-		3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */; };
 		3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9DA1E5351AB004149D7 /* add-credit-card.json */; };
 		3025D9DD1E535739004149D7 /* SRSIconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9DC1E535739004149D7 /* SRSIconItem.swift */; };
 		3025D9E91E536FC7004149D7 /* SRSLabelValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */; };
@@ -171,6 +167,34 @@
 		3025DA201E539B9E004149D7 /* SRSMapItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025DA161E539B9E004149D7 /* SRSMapItemView.swift */; };
 		3025DA211E539B9E004149D7 /* SRSSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3025DA171E539B9E004149D7 /* SRSSeparatorView.swift */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
+		302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */; };
+		302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */; };
+		302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */; };
+		302A209B1E5DE9AF007C522A /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */; };
+		302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */; };
+		302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */; };
+		302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A21E5DF090007C522A /* ModalCardViewController.swift */; };
+		302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A41E5DF110007C522A /* ModalCardControlsView.swift */; };
+		302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A51E5DF110007C522A /* ModalCardErrorView.swift */; };
+		302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */; };
+		302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A71E5DF110007C522A /* ModalCardTitleView.swift */; };
+		302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A81E5DF110007C522A /* ModalCardSuccessView.swift */; };
+		302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */; };
+		302A20B31E5E2394007C522A /* ModalCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20B21E5E2394007C522A /* ModalCardContentView.swift */; };
+		302A20BA1E5E2CFB007C522A /* icon-star-filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B41E5E2CFB007C522A /* icon-star-filled.png */; };
+		302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B51E5E2CFB007C522A /* icon-star-filled@2x.png */; };
+		302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B61E5E2CFB007C522A /* icon-star-filled@3x.png */; };
+		302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B71E5E2CFB007C522A /* icon-star.png */; };
+		302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B81E5E2CFB007C522A /* icon-star@2x.png */; };
+		302A20BF1E5E2CFB007C522A /* icon-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B91E5E2CFB007C522A /* icon-star@3x.png */; };
+		302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */; };
+		302A20C31E5E2D7E007C522A /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C21E5E2D7E007C522A /* StarView.swift */; };
+		302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C41E5F73AD007C522A /* ChatMessageCell.swift */; };
+		302A20C91E5F8AEF007C522A /* ChatItemListMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C81E5F8AEF007C522A /* ChatItemListMessageCell.swift */; };
+		302A20CB1E5F9524007C522A /* ChatItemCarouselMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20CA1E5F9524007C522A /* ChatItemCarouselMessageCell.swift */; };
+		302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20CF1E5F9634007C522A /* ChatPictureView.swift */; };
+		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
+		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
 		303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303C877B1D789B9700213F6B /* SRSResponse.swift */; };
@@ -243,8 +267,6 @@
 		30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB0D1D510A9D00795BA7 /* ImageViewerImageViewController.swift */; };
 		30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */; };
 		30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB161D52400D00795BA7 /* ChatBubbleCell.swift */; };
-		30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB171D52400D00795BA7 /* ChatPictureMessageCell.swift */; };
-		30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB181D52400D00795BA7 /* ChatTextMessageCell.swift */; };
 		30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */; };
 		30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */; };
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
@@ -259,7 +281,6 @@
 		30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
-		30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */; };
 		30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28A1D79FEE600502D92 /* SRSItemListContentView.swift */; };
 		30D2E2911D7A0F1100502D92 /* SRSSeparatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */; };
 		30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */; };
@@ -314,6 +335,11 @@
 		28AEC0B41D888FFD00139C7D /* map-tech@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@2x.png"; sourceTree = "<group>"; };
 		28AEC0B51D888FFD00139C7D /* map-tech@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@3x.png"; sourceTree = "<group>"; };
 		28AEC0BE1D88BF8D00139C7D /* SRSMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItem.swift; sourceTree = "<group>"; };
+		28C0088E1E5E8AE300260883 /* wow-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-1.wav"; sourceTree = "<group>"; };
+		28C0088F1E5E8AE300260883 /* wow-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-2.wav"; sourceTree = "<group>"; };
+		28C008901E5E8AE300260883 /* wow-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-3.wav"; sourceTree = "<group>"; };
+		28C008911E5E8AE300260883 /* wow-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-4.wav"; sourceTree = "<group>"; };
+		28C008921E5E8AE300260883 /* wow-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-5.wav"; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
@@ -415,15 +441,6 @@
 		3025D9C11E528048004149D7 /* icon-arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right.png"; sourceTree = "<group>"; };
 		3025D9C21E528048004149D7 /* icon-arrow-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right@2x.png"; sourceTree = "<group>"; };
 		3025D9C31E528048004149D7 /* icon-arrow-right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right@3x.png"; sourceTree = "<group>"; };
-		3025D9C81E528068004149D7 /* ActionButtonToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButtonToolbar.swift; sourceTree = "<group>"; };
-		3025D9C91E528068004149D7 /* CancelConfirmControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelConfirmControlsView.swift; sourceTree = "<group>"; };
-		3025D9CA1E528068004149D7 /* CreditCardInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputView.swift; sourceTree = "<group>"; };
-		3025D9CB1E528068004149D7 /* CreditCardInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputViewController.swift; sourceTree = "<group>"; };
-		3025D9CC1E528068004149D7 /* ModalCardErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardErrorView.swift; sourceTree = "<group>"; };
-		3025D9CD1E528068004149D7 /* ModalCardPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardPresentationAnimator.swift; sourceTree = "<group>"; };
-		3025D9CE1E528068004149D7 /* ModalCardTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTitleView.swift; sourceTree = "<group>"; };
-		3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
-		3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckmarkView.swift; sourceTree = "<group>"; };
 		3025D9DA1E5351AB004149D7 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
 		3025D9DC1E535739004149D7 /* SRSIconItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIconItem.swift; sourceTree = "<group>"; };
 		3025D9E81E536FC7004149D7 /* SRSLabelValueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueItem.swift; sourceTree = "<group>"; };
@@ -441,6 +458,34 @@
 		3025DA161E539B9E004149D7 /* SRSMapItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSMapItemView.swift; sourceTree = "<group>"; };
 		3025DA171E539B9E004149D7 /* SRSSeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSeparatorView.swift; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardActionButtonToolbar.swift; sourceTree = "<group>"; };
+		302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputView.swift; sourceTree = "<group>"; };
+		302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputViewController.swift; sourceTree = "<group>"; };
+		302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
+		302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackViewController.swift; sourceTree = "<group>"; };
+		302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackView.swift; sourceTree = "<group>"; };
+		302A20A21E5DF090007C522A /* ModalCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardViewController.swift; sourceTree = "<group>"; };
+		302A20A41E5DF110007C522A /* ModalCardControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardControlsView.swift; sourceTree = "<group>"; };
+		302A20A51E5DF110007C522A /* ModalCardErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardErrorView.swift; sourceTree = "<group>"; };
+		302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardPresentationAnimator.swift; sourceTree = "<group>"; };
+		302A20A71E5DF110007C522A /* ModalCardTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardTitleView.swift; sourceTree = "<group>"; };
+		302A20A81E5DF110007C522A /* ModalCardSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardSuccessView.swift; sourceTree = "<group>"; };
+		302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardLoadingView.swift; sourceTree = "<group>"; };
+		302A20B21E5E2394007C522A /* ModalCardContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardContentView.swift; sourceTree = "<group>"; };
+		302A20B41E5E2CFB007C522A /* icon-star-filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-filled.png"; sourceTree = "<group>"; };
+		302A20B51E5E2CFB007C522A /* icon-star-filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-filled@2x.png"; sourceTree = "<group>"; };
+		302A20B61E5E2CFB007C522A /* icon-star-filled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-filled@3x.png"; sourceTree = "<group>"; };
+		302A20B71E5E2CFB007C522A /* icon-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star.png"; sourceTree = "<group>"; };
+		302A20B81E5E2CFB007C522A /* icon-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@2x.png"; sourceTree = "<group>"; };
+		302A20B91E5E2CFB007C522A /* icon-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@3x.png"; sourceTree = "<group>"; };
+		302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackRatingView.swift; sourceTree = "<group>"; };
+		302A20C21E5E2D7E007C522A /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		302A20C41E5F73AD007C522A /* ChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		302A20C81E5F8AEF007C522A /* ChatItemListMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatItemListMessageCell.swift; sourceTree = "<group>"; };
+		302A20CA1E5F9524007C522A /* ChatItemCarouselMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatItemCarouselMessageCell.swift; sourceTree = "<group>"; };
+		302A20CF1E5F9634007C522A /* ChatPictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureView.swift; sourceTree = "<group>"; };
+		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
+		302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
@@ -514,8 +559,6 @@
 		30A4BB0D1D510A9D00795BA7 /* ImageViewerImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerImageViewController.swift; sourceTree = "<group>"; };
 		30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerImage.swift; sourceTree = "<group>"; };
 		30A4BB161D52400D00795BA7 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
-		30A4BB171D52400D00795BA7 /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
-		30A4BB181D52400D00795BA7 /* ChatTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextMessageCell.swift; sourceTree = "<group>"; };
 		30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCell.swift; sourceTree = "<group>"; };
 		30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderView.swift; sourceTree = "<group>"; };
 		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
@@ -530,7 +573,6 @@
 		30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
-		30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSRSItemListViewCell.swift; sourceTree = "<group>"; };
 		30D2E28A1D79FEE600502D92 /* SRSItemListContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListContentView.swift; sourceTree = "<group>"; };
 		30D2E2901D7A0F1100502D92 /* SRSSeparatorItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSeparatorItem.swift; sourceTree = "<group>"; };
 		30D2E2921D7A0F3400502D92 /* SRSFillerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFillerItem.swift; sourceTree = "<group>"; };
@@ -623,7 +665,6 @@
 			children = (
 				28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */,
 				3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */,
-				3025D9C71E528068004149D7 /* Credit Card */,
 			);
 			path = "Utility Views";
 			sourceTree = "<group>";
@@ -788,6 +829,12 @@
 				3022683D1D80690500EC4FB1 /* icon-loader.png */,
 				3022683E1D80690500EC4FB1 /* icon-loader@2x.png */,
 				3022683F1D80690500EC4FB1 /* icon-loader@3x.png */,
+				302A20B41E5E2CFB007C522A /* icon-star-filled.png */,
+				302A20B51E5E2CFB007C522A /* icon-star-filled@2x.png */,
+				302A20B61E5E2CFB007C522A /* icon-star-filled@3x.png */,
+				302A20B71E5E2CFB007C522A /* icon-star.png */,
+				302A20B81E5E2CFB007C522A /* icon-star@2x.png */,
+				302A20B91E5E2CFB007C522A /* icon-star@3x.png */,
 				302268401D80690500EC4FB1 /* icon-x-small.png */,
 				302268411D80690500EC4FB1 /* icon-x-small@2x.png */,
 				302268421D80690500EC4FB1 /* icon-x-small@3x.png */,
@@ -876,6 +923,7 @@
 			children = (
 				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
+				302A20891E5DE990007C522A /* Modal Views */,
 				30226CEE1D493F5300871453 /* Common */,
 			);
 			path = UI;
@@ -944,6 +992,11 @@
 			isa = PBXGroup;
 			children = (
 				3023A5C21E578DEA003BE6AB /* chat-notification.wav */,
+				28C0088E1E5E8AE300260883 /* wow-1.wav */,
+				28C0088F1E5E8AE300260883 /* wow-2.wav */,
+				28C008901E5E8AE300260883 /* wow-3.wav */,
+				28C008911E5E8AE300260883 /* wow-4.wav */,
+				28C008921E5E8AE300260883 /* wow-5.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -974,22 +1027,6 @@
 			path = "XFINITY Sans";
 			sourceTree = "<group>";
 		};
-		3025D9C71E528068004149D7 /* Credit Card */ = {
-			isa = PBXGroup;
-			children = (
-				3025D9C81E528068004149D7 /* ActionButtonToolbar.swift */,
-				3025D9C91E528068004149D7 /* CancelConfirmControlsView.swift */,
-				3025D9CA1E528068004149D7 /* CreditCardInputView.swift */,
-				3025D9CB1E528068004149D7 /* CreditCardInputViewController.swift */,
-				3025D9CC1E528068004149D7 /* ModalCardErrorView.swift */,
-				3025D9CD1E528068004149D7 /* ModalCardPresentationAnimator.swift */,
-				3025D9CE1E528068004149D7 /* ModalCardTitleView.swift */,
-				3025D9CF1E528068004149D7 /* PlaceholderTextInputView.swift */,
-				3025D9D01E528068004149D7 /* SuccessCheckmarkView.swift */,
-			);
-			path = "Credit Card";
-			sourceTree = "<group>";
-		};
 		3025D9EA1E5371DD004149D7 /* Old Data Format */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,14 +1051,62 @@
 				3025DA0F1E539B9E004149D7 /* SRSIconItemView.swift */,
 				3025DA101E539B9E004149D7 /* SRSImageItemView.swift */,
 				3025DA111E539B9E004149D7 /* SRSLabelItemView.swift */,
-				3025DA121E539B9E004149D7 /* SRSLabelValueHorizontalItemView.swift */,
 				3025DA131E539B9E004149D7 /* SRSLabelValueItemView.swift */,
+				3025DA121E539B9E004149D7 /* SRSLabelValueHorizontalItemView.swift */,
 				3025DA141E539B9E004149D7 /* SRSLabelValueVerticalItemView.swift */,
 				3025DA151E539B9E004149D7 /* SRSLoaderBarView.swift */,
 				3025DA161E539B9E004149D7 /* SRSMapItemView.swift */,
 				3025DA171E539B9E004149D7 /* SRSSeparatorView.swift */,
 			);
 			path = "Content Items";
+			sourceTree = "<group>";
+		};
+		302A20891E5DE990007C522A /* Modal Views */ = {
+			isa = PBXGroup;
+			children = (
+				302A20A21E5DF090007C522A /* ModalCardViewController.swift */,
+				302A20A61E5DF110007C522A /* ModalCardPresentationAnimator.swift */,
+				302A20B21E5E2394007C522A /* ModalCardContentView.swift */,
+				302A20A51E5DF110007C522A /* ModalCardErrorView.swift */,
+				302A20A41E5DF110007C522A /* ModalCardControlsView.swift */,
+				302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */,
+				302A20A71E5DF110007C522A /* ModalCardTitleView.swift */,
+				302A20A81E5DF110007C522A /* ModalCardSuccessView.swift */,
+				302A208A1E5DE9AF007C522A /* Credit Card */,
+				302A209D1E5DED92007C522A /* Feedback */,
+			);
+			path = "Modal Views";
+			sourceTree = "<group>";
+		};
+		302A208A1E5DE9AF007C522A /* Credit Card */ = {
+			isa = PBXGroup;
+			children = (
+				302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */,
+				302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */,
+				302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */,
+				302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */,
+			);
+			path = "Credit Card";
+			sourceTree = "<group>";
+		};
+		302A209D1E5DED92007C522A /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */,
+				302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */,
+				302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */,
+				302A20C21E5E2D7E007C522A /* StarView.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		302A20CE1E5F9634007C522A /* Content Views */ = {
+			isa = PBXGroup;
+			children = (
+				302A20CF1E5F9634007C522A /* ChatPictureView.swift */,
+				302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */,
+			);
+			path = "Content Views";
 			sourceTree = "<group>";
 		};
 		303C876F1D775A4800213F6B /* ko.lproj */ = {
@@ -1148,11 +1233,13 @@
 			isa = PBXGroup;
 			children = (
 				300888A41D64D48300C25802 /* ChatMessagesViewCellProtocol.swift */,
+				302A20C41E5F73AD007C522A /* ChatMessageCell.swift */,
+				302A20C81E5F8AEF007C522A /* ChatItemListMessageCell.swift */,
+				302A20CA1E5F9524007C522A /* ChatItemCarouselMessageCell.swift */,
+				302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */,
+				302A20CE1E5F9634007C522A /* Content Views */,
 				30A4BB161D52400D00795BA7 /* ChatBubbleCell.swift */,
-				30A4BB181D52400D00795BA7 /* ChatTextMessageCell.swift */,
-				30A4BB171D52400D00795BA7 /* ChatPictureMessageCell.swift */,
 				30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */,
-				30D2E2851D79EEBC00502D92 /* ChatSRSItemListViewCell.swift */,
 				3092192F1D66607C00E70AEB /* Custom Views */,
 			);
 			path = Cells;
@@ -1353,6 +1440,7 @@
 				30BD878E1DC00C350008042D /* bill-past-due.json in Resources */,
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				302472A31D89B7680005A6C9 /* XFINITYSans-Reg.otf in Resources */,
+				28C008971E5E8AE300260883 /* wow-5.wav in Resources */,
 				302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */,
 				30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
@@ -1361,6 +1449,8 @@
 				30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */,
 				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
 				3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */,
+				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
+				28C008961E5E8AE300260883 /* wow-4.wav in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
@@ -1372,9 +1462,11 @@
 				3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */,
 				3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */,
 				302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */,
+				302A20BF1E5E2CFB007C522A /* icon-star@3x.png in Resources */,
 				3025D9B41E527FEB004149D7 /* icon-hide-keyboard@3x.png in Resources */,
 				305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */,
 				30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */,
+				28C008941E5E8AE300260883 /* wow-2.wav in Resources */,
 				30756B331E53A67D00D78E8E /* icon-credit-card-medium@2x.png in Resources */,
 				285F7AE61DA9AD3B008C2EF6 /* button-bg-close@3x.png in Resources */,
 				3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */,
@@ -1384,7 +1476,9 @@
 				3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */,
 				285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */,
 				3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */,
+				28C008951E5E8AE300260883 /* wow-3.wav in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
+				302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
 				30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */,
 				30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */,
@@ -1394,6 +1488,7 @@
 				3025D9A61E527FCC004149D7 /* icon-error-alert-filled.png in Resources */,
 				285F7AD01DA9A526008C2EF6 /* SprintSans-Black.ttf in Resources */,
 				307301BA1DAE90460002CF3B /* predictive-response.json in Resources */,
+				28C008931E5E8AE300260883 /* wow-1.wav in Resources */,
 				285F7AD41DA9A526008C2EF6 /* SprintSans-Regular.ttf in Resources */,
 				302268501D80690500EC4FB1 /* icon-loader@2x.png in Resources */,
 				301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */,
@@ -1437,6 +1532,7 @@
 				3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */,
 				28AEC0B91D888FFD00139C7D /* map-tech.png in Resources */,
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
+				302A20BA1E5E2CFB007C522A /* icon-star-filled.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
 				30226CFC1D49554E00871453 /* temp-icon-paperclip@2x.png in Resources */,
 				30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */,
@@ -1447,6 +1543,7 @@
 				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,
 				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				3025D9A81E527FCC004149D7 /* icon-error-alert-filled@3x.png in Resources */,
+				302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
 				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
@@ -1455,6 +1552,7 @@
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
 				3025D9AD1E527FDB004149D7 /* icon-credit-card@2x.png in Resources */,
+				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,
 				30BD878D1DC00C350008042D /* bill-paid.json in Resources */,
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
@@ -1475,10 +1573,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				306619141D9458F50092B4C5 /* SDWebImageDecoder.m in Sources */,
-				3025D9D11E528068004149D7 /* ActionButtonToolbar.swift in Sources */,
 				300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */,
+				302A20B31E5E2394007C522A /* ModalCardContentView.swift in Sources */,
 				3025DA1C1E539B9E004149D7 /* SRSLabelValueHorizontalItemView.swift in Sources */,
-				30D2E2861D79EEBC00502D92 /* ChatSRSItemListViewCell.swift in Sources */,
 				3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
@@ -1487,8 +1584,10 @@
 				303C877E1D789BB100213F6B /* SRSItemList.swift in Sources */,
 				28AEC0BF1D88BF8D00139C7D /* SRSMapItem.swift in Sources */,
 				285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */,
+				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				285F7B251DAC81AA008C2EF6 /* SRSItemCarousel.swift in Sources */,
 				303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */,
+				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
 				309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
@@ -1497,48 +1596,55 @@
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
-				3025D9D81E528068004149D7 /* PlaceholderTextInputView.swift in Sources */,
 				3025DA1D1E539B9E004149D7 /* SRSLabelValueItemView.swift in Sources */,
 				3025D9EC1E5371F3004149D7 /* SRSNestedItemListParser.swift in Sources */,
+				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,
 				306619181D9458F50092B4C5 /* SDWebImageDownloaderOperation.m in Sources */,
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30756B481E562C3100D78E8E /* ASAPPStyles.swift in Sources */,
+				302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
 				303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */,
 				30EE2A091D9970EB0079932D /* Credentials.swift in Sources */,
 				302268701D834BFB00EC4FB1 /* ChatActionableMessageView.swift in Sources */,
+				302A20C91E5F8AEF007C522A /* ChatItemListMessageCell.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
-				3025D9D91E528068004149D7 /* SuccessCheckmarkView.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,
+				302A209B1E5DE9AF007C522A /* PlaceholderTextInputView.swift in Sources */,
 				3025D9DD1E535739004149D7 /* SRSIconItem.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				30D2E2931D7A0F3400502D92 /* SRSFillerItem.swift in Sources */,
 				285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */,
+				302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				3022686B1D80C58300EC4FB1 /* SRSAppOpenResponse.swift in Sources */,
 				3025D9E91E536FC7004149D7 /* SRSLabelValueItem.swift in Sources */,
+				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
+				302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
+				302A20C31E5E2D7E007C522A /* StarView.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
+				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				3008889D1D63C48600C25802 /* StackView.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
+				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
-				3025D9D71E528068004149D7 /* ModalCardTitleView.swift in Sources */,
-				3025D9D21E528068004149D7 /* CancelConfirmControlsView.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				30756B461E562C1E00D78E8E /* TextStyle.swift in Sources */,
 				3008888E1D6258F100C25802 /* ChatSuggestedReplyCell.swift in Sources */,
+				302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */,
 				3025DA1A1E539B9E004149D7 /* SRSImageItemView.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				3025DA201E539B9E004149D7 /* SRSMapItemView.swift in Sources */,
@@ -1551,12 +1657,12 @@
 				3025DA191E539B9E004149D7 /* SRSIconItemView.swift in Sources */,
 				3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */,
 				3025DA011E539591004149D7 /* SRSInlineButtonsView.swift in Sources */,
-				3025D9D61E528068004149D7 /* ModalCardPresentationAnimator.swift in Sources */,
-				3025D9D51E528068004149D7 /* ModalCardErrorView.swift in Sources */,
 				30226CD61D4933F200871453 /* Event.swift in Sources */,
 				30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */,
+				302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */,
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
+				302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
 				3025DA211E539B9E004149D7 /* SRSSeparatorView.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
@@ -1567,38 +1673,40 @@
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				3025DA1E1E539B9E004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */,
 				3025DA001E539591004149D7 /* SRSButtonItemView.swift in Sources */,
+				302A20CB1E5F9524007C522A /* ChatItemCarouselMessageCell.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */,
 				285F7B291DACFC33008C2EF6 /* SRSItemListView.swift in Sources */,
 				3023A5BC1E5748ED003BE6AB /* ASAPPStyles+Presets.swift in Sources */,
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
-				30A4BB1E1D52400D00795BA7 /* ChatPictureMessageCell.swift in Sources */,
 				306619211D9458F50092B4C5 /* UIImage+GIF.m in Sources */,
 				3022685E1D8097E700EC4FB1 /* PredictiveViewController.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				303C87801D789BD900213F6B /* SRSButtonItem.swift in Sources */,
-				3025D9D41E528068004149D7 /* CreditCardInputViewController.swift in Sources */,
 				302268621D80B89900EC4FB1 /* PredictiveButtonsView.swift in Sources */,
 				28A99F301D5F92DE00F9AA84 /* ChatSuggestedRepliesView.swift in Sources */,
-				3025D9D31E528068004149D7 /* CreditCardInputView.swift in Sources */,
 				285F7B1D1DAC3A98008C2EF6 /* SRSImageItem.swift in Sources */,
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
+				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
+				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				300888941D62756D00C25802 /* JSONParser.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
-				30A4BB1F1D52400D00795BA7 /* ChatTextMessageCell.swift in Sources */,
 				30A4BB1D1D52400D00795BA7 /* ChatBubbleCell.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
+				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
 				3025DA1B1E539B9E004149D7 /* SRSLabelItemView.swift in Sources */,
+				302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */,
+				302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */,
 				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
