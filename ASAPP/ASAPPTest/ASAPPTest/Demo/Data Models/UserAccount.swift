@@ -196,12 +196,16 @@ extension UserAccount {
     }
     
     class func getSavedAccount(withKey key: String) -> UserAccount? {
-        if let savedAccountJSON = UserDefaults.standard.object(forKey: key) as? [String : String],
-            let savedAccount = UserAccount.accountWith(json: savedAccountJSON) {
-            DemoLog("Found account with key \(key): [\(savedAccount.name):\(savedAccount.company):\(savedAccount.userToken)]")
-            return savedAccount
+        guard let savedAccountJSON = UserDefaults.standard.object(forKey: key) as? [String : String] else {
+            DemoLog("No Account JSON found with key: \(key)")
+            return nil
         }
-        DemoLog("No account found with key \(key)")
-        return nil
+        guard let savedAccount  = UserAccount.accountWith(json: savedAccountJSON) else {
+            DemoLog("Unable to create account from saved json with key \(key):\n\(savedAccountJSON)")
+            return nil
+        }
+        
+        DemoLog("Found account with key \(key): [\(savedAccount.name):\(savedAccount.company):\(savedAccount.userToken)]")
+        return savedAccount
     }
 }
