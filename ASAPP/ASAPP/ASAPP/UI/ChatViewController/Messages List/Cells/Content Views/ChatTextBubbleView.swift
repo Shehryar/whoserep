@@ -14,8 +14,20 @@ class ChatTextBubbleView: UIView {
     
     var event: Event? {
         didSet {
+            if label.text == event?.messageText {
+                return
+            }
+            
             label.text = event?.messageText
-        
+            
+            if textHasDataDetectorLink(label.text) {
+                label.isUserInteractionEnabled = true
+                label.isSelectable = true
+            } else {
+                label.isUserInteractionEnabled = false
+                label.isSelectable = false
+            }
+            
             setNeedsLayout()
         }
     }
@@ -28,16 +40,27 @@ class ChatTextBubbleView: UIView {
     
     var isReply: Bool = false {
         didSet {
+            
             if isReply {
                 let fillColor = ASAPP.styles.replyMessageFillColor ?? ASAPP.styles.backgroundColor1
                 label.textColor = ASAPP.styles.replyMessageTextColor
-                label.backgroundColor = fillColor
+                label.tintColor = ASAPP.styles.replyMessageTextColor
+                label.linkTextAttributes = [
+                    NSForegroundColorAttributeName : ASAPP.styles.replyMessageTextColor,
+                    NSUnderlineStyleAttributeName : true
+                ]
                 bubbleView.strokeColor = ASAPP.styles.replyMessageStrokeColor
                 bubbleView.fillColor = fillColor
             } else {
                 let fillColor = ASAPP.styles.messageFillColor ?? ASAPP.styles.backgroundColor1
                 label.textColor = ASAPP.styles.messageTextColor
-                label.backgroundColor = fillColor
+                label.tintColor = ASAPP.styles.messageTextColor
+                label.backgroundColor = UIColor.clear
+                label.linkTextAttributes = [
+                    NSForegroundColorAttributeName : ASAPP.styles.messageTextColor,
+                    NSUnderlineStyleAttributeName : true
+                ]
+                
                 bubbleView.strokeColor = ASAPP.styles.messageStrokeColor
                 bubbleView.fillColor = fillColor
             }
@@ -50,7 +73,7 @@ class ChatTextBubbleView: UIView {
     var isEmpty: Bool {
         return (label.text ?? "").isEmpty
     }
-    
+
     // MARK: Properties: Layout
     
     var isLongPressing: Bool = false
@@ -61,11 +84,17 @@ class ChatTextBubbleView: UIView {
     
     let textInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
     
+    // MARK: Data Detectors
+    
+    let dataDetectorTypes = UIDataDetectorTypes.all
+    
+    var dataDetector: NSDataDetector?
+    
     // MARK: Properties: UI
     
     let bubbleView = BubbleView()
     
-    let label = UILabel()
+    let label = UITextView()
     
     // MARK: Initialization
     
@@ -73,12 +102,19 @@ class ChatTextBubbleView: UIView {
         backgroundColor = ASAPP.styles.backgroundColor1
         
         bubbleView.backgroundColor = ASAPP.styles.backgroundColor1
-        bubbleView.clipsToBounds = true
+        bubbleView.clipsToBounds = false
         addSubview(bubbleView)
         
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        label.isEditable = false
+        label.isSelectable = true
+        label.isScrollEnabled = false
+        label.scrollsToTop = false
+        label.clipsToBounds = false
+        label.textContainerInset = textInset
+        label.textContainer.lineFragmentPadding = 0.0
         label.font = ASAPP.styles.font(for: .chatMessageText)
+        label.backgroundColor = UIColor.clear
+        label.dataDetectorTypes = dataDetectorTypes
         bubbleView.addSubview(label)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextBubbleView.longPressGestureAction(_:)))
@@ -153,22 +189,26 @@ extension ChatTextBubbleView {
 extension ChatTextBubbleView {
     
     func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
+        guard label.text.characters.count > 0 else {
+            return (.zero, .zero)
+        }
+        
         let maxBubbleWidth = floor((size.width - contentInset.left - contentInset.right) * maxBubbleWidthPercentage)
-        let maxTextWidth = maxBubbleWidth - textInset.left - textInset.right
+        let maxTextWidth = maxBubbleWidth
         let textSize = label.sizeThatFits(CGSize(width: maxTextWidth, height: 0))
         guard textSize.height > 0 else {
             return (.zero, .zero)
         }
         
-        let bubbleSize = CGSize(width: ceil(textSize.width + textInset.left + textInset.right),
-                                height: ceil(textSize.height + textInset.top + textInset.bottom))
+        let bubbleSize = CGSize(width: ceil(textSize.width),
+                                height: ceil(textSize.height))
         
         var bubbleLeft = contentInset.left
         if !isReply {
             bubbleLeft = size.width - bubbleSize.width - contentInset.right
         }
         let bubbleFrame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
-        let labelFrame = CGRect(x: textInset.left, y: textInset.top, width: ceil(textSize.width), height: ceil(textSize.height))
+        let labelFrame = CGRect(x: 0, y: 0, width: ceil(textSize.width), height: ceil(textSize.height))
         
         return (bubbleFrame, labelFrame)
     }
@@ -197,6 +237,18 @@ extension ChatTextBubbleView {
 // MARK:- Long Press Gesture + Copy Menu
 
 extension ChatTextBubbleView {
+    
+    func textHasDataDetectorLink(_ text: String?) -> Bool {
+        guard let text = text, text.characters.count > 0 else {
+            return false
+        }
+        
+        dataDetector = try? (dataDetector ?? NSDataDetector(types: NSTextCheckingTypes(dataDetectorTypes.rawValue)))
+        if let dataDetector = dataDetector {
+            return dataDetector.numberOfMatches(in: text, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, text.characters.count)) > 0
+        }
+        return false
+    }
     
     func longPressGestureAction(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
