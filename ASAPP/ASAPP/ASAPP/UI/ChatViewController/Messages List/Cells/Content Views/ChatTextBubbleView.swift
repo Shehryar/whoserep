@@ -44,21 +44,19 @@ class ChatTextBubbleView: UIView {
             if isReply {
                 let fillColor = ASAPP.styles.replyMessageFillColor ?? ASAPP.styles.backgroundColor1
                 label.textColor = ASAPP.styles.replyMessageTextColor
-                label.tintColor = ASAPP.styles.replyMessageTextColor
                 label.linkTextAttributes = [
                     NSForegroundColorAttributeName : ASAPP.styles.replyMessageTextColor,
-                    NSUnderlineStyleAttributeName : true
+                    NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.replyMessageStrokeColor
                 bubbleView.fillColor = fillColor
             } else {
                 let fillColor = ASAPP.styles.messageFillColor ?? ASAPP.styles.backgroundColor1
                 label.textColor = ASAPP.styles.messageTextColor
-                label.tintColor = ASAPP.styles.messageTextColor
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
                     NSForegroundColorAttributeName : ASAPP.styles.messageTextColor,
-                    NSUnderlineStyleAttributeName : true
+                    NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
                 ]
                 
                 bubbleView.strokeColor = ASAPP.styles.messageStrokeColor
@@ -189,7 +187,7 @@ extension ChatTextBubbleView {
 extension ChatTextBubbleView {
     
     func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
-        guard label.text.characters.count > 0 else {
+        guard !isEmpty else {
             return (.zero, .zero)
         }
         

@@ -64,7 +64,6 @@
 		300888941D62756D00C25802 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888931D62756D00C25802 /* JSONParser.swift */; };
 		3008889D1D63C48600C25802 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008889C1D63C48600C25802 /* StackView.swift */; };
 		300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888A21D64BE4900C25802 /* ChatMessagesViewCellMaster.swift */; };
-		300888A51D64D48300C25802 /* ChatMessagesViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300888A41D64D48300C25802 /* ChatMessagesViewCellProtocol.swift */; };
 		30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30099DB11D3EDBC400171D56 /* ASAPP.swift */; };
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
@@ -258,7 +257,6 @@
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
 		3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091BC1F1D933F3E00B0A7F9 /* ConversationFileStore.swift */; };
-		309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309219321D6666F700E70AEB /* TwoColumnLabelView.swift */; };
 		30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A003491DC258A700CFA4CD /* json-style-example.json */; };
 		30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB051D5109F700795BA7 /* ImageViewer.swift */; };
 		30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */; };
@@ -354,7 +352,6 @@
 		300888931D62756D00C25802 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		3008889C1D63C48600C25802 /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		300888A21D64BE4900C25802 /* ChatMessagesViewCellMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewCellMaster.swift; sourceTree = "<group>"; };
-		300888A41D64D48300C25802 /* ChatMessagesViewCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewCellProtocol.swift; sourceTree = "<group>"; };
 		30099DB11D3EDBC400171D56 /* ASAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPP.swift; sourceTree = "<group>"; };
 		30099DE11D3EE40400171D56 /* ASAPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPP.h; sourceTree = "<group>"; };
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -550,7 +547,6 @@
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3091BC1F1D933F3E00B0A7F9 /* ConversationFileStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationFileStore.swift; sourceTree = "<group>"; };
-		309219321D6666F700E70AEB /* TwoColumnLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnLabelView.swift; sourceTree = "<group>"; };
 		30A003491DC258A700CFA4CD /* json-style-example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
@@ -702,7 +698,6 @@
 			isa = PBXGroup;
 			children = (
 				3008889C1D63C48600C25802 /* StackView.swift */,
-				309219321D6666F700E70AEB /* TwoColumnLabelView.swift */,
 			);
 			path = StackView;
 			sourceTree = "<group>";
@@ -1103,8 +1098,8 @@
 		302A20CE1E5F9634007C522A /* Content Views */ = {
 			isa = PBXGroup;
 			children = (
-				302A20CF1E5F9634007C522A /* ChatPictureView.swift */,
 				302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */,
+				302A20CF1E5F9634007C522A /* ChatPictureView.swift */,
 			);
 			path = "Content Views";
 			sourceTree = "<group>";
@@ -1232,7 +1227,6 @@
 		30A4BB151D52400D00795BA7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				300888A41D64D48300C25802 /* ChatMessagesViewCellProtocol.swift */,
 				302A20C41E5F73AD007C522A /* ChatMessageCell.swift */,
 				302A20C81E5F8AEF007C522A /* ChatItemListMessageCell.swift */,
 				302A20CA1E5F9524007C522A /* ChatItemCarouselMessageCell.swift */,
@@ -1588,7 +1582,6 @@
 				285F7B251DAC81AA008C2EF6 /* SRSItemCarousel.swift in Sources */,
 				303C87821D789BE200213F6B /* SRSLabelItem.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
-				309219331D6666F700E70AEB /* TwoColumnLabelView.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
 				30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */,
@@ -1710,7 +1703,6 @@
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				303C877C1D789B9700213F6B /* SRSResponse.swift in Sources */,
 				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
-				300888A51D64D48300C25802 /* ChatMessagesViewCellProtocol.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,
 				30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */,
 			);

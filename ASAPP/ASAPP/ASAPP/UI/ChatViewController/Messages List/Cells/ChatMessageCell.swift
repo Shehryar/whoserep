@@ -10,7 +10,6 @@ import UIKit
 
 protocol ChatMessageCellDelegate: class {
     func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
-    
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int)
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem)
 }
@@ -40,12 +39,14 @@ class ChatMessageCell: UITableViewCell {
     var messagePosition: MessageListPosition = .none {
         didSet {
             textBubbleView.messagePosition = messagePosition
+            updateContentInset()
         }
     }
     
     var isTimeLabelVisible: Bool = false {
         didSet {
             timeLabel.alpha = isTimeLabelVisible ? 1.0 : 0.0
+            updateContentInset()
             setNeedsLayout()
         }
     }
@@ -114,6 +115,34 @@ class ChatMessageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
+    }
+    
+    // MARK: Styling Methods
+    
+    private func updateContentInset() {
+        var updatedContentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        
+        switch messagePosition {
+        case .firstOfMany:
+            updatedContentInset.bottom = 1
+            break
+            
+        case .middleOfMany:
+            updatedContentInset.top = 1
+            if !isTimeLabelVisible {
+                updatedContentInset.bottom = 1
+            }
+            break
+            
+        case .lastOfMany:
+            updatedContentInset.top = 1
+            break
+            
+        case .none:
+            // No need to change
+            break
+        }
+        contentInset = updatedContentInset
     }
 }
 

@@ -12,6 +12,50 @@ class ChatMessagesViewCellMaster: NSObject {
 
     let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .conversationEnd]
     
+    enum MessageCellType: String {
+        case none = "none"
+        case itemList = "itemList"
+        case itemCarousel = "itemCarousel"
+        case picture = "picture"
+        case text = "text"
+        
+        static let allValidTypes = [
+            itemList,
+            itemCarousel,
+            picture,
+            text
+        ]
+        
+        static func forEvent(_ event: Event?) -> MessageCellType {
+            guard let event = event else {
+                return none
+            }
+            
+            if event.srsResponse?.itemList != nil {
+                return itemList
+            } else if event.eventType == .textMessage {
+                return text
+            } else if event.eventType == .pictureMessage {
+                return picture
+            } else if event.srsResponse?.itemCarousel != nil {
+                return itemCarousel
+            }
+            
+            return none
+        }
+        
+        func getCellClass() -> AnyClass? {
+            switch self {
+            case .text: return ChatMessageCell.self
+            case .itemList: return ChatItemListMessageCell.self
+            case .itemCarousel: return ChatItemCarouselMessageCell.self
+            case .picture: return ChatPictureMessageCell.self
+            case .none: return nil
+            }
+        }
+    }
+    
+    
     // MARK: Public Properties
 
     let tableView: UITableView
@@ -46,11 +90,6 @@ class ChatMessagesViewCellMaster: NSObject {
     // MARK: Reuse IDs
     
     fileprivate let TimeHeaderViewReuseId = "TimeHeaderViewReuseId"
-    
-    fileprivate let TextMessageCellReuseId = "TextMessageCellReuseId"
-    fileprivate let PictureMessageCellReuseId = "PictureMessageCellReuseId"
-    fileprivate let ItemListCellReuseId = "ItemListCellReuseId"
-    fileprivate let ItemCarouselCellReuseId = "ItemCarouselReuseId"
     fileprivate let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     
     // MARK: Init
@@ -61,15 +100,14 @@ class ChatMessagesViewCellMaster: NSObject {
         
         pictureMessageSizingCell.pictureView.disableImageLoading = true
         
-        // Register Header
+        // Register Header & Non-Message Cells
         tableView.register(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: TimeHeaderViewReuseId)
-        
-        // Register Cells
-        tableView.register(ChatMessageCell.self, forCellReuseIdentifier: TextMessageCellReuseId)
-        tableView.register(ChatPictureMessageCell.self, forCellReuseIdentifier: PictureMessageCellReuseId)
-        tableView.register(ChatItemListMessageCell.self, forCellReuseIdentifier: ItemListCellReuseId)
-        tableView.register(ChatItemCarouselMessageCell.self, forCellReuseIdentifier: ItemCarouselCellReuseId)
         tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
+        
+        // Register Message Cells
+        for cellType in MessageCellType.allValidTypes {
+            tableView.register(cellType.getCellClass(), forCellReuseIdentifier: cellType.rawValue)
+        }
     }
 }
 
@@ -124,43 +162,23 @@ extension ChatMessagesViewCellMaster {
     }
     
     func typingIndicatorCell(forIndexPath indexPath: IndexPath) -> UITableViewCell? {
-        let cell = getCell(with: TypingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
-        styleTypingIndicatorCell(cell)
-        return cell
+        return getCell(with: TypingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
     }
     
-    func cellForEvent(_ event: Event, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
+    func cellForEvent(_ event: Event,
+                      isReply: Bool,
+                      listPosition: MessageListPosition,
+                      detailsVisible: Bool,
+                      atIndexPath indexPath: IndexPath) -> UITableViewCell? {
+        let cellType = MessageCellType.forEvent(event)
+        guard cellType != .none else {
+            return nil
+        }
         
-        // Picture Message
-        if event.eventType == .pictureMessage {
-            let cell = getCell(with: PictureMessageCellReuseId, at: indexPath) as? ChatPictureMessageCell
-            stylePictureMessageCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition)
+        if let cell = getCell(with: cellType.rawValue, at: indexPath) as? ChatMessageCell {
+            styleMessageCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
             return cell
         }
-        
-        // Text Message
-        if event.eventType == .textMessage {
-            let cell = getCell(with: TextMessageCellReuseId, at: indexPath) as? ChatMessageCell
-            styleTextMessageCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
-            return cell
-        }
-        
-        // SRS Response
-        if [EventType.srsResponse, EventType.newRep, EventType.conversationEnd].contains(event.eventType) {
-            // Item Carousel
-            if event.srsResponse?.itemCarousel != nil {
-                let cell = getCell(with: ItemCarouselCellReuseId, at: indexPath) as? ChatItemCarouselMessageCell
-                styleItemCarouselCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
-                return cell
-            }
-            // Item List
-            else {
-                let cell = getCell(with: ItemListCellReuseId, at: indexPath) as? ChatItemListMessageCell
-                styleItemListCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
-                return cell
-            }
-        }
-        
         return nil
     }
 }
@@ -169,51 +187,15 @@ extension ChatMessagesViewCellMaster {
 
 extension ChatMessagesViewCellMaster {
     
-    func styleTextMessageCell(_ cell: ChatMessageCell?,
-                              withEvent event: Event,
-                              isReply: Bool,
-                              listPosition: MessageListPosition,
-                              detailsVisible: Bool) {
+    func styleMessageCell(_ cell: ChatMessageCell?,
+                          withEvent event: Event,
+                          isReply: Bool,
+                          listPosition: MessageListPosition,
+                          detailsVisible: Bool) {
         cell?.messagePosition = listPosition
         cell?.event = event
         cell?.isReply = isReply
         cell?.isTimeLabelVisible = detailsVisible
-    }
-    
-    func stylePictureMessageCell(_ cell: ChatPictureMessageCell?,
-                                 withEvent event: Event,
-                                 isReply: Bool,
-                                 listPosition: MessageListPosition) {
-        cell?.messagePosition = listPosition
-        cell?.event = event
-        cell?.isReply = isReply
-        cell?.isTimeLabelVisible = false
-    }
-    
-    func styleItemListCell(_ cell: ChatItemListMessageCell?,
-                           withEvent event: Event,
-                           isReply: Bool,
-                           listPosition: MessageListPosition,
-                           detailsVisible: Bool) {
-        cell?.event = event
-        cell?.messagePosition = listPosition
-        cell?.isReply = isReply
-        cell?.isTimeLabelVisible = detailsVisible
-    }
-    
-    func styleItemCarouselCell(_ cell: ChatItemCarouselMessageCell?,
-                               withEvent event: Event,
-                               isReply: Bool,
-                               listPosition: MessageListPosition,
-                               detailsVisible: Bool) {
-        cell?.event = event
-        cell?.messagePosition = listPosition
-        cell?.isReply = isReply
-        cell?.isTimeLabelVisible = detailsVisible
-    }
-    
-    func styleTypingIndicatorCell(_ cell: ChatTypingIndicatorCell?) {
-        cell?.listPosition = .none
     }
 }
 
@@ -227,7 +209,6 @@ extension ChatMessagesViewCellMaster {
         }
 
         cachedTableViewWidth = tableView.bounds.width
-        styleTypingIndicatorCell(typingIndicatorSizingCell)
         cachedTypingIndicatorCellHeight = heightForStyledView(typingIndicatorSizingCell, width: cachedTableViewWidth)
         
         return cachedTypingIndicatorCellHeight ?? 0.0
@@ -240,11 +221,11 @@ extension ChatMessagesViewCellMaster {
         
         cachedTableViewWidth = tableView.bounds.width
         
-        if canCacheHeight {
-            if let cachedHeight = cellHeightCache[event] {
-                return cachedHeight
-            }
-        }
+//        if canCacheHeight {
+//            if let cachedHeight = cellHeightCache[event] {
+//                return cachedHeight
+//            }
+//        }
         
         // Calculate height
         let height: CGFloat = calculateHeightForCellWithEvent(event,
@@ -259,53 +240,25 @@ extension ChatMessagesViewCellMaster {
         return height
     }
     
+    private func getMessageSizingCellForEvent(_ event: Event) -> ChatMessageCell? {
+        switch MessageCellType.forEvent(event) {
+        case .itemList: return itemListViewSizingCell
+        case .itemCarousel: return itemCarouselViewSizingCell
+        case .picture: return pictureMessageSizingCell
+        case .text: return textMessageSizingCell
+        case .none: return nil
+        }
+    }
+    
     fileprivate func calculateHeightForCellWithEvent(_ event: Event,
-                                                 isReply: Bool,
-                                                 listPosition: MessageListPosition,
-                                                 detailsVisible: Bool,
-                                                 width: CGFloat) -> CGFloat {
-        
-        // Picture Message
-        if event.eventType == .pictureMessage {
-            stylePictureMessageCell(pictureMessageSizingCell,
-                                    withEvent: event,
-                                    isReply: isReply,
-                                    listPosition: listPosition)
-            return heightForStyledView(pictureMessageSizingCell, width: width)
+                                                     isReply: Bool,
+                                                     listPosition: MessageListPosition,
+                                                     detailsVisible: Bool,
+                                                     width: CGFloat) -> CGFloat {
+        if let sizingCell = getMessageSizingCellForEvent(event) {
+            styleMessageCell(sizingCell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
+            return heightForStyledView(sizingCell, width: width)
         }
-        
-        // Text Message
-        if event.eventType == .textMessage {
-            styleTextMessageCell(textMessageSizingCell,
-                                 withEvent: event,
-                                 isReply: isReply,
-                                 listPosition: listPosition,
-                                 detailsVisible: detailsVisible)
-            return heightForStyledView(textMessageSizingCell, width: width)
-        }
-        
-        // SRS Response
-        if [EventType.srsResponse, EventType.newRep, EventType.conversationEnd].contains(event.eventType) {
-            // Item Carousel
-            if event.srsResponse?.itemCarousel != nil {
-                styleItemCarouselCell(itemCarouselViewSizingCell,
-                                      withEvent: event,
-                                      isReply: isReply,
-                                      listPosition: listPosition,
-                                      detailsVisible: detailsVisible)
-                return heightForStyledView(itemCarouselViewSizingCell, width: width)
-            }
-            // Item List
-            else if event.srsResponse?.itemList != nil {
-                styleItemListCell(itemListViewSizingCell,
-                                  withEvent: event,
-                                  isReply: isReply,
-                                  listPosition: listPosition,
-                                  detailsVisible: detailsVisible)
-                return heightForStyledView(itemListViewSizingCell, width: width)
-            }
-        }
-        
         return 0.0
     }
     
