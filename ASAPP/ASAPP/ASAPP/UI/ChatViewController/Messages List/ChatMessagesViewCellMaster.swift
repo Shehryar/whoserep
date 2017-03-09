@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum MessageListPosition {
+    case none
+    case firstOfMany
+    case middleOfMany
+    case lastOfMany
+}
+
 class ChatMessagesViewCellMaster: NSObject {
 
     let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .conversationEnd]
@@ -64,7 +71,7 @@ class ChatMessagesViewCellMaster: NSObject {
     
     fileprivate let dateFormatter = DateFormatter()
     
-    fileprivate var cellHeightCache = [Event : CGFloat]()
+    fileprivate let cellHeightCache = ChatMessageCellHeightCache()
     
     fileprivate var timeHeaderHeightCache = [Double : CGFloat]()
     
@@ -116,7 +123,7 @@ class ChatMessagesViewCellMaster: NSObject {
 extension ChatMessagesViewCellMaster {
     
     func clearCache() {
-        cellHeightCache.removeAll()
+        cellHeightCache.clearCache()
         timeHeaderHeightCache.removeAll()
         cachedTypingIndicatorCellHeight = nil
     }
@@ -221,11 +228,11 @@ extension ChatMessagesViewCellMaster {
         
         cachedTableViewWidth = tableView.bounds.width
         
-//        if canCacheHeight {
-//            if let cachedHeight = cellHeightCache[event] {
-//                return cachedHeight
-//            }
-//        }
+        if canCacheHeight {
+            if let cachedHeight = cellHeightCache.getCachedHeight(event: event, messagePosition: listPosition) {
+                return cachedHeight
+            }
+        }
         
         // Calculate height
         let height: CGFloat = calculateHeightForCellWithEvent(event,
@@ -234,7 +241,7 @@ extension ChatMessagesViewCellMaster {
                                                               detailsVisible: detailsVisible,
                                                               width: cachedTableViewWidth)
         if canCacheHeight {
-            cellHeightCache[event] = height
+            cellHeightCache.cacheHeight(height, for: event, messagePosition: listPosition)
         }
                 
         return height

@@ -8,24 +8,44 @@
 
 import UIKit
 
-class ChatTypingIndicatorCell: ChatBubbleCell {
+class ChatTypingIndicatorCell: UITableViewCell {
 
-    override var isReply: Bool {
-        return true
-    }
+    // MARK: Properties - UI
+    
+    let bubbleView = BubbleView()
     
     let loadingView = BouncingBallsLoadingView()
     
+    // MARK: Properties Layout
+    
+    let contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+    
+    
     // MARK: Init
     
-    override func commonInit() {
-        super.commonInit()
+    func commonInit() {
+        selectionStyle = .none
+        
+        bubbleView.fillColor = ASAPP.styles.replyMessageFillColor
+        bubbleView.strokeColor = ASAPP.styles.replyMessageStrokeColor
+        bubbleView.roundedCorners = [.topLeft, .topRight, .bottomRight]
+        bubbleView.clipsToBounds = true
+        contentView.addSubview(bubbleView)
         
         loadingView.tintColor = ASAPP.styles.replyMessageTextColor.withAlphaComponent(0.6)
         bubbleView.addSubview(loadingView)
         
         layoutSubviews()
-        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
     }
         
     // MARK: Layout
