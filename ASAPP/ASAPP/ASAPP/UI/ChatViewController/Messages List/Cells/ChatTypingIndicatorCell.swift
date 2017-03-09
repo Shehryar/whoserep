@@ -71,12 +71,4 @@ class ChatTypingIndicatorCell: UITableViewCell {
         return CGSize(width: loadingSize.width + contentInset.left + contentInset.right,
                       height: loadingSize.height + contentInset.top + contentInset.bottom)
     }
-    
-    // MARK: Reuse
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        loadingView.endAnimating()
-    }
 }
