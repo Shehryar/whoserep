@@ -436,15 +436,6 @@ extension ConversationManager: SocketConnectionDelegate {
                         }
                         break
                         
-                    case .typingPreview:
-                        if let typingPreview = event.typingPreview {
-                            delegate?.conversationManager(self,
-                                                          didUpdateRemoteTypingStatus: !typingPreview.previewText.isEmpty,
-                                                          withPreviewText: typingPreview.previewText,
-                                                          event: event)
-                        }
-                        break
-                        
                     default:
                         // Not yet handled
                         break

@@ -11,24 +11,9 @@ import Foundation
 @objc enum EventType: Int {
     case none = 0
     case textMessage = 1
-    case newIssue = 2
     case newRep = 3
     case conversationEnd = 4
     case pictureMessage = 5
-    case privateNote = 6
-    case newIssueTopic = 7
-    case issueEnqueued = 8
-    case conversationRated = 9
-    case customerTimedOut = 10
-    case crmCustomerLinked = 11
-    case issueSummarized = 12
-    case textAnnotation = 13
-    case customerPrompt = 14
-    case customerConversationEnd = 15
-    case issueAnnotation = 16
-    case whisperMessage = 17
-    case customerFeedback = 18
-    case vCardMessage = 19
     case srsResponse = 22
     case srsEcho = 23
     case srsAction = 24
@@ -39,93 +24,12 @@ import Foundation
 @objc enum EphemeralType: Int {
     case none = 0
     case typingStatus = 1
-    case typingPreview = 2
-    case customerCRMInfo = 3
-    case updateCustomerIdentifiers = 4
-    case connectionUpdate = 5
     case eventStatus = 6
-}
-
-// MARK:- Payloads
-
-struct TextMessage {
-    let text: String
-}
-
-struct PictureMessage {
-    let fileBucket: String
-    let fileSecret: String
-    let mimeType: String
-    let width: Int
-    let height: Int
-    
-    /// Returns the aspect ratio (w/h) or 1 if either width/height == 0
-    var aspectRatio: Double {
-        if width <= 0 || height <= 0 {
-            return 1
-        }
-        return Double(width) / Double(height)
-    }
-}
-
-struct TypingStatus {
-    let isTyping: Bool
-}
-
-struct TypingPreview {
-    let previewText: String
-}
-
-struct Issue {
-    let issueId: Int
-    let companyId: Int
-    let companyGroupId: Int
-    let platformType: Int
-    let customerId: Int
-    let repId: Int
-    let repIssuePos: Int
-    let issueStatus: Int
-    let issueStatusTime: Double
-    let firstCompanyEventLogSeq: Int
-    let lastCompanyEventLogSeq: Int
-    let issueSecret: String
-    let issueTopicId: Int
-    let customerState: Int
-    let createdTime: Double
-    let endedTime: Double
-    let resolved: Bool
-    let regionId: Int
-}
-
-struct Rep {
-    let repId: Int
-    let companyId: Int
-    let crmRepId: String
-    let createdTime: Double
-    let makeAdminTime: Double
-    let maxSlot: Int
-    let rolesJSON: String?
-    let name: String
-    let disabledTime: Double
-}
-
-struct ConnectionUpdate {
-    let agentType: Int
-    let connectionId: String
-    let ipAddress: String
-    let geoLocation: String
-    let isOpen: Bool
-}
-
-struct CRMCustomerLinked {
-    let linkedTime: Double
 }
 
 // MARK:- Event
 
 class Event: NSObject {
-    
-    // MARK: Realm Properties
     
     var createdTime: Double = 0 // in micro-seconds
     var issueId = 0
@@ -209,87 +113,6 @@ class Event: NSObject {
         return nil
     }()
     
-    lazy var typingPreview: TypingPreview? = {
-        guard self.eventType == .none && self.ephemeralType == .typingPreview else { return nil }
-        guard let eventJSONObject = self.eventJSONObject else { return nil }
-        
-        if let previewText = eventJSONObject["Text"] as? String {
-            return TypingPreview(previewText: previewText)
-        }
-        return nil
-    }()
-    
-    lazy var connectionUpdate: ConnectionUpdate? = {
-        guard self.eventType == .none && self.ephemeralType == .connectionUpdate else { return nil }
-
-        if let agentType = self.eventJSONObject?["AgentType"] as? Int,
-            let connectionId = self.eventJSONObject?["ConnectionId"] as? String,
-            let ipAddress = self.eventJSONObject?["IPAdress"] as? String,
-            let geoLocation = self.eventJSONObject?["GeoLocation"] as? String,
-            let isOpen = self.eventJSONObject?["IsOpen"] as? Bool {
-            return ConnectionUpdate(agentType: agentType, connectionId: connectionId, ipAddress: ipAddress, geoLocation: geoLocation, isOpen: isOpen)
-        }
-        
-        return nil
-    }()
-    
-    lazy var crmCustomerLinked: CRMCustomerLinked? = {
-        guard self.eventType == .crmCustomerLinked else { return nil }
-        
-        if let linkedTime = self.eventJSONObject?["CRMCustomerLinkedTime"] as? Double {
-            return CRMCustomerLinked(linkedTime: linkedTime)
-        }
-        
-        return nil
-    }()
-    
-    lazy var newIssue: Issue? = {
-        guard self.eventType == .newIssue else { return nil }
-        guard let issueJSON = self.eventJSONObject?["Issue"] as? [String : AnyObject] else { return nil }
-        
-        if let issueId = issueJSON["IssueId"] as? Int,
-            let companyId = issueJSON["CompanyId"] as? Int,
-            let companyGroupId = issueJSON["CompanyGroupId"] as? Int,
-            let platformType = issueJSON["PlatformType"] as? Int,
-            let customerId = issueJSON["CustomerId"] as? Int,
-            let repId = issueJSON["RepId"] as? Int,
-            let repIssuePos = issueJSON["RepIssuePos"] as? Int,
-            let issueStatus = issueJSON["IssueStatus"] as? Int,
-            let issueStatusTime = issueJSON["IssueStatusTime"] as? Double,
-            let firstCompanyEventLogSeq = issueJSON["FirstCompanyEventLogSeq"] as? Int,
-            let lastCompanyEventLogSeq = issueJSON["LastCompanyEventLogSeq"] as? Int,
-            let issueSecret = issueJSON["IssueSecret"] as? String,
-            let issueTopicId = issueJSON["IssueTopicId"] as? Int,
-            let customerState = issueJSON["CustomerState"] as? Int,
-            let createdTime = issueJSON["CreatedTime"] as? Double,
-            let endedTime = issueJSON["EndedTime"] as? Double,
-            let resolved = issueJSON["Resolved"] as? Bool,
-            let regionId = issueJSON["RegionId"] as? Int {
-            return Issue(issueId: issueId, companyId: companyId, companyGroupId: companyGroupId, platformType: platformType, customerId: customerId, repId: repId, repIssuePos: repIssuePos, issueStatus: issueStatus, issueStatusTime: issueStatusTime, firstCompanyEventLogSeq: firstCompanyEventLogSeq, lastCompanyEventLogSeq: lastCompanyEventLogSeq, issueSecret: issueSecret, issueTopicId: issueTopicId, customerState: customerState, createdTime: createdTime, endedTime: endedTime, resolved: resolved, regionId: regionId)
-        }
-        
-        return nil
-    }()
-    
-    lazy var newRep: Rep? = {
-        guard self.eventType == .newRep else { return nil }
-        guard let repJSON = self.eventJSONObject?["NewRep"] as? [String : AnyObject] else { return nil }
-        
-        if let repId = repJSON["RepId"] as? Int,
-            let companyId = repJSON["CompanyId"] as? Int,
-            let crmRepId = repJSON["CRMRepId"] as? String,
-            let createdTime = repJSON["CreatedTime"] as? Double,
-            let makeAdminTime = repJSON["MadeAdminTime"] as? Double,
-            let maxSlot = repJSON["MaxSlot"] as? Int,
-            let rolesJSON = repJSON["RolesJSON"] as? String,
-            let name = repJSON["Name"] as? String,
-            let disabledTime = repJSON["DisabledTime"] as? Double {
-            return Rep(repId: repId, companyId: companyId, crmRepId: crmRepId, createdTime: createdTime, makeAdminTime: makeAdminTime, maxSlot: maxSlot, rolesJSON: rolesJSON, name: name, disabledTime: disabledTime)
-        }
-        
-        return nil
-    }()
-
     lazy var srsResponse: SRSResponse? = {
         if self.eventType == .srsResponse {
             return SRSResponse.instanceWithJSON(self.eventJSONObject) as? SRSResponse
@@ -361,14 +184,11 @@ class Event: NSObject {
         self.eventLogSeq = max(customerEventLogSeq, companyEventLogSeq)
         
         
-        if  self.eventType == .srsEcho {
+        if self.eventType == .srsEcho {
             var eventJSONObject: [String : AnyObject]?
             do {
                 eventJSONObject =  try JSONSerialization.jsonObject(with: self.eventJSON.data(using: String.Encoding.utf8)!, options: []) as? [String : AnyObject]
-            } catch {
-                // ignore for now....
-                
-            }
+            } catch {}
             
             if let parsedEchoContent = eventJSONObject?["Echo"] as? String {
                 self.eventType = .srsResponse
@@ -424,3 +244,31 @@ extension Event {
         return URL(string: urlString)
     }
 }
+
+
+// MARK:- Payloads
+
+struct TextMessage {
+    let text: String
+}
+
+struct PictureMessage {
+    let fileBucket: String
+    let fileSecret: String
+    let mimeType: String
+    let width: Int
+    let height: Int
+    
+    /// Returns the aspect ratio (w/h) or 1 if either width/height == 0
+    var aspectRatio: Double {
+        if width <= 0 || height <= 0 {
+            return 1
+        }
+        return Double(width) / Double(height)
+    }
+}
+
+struct TypingStatus {
+    let isTyping: Bool
+}
+
