@@ -9,7 +9,7 @@
 import Foundation
 
 class SRSResponse: NSObject {
-//    var title: String?
+    
     var classification: String?
     
     var itemList: SRSItemList?
@@ -42,16 +42,20 @@ class SRSResponse: NSObject {
 
 // MARK:- JSON Handling
 
-extension SRSResponse: JSONObject {
+extension SRSResponse {
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
-        guard let json = json else {
+    class func fromEventJSON(_ eventJSON: [String : AnyObject]?) -> SRSResponse? {
+        guard let eventJSON = eventJSON else {
             return nil
         }
         
-        // This may be an action message, in which case the srs response is embedded under an additional key, "BusinessLogic"
+        // All sorts of weird nesting logic here...
         
-        let srsJSON = json["businessLogic"] as? [String : Any] ?? json["BusinessLogic"] as? [String : Any] ?? json
+        let srsJSON = (eventJSON["businessLogic"] as? [String : Any]
+            ?? eventJSON["BusinessLogic"] as? [String : Any]
+            ?? eventJSON["ClientMessage"] as? [String : Any]
+            ?? eventJSON["Echo"] as? [String : Any]
+            ?? eventJSON)
         
         var displayContent = false
         if let displayContentValue = srsJSON["displayContent"] as? Bool {
@@ -59,7 +63,6 @@ extension SRSResponse: JSONObject {
         }
         
         let response = SRSResponse(displayContent: displayContent)
-//        response.title = srsJSON["title"] as? String
         response.classification = srsJSON["classification"] as? String
         if srsJSON["contentType"] as? String == "carousel" {
             response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemCarousel

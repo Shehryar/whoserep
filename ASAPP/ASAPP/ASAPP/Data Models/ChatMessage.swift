@@ -28,17 +28,28 @@ class ChatMessage: NSObject {
     
     // MARK: Metadata
     
+    let isReply: Bool
     let sendTime: Date
     let eventId: Int
+    let isAutomatedMessage: Bool
     
     // MARK: Init
     
-    init(text: String?, attachment: AnyObject?, quickReplies: [SRSButtonItem]?, sendTime: Date, eventId: Int) {
+    init(text: String?,
+         attachment: AnyObject?,
+         quickReplies: [SRSButtonItem]?,
+         isReply: Bool,
+         sendTime: Date,
+         eventId: Int,
+         isAutomatedMessage: Bool = false) {
+        
         self.text = text
         self.attachment = attachment
         self.quickReplies = quickReplies
+        self.isReply = isReply
         self.sendTime = sendTime
         self.eventId = eventId
+        self.isAutomatedMessage = isAutomatedMessage
         
         // Determine type based on content
         var type: ChatMessageType?
@@ -94,8 +105,10 @@ extension ChatMessage {
             return ChatMessage(text: text,
                                attachment: attachment,
                                quickReplies: quickReplies,
+                               isReply: event.isReply,
                                sendTime: event.eventDate,
-                               eventId: event.eventLogSeq)
+                               eventId: event.eventLogSeq,
+                               isAutomatedMessage: event.srsResponse != nil)
         }
         return nil
     }

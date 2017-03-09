@@ -14,7 +14,7 @@ class ChatPictureView: UIView {
         didSet {
             if let event = event, let pictureMessage = event.pictureMessage {
                 imageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
-                if let imageURL = event.imageURLForPictureMessage(pictureMessage), !disableImageLoading {
+                if let imageURL = event.pictureMessage?.imageURL, !disableImageLoading {
                     imageView.sd_setImage(with: imageURL)
                 } else {
                     imageView.image = nil

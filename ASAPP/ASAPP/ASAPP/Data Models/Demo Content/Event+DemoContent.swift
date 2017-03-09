@@ -99,7 +99,7 @@ extension Event {
             "EventJSON" : eventJSON
             ] as [String : Any]
         
-        return Event(withJSON: json)
+        return Event.fromJSON(json)
     }
     
     class func demoEventWithJSONFile(_ fileName: String,

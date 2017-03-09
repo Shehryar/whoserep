@@ -178,9 +178,10 @@ extension ChatMessagesView {
     fileprivate func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
         guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .none }
         
-        let messageIsReply = messageEventIsReply(messageEvent)
-        let previousIsReply = messageEventIsReply(dataSource.getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row - 1))
-        let nextIsReply = messageEventIsReply(dataSource.getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row + 1))
+        let messageIsReply = messageEvent.isReply
+        
+        let previousIsReply = dataSource.getEvent(inSection: indexPath.section, row: indexPath.row - 1)?.isReply
+        let nextIsReply = dataSource.getEvent(inSection: indexPath.section, row: indexPath.row + 1)?.isReply
         
         if messageIsReply == previousIsReply && messageIsReply == nextIsReply {
             return .middleOfMany
@@ -193,12 +194,6 @@ extension ChatMessagesView {
         }
         
         return .none
-    }
-    
-    fileprivate func messageEventIsReply(_ messageEvent: Event?) -> Bool? {
-        guard let messageEvent = messageEvent else { return nil }
-        
-        return !messageEvent.wasSentByUserWithCredentials(credentials)
     }
 }
 
@@ -230,7 +225,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < dataSource.numberOfSections() else { return nil }
   
-        return cellMaster.timeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
+        return cellMaster.timeStampHeaderView(withTime: dataSource.headerDateForSection(section))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -239,11 +234,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             return typingCell ?? UITableViewCell()
         }
         
-        let isReply = messageEventIsReply(event)
-        let listPosition = messageListPositionForIndexPath(indexPath)
         let cell = cellMaster.cellForEvent(event,
-                                           isReply: isReply ?? true,
-                                           listPosition: listPosition,
+                                           listPosition: messageListPositionForIndexPath(indexPath),
                                            detailsVisible: event == showTimeStampForEvent,
                                            atIndexPath: indexPath)
         
@@ -283,7 +275,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
          guard section < dataSource.numberOfSections() else { return 0.0 }
         
-        return cellMaster.heightForTimeStampHeaderView(withTimeStamp: dataSource.timeStampInSecondsForSection(section))
+        return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.headerDateForSection(section))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -291,10 +283,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             return cellMaster.heightForTypingIndicatorCell()
         }
         
-        let isReply = messageEventIsReply(event)
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCellWithEvent(event,
-                                                       isReply: isReply ?? true,
                                                        listPosition: listPosition,
                                                        detailsVisible: event == showTimeStampForEvent)
         return height

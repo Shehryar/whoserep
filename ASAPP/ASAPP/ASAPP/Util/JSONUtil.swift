@@ -31,4 +31,22 @@ class JSONUtil: NSObject {
         DebugLogError("Unable to serialize dictionary as JSON: \(object)")
         return ""
     }
+    
+    class func parseString(_ jsonString: String?) -> [String : AnyObject]? {
+        guard let jsonString = jsonString else {
+            return nil
+        }
+        guard let jsonStringData = jsonString.data(using: String.Encoding.utf8) else {
+            DebugLog("Unable to get data from string with utf8 encoding: \(jsonString)")
+            return nil
+        }
+        
+        var json: [String : AnyObject]?
+        do {
+            json =  try JSONSerialization.jsonObject(with: jsonStringData, options: []) as? [String : AnyObject]
+        } catch {
+            DebugLog("Unable to serialize string as json: \(jsonString)")
+        }
+        return json
+    }
 }

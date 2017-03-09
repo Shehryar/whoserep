@@ -160,7 +160,7 @@ extension ConversationFileStore {
             
             var events = [Event]()
             for eventJSON in storedJSONArray {
-                if let event = Event(withJSON: eventJSON) {
+                if let event = Event.fromJSON(eventJSON) {
                     events.append(event)
                 }
             }

@@ -16,7 +16,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    var timeStampInSeconds: Double = 0.0 {
+    var time: Date? {
         didSet { updateTimeLabel() }
     }
     
@@ -60,16 +60,21 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     // MARK:- Instance Methods
     
     func timeTextForDate(_ date: Date) -> String {
-        dateFormatter.dateFormat = date.dateFormatForMostRecent()
+        
         
         return dateFormatter.string(from: date)
     }
     
     func updateTimeLabel() {
-        let timestamp = timeTextForDate(Date(timeIntervalSince1970: timeStampInSeconds))
-        timeLabel.setAttributedText(timestamp,
-                                    textStyle: .chatTimestamp,
-                                    color: ASAPP.styles.foregroundColor2)
+        if let time = time {
+            dateFormatter.dateFormat = time.dateFormatForMostRecent()
+            let timestamp = dateFormatter.string(from: time)
+            timeLabel.setAttributedText(timestamp,
+                                        textStyle: .chatTimestamp,
+                                        color: ASAPP.styles.foregroundColor2)
+        } else {
+            timeLabel.attributedText = nil
+        }
         setNeedsLayout()
     }
     

@@ -391,70 +391,59 @@ extension ConversationManager {
 extension ConversationManager: SocketConnectionDelegate {
     
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
+        guard message.type == .Event, let event = Event.fromJSON(message.body) else {
+            return
+        }
+        fileStore.addEventJSONString(eventJSONString: message.bodyString)
         
-        if message.type == .Event {
-            if let event = Event(withJSON: message.body) {
-                fileStore.addEventJSONString(eventJSONString: message.bodyString)
-                
-                if demo_OverrideReceivedMessageEvent(event: event) {
-                    return
-                }
-                
-                if [EventType.conversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
-                    let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
-                    delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
-                }
-                
-                switch event.eventType {
-                case .srsResponse, .conversationEnd, .switchSRSToChat, .newRep:
-                    Dispatcher.delay(600, closure: {
-                        self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    })
-                    break
-                    
-                case .textMessage, .pictureMessage:
-                    delegate?.conversationManager(self, didReceiveMessageEvent: event)
-                    break
-                    
-                case .none:
-                    switch event.ephemeralType {
-                    case .eventStatus:
-                        if let parentEventLogSeq = event.parentEventLogSeq {
-                            event.eventLogSeq = parentEventLogSeq
-                            event.eventType = .srsResponse
-                            event.srsResponse = SRSResponse.instanceWithJSON(event.eventJSONObject) as? SRSResponse
-                            delegate?.conversationManager(self, didReceiveUpdatedMessageEvent: event)
-                        }
-                        break
-                        
-                    case .typingStatus:
-                        if let typingStatus = event.typingStatus {
-                            delegate?.conversationManager(self,
-                                                          didUpdateRemoteTypingStatus: typingStatus.isTyping,
-                                                          withPreviewText: nil,
-                                                          event: event)
-                        }
-                        break
-                        
-                    default:
-                        // Not yet handled
-                        break
-                    }
-                    break
-                    
-                    
-                default:
-                    // Not yet handled
-                    break
-                }
-                
+        if demo_OverrideReceivedMessageEvent(event: event) {
+            return
+        }
+        
+        
+        // Entering / Exiting Live Chat
+        if [EventType.conversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
+            let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
+            delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
+        }
+        
+        
+        // Typing Status
+        if event.ephemeralType == .typingStatus {
+            if let typingStatus = event.typingStatus {
+                delegate?.conversationManager(self,
+                                              didUpdateRemoteTypingStatus: typingStatus.isTyping,
+                                              withPreviewText: nil,
+                                              event: event)
             }
-        } else if message.type == .ResponseError {
-//            var attributes: AnalyticsAttributes?
-//            if let errorMessage = message.debugError {
-//                attributes = [ "error_message" : errorMessage ]
-//            }
-//            trackSDKError(type: .apiResponseError, attributes: attributes)
+            return
+        }
+        
+        // Ephemeral: Event Update
+        if (event.ephemeralType == .eventStatus) {
+            if let parentEventLogSeq = event.parentEventLogSeq {
+                delegate?.conversationManager(self, didReceiveUpdatedMessageEvent: event)
+            } else {
+                DebugLog("Missing parentEventLogSeq on updated event")
+            }
+            return
+        }
+        
+        // Message Event
+        switch event.eventType {
+        case .srsResponse, .conversationEnd, .switchSRSToChat, .newRep:
+            Dispatcher.delay(600, closure: {
+                self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
+            })
+            break
+            
+        case .textMessage, .pictureMessage:
+            delegate?.conversationManager(self, didReceiveMessageEvent: event)
+            break
+            
+        default:
+            // No-op
+            break
         }
     }
     

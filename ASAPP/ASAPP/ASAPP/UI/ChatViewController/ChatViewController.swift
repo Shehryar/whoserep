@@ -1095,7 +1095,7 @@ extension ChatViewController: ConversationManagerDelegate {
     func provideHapticFeedbackForMessageIfNecessary(message: Event) {
         switch message.eventType {
         case .srsResponse, .textMessage, .pictureMessage:
-            if !message.wasSentByUserWithCredentials(credentials), #available(iOS 10.0, *) {
+            if message.isReply, #available(iOS 10.0, *) {
                 if let generator = hapticFeedbackGenerator as? UIImpactFeedbackGenerator {
                     generator.impactOccurred()
                 }

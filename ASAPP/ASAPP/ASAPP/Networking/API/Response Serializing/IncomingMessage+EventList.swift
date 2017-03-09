@@ -29,7 +29,7 @@ extension IncomingMessage {
             if let eventsJSONArray = eventsJSONArray {
                 eventList = [Event]()
                 for eventJSON in eventsJSONArray {
-                    if let event = Event(withJSON: eventJSON) {
+                    if let event = Event.fromJSON(eventJSON) {
                         eventList?.append(event)
                     }
                 }

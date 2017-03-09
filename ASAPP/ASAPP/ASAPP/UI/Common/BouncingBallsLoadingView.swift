@@ -68,9 +68,7 @@ class BouncingBallsLoadingView: UIView {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    func updateFrames() {
         if !animating {
             let contentWidth = CGFloat(ballViews.count) * ballSize + CGFloat(ballViews.count - 1) * ballMargin
             var contentLeft = floor((bounds.width - contentWidth) / 2.0)
@@ -81,6 +79,12 @@ class BouncingBallsLoadingView: UIView {
                 contentLeft = ballView.frame.maxX + ballMargin
             }
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -94,10 +98,11 @@ class BouncingBallsLoadingView: UIView {
     func beginAnimating() {
         guard !animating else { return }
         
-        layoutSubviews()
+        layer.removeAllAnimations()
+        updateFrames()
         
-        animating = true
         animationStartTime = Date().timeIntervalSinceNow
+        animating = true
         let animationBlockStartTime = animationStartTime
         
         var delay = 0.4
@@ -121,7 +126,7 @@ class BouncingBallsLoadingView: UIView {
         layer.removeAllAnimations()
         animationStartTime = 0
         animating = false
-        layoutSubviews()
+        updateFrames()
     }
     
     // MARK: Utility

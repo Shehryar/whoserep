@@ -21,19 +21,23 @@ class ChatMessageCell: UITableViewCell {
     var event: Event? {
         didSet {
             textBubbleView.event = event
+        
+            textBubbleView.isReply = isReply
+            timeLabel.textAlignment = isReply ? .left : .right
             
             timeLabel.setAttributedText(event?.sendTimeString,
                                         textStyle: .chatTimestamp,
                                         color: ASAPP.styles.foregroundColor2)
+            
+            setNeedsLayout()
         }
     }
     
-    var isReply: Bool = false {
-        didSet {
-            textBubbleView.isReply = isReply
-            timeLabel.textAlignment = isReply ? .left : .right
-            setNeedsLayout()
+    var isReply: Bool {
+        if let event = event {
+            return event.isReply
         }
+        return false
     }
     
     var messagePosition: MessageListPosition = .none {
