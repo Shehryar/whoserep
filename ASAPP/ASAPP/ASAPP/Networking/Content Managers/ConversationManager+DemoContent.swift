@@ -12,10 +12,10 @@ extension ConversationManager {
     
     // MARK: Sample Responses
     
-    func demo_AppOpenResponse() -> SRSAppOpenResponse? {
+    func demo_AppOpenResponse() -> AppOpenResponse? {
         guard ASAPP.isDemoContentEnabled() else { return nil }
         
-        return SRSAppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
+        return AppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
     }
 }
 
@@ -44,7 +44,7 @@ extension ConversationManager {
         return false
     }
     
-    func demo_OverrideStartSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) -> Bool {
+    func demo_OverrideStartSRS(completion: ((_ response: AppOpenResponse) -> Void)? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let demoResponse = self.demo_AppOpenResponse() {

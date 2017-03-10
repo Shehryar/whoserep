@@ -250,7 +250,7 @@
 		3093A4AD1E730D4F00C65818 /* EventPictureMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4A81E730D4F00C65818 /* EventPictureMessage.swift */; };
 		3093A4AE1E730D4F00C65818 /* EventTextMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4A91E730D4F00C65818 /* EventTextMessage.swift */; };
 		3093A4AF1E730D4F00C65818 /* EventTypingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4AA1E730D4F00C65818 /* EventTypingStatus.swift */; };
-		3093A4B11E730D5700C65818 /* SRSAppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4B01E730D5700C65818 /* SRSAppOpenResponse.swift */; };
+		3093A4B11E730D5700C65818 /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4B01E730D5700C65818 /* AppOpenResponse.swift */; };
 		3093A4FA1E73143700C65818 /* SRSNestedItemListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4EC1E73143700C65818 /* SRSNestedItemListParser.swift */; };
 		3093A4FB1E73143700C65818 /* SRSButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4EE1E73143700C65818 /* SRSButtonItem.swift */; };
 		3093A4FC1E73143700C65818 /* SRSFillerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4EF1E73143700C65818 /* SRSFillerItem.swift */; };
@@ -543,7 +543,7 @@
 		3093A4A81E730D4F00C65818 /* EventPictureMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPictureMessage.swift; sourceTree = "<group>"; };
 		3093A4A91E730D4F00C65818 /* EventTextMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTextMessage.swift; sourceTree = "<group>"; };
 		3093A4AA1E730D4F00C65818 /* EventTypingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTypingStatus.swift; sourceTree = "<group>"; };
-		3093A4B01E730D5700C65818 /* SRSAppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSAppOpenResponse.swift; sourceTree = "<group>"; };
+		3093A4B01E730D5700C65818 /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOpenResponse.swift; sourceTree = "<group>"; };
 		3093A4EC1E73143700C65818 /* SRSNestedItemListParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSNestedItemListParser.swift; sourceTree = "<group>"; };
 		3093A4EE1E73143700C65818 /* SRSButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButtonItem.swift; sourceTree = "<group>"; };
 		3093A4EF1E73143700C65818 /* SRSFillerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFillerItem.swift; sourceTree = "<group>"; };
@@ -861,7 +861,7 @@
 			children = (
 				30EE2A081D9970EB0079932D /* Credentials.swift */,
 				30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */,
-				3093A4B01E730D5700C65818 /* SRSAppOpenResponse.swift */,
+				3093A4B01E730D5700C65818 /* AppOpenResponse.swift */,
 				3093A4A41E730D4F00C65818 /* Chat Message */,
 				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 				30756B351E53AF8B00D78E8E /* Customer Models */,
@@ -1602,7 +1602,7 @@
 				306619141D9458F50092B4C5 /* SDWebImageDecoder.m in Sources */,
 				300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */,
 				302A20B31E5E2394007C522A /* ModalCardContentView.swift in Sources */,
-				3093A4B11E730D5700C65818 /* SRSAppOpenResponse.swift in Sources */,
+				3093A4B11E730D5700C65818 /* AppOpenResponse.swift in Sources */,
 				3025DA1C1E539B9E004149D7 /* SRSLabelValueHorizontalItemView.swift in Sources */,
 				3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,

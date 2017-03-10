@@ -17,7 +17,7 @@ protocol PredictiveViewControllerDelegate: class {
 
 class PredictiveViewController: UIViewController {
 
-    fileprivate(set) var appOpenResponse: SRSAppOpenResponse?
+    fileprivate(set) var appOpenResponse: AppOpenResponse?
     
     weak var delegate: PredictiveViewControllerDelegate?
     
@@ -43,7 +43,7 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Initialization
     
-    required init(appOpenResponse: SRSAppOpenResponse? = nil) {
+    required init(appOpenResponse: AppOpenResponse? = nil) {
         self.appOpenResponse = appOpenResponse
         self.buttonsView = PredictiveButtonsView()
         self.messageInputView = ChatInputView()
@@ -422,7 +422,7 @@ extension PredictiveViewController: KeyboardObserverDelegate {
 // MARK:- External API
 
 extension PredictiveViewController {
-    func setAppOpenResponse(appOpenResponse: SRSAppOpenResponse?, animated: Bool) {
+    func setAppOpenResponse(appOpenResponse: AppOpenResponse?, animated: Bool) {
         guard let appOpenResponse = appOpenResponse else {
             self.appOpenResponse = nil
             messageLabel.text = nil
