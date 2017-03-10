@@ -14,13 +14,13 @@ enum SRSMapItemType {
     case device
 }
 
-class SRSMapItem: NSObject, JSONObject {
+class SRSMapItem: NSObject {
     
     var imageType: SRSMapItemType = .tech
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSMapItem? {
         let mapItem = SRSMapItem()
         if let json = json,
             let imageTypeString = json["image_type"] as? String {

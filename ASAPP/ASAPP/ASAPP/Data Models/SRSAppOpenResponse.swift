@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSAppOpenResponse: NSObject, JSONObject {
+class SRSAppOpenResponse: NSObject {
     var greeting: String?
     var customizedMessage: String?
     var customizedActions: [String]?
@@ -17,7 +17,7 @@ class SRSAppOpenResponse: NSObject, JSONObject {
 
     // MARK:- JSONObject
     
-    static func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    static func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSAppOpenResponse? {
         guard let json = json else { return nil }
 
         let response = SRSAppOpenResponse()

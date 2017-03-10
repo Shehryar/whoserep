@@ -24,7 +24,7 @@ enum AppAction: String {
     case LeaveFeedback = "leaveFeedback"
 }
 
-class SRSButtonItem: NSObject, JSONObject {
+class SRSButtonItem: NSObject {
     
     // MARK: Required Properties
     
@@ -76,7 +76,7 @@ class SRSButtonItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSButtonItem? {
         guard let json = json,
             let title = json["label"] as? String else {
                 return nil

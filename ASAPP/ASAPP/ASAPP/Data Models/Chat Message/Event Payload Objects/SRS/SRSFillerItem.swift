@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SRSFillerItem: NSObject, JSONObject {
+class SRSFillerItem: NSObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSFillerItem? {
         return SRSFillerItem()
     }
 }

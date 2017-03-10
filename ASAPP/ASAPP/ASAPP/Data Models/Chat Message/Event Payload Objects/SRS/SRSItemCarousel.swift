@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSItemCarousel: NSObject, JSONObject {
+class SRSItemCarousel: NSObject {
     
     var messageText: String
     
@@ -33,7 +33,7 @@ class SRSItemCarousel: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSItemCarousel? {
         guard let json = json else {
             return nil
         }
@@ -45,7 +45,7 @@ class SRSItemCarousel: NSObject, JSONObject {
         if let pagesJSON = json["pages"] as? [[String : AnyObject]] {
             var pages = [SRSItemList]()
             for pageJSON in pagesJSON {
-                if let page = SRSItemList.instanceWithJSON(pageJSON) as? SRSItemList {
+                if let page = SRSItemList.instanceWithJSON(pageJSON) {
                     pages.append(page)
                 }
             }

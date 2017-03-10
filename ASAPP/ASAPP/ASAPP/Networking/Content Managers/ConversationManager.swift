@@ -96,7 +96,7 @@ extension ConversationManager {
             guard incomingMessage.type == .Response,
                 let data = incomingMessage.bodyString?.data(using: String.Encoding.utf8),
                 let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject],
-                let appOpenResponse = SRSAppOpenResponse.instanceWithJSON(jsonObject) as? SRSAppOpenResponse
+                let appOpenResponse = SRSAppOpenResponse.instanceWithJSON(jsonObject)
                 else {
                     return
             }

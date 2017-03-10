@@ -13,7 +13,7 @@ enum SRSItemListOrientation: String {
     case Horizontal = "horizontal"
 }
 
-class SRSItemList: NSObject, JSONObject {
+class SRSItemList: NSObject {
     var orientation: SRSItemListOrientation
     var items: [AnyObject]
     
@@ -93,7 +93,7 @@ class SRSItemList: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSItemList? {
         guard let json = json,
             let itemsJSONArary = json["value"] as? [[String : AnyObject]] else {
                 return nil
@@ -121,7 +121,7 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Button:
-                item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
+                item = SRSButtonItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Label:
@@ -133,31 +133,31 @@ class SRSItemList: NSObject, JSONObject {
                 break
                 
             case .Separator:
-                item = SRSSeparatorItem.instanceWithJSON(itemJSON) as? SRSSeparatorItem
+                item = SRSSeparatorItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Filler:
-                item = SRSFillerItem.instanceWithJSON(itemJSON) as? SRSFillerItem
+                item = SRSFillerItem.instanceWithJSON(itemJSON)
                 break
                 
             case .LoaderBar:
-                item = SRSLoaderBarItem.instanceWithJSON(itemJSON) as? SRSLoaderBarItem
+                item = SRSLoaderBarItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Image:
-                item = SRSImageItem.instanceWithJSON(itemJSON) as? SRSImageItem
+                item = SRSImageItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Map:
-                item = SRSMapItem.instanceWithJSON(itemJSON) as? SRSMapItem
+                item = SRSMapItem.instanceWithJSON(itemJSON)
                 break
                 
             case .InlineButton:
-                item = SRSButtonItem.instanceWithJSON(itemJSON) as? SRSButtonItem
+                item = SRSButtonItem.instanceWithJSON(itemJSON)
                 break
                 
             case .Icon:
-                item = SRSIconItem.instanceWithJSON(itemJSON) as? SRSIconItem
+                item = SRSIconItem.instanceWithJSON(itemJSON)
                 break
             }
             

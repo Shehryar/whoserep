@@ -65,9 +65,9 @@ extension SRSResponse {
         let response = SRSResponse(displayContent: displayContent)
         response.classification = srsJSON["classification"] as? String
         if srsJSON["contentType"] as? String == "carousel" {
-            response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemCarousel
+            response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
         } else {
-            response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemList
+            response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
         }
         
         

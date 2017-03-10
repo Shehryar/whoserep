@@ -13,7 +13,7 @@ import UIKit
 extension SRSAppOpenResponse {
     class func sampleResponse(forCompany company: String?) -> SRSAppOpenResponse? {
         if let json = DemoUtils.jsonObjectForFile("predictive-response", company: company) {
-            return SRSAppOpenResponse.instanceWithJSON(json) as? SRSAppOpenResponse
+            return SRSAppOpenResponse.instanceWithJSON(json)
         }
         return nil
     }

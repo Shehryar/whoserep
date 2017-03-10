@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSImageItem: NSObject, JSONObject {
+class SRSImageItem: NSObject {
     
     let imageURL: URL
     
@@ -22,7 +22,7 @@ class SRSImageItem: NSObject, JSONObject {
     
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSImageItem? {
         guard let json = json,
             let imageURLString = json["image_url"] as? String,
             let imageURL = URL(string: imageURLString) else {

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class SRSLoaderBarItem: NSObject, JSONObject {
+class SRSLoaderBarItem: NSObject {
     
     var finishedText: String?
 
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSLoaderBarItem? {
         let loaderItem =  SRSLoaderBarItem()
         if let json = json {
             loaderItem.finishedText = json["finished_text"] as? String

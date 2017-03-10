@@ -33,11 +33,10 @@ class ChatActionableMessageView: UIView {
     var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
-        didSet {
-            
-//            if DEMO_CONTENT_ENABLED {
+        didSet {            
+//            if ASAPP.isDemoContentEnabled() {
 //                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
-//                testButton.actionName = "DeviceRestart"
+//                testButton.actionEndpoint = "DeviceRestart"
 //                buttonItems?.append(testButton)
 //            }
             
