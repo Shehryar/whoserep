@@ -33,7 +33,7 @@ class ChatViewController: UIViewController {
     
     fileprivate let simpleStore: ChatSimpleStore
     fileprivate let conversationManager: ConversationManager
-    fileprivate var actionableMessage: SRSResponse?
+    fileprivate var actionableMessage: EventSRSResponse?
     
     // MARK: Properties: Status
     
@@ -976,7 +976,7 @@ extension ChatViewController {
         showSuggestedRepliesView(withSRSResponse: srsResponse, forEvent: event, animated: animated)
     }
     
-    func showSuggestedRepliesView(withSRSResponse srsResponse: SRSResponse, forEvent event: Event, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func showSuggestedRepliesView(withSRSResponse srsResponse: EventSRSResponse, forEvent event: Event, animated: Bool = true, completion: (() -> Void)? = nil) {
         guard srsResponse.buttonItems != nil && !isLiveChat else { return }
         
         actionableMessage = srsResponse

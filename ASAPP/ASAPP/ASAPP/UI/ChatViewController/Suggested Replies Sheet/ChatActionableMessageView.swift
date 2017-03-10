@@ -14,14 +14,14 @@ class ChatActionableMessageView: UIView {
         return ChatSuggestedReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
     }
     
-    func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
+    func setSRSResponse(srsResponse: EventSRSResponse?, event: Event?) {
         self.event = event
         self.srsResponse = srsResponse
     }
     
     fileprivate(set) var event: Event?
     
-    fileprivate(set) var srsResponse: SRSResponse? {
+    fileprivate(set) var srsResponse: EventSRSResponse? {
         didSet {
             selectedButtonItem = nil
             buttonItems = srsResponse?.buttonItems

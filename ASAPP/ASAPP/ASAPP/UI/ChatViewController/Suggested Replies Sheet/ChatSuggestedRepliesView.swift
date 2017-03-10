@@ -222,7 +222,7 @@ extension ChatSuggestedRepliesView {
 
 extension ChatSuggestedRepliesView {
   
-    fileprivate func createActionableMessageView(_ actionableMessage: SRSResponse, forEvent event: Event) -> ChatActionableMessageView {
+    fileprivate func createActionableMessageView(_ actionableMessage: EventSRSResponse, forEvent event: Event) -> ChatActionableMessageView {
         let actionableMessageView = ChatActionableMessageView()
         actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
         actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
@@ -272,7 +272,7 @@ extension ChatSuggestedRepliesView {
         }
     }
     
-    func setActionableMessage(_ actionableMessage: SRSResponse, forEvent event: Event, animated: Bool = false) {
+    func setActionableMessage(_ actionableMessage: EventSRSResponse, forEvent event: Event, animated: Bool = false) {
         let actionableMessageView = createActionableMessageView(actionableMessage, forEvent: event)
         
         if let nextIndex = actionableMessageViews.index(of: actionableMessageView) {
@@ -300,7 +300,7 @@ extension ChatSuggestedRepliesView {
         }
     }
     
-    func reloadButtonItemsForActionableMessage(_ actionableMessage: SRSResponse, event: Event) {
+    func reloadButtonItemsForActionableMessage(_ actionableMessage: EventSRSResponse, event: Event) {
         for actionableMessageView in actionableMessageViews {
             if actionableMessageView.event?.eventLogSeq == event.eventLogSeq {
                 actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)

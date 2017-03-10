@@ -71,7 +71,7 @@ class Event: NSObject {
     var typingStatus: EventTypingStatus?
     var textMessage: EventTextMessage?
     var pictureMessage: EventPictureMessage?
-    var srsResponse: SRSResponse?
+    var srsResponse: EventSRSResponse?
     var chatMessage: ChatMessage?
     
     var messageText: String? {
@@ -139,7 +139,7 @@ class Event: NSObject {
         }
         
         if EventType.typeMayContainSRSContent(eventType) {
-            srsResponse = SRSResponse.fromEventJSON(eventJSON)
+            srsResponse = EventSRSResponse.fromEventJSON(eventJSON)
         }
         
         if ephemeralType == EphemeralType.typingStatus {

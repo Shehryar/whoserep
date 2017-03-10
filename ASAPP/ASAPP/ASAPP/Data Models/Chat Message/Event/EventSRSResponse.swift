@@ -1,5 +1,5 @@
 //
-//  SRSResponse.swift
+//  EventSRSResponse.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/1/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SRSResponse: NSObject {
+class EventSRSResponse: NSObject {
     
     var classification: String?
     
@@ -42,9 +42,9 @@ class SRSResponse: NSObject {
 
 // MARK:- JSON Handling
 
-extension SRSResponse {
+extension EventSRSResponse {
     
-    class func fromEventJSON(_ eventJSON: [String : AnyObject]?) -> SRSResponse? {
+    class func fromEventJSON(_ eventJSON: [String : AnyObject]?) -> EventSRSResponse? {
         guard let eventJSON = eventJSON else {
             return nil
         }
@@ -62,7 +62,7 @@ extension SRSResponse {
             displayContent = displayContentValue
         }
         
-        let response = SRSResponse(displayContent: displayContent)
+        let response = EventSRSResponse(displayContent: displayContent)
         response.classification = srsJSON["classification"] as? String
         if srsJSON["contentType"] as? String == "carousel" {
             response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
