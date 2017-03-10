@@ -185,8 +185,13 @@ extension Event {
         // EventType
         var tempEventType = EventType(rawValue: eventTypeInt)
         if tempEventType == EventType.srsAction ||
-            tempEventType == EventType.srsEcho ||
             (ephemeralType == EphemeralType.eventStatus && tempEventType == .none) {
+            tempEventType = EventType.srsResponse
+        }
+        if tempEventType == EventType.srsEcho,
+            let tempJSON = JSONUtil.parseString(eventJSONString),
+            let echoJSONString = tempJSON["Echo"] as? String {
+            eventJSONString = echoJSONString
             tempEventType = EventType.srsResponse
         }
         

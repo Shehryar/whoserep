@@ -16,7 +16,8 @@ import Foundation
 @objc public enum ASAPPLogLevel: Int {
     case none = 0
     case errors = 1
-    case debug = 3
+    case debug = 2
+    case info = 3
 }
 
 public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -> String {

@@ -83,22 +83,21 @@ extension ConversationManager {
     }
     
     func trackSRSButtonItemTap(buttonItem: SRSButtonItem) {
-        if let webURL = buttonItem.webURL {
+        if let webURL = buttonItem.action.getWebLink() {
             trackWebLink(webURL.absoluteString)
+            return
         }
         
-        switch buttonItem.type {
-        case .InAppLink, .Link:
-            if let deepLink = buttonItem.deepLink {
-                trackDeepLink(link: deepLink, deepLinkData: buttonItem.deepLinkData as AnyObject?)
-            }
+        switch buttonItem.action.type {
+        case .link:
+            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context as? AnyObject)
             break
             
-        case .SRS, .Action, .Message:
+        case .treewalk, .api:
             // Tracked via events
             break
             
-        case .AppAction:
+        case .action:
             // Not tracked yet
             break
         }

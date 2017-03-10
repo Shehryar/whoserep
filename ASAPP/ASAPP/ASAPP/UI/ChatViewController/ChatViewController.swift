@@ -631,9 +631,8 @@ extension ChatViewController {
         
         conversationManager.trackSRSButtonItemTap(buttonItem: buttonItem)
         
-        
         // Check if this is a web url
-        if let webURL = buttonItem.webURL {
+        if let webURL = buttonItem.action.getWebLink() {
             if openWebURL(url: webURL) {
                 DebugLog("Did select button with web url: \(webURL)")
                 
@@ -647,24 +646,21 @@ extension ChatViewController {
             }
         }
         
-        switch buttonItem.type {
-        case .InAppLink, .Link:
-            if let deepLink = buttonItem.deepLink {
-                DebugLog("\nDid select action: \(deepLink) w/ userInfo: \(buttonItem.deepLinkData)")
-                
-                let originalQuery = simpleStore.getSRSOriginalSearchQuery()
-                conversationManager.sendButtonItemSelection(buttonItem,
-                                                            originalSearchQuery: originalQuery,
-                                                            currentSRSEvent: suggestedRepliesView.currentActionableEvent)
-                
-                dismiss(animated: true, completion: { [weak self] in
-                    self?.callback(deepLink, buttonItem.deepLinkData)
-                })
-                return false
-            }
-            break
+        switch buttonItem.action.type {
+        case .link:
+            DebugLog("\nDid select action: \(buttonItem.action.name) w/ context: \(buttonItem.action.context)")
             
-        case .SRS, .Action, .Message:
+            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
+            conversationManager.sendButtonItemSelection(buttonItem,
+                                                        originalSearchQuery: originalQuery,
+                                                        currentSRSEvent: suggestedRepliesView.currentActionableEvent)
+            
+            dismiss(animated: true, completion: { [weak self] in
+                self?.callback(buttonItem.action.name, buttonItem.action.context)
+            })
+            return false
+            
+        case .treewalk, .api:
             guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
                 return false
             }
@@ -683,8 +679,8 @@ extension ChatViewController {
             })
             return true
             
-        case .AppAction:
-            return performAppAction(buttonItem.appAction, forEvent: event)
+        case .action:
+            return performAppAction(buttonItem.action, forEvent: event)
         }
         
         return false
@@ -713,12 +709,12 @@ extension ChatViewController {
         return false
     }
     
-    func performAppAction(_ action: AppAction?, forEvent event: Event) -> Bool {
-        guard let action = action else {
+    func performAppAction(_ action: Action?, forEvent event: Event) -> Bool {
+        guard let action = action, let appAction = action.getAppAction() else {
             return false
         }
         
-        switch action {
+        switch appAction {
         case .Ask:
             setPredictiveViewControllerVisible(true, animated: true, completion: nil)
             return false
@@ -751,8 +747,8 @@ extension ChatViewController {
             return true
         }
         
-        if let deepLink = buttonItem.deepLink?.lowercased() {
-            switch deepLink {
+        if buttonItem.action.type == .link {
+            switch buttonItem.action.name.lowercased() {
             case "troubleshoot":
                 chatMessagesView.scrollToBottomAnimated(true)
                 conversationManager.sendFakeTroubleshooterMessage(buttonItem, afterEvent: chatMessagesView.mostRecentEvent)

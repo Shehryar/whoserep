@@ -250,37 +250,28 @@ extension ConversationManager {
             return
         }
         
-        switch buttonItem.type {
-        case .SRS:
-            if let classification = buttonItem.srsValue {
-                sendSRSTreewalk(classification: classification,
-                                message: buttonItem.title,
-                                originalSearchQuery: originalSearchQuery,
-                                currentSRSEvent: currentSRSEvent,
-                                completion: completion)
-            }
+        let action = buttonItem.action
+        switch action.type {
+        case .treewalk:
+            sendSRSTreewalk(classification: action.name,
+                            message: buttonItem.title,
+                            originalSearchQuery: originalSearchQuery,
+                            currentSRSEvent: currentSRSEvent,
+                            completion: completion)
             break
             
-        case .Action:
-            if let action = buttonItem.actionEndpoint {
-                sendSRSAction(action: action,
-                              withUserMessage: buttonItem.title,
-                              payload: buttonItem.actionPayload,
-                              completion: completion)
-            }
+        case .api:
+            sendSRSAction(action: action.name,
+                          withUserMessage: buttonItem.title,
+                          payload: action.context,
+                          completion: completion)
             break
             
-        case .Message:
-            if let message = buttonItem.message {
-                sendTextMessage(message, completion: completion)
-            }
-            break
-            
-        case .InAppLink, .Link:
+        case .link:
             sendSRSLinkButtonTapped(buttonItem: buttonItem, completion: completion)
             break
             
-        case .AppAction:
+        case .action:
             
             break
         }
@@ -367,15 +358,15 @@ extension ConversationManager {
     }
     
     fileprivate func sendSRSLinkButtonTapped(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) {
-        guard let deepLink = buttonItem.deepLink else {
+        guard buttonItem.action.type == .link else {
             return
         }
         
         var params: [String : AnyObject] = [
             "Title" : buttonItem.title as AnyObject,
-            "Link" : deepLink as AnyObject
+            "Link" : buttonItem.action.name as AnyObject
         ]
-        if let deepLinkData = buttonItem.deepLinkData as? AnyObject,
+        if let deepLinkData = buttonItem.action.context as? AnyObject,
             let deepLinkDataJson = JSONUtil.stringify(deepLinkData) {
             params["Data"] = deepLinkDataJson as AnyObject
         }

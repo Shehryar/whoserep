@@ -8,8 +8,14 @@
 
 import UIKit
 
+func DebugLogInfo(_ message: String) {
+    if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.info.rawValue {
+        print("[ASAPP] Info: \(message)\n")
+    }
+}
+
 func DebugLog(_ message: String) {
-    if ASAPP.debugLogLevel == .debug {
+    if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.debug.rawValue {
         print("[ASAPP] \(message)\n")
     }
 }
@@ -19,3 +25,5 @@ func DebugLogError(_ message: String) {
         print("[ASAPP] ERROR: \(message)\n")
     }
 }
+
+

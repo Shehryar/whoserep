@@ -50,11 +50,9 @@ extension EventSRSResponse {
         }
         
         // All sorts of weird nesting logic here...
-        
-        let srsJSON = (eventJSON["businessLogic"] as? [String : Any]
-            ?? eventJSON["BusinessLogic"] as? [String : Any]
-            ?? eventJSON["ClientMessage"] as? [String : Any]
-            ?? eventJSON["Echo"] as? [String : Any]
+        let srsJSON = (eventJSON["businessLogic"] as? [String : AnyObject]
+            ?? eventJSON["BusinessLogic"] as? [String : AnyObject]
+            ?? eventJSON["ClientMessage"] as? [String : AnyObject]
             ?? eventJSON)
         
         var displayContent = false
@@ -76,7 +74,7 @@ extension EventSRSResponse {
                 if classification.lowercased() == "bpp" {
                     if let buttonItems = response.itemList?.buttonItems {
                         for buttonItem in buttonItems {
-                            if buttonItem.deepLink?.lowercased() == "payment" {
+                            if buttonItem.action.type == .link && buttonItem.action.name.lowercased() == "payment" {
                                 buttonItem.isAutoSelect = true
                                 response.displayContent = false
                             }

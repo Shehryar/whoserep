@@ -121,7 +121,11 @@ class SRSItemList: NSObject {
                 break
                 
             case .Button:
-                item = SRSButtonItem.instanceWithJSON(itemJSON)
+                item = SRSButtonItem.fromJSON(itemJSON, isInline: false)
+                break
+                
+            case .InlineButton:
+                item = SRSButtonItem.fromJSON(itemJSON, isInline: true)
                 break
                 
             case .Label:
@@ -151,11 +155,7 @@ class SRSItemList: NSObject {
             case .Map:
                 item = SRSMapItem.instanceWithJSON(itemJSON)
                 break
-                
-            case .InlineButton:
-                item = SRSButtonItem.instanceWithJSON(itemJSON)
-                break
-                
+            
             case .Icon:
                 item = SRSIconItem.instanceWithJSON(itemJSON)
                 break
