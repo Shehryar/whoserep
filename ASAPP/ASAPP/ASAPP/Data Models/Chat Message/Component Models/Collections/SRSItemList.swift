@@ -35,21 +35,21 @@ class SRSItemList: NSObject {
  
 // MARK:- JSON Parsing
 
-enum SRSItemListItemType: String {
-    case ItemList = "itemlist"
-    case Button = "button"
-    case InlineButton = "inlineButton"
-    case Label = "label"
-    case Separator = "separator"
-    case Info = "info"
-    case Filler = "filler"
-    case LoaderBar = "loaderBar"
-    case Image = "image"
-    case Map = "map"
-    case Icon = "icon"
-}
-
 extension SRSItemList {
+    
+    enum ItemType: String {
+        case itemList = "itemlist"
+        case button = "button"
+        case inlineButton = "inlineButton"
+        case label = "label"
+        case separator = "separator"
+        case info = "info"
+        case filler = "filler"
+        case loaderBar = "loaderBar"
+        case image = "image"
+        case map = "map"
+        case icon = "icon"
+    }
 
     class func fromJSON(_ json: [String : AnyObject]?) -> SRSItemList? {
         guard let json = json,
@@ -65,13 +65,13 @@ extension SRSItemList {
         
         for (idx, itemJSON) in itemsJSON.enumerated() {
             guard let itemTypeString = itemJSON["type"] as? String,
-                let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
+                let itemType = ItemType(rawValue: itemTypeString) else {
                     DebugLog.i(caller: SRSItemList.self, "Missing or unknown item type in json: ")
                     continue
             }
             
             switch itemType {
-            case .ItemList:
+            case .itemList:
                 if let labelValueItems = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON) {
                     for labelValueItem in labelValueItems {
                         contentItems.append(labelValueItem)
@@ -79,7 +79,7 @@ extension SRSItemList {
                 }
                 break
                 
-            case .Button:
+            case .button:
                 if let buttonItem = SRSButtonItem.fromJSON(itemJSON) {
                     buttonItems.append(buttonItem)
         
@@ -89,13 +89,13 @@ extension SRSItemList {
                 }
                 break
                 
-            case .InlineButton:
+            case .inlineButton:
                 if let inlineButtonItem = SRSButtonItem.fromJSON(itemJSON) {
                     inlineButtonItems.append(inlineButtonItem)
                 }
                 break
                 
-            case .Label:
+            case .label:
                 if let labelItem = SRSLabelItem.instanceWithJSON(itemJSON) {
                     if idx == 0 {
                         messageText = labelItem.text
@@ -105,43 +105,43 @@ extension SRSItemList {
                 }
                 break
                 
-            case .Info:
+            case .info:
                 if let labelValueItem = SRSNestedItemListParser.getSRSLabelValueItemFromInfoItemJSON(itemJSON, listOrientationIsVertical: true) {
                     contentItems.append(labelValueItem)
                 }
                 break
                 
-            case .Separator:
+            case .separator:
                 if let separatorItem = SRSSeparatorItem.instanceWithJSON(itemJSON) {
                     contentItems.append(separatorItem)
                 }
                 break
                 
-            case .Filler:
+            case .filler:
                 if let fillerItem = SRSFillerItem.instanceWithJSON(itemJSON) {
                     contentItems.append(fillerItem)
                 }
                 break
                 
-            case .LoaderBar:
+            case .loaderBar:
                 if let loaderBarItem = SRSLoaderBarItem.instanceWithJSON(itemJSON) {
                     contentItems.append(loaderBarItem)
                 }
                 break
                 
-            case .Image:
+            case .image:
                 if let imageItem = SRSImageItem.instanceWithJSON(itemJSON) {
                     contentItems.append(imageItem)
                 }
                 break
                 
-            case .Map:
+            case .map:
                 if let mapItem = SRSMapItem.instanceWithJSON(itemJSON) {
                     contentItems.append(mapItem)
                 }
                 break
                 
-            case .Icon:
+            case .icon:
                 if let iconItem = SRSIconItem.instanceWithJSON(itemJSON) {
                     contentItems.append(iconItem)
                 }

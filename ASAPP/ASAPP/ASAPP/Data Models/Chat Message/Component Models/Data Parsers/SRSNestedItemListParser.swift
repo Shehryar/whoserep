@@ -24,10 +24,10 @@ class SRSNestedItemListParser: NSObject {
         var labelValueItems = [SRSLabelValueItem]()
         for itemJson in itemsJson {
             guard let itemTypeString = itemJson["type"] as? String,
-                let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
+                let itemType = SRSItemList.ItemType(rawValue: itemTypeString) else {
                     continue
             }
-            if itemType != .Info {
+            if itemType != .info {
                 continue
             }
             
