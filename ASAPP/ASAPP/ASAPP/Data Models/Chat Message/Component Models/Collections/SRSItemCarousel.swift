@@ -45,7 +45,7 @@ class SRSItemCarousel: NSObject {
         if let pagesJSON = json["pages"] as? [[String : AnyObject]] {
             var pages = [SRSItemList]()
             for pageJSON in pagesJSON {
-                if let page = SRSItemList.instanceWithJSON(pageJSON) {
+                if let page = SRSItemList.fromJSON(pageJSON) {
                     pages.append(page)
                 }
             }

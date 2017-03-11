@@ -35,7 +35,7 @@ class ConversationFileStore: NSObject {
             filePath = NSURL(fileURLWithPath: dir).appendingPathComponent(fileName)
             
             if filePath == nil {
-                DebugLogError("Unable to create filePath for ConversationFileStore")
+                DebugLog.e("Unable to create filePath for ConversationFileStore")
             }
         }
         
@@ -59,7 +59,7 @@ class ConversationFileStore: NSObject {
     
     fileprivate func _debugLog(message: String) {
         if debugLoggingEnabled {
-            DebugLog(message)
+            DebugLog.d(message)
         }
     }
 }

@@ -78,11 +78,11 @@ extension Action {
     class func fromJSON(_ json: [String : AnyObject]?) -> Action? {
         guard let json = json else { return nil }
         guard let typeString = json["type"] as? String else {
-            DebugLogInfo("Action: Missing type in Action")
+            DebugLog.i("Action: Missing type in Action")
             return nil
         }
         guard let type = ActionType(rawValue: typeString) else {
-            DebugLogInfo("Action: Unrecognized action type: \(typeString)")
+            DebugLog.i("Action: Unrecognized action type: \(typeString)")
             return nil
         }
         
@@ -116,7 +116,7 @@ extension Action {
                 context = content["actionPayload"] as? [String : AnyObject]
                 
                 guard let actionName = name, let _ = AppAction(rawValue: actionName) else {
-                    DebugLogInfo("Action: Unknown app action with name: \(name)")
+                    DebugLog.i("Action: Unknown app action with name: \(name)")
                     return nil
                 }
             } else {
@@ -126,7 +126,7 @@ extension Action {
         }
         
         guard let actionName = name else {
-            DebugLogInfo("Action: Missing action name in json: \(json)")
+            DebugLog.i("Action: Missing action name in json: \(json)")
             return nil
         }
        

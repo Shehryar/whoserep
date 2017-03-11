@@ -157,7 +157,7 @@ extension ConversationManager {
     func trackLiveChatBegan(issueId: Int) {
         let requestResponse = ["issueId" : issueId]
         guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
-            DebugLogError("Unabled to stringify JSON for trackLiveChatBegan")
+            DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }
         
@@ -167,7 +167,7 @@ extension ConversationManager {
     func trackLiveChatEnded(issueId: Int) {
         let requestResponse = ["issueId" : issueId]
         guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
-            DebugLogError("Unabled to stringify JSON for trackLiveChatBegan")
+            DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }
         

@@ -81,7 +81,7 @@ public class Credentials: NSObject {
             }
         }
         
-        DebugLog("Calling host app for auth credentials")
+        DebugLog.d("Calling host app for auth credentials")
         
         let authJSON = authProvider()
     
@@ -91,7 +91,7 @@ public class Credentials: NSObject {
             authMacaroon = refreshedAuthMacaroon
             return refreshedAuthMacaroon.accessToken
         } else {
-            DebugLogError("Missing parameters in authProvider: \(authJSON)\n\nTo resolve this error, you must provide the \"access_token\" (String), and optionally, the \"issued_time\" (Date object), and \"expires_in\" (NSTimeInterval).")
+            DebugLog.e("Missing parameters in authProvider: \(authJSON)\n\nTo resolve this error, you must provide the \"access_token\" (String), and optionally, the \"issued_time\" (Date object), and \"expires_in\" (NSTimeInterval).")
         }
         
         // Retry

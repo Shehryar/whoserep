@@ -100,7 +100,7 @@ extension TooltipPresenter {
     
     func updateFramesForPresentation(withTargetView targetView: UIView, in parentView: UIView) {
         guard let targetSuperview = targetView.superview else {
-            DebugLog("No superview found for targetView")
+            DebugLog.d("No superview found for targetView")
             return
         }
         

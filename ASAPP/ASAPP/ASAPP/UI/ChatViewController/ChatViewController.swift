@@ -40,7 +40,7 @@ class ChatViewController: UIViewController {
     fileprivate var isLiveChat = false {
         didSet {
             if isLiveChat != oldValue {
-                DebugLog("Chat Mode Changed: \(isLiveChat ? "LIVE CHAT" : "SRS")")
+                DebugLog.d("Chat Mode Changed: \(isLiveChat ? "LIVE CHAT" : "SRS")")
                 if isLiveChat {
                     conversationManager.currentSRSClassification = nil
                 } else {
@@ -398,7 +398,7 @@ class ChatViewController: UIViewController {
             }
         }
         
-        DebugLog("Updated isLiveChat = \(tempLiveChat ? "TRUE" : "FALSE")")
+        DebugLog.d("Updated isLiveChat = \(tempLiveChat ? "TRUE" : "FALSE")")
         
         isLiveChat = tempLiveChat
     }
@@ -634,7 +634,7 @@ extension ChatViewController {
         // Check if this is a web url
         if let webURL = buttonItem.action.getWebLink() {
             if openWebURL(url: webURL) {
-                DebugLog("Did select button with web url: \(webURL)")
+                DebugLog.d("Did select button with web url: \(webURL)")
                 
                 if conversationManager.isConnected(retryConnectionIfNeeded: true) {
                     conversationManager.sendButtonItemSelection(
@@ -648,7 +648,7 @@ extension ChatViewController {
         
         switch buttonItem.action.type {
         case .link:
-            DebugLog("\nDid select action: \(buttonItem.action.name) w/ context: \(buttonItem.action.context)")
+            DebugLog.d("\nDid select action: \(buttonItem.action.name) w/ context: \(buttonItem.action.context)")
             
             let originalQuery = simpleStore.getSRSOriginalSearchQuery()
             conversationManager.sendButtonItemSelection(buttonItem,
@@ -696,7 +696,7 @@ extension ChatViewController {
                     present(safariVC, animated: true, completion: nil)
                     return true
                 } else {
-                    DebugLogError("Url is missing http/https url scheme: \(url)")
+                    DebugLog.e("Url is missing http/https url scheme: \(url)")
                 }
             }
         }
@@ -944,7 +944,7 @@ extension ChatViewController {
         
         for event in events {
             if event.eventType != .srsResponse || event.srsResponse?.buttonItems == nil {
-                DebugLog("Passed non-srsResponse event to showSuggestedRepliesViewIfNecessary")
+                DebugLog.d("Passed non-srsResponse event to showSuggestedRepliesViewIfNecessary")
                 return
             }
         }
@@ -1070,7 +1070,7 @@ extension ChatViewController: ConversationManagerDelegate {
             reloadMessageEvents()
         }
         
-        DebugLog("ChatViewController: Connection -> \(isConnected ? "connected" : "not connected")")
+        DebugLog.d("ChatViewController: Connection -> \(isConnected ? "connected" : "not connected")")
     }
     
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {

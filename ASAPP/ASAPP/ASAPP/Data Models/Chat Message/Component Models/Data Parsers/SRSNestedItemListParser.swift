@@ -19,12 +19,8 @@ class SRSNestedItemListParser: NSObject {
                 return nil
         }
         
-        var listOrientation = SRSItemListOrientation.Vertical
-        if let orientationString = json["orientation"] as? String,
-            let parsedOrientation = SRSItemListOrientation(rawValue: orientationString)  {
-            listOrientation = parsedOrientation
-        }
-        
+        var isVertical = (json["orientation"] as? String) != "horizontal"
+  
         var labelValueItems = [SRSLabelValueItem]()
         for itemJson in itemsJson {
             guard let itemTypeString = itemJson["type"] as? String,
@@ -35,7 +31,7 @@ class SRSNestedItemListParser: NSObject {
                 continue
             }
             
-            if let labelValueItem = getSRSLabelValueItemFromInfoItemJSON(itemJson, listOrientation: listOrientation) {
+            if let labelValueItem = getSRSLabelValueItemFromInfoItemJSON(itemJson, listOrientationIsVertical: isVertical) {
                 labelValueItems.append(labelValueItem)
             }
         }
@@ -46,7 +42,7 @@ class SRSNestedItemListParser: NSObject {
     /**
      This will return an instance of SRSLabelValueItem1, SRSLabelValueItem2, or nil
      */
-    class func getSRSLabelValueItemFromInfoItemJSON(_ json: [String : AnyObject]?, listOrientation: SRSItemListOrientation) -> SRSLabelValueItem? {
+    class func getSRSLabelValueItemFromInfoItemJSON(_ json: [String : AnyObject]?, listOrientationIsVertical: Bool) -> SRSLabelValueItem? {
         guard let json = json else {
             return nil
         }
@@ -73,9 +69,8 @@ class SRSNestedItemListParser: NSObject {
             return nil
         }
         
-        let type: SRSLabelValueItemType = listOrientation == .Horizontal ? .vertical : .horizontal
+        let type: SRSLabelValueItemType = listOrientationIsVertical ? .horizontal : .vertical
         
         return SRSLabelValueItem(type: type, label: labelItem, value: valueItem)
     }
-    
 }

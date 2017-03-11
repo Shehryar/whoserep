@@ -64,7 +64,7 @@ class SocketConnection: NSObject {
         self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
         super.init()
         
-        DebugLog("SocketConnection created with host url: \(connectionRequest.url)")
+        DebugLog.d("SocketConnection created with host url: \(connectionRequest.url)")
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SocketConnection.connect),
@@ -179,7 +179,7 @@ extension SocketConnection {
             requestLookup[request.requestId] = request
             
             if let data = request.requestData {
-                DebugLog("Sending data request - (\(data.count) bytes)")
+                DebugLog.d("Sending data request - (\(data.count) bytes)")
                 socket?.send(data)
             } else {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
@@ -187,13 +187,13 @@ extension SocketConnection {
                 if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
                     request.logRequest(with: requestString)
                 } else {
-                    DebugLog("Sending analytics request")
+                    DebugLog.d("Sending analytics request")
                 }
                 
                 socket?.send(requestString)
             }
         } else {
-            DebugLog("Socket not connected. Queueing request: \(request.path)")
+            DebugLog.d("Socket not connected. Queueing request: \(request.path)")
             requestQueue.append(request)
             connect()
         }
@@ -227,7 +227,7 @@ extension SocketConnection {
         
         sendRequest(withPath: path, params: params) { (response, request, responseTime) in
             guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
-                DebugLogError("Missing Customer json body in: \(response.fullMessage)")
+                DebugLog.e("Missing Customer json body in: \(response.fullMessage)")
                 
                 completion?(response, "Failed to update customer by CRMCustomerId")
                 return
@@ -250,7 +250,7 @@ extension SocketConnection {
             if let issueId = response.body?["IssueId"] as? Int {
                 self.outgoingMessageSerializer.issueId = issueId
             } else {
-                DebugLogError("Failed to get IssueId with: \(response.fullMessage)")
+                DebugLog.e("Failed to get IssueId with: \(response.fullMessage)")
                 errorMessage = "Failed to get IssueId"
             }
             
@@ -284,7 +284,7 @@ extension SocketConnection: SRWebSocketDelegate {
                 originalRequestInfo = " [\(request.path)] [\(request.requestUUID)]"
             }
             
-            DebugLog("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------\n\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+            DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------\n\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
         }
         
         let serializedMessage = incomingMessageSerializer.serializedMessage(message)
@@ -320,7 +320,7 @@ extension SocketConnection: SRWebSocketDelegate {
     // MARK: Connection Opening/Closing
     
     func webSocketDidOpen(_ webSocket: SRWebSocket!) {
-        DebugLog("Socket Did Open")
+        DebugLog.d("Socket Did Open")
         
         authenticate { [weak self] (message, errorMessage) in
             guard self != nil else { return }
@@ -335,13 +335,13 @@ extension SocketConnection: SRWebSocketDelegate {
     }
     
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        DebugLog("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
+        DebugLog.d("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
         
         delegate?.socketConnectionDidLoseConnection(self)
     }
     
     func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: Error!) {
-        DebugLog("Socket Did Fail: \(error)")
+        DebugLog.d("Socket Did Fail: \(error)")
         
         delegate?.socketConnectionFailedToAuthenticate(self)
     }

@@ -21,7 +21,7 @@ class SRSLabelValueItem: NSObject {
     
     // MARK: Init
     
-    required init(type: SRSLabelValueItemType, label: SRSLabelItem?, value: SRSLabelItem?) {
+    init(type: SRSLabelValueItemType, label: SRSLabelItem?, value: SRSLabelItem?) {
         self.type = type
         self.label = label
         self.value = value

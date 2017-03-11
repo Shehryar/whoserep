@@ -187,7 +187,7 @@
 		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
-		3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */; };
+		3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLog.swift */; };
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
 		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
 		305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */; };
@@ -481,7 +481,7 @@
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
-		3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		3049CD231D42AD8500F0C0E6 /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
 		305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
@@ -724,7 +724,7 @@
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
 				308F296F1D4164FE00EC7055 /* Colors.swift */,
 				3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */,
-				3049CD231D42AD8500F0C0E6 /* DebugLogger.swift */,
+				3049CD231D42AD8500F0C0E6 /* DebugLog.swift */,
 				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
 				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
 				308F29711D41665900EC7055 /* Fonts.swift */,
@@ -1668,7 +1668,7 @@
 				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
-				3049CD241D42AD8500F0C0E6 /* DebugLogger.swift in Sources */,
+				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				3008889D1D63C48600C25802 /* StackView.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,

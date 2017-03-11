@@ -65,7 +65,7 @@ extension EventSRSResponse {
         if srsJSON["contentType"] as? String == "carousel" {
             response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
         } else {
-            response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
+            response.itemList = SRSItemList.fromJSON(srsJSON["content"] as? [String : AnyObject])
         }
         
         

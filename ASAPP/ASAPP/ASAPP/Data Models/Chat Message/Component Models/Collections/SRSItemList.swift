@@ -8,174 +8,32 @@
 
 import Foundation
 
-enum SRSItemListOrientation: String {
-    case Vertical = "vertical"
-    case Horizontal = "horizontal"
-}
-
 class SRSItemList: NSObject {
-    var orientation: SRSItemListOrientation
-    var items: [AnyObject]
     
-    // MARK: Readonly Properties 
+    let messageText: String?
+    let contentItems: [AnyObject]?
+    let inlineButtonItems: [SRSButtonItem]?
+    let buttonItems: [SRSButtonItem]?
+    let immediateActionButtonItem: SRSButtonItem?
     
-    var messageText: String? {
-        return messageTextItem?.text
-    }
+    // MARK:- Init
     
-    var messageTextItem: SRSLabelItem? {
-        return items.first as? SRSLabelItem
-    }
-    
-    // Returns all items that aren't the titleItem or buttonItems
-    var contentItems: [AnyObject]? {
-        var contentItems = [AnyObject]()
-        for (index, item) in items.enumerated() {
-            if item is SRSLabelItem && index == 0 {
-                continue
-            }
-            if item is SRSButtonItem {
-                continue
-            }
-            contentItems.append(item)
-        }
-        return contentItems
-    }
-    
-    var inlineButtonItems: [SRSButtonItem]? {
-        var buttonItems = [SRSButtonItem]()
-        for item in items {
-            if let buttonItem = item as? SRSButtonItem {
-                if buttonItem.isInline {
-                    buttonItems.append(buttonItem)
-                }
-            }
-        }
-        if buttonItems.count > 0 {
-            return buttonItems
-        }
-        return nil
-    }
-    
-    var buttonItems: [SRSButtonItem]? {
-        var buttonItems = [SRSButtonItem]()
-        for item in items {
-            if let buttonItem = item as? SRSButtonItem {
-                if !buttonItem.isInline {
-                    buttonItems.append(buttonItem)
-                }
-            }
-        }
-        if buttonItems.count > 0 {
-            return buttonItems
-        }
-        return nil
-    }
-    
-    var immediateActionButtonItem: SRSButtonItem? {
-        guard let buttonItems = buttonItems else { return nil }
+    init(messageText: String?,
+         contentItems: [AnyObject]?,
+         inlineButtonItems: [SRSButtonItem]?,
+         buttonItems: [SRSButtonItem]?,
+         immediateActionButtonItem: SRSButtonItem?) {
         
-        for buttonItem in buttonItems {
-            if buttonItem.isAutoSelect {
-                return buttonItem
-            }
-        }
-        return nil
-    }
-    
-    // MARK: Init
-    
-    init(items: [AnyObject], orientation: SRSItemListOrientation) {
-        self.items = items
-        self.orientation = orientation
+        self.messageText = messageText
+        self.contentItems = contentItems
+        self.inlineButtonItems = inlineButtonItems
+        self.buttonItems = buttonItems
+        self.immediateActionButtonItem = immediateActionButtonItem
         super.init()
     }
-    
-    // MARK: JSONObject
-    
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSItemList? {
-        guard let json = json,
-            let itemsJSONArary = json["value"] as? [[String : AnyObject]] else {
-                return nil
-        }
-        
-        var orientation = SRSItemListOrientation.Vertical
-        if let orientationString = json["orientation"] as? String,
-            let parsedOrientation = SRSItemListOrientation(rawValue: orientationString)  {
-            orientation = parsedOrientation
-        }
-        
-        var items = [AnyObject]()
-        for itemJSON in itemsJSONArary {
-            guard let itemTypeString = itemJSON["type"] as? String,
-                let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
-                    continue
-            }
-            
-            var item: AnyObject?
-            var nestedItems: [AnyObject]?
-            
-            switch itemType {
-            case .ItemList:
-                nestedItems = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON)
-                break
-                
-            case .Button:
-                item = SRSButtonItem.fromJSON(itemJSON, isInline: false)
-                break
-                
-            case .InlineButton:
-                item = SRSButtonItem.fromJSON(itemJSON, isInline: true)
-                break
-                
-            case .Label:
-                item = SRSLabelItem.instanceWithJSON(itemJSON)
-                break
-                
-            case .Info:
-                item = SRSNestedItemListParser.getSRSLabelValueItemFromInfoItemJSON(itemJSON, listOrientation: orientation)
-                break
-                
-            case .Separator:
-                item = SRSSeparatorItem.instanceWithJSON(itemJSON)
-                break
-                
-            case .Filler:
-                item = SRSFillerItem.instanceWithJSON(itemJSON)
-                break
-                
-            case .LoaderBar:
-                item = SRSLoaderBarItem.instanceWithJSON(itemJSON)
-                break
-                
-            case .Image:
-                item = SRSImageItem.instanceWithJSON(itemJSON)
-                break
-                
-            case .Map:
-                item = SRSMapItem.instanceWithJSON(itemJSON)
-                break
-            
-            case .Icon:
-                item = SRSIconItem.instanceWithJSON(itemJSON)
-                break
-            }
-            
-            if let item = item {
-                items.append(item)
-            } else if let nestedItems = nestedItems {
-                items.append(contentsOf: nestedItems)
-            }
-        }
-        
-        if items.isEmpty {
-            return nil
-            
-        }
-        
-        return SRSItemList(items: items, orientation: orientation)
-    }
 }
+ 
+// MARK:- JSON Parsing
 
 enum SRSItemListItemType: String {
     case ItemList = "itemlist"
@@ -190,3 +48,121 @@ enum SRSItemListItemType: String {
     case Map = "map"
     case Icon = "icon"
 }
+
+extension SRSItemList {
+
+    class func fromJSON(_ json: [String : AnyObject]?) -> SRSItemList? {
+        guard let json = json,
+            let itemsJSON = json["value"] as? [[String : AnyObject]] else {
+                return nil
+        }
+        
+        var messageText: String?
+        var contentItems = [AnyObject]()
+        var inlineButtonItems = [SRSButtonItem]()
+        var buttonItems = [SRSButtonItem]()
+        var immediateActionButtonItem: SRSButtonItem?
+        
+        for (idx, itemJSON) in itemsJSON.enumerated() {
+            guard let itemTypeString = itemJSON["type"] as? String,
+                let itemType = SRSItemListItemType(rawValue: itemTypeString) else {
+                    DebugLog.i(caller: SRSItemList.self, "Missing or unknown item type in json: ")
+                    continue
+            }
+            
+            switch itemType {
+            case .ItemList:
+                if let items = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON) {
+                    
+                    print("\n\n\n\n\n\n\n\n\n\n\(String(describing: type(of: items)))\n\n\n\n\n")
+//                    contentItems.append(contentsOf: items)
+                }
+                break
+                
+            case .Button:
+                if let buttonItem = SRSButtonItem.fromJSON(itemJSON) {
+                    buttonItems.append(buttonItem)
+        
+                    if buttonItem.isAutoSelect {
+                        immediateActionButtonItem = buttonItem
+                    }
+                }
+                break
+                
+            case .InlineButton:
+                if let inlineButtonItem = SRSButtonItem.fromJSON(itemJSON) {
+                    inlineButtonItems.append(inlineButtonItem)
+                }
+                break
+                
+            case .Label:
+                if let labelItem = SRSLabelItem.instanceWithJSON(itemJSON) {
+                    if idx == 0 {
+                        messageText = labelItem.text
+                    } else {
+                        contentItems.append(labelItem)
+                    }
+                }
+                break
+                
+            case .Info:
+                if let labelValueItem = SRSNestedItemListParser.getSRSLabelValueItemFromInfoItemJSON(itemJSON, listOrientationIsVertical: true) {
+                    contentItems.append(labelValueItem)
+                }
+                break
+                
+            case .Separator:
+                if let separatorItem = SRSSeparatorItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(separatorItem)
+                }
+                break
+                
+            case .Filler:
+                if let fillerItem = SRSFillerItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(fillerItem)
+                }
+                break
+                
+            case .LoaderBar:
+                if let loaderBarItem = SRSLoaderBarItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(loaderBarItem)
+                }
+                break
+                
+            case .Image:
+                if let imageItem = SRSImageItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(imageItem)
+                }
+                break
+                
+            case .Map:
+                if let mapItem = SRSMapItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(mapItem)
+                }
+                break
+                
+            case .Icon:
+                if let iconItem = SRSIconItem.instanceWithJSON(itemJSON) {
+                    contentItems.append(iconItem)
+                }
+                break
+            }
+        }
+        
+        let _contentItems: [AnyObject]? = contentItems.isEmpty ? nil : contentItems
+        let _inlineButtonItems: [SRSButtonItem]? = inlineButtonItems.isEmpty ? nil : inlineButtonItems
+        let _buttonItems: [SRSButtonItem]? = buttonItems.isEmpty ? nil : buttonItems
+        
+        if messageText == nil && _contentItems == nil && _inlineButtonItems == nil {
+            DebugLog.i(caller: SRSItemList.self, "Cannot create instance without content: \(json)")
+            return nil
+        }
+        
+        return SRSItemList(messageText: messageText,
+                           contentItems: _contentItems,
+                           inlineButtonItems: _inlineButtonItems,
+                           buttonItems: _buttonItems,
+                           immediateActionButtonItem: immediateActionButtonItem)
+    }
+}
+

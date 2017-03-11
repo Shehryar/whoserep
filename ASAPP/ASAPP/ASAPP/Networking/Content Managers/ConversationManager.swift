@@ -81,7 +81,7 @@ extension ConversationManager {
     // MARK: Entering/Exiting a Conversation
     
     func enterConversation() {
-        DebugLog("Entering Conversation")
+        DebugLog.d("Entering Conversation")
         
         socketConnection.connectIfNeeded()
     }
@@ -106,7 +106,7 @@ extension ConversationManager {
     }
     
     func exitConversation() {
-        DebugLog("\n\nExiting Conversation\n")
+        DebugLog.d("\n\nExiting Conversation\n")
         
         fileStore.save()
         socketConnection.disconnect()
@@ -188,7 +188,7 @@ extension ConversationManager {
         let path = "\(requestPrefix)SendPictureMessage"
         
         guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
-            DebugLogError("Unable to get JPEG data for image: \(image)")
+            DebugLog.e("Unable to get JPEG data for image: \(image)")
             return
         }
         let imageFileSize = imageData.count
@@ -415,7 +415,7 @@ extension ConversationManager: SocketConnectionDelegate {
             if let parentEventLogSeq = event.parentEventLogSeq {
                 delegate?.conversationManager(self, didReceiveUpdatedMessageEvent: event)
             } else {
-                DebugLog("Missing parentEventLogSeq on updated event")
+                DebugLog.d("Missing parentEventLogSeq on updated event")
             }
             return
         }
@@ -439,19 +439,19 @@ extension ConversationManager: SocketConnectionDelegate {
     }
     
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection) {
-        DebugLog("ConversationManager: Established Connection")
+        DebugLog.d("ConversationManager: Established Connection")
         
         delegate?.conversationManager(self, connectionStatusDidChange: true)
     }
     
     func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection) {
-        DebugLog("ConversationManager: Authentication Failed")
+        DebugLog.d("ConversationManager: Authentication Failed")
         
         delegate?.conversationManager(self, connectionStatusDidChange: false)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
-        DebugLog("ConversationManager: Connection Lost")
+        DebugLog.d("ConversationManager: Connection Lost")
         
         delegate?.conversationManager(self, connectionStatusDidChange: false)
     }

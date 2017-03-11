@@ -242,11 +242,11 @@ extension ASAPPButton {
     }
     
     func didBeginLongHold() {
-        DebugLog("DidBeginLongHold()")
+        DebugLog.d("DidBeginLongHold()")
     }
     
     func didFinishLongHold() {
-        DebugLog("DidFinishLongHold()")
+        DebugLog.d("DidFinishLongHold()")
     }
 }
 

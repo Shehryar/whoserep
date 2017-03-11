@@ -351,7 +351,7 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         if let event = cell.event {
             delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
         } else {
-            DebugLogError("Missing event on itemCarouselView")
+            DebugLog.e("Missing event on itemCarouselView")
         }
     }
     
@@ -359,7 +359,7 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         if let event = cell.event {
             delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
         } else {
-            DebugLogError("Missing event on itemCarouselView")
+            DebugLog.e("Missing event on itemCarouselView")
         }
     }
     
@@ -367,7 +367,7 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         if let event = cell.event {
             delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
         } else {
-            DebugLogError("Missing event on itemListView")
+            DebugLog.e("Missing event on itemListView")
         }
     }
 }

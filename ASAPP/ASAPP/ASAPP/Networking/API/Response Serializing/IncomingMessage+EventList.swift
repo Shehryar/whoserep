@@ -44,7 +44,7 @@ extension IncomingMessage {
             errorMessage = "No results returned."
         }
         
-        DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
+        DebugLog.d("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
         
         return (eventList, eventsJSONArray, errorMessage)
     }

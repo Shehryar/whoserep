@@ -175,7 +175,7 @@ class SRSItemCarouselView: UIView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        DebugLog("sizeThatFits: called in SRSItemCarouselView instead of sizeThatFits(size;maximumPageWidth:)")
+        DebugLog.d("sizeThatFits: called in SRSItemCarouselView instead of sizeThatFits(size;maximumPageWidth:)")
             
         return sizeThatFits(size, maximumPageWidth: maxPageWidth)
     }

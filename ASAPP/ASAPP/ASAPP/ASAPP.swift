@@ -220,9 +220,9 @@ public extension ASAPP {
     public class func setDemoContentEnabled(_ enabled: Bool) {
         if isInternalBuild {
             demoContentEnabled = enabled
-            DebugLog("Demo Content: \(enabled)")
+            DebugLog.d("Demo Content: \(enabled)")
         } else {
-            DebugLogError("Demo Content Disabled")
+            DebugLog.e("Demo Content Disabled")
         }
     }
 }
