@@ -72,10 +72,10 @@ extension SRSItemList {
             
             switch itemType {
             case .ItemList:
-                if let items = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON) {
-                    
-                    print("\n\n\n\n\n\n\n\n\n\n\(String(describing: type(of: items)))\n\n\n\n\n")
-//                    contentItems.append(contentsOf: items)
+                if let labelValueItems = SRSNestedItemListParser.getSRSLabelValueItemsFromItemListJSON(itemJSON) {
+                    for labelValueItem in labelValueItems {
+                        contentItems.append(labelValueItem)
+                    }
                 }
                 break
                 
