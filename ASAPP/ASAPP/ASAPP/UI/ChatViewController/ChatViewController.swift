@@ -102,12 +102,12 @@ class ChatViewController: UIViewController {
         self.conversationManager = ConversationManager(withCredentials: credentials)
         self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
+        self.isLiveChat = ChatViewController.getIsLiveChatFrom(self.conversationManager.storedMessages)
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
         
         conversationManager.delegate = self
-        
     
         // Predictive View Controller
         
@@ -250,9 +250,6 @@ class ChatViewController: UIViewController {
             predictiveView.alpha = 0.0
         }
         
-        updateIsLiveChat(withEvents: conversationManager.storedMessages)
-        
-        
         let minTimeBetweenSessions: TimeInterval = 60 * 15 // 15 minutes
         if chatMessagesView.mostRecentEvent == nil ||
             chatMessagesView.mostRecentEvent!.eventDate.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
@@ -387,22 +384,27 @@ class ChatViewController: UIViewController {
     
     // MARK: Updates
     
-    func updateIsLiveChat(withEvents events: [Event]) {
-        var tempLiveChat = false
+    class func getIsLiveChatFrom(_ events: [Event]) -> Bool {
+        var liveChat = false
         for (_, event) in events.enumerated().reversed() {
             if event.eventType == .newRep || event.eventType == .switchSRSToChat {
-                tempLiveChat = true
+                liveChat = true
                 break
             }
             if event.eventType == .conversationEnd {
-                tempLiveChat = false
+                liveChat = false
                 break
             }
         }
         
-        DebugLog.d("Updated isLiveChat = \(tempLiveChat ? "TRUE" : "FALSE")")
+        return liveChat
         
-        isLiveChat = tempLiveChat
+    }
+    
+    func updateIsLiveChat(withEvents events: [Event]) {
+        isLiveChat = ChatViewController.getIsLiveChatFrom(events)
+        
+        DebugLog.d("Updated isLiveChat = \(isLiveChat ? "TRUE" : "FALSE")")
     }
     
     func updateViewForLiveChat(animated: Bool = true) {
