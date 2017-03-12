@@ -80,7 +80,7 @@ class ChatTextBubbleView: UIView {
     
     let contentInset = UIEdgeInsets.zero
     
-    let textInset = UIEdgeInsets(top: 10, left: 16, bottom: 8, right: 16)
+    let textInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
     
     // MARK: Data Detectors
     

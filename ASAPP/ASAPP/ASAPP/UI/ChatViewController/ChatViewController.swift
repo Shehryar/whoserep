@@ -79,8 +79,6 @@ class ChatViewController: UIViewController {
         return connectionStatus == .connecting || connectionStatus == .disconnected
     }
     
-    
-    
     fileprivate var connectedAtLeastOnce = false
     fileprivate var showPredictiveOnViewAppear = true
     fileprivate var isInitialLayout = true
@@ -130,15 +128,19 @@ class ChatViewController: UIViewController {
         chatMessagesView.delegate = self
         chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
         
-        if let mostRecentEvent = chatMessagesView.mostRecentEvent {
-            let secondsSinceLastEvent = Date().timeIntervalSince(mostRecentEvent.eventDate)
-            
-            showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
-            if secondsSinceLastEvent < (60 * 15) {
-                showPredictiveOnViewAppear = false
-            }
+        if isLiveChat {
+            showPredictiveOnViewAppear = false
         } else {
-            showPredictiveOnViewAppear = true
+            if let mostRecentEvent = chatMessagesView.mostRecentEvent {
+                let secondsSinceLastEvent = Date().timeIntervalSince(mostRecentEvent.eventDate)
+                
+                showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
+                if secondsSinceLastEvent < (60 * 15) {
+                    showPredictiveOnViewAppear = false
+                }
+            } else {
+                showPredictiveOnViewAppear = true
+            }
         }
         
         chatInputView.delegate = self
