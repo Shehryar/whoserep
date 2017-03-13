@@ -15,7 +15,7 @@ typealias ConversationManagerRequestBlock = ((_ fetchedEvents: [Event]?, _ error
 protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
     func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event)
-    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event)
+    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool)
     func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool)
     func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool)
 }
@@ -31,11 +31,17 @@ class ConversationManager: NSObject {
     
     weak var delegate: ConversationManagerDelegate?
     
+    // MARK: Properties: Status
+    
     var currentSRSClassification: String?
     
     var isConnected: Bool {
         return socketConnection.isConnected
     }
+    
+    fileprivate var conversantBeganTypingTime: TimeInterval?
+    
+    fileprivate var timer: Timer?
     
     // MARK: Private Properties
     
@@ -53,13 +59,24 @@ class ConversationManager: NSObject {
         self.socketConnection = SocketConnection(withCredentials: self.credentials)
         self.fileStore = ConversationFileStore(credentials: self.credentials)
         self.requestPrefix = credentials.isCustomer ? "customer/" : "rep/"
+        
         super.init()
         
         self.socketConnection.delegate = self
+        self.timer = Timer.scheduledTimer(timeInterval: 6,
+                                          target: self,
+                                          selector:  #selector(ConversationManager.checkForConversantTypingStatusChange),
+                                          userInfo: nil,
+                                          repeats: true)
     }
     
     deinit {
         socketConnection.delegate = nil
+        
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
+        }
     }
 }
 
@@ -377,6 +394,23 @@ extension ConversationManager {
     
 }
 
+// MARK:- Updating Typing Status
+
+extension ConversationManager {
+    
+    func checkForConversantTypingStatusChange() {
+        guard let conversantBeganTypingTime = conversantBeganTypingTime else {
+            return
+        }
+        
+        let timeSinceConversantBeganTyping = Date.timeIntervalSinceReferenceDate - conversantBeganTypingTime
+        if timeSinceConversantBeganTyping > 10 {
+            self.conversantBeganTypingTime = nil
+            delegate?.conversationManager(self, didUpdateRemoteTypingStatus: false)
+        }
+    }
+}
+
 // MARK:- SocketConnectionDelegate
 
 extension ConversationManager: SocketConnectionDelegate {
@@ -402,10 +436,11 @@ extension ConversationManager: SocketConnectionDelegate {
         // Typing Status
         if event.ephemeralType == .typingStatus {
             if let typingStatus = event.typingStatus {
-                delegate?.conversationManager(self,
-                                              didUpdateRemoteTypingStatus: typingStatus.isTyping,
-                                              withPreviewText: nil,
-                                              event: event)
+                delegate?.conversationManager(self, didUpdateRemoteTypingStatus: typingStatus.isTyping)
+                
+                if typingStatus.isTyping {
+                    conversantBeganTypingTime = Date.timeIntervalSinceReferenceDate
+                }
             }
             return
         }

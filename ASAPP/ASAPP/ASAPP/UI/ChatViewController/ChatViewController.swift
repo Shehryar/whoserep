@@ -1050,8 +1050,8 @@ extension ChatViewController: ConversationManagerDelegate {
         chatMessagesView.refreshMessageEvent(event: messageEvent)
     }
     
-    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool, withPreviewText previewText: String?, event: Event) {
-        chatMessagesView.updateOtherParticipantTypingStatus(isTyping, withPreviewText: (credentials.isCustomer ? nil : previewText))
+    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool) {
+        chatMessagesView.updateOtherParticipantTypingStatus(isTyping)
     }
     
     func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {

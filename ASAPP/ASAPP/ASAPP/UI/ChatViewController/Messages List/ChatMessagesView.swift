@@ -425,7 +425,7 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateOtherParticipantTypingStatus(_ isTyping: Bool, withPreviewText previewText: String?) {
+    func updateOtherParticipantTypingStatus(_ isTyping: Bool) {
         var isDifferent = isTyping != otherParticipantIsTyping
         let shouldScrollToBottom = isNearBottom() && isDifferent
         
