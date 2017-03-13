@@ -183,6 +183,14 @@ extension ConversationManager {
         _sendMessage(message, completion: completion)
     }
     
+    func endLiveChat() {
+        guard isConnected(retryConnectionIfNeeded: true) else {
+            return
+        }
+        
+        socketConnection.sendRequest(withPath: "customer/EndConversation", params: nil)
+    }
+    
     func sendSRSSwitchToChat() {
         socketConnection.sendRequest(withPath: "srs/SwitchSRSToChat", params: nil);
     }
@@ -427,7 +435,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         
         // Entering / Exiting Live Chat
-        if [EventType.conversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
+        if [EventType.conversationEnd, EventType.customerConversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
             let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
             delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
         }
@@ -457,7 +465,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Message Event
         switch event.eventType {
-        case .srsResponse, .conversationEnd, .switchSRSToChat, .newRep:
+        case .srsResponse, .conversationEnd, .customerConversationEnd, .switchSRSToChat, .newRep:
             Dispatcher.delay(600, closure: {
                 self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
             })

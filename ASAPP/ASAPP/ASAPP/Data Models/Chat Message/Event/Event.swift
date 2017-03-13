@@ -14,6 +14,7 @@ enum EventType: Int {
     case newRep = 3
     case conversationEnd = 4
     case pictureMessage = 5
+    case customerConversationEnd = 15
     case srsResponse = 22
     case srsEcho = 23
     case srsAction = 24
@@ -27,6 +28,7 @@ enum EventType: Int {
              srsAction,
              newRep,
              conversationEnd,
+             customerConversationEnd,
              switchSRSToChat:
             return true
             

@@ -36,6 +36,7 @@ public class ASAPPStrings: NSObject {
     public var chatEmptyTitle: String = ASAPPLocalizedString("Hi there, how can we help you?")
     public var chatEmptyMessage: String = ASAPPLocalizedString("Tap 'ASK' to get started.")
     public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
+    public var chatEndChatNavBarButton: String = ASAPPLocalizedString("END CHAT")
     public var chatAskTooltip: String = ASAPPLocalizedString("Tap 'ASK' to ask a new question.")
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     public var chatInputSend: String = ASAPPLocalizedString("SEND")

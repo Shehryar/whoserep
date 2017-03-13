@@ -310,7 +310,7 @@ class ChatViewController: UIViewController {
     // MARK: Display Update
     
     func updateFonts() {
-        updateAskButton()
+        updateNavigationActionButton()
         
         chatMessagesView.updateDisplay()
         suggestedRepliesView.updateDisplay()
@@ -322,20 +322,26 @@ class ChatViewController: UIViewController {
         }
     }
     
-    func updateAskButton() {
+    func updateNavigationActionButton() {
         if isLiveChat {
-            navigationItem.leftBarButtonItem = nil
-            return
+            let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatEndChatNavBarButton,
+                                                                    font: ASAPP.styles.font(for: .navBarButton),
+                                                                    textColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                    backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
+                                                                    style: .ask,
+                                                                    target: self,
+                                                                    action: #selector(ChatViewController.didTapEndChatButton))
+            navigationItem.leftBarButtonItem = askButton
+        } else {
+            let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
+                                                                    font: ASAPP.styles.font(for: .navBarButton),
+                                                                    textColor: ASAPP.styles.navBarButtonForegroundColor,
+                                                                    backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
+                                                                    style: .ask,
+                                                                    target: self,
+                                                                    action: #selector(ChatViewController.didTapAskButton))
+            navigationItem.leftBarButtonItem = askButton
         }
-        
-        let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
-                                                                font: ASAPP.styles.font(for: .navBarButton),
-                                                                textColor: ASAPP.styles.navBarButtonForegroundColor,
-                                                                backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
-                                                                style: .ask,
-                                                                target: self,
-                                                                action: #selector(ChatViewController.didTapAskButton))
-        navigationItem.leftBarButtonItem = askButton
     }
     
     // MARK: Status Bar Style
@@ -391,7 +397,7 @@ class ChatViewController: UIViewController {
                 liveChat = true
                 break
             }
-            if event.eventType == .conversationEnd {
+            if event.eventType == .conversationEnd || event.eventType == .customerConversationEnd {
                 liveChat = false
                 break
             }
@@ -408,7 +414,7 @@ class ChatViewController: UIViewController {
     }
     
     func updateViewForLiveChat(animated: Bool = true) {
-        updateAskButton()
+        updateNavigationActionButton()
         
         if isLiveChat {
             clearSuggestedRepliesView(true, completion: nil)
@@ -444,6 +450,10 @@ class ChatViewController: UIViewController {
         showPredictiveView()
         
         conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
+    }
+    
+    func didTapEndChatButton() {
+        conversationManager.endLiveChat()
     }
     
     func didTapCloseButton() {
