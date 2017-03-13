@@ -70,12 +70,12 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
         
             
             guard let containerView = containerView else {
-                DebugLogError("Missing containerView in ImageViewTransitionAnimator")
+                DebugLog.e("Missing containerView in ImageViewTransitionAnimator")
                 return
             }
             
             guard let imageViewerView = imageViewerView else {
-                DebugLogError("Missing imageViewerView in ImageViewTransitionAnimator")
+                DebugLog.e("Missing imageViewerView in ImageViewTransitionAnimator")
                 return
             }
             
@@ -124,7 +124,7 @@ extension ImageViewerTransitionAnimator {
         guard let animateFromFrame = animateFromFrame,
             let imageViewer = imageViewer,
             let imageViewerView = imageViewerView else {
-                DebugLogError("Unable to performZoomPresentationAnimation")
+                DebugLog.e("Unable to performZoomPresentationAnimation")
                 return
         }
         
@@ -213,7 +213,7 @@ extension ImageViewerTransitionAnimator {
         guard let imageViewer = imageViewer,
             let imageViewerView = imageViewerView,
             let animateFromFrame = animateFromFrame else {
-                DebugLogError("Unable to performDismissToImageViewAnimation")
+                DebugLog.e("Unable to performDismissToImageViewAnimation")
                 return
         }
         
@@ -404,7 +404,7 @@ extension ImageViewerTransitionAnimator {
         }
         
         guard let panStart = panStart else {
-            DebugLogError("Unable to handle pan gesture because panState is not set.")
+            DebugLog.e("Unable to handle pan gesture because panState is not set.")
             return
         }
         

@@ -14,14 +14,14 @@ class ChatActionableMessageView: UIView {
         return ChatSuggestedReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
     }
     
-    func setSRSResponse(srsResponse: SRSResponse?, event: Event?) {
+    func setSRSResponse(srsResponse: EventSRSResponse?, event: Event?) {
         self.event = event
         self.srsResponse = srsResponse
     }
     
     fileprivate(set) var event: Event?
     
-    fileprivate(set) var srsResponse: SRSResponse? {
+    fileprivate(set) var srsResponse: EventSRSResponse? {
         didSet {
             selectedButtonItem = nil
             buttonItems = srsResponse?.buttonItems
@@ -33,11 +33,10 @@ class ChatActionableMessageView: UIView {
     var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
-        didSet {
-            
-//            if DEMO_CONTENT_ENABLED {
+        didSet {            
+//            if ASAPP.isDemoContentEnabled() {
 //                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
-//                testButton.actionName = "DeviceRestart"
+//                testButton.actionEndpoint = "DeviceRestart"
 //                buttonItems?.append(testButton)
 //            }
             
@@ -180,13 +179,12 @@ extension ChatActionableMessageView: UITableViewDataSource {
                                          color: ASAPP.styles.buttonColor)
             cell.imageTintColor = ASAPP.styles.buttonColor
             
-            if ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) ||
-                [.SRS, .Action, .Message, .AppAction].contains(buttonItem.type) {
-                cell.imageView?.isHidden = true
-                cell.accessibilityTraits = UIAccessibilityTraitButton
-            } else {
+            if buttonItem.action.willExitASAPP && !ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) {
                 cell.imageView?.isHidden = false
                 cell.accessibilityTraits = UIAccessibilityTraitLink
+            } else {
+                cell.imageView?.isHidden = true
+                cell.accessibilityTraits = UIAccessibilityTraitButton
             }
         } else {
             cell.label.text = nil

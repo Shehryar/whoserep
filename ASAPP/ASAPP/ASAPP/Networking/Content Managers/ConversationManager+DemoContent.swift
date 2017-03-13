@@ -12,10 +12,10 @@ extension ConversationManager {
     
     // MARK: Sample Responses
     
-    func demo_AppOpenResponse() -> SRSAppOpenResponse? {
+    func demo_AppOpenResponse() -> AppOpenResponse? {
         guard ASAPP.isDemoContentEnabled() else { return nil }
         
-        return SRSAppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
+        return AppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
     }
 }
 
@@ -26,25 +26,30 @@ extension ConversationManager {
     class func demo_CanOverrideButtonItemSelection(buttonItem: SRSButtonItem) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
         
-        if let  srsQuery = buttonItem.srsValue {
-            if srsQuery == "cancelAppointmentPrompt"
-                || srsQuery == "cancelAppointmentConfirmation"
-                || srsQuery == "chatWithAnAgent"
-                || srsQuery == "waitForAnAgent" {
+        switch buttonItem.action.type {
+        case .link:
+            if ["troubleshoot", "restartdevicenow"].contains(buttonItem.action.name.lowercased()) {
                 return true
             }
-        }
-        
-        if let deepLink = buttonItem.deepLink?.lowercased() {
-            if deepLink == "troubleshoot" || deepLink == "restartdevicenow" {
+            break
+            
+        case .treewalk:
+            if ["cancelAppointmentPrompt",
+                "cancelAppointmentConfirmation",
+                "chatWithAnAgent",
+                "waitForAnAgent"].contains(buttonItem.action.name) {
                 return true
             }
-        }
+            break
         
+        default:
+            // No-op
+            break
+        }
         return false
     }
     
-    func demo_OverrideStartSRS(completion: ((_ response: SRSAppOpenResponse) -> Void)? = nil) -> Bool {
+    func demo_OverrideStartSRS(completion: ((_ response: AppOpenResponse) -> Void)? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
         
         if let demoResponse = self.demo_AppOpenResponse() {
@@ -63,31 +68,31 @@ extension ConversationManager {
     
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
+        guard buttonItem.action.type == .treewalk else { return false }
         
-        if let srsQuery = buttonItem.srsValue {
-            if srsQuery == "cancelAppointmentPrompt" {
-                _sendMessage(buttonItem.title, completion: completion)
-                sendFakeCancelAppointmentMessage()
-                return true
-            }
-            if srsQuery == "cancelAppointmentConfirmation" {
-                _sendMessage(buttonItem.title, completion: completion)
-                sendFakeCancelAppointmentConfirmationMessage()
-                return true
-            }
-            if srsQuery == "chatWithAnAgent" {
-                _sendMessage(buttonItem.title, completion: completion)
-                sendFakeChatWithAnAgentMessage()
-                return true
-            }
-            if srsQuery == "waitForAnAgent" {
-                _sendMessage(buttonItem.title, completion: completion)
-                sendFakeWaitForAnAgentMessage()
-                return true
-            }
+        switch buttonItem.action.name {
+        case "cancelAppointmentPrompt":
+            _sendMessage(buttonItem.title, completion: completion)
+            sendFakeCancelAppointmentMessage()
+            return true
+            
+        case "cancelAppointmentConfirmation":
+            _sendMessage(buttonItem.title, completion: completion)
+            sendFakeCancelAppointmentConfirmationMessage()
+            return true
+            
+        case "chatWithAnAgent":
+            _sendMessage(buttonItem.title, completion: completion)
+            sendFakeChatWithAnAgentMessage()
+            return true
+            
+        case "waitForAnAgent":
+            _sendMessage(buttonItem.title, completion: completion)
+            sendFakeWaitForAnAgentMessage()
+            return true
+            
+        default: return false
         }
-        
-        return false
     }
     
     func demo_OverrideMessageSend(message: String, completion: (() -> Void)? = nil) -> Bool {

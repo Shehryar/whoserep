@@ -51,9 +51,9 @@ class Fonts: NSObject {
             if family.localizedCaseInsensitiveContains("lato")
                 || family.localizedCaseInsensitiveContains("XFINITY")
                 || family.localizedCaseInsensitiveContains("sprint") {
-                DebugLog("\n\(family):")
+                DebugLog.d("\n\(family):")
                 for font in UIFont.fontNames(forFamilyName: family) {
-                    DebugLog("  \(font)")
+                    DebugLog.d("  \(font)")
                     fontNames.append(font)
                 }
             }
@@ -64,7 +64,7 @@ class Fonts: NSObject {
     class func loadFont(_ name: String, type: String) {
     
         guard let path = ASAPPBundle.path(forResource: name, ofType: type) else {
-            DebugLogError("FONT FAILURE: Unable to find path for resource \(name).\(type)")
+            DebugLog.e("FONT FAILURE: Unable to find path for resource \(name).\(type)")
             return
         }
         
@@ -74,10 +74,10 @@ class Fonts: NSObject {
             var err: Unmanaged<CFError>?
             CTFontManagerRegisterGraphicsFont(font, &err)
             if err != nil {
-                DebugLogError("FONT FAILURE: received error while loading font \(name).\(type)\n\(err)")
+                DebugLog.e("FONT FAILURE: received error while loading font \(name).\(type)\n\(err)")
             }
         } else {
-            DebugLogError("FONT FAILURE: unable to load data for path \(path)")
+            DebugLog.e("FONT FAILURE: unable to load data for path \(path)")
         }
     }
     

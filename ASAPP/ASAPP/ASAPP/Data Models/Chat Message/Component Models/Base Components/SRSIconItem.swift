@@ -12,7 +12,7 @@ enum SRSIcon: String {
     case creditCard = "creditCard"
 }
 
-class SRSIconItem: NSObject, JSONObject {
+class SRSIconItem: NSObject {
 
     let icon: SRSIcon
     
@@ -31,7 +31,7 @@ class SRSIconItem: NSObject, JSONObject {
     
     // MARK:- JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSIconItem? {
         guard let json = json,
             let iconString = json["icon"] as? String,
             let icon = SRSIcon(rawValue: iconString) else {

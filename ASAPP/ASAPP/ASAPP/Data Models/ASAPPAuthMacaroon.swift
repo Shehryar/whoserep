@@ -40,7 +40,7 @@ class ASAPPAuthMacaroon: NSObject {
         guard let json = json else { return nil }
         
         guard let accessToken = json[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String else {
-            DebugLogError("Missing \"access_token\" in auth dictionary")
+            DebugLog.e("Missing \"access_token\" in auth dictionary")
             return nil
         }
         
@@ -110,7 +110,7 @@ extension ASAPPAuthMacaroon {
     
     class func _debugLog(_ message: String) {
         if debugLoggingEnabled {
-            DebugLog(message)
+            DebugLog.d(message)
         }
     }
 }

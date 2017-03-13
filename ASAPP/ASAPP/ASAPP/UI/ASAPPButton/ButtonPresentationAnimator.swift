@@ -58,7 +58,7 @@ extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
             
             guard let containerView = containerView,
                 let presentedView = presentedView else {
-                    DebugLogError("Missing containerView in ButtonPresentationAnimator")
+                    DebugLog.e("Missing containerView in ButtonPresentationAnimator")
                     return
             }
 

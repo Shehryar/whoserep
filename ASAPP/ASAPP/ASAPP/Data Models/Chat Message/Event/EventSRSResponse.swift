@@ -1,5 +1,5 @@
 //
-//  SRSResponse.swift
+//  EventSRSResponse.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/1/16.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SRSResponse: NSObject {
-//    var title: String?
+class EventSRSResponse: NSObject {
+    
     var classification: String?
     
     var itemList: SRSItemList?
@@ -42,29 +42,30 @@ class SRSResponse: NSObject {
 
 // MARK:- JSON Handling
 
-extension SRSResponse: JSONObject {
+extension EventSRSResponse {
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
-        guard let json = json else {
+    class func fromEventJSON(_ eventJSON: [String : AnyObject]?) -> EventSRSResponse? {
+        guard let eventJSON = eventJSON else {
             return nil
         }
         
-        // This may be an action message, in which case the srs response is embedded under an additional key, "BusinessLogic"
-        
-        let srsJSON = json["businessLogic"] as? [String : Any] ?? json["BusinessLogic"] as? [String : Any] ?? json
+        // All sorts of weird nesting logic here...
+        let srsJSON = (eventJSON["businessLogic"] as? [String : AnyObject]
+            ?? eventJSON["BusinessLogic"] as? [String : AnyObject]
+            ?? eventJSON["ClientMessage"] as? [String : AnyObject]
+            ?? eventJSON)
         
         var displayContent = false
         if let displayContentValue = srsJSON["displayContent"] as? Bool {
             displayContent = displayContentValue
         }
         
-        let response = SRSResponse(displayContent: displayContent)
-//        response.title = srsJSON["title"] as? String
+        let response = EventSRSResponse(displayContent: displayContent)
         response.classification = srsJSON["classification"] as? String
         if srsJSON["contentType"] as? String == "carousel" {
-            response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemCarousel
+            response.itemCarousel = SRSItemCarousel.instanceWithJSON(srsJSON["content"] as? [String : AnyObject])
         } else {
-            response.itemList = SRSItemList.instanceWithJSON(srsJSON["content"] as? [String : AnyObject]) as? SRSItemList
+            response.itemList = SRSItemList.fromJSON(srsJSON["content"] as? [String : AnyObject])
         }
         
         
@@ -73,7 +74,7 @@ extension SRSResponse: JSONObject {
                 if classification.lowercased() == "bpp" {
                     if let buttonItems = response.itemList?.buttonItems {
                         for buttonItem in buttonItems {
-                            if buttonItem.deepLink?.lowercased() == "payment" {
+                            if buttonItem.action.type == .link && buttonItem.action.name.lowercased() == "payment" {
                                 buttonItem.isAutoSelect = true
                                 response.displayContent = false
                             }

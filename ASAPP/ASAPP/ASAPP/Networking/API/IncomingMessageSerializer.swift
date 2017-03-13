@@ -38,7 +38,7 @@ class IncomingMessageSerializer {
         
         guard let messageString = message as? String else {
             serializedMessage.debugError = "Response not in expected string format"
-            DebugLogError(serializedMessage.debugError!)
+            DebugLog.e(serializedMessage.debugError!)
             return serializedMessage
         }
         

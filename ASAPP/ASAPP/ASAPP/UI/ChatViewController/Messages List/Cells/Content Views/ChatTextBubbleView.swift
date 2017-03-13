@@ -84,7 +84,7 @@ class ChatTextBubbleView: UIView {
     
     // MARK: Data Detectors
     
-    let dataDetectorTypes = UIDataDetectorTypes.all
+    var dataDetectorTypes: UIDataDetectorTypes = [.phoneNumber, .link, .address]
     
     var dataDetector: NSDataDetector?
     
@@ -97,6 +97,10 @@ class ChatTextBubbleView: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        if #available(iOS 10.0, *) {
+            dataDetectorTypes = [.phoneNumber, .link, .address, .shipmentTrackingNumber, .flightNumber]
+        }
+        
         backgroundColor = ASAPP.styles.backgroundColor1
         
         bubbleView.backgroundColor = ASAPP.styles.backgroundColor1

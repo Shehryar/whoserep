@@ -14,7 +14,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
     
     let bubbleView = BubbleView()
     
-    let loadingView = BouncingBallsLoadingView()
+    let loadingView = GlowingBallsLoadingView() // BouncingBallsLoadingView()
     
     // MARK: Properties Layout
     
@@ -34,8 +34,6 @@ class ChatTypingIndicatorCell: UITableViewCell {
         
         loadingView.tintColor = ASAPP.styles.replyMessageTextColor.withAlphaComponent(0.6)
         bubbleView.addSubview(loadingView)
-        
-        layoutSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,11 +47,13 @@ class ChatTypingIndicatorCell: UITableViewCell {
     }
         
     // MARK: Layout
-    
+
     override func layoutSubviews() {
+        super.layoutSubviews()
+        
         let loadingSize = loadingView.sizeThatFits(CGSize.zero)
         var bubbleLeft = contentInset.left
-      
+        
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: loadingSize.width, height: loadingSize.height)
         loadingView.frame = bubbleView.bounds
     }
@@ -70,6 +70,16 @@ class ChatTypingIndicatorCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        loadingView.endAnimating()
+        loadingView.stopAnimating()
+    }
+    
+    // MARK: Instance Methods
+    
+    func startAnimating() {
+        loadingView.startAnimating()
+    }
+    
+    func stopAnimating() {
+        loadingView.stopAnimating()
     }
 }

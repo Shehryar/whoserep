@@ -35,7 +35,7 @@ class ConversationFileStore: NSObject {
             filePath = NSURL(fileURLWithPath: dir).appendingPathComponent(fileName)
             
             if filePath == nil {
-                DebugLogError("Unable to create filePath for ConversationFileStore")
+                DebugLog.e("Unable to create filePath for ConversationFileStore")
             }
         }
         
@@ -59,7 +59,7 @@ class ConversationFileStore: NSObject {
     
     fileprivate func _debugLog(message: String) {
         if debugLoggingEnabled {
-            DebugLog(message)
+            DebugLog.d(message)
         }
     }
 }
@@ -160,7 +160,7 @@ extension ConversationFileStore {
             
             var events = [Event]()
             for eventJSON in storedJSONArray {
-                if let event = Event(withJSON: eventJSON) {
+                if let event = Event.fromJSON(eventJSON) {
                     events.append(event)
                 }
             }

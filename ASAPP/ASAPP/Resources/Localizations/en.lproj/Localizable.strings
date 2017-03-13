@@ -13,10 +13,6 @@
 /**/
 "Hi there, how can we help you?" = "Hi there, how can we help you?";
 /**/
-"New Issue: \(event.newIssue?.issueId ?? 0)" = "New Issue: \(event.newIssue?.issueId ?? 0)";
-/**/
-"New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))" = "New Rep: \(event.newRep?.name ?? String(event.newRep?.repId))";
-/**/
 "Not connected. Retry connection?" = "Not connected. Retry connection?";
 /**/
 "Photo Library" = "Photo Library";

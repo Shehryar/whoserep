@@ -29,7 +29,7 @@ extension IncomingMessage {
             if let eventsJSONArray = eventsJSONArray {
                 eventList = [Event]()
                 for eventJSON in eventsJSONArray {
-                    if let event = Event(withJSON: eventJSON) {
+                    if let event = Event.fromJSON(eventJSON) {
                         eventList?.append(event)
                     }
                 }
@@ -44,7 +44,7 @@ extension IncomingMessage {
             errorMessage = "No results returned."
         }
         
-        DebugLog("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
+        DebugLog.d("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
         
         return (eventList, eventsJSONArray, errorMessage)
     }

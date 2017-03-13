@@ -101,7 +101,7 @@ class SoundEffectPlayer: NSObject {
                 AudioServicesPlaySystemSound(soundId)
             }
         } else {
-            DebugLogError("Unable to play sound: \(sound)")
+            DebugLog.e("Unable to play sound: \(sound)")
         }
     }
 }

@@ -16,7 +16,8 @@ import Foundation
 @objc public enum ASAPPLogLevel: Int {
     case none = 0
     case errors = 1
-    case debug = 3
+    case debug = 2
+    case info = 3
 }
 
 public func ASAPPSubdomainFrom(company: String, environment: ASAPPEnvironment) -> String {
@@ -219,9 +220,9 @@ public extension ASAPP {
     public class func setDemoContentEnabled(_ enabled: Bool) {
         if isInternalBuild {
             demoContentEnabled = enabled
-            DebugLog("Demo Content: \(enabled)")
+            DebugLog.d("Demo Content: \(enabled)")
         } else {
-            DebugLogError("Demo Content Disabled")
+            DebugLog.e("Demo Content Disabled")
         }
     }
 }

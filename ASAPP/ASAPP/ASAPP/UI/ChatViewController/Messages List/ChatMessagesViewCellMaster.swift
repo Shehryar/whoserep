@@ -17,7 +17,7 @@ enum MessageListPosition {
 
 class ChatMessagesViewCellMaster: NSObject {
 
-    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .conversationEnd]
+    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .customerConversationEnd, .conversationEnd]
     
     enum MessageCellType: String {
         case none = "none"
@@ -73,7 +73,7 @@ class ChatMessagesViewCellMaster: NSObject {
     
     fileprivate let cellHeightCache = ChatMessageCellHeightCache()
     
-    fileprivate var timeHeaderHeightCache = [Double : CGFloat]()
+    fileprivate var timeHeaderHeightCache = [Date : CGFloat]()
     
     fileprivate var cachedTypingIndicatorCellHeight: CGFloat?
     
@@ -133,28 +133,28 @@ extension ChatMessagesViewCellMaster {
 
 extension ChatMessagesViewCellMaster {
     
-    private func styleTimeHeaderView(_ view: ChatMessagesTimeHeaderView?, withTime timeStamp: Double) {
-        view?.timeStampInSeconds = timeStamp
+    private func styleTimeHeaderView(_ view: ChatMessagesTimeHeaderView?, withTime time: Date?) {
+        view?.time = time
     }
     
-    func timeStampHeaderView(withTimeStamp timeStamp: Double) -> UIView? {
+    func timeStampHeaderView(withTime time: Date?) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
-        styleTimeHeaderView(headerView, withTime: timeStamp)
+        styleTimeHeaderView(headerView, withTime: time)
         return headerView
     }
     
-    func heightForTimeStampHeaderView(withTimeStamp timeStamp: Double?) -> CGFloat {
-        guard let timeStamp = timeStamp else { return 0.0 }
+    func heightForTimeStampHeaderView(withTime time: Date?) -> CGFloat {
+        guard let time = time else { return 0.0 }
         
         cachedTableViewWidth = tableView.bounds.width
-        if let cachedHeight = timeHeaderHeightCache[timeStamp] {
+        if let cachedHeight = timeHeaderHeightCache[time] {
             return cachedHeight
         }
         
-        styleTimeHeaderView(timeHeaderSizingView, withTime: timeStamp)
+        styleTimeHeaderView(timeHeaderSizingView, withTime: time)
         
         let height = heightForStyledView(timeHeaderSizingView, width: cachedTableViewWidth)
-        timeHeaderHeightCache[timeStamp] = height
+        timeHeaderHeightCache[time] = height
         
         return height
     }
@@ -173,7 +173,6 @@ extension ChatMessagesViewCellMaster {
     }
     
     func cellForEvent(_ event: Event,
-                      isReply: Bool,
                       listPosition: MessageListPosition,
                       detailsVisible: Bool,
                       atIndexPath indexPath: IndexPath) -> UITableViewCell? {
@@ -183,7 +182,7 @@ extension ChatMessagesViewCellMaster {
         }
         
         if let cell = getCell(with: cellType.rawValue, at: indexPath) as? ChatMessageCell {
-            styleMessageCell(cell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
+            styleMessageCell(cell, withEvent: event, listPosition: listPosition, detailsVisible: detailsVisible)
             return cell
         }
         return nil
@@ -196,12 +195,10 @@ extension ChatMessagesViewCellMaster {
     
     func styleMessageCell(_ cell: ChatMessageCell?,
                           withEvent event: Event,
-                          isReply: Bool,
                           listPosition: MessageListPosition,
                           detailsVisible: Bool) {
         cell?.messagePosition = listPosition
         cell?.event = event
-        cell?.isReply = isReply
         cell?.isTimeLabelVisible = detailsVisible
     }
 }
@@ -221,7 +218,7 @@ extension ChatMessagesViewCellMaster {
         return cachedTypingIndicatorCellHeight ?? 0.0
     }
     
-    func heightForCellWithEvent(_ event: Event?, isReply: Bool, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
+    func heightForCellWithEvent(_ event: Event?, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
         guard let event = event else { return 0.0 }
         
         let canCacheHeight = !detailsVisible
@@ -236,7 +233,6 @@ extension ChatMessagesViewCellMaster {
         
         // Calculate height
         let height: CGFloat = calculateHeightForCellWithEvent(event,
-                                                              isReply: isReply,
                                                               listPosition: listPosition,
                                                               detailsVisible: detailsVisible,
                                                               width: cachedTableViewWidth)
@@ -258,12 +254,11 @@ extension ChatMessagesViewCellMaster {
     }
     
     fileprivate func calculateHeightForCellWithEvent(_ event: Event,
-                                                     isReply: Bool,
                                                      listPosition: MessageListPosition,
                                                      detailsVisible: Bool,
                                                      width: CGFloat) -> CGFloat {
         if let sizingCell = getMessageSizingCellForEvent(event) {
-            styleMessageCell(sizingCell, withEvent: event, isReply: isReply, listPosition: listPosition, detailsVisible: detailsVisible)
+            styleMessageCell(sizingCell, withEvent: event, listPosition: listPosition, detailsVisible: detailsVisible)
             return heightForStyledView(sizingCell, width: width)
         }
         return 0.0

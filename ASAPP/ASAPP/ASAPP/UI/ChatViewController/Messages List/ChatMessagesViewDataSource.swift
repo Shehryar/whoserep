@@ -78,15 +78,11 @@ class ChatMessagesViewDataSource: NSObject {
         return nil
     }
     
-    func timeStampInMicroSecondsForSection(_ section: Int) -> Double {
+    func headerDateForSection(_ section: Int) -> Date? {
         guard let event = getEvent(inSection: section, row: 0) else {
-            return 0
+            return nil
         }
-        return event.eventTime
-    }
-    
-    func timeStampInSecondsForSection(_ section: Int) -> Double {
-        return timeStampInMicroSecondsForSection(section) / 1000000.0
+        return event.eventDate
     }
     
     func getLastEvent() -> Event? {
@@ -158,7 +154,7 @@ class ChatMessagesViewDataSource: NSObject {
 //        
         // Insert at end
         
-        let maxTimeForSameSection = lastEvent.eventTime + Double(secondsBetweenSections * 1000000)
+        let maxTimeForSameSection = lastEvent.eventTime + Double(secondsBetweenSections)
         if event.eventTime < maxTimeForSameSection {
             eventsByTime[eventsByTime.count - 1].append(event)
         } else {
@@ -173,8 +169,12 @@ class ChatMessagesViewDataSource: NSObject {
         for (idx, event) in allEvents.enumerated() {
             if event.eventLogSeq == updatedEvent.eventLogSeq {
                 // Update the updatedEvent's times to the original times
-                updatedEvent.createdTime = event.createdTime
-                updatedEvent.eventTime = event.eventTime
+                
+                
+                // TODO: Update this code: MITCH MITCH MITCH
+                
+//                updatedEvent.createdTime = event.createdTime
+//                updatedEvent.eventTime = event.eventTime
                 
                 allEventsIndex = idx
                 break

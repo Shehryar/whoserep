@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SRSSeparatorItem: NSObject, JSONObject {
+class SRSSeparatorItem: NSObject {
 
     // MARK: JSONObject
     
-    class func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    class func instanceWithJSON(_ json: [String : AnyObject]?) -> SRSSeparatorItem? {
         return SRSSeparatorItem()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SRSAppOpenResponse.swift
+//  AppOpenResponse.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/7/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRSAppOpenResponse: NSObject, JSONObject {
+class AppOpenResponse: NSObject {
     var greeting: String?
     var customizedMessage: String?
     var customizedActions: [String]?
@@ -17,10 +17,10 @@ class SRSAppOpenResponse: NSObject, JSONObject {
 
     // MARK:- JSONObject
     
-    static func instanceWithJSON(_ json: [String : AnyObject]?) -> JSONObject? {
+    static func instanceWithJSON(_ json: [String : AnyObject]?) -> AppOpenResponse? {
         guard let json = json else { return nil }
 
-        let response = SRSAppOpenResponse()
+        let response = AppOpenResponse()
         response.greeting = json["greeting"] as? String
         response.inputPlaceholder = json["input_placeholder"] as? String
         

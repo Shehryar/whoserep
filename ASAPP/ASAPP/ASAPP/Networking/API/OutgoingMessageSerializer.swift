@@ -65,7 +65,7 @@ class SocketRequest {
         } else {
             loggableRequestString = requestString
         }
-        DebugLog("Sending request:\n\n\(loggableRequestString)")
+        DebugLog.d("Sending request:\n\n\(loggableRequestString)")
     }
 }
 
@@ -175,12 +175,12 @@ extension OutgoingMessageSerializer {
     
     func updateWithAuthResponse(_ response: IncomingMessage) {
         guard let jsonObj = response.body else {
-            DebugLogError("Authentication response missing body: \(response)")
+            DebugLog.e("Authentication response missing body: \(response)")
             return
         }
         
         guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] else {
-            DebugLogError("Authentication response missing sessionInfo: \(response)")
+            DebugLog.e("Authentication response missing sessionInfo: \(response)")
             return
         }
         
@@ -220,7 +220,7 @@ extension OutgoingMessageSerializer {
     
     fileprivate func jsonStringify(_ dictionary: [String : AnyObject]) -> String {
         guard JSONSerialization.isValidJSONObject(dictionary) else {
-            DebugLogError("Dictionary is not valid JSON object: \(dictionary)")
+            DebugLog.e("Dictionary is not valid JSON object: \(dictionary)")
             return ""
         }
         
@@ -228,11 +228,11 @@ extension OutgoingMessageSerializer {
             if let jsonString = String(data: json, encoding: String.Encoding.utf8) {
                 return jsonString
             }
-            DebugLogError("Unable to create string from json: \(json)")
+            DebugLog.e("Unable to create string from json: \(json)")
             return ""
         }
         
-        DebugLogError("Unable to serialize dictionary as JSON: \(dictionary)")
+        DebugLog.e("Unable to serialize dictionary as JSON: \(dictionary)")
         return ""
     }
     

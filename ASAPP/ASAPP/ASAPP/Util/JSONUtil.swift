@@ -14,7 +14,7 @@ class JSONUtil: NSObject {
         guard let object = object else { return nil }
         
         guard JSONSerialization.isValidJSONObject(object) else {
-            DebugLogError("Dictionary is not valid JSON object: \(object)")
+            DebugLog.e("Dictionary is not valid JSON object: \(object)")
             return ""
         }
         
@@ -24,11 +24,29 @@ class JSONUtil: NSObject {
             if let jsonString = String(data: json, encoding: String.Encoding.utf8) {
                 return jsonString
             }
-            DebugLogError("Unable to create string from json: \(json)")
+            DebugLog.e("Unable to create string from json: \(json)")
             return ""
         }
         
-        DebugLogError("Unable to serialize dictionary as JSON: \(object)")
+        DebugLog.e("Unable to serialize dictionary as JSON: \(object)")
         return ""
+    }
+    
+    class func parseString(_ jsonString: String?) -> [String : AnyObject]? {
+        guard let jsonString = jsonString else {
+            return nil
+        }
+        guard let jsonStringData = jsonString.data(using: String.Encoding.utf8) else {
+            DebugLog.d("Unable to get data from string with utf8 encoding: \(jsonString)")
+            return nil
+        }
+        
+        var json: [String : AnyObject]?
+        do {
+            json =  try JSONSerialization.jsonObject(with: jsonStringData, options: []) as? [String : AnyObject]
+        } catch {
+            DebugLog.d("Unable to serialize string as json: \(jsonString)")
+        }
+        return json
     }
 }

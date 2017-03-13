@@ -28,10 +28,10 @@ extension ChatSimpleStore {
     
     func updateSRSOriginalSearchQuery(query: String?) {
         if let query = query {
-            DebugLog("Updated SRSOriginalSearchQuery: \(query)")
+            DebugLog.d("Updated SRSOriginalSearchQuery: \(query)")
             UserDefaults.standard.set(query, forKey: srsOriginalSearchQueryKey())
         } else {
-            DebugLog("Removed saved SRSOriginalSearchQuery")
+            DebugLog.d("Removed saved SRSOriginalSearchQuery")
             UserDefaults.standard.removeObject(forKey: srsOriginalSearchQueryKey())
         }
     }
@@ -40,11 +40,11 @@ extension ChatSimpleStore {
         let query = UserDefaults.standard.object(forKey: srsOriginalSearchQueryKey())
         
         if let query = query as? String {
-            DebugLog("Found SRSOriginalSearchQuery: \(query)")
+            DebugLog.d("Found SRSOriginalSearchQuery: \(query)")
             return query
         }
         
-        DebugLog("Unable to find SRSOriginalSearchQuery")
+        DebugLog.d("Unable to find SRSOriginalSearchQuery")
         return nil
     }
 }
@@ -61,11 +61,11 @@ extension ChatSimpleStore {
         if let eventLogSeqs = eventLogSeqs {
             UserDefaults.standard.set(eventLogSeqs, forKey: suggestedReplyEventLogSeqsKey())
             
-            DebugLog("Saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
+            DebugLog.d("Saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
         } else {
             UserDefaults.standard.removeObject(forKey: suggestedReplyEventLogSeqsKey())
             
-            DebugLog("Cleared SuggestedReplyEventLogSeqs")
+            DebugLog.d("Cleared SuggestedReplyEventLogSeqs")
         }
     }
     
@@ -73,12 +73,12 @@ extension ChatSimpleStore {
         let eventLogSeqs = UserDefaults.standard.object(forKey: suggestedReplyEventLogSeqsKey()) as? [Int]
         
         if let eventLogSeqs = eventLogSeqs {
-            DebugLog("Fetched saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
+            DebugLog.d("Fetched saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
             
             return eventLogSeqs
         }
         
-        DebugLog("No saved SuggestedReplyEventLogSeqs found")
+        DebugLog.d("No saved SuggestedReplyEventLogSeqs found")
         
         return nil
     }
