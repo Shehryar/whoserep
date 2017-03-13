@@ -14,6 +14,7 @@ class DebugLog: NSObject {
         switch logLevel {
         case .none: return "none"
         case .errors: return "errors"
+        case .warning: return "warning"
         case .debug: return "debug"
         case .info: return "info"
         }
@@ -44,6 +45,11 @@ class DebugLog: NSObject {
     // Debug
     class func d(caller: Any? = nil, _ message: String) {
         log(classObject: caller, logLevel: .debug, message: message)
+    }
+    
+    // Warning
+    class func w(caller: Any? = nil, _ message: String) {
+        log(classObject: caller, logLevel: .warning, message: message)
     }
     
     // Error

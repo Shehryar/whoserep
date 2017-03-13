@@ -113,7 +113,7 @@ extension Action {
         case .action:
             if let content = json["content"] as? [String : AnyObject] {
                 name = content["action"] as? String
-                context = content["actionPayload"] as? [String : AnyObject]
+                context = content["context"] as? [String : AnyObject]
                 
                 guard let actionName = name, let _ = AppAction(rawValue: actionName) else {
                     DebugLog.i("Action: Unknown app action with name: \(name)")
