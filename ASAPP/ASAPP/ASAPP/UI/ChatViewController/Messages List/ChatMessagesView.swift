@@ -250,9 +250,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let isTypingCell = cell as? ChatTypingIndicatorCell {
-            if !isTypingCell.loadingView.animating {
-                isTypingCell.loadingView.beginAnimating()
-            }
+            isTypingCell.startAnimating()
             return
         }
         
@@ -268,7 +266,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? ChatTypingIndicatorCell {
-            cell.loadingView.endAnimating()
+            cell.loadingView.stopAnimating()
         }
     }
     
