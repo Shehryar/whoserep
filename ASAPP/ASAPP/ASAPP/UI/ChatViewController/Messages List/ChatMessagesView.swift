@@ -9,11 +9,21 @@
 import UIKit
 
 protocol ChatMessagesViewDelegate: class {
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event)
-    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, fromEvent event: Event)
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event)
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTapImageView imageView: UIImageView,
+                          forEvent event: Event)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didSelectButtonItem buttonItem: SRSButtonItem,
+                          fromEvent event: Event)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didUpdateButtonItemsForEvent event: Event)
+    
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTapMostRecentEvent event: Event)
 }
 
 class ChatMessagesView: UIView {
