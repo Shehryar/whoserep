@@ -30,6 +30,7 @@ enum DemoEventType {
     case addCreditCard
     case liveChatBegin
     case liveChatEnd
+    case transactionHistory
     
     case chatFlowPayBill
     case chatFlowWaitOrCallback
@@ -56,6 +57,7 @@ enum DemoEventType {
                            addCreditCard,
                            liveChatBegin,
                            liveChatEnd,
+                           transactionHistory,
                            chatFlowPayBill,
                            chatFlowWaitOrCallback,
                            chatFlowQueueEntered,
@@ -152,6 +154,7 @@ extension Event {
         case .chatFlowWaitOrCallback: return "chat-flow-wait-or-callback"
         case .chatFlowQueueEntered: return "chat-flow-queue-entered"
         case .chatFlowAgentEntered: return "chat-flow-agent-entered"
+        case .transactionHistory: return "transaction-history"
         }
     }
     
@@ -286,6 +289,11 @@ extension Event {
         case .addCreditCard:
             return [
                 ["add", "card"]
+            ]
+            
+        case .transactionHistory:
+            return [
+                ["transaction", "history"]
             ]
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,

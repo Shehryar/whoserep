@@ -71,6 +71,27 @@ class ChatMessage: NSObject {
 // MARK:- Parsing
 
 extension ChatMessage {
+
+    /// Returns text, attachment, quickReplies
+    static func parseContent(from json: [String : AnyObject]?) -> (String?, AnyObject?, [SRSButtonItem]?) {
+        guard let json = json else {
+            return (nil, nil, nil)
+        }
+        
+        let text = json["text"] as? String
+        let attachmentJSON = json["attachment"] as? [String : AnyObject]
+        let attachment = ComponentFactory.component(with: attachmentJSON)
+        var quickReplies = [SRSButtonItem]()
+        if let quickRepliesJSON = json["quick_replies"] as? [[String : AnyObject]] {
+            for quickReplyJSON in quickRepliesJSON {
+                if let button = SRSButtonItem.fromJSON(quickReplyJSON) {
+                    quickReplies.append(button)
+                }
+            }
+        }
+        
+        return (text, attachment as AnyObject?, quickReplies)
+    }
     
     static func fromEvent(_ event: Event?) -> ChatMessage? {
         guard let event = event else {
@@ -97,6 +118,11 @@ extension ChatMessage {
             break
         }
         
+        if (text == nil && attachment == nil && quickReplies == nil) {
+            (text, attachment, quickReplies) = parseContent(from: event.eventJSON)
+            
+            DebugLog.i("\n\n\n\n\n\n\nParsed \(text), \(attachment), \(quickReplies)\n\n\n\n")
+        }
         
         // Do not return a message without any sort of content
         if text != nil || attachment != nil || quickReplies != nil {

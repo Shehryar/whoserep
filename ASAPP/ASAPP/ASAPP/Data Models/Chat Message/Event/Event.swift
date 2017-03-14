@@ -20,6 +20,7 @@ enum EventType: Int {
     case srsAction = 24
     case scheduleAppointment = 27
     case switchSRSToChat = 28
+    case chatMessage = 51
     
     static func typeMayContainSRSContent(_ type: EventType) -> Bool {
         switch type {
