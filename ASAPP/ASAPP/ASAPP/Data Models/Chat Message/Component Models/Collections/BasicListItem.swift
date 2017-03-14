@@ -23,26 +23,3 @@ class BasicListItem: NSObject {
         super.init()
     }
 }
-
-extension BasicListItem {
-    
-    class func fromJSON(_ json: [String : AnyObject]?) -> BasicListItem? {
-        guard let json = json else {
-            return nil
-        }
-        
-        let title = json["title"] as? String
-        let detail = json["detail"] as? String
-        let value = json["value"] as? String
-        let iconName = json["icon"] as? String
-        
-        // TODO: Icon factory -- don't show bad icons that we don't have on hand
-        
-        guard title != nil || detail != nil || value != nil else {
-            DebugLog.w(caller: self, "Cannot create an empty item. Returning nil: \(json)")
-            return nil
-        }
-        
-        return BasicListItem(title: title, detail: detail, value: value, icon: iconName)
-    }
-}

@@ -19,7 +19,7 @@
         }
       },
       "content" : {
-        "template_type" : "list_view",
+        "template_type" : "basic_list",
         "content" : {
           "header" : {},
           "sections" : [

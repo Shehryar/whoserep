@@ -21,35 +21,3 @@ class BasicListSection: NSObject {
         super.init()
     }
 }
-
-// MARK:- JSON Parsing
-
-extension BasicListSection {
-    
-    class func fromJSON(_ json: [String : AnyObject]?) -> BasicListSection? {
-        guard let json = json else {
-            return nil
-        }
-        
-        guard let itemsJSON = json["items"] as? [[String : AnyObject]] else {
-            DebugLog.w(caller: self, "Missing items. Returning nil.")
-            return nil
-        }
-        
-        var items = [BasicListItem]()
-        for itemJSON in itemsJSON {
-            if let item = BasicListItem.fromJSON(itemJSON) {
-                items.append(item)
-            }
-        }
-        
-        guard !items.isEmpty else {
-            DebugLog.w(caller: self, "Empty items. Returning nil.")
-            return nil
-        }
-        
-        let title = json["title"] as? String
-        
-        return BasicListSection(title: title, items: items)
-    }
-}

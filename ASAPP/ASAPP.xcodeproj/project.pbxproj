@@ -302,7 +302,6 @@
 		30EE2A091D9970EB0079932D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A081D9970EB0079932D /* Credentials.swift */; };
 		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
 		30F6D2701E775406002E5999 /* BasicListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6D26F1E775406002E5999 /* BasicListSection.swift */; };
-		30F6D2721E77585C002E5999 /* IconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6D2711E77585C002E5999 /* IconFactory.swift */; };
 		30F6D2741E775993002E5999 /* ComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6D2731E775993002E5999 /* ComponentFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -604,7 +603,6 @@
 		30EE2A081D9970EB0079932D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
 		30F6D26F1E775406002E5999 /* BasicListSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicListSection.swift; sourceTree = "<group>"; };
-		30F6D2711E77585C002E5999 /* IconFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconFactory.swift; sourceTree = "<group>"; };
 		30F6D2731E775993002E5999 /* ComponentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentFactory.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1227,7 +1225,6 @@
 			isa = PBXGroup;
 			children = (
 				30F6D2731E775993002E5999 /* ComponentFactory.swift */,
-				30F6D2711E77585C002E5999 /* IconFactory.swift */,
 				3093A5091E731ADA00C65818 /* Base Components */,
 				3093A5121E731ADA00C65818 /* Collections */,
 				3093A5161E731ADA00C65818 /* Data Parsers */,
@@ -1258,8 +1255,8 @@
 				3093A5151E731ADA00C65818 /* SRSLabelValueItem.swift */,
 				3093A52D1E77456100C65818 /* TitleButtonContainer.swift */,
 				3093A52F1E774E8500C65818 /* BasicList.swift */,
-				30F6D26F1E775406002E5999 /* BasicListSection.swift */,
 				3093A5311E774E9000C65818 /* BasicListItem.swift */,
+				30F6D26F1E775406002E5999 /* BasicListSection.swift */,
 			);
 			path = Collections;
 			sourceTree = "<group>";
@@ -1750,7 +1747,6 @@
 				3093A5221E731ADA00C65818 /* SRSLabelValueItem.swift in Sources */,
 				30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */,
 				285F7B291DACFC33008C2EF6 /* SRSItemListView.swift in Sources */,
-				30F6D2721E77585C002E5999 /* IconFactory.swift in Sources */,
 				3023A5BC1E5748ED003BE6AB /* ASAPPStyles+Presets.swift in Sources */,
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
