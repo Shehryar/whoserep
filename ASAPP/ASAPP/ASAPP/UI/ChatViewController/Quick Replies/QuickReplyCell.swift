@@ -1,5 +1,5 @@
 //
-//  ChatSuggestedReplyCell.swift
+//  QuickReplyCell.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/15/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatSuggestedReplyCell: UITableViewCell {
+class QuickReplyCell: UITableViewCell {
 
     var contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     

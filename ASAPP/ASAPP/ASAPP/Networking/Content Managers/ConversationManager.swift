@@ -268,9 +268,10 @@ extension ConversationManager {
     }
     
     func sendButtonItemSelection(_ buttonItem: SRSButtonItem,
+                                 from message: ChatMessage?,
                                  originalSearchQuery: String?,
-                                 currentSRSEvent: Event?,
                                  completion: IncomingMessageHandler? = nil) {
+        
         if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
             return
         }
@@ -279,9 +280,9 @@ extension ConversationManager {
         switch action.type {
         case .treewalk:
             sendSRSTreewalk(classification: action.name,
-                            message: buttonItem.title,
+                            with: buttonItem.title,
+                            from: message,
                             originalSearchQuery: originalSearchQuery,
-                            currentSRSEvent: currentSRSEvent,
                             completion: completion)
             break
             
@@ -347,25 +348,25 @@ extension ConversationManager {
     // MARK: SRS Specific
     
     fileprivate func sendSRSTreewalk(classification: String,
-                                     message: String,
+                                     with text: String,
+                                     from message: ChatMessage?,
                                      originalSearchQuery: String?,
-                                     currentSRSEvent: Event?,
                                      completion: IncomingMessageHandler? = nil) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params = [
-            "Text" : message as AnyObject,
+            "Text" : text as AnyObject,
             "Classification" : classification as AnyObject
         ]
         if let originalSearchQuery = originalSearchQuery {
             params["SearchQuery"] = originalSearchQuery as AnyObject
         }
-        if let currentSRSEvent = currentSRSEvent {
-            params["ParentEventLogSeq"] = currentSRSEvent.eventLogSeq as AnyObject
+        if let eventId = message?.eventId {
+            params["ParentEventLogSeq"] = eventId as AnyObject
         }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
             completion?(incomingMessage, request, responseTime)
-            self?.trackTreewalk(message: message, classification: classification)
+            self?.trackTreewalk(message: text, classification: classification)
         }
     }
     

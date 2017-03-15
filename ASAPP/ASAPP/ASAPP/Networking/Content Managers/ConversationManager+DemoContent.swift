@@ -68,29 +68,50 @@ extension ConversationManager {
     
     func demo_OverrideButtonItemSelection(buttonItem: SRSButtonItem, completion: IncomingMessageHandler? = nil) -> Bool {
         guard ASAPP.isDemoContentEnabled() else { return false }
-        guard buttonItem.action.type == .treewalk else { return false }
         
-        switch buttonItem.action.name {
-        case "cancelAppointmentPrompt":
-            _sendMessage(buttonItem.title, completion: completion)
-            sendFakeCancelAppointmentMessage()
-            return true
+        switch buttonItem.action.type {
+        case .treewalk:
+            switch buttonItem.action.name {
+            case "cancelAppointmentPrompt":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeCancelAppointmentMessage()
+                return true
+                
+            case "cancelAppointmentConfirmation":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeCancelAppointmentConfirmationMessage()
+                return true
+                
+            case "chatWithAnAgent":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeChatWithAnAgentMessage()
+                return true
+                
+            case "waitForAnAgent":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeWaitForAnAgentMessage()
+                return true
+                
+            default: return false
+            }
+            break
             
-        case "cancelAppointmentConfirmation":
-            _sendMessage(buttonItem.title, completion: completion)
-            sendFakeCancelAppointmentConfirmationMessage()
-            return true
-            
-        case "chatWithAnAgent":
-            _sendMessage(buttonItem.title, completion: completion)
-            sendFakeChatWithAnAgentMessage()
-            return true
-            
-        case "waitForAnAgent":
-            _sendMessage(buttonItem.title, completion: completion)
-            sendFakeWaitForAnAgentMessage()
-            return true
-            
+        case.link:
+            switch buttonItem.action.name.lowercased() {
+            case "troubleshoot":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeTroubleshooterMessage(buttonItem)
+                return true
+                
+            case "restartdevicenow":
+                _sendMessage(buttonItem.title, completion: completion)
+                sendFakeDeviceRestartMessage(buttonItem)
+                return true
+                
+            default: return false
+            }
+            break
+        
         default: return false
         }
     }
@@ -168,21 +189,13 @@ extension ConversationManager {
     
     // MARK: Specific
     
-    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem,
-                                       afterEvent: Event?,
-                                       completion: IncomingMessageHandler? = nil) {
-        _sendMessage(buttonItem.title, completion: completion)
-        
+    func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem) {
         let jsonString = Event.getDemoEventJsonString(eventType: .troubleshooter,
                                                       company: credentials.companyMarker)
         echoMessageResponse(withJSONString: jsonString)
     }
     
-    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem,
-                                      afterEvent: Event?,
-                                      completion: IncomingMessageHandler? = nil) {
-        _sendMessage(buttonItem.title, completion: completion)
-        
+    func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem) {
         var deviceRestartString = Event.getDemoEventJsonString(eventType: .deviceRestart,
                                                                company: credentials.companyMarker)
         let finishedAt = Int(Date(timeIntervalSinceNow: 15).timeIntervalSince1970)

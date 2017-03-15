@@ -35,6 +35,6 @@ class ChatPictureMessageCell: ChatMessageCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        pictureView.event = nil
+        pictureView.message = nil
     }
 }

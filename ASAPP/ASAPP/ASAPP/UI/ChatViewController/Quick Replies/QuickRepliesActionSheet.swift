@@ -1,5 +1,5 @@
 //
-//  ChatSuggestedRepliesView.swift
+//  QuickRepliesActionSheet.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/13/16.
@@ -8,44 +8,42 @@
 
 import UIKit
 
-protocol ChatSuggestedRepliesViewDelegate: class {
-    func chatSuggestedRepliesViewDidCancel(_ repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesViewDidTapBack(_ repliesView: ChatSuggestedRepliesView)
-    func chatSuggestedRepliesViewWillTapBack(_ repliesView: ChatSuggestedRepliesView)
+protocol QuickRepliesActionSheetDelegate: class {
+    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet)
+    func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet)
+    func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet)
     /// Delegate returns YES if the button was successfully acted upon
-    func chatSuggestedRepliesView(_ replies: ChatSuggestedRepliesView,
-                                  didTapSRSButtonItem buttonItem: SRSButtonItem,
-                                  fromEvent event: Event) -> Bool
+    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
+                                 didSelect buttonItem: SRSButtonItem,
+                                 for message: ChatMessage) -> Bool
 }
 
-class ChatSuggestedRepliesView: UIView {
+class QuickRepliesActionSheet: UIView {
 
     // MARK: Public Properties
 
-    var transparentInsetTop: CGFloat {
-        return buttonSize / 2.0 - separatorTopStroke / 2.0
-    }
+    weak var delegate: QuickRepliesActionSheetDelegate?
     
-    weak var delegate: ChatSuggestedRepliesViewDelegate?
-    
-    var actionableEventLogSeqs: [Int]? {
-        var actionableEventLogSeqs = [Int]()
-        for view in actionableMessageViews {
-            if let event = view.event {
-                actionableEventLogSeqs.append(event.eventLogSeq)
-            } else {
-                return nil
+    var eventIds: [Int]? {
+        var eventIds = [Int]()
+        for view in listViews {
+            if let message = view.message {
+                eventIds.append(message.eventId)
             }
         }
-        return actionableEventLogSeqs
+        return eventIds
     }
     
-    var currentActionableEvent: Event? {
-        return actionableMessageViews.last?.event
+    var currentMessage: ChatMessage? {
+        return listViews.last?.message
     }
     
     var currentSRSClassification: String? {
-        return currentActionableEvent?.srsResponse?.classification
+        return (currentMessage?.attachment as? EventSRSResponse)?.classification
+    }
+    
+    var transparentInsetTop: CGFloat {
+        return buttonSize / 2.0 - separatorTopStroke / 2.0
     }
     
     // MARK: Private Properties
@@ -54,11 +52,9 @@ class ChatSuggestedRepliesView: UIView {
     
     fileprivate let separatorTopStroke: CGFloat = 2.0
     
-    fileprivate var actionableMessageViews = [ChatActionableMessageView]()
+    fileprivate var listViews = [QuickRepliesListView]()
     
-    fileprivate var selectedButtonItem: SRSButtonItem?
-    
-    fileprivate var currentActionableViewIndex = 0
+    fileprivate var currentViewIndex = 0
     
     fileprivate var animating = false
     
@@ -74,7 +70,7 @@ class ChatSuggestedRepliesView: UIView {
     
     fileprivate let patternView = UIView()
     
-    fileprivate let actionableMessageViewsContainer = UIView()
+    fileprivate let containerView = UIView()
     
     // MARK: Initialization
     
@@ -85,7 +81,7 @@ class ChatSuggestedRepliesView: UIView {
         patternBackgroundView.backgroundColor = ASAPP.styles.backgroundColor2
         addSubview(patternBackgroundView)
         
-        addSubview(actionableMessageViewsContainer)
+        addSubview(containerView)
         
         separatorTopView.backgroundColor = ASAPP.styles.separatorColor1
         addSubview(separatorTopView)
@@ -96,13 +92,13 @@ class ChatSuggestedRepliesView: UIView {
         backButton.foregroundColor = Colors.mediumTextColor()
         backButton.onTap = { [weak self] in
             if let blockSelf = self {
-                blockSelf.delegate?.chatSuggestedRepliesViewWillTapBack(blockSelf)
+                blockSelf.delegate?.quickRepliesActionSheetWillTapBack(blockSelf)
             }
             
-            self?.goToPreviousActionableMessage()
+            self?.goToPreviousListView()
             
             if let blockSelf = self {
-                blockSelf.delegate?.chatSuggestedRepliesViewDidTapBack(blockSelf)
+                blockSelf.delegate?.quickRepliesActionSheetDidTapBack(blockSelf)
             }
         }
         styleButton(backButton)
@@ -114,7 +110,7 @@ class ChatSuggestedRepliesView: UIView {
         closeButton.foregroundColor = Colors.mediumTextColor()
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
-                blockSelf.delegate?.chatSuggestedRepliesViewDidCancel(blockSelf)
+                blockSelf.delegate?.quickRepliesActionSheetDidCancel(blockSelf)
             }
         }
         styleButton(closeButton)
@@ -146,7 +142,7 @@ class ChatSuggestedRepliesView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        for view in actionableMessageViews {
+        for view in listViews {
             view.updateDisplay()
         }
     }
@@ -154,7 +150,7 @@ class ChatSuggestedRepliesView: UIView {
 
 // MARK:- Layout
 
-extension ChatSuggestedRepliesView {
+extension QuickRepliesActionSheet {
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -181,36 +177,36 @@ extension ChatSuggestedRepliesView {
         patternBackgroundView.frame = CGRect(x: 0.0, y: backgroundTop, width: bounds.width, height: backgroundHeight)
         patternView.frame = patternBackgroundView.bounds
         
-        // Actionable Views
+        // listViews
         
-        let actionableMessagesTop = separatorTopView.frame.maxY
-        let actionableMessagesHeight = bounds.height - actionableMessagesTop
-        actionableMessageViewsContainer.frame = CGRect(x: 0.0, y: actionableMessagesTop, width: bounds.width, height: actionableMessagesHeight)
+        let containerTop = separatorTopView.frame.maxY
+        let containerHeight = bounds.height - containerTop
+        containerView.frame = CGRect(x: 0.0, y: containerTop, width: bounds.width, height: containerHeight)
         
         if !animating {
-            updateActionableViewFrames()
+            updateListViewFrames()
         }
     }
     
     func preferredDisplayHeight() -> CGFloat {
-        let rowHeight = ChatActionableMessageView.approximateRowHeight()
+        let rowHeight = QuickRepliesListView.approximateRowHeight()
         let visibleRows: CGFloat = UIScreen.main.bounds.height > 575 ? 4.6 : 3.5
         return rowHeight * visibleRows + transparentInsetTop
     }
     
-    func updateActionableViewFrames() {
-        let width = actionableMessageViewsContainer.bounds.width
-        let height = actionableMessageViewsContainer.bounds.height
+    func updateListViewFrames() {
+        let width = containerView.bounds.width
+        let height = containerView.bounds.height
         
-        var left = -width * CGFloat(currentActionableViewIndex)
-        for actionableMessageView in actionableMessageViews {
-            actionableMessageView.frame = CGRect(x: left, y: 0, width: width, height: height)
+        var left = -width * CGFloat(currentViewIndex)
+        for listView in listViews {
+            listView.frame = CGRect(x: left, y: 0, width: width, height: height)
             left += width
         }
     }
     
     func updateBackButtonVisibility() {
-        if actionableMessageViews.count > 1 {
+        if listViews.count > 1 {
             backButton.alpha = 1
         } else {
             backButton.alpha = 0
@@ -220,38 +216,38 @@ extension ChatSuggestedRepliesView {
 
 // MARK:- Instance Methods
 
-extension ChatSuggestedRepliesView {
+extension QuickRepliesActionSheet {
   
-    fileprivate func createActionableMessageView(_ actionableMessage: EventSRSResponse, forEvent event: Event) -> ChatActionableMessageView {
-        let actionableMessageView = ChatActionableMessageView()
-        actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
-        actionableMessageView.onButtonItemSelection = { [weak self] (buttonItem) in
+    fileprivate func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
+        let listView = QuickRepliesListView()
+        listView.message = message
+        listView.onButtonItemSelection = { [weak self] (buttonItem) in
             if let strongSelf = self,
                 let delegate = strongSelf.delegate {
-                return delegate.chatSuggestedRepliesView(strongSelf, didTapSRSButtonItem: buttonItem, fromEvent: event)
+                return delegate.quickRepliesActionSheet(strongSelf, didSelect: buttonItem, for: message)
             }
             return false
         }
-        actionableMessageViewsContainer.addSubview(actionableMessageView)
-        actionableMessageViews.append(actionableMessageView)
-        updateActionableViewFrames()
+        containerView.addSubview(listView)
+        listViews.append(listView)
+        updateListViewFrames()
         
-        return actionableMessageView
+        return listView
     }
     
-    fileprivate func goToPreviousActionableMessage() {
-        if actionableMessageViews.count > 1 && currentActionableViewIndex > 0 {
-            currentActionableViewIndex -= 1
+    fileprivate func goToPreviousListView() {
+        if listViews.count > 1 && currentViewIndex > 0 {
+            currentViewIndex -= 1
             
-            let viewToRemove = self.actionableMessageViews.last
+            let viewToRemove = self.listViews.last
             UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.updateActionableViewFrames()
-                self.actionableMessageViews.removeLast()
+                self.updateListViewFrames()
+                self.listViews.removeLast()
                 self.updateBackButtonVisibility()
                 }, completion: { [weak self] (completed) in
                     viewToRemove?.removeFromSuperview()
                     
-                    if let currentView = self?.actionableMessageViews.last {
+                    if let currentView = self?.listViews.last {
                         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, currentView)
                     }
             })
@@ -260,64 +256,63 @@ extension ChatSuggestedRepliesView {
     
     // MARK: Public
     
-    func reloadActionableMessagesWithEvents(_ events: [Event]?) {
-        guard let events = events else { return }
-        
+    func reload(with messages: [ChatMessage]?) {
         clear()
         
-        for event in events {
-            if let srsResponse = event.srsResponse {
-                setActionableMessage(srsResponse, forEvent: event, animated: false)
+        if let messages = messages {
+            for message in messages {
+                add(message: message, animated: false)
             }
         }
     }
     
-    func setActionableMessage(_ actionableMessage: EventSRSResponse, forEvent event: Event, animated: Bool = false) {
-        let actionableMessageView = createActionableMessageView(actionableMessage, forEvent: event)
-        
-        if let nextIndex = actionableMessageViews.index(of: actionableMessageView) {
-            currentActionableViewIndex = nextIndex
+    func add(message: ChatMessage, animated: Bool) {
+        let listView = createQuickRepliesListView(with: message)
+        if let nextIndex = listViews.index(of: listView) {
+            currentViewIndex = nextIndex
         }
         
-        if actionableMessageViews.count > 1 && animated {
+        if listViews.count > 1 && animated {
             animating = true
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 self.updateBackButtonVisibility()
-                self.updateActionableViewFrames()
+                self.updateListViewFrames()
                 }, completion: { (completed) in
                     self.animating = false
-                    actionableMessageView.flashScrollIndicatorsIfNecessary()
-                    for previousView in self.actionableMessageViews {
-                        if previousView != actionableMessageView {
+                    listView.flashScrollIndicatorsIfNecessary()
+                    for previousView in self.listViews {
+                        if previousView != listView {
                             previousView.clearSelection()
                         }
                     }
             })
         } else {
             updateBackButtonVisibility()
-            updateActionableViewFrames()
-            actionableMessageView.flashScrollIndicatorsIfNecessary()
+            updateListViewFrames()
+            listView.flashScrollIndicatorsIfNecessary()
         }
     }
     
-    func reloadButtonItemsForActionableMessage(_ actionableMessage: EventSRSResponse, event: Event) {
-        for actionableMessageView in actionableMessageViews {
-            if actionableMessageView.event?.eventLogSeq == event.eventLogSeq {
-                actionableMessageView.setSRSResponse(srsResponse: actionableMessage, event: event)
+    func reloadButtons(for message: ChatMessage) {
+        for listView in listViews {
+            if listView.message?.eventId == message.eventId {
+                listView.message = message
                 break
             }
+            
         }
     }
     
     func clear() {
-        for view in actionableMessageViews {
+        for view in listViews {
+            view.message = nil
             view.removeFromSuperview()
         }
-        actionableMessageViews.removeAll()
+        listViews.removeAll()
     }
     
     func deselectCurrentSelection(animated: Bool) {
-        if let currentView = actionableMessageViews.last {
+        if let currentView = listViews.last {
             currentView.deselectButtonSelection(animated: animated)
         }
     }

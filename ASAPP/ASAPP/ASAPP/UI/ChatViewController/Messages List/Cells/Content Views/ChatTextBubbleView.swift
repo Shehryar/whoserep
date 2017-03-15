@@ -211,7 +211,7 @@ extension ChatTextBubbleView {
                                 height: ceil(textSize.height))
         
         var bubbleLeft = contentInset.left
-        if !isReply {
+        if let message = message, !message.isReply {
             bubbleLeft = size.width - bubbleSize.width - contentInset.right
         }
         let bubbleFrame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)

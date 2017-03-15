@@ -1,5 +1,5 @@
 //
-//  ChatActionableMessageView.swift
+//  QuickRepliesListView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 9/9/16.
@@ -8,29 +8,19 @@
 
 import UIKit
 
-class ChatActionableMessageView: UIView {
+class QuickRepliesListView: UIView {
 
-    class func approximateRowHeight() -> CGFloat {
-        return ChatSuggestedReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
-    }
+    var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
-    func setSRSResponse(srsResponse: EventSRSResponse?, event: Event?) {
-        self.event = event
-        self.srsResponse = srsResponse
-    }
-    
-    fileprivate(set) var event: Event?
-    
-    fileprivate(set) var srsResponse: EventSRSResponse? {
+    var message: ChatMessage? {
         didSet {
             selectedButtonItem = nil
-            buttonItems = srsResponse?.buttonItems
+            buttonItems = message?.quickReplies
+            
         }
     }
     
     fileprivate(set) var selectedButtonItem: SRSButtonItem?
-    
-    var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
     
     fileprivate(set) var buttonItems: [SRSButtonItem]? {
         didSet {            
@@ -50,7 +40,7 @@ class ChatActionableMessageView: UIView {
     
     fileprivate let CellReuseId = "CellReuseId"
     
-    fileprivate let replySizingCell = ChatSuggestedReplyCell()
+    fileprivate let replySizingCell = QuickReplyCell()
     
     fileprivate let gradientView = VerticalGradientView()
     
@@ -64,8 +54,7 @@ class ChatActionableMessageView: UIView {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.register(ChatSuggestedReplyCell.self,
-                                forCellReuseIdentifier: CellReuseId)
+        tableView.register(QuickReplyCell.self, forCellReuseIdentifier: CellReuseId)
         addSubview(tableView)
         
         let gradientColor = UIColor(red: 60.0 / 255.0,
@@ -139,7 +128,7 @@ class ChatActionableMessageView: UIView {
 
 // MARK:- UITableViewDataSource
 
-extension ChatActionableMessageView: UITableViewDataSource {
+extension QuickRepliesListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let buttonItems = buttonItems {
             return buttonItems.count
@@ -148,7 +137,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId) as? ChatSuggestedReplyCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId) as? QuickReplyCell {
             styleSuggestedReplyCell(cell, atIndexPath: indexPath)
             return cell
         }
@@ -166,7 +155,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
         return nil
     }
     
-    func styleSuggestedReplyCell(_ cell: ChatSuggestedReplyCell, atIndexPath indexPath: IndexPath) {
+    func styleSuggestedReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
         cell.label.textColor = ASAPP.styles.buttonColor
         cell.label.textAlignment = .center
         cell.backgroundColor = ASAPP.styles.backgroundColor2
@@ -209,7 +198,7 @@ extension ChatActionableMessageView: UITableViewDataSource {
 
 // MARK:- UITableViewDelegate
 
-extension ChatActionableMessageView: UITableViewDelegate {
+extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         styleSuggestedReplyCell(replySizingCell, atIndexPath: indexPath)
         let height = replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
@@ -234,7 +223,7 @@ extension ChatActionableMessageView: UITableViewDelegate {
     fileprivate func updateCellsAnimated(animated: Bool) {
         func updateBlock() {
             for cell in tableView.visibleCells {
-                if let cell = cell as? ChatSuggestedReplyCell,
+                if let cell = cell as? QuickReplyCell,
                     let cellIdxPath = tableView.indexPath(for: cell) {
                     self.styleSuggestedReplyCell(cell, atIndexPath: cellIdxPath)
                 }
@@ -251,16 +240,17 @@ extension ChatActionableMessageView: UITableViewDelegate {
 
 // MARK:- UIScrollViewDelegate
 
-extension ChatActionableMessageView: UIScrollViewDelegate {
+extension QuickRepliesListView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateGradientVisibility()
     }
 }
 
-// MARK:- Instance Methods
+// MARK:- Public Methods
 
-extension ChatActionableMessageView {
+extension QuickRepliesListView {
+    
     func flashScrollIndicatorsIfNecessary() {
         if tableView.contentSize.height > tableView.bounds.height + 30 {
             Dispatcher.delay(600) {
@@ -279,5 +269,9 @@ extension ChatActionableMessageView {
     func clearSelection() {
         selectedButtonItem = nil
         tableView.reloadData()
+    }
+    
+    class func approximateRowHeight() -> CGFloat {
+        return QuickReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
     }
 }

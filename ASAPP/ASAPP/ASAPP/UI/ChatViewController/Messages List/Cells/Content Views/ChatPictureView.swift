@@ -12,10 +12,10 @@ class ChatPictureView: UIView {
 
     var message: ChatMessage? {
         didSet {
-            if let message = message, let pictureMessage = message.attachment as? EventPictureMessage {
-                imageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
+            if let picture = picture {
+                imageView.fixedImageSize = CGSize(width: picture.width, height: picture.height)
                 if !disableImageLoading {
-                    imageView.sd_setImage(with: pictureMessage.imageURL)
+                    imageView.sd_setImage(with: picture.imageURL)
                 } else {
                     imageView.image = nil
                 }
@@ -28,6 +28,10 @@ class ChatPictureView: UIView {
     var disableImageLoading: Bool = false
 
     let imageView = FixedSizeImageView()
+    
+    fileprivate var picture: EventPictureMessage? {
+        return message?.attachment as? EventPictureMessage
+    }
     
     // MARK: Initialization
     
@@ -57,16 +61,16 @@ class ChatPictureView: UIView {
 extension ChatPictureView {
     
     func imageViewSizeThatFits(_ size: CGSize) -> CGSize {
-        guard let pictureMessage = event?.pictureMessage, pictureMessage.width > 0 && pictureMessage.height > 0 else {
+        guard let picture = picture, picture.width > 0 && picture.height > 0 else {
                 return CGSize.zero
         }
         
         var imageWidth = size.width
-        var imageHeight = imageWidth / CGFloat(pictureMessage.aspectRatio)
+        var imageHeight = imageWidth / CGFloat(picture.aspectRatio)
         let maxImageHeight = 0.6 * UIScreen.main.bounds.height
         if imageHeight > maxImageHeight {
             imageHeight = maxImageHeight
-            imageWidth = imageHeight * CGFloat(pictureMessage.aspectRatio)
+            imageWidth = imageHeight * CGFloat(picture.aspectRatio)
         }
         
         return CGSize(width: ceil(imageWidth), height: ceil(imageHeight))

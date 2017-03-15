@@ -175,9 +175,11 @@ extension ChatMessageCell {
     func updateFonts() {
         textBubbleView.updateFonts()
         
-        timeLabel.setAttributedText(event?.sendTimeString,
+        timeLabel.setAttributedText(message?.getSendTimeString(),
                                     textStyle: .chatTimestamp,
                                     color: ASAPP.styles.foregroundColor2)
+        
+        setNeedsLayout()
     }
 }
 
