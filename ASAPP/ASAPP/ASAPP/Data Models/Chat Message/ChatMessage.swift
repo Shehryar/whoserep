@@ -71,7 +71,7 @@ class ChatMessage: NSObject {
                 type = .itemList
             } else if attachment.isKind(of: SRSItemCarousel.self) {
                 type = .itemCarousel
-            } else if attachment.isKind(of: SRSImageItem.self) {
+            } else if attachment.isKind(of: EventPictureMessage.self) {
                 type = .picture
             }
         }
@@ -160,8 +160,6 @@ extension ChatMessage {
         
         if (text == nil && attachment == nil && quickReplies == nil) {
             (text, attachment, quickReplies) = parseContent(from: event.eventJSON)
-            
-            DebugLog.i("\n\n\n\n\n\n\nParsed \(text), \(attachment), \(quickReplies)\n\n\n\n")
         }
         
         // Do not return a message without any sort of content

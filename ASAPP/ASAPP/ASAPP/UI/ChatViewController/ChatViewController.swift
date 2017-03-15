@@ -1200,6 +1200,10 @@ extension ChatViewController {
 extension ChatViewController {
     
     func sendMessage(withText text: String, fromPrediction: Bool = false) {
+        if conversationManager.isConnected {
+            chatMessagesView.scrollToBottomAnimated(true)
+        }
+        
         if isLiveChat {
             conversationManager.sendTextMessage(text)
         } else {

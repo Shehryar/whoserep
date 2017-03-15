@@ -199,7 +199,7 @@ extension Event {
         }
 
         guard let ephemeralType = EphemeralType(rawValue: ephemeralTypeInt) else {
-            DebugLog.d("Ignoring event with ephemeral type: \(ephemeralTypeInt)")
+//            DebugLog.i("Ignoring event with ephemeral type: \(ephemeralTypeInt)")
             return nil
         }
         
@@ -245,7 +245,7 @@ extension Event {
         }
         
         guard let eventType = tempEventType else {
-            DebugLog.d("Ignoring event with event type: \(eventTypeInt)")
+//            DebugLog.i("Ignoring event with event type: \(eventTypeInt)")
             return nil
         }
     
