@@ -12,65 +12,60 @@ class ChatMessagesViewDataSource: NSObject {
 
     // MARK: Properties
     
-    var secondsBetweenSections: Int = (4 * 60)
+    fileprivate let secondsBetweenSections: TimeInterval = (4 * 60)
     
-    let supportedEventTypes: Set<EventType>
+    fileprivate(set) var allMessages = [ChatMessage]()
     
-    fileprivate(set) var allEvents = [Event]()
-    
-    fileprivate var eventsByTime = [[Event]]()
-    
-    // MARK: Init
-    
-    init(withSupportedEventTypes supportedEventTypes: Set<EventType>) {
-        self.supportedEventTypes = supportedEventTypes
-        super.init()
-    }
-    
-    // MARK: Instance Methods
+    fileprivate var sections = [[ChatMessage]]()
+}
+
+// MARK:- Accessing Content
+
+extension ChatMessagesViewDataSource {
     
     func numberOfSections() -> Int {
-        return eventsByTime.count
+        return sections.count
     }
     
-    func numberOfRowsInSection(_ row: Int) -> Int {
-        guard row >= 0 && row < eventsByTime.count else {
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        guard section >= 0 && section < sections.count else {
             return 0
         }
-        return eventsByTime[row].count
+        return sections[section].count
     }
     
-    func eventsForSection(_ section: Int) -> [Event]? {
-        guard section >= 0 && section < eventsByTime.count else {
+    func getMessages(in section: Int) -> [ChatMessage]? {
+        guard section >= 0 && section < sections.count else {
             return nil
         }
-        return eventsByTime[section]
+        return sections[section]
     }
     
-    func getEvent(inSection section: Int, row: Int) -> Event? {
-        if let eventsInSection = eventsForSection(section) {
-            if row >= 0 && row < eventsInSection.count {
-                return eventsInSection[row]
+    func getMessage(in section: Int, at row: Int) -> ChatMessage? {
+        if let messagesInSection = getMessages(in: section) {
+            if row >= 0 && row < messagesInSection.count {
+                return messagesInSection[row]
             }
         }
         return nil
     }
     
-    func eventForIndexPath(_ indexPath: IndexPath) -> Event? {
-        return getEvent(inSection: (indexPath as NSIndexPath).section, row: (indexPath as NSIndexPath).row)
+    func getMessage(for indexPath: IndexPath) -> ChatMessage? {
+        return getMessage(in: indexPath.section, at: indexPath.row)
     }
     
-    func indexPathOfEvent(_ event: Event?) -> IndexPath? {
-        guard let event = event else {
+    func getIndexPath(of message: ChatMessage?) -> IndexPath? {
+        guard let message = message else {
             return nil
         }
         
-        for (section, eventsAtTime) in eventsByTime.enumerated().reversed() {
+        for (section, messages) in sections.enumerated().reversed() {
             
-            // Could skip over arrays here if the event happened before the first event's time
+            // Could skip over arrays here if the message happened before the first message's time
             
-            for (row, currEvent) in eventsAtTime.enumerated().reversed() {
-                if currEvent.eventLogSeq == event.eventLogSeq {
+            for (row, currMessage) in messages.enumerated().reversed() {
+                
+                if currMessage.eventId == message.eventId {
                     return IndexPath(row: row, section: section)
                 }
             }
@@ -78,30 +73,46 @@ class ChatMessagesViewDataSource: NSObject {
         return nil
     }
     
-    func headerDateForSection(_ section: Int) -> Date? {
-        guard let event = getEvent(inSection: section, row: 0) else {
+    func getHeaderTime(for section: Int) -> Date? {
+        guard let message = getMessage(in: section, at: 0) else {
             return nil
         }
-        return event.eventDate
+        return message.sendTime
     }
     
-    func getLastEvent() -> Event? {
-        return eventsByTime.last?.last
+    func getLastMessage() -> ChatMessage? {
+        return sections.last?.last
     }
     
     func isEmpty() -> Bool {
-        return getEvent(inSection: 0, row: 0) == nil
+        return getLastMessage() == nil
     }
     
-    // MARK:- Changing Content
+    // MARK: Private
+    
+    fileprivate func getIndex(of message: ChatMessage?) -> Int? {
+        guard let message = message else {
+            return nil
+        }
+        
+        for (idx, currMessage) in allMessages.enumerated() {
+            if currMessage.eventId == message.eventId {
+                return idx
+            }
+        }
+        return nil
+    }
+}
+
+// MARK:- Changing Content
+
+extension ChatMessagesViewDataSource {
     
     func reloadWithEvents(_ events: [Event]) {
-        allEvents.removeAll()
-        allEvents.append(contentsOf: events)
+        allMessages.removeAll()
+        sections.removeAll()
         
-        eventsByTime.removeAll()
-        
-        let sortedEvents = allEvents.sorted { (event1, event2) -> Bool in
+        let sortedEvents = events.sorted { (event1, event2) -> Bool in
             return event1.eventLogSeq < event2.eventLogSeq
         }
         for event in sortedEvents {
@@ -109,103 +120,52 @@ class ChatMessagesViewDataSource: NSObject {
         }
     }
     
-    func mergeWithEvents(_ newEvents: [Event]) {
-        guard newEvents.count > 0 else {
-            return
-        }
-        
-        var dedupedEvents = [Event]()
-    
-        var setOfMessageEventLogSeqs = Set<Int>()
-        func addOrSkipMessageEvent(_ event: Event) {
-            if !setOfMessageEventLogSeqs.contains(event.eventLogSeq) {
-                dedupedEvents.append(event)
-                setOfMessageEventLogSeqs.insert(event.eventLogSeq)
-            }
-        }
-        
-        // Favor newMessageEvents over old
-        for event in newEvents { addOrSkipMessageEvent(event) }
-        for event in allEvents { addOrSkipMessageEvent(event) }
-
-        reloadWithEvents(dedupedEvents)
-    }
-    
     func addEvent(_ event: Event) -> IndexPath? {
-        guard supportedEventTypes.contains(event.eventType) else {
+        guard let message = event.chatMessage else {
             return nil
         }
         
-        allEvents.append(event)
+        allMessages.append(message)
         
-        // Empty case
-        guard let lastEvent = getLastEvent() else {
-            eventsByTime.append([event])
+        // Empty case: Insert at beginning
+        
+        guard let lastMessage = getLastMessage() else {
+            sections.append([message])
             return IndexPath(row: 0, section: 0)
         }
-        
-//        // Insert not-at-end case
-//        if event.eventLogSeq < lastEvent.eventLogSeq {
-//            
-//            // TODO: support this
-//            
-//            fatalError("Must call addEvent in order.")
-//        }
-//        
+     
         // Insert at end
         
-        let maxTimeForSameSection = lastEvent.eventTime + Double(secondsBetweenSections)
-        if event.eventTime < maxTimeForSameSection {
-            eventsByTime[eventsByTime.count - 1].append(event)
+        let maxTimeForSameSection = lastMessage.sendTime.timeIntervalSinceReferenceDate + secondsBetweenSections
+     
+        if message.sendTime.timeIntervalSinceReferenceDate < maxTimeForSameSection {
+            sections[sections.count - 1].append(message)
         } else {
-            eventsByTime.append([event])
+            sections.append([message])
         }
         
-        return indexPathOfEvent(event)
+        return getIndexPath(of: message)
     }
     
-    func updateEvent(updatedEvent: Event) -> IndexPath? {
-        var allEventsIndex: Int?
-        for (idx, event) in allEvents.enumerated() {
-            if event.eventLogSeq == updatedEvent.eventLogSeq {
-                // Update the updatedEvent's times to the original times
-                
-                
-                // TODO: Update this code: MITCH MITCH MITCH
-                
-//                updatedEvent.createdTime = event.createdTime
-//                updatedEvent.eventTime = event.eventTime
-                
-                allEventsIndex = idx
-                break
-            }
+    func updateMessage(with event: Event) -> IndexPath? {
+        guard let message = event.chatMessage else {
+            return nil
         }
         
-        var eventsByTimeIndex: Int?
-        var eventsByTimeEventsIndex: Int?
-        for (eventsIdx, anEventsByTimeArray) in eventsByTime.enumerated() {
-            
-            for (eventIdx, event) in anEventsByTimeArray.enumerated() {
-                if event.eventLogSeq == updatedEvent.eventLogSeq {
-                    eventsByTimeIndex = eventsIdx
-                    eventsByTimeEventsIndex = eventIdx
-                    break
-                }
-            }
+        guard let index = getIndex(of: message),
+            let indexPath = getIndexPath(of: message) else {
+                DebugLog.w(caller: self, "Unable to locate message for updating.")
+                return nil
         }
+
+        // Update the updatedMessage's times to the original times
+        let messageToUpdate = allMessages[index]
+        message.updateSendTime(toMatch: messageToUpdate)
+
+        // Switch out the messages
+        allMessages[index] = message
+        sections[indexPath.section][indexPath.row] = message
         
-        if let allEventsIndex = allEventsIndex,
-            let eventsByTimeIndex = eventsByTimeIndex,
-            let eventsByTimeEventsIndex = eventsByTimeEventsIndex {
-            
-            allEvents[allEventsIndex] = updatedEvent
-            eventsByTime[eventsByTimeIndex][eventsByTimeEventsIndex] = updatedEvent
-            
-            let updatedIndex = indexPathOfEvent(updatedEvent)
-    
-            return updatedIndex
-        }
-        
-        return nil
+        return indexPath
     }
 }

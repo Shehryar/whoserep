@@ -10,9 +10,9 @@ import UIKit
 
 class ChatItemCarouselMessageCell: ChatMessageCell {
 
-    override var event: Event? {
+    override var message: ChatMessage? {
         didSet {
-            itemCarouselView.itemCarousel = event?.srsResponse?.itemCarousel
+            itemCarouselView.itemCarousel = message?.attachment as? SRSItemCarousel
             setNeedsLayout()
         }
     }

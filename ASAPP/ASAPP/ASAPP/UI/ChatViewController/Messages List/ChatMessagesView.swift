@@ -11,19 +11,19 @@ import UIKit
 protocol ChatMessagesViewDelegate: class {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapImageView imageView: UIImageView,
-                          forEvent event: Event)
+                          forMessage message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didSelectButtonItem buttonItem: SRSButtonItem,
-                          fromEvent event: Event)
+                          forMessage message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didUpdateButtonItemsForEvent event: Event)
+                          didUpdateButtonItemsForMessage message: ChatMessage)
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didTapMostRecentEvent event: Event)
+                          didTapLastMessage message: ChatMessage)
 }
 
 class ChatMessagesView: UIView {
@@ -43,30 +43,26 @@ class ChatMessagesView: UIView {
     
     weak var delegate: ChatMessagesViewDelegate?
     
-    var showTimeStampForEvent: Event?
+    var showTimeStampForMessage: ChatMessage?
     
-    var earliestEvent: Event? {
-        return dataSource.allEvents.first
+    var firstMessage: ChatMessage? {
+        return dataSource.allMessages.first
     }
     
-    var numberOfEvents: Int {
-        return dataSource.allEvents.count
+    var lastMessage: ChatMessage? {
+        return dataSource.getLastMessage()
     }
     
-    var mostRecentEvent: Event? {
-        return dataSource.getLastEvent()
+    var numberOfMessages: Int {
+        return dataSource.allMessages.count
     }
     
-    var allEvents: [Event]? {
-        return dataSource.allEvents
+    var allMessages: [ChatMessage]? {
+        return dataSource.allMessages
     }
     
     var isEmpty: Bool {
         return dataSource.isEmpty()
-    }
-    
-    var supportedEventTypes: Set<EventType> {
-        return cellMaster.supportedEventTypes
     }
     
     var overrideToHideInfoView = false {
@@ -90,7 +86,7 @@ class ChatMessagesView: UIView {
     
     fileprivate let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
-    fileprivate var dataSource: ChatMessagesViewDataSource
+    fileprivate let dataSource: ChatMessagesViewDataSource
     
     fileprivate let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
@@ -98,14 +94,14 @@ class ChatMessagesView: UIView {
     
     fileprivate let emptyView = ChatMessagesEmptyView()
     
-    fileprivate var eventsThatShouldAnimate = Set<Event>()
+    fileprivate var messagesThatShouldAnimate = Set<ChatMessage>()
     
     // MARK:- Initialization
     
     required init(withCredentials credentials: Credentials) {
         self.credentials = credentials
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
-        self.dataSource = ChatMessagesViewDataSource(withSupportedEventTypes: self.cellMaster.supportedEventTypes)
+        self.dataSource = ChatMessagesViewDataSource()
         
         super.init(frame: CGRect.zero)
         
@@ -186,20 +182,22 @@ extension ChatMessagesView {
     }
     
     fileprivate func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
-        guard let messageEvent = dataSource.eventForIndexPath(indexPath) else { return .none }
+        guard let message = dataSource.getMessage(for: indexPath) else { return .none }
         
-        let messageIsReply = messageEvent.isReply
+        let section = indexPath.section
+        let previousRow = indexPath.row - 1
+        let nextRow = indexPath.row + 1
         
-        let previousIsReply = dataSource.getEvent(inSection: indexPath.section, row: indexPath.row - 1)?.isReply
-        let nextIsReply = dataSource.getEvent(inSection: indexPath.section, row: indexPath.row + 1)?.isReply
+        let previousIsReply = dataSource.getMessage(in: section, at: previousRow)?.isReply
+        let nextIsReply = dataSource.getMessage(in: section, at: nextRow)?.isReply
         
-        if messageIsReply == previousIsReply && messageIsReply == nextIsReply {
+        if message.isReply == previousIsReply && message.isReply == nextIsReply {
             return .middleOfMany
         }
-        if messageIsReply == nextIsReply {
+        if message.isReply == nextIsReply {
             return .firstOfMany
         }
-        if messageIsReply == previousIsReply {
+        if message.isReply == previousIsReply {
             return .lastOfMany
         }
         
@@ -235,23 +233,20 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section < dataSource.numberOfSections() else { return nil }
   
-        return cellMaster.timeStampHeaderView(withTime: dataSource.headerDateForSection(section))
+        return cellMaster.timeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let event = dataSource.eventForIndexPath(indexPath) else {
+        guard let message = dataSource.getMessage(for: indexPath) else {
             let typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
             return typingCell ?? UITableViewCell()
         }
         
-        let cell = cellMaster.cellForEvent(event,
-                                           listPosition: messageListPositionForIndexPath(indexPath),
-                                           detailsVisible: event == showTimeStampForEvent,
-                                           atIndexPath: indexPath)
-        
-        if let chatMessageCell = cell as? ChatMessageCell {
-            chatMessageCell.delegate = self
-        }
+        let cell = cellMaster.cellForMessage(message,
+                                             listPosition: messageListPositionForIndexPath(indexPath),
+                                             detailsVisible: message == showTimeStampForMessage,
+                                             atIndexPath: indexPath)
+        cell?.delegate = self
         
         return cell ?? UITableViewCell()
     }
@@ -264,13 +259,13 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        guard let event = dataSource.eventForIndexPath(indexPath) else {
+        guard let message = dataSource.getMessage(for: indexPath) else {
             return
         }
         
-        if cellAnimationsEnabled && eventsThatShouldAnimate.contains(event) {
+        if cellAnimationsEnabled && messagesThatShouldAnimate.contains(message) {
             (cell as? ChatMessageCell)?.animate()
-            eventsThatShouldAnimate.remove(event)
+            messagesThatShouldAnimate.remove(message)
         }
     }
     
@@ -283,18 +278,18 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
          guard section < dataSource.numberOfSections() else { return 0.0 }
         
-        return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.headerDateForSection(section))
+        return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let event = dataSource.eventForIndexPath(indexPath) else {
+        guard let message = dataSource.getMessage(for: indexPath) else {
             return cellMaster.heightForTypingIndicatorCell()
         }
         
         let listPosition = messageListPositionForIndexPath(indexPath)
-        let height = cellMaster.heightForCellWithEvent(event,
-                                                       listPosition: listPosition,
-                                                       detailsVisible: event == showTimeStampForEvent)
+        let height = cellMaster.heightForCell(with: message,
+                                              listPosition: listPosition,
+                                              detailsVisible: message == showTimeStampForMessage)
         return height
     }
     
@@ -306,36 +301,38 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.cellForRow(at: indexPath)
         if let pictureCell = cell as? ChatPictureMessageCell,
-            let event = pictureCell.event {
-                delegate?.chatMessagesView(self, didTapImageView: pictureCell.pictureView.imageView, forEvent: event)
+            let message = pictureCell.message {
+                delegate?.chatMessagesView(self,
+                                           didTapImageView: pictureCell.pictureView.imageView,
+                                           forMessage: message)
         } else if let cell = cell as? ChatMessageCell {
-            toggleTimeStampForEventAtIndexPath(indexPath)
+            toggleTimeStampForMessage(at: indexPath)
         }
         
-        if let event = dataSource.eventForIndexPath(indexPath) {
-            if event == dataSource.getLastEvent() {
-                delegate?.chatMessagesView(self, didTapMostRecentEvent: event)
+        if let message = dataSource.getMessage(for: indexPath) {
+            if message == dataSource.getLastMessage() {
+                delegate?.chatMessagesView(self, didTapLastMessage: message)
             }
         }   
     }
     
-    func toggleTimeStampForEventAtIndexPath(_ indexPath: IndexPath) {
+    func toggleTimeStampForMessage(at indexPath: IndexPath) {
         
-        let previousEvent = showTimeStampForEvent
+        let previousMessage = showTimeStampForMessage
         
         // Hide timestamp on previous cell
-        if let previousEvent = showTimeStampForEvent,
-            let previousIndexPath = dataSource.indexPathOfEvent(previousEvent),
+        if let previousMessage = previousMessage,
+            let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
             let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
-            showTimeStampForEvent = nil
-            previousCell.setTimeLabelVisible(false, animated: true)
+                showTimeStampForMessage = nil
+                previousCell.setTimeLabelVisible(false, animated: true)
         }
 
-        if let nextEvent = dataSource.eventForIndexPath(indexPath) {
+        if let nextMessage = dataSource.getMessage(for: indexPath) {
             // Show timestamp on next cell
-            if previousEvent == nil || nextEvent != previousEvent {
+            if previousMessage == nil || nextMessage != previousMessage {
                 if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
-                    showTimeStampForEvent = nextEvent
+                    showTimeStampForMessage = nextMessage
                     nextCell.setTimeLabelVisible(true, animated: true)
                 }
             }
@@ -356,24 +353,24 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
 extension ChatMessagesView: ChatMessageCellDelegate {
     
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int) {
-        if let event = cell.event {
-            delegate?.chatMessagesView(self, didUpdateButtonItemsForEvent: event)
+        if let message = cell.message {
+            delegate?.chatMessagesView(self, didUpdateButtonItemsForMessage: message)
         } else {
             DebugLog.e("Missing event on itemCarouselView")
         }
     }
     
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        if let event = cell.event {
-            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
+        if let message = cell.message {
+            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, forMessage: message)
         } else {
             DebugLog.e("Missing event on itemCarouselView")
         }
     }
     
     func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        if let event = cell.event {
-            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, fromEvent: event)
+        if let message = cell.message {
+            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, forMessage: message)
         } else {
             DebugLog.e("Missing event on itemListView")
         }
@@ -473,38 +470,14 @@ extension ChatMessagesView {
         updateSubviewVisibility()
     }
     
-    func mergeMessageEventsWithEvents(_ newMessageEvents: [Event]) {
-        guard newMessageEvents.count > 0 else {
-            return
-        }
-        
-        let wasNearBottom = isNearBottom()
-        var lastVisibleMessageEvent: Event?
-        if let lastVisibleCell = tableView.visibleCells.last as? ChatMessageCell {
-            lastVisibleMessageEvent = lastVisibleCell.event
-        }
-        
-        dataSource.mergeWithEvents(newMessageEvents)
-        
-        tableView.reloadData()
-        
-        if wasNearBottom {
-            scrollToBottomAnimated(false)
-        } else if let lastVisibleIndexPath = dataSource.indexPathOfEvent(lastVisibleMessageEvent) {
-            tableView.scrollToRow(at: lastVisibleIndexPath, at: .bottom, animated: false)
-        }
-        
-        updateSubviewVisibility()
-    }
-    
     func insertNewMessageEvent(_ event: Event, completion: (() -> Void)? = nil) {
         let wasNearBottom = isNearBottom()
         
         let indexPath = dataSource.addEvent(event)
         
         // Only animate the message if the user is near the bottom
-        if cellAnimationsEnabled && wasNearBottom {
-            eventsThatShouldAnimate.insert(event)
+        if cellAnimationsEnabled && wasNearBottom, let message = event.chatMessage {
+            messagesThatShouldAnimate.insert(message)
         }
         
         if let indexPath = indexPath {
@@ -545,7 +518,7 @@ extension ChatMessagesView {
     }
     
     func refreshMessageEvent(event: Event, completion: (() -> Void)? = nil) {
-        if let indexPathToUpdate = dataSource.updateEvent(updatedEvent: event) {
+        if let indexPathToUpdate = dataSource.updateMessage(with: event) {
             tableView.reloadRows(at: [indexPathToUpdate], with: .automatic)
         }
         completion?()

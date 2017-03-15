@@ -13,6 +13,13 @@ enum ChatMessageType: String {
     case itemList       = "ChatMessageTypeItemList"
     case itemCarousel   = "ChatMessageTypeItemCarousel"
     case picture        = "ChatMessageTypePicture"
+    
+    static let all = [
+        text,
+        itemList,
+        itemCarousel,
+        picture
+    ]
 }
 
 // MARK:- Chat Message
@@ -29,7 +36,7 @@ class ChatMessage: NSObject {
     // MARK: Metadata
     
     let isReply: Bool
-    let sendTime: Date
+    fileprivate(set) var sendTime: Date
     let eventId: Int
     let isAutomatedMessage: Bool
     
@@ -65,6 +72,18 @@ class ChatMessage: NSObject {
         self.type = type ?? .text
         
         super.init()
+    }
+    
+    // MARK:- Updates
+    
+    func updateSendTime(toMatch message: ChatMessage) {
+        sendTime = message.sendTime
+    }
+    
+    func getSendTimeString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = sendTime.dateFormatForMostRecent()
+        return dateFormatter.string(from: sendTime)
     }
 }
 

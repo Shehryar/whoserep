@@ -10,9 +10,9 @@ import UIKit
 
 class ChatPictureMessageCell: ChatMessageCell {
 
-    override var event: Event? {
+    override var message: ChatMessage? {
         didSet {
-            pictureView.event = event
+            pictureView.message = message
             setNeedsLayout()
         }
     }

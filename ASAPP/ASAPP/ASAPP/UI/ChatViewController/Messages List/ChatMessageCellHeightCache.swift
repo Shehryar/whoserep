@@ -15,15 +15,15 @@ class ChatMessageCellHeightCache: NSObject {
         let messagePosition: MessageListPosition
     }
     
-    fileprivate var cache = [Event : CachedHeight]()
+    fileprivate var cache = [ChatMessage : CachedHeight]()
 }
 
 // MARK:- Public API
 
 extension ChatMessageCellHeightCache {
     
-    func getCachedHeight(event: Event, messagePosition: MessageListPosition) -> CGFloat? {
-        if let cachedHeight = cache[event] {
+    func getCachedHeight(for message: ChatMessage, with messagePosition: MessageListPosition) -> CGFloat? {
+        if let cachedHeight = cache[message] {
             if cachedHeight.messagePosition == messagePosition {
                 return cachedHeight.height
             }
@@ -31,8 +31,8 @@ extension ChatMessageCellHeightCache {
         return nil
     }
     
-    func cacheHeight(_ height: CGFloat, for event: Event, messagePosition: MessageListPosition) {
-        cache[event] = CachedHeight(height: height, messagePosition: messagePosition)
+    func cacheHeight(_ height: CGFloat, for message: ChatMessage, with messagePosition: MessageListPosition) {
+        cache[message] = CachedHeight(height: height, messagePosition: messagePosition)
     }
 
     func clearCache() {

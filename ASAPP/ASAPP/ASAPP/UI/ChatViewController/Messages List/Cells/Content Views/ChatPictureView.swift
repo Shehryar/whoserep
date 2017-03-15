@@ -9,13 +9,13 @@
 import UIKit
 
 class ChatPictureView: UIView {
-    
-    var event: Event? {
+
+    var message: ChatMessage? {
         didSet {
-            if let event = event, let pictureMessage = event.pictureMessage {
+            if let message = message, let pictureMessage = message.attachment as? EventPictureMessage {
                 imageView.fixedImageSize = CGSize(width: pictureMessage.width, height: pictureMessage.height)
-                if let imageURL = event.pictureMessage?.imageURL, !disableImageLoading {
-                    imageView.sd_setImage(with: imageURL)
+                if !disableImageLoading {
+                    imageView.sd_setImage(with: pictureMessage.imageURL)
                 } else {
                     imageView.image = nil
                 }

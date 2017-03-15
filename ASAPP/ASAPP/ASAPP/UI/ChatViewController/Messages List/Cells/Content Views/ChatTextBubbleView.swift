@@ -12,14 +12,19 @@ class ChatTextBubbleView: UIView {
 
     // MARK: Properties: Content
     
-    var event: Event? {
+    var message: ChatMessage? {
         didSet {
-            if label.text == event?.messageText {
+            let previousMessage = oldValue
+            guard let message = message else {
+                label.text = nil
+                setNeedsLayout()
                 return
             }
             
-            label.text = event?.messageText
-            
+            //
+            // Update Text
+            //
+            label.text = message.text
             if textHasDataDetectorLink(label.text) {
                 label.isUserInteractionEnabled = true
                 label.isSelectable = true
@@ -28,20 +33,10 @@ class ChatTextBubbleView: UIView {
                 label.isSelectable = false
             }
             
-            setNeedsLayout()
-        }
-    }
-    
-    var messagePosition: MessageListPosition = .none {
-        didSet {
-            updateBubbleCorners()
-        }
-    }
-    
-    var isReply: Bool = false {
-        didSet {
-            
-            if isReply {
+            //
+            // Update Bubble
+            //
+            if message.isReply {
                 let fillColor = ASAPP.styles.replyMessageFillColor ?? ASAPP.styles.backgroundColor1
                 label.textColor = ASAPP.styles.replyMessageTextColor
                 label.linkTextAttributes = [
@@ -65,6 +60,12 @@ class ChatTextBubbleView: UIView {
             updateBubbleCorners()
             
             setNeedsLayout()
+        }
+    }
+    
+    var messagePosition: MessageListPosition = .none {
+        didSet {
+            updateBubbleCorners()
         }
     }
     
@@ -144,8 +145,12 @@ extension ChatTextBubbleView {
     }
     
     func updateBubbleCorners() {
+        guard let message = message else {
+            return
+        }
+        
         var roundedCorners: UIRectCorner
-        if isReply {
+        if message.isReply {
             switch messagePosition {
             case .none:
                 roundedCorners = [.topLeft, .topRight, .bottomRight]

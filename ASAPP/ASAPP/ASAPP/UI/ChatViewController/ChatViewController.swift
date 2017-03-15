@@ -131,8 +131,8 @@ class ChatViewController: UIViewController {
         if isLiveChat {
             showPredictiveOnViewAppear = false
         } else {
-            if let mostRecentEvent = chatMessagesView.mostRecentEvent {
-                let secondsSinceLastEvent = Date().timeIntervalSince(mostRecentEvent.eventDate)
+            if let lastMessage = chatMessagesView.lastMessage {
+                let secondsSinceLastEvent = Date().timeIntervalSince(lastMessage.sendTime)
                 
                 showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
                 if secondsSinceLastEvent < (60 * 15) {
@@ -251,8 +251,8 @@ class ChatViewController: UIViewController {
         }
         
         let minTimeBetweenSessions: TimeInterval = 60 * 15 // 15 minutes
-        if chatMessagesView.mostRecentEvent == nil ||
-            chatMessagesView.mostRecentEvent!.eventDate.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
+        if chatMessagesView.lastMessage == nil ||
+            chatMessagesView.lastMessage.sendTime.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
             conversationManager.trackSessionStart()
         }
         
@@ -785,7 +785,7 @@ extension ChatViewController {
 
 extension ChatViewController: ChatMessagesViewDelegate {
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forEvent event: Event) {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forMessage message: ChatMessage) {
         guard let image = imageView.image else {
             return
         }
@@ -799,17 +799,17 @@ extension ChatViewController: ChatMessagesViewDelegate {
         present(imageViewer, animated: true, completion: nil)
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, fromEvent event: Event) {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, forMessage message: ChatMessage) {
         _ = handleSRSButtonItemSelection(buttonItem, fromEvent: event)
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapMostRecentEvent event: Event) {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {
         if !isLiveChat {
             showSuggestedRepliesViewIfNecessary()
         }
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForEvent event: Event) {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForMessage message: ChatMessage) {
         if event == chatMessagesView.mostRecentEvent {
             if let actionableMessage = event.srsResponse {
                 suggestedRepliesView.reloadButtonItemsForActionableMessage(actionableMessage, event: event)

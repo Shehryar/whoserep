@@ -18,14 +18,12 @@ class ChatMessageCell: UITableViewCell {
 
     // MARK:- Properties: Content
     
-    var event: Event? {
+    var message: ChatMessage? {
         didSet {
-            textBubbleView.event = event
-        
-            textBubbleView.isReply = isReply
-            timeLabel.textAlignment = isReply ? .left : .right
+            textBubbleView.message = message
             
-            timeLabel.setAttributedText(event?.sendTimeString,
+            timeLabel.textAlignment = isReply ? .left : .right
+            timeLabel.setAttributedText(message?.getSendTimeString(),
                                         textStyle: .chatTimestamp,
                                         color: ASAPP.styles.foregroundColor2)
             
@@ -34,8 +32,8 @@ class ChatMessageCell: UITableViewCell {
     }
     
     var isReply: Bool {
-        if let event = event {
-            return event.isReply
+        if let message = message {
+            return message.isReply
         }
         return false
     }
@@ -83,7 +81,6 @@ class ChatMessageCell: UITableViewCell {
     
     let textBubbleView = ChatTextBubbleView()
     
-    /// For best performance, this should conform to ChatMessageCellAttachmentView
     var attachmentView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
@@ -159,7 +156,7 @@ extension ChatMessageCell {
         
         layer.removeAllAnimations()
         
-        textBubbleView.event = nil
+        textBubbleView.message = nil
         timeLabel.text = nil
         
         textBubbleView.alpha = 1.0

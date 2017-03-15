@@ -10,9 +10,9 @@ import UIKit
 
 class ChatItemListMessageCell: ChatMessageCell {
 
-    override var event: Event? {
+    override var message: ChatMessage? {
         didSet {
-            itemListView.itemList = event?.srsResponse?.itemList
+            itemListView.itemList = message?.attachment as? SRSItemList
             setNeedsLayout()
         }
     }

@@ -16,52 +16,6 @@ enum MessageListPosition {
 }
 
 class ChatMessagesViewCellMaster: NSObject {
-
-    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .customerConversationEnd, .conversationEnd]
-    
-    enum MessageCellType: String {
-        case none = "none"
-        case itemList = "itemList"
-        case itemCarousel = "itemCarousel"
-        case picture = "picture"
-        case text = "text"
-        
-        static let allValidTypes = [
-            itemList,
-            itemCarousel,
-            picture,
-            text
-        ]
-        
-        static func forEvent(_ event: Event?) -> MessageCellType {
-            guard let event = event else {
-                return none
-            }
-            
-            if event.srsResponse?.itemList != nil {
-                return itemList
-            } else if event.eventType == .textMessage {
-                return text
-            } else if event.eventType == .pictureMessage {
-                return picture
-            } else if event.srsResponse?.itemCarousel != nil {
-                return itemCarousel
-            }
-            
-            return none
-        }
-        
-        func getCellClass() -> AnyClass? {
-            switch self {
-            case .text: return ChatMessageCell.self
-            case .itemList: return ChatItemListMessageCell.self
-            case .itemCarousel: return ChatItemCarouselMessageCell.self
-            case .picture: return ChatPictureMessageCell.self
-            case .none: return nil
-            }
-        }
-    }
-    
     
     // MARK: Public Properties
 
@@ -112,13 +66,14 @@ class ChatMessagesViewCellMaster: NSObject {
         tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         
         // Register Message Cells
-        for cellType in MessageCellType.allValidTypes {
-            tableView.register(cellType.getCellClass(), forCellReuseIdentifier: cellType.rawValue)
+        for messageType in ChatMessageType.all {
+            tableView.register(getCellClass(for: messageType),
+                               forCellReuseIdentifier: messageType.rawValue)
         }
     }
 }
 
-// MARK:- Private Methods
+// MARK:- Utility Methods
 
 extension ChatMessagesViewCellMaster {
     
@@ -127,15 +82,31 @@ extension ChatMessagesViewCellMaster {
         timeHeaderHeightCache.removeAll()
         cachedTypingIndicatorCellHeight = nil
     }
+    
+    fileprivate func getCellClass(for messageType: ChatMessageType) -> AnyClass {
+        switch messageType {
+        case .text: return ChatMessageCell.self
+        case .itemList: return ChatItemListMessageCell.self
+        case .itemCarousel: return ChatItemCarouselMessageCell.self
+        case .picture: return ChatPictureMessageCell.self
+        }
+    }
+    
+    fileprivate func updateMessageCell(_ cell: ChatMessageCell?,
+                                       with message: ChatMessage,
+                                       listPosition: MessageListPosition,
+                                       detailsVisible: Bool) {
+        cell?.messagePosition = listPosition
+        cell?.message = message
+        cell?.isTimeLabelVisible = detailsVisible
+    }
 }
 
 // MARK:- Header/Footer
 
 extension ChatMessagesViewCellMaster {
     
-    private func styleTimeHeaderView(_ view: ChatMessagesTimeHeaderView?, withTime time: Date?) {
-        view?.time = time
-    }
+    // MARK: Public
     
     func timeStampHeaderView(withTime time: Date?) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
@@ -158,54 +129,47 @@ extension ChatMessagesViewCellMaster {
         
         return height
     }
+    
+    // MARK: Private
+    
+    private func styleTimeHeaderView(_ view: ChatMessagesTimeHeaderView?, withTime time: Date?) {
+        view?.time = time
+    }
 }
 
 // MARK:- Cell Creation
 
 extension ChatMessagesViewCellMaster {
 
-    private func getCell(with identifier: String, at indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-    }
+    // MARK: Public
     
     func typingIndicatorCell(forIndexPath indexPath: IndexPath) -> UITableViewCell? {
         return getCell(with: TypingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
     }
     
-    func cellForEvent(_ event: Event,
-                      listPosition: MessageListPosition,
-                      detailsVisible: Bool,
-                      atIndexPath indexPath: IndexPath) -> UITableViewCell? {
-        let cellType = MessageCellType.forEvent(event)
-        guard cellType != .none else {
-            return nil
-        }
-        
-        if let cell = getCell(with: cellType.rawValue, at: indexPath) as? ChatMessageCell {
-            styleMessageCell(cell, withEvent: event, listPosition: listPosition, detailsVisible: detailsVisible)
+    func cellForMessage(_ message: ChatMessage,
+                        listPosition: MessageListPosition,
+                        detailsVisible: Bool,
+                        atIndexPath indexPath: IndexPath) -> ChatMessageCell? {
+        if let cell = getCell(with: message.type.rawValue, at: indexPath) as? ChatMessageCell {
+            updateMessageCell(cell, with: message, listPosition: listPosition, detailsVisible: detailsVisible)
             return cell
         }
         return nil
     }
-}
-
-// MARK:- Cell Styling
-
-extension ChatMessagesViewCellMaster {
     
-    func styleMessageCell(_ cell: ChatMessageCell?,
-                          withEvent event: Event,
-                          listPosition: MessageListPosition,
-                          detailsVisible: Bool) {
-        cell?.messagePosition = listPosition
-        cell?.event = event
-        cell?.isTimeLabelVisible = detailsVisible
+    // MARK: Private
+    
+    private func getCell(with identifier: String, at indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
     }
 }
 
 // MARK:- Cell Heights
 
 extension ChatMessagesViewCellMaster {
+    
+    // MARK: Public
     
     func heightForTypingIndicatorCell() -> CGFloat {
         if let cachedHeight = cachedTypingIndicatorCellHeight {
@@ -218,50 +182,53 @@ extension ChatMessagesViewCellMaster {
         return cachedTypingIndicatorCellHeight ?? 0.0
     }
     
-    func heightForCellWithEvent(_ event: Event?, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
-        guard let event = event else { return 0.0 }
+    func heightForCell(with message: ChatMessage?, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
+        guard let message = message else { return 0.0 }
         
         let canCacheHeight = !detailsVisible
         
         cachedTableViewWidth = tableView.bounds.width
         
         if canCacheHeight {
-            if let cachedHeight = cellHeightCache.getCachedHeight(event: event, messagePosition: listPosition) {
+            if let cachedHeight = cellHeightCache.getCachedHeight(for: message, with: listPosition) {
                 return cachedHeight
             }
         }
         
         // Calculate height
-        let height: CGFloat = calculateHeightForCellWithEvent(event,
-                                                              listPosition: listPosition,
-                                                              detailsVisible: detailsVisible,
-                                                              width: cachedTableViewWidth)
+        let height: CGFloat = calculateHeightForCell(with: message,
+                                                     listPosition: listPosition,
+                                                     detailsVisible: detailsVisible,
+                                                     width: cachedTableViewWidth)
         if canCacheHeight {
-            cellHeightCache.cacheHeight(height, for: event, messagePosition: listPosition)
+            cellHeightCache.cacheHeight(height, for: message, with: listPosition)
         }
                 
         return height
     }
     
-    private func getMessageSizingCellForEvent(_ event: Event) -> ChatMessageCell? {
-        switch MessageCellType.forEvent(event) {
+    // MARK: Private
+    
+    fileprivate func getMessageSizingCell(for message: ChatMessage) -> ChatMessageCell {
+        switch message.type {
         case .itemList: return itemListViewSizingCell
         case .itemCarousel: return itemCarouselViewSizingCell
         case .picture: return pictureMessageSizingCell
         case .text: return textMessageSizingCell
-        case .none: return nil
         }
     }
     
-    fileprivate func calculateHeightForCellWithEvent(_ event: Event,
-                                                     listPosition: MessageListPosition,
-                                                     detailsVisible: Bool,
-                                                     width: CGFloat) -> CGFloat {
-        if let sizingCell = getMessageSizingCellForEvent(event) {
-            styleMessageCell(sizingCell, withEvent: event, listPosition: listPosition, detailsVisible: detailsVisible)
-            return heightForStyledView(sizingCell, width: width)
-        }
-        return 0.0
+    fileprivate func calculateHeightForCell(with message: ChatMessage,
+                                            listPosition: MessageListPosition,
+                                            detailsVisible: Bool,
+                                            width: CGFloat) -> CGFloat {
+        let sizingCell = getMessageSizingCell(for: message)
+        updateMessageCell(sizingCell,
+                          with: message,
+                          listPosition: listPosition,
+                          detailsVisible: detailsVisible)
+        
+        return heightForStyledView(sizingCell, width: width)
     }
     
     fileprivate func heightForStyledView(_ view: UIView, width: CGFloat) -> CGFloat {
