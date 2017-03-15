@@ -56,7 +56,11 @@ class ChatMessage: NSObject {
         
         self.text = text
         self.attachment = attachment
-        self.quickReplies = quickReplies
+        if let quickReplies = quickReplies, quickReplies.count > 0 {
+            self.quickReplies = quickReplies
+        } else {
+            self.quickReplies = nil
+        }
         self.isReply = isReply
         self.sendTime = sendTime
         self.eventId = eventId
