@@ -53,86 +53,79 @@ extension ChatSimpleStore {
 
 extension ChatSimpleStore {
     
-    private func suggestedReplyEventLogSeqsKey() -> String {
+    private func quickReplyEventIdsKey() -> String {
         return credentials.hashKey(withPrefix: "SuggestedReplyEventLogSeqs")
     }
     
-    func updateSuggestedReplyEventLogSeqs(eventLogSeqs: [Int]?) {
-        if let eventLogSeqs = eventLogSeqs {
-            UserDefaults.standard.set(eventLogSeqs, forKey: suggestedReplyEventLogSeqsKey())
+    func updateQuickReplyEventIds(_ eventIds: [Int]?) {
+        if let eventIds = eventIds {
+            UserDefaults.standard.set(eventIds, forKey: quickReplyEventIdsKey())
             
-            DebugLog.d("Saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
+            DebugLog.d("Saved QuickReplyEventIds: \(eventIds)")
         } else {
-            UserDefaults.standard.removeObject(forKey: suggestedReplyEventLogSeqsKey())
+            UserDefaults.standard.removeObject(forKey: quickReplyEventIdsKey())
             
-            DebugLog.d("Cleared SuggestedReplyEventLogSeqs")
+            DebugLog.d("Cleared QuickReplyEventIds")
         }
     }
     
-    func getSuggestedReplyEventLogSeqs() -> [Int]? {
-        let eventLogSeqs = UserDefaults.standard.object(forKey: suggestedReplyEventLogSeqsKey()) as? [Int]
+    func getQuickReplyEventIds() -> [Int]? {
+        let eventIds = UserDefaults.standard.object(forKey: quickReplyEventIdsKey()) as? [Int]
         
-        if let eventLogSeqs = eventLogSeqs {
-            DebugLog.d("Fetched saved SuggestedReplyEventLogSeqs: \(eventLogSeqs)")
-            
-            return eventLogSeqs
+        if let eventIds = eventIds {
+            DebugLog.d("Fetched saved QuickReplyEventIds: \(eventIds)")
+            return eventIds
         }
         
-        DebugLog.d("No saved SuggestedReplyEventLogSeqs found")
+        DebugLog.d("No saved QuickReplyEventIds found")
         
         return nil
     }
     
-    /**
-     If the most recent reply-event is an SRSResponse, this will return (true, event). Otherwise, will return (false, nil)
-     */
-    func mostRecentReplyIsSRSResponse(fromEvent events: [Event]?) -> (Bool, Event?) {
+    func mostRecentReplyMessageIfHasQuickReplies(fromEvents events: [Event]?) -> ChatMessage? {
         guard let events = events else {
-            return (false, nil)
+            return nil
         }
         
         for (_, event) in events.enumerated().reversed() {
-            if event.isCustomerEvent {
-                continue
-            }
-            
-            if event.eventType == .srsResponse {
-                return (true, event)
-            } else {
-                return (false, nil)
+            if event.isReply {
+                if let message = event.chatMessage,
+                    message.quickReplies != nil {
+                    return message
+                }
             }
         }
-        return (false, nil)
+        return nil
     }
     
-    func getSuggestedReplyEvents(fromEvents allEvents: [Event]?) -> [Event]? {
-        guard let allEvents = allEvents,
-            let eventLogSeqs = getSuggestedReplyEventLogSeqs()
-            else {
-                return nil
+    func getQuickReplyMessages(fromEvents events: [Event]?) -> [ChatMessage]? {
+        guard let events = events, let eventIds = getQuickReplyEventIds() else {
+            return nil
         }
         
-        let (mostRecentReplyIsSRS, mostRecentSRSEvent) = mostRecentReplyIsSRSResponse(fromEvent: allEvents)
-        guard let lastSRSEvent = mostRecentSRSEvent else {
+        guard let lastQuickReplyMessage = mostRecentReplyMessageIfHasQuickReplies(fromEvents: events) else {
             return nil
         }
-        guard mostRecentReplyIsSRS && eventLogSeqs.contains(lastSRSEvent.eventLogSeq) else {
-            return nil
-        }
+        
 
-        let eventLogSeqSet = Set(eventLogSeqs)
+        let eventIdsSet = Set(eventIds)
         
-        var suggestedReplyEvents = [Event]()
-        for (_, event) in allEvents.enumerated().reversed() {
-            if eventLogSeqSet.contains(event.eventLogSeq) {
-                suggestedReplyEvents.append(event)
-            }
-            if suggestedReplyEvents.count >= eventLogSeqSet.count {
-                break
+        var quickReplyMessages = [ChatMessage]()
+        for (_, event) in events.enumerated().reversed() {
+            
+            if eventIdsSet.contains(event.eventLogSeq),
+                let message = event.chatMessage,
+                message.quickReplies != nil {
+                
+                quickReplyMessages.append(message)
+                
+                if quickReplyMessages.count >= eventIdsSet.count {
+                    break
+                }
             }
         }
-        suggestedReplyEvents = suggestedReplyEvents.reversed()
+        quickReplyMessages = quickReplyMessages.reversed()
         
-        return suggestedReplyEvents.count > 0 ? suggestedReplyEvents : nil
+        return quickReplyMessages.count > 0 ? quickReplyMessages : nil
     }
 }

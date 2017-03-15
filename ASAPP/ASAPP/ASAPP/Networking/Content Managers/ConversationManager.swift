@@ -13,11 +13,12 @@ typealias ConversationManagerRequestBlock = ((_ fetchedEvents: [Event]?, _ error
 // MARK:- ConversationManagerDelegate
 
 protocol ConversationManagerDelegate: class {
-    func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event)
-    func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event)
-    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool)
-    func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool)
-    func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool)
+    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage)
+    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage)
+    
+    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
+    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool)
+    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
 }
 
 // MARK:- ConversationManager
@@ -415,7 +416,7 @@ extension ConversationManager {
         let timeSinceConversantBeganTyping = Date.timeIntervalSinceReferenceDate - conversantBeganTypingTime
         if timeSinceConversantBeganTyping > 10 {
             self.conversantBeganTypingTime = nil
-            delegate?.conversationManager(self, didUpdateRemoteTypingStatus: false)
+            delegate?.conversationManager(self, didChangeTypingStatus: false)
         }
     }
 }
@@ -430,23 +431,19 @@ extension ConversationManager: SocketConnectionDelegate {
         }
         fileStore.addEventJSONString(eventJSONString: message.bodyString)
         
-        if demo_OverrideReceivedMessageEvent(event: event) {
-            return
-        }
+        if demo_OverrideReceivedMessageEvent(event: event) { return }
         
         
         // Entering / Exiting Live Chat
-        if [EventType.conversationEnd, EventType.customerConversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
-            let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
-            delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
+        if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
+            delegate?.conversationManager(self, didChangeLiveChatStatus: liveChatStatus, with: event)
         }
         
         
         // Typing Status
         if event.ephemeralType == .typingStatus {
             if let typingStatus = event.typingStatus {
-                delegate?.conversationManager(self, didUpdateRemoteTypingStatus: typingStatus.isTyping)
-                
+                delegate?.conversationManager(self, didChangeTypingStatus: typingStatus.isTyping)
                 if typingStatus.isTyping {
                     conversantBeganTypingTime = Date.timeIntervalSinceReferenceDate
                 }
@@ -454,49 +451,46 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
-        // Ephemeral: Event Update
+        // Updated Event
         if (event.ephemeralType == .eventStatus) {
-            if let parentEventLogSeq = event.parentEventLogSeq {
-                delegate?.conversationManager(self, didReceiveUpdatedMessageEvent: event)
+            if let message = event.chatMessage {
+                delegate?.conversationManager(self, didUpdate: message)
             } else {
-                DebugLog.d("Missing parentEventLogSeq on updated event")
+                DebugLog.d("Missing message on updated event")
             }
             return
         }
         
         // Message Event
-        switch event.eventType {
-        case .srsResponse, .conversationEnd, .customerConversationEnd, .switchSRSToChat, .newRep:
-            Dispatcher.delay(600, closure: {
-                self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
-            })
-            break
-            
-        case .textMessage, .pictureMessage:
-            delegate?.conversationManager(self, didReceiveMessageEvent: event)
-            break
-            
-        default:
-            // No-op
-            break
+        if let message = event.chatMessage {
+            if message.isAutomatedMessage {
+                Dispatcher.delay(600, closure: { [weak self] in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    strongSelf.delegate?.conversationManager(strongSelf, didReceive: message)
+                })
+            } else {
+                delegate?.conversationManager(self, didReceive: message)
+            }
         }
     }
     
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Established Connection")
         
-        delegate?.conversationManager(self, connectionStatusDidChange: true)
+        delegate?.conversationManager(self, didChangeConnectionStatus: true)
     }
     
     func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Authentication Failed")
         
-        delegate?.conversationManager(self, connectionStatusDidChange: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Connection Lost")
         
-        delegate?.conversationManager(self, connectionStatusDidChange: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false)
     }
 }

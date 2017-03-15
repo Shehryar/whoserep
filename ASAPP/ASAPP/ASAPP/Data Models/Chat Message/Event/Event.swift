@@ -14,7 +14,6 @@ enum EventType: Int {
     case newRep = 3
     case conversationEnd = 4
     case pictureMessage = 5
-    case customerConversationEnd = 15
     case srsResponse = 22
     case srsEcho = 23
     case srsAction = 24
@@ -29,12 +28,24 @@ enum EventType: Int {
              srsAction,
              newRep,
              conversationEnd,
-             customerConversationEnd,
              switchSRSToChat:
             return true
             
         default:
             return false
+        }
+    }
+    
+    static func getLiveChatStatus(for type: EventType) -> Bool? {
+        switch type {
+        case conversationEnd:
+            return false
+            
+        case switchSRSToChat, newRep:
+            return true
+            
+        default:
+            return nil
         }
     }
 }

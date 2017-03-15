@@ -36,9 +36,11 @@ class ChatMessage: NSObject {
     // MARK: Metadata
     
     let isReply: Bool
-    fileprivate(set) var sendTime: Date
-    let eventId: Int
     let isAutomatedMessage: Bool
+    let eventId: Int
+    let eventType: EventType
+    let issueId: Int
+    fileprivate(set) var sendTime: Date
     
     // MARK: Init
     
@@ -48,6 +50,8 @@ class ChatMessage: NSObject {
          isReply: Bool,
          sendTime: Date,
          eventId: Int,
+         eventType: EventType,
+         issueId: Int,
          isAutomatedMessage: Bool = false) {
         
         self.text = text
@@ -56,6 +60,8 @@ class ChatMessage: NSObject {
         self.isReply = isReply
         self.sendTime = sendTime
         self.eventId = eventId
+        self.eventType = eventType
+        self.issueId = issueId
         self.isAutomatedMessage = isAutomatedMessage
         
         // Determine type based on content
@@ -84,6 +90,19 @@ class ChatMessage: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = sendTime.dateFormatForMostRecent()
         return dateFormatter.string(from: sendTime)
+    }
+    
+    func getAutoSelectQuickReply() -> SRSButtonItem? {
+        guard let quickReplies = quickReplies else {
+            return nil
+        }
+        
+        for quickReply in quickReplies {
+            if quickReply.isAutoSelect {
+                return quickReply
+            }
+        }
+        return nil
     }
 }
 
@@ -137,6 +156,8 @@ extension ChatMessage {
             break
         }
         
+        
+        
         if (text == nil && attachment == nil && quickReplies == nil) {
             (text, attachment, quickReplies) = parseContent(from: event.eventJSON)
             
@@ -146,13 +167,22 @@ extension ChatMessage {
         // Do not return a message without any sort of content
         if text != nil || attachment != nil || quickReplies != nil {
             
+            let eventId: Int
+            if event.ephemeralType == .eventStatus, let parentId = event.parentEventLogSeq {
+                eventId = parentId
+            } else {
+                eventId = event.eventLogSeq
+            }
+            
             let sendTime = Date(timeIntervalSince1970: event.eventTime / 1000)
             return ChatMessage(text: text,
                                attachment: attachment,
                                quickReplies: quickReplies,
                                isReply: event.isReply,
                                sendTime: event.eventDate,
-                               eventId: event.eventLogSeq,
+                               eventId: eventId,
+                               eventType: event.eventType,
+                               issueId: event.issueId,
                                isAutomatedMessage: event.srsResponse != nil)
         }
         return nil

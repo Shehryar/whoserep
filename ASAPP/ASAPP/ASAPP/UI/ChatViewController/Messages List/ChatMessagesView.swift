@@ -432,9 +432,9 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateOtherParticipantTypingStatus(_ isTyping: Bool) {
+    func updateTypingStatus(_ isTyping: Bool) {
         var isDifferent = isTyping != otherParticipantIsTyping
-        let shouldScrollToBottom = isNearBottom() && isDifferent
+        let shouldScrollToBottom = isNearBottom() && isDifferent && isTyping
         
         otherParticipantIsTyping = isTyping
         
@@ -462,51 +462,56 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func replaceMessageEventsWithEvents(_ newMessageEvents: [Event]) {
-        dataSource.reloadWithEvents(newMessageEvents)
+    func reloadWithEvents(_ events: [Event]) {
+        let countBefore = dataSource.allMessages.count
         
+        dataSource.reloadWithEvents(events)
         tableView.reloadData()
-        
         updateSubviewVisibility()
+        
+        if dataSource.allMessages.count != countBefore {
+            scrollToBottomAnimated(false)
+        }
+        return
     }
     
-    func insertNewMessageEvent(_ event: Event, completion: (() -> Void)? = nil) {
-        let wasNearBottom = isNearBottom()
-        
-        let indexPath = dataSource.addEvent(event)
+    func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        guard let indexPath = dataSource.addMessage(message) else {
+            DebugLog.w(caller: self, "Failed to add message to view.")
+            return
+        }
         
         // Only animate the message if the user is near the bottom
-        if cellAnimationsEnabled && wasNearBottom, let message = event.chatMessage {
+        let wasNearBottom = isNearBottom()
+        if cellAnimationsEnabled && wasNearBottom {
             messagesThatShouldAnimate.insert(message)
         }
         
-        if let indexPath = indexPath {
-            var previousIndexPath: IndexPath?
-            if (indexPath as NSIndexPath).row > 0 {
-                previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
-            }
-            
-            if SystemVersionChecker.is8orEarlier() {
-                UIView.performWithoutAnimation({
-                    self.tableView.reloadData()
-                })
-            } else {
-                UIView.performWithoutAnimation({
-                    self.tableView.beginUpdates()
-                    if let previousIndexPath = previousIndexPath {
-                        self.tableView.reloadRows(at: [previousIndexPath], with: .none)
-                    }
-                    if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
-                        self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
-                    } else {
-                        self.tableView.insertRows(at: [indexPath], with: .none)
-                    }
-                    self.tableView.endUpdates()
-                })
-            }
-            
-            focusAccessibilityOnLastMessage()
+        var previousIndexPath: IndexPath?
+        if (indexPath as NSIndexPath).row > 0 {
+            previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
         }
+        
+        if SystemVersionChecker.is8orEarlier() {
+            UIView.performWithoutAnimation({
+                self.tableView.reloadData()
+            })
+        } else {
+            UIView.performWithoutAnimation({
+                self.tableView.beginUpdates()
+                if let previousIndexPath = previousIndexPath {
+                    self.tableView.reloadRows(at: [previousIndexPath], with: .none)
+                }
+                if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
+                    self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
+                } else {
+                    self.tableView.insertRows(at: [indexPath], with: .none)
+                }
+                self.tableView.endUpdates()
+            })
+        }
+        
+        focusAccessibilityOnLastMessage()
         
         if wasNearBottom {
             scrollToBottomAnimated(cellAnimationsEnabled)
@@ -517,9 +522,9 @@ extension ChatMessagesView {
         completion?()
     }
     
-    func refreshMessageEvent(event: Event, completion: (() -> Void)? = nil) {
-        if let indexPathToUpdate = dataSource.updateMessage(with: event) {
-            tableView.reloadRows(at: [indexPathToUpdate], with: .automatic)
+    func updateMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        if let indexPath = dataSource.updateMessage(message) {
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         completion?()
     }

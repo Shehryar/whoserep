@@ -166,11 +166,11 @@ extension ConversationManager {
     
     // MARK: Generic
     
-    func sendDemoMessageEvent(_ message: Event?) {
-        guard let message = message else { return }
+    func sendDemoMessageEvent(_ event: Event?) {
+        guard let message = event?.chatMessage else { return }
         
         Dispatcher.delay(600, closure: {
-            self.delegate?.conversationManager(self, didReceiveMessageEvent: message)
+            self.delegate?.conversationManager(self, didReceive: message)
         })
     }
     

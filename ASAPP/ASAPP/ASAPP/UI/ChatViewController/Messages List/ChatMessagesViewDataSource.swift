@@ -116,15 +116,13 @@ extension ChatMessagesViewDataSource {
             return event1.eventLogSeq < event2.eventLogSeq
         }
         for event in sortedEvents {
-            _ = addEvent(event)
+            if let message = event.chatMessage {
+                _ = addMessage(message)
+            }
         }
     }
     
-    func addEvent(_ event: Event) -> IndexPath? {
-        guard let message = event.chatMessage else {
-            return nil
-        }
-        
+    func addMessage(_ message: ChatMessage) -> IndexPath? {
         allMessages.append(message)
         
         // Empty case: Insert at beginning
@@ -147,11 +145,7 @@ extension ChatMessagesViewDataSource {
         return getIndexPath(of: message)
     }
     
-    func updateMessage(with event: Event) -> IndexPath? {
-        guard let message = event.chatMessage else {
-            return nil
-        }
-        
+    func updateMessage(_ message: ChatMessage) -> IndexPath? {
         guard let index = getIndex(of: message),
             let indexPath = getIndexPath(of: message) else {
                 DebugLog.w(caller: self, "Unable to locate message for updating.")

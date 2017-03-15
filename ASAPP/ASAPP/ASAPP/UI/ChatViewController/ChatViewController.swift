@@ -33,7 +33,7 @@ class ChatViewController: UIViewController {
     
     fileprivate let simpleStore: ChatSimpleStore
     fileprivate let conversationManager: ConversationManager
-    fileprivate var actionableMessage: EventSRSResponse?
+    fileprivate var quickRepliesMessage: ChatMessage?
     
     // MARK: Properties: Status
     
@@ -126,7 +126,7 @@ class ChatViewController: UIViewController {
         // Subviews
         
         chatMessagesView.delegate = self
-        chatMessagesView.replaceMessageEventsWithEvents(conversationManager.storedMessages)
+        chatMessagesView.reloadWithEvents(conversationManager.storedMessages)
         
         if isLiveChat {
             showPredictiveOnViewAppear = false
@@ -393,12 +393,8 @@ class ChatViewController: UIViewController {
     class func getIsLiveChatFrom(_ events: [Event]) -> Bool {
         var liveChat = false
         for (_, event) in events.enumerated().reversed() {
-            if event.eventType == .newRep || event.eventType == .switchSRSToChat {
-                liveChat = true
-                break
-            }
-            if event.eventType == .conversationEnd || event.eventType == .customerConversationEnd {
-                liveChat = false
+            if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
+                liveChat = liveChatStatus
                 break
             }
         }
@@ -568,7 +564,7 @@ extension ChatViewController {
         
         let repliesHeight: CGFloat = quickRepliesActionSheet.preferredDisplayHeight()
         var repliesTop = view.bounds.height
-        if actionableMessage != nil && !isLiveChat {
+        if quickRepliesMessage != nil && !isLiveChat {
             repliesTop -= repliesHeight
         }
         quickRepliesActionSheet.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
@@ -580,7 +576,7 @@ extension ChatViewController {
         chatMessagesView.contentInsetTop = minVisibleY
         
         
-        if actionableMessage != nil {
+        if quickRepliesMessage != nil {
             chatInputView.endEditing(true)
         }
     }
@@ -677,7 +673,7 @@ extension ChatViewController {
                 return false
             }
             
-            simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: quickRepliesActionSheet.eventIds)
+            simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
             chatMessagesView.scrollToBottomAnimated(true)
         
             conversationManager.sendButtonItemSelection(
@@ -743,8 +739,7 @@ extension ChatViewController {
             
         case .LeaveFeedback:
             let leaveFeedbackViewController = LeaveFeedbackViewController()
-            // TODO: Get Issue Id
-//            leaveFeedbackViewController.issueId = event.issueId
+            leaveFeedbackViewController.issueId = message.issueId
             leaveFeedbackViewController.delegate = self
             present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
@@ -931,63 +926,47 @@ extension ChatViewController {
     // MARK: Showing
     
     func showQuickRepliesActionSheetIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
-        if let actionableEvents = simpleStore.getSuggestedReplyEvents(fromEvents: chatMessagesView.allEvents) {
-            showQuickRepliesActionSheetIfNecessary(withEvents: actionableEvents, animated: animated, completion: completion)
+        if let quickReplyMessages = simpleStore.getQuickReplyMessages(fromEvents: chatMessagesView.allEvents) {
+            showQuickRepliesActionSheetIfNecessary(with: quickReplyMessages, animated: animated, completion: completion)
         } else {
             showQuickRepliesActionSheetIfNecessary(withEvent: chatMessagesView.mostRecentEvent, animated: animated)
         }
     }
     
     private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?, animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard let events = events else { return }
-        guard actionableMessage == nil else { return }
-        
-        for event in events {
-            if event.eventType != .srsResponse || event.srsResponse?.buttonItems == nil {
-                DebugLog.d("Passed non-srsResponse event to showQuickRepliesActionSheetIfNecessary")
+        guard let messages = messages, quickRepliesMessage == nil else { return }
+    
+        for message in messages {
+            if message.quickReplies == nil {
+                DebugLog.d("Passed message without quickReplies to showQuickRepliesActionSheetIfNecessary")
                 return
             }
         }
         
-        actionableMessage = events.last?.srsResponse
+        quickRepliesMessage = messages.last
         
         quickRepliesActionSheet.reload(with: messages)
         conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
         
-        simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: quickRepliesActionSheet.actionableEventLogSeqs)
+        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
     }
     
-    private func showQuickRepliesActionSheetIfNecessary(withEvent event: Event?, animated: Bool = true) {
-        guard let event = event else {
-            return
-        }
-        guard event.eventType == .srsResponse && actionableMessage == nil else {
-            return
-        }
-        guard let srsResponse = event.srsResponse,
-            let _ = srsResponse.buttonItems else {
-                return
-        }
+    func showQuickRepliesActionSheet(with message: ChatMessage, animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard message.quickReplies != nil && !isLiveChat else { return }
         
-        showQuickRepliesActionSheet(withSRSResponse: srsResponse, forEvent: event, animated: animated)
-    }
-    
-    func showQuickRepliesActionSheet(withSRSResponse srsResponse: EventSRSResponse, forEvent event: Event, animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard srsResponse.buttonItems != nil && !isLiveChat else { return }
-        
-        actionableMessage = srsResponse
-        quickRepliesActionSheet.setActionableMessage(srsResponse, forEvent: event, animated: animated)
+        quickRepliesMessage = message
+        quickRepliesActionSheet.add(message: message, animated: animated)
         conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
         
-        simpleStore.updateSuggestedReplyEventLogSeqs(eventLogSeqs: quickRepliesActionSheet.actionableEventLogSeqs)
+        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
     }
     
     // MARK: Hiding
     
     func clearquickRepliesActionSheet(_ animated: Bool = true, completion: (() -> Void)? = nil) {
-        actionableMessage = nil
+        quickRepliesMessage = nil
         
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: { [weak self] in
             self?.quickRepliesActionSheet.clear()
@@ -1027,32 +1006,49 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
 
 extension ChatViewController: ConversationManagerDelegate {
     
-    func conversationManager(_ manager: ConversationManager, didReceiveMessageEvent messageEvent: Event) {
-        provideHapticFeedbackForMessageIfNecessary(message: messageEvent)
-        
-        if messageEvent.eventType == .newRep && messageEvent.srsResponse != nil {
+    // New Messages
+    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage) {
+        provideHapticFeedbackForMessageIfNecessary(message)
+        if message.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
         
-        chatMessagesView.insertNewMessageEvent(messageEvent) { [weak self] in
-            if messageEvent.eventType == .srsResponse {
-                self?.didReceiveSRSMessage(message: messageEvent)
-            } else if !messageEvent.isCustomerEvent {
+        chatMessagesView.addMessage(message) { [weak self] in
+            if message.quickReplies != nil {
+                self?.didReceiveMessageWithQuickReplies(message)
+            } else if message.isReply {
                 self?.clearquickRepliesActionSheet(true, completion: nil)
             }
         }
-    }
-    
-    func conversationManager(_ manager: ConversationManager, didReceiveUpdatedMessageEvent messageEvent: Event) {
-        chatMessagesView.refreshMessageEvent(event: messageEvent)
-    }
-    
-    func conversationManager(_ manager: ConversationManager, didUpdateRemoteTypingStatus isTyping: Bool) {
-        chatMessagesView.updateOtherParticipantTypingStatus(isTyping)
-    }
-    
-    func conversationManager(_ manager: ConversationManager, connectionStatusDidChange isConnected: Bool) {
         
+    }
+    
+    // Updated Messages
+    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage) {
+        chatMessagesView.updateMessage(message)
+    }
+    
+    // Typing Status
+    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool) {
+        chatMessagesView.updateTypingStatus(isTyping)
+    }
+    
+    // Live Chat Status
+    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
+        let wasLiveChat = self.isLiveChat
+        self.isLiveChat = isLiveChat
+        
+        if !wasLiveChat && self.isLiveChat {
+            conversationManager.trackLiveChatBegan(issueId: event.issueId)
+        } else if wasLiveChat && !self.isLiveChat {
+            conversationManager.trackLiveChatEnded(issueId: event.issueId)
+        }
+        
+        conversationManager.saveCurrentEvents(async: true)
+    }
+    
+    // Connection Status
+    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool) {
         if isConnected  {
             connectedAtLeastOnce = true
             delayedDisconnectTime = nil
@@ -1074,63 +1070,41 @@ extension ChatViewController: ConversationManagerDelegate {
         DebugLog.d("ChatViewController: Connection -> \(isConnected ? "connected" : "not connected")")
     }
     
-    func conversationManager(_ manager: ConversationManager, conversationStatusEventReceived event: Event, isLiveChat: Bool) {
-        let wasLiveChat = self.isLiveChat
-        self.isLiveChat = isLiveChat
-        
-        if !wasLiveChat && self.isLiveChat {
-            conversationManager.trackLiveChatBegan(issueId: event.issueId)
-        } else if wasLiveChat && !self.isLiveChat {
-            conversationManager.trackLiveChatEnded(issueId: event.issueId)
-        }
-        
-        conversationManager.saveCurrentEvents(async: true)
-    }
-    
     // MARK: Handling Received Messages
     
-    func provideHapticFeedbackForMessageIfNecessary(message: Event) {
-        switch message.eventType {
-        case .srsResponse, .textMessage, .pictureMessage:
-            if message.isReply, #available(iOS 10.0, *) {
-                if let generator = hapticFeedbackGenerator as? UIImpactFeedbackGenerator {
-                    generator.impactOccurred()
-                }
+    func provideHapticFeedbackForMessageIfNecessary(_ message: ChatMessage) {
+        if message.isReply, #available(iOS 10.0, *) {
+            if let generator = hapticFeedbackGenerator as? UIImpactFeedbackGenerator {
+                generator.impactOccurred()
             }
-            break
-            
-        default:
-            // no-op
-            break
         }
     }
     
-    func didReceiveSRSMessage(message: Event) {
-        guard let srsResponse = message.srsResponse else { return }
+    func didReceiveMessageWithQuickReplies(_ message: ChatMessage) {
+        guard let quickReplies = message.quickReplies else {
+            return
+        }
         
         // Immediate Action
-        if let immediateAction = srsResponse.immediateAction {
+        if let autoSelectAction = message.getAutoSelectQuickReply() {
             Dispatcher.delay(1200, closure: { [weak self] in
-                _ = self?.handleSRSButtonItemSelection(immediateAction, fromEvent: message)
+                _ = self?.handleSRSButtonItemSelection(autoSelectAction, for: message)
             })
         }
-            // Show Suggested Replies View
-        else if srsResponse.buttonItems != nil {
+        
+        // Show Suggested Replies View
+        else {
             // Already Visible
             if quickRepliesActionSheet.frame.minY < view.bounds.height {
                 Dispatcher.delay(200, closure: { [weak self] in
-                    self?.showQuickRepliesActionSheet(withSRSResponse: srsResponse, forEvent: message)
+                    self?.showQuickRepliesActionSheet(with: message)
                 })
             } else {
                 // Not visible yet
                 Dispatcher.delay(1000, closure: { [weak self] in
-                    self?.showQuickRepliesActionSheet(withSRSResponse: srsResponse, forEvent: message)
+                    self?.showQuickRepliesActionSheet(with: message)
                 })
             }
-        }
-            // Hide Suggested Replies View
-        else {
-            clearquickRepliesActionSheet()
         }
     }
 }
@@ -1256,18 +1230,8 @@ extension ChatViewController {
     
     func reloadMessageEvents() {
         conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
-            
-            if let fetchedEvents = fetchedEvents,
-                let chatMessagesView = self?.chatMessagesView {
-                
-                let shouldScroll = chatMessagesView.numberOfEvents != fetchedEvents.count
-                
-                chatMessagesView.replaceMessageEventsWithEvents(fetchedEvents)
-                
-                if shouldScroll {
-                    chatMessagesView.scrollToBottomAnimated(false)
-                }
-                
+            if let fetchedEvents = fetchedEvents {
+                self?.chatMessagesView.reloadWithEvents(fetchedEvents)
                 self?.updateIsLiveChat(withEvents: fetchedEvents)
             }
         }
