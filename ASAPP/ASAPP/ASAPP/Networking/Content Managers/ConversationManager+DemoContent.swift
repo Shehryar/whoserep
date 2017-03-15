@@ -138,6 +138,14 @@ extension ConversationManager {
         
         return false
     }
+    
+    private func _sendMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
+        let path = "customer/SendTextMessage"
+        let params = ["Text" : message as AnyObject]
+        socketConnection.sendRequest(withPath: path,
+                                     params: params,
+                                     requestHandler: completion)
+    }
 }
 
 // MARK:- Overriding Incoming Messages

@@ -102,7 +102,7 @@ class ChatViewController: UIViewController {
         self.conversationManager = ConversationManager(withCredentials: credentials)
         self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
-        self.isLiveChat = ChatViewController.getIsLiveChatFrom(self.conversationManager.storedMessages)
+        self.isLiveChat = conversationManager.isLiveChat
         super.init(nibName: nil, bundle: nil)
         
         automaticallyAdjustsScrollViewInsets = false
@@ -126,7 +126,7 @@ class ChatViewController: UIViewController {
         // Subviews
         
         chatMessagesView.delegate = self
-        chatMessagesView.reloadWithEvents(conversationManager.storedMessages)
+        chatMessagesView.reloadWithEvents(conversationManager.events)
         
         if isLiveChat {
             showPredictiveOnViewAppear = false
@@ -386,27 +386,6 @@ class ChatViewController: UIViewController {
             conversationManager.enterConversation()
             conversationManager.startSRS()
         }
-    }
-    
-    // MARK: Updates
-    
-    class func getIsLiveChatFrom(_ events: [Event]) -> Bool {
-        var liveChat = false
-        for (_, event) in events.enumerated().reversed() {
-            if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
-                liveChat = liveChatStatus
-                break
-            }
-        }
-        
-        return liveChat
-        
-    }
-    
-    func updateIsLiveChat(withEvents events: [Event]) {
-        isLiveChat = ChatViewController.getIsLiveChatFrom(events)
-        
-        DebugLog.d("Updated isLiveChat = \(isLiveChat ? "TRUE" : "FALSE")")
     }
     
     func updateViewForLiveChat(animated: Bool = true) {
@@ -727,10 +706,6 @@ extension ChatViewController {
             setPredictiveViewControllerVisible(true, animated: true, completion: nil)
             return false
             
-        case .BeginLiveChat:
-            conversationManager.sendSRSSwitchToChat()
-            return true
-            
         case .AddCreditCard:
             let creditCardViewController = CreditCardInputViewController()
             creditCardViewController.delegate = self
@@ -926,14 +901,15 @@ extension ChatViewController {
     // MARK: Showing
     
     func showQuickRepliesActionSheetIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
-        if let quickReplyMessages = simpleStore.getQuickReplyMessages(fromEvents: chatMessagesView.allEvents) {
+        if let quickReplyMessages = simpleStore.getQuickReplyMessages(fromEvents: conversationManager.events) {
             showQuickRepliesActionSheetIfNecessary(with: quickReplyMessages, animated: animated, completion: completion)
-        } else {
-            showQuickRepliesActionSheetIfNecessary(withEvent: chatMessagesView.mostRecentEvent, animated: animated)
         }
     }
     
-    private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?, animated: Bool = true, completion: (() -> Void)? = nil) {
+    private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?,
+                                                        animated: Bool = true,
+                                                        completion: (() -> Void)? = nil) {
+        
         guard let messages = messages, quickRepliesMessage == nil else { return }
     
         for message in messages {
@@ -952,7 +928,10 @@ extension ChatViewController {
         simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
     }
     
-    func showQuickRepliesActionSheet(with message: ChatMessage, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func showQuickRepliesActionSheet(with message: ChatMessage,
+                                     animated: Bool = true,
+                                     completion: (() -> Void)? = nil) {
+        
         guard message.quickReplies != nil && !isLiveChat else { return }
         
         quickRepliesMessage = message
@@ -1229,10 +1208,10 @@ extension ChatViewController {
     }
     
     func reloadMessageEvents() {
-        conversationManager.getLatestMessages { [weak self] (fetchedEvents, error) in
-            if let fetchedEvents = fetchedEvents {
-                self?.chatMessagesView.reloadWithEvents(fetchedEvents)
-                self?.updateIsLiveChat(withEvents: fetchedEvents)
+        conversationManager.getEvents { [weak self] (fetchedEvents, error) in
+            if let strongSelf = self, let fetchedEvents = fetchedEvents {
+                strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
+                strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
             }
         }
     }

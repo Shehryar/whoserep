@@ -12,25 +12,25 @@ import UIKit
 
 extension IncomingMessage {
     
-    typealias EventList = [Event]
+    typealias Events = [Event]
     
     typealias EventsJSONArray = [[String : AnyObject]]
     
     typealias ErrorMessage = String
     
-    func parseEventList() -> (EventList?, EventsJSONArray?, ErrorMessage?) {
+    func parseEvents() -> (Events?, EventsJSONArray?, ErrorMessage?) {
         
-        var eventList: [Event]?
+        var events: [Event]?
         var eventsJSONArray: [[String : AnyObject]]?
         var errorMessage: String?
         
         if type == .Response {
             eventsJSONArray = (body?["EventList"] as? [[String : AnyObject]] ?? body?["Events"] as? [[String : AnyObject]])
             if let eventsJSONArray = eventsJSONArray {
-                eventList = [Event]()
+                events = [Event]()
                 for eventJSON in eventsJSONArray {
                     if let event = Event.fromJSON(eventJSON) {
-                        eventList?.append(event)
+                        events?.append(event)
                     }
                 }
                 
@@ -39,13 +39,13 @@ extension IncomingMessage {
             errorMessage = debugError
         }
         
-        let numberOfEventsFetched = (eventList != nil ? eventList!.count : 0)
+        let numberOfEventsFetched = (events != nil ? events!.count : 0)
         if numberOfEventsFetched == 0 && errorMessage == nil {
             errorMessage = "No results returned."
         }
         
         DebugLog.d("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
         
-        return (eventList, eventsJSONArray, errorMessage)
+        return (events, eventsJSONArray, errorMessage)
     }
 }

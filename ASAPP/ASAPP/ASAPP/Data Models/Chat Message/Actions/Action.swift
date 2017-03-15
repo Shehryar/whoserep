@@ -22,7 +22,6 @@ enum ActionType: String {
 
 enum AppAction: String {
     case Ask = "ask"
-    case BeginLiveChat = "live_chat"
     case AddCreditCard = "addCreditCard"
     case LeaveFeedback = "leaveFeedback"
 }

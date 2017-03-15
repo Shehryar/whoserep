@@ -48,6 +48,17 @@ enum EventType: Int {
             return nil
         }
     }
+    
+    static func getLiveChatStatus(from events: [Event]) -> Bool {
+        var liveChat = false
+        for (_, event) in events.enumerated().reversed() {
+            if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
+                liveChat = liveChatStatus
+                break
+            }
+        }
+        return liveChat
+    }
 }
 
 enum EphemeralType: Int {
