@@ -85,7 +85,8 @@ class ChatTextBubbleView: UIView {
     
     // MARK: Data Detectors
     
-    var dataDetectorTypes: UIDataDetectorTypes = [.phoneNumber, .link, .address]
+    let textCheckingTypes: NSTextCheckingResult.CheckingType = [.link, .phoneNumber]
+    let dataDetectorTypes: UIDataDetectorTypes = [.link, .phoneNumber]
     
     var dataDetector: NSDataDetector?
     
@@ -98,10 +99,6 @@ class ChatTextBubbleView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        if #available(iOS 10.0, *) {
-            dataDetectorTypes = [.phoneNumber, .link, .address, .shipmentTrackingNumber, .flightNumber]
-        }
-        
         backgroundColor = ASAPP.styles.backgroundColor1
         
         bubbleView.backgroundColor = ASAPP.styles.backgroundColor1
@@ -250,7 +247,14 @@ extension ChatTextBubbleView {
             return false
         }
         
-        dataDetector = try? (dataDetector ?? NSDataDetector(types: NSTextCheckingTypes(dataDetectorTypes.rawValue)))
+        if dataDetector == nil {
+            do {
+                try dataDetector = NSDataDetector(types: textCheckingTypes.rawValue)
+            } catch {
+                DebugLog.e(caller: self, "Encountered error with data detector for \(textCheckingTypes)...: \(error)")
+            }
+        }
+        
         if let dataDetector = dataDetector {
             return dataDetector.numberOfMatches(in: text, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, text.characters.count)) > 0
         }
