@@ -911,7 +911,6 @@ extension ChatViewController {
     private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?,
                                                         animated: Bool = true,
                                                         completion: (() -> Void)? = nil) {
-        
         guard let messages = messages, quickRepliesMessage == nil else { return }
     
         for message in messages {
@@ -933,7 +932,6 @@ extension ChatViewController {
     func showQuickRepliesActionSheet(with message: ChatMessage,
                                      animated: Bool = true,
                                      completion: (() -> Void)? = nil) {
-        
         guard message.quickReplies != nil && !isLiveChat else { return }
         
         quickRepliesMessage = message
