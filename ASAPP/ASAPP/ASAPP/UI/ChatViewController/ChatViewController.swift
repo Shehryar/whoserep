@@ -953,7 +953,7 @@ extension ChatViewController {
         guard actionableMessage == nil else { return }
         
         for event in events {
-            if event.eventType != .srsResponse || event.srsResponse?.buttonItems == nil {
+            if event.srsResponse?.buttonItems == nil {
                 DebugLog.d("Passed non-srsResponse event to showSuggestedRepliesViewIfNecessary")
                 return
             }
@@ -969,9 +969,6 @@ extension ChatViewController {
     
     private func showSuggestedRepliesViewIfNecessary(withEvent event: Event?, animated: Bool = true) {
         guard let event = event else {
-            return
-        }
-        guard event.eventType == .srsResponse && actionableMessage == nil else {
             return
         }
         guard let srsResponse = event.srsResponse,
@@ -1050,7 +1047,7 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         chatMessagesView.insertNewMessageEvent(messageEvent) { [weak self] in
-            if messageEvent.eventType == .srsResponse {
+            if messageEvent.srsResponse != nil {
                 self?.didReceiveSRSMessage(message: messageEvent)
             } else if !messageEvent.isCustomerEvent {
                 self?.clearSuggestedRepliesView(true, completion: nil)

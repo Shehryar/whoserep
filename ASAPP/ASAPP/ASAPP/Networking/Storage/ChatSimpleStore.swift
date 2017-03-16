@@ -96,7 +96,7 @@ extension ChatSimpleStore {
                 continue
             }
             
-            if event.eventType == .srsResponse {
+            if event.srsResponse != nil {
                 return (true, event)
             } else {
                 return (false, nil)
@@ -117,7 +117,7 @@ extension ChatSimpleStore {
             return nil
         }
         guard mostRecentReplyIsSRS && eventLogSeqs.contains(lastSRSEvent.eventLogSeq) else {
-            return nil
+            return [lastSRSEvent]
         }
 
         let eventLogSeqSet = Set(eventLogSeqs)
