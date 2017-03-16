@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        Crashlytics.sharedInstance().debugMode = true
+        Fabric.with([Crashlytics.self])
+        
         ASAPP.loadFontsIfNecessary()
         ASAPP.debugLogLevel = .debug
         
@@ -34,9 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appSettings = buildAppSettings()
         
         homeController = HomeViewController(appSettings: appSettings)
-        
-        Fabric.with([Crashlytics.self])
-        
+    
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationController(rootViewController: homeController)
         window?.makeKeyAndVisible()

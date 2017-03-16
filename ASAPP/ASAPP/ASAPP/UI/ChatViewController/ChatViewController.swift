@@ -1224,6 +1224,12 @@ extension ChatViewController {
             if let strongSelf = self, let fetchedEvents = fetchedEvents {
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
+                
+                if fetchedEvents.last?.eventType == .conversationEnd {
+                    Dispatcher.delay(1000, closure: { [weak self] in
+                        self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
+                    })
+                }
             }
         }
     }

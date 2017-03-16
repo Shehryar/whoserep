@@ -12,7 +12,7 @@ class TooltipPresenter: NSObject {
 
     let tooltipView: TooltipView
     
-    let tappableView = UIView()
+    let tappableView = TooltipContainerView()
     
     var onDismiss: (() -> Void)?
     
@@ -22,12 +22,10 @@ class TooltipPresenter: NSObject {
         
         tooltipView.alpha = 0.0
         
-        tappableView.backgroundColor = UIColor.clear
-        tappableView.isUserInteractionEnabled = true
-        tappableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TooltipPresenter.dismiss)))
+        tappableView.onTouch = { [weak self] in
+            self?.dismiss()
+        }
         tappableView.addSubview(tooltipView)
-        
-        tappableView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(TooltipPresenter.didPan(with:))))
     }
 }
 
@@ -60,12 +58,6 @@ extension TooltipPresenter {
 // MARK:- Dismissal
 
 extension TooltipPresenter {
-    
-    func didPan(with gesture: UIPanGestureRecognizer) {
-        if gesture.state == .began {
-            dismiss()
-        }
-    }
     
     func dismiss() {
         dismissAnimated(true)
