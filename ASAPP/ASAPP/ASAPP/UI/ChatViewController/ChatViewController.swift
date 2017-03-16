@@ -391,19 +391,13 @@ class ChatViewController: UIViewController {
     // MARK: Updates
     
     class func getIsLiveChatFrom(_ events: [Event]) -> Bool {
-        var liveChat = false
         for (_, event) in events.enumerated().reversed() {
-            if event.eventType == .newRep || event.eventType == .switchSRSToChat {
-                liveChat = true
-                break
-            }
-            if event.eventType == .conversationEnd || event.eventType == .customerConversationEnd {
-                liveChat = false
-                break
+            if let liveChat = EventType.getLiveChatStatus(from: event.eventType) {
+                return liveChat
             }
         }
         
-        return liveChat
+        return false
         
     }
     

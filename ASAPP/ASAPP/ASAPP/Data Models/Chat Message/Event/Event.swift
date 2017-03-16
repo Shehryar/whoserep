@@ -14,7 +14,7 @@ enum EventType: Int {
     case newRep = 3
     case conversationEnd = 4
     case pictureMessage = 5
-    case customerConversationEnd = 15
+    case conversationTimedOut = 10
     case srsResponse = 22
     case srsEcho = 23
     case srsAction = 24
@@ -28,12 +28,20 @@ enum EventType: Int {
              srsAction,
              newRep,
              conversationEnd,
-             customerConversationEnd,
+             conversationTimedOut,
              switchSRSToChat:
             return true
             
         default:
             return false
+        }
+    }
+    
+    static func getLiveChatStatus(from type: EventType) -> Bool? {
+        switch type {
+        case conversationEnd, conversationTimedOut: return false
+        case newRep, switchSRSToChat: return true
+        default: return nil
         }
     }
 }
@@ -113,7 +121,7 @@ class Event: NSObject {
         
         self.uniqueIdentifier = UUID().uuidString
         self.isCustomerEvent = eventFlags == 1
-        self.isReply = !self.isCustomerEvent
+        self.isReply = !self.isCustomerEvent || eventType == .conversationEnd
         self.eventDate = Date(timeIntervalSince1970: eventTime)
         
         let dateFormatter = DateFormatter()

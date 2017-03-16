@@ -17,7 +17,7 @@ enum MessageListPosition {
 
 class ChatMessagesViewCellMaster: NSObject {
 
-    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .customerConversationEnd, .conversationEnd]
+    let supportedEventTypes: Set<EventType> = [.textMessage, .pictureMessage, .srsResponse, .newRep, .conversationTimedOut, .conversationEnd]
     
     enum MessageCellType: String {
         case none = "none"

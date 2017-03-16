@@ -435,11 +435,9 @@ extension ConversationManager: SocketConnectionDelegate {
         
         
         // Entering / Exiting Live Chat
-        if [EventType.conversationEnd, EventType.customerConversationEnd, EventType.switchSRSToChat, EventType.newRep].contains(event.eventType) {
-            let isLiveChat = event.eventType == .switchSRSToChat || event.eventType == .newRep
+        if let isLiveChat = EventType.getLiveChatStatus(from: event.eventType) {
             delegate?.conversationManager(self, conversationStatusEventReceived: event, isLiveChat: isLiveChat)
         }
-        
         
         // Typing Status
         if event.ephemeralType == .typingStatus {
@@ -465,7 +463,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Message Event
         switch event.eventType {
-        case .srsResponse, .conversationEnd, .customerConversationEnd, .switchSRSToChat, .newRep:
+        case .srsResponse, .conversationEnd, .conversationTimedOut, .switchSRSToChat, .newRep:
             Dispatcher.delay(600, closure: {
                 self.delegate?.conversationManager(self, didReceiveMessageEvent: event)
             })
