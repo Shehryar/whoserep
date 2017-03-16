@@ -476,10 +476,12 @@ extension ChatViewController {
         UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
     }
     
-    func showAskButtonTooltipIfNecessary() {
-        guard !showPredictiveOnViewAppear && !predictiveVCVisible && !isLiveChat
-            && numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
-                return
+    func showAskButtonTooltipIfNecessary(showRegardlessCount: Bool = false) {
+        guard !showPredictiveOnViewAppear && !predictiveVCVisible && !isLiveChat else {
+            return
+        }
+        guard showRegardlessCount || numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
+            return
         }
         
         if askTooltipPresenter != nil {
@@ -1039,6 +1041,12 @@ extension ChatViewController: ConversationManagerDelegate {
         
         if messageEvent.eventType == .newRep && messageEvent.srsResponse != nil {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
+        }
+        
+        if messageEvent.eventType == .conversationEnd {
+            Dispatcher.delay(1000, closure: { [weak self] in
+                self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
+            })
         }
         
         chatMessagesView.insertNewMessageEvent(messageEvent) { [weak self] in
