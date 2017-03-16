@@ -13,16 +13,22 @@ class ChatMessageAttachment: NSObject {
     enum AttachmentType: String {
         case image = "image"
         case template = "template"
+        case itemList = "item_list"
+        case itemCarousel = "item_carousel"
     }
     
     let type: AttachmentType
     let image: ChatMessageImage?
     let component: Component?
+    let itemList: SRSItemList?
+    let itemCarousel: SRSItemCarousel?
     
     init(image: ChatMessageImage) {
         self.type = .image
         self.image = image
         self.component = nil
+        self.itemList = nil
+        self.itemCarousel = nil
         super.init()
     }
     
@@ -30,6 +36,26 @@ class ChatMessageAttachment: NSObject {
         self.type = .template
         self.image = nil
         self.component = component
+        self.itemList = nil
+        self.itemCarousel = nil
+        super.init()
+    }
+    
+    init(itemList: SRSItemList) {
+        self.type = .itemList
+        self.image = nil
+        self.component = nil
+        self.itemList = itemList
+        self.itemCarousel = nil
+        super.init()
+    }
+    
+    init(itemCarousel: SRSItemCarousel) {
+        self.type = .itemCarousel
+        self.image = nil
+        self.component = nil
+        self.itemList = nil
+        self.itemCarousel = itemCarousel
         super.init()
     }
 }
@@ -68,6 +94,10 @@ extension ChatMessageAttachment {
                 return ChatMessageAttachment(component: component)
             }
             break
+            
+        case .itemList, .itemCarousel:
+            // No-op
+            break;
         }
         
         return nil

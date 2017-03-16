@@ -93,6 +93,7 @@ extension ChatSimpleStore {
                     message.quickReplies != nil {
                     return message
                 }
+                return nil
             }
         }
         return nil

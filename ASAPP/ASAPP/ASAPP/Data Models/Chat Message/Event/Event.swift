@@ -136,7 +136,7 @@ class Event: NSObject {
         
         self.uniqueIdentifier = UUID().uuidString
         self.isCustomerEvent = eventFlags == 1
-        self.isReply = !self.isCustomerEvent
+        self.isReply = !self.isCustomerEvent || eventType == .conversationEnd
         self.eventDate = Date(timeIntervalSince1970: eventTime)
         
         let dateFormatter = DateFormatter()
