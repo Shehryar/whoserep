@@ -36,6 +36,7 @@ class SRSItemListView: UIView {
         layer.borderColor = ASAPP.styles.separatorColor1.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 6
+        layer.masksToBounds = true
         
         itemListView.backgroundColor = backgroundColor
         itemListView.contentInset = UIEdgeInsets(top: 25, left: 40, bottom: 25, right: 40)
