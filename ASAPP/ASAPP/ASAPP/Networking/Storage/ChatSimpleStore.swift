@@ -92,15 +92,14 @@ extension ChatSimpleStore {
         }
         
         for (_, event) in events.enumerated().reversed() {
-            if event.isCustomerEvent {
-                continue
+            if event.isReply {
+                if event.srsResponse != nil {
+                    return (true, event)
+                } else {
+                    return (false, nil)
+                }
             }
             
-            if event.srsResponse != nil {
-                return (true, event)
-            } else {
-                return (false, nil)
-            }
         }
         return (false, nil)
     }
