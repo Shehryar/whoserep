@@ -720,6 +720,10 @@ extension ChatViewController {
             leaveFeedbackViewController.delegate = self
             present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
+            
+        case .jsonView:
+            // TODO: JSONView
+            return false
         }
     }
     

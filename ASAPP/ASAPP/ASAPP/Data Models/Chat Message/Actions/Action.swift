@@ -24,6 +24,7 @@ enum AppAction: String {
     case Ask = "ask"
     case AddCreditCard = "addCreditCard"
     case LeaveFeedback = "leaveFeedback"
+    case jsonView   = "json_view"
 }
 
 // MARK:- Action

@@ -9,7 +9,7 @@
         "label": "VIEW ALL",
         "value": {
           "content": {
-            "action": "jsonView",
+            "action": "json_view",
             "context" : {
               "title" : "Transaction History",
               "request_path" : "/getTransactionHistory"
