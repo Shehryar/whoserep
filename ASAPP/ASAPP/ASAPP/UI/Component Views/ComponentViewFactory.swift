@@ -40,4 +40,6 @@ enum ComponentViewFactory {
 protocol ComponentView {
     
     var component: Component? { get set }
+    
+    var contentInset: UIEdgeInsets { get set }
 }
