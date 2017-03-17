@@ -65,6 +65,7 @@
 		30099DE31D3EE40400171D56 /* ASAPP.h in Headers */ = {isa = PBXBuildFile; fileRef = 30099DE11D3EE40400171D56 /* ASAPP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
 		3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DE1D5B92760036D74E /* ColorExtensions.swift */; };
+		301B79271E7C598200186638 /* ChatMessageAttachmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B79261E7C598200186638 /* ChatMessageAttachmentCell.swift */; };
 		301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BE91DAD7D23002BF4D9 /* device-tracking.json */; };
 		301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEB1DAD804C002BF4D9 /* map-device.png */; };
 		301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */; };
@@ -370,6 +371,7 @@
 		30099DE21D3EE40400171D56 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
 		3019F5DE1D5B92760036D74E /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		301B79261E7C598200186638 /* ChatMessageAttachmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachmentCell.swift; sourceTree = "<group>"; };
 		301C4BE91DAD7D23002BF4D9 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
 		301C4BEB1DAD804C002BF4D9 /* map-device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device.png"; sourceTree = "<group>"; };
 		301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device@2x.png"; sourceTree = "<group>"; };
@@ -1310,6 +1312,7 @@
 			children = (
 				30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */,
 				302A20C41E5F73AD007C522A /* ChatMessageCell.swift */,
+				301B79261E7C598200186638 /* ChatMessageAttachmentCell.swift */,
 				302A20C81E5F8AEF007C522A /* ChatItemListMessageCell.swift */,
 				302A20CA1E5F9524007C522A /* ChatItemCarouselMessageCell.swift */,
 				302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */,
@@ -1662,6 +1665,7 @@
 				285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
+				301B79271E7C598200186638 /* ChatMessageAttachmentCell.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
 				30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */,

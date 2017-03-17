@@ -47,6 +47,7 @@ class ChatMessagesViewCellMaster: NSObject {
     fileprivate let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
     fileprivate let itemListViewSizingCell = ChatItemListMessageCell(style: .default, reuseIdentifier: nil)
     fileprivate let itemCarouselViewSizingCell = ChatItemCarouselMessageCell(style: .default, reuseIdentifier: nil)
+    fileprivate let attachmentSizingCell = ChatMessageAttachmentCell(style: .default, reuseIdentifier: nil)
     
     // MARK: Reuse IDs
     
@@ -66,9 +67,8 @@ class ChatMessagesViewCellMaster: NSObject {
         tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
         
         // Register Message Cells
-        for messageType in ChatMessageType.all {
-            tableView.register(getCellClass(for: messageType),
-                               forCellReuseIdentifier: messageType.rawValue)
+        for type in ChatMessageAttachment.AttachmentType.all {
+            tableView.register(getCellClass(for: type), forCellReuseIdentifier: getCellReuseId(for: type))
         }
     }
 }
@@ -83,13 +83,35 @@ extension ChatMessagesViewCellMaster {
         cachedTypingIndicatorCellHeight = nil
     }
     
-    fileprivate func getCellClass(for messageType: ChatMessageType) -> AnyClass {
-        switch messageType {
-        case .text: return ChatMessageCell.self
+    fileprivate func getCellClass(for attachmentType: ChatMessageAttachment.AttachmentType) -> AnyClass {
+        switch attachmentType {
+        case .none: return ChatMessageCell.self
         case .itemList: return ChatItemListMessageCell.self
         case .itemCarousel: return ChatItemCarouselMessageCell.self
-        case .picture: return ChatPictureMessageCell.self
+        case .image: return ChatPictureMessageCell.self
+        case .template: return ChatMessageAttachmentCell.self
         }
+    }
+    
+    fileprivate func getCellReuseId(for type: ChatMessageAttachment.AttachmentType?) -> String {
+        if let type = type {
+            return ChatMessageAttachmentCell.getReuseId(forMessageAttachmentType: type)
+        }
+        return ChatMessageAttachmentCell.getReuseId(forMessageAttachmentType: .none)
+    }
+    
+    fileprivate func getMessageSizingCell(forAttachmentType type: ChatMessageAttachment.AttachmentType?) -> ChatMessageCell {
+        if let type = type {
+            switch type {
+            case .none: return textMessageSizingCell
+            case .image: return pictureMessageSizingCell
+            case .template: return attachmentSizingCell
+            case .itemList: return itemListViewSizingCell
+            case .itemCarousel: return itemCarouselViewSizingCell
+            }
+            
+        }
+        return textMessageSizingCell
     }
     
     fileprivate func updateMessageCell(_ cell: ChatMessageCell?,
@@ -151,7 +173,8 @@ extension ChatMessagesViewCellMaster {
                         listPosition: MessageListPosition,
                         detailsVisible: Bool,
                         atIndexPath indexPath: IndexPath) -> ChatMessageCell? {
-        if let cell = getCell(with: message.type.rawValue, at: indexPath) as? ChatMessageCell {
+        let reuseId = getCellReuseId(for: message.attachment?.type)
+        if let cell = getCell(with: reuseId, at: indexPath) as? ChatMessageCell {
             updateMessageCell(cell, with: message, listPosition: listPosition, detailsVisible: detailsVisible)
             return cell
         }
@@ -209,20 +232,11 @@ extension ChatMessagesViewCellMaster {
     
     // MARK: Private
     
-    fileprivate func getMessageSizingCell(for message: ChatMessage) -> ChatMessageCell {
-        switch message.type {
-        case .itemList: return itemListViewSizingCell
-        case .itemCarousel: return itemCarouselViewSizingCell
-        case .picture: return pictureMessageSizingCell
-        case .text: return textMessageSizingCell
-        }
-    }
-    
     fileprivate func calculateHeightForCell(with message: ChatMessage,
                                             listPosition: MessageListPosition,
                                             detailsVisible: Bool,
                                             width: CGFloat) -> CGFloat {
-        let sizingCell = getMessageSizingCell(for: message)
+        let sizingCell = getMessageSizingCell(forAttachmentType: message.attachment?.type)
         updateMessageCell(sizingCell,
                           with: message,
                           listPosition: listPosition,

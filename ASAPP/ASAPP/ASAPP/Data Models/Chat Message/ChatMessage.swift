@@ -8,29 +8,14 @@
 
 import UIKit
 
-enum ChatMessageType: String {
-    case text           = "ChatMessageTypeText"
-    case itemList       = "ChatMessageTypeItemList"
-    case itemCarousel   = "ChatMessageTypeItemCarousel"
-    case picture        = "ChatMessageTypePicture"
-    
-    static let all = [
-        text,
-        itemList,
-        itemCarousel,
-        picture
-    ]
-}
-
 // MARK:- Chat Message
 
 class ChatMessage: NSObject {
     
     // MARK: Message Content
     
-    let type: ChatMessageType
     let text: String?
-    let attachment: AnyObject?
+    let attachment: ChatMessageAttachment?
     let quickReplies: [SRSButtonItem]?
     
     // MARK: Metadata
@@ -55,7 +40,15 @@ class ChatMessage: NSObject {
          isAutomatedMessage: Bool = false) {
         
         self.text = text
-        self.attachment = attachment
+        if let attachment = attachment {
+            if let messageAttachment = attachment as? ChatMessageAttachment {
+                self.attachment = messageAttachment
+            } else {
+                self.attachment = ChatMessageAttachment(content: attachment)
+            }
+        } else {
+            self.attachment = nil
+        }
         if let quickReplies = quickReplies, quickReplies.count > 0 {
             self.quickReplies = quickReplies
         } else {
@@ -67,19 +60,6 @@ class ChatMessage: NSObject {
         self.eventType = eventType
         self.issueId = issueId
         self.isAutomatedMessage = isAutomatedMessage
-        
-        // Determine type based on content
-        var type: ChatMessageType?
-        if let attachment = attachment {
-            if attachment.isKind(of: SRSItemList.self) {
-                type = .itemList
-            } else if attachment.isKind(of: SRSItemCarousel.self) {
-                type = .itemCarousel
-            } else if attachment.isKind(of: EventPictureMessage.self) {
-                type = .picture
-            }
-        }
-        self.type = type ?? .text
         
         super.init()
     }

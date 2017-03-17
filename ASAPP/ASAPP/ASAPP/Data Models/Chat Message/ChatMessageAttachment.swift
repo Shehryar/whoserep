@@ -11,50 +11,51 @@ import UIKit
 class ChatMessageAttachment: NSObject {
 
     enum AttachmentType: String {
-        case image = "image"
-        case template = "template"
-        case itemList = "item_list"
-        case itemCarousel = "item_carousel"
+        case none = "AttachmentTypeNone"
+        case image = "AttachmentTypeImage"
+        case template = "AttachmentTypeTemplate"
+        case itemList = "AttachmentTypeItemList"
+        case itemCarousel = "AttachmentTypeItemCarousel"
+        
+        static let all = [
+            none, image, template, itemList, itemCarousel
+        ]
     }
     
     let type: AttachmentType
+    
     let image: ChatMessageImage?
-    let component: Component?
+    let template: Component?
     let itemList: SRSItemList?
     let itemCarousel: SRSItemCarousel?
-    
-    init(image: ChatMessageImage) {
-        self.type = .image
+
+    init(content: AnyObject) {
+        var type = AttachmentType.none
+        var image: ChatMessageImage? = nil
+        var template: Component? = nil
+        var itemList: SRSItemList? = nil
+        var itemCarousel: SRSItemCarousel? = nil
+        
+        if let contentAsImage = content as? ChatMessageImage {
+            type = .image
+            image = contentAsImage
+        } else if let contentAsTemplate = content as? Component {
+            type = .template
+            template = contentAsTemplate
+        } else if let contentAsItemList = content as? SRSItemList {
+            type = .itemList
+            itemList = contentAsItemList
+        } else if let contentAsItemCarousel = content as? SRSItemCarousel {
+            type = .itemCarousel
+            itemCarousel = contentAsItemCarousel
+        } else {
+            DebugLog.w(caller: ChatMessageAttachment.self, "Unable to identify attachment: \(content)")
+        }
+        
+        self.type = type
         self.image = image
-        self.component = nil
-        self.itemList = nil
-        self.itemCarousel = nil
-        super.init()
-    }
-    
-    init(component: Component) {
-        self.type = .template
-        self.image = nil
-        self.component = component
-        self.itemList = nil
-        self.itemCarousel = nil
-        super.init()
-    }
-    
-    init(itemList: SRSItemList) {
-        self.type = .itemList
-        self.image = nil
-        self.component = nil
+        self.template = template
         self.itemList = itemList
-        self.itemCarousel = nil
-        super.init()
-    }
-    
-    init(itemCarousel: SRSItemCarousel) {
-        self.type = .itemCarousel
-        self.image = nil
-        self.component = nil
-        self.itemList = nil
         self.itemCarousel = itemCarousel
         super.init()
     }
@@ -85,17 +86,17 @@ extension ChatMessageAttachment {
         switch type {
         case .image:
             if let image = ChatMessageImage.fromJSON(payload) {
-                return ChatMessageAttachment(image: image)
+                return ChatMessageAttachment(content: image)
             }
             break
             
         case .template:
             if let component = ComponentFactory.component(with: payload) {
-                return ChatMessageAttachment(component: component)
+                return ChatMessageAttachment(content: component as AnyObject)
             }
             break
             
-        case .itemList, .itemCarousel:
+        case .itemList, .itemCarousel, .none:
             // No-op
             break;
         }

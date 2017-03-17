@@ -88,6 +88,7 @@ class ChatMessageCell: UITableViewCell {
             if let attachmentView = attachmentView {
                 contentView.insertSubview(attachmentView, belowSubview: textBubbleView)
                 contentView.sendSubview(toBack: timeLabel)
+                setNeedsLayout()
             }
         }
     }
