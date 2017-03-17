@@ -94,10 +94,11 @@ extension ChatMessagesViewCellMaster {
     }
     
     fileprivate func getCellReuseId(for type: ChatMessageAttachment.AttachmentType?) -> String {
+        let prefix = "MessageCellReuseId_"
         if let type = type {
-            return ChatMessageAttachmentCell.getReuseId(forMessageAttachmentType: type)
+            return prefix + type.rawValue
         }
-        return ChatMessageAttachmentCell.getReuseId(forMessageAttachmentType: .none)
+        return prefix + ChatMessageAttachment.AttachmentType.none.rawValue
     }
     
     fileprivate func getMessageSizingCell(forAttachmentType type: ChatMessageAttachment.AttachmentType?) -> ChatMessageCell {

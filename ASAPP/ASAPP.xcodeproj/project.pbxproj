@@ -66,6 +66,7 @@
 		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
 		3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DE1D5B92760036D74E /* ColorExtensions.swift */; };
 		301B79271E7C598200186638 /* ChatMessageAttachmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B79261E7C598200186638 /* ChatMessageAttachmentCell.swift */; };
+		301B792A1E7C690B00186638 /* ComponentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B79291E7C690B00186638 /* ComponentViewFactory.swift */; };
 		301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BE91DAD7D23002BF4D9 /* device-tracking.json */; };
 		301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEB1DAD804C002BF4D9 /* map-device.png */; };
 		301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */; };
@@ -372,6 +373,7 @@
 		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
 		3019F5DE1D5B92760036D74E /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		301B79261E7C598200186638 /* ChatMessageAttachmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachmentCell.swift; sourceTree = "<group>"; };
+		301B79291E7C690B00186638 /* ComponentViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewFactory.swift; sourceTree = "<group>"; };
 		301C4BE91DAD7D23002BF4D9 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
 		301C4BEB1DAD804C002BF4D9 /* map-device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device.png"; sourceTree = "<group>"; };
 		301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device@2x.png"; sourceTree = "<group>"; };
@@ -867,6 +869,14 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		301B79281E7C68FC00186638 /* Component Views */ = {
+			isa = PBXGroup;
+			children = (
+				301B79291E7C690B00186638 /* ComponentViewFactory.swift */,
+			);
+			path = "Component Views";
+			sourceTree = "<group>";
+		};
 		3022685C1D80961000EC4FB1 /* Predictive */ = {
 			isa = PBXGroup;
 			children = (
@@ -934,6 +944,7 @@
 		30226CCD1D4933F200871453 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				301B79281E7C68FC00186638 /* Component Views */,
 				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
 				302A20891E5DE990007C522A /* Modal Views */,
@@ -1753,6 +1764,7 @@
 				30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */,
 				302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */,
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,
+				301B792A1E7C690B00186638 /* ComponentViewFactory.swift in Sources */,
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
 				302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
