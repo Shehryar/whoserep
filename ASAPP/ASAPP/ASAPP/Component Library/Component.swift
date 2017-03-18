@@ -11,16 +11,20 @@ import UIKit
 // MARK:- Component
 
 protocol Component {
-    var type: ComponentType {get}
+    var layout: ComponentLayout { get }
     
-    static func make(_ json: [String : AnyObject]) -> Component?
+    static func make(with content: [String : AnyObject]?,
+                     layout: ComponentLayout) -> Component?
 }
+
 
 // MARK:- ComponentType
 
 enum ComponentType: String { // Maintain  alphabetical order
-    case basicList = "basic_list"
-    case basicListItem = "basic_list_item"
-    case basicListSection = "basic_list_section"
-    case titleButtonContainer = "title_button_container"
+    // Components
+    case label = "label"
+    
+    
+    // Templates
+    case stackView = "stack_view"
 }
