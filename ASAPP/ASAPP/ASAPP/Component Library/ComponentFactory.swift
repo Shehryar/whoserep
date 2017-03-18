@@ -17,7 +17,12 @@ enum ComponentFactory {
                           layout: ComponentLayout) -> Component? {
         
         switch type { // Maintain alphabetical order
+        // Core Components
+        case .icon: return IconItem.make(with: content, layout: layout)
         case .label: return LabelItem.make(with: content, layout: layout)
+            
+        // Templates
+        case .basicListItem: return BasicListItem.make(with: content, layout: layout)
         case .stackView: return StackViewItem.make(with: content, layout: layout)
         }
     }
@@ -27,7 +32,7 @@ enum ComponentFactory {
             return nil
         }
         
-        guard let typeString = json["template_type"] as? String else {
+        guard let typeString = json["type"] as? String else {
             DebugLog.w(caller: self, "Component json missing 'type': \(json)")
             return nil
         }
@@ -42,6 +47,8 @@ enum ComponentFactory {
             return nil
         }
         
-        return component(for: type, with: content)
+        let layout = ComponentLayout.fromJSON(content["layout"] as? [String : AnyObject])
+        
+        return component(for: type, with: content, layout: layout)
     }
 }

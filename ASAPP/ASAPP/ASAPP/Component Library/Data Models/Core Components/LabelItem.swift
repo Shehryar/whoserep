@@ -39,6 +39,10 @@ class LabelItem: NSObject, Component {
     
     let letterSpacing: CGFloat
     
+    // MARK: Component Properties
+    
+    let type = ComponentType.label
+    
     let layout: ComponentLayout
     
     // MARK: Init
@@ -55,34 +59,34 @@ class LabelItem: NSObject, Component {
         self.fontStyle = fontStyle
         self.size = size
         self.color = color
+        self.letterSpacing = letterSpacing
         self.layout = layout
         super.init()
     }
     
-    // MARK:- Component
+    // MARK:- Component Parsing
     
     static let defaultAlignment = NSTextAlignment.center
     static let defaultFontStyle = FontStyle.regular
     static let defaultSize: CGFloat = 15
     static let defaultLetterSpacing: CGFloat = 0
-    
 
-    static func make(with json: [String : AnyObject]?, layout: ComponentLayout) -> Component? {
-        guard let json = json else {
+    static func make(with content: [String : AnyObject]?, layout: ComponentLayout) -> Component? {
+        guard let content = content else {
             return nil
         }
-        guard let text = json["text"] as? String else {
-            DebugLog.w(caller: self, "Missing text: \(json)")
+        guard let text = content["text"] as? String else {
+            DebugLog.w(caller: self, "Missing text: \(content)")
             return nil
         }
         
-        let alignment = NSTextAlignment.from(json["alignment"] as? String,
+        let alignment = NSTextAlignment.from(content["alignment"] as? String,
                                              defaultValue: defaultAlignment)
-        let fontStyle = FontStyle.from(json["font_style"] as? String,
-                                   defaultValue: defaultFontStyle)
-        let size = (json["size"] as? CGFloat) ?? defaultSize
-        let color = UIColor.colorFromHex(hex: json["color"] as? String)
-        let letterSpacing = (json["letter_spacing"] as? CGFloat) ?? defaultLetterSpacing
+        let fontStyle = FontStyle.from(content["font_style"] as? String,
+                                       defaultValue: defaultFontStyle)
+        let size = (content["size"] as? CGFloat) ?? defaultSize
+        let color = UIColor.colorFromHex(hex: content["color"] as? String)
+        let letterSpacing = (content["letter_spacing"] as? CGFloat) ?? defaultLetterSpacing
         
         return LabelItem(text: text,
                          alignment: alignment,

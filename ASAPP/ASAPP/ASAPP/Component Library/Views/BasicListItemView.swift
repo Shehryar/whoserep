@@ -12,15 +12,7 @@ class BasicListItemView: UIView, ComponentView {
 
     var component: Component? {
         didSet {
-            if let listItem = component as? BasicListItem {
-                titleLabel.text = listItem.title
-                detailLabel.text = listItem.detail
-                valueLabel.text = listItem.value
-            } else {
-                titleLabel.text = nil
-                detailLabel.text = nil
-                valueLabel.text = nil
-            }
+            
             setNeedsLayout()
         }
     }

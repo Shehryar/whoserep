@@ -15,31 +15,26 @@ enum ComponentViewFactory {
     static func view(with component: Component) -> ComponentView? {
         var componentView: ComponentView?
         switch component.type {
-        case .basicList:
+        case .icon:
+            // TODO
+            break
+            
+        case .label:
+            // TODO
             break
             
         case .basicListItem:
+            // TODO
             break
             
-        case .basicListSection:
-            break
-            
-        case .titleButtonContainer:
+        case .stackView:
+            // TODO
             break
         }
         componentView?.component = component
         
-        DebugLog.w(caller: self, "Unknown component: \(component)")
         return componentView
     }
 }
 
-
-// MARK:- ComponentView
-
-protocol ComponentView {
-    
-    var component: Component? { get set }
-    
-    var contentInset: UIEdgeInsets { get set }
-}
+// TODO: Think about reuse?
