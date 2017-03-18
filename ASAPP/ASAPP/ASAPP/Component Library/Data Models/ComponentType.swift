@@ -12,9 +12,9 @@ import UIKit
 enum ComponentType: String {
     
     // Core Components
+    case button = "button"
     case icon = "icon"
     case label = "label"
-    
     
     // Templates
     case basicListItem = "basic_list_item"

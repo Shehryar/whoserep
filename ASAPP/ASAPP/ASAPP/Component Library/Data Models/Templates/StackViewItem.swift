@@ -33,15 +33,19 @@ class StackViewItem: NSObject, Component {
     
     let type = ComponentType.stackView
     
+    let id: String?
+    
     let layout: ComponentLayout
     
     // MARK: Layout
     
     init(items: [Component],
          separatorStyle: SeparatorStyle,
+         id: String?,
          layout: ComponentLayout) {
         self.items = items
         self.separatorStyle = separatorStyle
+        self.id = id
         self.layout = layout
         super.init()
     }
@@ -49,6 +53,7 @@ class StackViewItem: NSObject, Component {
     // MARK:- Component Parsing
     
     static func make(with content: [String : AnyObject]?,
+                     id: String?,
                      layout: ComponentLayout) -> Component? {
         guard let content = content else {
             return nil
@@ -74,6 +79,7 @@ class StackViewItem: NSObject, Component {
         
         return StackViewItem(items: items,
                              separatorStyle: separatorStyle,
+                             id: id,
                              layout: layout)
     }
 }

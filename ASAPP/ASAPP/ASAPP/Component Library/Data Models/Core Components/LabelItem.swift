@@ -43,6 +43,8 @@ class LabelItem: NSObject, Component {
     
     let type = ComponentType.label
     
+    let id: String?
+    
     let layout: ComponentLayout
     
     // MARK: Init
@@ -53,6 +55,7 @@ class LabelItem: NSObject, Component {
          size: CGFloat,
          color: UIColor?,
          letterSpacing: CGFloat,
+         id: String?,
          layout: ComponentLayout) {
         self.text = text
         self.alignment = alignment
@@ -60,6 +63,7 @@ class LabelItem: NSObject, Component {
         self.size = size
         self.color = color
         self.letterSpacing = letterSpacing
+        self.id = id
         self.layout = layout
         super.init()
     }
@@ -71,7 +75,9 @@ class LabelItem: NSObject, Component {
     static let defaultSize: CGFloat = 15
     static let defaultLetterSpacing: CGFloat = 0
 
-    static func make(with content: [String : AnyObject]?, layout: ComponentLayout) -> Component? {
+    static func make(with content: [String : AnyObject]?,
+                     id: String?,
+                     layout: ComponentLayout) -> Component? {
         guard let content = content else {
             return nil
         }
@@ -94,6 +100,7 @@ class LabelItem: NSObject, Component {
                          size: size,
                          color: color,
                          letterSpacing: letterSpacing,
+                         id: id,
                          layout: layout)
     }
 }

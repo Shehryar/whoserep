@@ -12,8 +12,10 @@ import UIKit
 
 protocol Component {
     var type: ComponentType { get }
+    var id: String? { get }
     var layout: ComponentLayout { get }
     
     static func make(with content: [String : AnyObject]?,
+                     id: String?,
                      layout: ComponentLayout) -> Component?
 }

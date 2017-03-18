@@ -9,21 +9,8 @@
 import UIKit
 
 class BasicListItemView: UIView, ComponentView {
-
-    var component: Component? {
-        didSet {
-            
-            setNeedsLayout()
-        }
-    }
-    
-    var contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
-    // MARK: UI
+ 
+    // MARK: Properties
     
     let titleLabel = UILabel()
     
@@ -31,13 +18,16 @@ class BasicListItemView: UIView, ComponentView {
     
     let valueLabel = UILabel()
     
-    let columnSpacing: CGFloat = 8.0
+    // MARK: ComponentView Properties
     
-    let titleMarginBottom: CGFloat = 8.0
+    let component: Component
     
-    // MARK: Initialization
+    // MARK: Init
     
-    func commonInit() {
+    required init(component: Component) {
+        self.component = component
+        super.init(frame: .zero)
+        
         titleLabel.font = ASAPP.styles.font(with: .regular, size: 14)
         titleLabel.textColor = ASAPP.styles.foregroundColor1
         addSubview(titleLabel)
@@ -51,17 +41,13 @@ class BasicListItemView: UIView, ComponentView {
         addSubview(valueLabel)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-
     // MARK: Layout
+    
+    /*
     
     func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
         let contentWidth = size.width - contentInset.left - contentInset.right
@@ -114,4 +100,5 @@ class BasicListItemView: UIView, ComponentView {
         }
         return CGSize(width: size.width, height: height)
     }
+ */
 }

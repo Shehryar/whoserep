@@ -1,5 +1,5 @@
 //
-//  IconItem.swift
+//  ButtonItem.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/18/17.
@@ -8,29 +8,17 @@
 
 import UIKit
 
-class IconItem: NSObject, Component {
+class ButtonItem: NSObject, Component {
 
-    enum Icon: String {
-        case creditCard = "credit_card"
-        
-        func getImage() -> UIImage? {
-            switch self {
-            case .creditCard: return Images.asappImage(.iconCreditCardMedium)
-            }
-        }
-    }
-    
     // MARK: Properties
     
-    let icon: Icon
+    let title: String
     
-    let width: CGFloat
-    
-    let height: CGFloat
+    let action: Action
     
     // MARK: Component Properties
     
-    let type = ComponentType.icon
+    let type = ComponentType.button
     
     let id: String?
     
@@ -38,14 +26,12 @@ class IconItem: NSObject, Component {
     
     // MARK: Init
     
-    init(icon: Icon,
-         width: CGFloat,
-         height: CGFloat,
+    init(title: String,
+         action: Action,
          id: String?,
          layout: ComponentLayout) {
-        self.icon = icon
-        self.width = width
-        self.height = height
+        self.title = title
+        self.action = action
         self.id = id
         self.layout = layout
         super.init()

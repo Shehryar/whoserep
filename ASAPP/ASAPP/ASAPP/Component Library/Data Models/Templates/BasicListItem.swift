@@ -24,6 +24,8 @@ class BasicListItem: NSObject, Component {
     
     let type = ComponentType.basicListItem
     
+    let id: String?
+    
     let layout: ComponentLayout
     
     // MARK: Init
@@ -32,11 +34,13 @@ class BasicListItem: NSObject, Component {
          detail: LabelItem?,
          value: LabelItem?,
          icon: IconItem?,
+         id: String?,
          layout: ComponentLayout) {
         self.title = title
         self.detail = detail
         self.value = value
         self.icon = icon
+        self.id = id
         self.layout = layout
         super.init()
     }
@@ -44,6 +48,7 @@ class BasicListItem: NSObject, Component {
     // MARK: Component Parsing
     
     static func make(with content: [String : AnyObject]?,
+                     id: String?,
                      layout: ComponentLayout) -> Component? {
         guard let content = content else {
             return nil
@@ -70,6 +75,7 @@ class BasicListItem: NSObject, Component {
                              detail: detail,
                              value: value,
                              icon: icon,
+                             id: id,
                              layout: layout)
     }
 }

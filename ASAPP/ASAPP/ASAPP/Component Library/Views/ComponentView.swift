@@ -10,5 +10,7 @@ import UIKit
 
 protocol ComponentView {
     
-    var component: Component? { get set }
+    var component: Component { get }
+    
+    init(component: Component)
 }

@@ -15,23 +15,24 @@ enum ComponentViewFactory {
     static func view(with component: Component) -> ComponentView? {
         var componentView: ComponentView?
         switch component.type {
+        /** Core Components **/
+        case .button:
+            break
+            
         case .icon:
-            // TODO
             break
             
         case .label:
-            // TODO
             break
             
+            
+        /* Templates */
         case .basicListItem:
-            // TODO
             break
             
         case .stackView:
-            // TODO
             break
         }
-        componentView?.component = component
         
         return componentView
     }

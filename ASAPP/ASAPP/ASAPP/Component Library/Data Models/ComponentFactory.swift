@@ -14,16 +14,18 @@ enum ComponentFactory {
     
     static func component(for type: ComponentType,
                           with content: [String : AnyObject]?,
+                          id: String?,
                           layout: ComponentLayout) -> Component? {
         
         switch type { // Maintain alphabetical order
         // Core Components
-        case .icon: return IconItem.make(with: content, layout: layout)
-        case .label: return LabelItem.make(with: content, layout: layout)
+        case .button: return ButtonItem.make(with: content, id: id, layout: layout)
+        case .icon: return IconItem.make(with: content, id: id, layout: layout)
+        case .label: return LabelItem.make(with: content, id: id, layout: layout)
             
         // Templates
-        case .basicListItem: return BasicListItem.make(with: content, layout: layout)
-        case .stackView: return StackViewItem.make(with: content, layout: layout)
+        case .basicListItem: return BasicListItem.make(with: content, id: id, layout: layout)
+        case .stackView: return StackViewItem.make(with: content, id: id, layout: layout)
         }
     }
     
@@ -47,8 +49,12 @@ enum ComponentFactory {
             return nil
         }
         
+        let id = content["id"] as? String
         let layout = ComponentLayout.fromJSON(content["layout"] as? [String : AnyObject])
         
-        return component(for: type, with: content, layout: layout)
+        return component(for: type,
+                         with: content,
+                         id: id,
+                         layout: layout)
     }
 }
