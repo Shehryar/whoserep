@@ -1,0 +1,29 @@
+{
+    "type" : "stack_view",
+    "content" : {
+        "items" : [
+            {
+                "type" : "label",
+                "content" : {
+                    "text" : "Stack View 2",
+                    "alignment" : "center",
+                    "font_weight" : "black",
+                    "font_size" : 30
+                },
+                "layout" : {
+                    "margin" : {
+                        "bottom" : 12
+                    }
+                }
+            },
+        ]
+    },
+    "layout" : {
+        "padding" : {
+            "top" : 24,
+            "left" : 24,
+            "right" : 24,
+            "bottom" : 24
+        }
+    }
+}
