@@ -1,0 +1,75 @@
+{
+    "type" : "stack_view",
+    "content" : {
+        "items" : [
+            
+            {
+                "type" : "label",
+                "content" : {
+                    "text" : "Server-Driven UI",
+                    "alignment" : "center",
+                    "font_weight" : "light",
+                    "font_size" : 30
+                },
+                "layout" : {
+                    "margin" : {
+                        "bottom" : 12
+                    }
+                }
+            },
+            
+            {
+                "type" : "label",
+                "content" : {
+                    "text" : "This is the start of something magical, and I'm excited to show it to you today.  We have created, for the first time ever, a fully-customizable, server-driven UI components in the app.  This will truly revolutionize the way we build user interfaces for our clients.",
+                    "alignment" : "left",
+                    "font_weight" : "regular",
+                    "font_size" : 15
+                },
+                "layout" : {
+                    "margin" : {
+                        "bottom" : 0
+                    }
+                }
+            },
+            
+            {
+                "type" : "separator",
+                "content" : {
+                    "color" : "#CCCCCC"
+                },
+                "layout" : {
+                    "padding" : {
+                        "top" : 24,
+                        "left" : 32,
+                        "bottom" : 24,
+                        "right" : 32
+                    }
+                }
+            },
+            
+            {
+                "type" : "label",
+                "content" : {
+                    "text" : "This UI is currently limited in its capabilities",
+                    "alignment" : "center",
+                    "font_weight" : "black",
+                    "font_size" : 11
+                },
+                "layout" : {
+                    "margin" : {
+                        "bottom" : 0
+                    }
+                }
+            }
+        ]
+    },
+    "layout" : {
+        "padding" : {
+            "top" : 24,
+            "left" : 24,
+            "right" : 24,
+            "bottom" : 24
+        }
+    }
+}

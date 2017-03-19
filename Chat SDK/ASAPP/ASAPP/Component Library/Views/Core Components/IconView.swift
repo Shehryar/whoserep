@@ -17,7 +17,7 @@ class IconView: UIView, ComponentView {
             
         }
     }
-    
+
     // MARK: Init
     
     func commonInit() {

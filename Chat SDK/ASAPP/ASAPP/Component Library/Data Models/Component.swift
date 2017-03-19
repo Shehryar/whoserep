@@ -15,7 +15,7 @@ protocol Component {
     var id: String? { get }
     var layout: ComponentLayout { get }
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?, // Typically expects [String : Any]
                      id: String?,
                      layout: ComponentLayout) -> Component?
 }

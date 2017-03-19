@@ -197,6 +197,10 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView) {
         showEnvironmentSettings()
     }
+    
+    func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
+        showDemoComponents()
+    }
 }
 
 // MARK:- AccountsViewControllerDelegate
@@ -316,6 +320,11 @@ extension HomeViewController {
         let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
         environmentVC.delegate = self
         navigationController?.pushViewController(environmentVC, animated: true)
+    }
+    
+    func showDemoComponents() {
+        let demoComponentsVC = ComponentViewDemoViewController()
+        navigationController?.pushViewController(demoComponentsVC, animated: true)
     }
     
     func showViewController(_ imageName: String, title: String?) -> Bool {

@@ -29,10 +29,10 @@ class ComponentTemplate: NSObject, Component {
     
     // MARK: Component Parsing
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        guard let content = content else {
+        guard let content = content as? [String : Any] else {
             return nil
         }
         

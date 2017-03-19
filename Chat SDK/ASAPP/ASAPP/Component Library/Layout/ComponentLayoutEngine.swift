@@ -16,29 +16,25 @@ class ComponentLayoutEngine: NSObject {
         case bottom
     }
     
-    class func getVerticalFrames(for views: [ComponentView],
+    class func getVerticalFrames(for views: [UIView],
                                  inside boundingRect: CGRect) -> [CGRect] {
         var frames = [CGRect]()
 
         var top: CGFloat = boundingRect.minY
         for view in views {
-            guard let layout = view.component?.layout else {
-                let frame = CGRect(x: boundingRect.minX, y: top,
-                                   width: boundingRect.width, height: 0)
-                frames.append(frame)
-                continue
-            }
+            let layout = (view as? ComponentView)?.component?.layout
+            let margin = layout?.margin ?? UIEdgeInsets.zero
             
-            let left = boundingRect.minX + layout.margin.left
-            let width = boundingRect.width - layout.margin.left - layout.margin.right
+            let left = boundingRect.minX + margin.left
+            let width = boundingRect.width - margin.left - margin.right
             let height = ceil(view.sizeThatFits(CGSize(width: width, height: 0)).height)
             
             if height > 0 {
-                top += layout.margin.top
+                top += margin.top
             }
             let frame = CGRect(x: left, y: top, width: width, height: height)
             if height > 0 {
-                top += height + layout.margin.bottom
+                top += height + margin.bottom
             }
             
             frames.append(frame)

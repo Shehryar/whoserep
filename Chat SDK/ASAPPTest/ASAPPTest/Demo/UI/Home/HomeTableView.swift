@@ -14,6 +14,7 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
     func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView)
+    func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -453,13 +454,13 @@ extension HomeTableView: UITableViewDelegate {
                 break
                 
             default:
-                // No-op
+                delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
                 break
             }
             break
             
         default:
-            // No-op
+            delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
             break
         }
     }

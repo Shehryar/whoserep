@@ -28,6 +28,8 @@ class SeparatorItem: NSObject, Component {
     
     let style: SeparatorItem.Style
     
+    let color: UIColor?
+    
     // MARK: Component Properties
     
     let type = ComponentType.separator
@@ -39,9 +41,11 @@ class SeparatorItem: NSObject, Component {
     // MARK: Init
     
     init(style: SeparatorItem.Style,
+         color: UIColor?,
          id: String?,
          layout: ComponentLayout) {
         self.style = style
+        self.color = color
         self.id = id
         self.layout = layout
         super.init()
@@ -51,13 +55,18 @@ class SeparatorItem: NSObject, Component {
     
     static let defaultStyle = SeparatorItem.Style.line
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
+        let content = content as? [String : Any]
         let style = Style.from(content?["style"] as? String,
                                defaultValue: defaultStyle)
+        let color = UIColor.colorFromHex(hex: content?["color"] as? String)
         
-        return SeparatorItem(style: style, id: id, layout: layout)
+        return SeparatorItem(style: style,
+                             color: color,
+                             id: id,
+                             layout: layout)
     }
     
 }

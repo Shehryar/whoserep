@@ -62,14 +62,14 @@ class LabelItem: NSObject, Component {
     
     static let defaultAlignment = NSTextAlignment.left
     static let defaultFontWeight = FontWeight.regular
-    static let defaultSize: CGFloat = 15
+    static let defaultSize: Int = 15
     static let defaultNumberOfLines: Int = 0
     static let defaultLetterSpacing: CGFloat = 0
 
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        guard let content = content else {
+        guard let content = content as? [String : Any] else {
             return nil
         }
         guard let text = content["text"] as? String else {
@@ -81,7 +81,7 @@ class LabelItem: NSObject, Component {
                                              defaultValue: defaultAlignment)
         let fontWeight = FontWeight.from(content["font_weight"] as? String,
                                        defaultValue: defaultFontWeight)
-        let fontSize = (content["font_size"] as? CGFloat) ?? defaultSize
+        let fontSize = CGFloat(content["font_size"] as? Int ?? defaultSize)
         let color = UIColor.colorFromHex(hex: content["color"] as? String)
         let numberOfLines = (content["number_of_lines"] as? Int) ?? defaultNumberOfLines
         let letterSpacing = (content["letter_spacing"] as? CGFloat) ?? defaultLetterSpacing

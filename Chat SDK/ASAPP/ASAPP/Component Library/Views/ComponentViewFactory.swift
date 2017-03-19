@@ -12,32 +12,46 @@ import UIKit
 
 enum ComponentViewFactory {
     
-    static func view(with component: Component) -> ComponentView? {
+    static func view(withComponent component: Component) -> ComponentView? {
         var componentView: ComponentView?
         switch component.type {
         /** Core Components **/
         case .button:
+            componentView = ButtonView()
             break
             
         case .icon:
+            componentView = IconView()
             break
             
         case .label:
+            componentView = LabelView()
             break
             
         case .separator:
+            componentView = SeparatorView()
             break
             
             
         /* Templates */
         case .basicListItem:
+            componentView = BasicListItemView()
             break
             
         case .stackView:
+            componentView = StackView_new()
             break
         }
+        componentView?.component = component
         
         return componentView
+    }
+    
+    static func view(withJSON json: Any?) -> ComponentView? {
+        guard let component = ComponentFactory.component(with: json) else {
+            return nil
+        }
+        return view(withComponent: component)
     }
 }
 

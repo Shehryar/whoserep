@@ -17,7 +17,7 @@ class ComponentViewTemplate: UIView, ComponentView {
             
         }
     }
-    
+
     // MARK: Init
     
     func commonInit() {

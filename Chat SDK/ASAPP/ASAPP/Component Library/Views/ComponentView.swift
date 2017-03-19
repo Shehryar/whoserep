@@ -12,5 +12,12 @@ protocol ComponentView {
     
     var component: Component? { get set }
     
-    func sizeThatFits(_ size: CGSize) -> CGSize
+    var view: UIView { get }
+}
+
+extension ComponentView where Self: UIView {
+    
+    var view: UIView {
+        return self
+    }
 }

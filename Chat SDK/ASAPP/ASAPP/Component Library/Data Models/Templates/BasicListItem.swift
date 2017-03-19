@@ -47,24 +47,17 @@ class BasicListItem: NSObject, Component {
     
     // MARK: Component Parsing
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        guard let content = content else {
+        guard let content = content as? [String : Any] else {
             return nil
         }
         
-        let titleJSON = content["title"] as? [String : AnyObject]
-        let title = ComponentFactory.component(with: titleJSON) as? LabelItem
-        
-        let detailJSON = content["detail"] as? [String : AnyObject]
-        let detail = ComponentFactory.component(with: detailJSON) as? LabelItem
-        
-        let valueJSON = content["value"] as? [String : AnyObject]
-        let value = ComponentFactory.component(with: valueJSON) as? LabelItem
-        
-        let iconJSON = content["icon"] as? [String : AnyObject]
-        let icon = ComponentFactory.component(with: iconJSON) as? IconItem
+        let title = ComponentFactory.component(with: content["title"]) as? LabelItem
+        let detail = ComponentFactory.component(with: content["detail"]) as? LabelItem
+        let value = ComponentFactory.component(with: content["value"]) as? LabelItem
+        let icon = ComponentFactory.component(with: content["icon"]) as? IconItem
         
         guard title != nil || detail != nil || value != nil else {
             DebugLog.w(caller: self, "Title, detail, or value must be non-nil. Returning nil from: \(content)")

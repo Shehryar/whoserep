@@ -52,13 +52,13 @@ class StackViewItem: NSObject, Component {
     
     // MARK:- Component Parsing
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        guard let content = content else {
+        guard let content = content as? [String : Any] else {
             return nil
         }
-        guard let itemsJSON = content["items"] as? [[String : AnyObject]] else {
+        guard let itemsJSON = content["items"] as? [[String : Any]] else {
             DebugLog.w(caller: self, "Missing items json. Returning nil:\n\(content)")
             return nil
         }

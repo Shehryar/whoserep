@@ -32,7 +32,7 @@ class LabelView: UIView, ComponentView {
     var labelItem: LabelItem? {
         return component as? LabelItem
     }
-    
+
     // MARK: Init
     
     func commonInit() {

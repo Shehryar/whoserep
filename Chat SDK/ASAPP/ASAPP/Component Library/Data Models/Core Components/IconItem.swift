@@ -55,7 +55,7 @@ class IconItem: NSObject, Component {
     
     // MARK: Component Parsing
     
-    static func make(with content: [String : AnyObject]?,
+    static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
         return nil

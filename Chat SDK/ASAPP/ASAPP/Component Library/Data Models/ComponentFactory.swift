@@ -13,7 +13,7 @@ import UIKit
 enum ComponentFactory {
     
     static func component(for type: ComponentType,
-                          with content: [String : AnyObject]?,
+                          with content: Any?,
                           id: String?,
                           layout: ComponentLayout) -> Component? {
         
@@ -30,8 +30,8 @@ enum ComponentFactory {
         }
     }
     
-    static func component(with json: [String : AnyObject]?) -> Component? {
-        guard let json = json else {
+    static func component(with json: Any?) -> Component? {
+        guard let json = json as? [String : Any] else {
             return nil
         }
         
@@ -45,13 +45,9 @@ enum ComponentFactory {
             return  nil
         }
         
-        guard let content = json["content"] as? [String : AnyObject] else {
-            DebugLog.w(caller: self, "Component missing content: \(json)")
-            return nil
-        }
-        
-        let id = content["id"] as? String
-        let layout = ComponentLayout.fromJSON(content["layout"] as? [String : AnyObject])
+        let content = json["content"]
+        let id = json["id"] as? String
+        let layout = ComponentLayout.fromJSON(json["layout"])
         
         return component(for: type,
                          with: content,
