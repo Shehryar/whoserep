@@ -12,6 +12,7 @@ public class ComponentViewDemoViewController: UIViewController {
     
     var demoComponent: DemoComponent? {
         didSet {
+            title = demoComponent?.rawValue
             refresh()
         }
     }
@@ -102,9 +103,18 @@ public class ComponentViewDemoViewController: UIViewController {
     func refresh() {
         DebugLog.i(caller: self, "Refreshing UI")
         
-        if let demoComponent = demoComponent {
-            title = demoComponent.rawValue
-            contentView = DemoComponents.getComponentView(for: demoComponent)
+        guard let demoComponent = demoComponent else {
+            DebugLog.w(caller: self, "No demo component to refresh with.")
+            return
+        }
+        
+        DemoComponents.getComponent(for: demoComponent) { [weak self] (component, error) in
+            
+            if let component = component {
+                Dispatcher.performOnMainThread {
+                    self?.contentView = ComponentViewFactory.view(withComponent: component)
+                }
+            }
         }
     }
     
