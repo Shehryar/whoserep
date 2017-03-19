@@ -10,9 +10,9 @@ import UIKit
 
 public class ComponentViewDemoViewController: UIViewController {
     
-    var demoComponent: DemoComponent? {
+    var componentFileName: String? {
         didSet {
-            title = demoComponent?.rawValue
+            title = componentFileName
             refresh()
         }
     }
@@ -71,7 +71,8 @@ public class ComponentViewDemoViewController: UIViewController {
         view.addSubview(containerView)
         
         becomeFirstResponder()
-        demoComponent = .stackView
+        
+        componentFileName = DemoComponent.stackView.rawValue
     }
     
     // MARK: Layout
@@ -103,12 +104,12 @@ public class ComponentViewDemoViewController: UIViewController {
     func refresh() {
         DebugLog.i(caller: self, "Refreshing UI")
         
-        guard let demoComponent = demoComponent else {
+        guard let componentFileName = componentFileName else {
             DebugLog.w(caller: self, "No demo component to refresh with.")
             return
         }
         
-        DemoComponents.getComponent(for: demoComponent) { [weak self] (component, error) in
+        DemoComponents.getComponent(with: componentFileName) { [weak self] (component, error) in
             
             if let component = component {
                 Dispatcher.performOnMainThread {

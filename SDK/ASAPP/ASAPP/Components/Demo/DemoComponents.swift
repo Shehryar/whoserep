@@ -12,36 +12,41 @@ enum DemoComponent: String {
     case stackView = "demo_stack_view"
 }
 
-typealias GETDemoComponentCompletion = ((_ component: Component?, _ error: String?) -> Void)
-
 class DemoComponents: NSObject {
- 
-    class func getComponent(for demoComponent: DemoComponent,
-                            completion: @escaping GETDemoComponentCompletion) {
-        getRemoteCompontent(demoComponent) { (remoteComponent, error) in
+    
+    typealias ComponentNamesCompletion = ((_ names: [String]?, _ error: String?) -> Void)
+    
+    typealias ComponentCompletion = ((_ component: Component?, _ error: String?) -> Void)
+    
+    // MARK: Public
+    
+    class func getComponent(with fileName: String,
+                            completion: @escaping ComponentCompletion) {
+        
+        getRemoteCompontent(with: fileName) { (remoteComponent, error) in
             if let remoteComponent = remoteComponent {
-                DebugLog.i(caller: DemoComponents.self, "Fetched remote component from server: \(demoComponent.rawValue)")
+                DebugLog.i(caller: DemoComponents.self, "Fetched remote component from server: \(fileName)")
                 completion(remoteComponent, nil)
                 return
             }
             
-            if let localComponent = getLocalComponent(for: demoComponent) {
-                DebugLog.i(caller: DemoComponents.self, "Fetched local component: \(demoComponent.rawValue)")
+            if let localComponent = getLocalComponent(with: fileName) {
+                DebugLog.i(caller: DemoComponents.self, "Fetched local component: \(fileName)")
                 completion(localComponent, nil)
                 return
             }
             
-            DebugLog.e(caller: DemoComponents.self, "Unable to fetch component: \(demoComponent.rawValue)")
-            completion(nil, "Unable to get component: \(demoComponent)")
+            DebugLog.e(caller: DemoComponents.self, "Unable to fetch component: \(fileName)")
+            completion(nil, "Unable to get component: \(fileName)")
         }
     }
     
     // MARK: Private Methods
     
-    fileprivate class func getRemoteCompontent(_ demoComponent: DemoComponent,
-                                               completion: @escaping GETDemoComponentCompletion) {
-        let fileName = demoComponent.rawValue + ".json"
-        var request = URLRequest(url: URL(string: "http://localhost:9000/\(fileName)")!)
+    fileprivate class func getRemoteCompontent(with fileName: String,
+                                               completion: @escaping ComponentCompletion) {
+        let fullFileName = fileName + ".json"
+        var request = URLRequest(url: URL(string: "http://localhost:9000/\(fullFileName)")!)
         request.httpMethod = "GET"
         let session = URLSession.shared
         
@@ -53,18 +58,18 @@ class DemoComponents: NSObject {
                 return
             }
 
-            completion(nil, "Unable to GET \(fileName) on server.")
+            completion(nil, "Unable to GET \(fullFileName) on server.")
             }.resume()
     }
     
-    fileprivate class func getLocalComponent(for demoComponent: DemoComponent) -> Component? {
-        guard let json =  DemoUtils.jsonObjectForFile(demoComponent.rawValue) else {
-            DebugLog.w(caller: self, "Unable to find json file: \(demoComponent.rawValue)")
+    fileprivate class func getLocalComponent(with fileName: String) -> Component? {
+        guard let json =  DemoUtils.jsonObjectForFile(fileName) else {
+            DebugLog.w(caller: self, "Unable to find json file: \(fileName)")
             return nil
         }
         
         guard let component = ComponentFactory.component(with: json) else {
-            DebugLog.w(caller: self, "Unable to create demo \(demoComponent) json:\n\(json)")
+            DebugLog.w(caller: self, "Unable to create demo \(fileName) json:\n\(json)")
             return nil
         }
         
