@@ -10,9 +10,9 @@ import UIKit
 
 public class ComponentViewDemoViewController: UIViewController {
     
-    var json: [String : Any]? {
+    var demoComponent: DemoComponent? {
         didSet {
-            contentView = ComponentViewFactory.view(withJSON: json)
+            refresh()
         }
     }
     
@@ -36,6 +36,12 @@ public class ComponentViewDemoViewController: UIViewController {
     
     fileprivate let contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
+    // MARK: Properties: First Responder
+    
+    public override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     // MARK: Init
     
     func commonInit() {
@@ -54,7 +60,7 @@ public class ComponentViewDemoViewController: UIViewController {
         super.init(coder: aDecoder)
         commonInit()
     }
-
+    
     // MARK: View
     
     public override func viewDidLoad() {
@@ -63,7 +69,8 @@ public class ComponentViewDemoViewController: UIViewController {
         view.backgroundColor = UIColor.white
         view.addSubview(containerView)
         
-        contentView = DemoComponents.getComponentView(for: .stackView)
+        becomeFirstResponder()
+        demoComponent = .stackView
     }
     
     // MARK: Layout
@@ -88,5 +95,25 @@ public class ComponentViewDemoViewController: UIViewController {
         containerView.frame = CGRect(x: contentInset.left, y: top,
                                      width: width, height: height)
         contentView?.view.frame = containerView.bounds
+    }
+    
+    // MARK: Content
+    
+    func refresh() {
+        DebugLog.i(caller: self, "Refreshing UI")
+        
+        if let demoComponent = demoComponent {
+            title = demoComponent.rawValue
+            contentView = DemoComponents.getComponentView(for: demoComponent)
+        }
+    }
+    
+    // MARK: Motion
+    
+    public override func motionEnded(_ motion: UIEventSubtype,
+                                     with event: UIEvent?) {
+        if motion == .motionShake {
+            refresh()
+        }
     }
 }

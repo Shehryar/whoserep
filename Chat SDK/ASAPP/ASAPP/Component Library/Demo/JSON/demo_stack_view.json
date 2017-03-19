@@ -8,7 +8,7 @@
                 "content" : {
                     "text" : "Server-Driven UI",
                     "alignment" : "center",
-                    "font_weight" : "light",
+                    "font_weight" : "black",
                     "font_size" : 30
                 },
                 "layout" : {
@@ -21,15 +21,10 @@
             {
                 "type" : "label",
                 "content" : {
-                    "text" : "This is the start of something magical, and I'm excited to show it to you today.  We have created, for the first time ever, a fully-customizable, server-driven UI components in the app.  This will truly revolutionize the way we build user interfaces for our clients.",
+                    "text" : "This is the start of something magical, and I'm excited to show it to you today.  We have created, for the first time ever, a fully-customizable, server-driven UI for our Chat SDK.  This will truly revolutionize the way we build user interfaces for our clients.",
                     "alignment" : "left",
                     "font_weight" : "regular",
                     "font_size" : 15
-                },
-                "layout" : {
-                    "margin" : {
-                        "bottom" : 0
-                    }
                 }
             },
             
@@ -42,7 +37,7 @@
                     "padding" : {
                         "top" : 24,
                         "left" : 32,
-                        "bottom" : 24,
+                        "bottom" : 16,
                         "right" : 32
                     }
                 }
@@ -54,12 +49,7 @@
                     "text" : "This UI is currently limited in its capabilities",
                     "alignment" : "center",
                     "font_weight" : "black",
-                    "font_size" : 11
-                },
-                "layout" : {
-                    "margin" : {
-                        "bottom" : 0
-                    }
+                    "font_size" : 12
                 }
             }
         ]
