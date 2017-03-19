@@ -22,6 +22,7 @@ enum ComponentFactory {
         case .button: return ButtonItem.make(with: content, id: id, layout: layout)
         case .icon: return IconItem.make(with: content, id: id, layout: layout)
         case .label: return LabelItem.make(with: content, id: id, layout: layout)
+        case .separator: return SeparatorItem.make(with: content, id: id, layout: layout)
             
         // Templates
         case .basicListItem: return BasicListItem.make(with: content, id: id, layout: layout)

@@ -15,6 +15,7 @@ enum ComponentType: String {
     case button = "button"
     case icon = "icon"
     case label = "label"
+    case separator = "separator"
     
     // Templates
     case basicListItem = "basic_list_item"

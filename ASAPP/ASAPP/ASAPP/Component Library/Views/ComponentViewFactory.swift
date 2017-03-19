@@ -25,6 +25,9 @@ enum ComponentViewFactory {
         case .label:
             break
             
+        case .separator:
+            break
+            
             
         /* Templates */
         case .basicListItem:

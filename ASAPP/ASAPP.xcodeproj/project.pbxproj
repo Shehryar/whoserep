@@ -42,6 +42,7 @@
 		281C34331E7D9488001A2AA3 /* StackView_new.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34141E7D9488001A2AA3 /* StackView_new.swift */; };
 		281C34351E7D94BA001A2AA3 /* template_ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34341E7D94BA001A2AA3 /* template_ComponentView.swift */; };
 		281C34381E7DA365001A2AA3 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34371E7DA365001A2AA3 /* ComponentLayoutEngine.swift */; };
+		281C343A1E7EBE1B001A2AA3 /* SeparatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34391E7EBE1B001A2AA3 /* SeparatorItem.swift */; };
 		28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */; };
 		285F7AD01DA9A526008C2EF6 /* SprintSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 285F7ACB1DA9A526008C2EF6 /* SprintSans-Black.ttf */; };
 		285F7AD11DA9A526008C2EF6 /* SprintSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 285F7ACC1DA9A526008C2EF6 /* SprintSans-Bold.ttf */; };
@@ -361,6 +362,7 @@
 		281C34141E7D9488001A2AA3 /* StackView_new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView_new.swift; sourceTree = "<group>"; };
 		281C34341E7D94BA001A2AA3 /* template_ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = template_ComponentView.swift; sourceTree = "<group>"; };
 		281C34371E7DA365001A2AA3 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
+		281C34391E7EBE1B001A2AA3 /* SeparatorItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorItem.swift; sourceTree = "<group>"; };
 		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
 		285F7ACB1DA9A526008C2EF6 /* SprintSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Black.ttf"; sourceTree = "<group>"; };
 		285F7ACC1DA9A526008C2EF6 /* SprintSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 				281C33F51E7D9488001A2AA3 /* ButtonItem.swift */,
 				281C33F61E7D9488001A2AA3 /* IconItem.swift */,
 				281C33F71E7D9488001A2AA3 /* LabelItem.swift */,
+				281C34391E7EBE1B001A2AA3 /* SeparatorItem.swift */,
 			);
 			path = "Core Components";
 			sourceTree = "<group>";
@@ -1772,6 +1775,7 @@
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
 				281C34381E7DA365001A2AA3 /* ComponentLayoutEngine.swift in Sources */,
+				281C343A1E7EBE1B001A2AA3 /* SeparatorItem.swift in Sources */,
 				3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */,
 				281C342C1E7D9488001A2AA3 /* StackViewItem.swift in Sources */,
 				285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */,

@@ -10,32 +10,19 @@ import UIKit
 
 class LabelItem: NSObject, Component {
     
-    enum FontStyle: String {
-        case light = "light"
-        case regular = "regular"
-        case bold = "bold"
-        case black = "black"
-        
-        static func from(_ string: String?, defaultValue: FontStyle = regular) -> FontStyle {
-            guard let string = string,
-                let style = FontStyle(rawValue: string) else {
-                    return defaultValue
-            }
-            return style
-        }
-    }
-    
     // MARK: Properties
     
     let text: String
     
     let alignment: NSTextAlignment
     
-    let fontStyle: FontStyle
+    let fontWeight: FontWeight
     
-    let size: CGFloat
+    let fontSize: CGFloat
     
     let color: UIColor?
+    
+    let numberOfLines: Int
     
     let letterSpacing: CGFloat
     
@@ -51,17 +38,20 @@ class LabelItem: NSObject, Component {
     
     init(text: String,
          alignment: NSTextAlignment,
-         fontStyle: FontStyle,
-         size: CGFloat,
+         fontWeight: FontWeight,
+         fontSize: CGFloat,
          color: UIColor?,
+         numberOfLines: Int,
          letterSpacing: CGFloat,
          id: String?,
          layout: ComponentLayout) {
+        
         self.text = text
         self.alignment = alignment
-        self.fontStyle = fontStyle
-        self.size = size
+        self.fontWeight = fontWeight
+        self.fontSize = fontSize
         self.color = color
+        self.numberOfLines = numberOfLines
         self.letterSpacing = letterSpacing
         self.id = id
         self.layout = layout
@@ -70,9 +60,10 @@ class LabelItem: NSObject, Component {
     
     // MARK:- Component Parsing
     
-    static let defaultAlignment = NSTextAlignment.center
-    static let defaultFontStyle = FontStyle.regular
+    static let defaultAlignment = NSTextAlignment.left
+    static let defaultFontWeight = FontWeight.regular
     static let defaultSize: CGFloat = 15
+    static let defaultNumberOfLines: Int = 0
     static let defaultLetterSpacing: CGFloat = 0
 
     static func make(with content: [String : AnyObject]?,
@@ -88,17 +79,19 @@ class LabelItem: NSObject, Component {
         
         let alignment = NSTextAlignment.from(content["alignment"] as? String,
                                              defaultValue: defaultAlignment)
-        let fontStyle = FontStyle.from(content["font_style"] as? String,
-                                       defaultValue: defaultFontStyle)
-        let size = (content["size"] as? CGFloat) ?? defaultSize
+        let fontWeight = FontWeight.from(content["font_weight"] as? String,
+                                       defaultValue: defaultFontWeight)
+        let fontSize = (content["font_size"] as? CGFloat) ?? defaultSize
         let color = UIColor.colorFromHex(hex: content["color"] as? String)
+        let numberOfLines = (content["number_of_lines"] as? Int) ?? defaultNumberOfLines
         let letterSpacing = (content["letter_spacing"] as? CGFloat) ?? defaultLetterSpacing
         
         return LabelItem(text: text,
                          alignment: alignment,
-                         fontStyle: fontStyle,
-                         size: size,
+                         fontWeight: fontWeight,
+                         fontSize: fontSize,
                          color: color,
+                         numberOfLines: numberOfLines,
                          letterSpacing: letterSpacing,
                          id: id,
                          layout: layout)
