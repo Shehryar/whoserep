@@ -8,14 +8,35 @@
 
 import UIKit
 
-class LabelView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class LabelView: UIView, ComponentView {
+    
+    // MARK: ComponentView Properties
+    
+    var component: Component? {
+        didSet {
+            
+        }
     }
-    */
-
+    
+    // MARK: Init
+    
+    func commonInit() {
+        
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    // MARK: Layout
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return .zero
+    }
 }

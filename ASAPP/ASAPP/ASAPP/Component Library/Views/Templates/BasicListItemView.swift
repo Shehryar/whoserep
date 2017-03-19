@@ -20,14 +20,15 @@ class BasicListItemView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    let component: Component
+    var component: Component? {
+        didSet {
+            
+        }
+    }
     
     // MARK: Init
     
-    required init(component: Component) {
-        self.component = component
-        super.init(frame: .zero)
-        
+    func commonInit() {
         titleLabel.font = ASAPP.styles.font(with: .regular, size: 14)
         titleLabel.textColor = ASAPP.styles.foregroundColor1
         addSubview(titleLabel)
@@ -41,8 +42,14 @@ class BasicListItemView: UIView, ComponentView {
         addSubview(valueLabel)
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     // MARK: Layout

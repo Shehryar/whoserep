@@ -11,11 +11,13 @@ import UIKit
 class IconItem: NSObject, Component {
 
     enum Icon: String {
+        case placeholder = "placeholder"
         case creditCard = "credit_card"
         
         func getImage() -> UIImage? {
             switch self {
             case .creditCard: return Images.asappImage(.iconCreditCardMedium)
+            case .placeholder: return nil
             }
         }
     }

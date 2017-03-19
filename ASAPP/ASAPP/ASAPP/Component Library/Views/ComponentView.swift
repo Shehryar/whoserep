@@ -10,7 +10,7 @@ import UIKit
 
 protocol ComponentView {
     
-    var component: Component { get }
+    var component: Component? { get set }
     
-    init(component: Component)
+    func sizeThatFits(_ size: CGSize) -> CGSize
 }
