@@ -10,15 +10,66 @@ import UIKit
 
 enum DemoComponent: String {
     case stackView = "demo_stack_view"
+    
+    static let allRawValues = [
+        stackView.rawValue
+    ]
 }
 
 class DemoComponents: NSObject {
     
-    typealias ComponentNamesCompletion = ((_ names: [String]?, _ error: String?) -> Void)
+    typealias ComponentNamesCompletion = ((_ names: [String]?) -> Void)
     
     typealias ComponentCompletion = ((_ component: Component?, _ error: String?) -> Void)
     
+    fileprivate static let HOST = "http://localhost:9000"
+    
+    fileprivate class func getRequest(with path: String) -> URLRequest {
+        var request = URLRequest(url: URL(string: "\(HOST)\(path)")!)
+        request.httpMethod = "GET"
+        return request
+    }
+}
+
+// MARK:- Component Names
+
+extension DemoComponents {
+    
     // MARK: Public
+    
+    class func getComponentNames(completion: @escaping ComponentNamesCompletion) {
+        getRemoteComponentNames { (componentNames) in
+            if let componentNames = componentNames {
+                DebugLog.i(caller: DemoComponents.self, "Fetched remote components: \(componentNames)")
+                completion(componentNames)
+                return
+            }
+            DebugLog.i(caller: DemoComponents.self, "Unable to fetch remote components.")
+            completion(DemoComponent.allRawValues)
+        }
+    }
+    
+    // MARK: Private
+    
+    private class func getRemoteComponentNames(completion: @escaping ComponentNamesCompletion) {
+        let path = "/components"
+        var request = getRequest(with: path)
+        let session = URLSession.shared
+        session.dataTask(with: request) {data, response, err in
+            if let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
+                let namesArray = json as? [String] {
+                completion(namesArray)
+            } else {
+                completion(nil)
+            }
+            }.resume()
+    }
+}
+
+// MARK:- Components
+
+extension DemoComponents {
     
     class func getComponent(with fileName: String,
                             completion: @escaping ComponentCompletion) {
@@ -41,15 +92,13 @@ class DemoComponents: NSObject {
         }
     }
     
-    // MARK: Private Methods
+    // MARK: Private
     
-    fileprivate class func getRemoteCompontent(with fileName: String,
+    private class func getRemoteCompontent(with fileName: String,
                                                completion: @escaping ComponentCompletion) {
-        let fullFileName = fileName + ".json"
-        var request = URLRequest(url: URL(string: "http://localhost:9000/\(fullFileName)")!)
-        request.httpMethod = "GET"
+        let path = "/\(fileName).json"
+        let request = getRequest(with: path)
         let session = URLSession.shared
-        
         session.dataTask(with: request) {data, response, err in
             if let data = data,
                 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
@@ -57,12 +106,12 @@ class DemoComponents: NSObject {
                 completion(component, nil)
                 return
             }
-
-            completion(nil, "Unable to GET \(fullFileName) on server.")
+            
+            completion(nil, "Unable to GET \(fileName) on server.")
             }.resume()
     }
     
-    fileprivate class func getLocalComponent(with fileName: String) -> Component? {
+    private class func getLocalComponent(with fileName: String) -> Component? {
         guard let json =  DemoUtils.jsonObjectForFile(fileName) else {
             DebugLog.w(caller: self, "Unable to find json file: \(fileName)")
             return nil

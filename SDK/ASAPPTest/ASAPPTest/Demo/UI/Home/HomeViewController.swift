@@ -323,7 +323,7 @@ extension HomeViewController {
     }
     
     func showDemoComponents() {
-        let demoComponentsVC = ComponentViewDemoViewController()
+        let demoComponentsVC = ComponentsDemoViewController()
         navigationController?.pushViewController(demoComponentsVC, animated: true)
     }
     

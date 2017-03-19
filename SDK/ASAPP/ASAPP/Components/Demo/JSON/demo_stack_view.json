@@ -6,7 +6,7 @@
             {
                 "type" : "label",
                 "content" : {
-                    "text" : "Mitch is Awesome!",
+                    "text" : "Stack View",
                     "alignment" : "center",
                     "font_weight" : "black",
                     "font_size" : 30

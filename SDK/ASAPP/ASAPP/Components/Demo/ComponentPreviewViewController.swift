@@ -1,5 +1,5 @@
 //
-//  ComponentViewDemoViewController.swift
+//  ComponentPreviewViewController.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/19/17.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class ComponentViewDemoViewController: UIViewController {
+public class ComponentPreviewViewController: UIViewController {
     
-    var componentFileName: String? {
+    var componentName: String? {
         didSet {
-            title = componentFileName
+            title = componentName?.replacingOccurrences(of: "_", with: " ").capitalized
             refresh()
         }
     }
@@ -50,6 +50,8 @@ public class ComponentViewDemoViewController: UIViewController {
         containerView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
         containerView.layer.borderWidth = 1
         containerView.layer.cornerRadius = 12
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -69,10 +71,11 @@ public class ComponentViewDemoViewController: UIViewController {
         
         view.backgroundColor = UIColor.white
         view.addSubview(containerView)
-        
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         becomeFirstResponder()
-        
-        componentFileName = DemoComponent.stackView.rawValue
     }
     
     // MARK: Layout
@@ -102,14 +105,15 @@ public class ComponentViewDemoViewController: UIViewController {
     // MARK: Content
     
     func refresh() {
+        becomeFirstResponder()
         DebugLog.i(caller: self, "Refreshing UI")
         
-        guard let componentFileName = componentFileName else {
+        guard let componentName = componentName else {
             DebugLog.w(caller: self, "No demo component to refresh with.")
             return
         }
         
-        DemoComponents.getComponent(with: componentFileName) { [weak self] (component, error) in
+        DemoComponents.getComponent(with: componentName) { [weak self] (component, error) in
             
             if let component = component {
                 Dispatcher.performOnMainThread {
