@@ -119,18 +119,22 @@ extension ComponentLayoutEngine {
         }
         
         // Only even columns for now
-        let totalColumnsWidth = getWidthMinusMargins(for: views, startingWidth: boundingRect.width)
-        let columnWidth = floor(totalColumnsWidth / CGFloat(views.count))
+//        let totalColumnsWidth = getWidthMinusMargins(for: views, totalWidth: boundingRect.width)
+//        let columnWidth = floor(totalColumnsWidth / CGFloat(views.count))
+  
+        let columnSizes = getColumnSizes(for: views, within: boundingRect.width)
         
         // Layout frames horizontally
         var maxFrameHeight: CGFloat = 0
         var top = boundingRect.minY
         var left = boundingRect.minX
-        for view in views {
+        for (idx, view) in views.enumerated() {
             let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
             let alignment = (view as? ComponentView)?.component?.layout.alignment ?? HorizontalAlignment.left
             
-            var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
+//            var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
+            var size = columnSizes[idx].fittedSize
+            let columnWidth = columnSizes[idx].maxColumnWidth
             var offsetX: CGFloat = 0
             if size.width < columnWidth {
                 switch alignment {
@@ -201,17 +205,131 @@ extension ComponentLayoutEngine {
             }
         }
         
-        print("Horizontal Frames:\n\(frames)\nmaxX: \(maxX)\nmaxY: \(maxY)")
+        print("Horizontal Frames: \(frames)")
         
         return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
     }
     
-    private class func getWidthMinusMargins(for views: [UIView], startingWidth: CGFloat) -> CGFloat {
-        var width = startingWidth
+    private struct ColumnSize {
+        let fittedSize: CGSize
+        let maxColumnWidth: CGFloat
+    }
+    
+    private class func getColumnSizes(for views: [UIView],
+                                      within maxWidth: CGFloat) -> [ColumnSize] {
+        var columnSizes = [ColumnSize]()
+        for view in views {
+            columnSizes.append(ColumnSize(fittedSize: .zero, maxColumnWidth: 0))
+        }
+        
+        var remainingWidth = getWidthMinusMargins(for: views, totalWidth: maxWidth)
+        
+        print("\nGetting column sizes for totalWidth: \(maxWidth), minus margins: \(remainingWidth)")
+        
+        // Get the size for all weight=0 views
+        for (idx, view) in views.enumerated() {
+            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            if weight != 0 {
+                continue
+            }
+            
+            var size = view.sizeThatFits(CGSize(width: remainingWidth, height: 0))
+            size.width = ceil(size.width)
+            size.height = ceil(size.height)
+            
+            columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: size.width)
+            remainingWidth = max(0, remainingWidth - size.width)
+        }
+        printColumnSizes(columnSizes, text: "Fitted Sizes:")
+        
+        let weightedColumnWidths = getWeightedWidths(for: views, totalWidth: remainingWidth)
+        for (idx, view) in views.enumerated() {
+            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            if weight == 0 {
+                continue
+            }
+            
+            let columnWidth = weightedColumnWidths[idx]
+            if columnWidth > 0 {
+                var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
+                size.width = ceil(size.width)
+                size.height = ceil(size.height)
+                
+                columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)
+            }
+        }
+        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
+        
+        return columnSizes
+    }
+    
+    private class func getWidthMinusMargins(for views: [UIView], totalWidth: CGFloat) -> CGFloat {
+        var width = totalWidth
         for view in views {
             let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
             width -= margin.left + margin.right
         }
         return max(0, width)
+    }
+    
+    private class func getTotalWeight(for views: [UIView]) -> Int {
+        var totalWeight: Int = 0
+        for view in views {
+            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            totalWeight += weight
+        }
+        return totalWeight
+    }
+    
+    private class func getWidthPerWeight(for views: [UIView], totalWidth: CGFloat) -> CGFloat {
+        let totalWeight = getTotalWeight(for: views)
+        var widthPerWeight = totalWidth
+        if totalWeight > 0 {
+            widthPerWeight = floor(totalWidth / CGFloat(totalWeight))
+        }
+        return widthPerWeight
+    }
+    
+    private class func getWeightedWidths(for views: [UIView], totalWidth: CGFloat) -> [CGFloat] {
+        var widths = [CGFloat]()
+        for view in views {
+            widths.append(0)
+        }
+        
+        var totalAllocatedWidth: CGFloat = 0
+        let widthPerWeight = getWidthPerWeight(for: views, totalWidth: totalWidth)
+        for (idx, view) in views.enumerated() {
+            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            if weight > 0 {
+                let width = floor(CGFloat(weight) * widthPerWeight)
+                widths[idx] = width
+                totalAllocatedWidth += width
+            }
+        }
+        
+        let widthRoundingError = totalWidth - totalAllocatedWidth
+        if widthRoundingError > 0 {
+            for (idx, view) in views.enumerated().reversed() {
+                let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+                if weight > 0 {
+                    var width = widths[idx]
+                    width += widthRoundingError
+                    widths[idx] = width
+                    break
+                }
+            }
+        }
+        
+        return widths
+    }
+    
+    private class func printColumnSizes(_ sizes: [ColumnSize], text: String) {
+        var columnDescriptions = [String]()
+        for size in sizes {
+            let description = "max: \(size.maxColumnWidth), size: \(size.fittedSize)"
+            columnDescriptions.append(description)
+        }
+        
+        DebugLog.i(caller: self, "\n\(text): [\n  \(columnDescriptions.joined(separator: "\n  "))\n]")
     }
 }

@@ -56,11 +56,26 @@ class LabelView: UIView, ComponentView {
         guard let labelItem = labelItem else {
             return .zero
         }
+        
+        var fitToSize = size
+        if fitToSize.width == 0 {
+            fitToSize.width = CGFloat.greatestFiniteMagnitude
+        }
+        if fitToSize.height == 0 {
+            fitToSize.height = CGFloat.greatestFiniteMagnitude
+        }
+        
         let padding = labelItem.layout.padding
-        let maxWidth = size.width - padding.left - padding.right
-        let height = ceil(label.sizeThatFits(CGSize(width: maxWidth, height: 0)).height)
-        let top = height > 0 ? padding.top : 0
-        return CGRect(x: padding.left, y: top, width: maxWidth, height: height)
+        fitToSize.width = max(0, fitToSize.width - padding.left - padding.right)
+        fitToSize.height = max(0, fitToSize.height - padding.top - padding.bottom)
+        
+        var fittedSize = label.sizeThatFits(fitToSize)
+        fittedSize.width = ceil(min(fitToSize.width, fittedSize.width))
+        fittedSize.height = ceil(min(fitToSize.height, fittedSize.height))
+        
+        let top = fittedSize.height > 0 ? padding.top : 0
+        let frame = CGRect(x: padding.left, y: top, width: fittedSize.width, height: fittedSize.height)
+        return frame
     }
     
     override func layoutSubviews() {
@@ -75,9 +90,11 @@ class LabelView: UIView, ComponentView {
             return .zero
         }
         
+        let padding = labelItem.layout.padding
         let frame = getFrameThatFits(size)
-        let height = frame.height > 0 ? frame.height + labelItem.layout.padding.bottom : 0
+        let width = frame.width > 0 ? frame.width + padding.right : 0
+        let height = frame.height > 0 ? frame.height + padding.bottom : 0
         
-        return CGSize(width: size.width, height: height)
+        return CGSize(width: width, height: height)
     }
 }
