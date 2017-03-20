@@ -105,7 +105,7 @@ public class ComponentPreviewViewController: UIViewController {
             return
         }
         
-        DemoComponents.getComponent(with: componentName) { [weak self] (component, json, error) in
+        DemoComponentsAPI.getComponent(with: componentName) { [weak self] (component, json, error) in
             self?.json = json
             if let component = component {
                 Dispatcher.performOnMainThread {

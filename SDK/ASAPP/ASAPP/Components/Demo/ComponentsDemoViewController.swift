@@ -98,7 +98,7 @@ public class ComponentsDemoViewController: UIViewController {
     
     func refresh() {
         becomeFirstResponder()
-        DemoComponents.getComponentNames { [weak self]  (componentNames) in
+        DemoComponentsAPI.getComponentNames { [weak self]  (componentNames) in
             Dispatcher.performOnMainThread {
                 self?.componentNames = componentNames
             }
@@ -215,9 +215,9 @@ extension ComponentsDemoViewController: UITableViewDelegate {
             return
         }
         
-        let alert = UIAlertController(title: "Coming soon!", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        let viewController = ComponentCardsPreviewViewController()
+        viewController.componentNames = componentNames
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func showComponentPreview(for name: String?) {

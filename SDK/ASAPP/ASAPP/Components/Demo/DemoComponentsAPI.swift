@@ -1,5 +1,5 @@
 //
-//  DemoComponents.swift
+//  DemoComponentsAPI.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/19/17.
@@ -11,14 +11,14 @@ import UIKit
 enum DemoComponent: String {
     case transactionHistoryCard = "transaction_history_card"
     case textHistoryCard = "text_history_card"
-    
+
     static let allRawValues = [
         transactionHistoryCard.rawValue,
         textHistoryCard.rawValue
     ]
 }
 
-class DemoComponents: NSObject {
+class DemoComponentsAPI: NSObject {
     
     typealias ComponentNamesCompletion = ((_ names: [String]?) -> Void)
     
@@ -35,18 +35,18 @@ class DemoComponents: NSObject {
 
 // MARK:- Component Names
 
-extension DemoComponents {
+extension DemoComponentsAPI {
     
     // MARK: Public
     
     class func getComponentNames(completion: @escaping ComponentNamesCompletion) {
         getRemoteComponentNames { (componentNames) in
             if let componentNames = componentNames {
-                DebugLog.i(caller: DemoComponents.self, "Fetched remote components: \(componentNames)")
+                DebugLog.i(caller: DemoComponentsAPI.self, "Fetched remote components: \(componentNames)")
                 completion(componentNames)
                 return
             }
-            DebugLog.i(caller: DemoComponents.self, "Unable to fetch remote components.")
+            DebugLog.i(caller: DemoComponentsAPI.self, "Unable to fetch remote components.")
             completion(DemoComponent.allRawValues)
         }
     }
@@ -71,25 +71,41 @@ extension DemoComponents {
 
 // MARK:- Components
 
-extension DemoComponents {
+extension DemoComponentsAPI {
+    
+    class func getComponents(with names: [String], completion: @escaping (([Component]) -> Void)) {
+        var components = [Component]()
+        // Lazy.... :\  Should probably add this to the server as a separate endpoint
+        for (idx, name) in names.enumerated() {
+            getComponent(with: name, completion: { (component, json, error) in
+                
+                if let component = component {
+                    components.append(component)
+                }
+                if name == names.last {
+                    completion(components)
+                }
+            })
+        }
+    }
     
     class func getComponent(with fileName: String,
                             completion: @escaping ComponentCompletion) {
         
         getRemoteCompontent(with: fileName) { (remoteComponent, json, error) in
             if let remoteComponent = remoteComponent {
-                DebugLog.i(caller: DemoComponents.self, "Fetched remote component from server: \(fileName)")
+                DebugLog.i(caller: DemoComponentsAPI.self, "Fetched remote component from server: \(fileName)")
                 completion(remoteComponent, json, nil)
                 return
             }
             
             if let (localComponent, localJSON) = getLocalComponent(with: fileName) {
-                DebugLog.i(caller: DemoComponents.self, "Fetched local component: \(fileName)")
+                DebugLog.i(caller: DemoComponentsAPI.self, "Fetched local component: \(fileName)")
                 completion(localComponent, localJSON, nil)
                 return
             }
             
-            DebugLog.e(caller: DemoComponents.self, "Unable to fetch component: \(fileName)")
+            DebugLog.e(caller: DemoComponentsAPI.self, "Unable to fetch component: \(fileName)")
             completion(nil, nil, "Unable to get component: \(fileName)")
         }
     }

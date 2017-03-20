@@ -66,9 +66,7 @@ class ComponentCardView: UIView {
         }
         
         let fittedSize = componentView.view.sizeThatFits(size)
-    
-        print("fittedSize = \(fittedSize)")
-        
+            
         return fittedSize
     }
 

@@ -37,7 +37,7 @@
 		281C34981E7F092C001A2AA3 /* StackViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346B1E7F092C001A2AA3 /* StackViewItem.swift */; };
 		281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */; };
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
-		281C349B1E7F092C001A2AA3 /* DemoComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponents.swift */; };
+		281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */; };
 		281C349C1E7F092C001A2AA3 /* component_server.js in Resources */ = {isa = PBXBuildFile; fileRef = 281C34711E7F092C001A2AA3 /* component_server.js */; };
 		281C349E1E7F092C001A2AA3 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
@@ -335,6 +335,7 @@
 		30EE2A091D9970EB0079932D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A081D9970EB0079932D /* Credentials.swift */; };
 		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
 		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
+		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -368,7 +369,7 @@
 		281C346B1E7F092C001A2AA3 /* StackViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewItem.swift; sourceTree = "<group>"; };
 		281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentsDemoViewController.swift; sourceTree = "<group>"; };
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
-		281C346F1E7F092C001A2AA3 /* DemoComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponents.swift; sourceTree = "<group>"; };
+		281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponentsAPI.swift; sourceTree = "<group>"; };
 		281C34711E7F092C001A2AA3 /* component_server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = component_server.js; sourceTree = "<group>"; };
 		281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
@@ -668,6 +669,7 @@
 		30EE2A081D9970EB0079932D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
 		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
+		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -798,9 +800,10 @@
 			children = (
 				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
+				30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */,
 				30EF007E1E806DCF004B1492 /* ComponentCardView.swift */,
 				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
-				281C346F1E7F092C001A2AA3 /* DemoComponents.swift */,
+				281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */,
 				281C34701E7F092C001A2AA3 /* JSON */,
 			);
 			path = Demo;
@@ -1866,7 +1869,7 @@
 				302A209B1E5DE9AF007C522A /* PlaceholderTextInputView.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */,
-				281C349B1E7F092C001A2AA3 /* DemoComponents.swift in Sources */,
+				281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */,
 				281C34861E7F092C001A2AA3 /* ComponentType.swift in Sources */,
 				3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */,
 				301B795E1E7C89C600186638 /* ASAPPStyles+Presets.swift in Sources */,
@@ -1938,6 +1941,7 @@
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
 				3025DA211E539B9E004149D7 /* SRSSeparatorView.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
+				30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */,
 				281C34A51E7F092C001A2AA3 /* BasicListItemView.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
