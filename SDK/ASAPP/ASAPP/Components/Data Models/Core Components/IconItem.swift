@@ -11,7 +11,7 @@ import UIKit
 class IconItem: NSObject, Component {
 
     enum Icon: String {
-        case placeholder = "placeholder"
+        case placeholder = "placeholder" // Empty icon
         case creditCard = "credit_card"
         
         func getImage() -> UIImage? {
@@ -22,9 +22,17 @@ class IconItem: NSObject, Component {
         }
     }
     
+    // MARK: Defaults
+    
+    static let defaultWidth: CGFloat = 24
+    
+    static let defaultHeight: CGFloat = 24
+    
     // MARK: Properties
     
     let icon: Icon
+    
+    let tintColor: UIColor?
     
     let width: CGFloat
     
@@ -41,13 +49,15 @@ class IconItem: NSObject, Component {
     // MARK: Init
     
     init(icon: Icon,
-         width: CGFloat,
-         height: CGFloat,
+         tintColor: UIColor?,
+         width: CGFloat?,
+         height: CGFloat?,
          id: String?,
          layout: ComponentLayout) {
         self.icon = icon
-        self.width = width
-        self.height = height
+        self.tintColor = tintColor
+        self.width = width ?? IconItem.defaultWidth
+        self.height = height ?? IconItem.defaultHeight
         self.id = id
         self.layout = layout
         super.init()
@@ -58,6 +68,24 @@ class IconItem: NSObject, Component {
     static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        return nil
+        guard let content = content as? [String : Any] else {
+            return nil
+        }
+        guard let iconName = content["icon"] as? String,
+            let icon = Icon(rawValue: iconName) else {
+                DebugLog.w(caller: self, "No icon found in content: \(content)")
+                return nil
+        }
+        
+        let color = content.hexColor(for: "tint_color")
+        let width = content.float(for: "width")
+        let height = content.float(for: "height")
+        
+        return IconItem(icon: icon,
+                        tintColor: color,
+                        width: width,
+                        height: height,
+                        id: id,
+                        layout: layout)
     }
 }

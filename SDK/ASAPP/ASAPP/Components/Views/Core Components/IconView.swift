@@ -10,18 +10,34 @@ import UIKit
 
 class IconView: UIView, ComponentView {
 
+    let imageView = UIImageView()
+    
     // MARK: ComponentView Properties
     
     var component: Component? {
         didSet {
-            
+            if let iconItem = iconItem {
+                if let tintColor = iconItem.tintColor {
+                    imageView.image = iconItem.icon.getImage()?.tinted(tintColor)
+                } else {
+                    imageView.image = iconItem.icon.getImage()
+                }
+            } else {
+                imageView.image = nil
+            }
         }
+    }
+    
+    var iconItem: IconItem? {
+        return component as? IconItem
     }
 
     // MARK: Init
     
     func commonInit() {
-        
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        addSubview(imageView)
     }
     
     override init(frame: CGRect) {
@@ -36,7 +52,21 @@ class IconView: UIView, ComponentView {
     
     // MARK: Layout
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let padding = iconItem?.layout.padding ?? UIEdgeInsets.zero
+        imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return .zero
+        guard let iconItem = iconItem else {
+            return .zero
+        }
+        
+        let padding = iconItem.layout.padding
+        let sizeWithPadding = CGSize(width: iconItem.width + padding.left + padding.right,
+                                     height: iconItem.height + padding.top + padding.bottom)
+        return sizeWithPadding
     }
 }

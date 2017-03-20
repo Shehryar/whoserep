@@ -1,0 +1,268 @@
+{
+  "type": "stack_view",
+  "content": {
+    "items": [
+      {
+        "type": "stack_view",
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type" : "icon",
+              "content" : {
+                "icon" : "credit_card"
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "padding" : {
+                  "top" : 16,
+                  "left" : 0,
+                  "right" : 16,
+                  "bottom" : 16
+                }
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "Text History",
+                "font_weight": "black",
+                "font_size": 16,
+                "color" : "#5b657e"
+              },
+              "layout": {
+                "gravity": "middle"
+              }
+            },
+            {
+              "type": "button",
+              "content": {
+                "title": "VIEW ALL",
+                "style": "text"
+              },
+              "layout": {
+                "align": "right",
+                "gravity": "middle",
+                "weight" : 1,
+                "padding": {
+                  "top": 12,
+                  "left": 16,
+                  "bottom": 12,
+                  "right": 0
+                }
+              }
+            }
+          ]
+        },
+        "layout" : {
+            "padding" : {
+                "top" : 4,
+                "bottom" : 4
+            }
+          }
+      },
+      {
+        "type": "separator"
+      },
+
+      {
+        "type": "stack_view",
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type": "stack_view",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "+1 (555) 123-4567",
+                      "font_size": 14,
+                      "color" : "#646e85"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "3/3/2017 - 4:14PM",
+                      "font_size": 12,
+                      "color" : "#adb2bf"
+                    }
+                  }
+                ]
+              },
+              "layout": {
+                "gravity": "middle",
+                "margin" : {
+                    "right" : 5
+                },
+                "weight" : 1
+              }
+            },
+            
+            {
+              "type": "label",
+              "content": {
+                "text": "$0.25",
+                "font_size": 16,
+                "font_weight" : "black",
+                "letter_spacing" : 1,
+                "alignment" : "right",
+                "color" : "#5b657e"
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0
+              }
+          }
+          ]
+        },
+        "layout" : {
+            "padding" : {
+                "top" : 8,
+                "bottom" : 8
+            }
+          }
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "type": "stack_view",
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type": "stack_view",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Mom",
+                      "font_size": 14,
+                      "color" : "#646e85"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "3/2/2017 - 5:01PM",
+                      "font_size": 12,
+                      "color" : "#adb2bf"
+                    }
+                  }
+                ]
+              },
+              "layout": {
+                "gravity": "middle",
+                "margin" : {
+                    "right" : 5
+                },
+                "weight" : 1
+              }
+            },
+            
+            {
+              "type": "label",
+              "content": {
+                "text": "$0.10",
+                "font_size": 16,
+                "font_weight" : "black",
+                "letter_spacing" : 1,
+                "alignment" : "right",
+                "color" : "#5b657e"
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0
+              }
+          }
+          ]
+        },
+        "layout" : {
+            "padding" : {
+                "top" : 8,
+                "bottom" : 8
+            }
+          }
+      },
+
+      {
+        "type": "separator"
+      },
+      {
+        "type": "stack_view",
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type": "stack_view",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Billy",
+                      "font_size": 14,
+                      "color" : "#646e85"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "3/2/2017 - 1:07PM",
+                      "font_size": 12,
+                      "color" : "#adb2bf"
+                    }
+                  }
+                ]
+              },
+              "layout": {
+                "gravity": "middle",
+                "margin" : {
+                    "right" : 5
+                },
+                "weight" : 1
+              }
+            },
+            
+            {
+              "type": "label",
+              "content": {
+                "text": "$34.66",
+                "font_size": 16,
+                "font_weight" : "black",
+                "letter_spacing" : 1,
+                "alignment" : "right",
+                "color" : "#5b657e"
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0
+              }
+          }
+          ]
+        },
+        "layout" : {
+            "padding" : {
+                "top" : 8,
+                "bottom" : 16
+            }
+          }
+      }
+      
+    ]
+  },
+  "layout": {
+    "padding": {
+      "left": 20,
+      "right": 20,
+      
+    }
+  }
+}
