@@ -89,8 +89,8 @@ class ComponentLayout: NSObject {
             return ComponentLayout()
         }
         
-        let margin = UIEdgeInsets.fromJSON(json["margin"], defaultValues: .zero)
-        let padding = UIEdgeInsets.fromJSON(json["padding"], defaultValues: .zero)
+        let margin = json.inset(for: "margin", defaultValue: .zero)
+        let padding = json.inset(for: "padding", defaultValue: .zero)
         let alignment = HorizontalAlignment.from(json["align"] as? String,
                                                  defaultValue: .left)
         let gravity = VerticalAlignment.from(json["gravity"] as? String,
@@ -102,30 +102,5 @@ class ComponentLayout: NSObject {
                                alignment: alignment,
                                gravity: gravity,
                                weight: weight)
-    }
-}
-
-extension UIEdgeInsets {
-    
-    static func fromJSON(_ json: Any?,
-                         defaultValues: UIEdgeInsets = .zero) -> UIEdgeInsets {
-        guard let json = json as? [String : Any] else {
-            return defaultValues
-        }
-        
-        var insets = defaultValues
-        if let left = json["left"] as? Int {
-            insets.left = CGFloat(left)
-        }
-        if let top = json["top"] as? Int {
-            insets.top = CGFloat(top)
-        }
-        if let right = json["right"] as? Int {
-            insets.right = CGFloat(right)
-        }
-        if let bottom = json["bottom"] as? Int {
-            insets.bottom = CGFloat(bottom)
-        }
-        return insets
     }
 }
