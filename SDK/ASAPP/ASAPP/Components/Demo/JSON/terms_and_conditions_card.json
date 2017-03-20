@@ -1,0 +1,57 @@
+{
+  "type": "stack_view",
+  "content": {
+    "items": [
+      {
+        "type": "stack_view",
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type": "label",
+              "content": {
+                "text": "Terms and Conditions",
+                "font_weight": "black",
+                "font_size": 15,
+                "color" : "#5b657e"
+              },
+              "layout": {
+                "gravity": "middle",
+              }
+            },
+            {
+              "type": "button",
+              "content": {
+                "title": "VIEW",
+                "style": "text"
+              },
+              "layout": {
+                "align": "right",
+                "gravity": "middle",
+                "weight" : 1,
+                "padding": {
+                  "top": 12,
+                  "left": 16,
+                  "bottom": 12,
+                  "right": 0
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "label",
+        "content": {
+          "text": "As of Jan 22, 2017 -- 4:15PM",
+          "font_weight": "regular",
+          "font_size": 11,
+          "color" : "#a4a9b7"
+        }
+      }
+    ]
+  },
+  "layout": {
+    "padding": [8, 20, 20, 20]
+  }
+}

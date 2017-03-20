@@ -96,8 +96,8 @@ class LabelView: UIView, ComponentView {
         
         let padding = labelItem.layout.padding
         let frame = getFrameThatFits(size)
-        let width = frame.width > 0 ? frame.width + padding.right : 0
-        let height = frame.height > 0 ? frame.height + padding.bottom : 0
+        let width = frame.width > 0 ? frame.maxX + padding.right : 0
+        let height = frame.height > 0 ? frame.maxY + padding.bottom : 0
         
         return CGSize(width: width, height: height)
     }
