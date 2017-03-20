@@ -10,6 +10,8 @@ import UIKit
 
 class ButtonView: UIView, ComponentView {
     
+    let defaultContentEdgeInsets = UIEdgeInsets(top: 16, left: 32, bottom: 16, right: 32)
+    
     let button = UIButton()
     
     // MARK: ComponentView Properties
@@ -66,6 +68,11 @@ class ButtonView: UIView, ComponentView {
                 button.setBackgroundImage(UIImage.imageWithColor(bgHighlighted), for: .highlighted)
                 button.setBackgroundImage(UIImage.imageWithColor(bgDisabled), for: .disabled)
                 
+                var contentEdgeInsets = defaultContentEdgeInsets
+                if buttonItem.layout.padding != .zero {
+                    contentEdgeInsets = buttonItem.layout.padding
+                }
+                button.contentEdgeInsets = contentEdgeInsets
             } else {
                 button.setTitle(nil, for: .normal)
             }
@@ -79,7 +86,8 @@ class ButtonView: UIView, ComponentView {
     // MARK: Init
     
     func commonInit() {
-        button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 32, bottom: 16, right: 32)
+        button.clipsToBounds = true
+        button.contentEdgeInsets = defaultContentEdgeInsets
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.lineBreakMode = .byWordWrapping
         addSubview(button)
@@ -97,22 +105,10 @@ class ButtonView: UIView, ComponentView {
     
     // MARK: Layout
     
-    func getFrameThatFits(_ size: CGSize) -> CGRect {
-        guard let buttonItem = buttonItem else {
-            return .zero
-        }
-        let padding = buttonItem.layout.padding
-        let maxWidth = size.width - padding.left - padding.right
-        let height = ceil(button.sizeThatFits(CGSize(width: maxWidth, height: 0)).height)
-        let top = height > 0 ? padding.top : 0
-        return CGRect(x: padding.left, y: top, width: maxWidth, height: height)
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let frame = getFrameThatFits(bounds.size)
-        button.frame = frame
+        button.frame = bounds
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -120,9 +116,10 @@ class ButtonView: UIView, ComponentView {
             return .zero
         }
         
-        let frame = getFrameThatFits(size)
-        let height = frame.height > 0 ? frame.height + buttonItem.layout.padding.bottom : 0
+        var buttonSize = button.sizeThatFits(size)
+        buttonSize.width = ceil(buttonSize.width)
+        buttonSize.height = ceil(buttonSize.height)
         
-        return CGSize(width: size.width, height: height)
+        return buttonSize
     }
 }

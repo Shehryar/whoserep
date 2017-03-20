@@ -29,14 +29,12 @@
             
             {
                 "type" : "separator",
-                "content" : {
-                    "color" : "#CCCCCC"
-                },
+                "content" : {},
                 "layout" : {
                     "padding" : {
                         "top" : 24,
                         "left" : 32,
-                        "bottom" : 16,
+                        "bottom" : 24,
                         "right" : 32
                     }
                 }
@@ -49,26 +47,31 @@
         				{
 			                "type" : "label",
 			                "content" : {
-			                    "text" : "Coupon Value",
-			                    "alignment" : "center",
-			                    "font_weight" : "regular",
+			                    "text" : "Transaction History",
+			                    "font_weight" : "bold",
 			                    "font_size" : 16
 			                },
 			                "layout" : {
-			                   
+			                   "gravity" : "middle",
+			                   "align" : "left"
 			                }
 			            },
 
 			            {
-			                "type" : "label",
+			                "type" : "button",
 			                "content" : {
-			                    "text" : "$100",
-			                    "alignment" : "right",
-			                    "font_weight" : "black",
-			                    "font_size" : 16
+			                    "title" : "View Details",
+			                    "style" : "text",
 			                },
 			                "layout" : {
-			                	"alignment" : "right"
+			                	"gravity" : "middle",
+			                	"align" : "right",
+			                	"padding" : {
+			                		"top" : 12,
+			                		"left" : 16,
+			                		"bottom" : 12,
+			                		"right" : 0
+			                	}
 			                }
 			            },
 
@@ -76,11 +79,21 @@
         			"orientation" : "horizontal"
         		},
         		"layout" : {
-        			"margin" : {
-        				"bottom" : 16
-        			}
         		}
 			},
+
+			{
+                "type" : "separator",
+                "content" : {},
+                "layout" : {
+                    "padding" : {
+                        "top" : 24,
+                        "left" : 32,
+                        "bottom" : 24,
+                        "right" : 32
+                    }
+                }
+            },
             
             {
                 "type" : "label",

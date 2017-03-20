@@ -75,7 +75,7 @@ class StackViewItem: NSObject, Component {
             return nil
         }
         
-        let orientation = Orientation.from(content["direction"] as? String,
+        let orientation = Orientation.from(content["orientation"] as? String,
                                            defaultValue: .vertical)
         
         return StackViewItem(items: items,
