@@ -78,7 +78,7 @@
               },
               "layout" : {
                 "gravity" : "middle",
-                "margin_right" : 6
+                "margin_right" : 0
               }
             },
             {
@@ -89,7 +89,8 @@
                 "height" : 16
               },
               "layout" : {
-                "gravity" : "middle"
+                "gravity" : "middle",
+                "margin_left" : 6
               }
             }
           ]

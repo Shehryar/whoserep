@@ -59,7 +59,7 @@ class HorizontalStackView: UIView, ComponentView {
         let contentWidth = size.width - padding.left - padding.right
         let contentFrame = CGRect(x: padding.left, y: padding.top,
                                   width: contentWidth, height: 0)
-        
+            
         let layoutInfo = ComponentLayoutEngine.getHorizontalLayout(for: subviews, inside: contentFrame)
         var contentSize = CGSize.zero
         if layoutInfo.maxX > 0 && layoutInfo.maxY > 0 {

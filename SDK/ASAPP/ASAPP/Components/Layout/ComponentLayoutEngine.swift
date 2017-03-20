@@ -152,9 +152,7 @@ extension ComponentLayoutEngine {
         }
         
         // Only even columns for now
-//        let totalColumnsWidth = getWidthMinusMargins(for: views, totalWidth: boundingRect.width)
-//        let columnWidth = floor(totalColumnsWidth / CGFloat(views.count))
-  
+
         let columnSizes = getColumnSizes(for: views, within: boundingRect.width)
         
         // Layout frames horizontally
@@ -165,7 +163,6 @@ extension ComponentLayoutEngine {
             let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
             let alignment = (view as? ComponentView)?.component?.layout.alignment ?? HorizontalAlignment.left
             
-//            var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
             var size = columnSizes[idx].fittedSize
             let columnWidth = columnSizes[idx].maxColumnWidth
             var offsetX: CGFloat = 0
@@ -191,6 +188,7 @@ extension ComponentLayoutEngine {
             
             let frame: CGRect
             if size.width > 0 && size.height > 0 {
+                left += margin.left
                 frame = CGRect(x: left + offsetX, y: top, width: size.width, height: size.height)
                 left += columnWidth + margin.right
             } else {
@@ -295,7 +293,7 @@ extension ComponentLayoutEngine {
         var width = totalWidth
         for view in views {
             let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
-            width -= margin.left + margin.right
+            width = width - margin.left - margin.right
         }
         return max(0, width)
     }
