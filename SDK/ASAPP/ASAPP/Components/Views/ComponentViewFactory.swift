@@ -39,7 +39,12 @@ enum ComponentViewFactory {
             break
             
         case .stackView:
-            componentView = StackView_new()
+            if let stackViewItem = component as? StackViewItem,
+                stackViewItem.orientation == .horizontal {
+                componentView = HorizontalStackView()
+            } else {
+                componentView = StackView_new()
+            }
             break
         }
         componentView?.component = component

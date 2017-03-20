@@ -10,9 +10,25 @@ import UIKit
 
 class StackViewItem: NSObject, Component {
     
+    enum Orientation: String {
+        case vertical = "vertical"
+        case horizontal = "horizontal"
+        
+        static func from(_ string: String?, defaultValue: Orientation) -> Orientation {
+            guard let string = string,
+                let orientation = Orientation(rawValue: string) else {
+                    return defaultValue
+            }
+            return orientation
+        }
+        
+    }
+    
     // MARK: Properties
     
     let items: [Component]
+    
+    let orientation: Orientation
     
     // MARK: Component Properties
     
@@ -25,9 +41,11 @@ class StackViewItem: NSObject, Component {
     // MARK: Layout
     
     init(items: [Component],
+         orientation: Orientation,
          id: String?,
          layout: ComponentLayout) {
         self.items = items
+        self.orientation = orientation
         self.id = id
         self.layout = layout
         super.init()
@@ -57,7 +75,11 @@ class StackViewItem: NSObject, Component {
             return nil
         }
         
+        let orientation = Orientation.from(content["direction"] as? String,
+                                           defaultValue: .vertical)
+        
         return StackViewItem(items: items,
+                             orientation: orientation,
                              id: id,
                              layout: layout)
     }

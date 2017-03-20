@@ -2,7 +2,6 @@
     "type" : "stack_view",
     "content" : {
         "items" : [
-            
             {
                 "type" : "label",
                 "content" : {
@@ -42,6 +41,46 @@
                     }
                 }
             },
+
+            {
+        		"type" : "stack_view",
+    			"content" : {
+        			"items" : [
+        				{
+			                "type" : "label",
+			                "content" : {
+			                    "text" : "Coupon Value",
+			                    "alignment" : "center",
+			                    "font_weight" : "regular",
+			                    "font_size" : 16
+			                },
+			                "layout" : {
+			                   
+			                }
+			            },
+
+			            {
+			                "type" : "label",
+			                "content" : {
+			                    "text" : "$100",
+			                    "alignment" : "right",
+			                    "font_weight" : "black",
+			                    "font_size" : 16
+			                },
+			                "layout" : {
+			                	"alignment" : "right"
+			                }
+			            },
+
+        			],
+        			"orientation" : "horizontal"
+        		},
+        		"layout" : {
+        			"margin" : {
+        				"bottom" : 16
+        			}
+        		}
+			},
             
             {
                 "type" : "label",
