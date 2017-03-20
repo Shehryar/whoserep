@@ -12,12 +12,45 @@ class IconItem: NSObject, Component {
 
     enum Icon: String {
         case placeholder = "placeholder" // Empty icon
+        
+        // Maintain alphabetical order
+        case arrowLeft = "arrow-left"
+        case arrowRight = "arrow-right"
+        case back = "back"
+        case checkmark = "checkmark"
+        case circleCheckmark = "circle-checkmark"
         case creditCard = "credit_card"
+        case creditCardMedium = "credit-card-medium"
+        case errorAlert = "error-alert"
+        case errorAlertFilled = "error-alert-filled"
+        case exitLink = "exit-link"
+        case hideKeyboard = "hide-keyboard"
+        case paperclip = "paperclip"
+        case smallX = "x-small"
+        case star = "star"
+        case starFilled = "star-filled"
+        case x = "x"
         
         func getImage() -> UIImage? {
             switch self {
-            case .creditCard: return Images.asappImage(.iconCreditCardMedium)
             case .placeholder: return nil
+                
+            case .arrowLeft: return Images.asappImage(.iconArrowLeft)
+            case .arrowRight: return Images.asappImage(.iconArrowRight)
+            case .back: return Images.asappImage(.iconBack)
+            case .checkmark: return Images.asappImage(.iconCheckmark)
+            case .circleCheckmark: return Images.asappImage(.iconCircleCheckmark)
+            case .creditCard: return Images.asappImage(.iconCreditCard)
+            case .creditCardMedium: return Images.asappImage(.iconCreditCardMedium)
+            case .errorAlert: return Images.asappImage(.iconErrorAlert)
+            case .errorAlertFilled: return Images.asappImage(.iconErrorAlertFilled)
+            case .exitLink: return Images.asappImage(.iconExitLink)
+            case .hideKeyboard: return Images.asappImage(.iconHideKeyboard)
+            case .paperclip: return Images.asappImage(.iconPaperclip)
+            case .smallX: return Images.asappImage(.iconSmallX)
+            case .star: return Images.asappImage(.iconStar)
+            case .starFilled: return Images.asappImage(.iconStarFilled)
+            case .x: return Images.asappImage(.iconX)
             }
         }
     }

@@ -16,7 +16,6 @@ class Images: NSObject {
         case iconPaperclip = "temp-icon-paperclip"
         case iconX = "icon-x"
         case iconSmallX = "icon-x-small"
-        case iconLoader = "icon-loader"
         case iconExitLink = "icon-exit-link"
         case iconBack = "icon-back"
         case iconCheckmark = "icon-checkmark"

@@ -8,21 +8,6 @@
           "orientation": "horizontal",
           "items": [
             {
-              "type" : "icon",
-              "content" : {
-                "icon" : "credit_card"
-              },
-              "layout" : {
-                "gravity" : "middle",
-                "padding" : {
-                  "top" : 16,
-                  "left" : 0,
-                  "right" : 16,
-                  "bottom" : 16
-                }
-              }
-            },
-            {
               "type": "label",
               "content": {
                 "text": "Text History",
@@ -70,6 +55,21 @@
         "content": {
           "orientation": "horizontal",
           "items": [
+            {
+              "type" : "icon",
+              "content" : {
+                "icon" : "credit_card",
+                "tint_color" : "#5b657e"
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "padding" : {
+                  "top" : 6,
+                  "right" : 16,
+                  "bottom" : 6
+                }
+              }
+            },
             {
               "type": "stack_view",
               "content": {
@@ -135,6 +135,20 @@
           "orientation": "horizontal",
           "items": [
             {
+              "type" : "icon",
+              "content" : {
+                "icon" : "placeholder",
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "padding" : {
+                  "top" : 6,
+                  "right" : 16,
+                  "bottom" : 6
+                }
+              }
+            },
+            {
               "type": "stack_view",
               "content": {
                 "items": [
@@ -199,6 +213,20 @@
         "content": {
           "orientation": "horizontal",
           "items": [
+            {
+              "type" : "icon",
+              "content" : {
+                "icon" : "placeholder",
+              },
+              "layout" : {
+                "gravity" : "middle",
+                "padding" : {
+                  "top" : 6,
+                  "right" : 16,
+                  "bottom" : 6
+                }
+              }
+            },
             {
               "type": "stack_view",
               "content": {
