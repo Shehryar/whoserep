@@ -226,6 +226,9 @@
 		302AF32F1E8031CD0086B939 /* text_history_card.json in Resources */ = {isa = PBXBuildFile; fileRef = 302AF32E1E8031CD0086B939 /* text_history_card.json */; };
 		302AF3311E8046E80086B939 /* ProgressBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3301E8046E80086B939 /* ProgressBarItem.swift */; };
 		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
+		302AF3371E80557A0086B939 /* icon-user.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3341E80557A0086B939 /* icon-user.png */; };
+		302AF3381E80557A0086B939 /* icon-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3351E80557A0086B939 /* icon-user@2x.png */; };
+		302AF3391E80557A0086B939 /* icon-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3361E80557A0086B939 /* icon-user@3x.png */; };
 		302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
@@ -554,6 +557,9 @@
 		302AF32E1E8031CD0086B939 /* text_history_card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = text_history_card.json; sourceTree = "<group>"; };
 		302AF3301E8046E80086B939 /* ProgressBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarItem.swift; sourceTree = "<group>"; };
 		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		302AF3341E80557A0086B939 /* icon-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user.png"; sourceTree = "<group>"; };
+		302AF3351E80557A0086B939 /* icon-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@2x.png"; sourceTree = "<group>"; };
+		302AF3361E80557A0086B939 /* icon-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@3x.png"; sourceTree = "<group>"; };
 		302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesActionSheet.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
@@ -1022,6 +1028,9 @@
 				302268341D80690500EC4FB1 /* bg-dash-tile.png */,
 				302268351D80690500EC4FB1 /* bg-dash-tile@2x.png */,
 				302268361D80690500EC4FB1 /* bg-dash-tile@3x.png */,
+				302AF3341E80557A0086B939 /* icon-user.png */,
+				302AF3351E80557A0086B939 /* icon-user@2x.png */,
+				302AF3361E80557A0086B939 /* icon-user@3x.png */,
 				3025D9BB1E52803C004149D7 /* icon-arrow-left.png */,
 				3025D9BC1E52803C004149D7 /* icon-arrow-left@2x.png */,
 				3025D9BD1E52803C004149D7 /* icon-arrow-left@3x.png */,
@@ -1670,6 +1679,7 @@
 				302472AA1D89B7680005A6C9 /* XFINITYSans-Thin.ttf in Resources */,
 				305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */,
 				30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */,
+				302AF3371E80557A0086B939 /* icon-user.png in Resources */,
 				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
 				3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */,
 				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
@@ -1772,9 +1782,11 @@
 				281C349D1E7F092C001A2AA3 /* stack_view.json in Resources */,
 				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
 				3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */,
+				302AF3391E80557A0086B939 /* icon-user@3x.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
+				302AF3381E80557A0086B939 /* icon-user@2x.png in Resources */,
 				3025D9AD1E527FDB004149D7 /* icon-credit-card@2x.png in Resources */,
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,

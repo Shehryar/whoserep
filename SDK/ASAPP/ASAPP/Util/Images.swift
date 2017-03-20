@@ -29,6 +29,7 @@ class Images: NSObject {
         case iconArrowRight = "icon-arrow-right"
         case iconStar = "icon-star"
         case iconStarFilled = "icon-star-filled"
+        case iconUser = "icon-user"
         
         case buttonAskBG = "button-bg-ask"
         case buttonRespondBG = "button-bg-respond"

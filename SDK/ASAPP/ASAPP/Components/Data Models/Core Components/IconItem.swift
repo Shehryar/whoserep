@@ -29,6 +29,7 @@ class IconItem: NSObject, Component {
         case smallX = "x_small"
         case star = "star"
         case starFilled = "star_filled"
+        case user = "user"
         case x = "x"
         
         func getImage() -> UIImage? {
@@ -50,6 +51,7 @@ class IconItem: NSObject, Component {
             case .smallX: return Images.asappImage(.iconSmallX)
             case .star: return Images.asappImage(.iconStar)
             case .starFilled: return Images.asappImage(.iconStarFilled)
+            case .user: return Images.asappImage(.iconUser)
             case .x: return Images.asappImage(.iconX)
             }
         }
