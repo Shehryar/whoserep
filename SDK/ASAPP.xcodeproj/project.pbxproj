@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		280477741E7FEB8000217135 /* transaction_history_card.json in Resources */ = {isa = PBXBuildFile; fileRef = 280477731E7FEB8000217135 /* transaction_history_card.json */; };
 		2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */; };
 		2804CE091E7886F60001E516 /* ChatMessageImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE081E7886F60001E516 /* ChatMessageImage.swift */; };
 		281C34801E7F092C001A2AA3 /* template_Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C344B1E7F092C001A2AA3 /* template_Component.swift */; };
@@ -38,7 +39,7 @@
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
 		281C349B1E7F092C001A2AA3 /* DemoComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponents.swift */; };
 		281C349C1E7F092C001A2AA3 /* component_server.js in Resources */ = {isa = PBXBuildFile; fileRef = 281C34711E7F092C001A2AA3 /* component_server.js */; };
-		281C349D1E7F092C001A2AA3 /* demo_stack_view.json in Resources */ = {isa = PBXBuildFile; fileRef = 281C34721E7F092C001A2AA3 /* demo_stack_view.json */; };
+		281C349D1E7F092C001A2AA3 /* stack_view.json in Resources */ = {isa = PBXBuildFile; fileRef = 281C34721E7F092C001A2AA3 /* stack_view.json */; };
 		281C349E1E7F092C001A2AA3 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
 		281C34A01E7F092C001A2AA3 /* ComponentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34771E7F092C001A2AA3 /* ComponentViewFactory.swift */; };
@@ -333,6 +334,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		280477731E7FEB8000217135 /* transaction_history_card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = transaction_history_card.json; sourceTree = "<group>"; };
 		2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachment.swift; sourceTree = "<group>"; };
 		2804CE081E7886F60001E516 /* ChatMessageImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageImage.swift; sourceTree = "<group>"; };
 		281C344B1E7F092C001A2AA3 /* template_Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = template_Component.swift; sourceTree = "<group>"; };
@@ -364,7 +366,7 @@
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
 		281C346F1E7F092C001A2AA3 /* DemoComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponents.swift; sourceTree = "<group>"; };
 		281C34711E7F092C001A2AA3 /* component_server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = component_server.js; sourceTree = "<group>"; };
-		281C34721E7F092C001A2AA3 /* demo_stack_view.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = demo_stack_view.json; sourceTree = "<group>"; };
+		281C34721E7F092C001A2AA3 /* stack_view.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stack_view.json; sourceTree = "<group>"; };
 		281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		281C34771E7F092C001A2AA3 /* ComponentViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewFactory.swift; sourceTree = "<group>"; };
@@ -797,7 +799,8 @@
 			isa = PBXGroup;
 			children = (
 				281C34711E7F092C001A2AA3 /* component_server.js */,
-				281C34721E7F092C001A2AA3 /* demo_stack_view.json */,
+				281C34721E7F092C001A2AA3 /* stack_view.json */,
+				280477731E7FEB8000217135 /* transaction_history_card.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -1768,7 +1771,7 @@
 				302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
-				281C349D1E7F092C001A2AA3 /* demo_stack_view.json in Resources */,
+				281C349D1E7F092C001A2AA3 /* stack_view.json in Resources */,
 				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
 				3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
@@ -1781,6 +1784,7 @@
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				302472A61D89B7680005A6C9 /* XFINITYSans-ExLgt.ttf in Resources */,
+				280477741E7FEB8000217135 /* transaction_history_card.json in Resources */,
 				307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */,
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
 				302472A71D89B7680005A6C9 /* XFINITYSans-Lgt.ttf in Resources */,

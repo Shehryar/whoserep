@@ -9,10 +9,12 @@
 import UIKit
 
 enum DemoComponent: String {
-    case stackView = "demo_stack_view"
+    case stackView = "stack_view"
+    case transactionHistory = "transaction_history"
     
     static let allRawValues = [
-        stackView.rawValue
+        stackView.rawValue,
+        transactionHistory.rawValue
     ]
 }
 

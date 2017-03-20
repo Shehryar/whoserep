@@ -120,7 +120,7 @@ extension ComponentLayoutEngine {
         
         // Only even columns for now
         let totalColumnsWidth = getWidthMinusMargins(for: views, startingWidth: boundingRect.width)
-        let columnWidth = totalColumnsWidth / CGFloat(views.count)
+        let columnWidth = floor(totalColumnsWidth / CGFloat(views.count))
         
         // Layout frames horizontally
         var maxFrameHeight: CGFloat = 0
@@ -162,7 +162,7 @@ extension ComponentLayoutEngine {
             }
             frames.append(frame)
             
-            maxFrameHeight = max(frame.maxY, maxFrameHeight)
+            maxFrameHeight = max(frame.height, maxFrameHeight)
         }
         guard maxFrameHeight > 0 else {
             return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
@@ -179,13 +179,12 @@ extension ComponentLayoutEngine {
                     break
                     
                 case .middle:
-                    if frame.height > 0 {
-                        frame.origin.y = boundingRect.minY + floor((maxFrameHeight - frame.height) / 2.0)
-                    }
+                    frame.origin.y = boundingRect.minY + floor((maxFrameHeight - frame.height) / 2.0)
+                   
                     break
                     
                 case .bottom:
-                    frame.origin.y = max(boundingRect.minY, boundingRect.minY + maxFrameHeight - frame.height - layout.margin.bottom)
+                    frame.origin.y = boundingRect.minY + maxFrameHeight - frame.height - layout.margin.bottom
                     break
                     
                 case .fill:
@@ -201,6 +200,8 @@ extension ComponentLayoutEngine {
                 maxY = max(maxY, frame.maxY)
             }
         }
+        
+        print("Horizontal Frames:\n\(frames)\nmaxX: \(maxX)\nmaxY: \(maxY)")
         
         return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
     }
