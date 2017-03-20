@@ -47,7 +47,7 @@
 						{
 							"type" : "label",
 							"content" : {
-								"text" : "Your account balance is sufficient to cover yoyur next month of service and will be automatically applied on the due date.",
+								"text" : "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date.",
 								"font_size" : 12,
 								"color" : "#656f86"
 							}, 
