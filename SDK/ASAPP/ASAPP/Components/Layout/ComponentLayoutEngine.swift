@@ -29,17 +29,50 @@ class ComponentLayoutEngine: NSObject {
             
             let left = boundingRect.minX + margin.left
             let width = boundingRect.width - margin.left - margin.right
-            let height = ceil(view.sizeThatFits(CGSize(width: width, height: 0)).height)
+            var size = view.sizeThatFits(CGSize(width: width, height: 0))
+            size.width = ceil(size.width)
+            size.height = ceil(size.height)
             
-            if height > 0 {
+            if size.height > 0 {
                 top += margin.top
             }
-            let frame = CGRect(x: left, y: top, width: width, height: height)
-            if height > 0 {
-                top += height + margin.bottom
+            let frame = CGRect(x: left, y: top, width: size.width, height: size.height)
+            if size.height > 0 {
+                top += size.height + margin.bottom
             }
             
             frames.append(frame)
+        }
+        
+        // Adjust horizontally, if needed
+        for (idx, view) in views.enumerated() {
+            var frame = frames[idx]
+            let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
+            
+            let maxWidth = boundingRect.width - margin.left - margin.right
+            if frame.width >= maxWidth {
+                continue
+            }
+            
+            let alignment = (view as? ComponentView)?.component?.layout.alignment ?? .left
+            switch alignment {
+            case .left:
+                // No-op
+                break
+                
+            case .center:
+                frame.origin.x = frame.minX + floor((maxWidth - frame.width) / 2.0)
+                break
+                
+            case .right:
+                frame.origin.x = frame.minX + maxWidth - frame.width
+                break
+                
+            case .fill:
+                frame.size.width = maxWidth
+                break
+            }
+            frames[idx] = frame
         }
         
         return frames
@@ -158,9 +191,8 @@ extension ComponentLayoutEngine {
             
             let frame: CGRect
             if size.width > 0 && size.height > 0 {
-                left += margin.left
                 frame = CGRect(x: left + offsetX, y: top, width: size.width, height: size.height)
-                left += size.width + margin.right
+                left += columnWidth + margin.right
             } else {
                 frame = CGRect(x: left, y: top, width: 0, height: 0)
             }

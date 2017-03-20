@@ -81,8 +81,12 @@ class LabelView: UIView, ComponentView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let frame = getFrameThatFits(bounds.size)
-        label.frame = frame
+        if let labelItem = labelItem {
+            let padding = labelItem.layout.padding
+            label.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        } else {
+            label.frame = .zero
+        }
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
