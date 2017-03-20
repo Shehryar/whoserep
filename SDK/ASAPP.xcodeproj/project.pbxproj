@@ -334,6 +334,7 @@
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
 		30EE2A091D9970EB0079932D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A081D9970EB0079932D /* Credentials.swift */; };
 		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
+		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -666,6 +667,7 @@
 		30E87C5F1D93149B00B5EF9E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		30EE2A081D9970EB0079932D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
+		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -796,6 +798,7 @@
 			children = (
 				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
+				30EF007E1E806DCF004B1492 /* ComponentCardView.swift */,
 				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
 				281C346F1E7F092C001A2AA3 /* DemoComponents.swift */,
 				281C34701E7F092C001A2AA3 /* JSON */,
@@ -1824,6 +1827,7 @@
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
+				30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */,
 				281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */,
 				3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */,
 				285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */,

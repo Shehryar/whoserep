@@ -21,21 +21,7 @@ public class ComponentPreviewViewController: UIViewController {
     
     // MARK: Private Properties
     
-    fileprivate var contentView: ComponentView? {
-        didSet {
-            oldValue?.view.removeFromSuperview()
-            
-            if let contentView = contentView {
-                containerView.addSubview(contentView.view)
-                
-                if isViewLoaded {
-                    view.setNeedsLayout()
-                }
-            }
-        }
-    }
-    
-    fileprivate let containerView = UIView()
+    let cardView = ComponentCardView()
     
     fileprivate let controlsBar = UIToolbar()
     
@@ -50,11 +36,6 @@ public class ComponentPreviewViewController: UIViewController {
     // MARK: Init
     
     func commonInit() {
-        containerView.backgroundColor = ASAPP.styles.backgroundColor1
-        containerView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
-        containerView.layer.borderWidth = 1
-        containerView.layer.cornerRadius = 5
-        
         controlsBar.barStyle = .default
         controlsBar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
@@ -82,7 +63,7 @@ public class ComponentPreviewViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = ASAPP.styles.backgroundColor2
-        view.addSubview(containerView)
+        view.addSubview(cardView)
         view.addSubview(controlsBar)
     }
     
@@ -102,17 +83,11 @@ public class ComponentPreviewViewController: UIViewController {
         }
         
         let contentWidth = view.bounds.width - contentInset.left - contentInset.right
-        var height: CGFloat = 0
-        var width: CGFloat = 0
-        if let contentView = contentView {
-            let size = contentView.view.sizeThatFits(CGSize(width: contentWidth, height: 0))
-            height = ceil(size.height)
-            width = ceil(size.width)
-        }
+        var size = cardView.sizeThatFits(CGSize(width: contentWidth, height: 0))
+        size.height = ceil(size.height)
+        size.width = ceil(size.width)
         
-        containerView.frame = CGRect(x: contentInset.left, y: top,
-                                     width: width, height: height)
-        contentView?.view.frame = containerView.bounds
+        cardView.frame = CGRect(x: contentInset.left, y: top, width: size.width, height: size.height)
         
         let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
         let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
@@ -134,7 +109,8 @@ public class ComponentPreviewViewController: UIViewController {
             self?.json = json
             if let component = component {
                 Dispatcher.performOnMainThread {
-                    self?.contentView = ComponentViewFactory.view(withComponent: component)
+                    self?.cardView.component = component
+                    self?.view.setNeedsLayout()
                 }
             }
         }
