@@ -237,8 +237,6 @@ extension ComponentLayoutEngine {
             }
         }
         
-        print("Horizontal Frames: \(frames)")
-        
         return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
     }
     
@@ -256,8 +254,6 @@ extension ComponentLayoutEngine {
         
         var remainingWidth = getWidthMinusMargins(for: views, totalWidth: maxWidth)
         
-        print("\nGetting column sizes for totalWidth: \(maxWidth), minus margins: \(remainingWidth)")
-        
         // Get the size for all weight=0 views
         for (idx, view) in views.enumerated() {
             let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
@@ -272,7 +268,7 @@ extension ComponentLayoutEngine {
             columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: size.width)
             remainingWidth = max(0, remainingWidth - size.width)
         }
-        printColumnSizes(columnSizes, text: "Fitted Sizes:")
+//        printColumnSizes(columnSizes, text: "Fitted Sizes:")
         
         let weightedColumnWidths = getWeightedWidths(for: views, totalWidth: remainingWidth)
         for (idx, view) in views.enumerated() {
@@ -290,7 +286,7 @@ extension ComponentLayoutEngine {
                 columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)
             }
         }
-        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
+//        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
         
         return columnSizes
     }
