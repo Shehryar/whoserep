@@ -14,21 +14,21 @@ class IconItem: NSObject, Component {
         case placeholder = "placeholder" // Empty icon
         
         // Maintain alphabetical order
-        case arrowLeft = "arrow-left"
-        case arrowRight = "arrow-right"
+        case arrowLeft = "arrow_left"
+        case arrowRight = "arrow_right"
         case back = "back"
         case checkmark = "checkmark"
-        case circleCheckmark = "circle-checkmark"
+        case circleCheckmark = "circle_checkmark"
         case creditCard = "credit_card"
-        case creditCardMedium = "credit-card-medium"
-        case errorAlert = "error-alert"
-        case errorAlertFilled = "error-alert-filled"
-        case exitLink = "exit-link"
-        case hideKeyboard = "hide-keyboard"
+        case creditCardMedium = "credit_card_medium"
+        case errorAlert = "error_alert"
+        case errorAlertFilled = "error_alert_filled"
+        case exitLink = "exit_link"
+        case hideKeyboard = "hide_keyboard"
         case paperclip = "paperclip"
-        case smallX = "x-small"
+        case smallX = "x_small"
         case star = "star"
-        case starFilled = "star-filled"
+        case starFilled = "star_filled"
         case x = "x"
         
         func getImage() -> UIImage? {
@@ -57,9 +57,9 @@ class IconItem: NSObject, Component {
     
     // MARK: Defaults
     
-    static let defaultWidth: CGFloat = 24
+    static let defaultWidth: CGFloat = 16
     
-    static let defaultHeight: CGFloat = 24
+    static let defaultHeight: CGFloat = 16
     
     // MARK: Properties
     

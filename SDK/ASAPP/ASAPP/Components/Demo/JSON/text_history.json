@@ -58,15 +58,15 @@
             {
               "type" : "icon",
               "content" : {
-                "icon" : "credit_card",
-                "tint_color" : "#5b657e"
+                "icon" : "exit_link",
+                "tint_color" : "#5b657e",
+                "width" : 10,
+                "height" : 10
               },
               "layout" : {
                 "gravity" : "middle",
-                "padding" : {
-                  "top" : 6,
-                  "right" : 16,
-                  "bottom" : 6
+                "margin" : {
+                  "right" : 16
                 }
               }
             },
@@ -141,10 +141,8 @@
               },
               "layout" : {
                 "gravity" : "middle",
-                "padding" : {
-                  "top" : 6,
-                  "right" : 16,
-                  "bottom" : 6
+                "margin" : {
+                  "right" : 16
                 }
               }
             },
@@ -220,10 +218,8 @@
               },
               "layout" : {
                 "gravity" : "middle",
-                "padding" : {
-                  "top" : 6,
-                  "right" : 16,
-                  "bottom" : 6
+                "margin" : {
+                  "right" : 16
                 }
               }
             },
