@@ -1,0 +1,95 @@
+{
+	"type" : "stack_view",
+	"content" : {
+		"items" : [
+
+			{
+				"type" : "label",
+				"content" : {
+					"text" : "ACCOUNT BALANCE",
+					"font_size" : 10,
+					"color" : "#a9aebb"
+				}, 
+				"layout" : {
+					"margin_bottom" : 2
+				}
+			},
+
+			{
+				"type" : "label",
+				"content" : {
+					"text" : "$50.00",
+					"font_size" : 24,
+					"font_weight" : "black",
+					"color" : "#56607a"
+				}, 
+				"layout" : {
+					"margin_bottom" : 10
+				}
+			},
+
+			{
+				"type" : "stack_view",
+				"content" : {
+					"orientation" : "horizontal",
+					"items" : [
+						{
+							"type" : "icon",
+							"content" : {
+								"icon" : "user",
+								"width" : 24,
+								"height" : 24
+							},
+							"layout" : {
+								"margin_right" : 20
+							}
+						},
+						{
+							"type" : "label",
+							"content" : {
+								"text" : "Your account balance is sufficient to cover yoyur next month of service and will be automatically applied on the due date.",
+								"font_size" : 12,
+								"color" : "#656f86"
+							}, 
+							"layout" : {
+
+							}
+						}
+					]
+				},
+				"layout" : {
+					"margin_bottom" : 10
+				}
+			},
+
+
+			{
+				"type" : "label",
+				"content" : {
+					"text" : "DUE BY",
+					"font_size" : 10,
+					"color" : "#a9aebb"
+				}, 
+				"layout" : {
+					"margin_bottom" : 3
+				}
+			},
+
+			{
+				"type" : "label",
+				"content" : {
+					"text" : "03/26/17",
+					"font_size" : 15,
+					"font_weight" : "black",
+					"color" : "#56607a"
+				}, 
+				"layout" : {
+
+				}
+			}
+		]
+	}, 
+	"layout" : {
+		"padding": [20]
+	}
+}
