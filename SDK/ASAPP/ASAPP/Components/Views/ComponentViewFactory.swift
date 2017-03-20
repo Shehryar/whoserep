@@ -28,6 +28,10 @@ enum ComponentViewFactory {
             componentView = LabelView()
             break
             
+        case .progressBar:
+            componentView = ProgressBarView()
+            break
+            
         case .separator:
             componentView = SeparatorView()
             break

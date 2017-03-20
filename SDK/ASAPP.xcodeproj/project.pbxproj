@@ -224,6 +224,8 @@
 		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
 		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
 		302AF32F1E8031CD0086B939 /* text_history_card.json in Resources */ = {isa = PBXBuildFile; fileRef = 302AF32E1E8031CD0086B939 /* text_history_card.json */; };
+		302AF3311E8046E80086B939 /* ProgressBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3301E8046E80086B939 /* ProgressBarItem.swift */; };
+		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
 		302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
@@ -550,6 +552,8 @@
 		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
 		302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
 		302AF32E1E8031CD0086B939 /* text_history_card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = text_history_card.json; sourceTree = "<group>"; };
+		302AF3301E8046E80086B939 /* ProgressBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarItem.swift; sourceTree = "<group>"; };
+		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesActionSheet.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
@@ -723,6 +727,7 @@
 				281C34551E7F092C001A2AA3 /* ButtonItem.swift */,
 				281C34561E7F092C001A2AA3 /* IconItem.swift */,
 				281C34571E7F092C001A2AA3 /* LabelItem.swift */,
+				302AF3301E8046E80086B939 /* ProgressBarItem.swift */,
 				281C34581E7F092C001A2AA3 /* SeparatorItem.swift */,
 			);
 			path = "Core Components";
@@ -827,6 +832,7 @@
 				281C34791E7F092C001A2AA3 /* ButtonView.swift */,
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
+				302AF3321E8049880086B939 /* ProgressBarView.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
 			);
 			path = "Core Components";
@@ -1796,6 +1802,7 @@
 				302B6E1D1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift in Sources */,
 				281C34881E7F092C001A2AA3 /* IconItem.swift in Sources */,
 				281C34AC1E7F69FD001A2AA3 /* HorizontalStackView.swift in Sources */,
+				302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */,
 				300888A31D64BE4900C25802 /* ChatMessagesViewCellMaster.swift in Sources */,
 				302A20B31E5E2394007C522A /* ModalCardContentView.swift in Sources */,
 				3093A4B11E730D5700C65818 /* AppOpenResponse.swift in Sources */,
@@ -1826,6 +1833,7 @@
 				281C34941E7F092C001A2AA3 /* SRSItemList.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				3025DA1D1E539B9E004149D7 /* SRSLabelValueItemView.swift in Sources */,
+				302AF3311E8046E80086B939 /* ProgressBarItem.swift in Sources */,
 				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,
 				306619181D9458F50092B4C5 /* SDWebImageDownloaderOperation.m in Sources */,
 				281C34831E7F092C001A2AA3 /* Component.swift in Sources */,
