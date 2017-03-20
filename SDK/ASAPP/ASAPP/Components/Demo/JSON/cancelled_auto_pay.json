@@ -1,0 +1,74 @@
+{
+  "type" : "stack_view",
+  "content" : {
+    "orientation" : "horizontal",
+    "items" : [
+      
+      {
+        "type" : "icon", 
+        "content" : {
+          "icon" : "user",
+          "width" : 32,
+          "height" : 32
+        },
+        "layout" : {
+          "gravity" : "top",
+          "margin_right" : 21
+        }
+      },
+
+      {
+        "type" : "stack_view",
+        "content" : {
+          "items" : [
+            {
+              "type": "label",
+              "content": {
+                "text": "Cancelled Auto Pay",
+                "font_weight": "bold",
+                "font_size": 15,
+                "color": "#57617b"
+              },
+              "layout" : {
+                "margin_bottom" : 6
+              }
+            },
+
+            {
+              "type": "label",
+              "content": {
+                "text": "You have successfully removed autopay from your account",
+                "font_weight": "regular",
+                "font_size": 12,
+                "color": "#646e85"
+              },
+              "layout" : {
+                "margin_bottom" : 8
+              }
+            },
+
+            {
+              "type": "label",
+              "content": {
+                "text": "March 15, 2017 -- 4:15PM",
+                "font_weight": "regular",
+                "font_size": 12,
+                "color": "#adb2be"
+              }
+            }
+          ]
+        }, 
+        "layout" : {
+          "weight" : 1,
+          "gravity" : "top"
+        }
+      }
+      
+    ]
+  }, 
+  "layout" : {
+    "align" : "center",
+    "margin_bottom" : 4,
+    "padding" : [21]
+  }
+}

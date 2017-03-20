@@ -51,7 +51,7 @@ public class ComponentPreviewViewController: UIViewController {
     
     func commonInit() {
         containerView.backgroundColor = ASAPP.styles.backgroundColor1
-        containerView.layer.borderColor = ASAPP.styles.separatorColor1.cgColor
+        containerView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
         containerView.layer.borderWidth = 1
         containerView.layer.cornerRadius = 5
         
@@ -81,7 +81,7 @@ public class ComponentPreviewViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = ASAPP.styles.backgroundColor2
         view.addSubview(containerView)
         view.addSubview(controlsBar)
     }
