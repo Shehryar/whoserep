@@ -46,10 +46,10 @@ public class ComponentPreviewViewController: UIViewController {
     // MARK: Init
     
     func commonInit() {
-        containerView.backgroundColor = ASAPP.styles.backgroundColor2
-        containerView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+        containerView.backgroundColor = ASAPP.styles.backgroundColor1
+        containerView.layer.borderColor = ASAPP.styles.separatorColor1.cgColor
         containerView.layer.borderWidth = 1
-        containerView.layer.cornerRadius = 12
+        containerView.layer.cornerRadius = 5
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
     }

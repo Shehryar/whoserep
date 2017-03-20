@@ -101,7 +101,8 @@
                     "text" : "This UI is currently limited in its capabilities",
                     "alignment" : "center",
                     "font_weight" : "black",
-                    "font_size" : 12
+                    "font_size" : 12,
+                    "color" : "#adb2bf"
                 },
                 "layout" : {
                 	"margin" : {
