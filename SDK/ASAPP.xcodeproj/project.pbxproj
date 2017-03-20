@@ -39,7 +39,6 @@
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
 		281C349B1E7F092C001A2AA3 /* DemoComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponents.swift */; };
 		281C349C1E7F092C001A2AA3 /* component_server.js in Resources */ = {isa = PBXBuildFile; fileRef = 281C34711E7F092C001A2AA3 /* component_server.js */; };
-		281C349D1E7F092C001A2AA3 /* stack_view.json in Resources */ = {isa = PBXBuildFile; fileRef = 281C34721E7F092C001A2AA3 /* stack_view.json */; };
 		281C349E1E7F092C001A2AA3 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
 		281C34A01E7F092C001A2AA3 /* ComponentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34771E7F092C001A2AA3 /* ComponentViewFactory.swift */; };
@@ -229,6 +228,7 @@
 		302AF3371E80557A0086B939 /* icon-user.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3341E80557A0086B939 /* icon-user.png */; };
 		302AF3381E80557A0086B939 /* icon-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3351E80557A0086B939 /* icon-user@2x.png */; };
 		302AF3391E80557A0086B939 /* icon-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3361E80557A0086B939 /* icon-user@3x.png */; };
+		302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */; };
 		302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
@@ -369,7 +369,6 @@
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
 		281C346F1E7F092C001A2AA3 /* DemoComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponents.swift; sourceTree = "<group>"; };
 		281C34711E7F092C001A2AA3 /* component_server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = component_server.js; sourceTree = "<group>"; };
-		281C34721E7F092C001A2AA3 /* stack_view.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stack_view.json; sourceTree = "<group>"; };
 		281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		281C34771E7F092C001A2AA3 /* ComponentViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewFactory.swift; sourceTree = "<group>"; };
@@ -560,6 +559,7 @@
 		302AF3341E80557A0086B939 /* icon-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user.png"; sourceTree = "<group>"; };
 		302AF3351E80557A0086B939 /* icon-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@2x.png"; sourceTree = "<group>"; };
 		302AF3361E80557A0086B939 /* icon-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@3x.png"; sourceTree = "<group>"; };
+		302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewSourceViewController.swift; sourceTree = "<group>"; };
 		302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesActionSheet.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
@@ -796,6 +796,7 @@
 			children = (
 				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
+				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
 				281C346F1E7F092C001A2AA3 /* DemoComponents.swift */,
 				281C34701E7F092C001A2AA3 /* JSON */,
 			);
@@ -806,7 +807,6 @@
 			isa = PBXGroup;
 			children = (
 				281C34711E7F092C001A2AA3 /* component_server.js */,
-				281C34721E7F092C001A2AA3 /* stack_view.json */,
 				280477731E7FEB8000217135 /* transaction_history_card.json */,
 				302AF32E1E8031CD0086B939 /* text_history_card.json */,
 			);
@@ -1779,7 +1779,6 @@
 				302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */,
 				30226CFE1D49574A00871453 /* temp-icon-paperclip@3x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
-				281C349D1E7F092C001A2AA3 /* stack_view.json in Resources */,
 				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
 				3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */,
 				302AF3391E80557A0086B939 /* icon-user@3x.png in Resources */,
@@ -1939,6 +1938,7 @@
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,
+				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				3025DA1E1E539B9E004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */,
 				3025DA001E539591004149D7 /* SRSButtonItemView.swift in Sources */,

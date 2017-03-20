@@ -9,12 +9,10 @@
 import UIKit
 
 enum DemoComponent: String {
-    case stackView = "stack_view"
     case transactionHistoryCard = "transaction_history_card"
     case textHistoryCard = "text_history_card"
     
     static let allRawValues = [
-        stackView.rawValue,
         transactionHistoryCard.rawValue,
         textHistoryCard.rawValue
     ]
@@ -24,7 +22,7 @@ class DemoComponents: NSObject {
     
     typealias ComponentNamesCompletion = ((_ names: [String]?) -> Void)
     
-    typealias ComponentCompletion = ((_ component: Component?, _ error: String?) -> Void)
+    typealias ComponentCompletion = ((_ component: Component?, _ json: [String : Any]?, _ error: String?) -> Void)
     
     fileprivate static let HOST = "http://localhost:9000"
     
@@ -78,21 +76,21 @@ extension DemoComponents {
     class func getComponent(with fileName: String,
                             completion: @escaping ComponentCompletion) {
         
-        getRemoteCompontent(with: fileName) { (remoteComponent, error) in
+        getRemoteCompontent(with: fileName) { (remoteComponent, json, error) in
             if let remoteComponent = remoteComponent {
                 DebugLog.i(caller: DemoComponents.self, "Fetched remote component from server: \(fileName)")
-                completion(remoteComponent, nil)
+                completion(remoteComponent, json, nil)
                 return
             }
             
-            if let localComponent = getLocalComponent(with: fileName) {
+            if let (localComponent, localJSON) = getLocalComponent(with: fileName) {
                 DebugLog.i(caller: DemoComponents.self, "Fetched local component: \(fileName)")
-                completion(localComponent, nil)
+                completion(localComponent, localJSON, nil)
                 return
             }
             
             DebugLog.e(caller: DemoComponents.self, "Unable to fetch component: \(fileName)")
-            completion(nil, "Unable to get component: \(fileName)")
+            completion(nil, nil, "Unable to get component: \(fileName)")
         }
     }
     
@@ -105,17 +103,17 @@ extension DemoComponents {
         let session = URLSession.shared
         session.dataTask(with: request) {data, response, err in
             if let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
+            let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
                 let component = ComponentFactory.component(with: json) {
-                completion(component, nil)
-                return
+                    completion(component, json, nil)
+                    return
             }
             
-            completion(nil, "Unable to GET \(fileName) on server.")
+            completion(nil, nil, "Unable to GET \(fileName) on server.")
             }.resume()
     }
     
-    private class func getLocalComponent(with fileName: String) -> Component? {
+    private class func getLocalComponent(with fileName: String) -> (Component, [String : Any])? {
         guard let json =  DemoUtils.jsonObjectForFile(fileName) else {
             DebugLog.w(caller: self, "Unable to find json file: \(fileName)")
             return nil
@@ -126,6 +124,6 @@ extension DemoComponents {
             return nil
         }
         
-        return component
+        return (component, json)
     }
 }

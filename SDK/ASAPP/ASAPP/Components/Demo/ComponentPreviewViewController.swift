@@ -17,6 +17,8 @@ public class ComponentPreviewViewController: UIViewController {
         }
     }
     
+    var json: [String : Any]?
+    
     // MARK: Private Properties
     
     fileprivate var contentView: ComponentView? {
@@ -35,6 +37,8 @@ public class ComponentPreviewViewController: UIViewController {
     
     fileprivate let containerView = UIView()
     
+    fileprivate let controlsBar = UIToolbar()
+    
     fileprivate let contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     // MARK: Properties: First Responder
@@ -50,6 +54,14 @@ public class ComponentPreviewViewController: UIViewController {
         containerView.layer.borderColor = ASAPP.styles.separatorColor1.cgColor
         containerView.layer.borderWidth = 1
         containerView.layer.cornerRadius = 5
+        
+        controlsBar.barStyle = .default
+        controlsBar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
+        ]
+        
+        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
     }
@@ -71,6 +83,7 @@ public class ComponentPreviewViewController: UIViewController {
         
         view.backgroundColor = UIColor.white
         view.addSubview(containerView)
+        view.addSubview(controlsBar)
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +113,10 @@ public class ComponentPreviewViewController: UIViewController {
         containerView.frame = CGRect(x: contentInset.left, y: top,
                                      width: width, height: height)
         contentView?.view.frame = containerView.bounds
+        
+        let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
+        let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
+        controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)
     }
     
     // MARK: Content
@@ -113,13 +130,27 @@ public class ComponentPreviewViewController: UIViewController {
             return
         }
         
-        DemoComponents.getComponent(with: componentName) { [weak self] (component, error) in
-            
+        DemoComponents.getComponent(with: componentName) { [weak self] (component, json, error) in
+            self?.json = json
             if let component = component {
                 Dispatcher.performOnMainThread {
                     self?.contentView = ComponentViewFactory.view(withComponent: component)
                 }
             }
+        }
+    }
+    
+    func viewSource() {
+        if let jsonString = JSONUtil.stringify(json as? AnyObject, prettyPrinted: true) {
+            let sourcePreviewVC = ComponentPreviewSourceViewController()
+            sourcePreviewVC.json = jsonString
+            navigationController?.pushViewController(sourcePreviewVC, animated: true)
+        } else {
+            let alertController = UIAlertController(title: "Source Unavailable", message: nil, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                
+            }))
+            present(alertController, animated: true, completion: nil)
         }
     }
     
