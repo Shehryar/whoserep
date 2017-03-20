@@ -44,6 +44,22 @@ public class ASAPPStyles: NSObject {
     
     public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
+    
+    public var textButtonColor: UIColor = UIColor(red:0.057, green:0.516, blue:0.802, alpha:1)
+    
+    public var textButtonColorHighlighted: UIColor = UIColor(red:0.057, green:0.516, blue:0.802, alpha:0.5)
+    
+    public var textButtonColorDisabled: UIColor = UIColor(red:0.5, green:0.5, blue:0.5, alpha:1)
+    
+    public var blockButtonBgColor: UIColor = UIColor(red:0.057, green:0.516, blue:0.802, alpha:1)
+    
+    public var blockButtonBgColorHighlighted: UIColor = UIColor(red:0.047, green:0.456, blue:0.702, alpha:1)
+    
+    public var blockButtonBgColorDisabled: UIColor = UIColor(red:0.4, green:0.4, blue:0.4, alpha:1)
+    
+    public var blockButtonTextColor: UIColor = UIColor.white
+    
+    
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
     internal var backgroundColor2: UIColor = Colors.offWhiteColor()
@@ -52,7 +68,7 @@ public class ASAPPStyles: NSObject {
     
     internal var foregroundColor2: UIColor = Colors.steelDark50Color()
     
-    internal var buttonColor: UIColor = Colors.steelMedColor()
+    internal var quickRepliesButtonColor: UIColor = Colors.steelMedColor()
     
     internal var separatorColor1: UIColor = Colors.marbleLightColor()
     

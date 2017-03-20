@@ -9,25 +9,10 @@
 import UIKit
 
 class StackViewItem: NSObject, Component {
-
-    enum SeparatorStyle: String {
-        case none = "none"
-        case line = "line"
-        
-        static func from(_ string: String?, defaultValue: SeparatorStyle = none) -> SeparatorStyle {
-            guard let string = string,
-                let style = SeparatorStyle(rawValue: string) else {
-                    return defaultValue
-            }
-            return style
-        }
-    }
     
     // MARK: Properties
     
     let items: [Component]
-    
-    let separatorStyle: SeparatorStyle
     
     // MARK: Component Properties
     
@@ -40,11 +25,9 @@ class StackViewItem: NSObject, Component {
     // MARK: Layout
     
     init(items: [Component],
-         separatorStyle: SeparatorStyle,
          id: String?,
          layout: ComponentLayout) {
         self.items = items
-        self.separatorStyle = separatorStyle
         self.id = id
         self.layout = layout
         super.init()
@@ -74,11 +57,7 @@ class StackViewItem: NSObject, Component {
             return nil
         }
         
-        let separatorStyle = SeparatorStyle.from(content["separator_style"] as? String,
-                                                 defaultValue: .none)
-        
         return StackViewItem(items: items,
-                             separatorStyle: separatorStyle,
                              id: id,
                              layout: layout)
     }

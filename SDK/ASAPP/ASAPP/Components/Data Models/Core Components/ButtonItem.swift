@@ -10,11 +10,28 @@ import UIKit
 
 class ButtonItem: NSObject, Component {
 
+    enum Style: String {
+        case block = "block"
+        case text = "text"
+        
+        static func from(_ string: String?, defaultValue: Style) -> Style {
+            guard let string = string,
+                let style = Style(rawValue: string) else {
+                    return defaultValue
+            }
+            return style
+        }
+    }
+    
     // MARK: Properties
     
     let title: String
     
-    let action: Action
+    let style: Style
+    
+    let icon: IconItem?
+    
+    let action: Action?
     
     // MARK: Component Properties
     
@@ -27,10 +44,14 @@ class ButtonItem: NSObject, Component {
     // MARK: Init
     
     init(title: String,
-         action: Action,
+         style: Style,
+         icon: IconItem?,
+         action: Action?,
          id: String?,
          layout: ComponentLayout) {
         self.title = title
+        self.style = style
+        self.icon = icon
         self.action = action
         self.id = id
         self.layout = layout
@@ -42,6 +63,22 @@ class ButtonItem: NSObject, Component {
     static func make(with content: Any?,
                      id: String?,
                      layout: ComponentLayout) -> Component? {
-        return nil
+        guard let content = content as? [String : Any] else {
+            return nil
+        }
+        guard let title = content["title"] as? String else {
+            DebugLog.e(caller: self, "Title is required. Returning nil.")
+            return nil
+        }
+        
+        let style = Style.from(content["style"] as? String, defaultValue: .block)
+        let icon = ComponentFactory.component(with: content["icon"]) as? IconItem
+        
+        return ButtonItem(title: title,
+                          style: style,
+                          icon: icon,
+                          action: nil,
+                          id: id,
+                          layout: layout)
     }
 }

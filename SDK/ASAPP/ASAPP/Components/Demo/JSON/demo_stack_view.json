@@ -50,7 +50,35 @@
                     "alignment" : "center",
                     "font_weight" : "black",
                     "font_size" : 12
+                },
+                "layout" : {
+                	"margin" : {
+                		"bottom" : 24
+                	}
                 }
+            },
+
+            {
+            	"type" : "button",
+            	"content" : {
+            		"title" : "BLOCK BUTTON",
+            		"style" : "block"
+            	},
+            	"layout" : {
+            		"margin" : {
+                		"bottom" : 12
+                	}
+            	}
+            },
+
+            {
+            	"type" : "button",
+            	"content" : {
+            		"title" : "Text Button",
+            		"style" : "text"
+            	},
+            	"layout" : {
+            	}
             }
         ]
     },
@@ -59,7 +87,7 @@
             "top" : 24,
             "left" : 24,
             "right" : 24,
-            "bottom" : 24
+            "bottom" : 12
         }
     }
 }

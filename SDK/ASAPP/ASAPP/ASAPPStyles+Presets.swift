@@ -49,7 +49,7 @@ public extension ASAPPStyles {
         styles.navBarButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
         styles.navBarButtonForegroundColor = UIColor(red:0.330, green:0.268, blue:0, alpha:1)
         
-        styles.buttonColor = UIColor.black
+        styles.quickRepliesButtonColor = UIColor.black
         styles.foregroundColor1 = UIColor.black
         
         styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
@@ -69,7 +69,7 @@ public extension ASAPPStyles {
         styles.navBarButtonColor = UIColor.white
         styles.navBarButtonBackgroundColor = UIColor(red:0.241, green:0.255, blue:0.289, alpha:1)
         styles.navBarButtonForegroundColor = UIColor.white
-        styles.buttonColor = UIColor.white
+        styles.quickRepliesButtonColor = UIColor.white
         
         styles.backgroundColor1 = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
         styles.backgroundColor2 = UIColor(red: 0.10, green: 0.11, blue: 0.12, alpha: 1)

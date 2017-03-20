@@ -49,7 +49,7 @@ struct TextStyle {
 // MARK:- Preset TextStyles
 
 extension TextStyle {
-    
+
     // Predictive
     
     static let predictiveGreeting = TextStyle(size: 24, weight: .regular, letterSpacing: 0.7)
@@ -96,6 +96,14 @@ extension TextStyle {
     static let modalDetail = TextStyle(size: 13, weight: .bold)
     static let modalPrimaryButton = TextStyle(size: 12, weight: .black, letterSpacing: 1)
     static let modalSecondayButton = TextStyle(size: 12, weight: .regular, letterSpacing: 1)
+    
+    
+    
+    
+    // Component
+    
+    static let textButton = TextStyle(size: 15, weight: .bold, letterSpacing: 1)
+    static let blockButton = TextStyle(size: 14, weight: .black, letterSpacing: 1)
 }
 
 
