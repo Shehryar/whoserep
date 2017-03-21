@@ -1,249 +1,226 @@
 {
-  "type": "stackView",
-  "content": {
-    "items": [
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-            {
-              "type": "label",
-              "content": {
-                "text": "Transaction History"
+  "styles" : {
+    "titleText" : {
+      "fontSize": 14,
+      "color" : "#646e85"
+    },
+    "detailText" : {
+      "fontSize": 12,
+      "color" : "#adb2bf"
+    },
+    "valueText" : {
+      "gravity" : "middle",
+      "align" : "right",
+      "weight" : 0,
+      "fontSize": 16,
+      "fontWeight" : "black",
+      "letterSpacing" : 1,
+      "textAlign" : "right",
+      "color" : "#5b657e"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "content": {
+      "items": [
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "label",
+                "content": {
+                  "text": "Transaction History"
+                },
+                "style" : {
+                  "gravity": "middle",
+                  "fontWeight": "black",
+                  "fontSize": 16,
+                  "color" : "#5b657e"
+                }
               },
-              "style" : {
-                "gravity": "middle",
-                "fontWeight": "black",
-                "fontSize": 16,
-                "color" : "#5b657e"
+              {
+                "type": "button",
+                "content": {
+                  "title": "VIEW ALL",
+                  "style": "text"
+                },
+                "style" : {
+                  "align": "right",
+                  "gravity": "middle",
+                  "weight" : 1,
+                  "paddingTop" : 12,
+                  "paddingLeft" : 16,
+                  "paddingBottom" : 12, 
+                  "paddingRight" : 0
+                }
               }
-            },
-            {
-              "type": "button",
-              "content": {
-                "title": "VIEW ALL",
-                "style": "text"
-              },
-              "style" : {
-                "align": "right",
-                "gravity": "middle",
-                "weight" : 1,
-                "paddingTop" : 12,
-                "paddingLeft" : 16,
-                "paddingBottom" : 12, 
-                "paddingRight" : 0
-              }
-            }
-          ]
+            ]
+          },
+          "style" : {
+            "paddingTop" : 4,
+            "paddingBottom" : 4
+          }
         },
-        "style" : {
-          "paddingTop" : 4,
-          "paddingBottom" : 4
-        }
-      },
-      {
-        "type": "separator"
-      },
+        {
+          "type": "separator"
+        },
 
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-            
-            {
-              "type": "stackView",
-              "content": {
-                "items": [
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "March 2017 Statement"
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              
+              {
+                "type": "stackView",
+                "content": {
+                  "items": [
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "March 2017 Statement"
+                      },
+                      "class" : "titleText"
                     },
-                    "style" : {
-                      "fontSize": 14,
-                      "color" : "#646e85"
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "3/3/2017"
+                      }, 
+                      "class" : "detailText"
                     }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "3/3/2017"
-                    }, 
-                    "style" : {
-                      "fontSize": 12,
-                      "color" : "#adb2bf"
-                    }
-                  }
-                ]
+                  ]
+                },
+                "style" : {
+                  "gravity": "middle",
+                  "marginRight" : 5,
+                  "weight" : 1
+                }
               },
-              "style" : {
-                "gravity": "middle",
-                "marginRight" : 5,
-                "weight" : 1
-              }
-            },
-            
-            {
-              "type": "label",
-              "content": {
-                "text": "$49.99"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0,
-                "fontSize": 16,
-                "fontWeight" : "black",
-                "letterSpacing" : 1,
-                "textAlign" : "right",
-                "color" : "#5b657e"
-              }
-          }
-          ]
-        },
-        "style" : {
-          "paddingTop" : 8,
-          "paddingBottom" : 8
-        }
-      },
-      {
-        "type": "separator"
-      },
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-            
-            {
-              "type": "stackView",
-              "content": {
-                "items": [
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "February 2017 Statement"
-                    }, 
-                    "style" : {
-                      "fontSize": 14,
-                      "color" : "#646e85"
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "2/3/2017"
-                    },
-                    "style" : {
-                      "fontSize": 12,
-                      "color" : "#adb2bf"
-                    }
-                  }
-                ]
-              },
-              "style" : {
-                "gravity": "middle",
-                "marginRight" : 5,
-                "weight" : 1
-              }
-            },
-            
-            {
-              "type": "label",
-              "content": {
-                "text": "$49.99"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0,
-                "fontSize": 16,
-                "fontWeight" : "black",
-                "letterSpacing" : 1,
-                "textAlign" : "right",
-                "color" : "#5b657e"
-              }
-          }
-          ]
-        },
-        "style" : {
+              
+              {
+                "type": "label",
+                "content": {
+                  "text": "$49.99"
+                },
+                "class" : "valueText"
+            }
+            ]
+          },
+          "style" : {
             "paddingTop" : 8,
             "paddingBottom" : 8
           }
-      },
-
-      {
-        "type": "separator"
-      },
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-           
-            {
-              "type": "stackView",
-              "content": {
-                "items": [
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "Service Upgrade"
-                    },
-                    "style" : {
-                      "fontSize": 14,
-                      "color" : "#646e85"
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "2/1/2017"
-                    }, 
-                    "style" : {
-                      "fontSize": 12,
-                      "color" : "#adb2bf"
-                    }
-                  }
-                ]
-              },
-              "style" : {
-                "gravity": "middle",
-                "marginRight" : 5,
-                "weight" : 1
-              }
-            },
-            
-            {
-              "type": "label",
-              "content": {
-                "text": "$34.66"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0,
-                "fontSize": 16,
-                "fontWeight" : "black",
-                "letterSpacing" : 1,
-                "textAlign" : "right",
-                "color" : "#5b657e"
-              }
-          }
-          ]
         },
-        "style" : {
-          "paddingTop" : 8,
-          "paddingBottom" : 16
+        {
+          "type": "separator"
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              
+              {
+                "type": "stackView",
+                "content": {
+                  "items": [
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "February 2017 Statement"
+                      }, 
+                      "class" : "titleText"
+                    },
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "2/3/2017"
+                      },
+                      "class" : "detailText"
+                    }
+                  ]
+                },
+                "style" : {
+                  "gravity": "middle",
+                  "marginRight" : 5,
+                  "weight" : 1
+                }
+              },
+              
+              {
+                "type": "label",
+                "content": {
+                  "text": "$49.99"
+                },
+                "class" : "valueText"
+            }
+            ]
+          },
+          "style" : {
+              "paddingTop" : 8,
+              "paddingBottom" : 8
+            }
+        },
+
+        {
+          "type": "separator"
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+             
+              {
+                "type": "stackView",
+                "content": {
+                  "items": [
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "Service Upgrade"
+                      },
+                      "class" : "titleText"
+                    },
+                    {
+                      "type": "label",
+                      "content": {
+                        "text": "2/1/2017"
+                      }, 
+                      "class" : "detailText"
+                    }
+                  ]
+                },
+                "style" : {
+                  "gravity": "middle",
+                  "marginRight" : 5,
+                  "weight" : 1
+                }
+              },
+              
+              {
+                "type": "label",
+                "content": {
+                  "text": "$34.66"
+                },
+                "class" : "valueText"
+            }
+            ]
+          },
+          "style" : {
+            "paddingTop" : 8,
+            "paddingBottom" : 16
+          }
         }
-      }
-      
-    ]
-  },
-  "style" : {
-    "paddingLeft": 20,
-    "paddingRight" : 20
+        
+      ]
+    },
+    "style" : {
+      "paddingLeft": 20,
+      "paddingRight" : 20
+    }
   }
 }

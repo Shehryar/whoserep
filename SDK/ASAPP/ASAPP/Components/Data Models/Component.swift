@@ -16,5 +16,6 @@ protocol Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     style: ComponentStyle) -> Component?
+                     style: ComponentStyle,
+                     styles: [String : Any]?) -> Component?
 }

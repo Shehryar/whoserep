@@ -90,6 +90,29 @@ extension ComponentStyle {
         
         return style
     }
+    
+    static func getStyle(from json: Any?, styleClass: String?, styles: [String : Any]?) -> ComponentStyle {
+        guard let styleClass = styleClass,
+            let styles = styles else {
+                return fromJSON(json)
+        }
+        
+        var combinedStyleJSON = [String : Any]()
+        
+        // Style class may actually be a space-separate list of classes
+        let styleClassNames = styleClass.components(separatedBy: " ")
+        for styleClassName in styleClassNames {
+            if let classStyle = styles[styleClassName] as? [String : Any] {
+                combinedStyleJSON.add(classStyle)
+            }
+        }
+        
+        if let json = json as? [String : Any] {
+            combinedStyleJSON.add(json)
+        }
+        
+        return fromJSON(combinedStyleJSON)
+    }
 }
 
 // MARK:- JSONKeys

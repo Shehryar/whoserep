@@ -91,7 +91,7 @@ extension ChatMessageAttachment {
             break
             
         case .template:
-            if let component = ComponentFactory.component(with: payload) {
+            if let component = ComponentFactory.component(with: payload, styles: nil) {
                 return ChatMessageAttachment(content: component as AnyObject)
             }
             break

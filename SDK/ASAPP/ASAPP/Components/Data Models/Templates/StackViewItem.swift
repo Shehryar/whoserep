@@ -58,7 +58,8 @@ class StackViewItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     style: ComponentStyle) -> Component? {
+                     style: ComponentStyle,
+                     styles: [String : Any]?) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -69,7 +70,7 @@ class StackViewItem: NSObject, Component {
         
         var items = [Component]()
         for itemJSON in itemsJSON {
-            if let component = ComponentFactory.component(with: itemJSON) {
+            if let component = ComponentFactory.component(with: itemJSON, styles: styles) {
                 items.append(component)
             }
         }

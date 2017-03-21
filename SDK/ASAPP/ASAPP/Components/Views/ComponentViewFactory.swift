@@ -57,13 +57,6 @@ enum ComponentViewFactory {
         
         return componentView
     }
-    
-    static func view(withJSON json: Any?) -> ComponentView? {
-        guard let component = ComponentFactory.component(with: json) else {
-            return nil
-        }
-        return view(withComponent: component)
-    }
 }
 
 // TODO: Think about reuse?

@@ -92,7 +92,8 @@ class IconItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     style: ComponentStyle) -> Component? {
+                     style: ComponentStyle,
+                     styles: [String : Any]?) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }

@@ -12,6 +12,22 @@ import UIKit
 
 extension Dictionary where Key: StringLiteralConvertible, Value: Any {
     
+    // MARK: Strings
+    
+    func string(for key: String) -> String? {
+        guard let value = self[key as! Key] else {
+            return nil
+        }
+    
+        // Parse numbers into strings?
+        
+        if let stringValue = value as? String {
+            return stringValue
+        }
+        
+        return nil
+    }
+    
     // MARK: Floats
     
     func float(for key: String) -> CGFloat? {

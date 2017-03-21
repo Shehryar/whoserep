@@ -30,7 +30,8 @@ class SeparatorItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     style: ComponentStyle) -> Component? {
+                     style: ComponentStyle,
+                     styles: [String : Any]?) -> Component? {
         return SeparatorItem(id: id, style: style)
     }
     

@@ -66,7 +66,8 @@ class ButtonItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     style: ComponentStyle) -> Component? {
+                     style: ComponentStyle,
+                     styles: [String : Any]?) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -77,7 +78,7 @@ class ButtonItem: NSObject, Component {
         
         let buttonStyle = ButtonStyle.from(content[JSONKey.buttonStyle.rawValue] as? String,
                                            defaultValue: .block)
-        let icon = ComponentFactory.component(with: content[JSONKey.icon.rawValue]) as? IconItem
+        let icon = ComponentFactory.component(with: content[JSONKey.icon.rawValue], styles: styles) as? IconItem
         
         return ButtonItem(title: title,
                           buttonStyle: buttonStyle,

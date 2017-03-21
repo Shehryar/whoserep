@@ -120,7 +120,7 @@ extension DemoComponentsAPI {
         session.dataTask(with: request) {data, response, err in
             if let data = data,
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-                let component = ComponentFactory.component(with: json) {
+                let component = ComponentContainer.component(from: json) {
                     completion(component, json, nil)
                     return
             }
@@ -135,7 +135,7 @@ extension DemoComponentsAPI {
             return nil
         }
         
-        guard let component = ComponentFactory.component(with: json) else {
+        guard let component = ComponentContainer.component(from: json)  else {
             DebugLog.w(caller: self, "Unable to create demo \(fileName) json:\n\(json)")
             return nil
         }

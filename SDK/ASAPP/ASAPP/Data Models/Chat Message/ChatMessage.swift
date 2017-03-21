@@ -102,7 +102,7 @@ extension ChatMessage {
         
         let text = json["text"] as? String
         let attachmentJSON = json["attachment"] as? [String : AnyObject]
-        let attachment = ComponentFactory.component(with: attachmentJSON)
+        let attachment = ComponentFactory.component(with: attachmentJSON, styles: nil)
         var quickReplies = [SRSButtonItem]()
         if let quickRepliesJSON = json["quick_replies"] as? [[String : AnyObject]] {
             for quickReplyJSON in quickRepliesJSON {
