@@ -57,9 +57,6 @@ enum ComponentFactory {
         let content = json[JSONKey.content.rawValue]
         let id = json[JSONKey.id.rawValue] as? String
         let styleClass = json.string(for: JSONKey.styleClass.rawValue)
-        if let styleClass = styleClass {
-            print("Found Class = \(styleClass)\nStyles: \(styles)")
-        }
         let style = ComponentStyle.getStyle(from: json[JSONKey.style.rawValue],
                                             styleClass: styleClass,
                                             styles: styles)

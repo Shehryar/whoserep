@@ -89,39 +89,50 @@ extension Dictionary where Key: StringLiteralConvertible, Value: Any {
         var bottom: CGFloat?
         var left: CGFloat?
         
+        
+        // String Value
+        if let stringValue = (self[name as! Key] as? String)?.trimmingCharacters(in: .whitespaces) {
+            let valueStrings = stringValue.components(separatedBy: " ")
+            var valuesArray = [Int]()
+            for valueString in valueStrings {
+                if let intValue = Int(valueString) {
+                    valuesArray.append(intValue)
+                } else {
+                    valuesArray.append(0)
+                }
+            }
+            
+            if valuesArray.count == 1 {
+                top = CGFloat(valuesArray[0])
+                right = CGFloat(valuesArray[0])
+                bottom = CGFloat(valuesArray[0])
+                left = CGFloat(valuesArray[0])
+            }
+            else if valuesArray.count == 2 {
+                top = CGFloat(valuesArray[0])
+                right = CGFloat(valuesArray[1])
+                bottom = CGFloat(valuesArray[0])
+                left = CGFloat(valuesArray[1])
+            }
+            else if valuesArray.count == 3 {
+                top = CGFloat(valuesArray[0])
+                right = CGFloat(valuesArray[1])
+                bottom = CGFloat(valuesArray[2])
+            }
+            else if valuesArray.count > 3 {
+                top = CGFloat(valuesArray[0])
+                right = CGFloat(valuesArray[1])
+                bottom = CGFloat(valuesArray[2])
+                left = CGFloat(valuesArray[3])
+            } 
+        }
         // Single Float Values - Applies to all
-        if let floatValue = self.float(for: name) {
+        else if let floatValue = self.float(for: name) {
             top = floatValue
             right = floatValue
             bottom = floatValue
             left = floatValue
         }
-        
-//        if let valuesArray = self[name as! Key] as? [Int] {
-//            if valuesArray.count == 1 {
-//                top = CGFloat(valuesArray[0])
-//                right = CGFloat(valuesArray[0])
-//                bottom = CGFloat(valuesArray[0])
-//                left = CGFloat(valuesArray[0])
-//            }
-//            else if valuesArray.count == 2 {
-//                top = CGFloat(valuesArray[0])
-//                right = CGFloat(valuesArray[1])
-//                bottom = CGFloat(valuesArray[0])
-//                left = CGFloat(valuesArray[1])
-//            }
-//            else if valuesArray.count == 3 {
-//                top = CGFloat(valuesArray[0])
-//                right = CGFloat(valuesArray[1])
-//                bottom = CGFloat(valuesArray[2])
-//            }
-//            else if valuesArray.count > 3 {
-//                top = CGFloat(valuesArray[0])
-//                right = CGFloat(valuesArray[1])
-//                bottom = CGFloat(valuesArray[2])
-//                left = CGFloat(valuesArray[3])
-//            }
-//        }
         
         // Name-Prefixed
         if let topValue = self.float(for: "\(name)Top") {
