@@ -10,6 +10,13 @@ import UIKit
 
 class IconItem: NSObject, Component {
 
+    enum JSONKey: String {
+        case icon = "icon"
+        case tintColor = "tint_color"
+        case width = "width"
+        case height = "height"
+    }
+
     enum Icon: String {
         case placeholder = "placeholder" // Empty icon
         
@@ -106,15 +113,15 @@ class IconItem: NSObject, Component {
         guard let content = content as? [String : Any] else {
             return nil
         }
-        guard let iconName = content["icon"] as? String,
+        guard let iconName = content[JSONKey.icon.rawValue] as? String,
             let icon = Icon(rawValue: iconName) else {
                 DebugLog.w(caller: self, "No icon found in content: \(content)")
                 return nil
         }
         
-        let color = content.hexColor(for: "tint_color")
-        let width = content.float(for: "width")
-        let height = content.float(for: "height")
+        let color = content.hexColor(for: JSONKey.tintColor.rawValue)
+        let width = content.float(for: JSONKey.width.rawValue)
+        let height = content.float(for: JSONKey.height.rawValue)
         
         return IconItem(icon: icon,
                         tintColor: color,

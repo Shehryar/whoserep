@@ -43,10 +43,7 @@ enum ComponentViewFactory {
             
             
         /* Templates */
-        case .basicListItem:
-            componentView = BasicListItemView()
-            break
-            
+   
         case .stackView:
             if let stackViewItem = component as? StackViewItem,
                 stackViewItem.orientation == .horizontal {

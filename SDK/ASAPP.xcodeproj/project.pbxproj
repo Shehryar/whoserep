@@ -34,7 +34,6 @@
 		281C34941E7F092C001A2AA3 /* SRSItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34651E7F092C001A2AA3 /* SRSItemList.swift */; };
 		281C34951E7F092C001A2AA3 /* SRSLabelValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34661E7F092C001A2AA3 /* SRSLabelValueItem.swift */; };
 		281C34961E7F092C001A2AA3 /* SRSNestedItemListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34681E7F092C001A2AA3 /* SRSNestedItemListParser.swift */; };
-		281C34971E7F092C001A2AA3 /* BasicListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346A1E7F092C001A2AA3 /* BasicListItem.swift */; };
 		281C34981E7F092C001A2AA3 /* StackViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346B1E7F092C001A2AA3 /* StackViewItem.swift */; };
 		281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */; };
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
@@ -47,7 +46,6 @@
 		281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347A1E7F092C001A2AA3 /* IconView.swift */; };
 		281C34A31E7F092C001A2AA3 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347B1E7F092C001A2AA3 /* LabelView.swift */; };
 		281C34A41E7F092C001A2AA3 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347C1E7F092C001A2AA3 /* SeparatorView.swift */; };
-		281C34A51E7F092C001A2AA3 /* BasicListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347E1E7F092C001A2AA3 /* BasicListItemView.swift */; };
 		281C34A61E7F092C001A2AA3 /* StackView_new.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347F1E7F092C001A2AA3 /* StackView_new.swift */; };
 		281C34AC1E7F69FD001A2AA3 /* HorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34AB1E7F69FD001A2AA3 /* HorizontalStackView.swift */; };
 		28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */; };
@@ -367,7 +365,6 @@
 		281C34651E7F092C001A2AA3 /* SRSItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemList.swift; sourceTree = "<group>"; };
 		281C34661E7F092C001A2AA3 /* SRSLabelValueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabelValueItem.swift; sourceTree = "<group>"; };
 		281C34681E7F092C001A2AA3 /* SRSNestedItemListParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSNestedItemListParser.swift; sourceTree = "<group>"; };
-		281C346A1E7F092C001A2AA3 /* BasicListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicListItem.swift; sourceTree = "<group>"; };
 		281C346B1E7F092C001A2AA3 /* StackViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewItem.swift; sourceTree = "<group>"; };
 		281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentsDemoViewController.swift; sourceTree = "<group>"; };
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
@@ -380,7 +377,6 @@
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		281C347B1E7F092C001A2AA3 /* LabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		281C347C1E7F092C001A2AA3 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
-		281C347E1E7F092C001A2AA3 /* BasicListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicListItemView.swift; sourceTree = "<group>"; };
 		281C347F1E7F092C001A2AA3 /* StackView_new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView_new.swift; sourceTree = "<group>"; };
 		281C34AB1E7F69FD001A2AA3 /* HorizontalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalStackView.swift; sourceTree = "<group>"; };
 		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
@@ -792,7 +788,6 @@
 		281C34691E7F092C001A2AA3 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				281C346A1E7F092C001A2AA3 /* BasicListItem.swift */,
 				281C346B1E7F092C001A2AA3 /* StackViewItem.swift */,
 			);
 			path = Templates;
@@ -856,7 +851,6 @@
 		281C347D1E7F092C001A2AA3 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				281C347E1E7F092C001A2AA3 /* BasicListItemView.swift */,
 				281C347F1E7F092C001A2AA3 /* StackView_new.swift */,
 				281C34AB1E7F69FD001A2AA3 /* HorizontalStackView.swift */,
 			);
@@ -1919,7 +1913,6 @@
 				3025DA181E539B9E004149D7 /* SRSFillerView.swift in Sources */,
 				3093A4AE1E730D4F00C65818 /* EventTextMessage.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
-				281C34971E7F092C001A2AA3 /* BasicListItem.swift in Sources */,
 				281C34901E7F092C001A2AA3 /* SRSLoaderBarItem.swift in Sources */,
 				281C34961E7F092C001A2AA3 /* SRSNestedItemListParser.swift in Sources */,
 				281C34A01E7F092C001A2AA3 /* ComponentViewFactory.swift in Sources */,
@@ -1946,7 +1939,6 @@
 				3025DA211E539B9E004149D7 /* SRSSeparatorView.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */,
-				281C34A51E7F092C001A2AA3 /* BasicListItemView.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,

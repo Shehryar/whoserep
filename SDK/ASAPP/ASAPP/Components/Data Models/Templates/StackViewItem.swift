@@ -10,6 +10,11 @@ import UIKit
 
 class StackViewItem: NSObject, Component {
     
+    enum JSONKey: String {
+        case items = "items"
+        case orientation = "orientation"
+    }
+    
     enum Orientation: String {
         case vertical = "vertical"
         case horizontal = "horizontal"
@@ -59,7 +64,7 @@ class StackViewItem: NSObject, Component {
         guard let content = content as? [String : Any] else {
             return nil
         }
-        guard let itemsJSON = content["items"] as? [[String : Any]] else {
+        guard let itemsJSON = content[JSONKey.items.rawValue] as? [[String : Any]] else {
             DebugLog.w(caller: self, "Missing items json. Returning nil:\n\(content)")
             return nil
         }
@@ -75,7 +80,7 @@ class StackViewItem: NSObject, Component {
             return nil
         }
         
-        let orientation = Orientation.from(content["orientation"] as? String,
+        let orientation = Orientation.from(content[JSONKey.orientation.rawValue] as? String,
                                            defaultValue: .vertical)
         
         return StackViewItem(items: items,

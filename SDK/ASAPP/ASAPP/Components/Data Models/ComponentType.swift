@@ -19,7 +19,6 @@ enum ComponentType: String {
     case separator = "separator"
     
     // Templates
-    case basicListItem = "basic_list_item"
     case stackView = "stack_view"
 }
 
@@ -35,7 +34,6 @@ extension Component where Self: Any {
         case is ProgressBarItem: return .progressBar
         case is SeparatorItem: return .separator
         
-        case is BasicListItem: return .basicListItem
         case is StackViewItem: return .stackView
         
         default: return nil

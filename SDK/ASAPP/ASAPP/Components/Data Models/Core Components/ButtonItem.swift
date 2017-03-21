@@ -10,6 +10,12 @@ import UIKit
 
 class ButtonItem: NSObject, Component {
 
+    enum JSONKey: String {
+        case title = "title"
+        case buttonStyle = "style"
+        case icon = "icon"
+    }
+    
     enum ButtonStyle: String {
         case block = "block"
         case text = "text"
@@ -64,13 +70,14 @@ class ButtonItem: NSObject, Component {
         guard let content = content as? [String : Any] else {
             return nil
         }
-        guard let title = content["title"] as? String else {
+        guard let title = content[JSONKey.title.rawValue] as? String else {
             DebugLog.e(caller: self, "Title is required. Returning nil.")
             return nil
         }
         
-        let buttonStyle = ButtonStyle.from(content["style"] as? String, defaultValue: .block)
-        let icon = ComponentFactory.component(with: content["icon"]) as? IconItem
+        let buttonStyle = ButtonStyle.from(content[JSONKey.buttonStyle.rawValue] as? String,
+                                           defaultValue: .block)
+        let icon = ComponentFactory.component(with: content[JSONKey.icon.rawValue]) as? IconItem
         
         return ButtonItem(title: title,
                           buttonStyle: buttonStyle,

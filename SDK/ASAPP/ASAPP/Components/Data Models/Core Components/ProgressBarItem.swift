@@ -10,6 +10,13 @@ import UIKit
 
 class ProgressBarItem: NSObject, Component {
     
+    enum JSONKey: String {
+        case fillPercentage = "fill_percentage"
+        case fillColor = "fill_color"
+        case containerColor = "container_color"
+        case barHeight = "bar_height"
+    }
+    
     // MARK: Defaults
     
     static let defaultFillColor = UIColor(red:0.447, green:0.788, blue:0.384, alpha:1.000)
@@ -62,10 +69,10 @@ class ProgressBarItem: NSObject, Component {
             return nil
         }
         
-        let fillPercentage = content.float(for: "fill_percentage", defaultValue: 0)
-        let fillColor = content.hexColor(for: "fill_color")
-        let containerColor = content.hexColor(for: "container_color")
-        let barHeight = content.float(for: "bar_height")
+        let fillPercentage = content.float(for: JSONKey.fillPercentage.rawValue, defaultValue: 0)
+        let fillColor = content.hexColor(for: JSONKey.fillColor.rawValue)
+        let containerColor = content.hexColor(for: JSONKey.containerColor.rawValue)
+        let barHeight = content.float(for: JSONKey.barHeight.rawValue)
         
         return ProgressBarItem(fillPercentage: fillPercentage,
                                fillColor: fillColor,

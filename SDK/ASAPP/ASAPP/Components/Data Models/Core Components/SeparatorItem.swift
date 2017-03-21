@@ -10,23 +10,11 @@ import UIKit
 
 class SeparatorItem: NSObject, Component {
 
-    enum SeparatorStyle: String {
-        case line = "line"
-        case gradient = "gradient"
-        case block = "block"
-        
-        static func from(_ string: String?, defaultValue: SeparatorStyle = .line) -> SeparatorStyle {
-            guard let string = string,
-                let style = SeparatorStyle(rawValue: string) else {
-                    return defaultValue
-            }
-            return style
-        }
+    enum JSONKey: String {
+        case color = "color"
     }
     
     // MARK: Properties
-    
-    let separatorStyle: SeparatorItem.SeparatorStyle
     
     let color: UIColor?
     
@@ -40,11 +28,9 @@ class SeparatorItem: NSObject, Component {
     
     // MARK: Init
     
-    init(separatorStyle: SeparatorItem.SeparatorStyle,
-         color: UIColor?,
+    init(color: UIColor?,
          id: String?,
          style: ComponentStyle) {
-        self.separatorStyle = separatorStyle
         self.color = color
         self.id = id
         self.style = style
@@ -53,18 +39,13 @@ class SeparatorItem: NSObject, Component {
     
     // MARK: Component Parsing
     
-    static let defaultStyle = SeparatorItem.SeparatorStyle.line
-    
     static func make(with content: Any?,
                      id: String?,
                      style: ComponentStyle) -> Component? {
         let content = content as? [String : Any]
-        let separatorStyle = SeparatorStyle.from(content?["style"] as? String,
-                                                 defaultValue: defaultStyle)
-        let color = UIColor.colorFromHex(hex: content?["color"] as? String)
+        let color = UIColor.colorFromHex(hex: content?[JSONKey.color.rawValue] as? String)
         
-        return SeparatorItem(separatorStyle: separatorStyle,
-                             color: color,
+        return SeparatorItem(color: color,
                              id: id,
                              style: style)
     }

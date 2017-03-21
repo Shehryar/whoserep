@@ -26,7 +26,6 @@ enum ComponentFactory {
         case .separator: return SeparatorItem.make(with: content, id: id, style: style)
             
         // Templates
-        case .basicListItem: return BasicListItem.make(with: content, id: id, style: style)
         case .stackView: return StackViewItem.make(with: content, id: id, style: style)
         }
     }
