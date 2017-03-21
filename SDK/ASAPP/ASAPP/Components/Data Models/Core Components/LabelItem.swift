@@ -12,60 +12,26 @@ class LabelItem: NSObject, Component {
     
     enum JSONKey: String {
         case text = "text"
-        
-        case alignment = "textAlign"
-        case fontWeight = "fontWeight"
-        case fontSize = "fontSize"
-        case color = "color"
-        case letterSpacing = "letterSpacing"
     }
     
-    // MARK: Defaults
+    // MARK: Default
     
-    static let defaultAlignment = NSTextAlignment.left
-    static let defaultFontWeight = FontWeight.regular
-    static let defaultSize: Int = 15
-    static let defaultLetterSpacing: CGFloat = 0
+    static let defaultColor = UIColor.darkText
     
     // MARK: Properties
     
     let text: String
-    
-    let alignment: NSTextAlignment
-    
-    let fontWeight: FontWeight
-    
-    let fontSize: CGFloat
-    
-    let color: UIColor?
-    
-    let letterSpacing: CGFloat
-    
+ 
     // MARK: Component Properties
-    
-    let type = ComponentType.label
-    
+        
     let id: String?
     
     let style: ComponentStyle
     
     // MARK: Init
     
-    init(text: String,
-         alignment: NSTextAlignment,
-         fontWeight: FontWeight,
-         fontSize: CGFloat,
-         color: UIColor?,
-         letterSpacing: CGFloat,
-         id: String?,
-         style: ComponentStyle) {
-        
+    init(text: String, id: String?, style: ComponentStyle) {
         self.text = text
-        self.alignment = alignment
-        self.fontWeight = fontWeight
-        self.fontSize = fontSize
-        self.color = color
-        self.letterSpacing = letterSpacing
         self.id = id
         self.style = style
         super.init()
@@ -83,22 +49,6 @@ class LabelItem: NSObject, Component {
             DebugLog.w(caller: self, "Missing text: \(content)")
             return nil
         }
-        
-        let alignment = NSTextAlignment.from(content[JSONKey.alignment.rawValue] as? String,
-                                             defaultValue: defaultAlignment)
-        let fontWeight = FontWeight.from(content[JSONKey.fontWeight.rawValue] as? String,
-                                       defaultValue: defaultFontWeight)
-        let fontSize = CGFloat(content[JSONKey.fontSize.rawValue] as? Int ?? defaultSize)
-        let color = UIColor.colorFromHex(hex: content[JSONKey.color.rawValue] as? String)
-        let letterSpacing = (content[JSONKey.letterSpacing.rawValue] as? CGFloat) ?? defaultLetterSpacing
-        
-        return LabelItem(text: text,
-                         alignment: alignment,
-                         fontWeight: fontWeight,
-                         fontSize: fontSize,
-                         color: color,
-                         letterSpacing: letterSpacing,
-                         id: id,
-                         style: style)
+        return LabelItem(text: text, id: id, style: style)
     }
 }

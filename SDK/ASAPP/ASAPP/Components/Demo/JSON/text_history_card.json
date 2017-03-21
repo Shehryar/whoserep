@@ -10,13 +10,13 @@
             {
               "type": "label",
               "content": {
-                "text": "Text History",
+                "text": "Text History"
+              },
+              "style" : {
+                "gravity": "middle",
                 "fontWeight": "black",
                 "fontSize": 16,
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity": "middle"
               }
             },
             {
@@ -54,14 +54,14 @@
             {
               "type" : "icon",
               "content" : {
-                "icon" : "exitLink",
-                "tintColor" : "#5b657e",
-                "width" : 10,
-                "height" : 10
+                "icon" : "exitLink"
               },
               "style" : {
                 "gravity" : "middle",
-                "marginRight" : 16
+                "marginRight" : 16,
+                "color" : "#5b657e",
+                "width" : 10,
+                "height" : 10
               }
             },
             {
@@ -71,7 +71,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "+1 (555) 123-4567",
+                      "text": "+1 (555) 123-4567"
+                    },
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -79,7 +81,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "3/3/2017 - 4:14PM",
+                      "text": "3/3/2017 - 4:14PM"
+                    }, 
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -96,17 +100,17 @@
             {
               "type": "label",
               "content": {
-                "text": "$0.25",
+                "text": "$0.25"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]
@@ -141,7 +145,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "Mom",
+                      "text": "Mom"
+                    }, 
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -149,7 +155,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "3/2/2017 - 5:01PM",
+                      "text": "3/2/2017 - 5:01PM"
+                    },
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -166,17 +174,17 @@
             {
               "type": "label",
               "content": {
-                "text": "$0.10",
+                "text": "$0.10"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]
@@ -212,7 +220,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "Billy",
+                      "text": "Billy"
+                    },
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -220,7 +230,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "3/2/2017 - 1:07PM",
+                      "text": "3/2/2017 - 1:07PM"
+                    }, 
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -237,17 +249,17 @@
             {
               "type": "label",
               "content": {
-                "text": "$34.66",
+                "text": "$34.66"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]

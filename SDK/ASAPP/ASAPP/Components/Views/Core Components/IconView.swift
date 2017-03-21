@@ -17,7 +17,7 @@ class IconView: UIView, ComponentView {
     var component: Component? {
         didSet {
             if let iconItem = iconItem {
-                if let tintColor = iconItem.tintColor {
+                if let tintColor = iconItem.style.color {
                     imageView.image = iconItem.icon.getImage()?.tinted(tintColor)
                 } else {
                     imageView.image = iconItem.icon.getImage()
@@ -63,10 +63,13 @@ class IconView: UIView, ComponentView {
         guard let iconItem = iconItem else {
             return .zero
         }
+        let style = iconItem.style
+        let width = style.width > 0 ? style.width : IconItem.defaultWidth
+        let height = style.height > 0 ? style.height : IconItem.defaultHeight
+        let padding = style.padding
         
-        let padding = iconItem.style.padding
-        let sizeWithPadding = CGSize(width: iconItem.width + padding.left + padding.right,
-                                     height: iconItem.height + padding.top + padding.bottom)
+        let sizeWithPadding = CGSize(width: width + padding.left + padding.right,
+                                     height: height + padding.top + padding.bottom)
         return sizeWithPadding
     }
 }

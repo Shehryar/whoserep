@@ -6,25 +6,25 @@
 			{
 				"type" : "label",
 				"content" : {
-					"text" : "ACCOUNT BALANCE",
-					"fontSize" : 10,
-					"color" : "#a9aebb"
+					"text" : "ACCOUNT BALANCE"
 				}, 
 				"style" : {
-					"marginBottom" : 2
+					"marginBottom" : 2,
+					"fontSize" : 10,
+					"color" : "#a9aebb"
 				}
 			},
 
 			{
 				"type" : "label",
 				"content" : {
-					"text" : "$50.00",
+					"text" : "$50.00"
+				}, 
+				"style" : {
+					"marginBottom" : 10,
 					"fontSize" : 24,
 					"fontWeight" : "black",
 					"color" : "#56607a"
-				}, 
-				"style" : {
-					"marginBottom" : 10
 				}
 			},
 
@@ -36,23 +36,22 @@
 						{
 							"type" : "icon",
 							"content" : {
-								"icon" : "user",
-								"width" : 24,
-								"height" : 24
+								"icon" : "user"
 							},
 							"style" : {
-								"marginRight" : 20
+								"marginRight" : 20,
+								"width" : 24,
+								"height" : 24
 							}
 						},
 						{
 							"type" : "label",
 							"content" : {
-								"text" : "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date.",
-								"fontSize" : 12,
-								"color" : "#656f86"
+								"text" : "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date."
 							}, 
 							"style" : {
-
+								"fontSize" : 12,
+								"color" : "#656f86"
 							}
 						}
 					]
@@ -66,25 +65,24 @@
 			{
 				"type" : "label",
 				"content" : {
-					"text" : "DUE BY",
-					"fontSize" : 10,
-					"color" : "#a9aebb"
+					"text" : "DUE BY"
 				}, 
 				"style" : {
-					"marginBottom" : 3
+					"marginBottom" : 3,
+					"fontSize" : 10,
+					"color" : "#a9aebb"
 				}
 			},
 
 			{
 				"type" : "label",
 				"content" : {
-					"text" : "03/26/17",
+					"text" : "03/26/17"
+				}, 
+				"style" : {
 					"fontSize" : 15,
 					"fontWeight" : "black",
 					"color" : "#56607a"
-				}, 
-				"style" : {
-
 				}
 			}
 		]

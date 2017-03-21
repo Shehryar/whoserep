@@ -8,20 +8,113 @@
 
 import UIKit
 
-enum VerticalAlignment: String {
-    case top = "top"
-    case middle = "middle"
-    case bottom = "bottom"
-    case fill = "fill"
+// MARK:- ComponentStyle
+
+struct ComponentStyle {
     
-    static func from(_ string: String?, defaultValue: VerticalAlignment) -> VerticalAlignment {
-        guard let string = string,
-            let alignment = VerticalAlignment(rawValue: string) else {
-                return defaultValue
+    // MARK: Properties
+    
+    var alignment: HorizontalAlignment = .left
+    
+    var backgroundColor: UIColor?
+    
+    var color: UIColor?
+    
+    var fontSize: CGFloat = 15
+    
+    var fontWeight: FontWeight = .regular
+    
+    var gravity: VerticalAlignment = .top
+    
+    var height: CGFloat = 0
+    
+    var letterSpacing: CGFloat = 0
+    
+    var margin: UIEdgeInsets = .zero
+    
+    var padding: UIEdgeInsets = .zero
+    
+    var textAlign: NSTextAlignment = .left
+    
+    var weight: Int = 0
+    
+    var width: CGFloat = 0
+}
+
+// MARK:- JSON Parsing
+
+extension ComponentStyle {
+    
+    static func fromJSON(_ json: Any?) -> ComponentStyle {
+        guard let json = json as? [String : Any] else {
+            return ComponentStyle()
         }
-        return alignment
+        
+        var style = ComponentStyle()
+        
+        if let alignment = json.horizontalAlignment(for: JSONKey.align.rawValue) {
+            style.alignment = alignment
+        }
+        if let backgroundColor = json.hexColor(for: JSONKey.backgroundColor.rawValue) {
+            style.backgroundColor = backgroundColor
+        }
+        if let color = json.hexColor(for: JSONKey.color.rawValue) {
+            style.color = color
+        }
+        if let fontSize = json.float(for: JSONKey.fontSize.rawValue) {
+            style.fontSize = fontSize
+        }
+        if let fontWeight = json.fontWeight(for: JSONKey.fontWeight.rawValue) {
+            style.fontWeight = fontWeight
+        }
+        if let gravity = json.verticalAlignment(for: JSONKey.gravity.rawValue) {
+            style.gravity = gravity
+        }
+        if let height = json.float(for: JSONKey.height.rawValue) {
+            style.height = height
+        }
+        if let letterSpacing = json.float(for: JSONKey.letterSpacing.rawValue) {
+            style.letterSpacing = letterSpacing
+        }
+        style.margin = json.inset(for: JSONKey.margin.rawValue, defaultValue: style.margin)
+        style.padding = json.inset(for: JSONKey.padding.rawValue, defaultValue: style.padding)
+        if let textAlign = json.textAlignment(for: JSONKey.textAlign.rawValue) {
+            style.textAlign = textAlign
+        }
+        if let weight = json.int(for: JSONKey.weight.rawValue) {
+            style.weight = weight
+        }
+        if let width = json.float(for: JSONKey.width.rawValue) {
+            style.width = width
+        }
+        
+        return style
     }
 }
+
+// MARK:- JSONKeys
+
+extension ComponentStyle {
+    
+    enum JSONKey: String {
+        // Keep alphabetical
+        case align = "align"
+        case backgroundColor = "backgroundColor"
+        case color = "color"
+        case fontSize = "fontSize"
+        case fontWeight = "fontWeight"
+        case gravity = "gravity"
+        case height = "height"
+        case letterSpacing = "letterSpacing"
+        case margin = "margin"
+        case padding = "padding"
+        case textAlign = "textAlign"
+        case weight = "weight"
+        case width = "width"
+    }
+}
+
+// MARK:- Horizontal Alignment
 
 enum HorizontalAlignment: String {
     case left = "left"
@@ -29,86 +122,80 @@ enum HorizontalAlignment: String {
     case right = "right"
     case fill = "fill"
     
-    static func from(_ string: String?, defaultValue: HorizontalAlignment) -> HorizontalAlignment {
+    static func from(_ string: String?) -> HorizontalAlignment? {
         guard let string = string,
             let alignment = HorizontalAlignment(rawValue: string) else {
-                return defaultValue
+                return nil
         }
         return alignment
     }
+    
+    static func from(_ string: String?, defaultValue: HorizontalAlignment) -> HorizontalAlignment {
+        return from(string) ?? defaultValue
+    }
 }
 
-// MARK:- ComponentStyle
+// MARK:- Vertical Alignment
 
-class ComponentStyle: NSObject {
+enum VerticalAlignment: String {
+    case top = "top"
+    case middle = "middle"
+    case bottom = "bottom"
+    case fill = "fill"
     
-    enum JSONKey: String {
-        case margin = "margin"
-        case padding = "padding"
-        case align = "align"
-        case gravity = "gravity"
-        case weight = "weight"
+    static func from(_ string: String?) -> VerticalAlignment? {
+        guard let string = string,
+            let alignment = VerticalAlignment(rawValue: string) else {
+                return nil
+        }
+        return alignment
     }
     
-    // MARK: Default Values
-    
-    static let defaultMargin = UIEdgeInsets.zero
-    
-    static let defaultPadding = UIEdgeInsets.zero
-    
-    static let defaultAlignment = HorizontalAlignment.left
-    
-    static let defaultGravity = VerticalAlignment.top
-    
-    static let defaultWeight: Int = 0
-    
-    // MARK: Properties
-    
-    let margin: UIEdgeInsets
-    
-    let padding: UIEdgeInsets
-    
-    let alignment: HorizontalAlignment
-    
-    let gravity: VerticalAlignment
-    
-    let weight: Int
-    
-    // MARK: Init
-    
-    init(margin: UIEdgeInsets = ComponentStyle.defaultMargin,
-         padding: UIEdgeInsets = ComponentStyle.defaultPadding,
-         alignment: HorizontalAlignment = ComponentStyle.defaultAlignment,
-         gravity: VerticalAlignment = ComponentStyle.defaultGravity,
-         weight: Int = ComponentStyle.defaultWeight) {
-        
-        self.margin = margin
-        self.padding = padding
-        self.alignment = alignment
-        self.gravity = gravity
-        self.weight = weight
-        super.init()
+    static func from(_ string: String?, defaultValue: VerticalAlignment) -> VerticalAlignment {
+       return from(string) ?? defaultValue
     }
+}
+
+// MARK:- NSTextAlignment
+
+extension NSTextAlignment {
     
-    // MARK: JSON
-    
-    class func fromJSON(_ json: Any?) -> ComponentStyle {
-        guard let json = json as? [String : Any] else {
-            return ComponentStyle()
+    static func from(_ stringValue: String?) -> NSTextAlignment? {
+        guard let stringValue = stringValue else {
+            return nil
         }
         
-        let margin = json.inset(for: JSONKey.margin.rawValue, defaultValue: .zero)
-        let padding = json.inset(for: JSONKey.padding.rawValue, defaultValue: .zero)
-        let alignment = HorizontalAlignment.from(json[JSONKey.align.rawValue] as? String,
-                                                 defaultValue: .left)
-        let gravity = VerticalAlignment.from(json[JSONKey.gravity.rawValue] as? String,
-                                             defaultValue: .top)
-        let weight = (json[JSONKey.weight.rawValue] as? Int) ?? defaultWeight
-        
-        return ComponentStyle(margin: margin,
-                               padding: padding,
-                               alignment: alignment,
-                               gravity: gravity,
-                               weight: weight)
+        switch stringValue.lowercased() {
+        case "left": return .left
+        case "center": return .center
+        case "right": return .right
+        case "justified": return .justified
+        default: return nil
+        }
+    }
+    
+    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
+        return from(stringValue) ?? defaultValue
+    }
+}
+
+// MARK:- FontWeight
+
+enum FontWeight: String {
+    case light = "light"
+    case regular = "regular"
+    case bold = "bold"
+    case black = "black"
+    
+    static func from(_ string: String?) -> FontWeight? {
+        guard let string = string,
+            let style = FontWeight(rawValue: string) else {
+                return nil
+        }
+        return style
+    }
+    
+    static func from(_ string: String?, defaultValue: FontWeight = regular) -> FontWeight {
+        return from(string) ?? defaultValue
     }
 }

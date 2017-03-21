@@ -12,9 +12,6 @@ class IconItem: NSObject, Component {
 
     enum JSONKey: String {
         case icon = "icon"
-        case tintColor = "tintColor"
-        case width = "width"
-        case height = "height"
     }
 
     enum Icon: String {
@@ -74,16 +71,8 @@ class IconItem: NSObject, Component {
     
     let icon: Icon
     
-    let tintColor: UIColor?
-    
-    let width: CGFloat
-    
-    let height: CGFloat
-    
     // MARK: Component Properties
-    
-    let type = ComponentType.icon
-    
+        
     let id: String?
     
     let style: ComponentStyle
@@ -91,15 +80,9 @@ class IconItem: NSObject, Component {
     // MARK: Init
     
     init(icon: Icon,
-         tintColor: UIColor?,
-         width: CGFloat?,
-         height: CGFloat?,
          id: String?,
          style: ComponentStyle) {
         self.icon = icon
-        self.tintColor = tintColor
-        self.width = width ?? IconItem.defaultWidth
-        self.height = height ?? IconItem.defaultHeight
         self.id = id
         self.style = style
         super.init()
@@ -118,15 +101,8 @@ class IconItem: NSObject, Component {
                 DebugLog.w(caller: self, "No icon found in content: \(content)")
                 return nil
         }
-        
-        let color = content.hexColor(for: JSONKey.tintColor.rawValue)
-        let width = content.float(for: JSONKey.width.rawValue)
-        let height = content.float(for: JSONKey.height.rawValue)
-        
+
         return IconItem(icon: icon,
-                        tintColor: color,
-                        width: width,
-                        height: height,
                         id: id,
                         style: style)
     }

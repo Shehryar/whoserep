@@ -36,9 +36,7 @@ class StackViewItem: NSObject, Component {
     let orientation: Orientation
     
     // MARK: Component Properties
-    
-    let type = ComponentType.stackView
-    
+        
     let id: String?
     
     let style: ComponentStyle

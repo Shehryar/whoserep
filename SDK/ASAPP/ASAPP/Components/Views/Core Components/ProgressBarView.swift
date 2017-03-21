@@ -18,10 +18,11 @@ class ProgressBarView: UIView, ComponentView {
     
     var component: Component? {
         didSet {
-            if let progressBarItem = progressBarItem {
-                progressBar.backgroundColor = progressBarItem.fillColor
-                progressBarContainer.backgroundColor = progressBarItem.containerColor
-            }
+            
+            let style = progressBarItem?.style
+            progressBar.backgroundColor = style?.color ?? ProgressBarItem.defaultColor
+            progressBarContainer.backgroundColor = style?.backgroundColor ?? ProgressBarItem.defaultBackgroundColor
+            backgroundColor = UIColor.clear
         }
     }
     
@@ -71,8 +72,10 @@ class ProgressBarView: UIView, ComponentView {
             return .zero
         }
         
-        let padding = progressBarItem.style.padding
-        let height = progressBarItem.barHeight + padding.top + padding.bottom
+        let style = progressBarItem.style
+        let padding = style.padding
+        let height = (style.height > 0 ? style.height : ProgressBarItem.defaultHeight)
+            + padding.top + padding.bottom
         
         return CGSize(width: size.width, height: height)
     }

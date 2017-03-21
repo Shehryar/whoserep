@@ -8,24 +8,6 @@
 
 import UIKit
 
-// MARK:- NSTextAlignment
-
-extension NSTextAlignment {
-    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
-        guard let stringValue = stringValue else {
-            return defaultValue
-        }
-        
-        switch stringValue.lowercased() {
-        case "left": return .left
-        case "center": return .center
-        case "right": return .right
-        case "justified": return .justified
-        default: return defaultValue
-        }
-    }
-}
-
 // MARK:- Dictionary Extension
 
 extension Dictionary where Key: StringLiteralConvertible, Value: Any {
@@ -160,4 +142,24 @@ extension Dictionary where Key: StringLiteralConvertible, Value: Any {
         }
         return contentInset
     }
+    
+    // MARK: Horizontal Alignment
+    
+    func horizontalAlignment(for key: String) -> HorizontalAlignment? {
+        return HorizontalAlignment.from(self[key as! Key] as? String)
+    }
+    
+    func verticalAlignment(for key: String) -> VerticalAlignment? {
+        return VerticalAlignment.from(self[key as! Key] as? String)
+    }
+    
+    func textAlignment(for key: String) -> NSTextAlignment? {
+        return NSTextAlignment.from(self[key as! Key] as? String)
+    }
+    
+    func fontWeight(for key: String) -> FontWeight? {
+        return FontWeight.from(self[key as! Key] as? String)
+    }
 }
+
+

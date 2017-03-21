@@ -8,23 +8,6 @@
 
 import UIKit
 
-// MARK:- FontWeight
-
-enum FontWeight: String {
-    case light = "light"
-    case regular = "regular"
-    case bold = "bold"
-    case black = "black"
-    
-    static func from(_ string: String?, defaultValue: FontWeight = regular) -> FontWeight {
-        guard let string = string,
-            let style = FontWeight(rawValue: string) else {
-                return defaultValue
-        }
-        return style
-    }
-}
-
 // MARK:- TextStyle
 
 struct TextStyle {

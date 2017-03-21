@@ -10,13 +10,13 @@
             {
               "type": "label",
               "content": {
-                "text": "Data Usage",
+                "text": "Data Usage"
+              },
+              "style" : {
+                "gravity": "middle",
                 "fontWeight": "black",
                 "fontSize": 16,
                 "color": "#5b657e"
-              },
-              "style" : {
-                "gravity": "middle"
               }
             },
             {
@@ -49,12 +49,11 @@
       {
         "type" : "progressBar",
         "content" : {
-            "fillPercentage" : 1,
-            "height" : 10,
-            "color" : "#ef7667"
+            "fillPercentage" : 1
         },
         "style" : {
-            "margin" : 20
+            "margin" : 20,
+            "color" : "#ef7667"
         }
       },
 
@@ -66,27 +65,27 @@
             {
               "type": "label",
               "content": {
-                "text": "448 GB",
+                "text": "448 GB"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "marginRight" : 0,
                 "textAlign": "center",
                 "fontWeight": "black",
                 "fontSize": 18,
                 "color": "#55607a"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "marginRight" : 0
               }
             },
             {
               "type" : "icon", 
               "content" : {
                 "icon" : "errorAlertFilled",
-                "width" : 16,
-                "height" : 16
               },
               "style" : {
                 "gravity" : "middle",
-                "marginLeft" : 6
+                "marginLeft" : 6,
+                "width" : 16,
+                "height" : 16
               }
             }
           ]
@@ -100,29 +99,29 @@
       {
         "type": "label",
         "content": {
-          "text": "of 450 GB",
+          "text": "of 450 GB"
+        },
+        "style" : {
+          "align": "fill",
+          "marginBottom" : 7,
           "textAlign": "center",
           "fontWeight": "regular",
           "fontSize": 12,
           "color": "#55607a"
-        },
-        "style" : {
-          "align": "fill",
-          "marginBottom" : 7
         }
       },
 
       {
         "type": "label",
         "content": {
-          "text": "Account Throttled",
+          "text": "Account Throttled"
+        },
+        "style" : {
+          "align": "fill",
           "textAlign": "center",
           "fontWeight": "bold",
           "fontSize": 12,
           "color": "#ef7667"
-        },
-        "style" : {
-          "align": "fill",
         }
       },
       

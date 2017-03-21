@@ -18,10 +18,10 @@ class LabelView: UIView, ComponentView {
         didSet {
             if let labelItem = labelItem {
                 label.text = labelItem.text
-                label.textAlignment = labelItem.alignment
-                label.textColor = labelItem.color
-                label.font = ASAPP.styles.font(with: labelItem.fontWeight,
-                                               size: labelItem.fontSize)
+                label.textAlignment = labelItem.style.textAlign
+                label.textColor = labelItem.style.color ?? LabelItem.defaultColor
+                label.font = ASAPP.styles.font(with: labelItem.style.fontWeight,
+                                               size: labelItem.style.fontSize)
             } else {
                 label.text = nil
             }

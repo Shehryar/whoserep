@@ -10,13 +10,13 @@
             {
               "type": "label",
               "content": {
-                "text": "Data Usage",
+                "text": "Data Usage"
+              },
+              "style" : {
+                "gravity": "middle",
                 "fontWeight": "black",
                 "fontSize": 16,
                 "color": "#5b657e"
-              },
-              "style" : {
-                "gravity": "middle"
               }
             },
             {
@@ -49,8 +49,7 @@
       {
         "type" : "progressBar",
         "content" : {
-            "fillPercentage" : 0.4,
-            "height" : 10
+            "fillPercentage" : 0.4
         },
         "style" : {
             "margin" : 20
@@ -59,31 +58,31 @@
       {
         "type": "label",
         "content": {
-          "text": "200 GB",
+          "text": "200 GB"
+        },
+        "style" : {
+          "align": "fill",
+          "marginBottom" : 4,
           "textAlign": "center",
           "fontWeight": "black",
           "fontSize": 18,
           "color": "#55607a"
-        },
-        "style" : {
-          "align": "fill",
-          "marginBottom" : 4
         }
       },
 
       {
         "type": "label",
         "content": {
-          "text": "of 450 GB",
+          "text": "of 450 GB"
+        },
+        "style" : {
+          "align": "fill",
           "textAlign": "center",
           "fontWeight": "regular",
           "fontSize": 12,
           "color": "#55607a"
-        },
-        "style" : {
-          "align": "fill",
         }
-      },
+      }
       
     ]
   },

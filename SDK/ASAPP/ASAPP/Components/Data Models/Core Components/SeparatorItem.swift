@@ -10,17 +10,9 @@ import UIKit
 
 class SeparatorItem: NSObject, Component {
 
-    enum JSONKey: String {
-        case color = "color"
-    }
-    
-    // MARK: Properties
-    
-    let color: UIColor?
+    static let defaultColor = UIColor(red:0.820, green:0.827, blue:0.851, alpha:1.000)
     
     // MARK: Component Properties
-    
-    let type = ComponentType.separator
     
     let id: String?
     
@@ -28,10 +20,7 @@ class SeparatorItem: NSObject, Component {
     
     // MARK: Init
     
-    init(color: UIColor?,
-         id: String?,
-         style: ComponentStyle) {
-        self.color = color
+    init(id: String?, style: ComponentStyle) {
         self.id = id
         self.style = style
         super.init()
@@ -42,12 +31,7 @@ class SeparatorItem: NSObject, Component {
     static func make(with content: Any?,
                      id: String?,
                      style: ComponentStyle) -> Component? {
-        let content = content as? [String : Any]
-        let color = UIColor.colorFromHex(hex: content?[JSONKey.color.rawValue] as? String)
-        
-        return SeparatorItem(color: color,
-                             id: id,
-                             style: style)
+        return SeparatorItem(id: id, style: style)
     }
     
 }

@@ -7,13 +7,13 @@
       {
         "type" : "icon", 
         "content" : {
-          "icon" : "user",
-          "width" : 32,
-          "height" : 32
+          "icon" : "user"
         },
         "style" : {
           "gravity" : "top",
-          "marginRight" : 21
+          "marginRight" : 21,
+          "width" : 32,
+          "height" : 32
         }
       },
 
@@ -24,33 +24,35 @@
             {
               "type": "label",
               "content": {
-                "text": "Cancelled Auto Pay",
+                "text": "Cancelled Auto Pay"
+              },
+              "style" : {
+                "marginBottom" : 6,
                 "fontWeight": "bold",
                 "fontSize": 15,
                 "color": "#57617b"
-              },
-              "style" : {
-                "marginBottom" : 6
               }
             },
 
             {
               "type": "label",
               "content": {
-                "text": "You have successfully removed autopay from your account",
+                "text": "You have successfully removed autopay from your account"
+              },
+              "style" : {
+                "marginBottom" : 8,
                 "fontWeight": "regular",
                 "fontSize": 12,
                 "color": "#646e85"
-              },
-              "style" : {
-                "marginBottom" : 8
               }
             },
 
             {
               "type": "label",
               "content": {
-                "text": "March 15, 2017 -- 4:15PM",
+                "text": "March 15, 2017 -- 4:15PM"
+              }, 
+              "style" : {
                 "fontWeight": "regular",
                 "fontSize": 12,
                 "color": "#adb2be"

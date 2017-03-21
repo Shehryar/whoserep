@@ -10,13 +10,13 @@
             {
               "type": "label",
               "content": {
-                "text": "Terms and Conditions",
-                "fontWeight": "black",
-                "fontSize": 15,
-                "color" : "#5b657e"
+                "text": "Terms and Conditions"
               },
               "style" : {
                 "gravity": "middle",
+                "fontWeight": "black",
+                "fontSize": 15,
+                "color" : "#5b657e"
               }
             },
             {
@@ -41,7 +41,9 @@
       {
         "type": "label",
         "content": {
-          "text": "As of Jan 22, 2017 -- 4:15PM",
+          "text": "As of Jan 22, 2017 -- 4:15PM"
+        },
+        "style" : {
           "fontWeight": "regular",
           "fontSize": 11,
           "color" : "#a4a9b7"

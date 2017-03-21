@@ -3,17 +3,16 @@
   "content" : {
     "orientation" : "horizontal",
     "items" : [
-      
       {
         "type" : "icon", 
         "content" : {
-          "icon" : "user",
-          "width" : 32,
-          "height" : 32
+          "icon" : "user"
         },
         "style" : {
           "gravity" : "middle",
-          "marginRight" : 21
+          "marginRight" : 21,
+          "width" : 32,
+          "height" : 32
         }
       },
 
@@ -24,20 +23,22 @@
             {
               "type": "label",
               "content": {
-                "text": "Connected with Michael",
+                "text": "Connected with Michael"
+              },
+              "style" : {
+                "marginBottom" : 6,
                 "fontWeight": "bold",
                 "fontSize": 15,
                 "color": "#57617b"
-              },
-              "style" : {
-                "marginBottom" : 6
               }
             },
 
             {
               "type": "label",
               "content": {
-                "text": "Jan 22, 2017 -- 4:15PM",
+                "text": "Jan 22, 2017 -- 4:15PM"
+              },
+              "style" : {
                 "fontWeight": "regular",
                 "fontSize": 11,
                 "color": "#b2b7c2"

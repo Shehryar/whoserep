@@ -10,13 +10,13 @@
             {
               "type": "label",
               "content": {
-                "text": "Transaction History",
+                "text": "Transaction History"
+              },
+              "style" : {
+                "gravity": "middle",
                 "fontWeight": "black",
                 "fontSize": 16,
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity": "middle"
               }
             },
             {
@@ -29,18 +29,18 @@
                 "align": "right",
                 "gravity": "middle",
                 "weight" : 1,
-                "paddingTop": 12,
-                "paddingLeft": 16,
-                "paddingBottom": 12,
-                "paddingRight": 0
+                "paddingTop" : 12,
+                "paddingLeft" : 16,
+                "paddingBottom" : 12, 
+                "paddingRight" : 0
               }
             }
           ]
         },
         "style" : {
-            "paddingTop" : 4,
-            "paddingBottom" : 4
-          }
+          "paddingTop" : 4,
+          "paddingBottom" : 4
+        }
       },
       {
         "type": "separator"
@@ -51,6 +51,7 @@
         "content": {
           "orientation": "horizontal",
           "items": [
+            
             {
               "type": "stackView",
               "content": {
@@ -58,7 +59,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "March 2017 Bill Statement",
+                      "text": "March 2017 Statement"
+                    },
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -66,7 +69,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "3/3/2017 - 4:14PM",
+                      "text": "3/3/2017"
+                    }, 
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -83,25 +88,25 @@
             {
               "type": "label",
               "content": {
-                "text": "$110.97",
+                "text": "$49.99"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]
         },
         "style" : {
-            "paddingTop" : 8,
-            "paddingBottom" : 8
-          }
+          "paddingTop" : 8,
+          "paddingBottom" : 8
+        }
       },
       {
         "type": "separator"
@@ -111,6 +116,7 @@
         "content": {
           "orientation": "horizontal",
           "items": [
+            
             {
               "type": "stackView",
               "content": {
@@ -118,7 +124,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "February 2017 Bill Statement",
+                      "text": "February 2017 Statement"
+                    }, 
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -126,7 +134,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "2/3/2017 - 10:33AM",
+                      "text": "2/3/2017"
+                    },
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -143,17 +153,17 @@
             {
               "type": "label",
               "content": {
-                "text": "$110.97",
+                "text": "$49.99"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]
@@ -172,6 +182,7 @@
         "content": {
           "orientation": "horizontal",
           "items": [
+           
             {
               "type": "stackView",
               "content": {
@@ -179,7 +190,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "Upgrade Services",
+                      "text": "Service Upgrade"
+                    },
+                    "style" : {
                       "fontSize": 14,
                       "color" : "#646e85"
                     }
@@ -187,7 +200,9 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "1/3/2017 - 8:07PM",
+                      "text": "2/1/2017"
+                    }, 
+                    "style" : {
                       "fontSize": 12,
                       "color" : "#adb2bf"
                     }
@@ -204,31 +219,31 @@
             {
               "type": "label",
               "content": {
-                "text": "$34.66",
+                "text": "$34.66"
+              },
+              "style" : {
+                "gravity" : "middle",
+                "align" : "right",
+                "weight" : 0,
                 "fontSize": 16,
                 "fontWeight" : "black",
                 "letterSpacing" : 1,
                 "textAlign" : "right",
                 "color" : "#5b657e"
-              },
-              "style" : {
-                "gravity" : "middle",
-                "align" : "right",
-                "weight" : 0
               }
           }
           ]
         },
         "style" : {
-            "paddingTop" : 8,
-            "paddingBottom" : 16
-          }
+          "paddingTop" : 8,
+          "paddingBottom" : 16
+        }
       }
       
     ]
   },
   "style" : {
     "paddingLeft": 20,
-    "paddingRight": 20
+    "paddingRight" : 20
   }
 }

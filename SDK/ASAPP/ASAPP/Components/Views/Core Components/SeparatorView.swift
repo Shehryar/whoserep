@@ -18,10 +18,7 @@ class SeparatorView: UIView, ComponentView {
     
     var component: Component? {
         didSet {
-            if let separatorItem = separatorItem {
-                separator.backgroundColor = separatorItem.color ?? ASAPP.styles.separatorColor1
-                setNeedsLayout()
-            }
+            separator.backgroundColor = separatorItem?.style.color ?? SeparatorItem.defaultColor
         }
     }
     
