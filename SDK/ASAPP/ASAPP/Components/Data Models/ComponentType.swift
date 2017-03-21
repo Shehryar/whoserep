@@ -22,3 +22,23 @@ enum ComponentType: String {
     case basicListItem = "basic_list_item"
     case stackView = "stack_view"
 }
+
+// MARK:- Component+ComponentType
+
+extension Component where Self: Any {
+    
+    var componentType: ComponentType? {
+        switch self {
+        case is ButtonItem: return .button
+        case is IconItem: return .icon
+        case is LabelItem: return .label
+        case is ProgressBarItem: return .progressBar
+        case is SeparatorItem: return .separator
+        
+        case is BasicListItem: return .basicListItem
+        case is StackViewItem: return .stackView
+        
+        default: return nil
+        }
+    }
+}

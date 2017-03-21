@@ -65,7 +65,7 @@ class LabelView: UIView, ComponentView {
             fitToSize.height = CGFloat.greatestFiniteMagnitude
         }
         
-        let padding = labelItem.layout.padding
+        let padding = labelItem.style.padding
         fitToSize.width = max(0, fitToSize.width - padding.left - padding.right)
         fitToSize.height = max(0, fitToSize.height - padding.top - padding.bottom)
         
@@ -82,7 +82,7 @@ class LabelView: UIView, ComponentView {
         super.layoutSubviews()
         
         if let labelItem = labelItem {
-            let padding = labelItem.layout.padding
+            let padding = labelItem.style.padding
             label.frame = UIEdgeInsetsInsetRect(bounds, padding)
         } else {
             label.frame = .zero
@@ -94,7 +94,7 @@ class LabelView: UIView, ComponentView {
             return .zero
         }
         
-        let padding = labelItem.layout.padding
+        let padding = labelItem.style.padding
         let frame = getFrameThatFits(size)
         let width = frame.width > 0 ? frame.maxX + padding.right : 0
         let height = frame.height > 0 ? frame.maxY + padding.bottom : 0

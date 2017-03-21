@@ -12,18 +12,16 @@ class ComponentTemplate: NSObject, Component {
 
     // MARK: Component Properties
     
-    let type = ComponentType.label // UPDATE
-    
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
     init(id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -31,11 +29,11 @@ class ComponentTemplate: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
         
-        return ComponentTemplate(id: id, layout: layout) // UPDATE
+        return ComponentTemplate(id: id, style: style) // UPDATE
     }
 }

@@ -55,7 +55,7 @@ class HorizontalStackView: UIView, ComponentView {
         guard let component = component else {
             return ([CGRect](), .zero)
         }
-        let padding = component.layout.padding
+        let padding = component.style.padding
         let contentWidth = size.width - padding.left - padding.right
         let contentFrame = CGRect(x: padding.left, y: padding.top,
                                   width: contentWidth, height: 0)

@@ -15,7 +15,7 @@
                 "font_size": 16,
                 "color": "#5b657e"
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle"
               }
             },
@@ -25,7 +25,7 @@
                 "title": "VIEW ALL",
                 "style": "text"
               },
-              "layout": {
+              "style" : {
                 "align": "right",
                 "gravity": "middle",
                 "weight": 1,
@@ -39,7 +39,7 @@
             }
           ]
         },
-        "layout": {
+        "style" : {
           "padding": {
             "top": 4,
             "bottom": 4
@@ -57,7 +57,7 @@
             "bar_height" : 10,
             "fill_color" : "#ef7667"
         },
-        "layout" : {
+        "style" : {
             "margin" : [20]
         }
       },
@@ -76,7 +76,7 @@
                 "font_size": 18,
                 "color": "#55607a"
               },
-              "layout" : {
+              "style" : {
                 "gravity" : "middle",
                 "margin_right" : 0
               }
@@ -88,14 +88,14 @@
                 "width" : 16,
                 "height" : 16
               },
-              "layout" : {
+              "style" : {
                 "gravity" : "middle",
                 "margin_left" : 6
               }
             }
           ]
         }, 
-        "layout" : {
+        "style" : {
           "align" : "center",
           "margin_bottom" : 4
         }
@@ -110,7 +110,7 @@
           "font_size": 12,
           "color": "#55607a"
         },
-        "layout": {
+        "style" : {
           "align": "fill",
           "margin_bottom" : 7
         }
@@ -125,14 +125,14 @@
           "font_size": 12,
           "color": "#ef7667"
         },
-        "layout": {
+        "style" : {
           "align": "fill",
         }
       },
       
     ]
   },
-  "layout": {
+  "style" : {
     "padding": [0, 20, 20, 20]
   }
 }

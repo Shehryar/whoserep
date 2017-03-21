@@ -24,8 +24,8 @@ class ComponentLayoutEngine: NSObject {
 
         var top: CGFloat = boundingRect.minY
         for view in views {
-            let layout = (view as? ComponentView)?.component?.layout
-            let margin = layout?.margin ?? UIEdgeInsets.zero
+            let style = (view as? ComponentView)?.component?.style
+            let margin = style?.margin ?? UIEdgeInsets.zero
             
             let left = boundingRect.minX + margin.left
             let width = boundingRect.width - margin.left - margin.right
@@ -47,14 +47,14 @@ class ComponentLayoutEngine: NSObject {
         // Adjust horizontally, if needed
         for (idx, view) in views.enumerated() {
             var frame = frames[idx]
-            let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
+            let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
             
             let maxWidth = boundingRect.width - margin.left - margin.right
             if frame.width >= maxWidth {
                 continue
             }
             
-            let alignment = (view as? ComponentView)?.component?.layout.alignment ?? .left
+            let alignment = (view as? ComponentView)?.component?.style.alignment ?? .left
             switch alignment {
             case .left:
                 // No-op
@@ -160,8 +160,8 @@ extension ComponentLayoutEngine {
         var top = boundingRect.minY
         var left = boundingRect.minX
         for (idx, view) in views.enumerated() {
-            let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
-            let alignment = (view as? ComponentView)?.component?.layout.alignment ?? HorizontalAlignment.left
+            let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
+            let alignment = (view as? ComponentView)?.component?.style.alignment ?? HorizontalAlignment.left
             
             var size = columnSizes[idx].fittedSize
             let columnWidth = columnSizes[idx].maxColumnWidth
@@ -206,8 +206,8 @@ extension ComponentLayoutEngine {
         for (idx, view) in views.enumerated() {
             var frame = frames[idx]
             
-            if let layout = (view as? ComponentView)?.component?.layout {
-                switch layout.gravity {
+            if let style = (view as? ComponentView)?.component?.style {
+                switch style.gravity {
                 case .top:
                     // No change required
                     break
@@ -218,7 +218,7 @@ extension ComponentLayoutEngine {
                     break
                     
                 case .bottom:
-                    frame.origin.y = boundingRect.minY + maxFrameHeight - frame.height - layout.margin.bottom
+                    frame.origin.y = boundingRect.minY + maxFrameHeight - frame.height - style.margin.bottom
                     break
                     
                 case .fill:
@@ -227,8 +227,8 @@ extension ComponentLayoutEngine {
                 }
                 frames[idx] = frame
                 
-                maxX = max(maxX, frame.maxX + layout.margin.right)
-                maxY = max(maxY, frame.maxY + layout.margin.bottom)
+                maxX = max(maxX, frame.maxX + style.margin.right)
+                maxY = max(maxY, frame.maxY + style.margin.bottom)
             } else {
                 maxX = max(maxX, frame.maxX)
                 maxY = max(maxY, frame.maxY)
@@ -254,7 +254,7 @@ extension ComponentLayoutEngine {
         
         // Get the size for all weight=0 views
         for (idx, view) in views.enumerated() {
-            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
             if weight != 0 {
                 continue
             }
@@ -270,7 +270,7 @@ extension ComponentLayoutEngine {
         
         let weightedColumnWidths = getWeightedWidths(for: views, totalWidth: remainingWidth)
         for (idx, view) in views.enumerated() {
-            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
             if weight == 0 {
                 continue
             }
@@ -292,7 +292,7 @@ extension ComponentLayoutEngine {
     private class func getWidthMinusMargins(for views: [UIView], totalWidth: CGFloat) -> CGFloat {
         var width = totalWidth
         for view in views {
-            let margin = (view as? ComponentView)?.component?.layout.margin ?? UIEdgeInsets.zero
+            let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
             width = width - margin.left - margin.right
         }
         return max(0, width)
@@ -301,7 +301,7 @@ extension ComponentLayoutEngine {
     private class func getTotalWeight(for views: [UIView]) -> Int {
         var totalWeight: Int = 0
         for view in views {
-            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
             totalWeight += weight
         }
         return totalWeight
@@ -325,7 +325,7 @@ extension ComponentLayoutEngine {
         var totalAllocatedWidth: CGFloat = 0
         let widthPerWeight = getWidthPerWeight(for: views, totalWidth: totalWidth)
         for (idx, view) in views.enumerated() {
-            let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
             if weight > 0 {
                 let width = floor(CGFloat(weight) * widthPerWeight)
                 widths[idx] = width
@@ -336,7 +336,7 @@ extension ComponentLayoutEngine {
         let widthRoundingError = totalWidth - totalAllocatedWidth
         if widthRoundingError > 0 {
             for (idx, view) in views.enumerated().reversed() {
-                let weight = (view as? ComponentView)?.component?.layout.weight ?? 0
+                let weight = (view as? ComponentView)?.component?.style.weight ?? 0
                 if weight > 0 {
                     var width = widths[idx]
                     width += widthRoundingError

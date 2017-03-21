@@ -54,7 +54,7 @@ class ProgressBarView: UIView, ComponentView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let padding = progressBarItem?.layout.padding ?? UIEdgeInsets.zero
+        let padding = progressBarItem?.style.padding ?? UIEdgeInsets.zero
         progressBarContainer.frame = UIEdgeInsetsInsetRect(bounds, padding)
         let barHeight = progressBarContainer.bounds.height
         
@@ -71,7 +71,7 @@ class ProgressBarView: UIView, ComponentView {
             return .zero
         }
         
-        let padding = progressBarItem.layout.padding
+        let padding = progressBarItem.style.padding
         let height = progressBarItem.barHeight + padding.top + padding.bottom
         
         return CGSize(width: size.width, height: height)

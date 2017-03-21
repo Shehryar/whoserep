@@ -55,7 +55,7 @@ class IconView: UIView, ComponentView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let padding = iconItem?.layout.padding ?? UIEdgeInsets.zero
+        let padding = iconItem?.style.padding ?? UIEdgeInsets.zero
         imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
     }
     
@@ -64,7 +64,7 @@ class IconView: UIView, ComponentView {
             return .zero
         }
         
-        let padding = iconItem.layout.padding
+        let padding = iconItem.style.padding
         let sizeWithPadding = CGSize(width: iconItem.width + padding.left + padding.right,
                                      height: iconItem.height + padding.top + padding.bottom)
         return sizeWithPadding

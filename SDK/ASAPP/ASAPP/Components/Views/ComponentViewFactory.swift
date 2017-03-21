@@ -13,8 +13,13 @@ import UIKit
 enum ComponentViewFactory {
     
     static func view(withComponent component: Component) -> ComponentView? {
+        guard let componentType = component.componentType else {
+            DebugLog.w(caller: ComponentViewFactory.self, "Unable to find componentType for \(component)")
+            return nil
+        }
+        
         var componentView: ComponentView?
-        switch component.type {
+        switch componentType {
         /** Core Components **/
         case .button:
             componentView = ButtonView()

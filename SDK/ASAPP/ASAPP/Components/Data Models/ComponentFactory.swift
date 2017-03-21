@@ -15,19 +15,19 @@ enum ComponentFactory {
     static func component(for type: ComponentType,
                           with content: Any?,
                           id: String?,
-                          layout: ComponentLayout) -> Component? {
+                          style: ComponentStyle) -> Component? {
         
         switch type { // Maintain alphabetical order
         // Core Components
-        case .button: return ButtonItem.make(with: content, id: id, layout: layout)
-        case .icon: return IconItem.make(with: content, id: id, layout: layout)
-        case .label: return LabelItem.make(with: content, id: id, layout: layout)
-        case .progressBar: return ProgressBarItem.make(with: content, id: id, layout: layout)
-        case .separator: return SeparatorItem.make(with: content, id: id, layout: layout)
+        case .button: return ButtonItem.make(with: content, id: id, style: style)
+        case .icon: return IconItem.make(with: content, id: id, style: style)
+        case .label: return LabelItem.make(with: content, id: id, style: style)
+        case .progressBar: return ProgressBarItem.make(with: content, id: id, style: style)
+        case .separator: return SeparatorItem.make(with: content, id: id, style: style)
             
         // Templates
-        case .basicListItem: return BasicListItem.make(with: content, id: id, layout: layout)
-        case .stackView: return StackViewItem.make(with: content, id: id, layout: layout)
+        case .basicListItem: return BasicListItem.make(with: content, id: id, style: style)
+        case .stackView: return StackViewItem.make(with: content, id: id, style: style)
         }
     }
     
@@ -48,11 +48,11 @@ enum ComponentFactory {
         
         let content = json["content"]
         let id = json["id"] as? String
-        let layout = ComponentLayout.fromJSON(json["layout"])
+        let style = ComponentStyle.fromJSON(json["style"])
         
         return component(for: type,
                          with: content,
                          id: id,
-                         layout: layout)
+                         style: style)
     }
 }

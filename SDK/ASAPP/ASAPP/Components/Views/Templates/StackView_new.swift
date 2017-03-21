@@ -52,7 +52,7 @@ class StackView_new: UIView, ComponentView {
     // MARK: Layout
     
     func getFramesThatFit(_ size: CGSize) -> [CGRect] {
-        guard let padding = component?.layout.padding else {
+        guard let padding = component?.style.padding else {
             return [CGRect]()
         }
         
@@ -83,7 +83,7 @@ class StackView_new: UIView, ComponentView {
         for frame in frames {
             maxY = max(maxY, frame.maxY)
         }
-        if maxY > 0, let padding = component?.layout.padding {
+        if maxY > 0, let padding = component?.style.padding {
             maxY += padding.bottom
         }
         

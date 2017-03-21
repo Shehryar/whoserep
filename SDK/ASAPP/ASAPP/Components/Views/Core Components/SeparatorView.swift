@@ -53,9 +53,9 @@ class SeparatorView: UIView, ComponentView {
             return .zero
         }
         
-        let top = component.layout.padding.top
-        let left = component.layout.padding.left
-        let width = size.width - left - component.layout.padding.right
+        let top = component.style.padding.top
+        let left = component.style.padding.left
+        let width = size.width - left - component.style.padding.right
         let frame = CGRect(x: left, y: top, width: width, height: 1)
         
         return frame
@@ -69,7 +69,7 @@ class SeparatorView: UIView, ComponentView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let paddingBottom = component?.layout.padding.bottom ?? 0
+        let paddingBottom = component?.style.padding.bottom ?? 0
         let frame = getFrameThatFits(size)
         
         return CGSize(width: size.width, height: frame.maxY + paddingBottom)

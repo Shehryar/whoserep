@@ -15,7 +15,7 @@
                 "font_size": 16,
                 "color" : "#5b657e"
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle"
               }
             },
@@ -25,7 +25,7 @@
                 "title": "VIEW ALL",
                 "style": "text"
               },
-              "layout": {
+              "style" : {
                 "align": "right",
                 "gravity": "middle",
                 "weight" : 1,
@@ -39,7 +39,7 @@
             }
           ]
         },
-        "layout" : {
+        "style" : {
             "padding" : {
                 "top" : 4,
                 "bottom" : 4
@@ -77,7 +77,7 @@
                   }
                 ]
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle",
                 "margin" : {
                     "right" : 5
@@ -96,7 +96,7 @@
                 "alignment" : "right",
                 "color" : "#5b657e"
               },
-              "layout" : {
+              "style" : {
                 "gravity" : "middle",
                 "align" : "right",
                 "weight" : 0
@@ -104,7 +104,7 @@
           }
           ]
         },
-        "layout" : {
+        "style" : {
             "padding" : {
                 "top" : 8,
                 "bottom" : 8
@@ -141,7 +141,7 @@
                   }
                 ]
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle",
                 "margin" : {
                     "right" : 5
@@ -160,7 +160,7 @@
                 "alignment" : "right",
                 "color" : "#5b657e"
               },
-              "layout" : {
+              "style" : {
                 "gravity" : "middle",
                 "align" : "right",
                 "weight" : 0
@@ -168,7 +168,7 @@
           }
           ]
         },
-        "layout" : {
+        "style" : {
             "padding" : {
                 "top" : 8,
                 "bottom" : 8
@@ -206,7 +206,7 @@
                   }
                 ]
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle",
                 "margin" : {
                     "right" : 5
@@ -225,7 +225,7 @@
                 "alignment" : "right",
                 "color" : "#5b657e"
               },
-              "layout" : {
+              "style" : {
                 "gravity" : "middle",
                 "align" : "right",
                 "weight" : 0
@@ -233,7 +233,7 @@
           }
           ]
         },
-        "layout" : {
+        "style" : {
             "padding" : {
                 "top" : 8,
                 "bottom" : 16
@@ -243,7 +243,7 @@
       
     ]
   },
-  "layout": {
+  "style" : {
     "padding": {
       "left": 20,
       "right": 20,

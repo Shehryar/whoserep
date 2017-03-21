@@ -10,14 +10,14 @@ import UIKit
 
 class SeparatorItem: NSObject, Component {
 
-    enum Style: String {
+    enum SeparatorStyle: String {
         case line = "line"
         case gradient = "gradient"
         case block = "block"
         
-        static func from(_ string: String?, defaultValue: Style = .line) -> Style {
+        static func from(_ string: String?, defaultValue: SeparatorStyle = .line) -> SeparatorStyle {
             guard let string = string,
-                let style = Style(rawValue: string) else {
+                let style = SeparatorStyle(rawValue: string) else {
                     return defaultValue
             }
             return style
@@ -26,7 +26,7 @@ class SeparatorItem: NSObject, Component {
     
     // MARK: Properties
     
-    let style: SeparatorItem.Style
+    let separatorStyle: SeparatorItem.SeparatorStyle
     
     let color: UIColor?
     
@@ -36,37 +36,37 @@ class SeparatorItem: NSObject, Component {
     
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
-    init(style: SeparatorItem.Style,
+    init(separatorStyle: SeparatorItem.SeparatorStyle,
          color: UIColor?,
          id: String?,
-         layout: ComponentLayout) {
-        self.style = style
+         style: ComponentStyle) {
+        self.separatorStyle = separatorStyle
         self.color = color
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
     // MARK: Component Parsing
     
-    static let defaultStyle = SeparatorItem.Style.line
+    static let defaultStyle = SeparatorItem.SeparatorStyle.line
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         let content = content as? [String : Any]
-        let style = Style.from(content?["style"] as? String,
-                               defaultValue: defaultStyle)
+        let separatorStyle = SeparatorStyle.from(content?["style"] as? String,
+                                                 defaultValue: defaultStyle)
         let color = UIColor.colorFromHex(hex: content?["color"] as? String)
         
-        return SeparatorItem(style: style,
+        return SeparatorItem(separatorStyle: separatorStyle,
                              color: color,
                              id: id,
-                             layout: layout)
+                             style: style)
     }
     
 }

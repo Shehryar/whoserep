@@ -1,5 +1,5 @@
 //
-//  ComponentLayout.swift
+//  ComponentStyle.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/17/17.
@@ -38,9 +38,9 @@ enum HorizontalAlignment: String {
     }
 }
 
-// MARK:- ComponentLayout
+// MARK:- ComponentStyle
 
-class ComponentLayout: NSObject {
+class ComponentStyle: NSObject {
     
     // MARK: Default Values
     
@@ -68,11 +68,11 @@ class ComponentLayout: NSObject {
     
     // MARK: Init
     
-    init(margin: UIEdgeInsets = ComponentLayout.defaultMargin,
-         padding: UIEdgeInsets = ComponentLayout.defaultPadding,
-         alignment: HorizontalAlignment = ComponentLayout.defaultAlignment,
-         gravity: VerticalAlignment = ComponentLayout.defaultGravity,
-         weight: Int = ComponentLayout.defaultWeight) {
+    init(margin: UIEdgeInsets = ComponentStyle.defaultMargin,
+         padding: UIEdgeInsets = ComponentStyle.defaultPadding,
+         alignment: HorizontalAlignment = ComponentStyle.defaultAlignment,
+         gravity: VerticalAlignment = ComponentStyle.defaultGravity,
+         weight: Int = ComponentStyle.defaultWeight) {
         
         self.margin = margin
         self.padding = padding
@@ -84,9 +84,9 @@ class ComponentLayout: NSObject {
     
     // MARK: JSON
     
-    class func fromJSON(_ json: Any?) -> ComponentLayout {
+    class func fromJSON(_ json: Any?) -> ComponentStyle {
         guard let json = json as? [String : Any] else {
-            return ComponentLayout()
+            return ComponentStyle()
         }
         
         let margin = json.inset(for: "margin", defaultValue: .zero)
@@ -97,7 +97,7 @@ class ComponentLayout: NSObject {
                                              defaultValue: .top)
         let weight = (json["weight"] as? Int) ?? defaultWeight
         
-        return ComponentLayout(margin: margin,
+        return ComponentStyle(margin: margin,
                                padding: padding,
                                alignment: alignment,
                                gravity: gravity,

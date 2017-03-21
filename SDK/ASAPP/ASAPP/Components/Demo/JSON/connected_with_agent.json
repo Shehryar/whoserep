@@ -11,7 +11,7 @@
           "width" : 32,
           "height" : 32
         },
-        "layout" : {
+        "style" : {
           "gravity" : "middle",
           "margin_right" : 21
         }
@@ -29,7 +29,7 @@
                 "font_size": 15,
                 "color": "#57617b"
               },
-              "layout" : {
+              "style" : {
                 "margin_bottom" : 6
               }
             },
@@ -45,7 +45,7 @@
             }
           ]
         }, 
-        "layout" : {
+        "style" : {
           "gravity" : "middle"
         }
 
@@ -53,7 +53,7 @@
       
     ]
   }, 
-  "layout" : {
+  "style" : {
     "align" : "center",
     "margin_bottom" : 4,
     "padding" : [21]

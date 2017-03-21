@@ -10,13 +10,13 @@ import UIKit
 
 class ButtonItem: NSObject, Component {
 
-    enum Style: String {
+    enum ButtonStyle: String {
         case block = "block"
         case text = "text"
         
-        static func from(_ string: String?, defaultValue: Style) -> Style {
+        static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
             guard let string = string,
-                let style = Style(rawValue: string) else {
+                let style = ButtonStyle(rawValue: string) else {
                     return defaultValue
             }
             return style
@@ -27,7 +27,7 @@ class ButtonItem: NSObject, Component {
     
     let title: String
     
-    let style: Style
+    let buttonStyle: ButtonStyle
     
     let icon: IconItem?
     
@@ -35,26 +35,24 @@ class ButtonItem: NSObject, Component {
     
     // MARK: Component Properties
     
-    let type = ComponentType.button
-    
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
     init(title: String,
-         style: Style,
+         buttonStyle: ButtonStyle,
          icon: IconItem?,
          action: Action?,
          id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.title = title
-        self.style = style
+        self.buttonStyle = buttonStyle
         self.icon = icon
         self.action = action
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -62,7 +60,7 @@ class ButtonItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -71,14 +69,14 @@ class ButtonItem: NSObject, Component {
             return nil
         }
         
-        let style = Style.from(content["style"] as? String, defaultValue: .block)
+        let buttonStyle = ButtonStyle.from(content["style"] as? String, defaultValue: .block)
         let icon = ComponentFactory.component(with: content["icon"]) as? IconItem
         
         return ButtonItem(title: title,
-                          style: style,
+                          buttonStyle: buttonStyle,
                           icon: icon,
                           action: nil,
                           id: id,
-                          layout: layout)
+                          style: style)
     }
 }

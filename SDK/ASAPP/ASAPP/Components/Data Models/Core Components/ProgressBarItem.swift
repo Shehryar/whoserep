@@ -34,7 +34,7 @@ class ProgressBarItem: NSObject, Component {
     
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
@@ -43,13 +43,13 @@ class ProgressBarItem: NSObject, Component {
          containerColor: UIColor?,
          barHeight: CGFloat?,
          id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.fillPercentage = fillPercentage
         self.fillColor = fillColor ?? ProgressBarItem.defaultFillColor
         self.containerColor = containerColor ?? ProgressBarItem.defaultContainerColor
         self.barHeight = barHeight ?? ProgressBarItem.defaultBarHeight
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -57,7 +57,7 @@ class ProgressBarItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -72,6 +72,6 @@ class ProgressBarItem: NSObject, Component {
                                containerColor: containerColor,
                                barHeight: barHeight,
                                id: id,
-                               layout: layout)
+                               style: style)
     }
 }

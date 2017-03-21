@@ -36,18 +36,18 @@ class StackViewItem: NSObject, Component {
     
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Layout
     
     init(items: [Component],
          orientation: Orientation,
          id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.items = items
         self.orientation = orientation
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -55,7 +55,7 @@ class StackViewItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -81,6 +81,6 @@ class StackViewItem: NSObject, Component {
         return StackViewItem(items: items,
                              orientation: orientation,
                              id: id,
-                             layout: layout)
+                             style: style)
     }
 }

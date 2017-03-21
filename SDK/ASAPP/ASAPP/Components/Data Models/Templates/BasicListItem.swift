@@ -22,11 +22,9 @@ class BasicListItem: NSObject, Component {
     
     // MARK: Component Properties
     
-    let type = ComponentType.basicListItem
-    
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
@@ -35,13 +33,13 @@ class BasicListItem: NSObject, Component {
          value: LabelItem?,
          icon: IconItem?,
          id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.title = title
         self.detail = detail
         self.value = value
         self.icon = icon
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -49,7 +47,7 @@ class BasicListItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -69,6 +67,6 @@ class BasicListItem: NSObject, Component {
                              value: value,
                              icon: icon,
                              id: id,
-                             layout: layout)
+                             style: style)
     }
 }

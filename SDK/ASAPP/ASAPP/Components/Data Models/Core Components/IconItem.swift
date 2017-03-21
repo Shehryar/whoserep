@@ -79,7 +79,7 @@ class IconItem: NSObject, Component {
     
     let id: String?
     
-    let layout: ComponentLayout
+    let style: ComponentStyle
     
     // MARK: Init
     
@@ -88,13 +88,13 @@ class IconItem: NSObject, Component {
          width: CGFloat?,
          height: CGFloat?,
          id: String?,
-         layout: ComponentLayout) {
+         style: ComponentStyle) {
         self.icon = icon
         self.tintColor = tintColor
         self.width = width ?? IconItem.defaultWidth
         self.height = height ?? IconItem.defaultHeight
         self.id = id
-        self.layout = layout
+        self.style = style
         super.init()
     }
     
@@ -102,7 +102,7 @@ class IconItem: NSObject, Component {
     
     static func make(with content: Any?,
                      id: String?,
-                     layout: ComponentLayout) -> Component? {
+                     style: ComponentStyle) -> Component? {
         guard let content = content as? [String : Any] else {
             return nil
         }
@@ -121,6 +121,6 @@ class IconItem: NSObject, Component {
                         width: width,
                         height: height,
                         id: id,
-                        layout: layout)
+                        style: style)
     }
 }

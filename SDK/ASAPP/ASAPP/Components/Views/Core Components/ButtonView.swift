@@ -29,7 +29,7 @@ class ButtonView: UIView, ComponentView {
                 var bgHighlighted: UIColor
                 var bgDisabled: UIColor
                 
-                switch buttonItem.style {
+                switch buttonItem.buttonStyle {
                 case .block:
                     textStyle = .blockButton
                     
@@ -69,8 +69,8 @@ class ButtonView: UIView, ComponentView {
                 button.setBackgroundImage(UIImage.imageWithColor(bgDisabled), for: .disabled)
                 
                 var contentEdgeInsets = defaultContentEdgeInsets
-                if buttonItem.layout.padding != .zero {
-                    contentEdgeInsets = buttonItem.layout.padding
+                if buttonItem.style.padding != .zero {
+                    contentEdgeInsets = buttonItem.style.padding
                 }
                 button.contentEdgeInsets = contentEdgeInsets
             } else {

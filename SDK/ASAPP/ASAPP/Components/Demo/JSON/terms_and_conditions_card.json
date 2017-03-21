@@ -15,7 +15,7 @@
                 "font_size": 15,
                 "color" : "#5b657e"
               },
-              "layout": {
+              "style" : {
                 "gravity": "middle",
               }
             },
@@ -25,7 +25,7 @@
                 "title": "VIEW",
                 "style": "text"
               },
-              "layout": {
+              "style" : {
                 "align": "right",
                 "gravity": "middle",
                 "weight" : 1,
@@ -51,7 +51,7 @@
       }
     ]
   },
-  "layout": {
+  "style" : {
     "padding": [8, 20, 20, 20]
   }
 }
