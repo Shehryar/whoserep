@@ -1,9 +1,9 @@
 {
-  "type": "stack_view",
+  "type": "stackView",
   "content": {
     "items": [
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
@@ -11,8 +11,8 @@
               "type": "label",
               "content": {
                 "text": "Data Usage",
-                "font_weight": "black",
-                "font_size": 16,
+                "fontWeight": "black",
+                "fontSize": 16,
                 "color": "#5b657e"
               },
               "style" : {
@@ -29,21 +29,17 @@
                 "align": "right",
                 "gravity": "middle",
                 "weight": 1,
-                "padding": {
-                  "top": 12,
-                  "left": 16,
-                  "bottom": 12,
-                  "right": 0
-                }
+                "paddingTop": 12,
+                "paddingLeft": 16,
+                "paddingBottom": 12,
+                "paddingRight": 0
               }
             }
           ]
         },
         "style" : {
-          "padding": {
-            "top": 4,
-            "bottom": 4
-          }
+          "paddingTop": 4,
+          "paddingBottom": 4  
         }
       },
       {
@@ -51,19 +47,19 @@
       },
 
       {
-        "type" : "progress_bar",
+        "type" : "progressBar",
         "content" : {
-            "fill_percentage" : 1,
-            "bar_height" : 10,
-            "fill_color" : "#ef7667"
+            "fillPercentage" : 1,
+            "height" : 10,
+            "color" : "#ef7667"
         },
         "style" : {
-            "margin" : [20]
+            "margin" : 20
         }
       },
 
       {
-        "type" : "stack_view",
+        "type" : "stackView",
         "content" : {
           "orientation" : "horizontal",
           "items" : [
@@ -71,33 +67,33 @@
               "type": "label",
               "content": {
                 "text": "448 GB",
-                "alignment": "center",
-                "font_weight": "black",
-                "font_size": 18,
+                "textAlign": "center",
+                "fontWeight": "black",
+                "fontSize": 18,
                 "color": "#55607a"
               },
               "style" : {
                 "gravity" : "middle",
-                "margin_right" : 0
+                "marginRight" : 0
               }
             },
             {
               "type" : "icon", 
               "content" : {
-                "icon" : "error_alert_filled",
+                "icon" : "errorAlertFilled",
                 "width" : 16,
                 "height" : 16
               },
               "style" : {
                 "gravity" : "middle",
-                "margin_left" : 6
+                "marginLeft" : 6
               }
             }
           ]
         }, 
         "style" : {
           "align" : "center",
-          "margin_bottom" : 4
+          "marginBottom" : 4
         }
       },
 
@@ -105,14 +101,14 @@
         "type": "label",
         "content": {
           "text": "of 450 GB",
-          "alignment": "center",
-          "font_weight": "regular",
-          "font_size": 12,
+          "textAlign": "center",
+          "fontWeight": "regular",
+          "fontSize": 12,
           "color": "#55607a"
         },
         "style" : {
           "align": "fill",
-          "margin_bottom" : 7
+          "marginBottom" : 7
         }
       },
 
@@ -120,9 +116,9 @@
         "type": "label",
         "content": {
           "text": "Account Throttled",
-          "alignment": "center",
-          "font_weight": "bold",
-          "font_size": 12,
+          "textAlign": "center",
+          "fontWeight": "bold",
+          "fontSize": 12,
           "color": "#ef7667"
         },
         "style" : {
@@ -133,6 +129,7 @@
     ]
   },
   "style" : {
-    "padding": [0, 20, 20, 20]
+    "padding": 20,
+    "paddingTop" : 0
   }
 }

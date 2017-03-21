@@ -12,6 +12,13 @@ import UIKit
 
 enum ComponentFactory {
     
+    enum JSONKey: String {
+        case content = "content"
+        case id = "id"
+        case style = "style"
+        case type = "type"
+    }
+
     static func component(for type: ComponentType,
                           with content: Any?,
                           id: String?,
@@ -35,7 +42,7 @@ enum ComponentFactory {
             return nil
         }
         
-        guard let typeString = json["type"] as? String else {
+        guard let typeString = json[JSONKey.type.rawValue] as? String else {
             DebugLog.w(caller: self, "Component json missing 'type': \(json)")
             return nil
         }
@@ -45,10 +52,10 @@ enum ComponentFactory {
             return  nil
         }
         
-        let content = json["content"]
-        let id = json["id"] as? String
-        let style = ComponentStyle.fromJSON(json["style"])
-        
+        let content = json[JSONKey.content.rawValue]
+        let id = json[JSONKey.id.rawValue] as? String
+        let style = ComponentStyle.fromJSON(json[JSONKey.style.rawValue])
+
         return component(for: type,
                          with: content,
                          id: id,

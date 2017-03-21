@@ -1,9 +1,9 @@
 {
-  "type": "stack_view",
+  "type": "stackView",
   "content": {
     "items": [
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
@@ -11,8 +11,8 @@
               "type": "label",
               "content": {
                 "text": "Terms and Conditions",
-                "font_weight": "black",
-                "font_size": 15,
+                "fontWeight": "black",
+                "fontSize": 15,
                 "color" : "#5b657e"
               },
               "style" : {
@@ -29,12 +29,10 @@
                 "align": "right",
                 "gravity": "middle",
                 "weight" : 1,
-                "padding": {
-                  "top": 12,
-                  "left": 16,
-                  "bottom": 12,
-                  "right": 0
-                }
+                "paddingTop" : 12,
+                "paddingLeft" : 16,
+                "paddingBottom" : 12,
+                "paddingRight" : 0
               }
             }
           ]
@@ -44,14 +42,15 @@
         "type": "label",
         "content": {
           "text": "As of Jan 22, 2017 -- 4:15PM",
-          "font_weight": "regular",
-          "font_size": 11,
+          "fontWeight": "regular",
+          "fontSize": 11,
           "color" : "#a4a9b7"
         }
       }
     ]
   },
   "style" : {
-    "padding": [8, 20, 20, 20]
+    "padding": 20,
+    "paddingTop" : 8
   }
 }

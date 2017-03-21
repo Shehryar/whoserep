@@ -20,7 +20,6 @@ class LabelView: UIView, ComponentView {
                 label.text = labelItem.text
                 label.textAlignment = labelItem.alignment
                 label.textColor = labelItem.color
-                label.numberOfLines = labelItem.numberOfLines
                 label.font = ASAPP.styles.font(with: labelItem.fontWeight,
                                                size: labelItem.fontSize)
             } else {
@@ -36,6 +35,7 @@ class LabelView: UIView, ComponentView {
     // MARK: Init
     
     func commonInit() {
+        label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         addSubview(label)
     }

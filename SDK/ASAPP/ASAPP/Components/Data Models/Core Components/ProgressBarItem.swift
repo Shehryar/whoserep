@@ -11,10 +11,10 @@ import UIKit
 class ProgressBarItem: NSObject, Component {
     
     enum JSONKey: String {
-        case fillPercentage = "fill_percentage"
-        case fillColor = "fill_color"
-        case containerColor = "container_color"
-        case barHeight = "bar_height"
+        case fillPercentage = "fillPercentage"
+        case fillColor = "color"
+        case containerColor = "backgroundColor"
+        case barHeight = "height"
     }
     
     // MARK: Defaults

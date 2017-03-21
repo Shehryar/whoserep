@@ -12,18 +12,19 @@ class LabelItem: NSObject, Component {
     
     enum JSONKey: String {
         case text = "text"
-        case alignment = "alignment"
-        case fontWeight = "font_weight"
-        case fontSize = "font_size"
+        
+        case alignment = "textAlign"
+        case fontWeight = "fontWeight"
+        case fontSize = "fontSize"
         case color = "color"
-        case numberOfLines = "number_of_lines"
-        case letterSpacing = "letter_spacing"
+        case letterSpacing = "letterSpacing"
     }
+    
+    // MARK: Defaults
     
     static let defaultAlignment = NSTextAlignment.left
     static let defaultFontWeight = FontWeight.regular
     static let defaultSize: Int = 15
-    static let defaultNumberOfLines: Int = 0
     static let defaultLetterSpacing: CGFloat = 0
     
     // MARK: Properties
@@ -37,8 +38,6 @@ class LabelItem: NSObject, Component {
     let fontSize: CGFloat
     
     let color: UIColor?
-    
-    let numberOfLines: Int
     
     let letterSpacing: CGFloat
     
@@ -57,7 +56,6 @@ class LabelItem: NSObject, Component {
          fontWeight: FontWeight,
          fontSize: CGFloat,
          color: UIColor?,
-         numberOfLines: Int,
          letterSpacing: CGFloat,
          id: String?,
          style: ComponentStyle) {
@@ -67,7 +65,6 @@ class LabelItem: NSObject, Component {
         self.fontWeight = fontWeight
         self.fontSize = fontSize
         self.color = color
-        self.numberOfLines = numberOfLines
         self.letterSpacing = letterSpacing
         self.id = id
         self.style = style
@@ -93,7 +90,6 @@ class LabelItem: NSObject, Component {
                                        defaultValue: defaultFontWeight)
         let fontSize = CGFloat(content[JSONKey.fontSize.rawValue] as? Int ?? defaultSize)
         let color = UIColor.colorFromHex(hex: content[JSONKey.color.rawValue] as? String)
-        let numberOfLines = (content[JSONKey.numberOfLines.rawValue] as? Int) ?? defaultNumberOfLines
         let letterSpacing = (content[JSONKey.letterSpacing.rawValue] as? CGFloat) ?? defaultLetterSpacing
         
         return LabelItem(text: text,
@@ -101,25 +97,8 @@ class LabelItem: NSObject, Component {
                          fontWeight: fontWeight,
                          fontSize: fontSize,
                          color: color,
-                         numberOfLines: numberOfLines,
                          letterSpacing: letterSpacing,
                          id: id,
                          style: style)
-    }
-}
-
-extension NSTextAlignment {
-    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
-        guard let stringValue = stringValue else {
-            return defaultValue
-        }
-        
-        switch stringValue.lowercased() {
-        case "left": return .left
-        case "center": return .center
-        case "right": return .right
-        case "justified": return .justified
-        default: return defaultValue
-        }
     }
 }

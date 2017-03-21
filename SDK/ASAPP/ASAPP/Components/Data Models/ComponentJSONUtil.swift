@@ -8,6 +8,26 @@
 
 import UIKit
 
+// MARK:- NSTextAlignment
+
+extension NSTextAlignment {
+    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
+        guard let stringValue = stringValue else {
+            return defaultValue
+        }
+        
+        switch stringValue.lowercased() {
+        case "left": return .left
+        case "center": return .center
+        case "right": return .right
+        case "justified": return .justified
+        default: return defaultValue
+        }
+    }
+}
+
+// MARK:- Dictionary Extension
+
 extension Dictionary where Key: StringLiteralConvertible, Value: Any {
     
     // MARK: Floats
@@ -71,60 +91,51 @@ extension Dictionary where Key: StringLiteralConvertible, Value: Any {
         var bottom: CGFloat?
         var left: CGFloat?
         
-        // Array
-        if let valuesArray = self[name as! Key] as? [Int] {
-            if valuesArray.count == 1 {
-                top = CGFloat(valuesArray[0])
-                right = CGFloat(valuesArray[0])
-                bottom = CGFloat(valuesArray[0])
-                left = CGFloat(valuesArray[0])
-            }
-            else if valuesArray.count == 2 {
-                top = CGFloat(valuesArray[0])
-                right = CGFloat(valuesArray[1])
-                bottom = CGFloat(valuesArray[0])
-                left = CGFloat(valuesArray[1])
-            }
-            else if valuesArray.count == 3 {
-                top = CGFloat(valuesArray[0])
-                right = CGFloat(valuesArray[1])
-                bottom = CGFloat(valuesArray[2])
-            }
-            else if valuesArray.count > 3 {
-                top = CGFloat(valuesArray[0])
-                right = CGFloat(valuesArray[1])
-                bottom = CGFloat(valuesArray[2])
-                left = CGFloat(valuesArray[3])
-            }
+        // Single Float Values - Applies to all
+        if let floatValue = self.float(for: name) {
+            top = floatValue
+            right = floatValue
+            bottom = floatValue
+            left = floatValue
         }
         
-        // Dictionary
-        if let valuesDict = self[name as! Key] as? [String : Any] {
-            if let topValue = valuesDict.float(for: "top") {
-                top = topValue
-            }
-            if let rightValue = valuesDict.float(for: "right") {
-                right = rightValue
-            }
-            if let bottomValue = valuesDict.float(for: "bottom") {
-                bottom = bottomValue
-            }
-            if let leftValue = valuesDict.float(for: "left") {
-                left = leftValue
-            }
-        }
+//        if let valuesArray = self[name as! Key] as? [Int] {
+//            if valuesArray.count == 1 {
+//                top = CGFloat(valuesArray[0])
+//                right = CGFloat(valuesArray[0])
+//                bottom = CGFloat(valuesArray[0])
+//                left = CGFloat(valuesArray[0])
+//            }
+//            else if valuesArray.count == 2 {
+//                top = CGFloat(valuesArray[0])
+//                right = CGFloat(valuesArray[1])
+//                bottom = CGFloat(valuesArray[0])
+//                left = CGFloat(valuesArray[1])
+//            }
+//            else if valuesArray.count == 3 {
+//                top = CGFloat(valuesArray[0])
+//                right = CGFloat(valuesArray[1])
+//                bottom = CGFloat(valuesArray[2])
+//            }
+//            else if valuesArray.count > 3 {
+//                top = CGFloat(valuesArray[0])
+//                right = CGFloat(valuesArray[1])
+//                bottom = CGFloat(valuesArray[2])
+//                left = CGFloat(valuesArray[3])
+//            }
+//        }
         
         // Name-Prefixed
-        if let topValue = self.float(for: "\(name)_top") {
+        if let topValue = self.float(for: "\(name)Top") {
             top = topValue
         }
-        if let rightValue = self.float(for: "\(name)_right") {
+        if let rightValue = self.float(for: "\(name)Right") {
             right = rightValue
         }
-        if let bottomValue = self.float(for: "\(name)_bottom") {
+        if let bottomValue = self.float(for: "\(name)Bottom") {
             bottom = bottomValue
         }
-        if let leftValue = self.float(for: "\(name)_left") {
+        if let leftValue = self.float(for: "\(name)Left") {
             left = leftValue
         }
         

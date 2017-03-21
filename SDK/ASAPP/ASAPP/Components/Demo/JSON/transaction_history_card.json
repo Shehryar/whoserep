@@ -1,9 +1,9 @@
 {
-  "type": "stack_view",
+  "type": "stackView",
   "content": {
     "items": [
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
@@ -11,8 +11,8 @@
               "type": "label",
               "content": {
                 "text": "Transaction History",
-                "font_weight": "black",
-                "font_size": 16,
+                "fontWeight": "black",
+                "fontSize": 16,
                 "color" : "#5b657e"
               },
               "style" : {
@@ -29,21 +29,17 @@
                 "align": "right",
                 "gravity": "middle",
                 "weight" : 1,
-                "padding": {
-                  "top": 12,
-                  "left": 16,
-                  "bottom": 12,
-                  "right": 0
-                }
+                "paddingTop": 12,
+                "paddingLeft": 16,
+                "paddingBottom": 12,
+                "paddingRight": 0
               }
             }
           ]
         },
         "style" : {
-            "padding" : {
-                "top" : 4,
-                "bottom" : 4
-            }
+            "paddingTop" : 4,
+            "paddingBottom" : 4
           }
       },
       {
@@ -51,19 +47,19 @@
       },
 
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
             {
-              "type": "stack_view",
+              "type": "stackView",
               "content": {
                 "items": [
                   {
                     "type": "label",
                     "content": {
                       "text": "March 2017 Bill Statement",
-                      "font_size": 14,
+                      "fontSize": 14,
                       "color" : "#646e85"
                     }
                   },
@@ -71,7 +67,7 @@
                     "type": "label",
                     "content": {
                       "text": "3/3/2017 - 4:14PM",
-                      "font_size": 12,
+                      "fontSize": 12,
                       "color" : "#adb2bf"
                     }
                   }
@@ -79,9 +75,7 @@
               },
               "style" : {
                 "gravity": "middle",
-                "margin" : {
-                    "right" : 5
-                },
+                "marginRight" : 5,
                 "weight" : 1
               }
             },
@@ -90,10 +84,10 @@
               "type": "label",
               "content": {
                 "text": "$110.97",
-                "font_size": 16,
-                "font_weight" : "black",
-                "letter_spacing" : 1,
-                "alignment" : "right",
+                "fontSize": 16,
+                "fontWeight" : "black",
+                "letterSpacing" : 1,
+                "textAlign" : "right",
                 "color" : "#5b657e"
               },
               "style" : {
@@ -105,29 +99,27 @@
           ]
         },
         "style" : {
-            "padding" : {
-                "top" : 8,
-                "bottom" : 8
-            }
+            "paddingTop" : 8,
+            "paddingBottom" : 8
           }
       },
       {
         "type": "separator"
       },
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
             {
-              "type": "stack_view",
+              "type": "stackView",
               "content": {
                 "items": [
                   {
                     "type": "label",
                     "content": {
                       "text": "February 2017 Bill Statement",
-                      "font_size": 14,
+                      "fontSize": 14,
                       "color" : "#646e85"
                     }
                   },
@@ -135,7 +127,7 @@
                     "type": "label",
                     "content": {
                       "text": "2/3/2017 - 10:33AM",
-                      "font_size": 12,
+                      "fontSize": 12,
                       "color" : "#adb2bf"
                     }
                   }
@@ -143,9 +135,7 @@
               },
               "style" : {
                 "gravity": "middle",
-                "margin" : {
-                    "right" : 5
-                },
+                "marginRight" : 5,
                 "weight" : 1
               }
             },
@@ -154,10 +144,10 @@
               "type": "label",
               "content": {
                 "text": "$110.97",
-                "font_size": 16,
-                "font_weight" : "black",
-                "letter_spacing" : 1,
-                "alignment" : "right",
+                "fontSize": 16,
+                "fontWeight" : "black",
+                "letterSpacing" : 1,
+                "textAlign" : "right",
                 "color" : "#5b657e"
               },
               "style" : {
@@ -169,10 +159,8 @@
           ]
         },
         "style" : {
-            "padding" : {
-                "top" : 8,
-                "bottom" : 8
-            }
+            "paddingTop" : 8,
+            "paddingBottom" : 8
           }
       },
 
@@ -180,19 +168,19 @@
         "type": "separator"
       },
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
             {
-              "type": "stack_view",
+              "type": "stackView",
               "content": {
                 "items": [
                   {
                     "type": "label",
                     "content": {
                       "text": "Upgrade Services",
-                      "font_size": 14,
+                      "fontSize": 14,
                       "color" : "#646e85"
                     }
                   },
@@ -200,7 +188,7 @@
                     "type": "label",
                     "content": {
                       "text": "1/3/2017 - 8:07PM",
-                      "font_size": 12,
+                      "fontSize": 12,
                       "color" : "#adb2bf"
                     }
                   }
@@ -208,9 +196,7 @@
               },
               "style" : {
                 "gravity": "middle",
-                "margin" : {
-                    "right" : 5
-                },
+                "marginRight" : 5,
                 "weight" : 1
               }
             },
@@ -219,10 +205,10 @@
               "type": "label",
               "content": {
                 "text": "$34.66",
-                "font_size": 16,
-                "font_weight" : "black",
-                "letter_spacing" : 1,
-                "alignment" : "right",
+                "fontSize": 16,
+                "fontWeight" : "black",
+                "letterSpacing" : 1,
+                "textAlign" : "right",
                 "color" : "#5b657e"
               },
               "style" : {
@@ -234,19 +220,15 @@
           ]
         },
         "style" : {
-            "padding" : {
-                "top" : 8,
-                "bottom" : 16
-            }
+            "paddingTop" : 8,
+            "paddingBottom" : 16
           }
       }
       
     ]
   },
   "style" : {
-    "padding": {
-      "left": 20,
-      "right": 20,
-    }
+    "paddingLeft": 20,
+    "paddingRight": 20
   }
 }

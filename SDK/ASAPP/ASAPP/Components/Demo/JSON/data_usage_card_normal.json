@@ -1,9 +1,9 @@
 {
-  "type": "stack_view",
+  "type": "stackView",
   "content": {
     "items": [
       {
-        "type": "stack_view",
+        "type": "stackView",
         "content": {
           "orientation": "horizontal",
           "items": [
@@ -11,8 +11,8 @@
               "type": "label",
               "content": {
                 "text": "Data Usage",
-                "font_weight": "black",
-                "font_size": 16,
+                "fontWeight": "black",
+                "fontSize": 16,
                 "color": "#5b657e"
               },
               "style" : {
@@ -29,21 +29,17 @@
                 "align": "right",
                 "gravity": "middle",
                 "weight": 1,
-                "padding": {
-                  "top": 12,
-                  "left": 16,
-                  "bottom": 12,
-                  "right": 0
-                }
+                "paddingTop": 12,
+                "paddingLeft": 16,
+                "paddingBottom": 12,
+                "paddingRight": 0
               }
             }
           ]
         },
         "style" : {
-          "padding": {
-            "top": 4,
-            "bottom": 4
-          }
+          "paddingTop": 4,
+          "paddingBottom": 4
         }
       },
       {
@@ -51,27 +47,27 @@
       },
 
       {
-        "type" : "progress_bar",
+        "type" : "progressBar",
         "content" : {
-            "fill_percentage" : 0.4,
-            "bar_height" : 10
+            "fillPercentage" : 0.4,
+            "height" : 10
         },
         "style" : {
-            "margin" : [20]
+            "margin" : 20
         }
       },
       {
         "type": "label",
         "content": {
           "text": "200 GB",
-          "alignment": "center",
-          "font_weight": "black",
-          "font_size": 18,
+          "textAlign": "center",
+          "fontWeight": "black",
+          "fontSize": 18,
           "color": "#55607a"
         },
         "style" : {
           "align": "fill",
-          "margin_bottom" : 4
+          "marginBottom" : 4
         }
       },
 
@@ -79,9 +75,9 @@
         "type": "label",
         "content": {
           "text": "of 450 GB",
-          "alignment": "center",
-          "font_weight": "regular",
-          "font_size": 12,
+          "textAlign": "center",
+          "fontWeight": "regular",
+          "fontSize": 12,
           "color": "#55607a"
         },
         "style" : {
@@ -92,6 +88,7 @@
     ]
   },
   "style" : {
-    "padding": [0, 20, 20, 20]
+    "padding": 20,
+    "paddingTop" : 0
   }
 }

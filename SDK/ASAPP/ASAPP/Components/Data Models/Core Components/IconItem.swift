@@ -12,7 +12,7 @@ class IconItem: NSObject, Component {
 
     enum JSONKey: String {
         case icon = "icon"
-        case tintColor = "tint_color"
+        case tintColor = "tintColor"
         case width = "width"
         case height = "height"
     }
@@ -21,21 +21,21 @@ class IconItem: NSObject, Component {
         case placeholder = "placeholder" // Empty icon
         
         // Maintain alphabetical order
-        case arrowLeft = "arrow_left"
-        case arrowRight = "arrow_right"
+        case arrowLeft = "arrowLeft"
+        case arrowRight = "arrowRight"
         case back = "back"
         case checkmark = "checkmark"
-        case circleCheckmark = "circle_checkmark"
-        case creditCard = "credit_card"
-        case creditCardMedium = "credit_card_medium"
-        case errorAlert = "error_alert"
-        case errorAlertFilled = "error_alert_filled"
-        case exitLink = "exit_link"
-        case hideKeyboard = "hide_keyboard"
+        case circleCheckmark = "circleCheckmark"
+        case creditCard = "creditCard"
+        case creditCardMedium = "creditCardMedium"
+        case errorAlert = "errorAlert"
+        case errorAlertFilled = "errorAlertFilled"
+        case exitLink = "exitLink"
+        case hideKeyboard = "hideKeyboard"
         case paperclip = "paperclip"
-        case smallX = "x_small"
+        case smallX = "xSmall"
         case star = "star"
-        case starFilled = "star_filled"
+        case starFilled = "starFilled"
         case user = "user"
         case x = "x"
         

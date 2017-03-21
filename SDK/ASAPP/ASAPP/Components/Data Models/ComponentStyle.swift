@@ -42,6 +42,14 @@ enum HorizontalAlignment: String {
 
 class ComponentStyle: NSObject {
     
+    enum JSONKey: String {
+        case margin = "margin"
+        case padding = "padding"
+        case align = "align"
+        case gravity = "gravity"
+        case weight = "weight"
+    }
+    
     // MARK: Default Values
     
     static let defaultMargin = UIEdgeInsets.zero
@@ -89,13 +97,13 @@ class ComponentStyle: NSObject {
             return ComponentStyle()
         }
         
-        let margin = json.inset(for: "margin", defaultValue: .zero)
-        let padding = json.inset(for: "padding", defaultValue: .zero)
-        let alignment = HorizontalAlignment.from(json["align"] as? String,
+        let margin = json.inset(for: JSONKey.margin.rawValue, defaultValue: .zero)
+        let padding = json.inset(for: JSONKey.padding.rawValue, defaultValue: .zero)
+        let alignment = HorizontalAlignment.from(json[JSONKey.align.rawValue] as? String,
                                                  defaultValue: .left)
-        let gravity = VerticalAlignment.from(json["gravity"] as? String,
+        let gravity = VerticalAlignment.from(json[JSONKey.gravity.rawValue] as? String,
                                              defaultValue: .top)
-        let weight = (json["weight"] as? Int) ?? defaultWeight
+        let weight = (json[JSONKey.weight.rawValue] as? Int) ?? defaultWeight
         
         return ComponentStyle(margin: margin,
                                padding: padding,
