@@ -1,0 +1,64 @@
+{
+  "styles": {
+    "row" : {
+      "align" : "fill",
+      "marginBottom" : 8
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "content": {
+      "items": [
+        {
+          "type" : "label",
+          "content" : {
+            "text" : "Tell us what you think!"
+          },
+          "style" : {
+            "fontSize" : 24,
+            "fontWeight" : "bold"
+          }
+        },
+        {
+          "id" : "ratingSlider",
+          "type" : "slider",
+          "content" : {
+            "minValue" : 1,
+            "maxValue" : 10
+          },
+          "class" : "row",
+          "name" : "rating",
+          "value" : 5
+        },
+        {
+          "id" : "feedbackInput",
+          "type" : "textInput",
+          "content" : {
+
+          },
+          "class" : "row",
+          "name" : "feedback",
+          "value" : ""
+        },
+        {
+          "type" : "button",
+          "content" : {
+            "title" : "SUBMIT",
+            "action" : {
+              "type" : "api",
+              "content" : {
+                "endPoint" : "/submitRating",
+                "inputFields" : ["ratingSlider", "feedbackInput"],
+                "requiredFields" : ["ratingSlider"]
+              }
+            }
+          },
+          "class" : "row"
+        }
+      ]
+    },
+    "style" : {
+      "padding" : 20
+    }
+  }
+}
