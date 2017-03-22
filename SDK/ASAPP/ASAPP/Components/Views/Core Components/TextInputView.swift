@@ -32,6 +32,8 @@ class TextInputView: UIView, ComponentView {
         return component as? TextInputItem
     }
     
+    weak var interactionHandler: InteractionHandler?
+    
     // MARK: Init
     
     func commonInit() {

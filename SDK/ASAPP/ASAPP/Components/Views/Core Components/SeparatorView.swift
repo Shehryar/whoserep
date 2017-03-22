@@ -26,6 +26,8 @@ class SeparatorView: UIView, ComponentView {
         return component as? SeparatorItem
     }
     
+    weak var interactionHandler: InteractionHandler?
+    
     // MARK: Init
     
     func commonInit() {

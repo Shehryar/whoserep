@@ -32,6 +32,8 @@ class LabelView: UIView, ComponentView {
         return component as? LabelItem
     }
 
+    weak var interactionHandler: InteractionHandler?
+    
     // MARK: Init
     
     func commonInit() {

@@ -31,6 +31,8 @@ class IconView: UIView, ComponentView {
     var iconItem: IconItem? {
         return component as? IconItem
     }
+    
+    weak var interactionHandler: InteractionHandler?
 
     // MARK: Init
     

@@ -25,12 +25,21 @@ class HorizontalStackView: UIView, ComponentView {
                     }
                 }
             }
+            
+            updateSubviewsWithInteractionHandler()
+            
             setNeedsLayout()
         }
     }
     
     var stackViewItem: StackViewItem? {
         return component as? StackViewItem
+    }
+    
+    weak var interactionHandler: InteractionHandler? {
+        didSet {
+            updateSubviewsWithInteractionHandler()
+        }
     }
     
     // MARK: Init
@@ -85,5 +94,14 @@ class HorizontalStackView: UIView, ComponentView {
         let (_, contentSize) = getFramesAndContentSize(for: size)
         
         return contentSize
+    }
+    
+    // MARK: Utility
+    
+    func updateSubviewsWithInteractionHandler() {
+        for (idx, _) in subviews.enumerated() {
+            var view = subviews[idx] as? ComponentView
+            view?.interactionHandler = self.interactionHandler
+        }
     }
 }

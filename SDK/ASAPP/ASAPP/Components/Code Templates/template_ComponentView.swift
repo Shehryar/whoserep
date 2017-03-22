@@ -9,7 +9,7 @@
 import UIKit
 
 class ComponentViewTemplate: UIView, ComponentView {
-
+    
     // MARK: ComponentView Properties
     
     var component: Component? {
@@ -17,6 +17,8 @@ class ComponentViewTemplate: UIView, ComponentView {
             
         }
     }
+    
+    weak var interactionHandler: InteractionHandler?
 
     // MARK: Init
     

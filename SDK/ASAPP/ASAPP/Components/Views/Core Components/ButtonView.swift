@@ -68,6 +68,8 @@ class ButtonView: UIView, ComponentView {
                 button.setBackgroundImage(UIImage.imageWithColor(bgHighlighted), for: .highlighted)
                 button.setBackgroundImage(UIImage.imageWithColor(bgDisabled), for: .disabled)
                 
+                button.addTarget(self, action: #selector(ButtonView.onTap), for: .touchUpInside)
+                
                 var contentEdgeInsets = defaultContentEdgeInsets
                 if buttonItem.style.padding != .zero {
                     contentEdgeInsets = buttonItem.style.padding
@@ -82,6 +84,8 @@ class ButtonView: UIView, ComponentView {
     var buttonItem: ButtonItem? {
         return component as? ButtonItem
     }
+    
+    weak var interactionHandler: InteractionHandler?
     
     // MARK: Init
     
@@ -121,5 +125,13 @@ class ButtonView: UIView, ComponentView {
         buttonSize.height = ceil(buttonSize.height)
         
         return buttonSize
+    }
+    
+    // MARK: Action
+    
+    func onTap() {
+        if let component = component {
+            interactionHandler?.didTapButtonView(self, with: component)
+        }
     }
 }

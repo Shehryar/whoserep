@@ -30,6 +30,8 @@ class ProgressBarView: UIView, ComponentView {
         return component as? ProgressBarItem
     }
     
+    weak var interactionHandler: InteractionHandler?
+    
     // MARK: Init
     
     func commonInit() {

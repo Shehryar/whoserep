@@ -25,12 +25,21 @@ class StackView_new: UIView, ComponentView {
                     }
                 }
             }
+            
+            updateSubviewsWithInteractionHandler()
+            
             setNeedsLayout()
         }
     }
     
     var stackViewItem: StackViewItem? {
         return component as? StackViewItem
+    }
+    
+    weak var interactionHandler: InteractionHandler? {
+        didSet {
+            updateSubviewsWithInteractionHandler()
+        }
     }
 
     // MARK: Init
@@ -88,5 +97,14 @@ class StackView_new: UIView, ComponentView {
         }
         
         return CGSize(width: size.width, height: maxY)
+    }
+    
+    // MARK: Utility
+    
+    func updateSubviewsWithInteractionHandler() {
+        for (idx, _) in subviews.enumerated() {
+            var view = subviews[idx] as? ComponentView
+            view?.interactionHandler = self.interactionHandler
+        }
     }
 }
