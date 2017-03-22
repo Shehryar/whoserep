@@ -17,26 +17,25 @@ enum ComponentType: String {
     case label = "label"
     case progressBar = "progressBar"
     case separator = "separator"
+    case textInput = "textInput"
     
     // Templates
     case stackView = "stackView"
-}
-
-// MARK:- Component+ComponentType
-
-extension Component where Self: Any {
     
-    var componentType: ComponentType? {
+    // MARK: Utility
+    
+    func getItemClass() -> Component.Type {
         switch self {
-        case is ButtonItem: return .button
-        case is IconItem: return .icon
-        case is LabelItem: return .label
-        case is ProgressBarItem: return .progressBar
-        case is SeparatorItem: return .separator
-        
-        case is StackViewItem: return .stackView
-        
-        default: return nil
+        // Core Components
+        case .button:        return ButtonItem.self
+        case .icon:          return IconItem.self
+        case .label:         return LabelItem.self
+        case .progressBar:   return ProgressBarItem.self
+        case .separator:     return SeparatorItem.self
+        case .textInput:     return TextInputItem.self
+            
+        // Templates
+        case .stackView:     return StackViewItem.self
         }
     }
 }

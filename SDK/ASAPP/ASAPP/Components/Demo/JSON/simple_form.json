@@ -1,8 +1,9 @@
 {
   "styles": {
-    "row" : {
+    "textInput" : {
       "align" : "fill",
-      "marginBottom" : 8
+      "marginBottom" : 4, 
+      "color" : "#55607a"
     }
   },
   "body": {
@@ -12,33 +13,94 @@
         {
           "type" : "label",
           "content" : {
-            "text" : "Tell us what you think!"
+            "text" : "New Address:"
           },
           "style" : {
             "fontSize" : 24,
-            "fontWeight" : "bold"
+            "fontWeight" : "bold",
+            "color" : "#55607a",
+            "marginBottom" : 12
           }
         },
         {
-          "id" : "ratingSlider",
-          "type" : "slider",
+          "id" : "nameInput",
+          "type" : "textInput",
+          "class" : "textInput",
+          "name" : "feedback",
+          "value" : "",
           "content" : {
-            "minValue" : 1,
-            "maxValue" : 10
-          },
-          "class" : "row",
-          "name" : "rating",
-          "value" : 5
+            "placeholder" : "Full Name"
+          }
         },
         {
-          "id" : "feedbackInput",
+          "id" : "",
           "type" : "textInput",
+          "class" : "textInput",
+          "name" : "",
+          "value" : "",
           "content" : {
-
+            "placeholder" : "Address Line 1"
+          }
+        },
+        {
+          "id" : "",
+          "type" : "textInput",
+          "class" : "textInput",
+          "name" : "",
+          "value" : "",
+          "content" : {
+            "placeholder" : "Address Line 2"
+          }
+        },
+        {
+          "id" : "",
+          "type" : "textInput",
+          "class" : "textInput",
+          "name" : "",
+          "value" : "",
+          "content" : {
+            "placeholder" : "City"
+          }
+        },
+        {
+          "type" : "stackView",
+          "content" : {
+            "orientation" : "horizontal",
+            "items" : [
+              {
+                "id" : "",
+                "type" : "textInput",
+                "class" : "textInput",
+                "name" : "",
+                "value" : "",
+                "content" : {
+                  "placeholder" : "State"
+                },
+                "style" : {
+                  "align" : "fill",
+                  "weight" : 1
+                }
+              },
+              {
+                "id" : "",
+                "type" : "textInput",
+                "class" : "textInput",
+                "name" : "",
+                "value" : "",
+                "content" : {
+                  "placeholder" : "Zip Code"
+                },
+                "style" : {
+                  "marginLeft" : 20,
+                  "align" : "fill", 
+                  "weight" : 1
+                }
+              }
+            ]
           },
-          "class" : "row",
-          "name" : "feedback",
-          "value" : ""
+          "style" : {
+
+          }
         },
         {
           "type" : "button",
@@ -48,12 +110,15 @@
               "type" : "api",
               "content" : {
                 "endPoint" : "/submitRating",
-                "inputFields" : ["ratingSlider", "feedbackInput"],
-                "requiredFields" : ["ratingSlider"]
+                "inputFields" : ["nameInput"],
+                "requiredFields" : ["nameInput"]
               }
             }
           },
-          "class" : "row"
+          "style" : {
+            "marginTop" : 20,
+            "align" : "fill"
+          }
         }
       ]
     },

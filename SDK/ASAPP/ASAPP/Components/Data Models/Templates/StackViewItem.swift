@@ -8,7 +8,9 @@
 
 import UIKit
 
-class StackViewItem: NSObject, Component {
+class StackViewItem: Component {
+    
+    // MARK:- JSON Keys
     
     enum JSONKey: String {
         case items = "items"
@@ -29,42 +31,30 @@ class StackViewItem: NSObject, Component {
         
     }
     
-    // MARK: Properties
+    // MARK:- Properties
+    
+    override var viewClass: UIView.Type {
+        switch  orientation {
+        case .vertical: return StackView_new.self
+        case .horizontal: return HorizontalStackView.self
+        }
+    }
     
     let items: [Component]
     
     let orientation: Orientation
+  
+    // MARK:- Init
     
-    // MARK: Component Properties
+    required init?(id: String?,
+                   name: String?,
+                   value: Any?,
+                   style: ComponentStyle,
+                   styles: [String : Any]?,
+                   content: [String : Any]?) {
         
-    let id: String?
-    
-    let style: ComponentStyle
-    
-    // MARK: Layout
-    
-    init(items: [Component],
-         orientation: Orientation,
-         id: String?,
-         style: ComponentStyle) {
-        self.items = items
-        self.orientation = orientation
-        self.id = id
-        self.style = style
-        super.init()
-    }
-    
-    // MARK:- Component Parsing
-    
-    static func make(with content: Any?,
-                     id: String?,
-                     style: ComponentStyle,
-                     styles: [String : Any]?) -> Component? {
-        guard let content = content as? [String : Any] else {
-            return nil
-        }
-        guard let itemsJSON = content[JSONKey.items.rawValue] as? [[String : Any]] else {
-            DebugLog.w(caller: self, "Missing items json. Returning nil:\n\(content)")
+        guard let itemsJSON = content?[JSONKey.items.rawValue] as? [[String : Any]] else {
+            DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(content)")
             return nil
         }
         
@@ -75,16 +65,18 @@ class StackViewItem: NSObject, Component {
             }
         }
         guard !items.isEmpty else {
-            DebugLog.w(caller: self, "Empty items json. Returning nil:\n\(content)")
+            DebugLog.w(caller: StackViewItem.self, "Empty items json. Returning nil:\n\(content)")
             return nil
         }
-        
-        let orientation = Orientation.from(content[JSONKey.orientation.rawValue] as? String,
-                                           defaultValue: .vertical)
-        
-        return StackViewItem(items: items,
-                             orientation: orientation,
-                             id: id,
-                             style: style)
+        self.items = items
+        self.orientation = Orientation.from(content?.string(for: JSONKey.orientation.rawValue),
+                                            defaultValue: .vertical)
+                
+        super.init(id: id,
+                   name: name,
+                   value: value,
+                   style: style,
+                   styles: styles,
+                   content: content)
     }
 }

@@ -8,31 +8,15 @@
 
 import UIKit
 
-class SeparatorItem: NSObject, Component {
+class SeparatorItem: Component {
 
+    // MARK:- Defaults
+    
     static let defaultColor = UIColor(red:0.820, green:0.827, blue:0.851, alpha:1.000)
     
-    // MARK: Component Properties
+    // MARK:- Properties
     
-    let id: String?
-    
-    let style: ComponentStyle
-    
-    // MARK: Init
-    
-    init(id: String?, style: ComponentStyle) {
-        self.id = id
-        self.style = style
-        super.init()
+    override var viewClass: UIView.Type {
+        return SeparatorView.self
     }
-    
-    // MARK: Component Parsing
-    
-    static func make(with content: Any?,
-                     id: String?,
-                     style: ComponentStyle,
-                     styles: [String : Any]?) -> Component? {
-        return SeparatorItem(id: id, style: style)
-    }
-    
 }

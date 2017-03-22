@@ -20,7 +20,7 @@ class StackView_new: UIView, ComponentView {
             
             if let stackViewItem = stackViewItem {
                 for item in stackViewItem.items {
-                    if let componentView = ComponentViewFactory.view(withComponent: item) {
+                    if let componentView = item.createView() {
                         addSubview(componentView.view)
                     }
                 }

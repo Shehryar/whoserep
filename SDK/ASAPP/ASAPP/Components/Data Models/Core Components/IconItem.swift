@@ -8,8 +8,10 @@
 
 import UIKit
 
-class IconItem: NSObject, Component {
+class IconItem: Component {
 
+    // MARK:- JSON Keys
+    
     enum JSONKey: String {
         case icon = "icon"
     }
@@ -59,52 +61,49 @@ class IconItem: NSObject, Component {
             case .x: return Images.asappImage(.iconX)
             }
         }
+        
+        static func from(_ string: String?) -> Icon? {
+            guard let string = string, let icon = Icon(rawValue: string) else {
+                return nil
+            }
+            return icon
+        }
     }
     
-    // MARK: Defaults
+    // MARK:- Defaults
     
     static let defaultWidth: CGFloat = 16
     
     static let defaultHeight: CGFloat = 16
     
-    // MARK: Properties
+    // MARK:- Properties
+    
+    override var viewClass: UIView.Type {
+        return IconView.self
+    }
     
     let icon: Icon
     
-    // MARK: Component Properties
-        
-    let id: String?
-    
-    let style: ComponentStyle
-    
     // MARK: Init
     
-    init(icon: Icon,
-         id: String?,
-         style: ComponentStyle) {
-        self.icon = icon
-        self.id = id
-        self.style = style
-        super.init()
-    }
-    
-    // MARK: Component Parsing
-    
-    static func make(with content: Any?,
-                     id: String?,
-                     style: ComponentStyle,
-                     styles: [String : Any]?) -> Component? {
-        guard let content = content as? [String : Any] else {
+    required init?(id: String?,
+                   name: String?,
+                   value: Any?,
+                   style: ComponentStyle,
+                   styles: [String : Any]?,
+                   content: [String : Any]?) {
+        guard let icon = Icon.from(content?.string(for: JSONKey.icon.rawValue)) else {
+            DebugLog.w(caller: IconItem.self, "No icon found in content: \(content)")
             return nil
         }
-        guard let iconName = content[JSONKey.icon.rawValue] as? String,
-            let icon = Icon(rawValue: iconName) else {
-                DebugLog.w(caller: self, "No icon found in content: \(content)")
-                return nil
-        }
-
-        return IconItem(icon: icon,
-                        id: id,
-                        style: style)
+        self.icon = icon
+        
+        
+        super.init(id: id,
+                   name: name,
+                   value: value,
+                   style: style,
+                   styles: styles,
+                   content: content)
     }
 }

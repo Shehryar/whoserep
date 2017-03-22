@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ButtonItem: NSObject, Component {
+class ButtonItem: Component {
 
+    // MARK:- JSON Keys
+    
     enum JSONKey: String {
-        case title = "title"
+        case action = "action"
         case buttonStyle = "style"
         case icon = "icon"
+        case title = "title"
     }
     
     enum ButtonStyle: String {
@@ -29,7 +32,15 @@ class ButtonItem: NSObject, Component {
         }
     }
     
-    // MARK: Properties
+    // MARK:- Defaults
+    
+    static let defaultButtonStyle = ButtonStyle.block
+    
+    // MARK:- Properties
+    
+    override var viewClass: UIView.Type {
+        return ButtonView.self
+    }
     
     let title: String
     
@@ -39,52 +50,29 @@ class ButtonItem: NSObject, Component {
     
     let action: Action?
     
-    // MARK: Component Properties
+    // MARK:- Init
     
-    let id: String?
-    
-    let style: ComponentStyle
-    
-    // MARK: Init
-    
-    init(title: String,
-         buttonStyle: ButtonStyle,
-         icon: IconItem?,
-         action: Action?,
-         id: String?,
-         style: ComponentStyle) {
+    required init?(id: String?,
+                   name: String?,
+                   value: Any?,
+                   style: ComponentStyle,
+                   styles: [String : Any]?,
+                   content: [String : Any]?) {
+        guard let title = content?.string(for: JSONKey.title.rawValue) else {
+            DebugLog.w(caller: ButtonItem.self, "Missing title in content: \(content)")
+            return nil
+        }
         self.title = title
-        self.buttonStyle = buttonStyle
-        self.icon = icon
-        self.action = action
-        self.id = id
-        self.style = style
-        super.init()
-    }
-    
-    // MARK: Component Parsing
-    
-    static func make(with content: Any?,
-                     id: String?,
-                     style: ComponentStyle,
-                     styles: [String : Any]?) -> Component? {
-        guard let content = content as? [String : Any] else {
-            return nil
-        }
-        guard let title = content[JSONKey.title.rawValue] as? String else {
-            DebugLog.e(caller: self, "Title is required. Returning nil.")
-            return nil
-        }
+        self.buttonStyle = ButtonStyle.from(content?.string(for: JSONKey.buttonStyle.rawValue),
+                                            defaultValue: ButtonItem.defaultButtonStyle)
+        self.icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
+        self.action = nil
         
-        let buttonStyle = ButtonStyle.from(content[JSONKey.buttonStyle.rawValue] as? String,
-                                           defaultValue: .block)
-        let icon = ComponentFactory.component(with: content[JSONKey.icon.rawValue], styles: styles) as? IconItem
-        
-        return ButtonItem(title: title,
-                          buttonStyle: buttonStyle,
-                          icon: icon,
-                          action: nil,
-                          id: id,
-                          style: style)
+        super.init(id: id,
+                   name: name,
+                   value: value,
+                   style: style,
+                   styles: styles,
+                   content: content)
     }
 }

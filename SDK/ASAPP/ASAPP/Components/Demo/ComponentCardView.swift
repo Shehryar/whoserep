@@ -12,11 +12,7 @@ class ComponentCardView: UIView {
 
     var component: Component? {
         didSet {
-            if let component = component {
-                componentView = ComponentViewFactory.view(withComponent: component)
-            } else {
-                componentView = nil
-            }
+            componentView = component?.createView()
             setNeedsLayout()
         }
     }

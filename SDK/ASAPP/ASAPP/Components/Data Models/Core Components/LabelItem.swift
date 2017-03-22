@@ -8,7 +8,9 @@
 
 import UIKit
 
-class LabelItem: NSObject, Component {
+class LabelItem: Component {
+    
+    // MARK: JSON Keys
     
     enum JSONKey: String {
         case text = "text"
@@ -20,36 +22,32 @@ class LabelItem: NSObject, Component {
     
     // MARK: Properties
     
-    let text: String
- 
-    // MARK: Component Properties
-        
-    let id: String?
-    
-    let style: ComponentStyle
-    
-    // MARK: Init
-    
-    init(text: String, id: String?, style: ComponentStyle) {
-        self.text = text
-        self.id = id
-        self.style = style
-        super.init()
+    override var viewClass: UIView.Type {
+        return LabelView.self
     }
     
-    // MARK:- Component Parsing
-
-    static func make(with content: Any?,
-                     id: String?,
-                     style: ComponentStyle,
-                     styles: [String : Any]?) -> Component? {
-        guard let content = content as? [String : Any] else {
+    let text: String
+ 
+    // MARK: Init
+    
+    required init?(id: String?,
+                   name: String?,
+                   value: Any?,
+                   style: ComponentStyle,
+                   styles: [String : Any]?,
+                   content: [String : Any]?) {
+        
+        guard let text = content?.string(for: JSONKey.text.rawValue) else {
+            DebugLog.w(caller: LabelItem.self, "Missing text: \(content)")
             return nil
         }
-        guard let text = content[JSONKey.text.rawValue] as? String else {
-            DebugLog.w(caller: self, "Missing text: \(content)")
-            return nil
-        }
-        return LabelItem(text: text, id: id, style: style)
+        self.text = text
+        
+        super.init(id: id,
+                   name: name,
+                   value: value,
+                   style: style,
+                   styles: styles,
+                   content: content)
     }
 }
