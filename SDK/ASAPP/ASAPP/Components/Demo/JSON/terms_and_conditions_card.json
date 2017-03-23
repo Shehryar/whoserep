@@ -1,58 +1,62 @@
 {
-  "type": "stackView",
-  "content": {
-    "items": [
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-            {
-              "type": "label",
-              "content": {
-                "text": "Terms and Conditions"
+  "actions" : {},
+  "styles": {},
+  "body": {
+    "type": "stackView",
+    "content": {
+      "items": [
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "label",
+                "content": {
+                  "text": "Terms and Conditions"
+                },
+                "style": {
+                  "gravity": "middle",
+                  "fontWeight": "black",
+                  "fontSize": 15,
+                  "color": "#5b657e"
+                }
               },
-              "style" : {
-                "gravity": "middle",
-                "fontWeight": "black",
-                "fontSize": 15,
-                "color" : "#5b657e"
+              {
+                "type": "button",
+                "content": {
+                  "title": "VIEW",
+                  "style": "text"
+                },
+                "style": {
+                  "align": "right",
+                  "gravity": "middle",
+                  "weight": 1,
+                  "paddingTop": 12,
+                  "paddingLeft": 16,
+                  "paddingBottom": 12,
+                  "paddingRight": 0
+                }
               }
-            },
-            {
-              "type": "button",
-              "content": {
-                "title": "VIEW",
-                "style": "text"
-              },
-              "style" : {
-                "align": "right",
-                "gravity": "middle",
-                "weight" : 1,
-                "paddingTop" : 12,
-                "paddingLeft" : 16,
-                "paddingBottom" : 12,
-                "paddingRight" : 0
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "label",
-        "content": {
-          "text": "As of Jan 22, 2017 -- 4:15PM"
+            ]
+          }
         },
-        "style" : {
-          "fontWeight": "regular",
-          "fontSize": 11,
-          "color" : "#a4a9b7"
+        {
+          "type": "label",
+          "content": {
+            "text": "As of Jan 22, 2017 -- 4:15PM"
+          },
+          "style": {
+            "fontWeight": "regular",
+            "fontSize": 11,
+            "color": "#a4a9b7"
+          }
         }
-      }
-    ]
-  },
-  "style" : {
-    "padding": 20,
-    "paddingTop" : 8
+      ]
+    },
+    "style": {
+      "padding": 20,
+      "paddingTop": 8
+    }
   }
 }

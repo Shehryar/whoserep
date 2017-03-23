@@ -1,4 +1,7 @@
 {
+  "actions" : {},
+  "styles" : {},
+  "body" :{
   "type": "stackView",
   "content": {
     "items": [
@@ -82,12 +85,11 @@
           "fontSize": 12,
           "color": "#55607a"
         }
-      },
-      
+      }
     ]
   },
   "style" : {
     "padding": 20,
     "paddingTop" : 0
   }
-}
+}}
