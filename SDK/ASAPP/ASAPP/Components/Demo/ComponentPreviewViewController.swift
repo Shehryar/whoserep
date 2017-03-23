@@ -36,6 +36,8 @@ public class ComponentPreviewViewController: UIViewController {
     // MARK: Init
     
     func commonInit() {
+        automaticallyAdjustsScrollViewInsets = false
+        
         controlsBar.barStyle = .default
         controlsBar.items = [
             UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.beginIneractions)),
@@ -87,16 +89,18 @@ public class ComponentPreviewViewController: UIViewController {
             top = navBar.frame.maxY + contentInset.top
         }
         
+        let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
+        let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
+        controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)
+        
         let contentWidth = view.bounds.width - contentInset.left - contentInset.right
-        var size = cardView.sizeThatFits(CGSize(width: contentWidth, height: 0))
+        let contentBottom = controlsBar.frame.minY - contentInset.bottom
+        let contentHeight = contentBottom - top
+        var size = cardView.sizeThatFits(CGSize(width: contentWidth, height: contentHeight))
         size.height = ceil(size.height)
         size.width = ceil(size.width)
         
         cardView.frame = CGRect(x: contentInset.left, y: top, width: size.width, height: size.height)
-        
-        let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
-        let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
-        controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)
     }
     
     // MARK: Content
@@ -126,7 +130,7 @@ public class ComponentPreviewViewController: UIViewController {
             return
         }
         let viewController = ComponentViewController(componentName: componentName)
-        let navigationController = NavigationController(rootViewController: viewController)
+        let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true, completion: nil)
     }
     

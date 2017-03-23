@@ -20,6 +20,7 @@ enum ComponentType: String {
     case textInput = "textInput"
     
     // Templates
+    case scrollView = "scrollView"
     case stackView = "stackView"
     
     // MARK: Utility
@@ -35,6 +36,7 @@ enum ComponentType: String {
         case .textInput:     return TextInputItem.self
             
         // Templates
+        case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
         }
     }

@@ -77,72 +77,11 @@ class ComponentLayoutEngine: NSObject {
         
         return frames
     }
-    
-    // Adjusting Frames
-    
-    class func getAdjustedFrames(_ frames: [CGRect],
-                                 for gravity: VerticalAlignment,
-                                 inside boundingRect: CGRect) -> [CGRect] {
-        guard !frames.isEmpty else {
-            return frames
-        }
-        
-        // Find min/max y values
-        var maxY: CGFloat = 0
-        var minY: CGFloat = CGFloat.greatestFiniteMagnitude
-        for frame in frames {
-            if frame.minY < minY {
-                minY = frame.minY
-            }
-            if frame.maxY > maxY {
-                maxY = frame.maxY
-            }
-        }
-        guard minY != CGFloat.greatestFiniteMagnitude else {
-            return frames
-        }
-        
-        // Calculate required adjustment
-        var verticalAdjustment: CGFloat = 0
-        switch gravity {
-        case .top, .fill:
-            if minY != boundingRect.minY {
-                verticalAdjustment = boundingRect.minY - minY
-            }
-            break
-            
-        case .middle:
-            let contentHeight = max(0, maxY - minY)
-            verticalAdjustment = floor((boundingRect.height - contentHeight) / 2.0)
-            break
-            
-        case .bottom:
-            if maxY != boundingRect.maxY {
-                verticalAdjustment = boundingRect.maxY - maxY
-            }
-            break
-        }
-        guard verticalAdjustment != 0 else {
-            return frames
-        }
-        
-        // Adjust frames based on calculation
-        var adjustedFrames = [CGRect]()
-        for frame in frames {
-            var adjustedFrame = frame
-            adjustedFrame.origin.y += verticalAdjustment
-            adjustedFrames.append(adjustedFrame)
-        }
-        
-        return adjustedFrames
-    }
-    
 }
 
 // MARK:- Horizontal
 
 extension ComponentLayoutEngine {
-    
     class func getHorizontalLayout(for views: [UIView], inside boundingRect: CGRect) -> ComponentLayoutEngine.LayoutInfo {
         var frames = [CGRect]()
         var maxX: CGFloat = boundingRect.minX
@@ -151,8 +90,6 @@ extension ComponentLayoutEngine {
             return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
         }
         
-        // Only even columns for now
-
         let columnSizes = getColumnSizes(for: views, within: boundingRect.width)
         
         // Layout frames horizontally
@@ -214,7 +151,7 @@ extension ComponentLayoutEngine {
                     
                 case .middle:
                     frame.origin.y = boundingRect.minY + floor((maxFrameHeight - frame.height) / 2.0)
-                   
+                    
                     break
                     
                 case .bottom:
@@ -266,7 +203,7 @@ extension ComponentLayoutEngine {
             columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: size.width)
             remainingWidth = max(0, remainingWidth - size.width)
         }
-//        printColumnSizes(columnSizes, text: "Fitted Sizes:")
+        //        printColumnSizes(columnSizes, text: "Fitted Sizes:")
         
         let weightedColumnWidths = getWeightedWidths(for: views, totalWidth: remainingWidth)
         for (idx, view) in views.enumerated() {
@@ -284,7 +221,7 @@ extension ComponentLayoutEngine {
                 columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)
             }
         }
-//        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
+        //        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
         
         return columnSizes
     }
@@ -357,5 +294,213 @@ extension ComponentLayoutEngine {
         }
         
         DebugLog.i(caller: self, "\n\(text): [\n  \(columnDescriptions.joined(separator: "\n  "))\n]")
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MARK:- Vertical v2
+
+extension ComponentLayoutEngine {
+    
+    class func getVerticalLayout(for views: [UIView], inside boundingRect: CGRect) -> ComponentLayoutEngine.LayoutInfo {
+        var frames = [CGRect]()
+        var maxX: CGFloat = boundingRect.minX
+        var maxY: CGFloat = boundingRect.minY
+        guard views.count > 0 else {
+            return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
+        }
+        
+        let sizes = getRowSizes(for: views, within: boundingRect.size)
+
+        var maxFrameHeight: CGFloat = 0
+        var maxFrameWidth: CGFloat = 0
+        var top = boundingRect.minY
+        
+        // Layout views vertically
+        for (idx, view) in views.enumerated() {
+            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            let gravity = (view as? ComponentView)?.component?.style.gravity ?? .top
+            
+            let maxSize = sizes[idx].maxSize
+            var size = sizes[idx].fittedSize
+            
+            // fittedSize < maxSize ==> Need to adjust for gravity within maxSize
+            var offsetY: CGFloat = 0
+            if size.height < maxSize.height {
+                switch gravity {
+                case .top: /* No-op */ break
+                case.middle:
+                    offsetY = floor((maxSize.height - size.height) / 2.0)
+                    break
+                    
+                case .bottom:
+                    offsetY = maxSize.height - size.height
+                    break
+                
+                case .fill:
+                    size.height = maxSize.height
+                    break
+                }
+            }
+            
+            // Create frame
+            top += margin.top
+            let frame = CGRect(x: boundingRect.minX, y: top + offsetY, width: size.width, height: size.height)
+            frames.append(frame)
+            top += size.height + margin.bottom
+            
+            maxFrameHeight = max(maxFrameHeight, size.height)
+            maxFrameWidth = max(maxFrameWidth, size.width)
+        }
+        // Return if no content size
+        guard maxFrameHeight > 0 && maxFrameWidth > 0 else {
+            return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
+        }
+        
+        
+        // Adjust frames horizontally
+        for (idx, view) in views.enumerated() {
+            let alignment = (view as? ComponentView)?.component?.style.alignment ?? .left
+            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            
+            var frame = frames[idx]
+            
+            let maxDisplayWidth = boundingRect.width - margin.left - margin.right
+            switch alignment {
+            case .left:
+                frame.origin.x = boundingRect.minX + margin.left
+                break
+                
+            case .center:
+                frame.origin.x = boundingRect.minX + margin.left + floor((maxDisplayWidth - frame.size.width) / 2.0)
+                break
+                
+            case .right:
+                frame.origin.x = boundingRect.maxX - frame.size.width - margin.right
+                break
+                
+            case .fill:
+                frame.origin.x = boundingRect.minX + margin.left
+                frame.size.width = boundingRect.width - margin.left - margin.right
+                break
+            }
+            frames[idx] = frame
+            
+            maxX = max(maxX, frame.maxX + margin.right)
+            maxY = max(maxY, frame.maxY + margin.bottom)
+        }
+    
+        return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
+    }
+    
+    private struct RowSize {
+        let fittedSize: CGSize
+        let maxSize: CGSize
+    }
+    
+    private class func getRowSizes(for views: [UIView], within maxSize: CGSize) -> [RowSize] {
+        // Initialize sizes to (.zero, .zero)
+        var sizes = [RowSize]()
+        for view in views {
+            sizes.append(RowSize(fittedSize: .zero, maxSize: .zero))
+        }
+        
+        // Get available height after margins are subtracted
+        var remainingHeight = maxSize.height
+        for view in views {
+            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            remainingHeight -= margin.top + margin.bottom
+        }
+        guard remainingHeight > 0 else {
+            return sizes
+        }
+        
+        // Update the size for all views with weight==0 (size-to-fit)
+        for (idx, view) in views.enumerated() {
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
+            guard weight == 0 else {
+                continue
+            }
+            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            
+            let maxWidth = maxSize.width - margin.left - margin.right
+            let maxSize = CGSize(width: maxWidth, height: remainingHeight)
+            var fittedSize = view.sizeThatFits(maxSize)
+            fittedSize.width = ceil(fittedSize.width)
+            fittedSize.height = ceil(fittedSize.height)
+            
+            sizes[idx] = RowSize(fittedSize: fittedSize, maxSize: fittedSize)
+            
+            remainingHeight -= fittedSize.height
+            if remainingHeight <= 0 {
+                return sizes
+            }
+        }
+        
+        // Get the total weight of all views
+        var totalWeightOfViews: Int = 0
+        for view in views {
+            totalWeightOfViews += (view as? ComponentView)?.component?.style.weight ?? 0
+        }
+        guard totalWeightOfViews > 0 else {
+            // No other views to size
+            return sizes
+        }
+        
+        // Calculate height per weight, and account for rounding errors
+        let totalHeightAvailableForWeightedViews = remainingHeight
+        let heightPerWeight: CGFloat = floor(totalHeightAvailableForWeightedViews / CGFloat(totalWeightOfViews))
+        guard heightPerWeight > 0 else {
+            return sizes
+        }
+        let totalHeightUsedByRoundedHeights = heightPerWeight * CGFloat(totalWeightOfViews)
+        var initialRoundingErrorAdjustment = max(0, totalHeightAvailableForWeightedViews - totalHeightUsedByRoundedHeights)
+        
+        // Calculate size for all views with weight != 0
+        var weightedSizes = [RowSize]()
+        for (idx, view) in views.enumerated() {
+            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
+            guard weight > 0 else {
+                continue
+            }
+            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            
+            var maxHeight = CGFloat(weight) * heightPerWeight
+            if initialRoundingErrorAdjustment > 0 {
+                maxHeight += initialRoundingErrorAdjustment
+                initialRoundingErrorAdjustment = 0
+            }
+            let maxWidth = maxSize.width - margin.left - margin.right
+            let maxSize = CGSize(width: maxWidth, height: maxHeight)
+            var fittedSize = view.sizeThatFits(maxSize)
+            fittedSize.width = ceil(fittedSize.width)
+            fittedSize.height = ceil(fittedSize.height)
+            
+            sizes[idx] = RowSize(fittedSize: fittedSize, maxSize: maxSize)
+        }
+        
+        return sizes
     }
 }

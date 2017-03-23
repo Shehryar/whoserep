@@ -10,7 +10,7 @@ import UIKit
 
 class ButtonView: UIView, ComponentView {
     
-    let defaultContentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+    let defaultContentEdgeInsets = UIEdgeInsets(top: 15, left: 24, bottom: 15, right: 24)
     
     let button = UIButton()
     

@@ -1,5 +1,5 @@
 {
-  "title" : "Add your address",
+  "title": "Add your address",
   "actions": {},
   "styles": {
     "textInput": {
@@ -12,6 +12,47 @@
     "type": "stackView",
     "content": {
       "items": [
+        {
+          "type": "stackView",
+          "content": {
+            "orientation" : "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "Cancel",
+                  "action" : {
+                    "type" : "finish"
+                  }
+                },
+                "style" : {
+                  "weight" : 1,
+                  "align" : "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "Go do it!",
+                  "action" : {
+                    "type" : "componentView",
+                    "content" : {
+                      "name" : "simple_form"
+                    }
+                  }
+                },
+                "style" : {
+                  "weight" : 1,
+                  "align" : "fill",
+                  "marginLeft" : 12
+                }
+              }
+            ]
+          },
+          "style" : {
+            "marginBottom" : 40
+          }
+        },
         {
           "type": "label",
           "content": {

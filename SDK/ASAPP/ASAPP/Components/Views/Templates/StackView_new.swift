@@ -60,45 +60,51 @@ class StackView_new: UIView, ComponentView {
     
     // MARK: Layout
     
-    func getFramesThatFit(_ size: CGSize) -> [CGRect] {
-        guard let padding = component?.style.padding else {
-            return [CGRect]()
+    func getFramesAndContentSize(for size: CGSize) -> ([CGRect], CGSize) {
+        guard let component = component else {
+            return ([CGRect](), .zero)
+        }
+        var fitToSize = size
+        if fitToSize.height == 0 {
+            fitToSize.height = .greatestFiniteMagnitude
+        }
+        if fitToSize.width == 0 {
+            fitToSize.width = .greatestFiniteMagnitude
+        }
+    
+        let padding = component.style.padding
+        let contentFrame = CGRect(x: padding.left,
+                                  y: padding.top,
+                                  width: fitToSize.width - padding.left - padding.right,
+                                  height: fitToSize.height - padding.top - padding.bottom)
+        
+        let layoutInfo = ComponentLayoutEngine.getVerticalLayout(for: subviews, inside: contentFrame)
+        var contentSize = CGSize.zero
+        if layoutInfo.maxX > 0 && layoutInfo.maxY > 0 {
+            contentSize = CGSize(width: layoutInfo.maxX + padding.right,
+                                 height: layoutInfo.maxY + padding.bottom)
         }
         
-        let contentWidth = size.width - padding.left - padding.right
-        let contentFrame = CGRect(x: padding.left, y: padding.top,
-                                  width: contentWidth, height: 0)
-        let frames = ComponentLayoutEngine.getVerticalFrames(for: subviews,
-                                                             inside: contentFrame)
-        
-        return frames
+        return (layoutInfo.frames, contentSize)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let frames = getFramesThatFit(bounds.size)
+        let (frames, _) = getFramesAndContentSize(for: bounds.size)
         if frames.count == subviews.count {
             for (idx, subview) in subviews.enumerated() {
                 subview.frame = frames[idx]
             }
         }
-     }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let frames = getFramesThatFit(size)
-        
-        var maxY: CGFloat = 0
-        for frame in frames {
-            maxY = max(maxY, frame.maxY)
-        }
-        if maxY > 0, let padding = component?.style.padding {
-            maxY += padding.bottom
-        }
-        
-        return CGSize(width: size.width, height: maxY)
     }
     
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let (_, contentSize) = getFramesAndContentSize(for: size)
+        
+        return contentSize
+    }
+     
     // MARK: Utility
     
     func updateSubviewsWithInteractionHandler() {

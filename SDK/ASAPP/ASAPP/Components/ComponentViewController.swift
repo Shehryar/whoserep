@@ -27,6 +27,7 @@ class ComponentViewController: UIViewController {
             
             if let rootView = rootView, isViewLoaded {
                 view.addSubview(rootView.view)
+                view.setNeedsLayout()
             }
         }
     }
@@ -68,6 +69,26 @@ class ComponentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.isTranslucent = true
+            navigationBar.shadowImage = nil
+            navigationBar.setBackgroundImage(nil, for: .default)
+            navigationBar.setBackgroundImage(nil, for: .compact)
+            navigationBar.backgroundColor = nil
+            if ASAPP.styles.navBarBackgroundColor.isDark() {
+                navigationBar.barStyle = .black
+                if ASAPP.styles.navBarBackgroundColor != UIColor.black {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
+                }
+            } else {
+                navigationBar.barStyle = .default
+                if ASAPP.styles.navBarBackgroundColor != UIColor.white {
+                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
+                }
+            }
+            navigationBar.tintColor = ASAPP.styles.navBarButtonColor
+            setNeedsStatusBarAppearanceUpdate()
+        }
         view.backgroundColor = UIColor.white
         
         if let rootView = rootView {
@@ -92,8 +113,9 @@ class ComponentViewController: UIViewController {
         
         var top: CGFloat = 0.0
         if let navBar = navigationController?.navigationBar {
-            top = navBar.frame.intersection(view.frame).height
+            top = navBar.frame.maxY
         }
+        
         let maxHeight = view.bounds.height - top
         let maxWidth = view.bounds.width
         let size = rootView.view.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))

@@ -1,0 +1,152 @@
+{
+  "title": "New Address",
+  "actions": {},
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "content": {
+      "items": [
+        {
+          "type": "stackView",
+          "content": {
+            "items": [
+              {
+                "type": "label",
+                "content": {
+                  "text": "Enter your address:"
+                },
+                "style": {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "color": "#55607a",
+                  "marginBottom": 12
+                }
+              },
+              {
+                "id": "nameInput",
+                "type": "textInput",
+                "class": "textInput",
+                "name": "name",
+                "value": "",
+                "content": {
+                  "placeholder": "Full Name"
+                }
+              },
+              {
+                "id": "address1Input",
+                "type": "textInput",
+                "class": "textInput",
+                "name": "address1",
+                "value": "",
+                "content": {
+                  "placeholder": "Address Line 1"
+                }
+              },
+              {
+                "id": "address2Input",
+                "type": "textInput",
+                "class": "textInput",
+                "name": "address2",
+                "value": "",
+                "content": {
+                  "placeholder": "Address Line 2"
+                }
+              },
+              {
+                "id": "cityInput",
+                "type": "textInput",
+                "class": "textInput",
+                "name": "city",
+                "value": "",
+                "content": {
+                  "placeholder": "City"
+                }
+              },
+              {
+                "type": "stackView",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "id": "stateInput",
+                      "type": "textInput",
+                      "class": "textInput",
+                      "name": "state",
+                      "value": "",
+                      "content": {
+                        "placeholder": "State"
+                      },
+                      "style": {
+                        "align": "fill",
+                        "weight": 1
+                      }
+                    },
+                    {
+                      "id": "zipCodeInput",
+                      "type": "textInput",
+                      "class": "textInput",
+                      "name": "zipCode",
+                      "value": "",
+                      "content": {
+                        "placeholder": "Zip Code"
+                      },
+                      "style": {
+                        "marginLeft": 20,
+                        "align": "fill",
+                        "weight": 1
+                      }
+                    }
+                  ]
+                },
+                "style": {}
+              }
+            ]
+          },
+          "style": {
+            "padding": 20
+          }
+        },
+        {
+          "type": "button",
+          "content": {
+            "title": "SUBMIT",
+            "action": {
+              "type": "api",
+              "content": {
+                "requestPath": "/saveAddress",
+                "inputFields": [
+                  "nameInput",
+                  "address1Input",
+                  "address2Input",
+                  "cityInput",
+                  "stateInput",
+                  "zipCodeInput"
+                ],
+                "requiredInputFields": [
+                  "nameInput",
+                  "address1Input",
+                  "cityInput",
+                  "stateInput",
+                  "zipCodeInput"
+                ],
+                "data": {
+                  "type": "newAddress",
+                  "userId": "mitcho309"
+                }
+              }
+            }
+          },
+          "style": {
+            "align": "fill"
+          }
+        }
+      ]
+    }
+  }
+}
