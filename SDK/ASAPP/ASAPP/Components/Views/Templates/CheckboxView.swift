@@ -16,12 +16,7 @@ class CheckboxView: UIView, ComponentView {
     
     let labelView = LabelView()
     
-    fileprivate var isChecked: Bool = false {
-        didSet {
-            checkboxSquareView.alpha = isChecked ? 0 : 1
-            checkImageView.alpha = isChecked ? 1 : 0
-        }
-    }
+    fileprivate var isChecked: Bool = false
     
     fileprivate var isTouching: Bool = false {
         didSet {
@@ -40,6 +35,7 @@ class CheckboxView: UIView, ComponentView {
             if let checkboxItem = checkboxItem {
                 labelView.component = checkboxItem.label
                 isChecked = (checkboxItem.value as? Bool) ?? false
+                resetState()
             } else {
                 labelView.component = nil
             }
@@ -166,6 +162,42 @@ class CheckboxView: UIView, ComponentView {
 
 extension CheckboxView {
     
+    fileprivate func resetState() {
+        checkboxSquareView.layer.removeAllAnimations()
+        checkboxSquareView.transform = .identity
+        
+        checkImageView.layer.removeAllAnimations()
+        checkImageView.transform = .identity
+        
+        checkboxSquareView.alpha = isChecked ? 0 : 1
+        checkImageView.alpha = isChecked ? 1 : 0
+    }
+    
+    func toggleChecked(animated: Bool = false) {
+        resetState()
+        isChecked = !isChecked
+        
+        guard animated && isChecked else {
+            resetState()
+            return
+        }
+        
+        checkImageView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        
+        UIView.animate(withDuration: 0.1, animations: { [weak self] in
+            self?.checkboxSquareView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            self?.checkboxSquareView.alpha = 0.0
+        }) { (completed) in
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseOut, animations: { [weak self] in
+                self?.checkImageView.transform = .identity
+                self?.checkImageView.alpha = 1.0
+            }, completion: nil)
+        }
+    }
+}
+
+extension CheckboxView {
+    
     func touchesInBounds(_ touches: Set<UITouch>, with event: UIEvent?) -> Bool {
         if let touch = touches.first {
             let location = touch.location(in: self)
@@ -191,7 +223,7 @@ extension CheckboxView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches, with: event) {
-            isChecked = !isChecked
+            toggleChecked(animated: true)
             checkboxItem?.value = isChecked
         }
         isTouching = false
