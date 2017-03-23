@@ -85,8 +85,8 @@ extension TextStyle {
     
     // Component
     
-    static let textButton = TextStyle(size: 12, weight: .black, letterSpacing: 1)
-    static let blockButton = TextStyle(size: 12, weight: .black, letterSpacing: 1)
+    static let textButton = TextStyle(size: 14, weight: .black, letterSpacing: 1)
+    static let blockButton = TextStyle(size: 14, weight: .black, letterSpacing: 1)
 }
 
 

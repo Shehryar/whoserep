@@ -194,43 +194,68 @@
               }
             }
           },
-          "style" : {
-            "weight" : 1,
-            "align" : "fill"
+          "style": {
+            "weight": 1,
+            "align": "fill"
           }
         },
         {
-          "type": "button",
+          "type": "stackView",
           "content": {
-            "title": "SUBMIT",
-            "action": {
-              "type": "api",
-              "content": {
-                "requestPath": "/saveAddress",
-                "inputFields": [
-                  "nameInput",
-                  "address1Input",
-                  "address2Input",
-                  "cityInput",
-                  "stateInput",
-                  "zipCodeInput"
-                ],
-                "requiredInputFields": [
-                  "nameInput",
-                  "address1Input",
-                  "cityInput",
-                  "stateInput",
-                  "zipCodeInput"
-                ],
-                "data": {
-                  "type": "newAddress",
-                  "userId": "mitcho309"
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type" : "button",
+                "content" : {
+                  "title" : "CANCEL",
+                  "style" : "secondary",
+                  "action" : {
+                    "type" : "finish"
+                  }
+                }, 
+                "style" : {
+                  "weight" : 1,
+                  "align" : "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/saveAddress",
+                      "inputFields": [
+                        "nameInput",
+                        "address1Input",
+                        "address2Input",
+                        "cityInput",
+                        "stateInput",
+                        "zipCodeInput"
+                      ],
+                      "requiredInputFields": [
+                        "nameInput",
+                        "address1Input",
+                        "cityInput",
+                        "stateInput",
+                        "zipCodeInput"
+                      ],
+                      "data": {
+                        "type": "newAddress",
+                        "userId": "mitcho309"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align" : "fill"
                 }
               }
-            }
+            ]
           },
           "style": {
-            "weight" : 0,
             "align": "fill"
           }
         }

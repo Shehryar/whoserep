@@ -30,16 +30,28 @@ class ButtonView: UIView, ComponentView {
                 var bgDisabled: UIColor
                 
                 switch buttonItem.buttonStyle {
-                case .block:
+                case .primary:
                     textStyle = .blockButton
                     
-                    textNormal = ASAPP.styles.blockButtonTextColor
+                    textNormal = ASAPP.styles.primaryButtonTextColor
                     textHighlighted = textNormal
                     textDisabled = textNormal
                     
-                    bgNormal = ASAPP.styles.blockButtonBgColor
-                    bgHighlighted = ASAPP.styles.blockButtonBgColorHighlighted
-                    bgDisabled = ASAPP.styles.blockButtonBgColorDisabled
+                    bgNormal = ASAPP.styles.primaryButtonBgColor
+                    bgHighlighted = ASAPP.styles.primaryButtonBgColorHighlighted
+                    bgDisabled = ASAPP.styles.primaryButtonBgColorDisabled
+                    break
+                    
+                case .secondary:
+                    textStyle = .blockButton
+                    
+                    textNormal = ASAPP.styles.secondaryButtonTextColor
+                    textHighlighted = textNormal
+                    textDisabled = textNormal
+                    
+                    bgNormal = ASAPP.styles.secondaryButtonBgColor
+                    bgHighlighted = ASAPP.styles.secondaryButtonBgColorHighlighted
+                    bgDisabled = ASAPP.styles.secondaryButtonBgColorDisabled
                     break
                     
                 case .text:

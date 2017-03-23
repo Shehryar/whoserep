@@ -51,13 +51,21 @@ public class ASAPPStyles: NSObject {
     
     public var textButtonColorDisabled: UIColor = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
     
-    public var blockButtonBgColor: UIColor = UIColor(red:0.125, green:0.714, blue:0.931, alpha:1)
+    public var primaryButtonBgColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
     
-    public var blockButtonBgColorHighlighted: UIColor = UIColor(red:0.105, green:0.644, blue:0.851, alpha:1)
+    public var primaryButtonBgColorHighlighted: UIColor = UIColor(red:0.105, green:0.644, blue:0.851, alpha:1)
     
-    public var blockButtonBgColorDisabled: UIColor = UIColor(red:0.4, green:0.4, blue:0.4, alpha:1)
+    public var primaryButtonBgColorDisabled: UIColor = UIColor(red:0.4, green:0.4, blue:0.4, alpha:1)
     
-    public var blockButtonTextColor: UIColor = UIColor.white
+    public var primaryButtonTextColor: UIColor = UIColor.white
+    
+    public var secondaryButtonBgColor: UIColor = UIColor(red:0.953, green:0.957, blue:0.965, alpha:1.000)
+    
+    public var secondaryButtonBgColorHighlighted: UIColor = UIColor(red:0.903, green:0.907, blue:0.915, alpha:1.000)
+    
+    public var secondaryButtonBgColorDisabled: UIColor = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
+    
+    public var secondaryButtonTextColor: UIColor = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
     
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()

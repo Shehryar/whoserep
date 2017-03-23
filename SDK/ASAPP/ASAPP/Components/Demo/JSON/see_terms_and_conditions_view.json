@@ -47,57 +47,12 @@
           }
         },
         {
-          "type" : "separator",
-          "style" : {
-            "marginBottom" : 20
-          }
-        },
-        {
-          "type": "checkbox",
-          "id" : "acceptCheckbox",
-          "name" : "accepted",
-          "content": {
-            "label": {
-              "type": "label",
-              "content": {
-                "text": "I have read and agree to the terms and conditions above."
-              },
-              "style" : {
-                "fontWeight" : "bold",
-                "fontSize" : 12,
-                "marginLeft" : 15,
-                "color" : "#55607a"
-              }
-            }
-          },
-          "style": {
-            "weight": 0,
-            "align": "fill",
-            "padding" : 20,
-            "margin" : 20,
-            "marginTop" : 0
-
-          }
-        },
-        {
           "type": "button",
           "content": {
-            "title": "Next",
+            "title": "Done",
+            "style" : "secondary",
             "action": {
-              "type": "api",
-              "content": {
-                "requestPath": "/acceptTerms",
-                "inputFields": [
-                  "acceptCheckbox"
-                ],
-                "requiredInputFields": [
-                  "acceptCheckbox"
-                ],
-                "data": {
-                  "type": "autoPayTerms",
-                  "userId": "mitcho309"
-                }
-              }
+              "type": "finish"
             }
           },
           "style": {

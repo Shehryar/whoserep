@@ -20,7 +20,8 @@ class ButtonItem: Component {
     }
     
     enum ButtonStyle: String {
-        case block = "block"
+        case primary = "primary"
+        case secondary = "secondary"
         case text = "text"
         
         static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
@@ -34,7 +35,7 @@ class ButtonItem: Component {
     
     // MARK:- Defaults
     
-    static let defaultButtonStyle = ButtonStyle.block
+    static let defaultButtonStyle = ButtonStyle.primary
     
     // MARK:- Properties
     

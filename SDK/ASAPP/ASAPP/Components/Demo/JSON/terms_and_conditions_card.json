@@ -26,7 +26,13 @@
                 "type": "button",
                 "content": {
                   "title": "VIEW",
-                  "style": "text"
+                  "style": "text",
+                  "action" : {
+                    "type" : "componentView",
+                    "content" : {
+                      "name" : "see_terms_and_conditions_view"
+                    }
+                  }
                 },
                 "style": {
                   "align": "right",

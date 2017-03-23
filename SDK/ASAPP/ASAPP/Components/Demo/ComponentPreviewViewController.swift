@@ -57,7 +57,6 @@ public class ComponentPreviewViewController: UIViewController {
         
         controlsBar.barStyle = .default
         controlsBar.items = [
-            UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.beginIneractions)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
         ]
@@ -172,15 +171,6 @@ public class ComponentPreviewViewController: UIViewController {
         }
     }
     
-    func beginIneractions() {
-        guard let componentName = componentName else {
-            return
-        }
-        let viewController = ComponentViewController(componentName: componentName)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        present(navigationController, animated: true, completion: nil)
-    }
-    
     func viewSource() {
         if let jsonString = JSONUtil.stringify(json as? AnyObject, prettyPrinted: true) {
             let sourcePreviewVC = ComponentPreviewSourceViewController()
@@ -273,6 +263,8 @@ extension ComponentPreviewViewController {
     }
     
     func handleFinishAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        // No-op here
+        let alert = UIAlertController(title: "Finish Action", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
