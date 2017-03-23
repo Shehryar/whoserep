@@ -16,7 +16,12 @@ class ComponentCardsPreviewViewController: UIViewController {
                 return
             }
             
-            DemoComponentsAPI.getComponents(with: componentNames) { [weak self] (components) in
+            DemoComponentsAPI.getComponents(with: componentNames) { [weak self] (componentViewContainers) in
+                var components = [Component]()
+                for viewContainer in componentViewContainers {
+                    components.append(viewContainer.root)
+                }
+                
                 Dispatcher.performOnMainThread({ 
                     self?.components = components
                 })

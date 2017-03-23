@@ -38,6 +38,7 @@ public class ComponentPreviewViewController: UIViewController {
     func commonInit() {
         controlsBar.barStyle = .default
         controlsBar.items = [
+            UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.beginIneractions)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
         ]
@@ -113,11 +114,20 @@ public class ComponentPreviewViewController: UIViewController {
             self?.json = json
             if let component = component {
                 Dispatcher.performOnMainThread {
-                    self?.cardView.component = component
+                    self?.cardView.component = component.root
                     self?.view.setNeedsLayout()
                 }
             }
         }
+    }
+    
+    func beginIneractions() {
+        guard let componentName = componentName else {
+            return
+        }
+        let viewController = ComponentViewController(componentName: componentName)
+        let navigationController = NavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     func viewSource() {

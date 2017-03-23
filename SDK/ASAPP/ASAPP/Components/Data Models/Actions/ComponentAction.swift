@@ -10,6 +10,7 @@ import UIKit
 
 enum ComponentActionType: String {
     case api = "api"
+    case componentView = "componentView"
     case finish = "finish"
     
     static func from(_ string: String?) -> ComponentActionType? {
@@ -27,6 +28,7 @@ class ComponentAction: NSObject {
         case content = "content"
         case data = "data"
         case inputFields = "inputFields"
+        case name = "name"
         case requestPath = "requestPath"
         case requiredInputFields = "requiredInputFields"
         case type = "type"
@@ -35,6 +37,8 @@ class ComponentAction: NSObject {
     // MARK:- Properties
     
     let type: ComponentActionType
+    
+    let name: String?
     
     let requestPath: String?
     
@@ -57,6 +61,7 @@ class ComponentAction: NSObject {
         
         let content = json[JSONKey.content.rawValue] as? [String : Any]
         self.data = content?[JSONKey.data.rawValue] as? [String : Any]
+        self.name = content?.string(for: JSONKey.name.rawValue)
         self.requestPath = content?.string(for: JSONKey.requestPath.rawValue)
         self.dataInputFields = content?.strings(for: JSONKey.inputFields.rawValue)
         self.requiredDataInputFields = content?.strings(for: JSONKey.requiredInputFields.rawValue)

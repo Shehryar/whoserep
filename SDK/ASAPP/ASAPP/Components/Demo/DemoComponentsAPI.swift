@@ -22,7 +22,7 @@ class DemoComponentsAPI: NSObject {
     
     typealias ComponentNamesCompletion = ((_ names: [String]?) -> Void)
     
-    typealias ComponentCompletion = ((_ component: Component?, _ json: [String : Any]?, _ error: String?) -> Void)
+    typealias ComponentCompletion = ((_ component: ComponentViewContainer?, _ json: [String : Any]?, _ error: String?) -> Void)
     
     fileprivate static let HOST = "http://localhost:9000"
     
@@ -73,8 +73,8 @@ extension DemoComponentsAPI {
 
 extension DemoComponentsAPI {
     
-    class func getComponents(with names: [String], completion: @escaping (([Component]) -> Void)) {
-        var components = [Component]()
+    class func getComponents(with names: [String], completion: @escaping (([ComponentViewContainer]) -> Void)) {
+        var components = [ComponentViewContainer]()
         // Lazy.... :\  Should probably add this to the server as a separate endpoint
         for (idx, name) in names.enumerated() {
             getComponent(with: name, completion: { (component, json, error) in
@@ -120,7 +120,7 @@ extension DemoComponentsAPI {
         session.dataTask(with: request) {data, response, err in
             if let data = data,
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-                let component = ComponentContainer.component(from: json) {
+                let component = ComponentViewContainer.from(json) {
                     completion(component, json, nil)
                     return
             }
@@ -129,13 +129,13 @@ extension DemoComponentsAPI {
             }.resume()
     }
     
-    private class func getLocalComponent(with fileName: String) -> (Component, [String : Any])? {
+    private class func getLocalComponent(with fileName: String) -> (ComponentViewContainer, [String : Any])? {
         guard let json =  DemoUtils.jsonObjectForFile(fileName) else {
             DebugLog.w(caller: self, "Unable to find json file: \(fileName)")
             return nil
         }
         
-        guard let component = ComponentContainer.component(from: json)  else {
+        guard let component = ComponentViewContainer.from(json)  else {
             DebugLog.w(caller: self, "Unable to create demo \(fileName) json:\n\(json)")
             return nil
         }

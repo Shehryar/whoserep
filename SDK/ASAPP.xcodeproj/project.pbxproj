@@ -11,8 +11,6 @@
 		280477761E80C96000217135 /* ComponentJSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280477751E80C96000217135 /* ComponentJSONUtil.swift */; };
 		2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */; };
 		2804CE091E7886F60001E516 /* ChatMessageImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE081E7886F60001E516 /* ChatMessageImage.swift */; };
-		281C34801E7F092C001A2AA3 /* template_Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C344B1E7F092C001A2AA3 /* template_Component.swift */; };
-		281C34811E7F092C001A2AA3 /* template_ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C344C1E7F092C001A2AA3 /* template_ComponentView.swift */; };
 		281C34821E7F092C001A2AA3 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C344F1E7F092C001A2AA3 /* Action.swift */; };
 		281C34831E7F092C001A2AA3 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34501E7F092C001A2AA3 /* Component.swift */; };
 		281C34841E7F092C001A2AA3 /* ComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34511E7F092C001A2AA3 /* ComponentFactory.swift */; };
@@ -39,7 +37,6 @@
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
 		281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */; };
 		281C349C1E7F092C001A2AA3 /* component_server.js in Resources */ = {isa = PBXBuildFile; fileRef = 281C34711E7F092C001A2AA3 /* component_server.js */; };
-		281C349E1E7F092C001A2AA3 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
 		281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34791E7F092C001A2AA3 /* ButtonView.swift */; };
 		281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347A1E7F092C001A2AA3 /* IconView.swift */; };
@@ -243,6 +240,8 @@
 		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
 		305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */; };
 		305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */; };
+		305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */; };
+		305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */; };
 		3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
@@ -336,7 +335,7 @@
 		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
 		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
 		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
-		30EF00831E81AFCD004B1492 /* ComponentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00821E81AFCD004B1492 /* ComponentContainer.swift */; };
+		30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */; };
 		30EF00851E82CA4B004B1492 /* TextInputItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00841E82CA4B004B1492 /* TextInputItem.swift */; };
 		30EF00871E82CB1B004B1492 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00861E82CB1B004B1492 /* TextInputView.swift */; };
 /* End PBXBuildFile section */
@@ -346,8 +345,6 @@
 		280477751E80C96000217135 /* ComponentJSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentJSONUtil.swift; sourceTree = "<group>"; };
 		2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachment.swift; sourceTree = "<group>"; };
 		2804CE081E7886F60001E516 /* ChatMessageImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageImage.swift; sourceTree = "<group>"; };
-		281C344B1E7F092C001A2AA3 /* template_Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = template_Component.swift; sourceTree = "<group>"; };
-		281C344C1E7F092C001A2AA3 /* template_ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = template_ComponentView.swift; sourceTree = "<group>"; };
 		281C344F1E7F092C001A2AA3 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		281C34501E7F092C001A2AA3 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		281C34511E7F092C001A2AA3 /* ComponentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentFactory.swift; sourceTree = "<group>"; };
@@ -374,7 +371,6 @@
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
 		281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponentsAPI.swift; sourceTree = "<group>"; };
 		281C34711E7F092C001A2AA3 /* component_server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = component_server.js; sourceTree = "<group>"; };
-		281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		281C34791E7F092C001A2AA3 /* ButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -580,6 +576,8 @@
 		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
 		305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomingMessage+EventList.swift"; sourceTree = "<group>"; };
+		305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
+		305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCellHeightCache.swift; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
@@ -673,7 +671,7 @@
 		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
 		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
-		30EF00821E81AFCD004B1492 /* ComponentContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentContainer.swift; sourceTree = "<group>"; };
+		30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewContainer.swift; sourceTree = "<group>"; };
 		30EF00841E82CA4B004B1492 /* TextInputItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputItem.swift; sourceTree = "<group>"; };
 		30EF00861E82CB1B004B1492 /* TextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -696,28 +694,18 @@
 		281C34491E7F092C001A2AA3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */,
 				281C346C1E7F092C001A2AA3 /* Demo */,
-				281C344A1E7F092C001A2AA3 /* Code Templates */,
 				281C344D1E7F092C001A2AA3 /* Data Models */,
-				281C34731E7F092C001A2AA3 /* Layout */,
 				281C34751E7F092C001A2AA3 /* Views */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		281C344A1E7F092C001A2AA3 /* Code Templates */ = {
-			isa = PBXGroup;
-			children = (
-				281C344B1E7F092C001A2AA3 /* template_Component.swift */,
-				281C344C1E7F092C001A2AA3 /* template_ComponentView.swift */,
-			);
-			path = "Code Templates";
-			sourceTree = "<group>";
-		};
 		281C344D1E7F092C001A2AA3 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				30EF00821E81AFCD004B1492 /* ComponentContainer.swift */,
+				30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */,
 				281C34501E7F092C001A2AA3 /* Component.swift */,
 				281C34511E7F092C001A2AA3 /* ComponentFactory.swift */,
 				281C34521E7F092C001A2AA3 /* ComponentStyle.swift */,
@@ -829,18 +817,11 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
-		281C34731E7F092C001A2AA3 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				281C34741E7F092C001A2AA3 /* ComponentLayoutEngine.swift */,
-			);
-			path = Layout;
-			sourceTree = "<group>";
-		};
 		281C34751E7F092C001A2AA3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				281C34761E7F092C001A2AA3 /* ComponentView.swift */,
+				305FF5CA1E841E58004DD9D5 /* Layout */,
 				281C34781E7F092C001A2AA3 /* Core Components */,
 				281C347D1E7F092C001A2AA3 /* Templates */,
 			);
@@ -1369,6 +1350,14 @@
 				305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */,
 			);
 			path = "Response Serializing";
+			sourceTree = "<group>";
+		};
+		305FF5CA1E841E58004DD9D5 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		306618EF1D9458F50092B4C5 /* SDWebImage-3.8.2 */ = {
@@ -1910,6 +1899,7 @@
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
 				281C348E1E7F092C001A2AA3 /* SRSImageItem.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
+				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */,
@@ -1943,9 +1933,9 @@
 				30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */,
 				280477761E80C96000217135 /* ComponentJSONUtil.swift in Sources */,
 				302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */,
+				305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */,
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,
 				308F29721D41665900EC7055 /* Fonts.swift in Sources */,
-				281C34811E7F092C001A2AA3 /* template_ComponentView.swift in Sources */,
 				302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */,
 				281C34A41E7F092C001A2AA3 /* SeparatorView.swift in Sources */,
 				281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */,
@@ -1976,9 +1966,8 @@
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
 				30EF00851E82CA4B004B1492 /* TextInputItem.swift in Sources */,
-				281C34801E7F092C001A2AA3 /* template_Component.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
-				30EF00831E81AFCD004B1492 /* ComponentContainer.swift in Sources */,
+				30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */,
 				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
@@ -1989,7 +1978,6 @@
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */,
 				281C34931E7F092C001A2AA3 /* SRSItemCarousel.swift in Sources */,
-				281C349E1E7F092C001A2AA3 /* ComponentLayoutEngine.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
 				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
