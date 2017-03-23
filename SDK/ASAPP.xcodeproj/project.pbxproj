@@ -242,6 +242,8 @@
 		305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */; };
 		305FF5D01E844036004DD9D5 /* ScrollViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CF1E844036004DD9D5 /* ScrollViewItem.swift */; };
 		305FF5D21E844154004DD9D5 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5D11E844154004DD9D5 /* ScrollView.swift */; };
+		305FF5D41E847276004DD9D5 /* CheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5D31E847276004DD9D5 /* CheckboxItem.swift */; };
+		305FF5D61E8472EC004DD9D5 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5D51E8472EC004DD9D5 /* CheckboxView.swift */; };
 		3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
@@ -578,6 +580,8 @@
 		305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		305FF5CF1E844036004DD9D5 /* ScrollViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewItem.swift; sourceTree = "<group>"; };
 		305FF5D11E844154004DD9D5 /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		305FF5D31E847276004DD9D5 /* CheckboxItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxItem.swift; sourceTree = "<group>"; };
+		305FF5D51E8472EC004DD9D5 /* CheckboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCellHeightCache.swift; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
@@ -737,6 +741,7 @@
 				302AF3301E8046E80086B939 /* ProgressBarItem.swift */,
 				281C34581E7F092C001A2AA3 /* SeparatorItem.swift */,
 				30EF00841E82CA4B004B1492 /* TextInputItem.swift */,
+				305FF5D31E847276004DD9D5 /* CheckboxItem.swift */,
 			);
 			path = "Core Components";
 			sourceTree = "<group>";
@@ -844,6 +849,7 @@
 		281C347D1E7F092C001A2AA3 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				305FF5D51E8472EC004DD9D5 /* CheckboxView.swift */,
 				281C347F1E7F092C001A2AA3 /* StackView_new.swift */,
 				305FF5D11E844154004DD9D5 /* ScrollView.swift */,
 			);
@@ -1941,6 +1947,7 @@
 				281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
 				3025DA211E539B9E004149D7 /* SRSSeparatorView.swift in Sources */,
+				305FF5D61E8472EC004DD9D5 /* CheckboxView.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
@@ -1949,6 +1956,7 @@
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				3025DA1E1E539B9E004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */,
+				305FF5D41E847276004DD9D5 /* CheckboxItem.swift in Sources */,
 				3025DA001E539591004149D7 /* SRSButtonItemView.swift in Sources */,
 				302A20CB1E5F9524007C522A /* ChatItemCarouselMessageCell.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
