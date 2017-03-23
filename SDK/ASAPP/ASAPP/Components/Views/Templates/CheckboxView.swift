@@ -10,11 +10,27 @@ import UIKit
 
 class CheckboxView: UIView, ComponentView {
 
-    let checkboxBoxView = UIView()
+    let checkboxSquareView = UIView()
+    
+    let checkImageView = UIImageView()
     
     let labelView = LabelView()
     
-    var isChecked: Bool = false
+    fileprivate var isChecked: Bool = false {
+        didSet {
+            checkImageView.alpha = isChecked ? 1 : 0
+        }
+    }
+    
+    fileprivate var isTouching: Bool = false {
+        didSet {
+            if isTouching {
+                backgroundColor = UIColor.black.withAlphaComponent(0.03)
+            } else {
+                backgroundColor = UIColor.clear
+            }
+        }
+    }
     
     // MARK: ComponentView Properties
     
@@ -22,6 +38,7 @@ class CheckboxView: UIView, ComponentView {
         didSet {
             if let checkboxItem = checkboxItem {
                 labelView.component = checkboxItem.label
+                isChecked = (checkboxItem.value as? Bool) ?? false
             } else {
                 labelView.component = nil
             }
@@ -37,7 +54,7 @@ class CheckboxView: UIView, ComponentView {
     // MARK: Init
     
     func commonInit() {
-        
+        clipsToBounds = true
         layer.borderWidth = 1
         layer.borderColor = ASAPP.styles.separatorColor2.cgColor
         layer.cornerRadius = 5
@@ -45,10 +62,15 @@ class CheckboxView: UIView, ComponentView {
         
         addSubview(labelView)
         
-        checkboxBoxView.layer.borderWidth = 1
-        checkboxBoxView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
-        checkboxBoxView.layer.cornerRadius = 5.0
-        addSubview(checkboxBoxView)
+        checkboxSquareView.layer.borderWidth = 1
+        checkboxSquareView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+        checkboxSquareView.layer.cornerRadius = 5.0
+        addSubview(checkboxSquareView)
+        
+        checkImageView.image = Images.asappImage(.iconCheckmark)?.tinted(ASAPP.styles.foregroundColor1)
+        checkImageView.contentMode = .scaleAspectFit
+        checkImageView.alpha = 0.0
+        addSubview(checkImageView)
     }
     
     override init(frame: CGRect) {
@@ -114,8 +136,10 @@ class CheckboxView: UIView, ComponentView {
         super.layoutSubviews()
         
         let (checkboxFrame, labelFrame) = getFramesThatFit(bounds.size)
-        checkboxBoxView.frame = checkboxFrame
+        checkboxSquareView.frame = checkboxFrame
         labelView.frame = labelFrame
+        
+        checkImageView.frame = checkboxFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -136,5 +160,39 @@ class CheckboxView: UIView, ComponentView {
         let checkboxMaxY = checkboxFrame.maxY + padding.bottom
         
         return CGSize(width: labelMaxX, height: max(checkboxMaxY, labelMaxY))
+    }
+}
+
+extension CheckboxView {
+    
+    func touchesInBounds(_ touches: Set<UITouch>, with event: UIEvent?) -> Bool {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            return bounds.contains(location)
+        }
+        
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isTouching = true
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !touchesInBounds(touches, with: event) {
+            isTouching = false
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isTouching = false
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isTouching && touchesInBounds(touches, with: event) {
+            isChecked = !isChecked
+            checkboxItem?.value = isChecked
+        }
+        isTouching = false
     }
 }
