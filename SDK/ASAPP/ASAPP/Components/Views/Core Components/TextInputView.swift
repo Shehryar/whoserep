@@ -37,6 +37,9 @@ class TextInputView: UIView, ComponentView {
     // MARK: Init
     
     func commonInit() {
+        textInputView.onTextChange = { [weak self] (text) in
+            self?.component?.value = text
+        }
         addSubview(textInputView)
     }
     

@@ -28,6 +28,10 @@ extension Dictionary where Key: StringLiteralConvertible, Value: Any {
         return nil
     }
     
+    func strings(for key: String) -> [String]? {
+        return self[key as! Key] as? [String]
+    }
+    
     // MARK: Floats
     
     func float(for key: String) -> CGFloat? {

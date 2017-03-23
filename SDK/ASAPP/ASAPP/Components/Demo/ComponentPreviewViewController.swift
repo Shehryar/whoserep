@@ -42,9 +42,9 @@ public class ComponentPreviewViewController: UIViewController {
             UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
         ]
         
-        
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
+        
+        cardView.interactionHandler = self
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -55,6 +55,10 @@ public class ComponentPreviewViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+    }
+    
+    deinit {
+        cardView.interactionHandler = nil
     }
     
     // MARK: View
@@ -137,5 +141,33 @@ public class ComponentPreviewViewController: UIViewController {
         if motion == .motionShake {
             refresh()
         }
+    }
+}
+
+extension ComponentPreviewViewController: InteractionHandler {
+    
+    func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
+        var inputData = [String : Any]()
+        if let inputFields = buttonItem.action?.dataInputFields {
+            for inputField in inputFields {
+                if let (name, value) = cardView.componentView?.getNameValue(for: inputField) {
+                    inputData[name] = value
+                }
+            }
+        }
+        
+        var requestData = [String : Any]()
+        requestData.add(buttonItem.action?.data)
+        requestData.add(inputData)
+        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
+                                                   prettyPrinted: true)
+        
+        let title = buttonItem.action?.requestPath ?? buttonItem.action?.type.rawValue ?? "Oops?"
+        
+        let alert = UIAlertController(title: title,
+                                      message: requestDataString,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

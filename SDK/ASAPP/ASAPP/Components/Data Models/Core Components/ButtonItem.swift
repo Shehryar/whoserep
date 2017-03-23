@@ -48,7 +48,7 @@ class ButtonItem: Component {
     
     let icon: IconItem?
     
-    let action: Action?
+    let action: ComponentAction?
     
     // MARK:- Init
     
@@ -66,7 +66,8 @@ class ButtonItem: Component {
         self.buttonStyle = ButtonStyle.from(content?.string(for: JSONKey.buttonStyle.rawValue),
                                             defaultValue: ButtonItem.defaultButtonStyle)
         self.icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
-        self.action = nil
+        let actionJSON = content?[JSONKey.action.rawValue]
+        self.action = ComponentAction(json: actionJSON)
         
         super.init(id: id,
                    name: name,

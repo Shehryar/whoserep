@@ -13,8 +13,13 @@ class ComponentCardView: UIView {
     var component: Component? {
         didSet {
             componentView = component?.createView()
-            componentView?.interactionHandler = self
             setNeedsLayout()
+        }
+    }
+    
+    var interactionHandler: InteractionHandler? {
+        didSet {
+            componentView?.interactionHandler = interactionHandler
         }
     }
     
@@ -22,7 +27,7 @@ class ComponentCardView: UIView {
         didSet {
             oldValue?.view.removeFromSuperview()
             
-            componentView?.interactionHandler = self
+            componentView?.interactionHandler = interactionHandler
             if let componentView = componentView {
                 addSubview(componentView.view)
             }
@@ -70,14 +75,5 @@ class ComponentCardView: UIView {
         let fittedSize = componentView.view.sizeThatFits(size)
             
         return fittedSize
-    }
-}
-
-extension ComponentCardView: InteractionHandler {
-    
-    func didTapButtonView(_ buttonView: ButtonView, with component: Component) {
-        print("Got tap")
-        
-        
     }
 }

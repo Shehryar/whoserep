@@ -130,8 +130,8 @@ class ButtonView: UIView, ComponentView {
     // MARK: Action
     
     func onTap() {
-        if let component = component {
-            interactionHandler?.didTapButtonView(self, with: component)
+        if let buttonItem = buttonItem {
+            interactionHandler?.didTapButtonView(self, with: buttonItem)
         }
     }
 }

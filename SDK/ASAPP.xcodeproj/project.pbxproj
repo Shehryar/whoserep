@@ -87,6 +87,7 @@
 		28C008961E5E8AE300260883 /* wow-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008911E5E8AE300260883 /* wow-4.wav */; };
 		28C008971E5E8AE300260883 /* wow-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008921E5E8AE300260883 /* wow-5.wav */; };
 		28D48CA61E82AF77004A002B /* simple_form.json in Resources */ = {isa = PBXBuildFile; fileRef = 28D48CA51E82AF77004A002B /* simple_form.json */; };
+		28D48CA81E83EE23004A002B /* ComponentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D48CA71E83EE23004A002B /* ComponentAction.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
 		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
@@ -421,6 +422,7 @@
 		28C008911E5E8AE300260883 /* wow-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-4.wav"; sourceTree = "<group>"; };
 		28C008921E5E8AE300260883 /* wow-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-5.wav"; sourceTree = "<group>"; };
 		28D48CA51E82AF77004A002B /* simple_form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple_form.json; sourceTree = "<group>"; };
+		28D48CA71E83EE23004A002B /* ComponentAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentAction.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				281C344F1E7F092C001A2AA3 /* Action.swift */,
+				28D48CA71E83EE23004A002B /* ComponentAction.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1888,6 +1891,7 @@
 				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
 				281C34981E7F092C001A2AA3 /* StackViewItem.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
+				28D48CA81E83EE23004A002B /* ComponentAction.swift in Sources */,
 				3093A4AD1E730D4F00C65818 /* EventPictureMessage.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
