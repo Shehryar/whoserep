@@ -12,7 +12,7 @@ public class ComponentPreviewViewController: UIViewController {
     
     var componentName: String? {
         didSet {
-            title = componentName?.replacingOccurrences(of: "_", with: " ").capitalized
+            title = DemoComponentsAPI.prettifyComponentName(componentName)
             refresh()
         }
     }
@@ -21,7 +21,24 @@ public class ComponentPreviewViewController: UIViewController {
     
     // MARK: Private Properties
     
-    let cardView = ComponentCardView()
+    fileprivate(set) var contentView: UIView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            
+            if let contentView = contentView, isViewLoaded {
+                view.addSubview(contentView)
+            }
+        }
+    }
+    
+    var componentView: ComponentView? {
+        if let componentContentView = contentView as? ComponentView {
+            return componentContentView
+        } else if let componentCardView = contentView as? ComponentCardView {
+            return componentCardView.componentView
+        }
+        return nil
+    }
     
     fileprivate let controlsBar = UIToolbar()
     
@@ -46,8 +63,6 @@ public class ComponentPreviewViewController: UIViewController {
         ]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
-        
-        cardView.interactionHandler = self
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -60,9 +75,6 @@ public class ComponentPreviewViewController: UIViewController {
         commonInit()
     }
     
-    deinit {
-        cardView.interactionHandler = nil
-    }
     
     // MARK: View
     
@@ -70,7 +82,9 @@ public class ComponentPreviewViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = ASAPP.styles.backgroundColor2
-        view.addSubview(cardView)
+        if let contentView = contentView {
+            view.addSubview(contentView)
+        }
         view.addSubview(controlsBar)
     }
     
@@ -84,23 +98,35 @@ public class ComponentPreviewViewController: UIViewController {
     override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        var top: CGFloat = contentInset.top
+        guard let contentView = contentView else {
+            return
+        }
+        
+        var top: CGFloat = 0
         if let navBar = navigationController?.navigationBar {
-            top = navBar.frame.maxY + contentInset.top
+            top = navBar.frame.maxY
         }
         
         let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
         let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
         controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)
         
-        let contentWidth = view.bounds.width - contentInset.left - contentInset.right
-        let contentBottom = controlsBar.frame.minY - contentInset.bottom
+        var contentWidth = view.bounds.width
+        var contentBottom = controlsBar.frame.minY
+        var contentLeft: CGFloat = 0
+        var contentTop = top
+        if contentView is ComponentCardView {
+            contentLeft = contentInset.left
+            contentWidth -= contentInset.left + contentInset.right
+            contentTop += contentInset.top
+            contentBottom -= contentInset.bottom
+        }
         let contentHeight = contentBottom - top
-        var size = cardView.sizeThatFits(CGSize(width: contentWidth, height: contentHeight))
+        var size = contentView.sizeThatFits(CGSize(width: contentWidth, height: contentHeight))
         size.height = ceil(size.height)
         size.width = ceil(size.width)
         
-        cardView.frame = CGRect(x: contentInset.left, y: top, width: size.width, height: size.height)
+        contentView.frame = CGRect(x: contentLeft, y: contentTop, width: size.width, height: size.height)
     }
     
     // MARK: Content
@@ -115,10 +141,29 @@ public class ComponentPreviewViewController: UIViewController {
         }
         
         DemoComponentsAPI.getComponent(with: componentName) { [weak self] (component, json, error) in
+            guard let strongSelf = self else {
+                return
+            }
+            
             self?.json = json
             if let component = component {
                 Dispatcher.performOnMainThread {
-                    self?.cardView.component = component.root
+                    switch DemoComponentsAPI.getDemoComponentType(from: componentName) {
+                    case .card:
+                        var cardView = ComponentCardView()
+                        cardView.component = component.root
+                        cardView.interactionHandler = self
+                        self?.contentView = cardView
+                        break
+                        
+                    case .view:
+                        var componentView = component.root.createView()
+                        componentView?.interactionHandler = strongSelf
+                        self?.contentView = componentView?.view
+                        break
+                    }
+                    
+                    
                     self?.view.setNeedsLayout()
                 }
             }
@@ -161,10 +206,11 @@ public class ComponentPreviewViewController: UIViewController {
 extension ComponentPreviewViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
+    
         var inputData = [String : Any]()
         if let inputFields = buttonItem.action?.dataInputFields {
             for inputField in inputFields {
-                if let (name, value) = cardView.componentView?.getNameValue(for: inputField) {
+                if let (name, value) = componentView?.getNameValue(for: inputField) {
                     inputData[name] = value
                 }
             }

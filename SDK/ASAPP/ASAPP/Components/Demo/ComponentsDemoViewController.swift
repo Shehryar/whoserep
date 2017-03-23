@@ -11,21 +11,33 @@ import UIKit
 public class ComponentsDemoViewController: UIViewController {
 
     enum Section: Int {
-        case previewAll
-        case components
-        case count
-    }
-    
-    enum PreviewAllRows: Int {
         case cards
+        case views
         case count
     }
-    
+
     var componentNames: [String]? {
         didSet {
+            cardNames.removeAll()
+            viewNames.removeAll()
+            if let componentNames = componentNames {
+                for name in componentNames {
+                    switch DemoComponentsAPI.getDemoComponentType(from: name) {
+                    case .card:
+                        cardNames.append(name)
+                        break
+                        
+                    case .view:
+                        viewNames.append(name)
+                        break
+                    }
+                }
+            }
             tableView.reloadData()
         }
     }
+    fileprivate(set) var cardNames = [String]()
+    fileprivate(set) var viewNames = [String]()
 
     let tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -120,19 +132,33 @@ public class ComponentsDemoViewController: UIViewController {
 extension ComponentsDemoViewController: UITableViewDataSource {
     
     func getComponentName(for indexPath: IndexPath) -> String? {
-        guard let componentNames = componentNames,
-            indexPath.section == Section.components.rawValue &&
-            indexPath.row < componentNames.count else {
+        var sectionNames: [String]
+        switch indexPath.section {
+        case Section.cards.rawValue:
+            sectionNames = cardNames
+            break
+            
+        case Section.views.rawValue:
+            sectionNames = viewNames
+            break
+            
+        default:
+            sectionNames = [String]()
+            break
+        }
+        
+        guard indexPath.row < sectionNames.count else {
                 return nil
         }
-        return componentNames[indexPath.row]
+        
+        return sectionNames[indexPath.row]
     }
     
     func getPrettyComponentName(for indexPath: IndexPath) -> String? {
         guard let name = getComponentName(for: indexPath) else {
             return nil
         }
-        return name.replacingOccurrences(of: "_", with: " ").capitalized
+        return DemoComponentsAPI.prettifyComponentName(name)
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -140,11 +166,18 @@ extension ComponentsDemoViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let componentsCount = componentNames?.count ?? 0
         switch section {
-        case Section.previewAll.rawValue: return PreviewAllRows.count.rawValue
-        case Section.components.rawValue: return componentsCount
+        case Section.cards.rawValue: return cardNames != nil ? cardNames.count + 1 : 0
+        case Section.views.rawValue: return viewNames.count
         default: return 0
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case Section.cards.rawValue: return "Cards"
+        case Section.views.rawValue: return "Views"
+        default: return nil
         }
     }
     
@@ -154,30 +187,17 @@ extension ComponentsDemoViewController: UITableViewDataSource {
             ?? UITableViewCell(style: .value1, reuseIdentifier: reuseId))
    
         cell.backgroundColor = ASAPP.styles.backgroundColor1
-        cell.textLabel?.textColor = ASAPP.styles.foregroundColor1
-        cell.textLabel?.font = ASAPP.styles.font(with: .regular, size: 16)
         
-        switch indexPath.section {
-        case Section.previewAll.rawValue:
-            switch indexPath.row {
-            case PreviewAllRows.cards.rawValue:
-                cell.textLabel?.text = "All Cards"
-                break
-                
-            default:
-                break
-            }
-            break
-            
-        case Section.components.rawValue:
-            cell.textLabel?.text = getPrettyComponentName(for: indexPath)
-            break
-            
-        default:
-            break
+        if let componentName = getPrettyComponentName(for: indexPath) {
+            cell.textLabel?.text = componentName
+            cell.textLabel?.font = ASAPP.styles.font(with: .regular, size: 16)
+                cell.textLabel?.textColor = ASAPP.styles.foregroundColor1
+        } else {
+            cell.textLabel?.text = "All Cards"
+            cell.textLabel?.font = ASAPP.styles.font(with: .black, size: 16)
+            cell.textLabel?.textColor = ASAPP.styles.textButtonColor
         }
-        
-        
+  
         return cell
     }
 }
@@ -189,26 +209,15 @@ extension ComponentsDemoViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch indexPath.section {
-        case Section.previewAll.rawValue:
-            showCardsPreview()
-            break
-            
-        case Section.components.rawValue:
-            showComponentPreview(for: getComponentName(for: indexPath))
-            break
-            
-        default:
-            break
-        }
-        
         if let componentName = getComponentName(for: indexPath) {
-           
+            showComponentPreview(for: componentName)
+        } else {
+            showCardsPreview(with: cardNames)
         }
     }
     
-    func showCardsPreview() {
-        guard let componentNames = componentNames else {
+    func showCardsPreview(with names: [String]) {
+        guard names.count > 0 else {
             let alert = UIAlertController(title: "No Cards to Preview", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
@@ -216,15 +225,11 @@ extension ComponentsDemoViewController: UITableViewDelegate {
         }
         
         let viewController = ComponentCardsPreviewViewController()
-        viewController.componentNames = componentNames
+        viewController.componentNames = names
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func showComponentPreview(for name: String?) {
-        guard let name = name else {
-            return
-        }
-        
+    func showComponentPreview(for name: String) {
         let previewVC = ComponentPreviewViewController()
         previewVC.componentName = name
         navigationController?.pushViewController(previewVC, animated: true)

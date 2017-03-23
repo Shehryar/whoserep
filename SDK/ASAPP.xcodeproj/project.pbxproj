@@ -82,7 +82,6 @@
 		28C008951E5E8AE300260883 /* wow-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008901E5E8AE300260883 /* wow-3.wav */; };
 		28C008961E5E8AE300260883 /* wow-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008911E5E8AE300260883 /* wow-4.wav */; };
 		28C008971E5E8AE300260883 /* wow-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008921E5E8AE300260883 /* wow-5.wav */; };
-		28D48CA61E82AF77004A002B /* simple_form.json in Resources */ = {isa = PBXBuildFile; fileRef = 28D48CA51E82AF77004A002B /* simple_form.json */; };
 		28D48CA81E83EE23004A002B /* ComponentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D48CA71E83EE23004A002B /* ComponentAction.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
@@ -417,7 +416,6 @@
 		28C008901E5E8AE300260883 /* wow-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-3.wav"; sourceTree = "<group>"; };
 		28C008911E5E8AE300260883 /* wow-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-4.wav"; sourceTree = "<group>"; };
 		28C008921E5E8AE300260883 /* wow-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-5.wav"; sourceTree = "<group>"; };
-		28D48CA51E82AF77004A002B /* simple_form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple_form.json; sourceTree = "<group>"; };
 		28D48CA71E83EE23004A002B /* ComponentAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentAction.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -814,7 +812,6 @@
 			children = (
 				281C34711E7F092C001A2AA3 /* component_server.js */,
 				280477731E7FEB8000217135 /* transaction_history_card.json */,
-				28D48CA51E82AF77004A002B /* simple_form.json */,
 				302AF32E1E8031CD0086B939 /* text_history_card.json */,
 			);
 			path = JSON;
@@ -1699,7 +1696,6 @@
 				302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */,
 				285F7B051DAB3409008C2EF6 /* cancel-appointment-confirmation.json in Resources */,
 				3025D9BF1E52803C004149D7 /* icon-arrow-left@2x.png in Resources */,
-				28D48CA61E82AF77004A002B /* simple_form.json in Resources */,
 				3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */,
 				3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */,
 				302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */,

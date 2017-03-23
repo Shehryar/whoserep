@@ -33,6 +33,30 @@ class DemoComponentsAPI: NSObject {
     }
 }
 
+// MARK:- Utility
+
+extension DemoComponentsAPI {
+    
+    enum DemoComponentType {
+        case card
+        case view
+    }
+    
+    class func getDemoComponentType(from componentName: String) -> DemoComponentType {
+        if componentName.lowercased().contains("view") {
+            return .view
+        }
+        return .card
+    }
+    
+    class func prettifyComponentName(_ name: String?) -> String? {
+        return name?.replacingOccurrences(of: "_", with: " ")
+            .replacingOccurrences(of: "view" , with: "")
+            .replacingOccurrences(of: "card", with: "")
+            .capitalized
+    }
+}
+
 // MARK:- Component Names
 
 extension DemoComponentsAPI {
