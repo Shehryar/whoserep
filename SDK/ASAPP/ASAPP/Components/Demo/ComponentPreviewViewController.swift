@@ -154,12 +154,14 @@ public class ComponentPreviewViewController: UIViewController {
                         cardView.component = component.root
                         cardView.interactionHandler = self
                         self?.contentView = cardView
+                        self?.view.backgroundColor = ASAPP.styles.backgroundColor2
                         break
                         
                     case .view:
                         var componentView = component.root.createView()
                         componentView?.interactionHandler = strongSelf
                         self?.contentView = componentView?.view
+                        self?.view.backgroundColor = ASAPP.styles.backgroundColor1
                         break
                     }
                     
@@ -203,10 +205,39 @@ public class ComponentPreviewViewController: UIViewController {
     }
 }
 
+// MARK:- InteractionHandler
+
 extension ComponentPreviewViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
+        guard let action = buttonItem.action else {
+            let alert = UIAlertController(title: "No Action", message: "This button does not have an action attached to it", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        switch action.type {
+        case .api:
+            handleAPIAction(action, from: buttonItem)
+            break
+            
+        case .componentView:
+            handleComponentViewAction(action, from: buttonItem)
+            break
+            
+        case .finish:
+            handleFinishAction(action, from: buttonItem)
+            break
+        }
+    }
+}
+
+// MARK:- Routing Actions
+
+extension ComponentPreviewViewController {
     
+    func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
         var inputData = [String : Any]()
         if let inputFields = buttonItem.action?.dataInputFields {
             for inputField in inputFields {
@@ -229,5 +260,19 @@ extension ComponentPreviewViewController: InteractionHandler {
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+        guard let componentName = action.name else {
+            return
+        }
+        
+        let viewController = ComponentViewController(componentName: componentName)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    func handleFinishAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+        // No-op here
     }
 }

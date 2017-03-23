@@ -37,7 +37,7 @@
                   "action" : {
                     "type" : "componentView",
                     "content" : {
-                      "name" : "simple_form"
+                      "name" : "simple_form_view"
                     }
                   }
                 },

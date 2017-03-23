@@ -148,6 +148,9 @@ extension ComponentViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
         guard let action = buttonItem.action else {
+            let alert = UIAlertController(title: "No Action", message: "This button does not have an action attached to it", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
             return
         }
         
@@ -172,7 +175,28 @@ extension ComponentViewController: InteractionHandler {
 extension ComponentViewController {
     
     func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+        var inputData = [String : Any]()
+        if let inputFields = buttonItem.action?.dataInputFields {
+            for inputField in inputFields {
+                if let (name, value) = rootView?.getNameValue(for: inputField) {
+                    inputData[name] = value
+                }
+            }
+        }
         
+        var requestData = [String : Any]()
+        requestData.add(buttonItem.action?.data)
+        requestData.add(inputData)
+        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
+                                                   prettyPrinted: true)
+        
+        let title = buttonItem.action?.requestPath ?? buttonItem.action?.type.rawValue ?? "Oops?"
+        
+        let alert = UIAlertController(title: title,
+                                      message: requestDataString,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
