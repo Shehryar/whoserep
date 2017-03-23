@@ -18,6 +18,7 @@ class CheckboxView: UIView, ComponentView {
     
     fileprivate var isChecked: Bool = false {
         didSet {
+            checkboxSquareView.alpha = isChecked ? 0 : 1
             checkImageView.alpha = isChecked ? 1 : 0
         }
     }
@@ -67,7 +68,7 @@ class CheckboxView: UIView, ComponentView {
         checkboxSquareView.layer.cornerRadius = 5.0
         addSubview(checkboxSquareView)
         
-        checkImageView.image = Images.asappImage(.iconCheckmark)?.tinted(ASAPP.styles.foregroundColor1)
+        checkImageView.image = Images.asappImage(.iconCircleCheckmark)
         checkImageView.contentMode = .scaleAspectFit
         checkImageView.alpha = 0.0
         addSubview(checkImageView)
