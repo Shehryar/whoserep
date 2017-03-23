@@ -66,12 +66,15 @@ class ScrollView: UIScrollView, ComponentView {
         }
         
         var fitContentToSize = size
-        if contentView is StackView_new {
-            fitContentToSize.width = min(fitContentToSize.width, UIScreen.main.bounds.width)
-            fitContentToSize.height = 0
-        } else if contentView is HorizontalStackView {
-            fitContentToSize.width = 0
-            fitContentToSize.height = min(fitContentToSize.height, UIScreen.main.bounds.height)
+        
+        if let stackViewItem = contentView.component as? StackViewItem {
+            if stackViewItem.orientation == .vertical {
+                fitContentToSize.width = min(fitContentToSize.width, UIScreen.main.bounds.width)
+                fitContentToSize.height = 0
+            } else {
+                fitContentToSize.width = 0
+                fitContentToSize.height = min(fitContentToSize.height, UIScreen.main.bounds.height)
+            }
         }
         
         let contentSize = contentView.view.sizeThatFits(fitContentToSize)

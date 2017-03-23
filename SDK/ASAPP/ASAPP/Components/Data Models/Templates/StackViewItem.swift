@@ -34,10 +34,7 @@ class StackViewItem: Component {
     // MARK:- Properties
     
     override var viewClass: UIView.Type {
-        switch  orientation {
-        case .vertical: return StackView_new.self
-        case .horizontal: return HorizontalStackView.self
-        }
+        return StackView_new.self
     }
     
     let items: [Component]

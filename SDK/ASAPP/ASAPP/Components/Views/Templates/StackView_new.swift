@@ -61,7 +61,7 @@ class StackView_new: UIView, ComponentView {
     // MARK: Layout
     
     func getFramesAndContentSize(for size: CGSize) -> ([CGRect], CGSize) {
-        guard let component = component else {
+        guard let stackViewItem = stackViewItem else {
             return ([CGRect](), .zero)
         }
         var fitToSize = size
@@ -72,13 +72,18 @@ class StackView_new: UIView, ComponentView {
             fitToSize.width = .greatestFiniteMagnitude
         }
     
-        let padding = component.style.padding
+        let padding = stackViewItem.style.padding
         let contentFrame = CGRect(x: padding.left,
                                   y: padding.top,
                                   width: fitToSize.width - padding.left - padding.right,
                                   height: fitToSize.height - padding.top - padding.bottom)
+        let layoutInfo: ComponentLayoutEngine.LayoutInfo
+        if stackViewItem.orientation == .vertical {
+            layoutInfo = ComponentLayoutEngine.getVerticalLayout(for: subviews, inside: contentFrame)
+        } else {
+            layoutInfo = ComponentLayoutEngine.getHorizontalLayout(for: subviews, inside: contentFrame)
+        }
         
-        let layoutInfo = ComponentLayoutEngine.getVerticalLayout(for: subviews, inside: contentFrame)
         var contentSize = CGSize.zero
         if layoutInfo.maxX > 0 && layoutInfo.maxY > 0 {
             contentSize = CGSize(width: layoutInfo.maxX + padding.right,
@@ -104,7 +109,7 @@ class StackView_new: UIView, ComponentView {
         
         return contentSize
     }
-     
+    
     // MARK: Utility
     
     func updateSubviewsWithInteractionHandler() {
