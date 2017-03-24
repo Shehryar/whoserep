@@ -53,7 +53,10 @@
                   "class": "sectionTitle"
                 },
                 {
-                  "type": "separator"
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
                 }
               ]
             },
@@ -258,7 +261,10 @@
             "content": {
               "items": [
                 {
-                  "type": "separator"
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
                 },
                 {
                   "type": "label",
@@ -268,7 +274,10 @@
                   "class": "sectionTitle"
                 },
                 {
-                  "type": "separator"
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
                 }
               ]
             },

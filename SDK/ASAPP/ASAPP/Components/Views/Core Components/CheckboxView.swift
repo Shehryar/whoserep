@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckboxView: UIView, ComponentView {
+class CheckboxView: BaseComponentView {
 
     let checkboxSquareView = UIView()
     
@@ -28,7 +28,7 @@ class CheckboxView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             if let checkboxItem = checkboxItem {
                 labelView.component = checkboxItem.label
@@ -44,11 +44,11 @@ class CheckboxView: UIView, ComponentView {
         return component as? CheckboxItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         clipsToBounds = true
         layer.borderWidth = 1
         layer.borderColor = ASAPP.styles.separatorColor2.cgColor
@@ -73,16 +73,6 @@ class CheckboxView: UIView, ComponentView {
         addSubview(highlightView)
         
         updateDisplay()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

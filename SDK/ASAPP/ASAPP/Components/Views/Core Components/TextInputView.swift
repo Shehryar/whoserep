@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TextInputView: UIView, ComponentView {
+class TextInputView: BaseComponentView {
 
     let textInputView = PlaceholderTextInputView()
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             textInputView.text = nil
             textInputView.placeholderText = nil
@@ -32,25 +32,15 @@ class TextInputView: UIView, ComponentView {
         return component as? TextInputItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         textInputView.onTextChange = { [weak self] (text) in
             self?.component?.value = text
         }
         addSubview(textInputView)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

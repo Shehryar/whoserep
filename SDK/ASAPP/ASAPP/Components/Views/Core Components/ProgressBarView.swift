@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProgressBarView: UIView, ComponentView {
+class ProgressBarView: BaseComponentView {
     
     let progressBarContainer = UIView()
     
@@ -16,9 +16,8 @@ class ProgressBarView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
-            
             let style = progressBarItem?.style
             progressBar.backgroundColor = style?.color ?? ProgressBarItem.defaultColor
             progressBarContainer.backgroundColor = style?.backgroundColor ?? ProgressBarItem.defaultBackgroundColor
@@ -30,26 +29,15 @@ class ProgressBarView: UIView, ComponentView {
         return component as? ProgressBarItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         progressBarContainer.clipsToBounds = true
         addSubview(progressBarContainer)
         
-        
         progressBarContainer.addSubview(progressBar)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

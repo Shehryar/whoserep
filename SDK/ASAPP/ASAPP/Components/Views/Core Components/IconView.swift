@@ -8,13 +8,13 @@
 
 import UIKit
 
-class IconView: UIView, ComponentView {
+class IconView: BaseComponentView {
 
     let imageView = UIImageView()
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             if let iconItem = iconItem {
                 if let tintColor = iconItem.style.color {
@@ -32,24 +32,14 @@ class IconView: UIView, ComponentView {
         return component as? IconItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         addSubview(imageView)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

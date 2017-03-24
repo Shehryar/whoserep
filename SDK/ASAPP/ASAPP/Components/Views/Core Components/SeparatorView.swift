@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SeparatorView: UIView, ComponentView {
+class SeparatorView: BaseComponentView {
 
     // MARK: Properties
     
@@ -16,7 +16,7 @@ class SeparatorView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             separator.backgroundColor = separatorItem?.style.color ?? SeparatorItem.defaultColor
         }
@@ -26,23 +26,12 @@ class SeparatorView: UIView, ComponentView {
         return component as? SeparatorItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
         separator.backgroundColor = ASAPP.styles.separatorColor1
         addSubview(separator)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

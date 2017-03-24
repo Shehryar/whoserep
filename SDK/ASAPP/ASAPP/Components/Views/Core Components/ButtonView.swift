@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ButtonView: UIView, ComponentView {
+class ButtonView: BaseComponentView {
     
     let defaultContentEdgeInsets = UIEdgeInsets(top: 15, left: 24, bottom: 15, right: 24)
     
@@ -16,7 +16,7 @@ class ButtonView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             if let buttonItem = buttonItem {
                 var textStyle: TextStyle
@@ -97,26 +97,16 @@ class ButtonView: UIView, ComponentView {
         return component as? ButtonItem
     }
     
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         button.clipsToBounds = true
         button.contentEdgeInsets = defaultContentEdgeInsets
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.lineBreakMode = .byWordWrapping
         addSubview(button)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

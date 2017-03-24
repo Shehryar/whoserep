@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableView: UIView, ComponentView {
+class TableView: BaseComponentView {
 
     let tableView = UITableView(frame: .zero, style: .plain)
     
@@ -20,7 +20,7 @@ class TableView: UIView, ComponentView {
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             tableView.reloadData()
         }
@@ -30,7 +30,7 @@ class TableView: UIView, ComponentView {
         return component as? TableViewItem
     }
     
-    weak var interactionHandler: InteractionHandler? {
+    override weak var interactionHandler: InteractionHandler? {
         didSet {
             tableView.reloadData()
         }
@@ -38,25 +38,18 @@ class TableView: UIView, ComponentView {
     
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         sizingCell = TableViewCell(style: .default, reuseIdentifier: cellReuseId)
         
+        tableView.backgroundColor = UIColor.clear
         tableView.separatorStyle = .singleLine
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.register(TableViewCell.self, forCellReuseIdentifier: cellReuseId)
         addSubview(tableView)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     deinit {
@@ -129,6 +122,7 @@ extension TableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as? TableViewCell
         cell?.component = getRow(indexPath)
+        cell?.interactionHandler = interactionHandler
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: "hello")
     }
 }
