@@ -26,7 +26,13 @@
               "type": "button",
               "content": {
                 "title": "VIEW ALL",
-                "style": "text"
+                "style": "text",
+                "action" : {
+                    "type" : "componentView",
+                    "content" : {
+                      "name" : "data_usage_view"
+                    }
+                  }
               },
               "style" : {
                 "align": "right",
