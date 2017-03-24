@@ -16,15 +16,13 @@ class CheckboxView: UIView, ComponentView {
     
     let labelView = LabelView()
     
+    let highlightView = UIView()
+    
     fileprivate var isChecked: Bool = false
     
     fileprivate var isTouching: Bool = false {
         didSet {
-            if isTouching {
-                backgroundColor = UIColor.black.withAlphaComponent(0.03)
-            } else {
-                backgroundColor = UIColor.clear
-            }
+            highlightView.isHidden = !isTouching
         }
     }
     
@@ -35,10 +33,10 @@ class CheckboxView: UIView, ComponentView {
             if let checkboxItem = checkboxItem {
                 labelView.component = checkboxItem.label
                 isChecked = (checkboxItem.value as? Bool) ?? false
-                resetState()
             } else {
                 labelView.component = nil
             }
+            updateDisplay()
         }
     }
     
@@ -64,10 +62,17 @@ class CheckboxView: UIView, ComponentView {
         checkboxSquareView.layer.cornerRadius = 5.0
         addSubview(checkboxSquareView)
         
-        checkImageView.image = Images.asappImage(.iconCircleCheckmark)
+        checkImageView.image = Images.asappImage(.iconCheckmark)?.tinted(UIColor.white)
         checkImageView.contentMode = .scaleAspectFit
-        checkImageView.alpha = 0.0
+        checkImageView.isHidden = true
         addSubview(checkImageView)
+        
+        highlightView.isUserInteractionEnabled = false
+        highlightView.backgroundColor = UIColor.blue.withAlphaComponent(0.05)
+        highlightView.isHidden = true
+        addSubview(highlightView)
+        
+        updateDisplay()
     }
     
     override init(frame: CGRect) {
@@ -136,7 +141,8 @@ class CheckboxView: UIView, ComponentView {
         checkboxSquareView.frame = checkboxFrame
         labelView.frame = labelFrame
         
-        checkImageView.frame = checkboxFrame
+        checkImageView.frame = checkboxFrame.insetBy(dx: 3, dy: 3)
+        highlightView.frame = bounds
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -162,37 +168,21 @@ class CheckboxView: UIView, ComponentView {
 
 extension CheckboxView {
     
-    fileprivate func resetState() {
-        checkboxSquareView.layer.removeAllAnimations()
-        checkboxSquareView.transform = .identity
+    fileprivate func updateDisplay() {
+        if isChecked {
+            checkboxSquareView.backgroundColor = ASAPP.styles.controlTintColor
+            checkboxSquareView.layer.borderColor = ASAPP.styles.controlTintColor.cgColor
+        } else {
+            checkboxSquareView.backgroundColor = UIColor.clear
+            checkboxSquareView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+        }
         
-        checkImageView.layer.removeAllAnimations()
-        checkImageView.transform = .identity
-        
-        checkboxSquareView.alpha = isChecked ? 0 : 1
-        checkImageView.alpha = isChecked ? 1 : 0
+        checkImageView.isHidden = !isChecked
     }
     
-    func toggleChecked(animated: Bool = false) {
-        resetState()
+    func toggleChecked() {
         isChecked = !isChecked
-        
-        guard animated && isChecked else {
-            resetState()
-            return
-        }
-        
-        checkImageView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        
-        UIView.animate(withDuration: 0.1, animations: { [weak self] in
-            self?.checkboxSquareView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-            self?.checkboxSquareView.alpha = 0.0
-        }) { (completed) in
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseOut, animations: { [weak self] in
-                self?.checkImageView.transform = .identity
-                self?.checkImageView.alpha = 1.0
-            }, completion: nil)
-        }
+        updateDisplay()
     }
 }
 
@@ -223,7 +213,7 @@ extension CheckboxView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches, with: event) {
-            toggleChecked(animated: true)
+            toggleChecked()
             checkboxItem?.value = isChecked
         }
         isTouching = false

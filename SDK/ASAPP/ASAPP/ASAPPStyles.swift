@@ -45,6 +45,8 @@ public class ASAPPStyles: NSObject {
     public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
     
+    // MARK:- Buttons
+    
     public var textButtonColor: UIColor = UIColor(red:0.125, green:0.714, blue:0.931, alpha:1)
     
     public var textButtonColorHighlighted: UIColor = UIColor(red:0.125, green:0.714, blue:0.931, alpha:0.5)
@@ -66,6 +68,11 @@ public class ASAPPStyles: NSObject {
     public var secondaryButtonBgColorDisabled: UIColor = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
     
     public var secondaryButtonTextColor: UIColor = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
+    
+    // MARK:- Controls
+    
+    public var controlTintColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
+    
     
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()

@@ -9,7 +9,7 @@
 import UIKit
 
 class Colors: NSObject {
-
+    
     class func steelLightColor() -> UIColor {
         return UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0)
     }
