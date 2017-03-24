@@ -12,7 +12,7 @@ class ChatItemListMessageCell: ChatMessageCell {
 
     override var message: ChatMessage? {
         didSet {
-            itemListView.itemList = message?.attachment as? SRSItemList
+            itemListView.itemList = message?.attachment?.itemList
             setNeedsLayout()
         }
     }

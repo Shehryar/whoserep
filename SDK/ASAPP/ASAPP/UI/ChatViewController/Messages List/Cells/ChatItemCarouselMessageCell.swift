@@ -12,7 +12,7 @@ class ChatItemCarouselMessageCell: ChatMessageCell {
 
     override var message: ChatMessage? {
         didSet {
-            itemCarouselView.itemCarousel = message?.attachment as? SRSItemCarousel
+            itemCarouselView.itemCarousel = message?.attachment?.itemCarousel
             setNeedsLayout()
         }
     }

@@ -217,8 +217,8 @@ extension Event {
         if tempEventType == EventType.srsEcho,
             let tempJSON = JSONUtil.parseString(eventJSONString),
             let echoJSONString = tempJSON["Echo"] as? String {
-            eventJSONString = echoJSONString
-            tempEventType = EventType.srsResponse
+                eventJSONString = echoJSONString
+                tempEventType = EventType.srsResponse
         }
         
         // Demo Content
