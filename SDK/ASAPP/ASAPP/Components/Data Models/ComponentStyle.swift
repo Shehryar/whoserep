@@ -65,8 +65,17 @@ extension ComponentStyle {
         if let backgroundColor = json.hexColor(for: JSONKey.backgroundColor.rawValue) {
             style.backgroundColor = backgroundColor
         }
+        if let borderColor = json.hexColor(for: JSONKey.borderColor.rawValue) {
+            style.borderColor = borderColor
+        }
+        if let borderWidth = json.float(for: JSONKey.borderWidth.rawValue) {
+            style.borderWidth = borderWidth
+        }
         if let color = json.hexColor(for: JSONKey.color.rawValue) {
             style.color = color
+        }
+        if let cornerRadius = json.float(for: JSONKey.cornerRadius.rawValue) {
+            style.cornerRadius = cornerRadius
         }
         if let fontSize = json.float(for: JSONKey.fontSize.rawValue) {
             style.fontSize = fontSize
@@ -130,7 +139,10 @@ extension ComponentStyle {
         // Keep alphabetical
         case align = "align"
         case backgroundColor = "backgroundColor"
+        case borderColor = "borderColor"
+        case borderWidth = "borderWidth"
         case color = "color"
+        case cornerRadius = "cornerRadius"
         case fontSize = "fontSize"
         case fontWeight = "fontWeight"
         case gravity = "gravity"

@@ -48,11 +48,7 @@ class CheckboxView: BaseComponentView {
     
     override func commonInit() {
         super.commonInit()
-        
-        clipsToBounds = true
-        layer.borderWidth = 1
-        layer.borderColor = ASAPP.styles.separatorColor2.cgColor
-        layer.cornerRadius = 5
+    
         backgroundColor = ASAPP.styles.backgroundColor1
         
         addSubview(labelView)
