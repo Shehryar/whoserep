@@ -1,5 +1,4 @@
 {
-  "actions" : {},
   "styles": {
     "row" : {
       "padding" : "8 0"
@@ -59,7 +58,13 @@
                 "type": "button",
                 "content": {
                   "title": "VIEW ALL",
-                  "style": "text"
+                  "style": "text",
+                  "action" : {
+                    "type" : "componentView",
+                    "content" : {
+                      "name" : "transaction_history_view"
+                    }
+                  }
                 },
                 "class" : "columnRight",
                 "style": {

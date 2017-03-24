@@ -8,13 +8,13 @@
 
 import UIKit
 
-class LabelView: UIView, ComponentView {
+class LabelView: BaseComponentView {
     
     let label = UILabel()
     
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             if let labelItem = labelItem {
                 label.text = labelItem.text
@@ -32,24 +32,14 @@ class LabelView: UIView, ComponentView {
         return component as? LabelItem
     }
 
-    weak var interactionHandler: InteractionHandler?
-    
     // MARK: Init
     
-    func commonInit() {
+    override func commonInit() {
+        super.commonInit()
+        
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         addSubview(label)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout

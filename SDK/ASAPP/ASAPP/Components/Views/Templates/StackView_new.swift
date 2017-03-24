@@ -8,11 +8,11 @@
 
 import UIKit
 
-class StackView_new: UIView, ComponentView {
+class StackView_new: BaseComponentView {
 
     // MARK: ComponentView Properties
     
-    var component: Component? {
+    override var component: Component? {
         didSet {
             for subview in subviews {
                 subview.removeFromSuperview()
@@ -34,28 +34,6 @@ class StackView_new: UIView, ComponentView {
     
     var stackViewItem: StackViewItem? {
         return component as? StackViewItem
-    }
-    
-    weak var interactionHandler: InteractionHandler? {
-        didSet {
-            updateSubviewsWithInteractionHandler()
-        }
-    }
-
-    // MARK: Init
-    
-    func commonInit() {
-        
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
     }
     
     // MARK: Layout
@@ -108,14 +86,5 @@ class StackView_new: UIView, ComponentView {
         let (_, contentSize) = getFramesAndContentSize(for: size)
         
         return contentSize
-    }
-    
-    // MARK: Utility
-    
-    func updateSubviewsWithInteractionHandler() {
-        for (idx, _) in subviews.enumerated() {
-            var view = subviews[idx] as? ComponentView
-            view?.interactionHandler = self.interactionHandler
-        }
     }
 }

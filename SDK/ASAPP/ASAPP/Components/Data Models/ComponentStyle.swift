@@ -18,7 +18,13 @@ struct ComponentStyle {
     
     var backgroundColor: UIColor?
     
+    var borderColor: UIColor?
+    
+    var borderWidth: CGFloat = 0
+    
     var color: UIColor?
+    
+    var cornerRadius: CGFloat = 0
     
     var fontSize: CGFloat = 15
     
@@ -40,6 +46,7 @@ struct ComponentStyle {
     
     var width: CGFloat = 0
 }
+
 
 // MARK:- JSON Parsing
 

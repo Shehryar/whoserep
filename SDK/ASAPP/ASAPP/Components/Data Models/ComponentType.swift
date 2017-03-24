@@ -13,6 +13,7 @@ enum ComponentType: String {
     
     // Core Components
     case button = "button"
+    case checkbox = "checkbox"
     case icon = "icon"
     case label = "label"
     case progressBar = "progressBar"
@@ -20,9 +21,9 @@ enum ComponentType: String {
     case textInput = "textInput"
     
     // Templates
-    case checkbox = "checkbox"
     case scrollView = "scrollView"
     case stackView = "stackView"
+    case tableView = "tableView"
     
     // MARK: Utility
     
@@ -40,6 +41,7 @@ enum ComponentType: String {
         case .checkbox:      return CheckboxItem.self
         case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
+        case .tableView:     return TableViewItem.self
         }
     }
 }
