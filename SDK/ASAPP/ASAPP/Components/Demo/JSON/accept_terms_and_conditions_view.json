@@ -79,6 +79,9 @@
           }
         },
         {
+          "type" : "separator"
+        },
+        {
           "type": "stackView",
           "content": {
             "orientation": "horizontal",
