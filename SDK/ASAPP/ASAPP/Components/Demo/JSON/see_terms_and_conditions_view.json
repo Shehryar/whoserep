@@ -47,6 +47,9 @@
           }
         },
         {
+          "type" : "separator"
+        },
+        {
           "type": "button",
           "content": {
             "title": "Done",
