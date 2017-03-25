@@ -37,6 +37,8 @@ enum DemoEventType {
     case chatFlowQueueEntered
     case chatFlowAgentEntered
     
+    case dataUsage
+    
     static let allTypes = [billAutoPay,
                            billCredit,
                            billPaid,
@@ -61,7 +63,8 @@ enum DemoEventType {
                            chatFlowPayBill,
                            chatFlowWaitOrCallback,
                            chatFlowQueueEntered,
-                           chatFlowAgentEntered
+                           chatFlowAgentEntered,
+                           dataUsage
                            ]
 }
 
@@ -154,7 +157,10 @@ extension Event {
         case .chatFlowWaitOrCallback: return "chat-flow-wait-or-callback"
         case .chatFlowQueueEntered: return "chat-flow-queue-entered"
         case .chatFlowAgentEntered: return "chat-flow-agent-entered"
+        
+        
         case .transactionHistory: return "transaction-history"
+        case .dataUsage: return "data_usage_card_near_full"
         }
     }
     
@@ -295,6 +301,12 @@ extension Event {
             return [
                 ["transaction", "history"]
             ]
+            
+        case .dataUsage:
+            return [
+                ["data", "usage"]
+            ]
+            break
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,
              .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd,

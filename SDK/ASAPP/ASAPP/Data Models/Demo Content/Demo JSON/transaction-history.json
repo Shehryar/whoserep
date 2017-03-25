@@ -1,68 +1,230 @@
 {
-  "text" : "Here are your last three transactions. Click 'view all' to see your full transaction history",
-  
-  "attachment" : {
-    "template_type" : "title_button_container",
-    "content" : {
-      "title" : "Transaction History",
-      "button" : {
-        "label": "VIEW ALL",
-        "value": {
-          "content": {
-            "action": "json_view",
-            "context" : {
-              "title" : "Transaction History",
-              "request_path" : "/getTransactionHistory"
-            }
-          },
-          "type": "APP_ACTION"
+  "text": "Here are your last three transactions. Click 'view all' to see your full transaction history",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {
+        "row": {
+          "padding": "8 0"
+        },
+        "columnLeft": {
+          "gravity": "middle",
+          "marginRight": 5,
+          "weight": 1
+        },
+        "columnRight": {
+          "gravity": "middle"
+        },
+        "headerText": {
+          "fontWeight": "black",
+          "fontSize": 16,
+          "color": "#5b657e"
+        },
+        "titleText": {
+          "fontSize": 14,
+          "color": "#646e85"
+        },
+        "detailText": {
+          "fontSize": 12,
+          "color": "#adb2bf"
+        },
+        "valueText": {
+          "gravity": "middle",
+          "align": "right",
+          "weight": 0,
+          "fontSize": 16,
+          "fontWeight": "black",
+          "letterSpacing": 1,
+          "textAlign": "right",
+          "color": "#5b657e"
         }
       },
-      "content" : {
-        "template_type" : "basic_list",
-        "content" : {
-          "header" : {},
-          "sections" : [
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
             {
-              "title" : "",
-              "item_style" : "default",
-              "separator_style" : "single_line",
-              "items" : [
-                {
-                  "title" : "March 2017 Bill Statement",
-                  "detail" : "3/3/2017 - 4:14PM",
-                  "value" : "$110.97",
-                  "icon" : ""
-                },
-                {
-                  "title" : "February 2017 Bill Statement",
-                  "detail" : "2/3/2017 - 10:33AM",
-                  "value" : "$110.97",
-                  "icon" : ""
-                },
-                {
-                  "title" : "Upgraded Services",
-                  "detail" : "1/3/2017 - 8:07PM",
-                  "value" : "34.66",
-                  "icon" : ""
-                },
-              ]
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Transaction History"
+                    },
+                    "class": "headerText columnLeft",
+                    "style": {
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW ALL",
+                      "style": "text",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "transaction_history_view"
+                        }
+                      }
+                    },
+                    "class": "columnRight",
+                    "style": {
+                      "padding": "12 0 12 16"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 4,
+                "paddingBottom": 4
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "March 2017 Statement"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$49.99"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "February 2017 Statement"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$49.99"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Service Upgrade"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/1/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$34.66"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row",
+              "style": {
+                "paddingBottom": 16
+              }
             }
           ]
-        }  
+        },
+        "style": {
+          "paddingLeft": 20,
+          "paddingRight": 20
+        }
       }
-    }, 
-    "buttons" : []
+    }
   },
-  
-  "quick_replies" : [
+  "quick_replies": [
     {
       "type": "button",
       "label": "Alternate Option 1",
       "value": {
         "content": {
           "deepLink": "altOption1",
-          "deepLinkData": { }
+          "deepLinkData": {}
         },
         "type": "LINK"
       }
@@ -73,14 +235,13 @@
       "value": {
         "content": {
           "deepLink": "altOption2",
-          "deepLinkData": { }
+          "deepLinkData": {}
         },
         "type": "LINK"
       }
     }
   ],
-  
-  "metadata" : {
-    "classification" : "TRANSACTION_HISTORY"
+  "metadata": {
+    "classification": "TRANSACTION_HISTORY"
   }
 }

@@ -29,7 +29,7 @@ class ChatMessageAttachment: NSObject {
     let itemList: SRSItemList?
     let itemCarousel: SRSItemCarousel?
 
-    init(content: AnyObject) {
+    init(content: Any) {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil

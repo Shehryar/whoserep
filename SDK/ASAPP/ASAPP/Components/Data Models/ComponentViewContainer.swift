@@ -25,18 +25,15 @@ class ComponentViewContainer: NSObject {
     
     let styles: [String : Any]?
     
-    let actions: [String : ComponentAction]?
     
     // MARK:- Init
     
     init(root: Component,
          title: String?,
-         styles: [String : Any]?,
-         actions: [String : ComponentAction]?) {
+         styles: [String : Any]?) {
         self.root = root
         self.title = title
         self.styles = styles
-        self.actions = actions
         super.init()
     }
     
@@ -56,25 +53,14 @@ extension ComponentViewContainer {
             return nil
         }
         
+        let title = json.string(for: JSONKey.title.rawValue)
         let styles = json[JSONKey.styles.rawValue] as? [String : Any]
         guard let root = ComponentFactory.component(with: json[JSONKey.body.rawValue], styles: styles) else {
             return nil
         }
         
-        let title = json.string(for: JSONKey.title.rawValue)
-        var actions = [String : ComponentAction]()
-        if let actionsJSON = json[JSONKey.actions.rawValue] as? [String : [String :  Any]] {
-            for (key, actionJSON) in actionsJSON.enumerated() {
-                if let actionKey = key as? String,
-                    let action = ComponentAction(json: actionJSON) {
-                    actions[actionKey] = action
-                }
-            }
-        }
-        
         return ComponentViewContainer(root: root,
                                       title: title,
-                                      styles: styles,
-                                      actions: actions)
+                                      styles: styles)
     }
 }

@@ -30,7 +30,7 @@ class ChatMessage: NSObject {
     // MARK: Init
     
     init(text: String?,
-         attachment: AnyObject?,
+         attachment: Any?,
          quickReplies: [SRSButtonItem]?,
          isReply: Bool,
          sendTime: Date,
@@ -95,14 +95,29 @@ class ChatMessage: NSObject {
 extension ChatMessage {
 
     /// Returns text, attachment, quickReplies
-    static func parseContent(from json: [String : AnyObject]?) -> (String?, AnyObject?, [SRSButtonItem]?) {
+    static func parseContent(from json: [String : Any]?) -> (String?, Any?, [SRSButtonItem]?) {
         guard let json = json else {
             return (nil, nil, nil)
         }
         
         let text = json["text"] as? String
-        let attachmentJSON = json["attachment"] as? [String : AnyObject]
-        let attachment = ComponentFactory.component(with: attachmentJSON, styles: nil)
+        
+        var attachment: Any?
+        let attachmentJSON = json["attachment"] as? [String : Any]
+        if let attachmentType = attachmentJSON?.string(for: "type"),
+            let attachmentContent = attachmentJSON?["content"] as? [String : Any] {
+            switch attachmentType {
+            case "componentView":
+                if let viewContainer = ComponentViewContainer.from(attachmentContent) {
+                    attachment = viewContainer.root
+                }
+                break
+                
+            default:
+                break
+            }
+        }
+        
         var quickReplies = [SRSButtonItem]()
         if let quickRepliesJSON = json["quick_replies"] as? [[String : AnyObject]] {
             for quickReplyJSON in quickRepliesJSON {
@@ -121,7 +136,7 @@ extension ChatMessage {
         }
         
         var text: String?
-        var attachment: AnyObject?
+        var attachment: Any?
         var quickReplies: [SRSButtonItem]?
         
         switch event.eventType {
@@ -130,7 +145,7 @@ extension ChatMessage {
             break
             
         case .pictureMessage:
-            attachment = event.pictureMessage as AnyObject
+            attachment = event.pictureMessage
             break
             
         default:
@@ -139,8 +154,6 @@ extension ChatMessage {
             quickReplies = event.srsResponse?.buttonItems
             break
         }
-        
-        
         
         if (text == nil && attachment == nil && quickReplies == nil) {
             (text, attachment, quickReplies) = parseContent(from: event.eventJSON)
