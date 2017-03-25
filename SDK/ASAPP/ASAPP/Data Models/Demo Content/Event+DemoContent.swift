@@ -159,8 +159,8 @@ extension Event {
         case .chatFlowAgentEntered: return "chat-flow-agent-entered"
         
         
-        case .transactionHistory: return "transaction-history"
-        case .dataUsage: return "data_usage_card_near_full"
+        case .transactionHistory: return "transaction-history-message"
+        case .dataUsage: return "data-usage-near-full-message"
         }
     }
     
