@@ -72,6 +72,7 @@
 		285F7B291DACFC33008C2EF6 /* SRSItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B281DACFC33008C2EF6 /* SRSItemListView.swift */; };
 		288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */; };
 		288084FA1E861D3B00240A5D /* data-usage-near-full-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 288084F91E861D3B00240A5D /* data-usage-near-full-message.json */; };
+		288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
 		28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */; };
@@ -414,6 +415,7 @@
 		285F7B281DACFC33008C2EF6 /* SRSItemListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListView.swift; sourceTree = "<group>"; };
 		288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComponentViewMessageCell.swift; sourceTree = "<group>"; };
 		288084F91E861D3B00240A5D /* data-usage-near-full-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "data-usage-near-full-message.json"; sourceTree = "<group>"; };
+		288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNavigationController.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
 		28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment@2x.png"; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 		281C34491E7F092C001A2AA3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */,
 				305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */,
 				281C346C1E7F092C001A2AA3 /* Demo */,
 				281C344D1E7F092C001A2AA3 /* Data Models */,
@@ -1934,6 +1937,7 @@
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
+				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */,
 				2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */,

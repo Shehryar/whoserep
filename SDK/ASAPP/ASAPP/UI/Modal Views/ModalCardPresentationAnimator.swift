@@ -19,6 +19,7 @@ class ModalCardPresentationAnimator: NSObject {
     var viewInsetTop: CGFloat = 28.0
     var viewInsetSides: CGFloat = 20.0
     var viewInsetBottom: CGFloat = 20.0
+    var fixedBottom: Bool = false
     
     // MARK: Properties: Context
     
@@ -30,7 +31,7 @@ class ModalCardPresentationAnimator: NSObject {
     fileprivate weak var presentedView: UIView?
     fileprivate weak var containerView: UIView?
     
-    fileprivate let blurView = UIVisualEffectView(effect: nil)
+    fileprivate let blurView = UIView()
     fileprivate let keyboardObserver = KeyboardObserver()
     fileprivate var keyboardHeight: CGFloat = 0.0
     
@@ -69,7 +70,9 @@ extension ModalCardPresentationAnimator: UIViewControllerAnimatedTransitioning {
             }
             
             
+            blurView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             blurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ModalCardPresentationAnimator.didTapBlurView)))
+            blurView.alpha = 0.0
             containerView.addSubview(blurView)
             
             presentedView.isHidden = true
@@ -144,7 +147,7 @@ extension ModalCardPresentationAnimator {
                        animations:
             {
                 self.updatePresentedViewFrame(whenVisible: true)
-                self.blurView.effect = UIBlurEffect(style: .dark)
+                self.blurView.alpha = 1.0
         }) { (completed) in
             self.completeTransitionAnimation()
         }
@@ -172,7 +175,7 @@ extension ModalCardPresentationAnimator {
                        animations:
             {
                 self.updatePresentedViewFrame(whenVisible: false)
-                self.blurView.effect = nil
+                self.blurView.alpha = 0.0
         }) { (completed) in
             self.completeTransitionAnimation()
         }
@@ -268,9 +271,13 @@ extension ModalCardPresentationAnimator {
         let centerX = containerView.bounds.midX
         var centerY = containerView.bounds.midY + containerView.bounds.height
         if visible {
-            centerY = containerView.bounds.midY
-            if keyboardHeight > 0 {
-                centerY = min(centerY, containerView.bounds.height - keyboardHeight - viewInsetBottom - ceil(presentedView.bounds.height / 2.0))
+            if fixedBottom {
+                centerY = ceil(containerView.bounds.height - keyboardHeight - viewInsetBottom - viewHeight / 2.0)
+            } else {
+                centerY = containerView.bounds.midY
+                if keyboardHeight > 0 {
+                    centerY = min(centerY, containerView.bounds.height - keyboardHeight - viewInsetBottom - ceil(presentedView.bounds.height / 2.0))
+                }
             }
         }
         
