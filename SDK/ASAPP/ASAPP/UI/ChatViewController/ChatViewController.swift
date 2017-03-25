@@ -782,6 +782,74 @@ extension ChatViewController: ChatMessagesViewDelegate {
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {
         view.endEditing(true)
     }
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTap buttonItem: ButtonItem,
+                          from message: ChatMessage) {
+        guard let action = buttonItem.action else {
+            return
+        }
+        
+        switch action.type {
+        case .api:
+            if let rootComponent = message.attachment?.template {
+                handleAPIAction(action, from: buttonItem, rootComponent: rootComponent)
+            }
+            break
+            
+        case .componentView:
+            handleComponentViewAction(action, from: buttonItem)
+            break
+            
+        case .finish:
+            // No-op
+            break
+        }
+    }
+}
+
+// MARK:- Handling Actions
+
+extension ChatViewController {
+    
+    func handleAPIAction(_ action: ComponentAction,
+                         from buttonItem: ButtonItem,
+                         rootComponent: Component) {
+        
+        var inputData = [String : Any]()
+        // TODO: Parse this from the root component
+//        if let inputFields = buttonItem.action?.dataInputFields {
+//            for inputField in inputFields {
+//                if let (name, value) = componentView?.getNameValue(for: inputField) {
+//                    inputData[name] = value
+//                }
+//            }
+//        }
+        
+        var requestData = [String : Any]()
+        requestData.add(buttonItem.action?.data)
+        requestData.add(inputData)
+        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
+                                                   prettyPrinted: true)
+        
+        let title = buttonItem.action?.requestPath ?? buttonItem.action?.type.rawValue ?? "Oops?"
+        
+        let alert = UIAlertController(title: title,
+                                      message: requestDataString,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+        guard let componentName = action.name else {
+            return
+        }
+        
+        let viewController = ComponentViewController(componentName: componentName)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
+    }
 }
 
 // MARK:- PredictiveViewController

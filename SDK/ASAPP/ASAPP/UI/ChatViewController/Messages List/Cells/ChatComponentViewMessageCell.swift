@@ -24,6 +24,7 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override func commonInit() {
         super.commonInit()
         
+        cardView.interactionHandler = self
         attachmentView = cardView
     }
     
@@ -36,5 +37,16 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         cardView.component = nil
+    }
+}
+
+extension ChatComponentViewMessageCell: InteractionHandler {
+    
+    func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
+        guard let message = message else {
+            return
+        }
+        
+        delegate?.chatMessageCell(self, didTap: buttonItem, from: message)
     }
 }

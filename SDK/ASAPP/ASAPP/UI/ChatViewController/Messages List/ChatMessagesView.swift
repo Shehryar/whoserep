@@ -24,6 +24,10 @@ protocol ChatMessagesViewDelegate: class {
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapLastMessage message: ChatMessage)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTap buttonItem: ButtonItem,
+                          from message: ChatMessage)
 }
 
 class ChatMessagesView: UIView {
@@ -374,6 +378,12 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         } else {
             DebugLog.e("Missing event on itemListView")
         }
+    }
+    
+    func chatMessageCell(_ cell: ChatMessageCell,
+                         didTap buttonItem: ButtonItem,
+                         from message: ChatMessage) {
+        delegate?.chatMessagesView(self, didTap: buttonItem, from: message)
     }
 }
 

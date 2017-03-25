@@ -12,6 +12,10 @@ protocol ChatMessageCellDelegate: class {
     func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int)
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem)
+    
+    func chatMessageCell(_ cell: ChatMessageCell,
+                         didTap buttonItem: ButtonItem,
+                         from message: ChatMessage)
 }
 
 class ChatMessageCell: UITableViewCell {
