@@ -1,5 +1,5 @@
 //
-//  SliderItem.swift
+//  RadioButtonItem.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/25/17.
@@ -8,33 +8,27 @@
 
 import UIKit
 
-class SliderItem: Component {
+class RadioButtonItem: Component {
     
     // MARK:- JSON Keys
     
     enum JSONKey: String {
         case label = "label"
-        case maxValue = "maxValue"
-        case minValue = "minValue"
     }
     
     // MARK:- Defaults
     
-    static let defaultMinValue: CGFloat = 0
+    static let defaultWidth: CGFloat = 16
     
-    static let defaultMaxValue: CGFloat = 10
+    static let defaultHeight: CGFloat = 16
     
     // MARK:- Properties
     
     override var viewClass: UIView.Type {
-        return SliderView.self
+        return RadioButtonView.self
     }
     
-    let label: LabelItem?
-    
-    let minValue: CGFloat
-    
-    let maxValue: CGFloat
+    let label: LabelItem
     
     // MARK:- Init
     
@@ -44,13 +38,11 @@ class SliderItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
-        
-        self.label = ComponentFactory.component(with: content?[JSONKey.label.rawValue],
-                                                styles: styles) as? LabelItem
-        self.minValue = content?.float(for: JSONKey.minValue.rawValue)
-            ?? SliderItem.defaultMinValue
-        self.maxValue = content?.float(for: JSONKey.maxValue.rawValue)
-        ?? SliderItem.defaultMaxValue
+        guard let label = ComponentFactory.component(with: content?[JSONKey.label.rawValue], styles: styles) as? LabelItem else {
+            DebugLog.w(caller: RadioButtonItem.self, "Label is required. Returning nil from: \(content)")
+            return nil
+        }
+        self.label = label
         
         super.init(id: id,
                    name: name,

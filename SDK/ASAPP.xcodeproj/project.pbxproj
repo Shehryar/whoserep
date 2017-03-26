@@ -75,6 +75,11 @@
 		288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */; };
 		288084FE1E874B9F00240A5D /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FD1E874B9F00240A5D /* SliderItem.swift */; };
 		288085001E874BF900240A5D /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FF1E874BF900240A5D /* SliderView.swift */; };
+		288085021E875C1100240A5D /* RadioButtonsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085011E875C1100240A5D /* RadioButtonsItem.swift */; };
+		288085041E875CDE00240A5D /* RadioButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085031E875CDE00240A5D /* RadioButtonsView.swift */; };
+		288085061E875DB700240A5D /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085051E875DB700240A5D /* RadioButtonView.swift */; };
+		288085081E87605D00240A5D /* ComponentStyleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085071E87605D00240A5D /* ComponentStyleable.swift */; };
+		2880850A1E87665E00240A5D /* RadioButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085091E87665E00240A5D /* RadioButtonItem.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
 		28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */; };
@@ -420,6 +425,11 @@
 		288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNavigationController.swift; sourceTree = "<group>"; };
 		288084FD1E874B9F00240A5D /* SliderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
 		288084FF1E874BF900240A5D /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
+		288085011E875C1100240A5D /* RadioButtonsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsItem.swift; sourceTree = "<group>"; };
+		288085031E875CDE00240A5D /* RadioButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsView.swift; sourceTree = "<group>"; };
+		288085051E875DB700240A5D /* RadioButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
+		288085071E87605D00240A5D /* ComponentStyleable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentStyleable.swift; sourceTree = "<group>"; };
+		288085091E87665E00240A5D /* RadioButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonItem.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
 		28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment@2x.png"; sourceTree = "<group>"; };
@@ -732,6 +742,7 @@
 				281C34501E7F092C001A2AA3 /* Component.swift */,
 				281C34511E7F092C001A2AA3 /* ComponentFactory.swift */,
 				281C34521E7F092C001A2AA3 /* ComponentStyle.swift */,
+				288085071E87605D00240A5D /* ComponentStyleable.swift */,
 				281C34531E7F092C001A2AA3 /* ComponentType.swift */,
 				280477751E80C96000217135 /* ComponentJSONUtil.swift */,
 				281C344E1E7F092C001A2AA3 /* Actions */,
@@ -759,6 +770,8 @@
 				281C34561E7F092C001A2AA3 /* IconItem.swift */,
 				281C34571E7F092C001A2AA3 /* LabelItem.swift */,
 				302AF3301E8046E80086B939 /* ProgressBarItem.swift */,
+				288085011E875C1100240A5D /* RadioButtonsItem.swift */,
+				288085091E87665E00240A5D /* RadioButtonItem.swift */,
 				281C34581E7F092C001A2AA3 /* SeparatorItem.swift */,
 				288084FD1E874B9F00240A5D /* SliderItem.swift */,
 				30EF00841E82CA4B004B1492 /* TextInputItem.swift */,
@@ -863,6 +876,8 @@
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				302AF3321E8049880086B939 /* ProgressBarView.swift */,
+				288085051E875DB700240A5D /* RadioButtonView.swift */,
+				288085031E875CDE00240A5D /* RadioButtonsView.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
 				288084FF1E874BF900240A5D /* SliderView.swift */,
 				30EF00861E82CB1B004B1492 /* TextInputView.swift */,
@@ -1876,6 +1891,7 @@
 				285F7B271DAC881C008C2EF6 /* SRSItemCarouselView.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
+				288085041E875CDE00240A5D /* RadioButtonsView.swift in Sources */,
 				281C34921E7F092C001A2AA3 /* SRSSeparatorItem.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				281C348A1E7F092C001A2AA3 /* SeparatorItem.swift in Sources */,
@@ -1932,6 +1948,7 @@
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
 				308F29701D4164FE00EC7055 /* Colors.swift in Sources */,
 				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
+				288085081E87605D00240A5D /* ComponentStyleable.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
@@ -1974,6 +1991,7 @@
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				3025DA191E539B9E004149D7 /* SRSIconItemView.swift in Sources */,
 				3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */,
+				2880850A1E87665E00240A5D /* RadioButtonItem.swift in Sources */,
 				3025DA011E539591004149D7 /* SRSInlineButtonsView.swift in Sources */,
 				30EF00871E82CB1B004B1492 /* TextInputView.swift in Sources */,
 				281C348D1E7F092C001A2AA3 /* SRSIconItem.swift in Sources */,
@@ -2012,6 +2030,7 @@
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
 				305FF5E11E857C6B004DD9D5 /* TableView.swift in Sources */,
 				281C34871E7F092C001A2AA3 /* ButtonItem.swift in Sources */,
+				288085021E875C1100240A5D /* RadioButtonsItem.swift in Sources */,
 				302268621D80B89900EC4FB1 /* PredictiveButtonsView.swift in Sources */,
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
@@ -2040,6 +2059,7 @@
 				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
 				281C34891E7F092C001A2AA3 /* LabelItem.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,
+				288085061E875DB700240A5D /* RadioButtonView.swift in Sources */,
 				281C34911E7F092C001A2AA3 /* SRSMapItem.swift in Sources */,
 				281C34851E7F092C001A2AA3 /* ComponentStyle.swift in Sources */,
 				30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */,

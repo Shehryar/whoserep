@@ -7,6 +7,18 @@
       "color": "#5b657e",
       "marginBottom": 36
     },
+    "radioButton" : {
+      "padding" : 20,
+      "borderColor" : "#c9cdd4",
+      "borderWidth" : 1,
+      "cornerRadius" : 8,
+      "marginBottom" : 12
+    },
+    "radioButtonLabel" : {
+       "fontSize": 15,
+      "color": "#5b657e",
+      "marginLeft" : 16
+    },
     "separator": {
       "margin": "32 -24"
     },
@@ -116,6 +128,55 @@
                             "text": "Did this chat increase, decrease, or not change your likelihood to recommend Boost?"
                           },
                           "class": "header"
+                        },
+                        {
+                          "type": "radioButtons",
+                          "content": {
+                            "buttons": [
+                              {
+                                "type": "radioButton",
+                                "content": {
+                                  "label": {
+                                    "type": "label",
+                                    "content": {
+                                      "text": "Increase"
+                                    }, 
+                                    "class" : "radioButtonLabel"
+                                  }
+                                },
+                                "class" : "radioButton"
+                              },
+                              {
+                                "type": "radioButton",
+                                "content": {
+                                  "label": {
+                                    "type": "label",
+                                    "content": {
+                                      "text": "Decrease"
+                                    }, 
+                                    "class" : "radioButtonLabel"
+                                  }
+                                },
+                                "class" : "radioButton"
+                              },
+                              {
+                                "type": "radioButton",
+                                "content": {
+                                  "label": {
+                                    "type": "label",
+                                    "content": {
+                                      "text": "Not Change"
+                                    }, 
+                                    "class" : "radioButtonLabel"
+                                  }
+                                },
+                                "class" : "radioButton",
+                                "style" : {
+                                  "marginBottom" : 0
+                                }
+                              }
+                            ]
+                          }
                         },
                         {
                           "type": "separator",

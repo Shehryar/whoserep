@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseComponentView: UIView, ComponentView {
+class BaseComponentView: UIView, ComponentView, ComponentStyleable {
 
     static let defaultBackgroundColor = UIColor.clear
     
@@ -42,17 +42,6 @@ class BaseComponentView: UIView, ComponentView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    // MARK: Styling
-    
-    func applyStyle(_ style: ComponentStyle) {
-        backgroundColor = style.backgroundColor ?? BaseComponentView.defaultBackgroundColor
-        layer.borderColor = style.borderColor?.cgColor
-        layer.borderWidth = style.borderWidth
-        layer.cornerRadius = style.cornerRadius
-        
-        setNeedsLayout()
     }
     
     // MARK: Interaction Delegate

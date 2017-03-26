@@ -143,8 +143,8 @@ class CheckboxView: BaseComponentView {
         let padding = checkboxItem.style.padding
         
         let labelStyle = checkboxItem.label.style
-        let labelMaxX = labelFrame.maxX + labelStyle.margin.right + labelStyle.padding.right + padding.right
-        let labelMaxY = labelFrame.maxY + labelStyle.margin.bottom + labelStyle.padding.bottom + padding.bottom
+        let labelMaxX = labelFrame.maxX + labelStyle.margin.right + padding.right
+        let labelMaxY = labelFrame.maxY + labelStyle.margin.bottom + padding.bottom
         
         let checkboxMaxY = checkboxFrame.maxY + padding.bottom
         

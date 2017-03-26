@@ -17,6 +17,8 @@ enum ComponentType: String {
     case icon = "icon"
     case label = "label"
     case progressBar = "progressBar"
+    case radioButtons = "radioButtons"
+    case radioButton = "radioButton"
     case separator = "separator"
     case slider = "slider"
     case textInput = "textInput"
@@ -36,6 +38,8 @@ enum ComponentType: String {
         case .icon:          return IconItem.self
         case .label:         return LabelItem.self
         case .progressBar:   return ProgressBarItem.self
+        case .radioButton:   return RadioButtonItem.self
+        case .radioButtons:  return RadioButtonsItem.self
         case .separator:     return SeparatorItem.self
         case .slider:        return SliderItem.self
         case .textInput:     return TextInputItem.self

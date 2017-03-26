@@ -16,66 +16,21 @@ class ComponentLayoutEngine: NSObject {
         let maxY: CGFloat
     }
     
-    // Vertical Layout
-    
-    class func getVerticalFrames(for views: [UIView],
-                                 inside boundingRect: CGRect) -> [CGRect] {
-        var frames = [CGRect]()
-
-        var top: CGFloat = boundingRect.minY
-        for view in views {
-            let style = (view as? ComponentView)?.component?.style
-            let margin = style?.margin ?? UIEdgeInsets.zero
-            
-            let left = boundingRect.minX + margin.left
-            let width = boundingRect.width - margin.left - margin.right
-            var size = view.sizeThatFits(CGSize(width: width, height: 0))
-            size.width = ceil(size.width)
-            size.height = ceil(size.height)
-            
-            if size.height > 0 {
-                top += margin.top
-            }
-            let frame = CGRect(x: left, y: top, width: size.width, height: size.height)
-            if size.height > 0 {
-                top += size.height + margin.bottom
-            }
-            
-            frames.append(frame)
+    class func getMaxContentSizeThatFits(_ size: CGSize, with style: ComponentStyle) -> (CGSize, UIEdgeInsets) {
+        var maxContentSize = size
+        if maxContentSize.width == 0 {
+            maxContentSize.width = CGFloat.greatestFiniteMagnitude
         }
-        
-        // Adjust horizontally, if needed
-        for (idx, view) in views.enumerated() {
-            var frame = frames[idx]
-            let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
-            
-            let maxWidth = boundingRect.width - margin.left - margin.right
-            if frame.width >= maxWidth {
-                continue
-            }
-            
-            let alignment = (view as? ComponentView)?.component?.style.alignment ?? .left
-            switch alignment {
-            case .left:
-                // No-op
-                break
-                
-            case .center:
-                frame.origin.x = frame.minX + floor((maxWidth - frame.width) / 2.0)
-                break
-                
-            case .right:
-                frame.origin.x = frame.minX + maxWidth - frame.width
-                break
-                
-            case .fill:
-                frame.size.width = maxWidth
-                break
-            }
-            frames[idx] = frame
+        if maxContentSize.height == 0 {
+            maxContentSize.height = CGFloat.greatestFiniteMagnitude
         }
+        maxContentSize.width -= style.padding.left + style.padding.right
+        maxContentSize.height -= style.padding.top + style.padding.bottom
         
-        return frames
+        if maxContentSize.width <= 0 || maxContentSize.height <= 0 {
+            return (.zero, style.padding)
+        }
+        return (maxContentSize, style.padding)
     }
 }
 
