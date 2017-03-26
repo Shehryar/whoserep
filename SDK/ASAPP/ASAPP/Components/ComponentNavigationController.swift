@@ -16,6 +16,7 @@ class ComponentNavigationController: UINavigationController {
         didSet {
             if useCustomPresentation {
                 presentationAnimator.fixedBottom = true
+                presentationAnimator.viewInsetTop = 40
                 presentationAnimator.viewInsetSides = 0
                 presentationAnimator.viewInsetBottom = 0
                 modalPresentationStyle = .custom

@@ -73,6 +73,8 @@
 		288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */; };
 		288084FA1E861D3B00240A5D /* data-usage-near-full-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 288084F91E861D3B00240A5D /* data-usage-near-full-message.json */; };
 		288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */; };
+		288084FE1E874B9F00240A5D /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FD1E874B9F00240A5D /* SliderItem.swift */; };
+		288085001E874BF900240A5D /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FF1E874BF900240A5D /* SliderView.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
 		28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */; };
@@ -416,6 +418,8 @@
 		288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComponentViewMessageCell.swift; sourceTree = "<group>"; };
 		288084F91E861D3B00240A5D /* data-usage-near-full-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "data-usage-near-full-message.json"; sourceTree = "<group>"; };
 		288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNavigationController.swift; sourceTree = "<group>"; };
+		288084FD1E874B9F00240A5D /* SliderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
+		288084FF1E874BF900240A5D /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
 		28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment@2x.png"; sourceTree = "<group>"; };
@@ -756,6 +760,7 @@
 				281C34571E7F092C001A2AA3 /* LabelItem.swift */,
 				302AF3301E8046E80086B939 /* ProgressBarItem.swift */,
 				281C34581E7F092C001A2AA3 /* SeparatorItem.swift */,
+				288084FD1E874B9F00240A5D /* SliderItem.swift */,
 				30EF00841E82CA4B004B1492 /* TextInputItem.swift */,
 				305FF5D91E857448004DD9D5 /* TableViewItem.swift */,
 			);
@@ -859,6 +864,7 @@
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				302AF3321E8049880086B939 /* ProgressBarView.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
+				288084FF1E874BF900240A5D /* SliderView.swift */,
 				30EF00861E82CB1B004B1492 /* TextInputView.swift */,
 			);
 			path = "Core Components";
@@ -1862,6 +1868,7 @@
 				281C348B1E7F092C001A2AA3 /* SRSButtonItem.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
+				288085001E874BF900240A5D /* SliderView.swift in Sources */,
 				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
 				30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */,
 				281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */,
@@ -1911,6 +1918,7 @@
 				302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				281C348C1E7F092C001A2AA3 /* SRSFillerItem.swift in Sources */,
+				288084FE1E874B9F00240A5D /* SliderItem.swift in Sources */,
 				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
 				281C34981E7F092C001A2AA3 /* StackViewItem.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,

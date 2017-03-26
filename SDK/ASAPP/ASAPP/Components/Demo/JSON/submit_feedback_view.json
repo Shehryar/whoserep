@@ -1,0 +1,253 @@
+{
+  "title": "Feedback",
+  "styles": {
+    "header": {
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "color": "#5b657e",
+      "marginBottom": 36
+    },
+    "separator" : {
+      "margin" : "32 -24"
+    },
+    "text": {
+      "fontSize": 15,
+      "color": "#5b657e"
+    },
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "content": {
+      "items": [
+        {
+          "type": "scrollView",
+          "content": {
+            "content": {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "How likely are you to recommend Boost to friends or family?"
+                          },
+                          "class": "header"
+                        },
+                        {
+                          "type": "slider",
+                          "content": {
+                            "label": {
+                              "type": "label",
+                              "content": {
+                                "text": ""
+                              },
+                              "style": {
+                                "marginBottom": 10,
+                                "align": "center",
+                                "backgroundColor": "#8b92a3",
+                                "color": "#ffffff",
+                                "fontSize": 25,
+                                "padding": "8 16",
+                                "cornerRadius": 4
+                              }
+                            }
+                          },
+                          "style": {
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "content": {
+                            "orientation": "horizontal",
+                            "items": [
+                              {
+                                "type": "label",
+                                "content": {
+                                  "text": "Not at all likely"
+                                },
+                                "class": "text",
+                                "style": {
+                                  "weight": 1,
+                                  "align": "left"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "content": {
+                                  "text": "Extremely likely"
+                                },
+                                "class": "text",
+                                "style": {
+                                  "weight": 1,
+                                  "align": "right",
+                                  "textAlign": "right"
+                                }
+                              }
+                            ]
+                          },
+                          "style" : {
+                            "marginBottom" : 24
+                          }
+                        },
+                        {
+                          "type" : "textInput",
+                          "content" : {
+                            "placeholder" : "Leave a comment (optional)"
+                          },
+                          "class" : "textInput"
+                        },
+                        {
+                          "type" : "separator",
+                          "class" : "separator"
+                        },
+                        {
+                          "type" : "label",
+                          "content" : {
+                            "text" : "Did this chat increase, decrease, or not change your likelihood to recommend Boost?"
+                          },
+                          "class" : "header"
+                        },
+                        {
+                          "type" : "separator",
+                          "class" : "separator"
+                        },
+                        {
+                          "type" : "label",
+                          "content" : {
+                            "text" : "Based on your answer to the previous question, could you explain why?"
+                          },
+                          "class" : "header"
+                        },
+                        {
+                          "type" : "textInput",
+                          "content" : {
+                            "placeholder" : "Leave a comment"
+                          },
+                          "class" : "textInput"
+                        },
+                        {
+                          "type" : "separator",
+                          "class" : "separator"
+                        },
+                        {
+                          "type" : "label",
+                          "content" : {
+                            "text" : "What could we do to better serve you?"
+                          },
+                          "class" : "header"
+                        },
+                        {
+                          "type" : "textInput",
+                          "content" : {
+                            "placeholder" : "Leave a comment"
+                          },
+                          "class" : "textInput"
+                        },
+                        {
+                          "type" : "separator",
+                          "class" : "separator"
+                        },
+                        {
+                          "type" : "label",
+                          "content" : {
+                            "text" : "Will you be calling customer care to follow up on this particular issue?"
+                          },
+                          "class" : "header"
+                        },
+                        {
+                          "type" : "separator",
+                          "class" : "separator"
+                        },
+                        {
+                          "type" : "label",
+                          "content" : {
+                            "text" : "Thank you very much for your time.\n\nWe know you have several choices for a telecommunications provider and we appreciate your business.\n\nThank you for choosing Boost."
+                          }, 
+                          "class" : "text",
+                          "style" : {
+                            "align" : "center",
+                            "textAlign" : "center"
+                          }
+                        }
+
+                      ]
+                    },
+                    "style": {
+                      "padding": "40 24"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "style": {
+            "weight": 1,
+            "align": "fill",
+            "gravity" : "fill"
+          }
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
+                  "action": {
+                    "type": "finish"
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/submitFeedback",
+                      "inputFields": [
+                        
+                      ],
+                      "requiredInputFields": [
+                       
+                      ],
+                      "data": {
+                        "type": "conversationFeedback",
+                        "userId": "mitcho309"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              }
+            ]
+          },
+          "style": {
+            "align": "fill"
+          }
+        }
+      ]
+    }
+  }
+}

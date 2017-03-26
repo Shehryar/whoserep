@@ -18,6 +18,7 @@ enum ComponentType: String {
     case label = "label"
     case progressBar = "progressBar"
     case separator = "separator"
+    case slider = "slider"
     case textInput = "textInput"
     
     // Templates
@@ -31,14 +32,15 @@ enum ComponentType: String {
         switch self {
         // Core Components
         case .button:        return ButtonItem.self
+        case .checkbox:      return CheckboxItem.self
         case .icon:          return IconItem.self
         case .label:         return LabelItem.self
         case .progressBar:   return ProgressBarItem.self
         case .separator:     return SeparatorItem.self
+        case .slider:        return SliderItem.self
         case .textInput:     return TextInputItem.self
             
         // Templates
-        case .checkbox:      return CheckboxItem.self
         case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
         case .tableView:     return TableViewItem.self
