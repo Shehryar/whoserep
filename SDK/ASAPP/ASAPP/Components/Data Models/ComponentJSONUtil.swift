@@ -12,6 +12,12 @@ import UIKit
 
 extension Dictionary where Key: StringLiteralConvertible, Value: Any {
     
+    // MARK: Boolean
+    
+    func bool(for key: String) -> Bool? {
+        return self[key as! Key] as? Bool
+    }
+    
     // MARK: Strings
     
     func string(for key: String) -> String? {

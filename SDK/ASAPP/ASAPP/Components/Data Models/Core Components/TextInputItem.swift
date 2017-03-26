@@ -75,11 +75,15 @@ class TextInputItem: Component {
     
     // MARK:- Defaults
     
+    static let defaultAutocorrectionEnabled = true
+    
+    static let defaultCapitalizationType = CapitalizationType.none
+    
     static let defaultColor = UIColor(red:0.263, green:0.278, blue:0.310, alpha:1)
     
     static let defaultInputType = InputType.text
     
-    static let defaultCapitalizationType = CapitalizationType.none
+    static let defaultIsSecure = false
     
     // MARK:- Properties
     
@@ -87,6 +91,14 @@ class TextInputItem: Component {
         return TextInputView.self
     }
 
+    let autocapitalizationType: UITextAutocapitalizationType
+    
+    let autocorrectionType: UITextAutocorrectionType
+    
+    let isSecure: Bool
+    
+    let keyboardType: UIKeyboardType
+    
     let placeholder: String?
     
     // MARK:- Init
@@ -97,6 +109,22 @@ class TextInputItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
+        
+        let capitalizationType = CapitalizationType.from(content?.string(for: JSONKey.capitalize.rawValue))
+            ?? TextInputItem.defaultCapitalizationType
+        self.autocapitalizationType = capitalizationType.type()
+        
+        let autocorrectionEnabled = content?.bool(for: JSONKey.autocorrect.rawValue)
+            ?? TextInputItem.defaultAutocorrectionEnabled
+        self.autocorrectionType = autocorrectionEnabled ? .yes : .no
+        
+        self.isSecure = content?.bool(for: JSONKey.password.rawValue)
+            ?? TextInputItem.defaultIsSecure
+        
+        let inputType = InputType.from(content?.string(for: JSONKey.type.rawValue))
+            ?? TextInputItem.defaultInputType
+        self.keyboardType = inputType.keyboardType()
+        
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
         
         super.init(id: id,

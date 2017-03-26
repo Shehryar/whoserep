@@ -51,7 +51,9 @@
                           "name": "cardNumber",
                           "value": "",
                           "content": {
-                            "placeholder": "Card Number"
+                            "placeholder": "Card Number",
+                            "password" : true,
+                            "type" : "number"
                           }
                         },
                         {
@@ -66,7 +68,7 @@
                                 "name": "cardExp",
                                 "value": "",
                                 "content": {
-                                  "placeholder": "Exp Date"
+                                  "placeholder": "Exp Date (MM/YY)"
                                 },
                                 "style": {
                                   "align": "fill",
@@ -80,7 +82,9 @@
                                 "name": "cardCVV",
                                 "value": "",
                                 "content": {
-                                  "placeholder": "CVV"
+                                  "placeholder": "CVV",
+                                  "password" : true,
+                                  "type" : "number"
                                 },
                                 "style": {
                                   "marginLeft": 20,
