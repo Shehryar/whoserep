@@ -150,13 +150,17 @@ class SliderView: BaseComponentView {
     
     // MARK:- Actions
     
+    func getCurrentValue() -> Int {
+        return Int(round(sliderView.value))
+    }
+    
     func updateLabelText() {
-        labelView.label.text = "\(Int(round(sliderView.value)))"
+        labelView.label.text = "\(getCurrentValue())"
         setNeedsLayout()
     }
     
     func onValueChange() {
-        
+        component?.value = getCurrentValue()
         updateLabelText()
     }
 }

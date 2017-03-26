@@ -76,7 +76,7 @@ class IconItem: Component {
     
     static let defaultHeight: CGFloat = 16
     
-    // MARK:- Properties
+    // MARK:- Component Properties
     
     override var viewClass: UIView.Type {
         return IconView.self

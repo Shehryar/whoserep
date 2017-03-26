@@ -175,18 +175,13 @@ extension ComponentViewController: InteractionHandler {
 extension ComponentViewController {
     
     func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        var inputData = [String : Any]()
-        if let inputFields = buttonItem.action?.dataInputFields {
-            for inputField in inputFields {
-                if let (name, value) = rootView?.getNameValue(for: inputField) {
-                    inputData[name] = value
-                }
-            }
+        guard let component = componentViewContainer?.root else {
+            return
         }
         
-        var requestData = [String : Any]()
+        var requestData = component.getData(for: buttonItem.action?.dataInputFields)
         requestData.add(buttonItem.action?.data)
-        requestData.add(inputData)
+        
         let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
                                                    prettyPrinted: true)
         

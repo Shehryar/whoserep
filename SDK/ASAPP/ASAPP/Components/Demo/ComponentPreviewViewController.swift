@@ -16,6 +16,8 @@ public class ComponentPreviewViewController: UIViewController {
             refresh()
         }
     }
+
+    var componentViewContainer: ComponentViewContainer?
     
     var json: [String : Any]?
     
@@ -57,6 +59,7 @@ public class ComponentPreviewViewController: UIViewController {
         
         controlsBar.barStyle = .default
         controlsBar.items = [
+            UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.start)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
         ]
@@ -144,7 +147,9 @@ public class ComponentPreviewViewController: UIViewController {
                 return
             }
             
+            self?.componentViewContainer = component
             self?.json = json
+            
             if let component = component {
                 Dispatcher.performOnMainThread {
                     switch DemoComponentsAPI.getDemoComponentType(from: componentName) {
@@ -164,7 +169,6 @@ public class ComponentPreviewViewController: UIViewController {
                         break
                     }
                     
-                    
                     self?.view.setNeedsLayout()
                 }
             }
@@ -183,6 +187,18 @@ public class ComponentPreviewViewController: UIViewController {
             }))
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func start() {
+        guard let componentViewContainer = componentViewContainer else {
+            return
+        }
+        
+        let viewController = ComponentViewController()
+        viewController.componentViewContainer = componentViewContainer
+        let navController = ComponentNavigationController(rootViewController: viewController)
+        navController.useCustomPresentation = true
+        present(navController, animated: true, completion: nil)
     }
     
     // MARK: Motion
@@ -228,18 +244,13 @@ extension ComponentPreviewViewController: InteractionHandler {
 extension ComponentPreviewViewController {
     
     func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        var inputData = [String : Any]()
-        if let inputFields = buttonItem.action?.dataInputFields {
-            for inputField in inputFields {
-                if let (name, value) = componentView?.getNameValue(for: inputField) {
-                    inputData[name] = value
-                }
-            }
+        guard let component = componentViewContainer?.root else {
+            return
         }
         
-        var requestData = [String : Any]()
+        var requestData = component.getData(for: buttonItem.action?.dataInputFields)
         requestData.add(buttonItem.action?.data)
-        requestData.add(inputData)
+    
         let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
                                                    prettyPrinted: true)
         

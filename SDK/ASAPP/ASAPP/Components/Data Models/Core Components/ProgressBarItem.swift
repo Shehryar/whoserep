@@ -28,11 +28,13 @@ class ProgressBarItem: Component {
     
     // MARK:- Properties
     
+    let fillPercentage: CGFloat /* 0...1 */
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return ProgressBarView.self
     }
-    
-    let fillPercentage: CGFloat /* 0...1 */
     
     // MARK:- Init
     

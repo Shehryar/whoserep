@@ -86,6 +86,9 @@
 		288085241E87FCA800240A5D /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851F1E87FCA800240A5D /* TableView.swift */; };
 		288085251E87FCA800240A5D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085201E87FCA800240A5D /* TableViewCell.swift */; };
 		288085261E87FCA800240A5D /* TableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085211E87FCA800240A5D /* TableViewSectionHeaderView.swift */; };
+		288085281E882F0100240A5D /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085271E882F0100240A5D /* APIAction.swift */; };
+		2880852A1E882F0D00240A5D /* ComponentViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085291E882F0D00240A5D /* ComponentViewAction.swift */; };
+		2880852C1E882F1F00240A5D /* FinishAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880852B1E882F1F00240A5D /* FinishAction.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
 		28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */; };
@@ -436,6 +439,9 @@
 		2880851F1E87FCA800240A5D /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		288085201E87FCA800240A5D /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		288085211E87FCA800240A5D /* TableViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeaderView.swift; sourceTree = "<group>"; };
+		288085271E882F0100240A5D /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
+		288085291E882F0D00240A5D /* ComponentViewAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewAction.swift; sourceTree = "<group>"; };
+		2880852B1E882F1F00240A5D /* FinishAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishAction.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
 		28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment@2x.png"; sourceTree = "<group>"; };
@@ -757,7 +763,10 @@
 			isa = PBXGroup;
 			children = (
 				281C344F1E7F092C001A2AA3 /* Action.swift */,
+				288085271E882F0100240A5D /* APIAction.swift */,
 				28D48CA71E83EE23004A002B /* ComponentAction.swift */,
+				288085291E882F0D00240A5D /* ComponentViewAction.swift */,
+				2880852B1E882F1F00240A5D /* FinishAction.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1922,6 +1931,7 @@
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
 				2880851A1E87FC8A00240A5D /* TableViewItem.swift in Sources */,
 				302A20C91E5F8AEF007C522A /* ChatItemListMessageCell.swift in Sources */,
+				2880852A1E882F0D00240A5D /* ComponentViewAction.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,
@@ -2009,9 +2019,11 @@
 				30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
+				2880852C1E882F1F00240A5D /* FinishAction.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,
 				288085261E87FCA800240A5D /* TableViewSectionHeaderView.swift in Sources */,
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
+				288085281E882F0100240A5D /* APIAction.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				288085251E87FCA800240A5D /* TableViewCell.swift in Sources */,
 				3025DA1E1E539B9E004149D7 /* SRSLabelValueVerticalItemView.swift in Sources */,

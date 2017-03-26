@@ -26,6 +26,14 @@ class TableViewItem: Component {
         return TableView.self
     }
     
+    override var nestedComponents: [Component]? {
+        var nestedComponents = [Component]()
+        for section in sections {
+            nestedComponents.append(contentsOf: section.nestedComponents)
+        }
+        return nestedComponents
+    }
+    
     // MARK:- Init
     
     required init?(id: String?,
@@ -64,6 +72,15 @@ class TableViewSectionItem: NSObject {
     enum JSONKey: String {
         case header = "header"
         case rows = "rows"
+    }
+    
+    var nestedComponents: [Component] {
+        var nestedComponents = [Component]()
+        if let header = header {
+            nestedComponents.append(header)
+        }
+        nestedComponents.append(contentsOf: rows)
+        return nestedComponents
     }
     
     let header: Component?

@@ -18,11 +18,17 @@ class ScrollViewItem: Component {
     
     // MARK:- Properties
     
+    let displayContent: Component
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return ScrollView.self
     }
     
-    let displayContent: Component
+    override var nestedComponents: [Component]? {
+        return [displayContent]
+    }
     
     // MARK:- Init
     

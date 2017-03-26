@@ -26,15 +26,24 @@ class SliderItem: Component {
     
     // MARK:- Properties
     
-    override var viewClass: UIView.Type {
-        return SliderView.self
-    }
-    
     let label: LabelItem?
     
     let minValue: CGFloat
     
     let maxValue: CGFloat
+    
+    // MARK:- Component Properties
+    
+    override var viewClass: UIView.Type {
+        return SliderView.self
+    }
+    
+    override var nestedComponents: [Component]? {
+        if let label = label {
+            return [label]
+        }
+        return nil
+    }
     
     // MARK:- Init
     

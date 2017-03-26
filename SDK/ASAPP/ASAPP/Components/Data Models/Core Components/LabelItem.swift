@@ -20,7 +20,7 @@ class LabelItem: Component {
     
     static let defaultColor = UIColor.darkText
     
-    // MARK: Properties
+    // MARK: Component Properties
     
     override var viewClass: UIView.Type {
         return LabelView.self

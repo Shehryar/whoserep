@@ -18,11 +18,17 @@ class RadioButtonsItem: Component {
     
     // MARK:- Properties
     
+    let buttons: [RadioButtonItem]
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return RadioButtonsView.self
     }
     
-    let buttons: [RadioButtonItem]
+    override var nestedComponents: [Component]? {
+        return buttons
+    }
     
     // MARK:- Init
     

@@ -24,11 +24,17 @@ class RadioButtonItem: Component {
     
     // MARK:- Properties
     
+    let label: LabelItem
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return RadioButtonView.self
     }
     
-    let label: LabelItem
+    override var nestedComponents: [Component]? {
+        return [label]
+    }
     
     // MARK:- Init
     

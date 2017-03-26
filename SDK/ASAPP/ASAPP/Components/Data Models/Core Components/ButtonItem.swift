@@ -39,10 +39,6 @@ class ButtonItem: Component {
     
     // MARK:- Properties
     
-    override var viewClass: UIView.Type {
-        return ButtonView.self
-    }
-    
     let title: String
     
     let buttonStyle: ButtonStyle
@@ -50,6 +46,12 @@ class ButtonItem: Component {
     let icon: IconItem?
     
     let action: ComponentAction?
+    
+    // MARK:- Component Properties
+    
+    override var viewClass: UIView.Type {
+        return ButtonView.self
+    }
     
     // MARK:- Init
     

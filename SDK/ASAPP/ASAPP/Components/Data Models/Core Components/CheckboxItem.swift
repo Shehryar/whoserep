@@ -24,11 +24,17 @@ class CheckboxItem: Component {
     
     // MARK:- Properties
     
+    let label: LabelItem
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return CheckboxView.self
     }
     
-    let label: LabelItem
+    override var nestedComponents: [Component]? {
+        return [label]
+    }
     
     // MARK:- Init
     

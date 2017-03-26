@@ -56,6 +56,8 @@
                         },
                         {
                           "type": "slider",
+                          "id" : "ratingSlider",
+                          "name" : "rating",
                           "content": {
                             "min" : 0,
                             "max" : 10,
@@ -133,10 +135,13 @@
                         },
                         {
                           "type": "radioButtonsContainer",
+                          "id" : "changeRadioButtons",
+                          "name" : "change",
                           "content": {
                             "buttons": [
                               {
                                 "type": "radioButton",
+                                "value" : "increase",
                                 "content": {
                                   "label": {
                                     "type": "label",
@@ -150,6 +155,7 @@
                               },
                               {
                                 "type": "radioButton",
+                                "value" : "decrease",
                                 "content": {
                                   "label": {
                                     "type": "label",
@@ -163,6 +169,7 @@
                               },
                               {
                                 "type": "radioButton",
+                                "value" : "noChange",
                                 "content": {
                                   "label": {
                                     "type": "label",
@@ -321,8 +328,8 @@
                     "type": "api",
                     "content": {
                       "requestPath": "/submitFeedback",
-                      "inputFields": [],
-                      "requiredInputFields": [],
+                      "inputFields": ["ratingSlider", "changeRadioButtons"],
+                      "requiredInputFields": ["ratingSlider"],
                       "data": {
                         "type": "conversationFeedback",
                         "userId": "mitcho309"

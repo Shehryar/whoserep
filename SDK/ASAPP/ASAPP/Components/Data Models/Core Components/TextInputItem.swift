@@ -86,10 +86,6 @@ class TextInputItem: Component {
     static let defaultIsSecure = false
     
     // MARK:- Properties
-    
-    override var viewClass: UIView.Type {
-        return TextInputView.self
-    }
 
     let autocapitalizationType: UITextAutocapitalizationType
     
@@ -100,6 +96,12 @@ class TextInputItem: Component {
     let keyboardType: UIKeyboardType
     
     let placeholder: String?
+    
+    // MARK:- Component Properties
+    
+    override var viewClass: UIView.Type {
+        return TextInputView.self
+    }
     
     // MARK:- Init
     

@@ -33,13 +33,19 @@ class StackViewItem: Component {
     
     // MARK:- Properties
     
+    let items: [Component]
+    
+    let orientation: Orientation
+    
+    // MARK:- Component Properties
+    
     override var viewClass: UIView.Type {
         return StackView_new.self
     }
     
-    let items: [Component]
-    
-    let orientation: Orientation
+    override var nestedComponents: [Component]? {
+        return items
+    }
   
     // MARK:- Init
     

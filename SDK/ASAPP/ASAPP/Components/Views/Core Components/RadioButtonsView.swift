@@ -19,7 +19,7 @@ class RadioButtonsView: BaseComponentView {
             if selectedItem == oldValue {
                 return
             }
-            
+            radioButtonsItem?.value = selectedItem?.value
             for buttonView in buttonViews {
                 buttonView.isSelected = buttonView.component == selectedItem
             }
