@@ -7,8 +7,8 @@
       "color": "#5b657e",
       "marginBottom": 36
     },
-    "separator" : {
-      "margin" : "32 -24"
+    "separator": {
+      "margin": "32 -24"
     },
     "text": {
       "fontSize": 15,
@@ -95,91 +95,90 @@
                               }
                             ]
                           },
-                          "style" : {
-                            "marginBottom" : 24
+                          "style": {
+                            "marginBottom": 24
                           }
                         },
                         {
-                          "type" : "textInput",
-                          "content" : {
-                            "placeholder" : "Leave a comment (optional)"
+                          "type": "textInput",
+                          "content": {
+                            "placeholder": "Leave a comment (optional)"
                           },
-                          "class" : "textInput"
+                          "class": "textInput"
                         },
                         {
-                          "type" : "separator",
-                          "class" : "separator"
+                          "type": "separator",
+                          "class": "separator"
                         },
                         {
-                          "type" : "label",
-                          "content" : {
-                            "text" : "Did this chat increase, decrease, or not change your likelihood to recommend Boost?"
+                          "type": "label",
+                          "content": {
+                            "text": "Did this chat increase, decrease, or not change your likelihood to recommend Boost?"
                           },
-                          "class" : "header"
+                          "class": "header"
                         },
                         {
-                          "type" : "separator",
-                          "class" : "separator"
+                          "type": "separator",
+                          "class": "separator"
                         },
                         {
-                          "type" : "label",
-                          "content" : {
-                            "text" : "Based on your answer to the previous question, could you explain why?"
+                          "type": "label",
+                          "content": {
+                            "text": "Based on your answer to the previous question, could you explain why?"
                           },
-                          "class" : "header"
+                          "class": "header"
                         },
                         {
-                          "type" : "textInput",
-                          "content" : {
-                            "placeholder" : "Leave a comment"
+                          "type": "textInput",
+                          "content": {
+                            "placeholder": "Leave a comment"
                           },
-                          "class" : "textInput"
+                          "class": "textInput"
                         },
                         {
-                          "type" : "separator",
-                          "class" : "separator"
+                          "type": "separator",
+                          "class": "separator"
                         },
                         {
-                          "type" : "label",
-                          "content" : {
-                            "text" : "What could we do to better serve you?"
+                          "type": "label",
+                          "content": {
+                            "text": "What could we do to better serve you?"
                           },
-                          "class" : "header"
+                          "class": "header"
                         },
                         {
-                          "type" : "textInput",
-                          "content" : {
-                            "placeholder" : "Leave a comment"
+                          "type": "textInput",
+                          "content": {
+                            "placeholder": "Leave a comment"
                           },
-                          "class" : "textInput"
+                          "class": "textInput"
                         },
                         {
-                          "type" : "separator",
-                          "class" : "separator"
+                          "type": "separator",
+                          "class": "separator"
                         },
                         {
-                          "type" : "label",
-                          "content" : {
-                            "text" : "Will you be calling customer care to follow up on this particular issue?"
+                          "type": "label",
+                          "content": {
+                            "text": "Will you be calling customer care to follow up on this particular issue?"
                           },
-                          "class" : "header"
+                          "class": "header"
                         },
                         {
-                          "type" : "separator",
-                          "class" : "separator"
+                          "type": "separator",
+                          "class": "separator"
                         },
                         {
-                          "type" : "label",
-                          "content" : {
-                            "text" : "Thank you very much for your time.\n\nWe know you have several choices for a telecommunications provider and we appreciate your business.\n\nThank you for choosing Boost."
-                          }, 
-                          "class" : "text",
-                          "style" : {
-                            "align" : "center",
-                            "textAlign" : "center"
+                          "type": "label",
+                          "content": {
+                            "text": "Thank you very much for your time.\n\nWe know you have several choices for a telecommunications provider and we appreciate your business.\n\nThank you for choosing Boost."
+                          },
+                          "class": "text",
+                          "style": {
+                            "align": "center",
+                            "textAlign": "center"
                           }
                         }
-
                       ]
                     },
                     "style": {
@@ -193,7 +192,7 @@
           "style": {
             "weight": 1,
             "align": "fill",
-            "gravity" : "fill"
+            "gravity": "fill"
           }
         },
         {
@@ -223,12 +222,8 @@
                     "type": "api",
                     "content": {
                       "requestPath": "/submitFeedback",
-                      "inputFields": [
-                        
-                      ],
-                      "requiredInputFields": [
-                       
-                      ],
+                      "inputFields": [],
+                      "requiredInputFields": [],
                       "data": {
                         "type": "conversationFeedback",
                         "userId": "mitcho309"
