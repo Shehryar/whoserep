@@ -17,13 +17,13 @@ enum ComponentType: String {
     case icon = "icon"
     case label = "label"
     case progressBar = "progressBar"
-    case radioButtons = "radioButtons"
+    case radioButtons = "radioButtonsContainer"
     case radioButton = "radioButton"
     case separator = "separator"
     case slider = "slider"
     case textInput = "textInput"
     
-    // Templates
+    // Collections
     case scrollView = "scrollView"
     case stackView = "stackView"
     case tableView = "tableView"
@@ -44,7 +44,7 @@ enum ComponentType: String {
         case .slider:        return SliderItem.self
         case .textInput:     return TextInputItem.self
             
-        // Templates
+        // Collections
         case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
         case .tableView:     return TableViewItem.self

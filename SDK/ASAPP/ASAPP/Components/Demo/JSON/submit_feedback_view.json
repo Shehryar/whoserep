@@ -57,6 +57,8 @@
                         {
                           "type": "slider",
                           "content": {
+                            "min" : 0,
+                            "max" : 10,
                             "label": {
                               "type": "label",
                               "content": {
@@ -130,7 +132,7 @@
                           "class": "header"
                         },
                         {
-                          "type": "radioButtons",
+                          "type": "radioButtonsContainer",
                           "content": {
                             "buttons": [
                               {
@@ -288,6 +290,9 @@
             "align": "fill",
             "gravity": "fill"
           }
+        },
+        {
+          "type" : "separator"
         },
         {
           "type": "stackView",

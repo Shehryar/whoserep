@@ -13,12 +13,73 @@ class TextInputItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
+        case autocorrect = "autocorrect"
+        case capitalize = "capitalize"
+        case password = "password"
         case placeholder = "placeholder"
+        case type = "type"
     }
+    
+    enum InputType: String {
+        case email = "email"
+        case decimal = "decimal"
+        case text = "text" // Default
+        case number = "number"
+        case phone = "phone"
+        case url = "url"
+        
+        func keyboardType() -> UIKeyboardType {
+            switch self {
+            case .email: return .emailAddress
+            case .decimal: return .decimalPad
+            case .text: return .default
+            case .number: return .numberPad
+            case .phone: return .phonePad
+            case .url: return .URL
+            }
+        }
+        
+        static func from(_ string: Any?) -> InputType? {
+            guard let string = string as? String,
+                let type = InputType(rawValue: string) else {
+                    return nil
+            }
+            return type
+        }
+    }
+    
+    enum CapitalizationType: String {
+        case characters = "characters"
+        case none = "none" // Default
+        case sentences = "sentences"
+        case words = "words"
+        
+        func type() -> UITextAutocapitalizationType {
+            switch self {
+            case .characters: return .allCharacters
+            case .none: return .none
+            case .sentences: return .sentences
+            case .words: return .words
+            }
+        }
+        
+        static func from(_ string: Any?) -> CapitalizationType? {
+            guard let string = string as? String,
+                let type = CapitalizationType(rawValue: string) else {
+                    return nil
+            }
+            return type
+        }
+    }
+    
     
     // MARK:- Defaults
     
     static let defaultColor = UIColor(red:0.263, green:0.278, blue:0.310, alpha:1)
+    
+    static let defaultInputType = InputType.text
+    
+    static let defaultCapitalizationType = CapitalizationType.none
     
     // MARK:- Properties
     

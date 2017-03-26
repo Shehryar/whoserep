@@ -14,15 +14,15 @@ class SliderItem: Component {
     
     enum JSONKey: String {
         case label = "label"
-        case maxValue = "maxValue"
-        case minValue = "minValue"
+        case max = "max"
+        case min = "min"
     }
     
     // MARK:- Defaults
     
     static let defaultMinValue: CGFloat = 0
     
-    static let defaultMaxValue: CGFloat = 10
+    static let defaultMaxValue: CGFloat = 100
     
     // MARK:- Properties
     
@@ -47,9 +47,9 @@ class SliderItem: Component {
         
         self.label = ComponentFactory.component(with: content?[JSONKey.label.rawValue],
                                                 styles: styles) as? LabelItem
-        self.minValue = content?.float(for: JSONKey.minValue.rawValue)
+        self.minValue = content?.float(for: JSONKey.min.rawValue)
             ?? SliderItem.defaultMinValue
-        self.maxValue = content?.float(for: JSONKey.maxValue.rawValue)
+        self.maxValue = content?.float(for: JSONKey.max.rawValue)
         ?? SliderItem.defaultMaxValue
         
         super.init(id: id,

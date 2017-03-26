@@ -13,16 +13,10 @@ class TableViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case header = "header"
         case sections = "sections"
-        case separatorStyle = "separatorStyle"
     }
     
-    // MARK:- Defaults
-    
     // MARK:- Properties
-    
-    let header: Component?
     
     let sections: [TableViewSectionItem]
     
@@ -40,10 +34,6 @@ class TableViewItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
-
-        self.header = ComponentFactory.component(with: content?[JSONKey.header.rawValue],
-                                                 styles: styles)
-        
         var sections = [TableViewSectionItem]()
         if let sectionsJSON = content?[JSONKey.sections.rawValue] as? [[String : Any]] {
             for sectionJSON in sectionsJSON {
