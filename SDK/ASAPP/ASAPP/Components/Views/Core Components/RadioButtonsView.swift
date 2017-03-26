@@ -10,9 +10,21 @@ import UIKit
 
 class RadioButtonsView: BaseComponentView {
     
-    // MARK: UI Properties
+    // MARK: Properties
     
     var buttonViews = [RadioButtonView]()
+    
+    fileprivate(set) var selectedItem: RadioButtonItem? {
+        didSet {
+            if selectedItem == oldValue {
+                return
+            }
+            
+            for buttonView in buttonViews {
+                buttonView.isSelected = buttonView.component == selectedItem
+            }
+        }
+    }
     
     // MARK: ComponentView Properties
     
@@ -53,7 +65,11 @@ class RadioButtonsView: BaseComponentView {
             buttonViews.removeLast(countDifference)
         } else {
             while buttonViews.count < count {
-                buttonViews.append(RadioButtonView())
+                var buttonView = RadioButtonView()
+                buttonView.onTap = { [weak self] (currentItem) in
+                    self?.selectedItem = currentItem
+                }
+                buttonViews.append(buttonView)
             }
         }
         

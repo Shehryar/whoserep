@@ -225,6 +225,39 @@
                           },
                           "class": "header"
                         },
+                         {
+                          "type": "radioButtons",
+                          "content": {
+                            "buttons": [
+                              {
+                                "type": "radioButton",
+                                "content": {
+                                  "label": {
+                                    "type": "label",
+                                    "content": {
+                                      "text": "I will be calling customer care"
+                                    }, 
+                                    "class" : "radioButtonLabel"
+                                  }
+                                },
+                                "class" : "radioButton"
+                              },
+                              {
+                                "type": "radioButton",
+                                "content": {
+                                  "label": {
+                                    "type": "label",
+                                    "content": {
+                                      "text": "I will not be calling customer care"
+                                    }, 
+                                    "class" : "radioButtonLabel"
+                                  }
+                                },
+                                "class" : "radioButton"
+                              }
+                            ]
+                          }
+                        },
                         {
                           "type": "separator",
                           "class": "separator"

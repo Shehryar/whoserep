@@ -12,13 +12,23 @@ class RadioButtonView: BaseComponentView {
 
     var isSelected: Bool = false {
         didSet {
-            
+            updateDisplay()
         }
     }
     
-    let radioButtonView = UIView()
+    var onTap: ((_ currentItem: RadioButtonItem?) -> Void)?
+    
+    let checkboxView = UIView()
+    
+    let checkboxInnerView = UIView()
     
     let labelView = LabelView()
+    
+    fileprivate var isTouching: Bool = false {
+        didSet {
+            updateDisplay()
+        }
+    }
     
     // MARK: ComponentView Properties
     
@@ -46,10 +56,14 @@ class RadioButtonView: BaseComponentView {
         
         addSubview(labelView)
         
-        radioButtonView.layer.borderWidth = 1
-        radioButtonView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
-        radioButtonView.layer.cornerRadius = 5.0
-        addSubview(radioButtonView)
+        checkboxView.layer.borderWidth = 1
+        checkboxView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+        checkboxView.layer.cornerRadius = 5.0
+        addSubview(checkboxView)
+        
+        checkboxInnerView.backgroundColor = UIColor.white
+        checkboxInnerView.isHidden = true
+        checkboxView.addSubview(checkboxInnerView)
     }
     
     // MARK: Layout
@@ -71,13 +85,13 @@ class RadioButtonView: BaseComponentView {
         maxContentSize.width -= padding.left + padding.right
         maxContentSize.height -= padding.top + padding.bottom
         
-        // radioButton Size
-        let radioButtonWidth = radioButtonItem.style.width > 0 ? radioButtonItem.style.width : RadioButtonItem.defaultWidth
-        let radioButtonHeight = radioButtonItem.style.height > 0 ? radioButtonItem.style.height : RadioButtonItem.defaultHeight
+        // Checkbox Size
+        let checkboxWidth = radioButtonItem.style.width > 0 ? radioButtonItem.style.width : RadioButtonItem.defaultWidth
+        let checkboxHeight = radioButtonItem.style.height > 0 ? radioButtonItem.style.height : RadioButtonItem.defaultHeight
         
         // Label Size
         let labelMargin = radioButtonItem.label.style.margin
-        let maxLabelWidth = maxContentSize.width - radioButtonWidth - labelMargin.left - labelMargin.right
+        let maxLabelWidth = maxContentSize.width - checkboxWidth - labelMargin.left - labelMargin.right
         let maxLabelHeight = maxContentSize.height - labelMargin.top - labelMargin.bottom
         if maxLabelWidth <= 0 || maxLabelHeight <= 0 {
             DebugLog.w(caller: self, "Unable to render radioButtonView because not enough space for label.")
@@ -88,24 +102,29 @@ class RadioButtonView: BaseComponentView {
         labelSize.width = ceil(labelSize.width)
         labelSize.height = ceil(labelSize.height)
         
-        let contentHeight = max(radioButtonHeight, labelSize.height)
+        let contentHeight = max(checkboxHeight, labelSize.height)
         
-        let radioButtonTop: CGFloat = padding.top + floor((contentHeight - radioButtonHeight) / 2.0)
-        let radioButtonLeft = padding.left
-        let radioButtonFrame = CGRect(x: radioButtonLeft, y: radioButtonTop, width: radioButtonWidth, height: radioButtonHeight)
+        let checkboxTop: CGFloat = padding.top + floor((contentHeight - checkboxHeight) / 2.0)
+        let checkboxLeft = padding.left
+        let checkboxFrame = CGRect(x: checkboxLeft, y: checkboxTop, width: checkboxWidth, height: checkboxHeight)
         
-        let labelLeft = radioButtonFrame.maxX + labelMargin.left
+        let labelLeft = checkboxFrame.maxX + labelMargin.left
         let labelTop = padding.top + floor((contentHeight - labelSize.height) / 2.0)
         let labelFrame = CGRect(x: labelLeft, y: labelTop, width: labelSize.width, height: labelSize.height)
         
-        return (radioButtonFrame, labelFrame)
+        return (checkboxFrame, labelFrame)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let (radioButtonFrame, labelFrame) = getFramesThatFit(bounds.size)
-        radioButtonView.frame = radioButtonFrame
+        let (checkboxFrame, labelFrame) = getFramesThatFit(bounds.size)
+        checkboxView.frame = checkboxFrame
+        checkboxView.layer.cornerRadius = checkboxView.bounds.height / 2.0
+        
+        checkboxInnerView.frame = checkboxView.bounds.insetBy(dx: 5, dy: 5)
+        checkboxInnerView.layer.cornerRadius = checkboxInnerView.bounds.height / 2.0
+        
         labelView.frame = labelFrame
     }
     
@@ -114,8 +133,8 @@ class RadioButtonView: BaseComponentView {
             return .zero
         }
         
-        let (radioButtonFrame, labelFrame) = getFramesThatFit(size)
-        if radioButtonFrame.isEmpty && labelFrame.isEmpty {
+        let (checkboxFrame, labelFrame) = getFramesThatFit(size)
+        if checkboxFrame.isEmpty && labelFrame.isEmpty {
             return .zero
         }
         let padding = radioButtonItem.style.padding
@@ -124,8 +143,60 @@ class RadioButtonView: BaseComponentView {
         let labelMaxX = labelFrame.maxX + labelStyle.margin.right + padding.right
         let labelMaxY = labelFrame.maxY + labelStyle.margin.bottom + padding.bottom
         
-        let radioButtonMaxY = radioButtonFrame.maxY + padding.bottom
+        let checkboxMaxY = checkboxFrame.maxY + padding.bottom
         
-        return CGSize(width: labelMaxX, height: max(radioButtonMaxY, labelMaxY))
+        return CGSize(width: labelMaxX, height: max(checkboxMaxY, labelMaxY))
+    }
+}
+
+extension RadioButtonView {
+    
+    fileprivate func updateDisplay() {
+        if isSelected {
+            checkboxView.layer.borderColor = ASAPP.styles.controlTintColor.cgColor
+            checkboxView.backgroundColor = ASAPP.styles.controlTintColor
+            checkboxInnerView.isHidden = false
+        } else if isTouching {
+            checkboxView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+            checkboxView.backgroundColor = ASAPP.styles.separatorColor2
+            checkboxInnerView.isHidden = true
+        } else {
+            checkboxView.layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+            checkboxView.backgroundColor = UIColor.clear
+            checkboxInnerView.isHidden = true
+        }
+    }
+}
+
+extension RadioButtonView {
+    
+    func touchesInBounds(_ touches: Set<UITouch>, with event: UIEvent?) -> Bool {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            return bounds.contains(location)
+        }
+        
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isTouching = true
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !touchesInBounds(touches, with: event) {
+            isTouching = false
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isTouching = false
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isTouching && touchesInBounds(touches, with: event) {
+            onTap?(radioButtonItem)
+        }
+        isTouching = false
     }
 }
