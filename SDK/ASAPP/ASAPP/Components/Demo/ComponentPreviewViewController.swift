@@ -258,7 +258,8 @@ extension ComponentPreviewViewController {
         }
         
         let viewController = ComponentViewController(componentName: componentName)
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = ComponentNavigationController(rootViewController: viewController)
+        navigationController.useCustomPresentation = true
         present(navigationController, animated: true, completion: nil)
     }
     
