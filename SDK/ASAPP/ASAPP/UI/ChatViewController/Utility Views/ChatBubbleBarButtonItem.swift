@@ -162,7 +162,7 @@ extension UIBarButtonItem {
         case .text:
             foregroundColor = ASAPP.styles.navBarButtonColor
             backgroundColor = nil
-            imageSize = 34
+            imageSize = 13
             switch side {
             case .left:
                 imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
@@ -177,12 +177,13 @@ extension UIBarButtonItem {
         
         
         
-        let button = UIButton()
+        let button = SizedImageOnlyButton()
         
         // X-Image
         button.imageView?.contentMode = .scaleAspectFit
         button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 1), for: .normal)
         button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
+        button.imageSize = CGSize(width: imageSize, height: imageSize)
         
         // Bubble
         if let backgroundColor = backgroundColor {
@@ -191,6 +192,7 @@ extension UIBarButtonItem {
         }
         
         // Sizing
+        button.contentEdgeInsets = .zero
         button.imageEdgeInsets = imageInsets
         let buttonSize = CGSize(width: imageSize + imageInsets.left + imageInsets.right,
                                 height: imageSize + imageInsets.top + imageInsets.bottom)
@@ -221,4 +223,30 @@ extension UIBarButtonItem {
         return image?.resizableImage(withCapInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5),
                                      resizingMode: .stretch)
     }
+}
+
+class SizedImageOnlyButton: UIButton {
+
+    var imageSize: CGSize?
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let imageSize = imageSize {
+            let top = contentEdgeInsets.top + imageEdgeInsets.top
+            let left = contentEdgeInsets.left + imageEdgeInsets.left
+            imageView?.frame = CGRect(x: left, y: top, width: imageSize.width, height: imageSize.height)
+        }
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        guard let imageSize = imageSize else {
+            return super.sizeThatFits(size)
+        }
+        
+        let width = imageSize.width + imageEdgeInsets.left + imageEdgeInsets.right + contentEdgeInsets.left + contentEdgeInsets.right
+        let height = imageSize.height + imageEdgeInsets.top + imageEdgeInsets.bottom + contentEdgeInsets.top + contentEdgeInsets.bottom
+        return CGSize(width: width, height: height)
+    }
+    
 }
