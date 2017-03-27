@@ -78,7 +78,7 @@ class QuickRepliesActionSheet: UIView {
         patternView.backgroundColor = Colors.patternBackgroundColor()
         patternBackgroundView.addSubview(patternView)
         
-        patternBackgroundView.backgroundColor = ASAPP.styles.backgroundColor2
+        patternBackgroundView.backgroundColor = ASAPP.styles.quickReplyButtonBackroundColor
         addSubview(patternBackgroundView)
         
         addSubview(containerView)
