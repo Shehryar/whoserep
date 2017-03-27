@@ -44,12 +44,15 @@ public extension ASAPPStyles {
         styles.fontNameBold = "BoostNeo-Bold"
        // styles.fontNameBlack = "BoostNeo-Black"
         
-        // Colors
+        // General
+        styles.textButtonColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
         
+        // Help Button
         styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
         styles.helpButtonForegroundColor = UIColor.white// UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
         
         
+        // Nav Bar
         styles.navBarBackgroundColor = UIColor(red: (235 / 255.0),
                                                green: (130.0 / 255.0),
                                                blue: (0.0 / 255.0),
@@ -57,18 +60,19 @@ public extension ASAPPStyles {
         styles.navBarButtonColor = UIColor.white
         styles.navBarButtonStyle = .text
         
+        // Messages
         styles.replyMessageFillColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         styles.replyMessageStrokeColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         styles.replyMessageTextColor = UIColor(red:0.263, green:0.278, blue:0.318, alpha:1.000)
-        
         styles.messageFillColor = UIColor(red:1.000, green:1.000, blue:1.000, alpha:1.000)
         styles.messageStrokeColor = UIColor(red:0.773, green:0.788, blue:0.820, alpha:1.000)
         styles.messageTextColor = UIColor(red:0.353, green:0.392, blue:0.490, alpha:1.000)
         
-        
+        // Quick Replies
         styles.quickReplyButtonBackroundColor = UIColor.white
         styles.quickRepliesButtonTextColor = UIColor(red:0.337, green:0.376, blue:0.478, alpha:1.000)
         
+        // Predictive
         styles.predictiveViewGradientTopColor = UIColor(red:0.969, green:0.580, blue:0.184, alpha:1.000)
         styles.predictiveViewGradientMiddleColor = UIColor(red:0.937, green:0.510, blue:0.149, alpha:1.000)
         styles.predictiveViewGradientBottomColor = UIColor(red:0.922, green:0.443, blue:0.122, alpha:1.000)
