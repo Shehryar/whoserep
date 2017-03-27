@@ -201,7 +201,7 @@
                         {
                           "type": "textInput",
                           "content": {
-                            "placeholder": "Leave a comment"
+                            "placeholder": "Leave a comment (optional)"
                           },
                           "class": "textInput"
                         },
@@ -219,7 +219,7 @@
                         {
                           "type": "textInput",
                           "content": {
-                            "placeholder": "Leave a comment"
+                            "placeholder": "Leave a comment (optional)"
                           },
                           "class": "textInput"
                         },
