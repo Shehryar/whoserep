@@ -57,6 +57,17 @@ public extension ASAPPStyles {
         styles.navBarButtonColor = UIColor.white
         styles.navBarButtonStyle = .text
         
+        styles.replyMessageFillColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        styles.replyMessageStrokeColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        styles.replyMessageTextColor = UIColor(red:0.263, green:0.278, blue:0.318, alpha:1.000)
+        
+        styles.messageFillColor = UIColor(red:1.000, green:1.000, blue:1.000, alpha:1.000)
+        styles.messageStrokeColor = UIColor(red:0.773, green:0.788, blue:0.820, alpha:1.000)
+        styles.messageTextColor = UIColor(red:0.353, green:0.392, blue:0.490, alpha:1.000)
+        
+        
+        styles.quickReplyButtonBackroundColor = UIColor.white
+        styles.quickRepliesButtonTextColor = UIColor(red:0.337, green:0.376, blue:0.478, alpha:1.000)
         
         styles.predictiveViewGradientTopColor = UIColor(red:0.969, green:0.580, blue:0.184, alpha:1.000)
         styles.predictiveViewGradientMiddleColor = UIColor(red:0.937, green:0.510, blue:0.149, alpha:1.000)
@@ -86,7 +97,7 @@ public extension ASAPPStyles {
         styles.navBarButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
         styles.navBarButtonForegroundColor = UIColor(red:0.330, green:0.268, blue:0, alpha:1)
         
-        styles.quickRepliesButtonColor = UIColor.black
+        styles.quickRepliesButtonTextColor = UIColor.black
         styles.foregroundColor1 = UIColor.black
         
         styles.predictiveViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
@@ -106,7 +117,7 @@ public extension ASAPPStyles {
         styles.navBarButtonColor = UIColor.white
         styles.navBarButtonBackgroundColor = UIColor(red:0.241, green:0.255, blue:0.289, alpha:1)
         styles.navBarButtonForegroundColor = UIColor.white
-        styles.quickRepliesButtonColor = UIColor.white
+        styles.quickRepliesButtonTextColor = UIColor.white
         
         styles.backgroundColor1 = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
         styles.backgroundColor2 = UIColor(red: 0.10, green: 0.11, blue: 0.12, alpha: 1)

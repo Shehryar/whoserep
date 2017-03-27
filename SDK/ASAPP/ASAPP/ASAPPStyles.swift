@@ -131,7 +131,10 @@ public class ASAPPStyles: NSObject {
     
     internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
     
-    internal var quickRepliesButtonColor: UIColor = Colors.steelMedColor()
+    
+    internal var quickReplyButtonBackroundColor: UIColor = Colors.offWhiteColor()
+    
+    internal var quickRepliesButtonTextColor: UIColor = Colors.steelMedColor()
     
     
     
