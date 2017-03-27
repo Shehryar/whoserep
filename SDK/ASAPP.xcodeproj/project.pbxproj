@@ -250,6 +250,10 @@
 		302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1E1E7B21FB0035B584 /* TooltipContainerView.swift */; };
 		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
+		3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF11E8990840022AEE5 /* BoostNeo-Black.ttf */; };
+		3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */; };
+		3046CDF71E8990840022AEE5 /* BoostNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF31E8990840022AEE5 /* BoostNeo-Light.ttf */; };
+		3046CDF81E8990840022AEE5 /* BoostNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF41E8990840022AEE5 /* BoostNeo-Regular.ttf */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLog.swift */; };
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
 		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
@@ -605,6 +609,10 @@
 		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
+		3046CDF11E8990840022AEE5 /* BoostNeo-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Black.ttf"; sourceTree = "<group>"; };
+		3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Bold.ttf"; sourceTree = "<group>"; };
+		3046CDF31E8990840022AEE5 /* BoostNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Light.ttf"; sourceTree = "<group>"; };
+		3046CDF41E8990840022AEE5 /* BoostNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Regular.ttf"; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
@@ -1064,9 +1072,10 @@
 		30099E061D3FD1DA00171D56 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				3024729A1D89B7680005A6C9 /* XFINITY Sans */,
+				3046CDF01E8990840022AEE5 /* Boost Neo */,
 				302472911D89A07B0005A6C9 /* Lato */,
 				285F7ACA1DA9A526008C2EF6 /* Sprint */,
+				3024729A1D89B7680005A6C9 /* XFINITY Sans */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1408,6 +1417,17 @@
 				303C87701D775A5500213F6B /* Localizable.strings */,
 			);
 			path = ko.lproj;
+			sourceTree = "<group>";
+		};
+		3046CDF01E8990840022AEE5 /* Boost Neo */ = {
+			isa = PBXGroup;
+			children = (
+				3046CDF11E8990840022AEE5 /* BoostNeo-Black.ttf */,
+				3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */,
+				3046CDF31E8990840022AEE5 /* BoostNeo-Light.ttf */,
+				3046CDF41E8990840022AEE5 /* BoostNeo-Regular.ttf */,
+			);
+			path = "Boost Neo";
 			sourceTree = "<group>";
 		};
 		305C6C981DB6BB0700FF0AF4 /* Response Serializing */ = {
@@ -1825,6 +1845,7 @@
 				3025D9AC1E527FDB004149D7 /* icon-credit-card.png in Resources */,
 				301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */,
 				28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */,
+				3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */,
 				285F7B1B1DAC388A008C2EF6 /* phone-plan-upgrade.json in Resources */,
 				285F7AD31DA9A526008C2EF6 /* SprintSans-RegularItalic.ttf in Resources */,
 				28AEC0B81D888FFD00139C7D /* map-equipment@3x.png in Resources */,
@@ -1856,6 +1877,7 @@
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
+				3046CDF81E8990840022AEE5 /* BoostNeo-Regular.ttf in Resources */,
 				302AF3381E80557A0086B939 /* icon-user@2x.png in Resources */,
 				3025D9AD1E527FDB004149D7 /* icon-credit-card@2x.png in Resources */,
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
@@ -1867,7 +1889,9 @@
 				280477741E7FEB8000217135 /* transaction_history_card.json in Resources */,
 				307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */,
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
+				3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */,
 				302472A71D89B7680005A6C9 /* XFINITYSans-Lgt.ttf in Resources */,
+				3046CDF71E8990840022AEE5 /* BoostNeo-Light.ttf in Resources */,
 				3022684B1D80690500EC4FB1 /* icon-back@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

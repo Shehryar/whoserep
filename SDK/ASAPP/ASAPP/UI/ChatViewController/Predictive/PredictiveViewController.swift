@@ -27,7 +27,7 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Private Properties
     
-    fileprivate let contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 30, right: 16)
+    fileprivate let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
     fileprivate let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     fileprivate let blurredColorLayer = VerticalGradientView()
     fileprivate let titleLabel = UILabel()
@@ -56,9 +56,9 @@ class PredictiveViewController: UIViewController {
             blurredBgView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(ASAPP.styles.askViewGradientTopColor,
-                                 middleColor: ASAPP.styles.askViewGradientMiddleColor,
-                                 bottomColor: ASAPP.styles.askViewGradientBottomColor)
+        blurredColorLayer.update(ASAPP.styles.predictiveViewGradientTopColor,
+                                 middleColor: ASAPP.styles.predictiveViewGradientMiddleColor,
+                                 bottomColor: ASAPP.styles.predictiveViewGradientBottomColor)
         blurredBgView.contentView.addSubview(blurredColorLayer)
         
         
@@ -83,7 +83,7 @@ class PredictiveViewController: UIViewController {
         blurredBgView.contentView.addSubview(buttonsView)
         
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
-        messageInputView.backgroundColor = ASAPP.styles.askViewInputBgColor
+        messageInputView.backgroundColor = ASAPP.styles.predictiveViewInputBgColor
         messageInputView.layer.cornerRadius = 20
         messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
         messageInputView.textColor = Colors.whiteColor()
@@ -131,20 +131,18 @@ class PredictiveViewController: UIViewController {
     
     
     func updateDisplay() {
-        let viewChatButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.predictiveBackToChatButton,
-                                                                     font: ASAPP.styles.font(for: .navBarButton),
-                                                                     textColor: UIColor.white,
-                                                                     backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                     style: .respond,
-                                                                     target: self,
-                                                                     action: #selector(PredictiveViewController.didTapViewChat))
+        let viewChatButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.predictiveBackToChatButton,
+                                                                style: .respond,
+                                                                location: .predictive,
+                                                                side: .left,
+                                                                target: self,
+                                                                action: #selector(PredictiveViewController.didTapViewChat))
         navigationItem.leftBarButtonItem = viewChatButton
         
-        
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: UIColor.white,
-                                                                   backgroundColor: UIColor(red:0.201, green:0.215, blue:0.249, alpha:1),
-                                                                   target: self,
-                                                                   action: #selector(PredictiveViewController.didTapCancel))
+        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(location: .predictive,
+                                                                  side: .right,
+                                                                  target: self,
+                                                                  action:  #selector(PredictiveViewController.didTapCancel))
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         

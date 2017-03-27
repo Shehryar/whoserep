@@ -35,7 +35,7 @@ extension TextStyle {
 
     // Predictive
     
-    static let predictiveGreeting = TextStyle(size: 24, weight: .regular, letterSpacing: 0.7)
+    static let predictiveGreeting = TextStyle(size: 28, weight: .bold, letterSpacing: 0.7) // was regular
     static let predictiveMessage = TextStyle(size: 14, weight: .bold, letterSpacing: 1.2)
     static let predictiveDetailLabel = TextStyle(size: 12, weight: .bold, letterSpacing: 1)
     static let predictiveButton = TextStyle(size: 15, weight: .regular)
@@ -67,7 +67,8 @@ extension TextStyle {
     
     // Other
     
-    static let navBarButton = TextStyle(size: 11, weight: .black)
+    static let navBarButtonBubble = TextStyle(size: 11, weight: .black)
+    static let navBarButtonText = TextStyle(size: 14, weight: .black)
     static let asappButton = TextStyle(size: 12, weight: .black, letterSpacing: 1.3)
     static let connectionStatusBanner = TextStyle(size: 12, weight: .bold)
     static let tooltip = TextStyle(size: 14, weight: .bold)

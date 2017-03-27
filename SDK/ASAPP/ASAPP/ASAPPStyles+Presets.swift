@@ -13,10 +13,13 @@ public extension ASAPPStyles {
         if company.localizedCaseInsensitiveContains("comcast") {
             return comcastStyles()
         }
-        if company.localizedCaseInsensitiveContains("sprint")
-            || company.localizedCaseInsensitiveContains("text-rex") {
+        if company.localizedCaseInsensitiveContains("sprint") {
             return sprintStyles()
         }
+        if company.localizedCaseInsensitiveContains("boost") {
+            return boostStyles()
+        }
+        
         return ASAPPStyles()
     }
     
@@ -27,6 +30,40 @@ public extension ASAPPStyles {
         styles.fontNameRegular = "XFINITYSans-Reg"
         styles.fontNameBold = "XFINITYSans-Med"
         styles.fontNameBlack = "XFINITYSans-Bold"
+        
+        return styles
+    }
+    
+    internal class func boostStyles() -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        
+        // Fonts
+        
+    //    styles.fontNameLight = "BoostNeo-Light"
+      //  styles.fontNameRegular = "BoostNeo-Regular"
+        styles.fontNameBold = "BoostNeo-Bold"
+       // styles.fontNameBlack = "BoostNeo-Black"
+        
+        // Colors
+        
+        styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
+        styles.helpButtonForegroundColor = UIColor.white// UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
+        
+        
+        styles.navBarBackgroundColor = UIColor(red: (235 / 255.0),
+                                               green: (130.0 / 255.0),
+                                               blue: (0.0 / 255.0),
+                                               alpha:1.000)
+        styles.navBarButtonColor = UIColor.white
+        styles.navBarButtonStyle = .text
+        
+        
+        styles.predictiveViewGradientTopColor = UIColor(red:0.969, green:0.580, blue:0.184, alpha:1.000)
+        styles.predictiveViewGradientMiddleColor = UIColor(red:0.937, green:0.510, blue:0.149, alpha:1.000)
+        styles.predictiveViewGradientBottomColor = UIColor(red:0.922, green:0.443, blue:0.122, alpha:1.000)
+        styles.predictiveViewDetailLabelColor = UIColor.white
+        styles.predictiveViewButtonBgColor = UIColor(red:0.953, green:0.612, blue:0.267, alpha:1.000)
+        styles.predictiveViewInputBgColor = UIColor(red:0.937, green:0.612, blue:0.361, alpha:0.9)
         
         return styles
     }
@@ -43,8 +80,8 @@ public extension ASAPPStyles {
         
         // Colors
         
-        styles.asappButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
-        styles.asappButtonForegroundColor = UIColor.black
+        styles.helpButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
+        styles.helpButtonForegroundColor = UIColor.black
         
         styles.navBarButtonBackgroundColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
         styles.navBarButtonForegroundColor = UIColor(red:0.330, green:0.268, blue:0, alpha:1)
@@ -52,12 +89,12 @@ public extension ASAPPStyles {
         styles.quickRepliesButtonColor = UIColor.black
         styles.foregroundColor1 = UIColor.black
         
-        styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
-        styles.askViewGradientMiddleColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:0.8)
-        styles.askViewGradientBottomColor = UIColor(red:0.3, green:0.3, blue:0.3, alpha:0.8)
-        styles.askViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
-        styles.askViewButtonBgColor = UIColor(red:0.384, green:0.384, blue:0.384, alpha:1)
-        styles.askViewInputBgColor = UIColor(red:0.012, green:0.012, blue:0.012, alpha:1)
+        styles.predictiveViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
+        styles.predictiveViewGradientMiddleColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:0.8)
+        styles.predictiveViewGradientBottomColor = UIColor(red:0.3, green:0.3, blue:0.3, alpha:0.8)
+        styles.predictiveViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
+        styles.predictiveViewButtonBgColor = UIColor(red:0.384, green:0.384, blue:0.384, alpha:1)
+        styles.predictiveViewInputBgColor = UIColor(red:0.012, green:0.012, blue:0.012, alpha:1)
         
         return styles
     }
@@ -94,12 +131,12 @@ public extension ASAPPStyles {
         styles.inputSendButtonColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
         styles.inputImageButtonColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
         
-        styles.askViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.6)
-        styles.askViewGradientMiddleColor = UIColor(red:0.08, green:0.08, blue:0.08, alpha:0.6)
-        styles.askViewGradientBottomColor = UIColor(red:0.1, green:0.1, blue:0.1, alpha:0.6)
-        styles.askViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
-        styles.askViewButtonBgColor = UIColor(red:0.17, green:0.18, blue:0.19, alpha:1)
-        styles.askViewInputBgColor = UIColor(red:0.02, green:0.023, blue:0.025, alpha:1)
+        styles.predictiveViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.6)
+        styles.predictiveViewGradientMiddleColor = UIColor(red:0.08, green:0.08, blue:0.08, alpha:0.6)
+        styles.predictiveViewGradientBottomColor = UIColor(red:0.1, green:0.1, blue:0.1, alpha:0.6)
+        styles.predictiveViewDetailLabelColor = UIColor(red:0.345, green:0.356, blue:0.390, alpha:1)
+        styles.predictiveViewButtonBgColor = UIColor(red:0.17, green:0.18, blue:0.19, alpha:1)
+        styles.predictiveViewInputBgColor = UIColor(red:0.02, green:0.023, blue:0.025, alpha:1)
         
         return styles
     }

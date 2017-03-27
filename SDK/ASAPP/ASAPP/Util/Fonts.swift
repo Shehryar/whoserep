@@ -23,6 +23,12 @@ class Fonts: NSObject {
         Fonts.loadFont("Lato-Black", type: "ttf")
         Fonts.loadFont("Lato-Light", type: "ttf")
         
+        // Lato Fonts
+        Fonts.loadFont("BoostNeo-Regular", type: "ttf")
+        Fonts.loadFont("BoostNeo-Bold", type: "ttf")
+        Fonts.loadFont("BoostNeo-Black", type: "ttf")
+        Fonts.loadFont("BoostNeo-Light", type: "ttf")
+        
         // XFINITY Sans Fonts
         Fonts.loadFont("XFINITYSans-ExLgt", type: "ttf")
         Fonts.loadFont("XFINITYSans-Lgt", type: "ttf")

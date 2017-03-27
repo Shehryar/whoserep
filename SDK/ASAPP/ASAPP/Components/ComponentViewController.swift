@@ -39,7 +39,10 @@ class ComponentViewController: UIViewController {
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: ASAPP.styles.navBarButtonForegroundColor, backgroundColor: ASAPP.styles.navBarButtonBackgroundColor, target: self, action: #selector(ComponentViewController.dismissAnimated))
+        navigationItem.rightBarButtonItem = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
+                                                                                    side: .right,
+                                                                                    target: self,
+                                                                                    action: #selector(ComponentViewController.dismissAnimated))
     }
     
     init(componentName: String) {

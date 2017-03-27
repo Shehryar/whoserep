@@ -8,8 +8,14 @@
 
 import UIKit
 
+@objc
+public enum ASAPPNavBarButtonStyle: Int {
+    case bubble = 0
+    case text = 1
+}
+
 public class ASAPPStyles: NSObject {
-            
+    
     // MARK:- Fonts
     
     public var fontNameLight: String = "Lato-Light"
@@ -20,30 +26,17 @@ public class ASAPPStyles: NSObject {
     
     public var fontNameBlack: String = "Lato-Black"
     
-    // MARK:- Colors: Messages
-    
-    public var replyMessageFillColor: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
-    
-    public var replyMessageStrokeColor: UIColor? = nil
-    
-    public var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
-    
-    public var messageStrokeColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
-    
-    public var messageFillColor: UIColor = Colors.whiteColor()
-    
-    public var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
-    
-    // MARK:- Colors: General
-    
-    public var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
+    // MARK:- Navigation Bar
     
     public var navBarBackgroundColor: UIColor = Colors.whiteColor()
+    
+    public var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
     
     public var navBarButtonForegroundColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
     public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
+    public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
     
     // MARK:- Buttons
     
@@ -69,11 +62,7 @@ public class ASAPPStyles: NSObject {
     
     public var secondaryButtonTextColor: UIColor = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
     
-    // MARK:- Controls
-    
-    public var controlTintColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
-    
-    
+    // MARK:- General Content
     
     internal var backgroundColor1: UIColor = Colors.whiteColor()
     
@@ -83,33 +72,48 @@ public class ASAPPStyles: NSObject {
     
     internal var foregroundColor2: UIColor = Colors.steelDark50Color()
     
-    internal var quickRepliesButtonColor: UIColor = Colors.steelMedColor()
+    public var controlTintColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
     
     internal var separatorColor1: UIColor = Colors.marbleLightColor()
     
     internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
     internal var accentColor: UIColor = Colors.steelLightColor()
+
     
-    // MARK:- Colors: ASAPP Button
+    // MARK:- Colors: Messages
     
-    public var asappButtonForegroundColor: UIColor = UIColor.white
+    public var replyMessageFillColor: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
     
-    public var asappButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
+    public var replyMessageStrokeColor: UIColor? = nil
+    
+    public var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
+    
+    public var messageStrokeColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
+    
+    public var messageFillColor: UIColor = Colors.whiteColor()
+    
+    public var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
     
     // MARK:- Colors: Predictive
     
-    internal var askViewGradientTopColor: UIColor = UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9)
+    public var predictiveNavBarButtonColor: UIColor = UIColor.white
     
-    internal var askViewGradientMiddleColor: UIColor = UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8)
+    public var predictiveNavBarButtonForegroundColor: UIColor = UIColor.white
     
-    internal var askViewGradientBottomColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8)
+    public var predictiveNavBarButtonBackgroundColor: UIColor = UIColor(red:0.201, green:0.215, blue:0.249, alpha:1)
     
-    internal var askViewDetailLabelColor: UIColor = Colors.steelMed50Color()
+    internal var predictiveViewGradientTopColor: UIColor = UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9)
     
-    internal var askViewButtonBgColor: UIColor = UIColor(red:0.492, green:0.513, blue:0.547, alpha:1)
+    internal var predictiveViewGradientMiddleColor: UIColor = UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8)
     
-    internal var askViewInputBgColor: UIColor = UIColor(red:0.232, green:0.247, blue:0.284, alpha:1)
+    internal var predictiveViewGradientBottomColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8)
+    
+    internal var predictiveViewDetailLabelColor: UIColor = Colors.steelMed50Color()
+    
+    internal var predictiveViewButtonBgColor: UIColor = UIColor(red:0.492, green:0.513, blue:0.547, alpha:1)
+    
+    internal var predictiveViewInputBgColor: UIColor = UIColor(red:0.232, green:0.247, blue:0.284, alpha:1)
     
     // MARK:- Colors: Chat Input
     
@@ -127,6 +131,16 @@ public class ASAPPStyles: NSObject {
     
     internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
     
+    internal var quickRepliesButtonColor: UIColor = Colors.steelMedColor()
+    
+    
+    
+    
+    // MARK:- Help Button
+    
+    public var helpButtonForegroundColor: UIColor = UIColor.white
+    
+    public var helpButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
     
     
     // MARK:- Init

@@ -116,10 +116,10 @@ class ChatViewController: UIViewController {
         
         // Buttons
         
-        let closeButton = UIBarButtonItem.circleCloseBarButtonItem(foregroundColor: ASAPP.styles.navBarButtonForegroundColor,
-                                                                   backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
-                                                                   target: self,
-                                                                   action: #selector(ChatViewController.didTapCloseButton))
+        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
+                                                                  side: .right,
+                                                                  target: self,
+                                                                  action: #selector(ChatViewController.didTapCloseButton))
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
@@ -324,22 +324,20 @@ class ChatViewController: UIViewController {
     
     func updateNavigationActionButton() {
         if isLiveChat {
-            let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatEndChatNavBarButton,
-                                                                    font: ASAPP.styles.font(for: .navBarButton),
-                                                                    textColor: ASAPP.styles.navBarButtonForegroundColor,
-                                                                    backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
-                                                                    style: .ask,
-                                                                    target: self,
-                                                                    action: #selector(ChatViewController.didTapEndChatButton))
+            let askButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.chatEndChatNavBarButton,
+                                                               style: .ask,
+                                                               location: .chat,
+                                                               side: .left,
+                                                               target: self,
+                                                               action: #selector(ChatViewController.didTapEndChatButton))
             navigationItem.leftBarButtonItem = askButton
         } else {
-            let askButton = UIBarButtonItem.chatBubbleBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
-                                                                    font: ASAPP.styles.font(for: .navBarButton),
-                                                                    textColor: ASAPP.styles.navBarButtonForegroundColor,
-                                                                    backgroundColor: ASAPP.styles.navBarButtonBackgroundColor,
-                                                                    style: .ask,
-                                                                    target: self,
-                                                                    action: #selector(ChatViewController.didTapAskButton))
+            let askButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
+                                                               style: .ask,
+                                                               location: .chat,
+                                                               side: .left,
+                                                               target: self,
+                                                               action: #selector(ChatViewController.didTapAskButton))
             navigationItem.leftBarButtonItem = askButton
         }
     }

@@ -47,7 +47,7 @@ class PredictiveButtonsView: UIView {
     
         otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
                                      textStyle: .predictiveDetailLabel,
-                                     color: ASAPP.styles.askViewDetailLabelColor)
+                                     color: ASAPP.styles.predictiveViewDetailLabelColor)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -80,13 +80,18 @@ class PredictiveButtonsView: UIView {
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         button.setForegroundColor(Colors.whiteColor(), forState: .normal)
         button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
+        
+        button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
+        /*
         if highlighted {
-            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor, forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor, forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
         } else {
-            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.7), forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.askViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.85), forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
         }
+         */
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title

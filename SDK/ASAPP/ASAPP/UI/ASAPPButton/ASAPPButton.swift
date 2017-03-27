@@ -39,8 +39,8 @@ public class ASAPPButton: UIView {
         return isTouching ? .highlighted : .normal
     }
     
-    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.asappButtonBackgroundColor,
-                                        ASAPPButtonState.highlighted : ASAPP.styles.asappButtonBackgroundColor.highlightColor()]
+    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.helpButtonBackgroundColor,
+                                        ASAPPButtonState.highlighted : ASAPP.styles.helpButtonBackgroundColor.highlightColor()]
     
     fileprivate let contentView = UIView()
     
@@ -148,7 +148,7 @@ extension ASAPPButton {
     func updateDisplay() {
         label.setAttributedText(ASAPP.strings.asappButton,
                                 textStyle: .asappButton,
-                                color: ASAPP.styles.asappButtonForegroundColor)
+                                color: ASAPP.styles.helpButtonForegroundColor)
         
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1
