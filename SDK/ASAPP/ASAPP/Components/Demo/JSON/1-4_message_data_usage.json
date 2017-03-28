@@ -1,0 +1,127 @@
+{
+  "text": "Sure! Here's a snapshot of your data useage. Tap \"view details\" to see more information.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Component View Button",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name": "REPLACE_NAME",
+          "displayStyle": "full"
+        }
+      }
+    },
+    {
+      "type": "button",
+      "label": "Treewalk Button",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "actions": {},
+      "styles": {},
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Data Usage"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "fontWeight": "black",
+                      "fontSize": 16,
+                      "color": "#5b657e"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "style": "text",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-4_view_data_usage"
+                        }
+                      }
+                    },
+                    "style": {
+                      "align": "right",
+                      "gravity": "middle",
+                      "weight": 1,
+                      "paddingTop": 12,
+                      "paddingLeft": 16,
+                      "paddingBottom": 12,
+                      "paddingRight": 0
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 4,
+                "paddingBottom": 4
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "progressBar",
+              "content": {
+                "fillPercentage": 0.4444
+              },
+              "style": {
+                "margin": 20
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "200 GB"
+              },
+              "style": {
+                "align": "fill",
+                "marginBottom": 4,
+                "textAlign": "center",
+                "fontWeight": "black",
+                "fontSize": 18,
+                "color": "#55607a"
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "of 450 GB"
+              },
+              "style": {
+                "align": "fill",
+                "textAlign": "center",
+                "fontWeight": "regular",
+                "fontSize": 12,
+                "color": "#55607a"
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": 20,
+          "paddingTop": 0
+        }
+      }
+    }
+  }
+}

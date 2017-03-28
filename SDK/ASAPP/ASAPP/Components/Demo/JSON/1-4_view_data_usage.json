@@ -56,50 +56,24 @@
                   {
                     "type": "progressBar",
                     "content": {
-                      "fillPercentage": 1
+                      "fillPercentage": 0.4444
                     },
                     "style": {
-                      "margin": 20,
-                      "marginTop" : 0,
-                      "color": "#ef7667"
+                      "margin": 20
                     }
                   },
                   {
-                    "type": "stackView",
+                    "type": "label",
                     "content": {
-                      "orientation": "horizontal",
-                      "items": [
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "448 GB"
-                          },
-                          "style": {
-                            "gravity": "middle",
-                            "marginRight": 0,
-                            "textAlign": "center",
-                            "fontWeight": "black",
-                            "fontSize": 18,
-                            "color": "#55607a"
-                          }
-                        },
-                        {
-                          "type": "icon",
-                          "content": {
-                            "icon": "errorAlertFilled"
-                          },
-                          "style": {
-                            "gravity": "middle",
-                            "marginLeft": 6,
-                            "width": 16,
-                            "height": 16
-                          }
-                        }
-                      ]
+                      "text": "200 GB"
                     },
                     "style": {
-                      "align": "center",
-                      "marginBottom": 4
+                      "align": "fill",
+                      "marginBottom": 4,
+                      "textAlign": "center",
+                      "fontWeight": "black",
+                      "fontSize": 18,
+                      "color": "#55607a"
                     }
                   },
                   {
@@ -109,24 +83,10 @@
                     },
                     "style": {
                       "align": "fill",
-                      "marginBottom": 7,
                       "textAlign": "center",
                       "fontWeight": "regular",
                       "fontSize": 12,
                       "color": "#55607a"
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "Account Throttled"
-                    },
-                    "style": {
-                      "align": "fill",
-                      "textAlign": "center",
-                      "fontWeight": "bold",
-                      "fontSize": 12,
-                      "color": "#ef7667"
                     }
                   }
                 ]
