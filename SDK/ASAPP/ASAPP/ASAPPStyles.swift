@@ -60,6 +60,8 @@ public class ASAPPStyles: NSObject {
     
     public var secondaryButtonBgColorDisabled: UIColor = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
     
+    public var secondaryButtonBorderColor: UIColor = UIColor(red:0.886, green:0.890, blue:0.906, alpha:1.000)
+    
     public var secondaryButtonTextColor: UIColor = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
     
     // MARK:- General Content
