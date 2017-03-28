@@ -22,6 +22,9 @@ enum DemoComponentType {
     case card
     
     static func fromFileName(_ name: String) -> DemoComponentType {
+        if name.lowercased().contains("message") {
+            return message
+        }
         if name.lowercased().contains("view") {
             return view
         } else if name.lowercased().contains("card") {
@@ -52,6 +55,26 @@ class DemoComponentsAPI: NSObject {
         request.httpMethod = "GET"
         return request
     }
+}
+
+// MARK:- API Action
+
+extension DemoComponentsAPI {
+    
+    func sendAPIAction(_ action: APIAction, completion: APIActionCompletion) {
+        /*
+        switch action.requestPath {
+        case "saveC":
+            <#code#>
+        default:
+            <#code#>
+        }*/
+        
+        
+        
+    }
+    
+    
 }
 
 // MARK:- Component Names

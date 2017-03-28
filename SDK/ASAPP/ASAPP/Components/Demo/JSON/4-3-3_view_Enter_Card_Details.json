@@ -1,0 +1,177 @@
+{
+  "title": "Add Credit Card",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "style" : {
+      "gravity" : "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "scrollView",
+          "style" : {
+            "weight" : 1,
+            "gravity" : "fill"
+          },
+          "content": {
+            "content": {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Enter Card Details"
+                          },
+                          "style": {
+                            "fontSize": 18,
+                            "fontWeight": "black",
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "id": "cardNameInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "cardName",
+                          "content": {
+                            "placeholder": "NAME ON CARD"
+                          }
+                        },
+                        {
+                          "id": "cardNumberInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "cardNumber",
+                          "content": {
+                            "placeholder": "CARD NUMBER",
+                            "type" : "number"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "content": {
+                            "orientation": "horizontal",
+                            "items": [
+                              {
+                                "id": "cardExpiryInput",
+                                "type": "textInput",
+                                "class": "textInput",
+                                "name": "cardExp",
+                                "content": {
+                                  "placeholder": "EXP DATE (MM/YY)"
+                                },
+                                "style": {
+                                  "align": "fill",
+                                  "weight": 1
+                                }
+                              },
+                              {
+                                "id": "cardCVVInput",
+                                "type": "textInput",
+                                "class": "textInput",
+                                "name": "cardCVV",
+                                "content": {
+                                  "placeholder": "CVV",
+                                  "password" : true,
+                                  "type" : "number"
+                                },
+                                "style": {
+                                  "marginLeft": 20,
+                                  "align": "fill",
+                                  "weight": 1
+                                }
+                              }
+                            ]
+                          },
+                          "style": {}
+                        }
+                      ]
+                    },
+                    "style": {
+                      "padding": 20
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "style": {
+            "weight": 1,
+            "align": "fill"
+          }
+        },
+
+        {
+          "type": "stackView",
+          "style" : {
+            "weight" : 0,
+            "align": "fill"
+          },
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type" : "button",
+                "content" : {
+                  "title" : "CANCEL",
+                  "style" : "secondary",
+                  "action" : {
+                    "type" : "finish"
+                  }
+                }, 
+                "style" : {
+                  "weight" : 1,
+                  "align" : "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "4.1_credit_card",
+                      "inputFields": [
+                        "cardNameInput",
+                        "cardNumberInput",
+                        "cardExpiryInput",
+                        "cardCVVInput"
+                      ],
+                      "requiredInputFields": [
+                        "cardNameInput",
+                        "cardNumberInput",
+                        "cardExpiryInput",
+                        "cardCVVInput"
+                      ],
+                      "data": {
+                        "type": "newCard"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align" : "fill"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

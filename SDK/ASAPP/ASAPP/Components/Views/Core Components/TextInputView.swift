@@ -24,7 +24,7 @@ class TextInputView: BaseComponentView {
                 textInputView.textColor = textInputItem.style.color ?? TextInputItem.defaultColor
                 textInputView.font = ASAPP.styles.font(with: textInputItem.style.fontWeight,
                                                        size: textInputItem.style.fontSize)
-                
+                textInputView.tintColor = ASAPP.styles.controlTintColor
                 textInputView.autocorrectionType = textInputItem.autocorrectionType
                 textInputView.autocapitalizationType = textInputItem.autocapitalizationType
                 textInputView.isSecureTextEntry = textInputItem.isSecure

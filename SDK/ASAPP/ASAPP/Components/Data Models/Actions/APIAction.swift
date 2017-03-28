@@ -47,3 +47,5 @@ class APIAction: ComponentAction {
         super.init(content: content)
     }
 }
+
+typealias APIActionCompletion = ((_ action: APIAction?, _ errorMessage: String?) -> Void)

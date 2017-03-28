@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ComponentViewControllerDelegate: class {
+    
+}
+
 class ComponentViewController: UIViewController {
 
     // MARK: Properties
@@ -18,6 +22,8 @@ class ComponentViewController: UIViewController {
             rootView = componentViewContainer?.createView()
         }
     }
+    
+    weak var delegate: ComponentViewControllerDelegate?
     
     fileprivate var rootView: ComponentView? {
         didSet {
