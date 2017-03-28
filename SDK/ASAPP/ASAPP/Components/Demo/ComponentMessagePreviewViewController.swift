@@ -20,7 +20,12 @@ class ComponentMessagePreviewViewController: UIViewController {
         didSet {
             if let message = message {
                 messagesView.reloadWithEvents([Event]())
+                quickRepliesView.clear()
+                updateFrames()
+                
                 messagesView.addMessage(message)
+                quickRepliesView.add(message: message, animated: false)
+                Dispatcher.delay(800, closure: updateFramesAnimated)
             }
         }
     }
@@ -28,6 +33,8 @@ class ComponentMessagePreviewViewController: UIViewController {
     // MARK:- Private Properties
     
     fileprivate let messagesView = ChatMessagesView()
+    
+    fileprivate let quickRepliesView = QuickRepliesActionSheet()
     
     public override var canBecomeFirstResponder: Bool {
         return true
@@ -40,6 +47,8 @@ class ComponentMessagePreviewViewController: UIViewController {
         
         messagesView.delegate = self
         messagesView.overrideToHideInfoView = true
+        
+        quickRepliesView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,6 +63,7 @@ class ComponentMessagePreviewViewController: UIViewController {
     
     deinit {
         messagesView.delegate = nil
+        quickRepliesView.delegate = nil
     }
     
     // MARK:- View
@@ -61,7 +71,9 @@ class ComponentMessagePreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor.white
         view.addSubview(messagesView)
+        view.addSubview(quickRepliesView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,12 +87,33 @@ class ComponentMessagePreviewViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        updateFrames()
+    }
+    
+    func updateFrames() {
+        guard isViewLoaded else {
+            return
+        }
+        
+        let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        var quickRepliesTop = view.bounds.height
+        var contentBottom = view.bounds.height
+        if quickRepliesView.eventIds.count > 0 {
+            quickRepliesTop = view.bounds.height - quickRepliesHeight
+            contentBottom = quickRepliesTop + quickRepliesView.transparentInsetTop
+        }
+        quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: view.bounds.width, height: quickRepliesHeight)
+        
         var top: CGFloat = 0
         if let navBar = navigationController?.navigationBar {
             top = navBar.frame.maxY
         }
-        let height = view.bounds.height - top
+        let height = contentBottom - top
         messagesView.frame = CGRect(x: 0, y: top, width: view.bounds.width, height: height)
+    }
+    
+    func updateFramesAnimated() {
+        UIView.animate(withDuration: 0.3, animations: updateFrames)
     }
     
     // MARK:- Refresh
@@ -134,6 +167,58 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
 }
 
+extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
+    
+    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
+                                 didSelect buttonItem: SRSButtonItem,
+                                 for message: ChatMessage) -> Bool {
+        var title: String?
+        var message: String?
+        switch buttonItem.action.type {
+        case .link:
+            title = "Link"
+            break
+            
+        case .treewalk:
+            title = "SRS Treewalk"
+            message = "Classification: \(buttonItem.action.name)"
+            break
+            
+        case .api:
+            title = "API"
+            message = buttonItem.action.name
+            break
+            
+        case .action:
+            title = "Action"
+            message = buttonItem.action.name
+            break
+            
+        case .componentView:
+            if let action = buttonItem.action.getComponentViewAction() {
+                handleComponentViewAction(action)
+                 return false
+            }
+            title = "Component View"
+            message = JSONUtil.stringify(buttonItem.action.context as? AnyObject, prettyPrinted: true)
+            break
+        }
+        
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+        return false
+    }
+    
+    // Not Handled
+    
+    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {}
+}
 
 extension ComponentMessagePreviewViewController {
     

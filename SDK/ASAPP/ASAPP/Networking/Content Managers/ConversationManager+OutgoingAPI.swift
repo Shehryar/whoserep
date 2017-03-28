@@ -75,7 +75,7 @@ extension ConversationManager {
             sendSRSLinkButtonTapped(buttonItem: buttonItem, completion: completion)
             break
             
-        case .action:
+        case .action, .componentView:
             
             break
         }

@@ -667,6 +667,12 @@ extension ChatViewController {
             
         case .action:
             return performAppAction(buttonItem.action, for: message)
+            
+        case .componentView:
+            if let componentViewAction = buttonItem.action.getComponentViewAction() {
+                handleComponentViewAction(componentViewAction)
+            }
+            return false
         }
         
         return false

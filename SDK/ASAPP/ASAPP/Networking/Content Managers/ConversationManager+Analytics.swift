@@ -100,6 +100,10 @@ extension ConversationManager {
         case .action:
             // Not tracked yet
             break
+            
+        case .componentView:
+            // Not tracked yet
+            break;
         }
     }
     

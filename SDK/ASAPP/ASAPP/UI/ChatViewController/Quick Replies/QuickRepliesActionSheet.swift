@@ -24,7 +24,7 @@ class QuickRepliesActionSheet: UIView {
 
     weak var delegate: QuickRepliesActionSheetDelegate?
     
-    var eventIds: [Int]? {
+    var eventIds: [Int] {
         var eventIds = [Int]()
         for view in listViews {
             if let message = view.message {

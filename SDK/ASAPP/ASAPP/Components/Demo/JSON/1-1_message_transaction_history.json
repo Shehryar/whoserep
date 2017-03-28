@@ -1,8 +1,50 @@
 {
   "text": "Sure! Here are your last three transactions. Tap \"view all\" to see your full transactionhistory.",
-  "quickReplies" : {
-
-  },
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "View All",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name" : "1-1_view_transaction_history",
+          "displayStyle" : "full"
+        }
+      }
+    },
+    {
+      "type": "button",
+      "label": "Payments",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Data Usage",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Texts",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Calls",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
   "attachment": {
     "type": "componentView",
     "content": {
@@ -119,7 +161,7 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$49.99"
+                      "text": "$110.97"
                     },
                     "class": "valueText columnRight"
                   }
@@ -160,7 +202,7 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$49.99"
+                      "text": "$110.97"
                     },
                     "class": "valueText columnRight"
                   }

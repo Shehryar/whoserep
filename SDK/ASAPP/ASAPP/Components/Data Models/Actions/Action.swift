@@ -16,6 +16,7 @@ enum ActionType: String {
     case treewalk   = "AID"
     case api        = "ACTION"
     case action     = "APP_ACTION"
+    case componentView = "COMPONENT_VIEW"
 }
 
 // MARK:- AppAction
@@ -69,6 +70,14 @@ extension Action {
         }
         return AppAction(rawValue: name)
     }
+    
+    func getComponentViewAction() -> ComponentViewAction? {
+        guard type == .componentView else {
+            return nil
+        }
+        
+        return ComponentViewAction(content: context)
+    }
 }
 
 // MARK:- JSON Parsing
@@ -121,6 +130,13 @@ extension Action {
                 }
             } else {
                 name = json["content"] as? String
+            }
+            break
+            
+        case .componentView:
+            if let content = json["content"] as? [String : AnyObject] {
+                name = content["name"] as? String
+                context = content
             }
             break
         }
