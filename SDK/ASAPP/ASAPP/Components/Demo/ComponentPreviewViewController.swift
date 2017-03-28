@@ -12,7 +12,7 @@ public class ComponentPreviewViewController: UIViewController {
     
     var componentName: String? {
         didSet {
-            title = DemoComponentsAPI.prettifyComponentName(componentName)
+            title = DemoComponentType.prettifyFileName(componentName)
             refresh()
         }
     }
@@ -152,7 +152,7 @@ public class ComponentPreviewViewController: UIViewController {
             
             if let component = component {
                 Dispatcher.performOnMainThread {
-                    switch DemoComponentsAPI.getDemoComponentType(from: componentName) {
+                    switch DemoComponentType.fromFileName(componentName) {
                     case .card:
                         var cardView = ComponentCardView()
                         cardView.component = component.root
@@ -166,6 +166,10 @@ public class ComponentPreviewViewController: UIViewController {
                         componentView?.interactionHandler = strongSelf
                         self?.contentView = componentView?.view
                         self?.view.backgroundColor = ASAPP.styles.backgroundColor1
+                        break
+                        
+                    case .message:
+                        
                         break
                     }
                     

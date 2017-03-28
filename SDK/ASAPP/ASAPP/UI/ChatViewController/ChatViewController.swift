@@ -22,7 +22,7 @@ class ChatViewController: UIViewController {
     fileprivate let predictiveVC = PredictiveViewController()
     fileprivate let predictiveNavController: UINavigationController!
     
-    fileprivate let chatMessagesView: ChatMessagesView
+    fileprivate let chatMessagesView = ChatMessagesView()
     fileprivate let chatInputView = ChatInputView()
     fileprivate let connectionStatusView = ChatConnectionStatusView()
     fileprivate let quickRepliesActionSheet = QuickRepliesActionSheet()
@@ -100,7 +100,6 @@ class ChatViewController: UIViewController {
         self.callback = callback
         self.simpleStore = ChatSimpleStore(credentials: credentials)
         self.conversationManager = ConversationManager(withCredentials: credentials)
-        self.chatMessagesView = ChatMessagesView(withCredentials: self.credentials)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         self.isLiveChat = conversationManager.isLiveChat
         super.init(nibName: nil, bundle: nil)

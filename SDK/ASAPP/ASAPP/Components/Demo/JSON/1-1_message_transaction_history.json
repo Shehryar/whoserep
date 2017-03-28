@@ -1,0 +1,224 @@
+{
+  "text": "Sure! Here are your last three transactions. Tap \"view all\" to see your full transactionhistory.",
+  "quickReplies" : {
+
+  },
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {
+        "row": {
+          "padding": "8 0"
+        },
+        "columnLeft": {
+          "gravity": "middle",
+          "marginRight": 5,
+          "weight": 1
+        },
+        "columnRight": {
+          "gravity": "middle"
+        },
+        "headerText": {
+          "fontWeight": "black",
+          "fontSize": 16,
+          "color": "#5b657e"
+        },
+        "titleText": {
+          "fontSize": 14,
+          "color": "#646e85"
+        },
+        "detailText": {
+          "fontSize": 12,
+          "color": "#adb2bf"
+        },
+        "valueText": {
+          "gravity": "middle",
+          "align": "right",
+          "weight": 0,
+          "fontSize": 16,
+          "fontWeight": "black",
+          "letterSpacing": 1,
+          "textAlign": "right",
+          "color": "#5b657e"
+        }
+      },
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Transaction History"
+                    },
+                    "class": "headerText columnLeft",
+                    "style": {
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW ALL",
+                      "style": "text",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-1_view_transaction_history",
+                          "displayType": "full"
+                        }
+                      }
+                    },
+                    "class": "columnRight",
+                    "style": {
+                      "padding": "12 0 12 16"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 4,
+                "paddingBottom": 4
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "March 2017 Statement"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$49.99"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "February 2017 Statement"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$49.99"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Service Upgrade"
+                          },
+                          "class": "titleText"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/1/2017"
+                          },
+                          "class": "detailText"
+                        }
+                      ]
+                    },
+                    "class": "columnLeft"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$34.66"
+                    },
+                    "class": "valueText columnRight"
+                  }
+                ]
+              },
+              "class": "row",
+              "style": {
+                "paddingBottom": 16
+              }
+            }
+          ]
+        },
+        "style": {
+          "paddingLeft": 20,
+          "paddingRight": 20
+        }
+      }
+    }
+  }
+}

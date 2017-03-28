@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		280477741E7FEB8000217135 /* transaction_history_card.json in Resources */ = {isa = PBXBuildFile; fileRef = 280477731E7FEB8000217135 /* transaction_history_card.json */; };
 		280477761E80C96000217135 /* ComponentJSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280477751E80C96000217135 /* ComponentJSONUtil.swift */; };
 		2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */; };
 		2804CE091E7886F60001E516 /* ChatMessageImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2804CE081E7886F60001E516 /* ChatMessageImage.swift */; };
@@ -254,6 +253,7 @@
 		3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */; };
 		3046CDF71E8990840022AEE5 /* BoostNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF31E8990840022AEE5 /* BoostNeo-Light.ttf */; };
 		3046CDF81E8990840022AEE5 /* BoostNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF41E8990840022AEE5 /* BoostNeo-Regular.ttf */; };
+		3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLog.swift */; };
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
 		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
@@ -364,7 +364,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		280477731E7FEB8000217135 /* transaction_history_card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = transaction_history_card.json; sourceTree = "<group>"; };
 		280477751E80C96000217135 /* ComponentJSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentJSONUtil.swift; sourceTree = "<group>"; };
 		2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachment.swift; sourceTree = "<group>"; };
 		2804CE081E7886F60001E516 /* ChatMessageImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageImage.swift; sourceTree = "<group>"; };
@@ -613,6 +612,7 @@
 		3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Bold.ttf"; sourceTree = "<group>"; };
 		3046CDF31E8990840022AEE5 /* BoostNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Light.ttf"; sourceTree = "<group>"; };
 		3046CDF41E8990840022AEE5 /* BoostNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Regular.ttf"; sourceTree = "<group>"; };
+		3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentMessagePreviewViewController.swift; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
@@ -843,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
+				3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
 				30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */,
 				30EF007E1E806DCF004B1492 /* ComponentCardView.swift */,
@@ -857,7 +858,6 @@
 			isa = PBXGroup;
 			children = (
 				281C34711E7F092C001A2AA3 /* component_server.js */,
-				280477731E7FEB8000217135 /* transaction_history_card.json */,
 				302AF32E1E8031CD0086B939 /* text_history_card.json */,
 			);
 			path = JSON;
@@ -1886,7 +1886,6 @@
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				302472A61D89B7680005A6C9 /* XFINITYSans-ExLgt.ttf in Resources */,
-				280477741E7FEB8000217135 /* transaction_history_card.json in Resources */,
 				307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */,
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
 				3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */,
@@ -2014,6 +2013,7 @@
 				3093A4AE1E730D4F00C65818 /* EventTextMessage.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
 				281C34901E7F092C001A2AA3 /* SRSLoaderBarItem.swift in Sources */,
+				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
 				281C34961E7F092C001A2AA3 /* SRSNestedItemListParser.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
 				3025DA1F1E539B9E004149D7 /* SRSLoaderBarView.swift in Sources */,

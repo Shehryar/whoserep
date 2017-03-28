@@ -93,7 +93,7 @@ class ChatMessage: NSObject {
 // MARK:- Parsing
 
 extension ChatMessage {
-
+    
     /// Returns text, attachment, quickReplies
     static func parseContent(from json: [String : Any]?) -> (String?, Any?, [SRSButtonItem]?) {
         guard let json = json else {
@@ -119,7 +119,7 @@ extension ChatMessage {
         }
         
         var quickReplies = [SRSButtonItem]()
-        if let quickRepliesJSON = json["quick_replies"] as? [[String : AnyObject]] {
+        if let quickRepliesJSON = (json["quick_replies"] ?? json["quickReplies"]) as? [[String : AnyObject]]   {
             for quickReplyJSON in quickRepliesJSON {
                 if let button = SRSButtonItem.fromJSON(quickReplyJSON) {
                     quickReplies.append(button)

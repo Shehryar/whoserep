@@ -11,6 +11,7 @@ import UIKit
 public class ComponentsDemoViewController: UIViewController {
 
     enum Section: Int {
+        case messages
         case cards
         case views
         case count
@@ -22,7 +23,11 @@ public class ComponentsDemoViewController: UIViewController {
             viewNames.removeAll()
             if let componentNames = componentNames {
                 for name in componentNames {
-                    switch DemoComponentsAPI.getDemoComponentType(from: name) {
+                    switch DemoComponentType.fromFileName(name) {
+                    case .message:
+                        messageNames.append(name)
+                        break
+                        
                     case .card:
                         cardNames.append(name)
                         break
@@ -36,6 +41,7 @@ public class ComponentsDemoViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    fileprivate(set) var messageNames = [String]()
     fileprivate(set) var cardNames = [String]()
     fileprivate(set) var viewNames = [String]()
 
@@ -134,6 +140,10 @@ extension ComponentsDemoViewController: UITableViewDataSource {
     func getComponentName(for indexPath: IndexPath) -> String? {
         var sectionNames: [String]
         switch indexPath.section {
+        case Section.messages.rawValue:
+            sectionNames = messageNames
+            break
+        
         case Section.cards.rawValue:
             sectionNames = cardNames
             break
@@ -158,7 +168,7 @@ extension ComponentsDemoViewController: UITableViewDataSource {
         guard let name = getComponentName(for: indexPath) else {
             return nil
         }
-        return DemoComponentsAPI.prettifyComponentName(name)
+        return DemoComponentType.prettifyFileName(name)
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -167,6 +177,7 @@ extension ComponentsDemoViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case Section.messages.rawValue: return messageNames.count
         case Section.cards.rawValue: return cardNames != nil ? cardNames.count + 1 : 0
         case Section.views.rawValue: return viewNames.count
         default: return 0
@@ -175,6 +186,7 @@ extension ComponentsDemoViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
+        case Section.messages.rawValue: return "Messages"
         case Section.cards.rawValue: return "Cards"
         case Section.views.rawValue: return "Views"
         default: return nil
@@ -208,6 +220,15 @@ extension ComponentsDemoViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == Section.messages.rawValue {
+            if let componentName = getComponentName(for: indexPath) {
+                let viewController = ComponentMessagePreviewViewController()
+                viewController.fileName = componentName
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+            return
+        }
         
         if let componentName = getComponentName(for: indexPath) {
             showComponentPreview(for: componentName)

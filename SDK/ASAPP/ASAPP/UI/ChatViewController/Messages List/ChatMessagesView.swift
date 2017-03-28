@@ -34,8 +34,6 @@ class ChatMessagesView: UIView {
     
     // MARK:- Public Properties
     
-    let credentials: Credentials
-    
     var contentInsetTop: CGFloat = 0 {
         didSet {
             var newContentInset = defaultContentInset
@@ -90,11 +88,11 @@ class ChatMessagesView: UIView {
     
     fileprivate let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
-    fileprivate let dataSource: ChatMessagesViewDataSource
+    fileprivate var cellMaster: ChatMessagesViewCellMaster!
+    
+    fileprivate var dataSource: ChatMessagesViewDataSource!
     
     fileprivate let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
-    fileprivate let cellMaster: ChatMessagesViewCellMaster
     
     fileprivate let emptyView = ChatMessagesEmptyView()
     
@@ -102,12 +100,10 @@ class ChatMessagesView: UIView {
     
     // MARK:- Initialization
     
-    required init(withCredentials credentials: Credentials) {
-        self.credentials = credentials
+    func commonInit() {
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         self.dataSource = ChatMessagesViewDataSource()
         
-        super.init(frame: CGRect.zero)
         
         backgroundColor = ASAPP.styles.backgroundColor1
         clipsToBounds = false
@@ -132,8 +128,14 @@ class ChatMessagesView: UIView {
         updateSubviewVisibility()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     deinit {

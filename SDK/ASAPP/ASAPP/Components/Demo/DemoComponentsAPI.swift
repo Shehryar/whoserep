@@ -9,13 +9,34 @@
 import UIKit
 
 enum DemoComponent: String {
-    case transactionHistoryCard = "transaction_history_card"
     case textHistoryCard = "text_history_card"
 
     static let allRawValues = [
-        transactionHistoryCard.rawValue,
         textHistoryCard.rawValue
     ]
+}
+
+enum DemoComponentType {
+    case message
+    case view
+    case card
+    
+    static func fromFileName(_ name: String) -> DemoComponentType {
+        if name.lowercased().contains("view") {
+            return view
+        } else if name.lowercased().contains("card") {
+            return card
+        }
+        return message
+    }
+    
+    static func prettifyFileName(_ name: String?) -> String? {
+        return name?.replacingOccurrences(of: "_", with: " ")
+            .replacingOccurrences(of: "view" , with: "")
+            .replacingOccurrences(of: "card", with: "")
+            .replacingOccurrences(of: "message", with: "")
+            .capitalized
+    }
 }
 
 class DemoComponentsAPI: NSObject {
@@ -30,30 +51,6 @@ class DemoComponentsAPI: NSObject {
         var request = URLRequest(url: URL(string: "\(HOST)\(path)")!)
         request.httpMethod = "GET"
         return request
-    }
-}
-
-// MARK:- Utility
-
-extension DemoComponentsAPI {
-    
-    enum DemoComponentType {
-        case card
-        case view
-    }
-    
-    class func getDemoComponentType(from componentName: String) -> DemoComponentType {
-        if componentName.lowercased().contains("view") {
-            return .view
-        }
-        return .card
-    }
-    
-    class func prettifyComponentName(_ name: String?) -> String? {
-        return name?.replacingOccurrences(of: "_", with: " ")
-            .replacingOccurrences(of: "view" , with: "")
-            .replacingOccurrences(of: "card", with: "")
-            .capitalized
     }
 }
 
@@ -89,6 +86,47 @@ extension DemoComponentsAPI {
             } else {
                 completion(nil)
             }
+            }.resume()
+    }
+}
+
+// MARK:- Messages
+
+extension DemoComponentsAPI {
+    
+    class func getChatMessage(with fileName: String,
+                              completion: @escaping ((_ message: ChatMessage?, _ error: Error?) -> Void)) {
+        getJSON(with: fileName) { (json, err) in
+            guard let json = json else {
+                completion(nil, err)
+                return
+            }
+            
+            let (text, attachment, quickReplies) = ChatMessage.parseContent(from: json)
+            let message = ChatMessage(text: text,
+                                      attachment: attachment,
+                                      quickReplies: quickReplies,
+                                      isReply: true,
+                                      sendTime: Date(),
+                                      eventId: 10,
+                                      eventType: .srsResponse,
+                                      issueId: 1)
+            completion(message, nil)
+        }
+    }
+    
+    class func getJSON(with fileName: String, completion: @escaping ((_ json: [String : Any]?, _ err: Error?) -> Void)) {
+        let path = "/\(fileName).json"
+        let request = getRequest(with: path)
+        let session = URLSession.shared
+        session.dataTask(with: request) {data, response, err in
+            var json: [String : Any]?
+            if let data = data {
+                do {
+                    try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+                } catch {}
+            }
+            completion(json, err)
             }.resume()
     }
 }

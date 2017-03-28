@@ -78,8 +78,6 @@ public class ASAPPStyles: NSObject {
     
     internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
-    internal var accentColor: UIColor = Colors.steelLightColor()
-
     
     // MARK:- Colors: Messages
     
