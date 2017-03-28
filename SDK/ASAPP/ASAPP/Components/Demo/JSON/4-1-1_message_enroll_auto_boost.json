@@ -1,0 +1,28 @@
+{
+  "text": "Sure thing! Would you like to use the card we have on file or a new card to enroll in autopay? \n\nKeep in mind, if you choose a new card, it will replace the card we have on file.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Amex ***********9087",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Use a new card",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {},
+      "body": {}
+    }
+  }
+}

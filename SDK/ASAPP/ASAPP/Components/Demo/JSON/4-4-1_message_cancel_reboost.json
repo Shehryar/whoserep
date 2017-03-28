@@ -1,0 +1,22 @@
+{
+  "text": "Are you sure you'd like to remove auto re-boost from your account?",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Yes, cancel auto re-boost",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Nevermind",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
+  "attachment": {}
+}

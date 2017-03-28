@@ -1,4 +1,9 @@
 {
+  "text": "",
+  "quickReplies": [],
+  "attachment": {
+    "type": "componentView",
+    "content": {
   "styles": {},
   "body": {
     "type": "stackView",
@@ -8,7 +13,7 @@
         {
           "type": "icon",
           "content": {
-            "icon": "user"
+            "icon": "checkmarkThin"
           },
           "style": {
             "gravity": "top",
@@ -24,11 +29,11 @@
               {
                 "type": "label",
                 "content": {
-                  "text": "Cancelled Auto Pay"
+                  "text": "Enrolled in Low Balance Re-Boost"
                 },
                 "style": {
                   "marginBottom": 6,
-                  "fontWeight": "bold",
+                  "fontWeight": "black",
                   "fontSize": 15,
                   "color": "#57617b"
                 }
@@ -36,7 +41,7 @@
               {
                 "type": "label",
                 "content": {
-                  "text": "You have successfully removed autopay from your account"
+                  "text": "You've successfully enrolled in auto-reboost using your card ending in 7624."
                 },
                 "style": {
                   "marginBottom": 8,
@@ -48,11 +53,11 @@
               {
                 "type": "label",
                 "content": {
-                  "text": "March 15, 2017 -- 4:15PM"
+                  "text": "March 31, 2017 - 9:15AM"
                 },
                 "style": {
-                  "fontWeight": "regular",
-                  "fontSize": 12,
+                  "fontWeight": "bold",
+                  "fontSize": 11,
                   "color": "#adb2be"
                 }
               }
@@ -70,5 +75,8 @@
       "marginBottom": 4,
       "padding": 21
     }
+  }
+}
+    
   }
 }
