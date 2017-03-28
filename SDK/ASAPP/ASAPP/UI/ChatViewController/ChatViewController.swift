@@ -787,20 +787,12 @@ extension ChatViewController: ChatMessagesViewDelegate {
             return
         }
         
-        switch action.type {
-        case .api:
-            if let rootComponent = message.attachment?.template {
-                handleAPIAction(action, from: buttonItem, rootComponent: rootComponent)
-            }
-            break
-            
-        case .componentView:
-            handleComponentViewAction(action, from: buttonItem)
-            break
-            
-        case .finish:
+        if let apiAction = action as? APIAction {
+            handleAPIAction(apiAction, from: buttonItem)
+        } else if let componentViewAction = action as? ComponentViewAction {
+            handleComponentViewAction(componentViewAction)
+        } else if let finishAction = action as? FinishAction {
             // No-op
-            break
         }
     }
 }
@@ -809,27 +801,15 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController {
     
-    func handleAPIAction(_ action: ComponentAction,
-                         from buttonItem: ButtonItem,
-                         rootComponent: Component) {
-        
-        var inputData = [String : Any]()
-        // TODO: Parse this from the root component
-//        if let inputFields = buttonItem.action?.dataInputFields {
-//            for inputField in inputFields {
-//                if let (name, value) = componentView?.getNameValue(for: inputField) {
-//                    inputData[name] = value
-//                }
-//            }
-//        }
-        
+    func handleAPIAction(_ action: APIAction, from rootComponent: Component) {
         var requestData = [String : Any]()
-        requestData.add(buttonItem.action?.data)
-        requestData.add(inputData)
+        requestData.add(action.data)
+        requestData.add(rootComponent.getData(for: action.dataInputFields))
+        
         let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
                                                    prettyPrinted: true)
         
-        let title = buttonItem.action?.requestPath ?? buttonItem.action?.type.rawValue ?? "Oops?"
+        let title = action.requestPath
         
         let alert = UIAlertController(title: title,
                                       message: requestDataString,
@@ -838,14 +818,10 @@ extension ChatViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        guard let componentName = action.name else {
-            return
-        }
-        
-        let viewController = ComponentViewController(componentName: componentName)
+    func handleComponentViewAction(_ action: ComponentViewAction) {
+        let viewController = ComponentViewController(componentName: action.name)
         let navigationController = ComponentNavigationController(rootViewController: viewController)
-        navigationController.useCustomPresentation = true
+        navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
     }
 }

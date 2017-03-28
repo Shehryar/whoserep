@@ -119,18 +119,12 @@ extension ComponentCardsPreviewViewController: InteractionHandler {
             return
         }
         
-        switch action.type {
-        case .api:
-            handleAPIAction(action, from: buttonItem)
-            break
-            
-        case .componentView:
-            handleComponentViewAction(action, from: buttonItem)
-            break
-            
-        case .finish:
-            handleFinishAction(action, from: buttonItem)
-            break
+        if let apiAction = action as? APIAction {
+            handleAPIAction(apiAction, from: buttonItem)
+        } else if let componentViewAction = action as? ComponentViewAction {
+            handleComponentViewAction(componentViewAction)
+        } else if let finishAction = action as? FinishAction {
+            handleFinishAction(finishAction)
         }
     }
 }
@@ -139,7 +133,7 @@ extension ComponentCardsPreviewViewController: InteractionHandler {
 
 extension ComponentCardsPreviewViewController {
     
-    func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+    func handleAPIAction(_ action: APIAction, from buttonItem: ButtonItem) {
         let alert = UIAlertController(title: "API Action",
                                       message: "Not handled on this screen",
                                       preferredStyle: .alert)
@@ -147,18 +141,14 @@ extension ComponentCardsPreviewViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        guard let componentName = action.name else {
-            return
-        }
-        
-        let viewController = ComponentViewController(componentName: componentName)
+    func handleComponentViewAction(_ action: ComponentViewAction) {
+        let viewController = ComponentViewController(componentName: action.name)
         let navigationController = ComponentNavigationController(rootViewController: viewController)
-        navigationController.useCustomPresentation = true
+        navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
     }
     
-    func handleFinishAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+    func handleFinishAction(_ action: ComponentAction) {
         let alert = UIAlertController(title: "Finish Action", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)

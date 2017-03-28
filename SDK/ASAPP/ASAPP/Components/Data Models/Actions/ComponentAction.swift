@@ -20,52 +20,49 @@ enum ComponentActionType: String {
         }
         return type
     }
+    
+    func getActionClass() -> ComponentAction.Type {
+        switch self {
+        case .api: return APIAction.self
+        case .componentView: return ComponentViewAction.self
+        case .finish: return FinishAction.self
+        }
+    }
 }
 
 class ComponentAction: NSObject {
 
+    // MARK:- Properties
+    
+    required init?(content: Any?) {
+        super.init()
+    }
+}
+
+enum ComponentActionFactory {
+    
     enum JSONKey: String {
         case content = "content"
-        case data = "data"
-        case inputFields = "inputFields"
-        case name = "name"
-        case requestPath = "requestPath"
-        case requiredInputFields = "requiredInputFields"
         case type = "type"
     }
     
-    // MARK:- Properties
-    
-    let type: ComponentActionType
-    
-    let name: String?
-    
-    let requestPath: String?
-    
-    let data: [String : Any]?
-    
-    let dataInputFields: [String]?
-    
-    let requiredDataInputFields: [String]?
-    
-    init?(json: Any?) {
+    static func action(with json: Any?) -> ComponentAction? {
         guard let json = json as? [String : Any] else {
             return nil
         }
         
-        guard let type = ComponentActionType.from(json.string(for: JSONKey.type.rawValue)) else {
-            DebugLog.w(caller: ComponentAction.self, "Type is required: \(json)")
+        guard let typeString = json.string(for: JSONKey.type.rawValue) else {
+            DebugLog.w(caller: self, "Action type required: \(json)")
             return nil
         }
-        self.type = type
         
-        let content = json[JSONKey.content.rawValue] as? [String : Any]
-        self.data = content?[JSONKey.data.rawValue] as? [String : Any]
-        self.name = content?.string(for: JSONKey.name.rawValue)
-        self.requestPath = content?.string(for: JSONKey.requestPath.rawValue)
-        self.dataInputFields = content?.strings(for: JSONKey.inputFields.rawValue)
-        self.requiredDataInputFields = content?.strings(for: JSONKey.requiredInputFields.rawValue)
+        guard let type = ComponentActionType(rawValue: typeString) else {
+            DebugLog.w(caller: self, "Action type required: \(json)")
+            return nil
+        }
         
-        super.init()
+        return type.getActionClass().init(content: json[JSONKey.content.rawValue])
     }
 }
+
+

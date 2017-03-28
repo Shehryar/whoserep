@@ -201,7 +201,6 @@ public class ComponentPreviewViewController: UIViewController {
         let viewController = ComponentViewController()
         viewController.componentViewContainer = componentViewContainer
         let navController = ComponentNavigationController(rootViewController: viewController)
-        navController.useCustomPresentation = true
         present(navController, animated: true, completion: nil)
     }
     
@@ -227,18 +226,12 @@ extension ComponentPreviewViewController: InteractionHandler {
             return
         }
         
-        switch action.type {
-        case .api:
-            handleAPIAction(action, from: buttonItem)
-            break
-            
-        case .componentView:
-            handleComponentViewAction(action, from: buttonItem)
-            break
-            
-        case .finish:
-            handleFinishAction(action, from: buttonItem)
-            break
+        if let apiAction = action as? APIAction {
+            handleAPIAction(apiAction, from: buttonItem)
+        } else if let componentViewAction = action as? ComponentViewAction {
+            handleComponentViewAction(componentViewAction)
+        } else if let finishAction = action as? FinishAction {
+            handleFinishAction(finishAction)
         }
     }
 }
@@ -247,18 +240,18 @@ extension ComponentPreviewViewController: InteractionHandler {
 
 extension ComponentPreviewViewController {
     
-    func handleAPIAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+    func handleAPIAction(_ action: APIAction, from buttonItem: ButtonItem) {
         guard let component = componentViewContainer?.root else {
             return
         }
         
-        var requestData = component.getData(for: buttonItem.action?.dataInputFields)
-        requestData.add(buttonItem.action?.data)
+        var requestData = action.data ?? [String : Any]()
+        requestData.add(component.getData(for: action.dataInputFields))
     
         let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
                                                    prettyPrinted: true)
         
-        let title = buttonItem.action?.requestPath ?? buttonItem.action?.type.rawValue ?? "Oops?"
+        let title = action.requestPath
         
         let alert = UIAlertController(title: title,
                                       message: requestDataString,
@@ -267,18 +260,14 @@ extension ComponentPreviewViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func handleComponentViewAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
-        guard let componentName = action.name else {
-            return
-        }
-        
-        let viewController = ComponentViewController(componentName: componentName)
+    func handleComponentViewAction(_ action: ComponentViewAction) {
+        let viewController = ComponentViewController(componentName: action.name)
         let navigationController = ComponentNavigationController(rootViewController: viewController)
-        navigationController.useCustomPresentation = true
+        navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
     }
     
-    func handleFinishAction(_ action: ComponentAction, from buttonItem: ButtonItem) {
+    func handleFinishAction(_ action: FinishAction) {
         let alert = UIAlertController(title: "Finish Action", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)

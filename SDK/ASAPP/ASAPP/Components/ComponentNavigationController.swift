@@ -12,7 +12,13 @@ class ComponentNavigationController: UINavigationController {
 
     let presentationAnimator = ModalCardPresentationAnimator()
     
-    var useCustomPresentation: Bool = false {
+    var displayStyle: ComponentViewDisplayStyle = .full {
+        didSet {
+            useCustomPresentation = displayStyle == .inset
+        }
+    }
+    
+    fileprivate(set) var useCustomPresentation: Bool = false {
         didSet {
             if useCustomPresentation {
                 presentationAnimator.fixedBottom = true
