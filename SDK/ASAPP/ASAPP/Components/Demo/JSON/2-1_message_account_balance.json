@@ -1,0 +1,170 @@
+{
+  "text": "Here is your current account balance, upcoming charge, and due date.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Component View Button",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name": "REPLACE_NAME",
+          "displayStyle": "full"
+        }
+      }
+    },
+    {
+      "type": "button",
+      "label": "Treewalk Button",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "actions": {},
+      "styles": {},
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "label",
+              "content": {
+                "text": "ACCOUNT BALANCE"
+              },
+              "style": {
+                "marginBottom": 2,
+                "fontSize": 10,
+                "color": "#a9aebb"
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "$50.00"
+              },
+              "style": {
+                "marginBottom": 10,
+                "fontSize": 24,
+                "fontWeight": "black",
+                "color": "#56607a"
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "user"
+                    },
+                    "style": {
+                      "marginRight": 20,
+                      "width": 24,
+                      "height": 24
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date."
+                    },
+                    "style": {
+                      "fontSize": 12,
+                      "color": "#656f86"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "marginBottom": 15
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "UPCOMING CHARGE"
+                          },
+                          "style": {
+                            "marginBottom": 3,
+                            "fontSize": 10,
+                            "color": "#a9aebb"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "$50.00"
+                          },
+                          "style": {
+                            "fontSize": 15,
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
+                        }
+                      ]
+                    },
+                    "style" : {
+                      "weight" : 1,
+                      "align" : "fill"
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "DUE BY"
+                          },
+                          "style": {
+                            "marginBottom": 3,
+                            "fontSize": 10,
+                            "color": "#a9aebb"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "04/15/17"
+                          },
+                          "style": {
+                            "fontSize": 15,
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
+                        }
+                      ]
+                    },
+                    "style" : {
+                      "weight" : 1,
+                      "align" : "fill"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": 20
+        }
+      }
+    }
+  }
+}
