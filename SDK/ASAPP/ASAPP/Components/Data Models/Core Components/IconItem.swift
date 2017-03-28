@@ -19,47 +19,43 @@ class IconItem: Component {
     enum Icon: String {
         case placeholder = "placeholder" // Empty icon
         
-        // Maintain alphabetical order
-        case arrowLeft = "arrowLeft"
-        case arrowRight = "arrowRight"
-        case back = "back"
-        case checkmark = "checkmark"
-        case circleCheckmark = "circleCheckmark"
-        case creditCard = "creditCard"
-        case creditCardMedium = "creditCardMedium"
-        case errorAlert = "errorAlert"
-        case errorAlertFilled = "errorAlertFilled"
-        case exitLink = "exitLink"
-        case hideKeyboard = "hideKeyboard"
-        case paperclip = "paperclip"
-        case smallX = "xSmall"
-        case star = "star"
-        case starFilled = "starFilled"
+        case alertError = "alertError"
+        case alertWarning = "alertWarning"
+        case arrowOutgoing = "arrowOutgoing"
+        case checkmarkCircle = "checkmarkCircle"
+        case checkmarkThick = "checkmarkThick"
+        case checkmarkThin = "checkmarkThin"
+        case power = "power"
+        case trash = "trash"
         case user = "user"
-        case x = "x"
+        case userMinus = "userMinus"
+        case xThick = "xThick"
+        case xThin = "xThin"
+        
+        
+        static let iconToASAPPIconMap: [Icon : ASAPPIcon] = [
+            .alertError: .alertError,
+            .alertWarning: .alertWarning,
+            .arrowOutgoing: .arrowOutgoing,
+            .checkmarkCircle: .checkmarkCircle,
+            .checkmarkThick: .checkmarkThick,
+            .checkmarkThin: .checkmarkThin,
+            .power: .power,
+            .trash: .trash,
+            .user: .user,
+            .userMinus: .userMinus,
+            .xThick: .xThick,
+            .xThin: .xThin
+        ]
         
         func getImage() -> UIImage? {
-            switch self {
-            case .placeholder: return nil
-                
-            case .arrowLeft: return Images.asappImage(.iconArrowLeft)
-            case .arrowRight: return Images.asappImage(.iconArrowRight)
-            case .back: return Images.asappImage(.iconBack)
-            case .checkmark: return Images.asappImage(.iconCheckmark)
-            case .circleCheckmark: return Images.asappImage(.iconCircleCheckmark)
-            case .creditCard: return Images.asappImage(.iconCreditCard)
-            case .creditCardMedium: return Images.asappImage(.iconCreditCardMedium)
-            case .errorAlert: return Images.asappImage(.iconErrorAlert)
-            case .errorAlertFilled: return Images.asappImage(.iconErrorAlertFilled)
-            case .exitLink: return Images.asappImage(.iconExitLink)
-            case .hideKeyboard: return Images.asappImage(.iconHideKeyboard)
-            case .paperclip: return Images.asappImage(.iconPaperclip)
-            case .smallX: return Images.asappImage(.iconSmallX)
-            case .star: return Images.asappImage(.iconStar)
-            case .starFilled: return Images.asappImage(.iconStarFilled)
-            case .user: return Images.asappImage(.iconUser)
-            case .x: return Images.asappImage(.iconX)
+            if let icon = Icon.iconToASAPPIconMap[self] {
+                return UIImage.asappIcon(icon)
             }
+            if self != .placeholder {
+                DebugLog.w(caller: self, "Unable to locate asapp icon for: \(self)")
+            }
+            return nil
         }
         
         static func from(_ string: String?) -> Icon? {

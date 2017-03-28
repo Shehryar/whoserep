@@ -72,7 +72,9 @@ public class ASAPPStyles: NSObject {
     
     internal var foregroundColor2: UIColor = Colors.steelDark50Color()
     
-    public var controlTintColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
+    public var controlTintColor: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+    
+    public var controlSecondaryColor: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1.000)
     
     internal var separatorColor1: UIColor = Colors.marbleLightColor()
     

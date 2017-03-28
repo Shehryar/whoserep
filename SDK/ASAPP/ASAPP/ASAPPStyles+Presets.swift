@@ -45,8 +45,12 @@ public extension ASAPPStyles {
        // styles.fontNameBlack = "BoostNeo-Black"
         
         // General
-        styles.textButtonColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
-        styles.textButtonColorHighlighted = UIColor(red:0.969, green:0.565, blue:0.118, alpha:0.6)
+        styles.controlTintColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+        styles.textButtonColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+        styles.textButtonColorHighlighted = UIColor(red:0.075, green:0.698, blue:0.925, alpha:0.5)
+        
+        styles.primaryButtonBgColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+        styles.primaryButtonBgColorHighlighted = UIColor(red:0.045, green:0.598, blue:0.825, alpha:1.000)
         
         // Help Button
         styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)

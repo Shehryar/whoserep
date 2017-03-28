@@ -21,6 +21,7 @@ class SliderView: BaseComponentView {
             if let sliderItem = sliderItem {
                 labelView.component = sliderItem.label
                 
+                sliderView.tintColor = sliderItem.style.color ?? ASAPP.styles.controlTintColor
                 sliderView.minimumValue = Float(sliderItem.minValue)
                 sliderView.maximumValue = Float(sliderItem.maxValue)
                 if let value = sliderItem.value as? Float {

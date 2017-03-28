@@ -251,9 +251,9 @@ class ChatInputView: UIView {
     }
     
     func updateMediaButtonColor(_ color: UIColor) {
-        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 1), for: UIControlState())
-        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 0.7), for: .highlighted)
-        mediaButton.setImage(Images.asappImage(.iconPaperclip)?.tinted(color, alpha: 0.4), for: .disabled)
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 1), for: UIControlState())
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 0.4), for: .disabled)
     }
     
     // MARK:- Button Actions

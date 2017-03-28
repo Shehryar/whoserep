@@ -8,12 +8,41 @@
 
 import UIKit
 
+enum ASAPPIcon: String {
+    case alertError = "iconAlertError"
+    case alertWarning = "iconAlertWarning"
+    case arrowBack = "iconArrowBack"
+    case arrowOutgoing = "iconArrowOutgoing"
+    case checkmarkCircle = "iconCheckmarkCircle"
+    case checkmarkThick = "iconCheckmarkThick"
+    case checkmarkThin = "iconCheckmarkThin"
+    case paperclip = "iconPaperclip"
+    case power = "iconPower"
+    case trash = "iconTrash"
+    case user = "iconUser"
+    case userMinus = "iconUserMinus"
+    case xThick = "iconXThick"
+    case xThin = "iconXThin"
+}
+
+extension UIImage {
+    
+    class func asappImage(named name: String) -> UIImage? {
+        return UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
+    }
+    
+    class func asappIcon(_ icon: ASAPPIcon) -> UIImage? {
+        return asappImage(named: icon.rawValue)
+    }
+}
+
+
+
 class Images: NSObject {
     
     // MARK: Image Names
     
     enum ASAPPImage: String {
-        case iconPaperclip = "temp-icon-paperclip"
         case iconX = "icon-x"
         case iconSmallX = "icon-x-small"
         case iconExitLink = "icon-exit-link"
@@ -21,7 +50,6 @@ class Images: NSObject {
         case iconCheckmark = "icon-checkmark"
         case iconCreditCard = "icon-credit-card"
         case iconCreditCardMedium = "icon-credit-card-medium"
-        case iconCircleCheckmark = "icon-circle-checkmark"
         case iconErrorAlert = "icon-error-alert"
         case iconErrorAlertFilled = "icon-error-alert-filled"
         case iconHideKeyboard = "icon-hide-keyboard"
@@ -71,6 +99,7 @@ class Images: NSObject {
         
         return nil
     }
-    
-
 }
+
+
+

@@ -1,0 +1,172 @@
+{
+  "text": "Here is your current account balance, upcoming charge, and due date.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Component View Button",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name": "REPLACE_NAME",
+          "displayStyle": "full"
+        }
+      }
+    },
+    {
+      "type": "button",
+      "label": "Treewalk Button",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "actions": {},
+      "styles": {},
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "label",
+              "content": {
+                "text": "ACCOUNT BALANCE"
+              },
+              "style": {
+                "marginBottom": 2,
+                "fontSize": 10,
+                "color": "#a9aebb"
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "$0.00"
+              },
+              "style": {
+                "marginBottom": 10,
+                "fontSize": 24,
+                "fontWeight": "black",
+                "color": "#56607a"
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "alertWarning"
+                    },
+                    "style": {
+                      "marginRight": 15,
+                      "width": 20,
+                      "height": 20,
+                      "gravity" : "middle"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Account balance insufficient to cover your next month of service."
+                    },
+                    "style": {
+                      "gravity" : "middle",
+                      "fontSize": 12,
+                      "color": "#656f86"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "marginBottom": 20
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "UPCOMING CHARGE"
+                          },
+                          "style": {
+                            "marginBottom": 3,
+                            "fontSize": 10,
+                            "color": "#a9aebb"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "$50.00"
+                          },
+                          "style": {
+                            "fontSize": 15,
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
+                        }
+                      ]
+                    },
+                    "style" : {
+                      "weight" : 1,
+                      "align" : "fill"
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "DUE BY"
+                          },
+                          "style": {
+                            "marginBottom": 3,
+                            "fontSize": 10,
+                            "color": "#a9aebb"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "04/15/17"
+                          },
+                          "style": {
+                            "fontSize": 15,
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
+                        }
+                      ]
+                    },
+                    "style" : {
+                      "weight" : 1,
+                      "align" : "fill"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": 20
+        }
+      }
+    }
+  }
+}

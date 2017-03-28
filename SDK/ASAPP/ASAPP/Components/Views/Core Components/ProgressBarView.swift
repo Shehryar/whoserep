@@ -19,8 +19,8 @@ class ProgressBarView: BaseComponentView {
     override var component: Component? {
         didSet {
             let style = progressBarItem?.style
-            progressBar.backgroundColor = style?.color ?? ProgressBarItem.defaultColor
-            progressBarContainer.backgroundColor = style?.backgroundColor ?? ProgressBarItem.defaultBackgroundColor
+            progressBar.backgroundColor = style?.color ?? ASAPP.styles.controlTintColor
+            progressBarContainer.backgroundColor = style?.backgroundColor ?? ASAPP.styles.controlSecondaryColor
             backgroundColor = UIColor.clear
         }
     }
