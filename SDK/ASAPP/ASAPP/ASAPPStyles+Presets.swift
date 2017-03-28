@@ -46,6 +46,7 @@ public extension ASAPPStyles {
         
         // General
         styles.textButtonColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
+        styles.textButtonColorHighlighted = UIColor(red:0.969, green:0.565, blue:0.118, alpha:0.6)
         
         // Help Button
         styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)

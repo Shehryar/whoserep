@@ -235,7 +235,6 @@
 		302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20CF1E5F9634007C522A /* ChatPictureView.swift */; };
 		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
 		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
-		302AF32F1E8031CD0086B939 /* text_history_card.json in Resources */ = {isa = PBXBuildFile; fileRef = 302AF32E1E8031CD0086B939 /* text_history_card.json */; };
 		302AF3311E8046E80086B939 /* ProgressBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3301E8046E80086B939 /* ProgressBarItem.swift */; };
 		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
 		302AF3371E80557A0086B939 /* icon-user.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF3341E80557A0086B939 /* icon-user.png */; };
@@ -593,7 +592,6 @@
 		302A20CF1E5F9634007C522A /* ChatPictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureView.swift; sourceTree = "<group>"; };
 		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
 		302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
-		302AF32E1E8031CD0086B939 /* text_history_card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = text_history_card.json; sourceTree = "<group>"; };
 		302AF3301E8046E80086B939 /* ProgressBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarItem.swift; sourceTree = "<group>"; };
 		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		302AF3341E80557A0086B939 /* icon-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user.png"; sourceTree = "<group>"; };
@@ -858,7 +856,6 @@
 			isa = PBXGroup;
 			children = (
 				281C34711E7F092C001A2AA3 /* component_server.js */,
-				302AF32E1E8031CD0086B939 /* text_history_card.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -1812,7 +1809,6 @@
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
-				302AF32F1E8031CD0086B939 /* text_history_card.json in Resources */,
 				30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */,
 				30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */,
 				301C4BF01DAD804C002BF4D9 /* map-device@3x.png in Resources */,

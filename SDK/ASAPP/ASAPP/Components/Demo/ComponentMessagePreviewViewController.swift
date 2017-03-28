@@ -21,11 +21,10 @@ class ComponentMessagePreviewViewController: UIViewController {
             if let message = message {
                 messagesView.reloadWithEvents([Event]())
                 quickRepliesView.clear()
-                updateFrames()
                 
                 messagesView.addMessage(message)
                 quickRepliesView.add(message: message, animated: false)
-                Dispatcher.delay(800, closure: updateFramesAnimated)
+                updateFrames()
             }
         }
     }
@@ -110,10 +109,6 @@ class ComponentMessagePreviewViewController: UIViewController {
         }
         let height = contentBottom - top
         messagesView.frame = CGRect(x: 0, y: top, width: view.bounds.width, height: height)
-    }
-    
-    func updateFramesAnimated() {
-        UIView.animate(withDuration: 0.3, animations: updateFrames)
     }
     
     // MARK:- Refresh

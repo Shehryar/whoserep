@@ -19,6 +19,7 @@ public class ComponentsDemoViewController: UIViewController {
 
     var componentNames: [String]? {
         didSet {
+            messageNames.removeAll()
             cardNames.removeAll()
             viewNames.removeAll()
             if let componentNames = componentNames {

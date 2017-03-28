@@ -1,0 +1,305 @@
+{
+  "text": "Sure! Here are your last three texts. Tap \"view all\" to see your full text history.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Component View Button",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name": "REPLACE_NAME",
+          "displayStyle": "full"
+        }
+      }
+    },
+    {
+      "type": "button",
+      "label": "Treewalk Button",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE_CLASSIFICATION"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {
+        "icon": {
+          "gravity": "middle",
+          "marginRight": 16,
+          "color": "#5b657e",
+          "width": 10,
+          "height": 10
+        }
+      },
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Text History"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "fontWeight": "black",
+                      "fontSize": 16,
+                      "color": "#5b657e"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW ALL",
+                      "style": "text",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-3_view_text_history"
+                        }
+                      }
+                    },
+                    "style": {
+                      "align": "right",
+                      "gravity": "middle",
+                      "weight": 1,
+                      "paddingTop": 12,
+                      "paddingLeft": 16,
+                      "paddingBottom": 12,
+                      "paddingRight": 0
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 4,
+                "paddingBottom": 4
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "exitLink"
+                    },
+                    "class": "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "fontSize": 14,
+                            "color": "#646e85"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "style": {
+                            "fontSize": 12,
+                            "color": "#adb2bf"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 5,
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$0.25"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "align": "right",
+                      "weight": 0,
+                      "fontSize": 16,
+                      "fontWeight": "black",
+                      "letterSpacing": 1,
+                      "textAlign": "right",
+                      "color": "#5b657e"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 8,
+                "paddingBottom": 8
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "class": "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "fontSize": 14,
+                            "color": "#646e85"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 5:01PM"
+                          },
+                          "style": {
+                            "fontSize": 12,
+                            "color": "#adb2bf"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 5,
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$0.10"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "align": "right",
+                      "weight": 0,
+                      "fontSize": 16,
+                      "fontWeight": "black",
+                      "letterSpacing": 1,
+                      "textAlign": "right",
+                      "color": "#5b657e"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 8,
+                "paddingBottom": 8
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "class": "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Jimmy"
+                          },
+                          "style": {
+                            "fontSize": 14,
+                            "color": "#646e85"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 1:07PM"
+                          },
+                          "style": {
+                            "fontSize": 12,
+                            "color": "#adb2bf"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 5,
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$0.20"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "align": "right",
+                      "weight": 0,
+                      "fontSize": 16,
+                      "fontWeight": "black",
+                      "letterSpacing": 1,
+                      "textAlign": "right",
+                      "color": "#5b657e"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingTop": 8,
+                "paddingBottom": 16
+              }
+            }
+          ]
+        },
+        "style": {
+          "paddingLeft": 20,
+          "paddingRight": 20
+        }
+      }
+    }
+  }
+}
