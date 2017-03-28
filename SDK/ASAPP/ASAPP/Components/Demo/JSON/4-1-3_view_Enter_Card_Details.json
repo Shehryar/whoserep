@@ -144,7 +144,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "4.1_credit_card",
+                      "requestPath": "4-3-3_message_Auto_Reboost",
                       "inputFields": [
                         "cardNameInput",
                         "cardNumberInput",

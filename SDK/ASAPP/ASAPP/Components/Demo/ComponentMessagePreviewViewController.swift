@@ -175,6 +175,14 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             break
             
         case .treewalk:
+            if !buttonItem.action.name.lowercased().contains("replac") {
+                let viewController = ComponentMessagePreviewViewController()
+                viewController.fileName = buttonItem.action.name
+                navigationController?.pushViewController(viewController, animated: true)
+                return false
+            }
+            
+            
             title = "SRS Treewalk"
             message = "Classification: \(buttonItem.action.name)"
             break
@@ -217,8 +225,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
 
 extension ComponentMessagePreviewViewController {
     
-    
-    
     func handleAPIAction(_ action: APIAction, from /** root component **/ component: Component) {
 
         var requestData = component.getData(for: action.dataInputFields)
@@ -236,6 +242,7 @@ extension ComponentMessagePreviewViewController {
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
         let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle
 
@@ -246,5 +253,24 @@ extension ComponentMessagePreviewViewController {
         let alert = UIAlertController(title: "Finish Action", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate {
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapAPIAction action: APIAction,
+                                 with data: [String : Any]?,
+                                 completion: @escaping ((ComponentAction?, String?) -> Void)) {
+        
+        Dispatcher.delay(1500) {
+            completion(FinishAction(content: nil), nil)
+            
+            Dispatcher.delay(500, closure: { [weak self] in
+                let viewController = ComponentMessagePreviewViewController()
+                viewController.fileName = action.requestPath
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            })
+        }
     }
 }

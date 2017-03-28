@@ -6,7 +6,7 @@
       "label": "Enroll me in Low Balance Re-Boost",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "4-3-8_message_enrolled_in_reboost"
       }
     },
     {
@@ -14,7 +14,7 @@
       "label": "I'd like to change my card",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "4-3-8_message_enrolled_in_reboost"
       }
     },
     {

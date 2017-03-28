@@ -104,7 +104,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "4.3_reboost",
+                      "requestPath": "4-3-5_message_terms_and_conditions",
                       "inputFields": [
                         "amountInput"
                       ],

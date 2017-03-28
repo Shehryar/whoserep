@@ -9,7 +9,10 @@
 import UIKit
 
 protocol ComponentViewControllerDelegate: class {
-    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapAPIAction action: APIAction,
+                                 with data: [String : Any]?,
+                                 completion: @escaping ((_ nextAction: ComponentAction?, _ error: String?) -> Void))
 }
 
 class ComponentViewController: UIViewController {
@@ -164,7 +167,7 @@ extension ComponentViewController: InteractionHandler {
         }
         
         if let apiAction = action as? APIAction {
-            handleAPIAction(apiAction, from: buttonItem)
+            handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
         } else if let finishAction = action as? FinishAction {
@@ -177,13 +180,32 @@ extension ComponentViewController: InteractionHandler {
 
 extension ComponentViewController {
     
-    func handleAPIAction(_ action: APIAction, from buttonItem: ButtonItem) {
+    func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
         guard let component = componentViewContainer?.root else {
             return
         }
-        
+    
         var requestData = action.data ?? [String : Any]()
         requestData.add(component.getData(for: action.dataInputFields))
+    
+        
+        if let delegate = delegate {
+            buttonView.isLoading = true
+            delegate.componentViewController(
+                self,
+                didTapAPIAction: action,
+                with: requestData,
+                completion: { [weak self] (nextAction, error) in
+                    buttonView.isLoading = false
+                    if let finishAction = nextAction as? FinishAction {
+                        self?.handleFinishAction(finishAction)
+                    } else if let viewAction = nextAction as? ComponentViewAction {
+                        self?.handleComponentViewAction(viewAction)
+                    }
+            })
+            return
+        }
+        
         
         let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
                                                    prettyPrinted: true)

@@ -14,10 +14,25 @@ class ButtonView: BaseComponentView {
     
     let button = UIButton()
     
+    var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                spinnerView.startAnimating()
+            } else {
+                spinnerView.stopAnimating()
+            }
+            button.isEnabled = !isLoading
+        }
+    }
+    
+    fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    
     // MARK: ComponentView Properties
     
     override var component: Component? {
         didSet {
+            isLoading = false
+            
             if let buttonItem = buttonItem {
                 var textStyle: TextStyle
                 
@@ -122,6 +137,9 @@ class ButtonView: BaseComponentView {
         button.titleLabel?.lineBreakMode = .byWordWrapping
         addSubview(button)
         
+        spinnerView.hidesWhenStopped = true
+        addSubview(spinnerView)
+        
         button.addTarget(self, action: #selector(ButtonView.onTap), for: .touchUpInside)
     }
     
@@ -131,6 +149,9 @@ class ButtonView: BaseComponentView {
         super.layoutSubviews()
         
         button.frame = bounds
+        
+        spinnerView.sizeToFit()
+        spinnerView.center = button.center
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

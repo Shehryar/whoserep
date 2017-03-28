@@ -6,7 +6,7 @@
       "label": "I accept",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "4-3-7_message_confirm_rebost_enrollment"
       }
     },
     {

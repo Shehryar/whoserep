@@ -14,7 +14,7 @@
       "label": "Use a new card",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "4-1-2_message_Enter_Card_Details"
       }
     }
   ],
