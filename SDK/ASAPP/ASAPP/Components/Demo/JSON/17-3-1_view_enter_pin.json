@@ -1,0 +1,163 @@
+{
+  "title": "Change PIN",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 8,
+      "color": "#55607a"
+    },
+    "infoText": {
+      "color" : "#5c677f",
+      "fontSize" : "15",
+      "marginBottom" : 12
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "scrollView",
+          "style": {
+            "weight": 1,
+            "align": "fill",
+            "gravity" : "fill"
+          },
+          "content": {
+            "content": {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Enter New PIN"
+                          },
+                          "style": {
+                            "fontSize": 18,
+                            "fontWeight": "black",
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "id": "pinInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "pin",
+                          "content": {
+                            "placeholder": "NEW PIN",
+                            "type": "number",
+                            "password": true
+                          }
+                        },
+                        {
+                          "id": "pinConfirmationInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "pinConfirmation",
+                          "content": {
+                            "placeholder": "CONFIRM NEW PIN",
+                            "type": "number",
+                            "password": true
+                          },
+                          "style" : {
+                            "marginBottom" : 32
+                          }
+                        },
+                        {
+                          "type" : "label",
+                          "class" : "infoText",
+                          "content" : {
+                            "text" : "• Choose a 4-digit number (no letters or special characters)"
+                          }
+                        },
+                        {
+                          "type" : "label",
+                          "class" : "infoText",
+                          "content" : {
+                            "text" : "• Don't include more than 3 identical numbers in a row (e.g. 111)"
+                          }
+                        },
+                        {
+                          "type" : "label",
+                          "class" : "infoText",
+                          "content" : {
+                            "text" : "• Don't include more than 3 sequential numbers (e.g. 123)"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "padding": "36 24"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "stackView",
+          "style": {
+            "weight": 0,
+            "align": "fill"
+          },
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
+                  "action": {
+                    "type": "finish"
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "17-3-2_message_pin_change_successful",
+                      "inputFields": [
+                        "pinInput",
+                        "pinConfirmationInput"
+                      ],
+                      "requiredInputFields": [
+                        "pinInput",
+                        "pinConfirmationInput"
+                      ],
+                      "data": {
+                        "type": "changePin"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

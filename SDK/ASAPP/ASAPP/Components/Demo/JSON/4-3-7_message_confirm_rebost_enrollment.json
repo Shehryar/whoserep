@@ -14,7 +14,7 @@
       "label": "I'd like to change my card",
       "value": {
         "type": "AID",
-        "content": "4-3-8_message_enrolled_in_reboost"
+        "content": "4-1-1_message_enroll_auto_boost"
       }
     },
     {
@@ -22,7 +22,7 @@
       "label": "Cancel Enrollment",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "4-1-0_message_stopped_enrollment"
       }
     }
   ],

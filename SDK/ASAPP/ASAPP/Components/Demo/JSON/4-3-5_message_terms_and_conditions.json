@@ -14,7 +14,7 @@
       "label": "I do not accept",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "4-1-0_message_stopped_enrollment"
       }
     }
   ],

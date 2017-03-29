@@ -1,26 +1,5 @@
 {
   "text": "Alright then, have a great day!",
-  "quickReplies": [
-    {
-      "type": "button",
-      "label": "Component View Button",
-      "value": {
-        "type": "COMPONENT_VIEW",
-        "content": {
-          "name": "REPLACE_NAME",
-          "displayStyle": "full"
-        }
-      }
-    },
-    {
-      "type": "button",
-      "label": "Treewalk Button",
-      "value": {
-        "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
-      }
-    }
-  ],
   "attachment": {
     "type": "componentView",
     "content": {
