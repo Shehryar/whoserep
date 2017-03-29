@@ -144,7 +144,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "4-3-3_message_Auto_Reboost",
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "cardNameInput",
                         "cardNumberInput",
@@ -158,7 +158,9 @@
                         "cardCVVInput"
                       ],
                       "data": {
-                        "type": "newCard"
+                        "SendFinishMessage" : true,
+                        "Classifciation" : "4-3-3_message_Auto_Reboost",
+                        "Text" : "[Uploaded Credit Card]"
                       }
                     }
                   }

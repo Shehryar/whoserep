@@ -835,15 +835,19 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
-        
-        completion(nil, nil)
+        conversationManager.getComponentView(named: viewName) { (componentViewContainer) in
+            completion(componentViewContainer, nil)
+        }
     }
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping ((ComponentAction?, String?) -> Void)) {
-        completion(nil, nil)
+        let params = data as [String : AnyObject]?
+        conversationManager.sendAPIActionRequest(action, params: params, completion: { (componentAction) in
+            completion(componentAction, nil)
+        })
     }
 }
 

@@ -163,6 +163,53 @@ extension ConversationManager {
         let path = "srs/CreateLinkButtonTapEvent"
         sendSRSRequest(path: path, params: params, completion: completion)
     }
+    
+    // MARK:- Component View API
+
+    func sendAPIActionRequest(_ action: APIAction,
+                              params: [String : AnyObject]?,
+                              completion: @escaping ((ComponentAction?) -> Void)) {
+        
+        func handleResponse(_ message: IncomingMessage,
+                            _ request: SocketRequest?,
+                            _ responseTime: ResponseTimeInMilliseconds) {
+            
+            // Get Action from this
+            let action = ComponentActionFactory.action(with: message.body)
+            completion(action)
+            
+        }
+ 
+        let path = action.requestPath
+        if path.contains("srs/") {
+            sendSRSRequest(path: action.requestPath,
+                           params: params,
+                           isRequestFromPrediction: false,
+                           completion: handleResponse)
+        } else {
+            socketConnection.sendRequest(withPath: path,
+                                         params: params,
+                                         context: nil,
+                                         requestHandler: handleResponse)
+        }
+    }
+    
+    func getComponentView(named name: String,
+                          completion: @escaping ((ComponentViewContainer?) -> Void)) {
+        
+        let path = "srs/GetComponentView"
+        let params = [
+            "Classification" : name
+        ]
+        
+        sendSRSRequest(path: path,
+                       params: params as [String : AnyObject],
+                       isRequestFromPrediction: false) { (message, request, responseTime) in
+                        let componentViewContainer = ComponentViewContainer.from(message.body)
+                        completion(componentViewContainer)
+        }
+    }
+    
 }
 
 // MARK:- Chat
