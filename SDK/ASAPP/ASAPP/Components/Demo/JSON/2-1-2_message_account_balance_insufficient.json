@@ -3,21 +3,18 @@
   "quickReplies": [
     {
       "type": "button",
-      "label": "Component View Button",
+      "label": "Pay my bill",
       "value": {
-        "type": "COMPONENT_VIEW",
-        "content": {
-          "name": "REPLACE_NAME",
-          "displayStyle": "full"
-        }
+        "type": "AID",
+        "content": "7-1-01_message_select_account_for_payment"
       }
     },
     {
       "type": "button",
-      "label": "Treewalk Button",
+      "label": "Transaction History",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-1_message_transaction_history"
       }
     }
   ],

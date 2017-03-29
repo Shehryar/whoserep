@@ -1,0 +1,29 @@
+{
+  "text": "Okay, with a payment of $50.00, you will also have to pay $2.27 in applicable taxes. Let us know if this is alright or if you'd like to change your payment amount.",
+  "quickReplies": [
+        {
+      "type": "button",
+      "label": "Yes that is alright",
+      "value": {
+        "type": "AID",
+        "content": "7-1-10_message_confirm_payment_again"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Change payment amount",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Cancel Payment",
+      "value": {
+        "type": "AID",
+        "content": "REPLACE"
+      }
+    }
+  ]
+}
