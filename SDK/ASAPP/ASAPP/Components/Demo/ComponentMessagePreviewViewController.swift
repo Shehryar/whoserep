@@ -16,18 +16,7 @@ class ComponentMessagePreviewViewController: UIViewController {
         }
     }
     
-    var message: ChatMessage? {
-        didSet {
-            if let message = message {
-                messagesView.reloadWithEvents([Event]())
-                quickRepliesView.clear()
-                
-                messagesView.addMessage(message)
-                quickRepliesView.add(message: message, animated: false)
-                updateFrames()
-            }
-        }
-    }
+    var allFileNames: [String]?
     
     // MARK:- Private Properties
     
@@ -113,16 +102,59 @@ class ComponentMessagePreviewViewController: UIViewController {
     
     // MARK:- Refresh
     
+    fileprivate func clear() {
+        messagesView.reloadWithEvents([Event]())
+        quickRepliesView.clear()
+        updateFrames()
+    }
+    
+    fileprivate func addMessage(_ message: ChatMessage?) {
+        guard let message = message else {
+            return
+        }
+        
+        messagesView.addMessage(message)
+        if message.isReply {
+            quickRepliesView.add(message: message, animated: true)
+        }
+        updateFrames()
+    }
+    
     func refresh() {
         guard let fileName = fileName else {
             return
         }
         
+        clear()
+        
         DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, err) in
             Dispatcher.performOnMainThread {
-                self?.message = message
+                self?.addMessage(message)
             }
         }
+    }
+    
+    func getNextMessage(with messageText: String, fileName: String) {
+        let userMessage = ChatMessage(text: messageText,
+                                      attachment: nil,
+                                      quickReplies: nil,
+                                      isReply: false,
+                                      sendTime: Date(),
+                                      eventId: Int(Date().timeIntervalSince1970),
+                                      eventType: .textMessage,
+                                      issueId: 1)
+        addMessage(userMessage)
+        
+        DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, error) in
+            Dispatcher.delay(800, closure: { 
+                self?.addMessage(message)
+            })
+        }
+        
+        
+//        let viewController = ComponentMessagePreviewViewController()
+//        viewController.fileName = buttonItem.action.name
+//        navigationController?.pushViewController(viewController, animated: true)
     }
     
     // MARK: Motion
@@ -139,7 +171,9 @@ class ComponentMessagePreviewViewController: UIViewController {
 
 extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTap buttonItem: ButtonItem, from message: ChatMessage) {
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTap buttonItem: ButtonItem,
+                          from message: ChatMessage) {
         guard let action = buttonItem.action, let component = message.attachment?.template else {
             return
         }
@@ -175,13 +209,11 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             break
             
         case .treewalk:
-            if !buttonItem.action.name.lowercased().contains("replac") {
-                let viewController = ComponentMessagePreviewViewController()
-                viewController.fileName = buttonItem.action.name
-                navigationController?.pushViewController(viewController, animated: true)
+            if let allFileNames = allFileNames,
+                allFileNames.contains(buttonItem.action.name) {
+                getNextMessage(with: buttonItem.title, fileName: buttonItem.action.name)
                 return false
             }
-            
             
             title = "SRS Treewalk"
             message = "Classification: \(buttonItem.action.name)"
@@ -267,9 +299,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             completion(FinishAction(content: nil), nil)
             
             Dispatcher.delay(500, closure: { [weak self] in
-                let viewController = ComponentMessagePreviewViewController()
-                viewController.fileName = action.requestPath
-                self?.navigationController?.pushViewController(viewController, animated: true)
+                self?.getNextMessage(with: "[Submitted form]", fileName: action.requestPath)
             })
         }
     }

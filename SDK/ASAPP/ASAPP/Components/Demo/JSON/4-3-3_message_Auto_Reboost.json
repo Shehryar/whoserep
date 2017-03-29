@@ -1,5 +1,5 @@
 {
-  "text": "Ok great, please tap below to enter the amount you'd like to automatically add whenever your account balance drops below $5.",
+  "text": "Got it! Please tap below to enter the amount you'd like to automatically add whenever your account balance drops below $5.",
   "quickReplies": [
     {
       "type": "button",

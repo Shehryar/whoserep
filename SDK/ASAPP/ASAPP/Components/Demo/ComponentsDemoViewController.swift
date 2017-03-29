@@ -226,6 +226,7 @@ extension ComponentsDemoViewController: UITableViewDelegate {
             if let componentName = getComponentName(for: indexPath) {
                 let viewController = ComponentMessagePreviewViewController()
                 viewController.fileName = componentName
+                viewController.allFileNames = componentNames
                 navigationController?.pushViewController(viewController, animated: true)
             }
             return

@@ -131,7 +131,7 @@ extension DemoComponentsAPI {
                                       quickReplies: quickReplies,
                                       isReply: true,
                                       sendTime: Date(),
-                                      eventId: 10,
+                                      eventId: Int(Date().timeIntervalSince1970),
                                       eventType: .srsResponse,
                                       issueId: 1)
             completion(message, nil)
