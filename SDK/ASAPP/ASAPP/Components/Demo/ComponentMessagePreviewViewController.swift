@@ -36,6 +36,7 @@ class ComponentMessagePreviewViewController: UIViewController {
         messagesView.delegate = self
         messagesView.overrideToHideInfoView = true
         
+        quickRepliesView.clipsToBounds = true
         quickRepliesView.delegate = self
     }
     
