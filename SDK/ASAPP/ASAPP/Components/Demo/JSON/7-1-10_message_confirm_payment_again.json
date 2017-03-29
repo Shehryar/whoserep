@@ -14,7 +14,7 @@
       "label": "Edit Payment Details",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "7-1-04_message_enter_card_details"
       }
     },
     {
@@ -22,7 +22,7 @@
       "label": "Cancel Payment",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "7-1-0_opted_out_of_payment"
       }
     }
   ],

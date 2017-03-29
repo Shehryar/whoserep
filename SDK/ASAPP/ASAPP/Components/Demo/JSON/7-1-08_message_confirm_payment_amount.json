@@ -14,7 +14,7 @@
       "label": "Change payment amount",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "7-1-07_message_select_amount"
       }
     },
     {
@@ -22,7 +22,7 @@
       "label": "Cancel Payment",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "7-1-0_opted_out_of_payment"
       }
     }
   ]

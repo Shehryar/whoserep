@@ -14,7 +14,7 @@
       "label": "Re-Boost Card",
       "value": {
         "type": "AID",
-        "content": "REPLACE"
+        "content": "7-1-04_message_enter_card_details"
       }
     }
   ]
