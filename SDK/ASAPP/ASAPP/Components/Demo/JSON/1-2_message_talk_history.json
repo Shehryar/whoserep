@@ -3,21 +3,26 @@
   "quickReplies": [
     {
       "type": "button",
-      "label": "Component View Button",
+      "label": "Data Usage",
       "value": {
-        "type": "COMPONENT_VIEW",
-        "content": {
-          "name": "REPLACE_NAME",
-          "displayStyle": "full"
-        }
+        "type": "AID",
+        "content": "1-4_message_data_usage"
       }
     },
     {
       "type": "button",
-      "label": "Treewalk Button",
+      "label": "Texts",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-3_message_text_history"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Payments",
+      "value": {
+        "type": "AID",
+        "content": "1-1_message_transaction_history"
       }
     }
   ],
@@ -94,7 +99,7 @@
                   {
                     "type": "icon",
                     "content": {
-                      "icon": "exitLink"
+                      "icon": "arrowOutgoing"
                     },
                     "class": "icon"
                   },
@@ -166,7 +171,7 @@
                     "content": {
                       "icon": "placeholder"
                     },
-                    "class" : "icon"
+                    "class": "icon"
                   },
                   {
                     "type": "stackView",
@@ -236,7 +241,7 @@
                     "content": {
                       "icon": "placeholder"
                     },
-                    "class" : "icon"
+                    "class": "icon"
                   },
                   {
                     "type": "stackView",

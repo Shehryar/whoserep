@@ -3,29 +3,10 @@
   "quickReplies": [
     {
       "type": "button",
-      "label": "View All",
-      "value": {
-        "type": "COMPONENT_VIEW",
-        "content": {
-          "name" : "1-1_view_transaction_history",
-          "displayStyle" : "full"
-        }
-      }
-    },
-    {
-      "type": "button",
-      "label": "Payments",
-      "value": {
-        "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
-      }
-    },
-    {
-      "type": "button",
       "label": "Data Usage",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-4_message_data_usage"
       }
     },
     {
@@ -33,7 +14,7 @@
       "label": "Texts",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-3_message_text_history"
       }
     },
     {
@@ -41,7 +22,7 @@
       "label": "Calls",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-2_message_talk_history"
       }
     }
   ],

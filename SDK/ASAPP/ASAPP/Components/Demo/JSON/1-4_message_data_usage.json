@@ -3,21 +3,26 @@
   "quickReplies": [
     {
       "type": "button",
-      "label": "Component View Button",
+      "label": "Payments",
       "value": {
-        "type": "COMPONENT_VIEW",
-        "content": {
-          "name": "REPLACE_NAME",
-          "displayStyle": "full"
-        }
+        "type": "AID",
+        "content": "1-1_message_transaction_history"
       }
     },
     {
       "type": "button",
-      "label": "Treewalk Button",
+      "label": "Texts",
       "value": {
         "type": "AID",
-        "content": "REPLACE_CLASSIFICATION"
+        "content": "1-3_message_text_history"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Calls",
+      "value": {
+        "type": "AID",
+        "content": "1-2_message_talk_history"
       }
     }
   ],
