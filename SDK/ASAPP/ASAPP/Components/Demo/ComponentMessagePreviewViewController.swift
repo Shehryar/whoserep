@@ -318,12 +318,18 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping ((ComponentAction?, String?) -> Void)) {
+        guard let text = data?["Text"] as? String,
+            let name = data?["Classification"] as? String else {
+                print("DATA IS MISSING: \(data)")
+                completion(nil, "Missing data")
+                return
+        }
         
         Dispatcher.delay(1500) {
             completion(FinishAction(content: nil), nil)
             
             Dispatcher.delay(500, closure: { [weak self] in
-                self?.getNextMessage(with: "[Submitted form]", fileName: action.requestPath)
+                self?.getNextMessage(with: text, fileName: name)
             })
         }
     }

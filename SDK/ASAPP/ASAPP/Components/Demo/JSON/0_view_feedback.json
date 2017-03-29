@@ -324,12 +324,13 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "/submitFeedback",
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": ["ratingSlider", "changeRadioButtons"],
                       "requiredInputFields": ["ratingSlider"],
                       "data": {
-                        "type": "conversationFeedback",
-                        "userId": "mitcho309"
+                        "SendFinishMessage" : true,
+                        "Classification": "SUBMIT_FEEDBACK",
+                        "Text": "[Uploaded Feedback]"
                       }
                     }
                   }

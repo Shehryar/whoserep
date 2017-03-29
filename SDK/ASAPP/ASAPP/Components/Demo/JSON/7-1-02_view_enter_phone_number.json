@@ -104,7 +104,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "7-1-03_message_select_payment_method",
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "phoneInput"
                       ],
@@ -112,6 +112,9 @@
                         "phoneInput"
                       ],
                       "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "7-1-03_message_select_payment_method",
+                        "Text" : "+1 (555) 333-5555",
                         "type": "paymentAccount"
                       }
                     }

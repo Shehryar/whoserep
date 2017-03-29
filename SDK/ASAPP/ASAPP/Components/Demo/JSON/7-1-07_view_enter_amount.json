@@ -104,7 +104,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "7-1-08_message_confirm_payment_amount",
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "amountInput"
                       ],
@@ -112,6 +112,9 @@
                         "amountInput"
                       ],
                       "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "7-1-08_message_confirm_payment_amount",
+                        "Text" : "$50.00",
                         "type": "paymentAccount"
                       }
                     }

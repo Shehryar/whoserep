@@ -159,7 +159,7 @@
                       ],
                       "data": {
                         "SendFinishMessage" : true,
-                        "Classifciation" : "4-3-3_message_Auto_Reboost",
+                        "Classification" : "4-3-3_message_Auto_Reboost",
                         "Text" : "[Uploaded Credit Card]"
                       }
                     }

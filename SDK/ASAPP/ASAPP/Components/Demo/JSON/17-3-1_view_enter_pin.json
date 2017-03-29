@@ -134,7 +134,7 @@
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "17-3-2_message_pin_change_successful",
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "pinInput",
                         "pinConfirmationInput"
@@ -144,6 +144,9 @@
                         "pinConfirmationInput"
                       ],
                       "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "17-3-2_message_pin_change_successful",
+                        "Text" : "[Updated PIN]",
                         "type": "changePin"
                       }
                     }
