@@ -821,9 +821,29 @@ extension ChatViewController {
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
         let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
+    }
+}
+
+// MARK:- ComponentViewControllerDelegate
+
+extension ChatViewController: ComponentViewControllerDelegate {
+    
+    func componentViewController(_ viweController: ComponentViewController,
+                                 fetchContentForViewNamed viewName: String,
+                                 completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
+        
+        completion(nil, nil)
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapAPIAction action: APIAction,
+                                 with data: [String : Any]?,
+                                 completion: @escaping ((ComponentAction?, String?) -> Void)) {
+        completion(nil, nil)
     }
 }
 

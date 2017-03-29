@@ -311,7 +311,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
                 delegate?.chatMessagesView(self,
                                            didTapImageView: pictureCell.pictureView.imageView,
                                            forMessage: message)
-        } else if let cell = cell as? ChatMessageCell {
+        } else if cell is ChatMessageCell {
             toggleTimeStampForMessage(at: indexPath)
         }
         
@@ -445,7 +445,7 @@ extension ChatMessagesView {
 extension ChatMessagesView {
     
     func updateTypingStatus(_ isTyping: Bool) {
-        var isDifferent = isTyping != otherParticipantIsTyping
+        let isDifferent = isTyping != otherParticipantIsTyping
         let shouldScrollToBottom = isNearBottom() && isDifferent && isTyping
         
         otherParticipantIsTyping = isTyping

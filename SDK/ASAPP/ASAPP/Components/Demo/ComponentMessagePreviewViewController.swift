@@ -28,6 +28,10 @@ class ComponentMessagePreviewViewController: UIViewController {
         return true
     }
     
+    
+    
+    var shouldLoad = false
+    
     // MARK:- Initialization
     
     func commonInit() {
@@ -295,6 +299,19 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
         
+        shouldLoad = true
+        if shouldLoad {
+            DemoComponentsAPI.getComponent(with: viewName) { (componentViewContainer, json, error) in
+                
+                completion(componentViewContainer, error)
+            }
+        } else {
+            Dispatcher.delay(1000) {
+                completion(nil, "whoops!")
+            }
+        }
+        
+//        shouldLoad = !shouldLoad
     }
     
     func componentViewController(_ viewController: ComponentViewController,

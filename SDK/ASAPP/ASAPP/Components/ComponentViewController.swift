@@ -35,9 +35,14 @@ class ComponentViewController: UIViewController {
     fileprivate(set) var isLoading: Bool = false {
         didSet {
             if isLoading {
+                emptyView.isHidden = true
                 spinnerView.startAnimating()
             } else {
                 spinnerView.stopAnimating()
+                
+                if rootView == nil {
+                    emptyView.isHidden = false
+                }
             }
         }
     }
@@ -57,6 +62,8 @@ class ComponentViewController: UIViewController {
     
     fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
+    fileprivate let emptyView = ComponentViewEmptyReloadView()
+    
     fileprivate let componentName: String?
     
     // MARK: Init
@@ -69,6 +76,10 @@ class ComponentViewController: UIViewController {
                                                                                     target: self,
                                                                                     action: #selector(ComponentViewController.dismissAnimated))
         
+        emptyView.isHidden = true
+        emptyView.onButtonTap = { [weak self] in
+            self?.refreshView()
+        }
         spinnerView.hidesWhenStopped = true
     }
     
@@ -122,8 +133,11 @@ class ComponentViewController: UIViewController {
         }
         view.backgroundColor = UIColor.white
         
+        // Empty / Spinner View
         view.addSubview(spinnerView)
+        view.addSubview(emptyView)
         
+        // Root View
         if let rootView = rootView {
             view.addSubview(rootView.view)
         } else {
@@ -135,33 +149,26 @@ class ComponentViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        rootView?.view.frame = getRootViewFrame()
-        
-        var visibleTop: CGFloat = 0
-        if let navBar = navigationController?.navigationBar {
-            visibleTop = navBar.frame.maxY
-        }
-        let visibleHeight = view.bounds.height - visibleTop
-        spinnerView.sizeToFit()
-        spinnerView.center = CGPoint(x: view.bounds.midX, y: visibleTop + floor(visibleHeight / 2.0))
+        updateFrames()
     }
     
-    func getRootViewFrame() -> CGRect {
-        guard let rootView = rootView else {
-            return .zero
-        }
-        
+    func updateFrames() {
         var top: CGFloat = 0.0
         if let navBar = navigationController?.navigationBar {
             top = navBar.frame.maxY
         }
         
-        let maxHeight = view.bounds.height - top
-        let maxWidth = view.bounds.width
-        let size = rootView.view.sizeThatFits(CGSize(width: maxWidth, height: maxHeight))
+        let height = view.bounds.height - top
+        let width = view.bounds.width
+        rootView?.view.frame = CGRect(x: 0, y: top, width: width, height: height)
         
-        return CGRect(x: 0, y: top, width: size.width, height: size.height)
+        let emptyViewSize = emptyView.sizeThatFits(CGSize(width: width, height: height))
+        let emptyViewTop = top + floor((height - emptyViewSize.height) / 2.0)
+        let emptyViewLeft = floor((width - emptyViewSize.width) / 2.0)
+        emptyView.frame = CGRect(x: emptyViewLeft, y: emptyViewTop, width: emptyViewSize.width, height: emptyViewSize.height)
+        
+        spinnerView.sizeToFit()
+        spinnerView.center = CGPoint(x: view.bounds.midX, y: top + floor(height / 2.0))
     }
     
     // MARK: Instance Methods
@@ -171,15 +178,16 @@ class ComponentViewController: UIViewController {
     }
     
     func refreshView() {
-        guard let componentName = componentName else {
-            return
+        guard let componentName = componentName,
+            let delegate = delegate else {
+                return
         }
         
-        
-        
-        DemoComponentsAPI.getComponent(with: componentName) { (componentViewContainer, json, error) in
-            Dispatcher.performOnMainThread { [weak self] in
+        isLoading = true
+        delegate.componentViewController(self, fetchContentForViewNamed: componentName) { [weak self] (componentViewContainer, error) in
+            Dispatcher.performOnMainThread {
                 self?.componentViewContainer = componentViewContainer
+                self?.isLoading = false
             }
         }
     }
