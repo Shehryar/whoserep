@@ -634,7 +634,7 @@ extension ChatViewController {
         
         switch buttonItem.action.type {
         case .link:
-            DebugLog.d("\nDid select action: \(buttonItem.action.name) w/ context: \(buttonItem.action.context)")
+            DebugLog.d("\nDid select action: \(buttonItem.action.name) w/ context: \(String(describing: buttonItem.action.context))")
             
             let originalQuery = simpleStore.getSRSOriginalSearchQuery()
             conversationManager.sendButtonItemSelection(buttonItem,
@@ -674,8 +674,6 @@ extension ChatViewController {
             }
             return false
         }
-        
-        return false
     }
     
     func openWebURL(url: URL) -> Bool {
@@ -789,17 +787,14 @@ extension ChatViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
-        guard let action = buttonItem.action else {
-            return
-        }
-        
-        if let apiAction = action as? APIAction {
+        if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonItem)
-        } else if let componentViewAction = action as? ComponentViewAction {
+        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
-        } else if let finishAction = action as? FinishAction {
-            // No-op
         }
+//        else if let finishAction = buttonItem.action as? FinishAction {
+//            // No-op
+//        }
     }
 }
 
@@ -812,7 +807,7 @@ extension ChatViewController {
         requestData.add(action.data)
         requestData.add(rootComponent.getData(for: action.dataInputFields))
         
-        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
+        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
                                                    prettyPrinted: true)
         
         let title = action.requestPath
@@ -1118,7 +1113,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func didReceiveMessageWithQuickReplies(_ message: ChatMessage) {
-        guard let quickReplies = message.quickReplies else {
+        guard message.quickReplies != nil else {
             return
         }
         

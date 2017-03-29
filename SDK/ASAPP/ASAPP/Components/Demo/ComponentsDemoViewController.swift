@@ -179,7 +179,7 @@ extension ComponentsDemoViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Section.messages.rawValue: return messageNames.count
-        case Section.cards.rawValue: return cardNames != nil ? cardNames.count + 1 : 0
+        case Section.cards.rawValue: return cardNames.count > 0 ? cardNames.count + 1 : 0
         case Section.views.rawValue: return viewNames.count
         default: return 0
         }

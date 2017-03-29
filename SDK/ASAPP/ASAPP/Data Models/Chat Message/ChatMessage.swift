@@ -169,7 +169,6 @@ extension ChatMessage {
                 eventId = event.eventLogSeq
             }
             
-            let sendTime = Date(timeIntervalSince1970: event.eventTime / 1000)
             return ChatMessage(text: text,
                                attachment: attachment,
                                quickReplies: quickReplies,

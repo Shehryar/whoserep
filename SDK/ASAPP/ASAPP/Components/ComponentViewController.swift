@@ -13,10 +13,14 @@ protocol ComponentViewControllerDelegate: class {
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping ((_ nextAction: ComponentAction?, _ error: String?) -> Void))
+    
+    func componentViewController(_ viweController: ComponentViewController,
+                                 fetchContentForViewNamed viewName: String,
+                                 completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
 }
 
 class ComponentViewController: UIViewController {
-
+    
     // MARK: Properties
     
     var componentViewContainer: ComponentViewContainer? {
@@ -27,6 +31,16 @@ class ComponentViewController: UIViewController {
     }
     
     weak var delegate: ComponentViewControllerDelegate?
+    
+    fileprivate(set) var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                spinnerView.startAnimating()
+            } else {
+                spinnerView.stopAnimating()
+            }
+        }
+    }
     
     fileprivate var rootView: ComponentView? {
         didSet {
@@ -41,6 +55,8 @@ class ComponentViewController: UIViewController {
         }
     }
     
+    fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
     fileprivate let componentName: String?
     
     // MARK: Init
@@ -52,6 +68,8 @@ class ComponentViewController: UIViewController {
                                                                                     side: .right,
                                                                                     target: self,
                                                                                     action: #selector(ComponentViewController.dismissAnimated))
+        
+        spinnerView.hidesWhenStopped = true
     }
     
     init(componentName: String) {
@@ -73,7 +91,7 @@ class ComponentViewController: UIViewController {
     }
     
     deinit {
-         rootView?.interactionHandler = nil
+        rootView?.interactionHandler = nil
     }
     
     // MARK: View
@@ -81,6 +99,7 @@ class ComponentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Navigation Bar
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.isTranslucent = true
             navigationBar.shadowImage = nil
@@ -103,6 +122,8 @@ class ComponentViewController: UIViewController {
         }
         view.backgroundColor = UIColor.white
         
+        view.addSubview(spinnerView)
+        
         if let rootView = rootView {
             view.addSubview(rootView.view)
         } else {
@@ -116,6 +137,14 @@ class ComponentViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         rootView?.view.frame = getRootViewFrame()
+        
+        var visibleTop: CGFloat = 0
+        if let navBar = navigationController?.navigationBar {
+            visibleTop = navBar.frame.maxY
+        }
+        let visibleHeight = view.bounds.height - visibleTop
+        spinnerView.sizeToFit()
+        spinnerView.center = CGPoint(x: view.bounds.midX, y: visibleTop + floor(visibleHeight / 2.0))
     }
     
     func getRootViewFrame() -> CGRect {
@@ -146,6 +175,8 @@ class ComponentViewController: UIViewController {
             return
         }
         
+        
+        
         DemoComponentsAPI.getComponent(with: componentName) { (componentViewContainer, json, error) in
             Dispatcher.performOnMainThread { [weak self] in
                 self?.componentViewContainer = componentViewContainer
@@ -159,18 +190,11 @@ class ComponentViewController: UIViewController {
 extension ComponentViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let action = buttonItem.action else {
-            let alert = UIAlertController(title: "No Action", message: "This button does not have an action attached to it", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        if let apiAction = action as? APIAction {
+        if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
-        } else if let componentViewAction = action as? ComponentViewAction {
+        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
-        } else if let finishAction = action as? FinishAction {
+        } else if let finishAction = buttonItem.action as? FinishAction {
             handleFinishAction(finishAction)
         }
     }
@@ -181,42 +205,29 @@ extension ComponentViewController: InteractionHandler {
 extension ComponentViewController {
     
     func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let component = componentViewContainer?.root else {
+        guard let component = componentViewContainer?.root, let delegate = delegate else {
             return
         }
-    
-        var requestData = action.data ?? [String : Any]()
+        
+        var requestData = [String : Any]()
+        requestData.add(action.data)
         requestData.add(component.getData(for: action.dataInputFields))
-    
         
-        if let delegate = delegate {
-            buttonView.isLoading = true
-            delegate.componentViewController(
-                self,
-                didTapAPIAction: action,
-                with: requestData,
-                completion: { [weak self] (nextAction, error) in
-                    buttonView.isLoading = false
-                    if let finishAction = nextAction as? FinishAction {
-                        self?.handleFinishAction(finishAction)
-                    } else if let viewAction = nextAction as? ComponentViewAction {
-                        self?.handleComponentViewAction(viewAction)
-                    }
-            })
-            return
-        }
+        buttonView.isLoading = true
         
-        
-        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
-                                                   prettyPrinted: true)
-        
-        let title = action.requestPath
-        
-        let alert = UIAlertController(title: title,
-                                      message: requestDataString,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        delegate.componentViewController(self,
+                                         didTapAPIAction: action,
+                                         with: requestData,
+                                         completion: { [weak self] (nextAction, error) in
+                                            
+                                            buttonView.isLoading = false
+                                            
+                                            if let finishAction = nextAction as? FinishAction {
+                                                self?.handleFinishAction(finishAction)
+                                            } else if let viewAction = nextAction as? ComponentViewAction {
+                                                self?.handleComponentViewAction(viewAction)
+                                            }
+        })
     }
     
     func handleComponentViewAction(_ action: ComponentViewAction) {

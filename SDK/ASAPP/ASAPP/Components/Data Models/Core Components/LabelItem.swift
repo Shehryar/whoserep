@@ -38,7 +38,7 @@ class LabelItem: Component {
                    content: [String : Any]?) {
         
         guard let text = content?.string(for: JSONKey.text.rawValue) else {
-            DebugLog.w(caller: LabelItem.self, "Missing text: \(content)")
+            DebugLog.w(caller: LabelItem.self, "Missing text: \(String(describing: content))")
             return nil
         }
         self.text = text

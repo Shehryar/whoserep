@@ -10,7 +10,7 @@ import UIKit
 
 // MARK:- Dictionary Extension
 
-extension Dictionary where Key: StringLiteralConvertible, Value: Any {
+extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     
     // MARK: Boolean
     

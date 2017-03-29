@@ -175,15 +175,15 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
-        guard let action = buttonItem.action, let component = message.attachment?.template else {
+        guard let component = message.attachment?.template else {
             return
         }
         
-        if let apiAction = action as? APIAction {
+        if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: component)
-        } else if let componentViewAction = action as? ComponentViewAction {
+        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
-        } else if let finishAction = action as? FinishAction {
+        } else if let finishAction = buttonItem.action as? FinishAction {
             handleFinishAction(finishAction)
         }
     }
@@ -236,7 +236,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
                  return false
             }
             title = "Component View"
-            message = JSONUtil.stringify(buttonItem.action.context as? AnyObject, prettyPrinted: true)
+            message = JSONUtil.stringify(buttonItem.action.context as AnyObject, prettyPrinted: true)
             break
         }
         
@@ -263,7 +263,7 @@ extension ComponentMessagePreviewViewController {
         var requestData = component.getData(for: action.dataInputFields)
         requestData.add(action.data)
         
-        let requestDataString = JSONUtil.stringify(requestData as? AnyObject, prettyPrinted: true)
+        let requestDataString = JSONUtil.stringify(requestData as AnyObject, prettyPrinted: true)
         let title = action.requestPath
         
         let alert = UIAlertController(title: title,
@@ -290,6 +290,12 @@ extension ComponentMessagePreviewViewController {
 }
 
 extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate {
+    
+    func componentViewController(_ viweController: ComponentViewController,
+                                 fetchContentForViewNamed viewName: String,
+                                 completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
+        
+    }
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,

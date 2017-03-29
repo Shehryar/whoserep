@@ -263,7 +263,7 @@ extension ASAPPButton {
         
         isWaitingToAnimateIn = true
         var transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-        transform = transform.rotated(by: CGFloat(3 * M_PI_4))
+        transform = transform.rotated(by: CGFloat(3.0 * .pi / 4.0))
         self.contentView.transform = transform
         self.contentView.alpha = 0.0
     }

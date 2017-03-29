@@ -154,7 +154,7 @@ public class ComponentPreviewViewController: UIViewController {
                 Dispatcher.performOnMainThread {
                     switch DemoComponentType.fromFileName(componentName) {
                     case .card:
-                        var cardView = ComponentCardView()
+                        let cardView = ComponentCardView()
                         cardView.component = component.root
                         cardView.interactionHandler = self
                         self?.contentView = cardView
@@ -180,7 +180,7 @@ public class ComponentPreviewViewController: UIViewController {
     }
     
     func viewSource() {
-        if let jsonString = JSONUtil.stringify(json as? AnyObject, prettyPrinted: true) {
+        if let jsonString = JSONUtil.stringify(json as AnyObject, prettyPrinted: true) {
             let sourcePreviewVC = ComponentPreviewSourceViewController()
             sourcePreviewVC.json = jsonString
             navigationController?.pushViewController(sourcePreviewVC, animated: true)
@@ -219,18 +219,11 @@ public class ComponentPreviewViewController: UIViewController {
 extension ComponentPreviewViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let action = buttonItem.action else {
-            let alert = UIAlertController(title: "No Action", message: "This button does not have an action attached to it", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        if let apiAction = action as? APIAction {
+        if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonItem)
-        } else if let componentViewAction = action as? ComponentViewAction {
+        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
-        } else if let finishAction = action as? FinishAction {
+        } else if let finishAction = buttonItem.action as? FinishAction {
             handleFinishAction(finishAction)
         }
     }
@@ -248,7 +241,7 @@ extension ComponentPreviewViewController {
         var requestData = action.data ?? [String : Any]()
         requestData.add(component.getData(for: action.dataInputFields))
     
-        let requestDataString = JSONUtil.stringify(requestData as? AnyObject,
+        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
                                                    prettyPrinted: true)
         
         let title = action.requestPath

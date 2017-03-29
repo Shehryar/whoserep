@@ -45,7 +45,7 @@ class ButtonItem: Component {
     
     let icon: IconItem?
     
-    let action: ComponentAction?
+    let action: ComponentAction
     
     // MARK:- Component Properties
     
@@ -62,15 +62,24 @@ class ButtonItem: Component {
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         guard let title = content?.string(for: JSONKey.title.rawValue) else {
-            DebugLog.w(caller: ButtonItem.self, "Missing title in content: \(content)")
+            DebugLog.w(caller: ButtonItem.self, "Missing title in content: \(String(describing: content))")
             return nil
         }
         self.title = title
+        
+        guard let actionJSON = content?[JSONKey.action.rawValue] else {
+            DebugLog.w(caller: ButtonItem.self, "Missing action: \(String(describing: content))")
+            return nil
+        }
+        guard let action = ComponentActionFactory.action(with: actionJSON) else {
+            DebugLog.w(caller: ButtonItem.self, "Unable to parse action: \(String(describing: content))")
+            return nil
+        }
+        self.action = action
+        
         self.buttonStyle = ButtonStyle.from(content?.string(for: JSONKey.buttonStyle.rawValue),
                                             defaultValue: ButtonItem.defaultButtonStyle)
         self.icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
-        let actionJSON = content?[JSONKey.action.rawValue]
-        self.action = ComponentActionFactory.action(with: actionJSON)
         
         super.init(id: id,
                    name: name,

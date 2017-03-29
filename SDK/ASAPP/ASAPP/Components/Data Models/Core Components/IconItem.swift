@@ -89,7 +89,7 @@ class IconItem: Component {
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         guard let icon = Icon.from(content?.string(for: JSONKey.icon.rawValue)) else {
-            DebugLog.w(caller: IconItem.self, "No icon found in content: \(content)")
+            DebugLog.w(caller: IconItem.self, "No icon found in content: \(String(describing: content))")
             return nil
         }
         self.icon = icon

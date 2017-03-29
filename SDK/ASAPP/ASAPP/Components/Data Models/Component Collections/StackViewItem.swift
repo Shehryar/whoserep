@@ -57,7 +57,7 @@ class StackViewItem: Component {
                    content: [String : Any]?) {
         
         guard let itemsJSON = content?[JSONKey.items.rawValue] as? [[String : Any]] else {
-            DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(content)")
+            DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(String(describing: content))")
             return nil
         }
         
@@ -68,7 +68,7 @@ class StackViewItem: Component {
             }
         }
         guard !items.isEmpty else {
-            DebugLog.w(caller: StackViewItem.self, "Empty items json. Returning nil:\n\(content)")
+            DebugLog.w(caller: StackViewItem.self, "Empty items json. Returning nil:\n\(String(describing: content))")
             return nil
         }
         self.items = items

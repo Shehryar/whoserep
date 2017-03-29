@@ -37,7 +37,7 @@ class ComponentCardsPreviewViewController: UIViewController {
             
             if let components = components {
                 for component in components {
-                    var cardView = ComponentCardView()
+                    let cardView = ComponentCardView()
                     cardView.interactionHandler = self
                     cardView.component = component
                     scrollView.addSubview(cardView)
@@ -112,18 +112,11 @@ class ComponentCardsPreviewViewController: UIViewController {
 extension ComponentCardsPreviewViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let action = buttonItem.action else {
-            let alert = UIAlertController(title: "No Action", message: "This button does not have an action attached to it", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        if let apiAction = action as? APIAction {
+        if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonItem)
-        } else if let componentViewAction = action as? ComponentViewAction {
+        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
-        } else if let finishAction = action as? FinishAction {
+        } else if let finishAction = buttonItem.action as? FinishAction {
             handleFinishAction(finishAction)
         }
     }
