@@ -27,7 +27,7 @@ class ComponentViewEmptyReloadView: UIView {
     func commonInit() {
         titleLabel.text = ASAPP.strings.failureToLoadScreen
         titleLabel.textColor = ASAPP.styles.foregroundColor1
-        titleLabel.font = ASAPP.styles.font(with: .bold, size: 15)
+        titleLabel.font = ASAPP.styles.font(with: .bold, size: 18)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
@@ -70,7 +70,7 @@ class ComponentViewEmptyReloadView: UIView {
         let labelHeight = ceil(titleLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
         let labelFrame = CGRect(x: left, y: top, width: width, height: labelHeight)
         
-        top = labelFrame.maxY + 24
+        top = labelFrame.maxY + 36
         let reloadButtonHeight = ceil(reloadButton.sizeThatFits(CGSize(width: width, height: 0)).height)
         let reloadButtonFrame = CGRect(x: left, y: top, width: width, height: reloadButtonHeight)
         
