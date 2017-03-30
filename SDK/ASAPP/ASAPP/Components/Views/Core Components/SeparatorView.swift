@@ -49,11 +49,15 @@ class SeparatorView: BaseComponentView {
         return frame
     }
     
+    override func updateFrames() {
+        let frame = getFrameThatFits(bounds.size)
+        separator.frame = frame
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let frame = getFrameThatFits(bounds.size)
-        separator.frame = frame
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

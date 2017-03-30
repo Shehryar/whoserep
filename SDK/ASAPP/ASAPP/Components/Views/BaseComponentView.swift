@@ -44,6 +44,12 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
         commonInit()
     }
     
+    // MARK: UpdatableFrames
+    
+    func updateFrames() {
+        // Subviews should override
+    }
+    
     // MARK: Interaction Delegate
     
     func updateSubviewsWithInteractionHandler() {

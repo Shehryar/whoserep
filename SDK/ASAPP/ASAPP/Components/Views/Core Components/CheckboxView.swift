@@ -120,15 +120,20 @@ class CheckboxView: BaseComponentView {
         return (checkboxFrame, labelFrame)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let (checkboxFrame, labelFrame) = getFramesThatFit(bounds.size)
         checkboxSquareView.frame = checkboxFrame
         labelView.frame = labelFrame
+        labelView.updateFrames()
         
         checkImageView.frame = checkboxFrame.insetBy(dx: 3, dy: 3)
         highlightView.frame = bounds
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

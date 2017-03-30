@@ -115,9 +115,7 @@ class RadioButtonView: BaseComponentView {
         return (checkboxFrame, labelFrame)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let (checkboxFrame, labelFrame) = getFramesThatFit(bounds.size)
         checkboxView.frame = checkboxFrame
         checkboxView.layer.cornerRadius = checkboxView.bounds.height / 2.0
@@ -126,6 +124,13 @@ class RadioButtonView: BaseComponentView {
         checkboxInnerView.layer.cornerRadius = checkboxInnerView.bounds.height / 2.0
         
         labelView.frame = labelFrame
+        labelView.updateFrames()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

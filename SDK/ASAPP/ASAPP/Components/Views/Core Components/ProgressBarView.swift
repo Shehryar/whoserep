@@ -42,9 +42,7 @@ class ProgressBarView: BaseComponentView {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let padding = progressBarItem?.style.padding ?? UIEdgeInsets.zero
         progressBarContainer.frame = UIEdgeInsetsInsetRect(bounds, padding)
         let barHeight = progressBarContainer.bounds.height
@@ -55,6 +53,11 @@ class ProgressBarView: BaseComponentView {
         
         progressBarContainer.layer.cornerRadius = barHeight / 2.0
         progressBar.layer.cornerRadius = barHeight / 2.0
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

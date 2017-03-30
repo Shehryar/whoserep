@@ -126,13 +126,18 @@ class RadioButtonsView: BaseComponentView {
         return (frames, contentSize)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let (frames, _) = getFramesThatFit(bounds.size)
         for (idx, buttonView) in buttonViews.enumerated() {
             buttonView.frame = frames[idx]
+            buttonView.updateFrames()
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

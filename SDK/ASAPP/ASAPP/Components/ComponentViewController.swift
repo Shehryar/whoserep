@@ -19,7 +19,7 @@ protocol ComponentViewControllerDelegate: class {
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
 }
 
-class ComponentViewController: UIViewController {
+class ComponentViewController: UIViewController, UpdatableFrames {
     
     // MARK: Properties
     
@@ -145,10 +145,17 @@ class ComponentViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        view.endEditing(true)
+    }
+    
     // MARK: Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         updateFrames()
     }
     
@@ -161,6 +168,7 @@ class ComponentViewController: UIViewController {
         let height = view.bounds.height - top
         let width = view.bounds.width
         rootView?.view.frame = CGRect(x: 0, y: top, width: width, height: height)
+        rootView?.updateFrames()
         
         let emptyViewSize = emptyView.sizeThatFits(CGSize(width: width, height: height))
         let emptyViewTop = top + floor((height - emptyViewSize.height) / 2.0)

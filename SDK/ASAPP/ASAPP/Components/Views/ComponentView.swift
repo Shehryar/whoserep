@@ -13,7 +13,7 @@ protocol InteractionHandler: class {
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem)
 }
 
-protocol ComponentView {
+protocol ComponentView: UpdatableFrames {
     
     var component: Component? { get set }
     

@@ -59,12 +59,16 @@ class TableView: BaseComponentView {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let margin = tableViewItem?.style.margin ?? .zero
         let padding = tableViewItem?.style.padding ?? .zero
         tableView.frame =  UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(bounds, margin), padding)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

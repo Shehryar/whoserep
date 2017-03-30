@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComponentNavigationController: UINavigationController {
+class ComponentNavigationController: UINavigationController, UpdatableFrames {
 
     let presentationAnimator = ModalCardPresentationAnimator()
     
@@ -34,6 +34,16 @@ class ComponentNavigationController: UINavigationController {
                 modalPresentationStyle = .fullScreen
                 transitioningDelegate = nil
                 presentationAnimator.tapToDismissEnabled = false
+            }
+        }
+    }
+    
+    // MARK:- UpdatableFrames
+    
+    func updateFrames() {
+        for viewController in viewControllers {
+            if let updateFramesVC = viewController as? UpdatableFrames {
+                updateFramesVC.updateFrames()
             }
         }
     }

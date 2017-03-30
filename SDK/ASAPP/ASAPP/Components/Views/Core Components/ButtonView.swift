@@ -145,17 +145,21 @@ class ButtonView: BaseComponentView {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         button.frame = bounds
         
         spinnerView.sizeToFit()
         spinnerView.center = button.center
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        guard let buttonItem = buttonItem else {
+        guard let _ = buttonItem else {
             return .zero
         }
         

@@ -54,8 +54,6 @@ class SliderView: BaseComponentView {
                              action: #selector(SliderView.onValueChange),
                              for: .valueChanged)
         addSubview(sliderView)
-        
-        
     }
     
     // MARK: Layout
@@ -125,12 +123,16 @@ class SliderView: BaseComponentView {
         return (labelFrame, sliderFrame)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let (labelFrame, sliderFrame) = getFramesThatFit(bounds.size)
         sliderView.frame = sliderFrame
         labelView.frame = labelFrame
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

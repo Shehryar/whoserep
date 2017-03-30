@@ -44,11 +44,15 @@ class IconView: BaseComponentView {
     
     // MARK: Layout
     
+    override func updateFrames() {
+        let padding = iconItem?.style.padding ?? UIEdgeInsets.zero
+        imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let padding = iconItem?.style.padding ?? UIEdgeInsets.zero
-        imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

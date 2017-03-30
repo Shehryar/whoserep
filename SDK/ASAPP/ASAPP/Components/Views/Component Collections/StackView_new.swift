@@ -71,15 +71,23 @@ class StackView_new: BaseComponentView {
         return (layoutInfo.frames, contentSize)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         let (frames, _) = getFramesAndContentSize(for: bounds.size)
         if frames.count == subviews.count {
             for (idx, subview) in subviews.enumerated() {
                 subview.frame = frames[idx]
+                
+                if let updatableFramesView = subview as? UpdatableFrames {
+                    updatableFramesView.updateFrames()
+                }
             }
         }
+
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

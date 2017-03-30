@@ -8,9 +8,12 @@
 
 import UIKit
 
-protocol ResizableModalCardViewController {
-    func viewSizeThatFits(_ size: CGSize) -> CGSize
+protocol UpdatableFrames {
     func updateFrames()
+}
+
+protocol ResizableModalCardViewController: UpdatableFrames {
+    func viewSizeThatFits(_ size: CGSize) -> CGSize
 }
 
 class ModalCardPresentationAnimator: NSObject {
@@ -264,7 +267,7 @@ extension ModalCardPresentationAnimator {
         if !updatedBounds.equalTo(presentedView.bounds) {
             presentedView.bounds = updatedBounds
         }
-        if let modalVC = presentedViewController as? ResizableModalCardViewController {
+        if let modalVC = presentedViewController as? UpdatableFrames {
             modalVC.updateFrames()
         }
         

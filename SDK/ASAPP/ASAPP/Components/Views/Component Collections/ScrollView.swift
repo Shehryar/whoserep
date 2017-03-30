@@ -82,12 +82,16 @@ class ScrollView: UIScrollView, ComponentView {
         return CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    func updateFrames() {
         let contentFrame = getContentViewFrameThatFits(bounds.size)
         contentView?.view.frame = contentFrame
+        contentView?.updateFrames()
         contentSize = contentFrame.size
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

@@ -70,15 +70,19 @@ class LabelView: BaseComponentView {
         return frame
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
+    override func updateFrames() {
         if let labelItem = labelItem {
             let padding = labelItem.style.padding
             label.frame = UIEdgeInsetsInsetRect(bounds, padding)
         } else {
             label.frame = .zero
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
