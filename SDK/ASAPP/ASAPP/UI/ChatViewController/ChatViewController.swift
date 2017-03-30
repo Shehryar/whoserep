@@ -282,19 +282,15 @@ class ChatViewController: UIViewController {
                 self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             })
         }
+        
+        Dispatcher.delay(500, closure: { [weak self] in
+            self?.showAskButtonTooltipIfNecessary()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        Dispatcher.delay(500, closure: { [weak self] in
-            self?.showAskButtonTooltipIfNecessary()
-        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {

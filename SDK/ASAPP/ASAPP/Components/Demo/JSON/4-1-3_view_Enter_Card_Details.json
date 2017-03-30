@@ -9,16 +9,16 @@
   },
   "body": {
     "type": "stackView",
-    "style" : {
-      "gravity" : "fill"
+    "style": {
+      "gravity": "fill"
     },
     "content": {
       "items": [
         {
           "type": "scrollView",
-          "style" : {
-            "weight" : 1,
-            "gravity" : "fill"
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
           },
           "content": {
             "content": {
@@ -57,7 +57,7 @@
                           "name": "cardNumber",
                           "content": {
                             "placeholder": "CARD NUMBER",
-                            "type" : "number"
+                            "type": "number"
                           }
                         },
                         {
@@ -85,8 +85,8 @@
                                 "name": "cardCVV",
                                 "content": {
                                   "placeholder": "CVV",
-                                  "password" : true,
-                                  "type" : "number"
+                                  "password": true,
+                                  "type": "number"
                                 },
                                 "style": {
                                   "marginLeft": 20,
@@ -107,34 +107,29 @@
                 ]
               }
             }
-          },
-          "style": {
-            "weight": 1,
-            "align": "fill"
           }
         },
-
         {
           "type": "stackView",
-          "style" : {
-            "weight" : 0,
+          "style": {
+            "weight": 0,
             "align": "fill"
           },
           "content": {
             "orientation": "horizontal",
             "items": [
               {
-                "type" : "button",
-                "content" : {
-                  "title" : "CANCEL",
-                  "style" : "secondary",
-                  "action" : {
-                    "type" : "finish"
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
+                  "action": {
+                    "type": "finish"
                   }
-                }, 
-                "style" : {
-                  "weight" : 1,
-                  "align" : "fill"
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
                 }
               },
               {
@@ -158,16 +153,16 @@
                         "cardCVVInput"
                       ],
                       "data": {
-                        "SendFinishMessage" : true,
-                        "Classification" : "4-3-3_message_Auto_Reboost",
-                        "Text" : "[Uploaded Credit Card]"
+                        "SendFinishMessage": true,
+                        "Classification": "4-3-3_message_Auto_Reboost",
+                        "Text": "[Uploaded Credit Card]"
                       }
                     }
                   }
                 },
                 "style": {
                   "weight": 1,
-                  "align" : "fill"
+                  "align": "fill"
                 }
               }
             ]
