@@ -46,6 +46,10 @@ public class ASAPPStyles: NSObject {
     
     public var textButtonColorDisabled: UIColor = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
     
+    public var secondaryTextButtonColor: UIColor = UIColor(red:0.663, green:0.686, blue:0.733, alpha:1.000)
+    
+    public var secondaryTextButtonColorHighlighted: UIColor = UIColor(red:0.663, green:0.686, blue:0.733, alpha:0.5)
+    
     public var primaryButtonBgColor: UIColor = UIColor(red:0.204, green:0.698, blue:0.925, alpha:1.000)
     
     public var primaryButtonBgColorHighlighted: UIColor = UIColor(red:0.105, green:0.644, blue:0.851, alpha:1)

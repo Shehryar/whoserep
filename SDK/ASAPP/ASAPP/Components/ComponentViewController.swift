@@ -77,8 +77,12 @@ class ComponentViewController: UIViewController, UpdatableFrames {
                                                                                     action: #selector(ComponentViewController.dismissAnimated))
         
         emptyView.isHidden = true
-        emptyView.onButtonTap = { [weak self] in
+        emptyView.onReloadButtonTap = { [weak self] in
             self?.refreshView()
+        }
+        emptyView.onCloseButtonTap = { [weak self] in
+            self?.dismissAnimated()
+            
         }
         spinnerView.hidesWhenStopped = true
     }

@@ -10,11 +10,15 @@ import UIKit
 
 class ComponentViewEmptyReloadView: UIView {
 
-    var onButtonTap: (() -> Void)?
+    var onReloadButtonTap: (() -> Void)?
+    
+    var onCloseButtonTap: (() -> Void)?
     
     let titleLabel = UILabel()
     
     let reloadButton = UIButton()
+    
+    let closeButton = UIButton()
     
     let contentInset = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
 
@@ -34,8 +38,17 @@ class ComponentViewEmptyReloadView: UIView {
         reloadButton.setTitleColor(ASAPP.styles.textButtonColorHighlighted, for: .highlighted)
         reloadButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
         reloadButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
-        reloadButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapButton), for: .touchUpInside)
+        reloadButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapReloadButton), for: .touchUpInside)
         addSubview(reloadButton)
+        
+        closeButton.setTitle(ASAPP.strings.failureToLoadScreenCloseButton, for: .normal)
+        closeButton.setTitleColor(ASAPP.styles.secondaryTextButtonColor, for: .normal)
+        closeButton.setTitleColor(ASAPP.styles.secondaryTextButtonColorHighlighted, for: .highlighted)
+        closeButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
+        closeButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+        closeButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapCloseButton), for: .touchUpInside)
+        addSubview(closeButton)
+
     }
     
     override init(frame: CGRect) {
@@ -50,30 +63,35 @@ class ComponentViewEmptyReloadView: UIView {
 
     // MARK:- Layout
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
+    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
         let left = contentInset.left
         let width = size.width - left - contentInset.right
         var top = contentInset.top
         let labelHeight = ceil(titleLabel.sizeThatFits(CGSize(width: width, height: 0)).height)
         let labelFrame = CGRect(x: left, y: top, width: width, height: labelHeight)
         
-        top = labelFrame.maxY + 8
-        let buttonHeight = ceil(reloadButton.sizeThatFits(CGSize(width: width, height: 0)).height)
-        let buttonFrame = CGRect(x: left, y: top, width: width, height: buttonHeight)
+        top = labelFrame.maxY + 24
+        let reloadButtonHeight = ceil(reloadButton.sizeThatFits(CGSize(width: width, height: 0)).height)
+        let reloadButtonFrame = CGRect(x: left, y: top, width: width, height: reloadButtonHeight)
         
-        return (labelFrame, buttonFrame)
+        top = reloadButtonFrame.maxY + 4
+        let closeButtonHeight = ceil(closeButton.sizeThatFits(CGSize(width: width, height: 0)).height)
+        let closeButtonFrame = CGRect(x: left, y: top, width: width, height: closeButtonHeight)
+        
+        return (labelFrame, reloadButtonFrame, closeButtonFrame)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
      
-        let (labelFrame, buttonFrame) = getFramesThatFit(bounds.size)
+        let (labelFrame, reloadButtonFrame, closeButtonFrame) = getFramesThatFit(bounds.size)
         titleLabel.frame = labelFrame
-        reloadButton.frame = buttonFrame
+        reloadButton.frame = reloadButtonFrame
+        closeButton.frame = closeButtonFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (_, buttonFrame) = getFramesThatFit(size)
+        let (_, _, buttonFrame) = getFramesThatFit(size)
         let width = buttonFrame.maxX + contentInset.right
         let height = buttonFrame.maxY + contentInset.bottom
         return CGSize(width: width, height: height)
@@ -81,7 +99,11 @@ class ComponentViewEmptyReloadView: UIView {
     
     // MARK:- Actions
     
-    func didTapButton() {
-        onButtonTap?()
+    func didTapReloadButton() {
+        onReloadButtonTap?()
+    }
+    
+    func didTapCloseButton() {
+        onCloseButtonTap?()
     }
 }
