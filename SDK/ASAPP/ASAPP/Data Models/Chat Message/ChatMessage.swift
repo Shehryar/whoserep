@@ -99,11 +99,13 @@ extension ChatMessage {
         guard let json = json else {
             return (nil, nil, nil)
         }
+        let messageJSON = json["ClientMessage"] as? [String : Any] ?? json
         
-        let text = json["text"] as? String
+        
+        let text = messageJSON["text"] as? String
         
         var attachment: Any?
-        let attachmentJSON = json["attachment"] as? [String : Any]
+        let attachmentJSON = messageJSON["attachment"] as? [String : Any]
         if let attachmentType = attachmentJSON?.string(for: "type"),
             let attachmentContent = attachmentJSON?["content"] as? [String : Any] {
             switch attachmentType {
@@ -119,7 +121,7 @@ extension ChatMessage {
         }
         
         var quickReplies = [SRSButtonItem]()
-        if let quickRepliesJSON = (json["quick_replies"] ?? json["quickReplies"]) as? [[String : AnyObject]]   {
+        if let quickRepliesJSON = (messageJSON["quick_replies"] ?? messageJSON["quickReplies"]) as? [[String : AnyObject]]   {
             for quickReplyJSON in quickRepliesJSON {
                 if let button = SRSButtonItem.fromJSON(quickReplyJSON) {
                     quickReplies.append(button)
