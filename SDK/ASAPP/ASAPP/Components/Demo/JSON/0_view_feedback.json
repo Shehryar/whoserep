@@ -329,8 +329,8 @@
                       "requiredInputFields": ["ratingSlider"],
                       "data": {
                         "SendFinishMessage" : true,
-                        "Classification": "SUBMIT_FEEDBACK",
-                        "Text": "[Uploaded Feedback]"
+                        "Classification": "0_message_feedback_received",
+                        "Text": "Uploaded Feedback"
                       }
                     }
                   }
