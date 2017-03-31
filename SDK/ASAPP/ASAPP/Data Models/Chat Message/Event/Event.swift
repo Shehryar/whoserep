@@ -39,7 +39,7 @@ enum EventType: Int {
     
     static func getLiveChatStatus(for type: EventType) -> Bool? {
         switch type {
-        case conversationEnd, conversationTimedOut:
+        case conversationEnd:
             return false
             
         case switchSRSToChat, newRep:
