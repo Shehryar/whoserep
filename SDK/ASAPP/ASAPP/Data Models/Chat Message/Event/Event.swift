@@ -26,10 +26,10 @@ enum EventType: Int {
         case srsResponse,
              srsEcho,
              srsAction,
-             newRep,
-             conversationEnd,
-             conversationTimedOut,
-             switchSRSToChat:
+//             newRep,
+        conversationEnd:
+//             conversationTimedOut
+//             switchSRSToChat:
             return true
             
         default:
