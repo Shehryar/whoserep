@@ -283,19 +283,15 @@ class ChatViewController: UIViewController {
                 self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             })
         }
+        
+        Dispatcher.delay(500, closure: { [weak self] in
+            self?.showAskButtonTooltipIfNecessary()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardObserver.registerForNotifications()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        Dispatcher.delay(500, closure: { [weak self] in
-            self?.showAskButtonTooltipIfNecessary()
-        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1040,7 +1036,7 @@ extension ChatViewController: ConversationManagerDelegate {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
         
-        if messageEvent.eventType == .conversationEnd {
+        if EventType.getLiveChatStatus(from: messageEvent.eventType) == false {
             Dispatcher.delay(1000, closure: { [weak self] in
                 self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
             })
@@ -1313,5 +1309,11 @@ extension ChatViewController: RatingAPIDelegate {
         conversationManager.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: completion)
         
         return true
+    }
+    
+    func feedbackViewControllerDidFinish(_ viewController: LeaveFeedbackViewController) {
+        Dispatcher.delay(500) { [weak self] in
+            self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
+        }
     }
 }

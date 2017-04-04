@@ -13,6 +13,8 @@ protocol RatingAPIDelegate: class {
                     forIssueId issueId: Int,
                     withFeedback feedback: String?,
                     completion: @escaping ((_ success: Bool) -> Void)) -> Bool
+    
+    func feedbackViewControllerDidFinish(_ viewController: LeaveFeedbackViewController)
 }
 
 class LeaveFeedbackViewController: ModalCardViewController {
@@ -42,7 +44,7 @@ class LeaveFeedbackViewController: ModalCardViewController {
             }
             
             if strongSelf.isShowingSuccessView {
-                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.finish()
                 return
             }
             
@@ -76,5 +78,13 @@ class LeaveFeedbackViewController: ModalCardViewController {
                 strongSelf.showErrorMessage(ASAPP.strings.reqeustErrorMessageNoConnection)
             }
         }
+    }
+    
+    // MARK:- Override Methods
+    
+    override func finish() {
+        delegate?.feedbackViewControllerDidFinish(self)
+        
+        super.finish()
     }
 }

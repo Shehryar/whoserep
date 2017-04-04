@@ -59,7 +59,7 @@ class ModalCardViewController: UIViewController {
         
         // Controls
         controlsView.onCancelButtonTap = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+            self?.finish()
         }
         
         controlsView.onConfirmButtonTap = { [weak self] in
@@ -365,6 +365,10 @@ extension ModalCardViewController {
 // MARK:- Success View
 
 extension ModalCardViewController {
+    
+    func finish() {
+        dismiss(animated: true, completion: nil)
+    }
     
     func showSuccessView(buttonText: String? = nil) {
         guard !isShowingSuccessView else {

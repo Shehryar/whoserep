@@ -288,8 +288,14 @@ extension Event {
                 ["add", "card"]
             ]
             
+        case .liveChatEnd:
+            return [
+                ["conversation", "end"],
+                ["end", "chat"]
+            ]
+            
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,
-             .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd,
+             .cancelAppointmentConfirmation, .liveChatBegin,
              .chatFlowWaitOrCallback, .chatFlowQueueEntered, .chatFlowAgentEntered:
             return nil
         }
