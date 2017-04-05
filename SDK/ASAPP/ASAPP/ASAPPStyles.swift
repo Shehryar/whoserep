@@ -30,6 +30,8 @@ public class ASAPPStyles: NSObject {
     
     public var navBarBackgroundColor: UIColor = Colors.whiteColor()
     
+    public var navBarTitleColor: UIColor = Colors.steelDarkColor()
+    
     public var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
     
     public var navBarButtonForegroundColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
@@ -37,6 +39,24 @@ public class ASAPPStyles: NSObject {
     public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
     public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
+    
+    // MARK:- General Content
+    
+    internal var backgroundColor1: UIColor = Colors.whiteColor()
+    
+    internal var backgroundColor2: UIColor = Colors.offWhiteColor()
+    
+    internal var foregroundColor1: UIColor = Colors.steelDarkColor()
+    
+    internal var foregroundColor2: UIColor = Colors.steelDark50Color()
+    
+    public var controlTintColor: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+    
+    public var controlSecondaryColor: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1.000)
+    
+    internal var separatorColor1: UIColor = Colors.marbleLightColor()
+    
+    internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
     // MARK:- Buttons
     
@@ -68,38 +88,40 @@ public class ASAPPStyles: NSObject {
     
     public var secondaryButtonTextColor: UIColor = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
     
-    // MARK:- General Content
+    internal var quickReplyButtonBackroundColor: UIColor = Colors.offWhiteColor()
     
-    internal var backgroundColor1: UIColor = Colors.whiteColor()
-    
-    internal var backgroundColor2: UIColor = Colors.offWhiteColor()
-    
-    internal var foregroundColor1: UIColor = Colors.steelDarkColor()
-    
-    internal var foregroundColor2: UIColor = Colors.steelDark50Color()
-    
-    public var controlTintColor: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
-    
-    public var controlSecondaryColor: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1.000)
-    
-    internal var separatorColor1: UIColor = Colors.marbleLightColor()
-    
-    internal var separatorColor2: UIColor = Colors.marbleDarkColor()
-    
+    internal var quickRepliesButtonTextColor: UIColor = Colors.steelMedColor()
     
     // MARK:- Colors: Messages
+    
+    public var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
+    
+    public var messageFillColor: UIColor = Colors.whiteColor()
+    
+    public var messageStrokeColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
+    
+    public var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
     public var replyMessageFillColor: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
     
     public var replyMessageStrokeColor: UIColor? = nil
     
-    public var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
+    // MARK:- Colors: Chat Input
     
-    public var messageStrokeColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
+    internal var inputBackgroundColor: UIColor = Colors.whiteColor()
     
-    public var messageFillColor: UIColor = Colors.whiteColor()
+    internal var inputBorderTopColor: UIColor = Colors.lighterGrayColor()
     
-    public var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
+    internal var inputTintColor: UIColor = Colors.grayColor()
+    
+    internal var inputPlaceholderColor: UIColor = Colors.mediumTextColor()
+    
+    internal var inputTextColor: UIColor = Colors.darkTextColor()
+    
+    internal var inputSendButtonColor: UIColor = Colors.blueGrayColor()
+    
+    internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
+    
     
     // MARK:- Colors: Predictive
     
@@ -121,42 +143,9 @@ public class ASAPPStyles: NSObject {
     
     internal var predictiveViewInputBgColor: UIColor = UIColor(red:0.232, green:0.247, blue:0.284, alpha:1)
     
-    // MARK:- Colors: Chat Input
-    
-    internal var inputBackgroundColor: UIColor = Colors.whiteColor()
-    
-    internal var inputBorderTopColor: UIColor = Colors.lighterGrayColor()
-    
-    internal var inputTintColor: UIColor = Colors.grayColor()
-    
-    internal var inputPlaceholderColor: UIColor = Colors.mediumTextColor()
-    
-    internal var inputTextColor: UIColor = Colors.darkTextColor()
-    
-    internal var inputSendButtonColor: UIColor = Colors.blueGrayColor()
-    
-    internal var inputImageButtonColor: UIColor = Colors.mediumTextColor()
-    
-    
-    internal var quickReplyButtonBackroundColor: UIColor = Colors.offWhiteColor()
-    
-    internal var quickRepliesButtonTextColor: UIColor = Colors.steelMedColor()
-    
-    
-    
-    
     // MARK:- Help Button
     
     public var helpButtonForegroundColor: UIColor = UIColor.white
     
     public var helpButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
-    
-    
-    // MARK:- Init
-    
-    override init() {
-        Fonts.loadFontsIfNecessary()
-        
-        super.init()
-    }
 }
