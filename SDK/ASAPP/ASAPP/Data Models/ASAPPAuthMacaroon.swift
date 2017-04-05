@@ -62,25 +62,25 @@ class ASAPPAuthMacaroon: NSObject {
 // MARK:- Storage
 
 extension ASAPPAuthMacaroon {
-    fileprivate class func storageKey(forCredentials credentials: Credentials) -> String {
-        return credentials.hashKey(withPrefix: "AuthMacaroon:")
+    fileprivate class func storageKey(for config: ASAPPConfig) -> String {
+        return config.hashKey(prefix: "AuthMacaroon:")
     }
     
-    func save(withCredentials credentials: Credentials) {
-        ASAPPAuthMacaroon.saveAuthMacaroon(macaroon: self, withCredentials: credentials)
+    func save(for config: ASAPPConfig) {
+        ASAPPAuthMacaroon.saveAuthMacaroon(macaroon: self, for: config)
     }
     
-    class func saveAuthMacaroon(macaroon: ASAPPAuthMacaroon, withCredentials credentials: Credentials) {
+    class func saveAuthMacaroon(macaroon: ASAPPAuthMacaroon, for config: ASAPPConfig) {
         Dispatcher.performOnBackgroundThread {
             let json = macaroon.toJSON()
-            let key = storageKey(forCredentials: credentials)
+            let key = storageKey(for: config)
             
             UserDefaults.standard.set(json, forKey: key)
         }
     }
     
-    class func getSavedAuthMacaroon(forCredentials credentials: Credentials) -> ASAPPAuthMacaroon? {
-        let key = storageKey(forCredentials: credentials)
+    class func getSavedAuthMacaroon(for config: ASAPPConfig) -> ASAPPAuthMacaroon? {
+        let key = storageKey(for: config)
         if let storedJSON = UserDefaults.standard.object(forKey: key) as? [String : Any] {
             if let storedInstance = instanceWithJSON(json: storedJSON) {
                 if storedInstance.isValid {

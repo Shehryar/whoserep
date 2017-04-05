@@ -81,7 +81,7 @@ class SoundEffectPlayer: NSObject {
         var soundId: SystemSoundID = 0
         
         if let fileName = fileName, let fileExtension = fileExtension,
-            let soundURL = ASAPPBundle.url(forResource: fileName, withExtension: fileExtension) {
+            let soundURL = ASAPP.bundle.url(forResource: fileName, withExtension: fileExtension) {
             AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundId)
             systemSoundIds[sound] = soundId
             

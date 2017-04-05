@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController {
     
     fileprivate var authProvider: ASAPPAuthProvider!
     fileprivate var contextProvider: ASAPPContextProvider!
-    fileprivate var callbackHandler: ASAPPCallbackHandler!
+    fileprivate var callbackHandler: ASAPPAppCallbackHandler!
 
     // MARK: UI
     
@@ -40,8 +40,6 @@ class HomeViewController: BaseViewController {
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
         
-        self.homeTableView.currentAccount = currentAccount
-        self.homeTableView.delegate = self
         self.authProvider = { [weak self] in
             return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
         }
@@ -55,6 +53,11 @@ class HomeViewController: BaseViewController {
                 blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
             }
         }
+        updateConfig()
+        
+        homeTableView.currentAccount = currentAccount
+        homeTableView.delegate = self
+        homeTableView.reloadData()
         
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
             self?.changeBranding(brandingType: type)
@@ -93,6 +96,19 @@ class HomeViewController: BaseViewController {
         
         homeTableView.frame = view.bounds
         homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
+    }
+    
+    // MARK:- ASAPPConfig
+    
+    func updateConfig() {
+         DemoLog("\nUpdating Demo Config:\nAppId: \(currentAccount.company)\nAPI:   \(appSettings.apiHostName)\nUser:  \(currentAccount.userToken)\n")
+        
+        ASAPP.config = ASAPPConfig(appId: currentAccount.company,
+                                   apiHostName: appSettings.apiHostName,
+                                   clientId: "ASAPP_DEMO_CLIENT_ID",
+                                   userIdentifier: currentAccount.userToken,
+                                   authProvider: authProvider,
+                                   contextProvider: contextProvider)
     }
 }
 
@@ -137,33 +153,17 @@ extension HomeViewController {
 // MARK:- Chat
 
 extension HomeViewController {
-    
+
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
 
-        DemoLog("Company: \(currentAccount.company)\nAPI Host Name: \(appSettings.apiHostName)\nuserToken: \(currentAccount.userToken)")
+        updateConfig()
         
         ASAPP.styles = appSettings.branding.styles
         ASAPP.debugLogLevel = .info
         
-        chatButton = ASAPP.createChatButton(
-            company: currentAccount.company,
-            apiHostName: appSettings.apiHostName,
-            customerId: currentAccount.userToken,
-            authProvider: authProvider,
-            contextProvider: contextProvider,
-            callbackHandler: callbackHandler,
-            presentingViewController: self)
-        
-//        chatButton = ASAPP.createChatButton(
-//            company: currentAccount.company,
-//            customerId: currentAccount.userToken,
-//            environment: .production,
-//            authProvider: authProvider,
-//            contextProvider: contextProvider,
-//            callbackHandler: callbackHandler,
-//            presentingViewController: self)
-        
+        chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
+                                            presentingViewController: self)
         
         if let chatButton = chatButton {
             chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
@@ -298,14 +298,8 @@ extension HomeViewController {
     }
     
     func showHelp() {
-        let chatViewController = ASAPP.createChatViewController(
-            company: currentAccount.company,
-            apiHostName: appSettings.apiHostName,
-            customerId: currentAccount.userToken,
-            authProvider: authProvider,
-            contextProvider: contextProvider,
-            callbackHandler: callbackHandler)
-        
+        let chatViewController = ASAPP.createChatViewController(appCallbackHandler: callbackHandler)
+
         present(chatViewController, animated: true, completion: nil)
     }
     

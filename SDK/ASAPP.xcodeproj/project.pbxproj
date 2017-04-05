@@ -327,6 +327,8 @@
 		306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3066190A1D9458F50092B4C5 /* UIImageView+WebCache.m */; };
 		306619281D9458F50092B4C5 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3066190B1D9458F50092B4C5 /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3066190C1D9458F50092B4C5 /* UIView+WebCacheOperation.m */; };
+		306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */; };
+		306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA6611E953DC400CFE17D /* ASAPPConstants.swift */; };
 		307301BA1DAE90460002CF3B /* predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B81DAE90460002CF3B /* predictive-response.json */; };
 		307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B91DAE90460002CF3B /* sprint_predictive-response.json */; };
 		30756B321E53A67D00D78E8E /* icon-credit-card-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */; };
@@ -387,7 +389,6 @@
 		30EE29F01D95D75B0079932D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5F1D93149B00B5EF9E /* libicucore.tbd */; };
 		30EE29F11D95D75B0079932D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */; };
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
-		30EE2A091D9970EB0079932D /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A081D9970EB0079932D /* Credentials.swift */; };
 		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
 		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
 		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
@@ -719,6 +720,8 @@
 		3066190A1D9458F50092B4C5 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		3066190B1D9458F50092B4C5 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3066190C1D9458F50092B4C5 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConfig.swift; sourceTree = "<group>"; };
+		306CA6611E953DC400CFE17D /* ASAPPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConstants.swift; sourceTree = "<group>"; };
 		307301B81DAE90460002CF3B /* predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "predictive-response.json"; sourceTree = "<group>"; };
 		307301B91DAE90460002CF3B /* sprint_predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sprint_predictive-response.json"; sourceTree = "<group>"; };
 		30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium.png"; sourceTree = "<group>"; };
@@ -779,7 +782,6 @@
 		30E87C551D93133E00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30E87C5F1D93149B00B5EF9E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		30EE2A081D9970EB0079932D /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
 		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
@@ -1081,8 +1083,10 @@
 			isa = PBXGroup;
 			children = (
 				30099DB11D3EDBC400171D56 /* ASAPP.swift */,
-				30756B421E562BFF00D78E8E /* ASAPPStrings.swift */,
+				306CA6611E953DC400CFE17D /* ASAPPConstants.swift */,
+				306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */,
 				30756B471E562C3100D78E8E /* ASAPPStyles.swift */,
+				30756B421E562BFF00D78E8E /* ASAPPStrings.swift */,
 				30756B451E562C1E00D78E8E /* TextStyle.swift */,
 				301B795D1E7C89C600186638 /* ASAPPStyles+Presets.swift */,
 				281C34491E7F092C001A2AA3 /* Components */,
@@ -1231,7 +1235,6 @@
 		30226CC01D4933F200871453 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				30EE2A081D9970EB0079932D /* Credentials.swift */,
 				30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */,
 				3093A4B01E730D5700C65818 /* AppOpenResponse.swift */,
 				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
@@ -2097,7 +2100,6 @@
 				302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
 				303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */,
-				30EE2A091D9970EB0079932D /* Credentials.swift in Sources */,
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
 				2880851A1E87FC8A00240A5D /* TableViewItem.swift in Sources */,
 				302A20C91E5F8AEF007C522A /* ChatItemListMessageCell.swift in Sources */,
@@ -2217,6 +2219,7 @@
 				302268621D80B89900EC4FB1 /* PredictiveButtonsView.swift in Sources */,
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
+				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
 				30EF00851E82CA4B004B1492 /* TextInputItem.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
@@ -2224,6 +2227,7 @@
 				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
+				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,

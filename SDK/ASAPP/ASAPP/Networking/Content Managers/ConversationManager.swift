@@ -24,7 +24,7 @@ protocol ConversationManagerDelegate: class {
 
 class ConversationManager: NSObject {
     
-    let credentials: Credentials
+    let config: ASAPPConfig
     
     let sessionManager: SessionManager
     
@@ -54,11 +54,11 @@ class ConversationManager: NSObject {
     
     // MARK: Initialization
     
-    init(withCredentials credentials: Credentials) {
-        self.credentials = credentials
-        self.sessionManager = SessionManager(credentials: credentials)
-        self.socketConnection = SocketConnection(withCredentials: self.credentials)
-        self.fileStore = ConversationFileStore(credentials: self.credentials)
+    init(with config: ASAPPConfig) {
+        self.config = config
+        self.sessionManager = SessionManager(with: config)
+        self.socketConnection = SocketConnection(with: config)
+        self.fileStore = ConversationFileStore(with: config)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
         self.isLiveChat = EventType.getLiveChatStatus(from: self.events)
         super.init()

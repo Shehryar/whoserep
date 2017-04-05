@@ -28,7 +28,7 @@ enum ASAPPIcon: String {
 extension UIImage {
     
     class func asappImage(named name: String) -> UIImage? {
-        return UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
+        return UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
     }
     
     class func asappIcon(_ icon: ASAPPIcon) -> UIImage? {
@@ -77,7 +77,7 @@ class Images: NSObject {
     }
 
     private class func imageWithName(_ name: String) -> UIImage? {
-        let image = UIImage(named: name, in: ASAPPBundle, compatibleWith: nil)
+        let image = UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
         return image
     }
     
@@ -91,7 +91,7 @@ class Images: NSObject {
             imageName = "gif-loader-bar"
         }
         
-        if let imagePath = ASAPPBundle.path(forResource: imageName, ofType: "gif") {
+        if let imagePath = ASAPP.bundle.path(forResource: imageName, ofType: "gif") {
             if let data = try? Data(contentsOf: URL(fileURLWithPath: imagePath)) {
                 return UIImage.sd_animatedGIF(with: data)
             }

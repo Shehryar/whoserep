@@ -89,10 +89,10 @@ extension ConversationManager {
                                 completion: IncomingMessageHandler? = nil) {
         
         Dispatcher.performOnBackgroundThread {
-            var srsParams: [String : AnyObject] = [ "Context" : self.credentials.getContextString() as AnyObject].with(params)
+            var srsParams: [String : AnyObject] = [ "Context" : self.config.getContextString() as AnyObject].with(params)
             srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE as AnyObject
             srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion as AnyObject
-            if let authToken = self.credentials.getAuthToken() {
+            if let authToken = self.config.getAuthToken() {
                 srsParams["Auth"] = authToken as AnyObject
             }
             

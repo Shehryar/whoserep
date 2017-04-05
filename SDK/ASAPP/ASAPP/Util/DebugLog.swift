@@ -8,6 +8,14 @@
 
 import UIKit
 
+@objc public enum ASAPPLogLevel: Int {
+    case none = 0
+    case errors = 1
+    case warning = 2
+    case debug = 3
+    case info = 4
+}
+
 class DebugLog: NSObject {
     
     private class func getStringForLogLevel(_ logLevel: ASAPPLogLevel) -> String {

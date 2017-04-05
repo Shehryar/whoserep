@@ -15,7 +15,7 @@ extension ConversationManager {
     func demo_AppOpenResponse() -> AppOpenResponse? {
         guard ASAPP.isDemoContentEnabled() else { return nil }
         
-        return AppOpenResponse.sampleResponse(forCompany: credentials.companyMarker)
+        return AppOpenResponse.sampleResponse(forCompany: config.appId)
     }
 }
 
@@ -122,7 +122,7 @@ extension ConversationManager {
         if message.containsAnySet(substringSets: [["switch", "to", "srs"], ["talk", "to", "srs"]])
                 || message.containsAnySet(substringSets: [["switch", "to", "agent"], ["talk", "to", "agent"] , ["switch", "live", "chat"]]) {
             if let demoResponse = Event.demoResponseForMessage(message: message,
-                                                               company: credentials.companyMarker) {
+                                                               company: config.appId) {
                 _sendMessage(message)
                 echoMessageResponse(withJSONString: demoResponse)
                 return true
@@ -130,7 +130,7 @@ extension ConversationManager {
         }
         
         if let demoResponse = Event.demoResponseForMessage(message: message,
-                                                           company: credentials.companyMarker) {
+                                                           company: config.appId) {
             _sendMessage(message)
             echoMessageResponse(withJSONString: demoResponse)
             return true
@@ -199,13 +199,13 @@ extension ConversationManager {
     
     func sendFakeTroubleshooterMessage(_ buttonItem: SRSButtonItem) {
         let jsonString = Event.getDemoEventJsonString(eventType: .troubleshooter,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         echoMessageResponse(withJSONString: jsonString)
     }
     
     func sendFakeDeviceRestartMessage(_ buttonItem: SRSButtonItem) {
         var deviceRestartString = Event.getDemoEventJsonString(eventType: .deviceRestart,
-                                                               company: credentials.companyMarker)
+                                                               company: config.appId)
         let finishedAt = Int(Date(timeIntervalSinceNow: 15).timeIntervalSince1970)
         deviceRestartString = deviceRestartString?.replacingOccurrences(of: "\"loaderBar\"", with: "\"loaderBar\", \"finishedAt\" : \(finishedAt)")
         
@@ -214,32 +214,32 @@ extension ConversationManager {
     
     func sendFakeCancelAppointmentMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .cancelAppointment,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         
         echoMessageResponse(withJSONString: jsonString)
     }
     
     func sendFakeCancelAppointmentConfirmationMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .cancelAppointmentConfirmation,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         echoMessageResponse(withJSONString: jsonString)
     }
     
     func sendFakeChatWithAnAgentMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowWaitOrCallback,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         echoMessageResponse(withJSONString: jsonString)
     }
     
     func sendFakeWaitForAnAgentMessage() {
         let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowQueueEntered,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         echoMessageResponse(withJSONString: jsonString)
     }
     
     func sendFakeAgentEnteredConversationEvent() {
         let jsonString = Event.getDemoEventJsonString(eventType: .chatFlowAgentEntered,
-                                                      company: credentials.companyMarker)
+                                                      company: config.appId)
         echoMessageResponse(withJSONString: jsonString)
     }
     

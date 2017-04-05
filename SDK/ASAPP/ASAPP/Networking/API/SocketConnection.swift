@@ -25,7 +25,7 @@ class SocketConnection: NSObject {
     
     // MARK: Public Properties
     
-    fileprivate(set) var credentials: Credentials
+    let config: ASAPPConfig
 
     var isConnected: Bool {
         if let socket = socket {
@@ -58,13 +58,13 @@ class SocketConnection: NSObject {
     
     // MARK: Initialization
     
-    init(withCredentials credentials: Credentials) {
-        self.credentials = credentials
-        self.connectionRequest = SocketConnection.createConnectionRequestion(apiHostName: credentials.apiHostName)
-        self.outgoingMessageSerializer = OutgoingMessageSerializer(withCredentials: self.credentials)
+    init(with config: ASAPPConfig) {
+        self.config = config
+        self.connectionRequest = SocketConnection.createConnectionRequestion(with: config)
+        self.outgoingMessageSerializer = OutgoingMessageSerializer(with: config)
         super.init()
         
-        DebugLog.d("SocketConnection created with host url: \(connectionRequest.url)")
+        DebugLog.d("SocketConnection created with host url: \(String(describing: connectionRequest.url))")
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SocketConnection.connect),
@@ -82,14 +82,12 @@ class SocketConnection: NSObject {
 
 extension SocketConnection {
     
-    private static let TEMP_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
-
-    class func createConnectionRequestion(apiHostName: String) -> URLRequest {
+    class func createConnectionRequestion(with config: ASAPPConfig) -> URLRequest {
         let connectionRequest = NSMutableURLRequest()
-        connectionRequest.url = URL(string: "wss://\(apiHostName)/api/websocket")
+        connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
         connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
         connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
-        connectionRequest.addValue(TEMP_CLIENT_SECRET, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
+        connectionRequest.addValue(config.clientId, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
         
         return connectionRequest as URLRequest
     }
@@ -211,9 +209,7 @@ extension SocketConnection {
         sendRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
             
-            if let targetCustomerToken = self?.credentials.targetCustomerToken {
-                self?.updateCustomerByCRMCustomerId(withTargetCustomerToken: targetCustomerToken, completion: completion)
-            } else if let completion = completion {
+            if let completion = completion {
                 completion(message, nil)
             }
         }
@@ -227,7 +223,7 @@ extension SocketConnection {
         
         sendRequest(withPath: path, params: params) { (response, request, responseTime) in
             guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
-                DebugLog.e("Missing Customer json body in: \(response.fullMessage)")
+                DebugLog.e("Missing Customer json body in: \(String(describing: response.fullMessage))")
                 
                 completion?(response, "Failed to update customer by CRMCustomerId")
                 return
@@ -236,7 +232,7 @@ extension SocketConnection {
             if let customerId = customerJSON["CustomerId"] as? Int {
                 self.participateInIssueForCustomer(customerId, completion: completion)
             } else if let completion = completion {
-                completion(response, "Missing CustomerId in: \(response.fullMessage)")
+                completion(response, "Missing CustomerId in: \(String(describing: response.fullMessage))")
             }
         }
     }
@@ -250,7 +246,7 @@ extension SocketConnection {
             if let issueId = response.body?["IssueId"] as? Int {
                 self.outgoingMessageSerializer.issueId = issueId
             } else {
-                DebugLog.e("Failed to get IssueId with: \(response.fullMessage)")
+                DebugLog.e("Failed to get IssueId with: \(String(describing: response.fullMessage))")
                 errorMessage = "Failed to get IssueId"
             }
             

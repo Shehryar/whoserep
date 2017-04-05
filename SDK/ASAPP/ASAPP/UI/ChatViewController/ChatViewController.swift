@@ -13,9 +13,12 @@ class ChatViewController: UIViewController {
     
     // MARK: Properties: Public
     
-    let credentials: Credentials
+    let config: ASAPPConfig
     
-    let callback: ASAPPCallbackHandler
+    let appCallbackHandler: ASAPPAppCallbackHandler
+    
+    
+    
     
     // MARK: Properties: Views / UI
     
@@ -95,11 +98,12 @@ class ChatViewController: UIViewController {
 
     // MARK:- Initialization
     
-    init(withCredentials credentials: Credentials, callback: @escaping ASAPPCallbackHandler) {
-        self.credentials = credentials
-        self.callback = callback
-        self.simpleStore = ChatSimpleStore(credentials: credentials)
-        self.conversationManager = ConversationManager(withCredentials: credentials)
+    init(config: ASAPPConfig, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+        self.config = config
+        self.appCallbackHandler = appCallbackHandler
+        
+        self.simpleStore = ChatSimpleStore(with: config)
+        self.conversationManager = ConversationManager(with: config)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         self.isLiveChat = conversationManager.isLiveChat
         super.init(nibName: nil, bundle: nil)
@@ -436,7 +440,7 @@ class ChatViewController: UIViewController {
 extension ChatViewController {
     
     func hasShownAskTooltipKey() -> String {
-        return credentials.hashKey(withPrefix: "AskTooltipShown")
+        return config.hashKey(prefix: "AskTooltipShown")
     }
     
     func numberOfTooltipActions() -> Int {
@@ -638,7 +642,7 @@ extension ChatViewController {
                                                         originalSearchQuery: originalQuery)
             
             dismiss(animated: true, completion: { [weak self] in
-                self?.callback(buttonItem.action.name, buttonItem.action.context)
+                self?.appCallbackHandler(buttonItem.action.name, buttonItem.action.context)
             })
             return false
             

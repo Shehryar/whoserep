@@ -116,6 +116,10 @@ class HomeTableView: UIView {
         tableView.separatorColor = appSettings.branding.colors.separatorColor
         tableView.reloadData()
     }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
 
     // MARK: Layout
     

@@ -9,7 +9,7 @@
 import UIKit
 
 func ASAPPLocalizedString(_ key: String) -> String {
-    return NSLocalizedString(key, tableName: nil, bundle: ASAPPBundle, comment: "")
+    return NSLocalizedString(key, tableName: nil, bundle: ASAPP.bundle, comment: "")
 }
 
 public class ASAPPStrings: NSObject {

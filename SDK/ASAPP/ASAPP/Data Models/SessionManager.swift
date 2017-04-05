@@ -10,17 +10,17 @@ import UIKit
 
 class SessionManager: NSObject {
 
-    let credentials: Credentials;
+    let config: ASAPPConfig
     
     let deviceIdentifier: String
     
     private let eventSequenceKey: String
     
-    required init(credentials: Credentials) {
-        self.credentials = credentials
-        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(forCredentials: credentials)
-            ?? SessionManager.generateDeviceIdentifier(forCredentials: credentials)
-        self.eventSequenceKey = credentials.hashKey(withPrefix: "ASAPP_EVENT_SEQUENCE_")
+    init(with config: ASAPPConfig) {
+        self.config = config
+        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(for: config)
+            ?? SessionManager.generateDeviceIdentifier(for: config)
+        self.eventSequenceKey = config.hashKey(prefix: "ASAPP_EVENT_SEQUENCE_")
 
         super.init()
         
@@ -45,21 +45,21 @@ class SessionManager: NSObject {
 
 extension SessionManager {
     
-    private class func deviceIdentifierStorageKey(forCredentials credentials: Credentials) -> String {
-        return credentials.hashKey(withPrefix: "ASAPP_DEVICE_ID_")
+    private class func deviceIdentifierStorageKey(for config: ASAPPConfig) -> String {
+        return config.hashKey(prefix: "ASAPP_DEVICE_ID_")
     }
     
-    fileprivate class func generateDeviceIdentifier(forCredentials credentials: Credentials) -> String {
+    fileprivate class func generateDeviceIdentifier(for config: ASAPPConfig) -> String {
         let deviceIdentifier = UUID().uuidString
-        let storageKey = deviceIdentifierStorageKey(forCredentials: credentials)
+        let storageKey = deviceIdentifierStorageKey(for: config)
         
         UserDefaults.standard.set(deviceIdentifier, forKey: storageKey)
         
         return deviceIdentifier
     }
     
-    fileprivate class func getSavedDeviceIdentifier(forCredentials credentials: Credentials) -> String? {
-        let storageKey = deviceIdentifierStorageKey(forCredentials: credentials)
+    fileprivate class func getSavedDeviceIdentifier(for config: ASAPPConfig) -> String? {
+        let storageKey = deviceIdentifierStorageKey(for: config)
         let savedDeviceIdentifier = UserDefaults.standard.string(forKey: storageKey)
         
         return savedDeviceIdentifier

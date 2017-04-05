@@ -10,10 +10,10 @@ import UIKit
 
 class ChatSimpleStore: NSObject {
     
-    let credentials: Credentials
+    let config: ASAPPConfig
     
-    required init(credentials: Credentials) {
-        self.credentials = credentials
+    required init(with config: ASAPPConfig) {
+        self.config = config
         super.init()
     }
 }
@@ -23,7 +23,7 @@ class ChatSimpleStore: NSObject {
 extension ChatSimpleStore {
     
     private func srsOriginalSearchQueryKey() -> String {
-        return credentials.hashKey(withPrefix: "SRSOriginalSearchQuery")
+        return config.hashKey(prefix: "SRSOriginalSearchQuery")
     }
     
     func updateSRSOriginalSearchQuery(query: String?) {
@@ -54,7 +54,7 @@ extension ChatSimpleStore {
 extension ChatSimpleStore {
     
     private func quickReplyEventIdsKey() -> String {
-        return credentials.hashKey(withPrefix: "SuggestedReplyEventLogSeqs")
+        return config.hashKey(prefix: "SuggestedReplyEventLogSeqs")
     }
     
     func updateQuickReplyEventIds(_ eventIds: [Int]?) {

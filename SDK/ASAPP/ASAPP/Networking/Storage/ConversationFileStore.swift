@@ -10,7 +10,7 @@ import UIKit
 
 class ConversationFileStore: NSObject {
     
-    let credentials: Credentials
+    let config: ASAPPConfig
     
     fileprivate let fileName: String
     
@@ -26,9 +26,9 @@ class ConversationFileStore: NSObject {
     
     // MARK: Init
     
-    required init(credentials: Credentials) {
-        self.credentials = credentials
-        self.fileName = "\(credentials.hashKey(withPrefix: "Stored-Events_")).txt"
+    init(with config: ASAPPConfig) {
+        self.config = config
+        self.fileName = "\(config.hashKey(prefix: "Stored-Events_")).txt"
         super.init()
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {

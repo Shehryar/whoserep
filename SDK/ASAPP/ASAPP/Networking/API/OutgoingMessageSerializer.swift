@@ -73,7 +73,7 @@ class OutgoingMessageSerializer: NSObject {
     
     // MARK: Pubic Properties
     
-    fileprivate(set) var credentials: Credentials
+    let config: ASAPPConfig
     
     var myId: Int = 0
     var issueId: Int = 0
@@ -87,10 +87,8 @@ class OutgoingMessageSerializer: NSObject {
 
     // MARK: Init 
     
-    init(withCredentials credentials: Credentials) {
-        self.credentials = credentials
-        self.targetCustomerToken = credentials.targetCustomerToken
-        
+    init(with config: ASAPPConfig) {
+        self.config = config
         super.init()
     }
 }
@@ -124,6 +122,10 @@ extension OutgoingMessageSerializer {
             } catch {}
         }
         
+        //
+        // Session
+        //
+        
         if let sessionInfoJson = sessionInfoJson {
             // Session
     
@@ -132,49 +134,44 @@ extension OutgoingMessageSerializer {
                 "SessionInfo": sessionInfoJson as AnyObject, // convert to json?
                 "App": "ios-sdk" as AnyObject
             ]
-        } else if let userToken = credentials.userToken {
-            // Customer w/ Token
-            if credentials.isCustomer {
-                path = "auth/AuthenticateWithCustomerIdentifier"
-                
-                params = [
-                    "CompanyMarker" : credentials.companyMarker as AnyObject,
-                    "CustomerIdentifier" : userToken as AnyObject,
-                    "IdentifierType" : "\(credentials.companyMarker)_CUSTOMER_ACCOUNT_ID" as AnyObject,
-                    "App" : "ios-sdk" as AnyObject,
-                    "RegionCode" : "US" as AnyObject,
-                ]
-                
-                // TODO: Better way to check this?
-                if ASAPP.isInternalBuild {
+        }
+        
+        //
+        // User Token
+        //
+        else { //if let userToken = config.userIdentifier {
+            path = "auth/AuthenticateWithCustomerIdentifier"
+            
+            params = [
+                "CompanyMarker" : config.appId as AnyObject,
+                "CustomerIdentifier" : config.userIdentifier as AnyObject,
+                "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID" as AnyObject,
+                "App" : "ios-sdk" as AnyObject,
+                "RegionCode" : "US" as AnyObject,
+            ]
+            
+            if ASAPP.isInternalBuild {
+                if config.userIdentifier.isLikelyASAPPPhoneNumber ||
+                    config.userIdentifier == "demo_customer_1" ||
+                    config.userIdentifier == "demo_customer_2"  {
                     
-                    if userToken.isLikelyASAPPPhoneNumber ||
-                        userToken == "demo_customer_1" ||
-                        userToken == "demo_customer_2"  {
-                        
-                        params["IdentifierType"] = "PHONE" as AnyObject
-                    }
-                    
+                    params["IdentifierType"] = "PHONE" as AnyObject
                 }
-            } else {
-                // Non-customer w/ Token
-                path = "auth/AuthenticateWithSalesForceToken"
-                params = [
-                    "Company": credentials.companyMarker as AnyObject,
-                    "AuthCallbackData": userToken as AnyObject,
-                    "GhostEmailAddress": "" as AnyObject,
-                    "CountConnectionForIssueTimeout": false as AnyObject,
-                    "App": "ios-sdk" as AnyObject
-                ]
             }
-        } else {
-            // Anonymous User
+        }
+        
+        //
+        // Anonymous User
+        //
+        /* Currently no anonymous users alowed
+        else {
             path = "auth/CreateAnonCustomerAccount"
             params = [
-                "CompanyMarker": credentials.companyMarker as AnyObject,
+                "CompanyMarker": config.appId as AnyObject,
                 "RegionCode": "US" as AnyObject
             ]
         }
+         */
         
         return (path, params)
     }
@@ -200,17 +197,9 @@ extension OutgoingMessageSerializer {
             }
         }
         
-        if credentials.isCustomer {
-            if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
-                if let rawId = customer["CustomerId"] as? Int {
-                    myId = rawId
-                }
-            }
-        } else {
-            if let customer = sessionInfoDict["Rep"] as? [String: AnyObject] {
-                if let rawId = customer["RepId"] as? Int {
-                    myId = rawId
-                }
+        if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
+            if let rawId = customer["CustomerId"] as? Int {
+                myId = rawId
             }
         }
     }

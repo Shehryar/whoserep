@@ -10,27 +10,15 @@ import UIKit
 
 public class ASAPPButton: UIView {
     
-    /// The ViewController that will present the ASAPP view controller
-    let presentingViewController: UIViewController
+    public let config: ASAPPConfig
     
-    let credentials: Credentials
-            
-    let callback: ASAPPCallbackHandler
+    public let presentingViewController: UIViewController
     
-    public var expansionPresentationAnimationDisabled: Bool = false
+    public let appCallbackHandler: ASAPPAppCallbackHandler
+
+    // MARK:- Private Properties: UI
     
-    public var shadowDisabled: Bool = false {
-        didSet {
-            updateDisplay()
-        }
-    }
-    
-    /// This will be called after the user taps the button and the ASAPP view controll is presented
-    public var onTapListenerBlock: (() -> Void)?
-    
-    // MARK: Private Properties: UI
-    
-    enum ASAPPButtonState {
+    fileprivate enum ASAPPButtonState {
         case normal
         case highlighted
     }
@@ -48,8 +36,6 @@ public class ASAPPButton: UIView {
     
     fileprivate var presentationAnimator: ButtonPresentationAnimator?
     
-    // MARK: Private Properties: Touch
-    
     fileprivate var isTouching = false {
         didSet {
             updateDisplay()
@@ -58,9 +44,18 @@ public class ASAPPButton: UIView {
     
     fileprivate var isWaitingToAnimateIn = false
     
-    // MARK: Initialization
+    // MARK:- Initialization
     
-    func commonInit() {
+    init(config: ASAPPConfig,
+         appCallbackHandler: @escaping ASAPPAppCallbackHandler,
+         presentingViewController: UIViewController) {
+        
+        self.config = config
+        self.appCallbackHandler = appCallbackHandler
+        self.presentingViewController = presentingViewController
+        
+        super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
+        
         clipsToBounds = false
         autoresizesSubviews = false
         
@@ -85,33 +80,19 @@ public class ASAPPButton: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(ASAPPButton.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
-    }
-    
-    required public init(withCredentials credentials: Credentials,
-                         presentingViewController: UIViewController,
-                         callback: @escaping ASAPPCallbackHandler) {
         
-        self.credentials = credentials
-        self.presentingViewController = presentingViewController
-        self.callback = callback
         
-        super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
-        commonInit()
-    }
-    
-    override public init(frame: CGRect) {
-        fatalError("init(frame:) has not been implemented. Must initialize using init(withCredentials:presentingViewController:)")
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented. Must initialize using init(withCredentials:presentingViewController:)")
+        fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK: Layout
+    // MARK:- Layout
     
     public override func layoutSubviews() {
         super.layoutSubviews()
@@ -145,6 +126,7 @@ public class ASAPPButton: UIView {
 // MARK:- Button Display
 
 extension ASAPPButton {
+    
     func updateDisplay() {
         label.setAttributedText(ASAPP.strings.asappButton,
                                 textStyle: .asappButton,
@@ -159,23 +141,19 @@ extension ASAPPButton {
             contentView.alpha = 1
         }
         
-        if shadowDisabled {
-            contentView.layer.shadowOpacity = 0
-            contentView.layer.shadowColor = nil
-        } else {
-            switch currentState {
-            case .normal:
-                contentView.layer.shadowOpacity = 0.5
-                contentView.layer.shadowRadius = 3
-                contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
-                break
-                
-            case .highlighted:
-                contentView.layer.shadowOpacity = 0.6
-                contentView.layer.shadowRadius = 1
-                contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-                break
-            }
+     
+        switch currentState {
+        case .normal:
+            contentView.layer.shadowOpacity = 0.5
+            contentView.layer.shadowRadius = 3
+            contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
+            break
+            
+        case .highlighted:
+            contentView.layer.shadowOpacity = 0.6
+            contentView.layer.shadowRadius = 1
+            contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            break
         }
     }
 }
@@ -223,22 +201,16 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     
-    
     func didTap() {
-        let chatViewController = ChatViewController(withCredentials: credentials,
-                                                    callback: callback)
+        let chatViewController = ChatViewController(config: config, appCallbackHandler: appCallbackHandler)
         
         let navigationController = NavigationController(rootViewController: chatViewController)
         
-        if !expansionPresentationAnimationDisabled {
-            navigationController.modalPresentationStyle = .custom
-            navigationController.transitioningDelegate = presentationAnimator
-            navigationController.modalPresentationCapturesStatusBarAppearance = true
-        }
+        navigationController.modalPresentationStyle = .custom
+        navigationController.transitioningDelegate = presentationAnimator
+        navigationController.modalPresentationCapturesStatusBarAppearance = true
         
         presentingViewController.present(navigationController, animated: true, completion: nil)
-        
-        onTapListenerBlock?()
     }
     
     func didBeginLongHold() {

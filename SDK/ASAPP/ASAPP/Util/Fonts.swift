@@ -69,7 +69,7 @@ class Fonts: NSObject {
     
     class func loadFont(_ name: String, type: String) {
     
-        guard let path = ASAPPBundle.path(forResource: name, ofType: type) else {
+        guard let path = ASAPP.bundle.path(forResource: name, ofType: type) else {
             DebugLog.e("FONT FAILURE: Unable to find path for resource \(name).\(type)")
             return
         }

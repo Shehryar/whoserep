@@ -25,9 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
         
-        ASAPP.loadFontsIfNecessary()
         ASAPP.debugLogLevel = .debug
-        
+        ASAPP.loadFonts()
         
         // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()

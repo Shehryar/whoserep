@@ -13,7 +13,7 @@ class DemoUtils: NSObject {
     // MARK:- File Paths
     
     class func createFilePaths(fileName: String, company: String?) -> (/* filePath */ String?, /* companyFilePath */ String?) {
-        let filePath = ASAPPBundle.path(forResource: fileName, ofType: "json")
+        let filePath = ASAPP.bundle.path(forResource: fileName, ofType: "json")
         
         var companyFilePath: String?
         if let company = company {
@@ -24,7 +24,7 @@ class DemoUtils: NSObject {
             } else {
                 companyFileName = "\(company)_\(fileName)"
             }
-            companyFilePath = ASAPPBundle.path(forResource: companyFileName, ofType: "json")
+            companyFilePath = ASAPP.bundle.path(forResource: companyFileName, ofType: "json")
         }
         
         return (filePath, companyFilePath)
