@@ -15,11 +15,10 @@ class ChatViewController: UIViewController {
     
     let config: ASAPPConfig
     
+    let user: ASAPPUser
+    
     let appCallbackHandler: ASAPPAppCallbackHandler
-    
-    
-    
-    
+
     // MARK: Properties: Views / UI
     
     fileprivate let predictiveVC = PredictiveViewController()
@@ -98,12 +97,13 @@ class ChatViewController: UIViewController {
 
     // MARK:- Initialization
     
-    init(config: ASAPPConfig, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+    init(config: ASAPPConfig, user: ASAPPUser, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
+        self.user = user
         self.appCallbackHandler = appCallbackHandler
         
-        self.simpleStore = ChatSimpleStore(with: config)
-        self.conversationManager = ConversationManager(with: config)
+        self.simpleStore = ChatSimpleStore(config: config, user: user)
+        self.conversationManager = ConversationManager(config: config, user: user)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         self.isLiveChat = conversationManager.isLiveChat
         super.init(nibName: nil, bundle: nil)
@@ -440,7 +440,7 @@ class ChatViewController: UIViewController {
 extension ChatViewController {
     
     func hasShownAskTooltipKey() -> String {
-        return config.hashKey(prefix: "AskTooltipShown")
+        return config.hashKey(with: user, prefix: "AskTooltipShown")
     }
     
     func numberOfTooltipActions() -> Int {

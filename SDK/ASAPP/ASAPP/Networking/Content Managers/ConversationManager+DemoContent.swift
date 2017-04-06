@@ -94,7 +94,6 @@ extension ConversationManager {
                 
             default: return false
             }
-            break
             
         case.link:
             switch buttonItem.action.name.lowercased() {
@@ -110,7 +109,6 @@ extension ConversationManager {
                 
             default: return false
             }
-            break
         
         default: return false
         }

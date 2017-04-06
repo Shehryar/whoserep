@@ -9,7 +9,7 @@
 import Foundation
 
 enum EventType: Int {
-    case none = 0
+    case none = 0 
     case textMessage = 1
     case newRep = 3
     case conversationEnd = 4

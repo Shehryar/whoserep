@@ -63,7 +63,7 @@ public extension ASAPPStyles {
                                                blue: (0.0 / 255.0),
                                                alpha:1.000)
         styles.navBarButtonColor = UIColor.white
-        styles.navBarButtonStyle = .text
+        styles.navBarButtonStyle = ASAPPNavBarButtonStyle.text
         
         // Messages
         styles.replyMessageFillColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)

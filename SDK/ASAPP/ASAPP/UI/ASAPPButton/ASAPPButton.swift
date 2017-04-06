@@ -12,6 +12,8 @@ public class ASAPPButton: UIView {
     
     public let config: ASAPPConfig
     
+    public let user: ASAPPUser
+    
     public let presentingViewController: UIViewController
     
     public let appCallbackHandler: ASAPPAppCallbackHandler
@@ -47,10 +49,12 @@ public class ASAPPButton: UIView {
     // MARK:- Initialization
     
     init(config: ASAPPConfig,
+         user: ASAPPUser,
          appCallbackHandler: @escaping ASAPPAppCallbackHandler,
          presentingViewController: UIViewController) {
         
         self.config = config
+        self.user = user
         self.appCallbackHandler = appCallbackHandler
         self.presentingViewController = presentingViewController
         
@@ -202,7 +206,7 @@ extension ASAPPButton {
 extension ASAPPButton {
     
     func didTap() {
-        let chatViewController = ChatViewController(config: config, appCallbackHandler: appCallbackHandler)
+        let chatViewController = ChatViewController(config: config, user: user, appCallbackHandler: appCallbackHandler)
         
         let navigationController = NavigationController(rootViewController: chatViewController)
         

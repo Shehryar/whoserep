@@ -74,6 +74,7 @@ class OutgoingMessageSerializer: NSObject {
     // MARK: Pubic Properties
     
     let config: ASAPPConfig
+    let user: ASAPPUser
     
     var myId: Int = 0
     var issueId: Int = 0
@@ -87,8 +88,9 @@ class OutgoingMessageSerializer: NSObject {
 
     // MARK: Init 
     
-    init(with config: ASAPPConfig) {
+    init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
+        self.user = user
         super.init()
     }
 }
@@ -144,16 +146,16 @@ extension OutgoingMessageSerializer {
             
             params = [
                 "CompanyMarker" : config.appId as AnyObject,
-                "CustomerIdentifier" : config.userIdentifier as AnyObject,
+                "CustomerIdentifier" : user.userId as AnyObject,
                 "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID" as AnyObject,
                 "App" : "ios-sdk" as AnyObject,
                 "RegionCode" : "US" as AnyObject,
             ]
             
             if ASAPP.isInternalBuild {
-                if config.userIdentifier.isLikelyASAPPPhoneNumber ||
-                    config.userIdentifier == "demo_customer_1" ||
-                    config.userIdentifier == "demo_customer_2"  {
+                if user.userId.isLikelyASAPPPhoneNumber ||
+                    user.userId == "demo_customer_1" ||
+                    user.userId == "demo_customer_2"  {
                     
                     params["IdentifierType"] = "PHONE" as AnyObject
                 }

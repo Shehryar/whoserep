@@ -58,10 +58,10 @@ class SocketConnection: NSObject {
     
     // MARK: Initialization
     
-    init(with config: ASAPPConfig) {
+    init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
         self.connectionRequest = SocketConnection.createConnectionRequestion(with: config)
-        self.outgoingMessageSerializer = OutgoingMessageSerializer(with: config)
+        self.outgoingMessageSerializer = OutgoingMessageSerializer(config: config, user: user)
         super.init()
         
         DebugLog.d("SocketConnection created with host url: \(String(describing: connectionRequest.url))")

@@ -12,8 +12,11 @@ class ChatSimpleStore: NSObject {
     
     let config: ASAPPConfig
     
-    required init(with config: ASAPPConfig) {
+    let user: ASAPPUser
+    
+    required init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
+        self.user = user
         super.init()
     }
 }
@@ -23,7 +26,7 @@ class ChatSimpleStore: NSObject {
 extension ChatSimpleStore {
     
     private func srsOriginalSearchQueryKey() -> String {
-        return config.hashKey(prefix: "SRSOriginalSearchQuery")
+        return config.hashKey(with: user, prefix: "SRSOriginalSearchQuery")
     }
     
     func updateSRSOriginalSearchQuery(query: String?) {
@@ -54,7 +57,7 @@ extension ChatSimpleStore {
 extension ChatSimpleStore {
     
     private func quickReplyEventIdsKey() -> String {
-        return config.hashKey(prefix: "SuggestedReplyEventLogSeqs")
+        return config.hashKey(with: user, prefix: "SuggestedReplyEventLogSeqs")
     }
     
     func updateQuickReplyEventIds(_ eventIds: [Int]?) {
@@ -104,7 +107,7 @@ extension ChatSimpleStore {
             return nil
         }
         
-        guard let lastQuickReplyMessage = mostRecentReplyMessageIfHasQuickReplies(fromEvents: events) else {
+        guard mostRecentReplyMessageIfHasQuickReplies(fromEvents: events) != nil else {
             return nil
         }
         

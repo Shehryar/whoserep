@@ -101,14 +101,18 @@ class HomeViewController: BaseViewController {
     // MARK:- ASAPPConfig
     
     func updateConfig() {
-         DemoLog("\nUpdating Demo Config:\nAppId: \(currentAccount.company)\nAPI:   \(appSettings.apiHostName)\nUser:  \(currentAccount.userToken)\n")
+         DemoLog("\nUpdating Demo Config:\n--------------------\nAppId: \(currentAccount.company)\nAPI:   \(appSettings.apiHostName)\nUser:  \(currentAccount.userToken)\n")
         
-        ASAPP.config = ASAPPConfig(appId: currentAccount.company,
-                                   apiHostName: appSettings.apiHostName,
-                                   clientId: "ASAPP_DEMO_CLIENT_ID",
-                                   userIdentifier: currentAccount.userToken,
-                                   authProvider: authProvider,
-                                   contextProvider: contextProvider)
+        let config = ASAPPConfig(appId: currentAccount.company,
+                                 apiHostName: appSettings.apiHostName,
+                                 clientId: "ASAPP_DEMO_CLIENT_ID")
+        
+        let user = ASAPPUser(userId: currentAccount.userToken,
+                             authProvider: authProvider,
+                             contextProvider: contextProvider)
+        
+        ASAPP.initialize(with: config)
+        ASAPP.user = user
     }
 }
 

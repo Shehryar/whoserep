@@ -89,10 +89,11 @@ extension ConversationManager {
                                 completion: IncomingMessageHandler? = nil) {
         
         Dispatcher.performOnBackgroundThread {
-            var srsParams: [String : AnyObject] = [ "Context" : self.config.getContextString() as AnyObject].with(params)
+            var srsParams: [String : AnyObject] = [ "Context" : self.user.getContextString() as AnyObject].with(params)
             srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE as AnyObject
             srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion as AnyObject
-            if let authToken = self.config.getAuthToken() {
+            let (authToken, _) = self.user.getAuthToken()
+            if let authToken = authToken {
                 srsParams["Auth"] = authToken as AnyObject
             }
             
@@ -155,8 +156,7 @@ extension ConversationManager {
             "Title" : buttonItem.title as AnyObject,
             "Link" : buttonItem.action.name as AnyObject
         ]
-        if let deepLinkData = buttonItem.action.context as? AnyObject,
-            let deepLinkDataJson = JSONUtil.stringify(deepLinkData) {
+        if let deepLinkDataJson = JSONUtil.stringify(buttonItem.action.context as AnyObject) {
             params["Data"] = deepLinkDataJson as AnyObject
         }
         

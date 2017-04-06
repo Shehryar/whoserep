@@ -329,6 +329,7 @@
 		306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3066190C1D9458F50092B4C5 /* UIView+WebCacheOperation.m */; };
 		306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */; };
 		306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA6611E953DC400CFE17D /* ASAPPConstants.swift */; };
+		306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA6631E968DF100CFE17D /* ASAPPUser.swift */; };
 		307301BA1DAE90460002CF3B /* predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B81DAE90460002CF3B /* predictive-response.json */; };
 		307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B91DAE90460002CF3B /* sprint_predictive-response.json */; };
 		30756B321E53A67D00D78E8E /* icon-credit-card-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */; };
@@ -389,7 +390,6 @@
 		30EE29F01D95D75B0079932D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5F1D93149B00B5EF9E /* libicucore.tbd */; };
 		30EE29F11D95D75B0079932D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */; };
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
-		30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */; };
 		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
 		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
 		30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */; };
@@ -722,6 +722,7 @@
 		3066190C1D9458F50092B4C5 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConfig.swift; sourceTree = "<group>"; };
 		306CA6611E953DC400CFE17D /* ASAPPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPConstants.swift; sourceTree = "<group>"; };
+		306CA6631E968DF100CFE17D /* ASAPPUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPUser.swift; sourceTree = "<group>"; };
 		307301B81DAE90460002CF3B /* predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "predictive-response.json"; sourceTree = "<group>"; };
 		307301B91DAE90460002CF3B /* sprint_predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sprint_predictive-response.json"; sourceTree = "<group>"; };
 		30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium.png"; sourceTree = "<group>"; };
@@ -782,7 +783,6 @@
 		30E87C551D93133E00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30E87C5F1D93149B00B5EF9E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPAuthMacaroon.swift; sourceTree = "<group>"; };
 		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
 		30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewContainer.swift; sourceTree = "<group>"; };
@@ -1085,6 +1085,7 @@
 				30099DB11D3EDBC400171D56 /* ASAPP.swift */,
 				306CA6611E953DC400CFE17D /* ASAPPConstants.swift */,
 				306CA65F1E953AAB00CFE17D /* ASAPPConfig.swift */,
+				306CA6631E968DF100CFE17D /* ASAPPUser.swift */,
 				30756B471E562C3100D78E8E /* ASAPPStyles.swift */,
 				30756B421E562BFF00D78E8E /* ASAPPStrings.swift */,
 				30756B451E562C1E00D78E8E /* TextStyle.swift */,
@@ -1235,7 +1236,6 @@
 		30226CC01D4933F200871453 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				30EE2A131D99AA940079932D /* ASAPPAuthMacaroon.swift */,
 				3093A4B01E730D5700C65818 /* AppOpenResponse.swift */,
 				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 				3093A4A41E730D4F00C65818 /* Chat Message */,
@@ -2121,6 +2121,7 @@
 				281C348C1E7F092C001A2AA3 /* SRSFillerItem.swift in Sources */,
 				288084FE1E874B9F00240A5D /* SliderItem.swift in Sources */,
 				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
+				306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				28D48CA81E83EE23004A002B /* ComponentAction.swift in Sources */,
 				3093A4AD1E730D4F00C65818 /* EventPictureMessage.swift in Sources */,
@@ -2233,7 +2234,6 @@
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
-				30EE2A141D99AA940079932D /* ASAPPAuthMacaroon.swift in Sources */,
 				305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */,
 				281C34931E7F092C001A2AA3 /* SRSItemCarousel.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,

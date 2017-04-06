@@ -12,15 +12,18 @@ class SessionManager: NSObject {
 
     let config: ASAPPConfig
     
+    let user: ASAPPUser
+    
     let deviceIdentifier: String
     
     private let eventSequenceKey: String
     
-    init(with config: ASAPPConfig) {
+    init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
-        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(for: config)
-            ?? SessionManager.generateDeviceIdentifier(for: config)
-        self.eventSequenceKey = config.hashKey(prefix: "ASAPP_EVENT_SEQUENCE_")
+        self.user = user
+        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(for: config, user: user)
+            ?? SessionManager.generateDeviceIdentifier(for: config, user: user)
+        self.eventSequenceKey = config.hashKey(with: user, prefix: "ASAPP_EVENT_SEQUENCE_")
 
         super.init()
         
@@ -45,21 +48,21 @@ class SessionManager: NSObject {
 
 extension SessionManager {
     
-    private class func deviceIdentifierStorageKey(for config: ASAPPConfig) -> String {
-        return config.hashKey(prefix: "ASAPP_DEVICE_ID_")
+    private class func deviceIdentifierStorageKey(for config: ASAPPConfig, user: ASAPPUser) -> String {
+        return config.hashKey(with: user, prefix: "ASAPP_DEVICE_ID_")
     }
     
-    fileprivate class func generateDeviceIdentifier(for config: ASAPPConfig) -> String {
+    fileprivate class func generateDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String {
         let deviceIdentifier = UUID().uuidString
-        let storageKey = deviceIdentifierStorageKey(for: config)
+        let storageKey = deviceIdentifierStorageKey(for: config, user: user)
         
         UserDefaults.standard.set(deviceIdentifier, forKey: storageKey)
         
         return deviceIdentifier
     }
     
-    fileprivate class func getSavedDeviceIdentifier(for config: ASAPPConfig) -> String? {
-        let storageKey = deviceIdentifierStorageKey(for: config)
+    fileprivate class func getSavedDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String? {
+        let storageKey = deviceIdentifierStorageKey(for: config, user: user)
         let savedDeviceIdentifier = UserDefaults.standard.string(forKey: storageKey)
         
         return savedDeviceIdentifier

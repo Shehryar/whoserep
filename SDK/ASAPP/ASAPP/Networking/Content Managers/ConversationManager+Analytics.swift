@@ -90,7 +90,7 @@ extension ConversationManager {
         
         switch buttonItem.action.type {
         case .link:
-            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context as? AnyObject)
+            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context as AnyObject)
             break
             
         case .treewalk, .api:

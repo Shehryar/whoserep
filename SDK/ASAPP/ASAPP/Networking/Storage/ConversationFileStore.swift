@@ -12,6 +12,8 @@ class ConversationFileStore: NSObject {
     
     let config: ASAPPConfig
     
+    let user: ASAPPUser
+    
     fileprivate let fileName: String
     
     fileprivate var filePath: URL?
@@ -26,9 +28,10 @@ class ConversationFileStore: NSObject {
     
     // MARK: Init
     
-    init(with config: ASAPPConfig) {
+    init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
-        self.fileName = "\(config.hashKey(prefix: "Stored-Events_")).txt"
+        self.user = user
+        self.fileName = "\(config.hashKey(with: user, prefix: "Stored-Events_")).txt"
         super.init()
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
@@ -263,7 +266,7 @@ extension ConversationFileStore {
     
     // MARK: Public
     
-    public func save(async: Bool = true) {
+    func save(async: Bool = true) {
         guard needsWriteToFile else { return }
         
         if async {

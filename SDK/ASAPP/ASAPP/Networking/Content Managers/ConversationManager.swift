@@ -26,6 +26,8 @@ class ConversationManager: NSObject {
     
     let config: ASAPPConfig
     
+    let user: ASAPPUser
+    
     let sessionManager: SessionManager
     
     weak var delegate: ConversationManagerDelegate?
@@ -54,11 +56,12 @@ class ConversationManager: NSObject {
     
     // MARK: Initialization
     
-    init(with config: ASAPPConfig) {
+    init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
-        self.sessionManager = SessionManager(with: config)
-        self.socketConnection = SocketConnection(with: config)
-        self.fileStore = ConversationFileStore(with: config)
+        self.user = user
+        self.sessionManager = SessionManager(config: config, user: user)
+        self.socketConnection = SocketConnection(config: config, user: user)
+        self.fileStore = ConversationFileStore(config: config, user: user)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
         self.isLiveChat = EventType.getLiveChatStatus(from: self.events)
         super.init()
