@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASAPP iOS SDK Integration Guidelines</title>
+    <style>
+    body {
+    	padding: 30px;
+    	font-family: Helvetica, Arial, sans-serif;
+    	color: #404040;
+    	font-size: 16px;
+    	font-weight: 200;
+    }
+    h1 {
+    	margin-top: 40px;
+    	font-size: 28px;
+    	letter-spacing: 0.03em;
+    	font-weight: 100;
+    	color: #797f90;
+    }
+    h2 {
+    	margin-top: 40px;
+    	font-size: 22px;
+    	font-weight: 200;
+    	color: #f5785f;
+    }
+    h3 {
+    	margin-top: 24px;
+    	font-size: 18px;
+    	font-weight: 600;
+    	color: #5b637d;
+    }
+    p {
+    	font-size: 16px;
+    }
+	pre {
+		font-family: monospace;
+		background-color: #eff0f1;
+		color: #313131;
+		font-size: 15px;
+		padding: 8px 8px;
+	} 
+    </style>
+  </head>
+  <body>
+    <h1>ASAPP iOS SDK</h1>
+    <!-- FRAMEWORK INTEGRATION -->
+    <h2>Framework Integration</h2>
+    <h3>Add ASAPP.framework to Embedded Binaries</h3>
+    <p>
+    	Add ASAPP.framework to the desired location in your project's directory.  After opening Xcode, drag-and-drop ASAPP.framework into <i>Embedded Binaries</i> in the <i>General</i> settings of your project's target.  Xcode should now display ASAPP.framework under both <i>Embedded Binaries</i> and <i>Linked Frameworks and Libraries</i>.
+    </p>
+    <h3>Always Embed Swift Standard Libraries -> Yes</h3>
+    <p>
+    	Under your target's "Build Settings", set "Always Embed Swift Standard Libraries" to "Yes".  This is necessary because the ASAPP iOS SDK is built using Swift.
+    </p>
+    <h3>User-Defined Setting <i>SWIFT_VERSION</i> -> 3.0</h3>
+    <p>
+    	This should not be required for most projects, but if you have used an older version of Swift in your project, you may need to add a user-defined setting to avoid any compiler issues. Go to the "Build Settings" of your target, scroll to "User-Defined" near the bottom, and add a new key "SWIFT_VERSION" with value "3.0".
+    </p>
+    <h3>Add NSPhotoLibraryUsageDescription/NSCameraUsageDescription to Info.plist</h3>
+    <p>
+    	As of iOS 10, Apple requires a description for why your app uses the photo library and/or camera. Since our SDK has features using the photo library and the camera, your Info.plist will need brief descriptions ("In-app chat allows users to upload images") for both of these.  If accessing the Info.plist via Xcode, the keys are "Privacy - Camera Usage Description" and "Privacy - Photo Library Usage Description".  If accessing your Info.plist via a text editor, the keys are "NSPhotoLibraryUsageDescription" and "NSCameraUsageDescription".
+    </p>
+    <h3>Add Custom Run Script to Build Phases</h3>
+    <p>
+    	ASAPP.framework is distributed as a fat framework, meaning that it is built to run on all devices and simulators.  In order to upload your app to the App Store, you will need to strip the ASAPP.framework of the information used to build it for the iOS Simulator.  If you are incorporating other custom frameworks, you may already have a run script phase that handles this.   However, if not, we have included a simple run script that will take care of this for you.
+    	<br><br>
+		Under the "Build Phases" tab of your target, click the plus button to add  a "New Run Script Phase".  Make sure the "Shell" value is "/bin/sh".  Copy-paste the contents of the asapp_run_script.sh file into the script area. 
+    </p>
+
+    <!-- SDK USAGE -->
+    <h2>SDK Usage</h2>
+    <h3>Initialize ASAPP with ASAPPConfig</h3>
+    <p>
+    </p>
+    <pre>
+let config = ASAPPConfig(appId: appId,
+                         apiHostName: apiHostName,
+                         clientId: clientId)
+
+ASAPP.initialize(with: config)</pre>
+
+    <h3>Set User</h3>
+    <p></p>
+    <pre>
+let user = ASAPPUser(userIdentifier: userIdentifier,
+                     requestAuthenticationBlock: authenticationBlock,
+                     requestContextBlock: contextBlock)
+
+ASAPP.user = user</pre>
+
+	<h3>Customize Styles</h3>
+    <p>
+    </p>
+    <pre>
+var styles = ASAPPStyles()
+
+ASAPP.styles = styles</pre>	
+
+    <h3>Launch Chat</h3>
+    <p></p>
+    <pre>
+let chatViewController = ASAPP.createChatViewController(appCallbackHandler: callbackHandler)
+
+present(chatViewController, animated: true, completion: nil)</pre>
+
+
+    <h2>Run-Script for Stripping Unused Frameworks:</h2>
+    <pre>
+APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+
+# This script loops through the frameworks embedded in the application and
+# removes unused architectures.
+find "$APP_PATH" -name '*.framework' -type d | while read -r FRAMEWORK
+do
+FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecutable)
+FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
+echo "Executable is $FRAMEWORK_EXECUTABLE_PATH"
+
+EXTRACTED_ARCHS=()
+
+for ARCH in $ARCHS
+do
+echo "Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME"
+lipo -extract "$ARCH" "$FRAMEWORK_EXECUTABLE_PATH" -o "$FRAMEWORK_EXECUTABLE_PATH-$ARCH"
+EXTRACTED_ARCHS+=("$FRAMEWORK_EXECUTABLE_PATH-$ARCH")
+done
+
+echo "Merging extracted architectures: ${ARCHS}"
+lipo -o "$FRAMEWORK_EXECUTABLE_PATH-merged" -create "${EXTRACTED_ARCHS[@]}"
+rm "${EXTRACTED_ARCHS[@]}"
+
+echo "Replacing original executable with thinned version"
+rm "$FRAMEWORK_EXECUTABLE_PATH"
+mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
+
+done</pre>
+  </body>
+</html>
