@@ -37,7 +37,7 @@ class ChatTextBubbleView: UIView {
             // Update Bubble
             //
             if message.isReply {
-                let fillColor = ASAPP.styles.replyMessageFillColor ?? ASAPP.styles.backgroundColor1
+                let fillColor = ASAPP.styles.replyMessageFillColor ?? ASAPP.styles.primaryBackgroundColor
                 label.textColor = ASAPP.styles.replyMessageTextColor
                 label.linkTextAttributes = [
                     NSForegroundColorAttributeName : ASAPP.styles.replyMessageTextColor,
@@ -46,7 +46,7 @@ class ChatTextBubbleView: UIView {
                 bubbleView.strokeColor = ASAPP.styles.replyMessageStrokeColor
                 bubbleView.fillColor = fillColor
             } else {
-                let fillColor = ASAPP.styles.messageFillColor ?? ASAPP.styles.backgroundColor1
+                let fillColor = ASAPP.styles.messageFillColor ?? ASAPP.styles.primaryBackgroundColor
                 label.textColor = ASAPP.styles.messageTextColor
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
@@ -99,9 +99,9 @@ class ChatTextBubbleView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.backgroundColor1
+        backgroundColor = ASAPP.styles.primaryBackgroundColor
         
-        bubbleView.backgroundColor = ASAPP.styles.backgroundColor1
+        bubbleView.backgroundColor = ASAPP.styles.primaryBackgroundColor
         bubbleView.clipsToBounds = false
         addSubview(bubbleView)
         

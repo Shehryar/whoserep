@@ -48,13 +48,13 @@ class SRSButtonItemView: UIButton {
     // MARK: Display
     
     func updateDisplay() {
-        borderTop.backgroundColor = ASAPP.styles.separatorColor1
+        borderTop.backgroundColor = ASAPP.styles.primarySeparatorColor
         
         setBackgroundImage(UIImage.imageWithColor(UIColor.white), for: .normal)
         setBackgroundImage(UIImage.imageWithColor(UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)), for: .highlighted)
         
-        setTitleColor(ASAPP.styles.foregroundColor1, for: .normal)
-        setTitleColor(ASAPP.styles.foregroundColor1, for: .highlighted)
+        setTitleColor(ASAPP.styles.primaryTextColor, for: .normal)
+        setTitleColor(ASAPP.styles.primaryTextColor, for: .highlighted)
         
         setAttributedText(buttonItem?.title.uppercased(),
                           textStyle: .srsButton,

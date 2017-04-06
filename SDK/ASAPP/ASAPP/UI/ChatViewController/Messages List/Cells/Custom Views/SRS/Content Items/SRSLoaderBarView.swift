@@ -43,7 +43,7 @@ class SRSLoaderBarView: UIView {
         loaderView.contentMode = .scaleToFill
         addSubview(loaderView)
         
-        finishedLabel.textColor = ASAPP.styles.foregroundColor2
+        finishedLabel.textColor = ASAPP.styles.secondaryTextColor
         finishedLabel.textAlignment = .center
         finishedLabel.alpha = 0.0
         finishedLabel.numberOfLines = 0

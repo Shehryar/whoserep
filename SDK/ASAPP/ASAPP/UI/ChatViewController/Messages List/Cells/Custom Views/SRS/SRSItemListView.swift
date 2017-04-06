@@ -32,8 +32,8 @@ class SRSItemListView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.backgroundColor2
-        layer.borderColor = ASAPP.styles.separatorColor1.cgColor
+        backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        layer.borderColor = ASAPP.styles.primarySeparatorColor.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 6
         layer.masksToBounds = true

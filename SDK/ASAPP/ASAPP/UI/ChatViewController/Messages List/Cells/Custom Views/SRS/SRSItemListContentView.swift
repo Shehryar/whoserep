@@ -23,7 +23,7 @@ class SRSItemListContentView: StackView {
 
         var createdViews = [UIView]()
         
-        let contentBg = ASAPP.styles.backgroundColor2
+        let contentBg = ASAPP.styles.secondaryBackgroundColor
         
         if let contentItems = contentItems {
             for item in contentItems {

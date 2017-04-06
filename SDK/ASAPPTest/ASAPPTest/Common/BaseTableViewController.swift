@@ -25,7 +25,7 @@ class BaseTableViewController: BaseViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
+        tableView.backgroundColor = appSettings.branding.colors.secondaryBackgroundColor
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -52,7 +52,7 @@ class BaseTableViewController: BaseViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
+        tableView.backgroundColor = appSettings.branding.colors.secondaryBackgroundColor
         tableView.separatorColor = appSettings.branding.colors.separatorColor
         tableView.reloadData()
     }

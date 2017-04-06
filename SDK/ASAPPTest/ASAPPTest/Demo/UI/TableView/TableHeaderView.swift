@@ -61,7 +61,7 @@ class TableHeaderView: UIView {
             label.attributedText = NSAttributedString(string: title.uppercased(), attributes: [
                 NSFontAttributeName : DemoFonts.latoBlackFont(withSize: 11),
                 NSKernAttributeName : 1.5,
-                NSForegroundColorAttributeName : appSettings?.branding.colors.foregroundColor2 ?? UIColor.lightGray
+                NSForegroundColorAttributeName : appSettings?.branding.colors.secondaryTextColor ?? UIColor.lightGray
                 ])
         } else {
             label.attributedText = nil

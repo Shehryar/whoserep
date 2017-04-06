@@ -235,7 +235,7 @@ class ChatViewController: UIViewController {
         // View
         
         view.clipsToBounds = true
-        view.backgroundColor = ASAPP.styles.backgroundColor1
+        view.backgroundColor = ASAPP.styles.primaryBackgroundColor
         updateViewForLiveChat(animated: false)
         
         view.addSubview(chatMessagesView)
@@ -1225,17 +1225,17 @@ extension ChatViewController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         
-        let barTintColor = ASAPP.styles.backgroundColor2
+        let barTintColor = ASAPP.styles.secondaryBackgroundColor
         imagePickerController.navigationBar.shadowImage = nil
         imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
         imagePickerController.navigationBar.barTintColor = barTintColor
-        imagePickerController.navigationBar.tintColor = ASAPP.styles.foregroundColor2
+        imagePickerController.navigationBar.tintColor = ASAPP.styles.secondaryTextColor
         if barTintColor.isBright() {
             imagePickerController.navigationBar.barStyle = .default
         } else {
             imagePickerController.navigationBar.barStyle = .black
         }
-        imagePickerController.view.backgroundColor = ASAPP.styles.backgroundColor1
+        imagePickerController.view.backgroundColor = ASAPP.styles.primaryBackgroundColor
         
         return imagePickerController
     }

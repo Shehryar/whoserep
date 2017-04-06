@@ -88,7 +88,7 @@ class ImageNameCell: TableViewCell {
             detailLabel.font = appSettings.branding.fonts.lightFont.withSize(14)
             detailLabel.textColor = appSettings.branding.colors.foregroundColor
             
-            userImageView.backgroundColor = appSettings.branding.colors.backgroundColor2
+            userImageView.backgroundColor = appSettings.branding.colors.secondaryBackgroundColor
             userImageView.layer.borderWidth = 1
             userImageView.layer.borderColor = appSettings.branding.colors.foregroundColor.cgColor
         }

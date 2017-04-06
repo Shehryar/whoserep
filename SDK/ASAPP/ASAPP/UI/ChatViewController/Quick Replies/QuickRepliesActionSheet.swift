@@ -83,7 +83,7 @@ class QuickRepliesActionSheet: UIView {
         
         addSubview(containerView)
         
-        separatorTopView.backgroundColor = ASAPP.styles.separatorColor1
+        separatorTopView.backgroundColor = ASAPP.styles.primarySeparatorColor
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
@@ -130,11 +130,11 @@ class QuickRepliesActionSheet: UIView {
     }
     
     func styleButton(_ button: Button) {
-        button.setForegroundColor(ASAPP.styles.foregroundColor1, forState: .normal)
-        button.setForegroundColor(ASAPP.styles.foregroundColor1.highlightColor(), forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.backgroundColor1, forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.backgroundColor2, forState: .highlighted)
-        button.layer.borderColor = ASAPP.styles.separatorColor1.cgColor
+        button.setForegroundColor(ASAPP.styles.primaryTextColor, forState: .normal)
+        button.setForegroundColor(ASAPP.styles.primaryTextColor.highlightColor(), forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.primaryBackgroundColor, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.secondaryBackgroundColor, forState: .highlighted)
+        button.layer.borderColor = ASAPP.styles.primarySeparatorColor.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
     }

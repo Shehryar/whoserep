@@ -107,7 +107,7 @@ public extension ASAPPStyles {
         styles.navBarButtonForegroundColor = UIColor(red:0.330, green:0.268, blue:0, alpha:1)
         
         styles.quickRepliesButtonTextColor = UIColor.black
-        styles.foregroundColor1 = UIColor.black
+        styles.primaryTextColor = UIColor.black
         
         styles.predictiveViewGradientTopColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.8)
         styles.predictiveViewGradientMiddleColor = UIColor(red:0.13, green:0.13, blue:0.13, alpha:0.8)
@@ -128,12 +128,12 @@ public extension ASAPPStyles {
         styles.navBarButtonForegroundColor = UIColor.white
         styles.quickRepliesButtonTextColor = UIColor.white
         
-        styles.backgroundColor1 = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
-        styles.backgroundColor2 = UIColor(red: 0.10, green: 0.11, blue: 0.12, alpha: 1)
-        styles.foregroundColor1 = UIColor.white
-        styles.foregroundColor2 = UIColor(red:0.346, green:0.392, blue:0.409, alpha:1)
-        styles.separatorColor1 = UIColor(red:0.16,  green:0.18,  blue:0.19, alpha:1)
-        styles.separatorColor2 =  UIColor(red:0.16,  green:0.18,  blue:0.19, alpha:1)
+        styles.primaryBackgroundColor = UIColor(red:0.015, green:0.051, blue:0.080, alpha:1)
+        styles.secondaryBackgroundColor = UIColor(red: 0.10, green: 0.11, blue: 0.12, alpha: 1)
+        styles.primaryTextColor = UIColor.white
+        styles.secondaryTextColor = UIColor(red:0.346, green:0.392, blue:0.409, alpha:1)
+        styles.primarySeparatorColor = UIColor(red:0.16,  green:0.18,  blue:0.19, alpha:1)
+        styles.secondarySeparatorColor =  UIColor(red:0.16,  green:0.18,  blue:0.19, alpha:1)
         
         
         styles.messageFillColor = UIColor(red: 0.12, green: 0.13, blue: 0.15, alpha: 1)
@@ -146,8 +146,8 @@ public extension ASAPPStyles {
         
         styles.inputBackgroundColor = UIColor(red: 0.10, green: 0.11, blue: 0.12, alpha: 1)
         styles.inputTintColor = UIColor(red:0.269,  green:0.726,  blue:0.287, alpha:1)
-        styles.inputPlaceholderColor = styles.foregroundColor2
-        styles.inputTextColor = styles.foregroundColor1
+        styles.inputPlaceholderColor = styles.secondaryTextColor
+        styles.inputTextColor = styles.primaryTextColor
         styles.inputSendButtonColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
         styles.inputImageButtonColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
         

@@ -24,16 +24,16 @@ class SRSLabelValueItemView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.backgroundColor2
+        backgroundColor = ASAPP.styles.secondaryBackgroundColor
         
         labelLabel.numberOfLines = 0
         labelLabel.lineBreakMode = .byTruncatingTail
-        labelLabel.backgroundColor = ASAPP.styles.backgroundColor2
+        labelLabel.backgroundColor = ASAPP.styles.secondaryBackgroundColor
         addSubview(labelLabel)
         
         valueLabel.numberOfLines = 0
         valueLabel.lineBreakMode = .byTruncatingTail
-        valueLabel.backgroundColor = ASAPP.styles.backgroundColor2
+        valueLabel.backgroundColor = ASAPP.styles.secondaryBackgroundColor
         addSubview(valueLabel)
     }
     
@@ -109,7 +109,7 @@ class SRSLabelValueItemView: UIView {
     }
     
     var labelColor: UIColor {
-        return labelValueItem?.label?.color ?? ASAPP.styles.foregroundColor1
+        return labelValueItem?.label?.color ?? ASAPP.styles.primaryTextColor
     }
     
     var labelKern: CGFloat {
@@ -125,7 +125,7 @@ class SRSLabelValueItemView: UIView {
     }
     
     var valueColor: UIColor {
-        return labelValueItem?.value?.color ?? ASAPP.styles.foregroundColor1
+        return labelValueItem?.value?.color ?? ASAPP.styles.primaryTextColor
     }
     
     var valueKern: CGFloat {

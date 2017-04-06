@@ -30,7 +30,7 @@ class SeparatorView: BaseComponentView {
     
     override func commonInit() {
         super.commonInit()
-        separator.backgroundColor = ASAPP.styles.separatorColor1
+        separator.backgroundColor = ASAPP.styles.primarySeparatorColor
         addSubview(separator)
     }
     

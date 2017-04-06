@@ -39,8 +39,8 @@ class ComponentCardView: UIView {
     
     func commonInit() {
         clipsToBounds = true
-        backgroundColor = ASAPP.styles.backgroundColor1
-        layer.borderColor = ASAPP.styles.separatorColor2.cgColor
+        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 5
     }

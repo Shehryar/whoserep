@@ -62,8 +62,8 @@ public class ComponentsDemoViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentsDemoViewController.refresh))
         
-        tableView.backgroundColor = ASAPP.styles.backgroundColor2
-        tableView.separatorColor = ASAPP.styles.separatorColor1
+        tableView.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        tableView.separatorColor = ASAPP.styles.primarySeparatorColor
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -88,7 +88,7 @@ public class ComponentsDemoViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ASAPP.styles.backgroundColor2
+        view.backgroundColor = ASAPP.styles.secondaryBackgroundColor
         view.addSubview(tableView)
         
         refresh()
@@ -199,12 +199,12 @@ extension ComponentsDemoViewController: UITableViewDataSource {
         let cell = (tableView.dequeueReusableCell(withIdentifier: reuseId)
             ?? UITableViewCell(style: .value1, reuseIdentifier: reuseId))
    
-        cell.backgroundColor = ASAPP.styles.backgroundColor1
+        cell.backgroundColor = ASAPP.styles.primaryBackgroundColor
         
         if let componentName = getPrettyComponentName(for: indexPath) {
             cell.textLabel?.text = componentName
             cell.textLabel?.font = ASAPP.styles.font(with: .regular, size: 16)
-                cell.textLabel?.textColor = ASAPP.styles.foregroundColor1
+                cell.textLabel?.textColor = ASAPP.styles.primaryTextColor
         } else {
             cell.textLabel?.text = "All Cards"
             cell.textLabel?.font = ASAPP.styles.font(with: .black, size: 16)

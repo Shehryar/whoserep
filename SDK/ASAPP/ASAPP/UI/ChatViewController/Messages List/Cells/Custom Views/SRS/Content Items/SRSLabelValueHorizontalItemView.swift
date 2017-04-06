@@ -17,7 +17,7 @@ class SRSLabelValueHorizontalItemView: SRSLabelValueItemView {
     }
     
     override var labelColor: UIColor {
-        return labelValueItem?.label?.color ?? ASAPP.styles.foregroundColor1
+        return labelValueItem?.label?.color ?? ASAPP.styles.primaryTextColor
     }
     
     override var labelKern: CGFloat {
@@ -33,7 +33,7 @@ class SRSLabelValueHorizontalItemView: SRSLabelValueItemView {
     }
     
     override var valueColor: UIColor {
-        return labelValueItem?.value?.color ?? ASAPP.styles.foregroundColor1
+        return labelValueItem?.value?.color ?? ASAPP.styles.primaryTextColor
     }
     
     override var valueKern: CGFloat {

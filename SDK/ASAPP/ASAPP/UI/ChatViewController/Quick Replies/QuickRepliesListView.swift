@@ -160,7 +160,7 @@ extension QuickRepliesListView: UITableViewDataSource {
         cell.label.textAlignment = .center
         cell.backgroundColor = ASAPP.styles.quickReplyButtonBackroundColor
         cell.label.font = ASAPP.styles.font(for: .srsButton)
-        cell.separatorBottomColor = ASAPP.styles.separatorColor1
+        cell.separatorBottomColor = ASAPP.styles.primarySeparatorColor
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             cell.label.setAttributedText(buttonItem.title.uppercased(),

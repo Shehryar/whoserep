@@ -65,7 +65,7 @@ class TitleDetailValueCell: TableViewCell {
             valueLabel.font = appSettings.branding.fonts.lightFont.withSize(16)
             
             titleLabel.textColor = appSettings.branding.colors.foregroundColor
-            detailLabel.textColor = appSettings.branding.colors.foregroundColor2
+            detailLabel.textColor = appSettings.branding.colors.secondaryTextColor
             valueLabel.textColor = appSettings.branding.colors.foregroundColor
         }
     }

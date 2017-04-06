@@ -73,9 +73,9 @@ class BrandingColors: NSObject {
     let brandingType: BrandingType
     
     private(set) var backgroundColor: UIColor = UIColor.white
-    private(set) var backgroundColor2: UIColor = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
+    private(set) var secondaryBackgroundColor: UIColor = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
     private(set) var foregroundColor: UIColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
-    private(set) var foregroundColor2: UIColor = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
+    private(set) var secondaryTextColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
     private(set) var separatorColor: UIColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
     private(set) var accentColor: UIColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
     private(set) var navBarColor: UIColor = UIColor.white
@@ -104,9 +104,9 @@ class BrandingColors: NSObject {
             statusBarStyle = .lightContent
             
             foregroundColor = UIColor(red:0.027, green:0.027, blue:0.027, alpha:1)
-            foregroundColor2 = UIColor(red:0.580, green:0.580, blue:0.580, alpha:1)
+            secondaryTextColor = UIColor(red:0.580, green:0.580, blue:0.580, alpha:1)
             backgroundColor = UIColor.white
-            backgroundColor2 = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
+            secondaryBackgroundColor = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
             separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
             accentColor = UIColor(red:1, green:0.216, blue:0.212, alpha:1)
             break
@@ -116,7 +116,7 @@ class BrandingColors: NSObject {
             navBarTitleColor = UIColor.black
         
             foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
-            foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
+            secondaryTextColor = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
             backgroundColor = UIColor.white
             separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
             accentColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
@@ -129,7 +129,7 @@ class BrandingColors: NSObject {
             statusBarStyle = .lightContent
             
             foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
-            foregroundColor2 = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
+            secondaryTextColor = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
             backgroundColor = UIColor.white
             separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
             accentColor = UIColor(red:0.961, green:0.514, blue:0.071, alpha:1)

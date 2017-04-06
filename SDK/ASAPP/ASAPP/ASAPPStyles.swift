@@ -42,21 +42,21 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- General Content
     
-    internal var backgroundColor1: UIColor = Colors.whiteColor()
+    internal var primaryBackgroundColor: UIColor = Colors.whiteColor()
     
-    internal var backgroundColor2: UIColor = Colors.offWhiteColor()
+    internal var secondaryBackgroundColor: UIColor = Colors.offWhiteColor()
     
-    internal var foregroundColor1: UIColor = Colors.steelDarkColor()
+    internal var primaryTextColor: UIColor = Colors.steelDarkColor()
     
-    internal var foregroundColor2: UIColor = Colors.steelDark50Color()
+    internal var secondaryTextColor: UIColor = Colors.steelDark50Color()
+    
+    internal var primarySeparatorColor: UIColor = Colors.marbleLightColor()
+    
+    internal var secondarySeparatorColor: UIColor = Colors.marbleDarkColor()
     
     public var controlTintColor: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
     
     public var controlSecondaryColor: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1.000)
-    
-    internal var separatorColor1: UIColor = Colors.marbleLightColor()
-    
-    internal var separatorColor2: UIColor = Colors.marbleDarkColor()
     
     // MARK:- Buttons
     

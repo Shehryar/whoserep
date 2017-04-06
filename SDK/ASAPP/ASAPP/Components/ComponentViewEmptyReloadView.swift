@@ -26,7 +26,7 @@ class ComponentViewEmptyReloadView: UIView {
     
     func commonInit() {
         titleLabel.text = ASAPP.strings.failureToLoadScreen
-        titleLabel.textColor = ASAPP.styles.foregroundColor1
+        titleLabel.textColor = ASAPP.styles.primaryTextColor
         titleLabel.font = ASAPP.styles.font(with: .bold, size: 18)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0

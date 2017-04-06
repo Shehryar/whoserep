@@ -116,7 +116,7 @@ class ChatInputView: UIView {
         self.placeholderColor = ASAPP.styles.inputTextColor.withAlphaComponent(0.7)
         self.sendButtonText = ASAPP.strings.chatInputSend
         self.sendButtonColor = ASAPP.styles.inputSendButtonColor
-        self.separatorColor = ASAPP.styles.separatorColor1
+        self.separatorColor = ASAPP.styles.primarySeparatorColor
         super.init(frame: .zero)
         
         backgroundColor = ASAPP.styles.inputBackgroundColor
@@ -144,7 +144,7 @@ class ChatInputView: UIView {
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.sizeToFit()
-        if ASAPP.styles.backgroundColor1.isDark() {
+        if ASAPP.styles.primaryBackgroundColor.isDark() {
             textView.keyboardAppearance = .dark
         } else {
             textView.keyboardAppearance = .default

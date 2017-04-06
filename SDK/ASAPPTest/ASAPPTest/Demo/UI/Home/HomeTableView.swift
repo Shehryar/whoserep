@@ -112,7 +112,7 @@ class HomeTableView: UIView {
     // MARK: View
     
     func applyAppSettings() {
-        tableView.backgroundColor = appSettings.branding.colors.backgroundColor2
+        tableView.backgroundColor = appSettings.branding.colors.secondaryBackgroundColor
         tableView.separatorColor = appSettings.branding.colors.separatorColor
         tableView.reloadData()
     }

@@ -25,7 +25,7 @@ class SRSImageItemView: UIView {
     // MARK: Init
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.backgroundColor1
+        backgroundColor = ASAPP.styles.primaryBackgroundColor
         
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
