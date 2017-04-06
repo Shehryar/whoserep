@@ -88,7 +88,7 @@ public class ASAPPStyles: NSObject {
     
     // MARK:- Colors: Chat
 
-    public var quickRepliesBackgroundColor: UIColor = UIColor.white
+    public var quickRepliesBackgroundColor: UIColor = UIColor(red:0.969, green:0.965, blue:0.965, alpha:1.000)
     
     public var quickReplyButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: Colors.offWhiteColor(),
                                                                              textColor: Colors.steelMedColor())

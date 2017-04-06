@@ -42,7 +42,7 @@ public extension ASAPPStyles {
         styles.controlTintColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
         
         // Nav Bar
-        styles.navBarBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
+        styles.navBarBackgroundColor = UIColor(red:0.929, green:0.515, blue:0.038, alpha:1.000)
         styles.navBarButtonColor = UIColor.white
         styles.navBarButtonStyle = ASAPPNavBarButtonStyle.text
         
@@ -55,6 +55,7 @@ public extension ASAPPStyles {
         styles.messageTextColor = UIColor(red:0.353, green:0.392, blue:0.490, alpha:1.000)
         
         // Quick Replies
+        styles.quickRepliesBackgroundColor = UIColor.white
         styles.quickReplyButtonColors = ASAPPButtonColors(backgroundColor: UIColor.white,
                                                           textColor: UIColor(red:0.337, green:0.376, blue:0.478, alpha:1))
         
