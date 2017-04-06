@@ -8,40 +8,40 @@
 
 import UIKit
 
-public typealias ASAPPAuthProvider = (() -> [String : Any])
+public typealias ASAPPRequestAuthenticationBlock = (() -> [String : Any])
 
-public typealias ASAPPContextProvider = (() -> [String : Any])
+public typealias ASAPPRequestContextBlock = (() -> [String : Any])
 
 // MARK:- ASAPPUser
 
 public class ASAPPUser: NSObject {
 
-    public let userId: String
+    public let userIdentifier: String
     
-    public let authProvider: ASAPPAuthProvider
+    public let requestAuthenticationBlock: ASAPPRequestAuthenticationBlock
     
-    public let contextProvider: ASAPPContextProvider
+    public let requestContextBlock: ASAPPRequestContextBlock
 
     // MARK:- Init
     
-    public init(userId: String,
-                authProvider: @escaping ASAPPAuthProvider,
-                contextProvider: @escaping ASAPPContextProvider) {
-        self.userId = userId
-        self.authProvider = authProvider
-        self.contextProvider = contextProvider
+    public init(userIdentifier: String,
+                requestAuthenticationBlock: @escaping ASAPPRequestAuthenticationBlock,
+                requestContextBlock: @escaping ASAPPRequestContextBlock) {
+        self.userIdentifier = userIdentifier
+        self.requestAuthenticationBlock = requestAuthenticationBlock
+        self.requestContextBlock = requestContextBlock
         super.init()
     }
 }
 
 // MARK:- Auth / Context Utilities
 
-internal extension ASAPPUser {
+extension ASAPPUser {
     
-    internal func getAuthToken() -> (String?, [String : Any]) {
-        DebugLog.d("Calling host app for authentication")
+    func getAuthToken() -> (String?, [String : Any]) {
+        DebugLog.d("Requesting auth for user: \(userIdentifier)")
         
-        let authJSON = authProvider()
+        let authJSON = requestAuthenticationBlock()
         let accessToken = authJSON[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String
         
         DebugLog.d(caller: self, "Access Token: \(String(describing: accessToken)), from auth json: \(authJSON)")
@@ -49,13 +49,10 @@ internal extension ASAPPUser {
         return (accessToken, authJSON)
     }
     
-    internal func getContextString() -> String {
-        let context = contextProvider()
-        if let contextData = try? JSONSerialization.data(withJSONObject: context, options: .prettyPrinted) {
-            if let contextString = String(data: contextData, encoding: .utf8) {
-                return contextString
-            }
-        }
-        return ""
+    func getContextString() -> String {
+        let context = requestContextBlock()
+        let contextString = JSONUtil.stringify(context)
+        
+        return contextString ?? ""
     }
 }

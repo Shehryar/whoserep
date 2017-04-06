@@ -50,6 +50,6 @@ public extension ASAPPConfig {
 internal extension ASAPPConfig {
     
     func hashKey(with user: ASAPPUser, prefix: String? = nil) -> String {
-        return "\(prefix ?? "")\(apiHostName))-\(appId)-cust-\(user.userId)-0"
+        return "\(prefix ?? "")\(apiHostName))-\(appId)-cust-\(user.userIdentifier)-0"
     }
 }

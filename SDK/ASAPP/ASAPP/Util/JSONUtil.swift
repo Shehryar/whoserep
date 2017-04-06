@@ -10,26 +10,26 @@ import UIKit
 
 class JSONUtil: NSObject {
 
-    class func stringify(_ object: AnyObject?, prettyPrinted: Bool = false) -> String? {
-        guard let object = object else { return nil }
-        
-        guard JSONSerialization.isValidJSONObject(object) else {
-            DebugLog.e("Dictionary is not valid JSON object: \(object)")
-            return ""
+    class func stringify(_ object: Any?, prettyPrinted: Bool = false) -> String? {
+        guard let object = object,
+            JSONSerialization.isValidJSONObject(object) else {
+                return nil
         }
-        
-        let options = prettyPrinted ? JSONSerialization.WritingOptions.prettyPrinted : JSONSerialization.WritingOptions(rawValue: 0)
+
+        let options = prettyPrinted ?
+            JSONSerialization.WritingOptions.prettyPrinted :
+            JSONSerialization.WritingOptions(rawValue: 0)
         
         if let json = try? JSONSerialization.data(withJSONObject: object, options: options) {
             if let jsonString = String(data: json, encoding: String.Encoding.utf8) {
                 return jsonString
             }
             DebugLog.e("Unable to create string from json: \(json)")
-            return ""
+            return nil
         }
         
         DebugLog.e("Unable to serialize dictionary as JSON: \(object)")
-        return ""
+        return nil
     }
     
     class func parseString(_ jsonString: String?) -> [String : AnyObject]? {

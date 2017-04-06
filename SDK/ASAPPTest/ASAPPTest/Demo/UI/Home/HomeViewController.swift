@@ -21,8 +21,8 @@ class HomeViewController: BaseViewController {
     
     // MARK: Private Properties
     
-    fileprivate var authProvider: ASAPPAuthProvider!
-    fileprivate var contextProvider: ASAPPContextProvider!
+    fileprivate var authenticationBlock: ASAPPRequestAuthenticationBlock!
+    fileprivate var contextBlock: ASAPPRequestContextBlock!
     fileprivate var callbackHandler: ASAPPAppCallbackHandler!
 
     // MARK: UI
@@ -40,11 +40,11 @@ class HomeViewController: BaseViewController {
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
         
-        self.authProvider = { [weak self] in
-            return self?.appSettings.getAuthData() ?? ["" : "" as AnyObject]
+        self.authenticationBlock = { [weak self] in
+            return self?.appSettings.getAuthData() ?? ["" : ""]
         }
-        self.contextProvider = { [weak self] in
-            return self?.appSettings.getContext() ?? ["" : "" as AnyObject]
+        self.contextBlock = { [weak self] in
+            return self?.appSettings.getContext() ?? ["" : ""]
         }
         self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
             guard let blockSelf = self else { return }
@@ -107,9 +107,9 @@ class HomeViewController: BaseViewController {
                                  apiHostName: appSettings.apiHostName,
                                  clientId: "ASAPP_DEMO_CLIENT_ID")
         
-        let user = ASAPPUser(userId: currentAccount.userToken,
-                             authProvider: authProvider,
-                             contextProvider: contextProvider)
+        let user = ASAPPUser(userIdentifier: currentAccount.userToken,
+                             requestAuthenticationBlock: authenticationBlock,
+                             requestContextBlock: contextBlock)
         
         ASAPP.initialize(with: config)
         ASAPP.user = user

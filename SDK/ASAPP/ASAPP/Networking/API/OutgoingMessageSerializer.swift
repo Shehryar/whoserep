@@ -146,16 +146,16 @@ extension OutgoingMessageSerializer {
             
             params = [
                 "CompanyMarker" : config.appId as AnyObject,
-                "CustomerIdentifier" : user.userId as AnyObject,
+                "CustomerIdentifier" : user.userIdentifier as AnyObject,
                 "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID" as AnyObject,
                 "App" : "ios-sdk" as AnyObject,
                 "RegionCode" : "US" as AnyObject,
             ]
             
             if ASAPP.isInternalBuild {
-                if user.userId.isLikelyASAPPPhoneNumber ||
-                    user.userId == "demo_customer_1" ||
-                    user.userId == "demo_customer_2"  {
+                if user.userIdentifier.isLikelyASAPPPhoneNumber ||
+                    user.userIdentifier == "demo_customer_1" ||
+                    user.userIdentifier == "demo_customer_2"  {
                     
                     params["IdentifierType"] = "PHONE" as AnyObject
                 }
