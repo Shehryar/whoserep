@@ -47,7 +47,7 @@ class PredictiveButtonsView: UIView {
     
         otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
                                      textStyle: .predictiveDetailLabel,
-                                     color: ASAPP.styles.predictiveViewDetailLabelColor)
+                                     color: ASAPP.styles.predictiveSecondaryTextColor)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -78,20 +78,40 @@ class PredictiveButtonsView: UIView {
         let button = Button()
         button.font = ASAPP.styles.font(for: .predictiveButton)
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
-        button.setForegroundColor(Colors.whiteColor(), forState: .normal)
-        button.setForegroundColor(Colors.whiteColor(), forState: .highlighted)
-        
-        button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor, forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
-        /*
+    
+        let borderColor: UIColor?
         if highlighted {
-            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor, forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.5), forState: .highlighted)
+            button.setForegroundColor(ASAPP.styles.predictivePrimaryButtonColors.textNormal,
+                                      forState: .normal)
+            button.setForegroundColor(ASAPP.styles.predictivePrimaryButtonColors.textHighlighted,
+                                      forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.predictivePrimaryButtonColors.backgroundNormal,
+                                      forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.predictivePrimaryButtonColors.backgroundHighlighted,
+                                      forState: .highlighted)
+            
+            borderColor = ASAPP.styles.predictivePrimaryButtonColors.border
+            
         } else {
-            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.85), forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.predictiveViewButtonBgColor.withAlphaComponent(0.4), forState: .highlighted)
+            button.setForegroundColor(ASAPP.styles.predictiveSecondaryButtonColors.textNormal,
+                                      forState: .normal)
+            button.setForegroundColor(ASAPP.styles.predictiveSecondaryButtonColors.textHighlighted,
+                                      forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.predictiveSecondaryButtonColors.backgroundNormal,
+                                      forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.predictiveSecondaryButtonColors.backgroundHighlighted,
+                                      forState: .highlighted)
+            borderColor = ASAPP.styles.predictiveSecondaryButtonColors.border
         }
-         */
+    
+        if let borderColor = borderColor {
+            button.layer.borderColor = borderColor.cgColor
+            button.layer.borderWidth = 1.0
+        } else {
+            button.layer.borderColor = nil
+            button.layer.borderWidth = 0
+        }
+        
         button.layer.cornerRadius = 18.0
         button.clipsToBounds = true
         button.title = title

@@ -138,7 +138,7 @@ extension QuickRepliesListView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId) as? QuickReplyCell {
-            styleSuggestedReplyCell(cell, atIndexPath: indexPath)
+            styleQuickReplyCell(cell, atIndexPath: indexPath)
             return cell
         }
         return UITableViewCell()
@@ -155,18 +155,20 @@ extension QuickRepliesListView: UITableViewDataSource {
         return nil
     }
     
-    func styleSuggestedReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
-        cell.label.textColor = ASAPP.styles.quickRepliesButtonTextColor
+    func styleQuickReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
+        
         cell.label.textAlignment = .center
-        cell.backgroundColor = ASAPP.styles.quickReplyButtonBackroundColor
+        cell.label.textColor = ASAPP.styles.quickReplyButtonColors.textNormal
+        cell.backgroundColor = ASAPP.styles.quickReplyButtonColors.backgroundNormal
+        
         cell.label.font = ASAPP.styles.font(for: .srsButton)
         cell.separatorBottomColor = ASAPP.styles.primarySeparatorColor
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             cell.label.setAttributedText(buttonItem.title.uppercased(),
                                          textStyle: .srsButton,
-                                         color: ASAPP.styles.quickRepliesButtonTextColor)
-            cell.imageTintColor = ASAPP.styles.quickRepliesButtonTextColor
+                                         color: ASAPP.styles.quickReplyButtonColors.textNormal)
+            cell.imageTintColor = ASAPP.styles.quickReplyButtonColors.textNormal
             
             if buttonItem.action.willExitASAPP && !ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) {
                 cell.imageView?.isHidden = false
@@ -188,7 +190,7 @@ extension QuickRepliesListView: UITableViewDataSource {
             cell.selectedBackgroundColor = nil
         } else {
             cell.label.alpha = 1
-            cell.selectedBackgroundColor = ASAPP.styles.quickReplyButtonBackroundColor.highlightColor()
+            cell.selectedBackgroundColor = ASAPP.styles.quickReplyButtonColors.backgroundHighlighted
         }
         
         
@@ -200,7 +202,7 @@ extension QuickRepliesListView: UITableViewDataSource {
 
 extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        styleSuggestedReplyCell(replySizingCell, atIndexPath: indexPath)
+        styleQuickReplyCell(replySizingCell, atIndexPath: indexPath)
         let height = replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
         return height
     }
@@ -225,7 +227,7 @@ extension QuickRepliesListView: UITableViewDelegate {
             for cell in tableView.visibleCells {
                 if let cell = cell as? QuickReplyCell,
                     let cellIdxPath = tableView.indexPath(for: cell) {
-                    self.styleSuggestedReplyCell(cell, atIndexPath: cellIdxPath)
+                    self.styleQuickReplyCell(cell, atIndexPath: cellIdxPath)
                 }
             }
         }

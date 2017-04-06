@@ -39,7 +39,7 @@ class QuickRepliesActionSheet: UIView {
     }
     
     var currentSRSClassification: String? {
-        return (currentMessage?.attachment as? EventSRSResponse)?.classification
+        return currentMessage?.classification
     }
     
     var transparentInsetTop: CGFloat {
@@ -78,7 +78,7 @@ class QuickRepliesActionSheet: UIView {
         patternView.backgroundColor = Colors.patternBackgroundColor()
         patternBackgroundView.addSubview(patternView)
         
-        patternBackgroundView.backgroundColor = ASAPP.styles.quickReplyButtonBackroundColor
+        patternBackgroundView.backgroundColor = ASAPP.styles.quickRepliesBackgroundColor
         addSubview(patternBackgroundView)
         
         addSubview(containerView)

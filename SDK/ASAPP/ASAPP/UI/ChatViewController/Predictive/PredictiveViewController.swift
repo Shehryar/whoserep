@@ -56,9 +56,9 @@ class PredictiveViewController: UIViewController {
             blurredBgView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(ASAPP.styles.predictiveViewGradientTopColor,
-                                 middleColor: ASAPP.styles.predictiveViewGradientMiddleColor,
-                                 bottomColor: ASAPP.styles.predictiveViewGradientBottomColor)
+        blurredColorLayer.update(ASAPP.styles.predictiveGradientTopColor,
+                                 middleColor: ASAPP.styles.predictiveGradientMiddleColor,
+                                 bottomColor: ASAPP.styles.predictiveGradientBottomColor)
         blurredBgView.contentView.addSubview(blurredColorLayer)
         
         
@@ -82,14 +82,10 @@ class PredictiveViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
+        messageInputView.inputColors = ASAPP.styles.predictiveInputColors
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
-        messageInputView.backgroundColor = ASAPP.styles.predictiveViewInputBgColor
         messageInputView.layer.cornerRadius = 20
         messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
-        messageInputView.textColor = Colors.whiteColor()
-        messageInputView.placeholderColor = Colors.whiteColor().withAlphaComponent(0.7)
-        messageInputView.separatorColor = nil
-        messageInputView.sendButtonColor = Colors.marbleMedColor()
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = placeholderText

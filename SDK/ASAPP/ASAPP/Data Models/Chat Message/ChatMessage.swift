@@ -25,8 +25,9 @@ class ChatMessage: NSObject {
     let eventId: Int
     let eventType: EventType
     let issueId: Int
+    let classification: String?
     fileprivate(set) var sendTime: Date
-    
+
     // MARK: Init
     
     init(text: String?,
@@ -37,6 +38,7 @@ class ChatMessage: NSObject {
          eventId: Int,
          eventType: EventType,
          issueId: Int,
+         classification: String? = nil,
          isAutomatedMessage: Bool = false) {
         
         self.text = text
@@ -60,7 +62,7 @@ class ChatMessage: NSObject {
         self.eventType = eventType
         self.issueId = issueId
         self.isAutomatedMessage = isAutomatedMessage
-        
+        self.classification = classification
         super.init()
     }
     
@@ -140,6 +142,7 @@ extension ChatMessage {
         var text: String?
         var attachment: Any?
         var quickReplies: [SRSButtonItem]?
+        var classification: String?
         
         switch event.eventType {
         case .textMessage:
@@ -154,6 +157,7 @@ extension ChatMessage {
             text = event.srsResponse?.messageText
             attachment = event.srsResponse?.itemList ?? event.srsResponse?.itemCarousel
             quickReplies = event.srsResponse?.buttonItems
+            classification = event.srsResponse?.classification
             break
         }
         
@@ -179,6 +183,7 @@ extension ChatMessage {
                                eventId: eventId,
                                eventType: event.eventType,
                                issueId: event.issueId,
+                               classification: classification,
                                isAutomatedMessage: event.srsResponse != nil)
         }
         return nil

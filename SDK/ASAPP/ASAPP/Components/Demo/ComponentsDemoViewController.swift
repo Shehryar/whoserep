@@ -208,7 +208,7 @@ extension ComponentsDemoViewController: UITableViewDataSource {
         } else {
             cell.textLabel?.text = "All Cards"
             cell.textLabel?.font = ASAPP.styles.font(with: .black, size: 16)
-            cell.textLabel?.textColor = ASAPP.styles.textButtonColor
+            cell.textLabel?.textColor = ASAPP.styles.primaryTextButtonColors.textNormal
         }
   
         return cell

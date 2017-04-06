@@ -26,8 +26,8 @@ class ChatTypingIndicatorCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         
-        bubbleView.fillColor = ASAPP.styles.replyMessageFillColor
-        bubbleView.strokeColor = ASAPP.styles.replyMessageStrokeColor
+        bubbleView.fillColor = ASAPP.styles.replyMessageBackgroundColor
+        bubbleView.strokeColor = ASAPP.styles.replyMessageBorderColor
         bubbleView.roundedCorners = [.topLeft, .topRight, .bottomRight]
         bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)

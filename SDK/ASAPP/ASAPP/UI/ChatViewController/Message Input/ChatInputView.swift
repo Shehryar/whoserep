@@ -21,6 +21,12 @@ class ChatInputView: UIView {
     
     weak var delegate: ChatInputViewDelegate?
     
+    var inputColors: ASAPPInputColors = ASAPP.styles.chatInputColors {
+        didSet {
+            applyColors()
+        }
+    }
+    
     var canSendMessage: Bool = true {
         didSet {
             updateSendButtonForCurrentState()
@@ -54,34 +60,9 @@ class ChatInputView: UIView {
         }
     }
     
-    var textColor: UIColor {
-        didSet {
-            textView.textColor = textColor
-        }
-    }
-    
-    var placeholderColor: UIColor {
-        didSet {
-            placeholderTextView.textColor = placeholderColor
-            textView.tintColor = placeholderColor
-        }
-    }
-    
     var sendButtonText: String {
         didSet {
             updateSendButtonText()
-        }
-    }
-    
-    var sendButtonColor: UIColor {
-        didSet {
-            updateSendButtonText()
-        }
-    }
-    
-    var separatorColor: UIColor? {
-        didSet {
-            applySeparatorColor()
         }
     }
     
@@ -111,28 +92,20 @@ class ChatInputView: UIView {
     // MARK:- Initialization
     
     required init() {
-        self.textColor = ASAPP.styles.inputTextColor
         self.placeholderText = ASAPP.strings.chatInputPlaceholder
-        self.placeholderColor = ASAPP.styles.inputTextColor.withAlphaComponent(0.7)
         self.sendButtonText = ASAPP.strings.chatInputSend
-        self.sendButtonColor = ASAPP.styles.inputSendButtonColor
-        self.separatorColor = ASAPP.styles.primarySeparatorColor
         super.init(frame: .zero)
         
-        backgroundColor = ASAPP.styles.inputBackgroundColor
+        backgroundColor = ASAPP.styles.chatInputColors.background
         clipsToBounds = true
         
         // Subviews
-        
-        borderTopView.backgroundColor = separatorColor
         addSubview(borderTopView)
         
         // Text View
         
         textView.backgroundColor = UIColor.clear
-        textView.tintColor = placeholderColor
         textView.font = ASAPP.styles.font(for: .chatInputViewText)
-        textView.textColor = textColor
         textView.bounces = false
         textView.isScrollEnabled = false
         textView.scrollsToTop = false
@@ -154,7 +127,6 @@ class ChatInputView: UIView {
         placeholderTextView.text = placeholderText
         placeholderTextView.backgroundColor = UIColor.clear
         placeholderTextView.font = textView.font
-        placeholderTextView.textColor = placeholderColor
         placeholderTextView.isUserInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
         placeholderTextView.isScrollEnabled = false
@@ -166,7 +138,6 @@ class ChatInputView: UIView {
         // Media Button
         
         mediaButton.imageView?.contentMode = .scaleAspectFit
-        updateMediaButtonColor(ASAPP.styles.inputImageButtonColor)
         mediaButton.addTarget(self,
                               action: #selector(ChatInputView.didTapMediaButton),
                               for: .touchUpInside)
@@ -178,14 +149,13 @@ class ChatInputView: UIView {
         sendButton.addTarget(self,
                              action: #selector(ChatInputView.didTapSendButton),
                              for: .touchUpInside)
-        updateSendButtonText()
         addSubview(sendButton)
         
-        applySeparatorColor()
         addSubview(buttonSeparator)
         
         addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
         
+        applyColors()
         updateSendButtonForCurrentState()
         updateInputMinHeight()
     }
@@ -199,6 +169,45 @@ class ChatInputView: UIView {
     }
     
     // MARK:- Appearance
+    
+    fileprivate func applyColors() {
+        backgroundColor = inputColors.background
+        borderTopView.backgroundColor = inputColors.border
+        
+        textView.textColor = inputColors.text
+        textView.tintColor = inputColors.tint
+        placeholderTextView.textColor = inputColors.placeholderText
+        
+        updateSendButtonText()
+        
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 1), for: .normal)
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
+    }
+    
+    func updateSendButtonText() {
+        let font = ASAPP.styles.font(for: .chatInputViewButton)
+        let color = inputColors.primaryButton
+        let normalAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color,
+            NSFontAttributeName : font
+        ] as [String : Any]
+        let highlightedAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color.withAlphaComponent(0.7),
+            NSFontAttributeName : font
+        ] as [String : Any]
+        let disabledAttributes = [
+            NSKernAttributeName : 1.5,
+            NSForegroundColorAttributeName : color.withAlphaComponent(0.4),
+            NSFontAttributeName : font
+        ] as [String : Any]
+        let buttonTitle = sendButtonText
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
+        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), for: .disabled)
+    }
     
     func updateDisplay() {
         textView.font = ASAPP.styles.font(for: .chatInputViewText)
@@ -224,38 +233,6 @@ class ChatInputView: UIView {
         buttonSeparator.isHidden = (mediaButton.isHidden || mediaButton.alpha == 0) && sendButton.isHidden
     }
     
-    // MARK:- Button Colors
-    
-    func updateSendButtonText() {
-        let font = ASAPP.styles.font(for: .chatInputViewButton)
-        let color = sendButtonColor
-        let normalAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color,
-            NSFontAttributeName : font
-        ] as [String : Any]
-        let highlightedAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.withAlphaComponent(0.7),
-            NSFontAttributeName : font
-        ] as [String : Any]
-        let disabledAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.withAlphaComponent(0.4),
-            NSFontAttributeName : font
-        ] as [String : Any]
-        let buttonTitle = sendButtonText
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
-        sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), for: .disabled)
-    }
-    
-    func updateMediaButtonColor(_ color: UIColor) {
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 1), for: UIControlState())
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 0.7), for: .highlighted)
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(color, alpha: 0.4), for: .disabled)
-    }
-    
     // MARK:- Button Actions
     
     func didTapSendButton() {
@@ -275,13 +252,6 @@ class ChatInputView: UIView {
         inputMinHeight = inputHeight
         textView.text = textViewText
         setNeedsLayout()
-    }
-    
-    func applySeparatorColor() {
-        borderTopView.backgroundColor = separatorColor
-        buttonSeparator.update(separatorColor?.withAlphaComponent(0.0),
-                               middleColor: separatorColor,
-                               bottomColor: separatorColor?.withAlphaComponent(0.0))
     }
 }
 

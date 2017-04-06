@@ -34,16 +34,14 @@ class ComponentViewEmptyReloadView: UIView {
         addSubview(titleLabel)
         
         reloadButton.setTitle(ASAPP.strings.failureToLoadScreenReloadButton, for: .normal)
-        reloadButton.setTitleColor(ASAPP.styles.textButtonColor, for: .normal)
-        reloadButton.setTitleColor(ASAPP.styles.textButtonColorHighlighted, for: .highlighted)
+        reloadButton.applyColors(ASAPP.styles.primaryTextButtonColors)
         reloadButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
         reloadButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         reloadButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapReloadButton), for: .touchUpInside)
         addSubview(reloadButton)
         
         closeButton.setTitle(ASAPP.strings.failureToLoadScreenCloseButton, for: .normal)
-        closeButton.setTitleColor(ASAPP.styles.secondaryTextButtonColor, for: .normal)
-        closeButton.setTitleColor(ASAPP.styles.secondaryTextButtonColorHighlighted, for: .highlighted)
+        closeButton.applyColors(ASAPP.styles.secondaryTextButtonColors)
         closeButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
         closeButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         closeButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapCloseButton), for: .touchUpInside)

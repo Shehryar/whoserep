@@ -35,75 +35,39 @@ class ButtonView: BaseComponentView {
             
             if let buttonItem = buttonItem {
                 var textStyle: TextStyle
-                
-                var textNormal: UIColor
-                var textHighlighted: UIColor
-                var textDisabled: UIColor
-                
-                var bgNormal: UIColor
-                var bgHighlighted: UIColor
-                var bgDisabled: UIColor
-                
-                var borderColor: UIColor?
+                var buttonColors: ASAPPButtonColors
                 
                 switch buttonItem.buttonStyle {
                 case .primary:
                     textStyle = .blockButton
-                    
-                    textNormal = ASAPP.styles.primaryButtonTextColor
-                    textHighlighted = textNormal
-                    textDisabled = textNormal
-                    
-                    bgNormal = ASAPP.styles.primaryButtonBgColor
-                    bgHighlighted = ASAPP.styles.primaryButtonBgColorHighlighted
-                    bgDisabled = ASAPP.styles.primaryButtonBgColorDisabled
-                    
-                    borderColor = nil
+                    buttonColors = ASAPP.styles.primaryButtonColors
                     break
                     
                 case .secondary:
                     textStyle = .blockButton
-                    
-                    textNormal = ASAPP.styles.secondaryButtonTextColor
-                    textHighlighted = textNormal
-                    textDisabled = textNormal
-                    
-                    bgNormal = ASAPP.styles.secondaryButtonBgColor
-                    bgHighlighted = ASAPP.styles.secondaryButtonBgColorHighlighted
-                    bgDisabled = ASAPP.styles.secondaryButtonBgColorDisabled
-                    
-                    borderColor = ASAPP.styles.secondaryButtonBorderColor
+                    buttonColors = ASAPP.styles.secondaryButtonColors
                     break
                     
                 case .text:
                     textStyle = .textButton
-                    
-                    textNormal = ASAPP.styles.textButtonColor
-                    textHighlighted = ASAPP.styles.textButtonColorHighlighted
-                    textDisabled = ASAPP.styles.textButtonColorDisabled
-                    
-                    bgNormal = UIColor.clear
-                    bgHighlighted = UIColor.clear
-                    bgDisabled = UIColor.clear
-                    
-                    borderColor = nil
+                    buttonColors = ASAPP.styles.primaryTextButtonColors
                     break
                 }
                 
                 button.setAttributedText(buttonItem.title, textStyle: textStyle,
-                                         color: textNormal, state: .normal)
+                                         color: buttonColors.textNormal, state: .normal)
                 
                 button.setAttributedText(buttonItem.title, textStyle: textStyle,
-                                         color: textHighlighted, state: .highlighted)
+                                         color: buttonColors.textHighlighted, state: .highlighted)
                 
                 button.setAttributedText(buttonItem.title, textStyle: textStyle,
-                                         color: textDisabled, state: .disabled)
+                                         color: buttonColors.textDisabled, state: .disabled)
                 
-                button.setBackgroundImage(UIImage.imageWithColor(bgNormal), for: .normal)
-                button.setBackgroundImage(UIImage.imageWithColor(bgHighlighted), for: .highlighted)
-                button.setBackgroundImage(UIImage.imageWithColor(bgDisabled), for: .disabled)
+                button.setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundNormal), for: .normal)
+                button.setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundHighlighted), for: .highlighted)
+                button.setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundDisabled), for: .disabled)
                 
-                if let borderColor = borderColor {
+                if let borderColor = buttonColors.border {
                     button.layer.borderColor = borderColor.cgColor
                     button.layer.borderWidth = 1
                 } else {

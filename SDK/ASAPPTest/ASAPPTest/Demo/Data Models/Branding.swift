@@ -36,25 +36,25 @@ class Branding: NSObject {
     
         switch self.brandingType {
         case .asapp:
-            self.styles = ASAPPStyles.stylesForCompany("asapp")
+            self.styles = ASAPPStyles.stylesForAppId("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
             break
             
         case .xfinity:
-            self.styles = ASAPPStyles.stylesForCompany("comcast")
+            self.styles = ASAPPStyles.stylesForAppId("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
             break
             
         case .sprint:
-            self.styles = ASAPPStyles.stylesForCompany("sprint")
+            self.styles = ASAPPStyles.stylesForAppId("sprint")
             logoImageName = "sprint-logo"
             logoImageSize = CGSize(width: 140, height: 36)
             break
             
         case .boostMobile:
-            self.styles = ASAPPStyles.stylesForCompany("boost")
+            self.styles = ASAPPStyles.stylesForAppId("boost")
             
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 140, height: 32)
