@@ -14,6 +14,7 @@ public extension ASAPPStyles {
         switch appId {
         case "comcast": return comcastStyles()
         case "boost": return boostStyles()
+        case "sprint": return sprintStyles()
         default: return ASAPPStyles()
         }
     }
@@ -79,6 +80,12 @@ public extension ASAPPStyles {
         styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
         styles.helpButtonForegroundColor = UIColor.white
 
+        return styles
+    }
+    
+    internal class func sprintStyles() -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        
         return styles
     }
 }

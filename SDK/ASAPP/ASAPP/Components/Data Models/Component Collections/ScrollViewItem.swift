@@ -41,7 +41,7 @@ class ScrollViewItem: Component {
         guard let displayContent = ComponentFactory.component(with: content?[JSONKey.content.rawValue],
                                                               styles: styles)
             else {
-                DebugLog.w(caller: ScrollViewItem.self, "Missing \(JSONKey.content.rawValue): \(content)")
+                DebugLog.w(caller: ScrollViewItem.self, "Missing \(JSONKey.content.rawValue): \(String(describing: content))")
                 return nil
         }
         self.displayContent = displayContent

@@ -99,7 +99,7 @@ extension DemoComponentsAPI {
     
     private class func getRemoteComponentNames(completion: @escaping ComponentNamesCompletion) {
         let path = "/components"
-        var request = getRequest(with: path)
+        let request = getRequest(with: path)
         let session = URLSession.shared
         session.dataTask(with: request) {data, response, err in
             if let data = data,
@@ -161,7 +161,7 @@ extension DemoComponentsAPI {
     class func getComponents(with names: [String], completion: @escaping (([ComponentViewContainer]) -> Void)) {
         var components = [ComponentViewContainer]()
         // Lazy.... :\  Should probably add this to the server as a separate endpoint
-        for (idx, name) in names.enumerated() {
+        for (_, name) in names.enumerated() {
             getComponent(with: name, completion: { (component, json, error) in
                 
                 if let component = component {

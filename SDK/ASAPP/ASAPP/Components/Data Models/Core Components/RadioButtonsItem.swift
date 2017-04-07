@@ -47,7 +47,7 @@ class RadioButtonsItem: Component {
             }
         }
         guard !buttons.isEmpty else {
-            DebugLog.w(caller: RadioButtonsItem.self, "Empty buttons. Returning nil: \(content)")
+            DebugLog.w(caller: RadioButtonsItem.self, "Empty buttons. Returning nil: \(String(describing: content))")
             return nil
         }
         

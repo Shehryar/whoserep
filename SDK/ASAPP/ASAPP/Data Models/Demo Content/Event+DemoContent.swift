@@ -306,7 +306,6 @@ extension Event {
             return [
                 ["data", "usage"]
             ]
-            break
             
         case .troubleshooter, .deviceRestart, .techLocation, .cancelAppointment,
              .cancelAppointmentConfirmation, .liveChatBegin, .liveChatEnd,

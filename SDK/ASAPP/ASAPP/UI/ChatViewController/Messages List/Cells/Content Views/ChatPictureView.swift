@@ -15,7 +15,7 @@ class ChatPictureView: UIView {
             if let picture = picture {
                 imageView.fixedImageSize = CGSize(width: picture.width, height: picture.height)
                 if !disableImageLoading {
-                    imageView.sd_setImage(with: picture.imageURL)
+                    imageView.sd_setImage(with: picture.url)
                 } else {
                     imageView.image = nil
                 }
@@ -29,8 +29,8 @@ class ChatPictureView: UIView {
 
     let imageView = FixedSizeImageView()
     
-    fileprivate var picture: EventPictureMessage? {
-        return message?.attachment as? EventPictureMessage
+    fileprivate var picture: ChatMessageImage? {
+        return message?.attachment?.image
     }
     
     // MARK: Initialization

@@ -125,7 +125,7 @@ extension Action {
                 context = content["context"] as? [String : AnyObject]
                 
                 guard let actionName = name, let _ = AppAction(rawValue: actionName) else {
-                    DebugLog.i("Action: Unknown app action with name: \(name)")
+                    DebugLog.i("Action: Unknown app action with name: \(String(describing: name))")
                     return nil
                 }
             } else {

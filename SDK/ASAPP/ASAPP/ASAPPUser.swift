@@ -8,9 +8,9 @@
 
 import UIKit
 
-public typealias ASAPPRequestAuthenticationBlock = (() -> [String : Any])
+public typealias ASAPPRequestAuthProvider = (() -> [String : Any])
 
-public typealias ASAPPRequestContextBlock = (() -> [String : Any])
+public typealias ASAPPRequestContextProvider = (() -> [String : Any])
 
 // MARK:- ASAPPUser
 
@@ -18,18 +18,18 @@ public class ASAPPUser: NSObject {
 
     public let userIdentifier: String
     
-    public let requestAuthenticationBlock: ASAPPRequestAuthenticationBlock
+    public let requestAuthProvider: ASAPPRequestAuthProvider
     
-    public let requestContextBlock: ASAPPRequestContextBlock
+    public let requestContextProvider: ASAPPRequestContextProvider
 
     // MARK:- Init
     
     public init(userIdentifier: String,
-                requestAuthenticationBlock: @escaping ASAPPRequestAuthenticationBlock,
-                requestContextBlock: @escaping ASAPPRequestContextBlock) {
+                requestAuthProvider: @escaping ASAPPRequestAuthProvider,
+                requestContextProvider: @escaping ASAPPRequestContextProvider) {
         self.userIdentifier = userIdentifier
-        self.requestAuthenticationBlock = requestAuthenticationBlock
-        self.requestContextBlock = requestContextBlock
+        self.requestAuthProvider = requestAuthProvider
+        self.requestContextProvider = requestContextProvider
         super.init()
     }
 }
@@ -41,7 +41,7 @@ extension ASAPPUser {
     func getAuthToken() -> (String?, [String : Any]) {
         DebugLog.d("Requesting auth for user: \(userIdentifier)")
         
-        let authJSON = requestAuthenticationBlock()
+        let authJSON = requestAuthProvider()
         let accessToken = authJSON[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String
         
         DebugLog.d(caller: self, "Access Token: \(String(describing: accessToken)), from auth json: \(authJSON)")
@@ -50,7 +50,7 @@ extension ASAPPUser {
     }
     
     func getContextString() -> String {
-        let context = requestContextBlock()
+        let context = requestContextProvider()
         let contextString = JSONUtil.stringify(context)
         
         return contextString ?? ""

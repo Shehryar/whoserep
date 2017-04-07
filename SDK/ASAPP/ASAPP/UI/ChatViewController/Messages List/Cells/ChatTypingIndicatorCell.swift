@@ -52,7 +52,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
         super.layoutSubviews()
         
         let loadingSize = loadingView.sizeThatFits(CGSize.zero)
-        var bubbleLeft = contentInset.left
+        let bubbleLeft = contentInset.left
         
         bubbleView.frame = CGRect(x: bubbleLeft, y: contentInset.top, width: loadingSize.width, height: loadingSize.height)
         loadingView.frame = bubbleView.bounds

@@ -14,7 +14,6 @@ class ChatTextBubbleView: UIView {
     
     var message: ChatMessage? {
         didSet {
-            let previousMessage = oldValue
             guard let message = message else {
                 label.text = nil
                 setNeedsLayout()
@@ -37,7 +36,7 @@ class ChatTextBubbleView: UIView {
             // Update Bubble
             //
             if message.isReply {
-                let fillColor = ASAPP.styles.replyMessageBackgroundColor ?? ASAPP.styles.primaryBackgroundColor
+                let fillColor = ASAPP.styles.replyMessageBackgroundColor
                 label.textColor = ASAPP.styles.replyMessageTextColor
                 label.linkTextAttributes = [
                     NSForegroundColorAttributeName : ASAPP.styles.replyMessageTextColor,
@@ -46,7 +45,7 @@ class ChatTextBubbleView: UIView {
                 bubbleView.strokeColor = ASAPP.styles.replyMessageBorderColor
                 bubbleView.fillColor = fillColor
             } else {
-                let fillColor = ASAPP.styles.messageBackgroundColor ?? ASAPP.styles.primaryBackgroundColor
+                let fillColor = ASAPP.styles.messageBackgroundColor
                 label.textColor = ASAPP.styles.messageTextColor
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [

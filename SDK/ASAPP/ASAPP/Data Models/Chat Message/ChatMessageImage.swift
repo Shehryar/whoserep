@@ -12,11 +12,14 @@ class ChatMessageImage: NSObject {
     let url: URL
     let width: CGFloat
     let height: CGFloat
+    let aspectRatio: CGFloat
+
     
     init(url: URL, width: CGFloat, height: CGFloat) {
         self.url = url
         self.width = width
         self.height = height
+        self.aspectRatio = height > 0 ? width / height : 1
         super.init()
     }
 }

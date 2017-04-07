@@ -51,7 +51,7 @@ class TableViewItem: Component {
             }
         }
         guard sections.count > 0 else {
-            DebugLog.w(caller: TableViewItem.self, "Empty table view sections. Returning nil for: \n\(content)")
+            DebugLog.w(caller: TableViewItem.self, "Empty table view sections. Returning nil for: \n\(String(describing: content))")
             return nil
         }
         self.sections = sections

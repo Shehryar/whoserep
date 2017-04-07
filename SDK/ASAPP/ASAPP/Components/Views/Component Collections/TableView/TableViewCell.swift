@@ -62,7 +62,6 @@ class TableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let margin = component?.style.margin ?? .zero
         componentView?.view.frame = bounds
     }
     

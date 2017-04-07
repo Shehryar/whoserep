@@ -49,7 +49,7 @@ extension ComponentLayoutEngine {
         
         // Layout frames horizontally
         var maxFrameHeight: CGFloat = 0
-        var top = boundingRect.minY
+        let top = boundingRect.minY
         var left = boundingRect.minX
         for (idx, view) in views.enumerated() {
             let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
@@ -138,7 +138,7 @@ extension ComponentLayoutEngine {
     private class func getColumnSizes(for views: [UIView],
                                       within maxWidth: CGFloat) -> [ColumnSize] {
         var columnSizes = [ColumnSize]()
-        for view in views {
+        for _ in views {
             columnSizes.append(ColumnSize(fittedSize: .zero, maxColumnWidth: 0))
         }
         
@@ -210,7 +210,7 @@ extension ComponentLayoutEngine {
     
     private class func getWeightedWidths(for views: [UIView], totalWidth: CGFloat) -> [CGFloat] {
         var widths = [CGFloat]()
-        for view in views {
+        for _ in views {
             widths.append(0)
         }
         
@@ -378,7 +378,7 @@ extension ComponentLayoutEngine {
     private class func getRowSizes(for views: [UIView], within maxSize: CGSize) -> [RowSize] {
         // Initialize sizes to (.zero, .zero)
         var sizes = [RowSize]()
-        for view in views {
+        for _ in views {
             sizes.append(RowSize(fittedSize: .zero, maxSize: .zero))
         }
         
@@ -434,7 +434,6 @@ extension ComponentLayoutEngine {
         var initialRoundingErrorAdjustment = max(0, totalHeightAvailableForWeightedViews - totalHeightUsedByRoundedHeights)
         
         // Calculate size for all views with weight != 0
-        var weightedSizes = [RowSize]()
         for (idx, view) in views.enumerated() {
             let weight = (view as? ComponentView)?.component?.style.weight ?? 0
             guard weight > 0 else {

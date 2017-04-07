@@ -214,7 +214,7 @@ extension ModalCardViewController: ResizableModalCardViewController {
         contentView?.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: contentViewHeight)
     
         // Success View
-        var successViewHeight = getSuccessViewHeight(for: view.bounds.size)
+        let successViewHeight = getSuccessViewHeight(for: view.bounds.size)
         if successView.transform.isIdentity {
             successView.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: successViewHeight)
         }
@@ -334,7 +334,7 @@ extension ModalCardViewController {
             view.addSubview(loadingView)
         }
         
-        var animationBlock: (() -> Void) = { [weak self] in
+        let animationBlock: (() -> Void) = { [weak self] in
             self?.loadingView.isLoading = isLoading
             if isLoading {
                 self?.loadingView.isBlurred = true
@@ -343,7 +343,7 @@ extension ModalCardViewController {
             }
         }
         
-        var completionBlock: ((Bool) -> Void) = { [weak self] (completed) in
+        let completionBlock: ((Bool) -> Void) = { [weak self] (completed) in
             if !isLoading && removeBlur {
                 self?.loadingView.removeFromSuperview()
             }

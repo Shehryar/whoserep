@@ -251,7 +251,7 @@ extension Event {
         }
     
         var eventJSON = JSONUtil.parseString(eventJSONString)
-        var parentEventLogSeq = eventJSON?["ParentEventLogSeq"] as? Int
+        let parentEventLogSeq = eventJSON?["ParentEventLogSeq"] as? Int
         
         return Event(eventId: max(customerEventLogSeq, companyEventLogSeq),
                      parentEventLogSeq: parentEventLogSeq,

@@ -47,7 +47,7 @@ class CheckboxItem: Component {
         
         guard let component = ComponentFactory.component(with: content?[JSONKey.label.rawValue], styles: styles),
             let label = component as? LabelItem else {
-                DebugLog.w(caller: CheckboxItem.self, "Label is required: \(content)")
+                DebugLog.w(caller: CheckboxItem.self, "Label is required: \(String(describing: content))")
                 return nil
         }
         self.label = label

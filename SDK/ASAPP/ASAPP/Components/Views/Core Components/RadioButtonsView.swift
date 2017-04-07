@@ -65,7 +65,7 @@ class RadioButtonsView: BaseComponentView {
             buttonViews.removeLast(countDifference)
         } else {
             while buttonViews.count < count {
-                var buttonView = RadioButtonView()
+                let buttonView = RadioButtonView()
                 buttonView.onTap = { [weak self] (currentItem) in
                     self?.selectedItem = currentItem
                 }
@@ -141,7 +141,7 @@ class RadioButtonsView: BaseComponentView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        guard let radioButtonsItem = radioButtonsItem else {
+        guard radioButtonsItem != nil else {
             return .zero
         }
         let (_, contentSize) = getFramesThatFit(size)

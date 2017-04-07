@@ -320,7 +320,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  completion: @escaping ((ComponentAction?, String?) -> Void)) {
         guard let text = data?["Text"] as? String,
             let name = data?["Classification"] as? String else {
-                print("DATA IS MISSING: \(data)")
+                DebugLog.d("DATA IS MISSING: \(String(describing: data))")
                 completion(nil, "Missing data")
                 return
         }

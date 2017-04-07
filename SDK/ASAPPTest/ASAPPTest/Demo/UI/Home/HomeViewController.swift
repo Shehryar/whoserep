@@ -21,8 +21,8 @@ class HomeViewController: BaseViewController {
     
     // MARK: Private Properties
     
-    fileprivate var authenticationBlock: ASAPPRequestAuthenticationBlock!
-    fileprivate var contextBlock: ASAPPRequestContextBlock!
+    fileprivate var authenticationBlock: ASAPPRequestAuthProvider!
+    fileprivate var contextBlock: ASAPPRequestContextProvider!
     fileprivate var callbackHandler: ASAPPAppCallbackHandler!
 
     // MARK: UI
@@ -108,8 +108,8 @@ class HomeViewController: BaseViewController {
                                  clientId: "ASAPP_DEMO_CLIENT_ID")
         
         let user = ASAPPUser(userIdentifier: currentAccount.userToken,
-                             requestAuthenticationBlock: authenticationBlock,
-                             requestContextBlock: contextBlock)
+                             requestAuthProvider: authenticationBlock,
+                             requestContextProvider: contextBlock)
         
         ASAPP.initialize(with: config)
         ASAPP.user = user

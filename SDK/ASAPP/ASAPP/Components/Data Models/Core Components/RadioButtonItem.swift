@@ -45,7 +45,7 @@ class RadioButtonItem: Component {
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         guard let label = ComponentFactory.component(with: content?[JSONKey.label.rawValue], styles: styles) as? LabelItem else {
-            DebugLog.w(caller: RadioButtonItem.self, "Label is required. Returning nil from: \(content)")
+            DebugLog.w(caller: RadioButtonItem.self, "Label is required. Returning nil from: \(String(describing: content))")
             return nil
         }
         self.label = label

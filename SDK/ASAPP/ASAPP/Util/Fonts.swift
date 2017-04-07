@@ -80,7 +80,7 @@ class Fonts: NSObject {
             var err: Unmanaged<CFError>?
             CTFontManagerRegisterGraphicsFont(font, &err)
             if err != nil {
-                DebugLog.e("FONT FAILURE: received error while loading font \(name).\(type)\n\(err)")
+                DebugLog.e("FONT FAILURE: received error while loading font \(name).\(type)\n\(String(describing: err))")
             }
         } else {
             DebugLog.e("FONT FAILURE: unable to load data for path \(path)")

@@ -19,7 +19,7 @@ class SRSNestedItemListParser: NSObject {
                 return nil
         }
         
-        var isVertical = (json["orientation"] as? String) != "horizontal"
+        let isVertical = (json["orientation"] as? String) != "horizontal"
   
         var labelValueItems = [SRSLabelValueItem]()
         for itemJson in itemsJson {
