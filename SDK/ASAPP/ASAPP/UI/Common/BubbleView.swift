@@ -152,11 +152,33 @@ class BubbleView: UIView {
         let bottomLeftCornerRadius = getCornerRadius(.bottomLeft)
         let bottomLeftCornerCenter = move(bottomLeft, x: bottomLeftCornerRadius, y: -bottomLeftCornerRadius)
         
+        let pi_2 = CGFloat.pi / 2.0
         let path = CGMutablePath()
-        path.addArc(center: CGPoint(x: topLeftCornerCenter.x, y: topLeftCornerCenter.y), radius: topLeftCornerRadius, startAngle: CGFloat(2 * M_PI_2), endAngle: CGFloat(3 * M_PI_2), clockwise: false)
-        path.addArc(center: CGPoint(x: topRightCornerCenter.x, y: topRightCornerCenter.y), radius: topRightCornerRadius, startAngle: CGFloat(3 * M_PI_2), endAngle: CGFloat(4 * M_PI_2), clockwise: false)
-        path.addArc(center: CGPoint(x: bottomRightCornerCenter.x, y: bottomRightCornerCenter.y), radius: bottomRightCornerRadius, startAngle: CGFloat(4 * M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: false)
-        path.addArc(center: CGPoint(x: bottomLeftCornerCenter.x, y: bottomLeftCornerCenter.y), radius: bottomLeftCornerRadius, startAngle: CGFloat(5 * M_PI_2), endAngle: CGFloat(6 * M_PI_2), clockwise: false)
+        
+        path.addArc(center: CGPoint(x: topLeftCornerCenter.x, y: topLeftCornerCenter.y),
+                    radius: topLeftCornerRadius,
+                    startAngle: 2 * pi_2,
+                    endAngle: 3 * pi_2,
+                    clockwise: false)
+        
+        path.addArc(center: CGPoint(x: topRightCornerCenter.x, y: topRightCornerCenter.y),
+                    radius: topRightCornerRadius,
+                    startAngle: 3 * pi_2,
+                    endAngle: 4 * pi_2,
+                    clockwise: false)
+        
+        path.addArc(center: CGPoint(x: bottomRightCornerCenter.x, y: bottomRightCornerCenter.y),
+                    radius: bottomRightCornerRadius,
+                    startAngle: 4 * pi_2,
+                    endAngle: 5 * pi_2,
+                    clockwise: false)
+        
+        path.addArc(center: CGPoint(x: bottomLeftCornerCenter.x, y: bottomLeftCornerCenter.y),
+                    radius: bottomLeftCornerRadius,
+                    startAngle: 5 * pi_2,
+                    endAngle: 6 * pi_2,
+                    clockwise: false)
+        
         path.closeSubpath()
         
         return UIBezierPath(cgPath: path)
