@@ -129,12 +129,6 @@ class SliderView: BaseComponentView {
         labelView.frame = labelFrame
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let sliderItem = sliderItem else {
             return .zero

@@ -79,12 +79,6 @@ class LabelView: BaseComponentView {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let labelItem = labelItem else {
             return .zero

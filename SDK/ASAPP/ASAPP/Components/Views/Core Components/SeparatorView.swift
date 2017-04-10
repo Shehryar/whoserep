@@ -54,12 +54,6 @@ class SeparatorView: BaseComponentView {
         separator.frame = frame
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let paddingBottom = component?.style.padding.bottom ?? 0
         let frame = getFrameThatFits(size)

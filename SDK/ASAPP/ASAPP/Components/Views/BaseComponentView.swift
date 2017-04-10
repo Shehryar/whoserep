@@ -17,6 +17,7 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
     var component: Component? {
         didSet {
             if let component = component {
+                updateSubviewsWithInteractionHandler()
                 applyStyle(component.style)
             }
         }
@@ -48,6 +49,11 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
     
     func updateFrames() {
         // Subviews should override
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateFrames()
     }
     
     // MARK: Interaction Delegate

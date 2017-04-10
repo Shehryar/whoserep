@@ -49,12 +49,6 @@ class IconView: BaseComponentView {
         imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let iconItem = iconItem else {
             return .zero

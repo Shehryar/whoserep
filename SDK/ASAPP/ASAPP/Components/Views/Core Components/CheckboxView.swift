@@ -130,12 +130,6 @@ class CheckboxView: BaseComponentView {
         highlightView.frame = bounds
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let checkboxItem = checkboxItem else {
             return .zero

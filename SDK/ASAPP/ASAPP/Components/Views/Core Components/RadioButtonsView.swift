@@ -133,13 +133,7 @@ class RadioButtonsView: BaseComponentView {
             buttonView.updateFrames()
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard radioButtonsItem != nil else {
             return .zero

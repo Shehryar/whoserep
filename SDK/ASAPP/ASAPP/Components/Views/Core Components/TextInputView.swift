@@ -55,12 +55,6 @@ class TextInputView: BaseComponentView {
         textInputView.frame = UIEdgeInsetsInsetRect(bounds, padding)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-    }
-    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let component = component else {
             return .zero

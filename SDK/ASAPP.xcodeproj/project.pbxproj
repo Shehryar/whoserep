@@ -382,6 +382,9 @@
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
 		30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D2E28A1D79FEE600502D92 /* SRSItemListContentView.swift */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
+		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
+		30E5E0911E9C1F4A00C364F4 /* CarouselViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0901E9C1F4A00C364F4 /* CarouselViewItem.swift */; };
+		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
 		30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875031D9AFC3600E55A88 /* icon-exit-link.png */; };
 		30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875041D9AFC3600E55A88 /* icon-exit-link@2x.png */; };
 		30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875051D9AFC3600E55A88 /* icon-exit-link@3x.png */; };
@@ -775,6 +778,9 @@
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
 		30D2E28A1D79FEE600502D92 /* SRSItemListContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemListContentView.swift; sourceTree = "<group>"; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
+		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		30E5E0901E9C1F4A00C364F4 /* CarouselViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewItem.swift; sourceTree = "<group>"; };
+		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
 		30E875031D9AFC3600E55A88 /* icon-exit-link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-exit-link.png"; sourceTree = "<group>"; };
 		30E875041D9AFC3600E55A88 /* icon-exit-link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-exit-link@2x.png"; sourceTree = "<group>"; };
 		30E875051D9AFC3600E55A88 /* icon-exit-link@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-exit-link@3x.png"; sourceTree = "<group>"; };
@@ -1022,6 +1028,7 @@
 		288085141E87FC8A00240A5D /* Component Collections */ = {
 			isa = PBXGroup;
 			children = (
+				30E5E0901E9C1F4A00C364F4 /* CarouselViewItem.swift */,
 				288085151E87FC8A00240A5D /* ScrollViewItem.swift */,
 				288085161E87FC8A00240A5D /* StackViewItem.swift */,
 				288085171E87FC8A00240A5D /* TableViewItem.swift */,
@@ -1033,6 +1040,7 @@
 		2880851B1E87FCA800240A5D /* Component Collections */ = {
 			isa = PBXGroup;
 			children = (
+				30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */,
 				2880851C1E87FCA800240A5D /* ScrollView.swift */,
 				2880851D1E87FCA800240A5D /* StackView_new.swift */,
 				2880851E1E87FCA800240A5D /* TableView */,
@@ -1346,6 +1354,7 @@
 				300012C11DD4D10E007226B9 /* Tooltips */,
 				3008889B1D63C47900C25802 /* StackView */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
+				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2140,6 +2149,7 @@
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				3008889D1D63C48600C25802 /* StackView.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
+				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				281C348E1E7F092C001A2AA3 /* SRSImageItem.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
@@ -2194,6 +2204,7 @@
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				2880852C1E882F1F00240A5D /* FinishAction.swift in Sources */,
+				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,
 				288085261E87FCA800240A5D /* TableViewSectionHeaderView.swift in Sources */,
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
@@ -2221,6 +2232,7 @@
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
 				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
+				30E5E0911E9C1F4A00C364F4 /* CarouselViewItem.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
 				30EF00851E82CA4B004B1492 /* TextInputItem.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,

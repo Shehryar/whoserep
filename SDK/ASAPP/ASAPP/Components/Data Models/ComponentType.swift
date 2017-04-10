@@ -24,6 +24,7 @@ enum ComponentType: String {
     case textInput = "textInput"
     
     // Collections
+    case carouselView = "carouselView"
     case scrollView = "scrollView"
     case stackView = "stackView"
     case tableView = "tableView"
@@ -45,6 +46,7 @@ enum ComponentType: String {
         case .textInput:     return TextInputItem.self
             
         // Collections
+        case .carouselView:  return CarouselViewItem.self
         case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
         case .tableView:     return TableViewItem.self

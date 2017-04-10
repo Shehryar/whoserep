@@ -54,12 +54,7 @@ class ProgressBarView: BaseComponentView {
         progressBarContainer.layer.cornerRadius = barHeight / 2.0
         progressBar.layer.cornerRadius = barHeight / 2.0
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateFrames()
-    }
-    
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         guard let progressBarItem = progressBarItem else {
             return .zero
