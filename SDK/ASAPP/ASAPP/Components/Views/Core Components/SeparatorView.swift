@@ -14,11 +14,14 @@ class SeparatorView: BaseComponentView {
     
     let separator = UIView()
     
+    fileprivate let separatorStroke: CGFloat = 1
+    
     // MARK: ComponentView Properties
     
     override var component: Component? {
         didSet {
-            separator.backgroundColor = separatorItem?.style.color ?? SeparatorItem.defaultColor
+            separator.backgroundColor = separatorItem?.style.color ?? ASAPP.styles.primarySeparatorColor
+            setNeedsLayout()
         }
     }
     
@@ -36,28 +39,50 @@ class SeparatorView: BaseComponentView {
     
     // MARK: Layout
     
-    func getFrameThatFits(_ size: CGSize) -> CGRect {
-        guard let component = component else {
-            return .zero
+    override func updateFrames() {
+        guard let separatorItem = separatorItem else {
+            return
+        }
+        let padding = separatorItem.style.padding
+        
+        let width: CGFloat
+        let height: CGFloat
+        switch separatorItem.separatorStyle {
+        case .horizontal:
+            width = bounds.width - padding.left - padding.right
+            height = separatorStroke
+            break
+            
+        case .vertical:
+            width = separatorStroke
+            height = bounds.height - padding.top - padding.bottom
+            break
         }
         
-        let top = component.style.padding.top
-        let left = component.style.padding.left
-        let width = size.width - left - component.style.padding.right
-        let frame = CGRect(x: left, y: top, width: width, height: 1)
-        
-        return frame
-    }
-    
-    override func updateFrames() {
-        let frame = getFrameThatFits(bounds.size)
-        separator.frame = frame
+        separator.frame = CGRect(x: padding.left, y: padding.top, width: width, height: height)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let paddingBottom = component?.style.padding.bottom ?? 0
-        let frame = getFrameThatFits(size)
+        guard let separatorItem = separatorItem else {
+            return .zero
+        }
         
-        return CGSize(width: size.width, height: frame.maxY + paddingBottom)
+        let padding = separatorItem.style.padding
+        let width: CGFloat
+        let height: CGFloat
+        switch separatorItem.separatorStyle {
+        case .horizontal:
+            width = size.width < UIScreen.main.bounds.width ? size.width : separatorStroke + padding.top + padding.bottom
+            height = separatorStroke + padding.top + padding.bottom
+            break
+            
+        case .vertical:
+            // Vertical separatofs need gravity=fill
+            width = separatorStroke + padding.left + padding.right
+            height = separatorStroke + padding.top + padding.bottom
+            break
+        }
+        
+        return CGSize(width: width, height: height)
     }
 }
