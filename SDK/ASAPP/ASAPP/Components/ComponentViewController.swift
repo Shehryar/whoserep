@@ -252,6 +252,7 @@ extension ComponentViewController {
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
         let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = delegate
         navigationController?.pushViewController(viewController, animated: true)
     }
     
