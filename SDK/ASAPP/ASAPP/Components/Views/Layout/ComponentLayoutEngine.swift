@@ -170,7 +170,7 @@ extension ComponentLayoutEngine {
             let columnWidth = weightedColumnWidths[idx]
             if columnWidth > 0 {
                 var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
-                size.width = ceil(size.width)
+                size.width = columnWidth// ceil(size.width)
                 size.height = ceil(size.height)
                 
                 columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)

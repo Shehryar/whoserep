@@ -140,15 +140,6 @@
                     "class": "columnLeft"
                   },
                   {
-                    "type": "separator",
-                    "style": {
-                      "gravity" : "fill"
-                    },
-                    "content": {
-                      "style": "vertical"
-                    }
-                  },
-                  {
                     "type": "label",
                     "content": {
                       "text": "$110.97"
