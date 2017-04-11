@@ -14,6 +14,8 @@ class CarouselView: BaseComponentView {
     
     fileprivate let scrollView = UIScrollView()
     
+    fileprivate let pageControlView = PageControlView()
+    
     fileprivate var touchPassThroughView: TouchPassThroughView!
     
     fileprivate(set) var cardViews: [ComponentView]? {
@@ -49,6 +51,11 @@ class CarouselView: BaseComponentView {
                 }
             }
             self.cardViews = cardViews
+            
+            pageControlView.component = carouselViewItem?.pageControlItem
+            pageControlView.numberOfPages = self.cardViews?.count ?? 0
+            
+            setNeedsLayout()
         }
     }
     
@@ -71,27 +78,66 @@ class CarouselView: BaseComponentView {
         addSubview(scrollView)
         
         addSubview(touchPassThroughView)
+        
+        addSubview(pageControlView)
     }
     
     // MARK: Layout
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, [CGRect], CGSize) {
+    func getFramesThatFit(_ size: CGSize) -> (CGRect, [CGRect], CGSize, CGRect) {
         var scrollViewFrame = CGRect.zero
         var cardFrames = [CGRect]()
         var contentSize = CGSize.zero
+        var pageControlFrame = CGRect.zero
         guard let carousel = carouselViewItem,
             let cardViews = cardViews else {
-                return (scrollViewFrame, cardFrames, contentSize)
+                return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
         }
         
+        // Get Available Size
+        var fitToSize = size
+        if fitToSize.height == 0 {
+            fitToSize.height = UIScreen.main.bounds.height
+        }
+        if fitToSize.width == 0 {
+            fitToSize.width = UIScreen.main.bounds.width
+        }
+        fitToSize.width -= carousel.style.padding.left + carousel.style.padding.right
+        fitToSize.height -= carousel.style.padding.top + carousel.style.padding.bottom
+        guard fitToSize.width > 0 && fitToSize.height > 0 else {
+            return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
+        }
+        
+        // Size Page Control
+        var pcLeft: CGFloat = 0
+        var pcWidth: CGFloat = 0
+        var pcHeight: CGFloat = 0
+        var pcTop: CGFloat = 0
+        var pcMargin: UIEdgeInsets = .zero
+        if let pageControlItem = carouselViewItem?.pageControlItem {
+            pcMargin = pageControlItem.style.margin
+            pcLeft = carousel.style.padding.left + pcMargin.left
+            let pcRight = carousel.style.padding.left + fitToSize.width - pcMargin.right
+            pcWidth = max(0, pcRight - pcLeft)
+            if pcWidth > 0 {
+                pcHeight = ceil(pageControlView.sizeThatFits(CGSize(width: pcWidth, height: 0)).height)
+            }
+        }
+        
+        // Set Page Control Top if Carousel is gravity==fill
+        if pcHeight > 0 && carousel.style.gravity == .fill {
+            pcTop = carousel.style.padding.top + fitToSize.height - pcMargin.bottom - pcHeight
+            pageControlFrame = CGRect(x: pcLeft, y: pcTop, width: pcWidth, height: pcHeight)
+            fitToSize.height -= pcHeight + pcMargin.top + pcMargin.bottom
+        }
+        
+        // Sizing Cards
         let padding = carousel.style.padding
-        let totalWidth = size.width > 0 ? size.width : CGFloat.greatestFiniteMagnitude
-        let contentWidth = totalWidth - padding.left - padding.right
         let negativeContentWidth = max(0, ceil(carousel.cardDisplayCount) - 1) * carousel.cardSpacing
-        let visibleCardContentWidth = contentWidth - negativeContentWidth
+        let visibleCardContentWidth = fitToSize.width - negativeContentWidth
         let cardWidth = ceil(visibleCardContentWidth / carousel.cardDisplayCount)
         guard cardWidth > 0 else {
-            return (scrollViewFrame, cardFrames, contentSize)
+            return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
         }
         
         // Set frames horizontally
@@ -112,8 +158,16 @@ class CarouselView: BaseComponentView {
         // TODO: Align frames vertically, if necessary
         let scrollViewWidth = carousel.pagingEnabled ? cardWidth + carousel.cardSpacing : visibleCardContentWidth
         scrollViewFrame = CGRect(x: padding.left, y: padding.top, width: scrollViewWidth, height: contentSize.height)
+
         
-        return (scrollViewFrame, cardFrames, contentSize)
+        
+        // Set Page Control Top if Carousel is gravity!=fill
+        if pcHeight > 0 && carousel.style.gravity != .fill {
+            pcTop = scrollViewFrame.maxY + pcMargin.top
+            pageControlFrame = CGRect(x: pcLeft, y: pcTop, width: pcWidth, height: pcHeight)
+        }
+        
+        return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
     }
     
     override func updateFrames() {
@@ -122,7 +176,7 @@ class CarouselView: BaseComponentView {
             return
         }
         
-        let (scrollViewFrame, cardFrames, contentSize) = getFramesThatFit(bounds.size)
+        let (scrollViewFrame, cardFrames, contentSize, pageControlFrame) = getFramesThatFit(bounds.size)
         scrollView.frame = scrollViewFrame
         if cardViews.count == cardFrames.count {
             for (idx, cardView) in cardViews.enumerated() {
@@ -130,6 +184,7 @@ class CarouselView: BaseComponentView {
             }
         }
         scrollView.contentSize = contentSize
+        pageControlView.frame = pageControlFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -137,8 +192,8 @@ class CarouselView: BaseComponentView {
             return .zero
         }
         
-        let (scrollViewFrame, _, _) = getFramesThatFit(size)
-        let contentHeight = scrollViewFrame.maxY + component.style.padding.bottom
+        let (scrollViewFrame, _, _, pageControlFrame) = getFramesThatFit(size)
+        let contentHeight = max(scrollViewFrame.maxY, pageControlFrame.maxY) + component.style.padding.bottom
         return CGSize(width: size.width, height: contentHeight)
     }
 
@@ -147,9 +202,11 @@ class CarouselView: BaseComponentView {
     override func updateSubviewsWithInteractionHandler() {
         super.updateSubviewsWithInteractionHandler()
         
-        for (idx, _) in subviews.enumerated() {
-            var view = subviews[idx] as? ComponentView
+        for (idx, _) in scrollView.subviews.enumerated() {
+            var view = scrollView.subviews[idx] as? ComponentView
             view?.interactionHandler = self.interactionHandler
         }
+        
+        pageControlView.interactionHandler = interactionHandler
     }
 }

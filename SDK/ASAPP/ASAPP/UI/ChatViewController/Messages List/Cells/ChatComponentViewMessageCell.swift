@@ -13,6 +13,9 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override var message: ChatMessage? {
         didSet {
             cardView.component = message?.attachment?.template
+            if let attachment = message?.attachment {
+                cardView.borderDisabled = attachment.requiresNoContainer
+            }
             setNeedsLayout()
         }
     }

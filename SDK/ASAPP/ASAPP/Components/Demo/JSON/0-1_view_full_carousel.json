@@ -3,10 +3,7 @@
   "styles": {
     "card": {
       "backgroundColor": "#ffffff",
-      "borderColor": "#cecece",
-      "borderWidth": 1,
-      "cornerRadius": 8,
-      "padding": 16
+      "padding": 24
     },
     "title": {
       "fontSize": 24,
@@ -23,12 +20,22 @@
   "body": {
     "type": "carouselView",
     "style": {
-      "padding": 24,
-      "backgroundColor" : "#99FF99"
+      "padding": 0,
+      "gravity" : "fill"
     },
     "content": {
-      "pagingEnabled" : true,
-      "cardDisplayCount" : 1.4,
+      "pagingEnabled": true,
+      "cardDisplayCount": 1,
+      "cardSpacing" : 0,
+      "pageControl": {
+        "type": "pageControl",
+        "style": {
+          "borderColor" : "#dcdde2",
+          "borderWidth" : 1,
+          "backgroundColor" : "#ffffff"
+        },
+        "content": {}
+      },
       "cards": [
         {
           "type": "stackView",
@@ -47,6 +54,24 @@
                 "class": "message",
                 "content": {
                   "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "style": "text",
+                  "title": "View Details",
+                  "action": {
+                    "type": "componentView",
+                    "content": {
+                      "name": "0-1_view_full_carousel"
+                    }
+                  }
+                },
+                "style": {
+                  "marginTop": 12,
+                  "padding": "12 16",
+                  "align": "fill"
                 }
               }
             ]

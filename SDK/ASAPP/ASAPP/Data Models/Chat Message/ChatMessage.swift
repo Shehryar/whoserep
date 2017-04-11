@@ -31,7 +31,7 @@ class ChatMessage: NSObject {
     // MARK: Init
     
     init(text: String?,
-         attachment: Any?,
+         attachment: ChatMessageAttachment?,
          quickReplies: [SRSButtonItem]?,
          isReply: Bool,
          sendTime: Date,
@@ -42,15 +42,7 @@ class ChatMessage: NSObject {
          isAutomatedMessage: Bool = false) {
         
         self.text = text
-        if let attachment = attachment {
-            if let messageAttachment = attachment as? ChatMessageAttachment {
-                self.attachment = messageAttachment
-            } else {
-                self.attachment = ChatMessageAttachment(content: attachment)
-            }
-        } else {
-            self.attachment = nil
-        }
+        self.attachment = attachment
         if let quickReplies = quickReplies, quickReplies.count > 0 {
             self.quickReplies = quickReplies
         } else {
@@ -97,7 +89,7 @@ class ChatMessage: NSObject {
 extension ChatMessage {
     
     /// Returns text, attachment, quickReplies
-    static func parseContent(from json: [String : Any]?) -> (String?, Any?, [SRSButtonItem]?) {
+    static func parseContent(from json: [String : Any]?) -> (String?, ChatMessageAttachment?, [SRSButtonItem]?) {
         guard let json = json else {
             return (nil, nil, nil)
         }
@@ -106,14 +98,16 @@ extension ChatMessage {
         
         let text = messageJSON["text"] as? String
         
-        var attachment: Any?
+        var attachment: ChatMessageAttachment?
         let attachmentJSON = messageJSON["attachment"] as? [String : Any]
+        let requiresNoContainer = attachmentJSON?.bool(for: "requiresNoContainer")
         if let attachmentType = attachmentJSON?.string(for: "type"),
             let attachmentContent = attachmentJSON?["content"] as? [String : Any] {
             switch attachmentType {
             case "componentView":
                 if let viewContainer = ComponentViewContainer.from(attachmentContent) {
-                    attachment = viewContainer.root
+                    attachment = ChatMessageAttachment(content: viewContainer.root,
+                                                       requiresNoContainer: requiresNoContainer)
                 }
                 break
                 
@@ -131,7 +125,7 @@ extension ChatMessage {
             }
         }
         
-        return (text, attachment as AnyObject?, quickReplies)
+        return (text, attachment, quickReplies)
     }
     
     static func fromEvent(_ event: Event?) -> ChatMessage? {
@@ -140,7 +134,7 @@ extension ChatMessage {
         }
         
         var text: String?
-        var attachment: Any?
+        var attachment: ChatMessageAttachment?
         var quickReplies: [SRSButtonItem]?
         var classification: String?
         
@@ -150,12 +144,18 @@ extension ChatMessage {
             break
             
         case .pictureMessage:
-            attachment = event.pictureMessage
+            if let pictureMessage = event.pictureMessage {
+                attachment = ChatMessageAttachment(content: pictureMessage)
+            }
             break
             
         default:
             text = event.srsResponse?.messageText
-            attachment = event.srsResponse?.itemList ?? event.srsResponse?.itemCarousel
+            if let itemList = event.srsResponse?.itemList {
+                attachment = ChatMessageAttachment(content: itemList)
+            } else if let itemCarousel = event.srsResponse?.itemCarousel {
+                attachment = ChatMessageAttachment(content: itemCarousel)
+            }
             quickReplies = event.srsResponse?.buttonItems
             classification = event.srsResponse?.classification
             break

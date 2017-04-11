@@ -10,9 +10,9 @@ import UIKit
 
 class ProgressBarView: BaseComponentView {
     
-    let progressBarContainer = UIView()
+    fileprivate let progressBarContainer = UIView()
     
-    let progressBar = UIView()
+    fileprivate let progressBar = UIView()
     
     // MARK: ComponentView Properties
     
@@ -67,5 +67,4 @@ class ProgressBarView: BaseComponentView {
         
         return CGSize(width: size.width, height: height)
     }
-
 }

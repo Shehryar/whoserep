@@ -28,10 +28,11 @@ class ChatMessageAttachment: NSObject {
     let template: Component?
     let itemList: SRSItemList?
     let itemCarousel: SRSItemCarousel?
+    let requiresNoContainer: Bool
     
     // MARK:- Init
     
-    init(content: Any) {
+    init(content: Any, requiresNoContainer: Bool? = nil) {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil
@@ -59,6 +60,7 @@ class ChatMessageAttachment: NSObject {
         self.template = template
         self.itemList = itemList
         self.itemCarousel = itemCarousel
+        self.requiresNoContainer = requiresNoContainer ?? false
         super.init()
     }
 }
@@ -80,7 +82,7 @@ extension ChatMessageAttachment {
             return nil
         }
         
-        guard let payload = json["payload"] as? [String : AnyObject] else {
+        guard let payload = json["content"] as? [String : AnyObject] else {
             DebugLog.w(caller: self, "Missing payload.")
             return nil
         }
@@ -94,7 +96,8 @@ extension ChatMessageAttachment {
             
         case .template:
             if let component = ComponentFactory.component(with: payload, styles: nil) {
-                return ChatMessageAttachment(content: component as AnyObject)
+                return ChatMessageAttachment(content: component as AnyObject,
+                                             requiresNoContainer: json.bool(for: "requiresNoContainer"))
             }
             break
             

@@ -17,6 +17,12 @@ class ComponentCardView: UIView {
         }
     }
     
+    var borderDisabled: Bool = false {
+        didSet {
+            updateBorder()
+        }
+    }
+    
     var interactionHandler: InteractionHandler? {
         didSet {
             componentView?.interactionHandler = interactionHandler
@@ -38,11 +44,8 @@ class ComponentCardView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        clipsToBounds = true
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
-        layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
+        
+        updateBorder()
     }
     
     override init(frame: CGRect) {
@@ -57,6 +60,23 @@ class ComponentCardView: UIView {
 
     deinit {
         componentView?.interactionHandler = nil
+    }
+    
+    // MAKR: Utility
+    
+    func updateBorder() {
+        if borderDisabled {
+            clipsToBounds = false
+            backgroundColor = UIColor.clear
+            layer.borderColor = nil
+            layer.borderWidth = 0
+        } else {
+            clipsToBounds = true
+            backgroundColor = ASAPP.styles.primaryBackgroundColor
+            layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
+            layer.borderWidth = 1
+            layer.cornerRadius = 5
+        }
     }
     
     // MARK: Layout

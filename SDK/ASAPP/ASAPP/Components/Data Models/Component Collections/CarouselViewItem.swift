@@ -16,6 +16,7 @@ class CarouselViewItem: Component {
         case cards = "cards"
         case cardSpacing = "cardSpacing"
         case cardDisplayCount = "cardDisplayCount"
+        case pageControl = "pageControl"
         case pagingEnabled = "pagingEnabled"
     }
     
@@ -34,6 +35,8 @@ class CarouselViewItem: Component {
     let cardDisplayCount: CGFloat
     
     let pagingEnabled: Bool
+    
+    let pageControlItem: PageControlItem?
     
     // MARK:- Component Properties
     
@@ -76,6 +79,12 @@ class CarouselViewItem: Component {
             ?? CarouselViewItem.defaultCardDisplayCount
         self.pagingEnabled = content.bool(for: JSONKey.pagingEnabled.rawValue)
             ?? CarouselViewItem.defaultPagingEnabled
+        if self.pagingEnabled {
+            self.pageControlItem = ComponentFactory.component(with: content[JSONKey.pageControl.rawValue] as? [String : Any],
+                                                              styles: styles) as? PageControlItem
+        } else {
+            self.pageControlItem = nil
+        }
         
         super.init(id: id,
                    name: name,

@@ -1,0 +1,175 @@
+{
+  "text": "Here are some available options.",
+  "attachment": {
+    "type": "componentView",
+    "requiresNoContainer": true,
+    "content": {
+      "title": "Carousel",
+      "styles": {
+        "card": {
+          "backgroundColor": "#ffffff",
+          "borderColor": "#cecece",
+          "borderWidth": 1,
+          "cornerRadius": 8,
+          "padding": 16
+        },
+        "title": {
+          "fontSize": 24,
+          "fontWeight": "black",
+          "color": "#5b657e",
+          "marginBottom": 8
+        },
+        "message": {
+          "fontSize": 15,
+          "fontWeight": "regular",
+          "color": "#7c869f"
+        }
+      },
+      "body": {
+        "type": "carouselView",
+        "style": {
+          "padding": 0
+        },
+        "content": {
+          "pagingEnabled": true,
+          "cardDisplayCount": 1.4,
+          "pageControl": {
+            "type": "pageControl",
+            "style": {},
+            "content": {}
+          },
+          "cards": [
+            {
+              "type": "stackView",
+              "class": "card",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "class": "title",
+                    "content": {
+                      "text": "Title"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "class": "message",
+                    "content": {
+                      "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "style": "text",
+                      "title": "View Details",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "0-1_view_full_carousel"
+                        }
+                      }
+                    },
+                    "style": {
+                      "marginTop" : 12,
+                      "padding": "12 16",
+                      "align" : "fill"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "stackView",
+              "class": "card",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "class": "title",
+                    "content": {
+                      "text": "Title"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "class": "message",
+                    "content": {
+                      "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa.  Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "stackView",
+              "class": "card",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "class": "title",
+                    "content": {
+                      "text": "Title"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "class": "message",
+                    "content": {
+                      "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "stackView",
+              "class": "card",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "class": "title",
+                    "content": {
+                      "text": "Title"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "class": "message",
+                    "content": {
+                      "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "stackView",
+              "class": "card",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "class": "title",
+                    "content": {
+                      "text": "Title"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "class": "message",
+                    "content": {
+                      "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

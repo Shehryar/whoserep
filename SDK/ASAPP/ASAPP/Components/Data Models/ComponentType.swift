@@ -16,6 +16,7 @@ enum ComponentType: String {
     case checkbox = "checkbox"
     case icon = "icon"
     case label = "label"
+    case pageControl = "pageControl"
     case progressBar = "progressBar"
     case radioButtons = "radioButtonsContainer"
     case radioButton = "radioButton"
@@ -38,6 +39,7 @@ enum ComponentType: String {
         case .checkbox:      return CheckboxItem.self
         case .icon:          return IconItem.self
         case .label:         return LabelItem.self
+        case .pageControl:   return PageControlItem.self
         case .progressBar:   return ProgressBarItem.self
         case .radioButton:   return RadioButtonItem.self
         case .radioButtons:  return RadioButtonsItem.self

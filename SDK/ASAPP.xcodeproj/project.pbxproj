@@ -345,6 +345,8 @@
 		30756B481E562C3100D78E8E /* ASAPPStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B471E562C3100D78E8E /* ASAPPStyles.swift */; };
 		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
+		307DBE791E9D65B700B8F10F /* PageControlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE781E9D65B700B8F10F /* PageControlItem.swift */; };
+		307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7A1E9D65F900B8F10F /* PageControlView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
@@ -741,6 +743,8 @@
 		30756B471E562C3100D78E8E /* ASAPPStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStyles.swift; sourceTree = "<group>"; };
 		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
+		307DBE781E9D65B700B8F10F /* PageControlItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControlItem.swift; sourceTree = "<group>"; };
+		307DBE7A1E9D65F900B8F10F /* PageControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -861,6 +865,7 @@
 				305FF5D31E847276004DD9D5 /* CheckboxItem.swift */,
 				281C34561E7F092C001A2AA3 /* IconItem.swift */,
 				281C34571E7F092C001A2AA3 /* LabelItem.swift */,
+				307DBE781E9D65B700B8F10F /* PageControlItem.swift */,
 				302AF3301E8046E80086B939 /* ProgressBarItem.swift */,
 				288085091E87665E00240A5D /* RadioButtonItem.swift */,
 				288085011E875C1100240A5D /* RadioButtonsItem.swift */,
@@ -956,6 +961,7 @@
 				305FF5D71E857427004DD9D5 /* CheckboxView.swift */,
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
+				307DBE7A1E9D65F900B8F10F /* PageControlView.swift */,
 				302AF3321E8049880086B939 /* ProgressBarView.swift */,
 				288085051E875DB700240A5D /* RadioButtonView.swift */,
 				288085031E875CDE00240A5D /* RadioButtonsView.swift */,
@@ -2234,11 +2240,13 @@
 				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
 				30E5E0911E9C1F4A00C364F4 /* CarouselViewItem.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
+				307DBE791E9D65B700B8F10F /* PageControlItem.swift in Sources */,
 				30EF00851E82CA4B004B1492 /* TextInputItem.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
 				30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */,
 				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
+				307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,

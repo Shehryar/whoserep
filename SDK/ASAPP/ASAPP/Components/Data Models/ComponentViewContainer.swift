@@ -25,7 +25,6 @@ class ComponentViewContainer: NSObject {
     
     let styles: [String : Any]?
     
-    
     // MARK:- Init
     
     init(root: Component,

@@ -64,6 +64,7 @@ class ComponentMessagePreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.clipsToBounds = true
         view.backgroundColor = UIColor.white
         view.addSubview(messagesView)
         view.addSubview(quickRepliesView)
