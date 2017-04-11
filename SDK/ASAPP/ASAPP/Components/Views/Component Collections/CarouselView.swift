@@ -34,6 +34,10 @@ class CarouselView: BaseComponentView {
         }
     }
     
+    var numberOfPages: Int {
+        return cardViews?.count ?? 0
+    }
+    
     // MARK: ComponentView Properties
     
     override var component: Component? {
@@ -53,7 +57,8 @@ class CarouselView: BaseComponentView {
             self.cardViews = cardViews
             
             pageControlView.component = carouselViewItem?.pageControlItem
-            pageControlView.numberOfPages = self.cardViews?.count ?? 0
+            pageControlView.numberOfPages = numberOfPages
+            pageControlView.currentPage = 0
             
             setNeedsLayout()
         }
@@ -75,11 +80,19 @@ class CarouselView: BaseComponentView {
         scrollView.clipsToBounds = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
         addSubview(scrollView)
         
         addSubview(touchPassThroughView)
         
+        pageControlView.onPageUpdateTap = { [weak self] (page) in
+            self?.scrollToPage(page)
+        }
         addSubview(pageControlView)
+    }
+    
+    deinit {
+        scrollView.delegate = nil
     }
     
     // MARK: Layout
@@ -208,5 +221,28 @@ class CarouselView: BaseComponentView {
         }
         
         pageControlView.interactionHandler = interactionHandler
+    }
+}
+
+extension CarouselView: UIScrollViewDelegate {
+    
+    func scrollToPage(_ page: Int, animated: Bool = true) {
+        guard page >= 0 && page < numberOfPages else {
+            return
+        }
+        
+        let offsetX = CGFloat(page) * scrollView.bounds.width
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: animated)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isDragging else {
+            return
+        }
+        
+        let currentPage = scrollView.currentPage
+        if currentPage != pageControlView.currentPage {
+            pageControlView.currentPage = currentPage
+        }
     }
 }

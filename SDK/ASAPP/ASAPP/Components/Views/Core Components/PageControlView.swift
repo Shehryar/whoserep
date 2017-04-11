@@ -17,11 +17,16 @@ class PageControlView: BaseComponentView {
         }
     }
     
-    var currentPage: Int = 0 {
-        didSet {
-            pageControl.currentPage = currentPage
+    var currentPage: Int {
+        set {
+            pageControl.currentPage = newValue
+        }
+        get {
+            return pageControl.currentPage
         }
     }
+    
+    var onPageUpdateTap: ((Int) -> Void)?
     
     // MARK: UI Properties
     
@@ -35,7 +40,7 @@ class PageControlView: BaseComponentView {
                 ?? ASAPP.styles.controlTintColor
             
             pageControl.pageIndicatorTintColor = ASAPP.styles.controlSecondaryColor
-            
+            pageControl.addTarget(self, action: #selector(PageControlView.onPageChange), for: .valueChanged)
             setNeedsLayout()
         }
     }
@@ -45,7 +50,14 @@ class PageControlView: BaseComponentView {
     override func commonInit() {
         super.commonInit()
         
+
         addSubview(pageControl)
+    }
+    
+    // MARK: Actions
+    
+    func onPageChange() {
+        onPageUpdateTap?(pageControl.currentPage)
     }
     
     // MARK: Layout
