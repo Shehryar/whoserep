@@ -52,6 +52,7 @@ class ComponentViewController: UIViewController, UpdatableFrames {
             oldValue?.view.removeFromSuperview()
             
             rootView?.interactionHandler = self
+            rootView?.contentHandler = self
             
             if let rootView = rootView, isViewLoaded {
                 view.addSubview(rootView.view)
@@ -107,6 +108,7 @@ class ComponentViewController: UIViewController, UpdatableFrames {
     
     deinit {
         rootView?.interactionHandler = nil
+        rootView?.contentHandler = nil
     }
     
     // MARK: View
@@ -216,6 +218,17 @@ extension ComponentViewController: InteractionHandler {
             handleComponentViewAction(componentViewAction)
         } else if let finishAction = buttonItem.action as? FinishAction {
             handleFinishAction(finishAction)
+        }
+    }
+}
+
+extension ComponentViewController: ComponentViewContentHandler {
+    
+    func componentView(_ componentView: ComponentView,
+                       didUpdateContent value: Any?,
+                       requiresLayoutUpdate: Bool) {
+        if requiresLayoutUpdate {
+            updateFrames()
         }
     }
 }

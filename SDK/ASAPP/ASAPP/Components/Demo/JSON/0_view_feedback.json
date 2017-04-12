@@ -117,7 +117,7 @@
                           }
                         },
                         {
-                          "type": "textInput",
+                          "type": "textArea",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },

@@ -20,6 +20,8 @@ class TextInputItem: Component {
         case type = "type"
     }
     
+    // MARK:- Enums
+    
     enum InputType: String {
         case email = "email"
         case decimal = "decimal"
@@ -48,38 +50,11 @@ class TextInputItem: Component {
         }
     }
     
-    enum CapitalizationType: String {
-        case characters = "characters"
-        case none = "none" // Default
-        case sentences = "sentences"
-        case words = "words"
-        
-        func type() -> UITextAutocapitalizationType {
-            switch self {
-            case .characters: return .allCharacters
-            case .none: return .none
-            case .sentences: return .sentences
-            case .words: return .words
-            }
-        }
-        
-        static func from(_ string: Any?) -> CapitalizationType? {
-            guard let string = string as? String,
-                let type = CapitalizationType(rawValue: string) else {
-                    return nil
-            }
-            return type
-        }
-    }
-    
-    
     // MARK:- Defaults
     
     static let defaultAutocorrectionEnabled = true
     
     static let defaultCapitalizationType = CapitalizationType.none
-    
-    static let defaultColor = UIColor(red:0.263, green:0.278, blue:0.310, alpha:1)
     
     static let defaultInputType = InputType.text
     

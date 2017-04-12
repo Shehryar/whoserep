@@ -26,10 +26,20 @@ class StackView_new: BaseComponentView {
                 }
             }
             
-            updateSubviewsWithInteractionHandler()
+            updateHandlersForNestedComponentViews()
             
             setNeedsLayout()
         }
+    }
+    
+    override var nestedComponentViews: [ComponentView]? {
+        var nestedComponentViews = [ComponentView]()
+        for subview in subviews {
+            if let componentSubview = subview as? ComponentView {
+                nestedComponentViews.append(componentSubview)
+            }
+        }
+        return nestedComponentViews
     }
     
     var stackViewItem: StackViewItem? {

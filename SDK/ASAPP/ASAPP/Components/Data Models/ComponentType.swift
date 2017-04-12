@@ -22,6 +22,7 @@ enum ComponentType: String {
     case radioButton = "radioButton"
     case separator = "separator"
     case slider = "slider"
+    case textArea = "textArea"
     case textInput = "textInput"
     
     // Collections
@@ -45,6 +46,7 @@ enum ComponentType: String {
         case .radioButtons:  return RadioButtonsItem.self
         case .separator:     return SeparatorItem.self
         case .slider:        return SliderItem.self
+        case .textArea:      return TextAreaItem.self
         case .textInput:     return TextInputItem.self
             
         // Collections

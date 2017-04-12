@@ -17,15 +17,24 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
     var component: Component? {
         didSet {
             if let component = component {
-                updateSubviewsWithInteractionHandler()
                 applyStyle(component.style)
             }
         }
     }
+
+    var nestedComponentViews: [ComponentView]? {
+        return nil
+    }
     
     weak var interactionHandler: InteractionHandler? {
         didSet {
-            updateSubviewsWithInteractionHandler()
+            updateHandlersForNestedComponentViews()
+        }
+    }
+    
+    weak var contentHandler: ComponentViewContentHandler? {
+        didSet {
+            updateHandlersForNestedComponentViews()
         }
     }
     
@@ -54,14 +63,5 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
     override func layoutSubviews() {
         super.layoutSubviews()
         updateFrames()
-    }
-    
-    // MARK: Interaction Delegate
-    
-    func updateSubviewsWithInteractionHandler() {
-        for (idx, _) in subviews.enumerated() {
-            var view = subviews[idx] as? ComponentView
-            view?.interactionHandler = self.interactionHandler
-        }
     }
 }

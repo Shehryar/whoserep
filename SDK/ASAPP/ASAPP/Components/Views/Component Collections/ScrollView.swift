@@ -17,6 +17,7 @@ class ScrollView: UIScrollView, ComponentView {
             oldValue?.view.removeFromSuperview()
             
             contentView?.interactionHandler = interactionHandler
+            contentView?.contentHandler = contentHandler
             if let contentView = contentView {
                 addSubview(contentView.view)
                 setNeedsLayout()
@@ -32,13 +33,26 @@ class ScrollView: UIScrollView, ComponentView {
         }
     }
     
+    var nestedComponentViews: [ComponentView]? {
+        if let contentView = contentView {
+            return [contentView]
+        }
+        return nil
+    }
+    
     var scrollViewItem: ScrollViewItem? {
         return component as? ScrollViewItem
     }
     
-    weak var interactionHandler: InteractionHandler? {
+    var interactionHandler: InteractionHandler? {
         didSet {
-            contentView?.interactionHandler = interactionHandler
+            updateHandlersForNestedComponentViews()
+        }
+    }
+    
+    var contentHandler: ComponentViewContentHandler? {
+        didSet {
+            updateHandlersForNestedComponentViews()
         }
     }
     

@@ -84,7 +84,6 @@
 		288085231E87FCA800240A5D /* StackView_new.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851D1E87FCA800240A5D /* StackView_new.swift */; };
 		288085241E87FCA800240A5D /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851F1E87FCA800240A5D /* TableView.swift */; };
 		288085251E87FCA800240A5D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085201E87FCA800240A5D /* TableViewCell.swift */; };
-		288085261E87FCA800240A5D /* TableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085211E87FCA800240A5D /* TableViewSectionHeaderView.swift */; };
 		288085281E882F0100240A5D /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085271E882F0100240A5D /* APIAction.swift */; };
 		2880852A1E882F0D00240A5D /* ComponentViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085291E882F0D00240A5D /* ComponentViewAction.swift */; };
 		2880852C1E882F1F00240A5D /* FinishAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880852B1E882F1F00240A5D /* FinishAction.swift */; };
@@ -347,6 +346,9 @@
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		307DBE791E9D65B700B8F10F /* PageControlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE781E9D65B700B8F10F /* PageControlItem.swift */; };
 		307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7A1E9D65F900B8F10F /* PageControlView.swift */; };
+		307DBE7D1E9E825F00B8F10F /* TextAreaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7C1E9E825F00B8F10F /* TextAreaItem.swift */; };
+		307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7E1E9E827500B8F10F /* TextAreaView.swift */; };
+		307DBE811E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
 		308F29701D4164FE00EC7055 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F296F1D4164FE00EC7055 /* Colors.swift */; };
 		308F29721D41665900EC7055 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29711D41665900EC7055 /* Fonts.swift */; };
@@ -480,7 +482,6 @@
 		2880851D1E87FCA800240A5D /* StackView_new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView_new.swift; sourceTree = "<group>"; };
 		2880851F1E87FCA800240A5D /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		288085201E87FCA800240A5D /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		288085211E87FCA800240A5D /* TableViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		288085271E882F0100240A5D /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
 		288085291E882F0D00240A5D /* ComponentViewAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewAction.swift; sourceTree = "<group>"; };
 		2880852B1E882F1F00240A5D /* FinishAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishAction.swift; sourceTree = "<group>"; };
@@ -745,6 +746,9 @@
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		307DBE781E9D65B700B8F10F /* PageControlItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControlItem.swift; sourceTree = "<group>"; };
 		307DBE7A1E9D65F900B8F10F /* PageControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
+		307DBE7C1E9E825F00B8F10F /* TextAreaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaItem.swift; sourceTree = "<group>"; };
+		307DBE7E1E9E827500B8F10F /* TextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaView.swift; sourceTree = "<group>"; };
+		307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
 		308F296F1D4164FE00EC7055 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		308F29711D41665900EC7055 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -871,6 +875,7 @@
 				288085011E875C1100240A5D /* RadioButtonsItem.swift */,
 				281C34581E7F092C001A2AA3 /* SeparatorItem.swift */,
 				288084FD1E874B9F00240A5D /* SliderItem.swift */,
+				307DBE7C1E9E825F00B8F10F /* TextAreaItem.swift */,
 				30EF00841E82CA4B004B1492 /* TextInputItem.swift */,
 			);
 			path = "Core Components";
@@ -967,6 +972,7 @@
 				288085031E875CDE00240A5D /* RadioButtonsView.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
 				288084FF1E874BF900240A5D /* SliderView.swift */,
+				307DBE7E1E9E827500B8F10F /* TextAreaView.swift */,
 				30EF00861E82CB1B004B1492 /* TextInputView.swift */,
 			);
 			path = "Core Components";
@@ -1058,8 +1064,8 @@
 			isa = PBXGroup;
 			children = (
 				2880851F1E87FCA800240A5D /* TableView.swift */,
+				307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */,
 				288085201E87FCA800240A5D /* TableViewCell.swift */,
-				288085211E87FCA800240A5D /* TableViewSectionHeaderView.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -2082,6 +2088,7 @@
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				288085001E874BF900240A5D /* SliderView.swift in Sources */,
+				307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */,
 				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
 				30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */,
 				281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */,
@@ -2141,6 +2148,7 @@
 				28D48CA81E83EE23004A002B /* ComponentAction.swift in Sources */,
 				3093A4AD1E730D4F00C65818 /* EventPictureMessage.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
+				307DBE7D1E9E825F00B8F10F /* TextAreaItem.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
 				302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
@@ -2177,6 +2185,7 @@
 				305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */,
 				3025DA181E539B9E004149D7 /* SRSFillerView.swift in Sources */,
 				3093A4AE1E730D4F00C65818 /* EventTextMessage.swift in Sources */,
+				307DBE811E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
 				281C34901E7F092C001A2AA3 /* SRSLoaderBarItem.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
@@ -2212,7 +2221,6 @@
 				2880852C1E882F1F00240A5D /* FinishAction.swift in Sources */,
 				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,
 				30D2E28B1D79FEE600502D92 /* SRSItemListContentView.swift in Sources */,
-				288085261E87FCA800240A5D /* TableViewSectionHeaderView.swift in Sources */,
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				288085281E882F0100240A5D /* APIAction.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,

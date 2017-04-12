@@ -64,6 +64,15 @@ class CarouselView: BaseComponentView {
         }
     }
     
+    override var nestedComponentViews: [ComponentView]? {
+        var nestedComponentViews = [ComponentView]()
+        if let cardViews = cardViews {
+            nestedComponentViews.append(contentsOf: cardViews)
+        }
+        nestedComponentViews.append(pageControlView)
+        return nestedComponentViews
+    }
+    
     var carouselViewItem: CarouselViewItem? {
         return component as? CarouselViewItem
     }
@@ -208,19 +217,6 @@ class CarouselView: BaseComponentView {
         let (scrollViewFrame, _, _, pageControlFrame) = getFramesThatFit(size)
         let contentHeight = max(scrollViewFrame.maxY, pageControlFrame.maxY) + component.style.padding.bottom
         return CGSize(width: size.width, height: contentHeight)
-    }
-
-    // MARK: Interaction Handler
-    
-    override func updateSubviewsWithInteractionHandler() {
-        super.updateSubviewsWithInteractionHandler()
-        
-        for (idx, _) in scrollView.subviews.enumerated() {
-            var view = scrollView.subviews[idx] as? ComponentView
-            view?.interactionHandler = self.interactionHandler
-        }
-        
-        pageControlView.interactionHandler = interactionHandler
     }
 }
 

@@ -30,10 +30,8 @@ class TableView: BaseComponentView {
         return component as? TableViewItem
     }
     
-    override weak var interactionHandler: InteractionHandler? {
-        didSet {
-            tableView.reloadData()
-        }
+    func updateHandlersForNestedComponentViews() {
+        tableView.reloadData()
     }
     
     // MARK: Init
@@ -118,6 +116,8 @@ extension TableView: UITableViewDataSource {
         if let header = getSectionHeader(section) {
             let headerView = TableViewSectionHeaderView()
             headerView.component = header
+            headerView.interactionHandler = interactionHandler
+            headerView.contentHandler = contentHandler
             return headerView
         }
         return nil

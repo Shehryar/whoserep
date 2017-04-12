@@ -199,4 +199,30 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     }
 }
 
+// MARK: Enums
+
+enum CapitalizationType: String {
+    case characters = "characters"
+    case none = "none" // Default
+    case sentences = "sentences"
+    case words = "words"
+    
+    func type() -> UITextAutocapitalizationType {
+        switch self {
+        case .characters: return .allCharacters
+        case .none: return .none
+        case .sentences: return .sentences
+        case .words: return .words
+        }
+    }
+    
+    static func from(_ string: Any?) -> CapitalizationType? {
+        guard let string = string as? String,
+            let type = CapitalizationType(rawValue: string) else {
+                return nil
+        }
+        return type
+    }
+}
+
 

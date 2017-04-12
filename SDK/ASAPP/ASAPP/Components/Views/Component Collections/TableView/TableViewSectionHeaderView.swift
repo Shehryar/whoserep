@@ -14,10 +14,12 @@ class TableViewSectionHeaderView: UIView, ComponentView {
         didSet {
             oldValue?.view.removeFromSuperview()
             
+            componentView?.interactionHandler = interactionHandler
+            componentView?.contentHandler = contentHandler
             if let componentView = componentView {
                 addSubview(componentView.view)
-                setNeedsLayout()
             }
+            setNeedsLayout()
         }
     }
     
@@ -26,13 +28,25 @@ class TableViewSectionHeaderView: UIView, ComponentView {
     var component: Component? {
         didSet {
             componentView = component?.createView()
+        }
+    }
+    
+    var nestedComponentViews: [ComponentView]? {
+        if let componentView = componentView {
+            return [componentView]
+        }
+        return nil
+    }
+    
+    var interactionHandler: InteractionHandler? {
+        didSet {
             componentView?.interactionHandler = interactionHandler
         }
     }
     
-    weak var interactionHandler: InteractionHandler? {
+    var contentHandler: ComponentViewContentHandler? {
         didSet {
-            componentView?.interactionHandler = interactionHandler
+            componentView?.contentHandler = contentHandler
         }
     }
     
@@ -40,6 +54,7 @@ class TableViewSectionHeaderView: UIView, ComponentView {
     
     deinit {
         componentView?.interactionHandler = nil
+        componentView?.contentHandler = nil
     }
     
     // MARK: Layout
