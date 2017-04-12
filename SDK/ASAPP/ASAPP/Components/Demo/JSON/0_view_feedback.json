@@ -20,7 +20,7 @@
       "marginLeft" : 16
     },
     "separator": {
-      "margin": "32 -24"
+      "margin": "32 0"
     },
     "text": {
       "fontSize": 15,
