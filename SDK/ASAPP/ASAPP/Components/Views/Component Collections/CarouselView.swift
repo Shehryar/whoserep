@@ -72,9 +72,11 @@ class CarouselView: BaseComponentView {
     
     override func commonInit() {
         super.commonInit()
-        self.touchPassThroughView = TouchPassThroughView(withTargetView: scrollView)
         
         clipsToBounds = false
+        
+        self.touchPassThroughView = TouchPassThroughView(withTargetView: scrollView)
+        addSubview(touchPassThroughView)
         
         scrollView.scrollsToTop = false
         scrollView.clipsToBounds = false
@@ -82,8 +84,6 @@ class CarouselView: BaseComponentView {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
         addSubview(scrollView)
-        
-        addSubview(touchPassThroughView)
         
         pageControlView.onPageUpdateTap = { [weak self] (page) in
             self?.scrollToPage(page)
