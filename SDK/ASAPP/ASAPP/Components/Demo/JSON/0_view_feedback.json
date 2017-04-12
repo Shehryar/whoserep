@@ -20,7 +20,8 @@
       "marginLeft" : 16
     },
     "separator": {
-      "margin": "32 0"
+      "margin": "32 -24",
+      "align" : "fill"
     },
     "text": {
       "fontSize": 15,
@@ -124,6 +125,9 @@
                         },
                         {
                           "type": "separator",
+                          "style" : {
+                            "align" : "fill"
+                          },
                           "class": "separator"
                         },
                         {

@@ -254,28 +254,7 @@ extension ComponentLayoutEngine {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARK:- Vertical v2
+// MARK:- Vertical
 
 extension ComponentLayoutEngine {
     
