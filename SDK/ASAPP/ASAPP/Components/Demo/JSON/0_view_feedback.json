@@ -27,7 +27,7 @@
       "fontSize": 15,
       "color": "#5b657e"
     },
-    "textInput": {
+    "textArea": {
       "align": "fill",
       "marginBottom": 4,
       "color": "#55607a"
@@ -121,7 +121,7 @@
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textInput"
+                          "class": "textArea"
                         },
                         {
                           "type": "separator",
@@ -203,11 +203,11 @@
                           "class": "header"
                         },
                         {
-                          "type": "textInput",
+                          "type": "textArea",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textInput"
+                          "class": "textArea"
                         },
                         {
                           "type": "separator",
@@ -221,11 +221,11 @@
                           "class": "header"
                         },
                         {
-                          "type": "textInput",
+                          "type": "textArea",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textInput"
+                          "class": "textArea"
                         },
                         {
                           "type": "separator",
