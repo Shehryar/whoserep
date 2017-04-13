@@ -56,7 +56,8 @@
                       "gravity": "middle",
                       "fontWeight": "black",
                       "fontSize": 16,
-                      "color": "#5b657e"
+                      "color": "#5b657e",
+                      "weight" : 1
                     }
                   },
                   {
@@ -74,7 +75,7 @@
                     "style": {
                       "align": "right",
                       "gravity": "middle",
-                      "weight": 1,
+                      "weight": 0,
                       "paddingTop": 12,
                       "paddingLeft": 16,
                       "paddingBottom": 12,
