@@ -212,7 +212,7 @@ class ButtonView: UIButton, ComponentView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        guard let buttonItem = buttonItem else {
+        guard buttonItem != nil else {
             return .zero
         }
     
