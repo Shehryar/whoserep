@@ -18,6 +18,7 @@ class CarouselViewItem: Component {
         case cardDisplayCount = "cardDisplayCount"
         case pageControl = "pageControl"
         case pagingEnabled = "pagingEnabled"
+        case quickReplies = "quickReplies"
     }
     
     // MARK:- Defaults
@@ -37,6 +38,8 @@ class CarouselViewItem: Component {
     let pagingEnabled: Bool
     
     let pageControlItem: PageControlItem?
+    
+    let quickRepliesDictionary: [String : [SRSButtonItem]]?
     
     // MARK:- Component Properties
     
@@ -84,6 +87,25 @@ class CarouselViewItem: Component {
                                                               styles: styles) as? PageControlItem
         } else {
             self.pageControlItem = nil
+        }
+        
+        
+        if let quickRepliesJSONDict = content[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
+            var quickRepliesDictionary = [String : [SRSButtonItem]]()
+            for (pageId, buttonsJSON) in quickRepliesJSONDict {
+                var quickReplies = [SRSButtonItem]()
+                for buttonJSON in buttonsJSON {
+                    if let quickReply = SRSButtonItem.fromJSON(buttonJSON) {
+                        quickReplies.append(quickReply)
+                    }
+                }
+                if quickReplies.count > 0 {
+                    quickRepliesDictionary[pageId] = quickReplies
+                }
+            }
+            self.quickRepliesDictionary = quickRepliesDictionary
+        } else {
+            self.quickRepliesDictionary = nil
         }
         
         super.init(id: id,

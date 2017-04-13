@@ -28,7 +28,7 @@ class SRSButtonItem: NSObject {
 
 extension SRSButtonItem {
 
-    class func fromJSON(_ json: [String : AnyObject]?) -> SRSButtonItem? {
+    class func fromJSON(_ json: [String : Any]?) -> SRSButtonItem? {
         guard let json = json else {
             return nil
         }

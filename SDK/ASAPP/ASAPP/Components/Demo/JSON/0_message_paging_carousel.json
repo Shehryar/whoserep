@@ -50,6 +50,48 @@
         "content": {
           "pagingEnabled": true,
           "cardDisplayCount": 1.1,
+          "quickReplies": {
+            "unlimitedStarter": [
+              {
+                "type": "button",
+                "label": "Unilimited Starter Button",
+                "value": {
+                  "type": "AID",
+                  "content": "unlimitedStarter"
+                }
+              }
+            ],
+            "unlimitedStarter+": [
+              {
+                "type": "button",
+                "label": "Unilimited Starter+",
+                "value": {
+                  "type": "AID",
+                  "content": "unlimitedStarter+"
+                }
+              }
+            ],
+            "unlimitedStarter++": [
+              {
+                "type": "button",
+                "label": "Unilimited Starter++",
+                "value": {
+                  "type": "AID",
+                  "content": "unlimitedStarter++"
+                }
+              }
+            ],
+            "unlimitedFreal": [
+              {
+                "type": "button",
+                "label": "Unilimited Starter F'real",
+                "value": {
+                  "type": "AID",
+                  "content": "unlimitedStarterF'real"
+                }
+              }
+            ]
+          },
           "pageControl": {
             "type": "pageControl",
             "style": {},
@@ -57,6 +99,7 @@
           },
           "cards": [
             {
+              "id": "unlimitedStarter",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -227,6 +270,7 @@
               }
             },
             {
+              "id": "unlimitedStarter+",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -397,6 +441,7 @@
               }
             },
             {
+              "id": "unlimitedStarter++",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -567,6 +612,7 @@
               }
             },
             {
+              "id": "unlimitedFreal",
               "type": "stackView",
               "class": "card",
               "style": {

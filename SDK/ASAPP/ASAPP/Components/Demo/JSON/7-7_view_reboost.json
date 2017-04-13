@@ -31,7 +31,7 @@
     "cardNumber": {
       "gravity": "middle",
       "weight": 1,
-      "color": "#42454f",
+      "color": "#62656f",
       "fontSize": 15
     },
     "cardValue": {
