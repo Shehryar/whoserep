@@ -80,6 +80,13 @@ class IconItem: Component {
     
     let icon: Icon
     
+    var size: CGSize {
+        if style.width > 0 && style.height > 0 {
+            return CGSize(width: style.width, height: style.height)
+        }
+        return CGSize(width: IconItem.defaultWidth, height: IconItem.defaultHeight)
+    }
+    
     // MARK: Init
     
     required init?(id: String?,

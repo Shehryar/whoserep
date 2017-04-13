@@ -23,6 +23,7 @@ class ButtonItem: Component {
         case primary = "primary"
         case secondary = "secondary"
         case text = "text"
+        case textSecondary = "textSecondary"
         
         static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
             guard let string = string,
@@ -37,9 +38,11 @@ class ButtonItem: Component {
     
     static let defaultButtonStyle = ButtonStyle.primary
     
+    static let defaultIconSpacing: CGFloat = 8
+    
     // MARK:- Properties
     
-    let title: String
+    let title: String?
     
     let buttonStyle: ButtonStyle
     
@@ -61,11 +64,14 @@ class ButtonItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
-        guard let title = content?.string(for: JSONKey.title.rawValue) else {
-            DebugLog.w(caller: ButtonItem.self, "Missing title in content: \(String(describing: content))")
+        let title = content?.string(for: JSONKey.title.rawValue)
+        let icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
+        guard title != nil || icon != nil else {
+            DebugLog.w(caller: ButtonItem.self, "A buttonItem requires either a title or an icon.")
             return nil
         }
         self.title = title
+        self.icon = icon
         
         guard let actionJSON = content?[JSONKey.action.rawValue] else {
             DebugLog.w(caller: ButtonItem.self, "Missing action: \(String(describing: content))")
@@ -79,7 +85,6 @@ class ButtonItem: Component {
         
         self.buttonStyle = ButtonStyle.from(content?.string(for: JSONKey.buttonStyle.rawValue),
                                             defaultValue: ButtonItem.defaultButtonStyle)
-        self.icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
         
         super.init(id: id,
                    name: name,

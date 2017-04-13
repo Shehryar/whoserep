@@ -1,0 +1,224 @@
+{
+  "title": "Re-Boost",
+  "styles": {
+    "title": {
+      "marginBottom": 20,
+      "color": "#5c657e",
+      "fontWeight": "black",
+      "fontSize": 18
+    },
+    "inputContainer": {
+      "marginBottom": 16
+    },
+    "textInput": {
+      "weight": 1,
+      "gravity": "middle",
+      "fontSize": 20,
+      "color": "#5c657e",
+    },
+    "inputButton": {
+      "weight": 0,
+      "padding": "10 0 10 20",
+      "gravity": "bottom"
+    },
+    "cardContainer": {
+      "borderWidth": 1,
+      "borderColor": "#dadce2",
+      "padding": "0 0 0 16",
+      "cornerRadius": 6,
+      "marginTop": 6
+    },
+    "cardNumber": {
+      "gravity": "middle",
+      "weight": 1,
+      "color": "#42454f",
+      "fontSize": 15
+    },
+    "cardValue": {
+      "gravity": "middle",
+      "color": "#59637c",
+      "fontWeight": "black",
+      "fontSize": 18
+    },
+    "cardButton": {
+      "gravity": "middle",
+      "marginLeft": 4,
+      "padding": "20 16"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "style": {
+      "padding": "40 20"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "label",
+          "class": "title",
+          "content": {
+            "text": "Enter Re-Boost PIN"
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "inputContainer",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "textInput",
+                "class": "textInput",
+                "content": {
+                  "placeholder": "PIN Number",
+                  "password": true,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "button",
+                "class": "inputButton",
+                "content": {
+                  "style": "text",
+                  "title": "ADD CARD",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/addReboostPIN"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "cardContainer",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "label",
+                "class": "cardNumber",
+                "content": {
+                  "text": "4321"
+                }
+              },
+              {
+                "type": "label",
+                "class": "cardValue",
+                "content": {
+                  "text": "$20.00"
+                }
+              },
+              {
+                "type": "button",
+                "class": "cardButton",
+                "content": {
+                  "style": "textSecondary",
+                  "icon": {
+                    "type": "icon",
+                    "content": {
+                      "icon": "trash"
+                    }
+                  },
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/removeBoostPIN"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "cardContainer",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "label",
+                "class": "cardNumber",
+                "content": {
+                  "text": "4321"
+                }
+              },
+              {
+                "type": "label",
+                "class": "cardValue",
+                "content": {
+                  "text": "$20.00"
+                }
+              },
+              {
+                "type": "button",
+                "class": "cardButton",
+                "content": {
+                  "style": "textSecondary",
+                  "icon": {
+                    "type": "icon",
+                    "content": {
+                      "icon": "trash"
+                    }
+                  },
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/removeBoostPIN"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "cardContainer",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "label",
+                "class": "cardNumber",
+                "content": {
+                  "text": "4321"
+                }
+              },
+              {
+                "type": "label",
+                "class": "cardValue",
+                "content": {
+                  "text": "$20.00"
+                }
+              },
+              {
+                "type": "button",
+                "class": "cardButton",
+                "content": {
+                  "style": "textSecondary",
+                  "icon": {
+                    "type": "icon",
+                    "content": {
+                      "icon": "trash"
+                    }
+                  },
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/removeBoostPIN"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

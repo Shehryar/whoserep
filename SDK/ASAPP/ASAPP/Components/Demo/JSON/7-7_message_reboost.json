@@ -3,14 +3,21 @@
   "quickReplies": [
     {
       "type": "button",
-      "label": "ENTER CARD DETAILS",
+      "label": "ENTER RE-BOOST PIN",
       "value": {
         "type": "COMPONENT_VIEW",
         "content": {
-          "name": "4-1-3_view_Enter_Card_Details",
+          "name": "7-7_view_reboost",
           "displayStyle": "inset"
         }
       }
     }
-  ]
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {},
+      "body": {}
+    }
+  }
 }
