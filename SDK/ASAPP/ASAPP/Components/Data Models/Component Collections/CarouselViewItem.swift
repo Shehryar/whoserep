@@ -41,6 +41,14 @@ class CarouselViewItem: Component {
     
     let quickRepliesDictionary: [String : [SRSButtonItem]]?
     
+    var quickReplies: [SRSButtonItem]? {
+        if let quickRepliesDictionary = quickRepliesDictionary,
+            let currentValue = value as? String {
+            return quickRepliesDictionary[currentValue]
+        }
+        return nil
+    }
+    
     // MARK:- Component Properties
     
     override var viewClass: UIView.Type {

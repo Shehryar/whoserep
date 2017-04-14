@@ -42,23 +42,30 @@ class CarouselView: BaseComponentView {
     
     override var component: Component? {
         didSet {
+            guard let carousel = carouselViewItem else {
+                self.cardViews = nil
+                pageControlView.numberOfPages = 0
+                return
+            }
+
             var cardViews = [ComponentView]()
-            if let carousel = carouselViewItem {
-                scrollView.isPagingEnabled = carousel.pagingEnabled
-                
-                for card in carousel.cards {
-                    var cardView = card.createView()
-                    cardView?.interactionHandler = interactionHandler
-                    if let cardView = cardView {
-                        cardViews.append(cardView)
-                    }
+            for card in carousel.cards {
+                var cardView = card.createView()
+                cardView?.interactionHandler = interactionHandler
+                cardView?.contentHandler = contentHandler
+                if let cardView = cardView {
+                    cardViews.append(cardView)
                 }
             }
             self.cardViews = cardViews
             
+            scrollView.isPagingEnabled = carousel.pagingEnabled
+            
             pageControlView.component = carouselViewItem?.pageControlItem
             pageControlView.numberOfPages = numberOfPages
             pageControlView.currentPage = 0
+            
+            updateCarouselValue()
             
             setNeedsLayout()
         }
@@ -226,9 +233,14 @@ extension CarouselView: UIScrollViewDelegate {
         guard page >= 0 && page < numberOfPages else {
             return
         }
+        guard page != scrollView.currentPage else {
+            return
+        }
         
         let offsetX = CGFloat(page) * scrollView.bounds.width
         scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: animated)
+        
+        handlePageChange()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -239,6 +251,41 @@ extension CarouselView: UIScrollViewDelegate {
         let currentPage = scrollView.currentPage
         if currentPage != pageControlView.currentPage {
             pageControlView.currentPage = currentPage
+            
+            handlePageChange()
         }
+    }
+    
+    func handlePageChange() {
+        updateCarouselValue()
+        
+        if let carouselViewItem = carouselViewItem {
+            contentHandler?.componentView(self,
+                                          didUpdateContent: carouselViewItem,
+                                          requiresLayoutUpdate: false)
+        }
+    }
+    
+    func updateCarouselValue() {
+        let currentPage = pageControlView.currentPage
+        guard let carouselViewItem = carouselViewItem,
+            currentPage >= 0 && currentPage < carouselViewItem.cards.count else {
+                return
+        }
+        
+        let currentCard = carouselViewItem.cards[currentPage]
+        self.carouselViewItem?.value = currentCard.value
+        
+        DebugLog.d(caller: self, "Updated carousel value to: \(String(describing: carouselViewItem.value))")
+        
+        if let quickReplies = carouselViewItem.quickReplies {
+            
+            var titles = [String]()
+            for quickReply in quickReplies {
+                titles.append(quickReply.title)
+            }
+            print("\n\n\nQuick Replies: [\(titles.joined(separator: ", "))]")
+        }
+        
     }
 }

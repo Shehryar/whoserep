@@ -99,7 +99,7 @@
           },
           "cards": [
             {
-              "id": "unlimitedStarter",
+              "value": "unlimitedStarter",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -270,7 +270,7 @@
               }
             },
             {
-              "id": "unlimitedStarter+",
+              "value": "unlimitedStarter+",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -441,7 +441,7 @@
               }
             },
             {
-              "id": "unlimitedStarter++",
+              "value": "unlimitedStarter++",
               "type": "stackView",
               "class": "card",
               "style": {
@@ -612,7 +612,7 @@
               }
             },
             {
-              "id": "unlimitedFreal",
+              "value": "unlimitedFreal",
               "type": "stackView",
               "class": "card",
               "style": {

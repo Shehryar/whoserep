@@ -16,7 +16,10 @@ class ChatMessage: NSObject {
     
     let text: String?
     let attachment: ChatMessageAttachment?
-    let quickReplies: [SRSButtonItem]?
+    let _quickReplies: [SRSButtonItem]?
+    var quickReplies: [SRSButtonItem]? {
+        return (attachment?.template as? CarouselViewItem)?.quickReplies ?? _quickReplies
+    }
     
     // MARK: Metadata
     
@@ -44,9 +47,9 @@ class ChatMessage: NSObject {
         self.text = text
         self.attachment = attachment
         if let quickReplies = quickReplies, quickReplies.count > 0 {
-            self.quickReplies = quickReplies
+            self._quickReplies = quickReplies
         } else {
-            self.quickReplies = nil
+            self._quickReplies = nil
         }
         self.isReply = isReply
         self.sendTime = sendTime
@@ -71,7 +74,7 @@ class ChatMessage: NSObject {
     }
     
     func getAutoSelectQuickReply() -> SRSButtonItem? {
-        guard let quickReplies = quickReplies else {
+        guard let quickReplies = _quickReplies else {
             return nil
         }
         
