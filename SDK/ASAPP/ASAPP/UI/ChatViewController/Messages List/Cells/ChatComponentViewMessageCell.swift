@@ -28,11 +28,13 @@ class ChatComponentViewMessageCell: ChatMessageCell {
         super.commonInit()
         
         cardView.interactionHandler = self
+        cardView.contentHandler = self
         attachmentView = cardView
     }
     
     deinit {
         cardView.interactionHandler = nil
+        cardView.contentHandler = nil
     }
     
     // MARK: Reuse
@@ -51,5 +53,19 @@ extension ChatComponentViewMessageCell: InteractionHandler {
         }
         
         delegate?.chatMessageCell(self, didTap: buttonItem, from: message)
+    }
+}
+
+extension ChatComponentViewMessageCell: ComponentViewContentHandler {
+    
+    func componentView(_ componentView: ComponentView,
+                       didUpdateContent value: Any?,
+                       requiresLayoutUpdate: Bool) {
+        
+        
+    }
+    
+    func componentView(_ componentView: ComponentView, didPageCarousel carousel: CarouselViewItem) {
+        delegate?.chatMessageCell(self, didPageCarouselViewItem: carousel, from: componentView)
     }
 }

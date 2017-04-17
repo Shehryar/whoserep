@@ -13,6 +13,8 @@ class ComponentCardView: UIView {
     var component: Component? {
         didSet {
             componentView = component?.createView()
+            componentView?.interactionHandler = interactionHandler
+            componentView?.contentHandler = contentHandler
             setNeedsLayout()
         }
     }
@@ -26,6 +28,12 @@ class ComponentCardView: UIView {
     var interactionHandler: InteractionHandler? {
         didSet {
             componentView?.interactionHandler = interactionHandler
+        }
+    }
+    
+    var contentHandler: ComponentViewContentHandler? {
+        didSet {
+            componentView?.contentHandler = contentHandler
         }
     }
     

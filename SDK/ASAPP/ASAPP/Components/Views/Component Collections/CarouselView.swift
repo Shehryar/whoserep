@@ -260,9 +260,7 @@ extension CarouselView: UIScrollViewDelegate {
         updateCarouselValue()
         
         if let carouselViewItem = carouselViewItem {
-            contentHandler?.componentView(self,
-                                          didUpdateContent: carouselViewItem,
-                                          requiresLayoutUpdate: false)
+            contentHandler?.componentView(self, didPageCarousel: carouselViewItem)
         }
     }
     
@@ -286,6 +284,5 @@ extension CarouselView: UIScrollViewDelegate {
             }
             print("\n\n\nQuick Replies: [\(titles.joined(separator: ", "))]")
         }
-        
     }
 }

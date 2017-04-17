@@ -366,6 +366,12 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         }
     }
     
+    func chatMessageCell(_ cell: ChatMessageCell, didPageCarouselViewItem: CarouselViewItem, from: ComponentView) {
+        if let message = cell.message {
+            delegate?.chatMessagesView(self, didUpdateButtonItemsForMessage: message)
+        }
+    }
+    
     func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
         if let message = cell.message {
             delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, forMessage: message)

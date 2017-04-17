@@ -197,7 +197,10 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forMessage message: ChatMessage) {}
     func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, forMessage message: ChatMessage) { }
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForMessage message: ChatMessage) {}
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForMessage message: ChatMessage) {
+        quickRepliesView.reloadButtons(for: message)
+    }
+    
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
 }
