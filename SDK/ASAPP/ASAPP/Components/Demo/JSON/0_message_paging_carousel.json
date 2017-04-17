@@ -3,6 +3,48 @@
   "attachment": {
     "type": "componentView",
     "requiresNoContainer": true,
+    "quickReplies": {
+      "unlimitedStarter": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter"
+          }
+        }
+      ],
+      "unlimitedStarter+": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter+",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter+"
+          }
+        }
+      ],
+      "unlimitedStarter++": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter++",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter++"
+          }
+        }
+      ],
+      "unlimitedFreal": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter F'real",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarterF'real"
+          }
+        }
+      ]
+    },
     "content": {
       "title": "Carousel",
       "styles": {
@@ -44,54 +86,13 @@
       },
       "body": {
         "type": "carouselView",
+        "value" : "unlimitedStarter",
         "style": {
           "padding": 0
         },
         "content": {
           "pagingEnabled": true,
           "cardDisplayCount": 1.1,
-          "quickReplies": {
-            "unlimitedStarter": [
-              {
-                "type": "button",
-                "label": "Unilimited Starter Button",
-                "value": {
-                  "type": "AID",
-                  "content": "unlimitedStarter"
-                }
-              }
-            ],
-            "unlimitedStarter+": [
-              {
-                "type": "button",
-                "label": "Unilimited Starter+",
-                "value": {
-                  "type": "AID",
-                  "content": "unlimitedStarter+"
-                }
-              }
-            ],
-            "unlimitedStarter++": [
-              {
-                "type": "button",
-                "label": "Unilimited Starter++",
-                "value": {
-                  "type": "AID",
-                  "content": "unlimitedStarter++"
-                }
-              }
-            ],
-            "unlimitedFreal": [
-              {
-                "type": "button",
-                "label": "Unilimited Starter F'real",
-                "value": {
-                  "type": "AID",
-                  "content": "unlimitedStarterF'real"
-                }
-              }
-            ]
-          },
           "pageControl": {
             "type": "pageControl",
             "style": {},

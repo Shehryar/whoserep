@@ -260,6 +260,7 @@ extension CarouselView: UIScrollViewDelegate {
         updateCarouselValue()
         
         if let carouselViewItem = carouselViewItem {
+            
             contentHandler?.componentView(self, didPageCarousel: carouselViewItem)
         }
     }
@@ -275,14 +276,5 @@ extension CarouselView: UIScrollViewDelegate {
         self.carouselViewItem?.value = currentCard.value
         
         DebugLog.d(caller: self, "Updated carousel value to: \(String(describing: carouselViewItem.value))")
-        
-        if let quickReplies = carouselViewItem.quickReplies {
-            
-            var titles = [String]()
-            for quickReply in quickReplies {
-                titles.append(quickReply.title)
-            }
-            print("\n\n\nQuick Replies: [\(titles.joined(separator: ", "))]")
-        }
     }
 }

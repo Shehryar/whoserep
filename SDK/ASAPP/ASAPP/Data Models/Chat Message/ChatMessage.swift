@@ -18,7 +18,7 @@ class ChatMessage: NSObject {
     let attachment: ChatMessageAttachment?
     let _quickReplies: [SRSButtonItem]?
     var quickReplies: [SRSButtonItem]? {
-        return (attachment?.template as? CarouselViewItem)?.quickReplies ?? _quickReplies
+        return attachment?.quickReplies ?? _quickReplies
     }
     
     // MARK: Metadata
@@ -97,28 +97,10 @@ extension ChatMessage {
             return (nil, nil, nil)
         }
         let messageJSON = json["ClientMessage"] as? [String : Any] ?? json
-        
-        
+            
         let text = messageJSON["text"] as? String
-        
-        var attachment: ChatMessageAttachment?
-        let attachmentJSON = messageJSON["attachment"] as? [String : Any]
-        let requiresNoContainer = attachmentJSON?.bool(for: "requiresNoContainer")
-        if let attachmentType = attachmentJSON?.string(for: "type"),
-            let attachmentContent = attachmentJSON?["content"] as? [String : Any] {
-            switch attachmentType {
-            case "componentView":
-                if let viewContainer = ComponentViewContainer.from(attachmentContent) {
-                    attachment = ChatMessageAttachment(content: viewContainer.root,
-                                                       requiresNoContainer: requiresNoContainer)
-                }
-                break
-                
-            default:
-                break
-            }
-        }
-        
+        let attachment: ChatMessageAttachment? = ChatMessageAttachment.fromJSON(messageJSON["attachment"])
+
         var quickReplies = [SRSButtonItem]()
         if let quickRepliesJSON = (messageJSON["quick_replies"] ?? messageJSON["quickReplies"]) as? [[String : AnyObject]]   {
             for quickReplyJSON in quickRepliesJSON {

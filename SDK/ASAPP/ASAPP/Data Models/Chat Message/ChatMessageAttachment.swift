@@ -12,8 +12,8 @@ class ChatMessageAttachment: NSObject {
 
     enum AttachmentType: String {
         case none = "AttachmentTypeNone"
-        case image = "AttachmentTypeImage"
-        case template = "AttachmentTypeTemplate"
+        case image = "image"
+        case template = "componentView"
         case itemList = "AttachmentTypeItemList"
         case itemCarousel = "AttachmentTypeItemCarousel"
         
@@ -22,6 +22,8 @@ class ChatMessageAttachment: NSObject {
         ]
     }
     
+    // MARK:- Properties
+    
     let type: AttachmentType
     
     let image: ChatMessageImage?
@@ -29,10 +31,19 @@ class ChatMessageAttachment: NSObject {
     let itemList: SRSItemList?
     let itemCarousel: SRSItemCarousel?
     let requiresNoContainer: Bool
+    let quickRepliesDictionary: [String : [SRSButtonItem]]?
+    
+    var quickReplies: [SRSButtonItem]? {
+        if let quickRepliesDictionary = quickRepliesDictionary,
+            let currentValue = template?.value as? String {
+            return quickRepliesDictionary[currentValue]
+        }
+        return nil
+    }
     
     // MARK:- Init
     
-    init(content: Any, requiresNoContainer: Bool? = nil) {
+    init(content: Any, requiresNoContainer: Bool? = nil, quickRepliesDictionary: [String : [SRSButtonItem]]? = nil) {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil
@@ -61,6 +72,7 @@ class ChatMessageAttachment: NSObject {
         self.itemList = itemList
         self.itemCarousel = itemCarousel
         self.requiresNoContainer = requiresNoContainer ?? false
+        self.quickRepliesDictionary = quickRepliesDictionary
         super.init()
     }
 }
@@ -69,8 +81,12 @@ class ChatMessageAttachment: NSObject {
 
 extension ChatMessageAttachment {
     
-    class func fromJSON(_ json: [String : AnyObject]?) -> ChatMessageAttachment? {
-        guard let json = json else {
+    enum JSONKey: String {
+        case quickReplies = "quickReplies"
+    }
+    
+    class func fromJSON(_ json: Any?) -> ChatMessageAttachment? {
+        guard let json = json as? [String : Any] else {
             return nil
         }
         guard let typeString = json["type"] as? String else {
@@ -87,6 +103,24 @@ extension ChatMessageAttachment {
             return nil
         }
         
+        var quickRepliesDictionary: [String : [SRSButtonItem]]? = [String : [SRSButtonItem]]()
+        if let quickRepliesJSONDict = json[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
+            for (pageId, buttonsJSON) in quickRepliesJSONDict {
+                var quickReplies = [SRSButtonItem]()
+                for buttonJSON in buttonsJSON {
+                    if let quickReply = SRSButtonItem.fromJSON(buttonJSON) {
+                        quickReplies.append(quickReply)
+                    }
+                }
+                if quickReplies.count > 0 {
+                    quickRepliesDictionary?[pageId] = quickReplies
+                }
+            }
+        }
+        if (quickRepliesDictionary ?? [String : [SRSButtonItem]]()).isEmpty {
+            quickRepliesDictionary = nil
+        }
+
         switch type {
         case .image:
             if let image = ChatMessageImage.fromJSON(payload) {
@@ -95,9 +129,10 @@ extension ChatMessageAttachment {
             break
             
         case .template:
-            if let component = ComponentFactory.component(with: payload, styles: nil) {
-                return ChatMessageAttachment(content: component as AnyObject,
-                                             requiresNoContainer: json.bool(for: "requiresNoContainer"))
+            if let componentViewContainer = ComponentViewContainer.from(payload) {
+                return ChatMessageAttachment(content: componentViewContainer.root,
+                                             requiresNoContainer: json.bool(for: "requiresNoContainer"),
+                                             quickRepliesDictionary: quickRepliesDictionary)
             }
             break
             
