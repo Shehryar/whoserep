@@ -12,11 +12,30 @@ import UIKit
 // MARK:- ActionType
 
 enum ActionType: String {
-    case link       = "LINK"
-    case treewalk   = "AID"
-    case api        = "ACTION"
-    case action     = "APP_ACTION"
-    case componentView = "COMPONENT_VIEW"
+    case link       = "link"
+    case treewalk   = "aid"
+    case api        = "action"
+    case action     = "appAction"
+    case componentView = "componentView"
+    
+    static func from(_ value: Any?) -> ActionType? {
+        guard let value = value as? String else {
+            return nil
+        }
+        if let actionType = ActionType(rawValue: value) {
+            return actionType
+        }
+        
+        // Old Values
+        switch value {
+        case "LINK": return .link
+        case "AID": return .treewalk
+        case "ACTION": return .api
+        case "APP_ACTION": return .action
+        case "COMPONENT_VIEW": return .componentView
+        default: return nil
+        }
+    }
 }
 
 // MARK:- AppAction
@@ -90,7 +109,7 @@ extension Action {
             DebugLog.i("Action: Missing type in Action")
             return nil
         }
-        guard let type = ActionType(rawValue: typeString) else {
+        guard let type = ActionType.from(typeString) else {
             DebugLog.i("Action: Unrecognized action type: \(typeString)")
             return nil
         }
