@@ -11,7 +11,6 @@ import UIKit
 class ComponentViewContainer: NSObject {
     
     enum JSONKey: String {
-        case actions = "actions"
         case body = "body"
         case styles = "styles"
         case title = "title"

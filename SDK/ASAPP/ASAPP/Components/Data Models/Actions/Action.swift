@@ -126,7 +126,11 @@ extension Action {
             break
             
         case .treewalk:
-            name = json["content"] as? String
+            if let content = json["content"] as? [String : Any] {
+                name = content.string(for: "classification")
+            } else {
+                name = json["content"] as? String
+            }
             break
             
         case .api:
