@@ -12,27 +12,121 @@ import UIKit
 
 struct TextStyle {
     
-    let weight: FontWeight
+    let fontName: String
+    
+    let defaultSize: CGFloat
+    
     let letterSpacing: CGFloat
+    
+    let color: UIColor
+    
     var size: CGFloat {
         return TextSizeCategory.dynamicFontSize(defaultSize)
     }
     
-    private let defaultSize: CGFloat
+    var font: UIFont {
+        if let font = UIFont(name: fontName, size: size) {
+            return font
+        }
+        
+        DebugLog.w(caller: self, "Unable to create font with name: \(fontName)")
+        
+        return UIFont.systemFont(ofSize: size)
+    }
     
     // MARK: Init
     
-    init(size: CGFloat, weight: FontWeight, letterSpacing: CGFloat = 0) {
+    init(fontName: String, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
+        self.fontName = fontName
         self.defaultSize = size
-        self.weight = weight
         self.letterSpacing = letterSpacing
+        self.color = color
+    }
+    
+    init(fontName: String, size: CGFloat, letterSpacing: CGFloat) {
+        self.fontName = fontName
+        self.defaultSize = size
+        self.letterSpacing = letterSpacing
+        self.color = UIColor.black
     }
 }
+
+public class ASAPPTextStyles {
+    
+    
+    
+    
+    
+    var predictiveHeader = TextStyle(fontName: FontNames.latoBold,
+                                     size: 30,
+                                     letterSpacing: 0.5,
+                                     color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let header1 = TextStyle(fontName: FontNames.latoBlack,
+                            size: 24,
+                            letterSpacing: 0.5,
+                            color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let header2 = TextStyle(fontName: FontNames.latoBlack,
+                            size: 18,
+                            letterSpacing: 0.5,
+                            color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let subheader = TextStyle(fontName: FontNames.latoBlack,
+                              size: 12,
+                              letterSpacing: 1.5,
+                              color: UIColor(red:0.596, green:0.624, blue:0.686, alpha:1.000))
+    
+    let body = TextStyle(fontName: FontNames.latoRegular,
+                         size: 15,
+                         letterSpacing: 0.5,
+                         color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let bodyBold  = TextStyle(fontName: FontNames.latoBold,
+                              size: 15,
+                              letterSpacing: 0.5,
+                              color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let disclaimer = TextStyle(fontName: FontNames.latoRegular,
+                               size: 12,
+                               letterSpacing: 0.5,
+                               color: UIColor(red:0.596, green:0.624, blue:0.686, alpha:1.000))
+    
+    let error = TextStyle(fontName: FontNames.latoBold,
+                          size: 15,
+                          letterSpacing: 0.5,
+                          color: UIColor(red:0.945, green:0.463, blue:0.392, alpha:1.000))
+    
+    let readReceipt = TextStyle(fontName: FontNames.latoBold,
+                                size: 10,
+                                letterSpacing: 0.75,
+                                color: UIColor(red:0.596, green:0.624, blue:0.686, alpha:1.000))
+    
+    let button = TextStyle(fontName: FontNames.latoBlack,
+                           size: 14,
+                           letterSpacing: 1.5,
+                           color: UIColor(red:0.357, green:0.392, blue:0.498, alpha:1))
+    
+    let link = TextStyle(fontName: FontNames.latoBlack,
+                         size: 12,
+                         letterSpacing: 1.5,
+                         color: UIColor.black)
+}
+
+internal class FontNames {
+    static let latoLight = "Lato-Light"
+    static let latoRegular = "Lato-Regular"
+    static let latoBold = "Lato-Bold"
+    static let latoBlack = "Lato-Black"
+}
+
 
 // MARK:- Preset TextStyles
 
 extension TextStyle {
-
+    
+    
+    
     // Predictive
     
     static let predictiveGreeting = TextStyle(size: 28, weight: .bold, letterSpacing: 0.7) // was regular
@@ -55,7 +149,7 @@ extension TextStyle {
     static let chatStatusUpdate = TextStyle(size: 12, weight: .bold)
     static let chatTimestamp = TextStyle(size: 10, weight: .bold, letterSpacing: 0.8)
     static let chatMessageText = TextStyle(size: 15, weight: .regular)
-
+    
     // SRS Views
     
     static let srsLabel = TextStyle(size: 12, weight: .bold, letterSpacing: 1)
@@ -164,9 +258,9 @@ extension UIButton {
         
         if let text = text {
             setAttributedTitle(NSAttributedString(string: text, attributes: [
-                    NSFontAttributeName : ASAPP.styles.font(for: textStyle),
-                    NSForegroundColorAttributeName : color,
-                    NSKernAttributeName : textStyle.letterSpacing
+                NSFontAttributeName : ASAPP.styles.font(for: textStyle),
+                NSForegroundColorAttributeName : color,
+                NSKernAttributeName : textStyle.letterSpacing
                 ]), for: state)
         } else {
             setAttributedTitle(nil, for: state)
