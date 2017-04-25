@@ -8,6 +8,18 @@
 
 import UIKit
 
+// MARK:- Font Names
+
+internal class FontNames {
+    
+    static let latoLight = "Lato-Light"
+    static let latoRegular = "Lato-Regular"
+    static let latoBold = "Lato-Bold"
+    static let latoBlack = "Lato-Black"
+}
+
+// MARK:- Fonts
+
 class Fonts: NSObject {
     
     // MARK:- Loading Fonts

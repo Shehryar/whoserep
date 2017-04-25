@@ -1,14 +1,32 @@
 //
-//  Colors.swift
+//  ASAPPColors.swift
 //  ASAPP
 //
-//  Created by Mitchell Morgan on 7/21/16.
-//  Copyright © 2016 asappinc. All rights reserved.
+//  Created by Mitchell Morgan on 4/25/17.
+//  Copyright © 2017 asappinc. All rights reserved.
 //
 
 import UIKit
 
-class Colors: NSObject {
+internal extension UIColor {
+    
+    static let burntSiennaRed = UIColor(red:0.937, green:0.463, blue:0.404, alpha:1.000)
+    
+    static let ceruleanBlue = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1.000)
+    
+    static let cometBlue = UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.000)
+    
+    static let manateeGray = UIColor(red:0.573, green:0.600, blue:0.663, alpha:1.000)
+}
+
+
+
+
+
+
+
+
+class oldColors: NSObject {
     
     class func steelLightColor() -> UIColor {
         return UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0)
