@@ -13,7 +13,7 @@ class GlowingBallsLoadingView: UIView {
     override var tintColor: UIColor! {
         didSet {
             for ballView in ballViews {
-                ballView.backgroundColor = tintColor ?? Colors.grayColor()
+                ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
             }
         }
     }
@@ -54,7 +54,7 @@ class GlowingBallsLoadingView: UIView {
         for ballView in ballViews {
             ballView.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
             ballView.layer.cornerRadius = ballSize / 2.0
-            ballView.backgroundColor = tintColor ?? Colors.grayColor()
+            ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
             addSubview(ballView)
         }
     }

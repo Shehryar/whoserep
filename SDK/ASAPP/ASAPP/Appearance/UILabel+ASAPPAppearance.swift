@@ -20,13 +20,8 @@ extension UILabel {
         
         attributedText = NSAttributedString(string: text, attributes: [
             NSFontAttributeName : textStyle.font,
-            NSForegroundColorAttributeName : color ?? textStyle.color,
-            NSKernAttributeName : textStyle.letterSpacing
+            NSKernAttributeName : textStyle.letterSpacing,
+            NSForegroundColorAttributeName : color ?? textStyle.color
             ])
-    }
-    
-    func applyTextStyle(_ textStyle: ASAPPTextStyle, color: UIColor? = nil) {
-        font = textStyle.font
-        textColor = color ?? textStyle.color
     }
 }

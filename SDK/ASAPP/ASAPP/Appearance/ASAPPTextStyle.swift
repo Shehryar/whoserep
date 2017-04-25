@@ -50,7 +50,7 @@ public class ASAPPTextStyle: NSObject {
         self.fontName = fontName
         self.defaultSize = size
         self.letterSpacing = letterSpacing
-        self.color = UIColor.cometBlue
+        self.color = UIColor.asapp_cometBlue
         super.init()
     }
 }

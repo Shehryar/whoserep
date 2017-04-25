@@ -92,7 +92,7 @@ class ChatConnectionStatusView: UIView {
             
             
         case .disconnected:
-            backgroundColor = Colors.redColor()
+            backgroundColor = UIColor.asapp_burntSiennaRed
             label.textColor = UIColor.white
             break
         }

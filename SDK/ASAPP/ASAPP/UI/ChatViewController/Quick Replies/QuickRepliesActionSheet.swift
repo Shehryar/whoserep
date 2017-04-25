@@ -89,7 +89,7 @@ class QuickRepliesActionSheet: UIView {
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
         backButton.image = Images.asappImage(.iconBack)
         backButton.imageSize = CGSize(width: 11, height: 11)
-        backButton.foregroundColor = Colors.mediumTextColor()
+        backButton.foregroundColor = UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1)
         backButton.onTap = { [weak self] in
             if let blockSelf = self {
                 blockSelf.delegate?.quickRepliesActionSheetWillTapBack(blockSelf)
@@ -107,7 +107,7 @@ class QuickRepliesActionSheet: UIView {
         closeButton.isHidden = true
         closeButton.image = Images.asappImage(.iconSmallX)
         closeButton.imageSize = CGSize(width: 11, height: 11)
-        closeButton.foregroundColor = Colors.mediumTextColor()
+        closeButton.foregroundColor = UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1)
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
                 blockSelf.delegate?.quickRepliesActionSheetDidCancel(blockSelf)

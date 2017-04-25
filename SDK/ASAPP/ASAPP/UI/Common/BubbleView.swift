@@ -34,7 +34,7 @@ class BubbleView: UIView {
         }
     }
     
-    var fillColor = Colors.lighterGrayColor() {
+    var fillColor = UIColor(red:0.937,  green:0.945,  blue:0.949, alpha:1) {
         didSet {
             if oldValue != fillColor {
                 setNeedsDisplay()

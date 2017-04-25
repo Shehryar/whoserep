@@ -29,8 +29,8 @@ public class ASAPPButton: UIView {
         return isTouching ? .highlighted : .normal
     }
     
-    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.helpButtonBackgroundColor,
-                                        ASAPPButtonState.highlighted : ASAPP.styles.helpButtonBackgroundColor.highlightColor()]
+    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.colors.helpButtonBackground,
+                                        ASAPPButtonState.highlighted : ASAPP.styles.colors.helpButtonBackground.highlightColor()]
     
     fileprivate let contentView = UIView()
     

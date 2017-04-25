@@ -165,8 +165,8 @@ class Button: UIView {
     fileprivate var backgroundColors = [ButtonState : UIColor]()
     
     fileprivate var foregroundColors: [ButtonState : UIColor] = [
-        .normal : Colors.blueColor(),
-        .highlighted : Colors.blueColor()
+        .normal : UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1),
+        .highlighted : UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)
     ]
     
     // MARK: Initialization

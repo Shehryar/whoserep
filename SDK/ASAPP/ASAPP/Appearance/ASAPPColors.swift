@@ -12,114 +12,116 @@ public class ASAPPColors: NSObject {
     
     // MARK:- Navigation Bar
     
-    public var navBarBackgroundColor: UIColor = UIColor.white
+    public var navBarBackground: UIColor = UIColor.white
     
-    public var navBarTitleColor: UIColor = Colors.steelDarkColor()
+    public var navBarTitle: UIColor = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
     
-    public var navBarButtonColor: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
+    public var navBarButton: UIColor = UIColor(red:0.355, green:0.394, blue:0.494, alpha:1)
     
-    public var navBarButtonForegroundColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
+    public var navBarButtonForeground: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
-    public var navBarButtonBackgroundColor: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
+    public var navBarButtonBackground: UIColor = UIColor(red:0.866, green:0.878, blue:0.907, alpha:1)
     
     // MARK:- General Content
     
-    public var primaryBackgroundColor: UIColor = Colors.whiteColor()
+    public var backgroundPrimary: UIColor = UIColor.white
     
-    public var secondaryBackgroundColor: UIColor = Colors.offWhiteColor()
+    public var backgroundSecondary: UIColor = UIColor(red:0.972, green:0.969, blue:0.968, alpha:1)
     
-    public var primaryTextColor: UIColor = Colors.steelDarkColor()
+    public var textPrimary: UIColor = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
     
-    public var secondaryTextColor: UIColor = Colors.steelDark50Color()
+    public var textSecondary: UIColor = UIColor(red: 157 / 255.0, green: 158 / 255.0, blue: 163 / 255.0, alpha: 0.95)
     
-    public var primarySeparatorColor: UIColor = Colors.marbleLightColor()
+    public var separatorPrimary: UIColor = UIColor(red: 236.0 / 255.0, green: 231.0 / 255.0, blue: 231.0 / 255.0, alpha: 1.0)
     
-    public var secondarySeparatorColor: UIColor = Colors.marbleDarkColor()
+    public var separatorSecondary: UIColor = UIColor(red: 201.0 / 255.0, green: 196.0 / 255.0, blue: 196.0 / 255.0, alpha: 1.0)
     
-    public var controlTintColor: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1)
+    public var controlTint: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1)
     
-    public var controlSecondaryColor: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1)
+    public var controlSecondary: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1)
     
     // MARK:- Buttons
     
-    public var primaryTextButtonColors: ASAPPButtonColors = ASAPPButtonColors(textColor: UIColor(red:0.125, green:0.714, blue:0.931, alpha:1))
+    public var textButtonPrimary: ASAPPButtonColors = ASAPPButtonColors(textColor: UIColor(red:0.125, green:0.714, blue:0.931, alpha:1))
     
-    public var secondaryTextButtonColors: ASAPPButtonColors = ASAPPButtonColors(textColor: UIColor(red:0.663, green:0.686, blue:0.733, alpha:1))
+    public var textButtonSecondary: ASAPPButtonColors = ASAPPButtonColors(textColor: UIColor(red:0.663, green:0.686, blue:0.733, alpha:1))
     
-    public var primaryButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.204, green:0.698, blue:0.925, alpha:1))
+    public var buttonPrimary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.204, green:0.698, blue:0.925, alpha:1))
     
-    public var secondaryButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundNormal: UIColor(red:0.953, green:0.957, blue:0.965, alpha:1),
-                                                                            backgroundHighlighted: UIColor(red:0.903, green:0.907, blue:0.915, alpha:1),
-                                                                            backgroundDisabled: UIColor(red:0.6, green:0.6, blue:0.6, alpha:1),
-                                                                            textNormal: UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.0),
-                                                                            textHighlighted: UIColor(red:0.357, green:0.396, blue:0.494, alpha:1),
-                                                                            textDisabled: UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.8),
-                                                                            border: UIColor(red:0.886, green:0.890, blue:0.906, alpha:1))
+    public var buttonSecondary: ASAPPButtonColors = ASAPPButtonColors(backgroundNormal: UIColor(red:0.953, green:0.957, blue:0.965, alpha:1),
+                                                                      backgroundHighlighted: UIColor(red:0.903, green:0.907, blue:0.915, alpha:1),
+                                                                      backgroundDisabled: UIColor(red:0.6, green:0.6, blue:0.6, alpha:1),
+                                                                      textNormal: UIColor(red:0.357, green:0.396, blue:0.494, alpha:1.0),
+                                                                      textHighlighted: UIColor(red:0.357, green:0.396, blue:0.494, alpha:1),
+                                                                      textDisabled: UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.8),
+                                                                      border: UIColor(red:0.886, green:0.890, blue:0.906, alpha:1))
     
-    public var predictivePrimaryButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
+    public var predictivePrimaryButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
     
-    public var predictiveSecondaryButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
+    public var predictiveSecondaryButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
     
     // MARK:- Colors: Messages
     
-    public var messageTextColor: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
+    public var messagesListBackground = UIColor.asapp_alabasterWhite
     
-    public var messageBackgroundColor: UIColor = UIColor.white
+    public var messageText: UIColor = UIColor(red:0.476, green:0.498, blue:0.565, alpha:1)
     
-    public var messageBorderColor: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
+    public var messageBackground: UIColor = UIColor.white
     
-    public var replyMessageTextColor: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
+    public var messageBorder: UIColor? = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
     
-    public var replyMessageBackgroundColor: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
+    public var replyMessageText: UIColor = UIColor(red:0.264, green:0.278, blue:0.316, alpha:1)
     
-    public var replyMessageBorderColor: UIColor? = nil
+    public var replyMessageBackground: UIColor = UIColor(red:0.941, green:0.945, blue:0.953, alpha:1)
+    
+    public var replyMessageBorder: UIColor? = nil
     
     // MARK:- Colors: Chat
     
-    public var quickRepliesBackgroundColor: UIColor = UIColor(red:0.969, green:0.965, blue:0.965, alpha:1.000)
+    public var quickRepliesBackground: UIColor = UIColor(red:0.969, green:0.965, blue:0.965, alpha:1.000)
     
-    public var quickReplyButtonColors: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: Colors.offWhiteColor(),
-                                                                             textColor: Colors.steelMedColor())
+    public var quickReplyButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.972, green:0.969, blue:0.968, alpha:1),
+                                                                       textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0))
     
-    public var chatInputColors: ASAPPInputColors = ASAPPInputColors(background: Colors.whiteColor(),
-                                                                    text: Colors.darkTextColor(),
-                                                                    placeholderText: Colors.mediumTextColor(),
-                                                                    tint: Colors.grayColor(),
-                                                                    border: Colors.lighterGrayColor(),
-                                                                    primaryButton: Colors.blueGrayColor(),
-                                                                    secondaryButton: Colors.mediumTextColor())
+    public var chatInput: ASAPPInputColors = ASAPPInputColors(background: UIColor.white,
+                                                              text: UIColor(red:0.283,  green:0.290,  blue:0.307, alpha:1),
+                                                              placeholderText: UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1),
+                                                              tint: UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1),
+                                                              border: UIColor(red:0.937,  green:0.945,  blue:0.949, alpha:1),
+                                                              primaryButton: UIColor(red:0.476,  green:0.498,  blue:0.565, alpha:1),
+                                                              secondaryButton: UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1))
     
     // MARK:- Colors: Predictive
     
-    public var predictiveNavBarButtonColor: UIColor = UIColor.white
+    public var predictiveNavBarButton: UIColor = UIColor.white
     
-    public var predictiveNavBarButtonForegroundColor: UIColor = UIColor.white
+    public var predictiveNavBarButtonForeground: UIColor = UIColor.white
     
-    public var predictiveNavBarButtonBackgroundColor: UIColor = UIColor(red:0.201, green:0.215, blue:0.249, alpha:1)
+    public var predictiveNavBarButtonBackground: UIColor = UIColor(red:0.201, green:0.215, blue:0.249, alpha:1)
     
-    public var predictiveGradientTopColor: UIColor = UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9)
+    public var predictiveGradientTop: UIColor = UIColor(red:0.302, green:0.310, blue:0.347, alpha:0.9)
     
-    public var predictiveGradientMiddleColor: UIColor = UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8)
+    public var predictiveGradientMiddle: UIColor = UIColor(red:0.366, green:0.384, blue:0.426, alpha:0.8)
     
-    public var predictiveGradientBottomColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8)
+    public var predictiveGradientBottom: UIColor = UIColor(red:0.483, green:0.505, blue:0.568, alpha:0.8)
     
-    public var predictivePrimaryTextColor: UIColor = UIColor.white
+    public var predictiveTextPrimary: UIColor = UIColor.white
     
-    public var predictiveSecondaryTextColor: UIColor = Colors.steelMed50Color()
+    public var predictiveTextSecondary: UIColor = UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
     
-    public var predictiveInputColors: ASAPPInputColors = ASAPPInputColors(background: UIColor(red:0.232, green:0.247, blue:0.284, alpha:1),
-                                                                          text: UIColor.white,
-                                                                          placeholderText: UIColor(red:0.671, green:0.678, blue:0.694, alpha:1.000),
-                                                                          tint: UIColor(red:0.671, green:0.678, blue:0.694, alpha:1.000),
-                                                                          border: nil,
-                                                                          primaryButton: UIColor.white,
-                                                                          secondaryButton: UIColor.white)
+    public var predictiveInput: ASAPPInputColors = ASAPPInputColors(background: UIColor(red:0.232, green:0.247, blue:0.284, alpha:1),
+                                                                    text: UIColor.white,
+                                                                    placeholderText: UIColor(red:0.671, green:0.678, blue:0.694, alpha:1.000),
+                                                                    tint: UIColor(red:0.671, green:0.678, blue:0.694, alpha:1.000),
+                                                                    border: nil,
+                                                                    primaryButton: UIColor.white,
+                                                                    secondaryButton: UIColor.white)
     
     // MARK:- Help Button
     
-    public var helpButtonForegroundColor: UIColor = UIColor.white
+    public var helpButtonText: UIColor = UIColor.white
     
-    public var helpButtonBackgroundColor: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
+    public var helpButtonBackground: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
 }
 
 
