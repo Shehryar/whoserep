@@ -17,7 +17,11 @@ class LabelView: BaseComponentView {
     override var component: Component? {
         didSet {
             if let labelItem = labelItem {
-                label.textAlignment = labelItem.style.textAlign
+                if let textAlignment = labelItem.style.textAlign {
+                    label.textAlignment = textAlignment
+                } else {
+                    label.textAlignment = .left
+                }
                 
                 label.setAttributedText(labelItem.text,
                                         textType: labelItem.style.textType,

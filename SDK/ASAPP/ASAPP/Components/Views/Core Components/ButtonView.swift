@@ -143,7 +143,14 @@ class ButtonView: UIButton, ComponentView {
         
         // Horizontally align content
         let contentWidth = imageViewFrame.width + titleLabelFrame.width + imageTitleSpacing
+        
+        // Center content by default
         imageViewFrame.origin.x = floor((size.width - contentWidth) / 2.0)
+        if buttonItem.style.textAlign == .left {
+            imageViewFrame.origin.x = padding.left
+        } else if buttonItem.style.textAlign == .right {
+            imageViewFrame.origin.x = size.width - contentWidth - padding.right
+        }
         titleLabelFrame.origin.x = imageViewFrame.maxX + imageTitleSpacing
         
         return (titleLabelFrame, imageViewFrame)

@@ -38,7 +38,7 @@ struct ComponentStyle {
     
     var padding: UIEdgeInsets = .zero
     
-    var textAlign: NSTextAlignment = .left
+    var textAlign: NSTextAlignment?
     
     var textType: TextType = .body
     
