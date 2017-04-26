@@ -99,7 +99,7 @@ class ModalCardTitleView: UIView {
     // MARK: Image
     
     func updateText() {
-        label.setAttributedText(text, textStyle: .modalTitle, color: textColor)
+        label.setAttributedText(text, textType: .header2, color: textColor)
         setNeedsLayout()
     }
     

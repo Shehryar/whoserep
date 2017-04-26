@@ -25,24 +25,19 @@ class ComponentViewEmptyReloadView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        titleLabel.text = ASAPP.strings.failureToLoadScreen
-        titleLabel.textColor = ASAPP.styles.primaryTextColor
-        titleLabel.font = ASAPP.styles.font(with: .bold, size: 18)
+        titleLabel.setAttributedText(ASAPP.strings.failureToLoadScreen,
+                                     textType: .header2)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
         addSubview(titleLabel)
         
-        reloadButton.setTitle(ASAPP.strings.failureToLoadScreenReloadButton, for: .normal)
-        reloadButton.applyColors(ASAPP.styles.primaryTextButtonColors)
-        reloadButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
+        reloadButton.updateText(ASAPP.strings.failureToLoadScreenReloadButton, buttonStyle: .textPrimary)
         reloadButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         reloadButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapReloadButton), for: .touchUpInside)
         addSubview(reloadButton)
         
-        closeButton.setTitle(ASAPP.strings.failureToLoadScreenCloseButton, for: .normal)
-        closeButton.applyColors(ASAPP.styles.secondaryTextButtonColors)
-        closeButton.titleLabel?.font = ASAPP.styles.font(with: .black, size: 14)
+        closeButton.updateText(ASAPP.strings.failureToLoadScreenCloseButton, buttonStyle: .textSecondary)
         closeButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         closeButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapCloseButton), for: .touchUpInside)
         addSubview(closeButton)

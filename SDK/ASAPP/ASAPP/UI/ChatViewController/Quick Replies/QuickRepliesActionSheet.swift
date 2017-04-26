@@ -75,15 +75,15 @@ class QuickRepliesActionSheet: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        patternView.backgroundColor = Colors.patternBackgroundColor()
+        patternView.backgroundColor = UIColor.asapp_patternBackground
         patternBackgroundView.addSubview(patternView)
         
-        patternBackgroundView.backgroundColor = ASAPP.styles.quickRepliesBackgroundColor
+        patternBackgroundView.backgroundColor = ASAPP.styles.colors.quickRepliesBackground
         addSubview(patternBackgroundView)
         
         addSubview(containerView)
         
-        separatorTopView.backgroundColor = ASAPP.styles.primarySeparatorColor
+        separatorTopView.backgroundColor = ASAPP.styles.colors.separatorPrimary
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
@@ -130,11 +130,11 @@ class QuickRepliesActionSheet: UIView {
     }
     
     func styleButton(_ button: Button) {
-        button.setForegroundColor(ASAPP.styles.primaryTextColor, forState: .normal)
-        button.setForegroundColor(ASAPP.styles.primaryTextColor.highlightColor(), forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.primaryBackgroundColor, forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.secondaryBackgroundColor, forState: .highlighted)
-        button.layer.borderColor = ASAPP.styles.primarySeparatorColor.cgColor
+        button.setForegroundColor(ASAPP.styles.colors.textPrimary, forState: .normal)
+        button.setForegroundColor(ASAPP.styles.colors.textPrimary.highlightColor(), forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.colors.backgroundPrimary, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.colors.backgroundSecondary, forState: .highlighted)
+        button.layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
     }

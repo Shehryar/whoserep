@@ -43,7 +43,7 @@ class SRSLoaderBarView: UIView {
         loaderView.contentMode = .scaleToFill
         addSubview(loaderView)
         
-        finishedLabel.textColor = ASAPP.styles.secondaryTextColor
+        finishedLabel.textColor = ASAPP.styles.colors.textSecondary
         finishedLabel.textAlignment = .center
         finishedLabel.alpha = 0.0
         finishedLabel.numberOfLines = 0
@@ -98,7 +98,7 @@ class SRSLoaderBarView: UIView {
     }
     
     func updateCurrentView() {
-        finishedLabel.font = ASAPP.styles.font(for: .srsLabel)
+        finishedLabel.font = ASAPP.styles.textStyles.body.font
         
         guard let loaderItem = loaderItem else {
             finishedLabel.text = nil

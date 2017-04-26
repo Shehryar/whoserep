@@ -81,13 +81,13 @@ class ChatConnectionStatusView: UIView {
     func updateColors() {
         switch status {
         case .connected:
-            backgroundColor = ASAPP.styles.secondaryBackgroundColor
-            label.textColor = ASAPP.styles.secondaryTextColor
+            backgroundColor = ASAPP.styles.colors.backgroundSecondary
+            label.textColor = ASAPP.styles.colors.textSecondary
             break
             
         case .connecting:
-            backgroundColor = ASAPP.styles.secondaryBackgroundColor
-            label.textColor = ASAPP.styles.secondaryTextColor
+            backgroundColor = ASAPP.styles.colors.backgroundSecondary
+            label.textColor = ASAPP.styles.colors.textSecondary
             break
             
             
@@ -107,7 +107,7 @@ class ChatConnectionStatusView: UIView {
     }
     
     func updateDisplay() {
-        label.updateFont(for: .connectionStatusBanner)
+        label.font = ASAPP.styles.textStyles.error.font
         label.textAlignment = .center
         
         setNeedsLayout()

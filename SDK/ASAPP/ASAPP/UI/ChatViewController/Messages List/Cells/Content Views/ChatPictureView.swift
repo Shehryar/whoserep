@@ -38,7 +38,7 @@ class ChatPictureView: UIView {
     func commonInit() {
         clipsToBounds = true
         
-        imageView.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        imageView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6.0
         imageView.contentMode = .scaleAspectFill

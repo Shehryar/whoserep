@@ -8,14 +8,6 @@
 
 import UIKit
 
-@objc
-public enum ASAPPButtonType: Int {
-    case primary = 0
-    case secondary = 1
-    case textPrimary = 2
-    case textSecondary = 3
-}
-
 extension UIButton {
     
     func updateText(_ text: String?, textStyle: ASAPPTextStyle, colors: ASAPPButtonColors) {
@@ -57,35 +49,10 @@ extension UIButton {
         }
     }
     
-    func updateText(_ text: String?, buttonType: ASAPPButtonType, styles: ASAPPStyles) {
-        let textStyle: ASAPPTextStyle
-        let colors: ASAPPButtonColors
-        switch buttonType {
-        case .primary:
-            textStyle = styles.textStyles.button
-            colors = styles.colors.buttonPrimary
-            break
-            
-        case .secondary:
-            textStyle = styles.textStyles.button
-            colors = styles.colors.buttonSecondary
-            break
-            
-        case .textPrimary:
-            textStyle = styles.textStyles.link
-            colors = styles.colors.textButtonPrimary
-            break
-            
-        case.textSecondary:
-            textStyle = styles.textStyles.link
-            colors = styles.colors.textButtonSecondary
-            break
-        }
-        
+    func updateText(_ text: String?, buttonStyle: ButtonStyle) {
+        let textStyle = ASAPP.styles.textStyles.getStyle(forButtonStyle: buttonStyle)
+        let colors = ASAPP.styles.colors.getButtonColors(for: buttonStyle)
+
         updateText(text, textStyle: textStyle, colors: colors)
-    }
-    
-    func updateText(_ text: String?, buttonType: ASAPPButtonType) {
-        updateText(text, buttonType: buttonType, styles: ASAPP.styles)
     }
 }

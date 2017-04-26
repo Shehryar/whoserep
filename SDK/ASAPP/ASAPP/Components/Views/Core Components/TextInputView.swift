@@ -21,12 +21,11 @@ class TextInputView: BaseComponentView {
             
             if let textInputItem = textInputItem {
                 textInputView.placeholderText = textInputItem.placeholder
-                textInputView.textColor = textInputItem.style.color ?? ASAPP.styles.primaryTextColor
-                textInputView.font = ASAPP.styles.font(with: textInputItem.style.fontWeight,
-                                                       size: textInputItem.style.fontSize)
-                textInputView.underlineColorDefault = ASAPP.styles.controlSecondaryColor
+                textInputView.textColor = textInputItem.style.color ?? ASAPP.styles.colors.textPrimary
+                textInputView.font = ASAPP.styles.textStyles.style(for:textInputItem.style.textType).font
+                textInputView.underlineColorDefault = ASAPP.styles.colors.controlSecondary
                 textInputView.underlineStrokeWidth = 1
-                textInputView.tintColor = ASAPP.styles.controlTintColor
+                textInputView.tintColor = ASAPP.styles.colors.controlTint
                 textInputView.autocorrectionType = textInputItem.autocorrectionType
                 textInputView.autocapitalizationType = textInputItem.autocapitalizationType
                 textInputView.isSecureTextEntry = textInputItem.isSecure

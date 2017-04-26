@@ -17,13 +17,14 @@ class LabelView: BaseComponentView {
     override var component: Component? {
         didSet {
             if let labelItem = labelItem {
-                label.text = labelItem.text
                 label.textAlignment = labelItem.style.textAlign
-                label.textColor = labelItem.style.color ?? LabelItem.defaultColor
-                label.font = ASAPP.styles.font(with: labelItem.style.fontWeight,
-                                               size: labelItem.style.fontSize)
+                
+                label.setAttributedText(labelItem.text,
+                                        textType: labelItem.style.textType,
+                                        color: labelItem.style.color)
             } else {
                 label.text = nil
+                label.attributedText = nil
             }
         }
     }

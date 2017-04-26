@@ -62,8 +62,8 @@ public class ComponentsDemoViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentsDemoViewController.refresh))
         
-        tableView.backgroundColor = ASAPP.styles.secondaryBackgroundColor
-        tableView.separatorColor = ASAPP.styles.primarySeparatorColor
+        tableView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
+        tableView.separatorColor = ASAPP.styles.colors.separatorPrimary
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -88,7 +88,7 @@ public class ComponentsDemoViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         view.addSubview(tableView)
         
         refresh()
@@ -199,16 +199,12 @@ extension ComponentsDemoViewController: UITableViewDataSource {
         let cell = (tableView.dequeueReusableCell(withIdentifier: reuseId)
             ?? UITableViewCell(style: .value1, reuseIdentifier: reuseId))
    
-        cell.backgroundColor = ASAPP.styles.primaryBackgroundColor
+        cell.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         if let componentName = getPrettyComponentName(for: indexPath) {
-            cell.textLabel?.text = componentName
-            cell.textLabel?.font = ASAPP.styles.font(with: .regular, size: 16)
-                cell.textLabel?.textColor = ASAPP.styles.primaryTextColor
+            cell.textLabel?.setAttributedText(componentName, textStyle: ASAPP.styles.textStyles.body)
         } else {
-            cell.textLabel?.text = "All Cards"
-            cell.textLabel?.font = ASAPP.styles.font(with: .black, size: 16)
-            cell.textLabel?.textColor = ASAPP.styles.primaryTextButtonColors.textNormal
+            cell.textLabel?.setAttributedText("All Cards", textStyle: ASAPP.styles.textStyles.bodyBold)
         }
   
         return cell

@@ -75,7 +75,7 @@ class ComponentCardsPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         view.addSubview(scrollView)
     }
 

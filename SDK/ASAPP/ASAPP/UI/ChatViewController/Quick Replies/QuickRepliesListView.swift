@@ -158,17 +158,17 @@ extension QuickRepliesListView: UITableViewDataSource {
     func styleQuickReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
         
         cell.label.textAlignment = .center
-        cell.label.textColor = ASAPP.styles.quickReplyButtonColors.textNormal
-        cell.backgroundColor = ASAPP.styles.quickReplyButtonColors.backgroundNormal
+        cell.label.textColor = ASAPP.styles.colors.quickReplyButton.textNormal
+        cell.backgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundNormal
         
-        cell.label.font = ASAPP.styles.font(for: .srsButton)
-        cell.separatorBottomColor = ASAPP.styles.primarySeparatorColor
+        cell.label.font = ASAPP.styles.textStyles.body.font
+        cell.separatorBottomColor = ASAPP.styles.colors.separatorPrimary
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
-            cell.label.setAttributedText(buttonItem.title.uppercased(),
-                                         textStyle: .srsButton,
-                                         color: ASAPP.styles.quickReplyButtonColors.textNormal)
-            cell.imageTintColor = ASAPP.styles.quickReplyButtonColors.textNormal
+            cell.label.setAttributedText(buttonItem.title,
+                                         textType: .body,
+                                         color: ASAPP.styles.colors.quickReplyButton.textNormal)
+            cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
             
             if buttonItem.action.willExitASAPP && !ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) {
                 cell.imageView?.isHidden = false
@@ -190,7 +190,7 @@ extension QuickRepliesListView: UITableViewDataSource {
             cell.selectedBackgroundColor = nil
         } else {
             cell.label.alpha = 1
-            cell.selectedBackgroundColor = ASAPP.styles.quickReplyButtonColors.backgroundHighlighted
+            cell.selectedBackgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundHighlighted
         }
         
         
@@ -274,6 +274,6 @@ extension QuickRepliesListView {
     }
     
     class func approximateRowHeight() -> CGFloat {
-        return QuickReplyCell.approximateHeight(withFont: ASAPP.styles.font(for: .srsButton))
+        return QuickReplyCell.approximateHeight(withFont: ASAPP.styles.textStyles.body.font)
     }
 }

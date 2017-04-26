@@ -26,9 +26,7 @@ struct ComponentStyle {
     
     var cornerRadius: CGFloat = 0
     
-    var fontSize: CGFloat = 15
-    
-    var fontWeight: FontWeight = .regular
+    var fontSize: CGFloat?
     
     var gravity: VerticalAlignment = .top
     
@@ -42,6 +40,8 @@ struct ComponentStyle {
     
     var textAlign: NSTextAlignment = .left
     
+    var textType: TextType = .body
+    
     var weight: Int = 0
     
     var width: CGFloat = 0
@@ -51,6 +51,26 @@ struct ComponentStyle {
 // MARK:- JSON Parsing
 
 extension ComponentStyle {
+    
+    enum JSONKey: String {
+        // Keep alphabetical
+        case align = "align"
+        case backgroundColor = "backgroundColor"
+        case borderColor = "borderColor"
+        case borderWidth = "borderWidth"
+        case color = "color"
+        case cornerRadius = "cornerRadius"
+        case fontSize = "fontSize"
+        case gravity = "gravity"
+        case height = "height"
+        case letterSpacing = "letterSpacing"
+        case margin = "margin"
+        case padding = "padding"
+        case textAlign = "textAlign"
+        case textType = "textType"
+        case weight = "weight"
+        case width = "width"
+    }
     
     static func fromJSON(_ json: Any?) -> ComponentStyle {
         guard let json = json as? [String : Any] else {
@@ -80,9 +100,6 @@ extension ComponentStyle {
         if let fontSize = json.float(for: JSONKey.fontSize.rawValue) {
             style.fontSize = fontSize
         }
-        if let fontWeight = json.fontWeight(for: JSONKey.fontWeight.rawValue) {
-            style.fontWeight = fontWeight
-        }
         if let gravity = json.verticalAlignment(for: JSONKey.gravity.rawValue) {
             style.gravity = gravity
         }
@@ -96,6 +113,9 @@ extension ComponentStyle {
         style.padding = json.inset(for: JSONKey.padding.rawValue, defaultValue: style.padding)
         if let textAlign = json.textAlignment(for: JSONKey.textAlign.rawValue) {
             style.textAlign = textAlign
+        }
+        if let textType = json.textType(for: JSONKey.textType.rawValue) {
+            style.textType = textType
         }
         if let weight = json.int(for: JSONKey.weight.rawValue) {
             style.weight = weight
@@ -128,116 +148,5 @@ extension ComponentStyle {
         }
         
         return fromJSON(combinedStyleJSON)
-    }
-}
-
-// MARK:- JSONKeys
-
-extension ComponentStyle {
-    
-    enum JSONKey: String {
-        // Keep alphabetical
-        case align = "align"
-        case backgroundColor = "backgroundColor"
-        case borderColor = "borderColor"
-        case borderWidth = "borderWidth"
-        case color = "color"
-        case cornerRadius = "cornerRadius"
-        case fontSize = "fontSize"
-        case fontWeight = "fontWeight"
-        case gravity = "gravity"
-        case height = "height"
-        case letterSpacing = "letterSpacing"
-        case margin = "margin"
-        case padding = "padding"
-        case textAlign = "textAlign"
-        case weight = "weight"
-        case width = "width"
-    }
-}
-
-// MARK:- Horizontal Alignment
-
-enum HorizontalAlignment: String {
-    case left = "left"
-    case center = "center"
-    case right = "right"
-    case fill = "fill"
-    
-    static func from(_ string: String?) -> HorizontalAlignment? {
-        guard let string = string,
-            let alignment = HorizontalAlignment(rawValue: string) else {
-                return nil
-        }
-        return alignment
-    }
-    
-    static func from(_ string: String?, defaultValue: HorizontalAlignment) -> HorizontalAlignment {
-        return from(string) ?? defaultValue
-    }
-}
-
-// MARK:- Vertical Alignment
-
-enum VerticalAlignment: String {
-    case top = "top"
-    case middle = "middle"
-    case bottom = "bottom"
-    case fill = "fill"
-    
-    static func from(_ string: String?) -> VerticalAlignment? {
-        guard let string = string,
-            let alignment = VerticalAlignment(rawValue: string) else {
-                return nil
-        }
-        return alignment
-    }
-    
-    static func from(_ string: String?, defaultValue: VerticalAlignment) -> VerticalAlignment {
-       return from(string) ?? defaultValue
-    }
-}
-
-// MARK:- NSTextAlignment
-
-extension NSTextAlignment {
-    
-    static func from(_ stringValue: String?) -> NSTextAlignment? {
-        guard let stringValue = stringValue else {
-            return nil
-        }
-        
-        switch stringValue.lowercased() {
-        case "left": return .left
-        case "center": return .center
-        case "right": return .right
-        case "justified": return .justified
-        default: return nil
-        }
-    }
-    
-    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
-        return from(stringValue) ?? defaultValue
-    }
-}
-
-// MARK:- FontWeight
-
-enum FontWeight: String {
-    case light = "light"
-    case regular = "regular"
-    case bold = "bold"
-    case black = "black"
-    
-    static func from(_ string: String?) -> FontWeight? {
-        guard let string = string,
-            let style = FontWeight(rawValue: string) else {
-                return nil
-        }
-        return style
-    }
-    
-    static func from(_ string: String?, defaultValue: FontWeight = regular) -> FontWeight {
-        return from(string) ?? defaultValue
     }
 }

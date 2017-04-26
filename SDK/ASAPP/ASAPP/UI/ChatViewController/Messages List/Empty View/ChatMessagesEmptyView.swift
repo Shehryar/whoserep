@@ -35,16 +35,16 @@ class ChatMessagesEmptyView: UIView {
     // MARK: Init
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.messagesListBackground
         
-        titleLabel.textColor = ASAPP.styles.primaryTextColor
-        titleLabel.updateFont(for: .emptyChatTitle)
+        titleLabel.textColor = ASAPP.styles.colors.textPrimary
+        titleLabel.updateFont(for: .header1)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         addSubview(titleLabel)
         
-        messageLabel.textColor = ASAPP.styles.secondaryTextColor
-        messageLabel.updateFont(for: .emptyChatMessage)
+        messageLabel.textColor = ASAPP.styles.colors.textSecondary
+        messageLabel.updateFont(for: .body)
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         addSubview(messageLabel)

@@ -46,13 +46,12 @@ class TextAreaView: BaseComponentView {
         textView.scrollsToTop = false
         addSubview(textView)
         
-        placeholderTextView.textColor = ASAPP.styles.secondaryTextColor
         placeholderTextView.backgroundColor = UIColor.clear
         placeholderTextView.scrollsToTop = false
         placeholderTextView.isUserInteractionEnabled = false
         addSubview(placeholderTextView)
         
-        underlineView.backgroundColor = ASAPP.styles.controlSecondaryColor
+        underlineView.backgroundColor = ASAPP.styles.colors.controlSecondary
         addSubview(underlineView)
     }
     
@@ -63,16 +62,10 @@ class TextAreaView: BaseComponentView {
     // MARK: Styling
     
     func styleTextView(_ textView: UITextView, for textAreaItem: TextAreaItem, isPlaceholder: Bool) {
-        textView.font = ASAPP.styles.font(with: textAreaItem.style.fontWeight,
-                                          size: textAreaItem.style.fontSize)
-        textView.tintColor = ASAPP.styles.controlTintColor
+        textView.tintColor = ASAPP.styles.colors.controlTint
         
-        if isPlaceholder {
-            textView.textColor = ASAPP.styles.secondaryTextColor
-        } else {
-            textView.textColor = textAreaItem.style.color ?? ASAPP.styles.primaryTextColor
-        }
-        
+        let color = isPlaceholder ? ASAPP.styles.colors.textSecondary : textAreaItem.style.color
+        textView.applyTextType(textAreaItem.style.textType, color: color)
     }
     
     // MARK: Layout

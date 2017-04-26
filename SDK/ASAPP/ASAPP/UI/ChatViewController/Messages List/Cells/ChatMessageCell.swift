@@ -28,9 +28,7 @@ class ChatMessageCell: UITableViewCell {
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.getSendTimeString(),
-                                        textStyle: .chatTimestamp,
-                                        color: ASAPP.styles.secondaryTextColor)
+            timeLabel.setAttributedText(message?.getSendTimeString(), textType: .readReceipt)
             
             setNeedsLayout()
         }
@@ -105,12 +103,12 @@ class ChatMessageCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         isOpaque = true
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.messagesListBackground
     
         contentView.addSubview(textBubbleView)
         
         timeLabel.alpha = 0.0
-        timeLabel.backgroundColor = ASAPP.styles.primaryBackgroundColor
+        timeLabel.backgroundColor = ASAPP.styles.colors.messagesListBackground
         contentView.insertSubview(timeLabel, belowSubview: textBubbleView)
     }
     
@@ -180,10 +178,7 @@ extension ChatMessageCell {
     
     func updateFonts() {
         textBubbleView.updateFonts()
-        
-        timeLabel.setAttributedText(message?.getSendTimeString(),
-                                    textStyle: .chatTimestamp,
-                                    color: ASAPP.styles.secondaryTextColor)
+        timeLabel.setAttributedText(message?.getSendTimeString(), textType: .readReceipt)
         
         setNeedsLayout()
     }

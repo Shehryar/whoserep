@@ -105,13 +105,13 @@ class ChatMessagesView: UIView {
         self.dataSource = ChatMessagesViewDataSource()
         
         
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.messagesListBackground
         clipsToBounds = false
         
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.clipsToBounds = false
-        tableView.backgroundColor = ASAPP.styles.primaryBackgroundColor
+        tableView.backgroundColor = ASAPP.styles.colors.messagesListBackground
         tableView.separatorStyle = .none
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))

@@ -37,9 +37,9 @@ class PageControlView: BaseComponentView {
     override var component: Component? {
         didSet {
             pageControl.currentPageIndicatorTintColor = component?.style.color
-                ?? ASAPP.styles.controlTintColor
+                ?? ASAPP.styles.colors.controlTint
             
-            pageControl.pageIndicatorTintColor = ASAPP.styles.controlSecondaryColor
+            pageControl.pageIndicatorTintColor = ASAPP.styles.colors.controlSecondary
             pageControl.addTarget(self, action: #selector(PageControlView.onPageChange), for: .valueChanged)
             setNeedsLayout()
         }

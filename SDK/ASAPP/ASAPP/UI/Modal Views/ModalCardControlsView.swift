@@ -114,37 +114,15 @@ class ModalCardControlsView: UIView {
     // MARK:- Display
     
     func updateCancelButton() {
-        cancelButton.setAttributedText(cancelText,
-                                       textStyle: .modalSecondayButton,
-                                       color: buttonColor,
-                                       state: .normal)
-        
-        cancelButton.setAttributedText(cancelText,
-                                       textStyle: .modalSecondayButton,
-                                       color: buttonColor,
-                                       state: .highlighted)
-        
-        cancelButton.setAttributedText(cancelText,
-                                       textStyle: .modalSecondayButton,
-                                       color: buttonColorDisabled,
-                                       state: .disabled)
+        cancelButton.updateText(cancelText,
+                                textStyle: ASAPP.styles.textStyles.button,
+                                colors: ASAPP.styles.colors.buttonSecondary)
     }
     
     func updateConfirmButton() {
-        confirmButton.setAttributedText(confirmText,
-                                        textStyle: .modalPrimaryButton,
-                                        color: buttonColor,
-                                        state: .normal)
-        
-        confirmButton.setAttributedText(confirmText,
-                                        textStyle: .modalPrimaryButton,
-                                        color: buttonColor,
-                                        state: .highlighted)
-        
-        confirmButton.setAttributedText(confirmText,
-                                        textStyle: .modalPrimaryButton,
-                                        color: buttonColorDisabled,
-                                        state: .disabled)
+        confirmButton.updateText(confirmText,
+                                 textStyle: ASAPP.styles.textStyles.button,
+                                 colors: ASAPP.styles.colors.buttonPrimary)
     }
     
     // MARK:- Layout

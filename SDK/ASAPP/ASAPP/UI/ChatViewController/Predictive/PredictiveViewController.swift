@@ -56,9 +56,9 @@ class PredictiveViewController: UIViewController {
             blurredBgView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(ASAPP.styles.predictiveGradientTopColor,
-                                 middleColor: ASAPP.styles.predictiveGradientMiddleColor,
-                                 bottomColor: ASAPP.styles.predictiveGradientBottomColor)
+        blurredColorLayer.update(ASAPP.styles.colors.predictiveGradientTop,
+                                 middleColor: ASAPP.styles.colors.predictiveGradientMiddle,
+                                 bottomColor: ASAPP.styles.colors.predictiveGradientBottom)
         blurredBgView.contentView.addSubview(blurredColorLayer)
         
         
@@ -68,7 +68,7 @@ class PredictiveViewController: UIViewController {
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = UIColor.white
         titleLabel.setAttributedText(titleText,
-                                     textStyle: .predictiveGreeting,
+                                     textType: .predictiveHeader,
                                      color: UIColor.white)
         blurredBgView.contentView.addSubview(titleLabel)
         
@@ -82,7 +82,7 @@ class PredictiveViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(buttonsView)
         
-        messageInputView.inputColors = ASAPP.styles.predictiveInputColors
+        messageInputView.inputColors = ASAPP.styles.colors.predictiveInput
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
         messageInputView.layer.cornerRadius = 20
         messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
@@ -94,7 +94,7 @@ class PredictiveViewController: UIViewController {
     
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
         connectionStatusLabel.setAttributedText(ASAPP.strings.predictiveNoConnectionText,
-                                                textStyle: .connectionStatusBanner,
+                                                textType: .error,
                                                 color: UIColor.white)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
@@ -142,8 +142,10 @@ class PredictiveViewController: UIViewController {
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
-        titleLabel.updateFont(for: .predictiveGreeting)
-        messageLabel.updateFont(for: .predictiveMessage)
+        
+        
+        titleLabel.updateFont(for: .predictiveHeader)
+        messageLabel.updateFont(for: .body)
         
         buttonsView.updateDisplay()
         messageInputView.updateDisplay()
@@ -440,8 +442,8 @@ extension PredictiveViewController {
         
         if let customMessage = appOpenResponse.customizedMessage {
             messageLabel.setAttributedText(customMessage,
-                                           textStyle: .predictiveMessage,
-                                           color: UIColor.white)
+                                           textType: .body,
+                                           color: ASAPP.styles.colors.predictiveTextPrimary)
         } else {
             messageLabel.text = nil
         }

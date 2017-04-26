@@ -25,9 +25,9 @@ class SRSIconItemView: UIView {
     // MARK:- Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.backgroundSecondary
         
-        imageView.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        imageView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)

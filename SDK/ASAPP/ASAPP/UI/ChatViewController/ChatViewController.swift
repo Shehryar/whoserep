@@ -217,25 +217,25 @@ class ChatViewController: UIViewController {
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
             navigationBar.backgroundColor = nil
-            if ASAPP.styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.colors.navBarBackground.isDark() {
                 navigationBar.barStyle = .black
-                if ASAPP.styles.navBarBackgroundColor != UIColor.black {
-                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
+                if ASAPP.styles.colors.navBarBackground != UIColor.black {
+                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
                 }
             } else {
                 navigationBar.barStyle = .default
-                if ASAPP.styles.navBarBackgroundColor != UIColor.white {
-                    navigationBar.barTintColor = ASAPP.styles.navBarBackgroundColor
+                if ASAPP.styles.colors.navBarBackground != UIColor.white {
+                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
                 }
             }
-            navigationBar.tintColor = ASAPP.styles.navBarButtonColor
+            navigationBar.tintColor = ASAPP.styles.colors.navBarButton
             setNeedsStatusBarAppearanceUpdate()
         }
         
         // View
         
         view.clipsToBounds = true
-        view.backgroundColor = ASAPP.styles.primaryBackgroundColor
+        view.backgroundColor = ASAPP.styles.colors.messagesListBackground
         updateViewForLiveChat(animated: false)
         
         view.addSubview(chatMessagesView)
@@ -347,7 +347,7 @@ class ChatViewController: UIViewController {
         if showPredictiveOnViewAppear || predictiveVCVisible {
             return .lightContent
         } else {
-            if ASAPP.styles.navBarBackgroundColor.isDark() {
+            if ASAPP.styles.colors.navBarBackground.isDark() {
                 return .lightContent
             } else {
                 return .default
@@ -1225,17 +1225,17 @@ extension ChatViewController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         
-        let barTintColor = ASAPP.styles.secondaryBackgroundColor
+        let barTintColor = ASAPP.styles.colors.backgroundSecondary
         imagePickerController.navigationBar.shadowImage = nil
         imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
         imagePickerController.navigationBar.barTintColor = barTintColor
-        imagePickerController.navigationBar.tintColor = ASAPP.styles.secondaryTextColor
+        imagePickerController.navigationBar.tintColor = ASAPP.styles.colors.textSecondary
         if barTintColor.isBright() {
             imagePickerController.navigationBar.barStyle = .default
         } else {
             imagePickerController.navigationBar.barStyle = .black
         }
-        imagePickerController.view.backgroundColor = ASAPP.styles.primaryBackgroundColor
+        imagePickerController.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         return imagePickerController
     }

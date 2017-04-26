@@ -49,12 +49,12 @@ class CheckboxView: BaseComponentView {
     override func commonInit() {
         super.commonInit()
     
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         addSubview(labelView)
         
         checkboxSquareView.layer.borderWidth = 1
-        checkboxSquareView.layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
+        checkboxSquareView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
         checkboxSquareView.layer.cornerRadius = 5.0
         addSubview(checkboxSquareView)
         
@@ -155,11 +155,11 @@ extension CheckboxView {
     
     fileprivate func updateDisplay() {
         if isChecked {
-            checkboxSquareView.backgroundColor = ASAPP.styles.controlTintColor
-            checkboxSquareView.layer.borderColor = ASAPP.styles.controlTintColor.cgColor
+            checkboxSquareView.backgroundColor = ASAPP.styles.colors.controlTint
+            checkboxSquareView.layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
             checkboxSquareView.backgroundColor = UIColor.clear
-            checkboxSquareView.layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
+            checkboxSquareView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
         }
         
         checkImageView.isHidden = !isChecked

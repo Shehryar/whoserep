@@ -133,8 +133,8 @@ extension ASAPPButton {
     
     func updateDisplay() {
         label.setAttributedText(ASAPP.strings.asappButton,
-                                textStyle: .asappButton,
-                                color: ASAPP.styles.helpButtonForegroundColor)
+                                textType: .link,
+                                color: ASAPP.styles.colors.helpButtonText)
         
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1

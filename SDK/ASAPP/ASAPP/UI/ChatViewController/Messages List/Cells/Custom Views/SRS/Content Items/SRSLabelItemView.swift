@@ -23,11 +23,11 @@ class SRSLabelItemView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.backgroundSecondary
         
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
-        label.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        label.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         addSubview(label)
         
         updateDisplay()
@@ -48,9 +48,9 @@ class SRSLabelItemView: UIView {
     func updateDisplay() {
         label.textAlignment = labelItem?.alignment?.getNSTextAlignment() ?? .center
         
-        let textColor = labelItem?.color ?? ASAPP.styles.secondaryTextColor
+        let textColor = labelItem?.color ?? ASAPP.styles.colors.textSecondary
         label.setAttributedText(labelItem?.text,
-                                textStyle: .srsLabel,
+                                textType: .body,
                                 color: textColor)
         
         setNeedsLayout()

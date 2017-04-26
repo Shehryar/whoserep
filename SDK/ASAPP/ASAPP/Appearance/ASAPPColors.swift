@@ -56,9 +56,9 @@ public class ASAPPColors: NSObject {
                                                                       textDisabled: UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.8),
                                                                       border: UIColor(red:0.886, green:0.890, blue:0.906, alpha:1))
     
-    public var predictivePrimaryButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
+    public var predictiveButtonPrimary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
     
-    public var predictiveSecondaryButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
+    public var predictiveButtonSecondary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
     
     // MARK:- Colors: Messages
     
@@ -122,6 +122,18 @@ public class ASAPPColors: NSObject {
     public var helpButtonText: UIColor = UIColor.white
     
     public var helpButtonBackground: UIColor = UIColor(red:0.374, green:0.392, blue:0.434, alpha:1)
+}
+
+extension ASAPPColors {
+    
+    func getButtonColors(for buttonStyle: ButtonStyle) -> ASAPPButtonColors {
+        switch buttonStyle {
+        case .primary: return ASAPP.styles.colors.buttonPrimary
+        case .secondary: return ASAPP.styles.colors.buttonSecondary
+        case .textPrimary: return ASAPP.styles.colors.textButtonPrimary
+        case .textSecondary: return ASAPP.styles.colors.textButtonSecondary
+        }
+    }
 }
 
 

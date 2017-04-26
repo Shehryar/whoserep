@@ -8,6 +8,29 @@
 
 import UIKit
 
+// MARK:- NSTextAlignment
+
+extension NSTextAlignment {
+    
+    static func from(_ stringValue: String?) -> NSTextAlignment? {
+        guard let stringValue = stringValue else {
+            return nil
+        }
+        
+        switch stringValue.lowercased() {
+        case "left": return .left
+        case "center": return .center
+        case "right": return .right
+        case "justified": return .justified
+        default: return nil
+        }
+    }
+    
+    static func from(_ stringValue: String?, defaultValue: NSTextAlignment) -> NSTextAlignment {
+        return from(stringValue) ?? defaultValue
+    }
+}
+
 // MARK:- Dictionary Extension
 
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
@@ -180,49 +203,7 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         return contentInset
     }
     
-    // MARK: Horizontal Alignment
-    
-    func horizontalAlignment(for key: String) -> HorizontalAlignment? {
-        return HorizontalAlignment.from(self[key as! Key] as? String)
-    }
-    
-    func verticalAlignment(for key: String) -> VerticalAlignment? {
-        return VerticalAlignment.from(self[key as! Key] as? String)
-    }
-    
     func textAlignment(for key: String) -> NSTextAlignment? {
         return NSTextAlignment.from(self[key as! Key] as? String)
     }
-    
-    func fontWeight(for key: String) -> FontWeight? {
-        return FontWeight.from(self[key as! Key] as? String)
-    }
 }
-
-// MARK: Enums
-
-enum CapitalizationType: String {
-    case characters = "characters"
-    case none = "none" // Default
-    case sentences = "sentences"
-    case words = "words"
-    
-    func type() -> UITextAutocapitalizationType {
-        switch self {
-        case .characters: return .allCharacters
-        case .none: return .none
-        case .sentences: return .sentences
-        case .words: return .words
-        }
-    }
-    
-    static func from(_ string: Any?) -> CapitalizationType? {
-        guard let string = string as? String,
-            let type = CapitalizationType(rawValue: string) else {
-                return nil
-        }
-        return type
-    }
-}
-
-

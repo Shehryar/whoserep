@@ -32,7 +32,7 @@ internal extension UIColor {
     
     // MARK: Patterns
     
-    class var asapp_patternBackgroundColor: UIColor? {
+    class var asapp_patternBackground: UIColor? {
         if let tileImage = Images.asappImage(.tileImageDash) {
             return UIColor(patternImage: tileImage)
         }

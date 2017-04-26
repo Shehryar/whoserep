@@ -83,7 +83,7 @@ public class ComponentPreviewViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         if let contentView = contentView {
             view.addSubview(contentView)
         }
@@ -158,14 +158,14 @@ public class ComponentPreviewViewController: UIViewController {
                         cardView.component = component.root
                         cardView.interactionHandler = self
                         self?.contentView = cardView
-                        self?.view.backgroundColor = ASAPP.styles.secondaryBackgroundColor
+                        self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
                         break
                         
                     case .view:
                         var componentView = component.root.createView()
                         componentView?.interactionHandler = strongSelf
                         self?.contentView = componentView?.view
-                        self?.view.backgroundColor = ASAPP.styles.primaryBackgroundColor
+                        self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
                         break
                         
                     case .message:

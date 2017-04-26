@@ -21,9 +21,9 @@ class SRSSeparatorView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.secondaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.backgroundSecondary
         
-        let color = ASAPP.styles.primarySeparatorColor
+        let color = ASAPP.styles.colors.separatorPrimary
         separatorView.update(color.withAlphaComponent(0),
                              middleColor: color,
                              rightColor: color.withAlphaComponent(0))

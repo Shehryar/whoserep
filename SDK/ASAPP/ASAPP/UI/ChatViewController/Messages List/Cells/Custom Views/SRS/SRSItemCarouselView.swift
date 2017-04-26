@@ -59,8 +59,8 @@ class SRSItemCarouselView: UIView {
         touchPassThroughView = TouchPassThroughView(withTargetView: scrollView)
         addSubview(touchPassThroughView!)
         
-        pageControl.currentPageIndicatorTintColor = ASAPP.styles.primaryTextColor.withAlphaComponent(0.4)
-        pageControl.pageIndicatorTintColor = ASAPP.styles.secondaryTextColor.withAlphaComponent(0.4)
+        pageControl.currentPageIndicatorTintColor = ASAPP.styles.colors.textPrimary.withAlphaComponent(0.4)
+        pageControl.pageIndicatorTintColor = ASAPP.styles.colors.textSecondary.withAlphaComponent(0.4)
         
         pageControl.hidesForSinglePage = true
         pageControl.addTarget(self, action: #selector(SRSItemCarouselView.pageControlDidChange), for: .valueChanged)

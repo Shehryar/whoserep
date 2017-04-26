@@ -32,51 +32,7 @@ class ButtonView: UIButton, ComponentView {
             isLoading = false
             
             if let buttonItem = buttonItem {
-                var textStyle: TextStyle
-                var buttonColors: ASAPPButtonColors
-                
-                switch buttonItem.buttonStyle {
-                case .primary:
-                    textStyle = .blockButton
-                    buttonColors = ASAPP.styles.primaryButtonColors
-                    break
-                    
-                case .secondary:
-                    textStyle = .blockButton
-                    buttonColors = ASAPP.styles.secondaryButtonColors
-                    break
-                    
-                case .text:
-                    textStyle = .textButton
-                    buttonColors = ASAPP.styles.primaryTextButtonColors
-                    break
-                    
-                case .textSecondary:
-                    textStyle = .textButton
-                    buttonColors = ASAPP.styles.secondaryTextButtonColors
-                    break
-                }
-                
-                setAttributedText(buttonItem.title, textStyle: textStyle,
-                                  color: buttonColors.textNormal, state: .normal)
-                
-                setAttributedText(buttonItem.title, textStyle: textStyle,
-                                  color: buttonColors.textHighlighted, state: .highlighted)
-                
-                setAttributedText(buttonItem.title, textStyle: textStyle,
-                                  color: buttonColors.textDisabled, state: .disabled)
-                
-                setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundNormal), for: .normal)
-                setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundHighlighted), for: .highlighted)
-                setBackgroundImage(UIImage.imageWithColor(buttonColors.backgroundDisabled), for: .disabled)
-                
-                if let borderColor = buttonColors.border {
-                    layer.borderColor = borderColor.cgColor
-                    layer.borderWidth = 1
-                } else {
-                    layer.borderColor = nil
-                    layer.borderWidth = 0
-                }
+                updateText(buttonItem.title, buttonStyle: buttonItem.buttonStyle)
                 
                 var contentEdgeInsets = defaultContentEdgeInsets
                 if buttonItem.style.padding != .zero {
@@ -84,8 +40,8 @@ class ButtonView: UIButton, ComponentView {
                 }
                 self.contentEdgeInsets = contentEdgeInsets
                 
-                
                 if let iconItem = buttonItem.icon, let iconImage = iconItem.icon.getImage() {
+                    let buttonColors = ASAPP.styles.colors.getButtonColors(for: buttonItem.buttonStyle)
                     setImage(iconImage.tinted(buttonColors.textNormal), for: .normal)
                     setImage(iconImage.tinted(buttonColors.textHighlighted), for: .highlighted)
                     setImage(iconImage.tinted(buttonColors.textDisabled), for: .disabled)

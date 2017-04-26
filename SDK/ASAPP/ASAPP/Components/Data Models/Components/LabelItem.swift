@@ -15,11 +15,7 @@ class LabelItem: Component {
     enum JSONKey: String {
         case text = "text"
     }
-    
-    // MARK: Default
-    
-    static let defaultColor = UIColor.darkText
-    
+
     // MARK: Component Properties
     
     override var viewClass: UIView.Type {

@@ -46,8 +46,8 @@ class PredictiveButtonsView: UIView {
         super.init(frame: CGRect.zero)
     
         otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
-                                     textStyle: .predictiveDetailLabel,
-                                     color: ASAPP.styles.predictiveSecondaryTextColor)
+                                     textType: .subheader,
+                                     color: ASAPP.styles.colors.predictiveTextSecondary)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
     }
@@ -59,14 +59,16 @@ class PredictiveButtonsView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        otherLabel.updateFont(for: .predictiveDetailLabel)
+        otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
+                                     textType: .subheader,
+                                     color: ASAPP.styles.colors.predictiveTextSecondary)
         
         for button in relatedButtons {
-            button.font = ASAPP.styles.font(for: .predictiveButton)
+            button.font = ASAPP.styles.textStyles.body.font
         }
         
         for button in otherButtons {
-            button.font = ASAPP.styles.font(for: .predictiveButton)
+            button.font = ASAPP.styles.textStyles.body.font
         }
         
         setNeedsLayout()
@@ -76,32 +78,32 @@ class PredictiveButtonsView: UIView {
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
         let button = Button()
-        button.font = ASAPP.styles.font(for: .predictiveButton)
+        button.font = ASAPP.styles.textStyles.body.font
         button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
     
         let borderColor: UIColor?
         if highlighted {
-            button.setForegroundColor(ASAPP.styles.predictivePrimaryButtonColors.textNormal,
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textNormal,
                                       forState: .normal)
-            button.setForegroundColor(ASAPP.styles.predictivePrimaryButtonColors.textHighlighted,
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textHighlighted,
                                       forState: .highlighted)
-            button.setBackgroundColor(ASAPP.styles.predictivePrimaryButtonColors.backgroundNormal,
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundNormal,
                                       forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.predictivePrimaryButtonColors.backgroundHighlighted,
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundHighlighted,
                                       forState: .highlighted)
             
-            borderColor = ASAPP.styles.predictivePrimaryButtonColors.border
+            borderColor = ASAPP.styles.colors.predictiveButtonPrimary.border
             
         } else {
-            button.setForegroundColor(ASAPP.styles.predictiveSecondaryButtonColors.textNormal,
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textNormal,
                                       forState: .normal)
-            button.setForegroundColor(ASAPP.styles.predictiveSecondaryButtonColors.textHighlighted,
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textHighlighted,
                                       forState: .highlighted)
-            button.setBackgroundColor(ASAPP.styles.predictiveSecondaryButtonColors.backgroundNormal,
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundNormal,
                                       forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.predictiveSecondaryButtonColors.backgroundHighlighted,
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundHighlighted,
                                       forState: .highlighted)
-            borderColor = ASAPP.styles.predictiveSecondaryButtonColors.border
+            borderColor = ASAPP.styles.colors.predictiveButtonSecondary.border
         }
     
         if let borderColor = borderColor {

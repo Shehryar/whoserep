@@ -8,6 +8,21 @@
 
 import UIKit
 
+enum ButtonStyle: String {
+    case primary = "primary"
+    case secondary = "secondary"
+    case textPrimary = "text"
+    case textSecondary = "textSecondary"
+    
+    static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
+        guard let string = string,
+            let style = ButtonStyle(rawValue: string) else {
+                return defaultValue
+        }
+        return style
+    }
+}
+
 class ButtonItem: Component {
 
     // MARK:- JSON Keys
@@ -17,21 +32,6 @@ class ButtonItem: Component {
         case buttonStyle = "style"
         case icon = "icon"
         case title = "title"
-    }
-    
-    enum ButtonStyle: String {
-        case primary = "primary"
-        case secondary = "secondary"
-        case text = "text"
-        case textSecondary = "textSecondary"
-        
-        static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
-            guard let string = string,
-                let style = ButtonStyle(rawValue: string) else {
-                    return defaultValue
-            }
-            return style
-        }
     }
     
     // MARK:- Defaults

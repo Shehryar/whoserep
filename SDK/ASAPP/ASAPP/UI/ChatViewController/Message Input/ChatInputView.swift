@@ -21,7 +21,7 @@ class ChatInputView: UIView {
     
     weak var delegate: ChatInputViewDelegate?
     
-    var inputColors: ASAPPInputColors = ASAPP.styles.chatInputColors {
+    var inputColors: ASAPPInputColors = ASAPP.styles.colors.chatInput {
         didSet {
             applyColors()
         }
@@ -96,7 +96,7 @@ class ChatInputView: UIView {
         self.sendButtonText = ASAPP.strings.chatInputSend
         super.init(frame: .zero)
         
-        backgroundColor = ASAPP.styles.chatInputColors.background
+        backgroundColor = ASAPP.styles.colors.chatInput.background
         clipsToBounds = true
         
         // Subviews
@@ -105,7 +105,7 @@ class ChatInputView: UIView {
         // Text View
         
         textView.backgroundColor = UIColor.clear
-        textView.font = ASAPP.styles.font(for: .chatInputViewText)
+        textView.updateFont(for: .body)
         textView.bounces = false
         textView.isScrollEnabled = false
         textView.scrollsToTop = false
@@ -117,7 +117,7 @@ class ChatInputView: UIView {
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.sizeToFit()
-        if ASAPP.styles.primaryBackgroundColor.isDark() {
+        if ASAPP.styles.colors.backgroundPrimary.isDark() {
             textView.keyboardAppearance = .dark
         } else {
             textView.keyboardAppearance = .default
@@ -186,7 +186,7 @@ class ChatInputView: UIView {
     }
     
     func updateSendButtonText() {
-        let font = ASAPP.styles.font(for: .chatInputViewButton)
+        let font = ASAPP.styles.textStyles.link.font
         let color = inputColors.primaryButton
         let normalAttributes = [
             NSKernAttributeName : 1.5,
@@ -210,8 +210,8 @@ class ChatInputView: UIView {
     }
     
     func updateDisplay() {
-        textView.font = ASAPP.styles.font(for: .chatInputViewText)
-        placeholderTextView.font = ASAPP.styles.font(for: .chatInputViewText)
+        textView.font = ASAPP.styles.textStyles.body.font
+        placeholderTextView.font = textView.font
         updateSendButtonText()
         updateInputMinHeight()
         setNeedsLayout()

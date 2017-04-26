@@ -22,17 +22,34 @@ public extension ASAPPStyles {
     internal class func comcastStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
+        styles.navBarButtonStyle = .text
+        styles.colors.navBarBackground = UIColor(red:0.184, green:0.220, blue:0.275, alpha:1.000)
+        styles.colors.navBarTitle = UIColor.white
+        styles.colors.navBarButton = UIColor.white
+        
+        styles.colors.messageText = UIColor(red:0.298, green:0.333, blue:0.424, alpha:1.000)
+        styles.colors.messageBackground = UIColor.white
+        styles.colors.messageBorder = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
+        
+        styles.colors.replyMessageText = UIColor(red:0.318, green:0.349, blue:0.443, alpha:1.000)
+        styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        styles.colors.replyMessageBorder = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white,
+                                                           textColor: UIColor(red:0.298, green:0.333, blue:0.424, alpha:1.000))
+        
+        /*
         styles.fontNameLight = "XFINITYSans-Lgt"
         styles.fontNameRegular = "XFINITYSans-Reg"
         styles.fontNameBold = "XFINITYSans-Med"
         styles.fontNameBlack = "XFINITYSans-Bold"
-        
+        */
         return styles
     }
     
     internal class func boostStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
-        
+        /*
         // Fonts
         
         styles.fontNameBold = "BoostNeo-Bold"
@@ -79,7 +96,7 @@ public extension ASAPPStyles {
         // Help Button
         styles.helpButtonBackgroundColor = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1)
         styles.helpButtonForegroundColor = UIColor.white
-
+*/
         return styles
     }
     

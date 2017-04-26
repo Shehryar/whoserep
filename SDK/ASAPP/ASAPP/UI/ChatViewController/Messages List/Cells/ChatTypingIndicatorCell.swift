@@ -26,13 +26,13 @@ class ChatTypingIndicatorCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         
-        bubbleView.fillColor = ASAPP.styles.replyMessageBackgroundColor
-        bubbleView.strokeColor = ASAPP.styles.replyMessageBorderColor
+        bubbleView.fillColor = ASAPP.styles.colors.replyMessageBackground
+        bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
         bubbleView.roundedCorners = [.topLeft, .topRight, .bottomRight]
         bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)
         
-        loadingView.tintColor = ASAPP.styles.replyMessageTextColor.withAlphaComponent(0.6)
+        loadingView.tintColor = ASAPP.styles.colors.replyMessageText.withAlphaComponent(0.6)
         bubbleView.addSubview(loadingView)
     }
     

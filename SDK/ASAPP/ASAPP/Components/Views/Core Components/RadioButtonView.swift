@@ -52,12 +52,12 @@ class RadioButtonView: BaseComponentView {
     override func commonInit() {
         super.commonInit()
         
-        backgroundColor = ASAPP.styles.primaryBackgroundColor
+        backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         addSubview(labelView)
         
         checkboxView.layer.borderWidth = 1
-        checkboxView.layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
+        checkboxView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
         checkboxView.layer.cornerRadius = 5.0
         addSubview(checkboxView)
         
@@ -152,15 +152,15 @@ extension RadioButtonView {
     
     fileprivate func updateDisplay() {
         if isSelected {
-            checkboxView.layer.borderColor = ASAPP.styles.controlTintColor.cgColor
-            checkboxView.backgroundColor = ASAPP.styles.controlTintColor
+            checkboxView.layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
+            checkboxView.backgroundColor = ASAPP.styles.colors.controlTint
             checkboxInnerView.isHidden = false
         } else if isTouching {
-            checkboxView.layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
-            checkboxView.backgroundColor = ASAPP.styles.secondarySeparatorColor
+            checkboxView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
+            checkboxView.backgroundColor = ASAPP.styles.colors.separatorSecondary
             checkboxInnerView.isHidden = true
         } else {
-            checkboxView.layer.borderColor = ASAPP.styles.secondarySeparatorColor.cgColor
+            checkboxView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
             checkboxView.backgroundColor = UIColor.clear
             checkboxInnerView.isHidden = true
         }

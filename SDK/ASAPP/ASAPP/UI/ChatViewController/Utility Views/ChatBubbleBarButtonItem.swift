@@ -38,32 +38,32 @@ extension UIBarButtonItem {
         case .bubble:
             switch location {
             case .chat:
-                textColor = ASAPP.styles.navBarButtonForegroundColor
-                backgroundColor = ASAPP.styles.navBarButtonBackgroundColor
+                textColor = ASAPP.styles.colors.navBarButtonForeground
+                backgroundColor = ASAPP.styles.colors.navBarButtonBackground
 
                 break
                 
             case .predictive:
-                textColor = ASAPP.styles.predictiveNavBarButtonForegroundColor
-                backgroundColor = ASAPP.styles.predictiveNavBarButtonBackgroundColor
+                textColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
+                backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
                 break
             }
-            font = ASAPP.styles.font(for: .navBarButtonBubble)
+            font = ASAPP.styles.textStyles.link.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
             break
             
         case .text:
             switch location {
             case .chat:
-                textColor = ASAPP.styles.navBarButtonColor
+                textColor = ASAPP.styles.colors.navBarButton
                 break
                 
             case .predictive:
-                textColor = ASAPP.styles.predictiveNavBarButtonColor
+                textColor = ASAPP.styles.colors.predictiveNavBarButton
                 break
             }
             backgroundColor = nil
-            font = ASAPP.styles.font(for: .navBarButtonText)
+            font = ASAPP.styles.textStyles.button.font
             switch side {
             case .left:
                 insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
@@ -146,13 +146,13 @@ extension UIBarButtonItem {
         case .bubble:
             switch location {
             case .chat:
-                foregroundColor = ASAPP.styles.navBarButtonForegroundColor
-                backgroundColor = ASAPP.styles.navBarButtonBackgroundColor
+                foregroundColor = ASAPP.styles.colors.navBarButtonForeground
+                backgroundColor = ASAPP.styles.colors.navBarButtonBackground
                 break
                 
             case .predictive:
-                foregroundColor = ASAPP.styles.predictiveNavBarButtonForegroundColor
-                backgroundColor = ASAPP.styles.predictiveNavBarButtonBackgroundColor
+                foregroundColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
+                backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
                 break
             }
             imageSize = 8
@@ -160,7 +160,7 @@ extension UIBarButtonItem {
             break
             
         case .text:
-            foregroundColor = ASAPP.styles.navBarButtonColor
+            foregroundColor = ASAPP.styles.colors.navBarButton
             backgroundColor = nil
             imageSize = 13
             switch side {
