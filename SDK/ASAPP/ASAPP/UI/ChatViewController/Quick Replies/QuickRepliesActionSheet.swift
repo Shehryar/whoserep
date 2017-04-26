@@ -50,7 +50,7 @@ class QuickRepliesActionSheet: UIView {
     
     fileprivate let buttonSize: CGFloat = 46.0
     
-    fileprivate let separatorTopStroke: CGFloat = 2.0
+    fileprivate let separatorTopStroke: CGFloat = 1.0
     
     fileprivate var listViews = [QuickRepliesListView]()
     
