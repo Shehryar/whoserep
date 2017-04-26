@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class ChatViewController: UIViewController {
+class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Public
     
@@ -209,29 +209,6 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Nav Bar
-        
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.isTranslucent = true
-            navigationBar.shadowImage = nil
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.setBackgroundImage(nil, for: .compact)
-            navigationBar.backgroundColor = nil
-            if ASAPP.styles.colors.navBarBackground.isDark() {
-                navigationBar.barStyle = .black
-                if ASAPP.styles.colors.navBarBackground != UIColor.black {
-                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-                }
-            } else {
-                navigationBar.barStyle = .default
-                if ASAPP.styles.colors.navBarBackground != UIColor.white {
-                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-                }
-            }
-            navigationBar.tintColor = ASAPP.styles.colors.navBarButton
-            setNeedsStatusBarAppearanceUpdate()
-        }
-        
         // View
         
         view.clipsToBounds = true
@@ -341,39 +318,20 @@ class ChatViewController: UIViewController {
         }
     }
     
-    // MARK: Status Bar Style
+    // MARK:- Status Bar
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         if showPredictiveOnViewAppear || predictiveVCVisible {
-            return .lightContent
-        } else {
-            if ASAPP.styles.colors.navBarBackground.isDark() {
+            if ASAPP.styles.colors.predictiveGradientTop.isDark() {
                 return .lightContent
             } else {
                 return .default
             }
         }
+        return super.preferredStatusBarStyle
     }
     
-    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
-        return .fade
-    }
-    
-    func updateStatusBar(_ animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.setNeedsStatusBarAppearanceUpdate()
-            })
-        } else {
-            setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-    
-    // MARK: Supported Orientations
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
+   
     
     // MARK: Connection
     

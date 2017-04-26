@@ -352,6 +352,7 @@
 		306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306CA6631E968DF100CFE17D /* ASAPPUser.swift */; };
 		307301BA1DAE90460002CF3B /* predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B81DAE90460002CF3B /* predictive-response.json */; };
 		307301BB1DAE90460002CF3B /* sprint_predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 307301B91DAE90460002CF3B /* sprint_predictive-response.json */; };
+		307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484C61EB13B9C008CF3E4 /* ASAPPViewController.swift */; };
 		30756B321E53A67D00D78E8E /* icon-credit-card-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */; };
 		30756B331E53A67D00D78E8E /* icon-credit-card-medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B301E53A67D00D78E8E /* icon-credit-card-medium@2x.png */; };
 		30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */; };
@@ -765,6 +766,7 @@
 		306CA6631E968DF100CFE17D /* ASAPPUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPUser.swift; sourceTree = "<group>"; };
 		307301B81DAE90460002CF3B /* predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "predictive-response.json"; sourceTree = "<group>"; };
 		307301B91DAE90460002CF3B /* sprint_predictive-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sprint_predictive-response.json"; sourceTree = "<group>"; };
+		307484C61EB13B9C008CF3E4 /* ASAPPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPViewController.swift; sourceTree = "<group>"; };
 		30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium.png"; sourceTree = "<group>"; };
 		30756B301E53A67D00D78E8E /* icon-credit-card-medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@2x.png"; sourceTree = "<group>"; };
 		30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@3x.png"; sourceTree = "<group>"; };
@@ -1342,6 +1344,7 @@
 		30226CCD1D4933F200871453 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				307484C51EB13B83008CF3E4 /* Base Classes */,
 				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
 				302A20891E5DE990007C522A /* Modal Views */,
@@ -1674,6 +1677,15 @@
 			);
 			path = "SDWebImage-3.8.2";
 			sourceTree = "<group>";
+		};
+		307484C51EB13B83008CF3E4 /* Base Classes */ = {
+			isa = PBXGroup;
+			children = (
+				307484C61EB13B9C008CF3E4 /* ASAPPViewController.swift */,
+			);
+			name = "Base Classes";
+			path = "ASAPP/ASAPP/Base Classes";
+			sourceTree = SOURCE_ROOT;
 		};
 		30756B351E53AF8B00D78E8E /* Customer Models */ = {
 			isa = PBXGroup;
@@ -2229,6 +2241,7 @@
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
+				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */,
