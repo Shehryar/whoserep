@@ -58,13 +58,10 @@ public extension ASAPPStyles {
     
         styles.colors.messageText = textBlue
         styles.colors.messageBackground = UIColor.white
-        styles.colors.messageBorder = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
         
         styles.colors.replyMessageText = textBlue
         styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         styles.colors.replyMessageBorder = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
-        
-        styles.colors.separatorPrimary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
         
         styles.colors.quickRepliesBackground = UIColor.white
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white,
@@ -112,13 +109,8 @@ public extension ASAPPStyles {
         styles.colors.navBarBackground = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
-        
-        styles.colors.separatorPrimary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:0.5)
-        styles.colors.separatorSecondary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:0.5)
-        
+
         styles.colors.messageText = textBlue
-        styles.colors.messageBackground = UIColor.white
-        styles.colors.messageBorder = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
         
         styles.colors.replyMessageText = textBlue
         styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
