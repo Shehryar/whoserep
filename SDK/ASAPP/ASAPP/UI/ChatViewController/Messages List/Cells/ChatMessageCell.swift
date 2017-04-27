@@ -28,7 +28,7 @@ class ChatMessageCell: UITableViewCell {
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.getSendTimeString(), textType: .readReceipt)
+            timeLabel.setAttributedText(message?.getSendTimeString(), textType: .detail2)
             
             setNeedsLayout()
         }
@@ -178,7 +178,7 @@ extension ChatMessageCell {
     
     func updateFonts() {
         textBubbleView.updateFonts()
-        timeLabel.setAttributedText(message?.getSendTimeString(), textType: .readReceipt)
+        timeLabel.setAttributedText(message?.getSendTimeString(), textType: .detail2)
         
         setNeedsLayout()
     }

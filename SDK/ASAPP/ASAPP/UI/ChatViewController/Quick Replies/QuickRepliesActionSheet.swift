@@ -83,13 +83,12 @@ class QuickRepliesActionSheet: UIView {
         
         addSubview(containerView)
         
-        separatorTopView.backgroundColor = ASAPP.styles.colors.separatorPrimary
+        separatorTopView.backgroundColor = ASAPP.styles.colors.separatorSecondary
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
         backButton.image = Images.asappImage(.iconBack)
         backButton.imageSize = CGSize(width: 11, height: 11)
-        backButton.foregroundColor = UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1)
         backButton.onTap = { [weak self] in
             if let blockSelf = self {
                 blockSelf.delegate?.quickRepliesActionSheetWillTapBack(blockSelf)
@@ -107,7 +106,6 @@ class QuickRepliesActionSheet: UIView {
         closeButton.isHidden = true
         closeButton.image = Images.asappImage(.iconSmallX)
         closeButton.imageSize = CGSize(width: 11, height: 11)
-        closeButton.foregroundColor = UIColor(red:0.535,  green:0.557,  blue:0.586, alpha:1)
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
                 blockSelf.delegate?.quickRepliesActionSheetDidCancel(blockSelf)
@@ -130,11 +128,11 @@ class QuickRepliesActionSheet: UIView {
     }
     
     func styleButton(_ button: Button) {
-        button.setForegroundColor(ASAPP.styles.colors.textPrimary, forState: .normal)
-        button.setForegroundColor(ASAPP.styles.colors.textPrimary.highlightColor(), forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.colors.backgroundPrimary, forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.colors.backgroundSecondary, forState: .highlighted)
-        button.layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
+        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textNormal, forState: .normal)
+        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textHighlighted, forState: .highlighted)
+        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundNormal, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundHighlighted, forState: .highlighted)
+        button.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
         button.layer.borderWidth = 2
         button.clipsToBounds = true
     }

@@ -32,9 +32,9 @@ public class ASAPPColors: NSObject {
     
     public var textSecondary: UIColor = UIColor(red: 157 / 255.0, green: 158 / 255.0, blue: 163 / 255.0, alpha: 0.95)
     
-    public var separatorPrimary: UIColor = UIColor(red: 236.0 / 255.0, green: 231.0 / 255.0, blue: 231.0 / 255.0, alpha: 1.0)
+    public var separatorPrimary: UIColor = UIColor(red:0.808, green:0.816, blue:0.847, alpha:1.000)
     
-    public var separatorSecondary: UIColor = UIColor(red: 201.0 / 255.0, green: 196.0 / 255.0, blue: 196.0 / 255.0, alpha: 1.0)
+    public var separatorSecondary: UIColor = UIColor(red:0.816, green:0.824, blue:0.847, alpha:1.000)
     
     public var controlTint: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1)
     
@@ -79,6 +79,8 @@ public class ASAPPColors: NSObject {
     // MARK:- Colors: Chat
     
     public var quickRepliesBackground: UIColor = UIColor(red:0.969, green:0.965, blue:0.965, alpha:1.000)
+    
+    
     
     public var quickReplyButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.972, green:0.969, blue:0.968, alpha:1),
                                                                        textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0))

@@ -162,7 +162,7 @@ extension QuickRepliesListView: UITableViewDataSource {
         cell.backgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundNormal
         
         cell.label.font = ASAPP.styles.textStyles.body.font
-        cell.separatorBottomColor = ASAPP.styles.colors.separatorPrimary
+        cell.separatorBottomColor = ASAPP.styles.colors.separatorSecondary
         
         if let buttonItem = buttonItemForIndexPath(indexPath) {
             cell.label.setAttributedText(buttonItem.title,

@@ -15,9 +15,9 @@ enum TextType: String {
     case subheader
     case body
     case bodyBold
-    case disclaimer
+    case detail1
+    case detail2
     case error
-    case readReceipt
     case button
     case link
     

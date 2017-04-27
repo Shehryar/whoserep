@@ -81,8 +81,8 @@ class ComponentCardView: UIView {
         } else {
             clipsToBounds = true
             backgroundColor = ASAPP.styles.colors.backgroundPrimary
-            layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
-            layer.borderWidth = 1
+            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
+            layer.borderWidth = UIScreen.main.scale > 1 ? 0.5 : 1
             layer.cornerRadius = 5
         }
     }

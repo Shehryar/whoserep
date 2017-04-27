@@ -68,7 +68,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         if let time = time {
             dateFormatter.dateFormat = time.dateFormatForMostRecent()
             let timestamp = dateFormatter.string(from: time)
-            timeLabel.setAttributedText(timestamp, textType: .readReceipt)
+            timeLabel.setAttributedText(timestamp, textType: .subheader)
         } else {
             timeLabel.attributedText = nil
         }

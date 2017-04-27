@@ -40,12 +40,12 @@ public extension ASAPPStyles {
         ts.predictiveHeader = ASAPPTextStyle(fontName: regular, size: 30, letterSpacing: 0.9, color: UIColor.white)
         ts.header1 = ASAPPTextStyle(fontName: black, size: 24, letterSpacing: 0.5, color: textBlue)
         ts.header2 = ASAPPTextStyle(fontName: black, size: 18, letterSpacing: 0.5, color: textBlue)
-        ts.subheader = ASAPPTextStyle(fontName: black, size: 12, letterSpacing: 1.5, color: textGray)
+        ts.subheader = ASAPPTextStyle(fontName: black, size: 10, letterSpacing: 1.5, color: textGray)
         ts.body = ASAPPTextStyle(fontName: regular, size: 15, letterSpacing: 0.5, color: textBlue)
         ts.bodyBold  = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0.5, color: textBlue)
-        ts.disclaimer = ASAPPTextStyle(fontName: regular, size: 12, letterSpacing: 0.5, color: textGray)
+        ts.detail1 = ASAPPTextStyle(fontName: regular, size: 12, letterSpacing: 0.5, color: textGray)
+        ts.detail2 = ASAPPTextStyle(fontName: bold, size: 10, letterSpacing: 0.75, color: textGray)
         ts.error = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0.5, color: UIColor.asapp_burntSiennaRed)
-        ts.readReceipt = ASAPPTextStyle(fontName: bold, size: 10, letterSpacing: 0.75, color: textGray)
         ts.button = ASAPPTextStyle(fontName: black, size: 14, letterSpacing: 1.5, color: textBlue)
         ts.link = ASAPPTextStyle(fontName: black, size: 12, letterSpacing: 1.5, color: linkBlue)
         
@@ -55,10 +55,7 @@ public extension ASAPPStyles {
         styles.colors.navBarBackground = UIColor(red:0.184, green:0.220, blue:0.275, alpha:1.000)
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
-        
-        styles.colors.separatorPrimary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:0.5)
-        styles.colors.separatorSecondary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:0.5)
-        
+    
         styles.colors.messageText = textBlue
         styles.colors.messageBackground = UIColor.white
         styles.colors.messageBorder = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
@@ -66,6 +63,8 @@ public extension ASAPPStyles {
         styles.colors.replyMessageText = textBlue
         styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         styles.colors.replyMessageBorder = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        
+        styles.colors.separatorPrimary = UIColor(red:0.671, green:0.690, blue:0.737, alpha:1.000)
         
         styles.colors.quickRepliesBackground = UIColor.white
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white,

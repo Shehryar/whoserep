@@ -18,7 +18,7 @@ public class ASAPPTextStyles: NSObject {
     
     var header2: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 18, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
     
-    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 12, letterSpacing: 1.5, color: UIColor.asapp_manateeGray)
+    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 10, letterSpacing: 1.5, color: UIColor.asapp_manateeGray)
     
     // MARK: Body
     
@@ -26,11 +26,11 @@ public class ASAPPTextStyles: NSObject {
     
     var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(fontName: FontNames.latoBold, size: 15, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
     
-    var disclaimer: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 12, letterSpacing: 0.5, color: UIColor.asapp_manateeGray)
+    var detail1: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 12, letterSpacing: 0.5, color: UIColor.asapp_manateeGray)
+    
+    var detail2: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold, size: 10, letterSpacing: 0.75, color: UIColor.asapp_manateeGray)
     
     var error: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold, size: 15, letterSpacing: 0.5, color: UIColor.asapp_burntSiennaRed)
-    
-    var readReceipt: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold, size: 10, letterSpacing: 0.75, color: UIColor.asapp_manateeGray)
     
     // MARK: Buttons
     
@@ -49,9 +49,9 @@ extension ASAPPTextStyles {
         case .subheader: return subheader
         case .body: return body
         case .bodyBold: return bodyBold
-        case .disclaimer: return disclaimer
+        case .detail1: return detail1
+        case .detail2: return detail2
         case .error: return error
-        case .readReceipt: return readReceipt
         case .button: return button
         case .link: return link
         }
