@@ -32,7 +32,7 @@ public class ASAPPColors: NSObject {
     
     public var textSecondary: UIColor = UIColor(red: 157 / 255.0, green: 158 / 255.0, blue: 163 / 255.0, alpha: 0.95)
     
-    public var separatorPrimary: UIColor = UIColor(red:0.808, green:0.816, blue:0.847, alpha:1.000)
+    public var separatorPrimary: UIColor = UIColor(red:0.749, green:0.757, blue:0.790, alpha:1)
     
     public var separatorSecondary: UIColor = UIColor(red:0.816, green:0.824, blue:0.847, alpha:1.000)
     

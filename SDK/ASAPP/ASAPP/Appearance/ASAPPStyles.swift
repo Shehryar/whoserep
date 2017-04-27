@@ -15,4 +15,6 @@ public class ASAPPStyles: NSObject {
     public var colors: ASAPPColors = ASAPPColors()
     
     public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
+    
+    public var separatorStrokeWidth: CGFloat = UIScreen.main.scale > 1 ? 0.5 : 1.0
 }
