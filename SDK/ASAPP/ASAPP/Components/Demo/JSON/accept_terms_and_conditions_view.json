@@ -1,134 +1,134 @@
 {
-  "title": "Terms and Conditions",
   "actions": {},
-  "styles": {},
   "body": {
-    "type": "stackView",
     "content": {
       "items": [
         {
-          "type": "scrollView",
           "content": {
             "content": {
-              "type": "stackView",
               "content": {
                 "items": [
                   {
-                    "type": "label",
                     "content": {
                       "text": "Terms and Conditions"
                     },
                     "style": {
-                      "fontWeight": "black",
+                      "color": "#55607a",
                       "fontSize": 18,
-                      "marginBottom": 16,
-                      "color": "#55607a"
-                    }
+                      "fontWeight": "black",
+                      "marginBottom": 16
+                    },
+                    "type": "label"
                   },
                   {
-                    "type": "label",
                     "content": {
                       "text": "Terms and Conditions are a set of rules and guidelines that a user must agree to in order to use your website or mobile app. It acts as a legal contract between you (the company) who has the website or mobile app and the user who access your website and mobile app.\nIt’s up to you to set the rules and guidelines that the user must agree to. You can think of your Terms and Conditions agreement as the legal agreement where you maintain your rights to exclude users from your app in the event that they abuse your app, and where you maintain your legal rights against potential app abusers, and so on.\n\nTerms and Conditions are also known as Terms of Service or Terms of Use.\n\nThis type of legal agreement can be used for both your website and your mobile app. It’s not required (it’s not recommended actually) to have separate Terms and Conditions agreements: one for your website and one for your mobile app.\n\nYou can use this agreement anywhere, regardless what platform your business operates on.\n\nDesktop apps usually have the EULA agreement (End-User License Agreement) instead of a Terms and Conditions agreement, but your business can use both. Mobile apps are increasingly using Terms and Conditions along with the EULA if the mobile app has an online service component, i.e. it connects with a server."
                     },
                     "style": {
                       "color": "#454545"
-                    }
+                    },
+                    "type": "label"
                   }
                 ]
               },
               "style": {
                 "padding": 20
-              }
+              },
+              "type": "stackView"
             }
           },
           "style": {
-            "weight": 1,
-            "align": "fill"
-          }
+            "align": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
         },
         {
           "type": "separator"
         },
         {
-          "type": "checkbox",
-          "id": "acceptCheckbox",
-          "name": "accepted",
           "content": {
             "label": {
-              "type": "label",
               "content": {
                 "text": "I have read and agree to the terms and conditions above."
               },
               "style": {
-                "fontWeight": "bold",
+                "color": "#55607a",
                 "fontSize": 12,
-                "marginLeft": 15,
-                "color": "#55607a"
-              }
+                "fontWeight": "bold",
+                "marginLeft": 15
+              },
+              "type": "label"
             }
           },
+          "id": "acceptCheckbox",
+          "name": "accepted",
           "style": {
-            "weight": 0,
             "align": "fill",
+            "borderColor": "#ccd1dd",
+            "borderWidth": 1,
+            "cornerRadius": 8,
+            "margin": 20,
             "padding": 20,
-            "margin" : 20,
-            "borderColor" : "#ccd1dd",
-            "borderWidth" : 1,
-            "cornerRadius" : 8
-          }
+            "weight": 0
+          },
+          "type": "checkbox"
         },
         {
-          "type" : "separator"
+          "type": "separator"
         },
         {
-          "type": "stackView",
           "content": {
-            "orientation": "horizontal",
             "items": [
               {
-                "type": "button",
                 "content": {
-                  "title": "CANCEL",
-                  "style": "secondary",
                   "action": {
                     "type": "finish"
-                  }
+                  },
+                  "style": "secondary",
+                  "title": "CANCEL"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               },
               {
-                "type": "button",
                 "content": {
-                  "title": "Next",
                   "action": {
-                    "type": "api",
                     "content": {
-                      "requestPath": "/acceptTerms",
-                      "inputFields": [
-                        "acceptCheckbox"
-                      ],
-                      "requiredInputFields": [
-                        "acceptCheckbox"
-                      ],
                       "data": {
                         "type": "autoPayTerms",
                         "userId": "mitcho309"
-                      }
-                    }
-                  }
+                      },
+                      "inputFields": [
+                        "acceptCheckbox"
+                      ],
+                      "requestPath": "/acceptTerms",
+                      "requiredInputFields": [
+                        "acceptCheckbox"
+                      ]
+                    },
+                    "type": "api"
+                  },
+                  "title": "Next"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               }
-            ]
-          }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
         }
       ]
-    }
-  }
+    },
+    "type": "stackView"
+  },
+  "styles": {},
+  "title": "Terms and Conditions"
 }

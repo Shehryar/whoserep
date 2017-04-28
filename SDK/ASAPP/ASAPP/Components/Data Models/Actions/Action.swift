@@ -103,8 +103,8 @@ extension Action {
 
 extension Action {
     
-    class func fromJSON(_ json: [String : AnyObject]?) -> Action? {
-        guard let json = json else { return nil }
+    class func fromJSON(_ json: Any?) -> Action? {
+        guard let json = json as? [String : Any] else { return nil }
         guard let typeString = json["type"] as? String else {
             DebugLog.i("Action: Missing type in Action")
             return nil

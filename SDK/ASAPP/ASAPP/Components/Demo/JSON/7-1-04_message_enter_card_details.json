@@ -1,16 +1,15 @@
 {
-  "text": "Ok great, please tap below to enter your card details.",
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Enter Card Details",
-      "value": {
-        "type": "COMPONENT_VIEW",
+      "action": {
         "content": {
-          "name": "7-1-05_view_enter_card_details",
-          "displayStyle": "inset"
-        }
-      }
+          "displayStyle": "inset",
+          "name": "7-1-05_view_enter_card_details"
+        },
+        "type": "componentView"
+      },
+      "title": "Enter Card Details"
     }
-  ]
+  ],
+  "text": "Ok great, please tap below to enter your card details."
 }

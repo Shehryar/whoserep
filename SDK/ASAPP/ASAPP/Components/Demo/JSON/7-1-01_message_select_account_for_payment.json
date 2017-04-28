@@ -1,16 +1,15 @@
 {
-  "text": "Please enter the phone number you'd like to apply your payment to.",
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Enter Phone Number",
-      "value": {
-        "type": "COMPONENT_VIEW",
+      "action": {
         "content": {
-          "name": "7-1-02_view_enter_phone_number",
-          "displayStyle": "inset"
-        }
-      }
+          "displayStyle": "inset",
+          "name": "7-1-02_view_enter_phone_number"
+        },
+        "type": "componentView"
+      },
+      "title": "Enter Phone Number"
     }
-  ]
+  ],
+  "text": "Please enter the phone number you'd like to apply your payment to."
 }

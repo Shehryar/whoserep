@@ -1,156 +1,147 @@
 {
-  "title": "Add your address",
   "actions": {},
-  "styles": {
-    "textInput": {
-      "align": "fill",
-      "marginBottom": 4,
-      "color": "#55607a"
-    }
-  },
   "body": {
-    "type": "stackView",
     "content": {
       "items": [
         {
-          "type": "stackView",
           "content": {
-            "orientation" : "horizontal",
             "items": [
               {
-                "type": "button",
                 "content": {
-                  "title": "Cancel",
-                  "action" : {
-                    "type" : "finish"
-                  }
+                  "action": {
+                    "type": "finish"
+                  },
+                  "title": "Cancel"
                 },
-                "style" : {
-                  "weight" : 1,
-                  "align" : "fill"
-                }
+                "style": {
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               },
               {
-                "type": "button",
                 "content": {
-                  "title": "Go do it!",
-                  "action" : {
-                    "type" : "componentView",
-                    "content" : {
-                      "name" : "simple_form_view"
-                    }
-                  }
+                  "action": {
+                    "content": {
+                      "name": "simple_form_view"
+                    },
+                    "type": "componentView"
+                  },
+                  "title": "Go do it!"
                 },
-                "style" : {
-                  "weight" : 1,
-                  "align" : "fill",
-                  "marginLeft" : 12
-                }
+                "style": {
+                  "align": "fill",
+                  "marginLeft": 12,
+                  "weight": 1
+                },
+                "type": "button"
               }
-            ]
+            ],
+            "orientation": "horizontal"
           },
-          "style" : {
-            "marginBottom" : 40
-          }
+          "style": {
+            "marginBottom": 40
+          },
+          "type": "stackView"
         },
         {
-          "type": "label",
           "content": {
             "text": "New Address:"
           },
           "style": {
+            "color": "#55607a",
             "fontSize": 24,
             "fontWeight": "bold",
-            "color": "#55607a",
             "marginBottom": 12
-          }
+          },
+          "type": "label"
         },
         {
-          "id": "nameInput",
-          "type": "textInput",
           "class": "textInput",
-          "name": "name",
-          "value": "",
           "content": {
             "placeholder": "Full Name"
-          }
+          },
+          "id": "nameInput",
+          "name": "name",
+          "type": "textInput",
+          "value": ""
         },
         {
-          "id": "address1Input",
-          "type": "textInput",
           "class": "textInput",
-          "name": "address1",
-          "value": "",
           "content": {
             "placeholder": "Address Line 1"
-          }
+          },
+          "id": "address1Input",
+          "name": "address1",
+          "type": "textInput",
+          "value": ""
         },
         {
-          "id": "address2Input",
-          "type": "textInput",
           "class": "textInput",
-          "name": "address2",
-          "value": "",
           "content": {
             "placeholder": "Address Line 2"
-          }
+          },
+          "id": "address2Input",
+          "name": "address2",
+          "type": "textInput",
+          "value": ""
         },
         {
-          "id": "cityInput",
-          "type": "textInput",
           "class": "textInput",
-          "name": "city",
-          "value": "",
           "content": {
             "placeholder": "City"
-          }
+          },
+          "id": "cityInput",
+          "name": "city",
+          "type": "textInput",
+          "value": ""
         },
         {
-          "type": "stackView",
           "content": {
-            "orientation": "horizontal",
             "items": [
               {
-                "id": "stateInput",
-                "type": "textInput",
                 "class": "textInput",
-                "name": "state",
-                "value": "",
                 "content": {
                   "placeholder": "State"
                 },
+                "id": "stateInput",
+                "name": "state",
                 "style": {
                   "align": "fill",
                   "weight": 1
-                }
+                },
+                "type": "textInput",
+                "value": ""
               },
               {
-                "id": "zipCodeInput",
-                "type": "textInput",
                 "class": "textInput",
-                "name": "zipCode",
-                "value": "",
                 "content": {
                   "placeholder": "Zip Code"
                 },
+                "id": "zipCodeInput",
+                "name": "zipCode",
                 "style": {
-                  "marginLeft": 20,
                   "align": "fill",
+                  "marginLeft": 20,
                   "weight": 1
-                }
+                },
+                "type": "textInput",
+                "value": ""
               }
-            ]
+            ],
+            "orientation": "horizontal"
           },
-          "style": {}
+          "style": {},
+          "type": "stackView"
         },
         {
-          "type": "button",
           "content": {
-            "title": "SUBMIT",
             "action": {
-              "type": "api",
               "content": {
-                "requestPath": "/saveAddress",
+                "data": {
+                  "type": "newAddress",
+                  "userId": "mitcho309"
+                },
                 "inputFields": [
                   "nameInput",
                   "address1Input",
@@ -159,29 +150,38 @@
                   "stateInput",
                   "zipCodeInput"
                 ],
+                "requestPath": "/saveAddress",
                 "requiredInputFields": [
                   "nameInput",
                   "address1Input",
                   "cityInput",
                   "stateInput",
                   "zipCodeInput"
-                ],
-                "data": {
-                  "type": "newAddress",
-                  "userId": "mitcho309"
-                }
-              }
-            }
+                ]
+              },
+              "type": "api"
+            },
+            "title": "SUBMIT"
           },
           "style": {
-            "marginTop": 20,
-            "align": "fill"
-          }
+            "align": "fill",
+            "marginTop": 20
+          },
+          "type": "button"
         }
       ]
     },
     "style": {
       "padding": 20
+    },
+    "type": "stackView"
+  },
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "color": "#55607a",
+      "marginBottom": 4
     }
-  }
+  },
+  "title": "Add your address"
 }

@@ -1,82 +1,81 @@
 {
-  "text": "",
-  "quickReplies": [],
   "attachment": {
-    "type": "componentView",
     "content": {
-  "styles": {},
-  "body": {
-    "type": "stackView",
-    "content": {
-      "orientation": "horizontal",
-      "items": [
-        {
-          "type": "icon",
-          "content": {
-            "icon": "checkmarkThin"
-          },
-          "style": {
-            "gravity": "top",
-            "marginRight": 21,
-            "width": 32,
-            "height": 32
-          }
+      "body": {
+        "content": {
+          "items": [
+            {
+              "content": {
+                "icon": "checkmarkThin"
+              },
+              "style": {
+                "gravity": "top",
+                "height": 32,
+                "marginRight": 21,
+                "width": 32
+              },
+              "type": "icon"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Account PIN Changed"
+                    },
+                    "style": {
+                      "color": "#57617b",
+                      "fontSize": 15,
+                      "fontWeight": "black",
+                      "marginBottom": 6
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "You've successfully updated your Account PIN"
+                    },
+                    "style": {
+                      "color": "#646e85",
+                      "fontSize": 12,
+                      "fontWeight": "regular",
+                      "marginBottom": 8
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "March 31, 2017"
+                    },
+                    "style": {
+                      "color": "#adb2be",
+                      "fontSize": 11,
+                      "fontWeight": "bold"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "style": {
+                "gravity": "top",
+                "weight": 1
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
         },
-        {
-          "type": "stackView",
-          "content": {
-            "items": [
-              {
-                "type": "label",
-                "content": {
-                  "text": "Account PIN Changed"
-                },
-                "style": {
-                  "marginBottom": 6,
-                  "fontWeight": "black",
-                  "fontSize": 15,
-                  "color": "#57617b"
-                }
-              },
-              {
-                "type": "label",
-                "content": {
-                  "text": "You've successfully updated your Account PIN"
-                },
-                "style": {
-                  "marginBottom": 8,
-                  "fontWeight": "regular",
-                  "fontSize": 12,
-                  "color": "#646e85"
-                }
-              },
-              {
-                "type": "label",
-                "content": {
-                  "text": "March 31, 2017"
-                },
-                "style": {
-                  "fontWeight": "bold",
-                  "fontSize": 11,
-                  "color": "#adb2be"
-                }
-              }
-            ]
-          },
-          "style": {
-            "weight": 1,
-            "gravity": "top"
-          }
-        }
-      ]
+        "style": {
+          "align": "center",
+          "marginBottom": 4,
+          "padding": 21
+        },
+        "type": "stackView"
+      },
+      "styles": {}
     },
-    "style": {
-      "align": "center",
-      "marginBottom": 4,
-      "padding": 21
-    }
-  }
-}
-    
-  }
+    "type": "componentView"
+  },
+  "quickReplies": [],
+  "text": ""
 }

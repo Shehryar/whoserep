@@ -1,21 +1,23 @@
 {
-  "text": "Great you'd like to make a payment to +1 (555) 333-5555. How would you like to pay?",
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Credit/Debit Card",
-      "value": {
-        "type": "AID",
-        "content": "7-1-04_message_enter_card_details"
-      }
+      "action": {
+        "content": {
+          "classification": "7-1-04_message_enter_card_details"
+        },
+        "type": "treewalk"
+      },
+      "title": "Credit/Debit Card"
     },
     {
-      "type": "button",
-      "label": "Re-Boost Card",
-      "value": {
-        "type": "AID",
-        "content": "7-1-04_message_enter_card_details"
-      }
+      "action": {
+        "content": {
+          "classification": "7-1-04_message_enter_card_details"
+        },
+        "type": "treewalk"
+      },
+      "title": "Re-Boost Card"
     }
-  ]
+  ],
+  "text": "Great you'd like to make a payment to +1 (555) 333-5555. How would you like to pay?"
 }

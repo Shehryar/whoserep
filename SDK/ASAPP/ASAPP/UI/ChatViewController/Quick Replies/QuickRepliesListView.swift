@@ -10,26 +10,19 @@ import UIKit
 
 class QuickRepliesListView: UIView {
 
-    var onButtonItemSelection: ((SRSButtonItem) -> Bool)?
+    var onQuickReplySelected: ((QuickReply) -> Bool)?
     
     var message: ChatMessage? {
         didSet {
-            selectedButtonItem = nil
-            buttonItems = message?.quickReplies
-            
+            selectedQuickReply = nil
+            quickReplies = message?.quickReplies
         }
     }
     
-    fileprivate(set) var selectedButtonItem: SRSButtonItem?
+    fileprivate(set) var selectedQuickReply: QuickReply?
     
-    fileprivate(set) var buttonItems: [SRSButtonItem]? {
-        didSet {            
-//            if ASAPP.isDemoContentEnabled() {
-//                let testButton = SRSButtonItem(title: "Restart Device", type: .Action)
-//                testButton.actionEndpoint = "DeviceRestart"
-//                buttonItems?.append(testButton)
-//            }
-            
+    fileprivate(set) var quickReplies: [QuickReply]? {
+        didSet {
             tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: false)
             updateGradientVisibility()
@@ -130,8 +123,8 @@ class QuickRepliesListView: UIView {
 
 extension QuickRepliesListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let buttonItems = buttonItems {
-            return buttonItems.count
+        if let quickReplies = quickReplies {
+            return quickReplies.count
         }
         return 0
     }
@@ -146,13 +139,12 @@ extension QuickRepliesListView: UITableViewDataSource {
     
     // Mark: Utility
     
-    func buttonItemForIndexPath(_ indexPath: IndexPath) -> SRSButtonItem? {
-        if let buttonItems = buttonItems {
-            if (indexPath as NSIndexPath).row >= 0 && (indexPath as NSIndexPath).row < buttonItems.count {
-                return buttonItems[(indexPath as NSIndexPath).row]
-            }
+    func quickReplyForIndexPath(_ indexPath: IndexPath) -> QuickReply? {
+        guard let quickReplies = quickReplies,
+            indexPath.row >= 0 && indexPath.row < quickReplies.count else {
+                return nil
         }
-        return nil
+        return quickReplies[indexPath.row]
     }
     
     func styleQuickReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
@@ -164,13 +156,13 @@ extension QuickRepliesListView: UITableViewDataSource {
         cell.label.font = ASAPP.styles.textStyles.body.font
         cell.separatorBottomColor = ASAPP.styles.colors.separatorSecondary
         
-        if let buttonItem = buttonItemForIndexPath(indexPath) {
-            cell.label.setAttributedText(buttonItem.title,
+        if let quickReply = quickReplyForIndexPath(indexPath) {
+            cell.label.setAttributedText(quickReply.title,
                                          textType: .body,
                                          color: ASAPP.styles.colors.quickReplyButton.textNormal)
             cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
             
-            if buttonItem.action.willExitASAPP && !ConversationManager.demo_CanOverrideButtonItemSelection(buttonItem: buttonItem) {
+            if quickReply.action.willExitASAPP && !ConversationManager.demo_OverrideQuickReplySelected(quickReply) {
                 cell.imageView?.isHidden = false
                 cell.accessibilityTraits = UIAccessibilityTraitLink
             } else {
@@ -181,8 +173,8 @@ extension QuickRepliesListView: UITableViewDataSource {
             cell.label.text = nil
         }
         
-        if selectedButtonItem != nil {
-            if selectedButtonItem == buttonItemForIndexPath(indexPath) {
+        if selectedQuickReply != nil {
+            if selectedQuickReply == quickReplyForIndexPath(indexPath) {
                 cell.label.alpha = 1
             } else {
                 cell.label.alpha = 0.3
@@ -210,13 +202,13 @@ extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard selectedButtonItem == nil else { return }
+        guard selectedQuickReply == nil else { return }
         
-        if let buttonItem = buttonItemForIndexPath(indexPath),
-            let onButtonItemSelection = onButtonItemSelection {
-            selectedButtonItem = buttonItem
-            if !onButtonItemSelection(buttonItem) {
-                selectedButtonItem = nil
+        if let quickReply = quickReplyForIndexPath(indexPath),
+            let onQuickReplySelected = onQuickReplySelected {
+            selectedQuickReply = quickReply
+            if !onQuickReplySelected(quickReply) {
+                selectedQuickReply = nil
             }
             updateCellsAnimated(animated: true)
         }
@@ -262,14 +254,14 @@ extension QuickRepliesListView {
     }
     
     func deselectButtonSelection(animated: Bool) {
-        if selectedButtonItem != nil {
-            selectedButtonItem = nil
+        if selectedQuickReply != nil {
+            selectedQuickReply = nil
             updateCellsAnimated(animated: animated)
         }
     }
     
     func clearSelection() {
-        selectedButtonItem = nil
+        selectedQuickReply = nil
         tableView.reloadData()
     }
     

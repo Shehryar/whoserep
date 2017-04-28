@@ -1,16 +1,15 @@
 {
-  "text": "How much would you like to charge to your card?",
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Enter Amount",
-      "value": {
-        "type": "COMPONENT_VIEW",
+      "action": {
         "content": {
-          "name": "7-1-07_view_enter_amount",
-          "displayStyle": "inset"
-        }
-      }
+          "displayStyle": "inset",
+          "name": "7-1-07_view_enter_amount"
+        },
+        "type": "componentView"
+      },
+      "title": "Enter Amount"
     }
-  ]
+  ],
+  "text": "How much would you like to charge to your card?"
 }

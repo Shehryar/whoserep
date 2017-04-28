@@ -31,9 +31,9 @@ class ChatMessageAttachment: NSObject {
     let itemList: SRSItemList?
     let itemCarousel: SRSItemCarousel?
     let requiresNoContainer: Bool
-    let quickRepliesDictionary: [String : [SRSButtonItem]]?
+    let quickRepliesDictionary: [String : [QuickReply]]?
     
-    var quickReplies: [SRSButtonItem]? {
+    var quickReplies: [QuickReply]? {
         if let quickRepliesDictionary = quickRepliesDictionary,
             let currentValue = template?.value as? String {
             return quickRepliesDictionary[currentValue]
@@ -43,7 +43,7 @@ class ChatMessageAttachment: NSObject {
     
     // MARK:- Init
     
-    init(content: Any, requiresNoContainer: Bool? = nil, quickRepliesDictionary: [String : [SRSButtonItem]]? = nil) {
+    init(content: Any, requiresNoContainer: Bool? = nil, quickRepliesDictionary: [String : [QuickReply]]? = nil) {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil
@@ -103,12 +103,12 @@ extension ChatMessageAttachment {
             return nil
         }
         
-        var quickRepliesDictionary: [String : [SRSButtonItem]]? = [String : [SRSButtonItem]]()
+        var quickRepliesDictionary: [String : [QuickReply]]? = [String : [QuickReply]]()
         if let quickRepliesJSONDict = json[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
             for (pageId, buttonsJSON) in quickRepliesJSONDict {
-                var quickReplies = [SRSButtonItem]()
+                var quickReplies = [QuickReply]()
                 for buttonJSON in buttonsJSON {
-                    if let quickReply = SRSButtonItem.fromJSON(buttonJSON) {
+                    if let quickReply = QuickReply.fromJSON(buttonJSON) {
                         quickReplies.append(quickReply)
                     }
                 }
@@ -117,7 +117,7 @@ extension ChatMessageAttachment {
                 }
             }
         }
-        if (quickRepliesDictionary ?? [String : [SRSButtonItem]]()).isEmpty {
+        if (quickRepliesDictionary ?? [String : [QuickReply]]()).isEmpty {
             quickRepliesDictionary = nil
         }
 

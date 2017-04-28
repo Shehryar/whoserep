@@ -49,4 +49,25 @@ extension SRSButtonItem {
     }
 }
 
+// MARK:- Bridge
+
+extension SRSButtonItem {
+    
+    func toQuickReply() -> QuickReply {
+        return QuickReply(title: title, action: action, isAutoSelect: isAutoSelect)
+    }
+    
+    class func getQuickReplies(from buttonItems: [SRSButtonItem]?) -> [QuickReply]? {
+        guard let buttonItems = buttonItems, !buttonItems.isEmpty else {
+            return nil
+        }
+        
+        var quickReplies = [QuickReply]()
+        for buttonItem in buttonItems {
+            let quickReply = buttonItem.toQuickReply()
+            quickReplies.append(quickReply)
+        }
+        return quickReplies
+    }
+}
 

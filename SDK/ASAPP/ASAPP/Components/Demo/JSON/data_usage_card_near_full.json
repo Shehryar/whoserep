@@ -1,100 +1,99 @@
 {
-  "styles" : {},
-  "body" :{
-  "type": "stackView",
-  "content": {
-    "items": [
-      {
-        "type": "stackView",
-        "content": {
-          "orientation": "horizontal",
-          "items": [
-            {
-              "type": "label",
-              "content": {
-                "text": "Data Usage"
+  "body": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "items": [
+              {
+                "content": {
+                  "text": "Data Usage"
+                },
+                "style": {
+                  "color": "#5b657e",
+                  "fontSize": 16,
+                  "fontWeight": "black",
+                  "gravity": "middle"
+                },
+                "type": "label"
               },
-              "style" : {
-                "gravity": "middle",
-                "fontWeight": "black",
-                "fontSize": 16,
-                "color": "#5b657e"
+              {
+                "content": {
+                  "action": {
+                    "content": {
+                      "name": "data_usage_view"
+                    },
+                    "type": "componentView"
+                  },
+                  "style": "text",
+                  "title": "VIEW ALL"
+                },
+                "style": {
+                  "align": "right",
+                  "gravity": "middle",
+                  "paddingBottom": 12,
+                  "paddingLeft": 16,
+                  "paddingRight": 0,
+                  "paddingTop": 12,
+                  "weight": 1
+                },
+                "type": "button"
               }
-            },
-            {
-              "type": "button",
-              "content": {
-                "title": "VIEW ALL",
-                "style": "text",
-                "action" : {
-                    "type" : "componentView",
-                    "content" : {
-                      "name" : "data_usage_view"
-                    }
-                  }
-              },
-              "style" : {
-                "align": "right",
-                "gravity": "middle",
-                "weight": 1,
-                "paddingTop": 12,
-                "paddingLeft": 16,
-                "paddingBottom": 12,
-                "paddingRight": 0
-              }
-            }
-          ]
+            ],
+            "orientation": "horizontal"
+          },
+          "style": {
+            "paddingBottom": 4,
+            "paddingTop": 4
+          },
+          "type": "stackView"
         },
-        "style" : {
-          "paddingTop": 4,
-          "paddingBottom": 4
-        }
-      },
-      {
-        "type": "separator"
-      },
-
-      {
-        "type" : "progressBar",
-        "content" : {
-            "fillPercentage" : 0.98
+        {
+          "type": "separator"
         },
-        "style" : {
-            "margin" : 20
-        }
-      },
-      {
-        "type": "label",
-        "content": {
-          "text": "448 GB"
+        {
+          "content": {
+            "fillPercentage": 0.98
+          },
+          "style": {
+            "margin": 20
+          },
+          "type": "progressBar"
         },
-        "style" : {
-          "align": "fill",
-          "marginBottom" : 4,
-          "textAlign": "center",
-          "fontWeight": "black",
-          "fontSize": 18,
-          "color": "#55607a"
-        }
-      },
-
-      {
-        "type": "label",
-        "content": {
-          "text": "of 450 GB"
+        {
+          "content": {
+            "text": "448 GB"
+          },
+          "style": {
+            "align": "fill",
+            "color": "#55607a",
+            "fontSize": 18,
+            "fontWeight": "black",
+            "marginBottom": 4,
+            "textAlign": "center"
+          },
+          "type": "label"
         },
-        "style" : {
-          "align": "fill",
-          "textAlign": "center",
-          "fontWeight": "regular",
-          "fontSize": 12,
-          "color": "#55607a"
+        {
+          "content": {
+            "text": "of 450 GB"
+          },
+          "style": {
+            "align": "fill",
+            "color": "#55607a",
+            "fontSize": 12,
+            "fontWeight": "regular",
+            "textAlign": "center"
+          },
+          "type": "label"
         }
-      }
-    ]
+      ]
+    },
+    "style": {
+      "padding": 20,
+      "paddingTop": 0
+    },
+    "type": "stackView"
   },
-  "style" : {
-    "padding": 20,
-    "paddingTop" : 0
-  }
-}}
+  "styles": {}
+}

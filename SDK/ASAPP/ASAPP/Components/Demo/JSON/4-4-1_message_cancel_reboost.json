@@ -1,22 +1,24 @@
 {
-  "text": "Are you sure you'd like to remove auto re-boost from your account?",
+  "attachment": {},
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Yes, cancel auto re-boost",
-      "value": {
-        "type": "AID",
-        "content": "4-4-2_message_cancel_reboost_confirmation"
-      }
+      "action": {
+        "content": {
+          "classification": "4-4-2_message_cancel_reboost_confirmation"
+        },
+        "type": "treewalk"
+      },
+      "title": "Yes, cancel auto re-boost"
     },
     {
-      "type": "button",
-      "label": "Nevermind",
-      "value": {
-        "type": "AID",
-        "content": "4-4-0_message_opted_out_of_cancel"
-      }
+      "action": {
+        "content": {
+          "classification": "4-4-0_message_opted_out_of_cancel"
+        },
+        "type": "treewalk"
+      },
+      "title": "Nevermind"
     }
   ],
-  "attachment": {}
+  "text": "Are you sure you'd like to remove auto re-boost from your account?"
 }

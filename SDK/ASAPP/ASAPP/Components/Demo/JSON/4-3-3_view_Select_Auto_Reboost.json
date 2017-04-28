@@ -1,134 +1,134 @@
 {
-  "title": "Add Credit Card",
-  "styles": {
-    "textInput": {
-      "align": "fill",
-      "marginBottom": 4,
-      "color": "#55607a"
-    }
-  },
   "body": {
-    "type": "stackView",
-    "style": {
-      "gravity": "fill"
-    },
     "content": {
       "items": [
         {
-          "type": "scrollView",
-          "style": {
-            "weight": 1,
-            "align": "fill",
-            "gravity" : "fill"
-          },
           "content": {
             "content": {
-              "type": "stackView",
               "content": {
                 "items": [
                   {
-                    "type": "stackView",
                     "content": {
                       "items": [
                         {
-                          "type": "label",
                           "content": {
                             "text": "Select Amount"
                           },
                           "style": {
+                            "color": "#55607a",
                             "fontSize": 18,
                             "fontWeight": "black",
-                            "color": "#55607a",
                             "marginBottom": 12
-                          }
+                          },
+                          "type": "label"
                         },
                         {
-                          "type": "label",
                           "content": {
                             "text": "This amount will automatically be added to your account whenever your account balance drops below $5."
                           },
                           "style": {
-                            "fontSize": 14,
                             "color": "#55607a",
+                            "fontSize": 14,
                             "marginBottom": 12
-                          }
+                          },
+                          "type": "label"
                         },
                         {
-                          "id": "amountInput",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "amount",
                           "content": {
                             "placeholder": "Amount ($)",
-                            "type" : "decimal"
-                          }
+                            "type": "decimal"
+                          },
+                          "id": "amountInput",
+                          "name": "amount",
+                          "type": "textInput"
                         }
                       ]
                     },
                     "style": {
                       "padding": 20
-                    }
+                    },
+                    "type": "stackView"
                   }
                 ]
-              }
+              },
+              "type": "stackView"
             }
-          }
+          },
+          "style": {
+            "align": "fill",
+            "gravity": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
         },
         {
-          "type": "stackView",
-          "style": {
-            "weight": 0,
-            "align": "fill"
-          },
           "content": {
-            "orientation": "horizontal",
             "items": [
               {
-                "type": "button",
                 "content": {
-                  "title": "CANCEL",
-                  "style": "secondary",
                   "action": {
                     "type": "finish"
-                  }
+                  },
+                  "style": "secondary",
+                  "title": "CANCEL"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               },
               {
-                "type": "button",
                 "content": {
-                  "title": "SUBMIT",
                   "action": {
-                    "type": "api",
                     "content": {
-                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
+                      "data": {
+                        "Classification": "4-3-5_message_terms_and_conditions",
+                        "SendFinishMessage": true,
+                        "Text": "$50.00",
+                        "type": "reboost"
+                      },
                       "inputFields": [
                         "amountInput"
                       ],
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "requiredInputFields": [
                         "amountInput"
-                      ],
-                      "data": {
-                        "SendFinishMessage" : true,
-                        "Classification" : "4-3-5_message_terms_and_conditions",
-                        "Text" : "$50.00",
-                        "type": "reboost"
-                      }
-                    }
-                  }
+                      ]
+                    },
+                    "type": "api"
+                  },
+                  "title": "SUBMIT"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               }
-            ]
-          }
+            ],
+            "orientation": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "weight": 0
+          },
+          "type": "stackView"
         }
       ]
+    },
+    "style": {
+      "gravity": "fill"
+    },
+    "type": "stackView"
+  },
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "color": "#55607a",
+      "marginBottom": 4
     }
-  }
+  },
+  "title": "Add Credit Card"
 }

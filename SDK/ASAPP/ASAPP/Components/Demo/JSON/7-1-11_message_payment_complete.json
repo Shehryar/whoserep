@@ -1,81 +1,81 @@
 {
-  "text": "",
-  "quickReplies": [],
   "attachment": {
-    "type": "componentView",
     "content": {
-      "styles": {},
       "body": {
-        "type": "stackView",
         "content": {
-          "orientation": "horizontal",
           "items": [
             {
-              "type": "icon",
               "content": {
                 "icon": "checkmarkThin"
               },
               "style": {
                 "gravity": "top",
+                "height": 32,
                 "marginRight": 21,
-                "width": 32,
-                "height": 32
-              }
+                "width": 32
+              },
+              "type": "icon"
             },
             {
-              "type": "stackView",
               "content": {
                 "items": [
                   {
-                    "type": "label",
                     "content": {
                       "text": "Payment Complete"
                     },
                     "style": {
-                      "marginBottom": 6,
-                      "fontWeight": "black",
+                      "color": "#57617b",
                       "fontSize": 15,
-                      "color": "#57617b"
-                    }
+                      "fontWeight": "black",
+                      "marginBottom": 6
+                    },
+                    "type": "label"
                   },
                   {
-                    "type": "label",
                     "content": {
                       "text": "You've successfully made a payment of $52.27 using your card ending in 1000 to the account associated with the phone number +1 (555) 333-5555."
                     },
                     "style": {
-                      "marginBottom": 8,
-                      "fontWeight": "regular",
+                      "color": "#646e85",
                       "fontSize": 12,
-                      "color": "#646e85"
-                    }
+                      "fontWeight": "regular",
+                      "marginBottom": 8
+                    },
+                    "type": "label"
                   },
                   {
-                    "type": "label",
                     "content": {
                       "text": "March 31, 2017"
                     },
                     "style": {
-                      "fontWeight": "bold",
+                      "color": "#adb2be",
                       "fontSize": 11,
-                      "color": "#adb2be"
-                    }
+                      "fontWeight": "bold"
+                    },
+                    "type": "label"
                   }
                 ]
               },
               "style": {
-                "weight": 1,
-                "gravity": "top"
-              }
+                "gravity": "top",
+                "weight": 1
+              },
+              "type": "stackView"
             }
-          ]
+          ],
+          "orientation": "horizontal"
         },
         "style": {
           "align": "center",
           "marginBottom": 4,
           "padding": 21
-        }
-      }
-    }
-  }
+        },
+        "type": "stackView"
+      },
+      "styles": {}
+    },
+    "type": "componentView"
+  },
+  "quickReplies": [],
+  "text": ""
 }

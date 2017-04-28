@@ -1,28 +1,45 @@
+{{- if .Auth -}}
 {
-  "text": "Sure thing! Would you like to use the card we have on file or a new card to enroll in autopay? \n\nKeep in mind, if you choose a new card, it will replace the card we have on file.",
+  "attachment": {
+    "content": {
+      "body": {},
+      "styles": {}
+    },
+    "type": "componentView"
+  },
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Amex ***********9087",
-      "value": {
-        "type": "AID",
-        "content": "4-3-3_message_Auto_Reboost"
-      }
+      "action": {
+        "content": {
+          "classification": "4-3-3_message_Auto_Reboost"
+        },
+        "type": "treewalk"
+      },
+      "title": "Amex ***********9087"
     },
     {
-      "type": "button",
-      "label": "Use a new card",
-      "value": {
-        "type": "AID",
-        "content": "4-1-2_message_Enter_Card_Details"
-      }
+      "action": {
+        "content": {
+          "classification": "4-1-2_message_Enter_Card_Details"
+        },
+        "type": "treewalk"
+      },
+      "title": "Use a new card"
     }
   ],
-  "attachment": {
-    "type": "componentView",
-    "content": {
-      "styles": {},
-      "body": {}
-    }
-  }
+  "text": "Sure thing! Would you like to use the card we have on file or a new card to enroll in autopay? \n\nKeep in mind, if you choose a new card, it will replace the card we have on file."
 }
+{{- else -}}
+{
+  "quickReplies": [
+    {
+      "action": {
+        "content": "4-1-1_message_enroll_auto_boost",
+        "type": "login"
+      },
+      "title": "Log in"
+    }
+  ],
+  "text": "Please log in to continue."
+}
+{{- end -}}

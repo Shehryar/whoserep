@@ -1,356 +1,364 @@
 {
-  "title": "Feedback",
-  "styles": {
-    "header": {
-      "fontSize": 18,
-      "fontWeight": "bold",
-      "color": "#5b657e",
-      "marginBottom": 36
-    },
-    "radioButton" : {
-      "padding" : 20,
-      "borderColor" : "#c9cdd4",
-      "borderWidth" : 1,
-      "cornerRadius" : 8,
-      "marginBottom" : 12
-    },
-    "radioButtonLabel" : {
-       "fontSize": 15,
-      "color": "#5b657e",
-      "marginLeft" : 16
-    },
-    "separator": {
-      "margin": "32 -24",
-      "align" : "fill"
-    },
-    "text": {
-      "fontSize": 15,
-      "color": "#5b657e"
-    },
-    "textArea": {
-      "align": "fill",
-      "marginBottom": 4,
-      "color": "#55607a"
-    }
-  },
   "body": {
-    "type": "stackView",
+    "styles": {
+      "header": {
+        "color": "#5b657e",
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "marginBottom": 36
+      },
+      "radioButton": {
+        "borderColor": "#c9cdd4",
+        "borderWidth": 1,
+        "cornerRadius": 8,
+        "marginBottom": 12,
+        "padding": 20
+      },
+      "radioButtonLabel": {
+        "color": "#5b657e",
+        "fontSize": 15,
+        "marginLeft": 16
+      },
+      "separator": {
+        "margin": "32 -24"
+      },
+      "text": {
+        "color": "#5b657e",
+        "fontSize": 15
+      },
+      "textInput": {
+        "align": "fill",
+        "color": "#55607a",
+        "marginBottom": 4
+      }
+    },
+    "title": "Feedback",
     "content": {
       "items": [
         {
-          "type": "scrollView",
           "content": {
             "content": {
-              "type": "stackView",
               "content": {
                 "items": [
                   {
-                    "type": "stackView",
                     "content": {
                       "items": [
                         {
-                          "type": "label",
+                          "class": "header",
                           "content": {
                             "text": "How likely are you to recommend Boost to friends or family?"
                           },
-                          "class": "header"
+                          "type": "label"
                         },
                         {
-                          "type": "slider",
-                          "id" : "ratingSlider",
-                          "name" : "rating",
+                          "class": "header",
                           "content": {
-                            "min" : 0,
-                            "max" : 10,
+                            "text": "How likely are you to recommend Boost to friends or family?"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "content": {
                             "label": {
-                              "type": "label",
                               "content": {
                                 "text": ""
                               },
                               "style": {
-                                "marginBottom": 10,
                                 "align": "center",
                                 "backgroundColor": "#8b92a3",
                                 "color": "#ffffff",
+                                "cornerRadius": 4,
                                 "fontSize": 25,
-                                "padding": "8 16",
-                                "cornerRadius": 4
-                              }
-                            }
+                                "marginBottom": 10,
+                                "padding": "8 16"
+                              },
+                              "type": "label"
+                            },
+                            "max": 10,
+                            "min": 0
                           },
+                          "id": "ratingSlider",
+                          "name": "rating",
                           "style": {
                             "marginBottom": 8
-                          }
+                          },
+                          "type": "slider"
                         },
                         {
-                          "type": "stackView",
                           "content": {
-                            "orientation": "horizontal",
                             "items": [
                               {
-                                "type": "label",
+                                "class": "text",
                                 "content": {
                                   "text": "Not at all likely"
                                 },
-                                "class": "text",
                                 "style": {
-                                  "weight": 1,
-                                  "align": "left"
-                                }
+                                  "align": "left",
+                                  "weight": 1
+                                },
+                                "type": "label"
                               },
                               {
-                                "type": "label",
+                                "class": "text",
                                 "content": {
                                   "text": "Extremely likely"
                                 },
-                                "class": "text",
                                 "style": {
-                                  "weight": 1,
                                   "align": "right",
-                                  "textAlign": "right"
-                                }
+                                  "textAlign": "right",
+                                  "weight": 1
+                                },
+                                "type": "label"
                               }
-                            ]
+                            ],
+                            "orientation": "horizontal"
                           },
                           "style": {
                             "marginBottom": 24
-                          }
+                          },
+                          "type": "stackView"
                         },
                         {
-                          "type": "textArea",
+                          "class": "textInput",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textArea"
+                          "type": "textInput"
                         },
                         {
-                          "type": "separator",
-                          "style" : {
-                            "align" : "fill"
-                          },
-                          "class": "separator"
+                          "class": "separator",
+                          "type": "separator"
                         },
                         {
-                          "type": "label",
+                          "class": "header",
                           "content": {
                             "text": "Did this chat increase, decrease, or not change your likelihood to recommend Boost?"
                           },
-                          "class": "header"
+                          "type": "label"
                         },
                         {
-                          "type": "radioButtonsContainer",
-                          "id" : "changeRadioButtons",
-                          "name" : "change",
                           "content": {
                             "buttons": [
                               {
-                                "type": "radioButton",
-                                "value" : "increase",
+                                "class": "radioButton",
                                 "content": {
                                   "label": {
-                                    "type": "label",
+                                    "class": "radioButtonLabel",
                                     "content": {
                                       "text": "Increase"
-                                    }, 
-                                    "class" : "radioButtonLabel"
+                                    },
+                                    "type": "label"
                                   }
                                 },
-                                "class" : "radioButton"
+                                "type": "radioButton",
+                                "value": "increase"
                               },
                               {
-                                "type": "radioButton",
-                                "value" : "decrease",
+                                "class": "radioButton",
                                 "content": {
                                   "label": {
-                                    "type": "label",
+                                    "class": "radioButtonLabel",
                                     "content": {
                                       "text": "Decrease"
-                                    }, 
-                                    "class" : "radioButtonLabel"
+                                    },
+                                    "type": "label"
                                   }
                                 },
-                                "class" : "radioButton"
+                                "type": "radioButton",
+                                "value": "decrease"
                               },
                               {
-                                "type": "radioButton",
-                                "value" : "noChange",
+                                "class": "radioButton",
                                 "content": {
                                   "label": {
-                                    "type": "label",
+                                    "class": "radioButtonLabel",
                                     "content": {
                                       "text": "Not Change"
-                                    }, 
-                                    "class" : "radioButtonLabel"
+                                    },
+                                    "type": "label"
                                   }
                                 },
-                                "class" : "radioButton",
-                                "style" : {
-                                  "marginBottom" : 0
-                                }
+                                "style": {
+                                  "marginBottom": 0
+                                },
+                                "type": "radioButton",
+                                "value": "noChange"
                               }
                             ]
-                          }
+                          },
+                          "id": "changeRadioButtons",
+                          "name": "change",
+                          "type": "radioButtonsContainer"
                         },
                         {
-                          "type": "separator",
-                          "class": "separator"
+                          "class": "separator",
+                          "type": "separator"
                         },
                         {
-                          "type": "label",
+                          "class": "header",
                           "content": {
                             "text": "Based on your answer to the previous question, could you explain why?"
                           },
-                          "class": "header"
+                          "type": "label"
                         },
                         {
-                          "type": "textArea",
+                          "class": "textInput",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textArea"
+                          "type": "textInput"
                         },
                         {
-                          "type": "separator",
-                          "class": "separator"
+                          "class": "separator",
+                          "type": "separator"
                         },
                         {
-                          "type": "label",
+                          "class": "header",
                           "content": {
                             "text": "What could we do to better serve you?"
                           },
-                          "class": "header"
+                          "type": "label"
                         },
                         {
-                          "type": "textArea",
+                          "class": "textInput",
                           "content": {
                             "placeholder": "Leave a comment (optional)"
                           },
-                          "class": "textArea"
+                          "type": "textInput"
                         },
                         {
-                          "type": "separator",
-                          "class": "separator"
+                          "class": "separator",
+                          "type": "separator"
                         },
                         {
-                          "type": "label",
+                          "class": "header",
                           "content": {
                             "text": "Will you be calling customer care to follow up on this particular issue?"
                           },
-                          "class": "header"
+                          "type": "label"
                         },
-                         {
-                          "type": "radioButtonsContainer",
+                        {
                           "content": {
                             "buttons": [
                               {
-                                "type": "radioButton",
+                                "class": "radioButton",
                                 "content": {
                                   "label": {
-                                    "type": "label",
+                                    "class": "radioButtonLabel",
                                     "content": {
                                       "text": "I will be calling customer care"
-                                    }, 
-                                    "class" : "radioButtonLabel"
+                                    },
+                                    "type": "label"
                                   }
                                 },
-                                "class" : "radioButton"
+                                "type": "radioButton"
                               },
                               {
-                                "type": "radioButton",
+                                "class": "radioButton",
                                 "content": {
                                   "label": {
-                                    "type": "label",
+                                    "class": "radioButtonLabel",
                                     "content": {
                                       "text": "I will not be calling customer care"
-                                    }, 
-                                    "class" : "radioButtonLabel"
+                                    },
+                                    "type": "label"
                                   }
                                 },
-                                "class" : "radioButton"
+                                "type": "radioButton"
                               }
                             ]
-                          }
+                          },
+                          "type": "radioButtonsContainer"
                         },
                         {
-                          "type": "separator",
-                          "class": "separator"
+                          "class": "separator",
+                          "type": "separator"
                         },
                         {
-                          "type": "label",
+                          "class": "text",
                           "content": {
                             "text": "Thank you very much for your time.\n\nWe know you have several choices for a telecommunications provider and we appreciate your business.\n\nThank you for choosing Boost."
                           },
-                          "class": "text",
                           "style": {
                             "align": "center",
                             "textAlign": "center"
-                          }
+                          },
+                          "type": "label"
                         }
                       ]
                     },
                     "style": {
                       "padding": "40 24"
-                    }
+                    },
+                    "type": "stackView"
                   }
                 ]
-              }
+              },
+              "type": "stackView"
             }
           },
           "style": {
-            "weight": 1,
             "align": "fill",
-            "gravity": "fill"
-          }
+            "gravity": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
         },
         {
-          "type": "stackView",
           "content": {
-            "orientation": "horizontal",
             "items": [
               {
-                "type": "button",
                 "content": {
-                  "title": "CANCEL",
-                  "style": "secondary",
                   "action": {
                     "type": "finish"
-                  }
+                  },
+                  "style": "secondary",
+                  "title": "CANCEL"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               },
               {
-                "type": "button",
                 "content": {
-                  "title": "SUBMIT",
                   "action": {
-                    "type": "api",
                     "content": {
-                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
-                      "inputFields": ["ratingSlider", "changeRadioButtons"],
-                      "requiredInputFields": ["ratingSlider"],
                       "data": {
-                        "SendFinishMessage" : true,
                         "Classification": "0_message_feedback_received",
+                        "SendFinishMessage": true,
                         "Text": "Uploaded Feedback"
-                      }
-                    }
-                  }
+                      },
+                      "inputFields": [
+                        "ratingSlider",
+                        "changeRadioButtons"
+                      ],
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
+                      "requiredInputFields": [
+                        "ratingSlider"
+                      ]
+                    },
+                    "type": "api"
+                  },
+                  "title": "SUBMIT"
                 },
                 "style": {
-                  "weight": 1,
-                  "align": "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               }
-            ]
+            ],
+            "orientation": "horizontal"
           },
           "style": {
             "align": "fill"
-          }
+          },
+          "type": "stackView"
         }
       ]
-    }
+    },
+    "type": "stackView"
   }
 }

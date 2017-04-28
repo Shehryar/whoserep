@@ -1,234 +1,223 @@
 {
-  "title": "Add Credit Card",
-  "styles": {
-    "textInput": {
-      "align": "fill",
-      "marginBottom": 4,
-      "color": "#55607a"
-    }
-  },
   "body": {
-    "type": "stackView",
     "content": {
       "items": [
         {
-          "type": "scrollView",
           "content": {
             "content": {
-              "type": "stackView",
               "content": {
                 "items": [
                   {
-                    "type": "stackView",
                     "content": {
                       "items": [
                         {
-                          "type": "label",
                           "content": {
                             "text": "Enter Card Details:"
                           },
                           "style": {
+                            "color": "#55607a",
                             "fontSize": 18,
                             "fontWeight": "bold",
-                            "color": "#55607a",
                             "marginBottom": 12
-                          }
+                          },
+                          "type": "label"
                         },
                         {
-                          "id": "cardNameInput",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "cardName",
-                          "value": "",
                           "content": {
                             "placeholder": "Name on Card"
-                          }
-                        },
-                        {
-                          "id": "cardNumberInput",
+                          },
+                          "id": "cardNameInput",
+                          "name": "cardName",
                           "type": "textInput",
-                          "class": "textInput",
-                          "name": "cardNumber",
-                          "value": "",
-                          "content": {
-                            "placeholder": "Card Number",
-                            "password" : true,
-                            "type" : "number"
-                          }
+                          "value": ""
                         },
                         {
-                          "type": "stackView",
+                          "class": "textInput",
                           "content": {
-                            "orientation": "horizontal",
+                            "password": true,
+                            "placeholder": "Card Number",
+                            "type": "number"
+                          },
+                          "id": "cardNumberInput",
+                          "name": "cardNumber",
+                          "type": "textInput",
+                          "value": ""
+                        },
+                        {
+                          "content": {
                             "items": [
                               {
-                                "id": "carExpInput",
-                                "type": "textInput",
                                 "class": "textInput",
-                                "name": "cardExp",
-                                "value": "",
                                 "content": {
                                   "placeholder": "Exp Date (MM/YY)"
                                 },
+                                "id": "carExpInput",
+                                "name": "cardExp",
                                 "style": {
                                   "align": "fill",
                                   "weight": 1
-                                }
+                                },
+                                "type": "textInput",
+                                "value": ""
                               },
                               {
-                                "id": "cardCVVInput",
-                                "type": "textInput",
                                 "class": "textInput",
-                                "name": "cardCVV",
-                                "value": "",
                                 "content": {
+                                  "password": true,
                                   "placeholder": "CVV",
-                                  "password" : true,
-                                  "type" : "number"
+                                  "type": "number"
                                 },
+                                "id": "cardCVVInput",
+                                "name": "cardCVV",
                                 "style": {
-                                  "marginLeft": 20,
                                   "align": "fill",
+                                  "marginLeft": 20,
                                   "weight": 1
-                                }
+                                },
+                                "type": "textInput",
+                                "value": ""
                               }
-                            ]
+                            ],
+                            "orientation": "horizontal"
                           },
-                          "style": {}
+                          "style": {},
+                          "type": "stackView"
                         },
                         {
-                          "type": "label",
                           "content": {
                             "text": "Billing Address:"
                           },
                           "style": {
+                            "color": "#55607a",
                             "fontSize": 18,
                             "fontWeight": "bold",
-                            "color": "#55607a",
-                            "marginTop": 32,
-                            "marginBottom": 12
-                          }
+                            "marginBottom": 12,
+                            "marginTop": 32
+                          },
+                          "type": "label"
                         },
                         {
-                          "id": "nameInput",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "name",
-                          "value": "",
                           "content": {
                             "placeholder": "Full Name"
-                          }
+                          },
+                          "id": "nameInput",
+                          "name": "name",
+                          "type": "textInput",
+                          "value": ""
                         },
                         {
-                          "id": "address1Input",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "address1",
-                          "value": "",
                           "content": {
                             "placeholder": "Address Line 1"
-                          }
+                          },
+                          "id": "address1Input",
+                          "name": "address1",
+                          "type": "textInput",
+                          "value": ""
                         },
                         {
-                          "id": "address2Input",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "address2",
-                          "value": "",
                           "content": {
                             "placeholder": "Address Line 2"
-                          }
+                          },
+                          "id": "address2Input",
+                          "name": "address2",
+                          "type": "textInput",
+                          "value": ""
                         },
                         {
-                          "id": "cityInput",
-                          "type": "textInput",
                           "class": "textInput",
-                          "name": "city",
-                          "value": "",
                           "content": {
                             "placeholder": "City"
-                          }
+                          },
+                          "id": "cityInput",
+                          "name": "city",
+                          "type": "textInput",
+                          "value": ""
                         },
                         {
-                          "type": "stackView",
                           "content": {
-                            "orientation": "horizontal",
                             "items": [
                               {
-                                "id": "stateInput",
-                                "type": "textInput",
                                 "class": "textInput",
-                                "name": "state",
-                                "value": "",
                                 "content": {
                                   "placeholder": "State"
                                 },
+                                "id": "stateInput",
+                                "name": "state",
                                 "style": {
                                   "align": "fill",
                                   "weight": 1
-                                }
+                                },
+                                "type": "textInput",
+                                "value": ""
                               },
                               {
-                                "id": "zipCodeInput",
-                                "type": "textInput",
                                 "class": "textInput",
-                                "name": "zipCode",
-                                "value": "",
                                 "content": {
                                   "placeholder": "Zip Code"
                                 },
+                                "id": "zipCodeInput",
+                                "name": "zipCode",
                                 "style": {
-                                  "marginLeft": 20,
                                   "align": "fill",
+                                  "marginLeft": 20,
                                   "weight": 1
-                                }
+                                },
+                                "type": "textInput",
+                                "value": ""
                               }
-                            ]
+                            ],
+                            "orientation": "horizontal"
                           },
-                          "style": {}
+                          "style": {},
+                          "type": "stackView"
                         }
                       ]
                     },
                     "style": {
                       "padding": 20
-                    }
+                    },
+                    "type": "stackView"
                   }
                 ]
-              }
+              },
+              "type": "stackView"
             }
           },
           "style": {
-            "weight": 1,
-            "align": "fill"
-          }
+            "align": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
         },
         {
-          "type": "stackView",
           "content": {
-            "orientation": "horizontal",
             "items": [
               {
-                "type" : "button",
-                "content" : {
-                  "title" : "CANCEL",
-                  "style" : "secondary",
-                  "action" : {
-                    "type" : "finish"
-                  }
-                }, 
-                "style" : {
-                  "weight" : 1,
-                  "align" : "fill"
-                }
+                "content": {
+                  "action": {
+                    "type": "finish"
+                  },
+                  "style": "secondary",
+                  "title": "CANCEL"
+                },
+                "style": {
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               },
               {
-                "type": "button",
                 "content": {
-                  "title": "SUBMIT",
                   "action": {
-                    "type": "api",
                     "content": {
-                      "requestPath": "/saveAddress",
+                      "data": {
+                        "type": "newAddress",
+                        "userId": "mitcho309"
+                      },
                       "inputFields": [
                         "nameInput",
                         "address1Input",
@@ -237,32 +226,43 @@
                         "stateInput",
                         "zipCodeInput"
                       ],
+                      "requestPath": "/saveAddress",
                       "requiredInputFields": [
                         "nameInput",
                         "address1Input",
                         "cityInput",
                         "stateInput",
                         "zipCodeInput"
-                      ],
-                      "data": {
-                        "type": "newAddress",
-                        "userId": "mitcho309"
-                      }
-                    }
-                  }
+                      ]
+                    },
+                    "type": "api"
+                  },
+                  "title": "SUBMIT"
                 },
                 "style": {
-                  "weight": 1,
-                  "align" : "fill"
-                }
+                  "align": "fill",
+                  "weight": 1
+                },
+                "type": "button"
               }
-            ]
+            ],
+            "orientation": "horizontal"
           },
           "style": {
             "align": "fill"
-          }
+          },
+          "type": "stackView"
         }
       ]
+    },
+    "type": "stackView"
+  },
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "color": "#55607a",
+      "marginBottom": 4
     }
-  }
+  },
+  "title": "Add Credit Card"
 }

@@ -16,8 +16,8 @@ class ChatMessage: NSObject {
     
     let text: String?
     let attachment: ChatMessageAttachment?
-    let _quickReplies: [SRSButtonItem]?
-    var quickReplies: [SRSButtonItem]? {
+    let _quickReplies: [QuickReply]?
+    var quickReplies: [QuickReply]? {
         return attachment?.quickReplies ?? _quickReplies
     }
     
@@ -35,7 +35,7 @@ class ChatMessage: NSObject {
     
     init(text: String?,
          attachment: ChatMessageAttachment?,
-         quickReplies: [SRSButtonItem]?,
+         quickReplies: [QuickReply]?,
          isReply: Bool,
          sendTime: Date,
          eventId: Int,
@@ -73,7 +73,7 @@ class ChatMessage: NSObject {
         return dateFormatter.string(from: sendTime)
     }
     
-    func getAutoSelectQuickReply() -> SRSButtonItem? {
+    func getAutoSelectQuickReply() -> QuickReply? {
         guard let quickReplies = _quickReplies else {
             return nil
         }
@@ -91,27 +91,37 @@ class ChatMessage: NSObject {
 
 extension ChatMessage {
     
-    /// Returns text, attachment, quickReplies
-    static func parseContent(from json: [String : Any]?) -> (String?, ChatMessageAttachment?, [SRSButtonItem]?) {
+    enum JSONKey: String {
+        case attachment = "attachment"
+        case clientMessage = "ClientMessage"
+        case quickReplies = "quickReplies"
+        case text = "text"
+    }
+    
+    static func parseContent(from json: [String : Any]?) -> (String?, ChatMessageAttachment?, [QuickReply]?) {
         guard let json = json else {
             return (nil, nil, nil)
         }
-        let messageJSON = json["ClientMessage"] as? [String : Any] ?? json
-            
-        let text = messageJSON["text"] as? String
-        let attachment: ChatMessageAttachment? = ChatMessageAttachment.fromJSON(messageJSON["attachment"])
-
-        var quickReplies = [SRSButtonItem]()
-        if let quickRepliesJSON = (messageJSON["quick_replies"] ?? messageJSON["quickReplies"]) as? [[String : AnyObject]]   {
+        let messageJSON = json[JSONKey.clientMessage.rawValue] as? [String : Any] ?? json
+        
+        let text = messageJSON.string(for: JSONKey.text.rawValue)
+        let attachment: ChatMessageAttachment? = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
+        var quickReplies: [QuickReply]?
+        
+        if let quickRepliesJSON = messageJSON[JSONKey.quickReplies.rawValue] as? [[String : Any]]   {
+            quickReplies = [QuickReply]()
             for quickReplyJSON in quickRepliesJSON {
-                if let button = SRSButtonItem.fromJSON(quickReplyJSON) {
-                    quickReplies.append(button)
+                if let quickReply = QuickReply.fromJSON(quickReplyJSON) {
+                    quickReplies?.append(quickReply)
                 }
             }
         }
         
         return (text, attachment, quickReplies)
     }
+    
+    
+    // MARK: Event 
     
     static func fromEvent(_ event: Event?) -> ChatMessage? {
         guard let event = event else {
@@ -120,7 +130,7 @@ extension ChatMessage {
         
         var text: String?
         var attachment: ChatMessageAttachment?
-        var quickReplies: [SRSButtonItem]?
+        var quickReplies: [QuickReply]?
         var classification: String?
         
         switch event.eventType {
@@ -141,7 +151,7 @@ extension ChatMessage {
             } else if let itemCarousel = event.srsResponse?.itemCarousel {
                 attachment = ChatMessageAttachment(content: itemCarousel)
             }
-            quickReplies = event.srsResponse?.buttonItems
+            quickReplies = SRSButtonItem.getQuickReplies(from: event.srsResponse?.buttonItems)
             classification = event.srsResponse?.classification
             break
         }

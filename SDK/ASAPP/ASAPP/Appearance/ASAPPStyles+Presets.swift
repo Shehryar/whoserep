@@ -92,8 +92,6 @@ public extension ASAPPStyles {
         let styles = ASAPPStyles()
         
         let textBlue = UIColor(red:0.345, green:0.388, blue:0.486, alpha:1.000)
-        let textGray = UIColor(red:0.682, green:0.702, blue:0.753, alpha:1.000)
-        let linkBlue = UIColor(red:0.118, green:0.710, blue:0.929, alpha:1.000)
         
         // Nav button style
         
