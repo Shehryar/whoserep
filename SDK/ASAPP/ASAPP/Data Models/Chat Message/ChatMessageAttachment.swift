@@ -14,11 +14,9 @@ class ChatMessageAttachment: NSObject {
         case none = "AttachmentTypeNone"
         case image = "image"
         case template = "componentView"
-        case itemList = "AttachmentTypeItemList"
-        case itemCarousel = "AttachmentTypeItemCarousel"
-        
+       
         static let all = [
-            none, image, template, itemList, itemCarousel
+            none, image, template
         ]
     }
     
@@ -28,8 +26,6 @@ class ChatMessageAttachment: NSObject {
     
     let image: ChatMessageImage?
     let template: Component?
-    let itemList: SRSItemList?
-    let itemCarousel: SRSItemCarousel?
     let requiresNoContainer: Bool
     let quickRepliesDictionary: [String : [QuickReply]]?
     
@@ -47,8 +43,6 @@ class ChatMessageAttachment: NSObject {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil
-        var itemList: SRSItemList? = nil
-        var itemCarousel: SRSItemCarousel? = nil
         
         if let contentAsImage = content as? ChatMessageImage {
             type = .image
@@ -56,12 +50,6 @@ class ChatMessageAttachment: NSObject {
         } else if let contentAsTemplate = content as? Component {
             type = .template
             template = contentAsTemplate
-        } else if let contentAsItemList = content as? SRSItemList {
-            type = .itemList
-            itemList = contentAsItemList
-        } else if let contentAsItemCarousel = content as? SRSItemCarousel {
-            type = .itemCarousel
-            itemCarousel = contentAsItemCarousel
         } else {
             DebugLog.w(caller: ChatMessageAttachment.self, "Unable to identify attachment: \(content)")
         }
@@ -69,8 +57,6 @@ class ChatMessageAttachment: NSObject {
         self.type = type
         self.image = image
         self.template = template
-        self.itemList = itemList
-        self.itemCarousel = itemCarousel
         self.requiresNoContainer = requiresNoContainer ?? false
         self.quickRepliesDictionary = quickRepliesDictionary
         super.init()
@@ -136,7 +122,7 @@ extension ChatMessageAttachment {
             }
             break
             
-        case .itemList, .itemCarousel, .none:
+        case .none:
             // No-op
             break;
         }

@@ -18,7 +18,7 @@ class IncomingMessage {
     var requestId: Int?
     var type: MessageType?
     var bodyString: String?
-    var body: [String: AnyObject]?
+    var body: [String: Any]?
     var debugError: String?
     var fullMessage: Any?
     

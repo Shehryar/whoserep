@@ -83,4 +83,10 @@ extension Date {
         }
         return dateFormat
     }
+    
+    func formattedStringMostRecent() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormatForMostRecent()
+        return dateFormatter.string(from: self)
+    }
 }

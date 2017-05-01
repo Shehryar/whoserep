@@ -12,66 +12,32 @@ import UIKit
 
 class ChatMessage: NSObject {
     
-    // MARK: Message Content
-    
     let text: String?
     let attachment: ChatMessageAttachment?
     let _quickReplies: [QuickReply]?
     var quickReplies: [QuickReply]? {
         return attachment?.quickReplies ?? _quickReplies
     }
-    
-    // MARK: Metadata
-    
-    let isReply: Bool
-    let isAutomatedMessage: Bool
-    let eventId: Int
-    let eventType: EventType
-    let issueId: Int
-    let classification: String?
-    fileprivate(set) var sendTime: Date
-
+    let metadata: EventMetadata
+   
     // MARK: Init
     
-    init(text: String?,
-         attachment: ChatMessageAttachment?,
-         quickReplies: [QuickReply]?,
-         isReply: Bool,
-         sendTime: Date,
-         eventId: Int,
-         eventType: EventType,
-         issueId: Int,
-         classification: String? = nil,
-         isAutomatedMessage: Bool = false) {
+    init?(text: String?,
+          attachment: ChatMessageAttachment?,
+          quickReplies: [QuickReply]?,
+          metadata: EventMetadata) {
+        guard text != nil || attachment != nil || quickReplies != nil else {
+            return nil
+        }
         
         self.text = text
         self.attachment = attachment
-        if let quickReplies = quickReplies, quickReplies.count > 0 {
-            self._quickReplies = quickReplies
-        } else {
-            self._quickReplies = nil
-        }
-        self.isReply = isReply
-        self.sendTime = sendTime
-        self.eventId = eventId
-        self.eventType = eventType
-        self.issueId = issueId
-        self.isAutomatedMessage = isAutomatedMessage
-        self.classification = classification
+        self._quickReplies = quickReplies != nil && quickReplies!.count > 0 ? quickReplies : nil
+        self.metadata = metadata
         super.init()
     }
     
-    // MARK:- Updates
-    
-    func updateSendTime(toMatch message: ChatMessage) {
-        sendTime = message.sendTime
-    }
-    
-    func getSendTimeString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = sendTime.dateFormatForMostRecent()
-        return dateFormatter.string(from: sendTime)
-    }
+    // MARK: Updates
     
     func getAutoSelectQuickReply() -> QuickReply? {
         guard let quickReplies = _quickReplies else {
@@ -98,90 +64,17 @@ extension ChatMessage {
         case text = "text"
     }
     
-    static func parseContent(from json: [String : Any]?) -> (String?, ChatMessageAttachment?, [QuickReply]?) {
-        guard let json = json else {
-            return (nil, nil, nil)
-        }
-        let messageJSON = json[JSONKey.clientMessage.rawValue] as? [String : Any] ?? json
-        
-        let text = messageJSON.string(for: JSONKey.text.rawValue)
-        let attachment: ChatMessageAttachment? = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
-        var quickReplies: [QuickReply]?
-        
-        if let quickRepliesJSON = messageJSON[JSONKey.quickReplies.rawValue] as? [[String : Any]]   {
-            quickReplies = [QuickReply]()
-            for quickReplyJSON in quickRepliesJSON {
-                if let quickReply = QuickReply.fromJSON(quickReplyJSON) {
-                    quickReplies?.append(quickReply)
-                }
-            }
-        }
-        
-        return (text, attachment, quickReplies)
-    }
-    
-    
-    // MARK: Event 
-    
-    static func fromEvent(_ event: Event?) -> ChatMessage? {
-        guard let event = event else {
+    class func fromJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
+        guard let json = json as? [String : Any] else {
             return nil
         }
+        let messageJSON = json.jsonObject(for: JSONKey.clientMessage.rawValue) ?? json
         
-        var text: String?
-        var attachment: ChatMessageAttachment?
-        var quickReplies: [QuickReply]?
-        var classification: String?
-        
-        switch event.eventType {
-        case .textMessage:
-            text = event.textMessage?.text
-            break
-            
-        case .pictureMessage:
-            if let pictureMessage = event.pictureMessage {
-                attachment = ChatMessageAttachment(content: pictureMessage)
-            }
-            break
-            
-        default:
-            text = event.srsResponse?.messageText
-            if let itemList = event.srsResponse?.itemList {
-                attachment = ChatMessageAttachment(content: itemList)
-            } else if let itemCarousel = event.srsResponse?.itemCarousel {
-                attachment = ChatMessageAttachment(content: itemCarousel)
-            }
-            quickReplies = SRSButtonItem.getQuickReplies(from: event.srsResponse?.buttonItems)
-            classification = event.srsResponse?.classification
-            break
-        }
-        
-        if (text == nil && attachment == nil && quickReplies == nil) {
-            (text, attachment, quickReplies) = parseContent(from: event.eventJSON)
-        }
-        
-        // Do not return a message without any sort of content
-        if text != nil || attachment != nil || quickReplies != nil {
-            
-            let eventId: Int
-            if event.ephemeralType == .eventStatus, let parentId = event.parentEventLogSeq {
-                eventId = parentId
-            } else {
-                eventId = event.eventLogSeq
-            }
-            
-            return ChatMessage(text: text,
-                               attachment: attachment,
-                               quickReplies: quickReplies,
-                               isReply: event.isReply,
-                               sendTime: event.eventDate,
-                               eventId: eventId,
-                               eventType: event.eventType,
-                               issueId: event.issueId,
-                               classification: classification,
-                               isAutomatedMessage: event.srsResponse != nil)
-        }
-        return nil
+        let text = messageJSON.string(for: JSONKey.text.rawValue)
+        let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
+        let quickReplies = QuickReply.arrayFromJSON(messageJSON[JSONKey.quickReplies.rawValue])
+       
+        return ChatMessage(text: text, attachment: attachment, quickReplies: quickReplies, metadata: metadata)
     }
 }
 

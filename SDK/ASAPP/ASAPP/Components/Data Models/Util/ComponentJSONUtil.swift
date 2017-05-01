@@ -31,9 +31,38 @@ extension NSTextAlignment {
     }
 }
 
-// MARK:- Dictionary Extension
+// MARK:- String Extensions
+
+extension String {
+    
+    func toJSONObject() -> [String : Any]? {
+        var jsonObject: [String : Any]?
+        if let stringData = data(using: String.Encoding.utf8) {
+            do {
+                jsonObject =  try JSONSerialization.jsonObject(with: stringData, options: []) as? [String : Any]
+            } catch {
+                DebugLog.d("Unable to serialize string as json: \(self)")
+            }
+        }
+        return jsonObject
+    }
+}
+
+// MARK:- Dictionary Extensions
 
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
+    
+    // MARK: JSON
+    
+    func jsonObject(for key: String) -> [String : Any]? {
+        if let value = self[key as! Key] as? [String : Any] {
+            return value
+        }
+        if let stringValue = self[key as! Key] as? String {
+            return stringValue.toJSONObject()
+        }
+        return nil
+    }
     
     // MARK: Boolean
     

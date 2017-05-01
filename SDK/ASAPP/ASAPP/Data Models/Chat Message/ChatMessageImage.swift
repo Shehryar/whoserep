@@ -13,7 +13,8 @@ class ChatMessageImage: NSObject {
     let width: CGFloat
     let height: CGFloat
     let aspectRatio: CGFloat
-
+    
+    // MARK:- Init
     
     init(url: URL, width: CGFloat, height: CGFloat) {
         self.url = url

@@ -53,4 +53,18 @@ extension QuickReply {
         
         return QuickReply(title: title, action: action, isAutoSelect: isAutoSelect)
     }
+    
+    class func arrayFromJSON(_ jsonArray: Any?) -> [QuickReply]? {
+        guard let jsonArray = jsonArray as? [[String : Any]] else {
+            return nil
+        }
+        
+        var quickReplies = [QuickReply]()
+        for quickReplyJSON in jsonArray {
+            if let quickReply = QuickReply.fromJSON(quickReplyJSON) {
+                quickReplies.append(quickReply)
+            }
+        }
+        return quickReplies.isEmpty ? nil : quickReplies
+    }
 }

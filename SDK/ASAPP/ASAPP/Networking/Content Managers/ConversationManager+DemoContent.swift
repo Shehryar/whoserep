@@ -169,16 +169,6 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    // MARK: Generic
-    
-    func sendDemoMessageEvent(_ event: Event?) {
-        guard let message = event?.chatMessage else { return }
-        
-        Dispatcher.delay(600, closure: {
-            self.delegate?.conversationManager(self, didReceive: message)
-        })
-    }
-    
     func echoMessageResponse(withJSONString jsonString: String?) {
         guard let jsonString = jsonString else { return }
         
@@ -190,6 +180,16 @@ extension ConversationManager {
             // no-op
             
         }
+    }
+    
+    // MARK: Generic
+    
+    func sendDemoMessageEvent(_ event: Event?) {
+        guard let message = event?.chatMessage else { return }
+        
+        Dispatcher.delay(600, closure: {
+            self.delegate?.conversationManager(self, didReceive: message)
+        })
     }
     
     // MARK: Specific
