@@ -176,8 +176,6 @@ extension ConversationManager: SocketConnectionDelegate {
             fileStore.addEventJSONString(eventJSONString: message.bodyString)
         }
         
-        if demo_OverrideReceivedMessageEvent(event: event) { return }
-        
         // Entering / Exiting Live Chat
         if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
             let wasLiveChat = isLiveChat
@@ -190,8 +188,8 @@ extension ConversationManager: SocketConnectionDelegate {
         // Typing Status
         if event.ephemeralType == .typingStatus {
             if let typingStatus = event.typingStatus {
-                delegate?.conversationManager(self, didChangeTypingStatus: typingStatus.isTyping)
-                if typingStatus.isTyping {
+                delegate?.conversationManager(self, didChangeTypingStatus: typingStatus)
+                if typingStatus {
                     conversantBeganTypingTime = Date.timeIntervalSinceReferenceDate
                 }
             }
@@ -210,7 +208,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Message Event
         if let message = event.chatMessage {
-            if message.isAutomatedMessage {
+            if message.metadata.isAutomatedMessage {
                 Dispatcher.delay(600, closure: { [weak self] in
                     guard let strongSelf = self else {
                         return

@@ -31,6 +31,7 @@ class Event: NSObject {
     let isReply: Bool
     let eventDate: Date
     let sendTimeString: String?
+    let isAutomatedMessage: Bool
     
     // Body Content
     
@@ -68,6 +69,7 @@ class Event: NSObject {
         self.isReply = !self.isCustomerEvent || eventType == .conversationEnd
         self.eventDate = Date(timeIntervalSince1970: eventTime)
         self.sendTimeString = self.eventDate.formattedStringMostRecent()
+        self.isAutomatedMessage = eventType == .srsResponse
         
         super.init()
     }
@@ -83,7 +85,7 @@ class Event: NSObject {
         }
         
         return EventMetadata(isReply: isReply,
-                             isAutomatedMessage: eventType == .srsResponse,
+                             isAutomatedMessage: isAutomatedMessage,
                              eventId: eventId,
                              eventType: eventType,
                              issueId: issueId,

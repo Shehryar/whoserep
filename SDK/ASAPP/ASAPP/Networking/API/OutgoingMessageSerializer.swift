@@ -11,19 +11,19 @@ import Foundation
 class SocketRequest {
     let requestId: Int
     let path: String
-    let params: [String : AnyObject]?
-    let context: [String : AnyObject]?
+    let params: [String : Any]?
+    let context: [String : Any]?
     let requestData: Data?
     
     let requestUUID: String
     
-    required init(requestId: Int, path: String, params: [String : AnyObject]?, context: [String : AnyObject]?, requestData: Data?) {
+    required init(requestId: Int, path: String, params: [String : Any]?, context: [String : Any]?, requestData: Data?) {
         let uuid = UUID().uuidString
         
         self.requestUUID = uuid
         self.requestId = requestId
         self.path = path
-        self.params = [ "RequestId" : uuid as AnyObject ].with(params)
+        self.params = [ "RequestId" : uuid ].with(params)
         self.context = context
         self.requestData = requestData
     }
@@ -34,15 +34,15 @@ class SocketRequest {
         return path.contains("CreditCard")
     }
     
-    func getParametersCleanedOfSensitiveData() -> [String : AnyObject] {
-        var cleanedParams = [String : AnyObject]()
+    func getParametersCleanedOfSensitiveData() -> [String : Any] {
+        var cleanedParams = [String : Any]()
         cleanedParams.add(params)
         if path.contains("CreditCard") {
             if cleanedParams["Number"] != nil {
-                cleanedParams["Number"] = "xxxx" as AnyObject
+                cleanedParams["Number"] = "xxxx"
             }
             if cleanedParams["CVV"] != nil {
-                cleanedParams["CVV"] = "xxx" as AnyObject
+                cleanedParams["CVV"] = "xxx"
             }
             
         }
@@ -52,8 +52,8 @@ class SocketRequest {
     
     func getLoggableDescription() -> String {
         let cleanedParams = getParametersCleanedOfSensitiveData()
-        let paramsJSONString = JSONUtil.stringify(cleanedParams as AnyObject, prettyPrinted: true) ?? "{}"
-        let contextJSONString = JSONUtil.stringify((context ?? [:]) as AnyObject, prettyPrinted: true) ?? "{}"
+        let paramsJSONString = JSONUtil.stringify(cleanedParams, prettyPrinted: true) ?? "{}"
+        let contextJSONString = JSONUtil.stringify((context ?? [:]), prettyPrinted: true) ?? "{}"
         
         return "\(path)|\(requestId)|\(contextJSONString)|\(paramsJSONString)"
     }
@@ -98,7 +98,7 @@ class OutgoingMessageSerializer: NSObject {
 // MARK:- Public Instance Methods
 
 extension OutgoingMessageSerializer {
-    func createRequest(withPath path: String, params: [String : AnyObject]?, context: [String : AnyObject]?) -> SocketRequest {
+    func createRequest(withPath path: String, params: [String : Any]?, context: [String : Any]?) -> SocketRequest {
         return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
     }
     
@@ -113,14 +113,14 @@ extension OutgoingMessageSerializer {
         return "\(request.path)|\(request.requestId)|\(contextJSONString)|\(paramsJSONString)"
     }
     
-    func createAuthRequest() -> (path: String, params: [String : AnyObject]) {
+    func createAuthRequest() -> (path: String, params: [String : Any]) {
         var path: String
-        var params: [String : AnyObject]
+        var params: [String : Any]
         
-        var sessionInfoJson: [String : AnyObject]?
+        var sessionInfoJson: [String : Any]?
         if let sessionInfo = sessionInfo {
             do {
-                sessionInfoJson = try JSONSerialization.jsonObject(with: sessionInfo.data(using: String.Encoding.utf8)!, options: []) as? [String: AnyObject]
+                sessionInfoJson = try JSONSerialization.jsonObject(with: sessionInfo.data(using: String.Encoding.utf8)!, options: []) as? [String: Any]
             } catch {}
         }
         
@@ -133,8 +133,8 @@ extension OutgoingMessageSerializer {
     
             path = "auth/AuthenticateWithSession"
             params =  [
-                "SessionInfo": sessionInfoJson as AnyObject, // convert to json?
-                "App": "ios-sdk" as AnyObject
+                "SessionInfo": sessionInfoJson, // convert to json?
+                "App": "ios-sdk"
             ]
         }
         
@@ -145,11 +145,11 @@ extension OutgoingMessageSerializer {
             path = "auth/AuthenticateWithCustomerIdentifier"
             
             params = [
-                "CompanyMarker" : config.appId as AnyObject,
-                "CustomerIdentifier" : user.userIdentifier as AnyObject,
-                "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID" as AnyObject,
-                "App" : "ios-sdk" as AnyObject,
-                "RegionCode" : "US" as AnyObject,
+                "CompanyMarker" : config.appId,
+                "CustomerIdentifier" : user.userIdentifier,
+                "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID",
+                "App" : "ios-sdk",
+                "RegionCode" : "US",
             ]
             
             if ASAPP.isInternalBuild {
@@ -157,7 +157,7 @@ extension OutgoingMessageSerializer {
                     user.userIdentifier == "demo_customer_1" ||
                     user.userIdentifier == "demo_customer_2"  {
                     
-                    params["IdentifierType"] = "PHONE" as AnyObject
+                    params["IdentifierType"] = "PHONE"
                 }
             }
         }
@@ -169,8 +169,8 @@ extension OutgoingMessageSerializer {
         else {
             path = "auth/CreateAnonCustomerAccount"
             params = [
-                "CompanyMarker": config.appId as AnyObject,
-                "RegionCode": "US" as AnyObject
+                "CompanyMarker": config.appId,
+                "RegionCode": "US"
             ]
         }
          */
@@ -184,7 +184,7 @@ extension OutgoingMessageSerializer {
             return
         }
         
-        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: AnyObject] else {
+        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: Any] else {
             DebugLog.e("Authentication response missing sessionInfo: \(response)")
             return
         }
@@ -193,13 +193,13 @@ extension OutgoingMessageSerializer {
             sessionInfo = String(data: sessionJsonData, encoding: String.Encoding.utf8)
         }
         
-        if let company = sessionInfoDict["Company"] as? [String: AnyObject] {
+        if let company = sessionInfoDict["Company"] as? [String: Any] {
             if let companyId = company["CompanyId"] as? Int {
                 customerTargetCompanyId = companyId
             }
         }
         
-        if let customer = sessionInfoDict["Customer"] as? [String: AnyObject] {
+        if let customer = sessionInfoDict["Customer"] as? [String: Any] {
             if let rawId = customer["CustomerId"] as? Int {
                 myId = rawId
             }
@@ -215,7 +215,7 @@ extension OutgoingMessageSerializer {
         return currentRequestId
     }
     
-    fileprivate func jsonStringify(_ dictionary: [String : AnyObject]) -> String {
+    fileprivate func jsonStringify(_ dictionary: [String : Any]) -> String {
         guard JSONSerialization.isValidJSONObject(dictionary) else {
             DebugLog.e("Dictionary is not valid JSON object: \(dictionary)")
             return ""
@@ -237,13 +237,13 @@ extension OutgoingMessageSerializer {
         return path.hasPrefix("customer/")
     }
     
-    fileprivate func contextForRequest(withPath path: String) -> [String : AnyObject] {
+    fileprivate func contextForRequest(withPath path: String) -> [String : Any] {
         var context = [ "CompanyId" : customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {
                 context = [ "IssueId" : issueId ]
             }
         }
-        return context as [String : AnyObject]
+        return context as [String : Any]
     }
 }

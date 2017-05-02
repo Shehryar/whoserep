@@ -125,15 +125,14 @@ extension DemoComponentsAPI {
                 return
             }
             
-            let (text, attachment, quickReplies) = ChatMessage.parseContent(from: json)
-            let message = ChatMessage(text: text,
-                                      attachment: attachment,
-                                      quickReplies: quickReplies,
-                                      isReply: true,
-                                      sendTime: Date(),
-                                      eventId: Int(Date().timeIntervalSince1970),
-                                      eventType: .srsResponse,
-                                      issueId: 1)
+            let metadata = EventMetadata(isReply: true,
+                                         isAutomatedMessage: true,
+                                         eventId: Int(Date().timeIntervalSince1970),
+                                         eventType: .srsResponse,
+                                         issueId: 1,
+                                         sendTime: Date())
+            let message = ChatMessage.fromJSON(json, with: metadata)
+            
             completion(message, nil)
         }
     }

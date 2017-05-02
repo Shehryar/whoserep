@@ -556,7 +556,7 @@ extension ChatViewController: KeyboardObserverDelegate {
 
 extension ChatViewController {
     
-    func performAction(_ action: ComponentAction, from message: ChatMessage?) -> Bool {
+    func performAction(_ action: Action, from message: ChatMessage?) -> Bool {
         
         func sendButtonTap() -> Bool {
             guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
@@ -778,10 +778,10 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((ComponentAction?, String?) -> Void)) {
+                                 completion: @escaping ((Action?, String?) -> Void)) {
         let params = data as [String : AnyObject]?
-        conversationManager.sendAPIActionRequest(action, params: params, completion: { (componentAction) in
-            completion(componentAction, nil)
+        conversationManager.sendAPIActionRequest(action, params: params, completion: { (action) in
+            completion(action, nil)
         })
     }
 }

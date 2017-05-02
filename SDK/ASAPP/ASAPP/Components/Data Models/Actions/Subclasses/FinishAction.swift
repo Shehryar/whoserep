@@ -8,6 +8,9 @@
 
 import UIKit
 
-class FinishAction: ComponentAction {
+class FinishAction: Action {
 
+    override var type: ActionType {
+        return .finish
+    }
 }

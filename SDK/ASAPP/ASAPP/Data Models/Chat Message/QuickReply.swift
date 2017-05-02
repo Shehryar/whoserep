@@ -12,11 +12,11 @@ class QuickReply: NSObject {
 
     let title: String
     
-    let action: ComponentAction
+    let action: Action
     
     let isAutoSelect: Bool
     
-    init(title: String, action: ComponentAction, isAutoSelect: Bool = false) {
+    init(title: String, action: Action, isAutoSelect: Bool = false) {
         self.title = title
         self.action = action
         self.isAutoSelect = isAutoSelect
@@ -44,7 +44,7 @@ extension QuickReply {
             return nil
         }
         
-        guard let action = ComponentActionFactory.action(with: json[JSONKey.action.rawValue]) else {
+        guard let action = ActionFactory.action(with: json[JSONKey.action.rawValue]) else {
             DebugLog.w(caller: self, "QuickReply missing required action: \(json)")
             return nil
         }

@@ -13,7 +13,7 @@ enum ComponentViewDisplayStyle: String {
     case inset = "inset"
 }
 
-class ComponentViewAction: ComponentAction {
+class ComponentViewAction: Action {
 
     // MARK: JSON Keys
     
@@ -27,6 +27,10 @@ class ComponentViewAction: ComponentAction {
     static let defaultDisplayStyle = ComponentViewDisplayStyle.full
     
     // MARK: Properties
+    
+    override var type: ActionType {
+        return .componentView
+    }
     
     let displayStyle: ComponentViewDisplayStyle
     

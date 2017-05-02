@@ -141,7 +141,7 @@ extension ComponentCardsPreviewViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    func handleFinishAction(_ action: ComponentAction) {
+    func handleFinishAction(_ action: Action) {
         let alert = UIAlertController(title: "Finish Action", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)

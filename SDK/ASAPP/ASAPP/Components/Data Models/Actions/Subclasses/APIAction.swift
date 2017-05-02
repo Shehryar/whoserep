@@ -8,7 +8,7 @@
 
 import UIKit
 
-class APIAction: ComponentAction {
+class APIAction: Action {
 
     // MARK: JSON Keys
     
@@ -20,6 +20,10 @@ class APIAction: ComponentAction {
     }
     
     // MARK: Properties
+    
+    override var type: ActionType {
+        return .api
+    }
     
     let requestPath: String
     

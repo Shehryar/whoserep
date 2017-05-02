@@ -120,7 +120,7 @@ class ComponentMessagePreviewViewController: UIViewController {
         }
         
         messagesView.addMessage(message)
-        if message.isReply {
+        if message.metadata.isReply {
             quickRepliesView.add(message: message, animated: true)
         }
         updateFrames()
@@ -141,14 +141,17 @@ class ComponentMessagePreviewViewController: UIViewController {
     }
     
     func getNextMessage(with messageText: String, fileName: String) {
+        let metadata = EventMetadata(isReply: false,
+                                     isAutomatedMessage: false,
+                                     eventId: Int(Date().timeIntervalSince1970),
+                                     eventType: .textMessage,
+                                     issueId: 1,
+                                     sendTime: Date())
+        
         let userMessage = ChatMessage(text: messageText,
                                       attachment: nil,
-                                      quickReplies: nil,
-                                      isReply: false,
-                                      sendTime: Date(),
-                                      eventId: Int(Date().timeIntervalSince1970),
-                                      eventType: .textMessage,
-                                      issueId: 1)
+                                      quickReplies: nil, 
+                                      metadata: metadata)
         addMessage(userMessage)
         
         DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, error) in
@@ -195,56 +198,61 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     
     // Not implemented
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, forMessage message: ChatMessage) {}
-    func chatMessagesView(_ messagesView: ChatMessagesView, didSelectButtonItem buttonItem: SRSButtonItem, forMessage message: ChatMessage) { }
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForMessage message: ChatMessage) {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, from message: ChatMessage) {}
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateQuickRepliesFrom message: ChatMessage) {
         quickRepliesView.reloadButtons(for: message)
     }
-    
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
 }
 
 extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
     
+    
+    
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
-                                 didSelect buttonItem: SRSButtonItem,
-                                 for message: ChatMessage) -> Bool {
+                                 didSelect quickReply: QuickReply,
+                                 from message: ChatMessage) -> Bool {
         var title: String?
         var message: String?
-        switch buttonItem.action.type {
-        case .link:
+        
+        switch quickReply.action.type {
+        case .deepLink:
             title = "Link"
             break
             
         case .treewalk:
             if let allFileNames = allFileNames,
-                allFileNames.contains(buttonItem.action.name) {
-                getNextMessage(with: buttonItem.title, fileName: buttonItem.action.name)
-                return false
+                let treewalkAction = quickReply.action as? TreewalkAction,
+                    allFileNames.contains(treewalkAction.classification) {
+                    getNextMessage(with: quickReply.title, fileName: treewalkAction.classification)
+                    return false
             }
             
             title = "SRS Treewalk"
-            message = "Classification: \(buttonItem.action.name)"
+            message = "Classification: \(String(describing: (quickReply.action as? TreewalkAction)?.classification))"
             break
             
         case .api:
             title = "API"
-            message = buttonItem.action.name
-            break
-            
-        case .action:
-            title = "Action"
-            message = buttonItem.action.name
+            message = (quickReply.action as? APIAction)?.requestPath
             break
             
         case .componentView:
-            if let action = buttonItem.action.getComponentViewAction() {
+            if let action = quickReply.action as? ComponentViewAction {
                 handleComponentViewAction(action)
                  return false
             }
             title = "Component View"
-            message = JSONUtil.stringify(buttonItem.action.context as AnyObject, prettyPrinted: true)
+            message = "Unknown"
+            break
+            
+        case .finish:
+            title = "Finish"
+            break
+            
+        case .web:
+            title = "Web"
             break
         }
         
@@ -321,7 +329,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((ComponentAction?, String?) -> Void)) {
+                                 completion: @escaping ((Action?, String?) -> Void)) {
         guard let text = data?["Text"] as? String,
             let name = data?["Classification"] as? String else {
                 DebugLog.d("DATA IS MISSING: \(String(describing: data))")

@@ -35,7 +35,7 @@ class ChatTextBubbleView: UIView {
             //
             // Update Bubble
             //
-            if message.isReply {
+            if message.metadata.isReply {
                 let fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
@@ -149,7 +149,7 @@ extension ChatTextBubbleView {
         }
         
         var roundedCorners: UIRectCorner
-        if message.isReply {
+        if message.metadata.isReply {
             switch messagePosition {
             case .none:
                 roundedCorners = [.topLeft, .topRight, .bottomRight]
@@ -210,7 +210,7 @@ extension ChatTextBubbleView {
                                 height: ceil(textSize.height))
         
         var bubbleLeft = contentInset.left
-        if let message = message, !message.isReply {
+        if let message = message, !message.metadata.isReply {
             bubbleLeft = size.width - bubbleSize.width - contentInset.right
         }
         let bubbleFrame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)

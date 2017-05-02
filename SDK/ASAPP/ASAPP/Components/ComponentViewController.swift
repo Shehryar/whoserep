@@ -12,7 +12,7 @@ protocol ComponentViewControllerDelegate: class {
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((_ nextAction: ComponentAction?, _ error: String?) -> Void))
+                                 completion: @escaping ((_ nextAction: Action?, _ error: String?) -> Void))
     
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,

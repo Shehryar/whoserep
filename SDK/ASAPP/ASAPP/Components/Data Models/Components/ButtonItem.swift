@@ -48,7 +48,7 @@ class ButtonItem: Component {
     
     let icon: IconItem?
     
-    let action: ComponentAction
+    let action: Action
     
     // MARK:- Component Properties
     
@@ -77,7 +77,7 @@ class ButtonItem: Component {
             DebugLog.w(caller: ButtonItem.self, "Missing action: \(String(describing: content))")
             return nil
         }
-        guard let action = ComponentActionFactory.action(with: actionJSON) else {
+        guard let action = ActionFactory.action(with: actionJSON) else {
             DebugLog.w(caller: ButtonItem.self, "Unable to parse action: \(String(describing: content))")
             return nil
         }
