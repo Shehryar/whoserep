@@ -56,12 +56,12 @@ extension ConversationManager {
             defaultAttributes["current_classification"] = currentIntent
         }
         
-        var params: [String : AnyObject] = [
-            "EventType" : eventType.rawValue as AnyObject,
-            "Attributes" : defaultAttributes.with(attributes) as AnyObject
+        var params: [String : Any] = [
+            "EventType" : eventType.rawValue,
+            "Attributes" : defaultAttributes.with(attributes)
         ]
         if let metrics = metrics {
-            params["Metrics"] = metrics as AnyObject
+            params["Metrics"] = metrics
         }
         
         socketConnection.sendRequest(withPath: "srs/PutMAEvent", params: params)
@@ -90,7 +90,7 @@ extension ConversationManager {
         
         switch buttonItem.action.type {
         case .link:
-            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context as AnyObject)
+            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context)
             break
             
         case .treewalk, .api:
@@ -107,7 +107,7 @@ extension ConversationManager {
         }
     }
     
-    func trackDeepLink(link: String, deepLinkData: AnyObject?) {
+    func trackDeepLink(link: String, deepLinkData: Any?) {
         var attributes = [ "url" : link ]
         if let deepLinkData = deepLinkData,
             let deepLinkDataString = JSONUtil.stringify(deepLinkData) {
@@ -136,7 +136,7 @@ extension ConversationManager {
     func trackSRSRequest(path: String,
                          requestUUID: String?,
                          isPredictive: Bool,
-                         params: [String : AnyObject]?,
+                         params: [String : Any]?,
                          responseTimeInMilliseconds: Int) {
         
         var attributes = [
@@ -147,7 +147,7 @@ extension ConversationManager {
             attributes["request_id"] = requestUUID
         }
         
-        if let paramsString = JSONUtil.stringify(params as AnyObject?) {
+        if let paramsString = JSONUtil.stringify(params) {
             attributes["request_parameters"] = paramsString
         }
         
@@ -160,7 +160,7 @@ extension ConversationManager {
     
     func trackLiveChatBegan(issueId: Int) {
         let requestResponse = ["issueId" : issueId]
-        guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
+        guard let responseJson = JSONUtil.stringify(requestResponse) else {
             DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }
@@ -170,7 +170,7 @@ extension ConversationManager {
     
     func trackLiveChatEnded(issueId: Int) {
         let requestResponse = ["issueId" : issueId]
-        guard let responseJson = JSONUtil.stringify(requestResponse as AnyObject?) else {
+        guard let responseJson = JSONUtil.stringify(requestResponse) else {
             DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }

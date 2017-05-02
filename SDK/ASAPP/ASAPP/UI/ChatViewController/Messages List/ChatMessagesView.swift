@@ -306,7 +306,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             let message = pictureCell.message {
                 delegate?.chatMessagesView(self,
                                            didTapImageView: pictureCell.pictureView.imageView,
-                                           forMessage: message)
+                                           from: message)
         } else if cell is ChatMessageCell {
             toggleTimeStampForMessage(at: indexPath)
         }

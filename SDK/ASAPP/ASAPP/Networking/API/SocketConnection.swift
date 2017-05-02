@@ -149,8 +149,8 @@ extension SocketConnection {
 
 extension SocketConnection {
     func sendRequest(withPath path: String,
-                     params: [String : AnyObject]?,
-                     context: [String : AnyObject]? = nil,
+                     params: [String : Any]?,
+                     context: [String : Any]? = nil,
                      requestHandler: IncomingMessageHandler? = nil) {
 
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: context)
@@ -219,10 +219,10 @@ extension SocketConnection {
     
     func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/GetCustomerByCRMCustomerId"
-        let params: [String : AnyObject] = [ "CRMCustomerId" : targetCustomerToken as AnyObject]
+        let params: [String : Any] = [ "CRMCustomerId" : targetCustomerToken]
         
         sendRequest(withPath: path, params: params) { (response, request, responseTime) in
-            guard let customerJSON = response.body?["Customer"] as? [String : AnyObject] else {
+            guard let customerJSON = response.body?["Customer"] as? [String : Any] else {
                 DebugLog.e("Missing Customer json body in: \(String(describing: response.fullMessage))")
                 
                 completion?(response, "Failed to update customer by CRMCustomerId")
@@ -239,7 +239,7 @@ extension SocketConnection {
     
     func participateInIssueForCustomer(_ customerId: Int, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/ParticipateInIssueForCustomer"
-        let context: [String: AnyObject] = [ "CustomerId" : customerId as AnyObject ]
+        let context: [String : Any] = [ "CustomerId" : customerId ]
         
         sendRequest(withPath: path, params: nil, context: context) { (response, request, responseTime) in
             var errorMessage: String?

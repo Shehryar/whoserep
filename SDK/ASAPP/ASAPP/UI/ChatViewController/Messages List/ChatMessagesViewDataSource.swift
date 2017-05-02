@@ -65,7 +65,7 @@ extension ChatMessagesViewDataSource {
             
             for (row, currMessage) in messages.enumerated().reversed() {
                 
-                if currMessage.eventId == message.eventId {
+                if currMessage.metadata.eventId == message.metadata.eventId {
                     return IndexPath(row: row, section: section)
                 }
             }
@@ -77,7 +77,7 @@ extension ChatMessagesViewDataSource {
         guard let message = getMessage(in: section, at: 0) else {
             return nil
         }
-        return message.sendTime
+        return message.metadata.sendTime
     }
     
     func getLastMessage() -> ChatMessage? {
@@ -96,7 +96,7 @@ extension ChatMessagesViewDataSource {
         }
         
         for (idx, currMessage) in allMessages.enumerated() {
-            if currMessage.eventId == message.eventId {
+            if currMessage.metadata.eventId == message.metadata.eventId {
                 return idx
             }
         }
@@ -154,7 +154,7 @@ extension ChatMessagesViewDataSource {
 
         // Update the updatedMessage's times to the original times
         let messageToUpdate = allMessages[index]
-        message.updateSendTime(toMatch: messageToUpdate)
+        message.metadata.updateSendTime(toMatch: messageToUpdate)
 
         // Switch out the messages
         allMessages[index] = message

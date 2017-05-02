@@ -1000,11 +1000,11 @@ extension ChatViewController: ConversationManagerDelegate {
     // New Messages
     func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage) {
         provideHapticFeedbackForMessageIfNecessary(message)
-        if message.eventType == .newRep {
+        if message.metadata.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
         
-        if message.eventType == .conversationEnd {
+        if message.metadata.eventType == .conversationEnd {
             Dispatcher.delay(1000, closure: { [weak self] in
                 self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
             })
@@ -1013,7 +1013,7 @@ extension ChatViewController: ConversationManagerDelegate {
         chatMessagesView.addMessage(message) { [weak self] in
             if message.quickReplies != nil {
                 self?.didReceiveMessageWithQuickReplies(message)
-            } else if message.isReply {
+            } else if message.metadata.isReply {
                 self?.clearquickRepliesActionSheet(true, completion: nil)
             }
         }

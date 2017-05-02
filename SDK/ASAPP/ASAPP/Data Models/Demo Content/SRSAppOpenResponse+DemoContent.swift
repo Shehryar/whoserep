@@ -13,7 +13,7 @@ import UIKit
 extension AppOpenResponse {
     class func sampleResponse(forCompany company: String?) -> AppOpenResponse? {
         if let json = DemoUtils.jsonObjectForFile("predictive-response", company: company) {
-            return AppOpenResponse.instanceWithJSON(json)
+            return AppOpenResponse.fromJSON(json)
         }
         return nil
     }

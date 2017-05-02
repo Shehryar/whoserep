@@ -21,7 +21,7 @@ extension ConversationManager {
             
             guard incomingMessage.type == .Response,
                 let data = incomingMessage.bodyString?.data(using: String.Encoding.utf8),
-                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject],
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
                 let appOpenResponse = AppOpenResponse.fromJSON(jsonObject)
                 else {
                     return
@@ -34,8 +34,8 @@ extension ConversationManager {
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         let params = [
-            "Text" : query as AnyObject,
-            "SearchQuery" : query as AnyObject
+            "Text" : query,
+            "SearchQuery" : query
         ]
         
         sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
@@ -77,17 +77,17 @@ extension ConversationManager {
     // MARK: Private
     
     private func sendSRSRequest(path: String,
-                                params: [String : AnyObject]?,
+                                params: [String : Any]?,
                                 isRequestFromPrediction: Bool = false,
                                 completion: IncomingMessageHandler? = nil) {
         
         Dispatcher.performOnBackgroundThread {
-            var srsParams: [String : AnyObject] = [ "Context" : self.user.getContextString() as AnyObject].with(params)
-            srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE as AnyObject
-            srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion as AnyObject
+            var srsParams: [String : Any] = [ "Context" : self.user.getContextString()].with(params)
+            srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE
+            srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion
             let (authToken, _) = self.user.getAuthToken()
             if let authToken = authToken {
-                srsParams["Auth"] = authToken as AnyObject
+                srsParams["Auth"] = authToken
             }
             
             Dispatcher.performOnMainThread {
@@ -105,20 +105,20 @@ extension ConversationManager {
     }
     
     private func sendSRSTreewalk(classification: String,
-                                 with text: String,
+                                 text: String,
                                  from message: ChatMessage?,
                                  originalSearchQuery: String?,
                                  completion: IncomingMessageHandler? = nil) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params = [
-            "Text" : text as AnyObject,
-            "Classification" : classification as AnyObject
+            "Text" : text,
+            "Classification" : classification
         ]
         if let originalSearchQuery = originalSearchQuery {
-            params["SearchQuery"] = originalSearchQuery as AnyObject
+            params["SearchQuery"] = originalSearchQuery
         }
-        if let eventId = message?.eventId {
-            params["ParentEventLogSeq"] = eventId as AnyObject
+        if let eventId = message?.metadata.eventId {
+            params["ParentEventLogSeq"] = eventId
         }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
@@ -129,12 +129,12 @@ extension ConversationManager {
     
     private func sendSRSAction(action: String,
                                withUserMessage message: String,
-                               payload: [String : AnyObject]?,
+                               payload: [String : Any]?,
                                 completion: IncomingMessageHandler? = nil) {
         let path = "srs/\(action)"
-        var params = ["Text" : message as AnyObject]
+        var params = ["Text" : message]
         if let payload = payload {
-            params["Payload"] = payload as AnyObject
+            params["Payload"] = payload
         }
         
         sendSRSRequest(path: path, params: params, completion: completion)
@@ -145,12 +145,12 @@ extension ConversationManager {
             return
         }
         
-        var params: [String : AnyObject] = [
-            "Title" : buttonItem.title as AnyObject,
-            "Link" : buttonItem.action.name as AnyObject
+        var params: [String : Any] = [
+            "Title" : buttonItem.title,
+            "Link" : buttonItem.action.name
         ]
-        if let deepLinkDataJson = JSONUtil.stringify(buttonItem.action.context as AnyObject) {
-            params["Data"] = deepLinkDataJson as AnyObject
+        if let deepLinkDataJson = JSONUtil.stringify(buttonItem.action.context) {
+            params["Data"] = deepLinkDataJson
         }
         
         let path = "srs/CreateLinkButtonTapEvent"
@@ -160,7 +160,7 @@ extension ConversationManager {
     // MARK:- Component View API
 
     func sendAPIActionRequest(_ action: APIAction,
-                              params: [String : AnyObject]?,
+                              params: [String : Any]?,
                               completion: @escaping ((ComponentAction?) -> Void)) {
         
         func handleResponse(_ message: IncomingMessage,
@@ -196,7 +196,7 @@ extension ConversationManager {
         ]
         
         sendSRSRequest(path: path,
-                       params: params as [String : AnyObject],
+                       params: params as [String : Any],
                        isRequestFromPrediction: false) { (message, request, responseTime) in
                         let componentViewContainer = ComponentViewContainer.from(message.body)
                         completion(componentViewContainer)
@@ -212,17 +212,13 @@ extension ConversationManager {
     func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
         let path = "customer/NotifyTypingPreview"
         let params = [ "Text" : text ?? "" ]
-        socketConnection.sendRequest(withPath: path, params: params as [String : AnyObject]?)
+        socketConnection.sendRequest(withPath: path, params: params)
     }
     
     func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
-        if demo_OverrideMessageSend(message: message) {
-            return
-        }
-        
         let path = "customer/SendTextMessage"
         socketConnection.sendRequest(withPath: path,
-                                     params: ["Text" : message as AnyObject],
+                                     params: ["Text" : message],
                                      requestHandler: completion)
     }
     
@@ -234,10 +230,10 @@ extension ConversationManager {
             return
         }
         let imageFileSize = imageData.count
-        let params: [String : AnyObject] = [ "MimeType" : "image/jpeg" as AnyObject,
-                                             "FileSize" : imageFileSize as AnyObject,
-                                             "PicWidth" : image.size.width as AnyObject,
-                                             "PicHeight" : image.size.height as AnyObject ]
+        let params: [String : Any] = [ "MimeType" : "image/jpeg",
+                                       "FileSize" : imageFileSize,
+                                       "PicWidth" : image.size.width,
+                                       "PicHeight" : image.size.height ]
         
         socketConnection.sendRequest(withPath: path, params: params)
         socketConnection.sendRequestWithData(imageData) { (incomingMessage) in
@@ -261,12 +257,12 @@ extension ConversationManager {
     func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
         let path = "customer/SendRatingAndFeedback"
         
-        var params = [
-            "FiveStarRating" : rating as AnyObject,
-            "IssueId" : issueId as AnyObject
+        var params: [String : Any] = [
+            "FiveStarRating" : rating,
+            "IssueId" : issueId
         ]
         if let feedback = feedback {
-            params["Feedback"] = feedback as AnyObject
+            params["Feedback"] = feedback
         }
         
         socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, request, responseTime) in

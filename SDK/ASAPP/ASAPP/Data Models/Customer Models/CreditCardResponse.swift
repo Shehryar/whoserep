@@ -64,8 +64,8 @@ class CreditCardResponse: NSObject {
 
 extension CreditCardResponse {
     
-    class func from(json: [String : AnyObject]?) -> CreditCardResponse {
-        guard let json = json else {
+    class func from(json: Any?) -> CreditCardResponse {
+        guard let json = json as? [String : Any] else {
             return defaultErrorResponse()
         }
         
