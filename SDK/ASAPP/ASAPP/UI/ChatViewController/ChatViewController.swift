@@ -135,7 +135,7 @@ class ChatViewController: ASAPPViewController {
             showPredictiveOnViewAppear = false
         } else {
             if let lastMessage = chatMessagesView.lastMessage {
-                let secondsSinceLastEvent = Date().timeIntervalSince(lastMessage.sendTime)
+                let secondsSinceLastEvent = Date().timeIntervalSince(lastMessage.metadata.sendTime)
                 
                 showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
                 if secondsSinceLastEvent < (60 * 15) {
@@ -232,7 +232,7 @@ class ChatViewController: ASAPPViewController {
         
         let minTimeBetweenSessions: TimeInterval = 60 * 15 // 15 minutes
         if chatMessagesView.lastMessage == nil ||
-            chatMessagesView.lastMessage!.sendTime.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
+            chatMessagesView.lastMessage!.metadata.sendTime.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
             conversationManager.trackSessionStart()
         }
         
@@ -556,10 +556,7 @@ extension ChatViewController: KeyboardObserverDelegate {
 
 extension ChatViewController {
     
-    func handleSRSButtonItemSelection(_ buttonItem: SRSButtonItem, for message: ChatMessage) -> Bool {
-        if _handleDemoButtonItemTapped(buttonItem) {
-            return true
-        }
+    func performAction(_ action: ComponentAction, from message: ChatMessage?) -> Bool {
         
         func sendButtonTap() -> Bool {
             guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
@@ -675,7 +672,7 @@ extension ChatViewController {
             
         case .LeaveFeedback:
             let leaveFeedbackViewController = LeaveFeedbackViewController()
-            leaveFeedbackViewController.issueId = message.issueId
+            leaveFeedbackViewController.issueId = message.metadata.issueId
             leaveFeedbackViewController.delegate = self
             present(leaveFeedbackViewController, animated: true, completion: nil)
             return false
@@ -685,19 +682,6 @@ extension ChatViewController {
             return false
         }
     }
-    
-    func _handleDemoButtonItemTapped(_ buttonItem: SRSButtonItem) -> Bool {
-        guard ASAPP.isDemoContentEnabled() && conversationManager.isConnected() else {
-             return false
-        }
-        
-        if conversationManager.demo_OverrideButtonItemSelection(buttonItem: buttonItem) {
-            chatMessagesView.scrollToBottomAnimated(true)
-            return true
-        }
-        
-        return false
-    }
 }
 
 // MARK:- ChatMessagesViewDelegate
@@ -706,7 +690,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapImageView imageView: UIImageView,
-                          forMessage message: ChatMessage) {
+                          from message: ChatMessage) {
         guard let image = imageView.image else {
             return
         }
@@ -721,18 +705,14 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didSelectButtonItem buttonItem: SRSButtonItem,
-                          forMessage message: ChatMessage) {
-        _ = handleSRSButtonItemSelection(buttonItem, for: message)
-    }
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {
+                          didTapLastMessage message: ChatMessage) {
         if !isLiveChat {
             showQuickRepliesActionSheetIfNecessary()
         }
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateButtonItemsForMessage message: ChatMessage) {
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didUpdateQuickRepliesFrom message: ChatMessage) {
         if message == chatMessagesView.lastMessage {
             quickRepliesActionSheet.reloadButtons(for: message)
         }
@@ -750,9 +730,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
         }
-//        else if let finishAction = buttonItem.action as? FinishAction {
-//            // No-op
-//        }
     }
 }
 
@@ -1003,6 +980,12 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
         conversationManager.currentSRSClassification = actionSheet.currentSRSClassification
     }
 
+    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
+                                 didSelect quickReply: QuickReply,
+                                 from message: ChatMessage) -> Bool {
+        
+    }
+    
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
                                  didSelect buttonItem: SRSButtonItem,
                                  for message: ChatMessage) -> Bool {

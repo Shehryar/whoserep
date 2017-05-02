@@ -45,8 +45,6 @@ class ChatMessagesViewCellMaster: NSObject {
     fileprivate let textMessageSizingCell = ChatMessageCell(style: .default, reuseIdentifier: nil)
     fileprivate let pictureMessageSizingCell = ChatPictureMessageCell(style: .default, reuseIdentifier: nil)
     fileprivate let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
-    fileprivate let itemListViewSizingCell = ChatItemListMessageCell(style: .default, reuseIdentifier: nil)
-    fileprivate let itemCarouselViewSizingCell = ChatItemCarouselMessageCell(style: .default, reuseIdentifier: nil)
     fileprivate let componentViewSizingCell = ChatComponentViewMessageCell(style: .default, reuseIdentifier: nil)
     
     // MARK: Reuse IDs
@@ -86,8 +84,6 @@ extension ChatMessagesViewCellMaster {
     fileprivate func getCellClass(for attachmentType: ChatMessageAttachment.AttachmentType) -> AnyClass {
         switch attachmentType {
         case .none: return ChatMessageCell.self
-        case .itemList: return ChatItemListMessageCell.self
-        case .itemCarousel: return ChatItemCarouselMessageCell.self
         case .image: return ChatPictureMessageCell.self
         case .template: return ChatComponentViewMessageCell.self
         }
@@ -107,8 +103,6 @@ extension ChatMessagesViewCellMaster {
             case .none: return textMessageSizingCell
             case .image: return pictureMessageSizingCell
             case .template: return componentViewSizingCell
-            case .itemList: return itemListViewSizingCell
-            case .itemCarousel: return itemCarouselViewSizingCell
             }
             
         }

@@ -11,19 +11,15 @@ import UIKit
 protocol ChatMessagesViewDelegate: class {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapImageView imageView: UIImageView,
-                          forMessage message: ChatMessage)
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didSelectButtonItem buttonItem: SRSButtonItem,
-                          forMessage message: ChatMessage)
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didUpdateButtonItemsForMessage message: ChatMessage)
+                          from message: ChatMessage)
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapLastMessage message: ChatMessage)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didUpdateQuickRepliesFrom message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
@@ -194,16 +190,16 @@ extension ChatMessagesView {
         let previousRow = indexPath.row - 1
         let nextRow = indexPath.row + 1
         
-        let previousIsReply = dataSource.getMessage(in: section, at: previousRow)?.isReply
-        let nextIsReply = dataSource.getMessage(in: section, at: nextRow)?.isReply
+        let previousIsReply = dataSource.getMessage(in: section, at: previousRow)?.metadata.isReply
+        let nextIsReply = dataSource.getMessage(in: section, at: nextRow)?.metadata.isReply
         
-        if message.isReply == previousIsReply && message.isReply == nextIsReply {
+        if message.metadata.isReply == previousIsReply && message.metadata.isReply == nextIsReply {
             return .middleOfMany
         }
-        if message.isReply == nextIsReply {
+        if message.metadata.isReply == nextIsReply {
             return .firstOfMany
         }
-        if message.isReply == previousIsReply {
+        if message.metadata.isReply == previousIsReply {
             return .lastOfMany
         }
         
@@ -358,33 +354,9 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
 
 extension ChatMessagesView: ChatMessageCellDelegate {
     
-    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int) {
-        if let message = cell.message {
-            delegate?.chatMessagesView(self, didUpdateButtonItemsForMessage: message)
-        } else {
-            DebugLog.e("Missing event on itemCarouselView")
-        }
-    }
-    
     func chatMessageCell(_ cell: ChatMessageCell, didPageCarouselViewItem: CarouselViewItem, from: ComponentView) {
         if let message = cell.message {
             delegate?.chatMessagesView(self, didUpdateButtonItemsForMessage: message)
-        }
-    }
-    
-    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        if let message = cell.message {
-            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, forMessage: message)
-        } else {
-            DebugLog.e("Missing event on itemCarouselView")
-        }
-    }
-    
-    func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem) {
-        if let message = cell.message {
-            delegate?.chatMessagesView(self, didSelectButtonItem: buttonItem, forMessage: message)
-        } else {
-            DebugLog.e("Missing event on itemListView")
         }
     }
     

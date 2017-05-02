@@ -76,10 +76,10 @@ class Event: NSObject {
     
     func makeMetadata() -> EventMetadata {
         let eventId: Int
-        if event.ephemeralType == .eventStatus, let parentId = event.parentEventLogSeq {
+        if ephemeralType == .eventStatus, let parentId = parentEventLogSeq {
             eventId = parentId
         } else {
-            eventId = event.eventLogSeq
+            eventId = eventLogSeq
         }
         
         return EventMetadata(isReply: isReply,

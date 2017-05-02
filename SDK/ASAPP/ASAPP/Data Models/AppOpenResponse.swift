@@ -17,8 +17,10 @@ class AppOpenResponse: NSObject {
 
     // MARK:- JSONObject
     
-    static func instanceWithJSON(_ json: [String : AnyObject]?) -> AppOpenResponse? {
-        guard let json = json else { return nil }
+    class func fromJSON(_ json: Any?) -> AppOpenResponse? {
+        guard let json = json as? [String : Any] else {
+            return nil
+        }
 
         let response = AppOpenResponse()
         response.greeting = json["greeting"] as? String

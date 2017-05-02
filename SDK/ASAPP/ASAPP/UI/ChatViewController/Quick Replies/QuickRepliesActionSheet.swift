@@ -12,10 +12,11 @@ protocol QuickRepliesActionSheetDelegate: class {
     func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet)
     func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet)
     func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet)
+    
     /// Delegate returns YES if the button was successfully acted upon
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
-                                 didSelect buttonItem: SRSButtonItem,
-                                 for message: ChatMessage) -> Bool
+                                 didSelect quickReply: QuickReply,
+                                 from message: ChatMessage) -> Bool
 }
 
 class QuickRepliesActionSheet: UIView {
@@ -28,7 +29,7 @@ class QuickRepliesActionSheet: UIView {
         var eventIds = [Int]()
         for view in listViews {
             if let message = view.message {
-                eventIds.append(message.eventId)
+                eventIds.append(message.metadata.eventId)
             }
         }
         return eventIds
@@ -39,7 +40,7 @@ class QuickRepliesActionSheet: UIView {
     }
     
     var currentSRSClassification: String? {
-        return currentMessage?.classification
+        return currentMessage?.metadata.classification
     }
     
     var transparentInsetTop: CGFloat {
@@ -219,10 +220,10 @@ extension QuickRepliesActionSheet {
     fileprivate func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
         let listView = QuickRepliesListView()
         listView.message = message
-        listView.onButtonItemSelection = { [weak self] (buttonItem) in
+        listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
                 let delegate = strongSelf.delegate {
-                return delegate.quickRepliesActionSheet(strongSelf, didSelect: buttonItem, for: message)
+                return delegate.quickRepliesActionSheet(strongSelf, didSelect: quickReply, from: message)
             }
             return false
         }
@@ -293,7 +294,7 @@ extension QuickRepliesActionSheet {
     
     func reloadButtons(for message: ChatMessage) {
         for listView in listViews {
-            if listView.message?.eventId == message.eventId {
+            if listView.message?.metadata.eventId == message.metadata.eventId {
                 listView.message = message
                 break
             }

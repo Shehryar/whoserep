@@ -22,7 +22,7 @@ extension ConversationManager {
             guard incomingMessage.type == .Response,
                 let data = incomingMessage.bodyString?.data(using: String.Encoding.utf8),
                 let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject],
-                let appOpenResponse = AppOpenResponse.instanceWithJSON(jsonObject)
+                let appOpenResponse = AppOpenResponse.fromJSON(jsonObject)
                 else {
                     return
             }
@@ -32,10 +32,6 @@ extension ConversationManager {
     }
     
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
-        if demo_OverrideMessageSend(message: query) {
-            return
-        }
-        
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         let params = [
             "Text" : query as AnyObject,
@@ -50,10 +46,7 @@ extension ConversationManager {
                                  originalSearchQuery: String?,
                                  completion: IncomingMessageHandler? = nil) {
         
-        if demo_OverrideButtonItemSelection(buttonItem: buttonItem, completion: completion) {
-            return
-        }
-        
+ 
         let action = buttonItem.action
         switch action.type {
         case .treewalk:

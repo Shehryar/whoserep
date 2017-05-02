@@ -9,14 +9,14 @@
 import UIKit
 
 protocol ChatMessageCellDelegate: class {
-    func chatMessageCell(_ cell: ChatMessageCell, withItemListView view: SRSItemListView, didSelectButtonItem buttonItem: SRSButtonItem)
-    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didScrollToPage page: Int)
-    func chatMessageCell(_ cell: ChatMessageCell, didPageCarouselViewItem: CarouselViewItem, from: ComponentView)
-    func chatMessageCell(_ cell: ChatMessageCell, withItemCarouselView view: SRSItemCarouselView, didSelectButtonItem buttonItem: SRSButtonItem)
-    
+ 
     func chatMessageCell(_ cell: ChatMessageCell,
                          didTap buttonItem: ButtonItem,
                          from message: ChatMessage)
+    
+    func chatMessageCell(_ cell: ChatMessageCell,
+                         didPageCarouselViewItem: CarouselViewItem,
+                         from: ComponentView)
 }
 
 class ChatMessageCell: UITableViewCell {
@@ -28,7 +28,7 @@ class ChatMessageCell: UITableViewCell {
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.getSendTimeString(), textType: .detail2)
+            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2)
             
             setNeedsLayout()
         }
@@ -36,7 +36,7 @@ class ChatMessageCell: UITableViewCell {
     
     var isReply: Bool {
         if let message = message {
-            return message.isReply
+            return message.metadata.isReply
         }
         return false
     }
@@ -178,7 +178,7 @@ extension ChatMessageCell {
     
     func updateFonts() {
         textBubbleView.updateFonts()
-        timeLabel.setAttributedText(message?.getSendTimeString(), textType: .detail2)
+        timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2)
         
         setNeedsLayout()
     }
