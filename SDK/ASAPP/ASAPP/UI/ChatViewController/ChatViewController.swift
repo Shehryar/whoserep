@@ -552,86 +552,147 @@ extension ChatViewController: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- SRS Actions
+// MARK:- Handling Actions
 
 extension ChatViewController {
     
-    func performAction(_ action: Action, from message: ChatMessage?) -> Bool {
-        
-        func sendButtonTap() -> Bool {
-            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
-                return false
-            }
-            
-            
-            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
-            conversationManager.sendButtonItemSelection(buttonItem,
-                                                        from: message,
-                                                        originalSearchQuery: originalQuery)
-            return true
+    /// Returns true if the button should be disabled
+    func performAction(_ action: Action,
+                       from button: Any,
+                       message: ChatMessage?) -> Bool {
+    
+        let isConnected = conversationManager.isConnected(retryConnectionIfNeeded: true)
+        var title: String? = nil
+        if let buttonItem = button as? ButtonItem {
+            title = buttonItem.title
+        } else if let quickReply = button as? QuickReply {
+            title = quickReply.title
         }
         
-        conversationManager.trackSRSButtonItemTap(buttonItem: buttonItem)
+        conversationManager.trackAction(action)
         
-        // Check if this is a web url
-        if let webURL = buttonItem.action.getWebLink() {
-            if openWebURL(url: webURL) {
-                DebugLog.d("Did select button with web url: \(webURL)")
-                
-                if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-                    conversationManager.sendButtonItemSelection(buttonItem,
-                                                                from: message,
-                                                                originalSearchQuery: simpleStore.getSRSOriginalSearchQuery())
-                }
-                return false
+        switch action.type {
+        case .api:
+            if isConnected {
+                handleAPIAction(action, with: nil, rootComponent: message?.attachment?.template)
+                return true
             }
-        }
-        
-        switch buttonItem.action.type {
-        case .link:
-            DebugLog.d("\nDid select action: \(buttonItem.action.name) w/ context: \(String(describing: buttonItem.action.context))")
-            
-            let originalQuery = simpleStore.getSRSOriginalSearchQuery()
-            conversationManager.sendButtonItemSelection(buttonItem,
-                                                        from: message,
-                                                        originalSearchQuery: originalQuery)
-            
-            dismiss(animated: true, completion: { [weak self] in
-                self?.appCallbackHandler(buttonItem.action.name, buttonItem.action.context)
-            })
-            return false
-            
-        case .treewalk, .api:
-            guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
-                return false
-            }
-            
-            simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
-            chatMessagesView.scrollToBottomAnimated(true)
-        
-            conversationManager.sendButtonItemSelection(
-                buttonItem,
-                from: message,
-                originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
-                completion: { [weak self] (message, request, responseTime) in
-                    if message.type != .Response {
-                        self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
-                    }
-            })
-            return true
-            
-        case .action:
-            return performAppAction(buttonItem.action, for: message)
+            break
             
         case .componentView:
-            if let componentViewAction = buttonItem.action.getComponentViewAction() {
-                handleComponentViewAction(componentViewAction)
+            if isConnected {
+                handleComponentViewAction(action)
             }
-            return false
+            break
+            
+        case .deepLink:
+            handleDeepLinkAction(action, from: button)
+            break
+            
+        case .finish:
+            // This action  has no meaning in this context
+            break
+            
+        case .treewalk:
+            if isConnected {
+                handleTreewalkAction(action, with: title, from: message)
+                return true
+            }
+            break
+            
+        case .web:
+            handleWebPageAction(action)
+            break
         }
+        return false
     }
     
-    func openWebURL(url: URL) -> Bool {
+    // MARK:- Handling Actions
+    
+    func handleAPIAction(_ action: Action, with params: [String : Any]?, rootComponent: Component?) {
+        guard let action = action as? APIAction else {
+            return
+        }
+        
+        var requestData = [String : Any]()
+        requestData.add(action.data)
+        if let params = params {
+            requestData.add(params)
+        }
+        if let rootComponent = rootComponent {
+            requestData.add(rootComponent.getData(for: action.dataInputFields))
+        }
+        
+        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
+                                                   prettyPrinted: true)
+        
+        let title = action.requestPath
+        
+        let alert = UIAlertController(title: title,
+                                      message: requestDataString,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func handleComponentViewAction(_ action: Action) {
+        guard let action = action as? ComponentViewAction else {
+            return
+        }
+        
+        let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = self
+        let navigationController = ComponentNavigationController(rootViewController: viewController)
+        navigationController.displayStyle = action.displayStyle
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    func handleDeepLinkAction(_ action: Action, from button: Any) {
+        guard let action = action as? DeepLinkAction else {
+            return
+        }
+        
+        var title: String?
+        if let button = button as? ButtonItem {
+            title = button.title
+        } else if let quickReply = button as? QuickReply {
+            title = quickReply.title
+        }
+        
+        DebugLog.d("\nDid select action: \(action.name) w/ context: \(String(describing: action.data))")
+    
+        conversationManager.sendRequestForDeepLinkAction(action, with: title ?? "")
+        
+        dismiss(animated: true, completion: { [weak self] in
+            self?.appCallbackHandler(action.name, action.data)
+        })
+    }
+    
+    func handleTreewalkAction(_ action: Action, with title: String?, from message: ChatMessage?) {
+        guard let action = action as? TreewalkAction else {
+            return
+        }
+        
+        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
+        chatMessagesView.scrollToBottomAnimated(true)
+        
+        conversationManager.sendRequestForTreewalkAction(action,
+                                                         with: title ?? "",
+                                                         parentMessage: message,
+                                                         originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                                                         completion: { [weak self] (message, _, _) in
+                                                            if message.type != .Response {
+                                                                self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                                                            }
+        })
+    }
+    
+    func handleWebPageAction(_ action: Action) {
+        guard let action = action as? WebPageAction else {
+            return
+        }
+        
+        let url = action.url
         
         // SFSafariViewController
         if #available(iOS 9.0, *) {
@@ -639,7 +700,7 @@ extension ChatViewController {
                 if ["http", "https"].contains(urlScheme) {
                     let safariVC = SFSafariViewController(url: url)
                     present(safariVC, animated: true, completion: nil)
-                    return true
+                    return
                 } else {
                     DebugLog.e("Url is missing http/https url scheme: \(url)")
                 }
@@ -649,37 +710,6 @@ extension ChatViewController {
         // Open in Safari
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.openURL(url)
-            return true
-        }
-        return false
-    }
-    
-    func performAppAction(_ action: Action?, for message: ChatMessage) -> Bool {
-        guard let action = action, let appAction = action.getAppAction() else {
-            return false
-        }
-        
-        switch appAction {
-        case .Ask:
-            setPredictiveViewControllerVisible(true, animated: true, completion: nil)
-            return false
-            
-        case .AddCreditCard:
-            let creditCardViewController = CreditCardInputViewController()
-            creditCardViewController.delegate = self
-            present(creditCardViewController, animated: true, completion: nil)
-            return false
-            
-        case .LeaveFeedback:
-            let leaveFeedbackViewController = LeaveFeedbackViewController()
-            leaveFeedbackViewController.issueId = message.metadata.issueId
-            leaveFeedbackViewController.delegate = self
-            present(leaveFeedbackViewController, animated: true, completion: nil)
-            return false
-            
-        case .jsonView:
-            // TODO: JSONView
-            return false
         }
     }
 }
@@ -726,40 +756,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
         if let apiAction = buttonItem.action as? APIAction {
-            handleAPIAction(apiAction, from: buttonItem)
+            handleAPIAction(apiAction, with: nil, rootComponent: message.attachment?.template)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             handleComponentViewAction(componentViewAction)
         }
-    }
-}
-
-// MARK:- Handling Actions
-
-extension ChatViewController {
-    
-    func handleAPIAction(_ action: APIAction, from rootComponent: Component) {
-        var requestData = [String : Any]()
-        requestData.add(action.data)
-        requestData.add(rootComponent.getData(for: action.dataInputFields))
-        
-        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
-                                                   prettyPrinted: true)
-        
-        let title = action.requestPath
-        
-        let alert = UIAlertController(title: title,
-                                      message: requestDataString,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func handleComponentViewAction(_ action: ComponentViewAction) {
-        let viewController = ComponentViewController(componentName: action.name)
-        viewController.delegate = self
-        let navigationController = ComponentNavigationController(rootViewController: viewController)
-        navigationController.displayStyle = action.displayStyle
-        present(navigationController, animated: true, completion: nil)
     }
 }
 
@@ -779,8 +779,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping ((Action?, String?) -> Void)) {
-        let params = data as [String : AnyObject]?
-        conversationManager.sendAPIActionRequest(action, params: params, completion: { (action) in
+        conversationManager.sendRequestForAPIAction(action, params: data, completion: { (action) in
             completion(action, nil)
         })
     }
@@ -979,17 +978,11 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet) {
         conversationManager.currentSRSClassification = actionSheet.currentSRSClassification
     }
-
+    
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
                                  didSelect quickReply: QuickReply,
                                  from message: ChatMessage) -> Bool {
-        
-    }
-    
-    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
-                                 didSelect buttonItem: SRSButtonItem,
-                                 for message: ChatMessage) -> Bool {
-        return handleSRSButtonItemSelection(buttonItem, for: message)
+        return performAction(quickReply.action, from: quickReply, message: message)
     }
 }
 
@@ -1070,7 +1063,7 @@ extension ChatViewController: ConversationManagerDelegate {
     // MARK: Handling Received Messages
     
     func provideHapticFeedbackForMessageIfNecessary(_ message: ChatMessage) {
-        if message.isReply, #available(iOS 10.0, *) {
+        if message.metadata.isReply, #available(iOS 10.0, *) {
             if let generator = hapticFeedbackGenerator as? UIImpactFeedbackGenerator {
                 generator.impactOccurred()
             }
@@ -1083,9 +1076,9 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         // Immediate Action
-        if let autoSelectAction = message.getAutoSelectQuickReply() {
+        if let autoSelectQuickReply = message.getAutoSelectQuickReply() {
             Dispatcher.delay(1200, closure: { [weak self] in
-                _ = self?.handleSRSButtonItemSelection(autoSelectAction, for: message)
+                _ = self?.performAction(autoSelectQuickReply.action, from: autoSelectQuickReply, message: message)
             })
         }
         

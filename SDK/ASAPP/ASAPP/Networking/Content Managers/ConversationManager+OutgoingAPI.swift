@@ -106,11 +106,10 @@ extension ConversationManager {
         }
     }
     
-    func sendRequestForComponentViewAction(_ action: ComponentViewAction,
-                                           completion: @escaping ((ComponentViewContainer?) -> Void)) {
+    func getComponentView(named name: String, completion: @escaping ((ComponentViewContainer?) -> Void)) {
         let path = "srs/GetComponentView"
         let params = [
-            "Classification" : action.name
+            "Classification" : name
         ]
         
         sendSRSRequest(path: path,
@@ -119,6 +118,11 @@ extension ConversationManager {
                         let componentViewContainer = ComponentViewContainer.from(message.body)
                         completion(componentViewContainer)
         }
+    }
+    
+    func sendRequestForComponentViewAction(_ action: ComponentViewAction,
+                                           completion: @escaping ((ComponentViewContainer?) -> Void)) {
+        getComponentView(named: action.name, completion: completion)
     }
     
     func sendRequestForDeepLinkAction(_ action: DeepLinkAction,

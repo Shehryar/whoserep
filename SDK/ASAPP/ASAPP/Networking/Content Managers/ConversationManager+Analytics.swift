@@ -82,31 +82,26 @@ extension ConversationManager {
                    metrics: nil)
     }
     
-    func trackSRSButtonItemTap(buttonItem: SRSButtonItem) {
-        if let webURL = buttonItem.action.getWebLink() {
-            trackWebLink(webURL.absoluteString)
-            return
-        }
-        
-        switch buttonItem.action.type {
-        case .link:
-            trackDeepLink(link: buttonItem.action.name, deepLinkData: buttonItem.action.context)
+    func trackAction(_ action: Action) {
+        switch action.type {
+        case .web:
+            if let webAction = action as? WebPageAction {
+                trackWebLink(webAction.url.absoluteString)
+            }
             break
             
-        case .treewalk, .api:
-            // Tracked via events
+        case .deepLink:
+            if let deepLinkAction = action as? DeepLinkAction {
+                trackDeepLink(link: deepLinkAction.name, deepLinkData: deepLinkAction.data)
+            }
             break
             
-        case .action:
-            // Not tracked yet
+        case .treewalk, .api, .finish, .componentView:
+            // Not explicitly tracked for now
             break
-            
-        case .componentView:
-            // Not tracked yet
-            break;
         }
     }
-    
+
     func trackDeepLink(link: String, deepLinkData: Any?) {
         var attributes = [ "url" : link ]
         if let deepLinkData = deepLinkData,

@@ -162,7 +162,7 @@ extension QuickRepliesListView: UITableViewDataSource {
                                          color: ASAPP.styles.colors.quickReplyButton.textNormal)
             cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
             
-            if quickReply.action.willExitASAPP && !ConversationManager.demo_OverrideQuickReplySelected(quickReply) {
+            if quickReply.action.willExitASAPP {
                 cell.imageView?.isHidden = false
                 cell.accessibilityTraits = UIAccessibilityTraitLink
             } else {

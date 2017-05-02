@@ -134,9 +134,9 @@ extension ChatMessagesViewDataSource {
      
         // Insert at end
         
-        let maxTimeForSameSection = lastMessage.sendTime.timeIntervalSinceReferenceDate + secondsBetweenSections
+        let maxTimeForSameSection = lastMessage.metadata.sendTime.timeIntervalSinceReferenceDate + secondsBetweenSections
      
-        if message.sendTime.timeIntervalSinceReferenceDate < maxTimeForSameSection {
+        if message.metadata.sendTime.timeIntervalSinceReferenceDate < maxTimeForSameSection {
             sections[sections.count - 1].append(message)
         } else {
             sections.append([message])
@@ -154,7 +154,7 @@ extension ChatMessagesViewDataSource {
 
         // Update the updatedMessage's times to the original times
         let messageToUpdate = allMessages[index]
-        message.metadata.updateSendTime(toMatch: messageToUpdate)
+        message.metadata.updateSendTime(toMatchMessage: messageToUpdate)
 
         // Switch out the messages
         allMessages[index] = message
