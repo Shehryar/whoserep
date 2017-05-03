@@ -1,77 +1,73 @@
 {
   "title": "Carousel",
   "styles": {
-    "card": {
-      "backgroundColor": "#ffffff",
-      "padding": 24
+    "page": {
+      "padding": "20 24"
     },
-    "title": {
-      "fontSize": 24,
-      "fontWeight": "black",
-      "color": "#5b657e",
-      "marginBottom": 8
+    "titleBlock": {
+      "marginBottom": 36
     },
-    "message": {
-      "fontSize": 15,
-      "fontWeight": "regular",
-      "color": "#7c869f"
+    "titleLeft": {
+      "textType": "header2",
+      "marginRight": 12,
+      "weight": 1
+    },
+    "titleRight": {
+      "textType": "header2",
+      "textAlign": "right",
+      "weight": 0
+    },
+    "bodyText": {
+      "textType": "body"
     }
   },
   "body": {
     "type": "carouselView",
     "style": {
       "padding": 0,
-      "gravity" : "fill"
+      "gravity": "fill"
     },
     "content": {
       "pagingEnabled": true,
       "cardDisplayCount": 1,
-      "cardSpacing" : 0,
+      "cardSpacing": 0,
       "pageControl": {
-        "type": "pageControl",
-        "style": {
-          "borderColor" : "#dcdde2",
-          "borderWidth" : 1,
-          "backgroundColor" : "#ffffff"
-        },
-        "content": {}
+        "type": "pageControl"
       },
       "cards": [
         {
           "type": "stackView",
-          "class": "card",
+          "class": "page",
           "content": {
             "items": [
               {
-                "type": "label",
-                "class": "title",
+                "type": "stackView",
+                "class": "titleBlock",
                 "content": {
-                  "text": "Title"
-                }
-              },
-              {
-                "type": "label",
-                "class": "message",
-                "content": {
-                  "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
-                }
-              },
-              {
-                "type": "button",
-                "content": {
-                  "style": "text",
-                  "title": "View Details",
-                  "action": {
-                    "type": "componentView",
-                    "content": {
-                      "name": "0-1_view_full_carousel"
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "1GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$X"
+                      }
                     }
-                  }
-                },
-                "style": {
-                  "marginTop": 12,
-                  "padding": "12 16",
-                  "align": "fill"
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
                 }
               }
             ]
@@ -79,21 +75,37 @@
         },
         {
           "type": "stackView",
-          "class": "card",
+          "class": "page",
           "content": {
             "items": [
               {
-                "type": "label",
-                "class": "title",
+                "type": "stackView",
+                "class": "titleBlock",
                 "content": {
-                  "text": "Title"
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "2GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XX"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "label",
-                "class": "message",
+                "class": "bodyText",
                 "content": {
-                  "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa.  Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
                 }
               }
             ]
@@ -101,21 +113,37 @@
         },
         {
           "type": "stackView",
-          "class": "card",
+          "class": "page",
           "content": {
             "items": [
               {
-                "type": "label",
-                "class": "title",
+                "type": "stackView",
+                "class": "titleBlock",
                 "content": {
-                  "text": "Title"
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "4GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXX"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "label",
-                "class": "message",
+                "class": "bodyText",
                 "content": {
-                  "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
                 }
               }
             ]
@@ -123,21 +151,37 @@
         },
         {
           "type": "stackView",
-          "class": "card",
+          "class": "page",
           "content": {
             "items": [
               {
-                "type": "label",
-                "class": "title",
+                "type": "stackView",
+                "class": "titleBlock",
                 "content": {
-                  "text": "Title"
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "10GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXXX"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "label",
-                "class": "message",
+                "class": "bodyText",
                 "content": {
-                  "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
                 }
               }
             ]
@@ -145,21 +189,37 @@
         },
         {
           "type": "stackView",
-          "class": "card",
+          "class": "page",
           "content": {
             "items": [
               {
-                "type": "label",
-                "class": "title",
+                "type": "stackView",
+                "class": "titleBlock",
                 "content": {
-                  "text": "Title"
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "20GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXXXX"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "label",
-                "class": "message",
+                "class": "bodyText",
                 "content": {
-                  "text": "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa"
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
                 }
               }
             ]
