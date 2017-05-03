@@ -23,9 +23,7 @@ class LabelView: BaseComponentView {
                     label.textAlignment = .left
                 }
                 
-                label.setAttributedText(labelItem.text,
-                                        textType: labelItem.style.textType,
-                                        color: labelItem.style.color)
+                updateText(labelItem.text)
             } else {
                 label.text = nil
                 label.attributedText = nil
@@ -95,5 +93,21 @@ class LabelView: BaseComponentView {
         let height = frame.height > 0 ? frame.maxY + padding.bottom : 0
         
         return CGSize(width: width, height: height)
+    }
+    
+    // MARK:- Text
+    
+    func updateText(_ text: String?) {
+        guard let text = text else {
+            label.attributedText = nil
+            return
+        }
+    
+        let textType = labelItem?.style.textType ?? .body
+        label.setAttributedText(text,
+                                textType: textType,
+                                color: labelItem?.style.color)
+        
+        setNeedsLayout()
     }
 }

@@ -57,7 +57,7 @@ class RadioButtonView: BaseComponentView {
         addSubview(labelView)
         
         checkboxView.layer.borderWidth = 1
-        checkboxView.layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
+        checkboxView.layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
         checkboxView.layer.cornerRadius = 5.0
         addSubview(checkboxView)
         

@@ -152,7 +152,7 @@ class SliderView: BaseComponentView {
     }
     
     func updateLabelText() {
-        labelView.label.text = "\(getCurrentValue())"
+        labelView.updateText("\(getCurrentValue())")
         setNeedsLayout()
     }
     
