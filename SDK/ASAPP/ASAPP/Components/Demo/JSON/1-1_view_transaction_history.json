@@ -5,9 +5,7 @@
       "backgroundColor": "#f3f4f6"
     },
     "sectionTitle": {
-      "color": "#a8aeba",
-      "fontSize": 12,
-      "fontWeight": "bold",
+      "textType": "subheader",
       "padding": "6 24"
     },
     "row": {
@@ -18,19 +16,14 @@
       "gravity": "middle"
     },
     "rowTitle": {
-      "fontSize": 14,
-      "color": "#646e85",
+      "textType": "body",
       "marginBottom": 4
     },
     "rowDetail": {
-      "fontSize": 12,
-      "color": "#adb2be",
-      "fontWeight": "bold"
+      "textType": "detail1"
     },
     "rowValue": {
-      "fontSize": 18,
-      "color": "#5b657e",
-      "fontWeight": "black",
+      "textType": "bodyBold",
       "gravity": "middle",
       "weight": 0
     }
