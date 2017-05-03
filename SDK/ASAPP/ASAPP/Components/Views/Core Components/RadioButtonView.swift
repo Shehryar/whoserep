@@ -61,7 +61,7 @@ class RadioButtonView: BaseComponentView {
         checkboxView.layer.cornerRadius = 5.0
         addSubview(checkboxView)
         
-        checkboxInnerView.backgroundColor = UIColor.white
+        checkboxInnerView.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         checkboxInnerView.isHidden = true
         checkboxView.addSubview(checkboxInnerView)
     }
