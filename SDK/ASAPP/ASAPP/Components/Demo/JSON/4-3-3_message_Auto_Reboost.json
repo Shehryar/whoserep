@@ -1,22 +1,23 @@
 {
-  "attachment": {
-    "content": {
-      "body": {},
-      "styles": {}
-    },
-    "type": "componentView"
-  },
+  "text": "Got it! Please tap below to enter the amount you'd like to automatically add whenever your account balance drops below $5.",
   "quickReplies": [
     {
-      "action": {
+      "type": "button",
+      "label": "Select Amount",
+      "value": {
+        "type": "COMPONENT_VIEW",
         "content": {
-          "displayStyle": "inset",
-          "name": "4-3-3_view_Select_Auto_Reboost"
-        },
-        "type": "componentView"
-      },
-      "title": "Select Amount"
+          "name": "4-3-3_view_Select_Auto_Reboost",
+          "displayStyle": "inset"
+        }
+      }
     }
   ],
-  "text": "Got it! Please tap below to enter the amount you'd like to automatically add whenever your account balance drops below $5."
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {},
+      "body": {}
+    }
+  }
 }

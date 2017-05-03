@@ -1,184 +1,167 @@
-{{- if .Auth -}}
 {
+  "text": "Here is your current account balance, upcoming charge, and due date.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Pay my bill",
+      "value": {
+        "type": "AID",
+        "content": "7-1-01_message_select_account_for_payment"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Transaction History",
+      "value": {
+        "type": "AID",
+        "content": "1-1_message_transaction_history"
+      }
+    }
+  ],
   "attachment": {
+    "type": "componentView",
     "content": {
       "actions": {},
+      "styles": {},
       "body": {
+        "type": "stackView",
         "content": {
           "items": [
             {
+              "type": "label",
               "content": {
                 "text": "ACCOUNT BALANCE"
               },
               "style": {
-                "color": "#a9aebb",
+                "marginBottom": 2,
                 "fontSize": 10,
-                "marginBottom": 2
-              },
-              "type": "label"
+                "color": "#a9aebb"
+              }
             },
             {
+              "type": "label",
               "content": {
                 "text": "$50.00"
               },
               "style": {
-                "color": "#56607a",
+                "marginBottom": 10,
                 "fontSize": 24,
                 "fontWeight": "black",
-                "marginBottom": 10
-              },
-              "type": "label"
+                "color": "#56607a"
+              }
             },
             {
+              "type": "stackView",
               "content": {
+                "orientation": "horizontal",
                 "items": [
                   {
+                    "type": "icon",
                     "content": {
                       "icon": "checkmarkThin"
                     },
                     "style": {
-                      "height": 24,
                       "marginRight": 20,
-                      "width": 24
-                    },
-                    "type": "icon"
+                      "width": 24,
+                      "height": 24
+                    }
                   },
                   {
+                    "type": "label",
                     "content": {
                       "text": "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date."
                     },
                     "style": {
-                      "color": "#656f86",
-                      "fontSize": 12
-                    },
-                    "type": "label"
+                      "fontSize": 12,
+                      "color": "#656f86"
+                    }
                   }
-                ],
-                "orientation": "horizontal"
+                ]
               },
               "style": {
                 "marginBottom": 15
-              },
-              "type": "stackView"
+              }
             },
             {
+              "type": "stackView",
               "content": {
+                "orientation": "horizontal",
                 "items": [
                   {
+                    "type": "stackView",
                     "content": {
                       "items": [
                         {
+                          "type": "label",
                           "content": {
                             "text": "UPCOMING CHARGE"
                           },
                           "style": {
-                            "color": "#a9aebb",
+                            "marginBottom": 3,
                             "fontSize": 10,
-                            "marginBottom": 3
-                          },
-                          "type": "label"
+                            "color": "#a9aebb"
+                          }
                         },
                         {
+                          "type": "label",
                           "content": {
                             "text": "$50.00"
                           },
                           "style": {
-                            "color": "#56607a",
                             "fontSize": 15,
-                            "fontWeight": "black"
-                          },
-                          "type": "label"
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
                         }
                       ]
                     },
                     "style": {
-                      "align": "fill",
-                      "weight": 1
-                    },
-                    "type": "stackView"
+                      "weight": 1,
+                      "align": "fill"
+                    }
                   },
                   {
+                    "type": "stackView",
                     "content": {
                       "items": [
                         {
+                          "type": "label",
                           "content": {
                             "text": "DUE BY"
                           },
                           "style": {
-                            "color": "#a9aebb",
+                            "marginBottom": 3,
                             "fontSize": 10,
-                            "marginBottom": 3
-                          },
-                          "type": "label"
+                            "color": "#a9aebb"
+                          }
                         },
                         {
+                          "type": "label",
                           "content": {
                             "text": "04/15/17"
                           },
                           "style": {
-                            "color": "#56607a",
                             "fontSize": 15,
-                            "fontWeight": "black"
-                          },
-                          "type": "label"
+                            "fontWeight": "black",
+                            "color": "#56607a"
+                          }
                         }
                       ]
                     },
                     "style": {
-                      "align": "fill",
-                      "weight": 1
-                    },
-                    "type": "stackView"
+                      "weight": 1,
+                      "align": "fill"
+                    }
                   }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
+                ]
+              }
             }
           ]
         },
         "style": {
           "padding": 20
-        },
-        "type": "stackView"
-      },
-      "styles": {}
-    },
-    "type": "componentView"
-  },
-  "quickReplies": [
-    {
-      "action": {
-        "content": {
-          "classification": "7-1-01_message_select_account_for_payment"
-        },
-        "type": "treewalk"
-      },
-      "title": "Pay my bill"
-    },
-    {
-      "action": {
-        "content": {
-          "classification": "1-1_message_transaction_history"
-        },
-        "type": "treewalk"
-      },
-      "title": "Transaction History"
+        }
+      }
     }
-  ],
-  "text": "Here is your current account balance, upcoming charge, and due date."
+  }
 }
-{{- else -}}
-{
-  "quickReplies": [
-    {
-      "action": {
-        "content": "2-1-1_message_account_balance",
-        "type": "login"
-      },
-      "title": "Log in"
-    }
-  ],
-  "text": "Please log in to continue."
-}
-{{- end -}}

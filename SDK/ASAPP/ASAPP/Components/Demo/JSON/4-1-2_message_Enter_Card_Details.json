@@ -1,22 +1,16 @@
 {
-  "attachment": {
-    "content": {
-      "body": {},
-      "styles": {}
-    },
-    "type": "componentView"
-  },
+  "text": "Ok great, please tap below to securely enter your card details.",
   "quickReplies": [
     {
-      "action": {
+      "type": "button",
+      "label": "ENTER CARD DETAILS",
+      "value": {
+        "type": "COMPONENT_VIEW",
         "content": {
-          "displayStyle": "inset",
-          "name": "4-1-3_view_Enter_Card_Details"
-        },
-        "type": "componentView"
-      },
-      "title": "ENTER CARD DETAILS"
+          "name": "4-1-3_view_Enter_Card_Details",
+          "displayStyle": "inset"
+        }
+      }
     }
-  ],
-  "text": "Ok great, please tap below to securely enter your card details."
+  ]
 }

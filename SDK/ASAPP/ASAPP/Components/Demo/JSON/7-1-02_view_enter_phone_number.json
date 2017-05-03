@@ -1,134 +1,134 @@
 {
+  "title": "Enter Phone Number",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
   "body": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
     "content": {
       "items": [
         {
+          "type": "scrollView",
+          "style": {
+            "weight": 1,
+            "align": "fill",
+            "gravity" : "fill"
+          },
           "content": {
             "content": {
+              "type": "stackView",
               "content": {
                 "items": [
                   {
+                    "type": "stackView",
                     "content": {
                       "items": [
                         {
+                          "type": "label",
                           "content": {
                             "text": "Enter Phone Number"
                           },
                           "style": {
-                            "color": "#55607a",
                             "fontSize": 18,
                             "fontWeight": "black",
+                            "color": "#55607a",
                             "marginBottom": 12
-                          },
-                          "type": "label"
+                          }
                         },
                         {
+                          "type": "label",
                           "content": {
                             "text": "Enter the phone number that is associated with the account to which you'd like to make a payment."
                           },
                           "style": {
-                            "color": "#55607a",
                             "fontSize": 14,
+                            "color": "#55607a",
                             "marginBottom": 12
-                          },
-                          "type": "label"
+                          }
                         },
                         {
+                          "id": "phoneInput",
+                          "type": "textInput",
                           "class": "textInput",
+                          "name": "phone",
                           "content": {
                             "placeholder": "Phone Number",
-                            "type": "phone"
-                          },
-                          "id": "phoneInput",
-                          "name": "phone",
-                          "type": "textInput"
+                            "type" : "phone"
+                          }
                         }
                       ]
                     },
                     "style": {
                       "padding": 20
-                    },
-                    "type": "stackView"
+                    }
                   }
                 ]
-              },
-              "type": "stackView"
+              }
             }
-          },
-          "style": {
-            "align": "fill",
-            "gravity": "fill",
-            "weight": 1
-          },
-          "type": "scrollView"
+          }
         },
         {
+          "type": "stackView",
+          "style": {
+            "weight": 0,
+            "align": "fill"
+          },
           "content": {
+            "orientation": "horizontal",
             "items": [
               {
+                "type": "button",
                 "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
                   "action": {
                     "type": "finish"
-                  },
-                  "style": "secondary",
-                  "title": "CANCEL"
+                  }
                 },
                 "style": {
-                  "align": "fill",
-                  "weight": 1
-                },
-                "type": "button"
+                  "weight": 1,
+                  "align": "fill"
+                }
               },
               {
+                "type": "button",
                 "content": {
+                  "title": "SUBMIT",
                   "action": {
+                    "type": "api",
                     "content": {
-                      "data": {
-                        "Classification": "7-1-03_message_select_payment_method",
-                        "SendFinishMessage": true,
-                        "Text": "+1 (555) 333-5555",
-                        "type": "paymentAccount"
-                      },
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "phoneInput"
                       ],
-                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "requiredInputFields": [
                         "phoneInput"
-                      ]
-                    },
-                    "type": "api"
-                  },
-                  "title": "SUBMIT"
+                      ],
+                      "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "7-1-03_message_select_payment_method",
+                        "Text" : "+1 (555) 333-5555",
+                        "type": "paymentAccount"
+                      }
+                    }
+                  }
                 },
                 "style": {
-                  "align": "fill",
-                  "weight": 1
-                },
-                "type": "button"
+                  "weight": 1,
+                  "align": "fill"
+                }
               }
-            ],
-            "orientation": "horizontal"
-          },
-          "style": {
-            "align": "fill",
-            "weight": 0
-          },
-          "type": "stackView"
+            ]
+          }
         }
       ]
-    },
-    "style": {
-      "gravity": "fill"
-    },
-    "type": "stackView"
-  },
-  "styles": {
-    "textInput": {
-      "align": "fill",
-      "color": "#55607a",
-      "marginBottom": 4
     }
-  },
-  "title": "Enter Phone Number"
+  }
 }

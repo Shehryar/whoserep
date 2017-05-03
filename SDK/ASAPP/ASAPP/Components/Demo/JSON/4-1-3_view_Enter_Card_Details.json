@@ -1,174 +1,174 @@
 {
+  "title": "Add Credit Card",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
   "body": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
     "content": {
       "items": [
         {
+          "type": "scrollView",
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
           "content": {
             "content": {
+              "type": "stackView",
               "content": {
                 "items": [
                   {
+                    "type": "stackView",
                     "content": {
                       "items": [
                         {
+                          "type": "label",
                           "content": {
                             "text": "Enter Card Details"
                           },
                           "style": {
-                            "color": "#55607a",
                             "fontSize": 18,
                             "fontWeight": "black",
+                            "color": "#55607a",
                             "marginBottom": 12
-                          },
-                          "type": "label"
+                          }
                         },
                         {
+                          "id": "cardNameInput",
+                          "type": "textInput",
                           "class": "textInput",
+                          "name": "cardName",
                           "content": {
                             "placeholder": "NAME ON CARD"
-                          },
-                          "id": "cardNameInput",
-                          "name": "cardName",
-                          "type": "textInput"
+                          }
                         },
                         {
+                          "id": "cardNumberInput",
+                          "type": "textInput",
                           "class": "textInput",
+                          "name": "cardNumber",
                           "content": {
                             "placeholder": "CARD NUMBER",
                             "type": "number"
-                          },
-                          "id": "cardNumberInput",
-                          "name": "cardNumber",
-                          "type": "textInput"
+                          }
                         },
                         {
+                          "type": "stackView",
                           "content": {
+                            "orientation": "horizontal",
                             "items": [
                               {
+                                "id": "cardExpiryInput",
+                                "type": "textInput",
                                 "class": "textInput",
+                                "name": "cardExp",
                                 "content": {
                                   "placeholder": "EXP DATE (MM/YY)"
                                 },
-                                "id": "cardExpiryInput",
-                                "name": "cardExp",
                                 "style": {
                                   "align": "fill",
                                   "weight": 1
-                                },
-                                "type": "textInput"
+                                }
                               },
                               {
+                                "id": "cardCVVInput",
+                                "type": "textInput",
                                 "class": "textInput",
+                                "name": "cardCVV",
                                 "content": {
-                                  "password": true,
                                   "placeholder": "CVV",
+                                  "password": true,
                                   "type": "number"
                                 },
-                                "id": "cardCVVInput",
-                                "name": "cardCVV",
                                 "style": {
-                                  "align": "fill",
                                   "marginLeft": 20,
+                                  "align": "fill",
                                   "weight": 1
-                                },
-                                "type": "textInput"
+                                }
                               }
-                            ],
-                            "orientation": "horizontal"
+                            ]
                           },
-                          "style": {},
-                          "type": "stackView"
+                          "style": {}
                         }
                       ]
                     },
                     "style": {
                       "padding": 20
-                    },
-                    "type": "stackView"
+                    }
                   }
                 ]
-              },
-              "type": "stackView"
+              }
             }
-          },
-          "style": {
-            "gravity": "fill",
-            "weight": 1
-          },
-          "type": "scrollView"
+          }
         },
         {
+          "type": "stackView",
+          "style": {
+            "weight": 0,
+            "align": "fill"
+          },
           "content": {
+            "orientation": "horizontal",
             "items": [
               {
+                "type": "button",
                 "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
                   "action": {
                     "type": "finish"
-                  },
-                  "style": "secondary",
-                  "title": "CANCEL"
+                  }
                 },
                 "style": {
-                  "align": "fill",
-                  "weight": 1
-                },
-                "type": "button"
+                  "weight": 1,
+                  "align": "fill"
+                }
               },
               {
+                "type": "button",
                 "content": {
+                  "title": "SUBMIT",
                   "action": {
+                    "type": "api",
                     "content": {
-                      "data": {
-                        "Classification": "4-3-3_message_Auto_Reboost",
-                        "SendFinishMessage": true,
-                        "Text": "[Uploaded Credit Card]"
-                      },
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "inputFields": [
                         "cardNameInput",
                         "cardNumberInput",
                         "cardExpiryInput",
                         "cardCVVInput"
                       ],
-                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
                       "requiredInputFields": [
                         "cardNameInput",
                         "cardNumberInput",
                         "cardExpiryInput",
                         "cardCVVInput"
-                      ]
-                    },
-                    "type": "api"
-                  },
-                  "title": "SUBMIT"
+                      ],
+                      "data": {
+                        "SendFinishMessage": true,
+                        "Classification": "4-3-3_message_Auto_Reboost",
+                        "Text": "[Uploaded Credit Card]"
+                      }
+                    }
+                  }
                 },
                 "style": {
-                  "align": "fill",
-                  "weight": 1
-                },
-                "type": "button"
+                  "weight": 1,
+                  "align": "fill"
+                }
               }
-            ],
-            "orientation": "horizontal"
-          },
-          "style": {
-            "align": "fill",
-            "weight": 0
-          },
-          "type": "stackView"
+            ]
+          }
         }
       ]
-    },
-    "style": {
-      "gravity": "fill"
-    },
-    "type": "stackView"
-  },
-  "styles": {
-    "textInput": {
-      "align": "fill",
-      "color": "#55607a",
-      "marginBottom": 4
     }
-  },
-  "title": "Add Credit Card"
+  }
 }

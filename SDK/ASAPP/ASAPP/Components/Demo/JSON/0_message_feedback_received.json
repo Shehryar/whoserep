@@ -1,81 +1,73 @@
 {
+  "text": "",
+  "quickReplies": [],
   "attachment": {
+    "type": "componentView",
     "content": {
+      "styles": {},
       "body": {
+        "type": "stackView",
+        "style": {
+          "padding": 20
+        },
         "content": {
+          "orientation": "horizontal",
           "items": [
             {
+              "type": "icon",
               "content": {
                 "icon": "checkmarkThin"
               },
               "style": {
                 "gravity": "top",
-                "height": 32,
                 "marginRight": 21,
-                "width": 32
-              },
-              "type": "icon"
+                "width": 32,
+                "height": 32
+              }
             },
             {
+              "type": "stackView",
+              "style": {
+                "weight": 1,
+                "gravity": "top"
+              },
               "content": {
                 "items": [
                   {
+                    "type": "label",
                     "content": {
                       "text": "Thank you!"
                     },
                     "style": {
-                      "color": "#57617b",
-                      "fontSize": 15,
-                      "fontWeight": "black",
+                      "textType": "bodyBold",
                       "marginBottom": 6
-                    },
-                    "type": "label"
+                    }
                   },
                   {
+                    "type": "label",
                     "content": {
                       "text": "We have received your feedback."
                     },
                     "style": {
-                      "color": "#646e85",
-                      "fontSize": 12,
-                      "fontWeight": "regular",
-                      "marginBottom": 8
-                    },
-                    "type": "label"
+                      "marginBottom": 8,
+                      "textType": "body"
+                    }
                   },
                   {
+                    "type": "label",
                     "content": {
                       "text": "March 31, 2017 - 3:15PM"
                     },
                     "style": {
-                      "color": "#adb2be",
-                      "fontSize": 11,
-                      "fontWeight": "bold"
-                    },
-                    "type": "label"
+                      "textType": "detail2"
+                    }
                   }
                 ]
-              },
-              "style": {
-                "gravity": "top",
-                "weight": 1
-              },
-              "type": "stackView"
+              }
             }
-          ],
-          "orientation": "horizontal"
-        },
-        "style": {
-          "align": "center",
-          "marginBottom": 4,
-          "padding": 21
-        },
-        "type": "stackView"
-      },
-      "styles": {}
-    },
-    "type": "componentView"
-  },
-  "quickReplies": [],
-  "text": ""
+          ]
+        }
+      }
+    }
+  }
 }

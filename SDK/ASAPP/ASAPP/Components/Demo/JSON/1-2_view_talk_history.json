@@ -1,522 +1,6 @@
 {
-  "body": {
-    "content": {
-      "sections": [
-        {
-          "header": {
-            "class": "sectionHeader",
-            "content": {
-              "items": [
-                {
-                  "class": "sectionTitle",
-                  "content": {
-                    "text": "2017"
-                  },
-                  "type": "label"
-                },
-                {
-                  "style": {
-                    "color": "#d1d3d9"
-                  },
-                  "type": "separator"
-                }
-              ]
-            },
-            "type": "stackView"
-          },
-          "rows": [
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "arrowOutgoing"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "+1 (555) 123-4567"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "3/3/2017 - 4:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "00:25"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Mom"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "3/3/2017 - 10:33AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "04:05"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Billy"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/28/2017 - 8:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "05:14"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "arrowOutgoing"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Work"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/24/2017 - 10:14AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "43:15"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Billy"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/23/2017 - 4:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "00:05"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "+1 (555) 123-4567"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/14/2017 - 4:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "03:03"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "+1 (555) 123-4567"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/1/2017 - 10:33AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "10:15"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "arrowOutgoing"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Johnny T"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "1/29/2017 - 4:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "15:12"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "+1 (555) 123-4567"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "1/24/2017 - 3:37PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "00:56"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "icon",
-                    "content": {
-                      "icon": "arrowOutgoing"
-                    },
-                    "type": "icon"
-                  },
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "867-5309"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "1/21/2017 - 12:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "10:12"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            }
-          ]
-        }
-      ],
-      "separatorStyle": "singleLine"
-    },
-    "style": {
-      "gravity": "fill"
-    },
-    "type": "tableView"
-  },
+  "title": "Talk History",
   "styles": {
-    "icon": {
-      "gravity": "middle",
-      "height": 12,
-      "marginRight": 16,
-      "weight": 0,
-      "width": 12
-    },
-    "row": {
-      "padding": "16 24"
-    },
-    "rowDetail": {
-      "color": "#adb2be",
-      "fontSize": 12,
-      "fontWeight": "bold"
-    },
-    "rowLeftColumn": {
-      "gravity": "middle",
-      "weight": 1
-    },
-    "rowTitle": {
-      "color": "#646e85",
-      "fontSize": 14,
-      "marginBottom": 4
-    },
-    "rowValue": {
-      "color": "#5b657e",
-      "fontSize": 18,
-      "fontWeight": "black",
-      "gravity": "middle",
-      "weight": 0
-    },
     "sectionHeader": {
       "backgroundColor": "#f3f4f6"
     },
@@ -525,7 +9,523 @@
       "fontSize": 12,
       "fontWeight": "bold",
       "padding": "6 24"
+    },
+    "row": {
+      "padding": "16 24"
+    },
+    "icon": {
+      "weight" : 0,
+      "gravity" : "middle",
+      "width" : 12,
+      "height" : 12,
+      "marginRight" : 16
+    },
+    "rowLeftColumn": {
+      "weight": 1,
+      "gravity": "middle"
+    },
+    "rowTitle": {
+      "fontSize": 14,
+      "color": "#646e85",
+      "marginBottom": 4
+    },
+    "rowDetail": {
+      "fontSize": 12,
+      "color": "#adb2be",
+      "fontWeight": "bold"
+    },
+    "rowValue": {
+      "fontSize": 18,
+      "color": "#5b657e",
+      "fontWeight": "black",
+      "gravity": "middle",
+      "weight": 0
     }
   },
-  "title": "Talk History"
+  "body": {
+    "type": "tableView",
+    "content": {
+      "separatorStyle": "singleLine",
+      "sections": [
+        {
+          "header": {
+            "type": "stackView",
+            "content": {
+              "items": [
+                {
+                  "type": "label",
+                  "content": {
+                    "text": "2017"
+                  },
+                  "class": "sectionTitle"
+                },
+                {
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
+                }
+              ]
+            },
+            "class": "sectionHeader"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "arrowOutgoing"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "00:25"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 10:33AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "04:05"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/28/2017 - 8:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "05:14"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "arrowOutgoing"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Work"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/24/2017 - 10:14AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "43:15"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/23/2017 - 4:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "00:05"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/14/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "03:03"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/1/2017 - 10:33AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "10:15"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "arrowOutgoing"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Johnny T"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/29/2017 - 4:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "15:12"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "placeholder"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/24/2017 - 3:37PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "00:56"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type" : "icon",
+                    "content" : {
+                      "icon" : "arrowOutgoing"
+                    },
+                    "class" : "icon"
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "867-5309"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/21/2017 - 12:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "10:12"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            }
+          ]
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    }
+  }
 }

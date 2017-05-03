@@ -1,93 +1,91 @@
 {
+  "text": "Great. Before we proceed, you must read and accept our terms and conditions.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "I accept",
+      "value": {
+        "type": "AID",
+        "content": "4-3-7_message_confirm_rebost_enrollment"
+      }
+    },
+    {
+      "type": "button",
+      "label": "I do not accept",
+      "value": {
+        "type": "AID",
+        "content": "4-1-0_message_stopped_enrollment"
+      }
+    }
+  ],
   "attachment": {
+    "type": "componentView",
     "content": {
+      "styles": {},
       "body": {
+        "type": "stackView",
         "content": {
           "items": [
             {
+              "type": "stackView",
               "content": {
+                "orientation": "horizontal",
                 "items": [
                   {
+                    "type": "label",
                     "content": {
                       "text": "Terms and Conditions"
                     },
                     "style": {
-                      "color": "#5b657e",
-                      "fontSize": 15,
+                      "gravity": "middle",
                       "fontWeight": "black",
-                      "gravity": "middle"
-                    },
-                    "type": "label"
+                      "fontSize": 15,
+                      "color": "#5b657e"
+                    }
                   },
                   {
+                    "type": "button",
                     "content": {
+                      "title": "VIEW",
+                      "style": "text",
                       "action": {
+                        "type": "componentView",
                         "content": {
                           "name": "4-3-5_view_terms_and_conditions"
-                        },
-                        "type": "componentView"
-                      },
-                      "style": "text",
-                      "title": "VIEW"
+                        }
+                      }
                     },
                     "style": {
                       "align": "right",
                       "gravity": "middle",
-                      "paddingBottom": 12,
-                      "paddingLeft": 16,
-                      "paddingRight": 0,
+                      "weight": 1,
                       "paddingTop": 12,
-                      "weight": 1
-                    },
-                    "type": "button"
+                      "paddingLeft": 16,
+                      "paddingBottom": 12,
+                      "paddingRight": 0
+                    }
                   }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
+                ]
+              }
             },
             {
+              "type": "label",
               "content": {
                 "text": "As of March 31, 2017 at 9:05AM"
               },
               "style": {
-                "color": "#a4a9b7",
+                "fontWeight": "regular",
                 "fontSize": 11,
-                "fontWeight": "regular"
-              },
-              "type": "label"
+                "color": "#a4a9b7"
+              }
             }
           ]
         },
         "style": {
           "padding": 20,
           "paddingTop": 8
-        },
-        "type": "stackView"
-      },
-      "styles": {}
-    },
-    "type": "componentView"
-  },
-  "quickReplies": [
-    {
-      "action": {
-        "content": {
-          "classification": "4-3-7_message_confirm_rebost_enrollment"
-        },
-        "type": "treewalk"
-      },
-      "title": "I accept"
-    },
-    {
-      "action": {
-        "content": {
-          "classification": "4-1-0_message_stopped_enrollment"
-        },
-        "type": "treewalk"
-      },
-      "title": "I do not accept"
+        }
+      }
     }
-  ],
-  "text": "Great. Before we proceed, you must read and accept our terms and conditions."
+  }
 }

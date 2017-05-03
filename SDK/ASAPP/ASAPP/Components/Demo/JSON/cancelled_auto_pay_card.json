@@ -1,74 +1,74 @@
 {
+  "styles": {},
   "body": {
+    "type": "stackView",
     "content": {
+      "orientation": "horizontal",
       "items": [
         {
+          "type": "icon",
           "content": {
             "icon": "user"
           },
           "style": {
             "gravity": "top",
-            "height": 32,
             "marginRight": 21,
-            "width": 32
-          },
-          "type": "icon"
+            "width": 32,
+            "height": 32
+          }
         },
         {
+          "type": "stackView",
           "content": {
             "items": [
               {
+                "type": "label",
                 "content": {
                   "text": "Cancelled Auto Pay"
                 },
                 "style": {
-                  "color": "#57617b",
-                  "fontSize": 15,
+                  "marginBottom": 6,
                   "fontWeight": "bold",
-                  "marginBottom": 6
-                },
-                "type": "label"
+                  "fontSize": 15,
+                  "color": "#57617b"
+                }
               },
               {
+                "type": "label",
                 "content": {
                   "text": "You have successfully removed autopay from your account"
                 },
                 "style": {
-                  "color": "#646e85",
-                  "fontSize": 12,
+                  "marginBottom": 8,
                   "fontWeight": "regular",
-                  "marginBottom": 8
-                },
-                "type": "label"
+                  "fontSize": 12,
+                  "color": "#646e85"
+                }
               },
               {
+                "type": "label",
                 "content": {
                   "text": "March 15, 2017 -- 4:15PM"
                 },
                 "style": {
-                  "color": "#adb2be",
+                  "fontWeight": "regular",
                   "fontSize": 12,
-                  "fontWeight": "regular"
-                },
-                "type": "label"
+                  "color": "#adb2be"
+                }
               }
             ]
           },
           "style": {
-            "gravity": "top",
-            "weight": 1
-          },
-          "type": "stackView"
+            "weight": 1,
+            "gravity": "top"
+          }
         }
-      ],
-      "orientation": "horizontal"
+      ]
     },
     "style": {
       "align": "center",
       "marginBottom": 4,
       "padding": 21
-    },
-    "type": "stackView"
-  },
-  "styles": {}
+    }
+  }
 }

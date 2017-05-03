@@ -1,15 +1,16 @@
 {
+  "text": "Ok no problem. Tap below to enter a new PIN.",
   "quickReplies": [
     {
-      "action": {
+      "type": "button",
+      "label": "ENTER NEW PIN",
+      "value": {
+        "type": "COMPONENT_VIEW",
         "content": {
-          "displayStyle": "inset",
-          "name": "17-3-1_view_enter_pin"
-        },
-        "type": "componentView"
-      },
-      "title": "ENTER NEW PIN"
+          "name": "17-3-1_view_enter_pin",
+          "displayStyle": "inset"
+        }
+      }
     }
-  ],
-  "text": "Ok no problem. Tap below to enter a new PIN."
+  ]
 }

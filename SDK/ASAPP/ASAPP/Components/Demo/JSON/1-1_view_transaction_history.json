@@ -1,476 +1,6 @@
 {
-  "body": {
-    "content": {
-      "sections": [
-        {
-          "header": {
-            "class": "sectionHeader",
-            "content": {
-              "items": [
-                {
-                  "class": "sectionTitle",
-                  "content": {
-                    "text": "2017"
-                  },
-                  "type": "label"
-                },
-                {
-                  "style": {
-                    "color": "#d1d3d9"
-                  },
-                  "type": "separator"
-                }
-              ]
-            },
-            "type": "stackView"
-          },
-          "rows": [
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "March 2017 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "3/3/2017 - 4:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "February 2017 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/3/2017 - 10:33AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Service Ugrade"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "2/1/2017 - 8:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$34.66"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Loyal Customer Discount"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "1/18/2017 - 10:14AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "-$20.00"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "January 2017 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "1/3/2017 - 4:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            }
-          ]
-        },
-        {
-          "header": {
-            "class": "sectionHeader",
-            "content": {
-              "items": [
-                {
-                  "style": {
-                    "color": "#d1d3d9"
-                  },
-                  "type": "separator"
-                },
-                {
-                  "class": "sectionTitle",
-                  "content": {
-                    "text": "2016"
-                  },
-                  "type": "label"
-                },
-                {
-                  "style": {
-                    "color": "#d1d3d9"
-                  },
-                  "type": "separator"
-                }
-              ]
-            },
-            "type": "stackView"
-          },
-          "rows": [
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "December 2016 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "12/3/2016 - 4:14PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "November 2016 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "11/3/2016 - 10:33AM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "October 2016 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "10/3/2016 - 4:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "September 2016 Bill Statement"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "9/3/2017 - 3:37PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$110.97"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            },
-            {
-              "class": "row",
-              "content": {
-                "items": [
-                  {
-                    "class": "rowLeftColumn",
-                    "content": {
-                      "items": [
-                        {
-                          "class": "rowTitle",
-                          "content": {
-                            "text": "Service Initiation"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "class": "rowDetail",
-                          "content": {
-                            "text": "8/29/2016 - 12:04PM"
-                          },
-                          "type": "label"
-                        }
-                      ]
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "class": "rowValue",
-                    "content": {
-                      "text": "$60.00"
-                    },
-                    "type": "label"
-                  }
-                ],
-                "orientation": "horizontal"
-              },
-              "type": "stackView"
-            }
-          ]
-        }
-      ],
-      "separatorStyle": "singleLine"
-    },
-    "style": {
-      "gravity": "fill"
-    },
-    "type": "tableView"
-  },
+  "title": "Transaction History",
   "styles": {
-    "row": {
-      "padding": "16 24"
-    },
-    "rowDetail": {
-      "color": "#adb2be",
-      "fontSize": 12,
-      "fontWeight": "bold"
-    },
-    "rowLeftColumn": {
-      "gravity": "middle",
-      "weight": 1
-    },
-    "rowTitle": {
-      "color": "#646e85",
-      "fontSize": 14,
-      "marginBottom": 4
-    },
-    "rowValue": {
-      "color": "#5b657e",
-      "fontSize": 18,
-      "fontWeight": "black",
-      "gravity": "middle",
-      "weight": 0
-    },
     "sectionHeader": {
       "backgroundColor": "#f3f4f6"
     },
@@ -479,7 +9,477 @@
       "fontSize": 12,
       "fontWeight": "bold",
       "padding": "6 24"
+    },
+    "row": {
+      "padding": "16 24"
+    },
+    "rowLeftColumn": {
+      "weight": 1,
+      "gravity": "middle"
+    },
+    "rowTitle": {
+      "fontSize": 14,
+      "color": "#646e85",
+      "marginBottom": 4
+    },
+    "rowDetail": {
+      "fontSize": 12,
+      "color": "#adb2be",
+      "fontWeight": "bold"
+    },
+    "rowValue": {
+      "fontSize": 18,
+      "color": "#5b657e",
+      "fontWeight": "black",
+      "gravity": "middle",
+      "weight": 0
     }
   },
-  "title": "Transaction History"
+  "body": {
+    "type": "tableView",
+    "content": {
+      "separatorStyle": "singleLine",
+      "sections": [
+        {
+          "header": {
+            "type": "stackView",
+            "content": {
+              "items": [
+                {
+                  "type": "label",
+                  "content": {
+                    "text": "2017"
+                  },
+                  "class": "sectionTitle"
+                },
+                {
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
+                }
+              ]
+            },
+            "class": "sectionHeader"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "March 2017 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "February 2017 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/3/2017 - 10:33AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Service Ugrade"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/1/2017 - 8:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$34.66"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Loyal Customer Discount"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/18/2017 - 10:14AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "-$20.00"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "January 2017 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/3/2017 - 4:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            }
+          ]
+        },
+        {
+          "header": {
+            "type": "stackView",
+            "content": {
+              "items": [
+                {
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
+                },
+                {
+                  "type": "label",
+                  "content": {
+                    "text": "2016"
+                  },
+                  "class": "sectionTitle"
+                },
+                {
+                  "type": "separator",
+                  "style" : {
+                    "color" : "#d1d3d9"
+                  }
+                }
+              ]
+            },
+            "class": "sectionHeader"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "December 2016 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "12/3/2016 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "November 2016 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "11/3/2016 - 10:33AM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "October 2016 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "10/3/2016 - 4:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "September 2016 Bill Statement"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "9/3/2017 - 3:37PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Service Initiation"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "8/29/2016 - 12:04PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$60.00"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            }
+          ]
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    }
+  }
 }

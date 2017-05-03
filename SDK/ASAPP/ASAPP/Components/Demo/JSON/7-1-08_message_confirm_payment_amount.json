@@ -1,32 +1,29 @@
 {
+  "text": "Okay, with a payment of $50.00, you will also have to pay $2.27 in applicable taxes. Let us know if this is alright or if you'd like to change your payment amount.",
   "quickReplies": [
-    {
-      "action": {
-        "content": {
-          "classification": "7-1-10_message_confirm_payment_again"
-        },
-        "type": "treewalk"
-      },
-      "title": "Yes that is alright"
+        {
+      "type": "button",
+      "label": "Yes that is alright",
+      "value": {
+        "type": "AID",
+        "content": "7-1-10_message_confirm_payment_again"
+      }
     },
     {
-      "action": {
-        "content": {
-          "classification": "7-1-07_message_select_amount"
-        },
-        "type": "treewalk"
-      },
-      "title": "Change payment amount"
+      "type": "button",
+      "label": "Change payment amount",
+      "value": {
+        "type": "AID",
+        "content": "7-1-07_message_select_amount"
+      }
     },
     {
-      "action": {
-        "content": {
-          "classification": "7-1-0_opted_out_of_payment"
-        },
-        "type": "treewalk"
-      },
-      "title": "Cancel Payment"
+      "type": "button",
+      "label": "Cancel Payment",
+      "value": {
+        "type": "AID",
+        "content": "7-1-0_opted_out_of_payment"
+      }
     }
-  ],
-  "text": "Okay, with a payment of $50.00, you will also have to pay $2.27 in applicable taxes. Let us know if this is alright or if you'd like to change your payment amount."
+  ]
 }
