@@ -1,95 +1,82 @@
 {
+  "text": "Alright then, have a great day!",
+  "quickReplies": [
+    {
+      "title": "Leave Feedback",
+      "action": {
+        "type": "componentView",
+        "content": {
+          "name": "0_view_feedback",
+          "displayStyle": "inset"
+        }
+      }
+    }
+  ],
   "attachment": {
+    "type": "componentView",
     "content": {
       "body": {
+        "type": "stackView",
+        "style": {
+          "padding": "20"
+        },
         "content": {
+          "orientation": "horizontal",
           "items": [
             {
+              "type": "icon",
               "content": {
                 "icon": "userMinus"
               },
               "style": {
                 "gravity": "top",
                 "height": 32,
-                "marginRight": 20,
-                "width": 32
-              },
-              "type": "icon"
+                "width": 32,
+                "marginRight": 20
+              }
             },
             {
+              "type": "stackView",
+              "style": {
+                "gravity": "top"
+              },
               "content": {
                 "items": [
                   {
+                    "type": "label",
                     "content": {
                       "text": "Michael ended the chat"
                     },
                     "style": {
-                      "color": "#57617b",
-                      "fontSize": 15,
-                      "fontWeight": "black",
+                      "textType": "header2",
                       "marginBottom": 6
-                    },
-                    "type": "label"
+                    }
                   },
                   {
+                    "type": "label",
                     "content": {
                       "text": "You are no longer connected to an agent."
                     },
                     "style": {
-                      "color": "#57617b",
-                      "fontSize": 12,
+                      "textType": "body",
                       "marginBottom": 12
-                    },
-                    "type": "label"
+                    }
                   },
                   {
+                    "type": "label",
                     "content": {
                       "text": "March 31, 2017"
                     },
                     "style": {
-                      "color": "#b2b7c2",
-                      "fontSize": 11,
-                      "fontWeight": "regular"
-                    },
-                    "type": "label"
-                  },
-                  {
-                    "content": {
-                      "action": {
-                        "content": {
-                          "displayStyle": "inset",
-                          "name": "0_view_feedback"
-                        },
-                        "type": "componentView"
-                      },
-                      "style": "text",
-                      "title": "How did we do?"
-                    },
-                    "style": {
-                      "padding": "12 16 12 0"
-                    },
-                    "type": "button"
+                      "textType": "detail2"
+                    }
                   }
                 ]
-              },
-              "style": {
-                "gravity": "top"
-              },
-              "type": "stackView"
+              }
             }
-          ],
-          "orientation": "horizontal"
-        },
-        "style": {
-          "align": "center",
-          "marginBottom": 4,
-          "padding": "21 21 10 21"
-        },
-        "type": "stackView"
-      },
-      "styles": {}
-    },
-    "type": "componentView"
-  },
-  "text": "Alright then, have a great day!"
+          ]
+        }
+      }
+    }
+  }
 }
