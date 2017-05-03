@@ -2,27 +2,30 @@
   "text": "Sure! Here are your last three transactions. Tap \"view all\" to see your full transaction history.",
   "quickReplies": [
     {
-      "type": "button",
-      "label": "Data Usage",
-      "value": {
-        "type": "AID",
-        "content": "1-4_message_data_usage"
+      "title": "Data Usage",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-4_message_data_usage"
+        }
       }
     },
     {
-      "type": "button",
-      "label": "Texts",
-      "value": {
-        "type": "AID",
-        "content": "1-3_message_text_history"
+      "title": "Texts",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-3_message_text_history"
+        }
       }
     },
     {
-      "type": "button",
-      "label": "Calls",
-      "value": {
-        "type": "AID",
-        "content": "1-2_message_talk_history"
+      "title": "Calls",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-2_message_talk_history"
+        }
       }
     }
   ],
@@ -31,42 +34,35 @@
     "content": {
       "styles": {
         "row": {
-          "padding": "8 0"
+          "padding": "10 0"
         },
-        "columnLeft": {
+        "left": {
           "gravity": "middle",
           "marginRight": 5,
           "weight": 1
         },
-        "columnRight": {
-          "gravity": "middle"
-        },
-        "headerText": {
-          "fontWeight": "black",
-          "fontSize": 16,
-          "color": "#5b657e"
-        },
-        "titleText": {
-          "fontSize": 14,
-          "color": "#646e85"
-        },
-        "detailText": {
-          "fontSize": 12,
-          "color": "#adb2bf"
-        },
-        "valueText": {
+        "right": {
           "gravity": "middle",
-          "align": "right",
-          "weight": 0,
-          "fontSize": 16,
-          "fontWeight": "black",
-          "letterSpacing": 1,
           "textAlign": "right",
-          "color": "#5b657e"
+          "align": "right",
+          "weight": 0
+        },
+        "button": {
+          "padding": "16 0 16 16"
+        },
+        "bold": {
+          "textType": "bodyBold"
+        },
+        "detail": {
+          "textType": "detail1",
+          "marginTop": 3
         }
       },
       "body": {
         "type": "stackView",
+        "style": {
+          "padding": "0 20"
+        },
         "content": {
           "items": [
             {
@@ -76,16 +72,14 @@
                 "items": [
                   {
                     "type": "label",
+                    "class": "left bold",
                     "content": {
                       "text": "Transaction History"
-                    },
-                    "class": "headerText columnLeft",
-                    "style": {
-                      "gravity": "middle"
                     }
                   },
                   {
                     "type": "button",
+                    "class": "right button",
                     "content": {
                       "title": "VIEW ALL",
                       "style": "text",
@@ -96,17 +90,9 @@
                           "displayType": "full"
                         }
                       }
-                    },
-                    "class": "columnRight",
-                    "style": {
-                      "padding": "12 0 12 16"
                     }
                   }
                 ]
-              },
-              "style": {
-                "paddingTop": 4,
-                "paddingBottom": 4
               }
             },
             {
@@ -114,132 +100,125 @@
             },
             {
               "type": "stackView",
+              "class": "row",
               "content": {
                 "orientation": "horizontal",
                 "items": [
                   {
                     "type": "stackView",
+                    "class": "left",
                     "content": {
                       "items": [
                         {
                           "type": "label",
                           "content": {
                             "text": "March 2017 Statement"
-                          },
-                          "class": "titleText"
+                          }
                         },
                         {
                           "type": "label",
+                          "class": "detail",
                           "content": {
                             "text": "3/3/2017"
-                          },
-                          "class": "detailText"
+                          }
                         }
                       ]
-                    },
-                    "class": "columnLeft"
+                    }
                   },
                   {
                     "type": "label",
+                    "class": "bold right",
                     "content": {
                       "text": "$110.97"
-                    },
-                    "class": "valueText columnRight"
+                    }
                   }
                 ]
-              },
-              "class": "row"
+              }
             },
             {
               "type": "separator"
             },
             {
               "type": "stackView",
+              "class": "row",
               "content": {
                 "orientation": "horizontal",
                 "items": [
                   {
                     "type": "stackView",
+                    "class": "left",
                     "content": {
                       "items": [
                         {
                           "type": "label",
                           "content": {
                             "text": "February 2017 Statement"
-                          },
-                          "class": "titleText"
+                          }
                         },
                         {
                           "type": "label",
+                          "class": "detail",
                           "content": {
                             "text": "2/3/2017"
-                          },
-                          "class": "detailText"
+                          }
                         }
                       ]
-                    },
-                    "class": "columnLeft"
+                    }
                   },
                   {
                     "type": "label",
+                    "class": "bold right",
                     "content": {
                       "text": "$110.97"
-                    },
-                    "class": "valueText columnRight"
+                    }
                   }
                 ]
-              },
-              "class": "row"
+              }
             },
             {
               "type": "separator"
             },
             {
               "type": "stackView",
+              "class": "row",
+              "style": {
+                "paddingBottom": 12
+              },
               "content": {
                 "orientation": "horizontal",
                 "items": [
                   {
                     "type": "stackView",
+                    "class": "left",
                     "content": {
                       "items": [
                         {
                           "type": "label",
                           "content": {
                             "text": "Service Upgrade"
-                          },
-                          "class": "titleText"
+                          }
                         },
                         {
                           "type": "label",
+                          "class": "detail",
                           "content": {
                             "text": "2/1/2017"
-                          },
-                          "class": "detailText"
+                          }
                         }
                       ]
-                    },
-                    "class": "columnLeft"
+                    }
                   },
                   {
                     "type": "label",
+                    "class": "bold right",
                     "content": {
                       "text": "$34.66"
-                    },
-                    "class": "valueText columnRight"
+                    }
                   }
                 ]
-              },
-              "class": "row",
-              "style": {
-                "paddingBottom": 16
               }
             }
           ]
-        },
-        "style": {
-          "paddingLeft": 20,
-          "paddingRight": 20
         }
       }
     }
