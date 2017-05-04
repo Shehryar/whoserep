@@ -1,28 +1,8 @@
 {
-  "text": "Here is your current account balance, upcoming charge, and due date.",
-  "quickReplies": [
-    {
-      "type": "button",
-      "label": "Pay my bill",
-      "value": {
-        "type": "AID",
-        "content": "7-1-01_message_select_account_for_payment"
-      }
-    },
-    {
-      "type": "button",
-      "label": "Transaction History",
-      "value": {
-        "type": "AID",
-        "content": "1-1_message_transaction_history"
-      }
-    }
-  ],
+  "text": "Sure! Here is your current account balance, upcoming charge and due date.",
   "attachment": {
     "type": "componentView",
     "content": {
-      "actions": {},
-      "styles": {},
       "body": {
         "type": "stackView",
         "content": {
@@ -33,9 +13,8 @@
                 "text": "ACCOUNT BALANCE"
               },
               "style": {
-                "marginBottom": 2,
-                "fontSize": 10,
-                "color": "#a9aebb"
+                "textType": "detail2",
+                "marginBottom": 4
               }
             },
             {
@@ -44,16 +23,13 @@
                 "text": "$50.00"
               },
               "style": {
-                "marginBottom": 10,
-                "fontSize": 24,
-                "fontWeight": "black",
-                "color": "#56607a"
+                "textType": "header1",
+                "marginBottom": 16
               }
             },
             {
               "type": "stackView",
               "content": {
-                "orientation": "horizontal",
                 "items": [
                   {
                     "type": "icon",
@@ -61,31 +37,27 @@
                       "icon": "checkmarkThin"
                     },
                     "style": {
-                      "marginRight": 20,
                       "width": 24,
-                      "height": 24
+                      "height": 24,
+                      "marginRight": 12
                     }
                   },
                   {
                     "type": "label",
                     "content": {
-                      "text": "Your account balance is sufficient to cover your next month of service and will be automatically applied on the due date."
+                      "text": "Account balance sufficient to cover your next month of service and will be automatically applied by the due date."
                     },
                     "style": {
-                      "fontSize": 12,
-                      "color": "#656f86"
+                      "textType": "body"
                     }
                   }
-                ]
-              },
-              "style": {
-                "marginBottom": 15
+                ],
+                "orientation": "horizontal"
               }
             },
             {
               "type": "stackView",
               "content": {
-                "orientation": "horizontal",
                 "items": [
                   {
                     "type": "stackView",
@@ -97,9 +69,8 @@
                             "text": "UPCOMING CHARGE"
                           },
                           "style": {
-                            "marginBottom": 3,
-                            "fontSize": 10,
-                            "color": "#a9aebb"
+                            "textType": "detail2",
+                            "marginBottom": 4
                           }
                         },
                         {
@@ -108,14 +79,14 @@
                             "text": "$50.00"
                           },
                           "style": {
-                            "fontSize": 15,
-                            "fontWeight": "black",
-                            "color": "#56607a"
+                            "textType": "bodyBold"
                           }
                         }
-                      ]
+                      ],
+                      "orientation": "vertical"
                     },
                     "style": {
+                      "marginRight": 8,
                       "weight": 1,
                       "align": "fill"
                     }
@@ -130,38 +101,70 @@
                             "text": "DUE BY"
                           },
                           "style": {
-                            "marginBottom": 3,
-                            "fontSize": 10,
-                            "color": "#a9aebb"
+                            "textType": "detail2",
+                            "marginBottom": 4
                           }
                         },
                         {
                           "type": "label",
                           "content": {
-                            "text": "04/15/17"
+                            "text": "02/26/17"
                           },
                           "style": {
-                            "fontSize": 15,
-                            "fontWeight": "black",
-                            "color": "#56607a"
+                            "textType": "bodyBold"
                           }
                         }
-                      ]
+                      ],
+                      "orientation": "vertical"
                     },
                     "style": {
                       "weight": 1,
                       "align": "fill"
                     }
                   }
-                ]
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginTop": 20
               }
             }
-          ]
+          ],
+          "orientation": "vertical"
         },
         "style": {
           "padding": 20
         }
       }
     }
-  }
+  },
+  "quickReplies": [
+    {
+      "title": "Option 1",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 2",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 3",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    }
+  ]
 }

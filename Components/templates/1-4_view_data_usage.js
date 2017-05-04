@@ -163,7 +163,7 @@ module.exports = {
                 textType: "header1",
                 align: "fill",
                 textAlign: "center",
-                marginBottom: 8
+                marginBottom: 4
               }
             }),
             _.label.build({

@@ -9,6 +9,7 @@ module.exports = {
 
 	// Data-bound Views
 	genericTableViewView: require('./generic-table-view-view'),
+	accountBalance: require('./account-balance'),
 
 	// Combination Components
 	titleButton: require('./title-button'),
