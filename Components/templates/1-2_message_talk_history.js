@@ -9,7 +9,7 @@ module.exports = {
 					body: _.separatedList.build({
 						items: [
 							_.titleButton.build({
-								title: "Transaction History",
+								title: "Talk History",
 								buttonTitle: "VIEW ALL",
 								buttonAction: _.action.componentView.build({
 									name: "1-2_view_talk_history"
@@ -25,7 +25,7 @@ module.exports = {
 							}),
 							_.textDetailValue.build({
 								text: "Mom",
-								detail: "2/3/2017 - 10:33AM",
+								detail: "3/2/2017 - 12:31PM",
 								value: "09:14",
 								style: {
 									padding: "12 0"
@@ -33,7 +33,7 @@ module.exports = {
 							}),
 							_.textDetailValue.build({
 								text: "+1 (555) 123-4567",
-								detail: "1/3/2017 - 8:07PM",
+								detail: "2/28/2017 - 8:07PM",
 								value: "07:02",
 								style: {
 									padding: "12 0"
@@ -46,9 +46,9 @@ module.exports = {
 					})
 				}),
 			quickReplies: [
-				_.quickReply.treewalk.build("quick reply 1", "qr1"),
-				_.quickReply.treewalk.build("quick reply 2", "qr2"),
-				_.quickReply.treewalk.build("quick reply 3", "qr3")
+				_.quickReply.treewalk.build("Data Usage", "1-4_message_data_usage"),
+       	 		_.quickReply.treewalk.build("Texts", "1-3_message_text_history"),
+        		_.quickReply.treewalk.build("Payments", "1-1_message_transaction_history"),
 			]
 		});
 	}

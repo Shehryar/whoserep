@@ -1,5 +1,227 @@
 {
-  "text": "Sure! Here are your last three calls. Tap \"view all\" to see your full talk history.",
+  "text": "Sure! Here are your last three calls. Tap 'view all' to see your full talk history.",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Talk History"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW ALL",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-2_view_talk_history"
+                        }
+                      },
+                      "style": "text"
+                    },
+                    "style": {
+                      "padding": "16 0 16 16",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "0:25"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 12:31PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/28/2017 - 8:07PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "07:02"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": "0 20"
+        }
+      }
+    }
+  },
   "quickReplies": [
     {
       "title": "Data Usage",
@@ -28,287 +250,5 @@
         }
       }
     }
-  ],
-  "attachment": {
-    "type": "componentView",
-    "content": {
-      "styles": {
-        "icon": {
-          "gravity": "middle",
-          "marginRight": 16,
-          "color": "#5b657e",
-          "width": 10,
-          "height": 10
-        }
-      },
-      "body": {
-        "type": "stackView",
-        "content": {
-          "items": [
-            {
-              "type": "stackView",
-              "content": {
-                "orientation": "horizontal",
-                "items": [
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "Talk History"
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "fontWeight": "black",
-                      "fontSize": 16,
-                      "color": "#5b657e",
-                      "weight" : 1
-                    }
-                  },
-                  {
-                    "type": "button",
-                    "content": {
-                      "title": "VIEW ALL",
-                      "style": "text",
-                      "action": {
-                        "type": "componentView",
-                        "content": {
-                          "name": "1-2_view_talk_history"
-                        }
-                      }
-                    },
-                    "style": {
-                      "align": "right",
-                      "gravity": "middle",
-                      "weight": 0,
-                      "paddingTop": 12,
-                      "paddingLeft": 16,
-                      "paddingBottom": 12,
-                      "paddingRight": 0
-                    }
-                  }
-                ]
-              },
-              "style": {
-                "paddingTop": 4,
-                "paddingBottom": 4
-              }
-            },
-            {
-              "type": "separator"
-            },
-            {
-              "type": "stackView",
-              "content": {
-                "orientation": "horizontal",
-                "items": [
-                  {
-                    "type": "icon",
-                    "content": {
-                      "icon": "arrowOutgoing"
-                    },
-                    "class": "icon"
-                  },
-                  {
-                    "type": "stackView",
-                    "content": {
-                      "items": [
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "+1 (555) 123-4567"
-                          },
-                          "style": {
-                            "fontSize": 14,
-                            "color": "#646e85"
-                          }
-                        },
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "3/3/2017 - 4:14PM"
-                          },
-                          "style": {
-                            "fontSize": 12,
-                            "color": "#adb2bf"
-                          }
-                        }
-                      ]
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "marginRight": 5,
-                      "weight": 1
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "0:25"
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "align": "right",
-                      "weight": 0,
-                      "fontSize": 16,
-                      "fontWeight": "black",
-                      "letterSpacing": 1,
-                      "textAlign": "right",
-                      "color": "#5b657e"
-                    }
-                  }
-                ]
-              },
-              "style": {
-                "paddingTop": 8,
-                "paddingBottom": 8
-              }
-            },
-            {
-              "type": "separator"
-            },
-            {
-              "type": "stackView",
-              "content": {
-                "orientation": "horizontal",
-                "items": [
-                  {
-                    "type": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "class": "icon"
-                  },
-                  {
-                    "type": "stackView",
-                    "content": {
-                      "items": [
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "Mom"
-                          },
-                          "style": {
-                            "fontSize": 14,
-                            "color": "#646e85"
-                          }
-                        },
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "3/3/2017 - 10:33AM"
-                          },
-                          "style": {
-                            "fontSize": 12,
-                            "color": "#adb2bf"
-                          }
-                        }
-                      ]
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "marginRight": 5,
-                      "weight": 1
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "04:05"
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "align": "right",
-                      "weight": 0,
-                      "fontSize": 16,
-                      "fontWeight": "black",
-                      "letterSpacing": 1,
-                      "textAlign": "right",
-                      "color": "#5b657e"
-                    }
-                  }
-                ]
-              },
-              "style": {
-                "paddingTop": 8,
-                "paddingBottom": 8
-              }
-            },
-            {
-              "type": "separator"
-            },
-            {
-              "type": "stackView",
-              "content": {
-                "orientation": "horizontal",
-                "items": [
-                  {
-                    "type": "icon",
-                    "content": {
-                      "icon": "placeholder"
-                    },
-                    "class": "icon"
-                  },
-                  {
-                    "type": "stackView",
-                    "content": {
-                      "items": [
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "Billy"
-                          },
-                          "style": {
-                            "fontSize": 14,
-                            "color": "#646e85"
-                          }
-                        },
-                        {
-                          "type": "label",
-                          "content": {
-                            "text": "2/28/2017 - 8:14PM"
-                          },
-                          "style": {
-                            "fontSize": 12,
-                            "color": "#adb2bf"
-                          }
-                        }
-                      ]
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "marginRight": 5,
-                      "weight": 1
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "05:14"
-                    },
-                    "style": {
-                      "gravity": "middle",
-                      "align": "right",
-                      "weight": 0,
-                      "fontSize": 16,
-                      "fontWeight": "black",
-                      "letterSpacing": 1,
-                      "textAlign": "right",
-                      "color": "#5b657e"
-                    }
-                  }
-                ]
-              },
-              "style": {
-                "paddingTop": 8,
-                "paddingBottom": 16
-              }
-            }
-          ]
-        },
-        "style": {
-          "paddingLeft": 20,
-          "paddingRight": 20
-        }
-      }
-    }
-  }
+  ]
 }
