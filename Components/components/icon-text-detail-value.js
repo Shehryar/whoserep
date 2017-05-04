@@ -11,6 +11,8 @@ module.exports = {
 	build: function(data) {
 
 		return stackView.build({
+			class: data.class,
+			style: data.style,
 			orientation: stackView.orientation.horizontal,
 			items: [
 				icon.build({
@@ -41,8 +43,7 @@ module.exports = {
 						textAlign: "right"
 					}
 				})
-			],
-			style: data.style
+			]
 		});
 	}
 }

@@ -14,7 +14,8 @@ var templateFilepath = args[0];
 try {
 	var template = require("./" + templateFilepath);
 } catch (err) {
-	console.log("Unable to find template: " + templateFilepath);
+	console.log("Unable to import template: " + templateFilepath);
+	console.log(err);
 	return;
 }
 

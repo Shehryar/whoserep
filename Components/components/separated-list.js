@@ -23,8 +23,9 @@ module.exports = {
 		}
 
 		return stackView.build({
+			class: data.class,
+			style: data.style,
 			items: items,
-			style: data.style
 		})
 	}
 }

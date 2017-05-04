@@ -31,6 +31,7 @@ module.exports = {
 					}
 				})
 			],
+			class: data.class,
 			style: data.style
 		});
 	}

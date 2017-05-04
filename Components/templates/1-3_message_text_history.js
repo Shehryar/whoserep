@@ -6,7 +6,13 @@ module.exports = {
     return _.chatMessage.build({
       text: "Sure! Here are your last three texts. Tap 'view all' to see your full text history.",
       attachment: _.componentViewAttachment.build({
+          styles: {
+            row: {
+              padding: "12 0"
+            }
+          },
           body: _.separatedList.build({
+            style: { padding: "0 20" },
             items: [
               _.titleButton.build({
                 title: "Text History",
@@ -20,32 +26,23 @@ module.exports = {
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 4:14PM",
                 value: "$0.25",
-                style: {
-                  padding: "12 0"
-                }
+                class: "row"
               }),
               _.iconTextDetailValue.build({
                 icon: _.icon.icon.arrowOutgoing,
                 text: "Mom",
                 detail: "3/3/2017 - 4:04PM",
                 value: "$0.10",
-                style: {
-                  padding: "12 0"
-                }
+                class: "row"
               }),
               _.iconTextDetailValue.build({
                 icon: _.icon.icon.placeholder,
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 1:43PM",
                 value: "$0.10",
-                style: {
-                  padding: "12 0"
-                }
+                class: "row"
               })
-            ],
-            style: {
-              padding: "0 20"
-            }
+            ]
           })
         }),
       quickReplies: [

@@ -3,6 +3,11 @@
   "attachment": {
     "type": "componentView",
     "content": {
+      "styles": {
+        "row": {
+          "padding": "40 0"
+        }
+      },
       "body": {
         "type": "stackView",
         "content": {
@@ -109,9 +114,7 @@
                 ],
                 "orientation": "horizontal"
               },
-              "style": {
-                "padding": "12 0"
-              }
+              "class": "row"
             },
             {
               "type": "separator"
@@ -179,9 +182,7 @@
                 ],
                 "orientation": "horizontal"
               },
-              "style": {
-                "padding": "12 0"
-              }
+              "class": "row"
             },
             {
               "type": "separator"
@@ -249,9 +250,7 @@
                 ],
                 "orientation": "horizontal"
               },
-              "style": {
-                "padding": "12 0"
-              }
+              "class": "row"
             }
           ]
         },

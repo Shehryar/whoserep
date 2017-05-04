@@ -19,6 +19,7 @@ module.exports = {
 			}
 		};
 		if (data.buttonStyle) button.content.style = data.buttonStyle;
+		if (data.class) button.class = data.class;
 		if (data.style) button.style = data.style;
 
 		return button;
