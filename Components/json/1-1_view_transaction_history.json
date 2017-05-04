@@ -34,7 +34,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "+1 (555) 123-4567"
+                            "text": "March 2017 Bill Statement"
                           },
                           "style": {
                             "marginBottom": 4
@@ -61,7 +61,7 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$0.25"
+                      "text": "$110.97"
                     },
                     "style": {
                       "textType": "bodyBold",
@@ -86,7 +86,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "Mom"
+                            "text": "February 2017 Bill Statement"
                           },
                           "style": {
                             "marginBottom": 4
@@ -95,7 +95,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "3/3/2017 - 4:04PM"
+                            "text": "2/3/2017 - 10:33AM"
                           },
                           "style": {
                             "textType": "detail2"
@@ -113,7 +113,7 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$0.10"
+                      "text": "$110.97"
                     },
                     "style": {
                       "textType": "bodyBold",
@@ -138,7 +138,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "+1 (555) 123-4567"
+                            "text": "Upgrade Services"
                           },
                           "style": {
                             "marginBottom": 4
@@ -147,7 +147,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "3/3/2017 - 1:43PM"
+                            "text": "1/3/2017 - 8:07PM"
                           },
                           "style": {
                             "textType": "detail2"
@@ -165,7 +165,7 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$0.10"
+                      "text": "$34.66"
                     },
                     "style": {
                       "textType": "bodyBold",
@@ -189,14 +189,18 @@
                       "items": [
                         {
                           "type": "label",
-                          "content": {},
+                          "content": {
+                            "text": "January 2017 Bill Statement"
+                          },
                           "style": {
                             "marginBottom": 4
                           }
                         },
                         {
                           "type": "label",
-                          "content": {},
+                          "content": {
+                            "text": "1/3/2017 - 4:14PM"
+                          },
                           "style": {
                             "textType": "detail2"
                           }
@@ -212,7 +216,61 @@
                   },
                   {
                     "type": "label",
-                    "content": {},
+                    "content": {
+                      "text": "$110.07"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Late Fees"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/2/2017 - 12:38PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$70.03"
+                    },
                     "style": {
                       "textType": "bodyBold",
                       "gravity": "middle",
@@ -247,7 +305,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "December 2016 Statement"
+                            "text": "December 2016 Bill Statement"
                           },
                           "style": {
                             "marginBottom": 4
@@ -256,7 +314,7 @@
                         {
                           "type": "label",
                           "content": {
-                            "text": "12/26/2016"
+                            "text": "12/3/2016 - 4:14PM"
                           },
                           "style": {
                             "textType": "detail2"
@@ -274,7 +332,111 @@
                   {
                     "type": "label",
                     "content": {
-                      "text": "$89.99"
+                      "text": "$110.97"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "November 2016 Bill Statement"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "11/3/2016 - 10:33AM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.97"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "October 2016 Bill Statement"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "10/3/2016 - 4:14PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "$110.07"
                     },
                     "style": {
                       "textType": "bodyBold",

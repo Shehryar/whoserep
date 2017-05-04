@@ -7,12 +7,17 @@ module.exports = {
 	componentView: require('./component-view'),
 	componentViewAttachment: require('./component-view-attachment'),
 
-	separatedList: require('./separated-list'),
+	// Data-bound Views
+	genericTableViewView: require('./generic-table-view-view'),
+
+	// Combination Components
 	titleButton: require('./title-button'),
 	textDetail: require('./text-detail'),
 	textDetailValue: require('./text-detail-value'),
 	iconTextDetailValue: require('./icon-text-detail-value'),
+	separatedList: require('./separated-list'),
 
+	// Base Components
 	action: require('./action'),
 	icon: require('./icon'),
 	label: require('./label'),

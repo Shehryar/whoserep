@@ -1,70 +1,63 @@
 var _ = require('../components/all');
 
-module.exports = {
-  
-  build: function() {
-    return _.componentView.build({
-      title: "Transaction History",
-      styles: {
-        header: {
-          textType: "subheader",
-          backgroundColor: "#f3f4f6",
-          padding: "6 24"
+const data = {
+  title: "Transaction History",
+  sections: [
+    {
+      header: "2017",
+      rows: [
+        {
+          text: "March 2017 Bill Statement",
+          detail: "3/3/2017 - 4:14PM",
+          value: "$110.97",
         },
-        row: {
-          padding: "12 24"
+        {
+          text: "February 2017 Bill Statement",
+          detail: "2/3/2017 - 10:33AM",
+          value: "$110.97",
+        },
+        {
+          text: "Upgrade Services",
+          detail: "1/3/2017 - 8:07PM",
+          value: "$34.66",
+        },
+        {
+          text: "January 2017 Bill Statement",
+          detail: "1/3/2017 - 4:14PM",
+          value: "$110.07",
+        },
+        {
+          text: "Late Fees",
+          detail: "1/2/2017 - 12:38PM",
+          value: "$70.03",
         }
-      },
-      body: _.tableView.build({
-        sections: [
-          _.tableView.section.build({
-            header: _.label.build({
-              text: "2017",
-              class: "header"
-            }),
-            rows: [
-              _.textDetailValue.build({
-                text: "+1 (555) 123-4567",
-                detail: "3/3/2017 - 4:14PM",
-                value: "$0.25",
-                class: "row"
-              }),
-              _.textDetailValue.build({
-                text: "Mom",
-                detail: "3/3/2017 - 4:04PM",
-                value: "$0.10",
-                class: "row"
-              }),
-              _.textDetailValue.build({
-                text: "+1 (555) 123-4567",
-                detail: "3/3/2017 - 1:43PM",
-                value: "$0.10",
-                class: "row"
-              }),
-              _.textDetailValue.build({
-                text: "",
-                detail: "",
-                value: "",
-                class: "row"
-              })
-            ]
-          }),
-          _.tableView.section.build({
-            header: _.label.build({
-              text: "2016",
-              class: "header"
-            }),
-            rows: [
-              _.textDetailValue.build({
-                text: "December 2016 Statement",
-                detail: "12/26/2016",
-                value: "$89.99",
-                class: "row"
-              })
-            ]
-          })
-        ]
-      })
-    });
+      ],
+    },
+    {
+      header: "2016",
+      rows: [
+        {
+          text: "December 2016 Bill Statement",
+          detail: "12/3/2016 - 4:14PM",
+          value: "$110.97",
+        },
+        {
+          text: "November 2016 Bill Statement",
+          detail: "11/3/2016 - 10:33AM",
+          value: "$110.97",
+        },
+        {
+          text: "October 2016 Bill Statement",
+          detail: "10/3/2016 - 4:14PM",
+          value: "$110.07",
+        }
+      ]
+    }
+  ]
+}
+
+module.exports = {
+  build: function() {
+    return _.genericTableViewView.build(data);
   }
 }
