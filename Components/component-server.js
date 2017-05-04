@@ -5,9 +5,10 @@ const path = require('path');
 // you can pass the parameter in the command line. e.g. node static_server.js 3000
 const port = process.argv[2] || 9000;
 
+const jsonDirectory = './json/';
 
 function getAvailableComponents(callback) {
-  fs.readdir('.', (err, files) => {
+  fs.readdir(jsonDirectory, (err, files) => {
     var components = []
     files.forEach(file => {
       if (~file.indexOf('.json')) {
@@ -53,7 +54,7 @@ http.createServer(function (req, res) {
     // parse URL
     const parsedUrl = url.parse(req.url);
     // extract URL path
-    let pathname = `.${parsedUrl.pathname}`;
+    let pathname = jsonDirectory + `${parsedUrl.pathname}`;
     fs.exists(pathname, function (exist) {
       if(!exist) {
         // if the file is not found, return 404
