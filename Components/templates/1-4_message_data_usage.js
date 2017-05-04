@@ -41,9 +41,9 @@ module.exports = {
                     }
                   })
                 ],
-              style: {
-                padding: 20
-              }
+                style: {
+                  padding: 20
+                }
               })
             ],
             style: {

@@ -16,6 +16,7 @@ module.exports = {
 	textDetailValue: require('./text-detail-value'),
 	iconTextDetailValue: require('./icon-text-detail-value'),
 	separatedList: require('./separated-list'),
+	titleButtonGenericList: require('./title-button-generic-list'),
 
 	// Base Components
 	action: require('./action'),

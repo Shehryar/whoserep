@@ -11,37 +11,31 @@ module.exports = {
               padding: "12 0"
             }
           },
-          body: _.separatedList.build({
-            style: { padding: "0 20" },
+          body: _.titleButtonGenericList.build({
+            title: "Text History",
+            buttonTitle: "VIEW ALL",
+            buttonAction: _.action.componentView.build({
+              name: "1-3_view_text_history"
+            }),
             items: [
-              _.titleButton.build({
-                title: "Text History",
-                buttonTitle: "VIEW ALL",
-                buttonAction: _.action.componentView.build({
-                  name: "1-3_view_text_history"
-                })
-              }),
-              _.iconTextDetailValue.build({
+              {
                 icon: _.icon.icon.arrowOutgoing,
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 4:14PM",
                 value: "$0.25",
-                class: "row"
-              }),
-              _.iconTextDetailValue.build({
+              },
+              {
                 icon: _.icon.icon.arrowOutgoing,
                 text: "Mom",
                 detail: "3/3/2017 - 4:04PM",
                 value: "$0.10",
-                class: "row"
-              }),
-              _.iconTextDetailValue.build({
+              },
+              {
                 icon: _.icon.icon.placeholder,
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 1:43PM",
                 value: "$0.10",
-                class: "row"
-              })
+              }
             ]
           })
         }),

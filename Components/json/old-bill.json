@@ -1,0 +1,51 @@
+{
+  "type": "stackView",
+  "content": {
+    "items": [
+      {
+        "type": "label",
+        "content": {
+          "text": "$96.08*"
+        },
+        "style": {
+          "textType": "header1",
+          "marginBottom": 8
+        }
+      },
+      {
+        "type": "label",
+        "content": {
+          "text": "CURRENT BALANCE"
+        },
+        "style": {
+          "textType": "subhead",
+          "marginBottom": 16
+        }
+      },
+      {
+        "type": "label",
+        "content": {
+          "text": "Pay by 11/20/16"
+        },
+        "style": {
+          "textType": "body",
+          "marginBottom": 12
+        }
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "type": "label",
+        "content": {},
+        "style": {
+          "marginTop": 12,
+          "textType": "detail1"
+        }
+      }
+    ]
+  },
+  "style": {
+    "padding": 20
+  }
+}

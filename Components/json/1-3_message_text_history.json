@@ -5,7 +5,7 @@
     "content": {
       "styles": {
         "row": {
-          "padding": "40 0"
+          "padding": "12 0"
         }
       },
       "body": {
@@ -114,7 +114,9 @@
                 ],
                 "orientation": "horizontal"
               },
-              "class": "row"
+              "style": {
+                "padding": "12 0"
+              }
             },
             {
               "type": "separator"
@@ -182,7 +184,9 @@
                 ],
                 "orientation": "horizontal"
               },
-              "class": "row"
+              "style": {
+                "padding": "12 0"
+              }
             },
             {
               "type": "separator"
@@ -250,7 +254,9 @@
                 ],
                 "orientation": "horizontal"
               },
-              "class": "row"
+              "style": {
+                "padding": "12 0"
+              }
             }
           ]
         },

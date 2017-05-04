@@ -6,44 +6,30 @@ module.exports = {
     return _.chatMessage.build({
       text: "Sure! Here are your last three transactions. Tap 'view all' to see your full transaction history.",
       attachment: _.componentViewAttachment.build({
-          body: _.separatedList.build({
+          body: _.titleButtonGenericList.build({
+            title: "Transaction History",
+            buttonTitle: "VIEW ALL",
+            buttonAction: _.action.componentView.build({
+              name: "1-1_view_transaction_history"
+            }),
             items: [
-              _.titleButton.build({
-                title: "Transaction History",
-                buttonTitle: "VIEW ALL",
-                buttonAction: _.action.componentView.build({
-                  name: "1-1_view_transaction_history"
-                })
-              }),
-              _.textDetailValue.build({
+              {
                 text: "March 2017 Bill Statement",
-                detail: "3/3/2017",
-                value: "$110.97",
-                style: {
-                  padding: "12 0"
-                }
-              }),
-              _.textDetailValue.build({
+                detail: "3/3/2017 - 4:14PM",
+                value: "$110.97"
+              },
+              {
                 text: "February 2017 Bill Statement",
-                detail: "2/3/2017",
-                value: "$110.97",
-                style: {
-                  padding: "12 0"
-                }
-              }),
-              _.textDetailValue.build({
+                detail: "2/3/2017 - 10:33AM",
+                value: "$110.97"
+              },
+              {
                 text: "Upgrade Services",
-                detail: "1/3/2017",
-                value: "$34.66",
-                style: {
-                  padding: "12 0"
-                }
-              })
-            ],
-            style: {
-              padding: "0 20"
-            }
-          })
+                detail: "1/3/2017 - 8:07PM",
+                value: "$34.66"
+              }
+            ]
+          }),
         }),
       quickReplies: [
         _.quickReply.treewalk.build("Data Usage", "1-4_message_data_usage"),
