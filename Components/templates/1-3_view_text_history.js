@@ -19,10 +19,10 @@ const data = {
           value: "$0.10"
         },
         {
-          icon: _.icon.icon.arrowOutgoing,
+          icon: _.icon.icon.placeholder,
           text: "+1 (555) 123-4567",
-          detail: "2/28/2017 - 8:07PM",
-          value: "$0.34"
+          detail: "3/3/2017 - 1:43PM",
+          value: "$0.10",
         },
         {
           icon: _.icon.icon.placeholder,
