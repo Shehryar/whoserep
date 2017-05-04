@@ -3,10 +3,6 @@
 
 module.exports = {
 	
-	/**
-		text: String
-		style: Dictionary
-	*/
 	build: function(data) {
 		var label = {
 			type: "label",

@@ -7,12 +7,6 @@ module.exports = {
 		horizontal: "horizontal",
 		vertical: "vertical"
 	},
-
-	/**
-		Data:
-			text: String
-			style: Dictionary
-	*/
 	
 	build: function(data) {
 		var view = {

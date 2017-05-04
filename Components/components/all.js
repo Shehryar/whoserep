@@ -19,5 +19,6 @@ module.exports = {
 	quickReply: require('./quick-reply'),
 	progressBar: require('./progress-bar'),
 	separator: require('./separator'),
-	stackView: require('./stack-view')
+	stackView: require('./stack-view'),
+	tableView: require('./table-view')
 }
