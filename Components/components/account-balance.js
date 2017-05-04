@@ -61,7 +61,8 @@ module.exports = {
 					label.build({
 						text: data.dueBy,
 						style: {
-							textType: "bodyBold"
+							textType: "bodyBold",
+							color: data.dueByColor
 						}
 					})
 				], 
@@ -93,15 +94,16 @@ module.exports = {
 					icon.build({
 						icon: data.icon,
 						style: {
-							width: 24,
-							height: 24,
-							marginRight: 12
+							width: 20,
+							height: 20,
+							marginRight: 16
 						}
 					}),
 					label.build({
 						text: data.detail,
 						style: {
 							textType: "body",
+							color: data.dueByColor
 						}
 					})
 				]

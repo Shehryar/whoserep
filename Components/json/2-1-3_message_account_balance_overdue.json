@@ -1,28 +1,8 @@
 {
-  "text": "Here is your current account balance, upcoming charge, and due date.",
-  "quickReplies": [
-   {
-      "type": "button",
-      "label": "Pay my bill",
-      "value": {
-        "type": "AID",
-        "content": "7-1-01_message_select_account_for_payment"
-      }
-    },
-    {
-      "type": "button",
-      "label": "Transaction History",
-      "value": {
-        "type": "AID",
-        "content": "1-1_message_transaction_history"
-      }
-    }
-  ],
+  "text": "Sure! Here is your current account balance, upcoming charge and due date.",
   "attachment": {
     "type": "componentView",
     "content": {
-      "actions": {},
-      "styles": {},
       "body": {
         "type": "stackView",
         "content": {
@@ -33,9 +13,8 @@
                 "text": "ACCOUNT BALANCE"
               },
               "style": {
-                "marginBottom": 2,
-                "fontSize": 10,
-                "color": "#a9aebb"
+                "textType": "detail2",
+                "marginBottom": 4
               }
             },
             {
@@ -44,16 +23,13 @@
                 "text": "$0.00"
               },
               "style": {
-                "marginBottom": 10,
-                "fontSize": 24,
-                "fontWeight": "black",
-                "color": "#56607a"
+                "textType": "header1",
+                "marginBottom": 16
               }
             },
             {
               "type": "stackView",
               "content": {
-                "orientation": "horizontal",
                 "items": [
                   {
                     "type": "icon",
@@ -61,34 +37,28 @@
                       "icon": "alertError"
                     },
                     "style": {
-                      "marginRight": 16,
                       "width": 20,
                       "height": 20,
-                      "gravity" : "middle"
+                      "marginRight": 16
                     }
                   },
                   {
                     "type": "label",
                     "content": {
-                      "text": "Account balance insufficient to cover your service. Payment overdue. Pay immediately.",
+                      "text": "Account balance insufficient to cover your next month of service. Payment overdue. Pay immediately."
                     },
                     "style": {
-                      "fontWeight" : "black",
-                      "fontSize": 12,
-                      "color": "#ef7465",
-                      "gravity" : "middle"
+                      "textType": "body",
+                      "color": "#ef7667"
                     }
                   }
-                ]
-              },
-              "style": {
-                "marginBottom": 20
+                ],
+                "orientation": "horizontal"
               }
             },
             {
               "type": "stackView",
               "content": {
-                "orientation": "horizontal",
                 "items": [
                   {
                     "type": "stackView",
@@ -100,9 +70,8 @@
                             "text": "UPCOMING CHARGE"
                           },
                           "style": {
-                            "marginBottom": 3,
-                            "fontSize": 10,
-                            "color": "#a9aebb"
+                            "textType": "detail2",
+                            "marginBottom": 4
                           }
                         },
                         {
@@ -111,16 +80,16 @@
                             "text": "$50.00"
                           },
                           "style": {
-                            "fontSize": 15,
-                            "fontWeight": "black",
-                            "color": "#56607a"
+                            "textType": "bodyBold"
                           }
                         }
-                      ]
+                      ],
+                      "orientation": "vertical"
                     },
-                    "style" : {
-                      "weight" : 1,
-                      "align" : "fill"
+                    "style": {
+                      "marginRight": 8,
+                      "weight": 1,
+                      "align": "fill"
                     }
                   },
                   {
@@ -133,38 +102,71 @@
                             "text": "DUE BY"
                           },
                           "style": {
-                            "marginBottom": 3,
-                            "fontSize": 10,
-                            "color": "#a9aebb"
+                            "textType": "detail2",
+                            "marginBottom": 4
                           }
                         },
                         {
                           "type": "label",
                           "content": {
-                            "text": "03/15/17"
+                            "text": "02/26/17"
                           },
                           "style": {
-                            "fontSize": 15,
-                            "fontWeight": "black",
-                            "color": "#ef7465"
+                            "textType": "bodyBold",
+                            "color": "#ef7667"
                           }
                         }
-                      ]
+                      ],
+                      "orientation": "vertical"
                     },
-                    "style" : {
-                      "weight" : 1,
-                      "align" : "fill"
+                    "style": {
+                      "weight": 1,
+                      "align": "fill"
                     }
                   }
-                ]
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginTop": 20
               }
             }
-          ]
+          ],
+          "orientation": "vertical"
         },
         "style": {
           "padding": 20
         }
       }
     }
-  }
+  },
+  "quickReplies": [
+    {
+      "title": "Option 1",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 2",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 3",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    }
+  ]
 }
