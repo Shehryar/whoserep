@@ -11,8 +11,10 @@ module.exports = {
 	titleButton: require('./title-button'),
 	textDetail: require('./text-detail'),
 	textDetailValue: require('./text-detail-value'),
+	iconTextDetailValue: require('./icon-text-detail-value'),
 
 	action: require('./action'),
+	icon: require('./icon'),
 	label: require('./label'),
 	quickReply: require('./quick-reply'),
 	progressBar: require('./progress-bar'),

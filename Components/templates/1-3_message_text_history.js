@@ -15,7 +15,8 @@ module.exports = {
                   name: "1-3_view_text_history"
                 })
               }),
-              _.textDetailValue.build({
+              _.iconTextDetailValue.build({
+                icon: _.icon.icon.arrowOutgoing,
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 4:14PM",
                 value: "$0.25",
@@ -23,7 +24,8 @@ module.exports = {
                   padding: "12 0"
                 }
               }),
-              _.textDetailValue.build({
+              _.iconTextDetailValue.build({
+                icon: _.icon.icon.arrowOutgoing,
                 text: "Mom",
                 detail: "3/3/2017 - 4:04PM",
                 value: "$0.10",
@@ -31,7 +33,8 @@ module.exports = {
                   padding: "12 0"
                 }
               }),
-              _.textDetailValue.build({
+              _.iconTextDetailValue.build({
+                icon: _.icon.icon.placeholder,
                 text: "+1 (555) 123-4567",
                 detail: "3/3/2017 - 1:43PM",
                 value: "$0.10",

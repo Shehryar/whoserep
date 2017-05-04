@@ -51,6 +51,19 @@
               "content": {
                 "items": [
                   {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
                     "type": "stackView",
                     "content": {
                       "items": [
@@ -108,6 +121,19 @@
               "content": {
                 "items": [
                   {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
                     "type": "stackView",
                     "content": {
                       "items": [
@@ -164,6 +190,19 @@
               "type": "stackView",
               "content": {
                 "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
                   {
                     "type": "stackView",
                     "content": {
