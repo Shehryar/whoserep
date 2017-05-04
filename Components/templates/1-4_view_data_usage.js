@@ -132,7 +132,7 @@ module.exports = {
 
     var styles = {
       row: {
-        padding: "20 24"
+        padding: "12 24"
       },
       header: {
         textType: "subheader",
