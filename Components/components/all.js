@@ -15,6 +15,7 @@ module.exports = {
 	action: require('./action'),
 	label: require('./label'),
 	quickReply: require('./quick-reply'),
+	progressBar: require('./progress-bar'),
 	separator: require('./separator'),
 	stackView: require('./stack-view')
 }

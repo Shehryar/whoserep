@@ -31,7 +31,7 @@ var filename = null;
 if (argsLength > 2) {
 	filename = args[2];
 } else {
-	var pathComponents = templateFilepath.split(".json")[0].split("/");
+	var pathComponents = templateFilepath.split(".js")[0].split("/");
 	if (pathComponents.length > 1) {
 		filename = pathComponents[pathComponents.length - 1] + ".json";
 	} else {

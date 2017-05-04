@@ -1,36 +1,8 @@
 {
-  "text": "Sure! Here's a snapshot of your data useage. Tap \"view details\" to see more information.",
-  "quickReplies": [
-    {
-      "type": "button",
-      "label": "Payments",
-      "value": {
-        "type": "AID",
-        "content": "1-1_message_transaction_history"
-      }
-    },
-    {
-      "type": "button",
-      "label": "Texts",
-      "value": {
-        "type": "AID",
-        "content": "1-3_message_text_history"
-      }
-    },
-    {
-      "type": "button",
-      "label": "Calls",
-      "value": {
-        "type": "AID",
-        "content": "1-2_message_talk_history"
-      }
-    }
-  ],
+  "text": "Sure! Here are your last three transactions. Tap 'view all' to see your full transaction history.",
   "attachment": {
     "type": "componentView",
     "content": {
-      "actions": {},
-      "styles": {},
       "body": {
         "type": "stackView",
         "content": {
@@ -38,7 +10,6 @@
             {
               "type": "stackView",
               "content": {
-                "orientation": "horizontal",
                 "items": [
                   {
                     "type": "label",
@@ -46,10 +17,8 @@
                       "text": "Data Usage"
                     },
                     "style": {
+                      "textType": "bodyBold",
                       "gravity": "middle",
-                      "fontWeight": "black",
-                      "fontSize": 16,
-                      "color": "#5b657e",
                       "weight": 1
                     }
                   },
@@ -57,77 +26,103 @@
                     "type": "button",
                     "content": {
                       "title": "VIEW DETAILS",
-                      "style": "text",
                       "action": {
                         "type": "componentView",
                         "content": {
                           "name": "1-4_view_data_usage"
                         }
-                      }
+                      },
+                      "style": "text"
                     },
                     "style": {
-                      "align": "right",
-                      "gravity": "middle",
-                      "weight": 0,
-                      "paddingTop": 12,
-                      "paddingLeft": 16,
-                      "paddingBottom": 12,
-                      "paddingRight": 0
+                      "padding": "16 0 16 16",
+                      "textAlign": "right"
                     }
                   }
-                ]
-              },
-              "style": {
-                "paddingTop": 4,
-                "paddingBottom": 4
+                ],
+                "orientation": "horizontal"
               }
             },
             {
               "type": "separator"
             },
             {
-              "type": "progressBar",
+              "type": "stackView",
               "content": {
-                "fillPercentage": 0.4444
+                "items": [
+                  {
+                    "type": "progressBar",
+                    "content": {
+                      "fillPercentage": 0.45
+                    },
+                    "style": {
+                      "marginBottom": 20
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "200GB"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "align": "fill",
+                      "textAlign": "center",
+                      "marginBottom": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "of 450GB"
+                    },
+                    "style": {
+                      "textType": "detail1",
+                      "align": "fill",
+                      "textAlign": "center"
+                    }
+                  }
+                ]
               },
               "style": {
-                "margin": 20
-              }
-            },
-            {
-              "type": "label",
-              "content": {
-                "text": "200 GB"
-              },
-              "style": {
-                "align": "fill",
-                "marginBottom": 4,
-                "textAlign": "center",
-                "fontWeight": "black",
-                "fontSize": 18,
-                "color": "#55607a"
-              }
-            },
-            {
-              "type": "label",
-              "content": {
-                "text": "of 450 GB"
-              },
-              "style": {
-                "align": "fill",
-                "textAlign": "center",
-                "fontWeight": "regular",
-                "fontSize": 12,
-                "color": "#55607a"
+                "padding": 20
               }
             }
           ]
         },
         "style": {
-          "padding": 20,
-          "paddingTop": 0
+          "padding": "0 20"
         }
       }
     }
-  }
+  },
+  "quickReplies": [
+    {
+      "title": "Texts",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-3_message_text_history"
+        }
+      }
+    },
+    {
+      "title": "Payments",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-1_message_transaction_history"
+        }
+      }
+    },
+    {
+      "title": "Calls",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-2_message_talk_history"
+        }
+      }
+    }
+  ]
 }
