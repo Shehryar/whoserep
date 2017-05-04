@@ -15,7 +15,6 @@
 		281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */; };
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
 		281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */; };
-		281C349C1E7F092C001A2AA3 /* component_server.js in Resources */ = {isa = PBXBuildFile; fileRef = 281C34711E7F092C001A2AA3 /* component_server.js */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
 		281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34791E7F092C001A2AA3 /* ButtonView.swift */; };
 		281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347A1E7F092C001A2AA3 /* IconView.swift */; };
@@ -404,7 +403,6 @@
 		281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentsDemoViewController.swift; sourceTree = "<group>"; };
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
 		281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponentsAPI.swift; sourceTree = "<group>"; };
-		281C34711E7F092C001A2AA3 /* component_server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = component_server.js; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		281C34791E7F092C001A2AA3 /* ButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -850,17 +848,8 @@
 				30EF007E1E806DCF004B1492 /* ComponentCardView.swift */,
 				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
 				281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */,
-				281C34701E7F092C001A2AA3 /* JSON */,
 			);
 			path = Demo;
-			sourceTree = "<group>";
-		};
-		281C34701E7F092C001A2AA3 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				281C34711E7F092C001A2AA3 /* component_server.js */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		281C34751E7F092C001A2AA3 /* Views */ = {
@@ -1962,7 +1951,6 @@
 				30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */,
 				285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */,
 				302472A81D89B7680005A6C9 /* XFINITYSans-Med.ttf in Resources */,
-				281C349C1E7F092C001A2AA3 /* component_server.js in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
 				285F7B081DAB3409008C2EF6 /* equipment-return.json in Resources */,
 				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,
