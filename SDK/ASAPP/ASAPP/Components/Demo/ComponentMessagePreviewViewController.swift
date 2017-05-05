@@ -153,7 +153,6 @@ class ComponentMessagePreviewViewController: UIViewController {
             Dispatcher.delay(800, closure: {
                 self?.addMessage(message)
             })
-            self?.addMessage(message)
         })
     }
     
