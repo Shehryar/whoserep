@@ -9,20 +9,12 @@
 import UIKit
 
 class ComponentMessagePreviewViewController: UIViewController {
-
-    var fileName: String? {
-        didSet {
-            refresh()
-        }
-    }
     
     var useCaseId: String? {
         didSet {
             refresh()
         }
     }
-    
-    var allFileNames: [String]?
     
     // MARK:- Private Properties
     
@@ -131,25 +123,18 @@ class ComponentMessagePreviewViewController: UIViewController {
     }
     
     func refresh() {
-        if let useCaseId = useCaseId {
-            clear()
-            
-            UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
-                self?.addMessage(message)
-            })
-            
-        } else if let fileName = fileName {
-            clear()
-            
-            DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, err) in
-                Dispatcher.performOnMainThread {
-                    self?.addMessage(message)
-                }
-            }
+        guard let useCaseId = useCaseId else {
+            return
         }
+        
+        clear()
+        
+        UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
+            self?.addMessage(message)
+        })
     }
     
-    func getNextMessage(with messageText: String, fileName: String) {
+    func getNextMessage(with messageText: String, useCaseId: String) {
         let metadata = EventMetadata(isReply: false,
                                      isAutomatedMessage: false,
                                      eventId: Int(Date().timeIntervalSince1970),
@@ -163,16 +148,13 @@ class ComponentMessagePreviewViewController: UIViewController {
                                       metadata: metadata)
         addMessage(userMessage)
         
-        DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, error) in
-            Dispatcher.delay(800, closure: { 
+        
+        UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
+            Dispatcher.delay(800, closure: {
                 self?.addMessage(message)
             })
-        }
-        
-        
-//        let viewController = ComponentMessagePreviewViewController()
-//        viewController.fileName = buttonItem.action.name
-//        navigationController?.pushViewController(viewController, animated: true)
+            self?.addMessage(message)
+        })
     }
     
     // MARK: Motion
@@ -231,11 +213,9 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             break
             
         case .treewalk:
-            if let allFileNames = allFileNames,
-                let treewalkAction = quickReply.action as? TreewalkAction,
-                    allFileNames.contains(treewalkAction.classification) {
-                    getNextMessage(with: quickReply.title, fileName: treewalkAction.classification)
-                    return false
+            if let treewalkAction = quickReply.action as? TreewalkAction {
+                getNextMessage(with: quickReply.title, useCaseId: treewalkAction.classification)
+                return false
             }
             
             title = "SRS Treewalk"
@@ -322,10 +302,9 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         
         shouldLoad = true
         if shouldLoad {
-            DemoComponentsAPI.getComponent(with: viewName) { (componentViewContainer, json, error) in
-                
-                completion(componentViewContainer, error)
-            }
+            UseCasePreviewAPI.getComponentViewContainer(with: viewName, completion: { (componentViewContainer, err) in
+                completion(componentViewContainer, err?.localizedDescription)
+            })
         } else {
             Dispatcher.delay(1000) {
                 completion(nil, "whoops!")
@@ -350,7 +329,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             completion(FinishAction(content: nil), nil)
             
             Dispatcher.delay(500, closure: { [weak self] in
-                self?.getNextMessage(with: text, fileName: name)
+                self?.getNextMessage(with: text, useCaseId: name)
             })
         }
     }

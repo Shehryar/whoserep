@@ -144,83 +144,39 @@ public class ComponentPreviewViewController: UIViewController {
         becomeFirstResponder()
         DebugLog.i(caller: self, "Refreshing UI")
         
-        if let useCaseId = useCaseId {
-            UseCasePreviewAPI.getComponentViewContainer(with: useCaseId) { [weak self] (componentViewContainer, err) in
-                self?.componentViewContainer = componentViewContainer
-                guard let componentViewContainer = componentViewContainer,
-                    let strongSelf = self else {
-                        return
-                }
-                
-                switch DemoComponentType.fromFileName(useCaseId) {
-                case .card:
-                    let cardView = ComponentCardView()
-                    cardView.component = componentViewContainer.root
-                    cardView.interactionHandler = self
-                    self?.contentView = cardView
-                    self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-                    break
-                    
-                case .view:
-                    var componentView = componentViewContainer.root.createView()
-                    componentView?.interactionHandler = strongSelf
-                    self?.contentView = componentView?.view
-                    self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-                    break
-                    
-                case .message:
-                    
-                    break
-                }
-                
-                self?.view.setNeedsLayout()
-            }
+        guard let useCaseId = useCaseId else {
             return
         }
         
-        
-        
-        guard let componentName = componentName else {
-            DebugLog.w(caller: self, "No demo component to refresh with.")
-            return
-        }
-        
-        
-        
-        DemoComponentsAPI.getComponent(with: componentName) { [weak self] (component, json, error) in
-            guard let strongSelf = self else {
-                return
+        UseCasePreviewAPI.getComponentViewContainer(with: useCaseId) { [weak self] (componentViewContainer, err) in
+            self?.componentViewContainer = componentViewContainer
+            guard let componentViewContainer = componentViewContainer,
+                let strongSelf = self else {
+                    return
             }
             
-            self?.componentViewContainer = component
-            self?.json = json
-            
-            if let component = component {
-                Dispatcher.performOnMainThread {
-                    switch DemoComponentType.fromFileName(componentName) {
-                    case .card:
-                        let cardView = ComponentCardView()
-                        cardView.component = component.root
-                        cardView.interactionHandler = self
-                        self?.contentView = cardView
-                        self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-                        break
-                        
-                    case .view:
-                        var componentView = component.root.createView()
-                        componentView?.interactionHandler = strongSelf
-                        self?.contentView = componentView?.view
-                        self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-                        break
-                        
-                    case .message:
-                        
-                        break
-                    }
-                    
-                    self?.view.setNeedsLayout()
-                }
+            switch DemoComponentType.fromFileName(useCaseId) {
+            case .card:
+                let cardView = ComponentCardView()
+                cardView.component = componentViewContainer.root
+                cardView.interactionHandler = self
+                self?.contentView = cardView
+                self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
+                break
+                
+            case .view:
+                var componentView = componentViewContainer.root.createView()
+                componentView?.interactionHandler = strongSelf
+                self?.contentView = componentView?.view
+                self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+                break
+                
+            case .message:
+                
+                break
             }
+            
+            self?.view.setNeedsLayout()
         }
     }
     

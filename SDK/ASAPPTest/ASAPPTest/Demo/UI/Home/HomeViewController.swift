@@ -326,11 +326,6 @@ extension HomeViewController {
         navigationController?.pushViewController(useCasePreviewVC, animated: true)
     }
     
-    func showDemoComponents() {
-        let demoComponentsVC = ComponentsDemoViewController()
-        navigationController?.pushViewController(demoComponentsVC, animated: true)
-    }
-    
     func showViewController(_ imageName: String, title: String?) -> Bool {
         guard let image = imageForImageName(imageName: imageName) else {
             return false

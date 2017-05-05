@@ -12,9 +12,7 @@
 		281C34831E7F092C001A2AA3 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34501E7F092C001A2AA3 /* Component.swift */; };
 		281C34841E7F092C001A2AA3 /* ComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34511E7F092C001A2AA3 /* ComponentFactory.swift */; };
 		281C34861E7F092C001A2AA3 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34531E7F092C001A2AA3 /* ComponentType.swift */; };
-		281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */; };
 		281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */; };
-		281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */; };
 		281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34761E7F092C001A2AA3 /* ComponentView.swift */; };
 		281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C34791E7F092C001A2AA3 /* ButtonView.swift */; };
 		281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C347A1E7F092C001A2AA3 /* IconView.swift */; };
@@ -388,12 +386,11 @@
 		30EE29F01D95D75B0079932D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5F1D93149B00B5EF9E /* libicucore.tbd */; };
 		30EE29F11D95D75B0079932D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */; };
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
-		30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF007E1E806DCF004B1492 /* ComponentCardView.swift */; };
-		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
 		30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */; };
 		30EF00871E82CB1B004B1492 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00861E82CB1B004B1492 /* TextInputView.swift */; };
 		30F6B4BE1EBCE6C100ABA570 /* UseCasePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */; };
 		30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */; };
+		30F6B4C21EBCFD2A00ABA570 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C11EBCFD2A00ABA570 /* ComponentCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -402,9 +399,7 @@
 		281C34501E7F092C001A2AA3 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		281C34511E7F092C001A2AA3 /* ComponentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentFactory.swift; sourceTree = "<group>"; };
 		281C34531E7F092C001A2AA3 /* ComponentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
-		281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentsDemoViewController.swift; sourceTree = "<group>"; };
 		281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewViewController.swift; sourceTree = "<group>"; };
-		281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoComponentsAPI.swift; sourceTree = "<group>"; };
 		281C34761E7F092C001A2AA3 /* ComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		281C34791E7F092C001A2AA3 /* ButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -780,12 +775,11 @@
 		30E87C551D93133E00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30E87C5F1D93149B00B5EF9E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		30EF007E1E806DCF004B1492 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
-		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
 		30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewContainer.swift; sourceTree = "<group>"; };
 		30EF00861E82CB1B004B1492 /* TextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasePreviewViewController.swift; sourceTree = "<group>"; };
 		30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasePreviewAPI.swift; sourceTree = "<group>"; };
+		30F6B4C11EBCFD2A00ABA570 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -808,6 +802,7 @@
 			children = (
 				288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */,
 				305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */,
+				30F6B4C11EBCFD2A00ABA570 /* ComponentCardView.swift */,
 				30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */,
 				281C346C1E7F092C001A2AA3 /* Demo */,
 				281C344D1E7F092C001A2AA3 /* Data Models */,
@@ -845,15 +840,11 @@
 		281C346C1E7F092C001A2AA3 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
 				30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */,
 				30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */,
 				3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
-				30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */,
-				30EF007E1E806DCF004B1492 /* ComponentCardView.swift */,
 				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
-				281C346F1E7F092C001A2AA3 /* DemoComponentsAPI.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -2015,9 +2006,8 @@
 				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
 				30131FDF1EB110ED009E7299 /* CapitalizationType.swift in Sources */,
 				30131FDB1EB11076009E7299 /* HorizontalAlignment.swift in Sources */,
+				30F6B4C21EBCFD2A00ABA570 /* ComponentCardView.swift in Sources */,
 				30131FD91EB10FFC009E7299 /* TextType.swift in Sources */,
-				30EF007F1E806DCF004B1492 /* ComponentCardView.swift in Sources */,
-				281C34991E7F092C001A2AA3 /* ComponentsDemoViewController.swift in Sources */,
 				3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
@@ -2060,7 +2050,6 @@
 				3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */,
 				307484DF1EB8F2F9008CF3E4 /* ComponentViewAction.swift in Sources */,
 				303699A91EAFAA2E00A819DF /* ASAPPTextStyles.swift in Sources */,
-				281C349B1E7F092C001A2AA3 /* DemoComponentsAPI.swift in Sources */,
 				281C34861E7F092C001A2AA3 /* ComponentType.swift in Sources */,
 				3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */,
 				307484E81EB92EEB008CF3E4 /* UIScrollViewExtensions.swift in Sources */,
@@ -2140,7 +2129,6 @@
 				281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
-				30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
 				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,

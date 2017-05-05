@@ -147,7 +147,7 @@ extension UseCasePreviewViewController: UITableViewDelegate {
         let useCaseId = useCases[indexPath.row]
         let type = DemoComponentType.fromFileName(useCaseId)
         switch type {
-        case .view:
+        case .view, .card:
             let previewVC = ComponentPreviewViewController()
             previewVC.useCaseId = useCaseId
             navigationController?.pushViewController(previewVC, animated: true)
@@ -156,12 +156,7 @@ extension UseCasePreviewViewController: UITableViewDelegate {
         case .message:
             let viewController = ComponentMessagePreviewViewController()
             viewController.useCaseId = useCaseId
-            
-//            viewController.allFileNames = useCases
             navigationController?.pushViewController(viewController, animated: true)
-            break
-            
-        case .card:
             break
         }
     }
