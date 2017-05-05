@@ -73,6 +73,11 @@ module.exports = {
 			});
 			completion(200, fileNames, null);
 		});
+	},
 
+	writeToFile: function(filepath, data, completion) {
+		fs.writeFile(filepath, data, function(err) {
+			completion(err);
+		});
 	}
 };

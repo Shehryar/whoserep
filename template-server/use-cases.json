@@ -1,6 +1,20 @@
 {
-  "1.1": {
-    "template": "",
-    "data": ""
+  "1-1_message_transaction_history": {
+    "data": {
+    	"some": "data"
+    }
+  },
+  "1-1_view_transaction_history": {
+  	"data": {
+
+  	}
+  },
+  "1-2_message_talk_history": {
+  	"data": {
+
+  	}
+  },
+  "1-2_view_talk_history": {
+  	
   }
 }

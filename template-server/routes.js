@@ -3,6 +3,8 @@ const Router = require('node-router');
 
 const JSON_DIRECTORY = './json/';
 const USE_CASES_FILEPATH = './use-cases.json';
+const TEMPLATES_DIRECTORY = './templates';
+const OUTPUT_DIRECTORY = './output';
 
 const router = Router();
 let route = router.push;
@@ -25,6 +27,62 @@ route('GET', '/use_cases', function(req, res, next) {
     res.send(code, data.toString());
   });
 });
+
+route('GET', '/use_case', function(req, res, next) {
+  const id = req.query.id;
+  if (!id) {
+    res.send(400, 'id query parameter is required.');  
+    return;
+  }
+
+  FileUtil.getContentsOfFile(USE_CASES_FILEPATH, function(code, data, contentType, err) {
+    if (code != 200) {
+      res.send(code, err);
+      return;
+    }
+
+    const useCases = JSON.parse(data);
+    if (!useCases) {
+      res.send(500, 'Unable to parse use cases data');
+      return;
+    }
+
+    var useCase = useCases[id];
+    if (!useCase) {
+      res.send(404, 'Unable to find use case with id: ' + id);
+      return;
+    } 
+
+    // Fetch the template
+    const templateName = useCase.template || id;
+    const templateFilepath = TEMPLATES_DIRECTORY + '/' + templateName;
+    console.log('  Fetching template at: ' + templateFilepath);
+    try {
+      var template = require(templateFilepath);
+    } catch (err) {
+      res.send(500 ,'Unable to locate template file.');
+      return;
+    }
+    
+    // Generate the JSON
+    const templateOutput = template.build(data);
+    const json = JSON.stringify(templateOutput);
+    res.setHeader('Content-type', contentType);
+    res.end(json);
+
+    // Store output
+    const outputFilepath = OUTPUT_DIRECTORY + '/' + id + '.json';
+    const prettyJSON = JSON.stringify(templateOutput, null, 2);
+    FileUtil.writeToFile(outputFilepath, prettyJSON, function(err) {
+      if (!err) {
+        console.log('  Saved output to: ' + outputFilepath);
+      } else {
+        console.log('  Unable to save output to: ' + outputFilepath);
+        console.log(err);
+      }
+    });
+  });
+})
 
 // Fallback to fetching filename
 route( function (req, res, next) {
