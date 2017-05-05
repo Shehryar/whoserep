@@ -1,0 +1,172 @@
+{
+  "text": "Sure! Here is your current account balance, upcoming charge and due date.",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "label",
+              "content": {
+                "text": "ACCOUNT BALANCE"
+              },
+              "style": {
+                "textType": "detail2",
+                "marginBottom": 4
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "$0.00"
+              },
+              "style": {
+                "textType": "header1",
+                "marginBottom": 16
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "alertError"
+                    },
+                    "style": {
+                      "width": 20,
+                      "height": 20,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Account balance insufficient to cover your next month of service. Payment overdue. Pay immediately."
+                    },
+                    "style": {
+                      "textType": "body",
+                      "color": "#ef7667"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "UPCOMING CHARGE"
+                          },
+                          "style": {
+                            "textType": "detail2",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "$50.00"
+                          },
+                          "style": {
+                            "textType": "bodyBold"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "marginRight": 8,
+                      "weight": 1,
+                      "align": "fill"
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "DUE BY"
+                          },
+                          "style": {
+                            "textType": "detail2",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "02/26/17"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "color": "#ef7667"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "align": "fill"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginTop": 20
+              }
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "style": {
+          "padding": 20
+        }
+      }
+    }
+  },
+  "quickReplies": [
+    {
+      "title": "Option 1",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 2",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    },
+    {
+      "title": "Option 3",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": ""
+        }
+      }
+    }
+  ]
+}

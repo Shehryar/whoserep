@@ -1,0 +1,887 @@
+{
+  "title": "Talk History",
+  "styles": {
+    "header": {
+      "textType": "subheader",
+      "backgroundColor": "#f3f4f6",
+      "padding": "6 24"
+    },
+    "row": {
+      "padding": "12 24"
+    }
+  },
+  "body": {
+    "type": "tableView",
+    "content": {
+      "sections": [
+        {
+          "header": {
+            "type": "label",
+            "content": {
+              "text": "2017"
+            },
+            "class": "header"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "0:25"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 12:31PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/28/2017 - 8:07PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "07:02"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/25/2017 - 1:31PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/14/2017 - 4:04PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "03:34"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/30/2017 - 1:02PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "15:12"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/15/2017 - 8:54PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "00:25"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "1/4/2017 - 10:34AM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "01:12"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            }
+          ]
+        },
+        {
+          "header": {
+            "type": "label",
+            "content": {
+              "text": "2016"
+            },
+            "class": "header"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "12/25/2016 - 5:34PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "06:51"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "12/18/2016 - 5:12PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "12/14/2016 - 6:54PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "00:45"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "12/1/2016 - 1:24PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "03:23"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 12:31PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "class": "row"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
