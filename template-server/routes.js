@@ -60,7 +60,18 @@ route('GET', '/use_case', function(req, res, next) {
     try {
       var template = require(templateFilepath);
     } catch (err) {
-      res.send(500 ,'Unable to locate template file.');
+      console.log('  Unable to locate template. Falling back on json...');
+
+      const pathname = JSON_DIRECTORY + '/' + id + '.json';
+      FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
+        if (code != 200) {
+          res.send(code, err);
+        } else {
+          console.log('  Found json file');
+          res.setHeader('Content-type', contentType);
+          res.end(data);
+        }
+      });
       return;
     }
     
@@ -83,19 +94,6 @@ route('GET', '/use_case', function(req, res, next) {
     });
   });
 })
-
-// Fallback to fetching filename
-route( function (req, res, next) {
-  const pathname = JSON_DIRECTORY + req.path
-  FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
-    if (code != 200) {
-      res.send(code, err);
-    } else {
-      res.setHeader('Content-type', contentType);
-      res.end(data);
-    }
-  });
-});
 
 // Request not found
 route(function (req, res, next) {
