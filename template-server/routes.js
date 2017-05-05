@@ -1,4 +1,4 @@
-const FileUtil = require('./file-util');
+const FileUtil = require('./file_util');
 const Router = require('node-router');
 
 const JSON_DIRECTORY = './json/';
