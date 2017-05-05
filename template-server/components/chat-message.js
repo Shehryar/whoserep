@@ -1,6 +1,8 @@
 // chat-message.js
 // ===============
 
+var ComponentViewAttachment = require('./component-view-attachment');
+
 module.exports = {
 	
 	build: function(data) {

@@ -1,4 +1,4 @@
-var _ = require('../components/all');
+var _ = require('../components');
 
 var separatedList = require('./separated-list');
 var titleButton = require('./title-button');

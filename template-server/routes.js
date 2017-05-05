@@ -53,6 +53,8 @@ route('GET', '/use_case', function(req, res, next) {
       return;
     } 
 
+    console.log('Found Use Case w/ template: ' + useCase.template + ' for id: ' + id);
+
     // Fetch the template
     const templateName = useCase.template || id;
     const templateFilepath = TEMPLATES_DIRECTORY + '/' + templateName;
@@ -60,8 +62,13 @@ route('GET', '/use_case', function(req, res, next) {
     try {
       var template = require(templateFilepath);
     } catch (err) {
-      console.log('  Unable to locate template. Falling back on json...');
+      console.log('  Unable to locate template.');
+      console.log(err);
 
+      res.send(500);
+      return;
+
+      console.log('\n  Falling back on JSON');
       const pathname = JSON_DIRECTORY + '/' + id + '.json';
       FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
         if (code != 200) {
@@ -76,7 +83,7 @@ route('GET', '/use_case', function(req, res, next) {
     }
     
     // Generate the JSON
-    const templateOutput = template.build(data);
+    const templateOutput = template.build(useCase.data);
     const json = JSON.stringify(templateOutput);
     res.setHeader('Content-type', contentType);
     res.end(json);

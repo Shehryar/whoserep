@@ -1,4 +1,4 @@
-var _ = require('../components/all');
+var _ = require('../components');
 
 const data = {
   title: "Talk History",

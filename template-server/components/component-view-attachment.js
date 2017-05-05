@@ -14,5 +14,12 @@ module.exports = {
 				body: data.body
 			})
 		};
+	},
+
+	buildView: function(view) {
+		return {
+			type: "componentView",
+			content: view
+		}
 	}
 }

@@ -19,7 +19,6 @@
   "2-1-1_message_account_balance": {},
   "2-1-2_message_account_balance_insufficient": {},
   "2-1-3_message_account_balance_overdue": {},
-
   "4-1-0_message_stopped_enrollment": {},
   "4-1-1_message_enroll_auto_boost": {},
   "4-1-2_message_Enter_Card_Details": {},
@@ -46,11 +45,20 @@
   "7-1-11_message_payment_complete": {},
   "7-7_message_reboost": {},
   "7-7_view_reboost": {},
-
   "17-3-1_message_change_pin": {},
   "17-3-1_view_enter_pin": {},
-  "17-3-2_message_pin_change_successful": {},
-
+  "17-3-2_message_pin_change_successful": {
+    "template": "chat-template-message",
+    "data": {
+      "templateName": "icon-bold-body-detail",
+      "templateData": {
+        "icon": "checkmarkThin",
+        "boldText": "Account PIN Changed",
+        "bodyText": "You've successfully updated your account PIN.",
+        "detailText": "MAR 15, 2017 - 4:15PM"
+      }
+    }
+  },
   "18-0_message_data_packs": {},
   "18-1_view_data_pack_details": {}
 }
