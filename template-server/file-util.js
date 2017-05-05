@@ -41,7 +41,7 @@ module.exports = {
 			// Read the file
 			fs.readFile(pathname, function(err, data){
 				if (err){
-					completion(500, null, null, "Error reading the file: ${err}.");
+					completion(500, null, null, "Error reading the file: " + err);
 				} else {
 					// Extract the content type from the pathname.
 					const ext = path.parse(pathname).ext;

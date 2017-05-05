@@ -1,9 +1,9 @@
 #!/bin/bash
 
 WORKING_DIR=$(pwd)
-SERVER_PATH=$WORKING_DIR"/Components"
+SERVER_PATH=$WORKING_DIR"/template-server"
 ESCAPED_SERVER_PATH=$(printf %q "$SERVER_PATH")
-SERVER_NAME="component-server.js"
+SERVER_NAME="server.js"
 
 echo "Moving to directory: " $ESCAPED_SERVER_PATH
 cd $ESCAPED_SERVER_PATH
