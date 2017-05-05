@@ -25,7 +25,7 @@ module.exports = {
 			items: [
 				Components.stackView.build({
 					style: {
-						marginBottom: 4
+						marginBottom: 0
 					},
 					orientation: Components.stackView.orientation.horizontal,
 					items: [
@@ -33,7 +33,7 @@ module.exports = {
 							text: data.title,
 							style: {
 								textType: "bodyBold",
-								marginBottom: 12,
+								marginRight: 10,
 								weight: 1,
 								gravity: "middle"
 							}
