@@ -1,7 +1,7 @@
 // chat-template-message.js
 // ===============
 
-var Components = require('../components');
+const Components = require('../components');
 
 module.exports = {
 

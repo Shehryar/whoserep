@@ -15,8 +15,7 @@ module.exports = {
 	},
 	
 	build: function(data) {
-		data = data || testData;
-
+		
 		return Components.stackView.build({
 			style: {
 				padding: "5 20 20 20",

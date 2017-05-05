@@ -48,6 +48,13 @@
           "content": {
             "classification": "123"
           }
+        },
+        {
+          "title": "I do not accept",
+          "type": "treewalk",
+          "content": {
+            "classification": "151"
+          }
         }
       ]
     }

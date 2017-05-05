@@ -77,6 +77,15 @@
           "classification": "123"
         }
       }
+    },
+    {
+      "title": "I do not accept",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "151"
+        }
+      }
     }
   ]
 }
