@@ -16,32 +16,6 @@ enum DemoComponent: String {
     ]
 }
 
-enum DemoComponentType {
-    case message
-    case view
-    case card
-    
-    static func fromFileName(_ name: String) -> DemoComponentType {
-        if name.lowercased().contains("message") {
-            return message
-        }
-        if name.lowercased().contains("view") {
-            return view
-        } else if name.lowercased().contains("card") {
-            return card
-        }
-        return message
-    }
-    
-    static func prettifyFileName(_ name: String?) -> String? {
-        return name?.replacingOccurrences(of: "_", with: " ")
-            .replacingOccurrences(of: "view" , with: "")
-            .replacingOccurrences(of: "card", with: "")
-            .replacingOccurrences(of: "message", with: "")
-            .capitalized
-    }
-}
-
 class DemoComponentsAPI: NSObject {
     
     typealias ComponentNamesCompletion = ((_ names: [String]?) -> Void)

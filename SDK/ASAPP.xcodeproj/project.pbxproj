@@ -392,6 +392,8 @@
 		30EF00811E807959004B1492 /* ComponentCardsPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */; };
 		30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */; };
 		30EF00871E82CB1B004B1492 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF00861E82CB1B004B1492 /* TextInputView.swift */; };
+		30F6B4BE1EBCE6C100ABA570 /* UseCasePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */; };
+		30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -782,6 +784,8 @@
 		30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardsPreviewViewController.swift; sourceTree = "<group>"; };
 		30EF00821E81AFCD004B1492 /* ComponentViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewContainer.swift; sourceTree = "<group>"; };
 		30EF00861E82CB1B004B1492 /* TextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
+		30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasePreviewViewController.swift; sourceTree = "<group>"; };
+		30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasePreviewAPI.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -842,6 +846,8 @@
 			isa = PBXGroup;
 			children = (
 				281C346D1E7F092C001A2AA3 /* ComponentsDemoViewController.swift */,
+				30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */,
+				30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */,
 				3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
 				30EF00801E807959004B1492 /* ComponentCardsPreviewViewController.swift */,
@@ -2099,6 +2105,7 @@
 				2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */,
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
+				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
 				30131FD01EB10FD0009E7299 /* RadioButtonsItem.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */,
@@ -2147,6 +2154,7 @@
 				30131FA61EAFB603009E7299 /* UIButton+ASAPPAppearance.swift in Sources */,
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
+				30F6B4BE1EBCE6C100ABA570 /* UseCasePreviewViewController.swift in Sources */,
 				306619211D9458F50092B4C5 /* UIImage+GIF.m in Sources */,
 				302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */,
 				3022685E1D8097E700EC4FB1 /* PredictiveViewController.swift in Sources */,

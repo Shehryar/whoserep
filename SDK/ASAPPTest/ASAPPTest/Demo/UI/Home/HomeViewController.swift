@@ -203,7 +203,8 @@ extension HomeViewController: HomeTableViewDelegate {
     }
     
     func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
-        showDemoComponents()
+        showUseCasePreview()
+//        showDemoComponents()
     }
 }
 
@@ -318,6 +319,11 @@ extension HomeViewController {
         let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
         environmentVC.delegate = self
         navigationController?.pushViewController(environmentVC, animated: true)
+    }
+    
+    func showUseCasePreview() {
+        let useCasePreviewVC = UseCasePreviewViewController()
+        navigationController?.pushViewController(useCasePreviewVC, animated: true)
     }
     
     func showDemoComponents() {

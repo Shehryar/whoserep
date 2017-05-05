@@ -11,7 +11,7 @@ let route = router.push;
 
 // Request Logging
 route(function (req, res, next) {
-  console.log('----------------------------------------');
+  console.log('\n----------------------------------------');
   console.log(req.method + ' ' + req.path + ' ' + JSON.stringify(req.query));
   next();
 });

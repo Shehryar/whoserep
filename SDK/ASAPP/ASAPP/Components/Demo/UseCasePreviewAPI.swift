@@ -1,0 +1,155 @@
+//
+//  UseCasePreviewAPI.swift
+//  ASAPP
+//
+//  Created by Mitchell Morgan on 5/5/17.
+//  Copyright © 2017 asappinc. All rights reserved.
+//
+
+import UIKit
+
+enum DemoComponentType: String {
+    case message = "Message"
+    case view = "View"
+    case card = "Card"
+    
+    static func fromFileName(_ name: String) -> DemoComponentType {
+        if name.lowercased().contains("message") {
+            return message
+        }
+        if name.lowercased().contains("view") {
+            return view
+        } else if name.lowercased().contains("card") {
+            return card
+        }
+        return message
+    }
+    
+    static func prettifyFileName(_ name: String?) -> String? {
+        return name?.replacingOccurrences(of: "_", with: " ")
+            .replacingOccurrences(of: "view" , with: "")
+            .replacingOccurrences(of: "card", with: "")
+            .replacingOccurrences(of: "message", with: "")
+            .capitalized
+    }
+}
+
+// MARK:- UseCasePreviewAPI
+// MARK: Use Cases
+
+class UseCasePreviewAPI: NSObject {
+    
+    typealias UseCasesCompletion = (_ useCases: [String]?, _ err: Error?) -> Void
+    
+    class func getUseCases(completion: @escaping UseCasesCompletion) {
+        sendGETRequest(path: "/use_cases") { (data, response, error) in
+            var useCases = [String]()
+            if let json = getJSON(from: data) {
+                for (key, _) in json {
+                    useCases.append(key)
+                }
+                useCases.sort()
+            }
+            Dispatcher.performOnMainThread {
+                completion(useCases, error)
+            }
+        }
+    }
+}
+
+// MARK: Chat Message
+
+extension UseCasePreviewAPI {
+    
+    typealias ChatMessageCompletion = (_ chatMessage: ChatMessage?, _ err: Error?) -> Void
+    
+    class func getChatMessage(with useCaseId: String, completion: @escaping ChatMessageCompletion) {
+        sendGETRequest(path: "/use_case",
+                       params: [URLQueryItem(name: "id", value: useCaseId)],
+                       completion: { (data, response, error) in
+                        var chatMessage: ChatMessage?
+                        if let json = getJSON(from: data) {
+                            let metadata = EventMetadata(isReply: true,
+                                                         isAutomatedMessage: true,
+                                                         eventId: Int(Date().timeIntervalSince1970),
+                                                         eventType: .srsResponse,
+                                                         issueId: 1,
+                                                         sendTime: Date())
+                            chatMessage = ChatMessage.fromJSON(json, with: metadata)
+                        }
+                        Dispatcher.performOnMainThread {
+                            completion(chatMessage, error)
+                        }
+        })
+    }
+}
+
+// MARK: ComponentViewContainer
+
+extension UseCasePreviewAPI {
+    
+    typealias ComponentViewContainerCompletion = (_ componentViewContainer: ComponentViewContainer?, _ err: Error?) -> Void
+    
+    class func getComponentViewContainer(with useCaseId: String,
+                                         completion: @escaping ComponentViewContainerCompletion)  {
+        
+        sendGETRequest(path: "/use_case",
+                       params: [URLQueryItem(name: "id", value: useCaseId)],
+                       completion: { (data, response, error) in
+                        var componentViewContainer: ComponentViewContainer?
+                        if let json = getJSON(from: data) {
+                            componentViewContainer = ComponentViewContainer.from(json)
+                        }
+                        Dispatcher.performOnMainThread {
+                            completion(componentViewContainer, error)
+                        }
+        })
+    }
+}
+
+// MARK- Request Utilities
+
+extension UseCasePreviewAPI {
+    
+    // MARK: Creating a Request
+    
+    fileprivate static let HOST = "http://localhost:9000"
+    
+    fileprivate class func makeGETRequest(with path: String, params: [URLQueryItem]? = nil) -> URLRequest {
+        var urlComponents = URLComponents(string: "\(HOST)\(path)")
+        urlComponents?.queryItems = params
+        
+        var request = URLRequest(url: urlComponents!.url!)
+        request.httpMethod = "GET"
+        
+        return request
+    }
+    
+    // MARK: Sending a Request
+    
+    typealias RequestCompletion = (Data?, URLResponse?, Error?) -> Void
+    
+    fileprivate class func sendGETRequest(path: String,
+                                          params: [URLQueryItem]? = nil,
+                                          completion: @escaping RequestCompletion) {
+        
+        let request = makeGETRequest(with: path, params: params)
+        let session = URLSession.shared
+        session.dataTask(with: request, completionHandler: completion).resume()
+    }
+    
+    // MARK: Parsing a response
+    
+    fileprivate class func getJSON(from data: Data?) -> [String: Any]? {
+        guard let data = data else {
+            return nil
+        }
+        
+        var json: [String : Any]?
+        do {
+            try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+        } catch {}
+        
+        return json
+    }
+}

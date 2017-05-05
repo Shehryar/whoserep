@@ -16,6 +16,12 @@ class ComponentMessagePreviewViewController: UIViewController {
         }
     }
     
+    var useCaseId: String? {
+        didSet {
+            refresh()
+        }
+    }
+    
     var allFileNames: [String]?
     
     // MARK:- Private Properties
@@ -27,8 +33,6 @@ class ComponentMessagePreviewViewController: UIViewController {
     public override var canBecomeFirstResponder: Bool {
         return true
     }
-    
-    
     
     var shouldLoad = false
     
@@ -127,15 +131,20 @@ class ComponentMessagePreviewViewController: UIViewController {
     }
     
     func refresh() {
-        guard let fileName = fileName else {
-            return
-        }
-        
-        clear()
-        
-        DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, err) in
-            Dispatcher.performOnMainThread {
+        if let useCaseId = useCaseId {
+            clear()
+            
+            UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
                 self?.addMessage(message)
+            })
+            
+        } else if let fileName = fileName {
+            clear()
+            
+            DemoComponentsAPI.getChatMessage(with: fileName) { [weak self] (message, err) in
+                Dispatcher.performOnMainThread {
+                    self?.addMessage(message)
+                }
             }
         }
     }

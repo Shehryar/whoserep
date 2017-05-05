@@ -16,6 +16,13 @@ public class ComponentPreviewViewController: UIViewController {
             refresh()
         }
     }
+    
+    var useCaseId: String? {
+        didSet {
+            title = DemoComponentType.prettifyFileName(useCaseId)
+            refresh()
+        }
+    }
 
     var componentViewContainer: ComponentViewContainer?
     
@@ -137,10 +144,48 @@ public class ComponentPreviewViewController: UIViewController {
         becomeFirstResponder()
         DebugLog.i(caller: self, "Refreshing UI")
         
+        if let useCaseId = useCaseId {
+            UseCasePreviewAPI.getComponentViewContainer(with: useCaseId) { [weak self] (componentViewContainer, err) in
+                self?.componentViewContainer = componentViewContainer
+                guard let componentViewContainer = componentViewContainer,
+                    let strongSelf = self else {
+                        return
+                }
+                
+                switch DemoComponentType.fromFileName(useCaseId) {
+                case .card:
+                    let cardView = ComponentCardView()
+                    cardView.component = componentViewContainer.root
+                    cardView.interactionHandler = self
+                    self?.contentView = cardView
+                    self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
+                    break
+                    
+                case .view:
+                    var componentView = componentViewContainer.root.createView()
+                    componentView?.interactionHandler = strongSelf
+                    self?.contentView = componentView?.view
+                    self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+                    break
+                    
+                case .message:
+                    
+                    break
+                }
+                
+                self?.view.setNeedsLayout()
+            }
+            return
+        }
+        
+        
+        
         guard let componentName = componentName else {
             DebugLog.w(caller: self, "No demo component to refresh with.")
             return
         }
+        
+        
         
         DemoComponentsAPI.getComponent(with: componentName) { [weak self] (component, json, error) in
             guard let strongSelf = self else {
