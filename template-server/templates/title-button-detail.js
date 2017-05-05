@@ -17,60 +17,49 @@ module.exports = {
 	build: function(data) {
 		data = data || testData;
 
-		var horizontalItems = [];
-		if (data.icon) {
-			horizontalItems.push(Components.icon.build({
-				icon: data.icon,
-				style: {
-					gravity: "top",
-					height: 30,
-					width: 30,
-					marginRight: 24
-				}
-			}));
-		}
-
-		var verticalItems = [];
-		if (data.boldText) {
-			const boldMarginBottom = (data.boldText && data.bodyText) ? 6 : 0;
-			verticalItems.push(Components.label.build({
-				text: data.boldText,
-				style: {
-					textType: "bodyBold",
-					marginBottom: boldMarginBottom
-				}
-			}));
-		}
-		if (data.bodyText) {
-			const bodyMarginBottom = (data.bodyText && data.detailText) ? 12 : 0;
-			verticalItems.push(Components.label.build({
-				text: data.bodyText,
-				style: {
-					textType: "body",
-					marginBottom: bodyMarginBottom
-				}
-			}));
-		}
-		if (data.detailText) {
-			verticalItems.push(Components.label.build({
-				text: data.detailText,
-				style: {
-					textType: "detail2"
-				}
-			}));
-		}
-		horizontalItems.push(Components.stackView.build({
-			items: verticalItems
-		}));
-
-		var style = data.style || {};
-		if (!style.padding) {
-			style.padding = 20;
-		}
 		return Components.stackView.build({
-			style: style,
-			orientation: Components.stackView.orientation.horizontal,
-			items: horizontalItems
+			style: {
+				padding: "5 20 20 20",
+				align: "fill"
+			},
+			class: data.class,
+			items: [
+				Components.stackView.build({
+					style: {
+						marginBottom: 4
+					},
+					orientation: Components.stackView.orientation.horizontal,
+					items: [
+						Components.label.build({
+							text: data.title,
+							style: {
+								textType: "bodyBold",
+								marginBottom: 12,
+								weight: 1,
+								gravity: "middle"
+							}
+						}),
+						Components.button.build({
+							style: {
+								weight: 0,
+								gravity: "middle",
+								align: "right",
+								textAlign: "right",
+								padding: "16 0 16 16"
+							},
+							title: data.buttonTitle,
+							action: data.buttonAction,
+							buttonStyle: Components.button.style.textPrimary
+						})
+					]
+				}),
+				Components.label.build({
+					text: data.detailText,
+					style: {
+						textType: "detail2"
+					}
+				})
+			]
 		});
 	}
 }

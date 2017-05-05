@@ -65,9 +65,6 @@ route('GET', '/use_case', function(req, res, next) {
       console.log('  Unable to locate template.');
       console.log(err);
 
-      res.send(500);
-      return;
-
       console.log('\n  Falling back on JSON');
       const pathname = JSON_DIRECTORY + '/' + id + '.json';
       FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {

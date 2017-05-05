@@ -25,7 +25,33 @@
   "4-1-3_view_Enter_Card_Details": {},
   "4-3-3_message_Auto_Reboost": {},
   "4-3-3_view_Select_Auto_Reboost": {},
-  "4-3-5_message_terms_and_conditions": {},
+  "4-3-5_message_terms_and_conditions": {
+    "template": "chat-template-message",
+    "data": {
+      "text": "Great. Before we proceed, you must read and accept our terms and conditions.",
+      "template": "title-button-detail",
+      "data": {
+        "title": "Terms and Conditions",
+        "buttonTitle": "VIEW",
+        "buttonAction": {
+          "type": "componentView",
+          "content": {
+            "name": "4-3-5_view_terms_and_conditions"
+          }
+        },
+        "detailText": "AS OF JAN 22, 2017 - 4:15PM"
+      },
+      "quickReplies": [
+        {
+          "title": "I accept",
+          "type": "treewalk",
+          "content": {
+            "classification": "123"
+          }
+        }
+      ]
+    }
+  },
   "4-3-5_view_terms_and_conditions": {},
   "4-3-7_message_confirm_rebost_enrollment": {},
   "4-3-8_message_enrolled_in_reboost": {},
@@ -50,8 +76,8 @@
   "17-3-2_message_pin_change_successful": {
     "template": "chat-template-message",
     "data": {
-      "templateName": "icon-bold-body-detail",
-      "templateData": {
+      "template": "icon-bold-body-detail",
+      "data": {
         "icon": "checkmarkThin",
         "boldText": "Account PIN Changed",
         "bodyText": "You've successfully updated your account PIN.",

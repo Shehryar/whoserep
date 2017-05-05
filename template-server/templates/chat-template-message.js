@@ -9,16 +9,16 @@ module.exports = {
 		var message = {};
 		if (data.text) message.text = data.text;
 
-		if (data.templateName) {
+		if (data.template) {
 			try {
-				var template = require('./' + data.templateName);
+				var template = require('./' + data.template);
 			} catch (err) {
-				console.log('Unable to import template: ' + data.templateName);
+				console.log('Unable to import template: ' + data.template);
 				console.log(err);
 			}
 			
 			if (template) {
-				const attachmentView = template.build(data.templateData);
+				const attachmentView = template.build(data.data);
 				if (attachmentView) {
 					message.attachment = Components.componentViewAttachment.build({
 						body: attachmentView

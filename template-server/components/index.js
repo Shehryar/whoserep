@@ -21,6 +21,7 @@ module.exports = {
 
 	// Base Components
 	action: require('./action'),
+	button: require('./button'),
 	icon: require('./icon'),
 	label: require('./label'),
 	quickReply: require('./quick-reply'),

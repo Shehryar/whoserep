@@ -1,0 +1,82 @@
+{
+  "text": "Great. Before we proceed, you must read and accept our terms and conditions.",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Terms and Conditions"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "marginBottom": 12,
+                      "weight": 1,
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "4-3-5_view_terms_and_conditions"
+                        }
+                      },
+                      "style": "text"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right",
+                      "padding": "16 0 16 16"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 4
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "AS OF JAN 22, 2017 - 4:15PM"
+              },
+              "style": {
+                "textType": "detail2"
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": "5 20 20 20",
+          "align": "fill"
+        }
+      }
+    }
+  },
+  "quickReplies": [
+    {
+      "title": "I accept",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "123"
+        }
+      }
+    }
+  ]
+}
