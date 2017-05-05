@@ -9,9 +9,9 @@ const fileUtil = require('./file-util');
  Constants
  */
 
-const port = process.argv[2] || 9000;
-const jsonDirectory = './json/';
-const useCasesFilepath = './use-cases.json';
+const PORT = process.argv[2] || 9000;
+const JSON_DIRECTORY = './json/';
+const USE_CASES_FILEPATH = './use-cases.json';
 
 
 /** 
@@ -26,20 +26,20 @@ route(function (req, res, next) {
 });
 
 route('GET', '/components', function(req, res, next) {
-  fileUtil.getFilesInDirectory(jsonDirectory, true, function(code, fileNames, err) {
+  fileUtil.getFilesInDirectory(JSON_DIRECTORY, true, function(code, fileNames, err) {
     res.send(code, fileNames || err);
   });
 });
 
-route('GET', '/use-cases', function(req, res, next) {
-  fileUtil.getContentsOfFile(useCasesFilepath, function(code, data, contentType, err) {
+route('GET', '/use_cases', function(req, res, next) {
+  fileUtil.getContentsOfFile(USE_CASES_FILEPATH, function(code, data, contentType, err) {
     res.send(code, data.toString());
   });
 });
 
 // Fallback to fetching filename
 route( function (req, res, next) {
-  const pathname = jsonDirectory + req.path
+  const pathname = JSON_DIRECTORY + req.path
   fileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
     if (code != 200) {
       res.send(code, err);
@@ -62,5 +62,5 @@ route(function (req, res, next) {
  */
 
 // Launch the server
-let server = http.createServer(router).listen(port);
-console.log('Server listening on port: ' + port);
+let server = http.createServer(router).listen(PORT);
+console.log('Server listening on port: ' + PORT);
