@@ -239,11 +239,20 @@
   },
   "quickReplies": [
     {
-      "title": "Test Quick Reply",
+      "title": "Test Treewalk",
       "action": {
         "type": "treewalk",
         "content": {
           "classification": "BBQ"
+        }
+      }
+    },
+    {
+      "title": "Test Web",
+      "action": {
+        "type": "web",
+        "content": {
+          "url": "https://www.google.com"
         }
       }
     }

@@ -2,6 +2,7 @@
 
 module.exports = {
 
+	Action: require('./action'),
 	Button: require('./button'),
 	Icon: require('./icon'),
 	Label: require('./label'),

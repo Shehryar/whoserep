@@ -1,0 +1,48 @@
+{
+    "type": "message",
+    "template": "title_button_basic_item_list",
+    "data": {
+      "text": "Hello, world!",
+      "attachment": {
+        "title": "Transaction History",
+        "buttonTitle": "VIEW DETAILS",
+        "buttonAction": {
+          "type": "componentView",
+          "name": "viewName12345"
+        },
+        "items": [
+          {
+            "text": "March 2017 Statement",
+            "detailText": "03/04/2017",
+            "valueText": "$110.97"
+          },
+          {
+            "text": "February 2017 Statement",
+            "detailText": "02/04/2017",
+            "valueText": "$110.97"
+          },
+          {
+            "text": "January 2017 Statement",
+            "detailText": "01/04/2017",
+            "valueText": "$110.97"
+          }
+        ]
+      },
+      "quickReplies": [
+        {
+          "title": "Test Treewalk",
+          "action": {
+            "type": "treewalk",
+            "classification": "BBQ"
+          }
+        },
+        {
+          "title": "Test Web",
+          "action": {
+            "type": "web",
+            "url": "https://www.google.com"
+          }
+        }
+      ]
+    }
+  }

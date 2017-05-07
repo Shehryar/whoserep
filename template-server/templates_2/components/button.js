@@ -1,6 +1,7 @@
 // button.js
 
 const Component = require('./component');
+const Action = require('./action');
 
 module.exports = function(data) {
 	Component.call(this, data);
@@ -8,7 +9,7 @@ module.exports = function(data) {
 	this.type = "button";
 	this.content = {
 		title: data.title,
-		action: data.action
+		action: new Action(data.action)
 	};
 
 	if (data.buttonStyle) this.content.style = data.buttonStyle;

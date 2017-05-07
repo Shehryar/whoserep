@@ -9,9 +9,7 @@
         "buttonTitle": "VIEW DETAILS",
         "buttonAction": {
           "type": "componentView",
-          "content": {
-            "name": "viewName12345"
-          }
+          "name": "viewName12345"
         },
         "items": [
           {
@@ -33,12 +31,17 @@
       },
       "quickReplies": [
         {
-          "title": "Test Quick Reply",
+          "title": "Test Treewalk",
           "action": {
             "type": "treewalk",
-            "content": {
-              "classification": "BBQ"
-            }
+            "classification": "BBQ"
+          }
+        },
+        {
+          "title": "Test Web",
+          "action": {
+            "type": "web",
+            "url": "https://www.google.com"
           }
         }
       ]
