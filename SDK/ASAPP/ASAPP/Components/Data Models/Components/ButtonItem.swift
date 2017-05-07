@@ -11,7 +11,7 @@ import UIKit
 enum ButtonStyle: String {
     case primary = "primary"
     case secondary = "secondary"
-    case textPrimary = "text"
+    case textPrimary = "textPrimary"
     case textSecondary = "textSecondary"
     
     static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
