@@ -56,7 +56,7 @@ module.exports = {
 	/**
 	completion format: (code: 200, files: [...], err: '')
 	*/
-	getFilesInDirectory: function(directory, stripExtension, completion) {
+	getFilesInDirectory: function(directory, extension, stripExtension, completion) {
 		fs.readdir(directory, (err, files) => {
 			if (err) {
 				completion(500, null, 'Unable to find directory.');
@@ -65,10 +65,12 @@ module.exports = {
 
 			let fileNames = []
 			files.forEach(file => {
-				if (stripExtension) {
-					fileNames.push(file.split('.')[0]);
-				} else {
-					fileNames.push(file);
+				if (!extension || ~file.indexOf(extension)) {
+					if (stripExtension) {
+						fileNames.push(file.split('.')[0]);
+					} else {
+						fileNames.push(file);
+					}
 				}
 			});
 			completion(200, fileNames, null);

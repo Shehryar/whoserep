@@ -43,13 +43,8 @@ class UseCasePreviewAPI: NSObject {
     
     class func getUseCases(completion: @escaping UseCasesCompletion) {
         sendGETRequest(path: "/use_cases") { (data, response, error) in
-            var useCases = [String]()
-            if let json = getJSON(from: data) {
-                for (key, _) in json {
-                    useCases.append(key)
-                }
-                useCases.sort()
-            }
+            var useCases = getJSONArray(from: data) as? [String]
+            useCases?.sort()
             Dispatcher.performOnMainThread {
                 completion(useCases, error)
             }
@@ -148,6 +143,20 @@ extension UseCasePreviewAPI {
         var json: [String : Any]?
         do {
             try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+        } catch {}
+        
+        return json
+    }
+    
+    
+    fileprivate class func getJSONArray(from data: Data?) -> [Any]? {
+        guard let data = data else {
+            return nil
+        }
+        
+        var json: [Any]?
+        do {
+            try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Any]
         } catch {}
         
         return json

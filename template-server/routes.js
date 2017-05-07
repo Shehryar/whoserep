@@ -1,10 +1,14 @@
 const FileUtil = require('./file_util');
 const Router = require('node-router');
 
+const USE_CASES_DIRECTORY = './use_cases';
+const MESSAGE_TEMPLATES_DIRECTORY = './templates_2/messages';
+const OUTPUT_DIRECTORY = './output';
+
+const TEMPLATES_DIRECTORY = './templates';
 const JSON_DIRECTORY = './json/';
 const USE_CASES_FILEPATH = './use-cases.json';
-const TEMPLATES_DIRECTORY = './templates';
-const OUTPUT_DIRECTORY = './output';
+
 
 const router = Router();
 let route = router.push;
@@ -16,15 +20,15 @@ route(function (req, res, next) {
   next();
 });
 
-route('GET', '/components', function(req, res, next) {
-  FileUtil.getFilesInDirectory(JSON_DIRECTORY, true, function(code, fileNames, err) {
-    res.send(code, fileNames || err);
-  });
-});
-
 route('GET', '/use_cases', function(req, res, next) {
-  FileUtil.getContentsOfFile(USE_CASES_FILEPATH, function(code, data, contentType, err) {
-    res.send(code, data.toString());
+  FileUtil.getFilesInDirectory('./use_cases', '.json', true, function(code, files, err) {
+    if (files) {
+      console.log('  Found ' + files.length + ' use cases.');
+    } else {
+      console.log('  Unable to find use cases.');
+      console.log(err);
+    }
+    res.send(code, files);
   });
 });
 
@@ -35,57 +39,61 @@ route('GET', '/use_case', function(req, res, next) {
     return;
   }
 
-  FileUtil.getContentsOfFile(USE_CASES_FILEPATH, function(code, data, contentType, err) {
+  const useCaseFilepath = USE_CASES_DIRECTORY + '/' + id + '.json';
+  FileUtil.getContentsOfFile(useCaseFilepath, function(code, data, contentType, err) {
     if (code != 200) {
       res.send(code, err);
       return;
     }
 
-    const useCases = JSON.parse(data);
-    if (!useCases) {
+    const useCase = JSON.parse(data);
+    if (!useCase) {
       res.send(500, 'Unable to parse use cases data');
       return;
     }
-
-    var useCase = useCases[id];
-    if (!useCase) {
-      res.send(404, 'Unable to find use case with id: ' + id);
-      return;
-    } 
-
+    
     console.log('Found Use Case:');
     console.log(useCase);
-    console.log(useCase.type === 'message' ? 'true' : 'false');
+    console.log('Message: ' + useCase.type === 'message' ? 'true' : 'false');
 
     // Fetch the template
     const templateName = useCase.template || id;
-    const templatesDirectory = useCase.type === 'message' ? './templates_2/messages' : TEMPLATES_DIRECTORY;
-    const templateFilepath = templatesDirectory + '/' + templateName;
-  
+    const templateFilepath = MESSAGE_TEMPLATES_DIRECTORY + '/' + templateName;
+
     console.log('  Fetching template at: ' + templateFilepath);
     try {
       var template = require(templateFilepath);
     } catch (err) {
-      console.log('  Unable to locate template.');
+      console.log('  Unable to locate template: ' + templateName);
       console.log(err);
-
-      console.log('\n  Falling back on JSON');
-      const pathname = JSON_DIRECTORY + '/' + id + '.json';
-      FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
-        if (code != 200) {
-          res.send(code, err);
-        } else {
-          console.log('  Found json file');
-          res.setHeader('Content-type', contentType);
-          res.end(data);
-        }
-      });
+      res.send(500, 'Unable to import template');
       return;
+
+      // console.log('\n  Falling back on JSON');
+      // const pathname = JSON_DIRECTORY + '/' + id + '.json';
+      // FileUtil.getContentsOfFile(pathname, function(code, data, contentType, err) {
+      //   if (code != 200) {
+      //     res.send(code, err);
+      //   } else {
+      //     console.log('  Found json file');
+      //     res.setHeader('Content-type', contentType);
+      //     res.end(data);
+      //   }
+      // });
+      // return;
     }
     
     // Generate the JSON
     // const templateOutput = template.build(useCase.data);
-    const templateOutput = new template(useCase.data);
+    try {
+      var templateOutput = new template(useCase.data);  
+    } catch (err) {
+      console.log('  Unable to generate output from template: ' + templateName);
+      console.log(err);
+      res.send(500, 'Unable to generate output from template.');
+      return;
+    }
+    
     const json = JSON.stringify(templateOutput);
     res.setHeader('Content-type', contentType);
     res.end(json);
