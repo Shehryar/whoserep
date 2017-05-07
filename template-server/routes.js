@@ -1,5 +1,6 @@
 const FileUtil = require('./file_util');
 const Router = require('node-router');
+const Mustache = require('mustache');
 
 const JSON_DIRECTORY = './json/';
 const USE_CASES_FILEPATH = './use-cases.json';
@@ -14,6 +15,65 @@ route(function (req, res, next) {
   console.log('\n----------------------------------------');
   console.log(req.method + ' ' + req.path + ' ' + JSON.stringify(req.query));
   next();
+});
+
+route('GET', '/testMustache', function(req, res, next) {
+  FileUtil.getMustacheTemplate('./mst_templates/test.mst', function(code, template, err) {
+    if (template) {
+      const output = Mustache.render(template, { 
+        firstName: 'Mitchell',
+        lastName: 'Morgan'
+      });
+      console.log('Output:');
+      console.log(output);
+
+      res.setHeader('Content-type', 'application/json');
+      res.end(output);
+    } else {
+      res.send(code, err);
+    }
+  });
+});
+
+route('GET', '/template', function(req, res, next) {
+  const id = req.query.id;
+  if (!id) {
+    res.send(400, 'id query parameter is required.');  
+    return;
+  }
+
+  const templateName = id + '.mustache';
+  const templatePath = './mst_templates/' + templateName;
+  FileUtil.getMustacheTemplate(templatePath, function(code, template, err) {
+    if (!template) {
+      res.send(code, err);
+      return;
+    }
+
+    const output = Mustache.render(template, { 
+      firstName: 'Mitchell',
+      lastName: 'Morgan',
+      watches: [
+        {
+          name: "Tudor Black Bay Black",
+          type: "Diver"
+        },
+        {
+          name: "Rolex Oyster Perpetual 39",
+          type: "Classy AF"
+        },
+        {
+          name: "Nomos Orion",
+          type: "Dress"
+        }
+      ]
+    });
+    console.log('Output:');
+    console.log(output);
+
+    res.setHeader('Content-type', 'application/json');
+    res.end(output);
+  });
 });
 
 route('GET', '/components', function(req, res, next) {

@@ -79,5 +79,29 @@ module.exports = {
 		fs.writeFile(filepath, data, function(err) {
 			completion(err);
 		});
-	}
+	},
+
+	/**
+	 MUSTACHE
+	 */
+	getMustacheTemplate: function(pathname, completion) {
+		this.getContentsOfFile(pathname, function(code, data, contentType, err) {
+			if (err) {
+				completion(code, null, err);
+				return
+			}
+
+			try {
+				var template = String(data);
+			} catch (e) {
+				console.log('Error parsing mustache template: ' + pathname);
+				console.log(e);
+
+				completion(500, null, 'Unable to parse template');
+				return;				
+			}
+
+			completion(code, template, err);
+		});
+	},
 };
