@@ -2,7 +2,7 @@
     "type": "message",
     "template": "title_button_basic_item_list",
     "data": {
-      "text": "Hello, world!",
+      "text": "Sure! Here are your last three transactions, click “view all” to see your full transaction history.",
       "attachment": {
         "title": "Transaction History",
         "buttonTitle": "VIEW DETAILS",
@@ -12,19 +12,19 @@
         },
         "items": [
           {
-            "text": "March 2017 Statement",
-            "detailText": "03/04/2017",
+            "text": "March 2017 Bill Statement",
+            "detailText": "03/03/2017 - 4:14PM",
             "valueText": "$110.97"
           },
           {
-            "text": "February 2017 Statement",
-            "detailText": "02/04/2017",
+            "text": "February 2017 Bill Statement",
+            "detailText": "02/03/2017 - 4:14PM",
             "valueText": "$110.97"
           },
           {
-            "text": "January 2017 Statement",
-            "detailText": "01/04/2017",
-            "valueText": "$110.97"
+            "text": "Upgrade Services",
+            "detailText": "01/03/2017",
+            "valueText": "$34.66"
           }
         ]
       },
