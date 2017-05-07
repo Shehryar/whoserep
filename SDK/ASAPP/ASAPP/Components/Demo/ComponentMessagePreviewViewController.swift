@@ -241,6 +241,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             
         case .web:
             title = "Web"
+            message = (quickReply.action as? WebPageAction)?.url.absoluteString
             break
         }
         
