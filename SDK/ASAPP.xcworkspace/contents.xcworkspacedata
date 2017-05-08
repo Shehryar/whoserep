@@ -7,4 +7,7 @@
    <FileRef
       location = "group:ASAPPTest/ASAPPTest.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ComponentUIPreviewer/ComponentUIPreviewer.xcodeproj">
+   </FileRef>
 </Workspace>
