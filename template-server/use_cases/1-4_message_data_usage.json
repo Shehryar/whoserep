@@ -1,0 +1,46 @@
+{
+  "type": "message",
+  "template": "title_button_usage",
+  "data": {
+    "text": "Sure! Here’s a snapshot of your data usage, tap 'view details' to see more information.",
+    "attachment": {
+      "title": "Data Usage",
+      "buttonTitle": "VIEW DETAILS",
+      "buttonAction": {
+        "type": "componentView",
+        "name": "1-4_view_data_usage"
+      },
+      "content": {
+        "fillPercentage": 1,
+        "progressBarColor": "#EF7667",
+        "headerText": "450 GB",
+        "icon": "alertError",
+        "detailText": "of 450GB",
+        "errorText": "Account Throttled"
+      }
+    },
+    "quickReplies": [
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "classification": "1-3_message_text_history"
+        }
+      },
+      {
+        "title": "Payments",
+        "action": {
+          "type": "treewalk",
+          "classification": "1-1_message_transaction_history"
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "classification": "1-2_message_talk_history"
+        }
+      }
+    ]
+  }
+}

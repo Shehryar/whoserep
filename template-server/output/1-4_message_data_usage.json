@@ -1,9 +1,11 @@
 {
-  "text": "Sure! Here are your last three transactions. Tap 'view all' to see your full transaction history.",
+  "text": "Sure! Here’s a snapshot of your data usage, tap 'view details' to see more information.",
   "attachment": {
-    "type": "componentView",
     "content": {
       "body": {
+        "style": {
+          "padding": "4 20 4 20"
+        },
         "type": "stackView",
         "content": {
           "items": [
@@ -12,17 +14,24 @@
               "content": {
                 "items": [
                   {
+                    "style": {
+                      "textType": "bodyBold",
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    },
                     "type": "label",
                     "content": {
                       "text": "Data Usage"
-                    },
-                    "style": {
-                      "textType": "bodyBold",
-                      "gravity": "middle",
-                      "weight": 1
                     }
                   },
                   {
+                    "style": {
+                      "padding": "16 0 16 16",
+                      "textAlign": "right",
+                      "align": "right",
+                      "gravity": "middle"
+                    },
                     "type": "button",
                     "content": {
                       "title": "VIEW DETAILS",
@@ -32,11 +41,7 @@
                           "name": "1-4_view_data_usage"
                         }
                       },
-                      "style": "text"
-                    },
-                    "style": {
-                      "padding": "16 0 16 16",
-                      "textAlign": "right"
+                      "style": "textPrimary"
                     }
                   }
                 ],
@@ -47,54 +52,88 @@
               "type": "separator"
             },
             {
+              "style": {
+                "paddingTop": 24,
+                "paddingBottom": 24
+              },
               "type": "stackView",
               "content": {
                 "items": [
                   {
+                    "style": {
+                      "marginBottom": 24,
+                      "color": "#EF7667"
+                    },
                     "type": "progressBar",
                     "content": {
-                      "fillPercentage": 0.45
-                    },
-                    "style": {
-                      "marginBottom": 20
+                      "fillPercentage": 1
                     }
                   },
                   {
-                    "type": "label",
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 4
+                    },
+                    "type": "stackView",
                     "content": {
-                      "text": "200GB"
-                    },
-                    "style": {
-                      "textType": "bodyBold",
-                      "align": "fill",
-                      "textAlign": "center",
-                      "marginBottom": 8
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "header1",
+                            "gravity": "middle",
+                            "marginRight": 8
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "450 GB"
+                          }
+                        },
+                        {
+                          "style": {
+                            "width": 20,
+                            "height": 20,
+                            "gravity": "middle"
+                          },
+                          "type": "icon",
+                          "content": {
+                            "icon": "alertError"
+                          }
+                        }
+                      ],
+                      "orientation": "horizontal"
                     }
                   },
                   {
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 12,
+                      "textType": "detail1"
+                    },
                     "type": "label",
                     "content": {
                       "text": "of 450GB"
-                    },
+                    }
+                  },
+                  {
                     "style": {
-                      "textType": "detail1",
-                      "align": "fill",
-                      "textAlign": "center"
+                      "align": "center",
+                      "textType": "error"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "Account Throttled"
                     }
                   }
-                ]
-              },
-              "style": {
-                "padding": 20
+                ],
+                "orientation": "vertical"
               }
             }
-          ]
-        },
-        "style": {
-          "padding": "0 20"
+          ],
+          "orientation": "vertical"
         }
       }
-    }
+    },
+    "type": "componentView"
   },
   "quickReplies": [
     {

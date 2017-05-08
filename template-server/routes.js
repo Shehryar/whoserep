@@ -2,12 +2,9 @@ const FileUtil = require('./file_util');
 const Router = require('node-router');
 
 const USE_CASES_DIRECTORY = './use_cases';
-const MESSAGE_TEMPLATES_DIRECTORY = './templates_2/messages';
+const MESSAGE_TEMPLATES_DIRECTORY = './templates/messages';
 const OUTPUT_DIRECTORY = './output';
-
-const TEMPLATES_DIRECTORY = './templates';
 const JSON_DIRECTORY = './json/';
-const USE_CASES_FILEPATH = './use-cases.json';
 
 
 const router = Router();
@@ -52,10 +49,6 @@ route('GET', '/use_case', function(req, res, next) {
       return;
     }
     
-    console.log('Found Use Case:');
-    console.log(useCase);
-    console.log('Message: ' + useCase.type === 'message' ? 'true' : 'false');
-
     // Fetch the template
     const templateName = useCase.template || id;
     const templateFilepath = MESSAGE_TEMPLATES_DIRECTORY + '/' + templateName;

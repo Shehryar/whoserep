@@ -38,7 +38,7 @@
                       "action": {
                         "type": "componentView",
                         "content": {
-                          "name": "viewName12345"
+                          "name": "1-1_view_transaction_history"
                         }
                       },
                       "style": "textPrimary"
@@ -239,20 +239,29 @@
   },
   "quickReplies": [
     {
-      "title": "Test Treewalk",
+      "title": "Data Usage",
       "action": {
         "type": "treewalk",
         "content": {
-          "classification": "BBQ"
+          "classification": "1-4_message_data_usage"
         }
       }
     },
     {
-      "title": "Test Web",
+      "title": "Texts",
       "action": {
-        "type": "web",
+        "type": "treewalk",
         "content": {
-          "url": "https://www.google.com"
+          "classification": "1-3_message_text_history"
+        }
+      }
+    },
+    {
+      "title": "Calls",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-2_message_talk_history"
         }
       }
     }

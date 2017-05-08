@@ -2,30 +2,33 @@
   "type": "message",
   "template": "title_button_basic_item_list",
   "data": {
-    "text": "Sure! Here are your last three transactions, click “view all” to see your full transaction history.",
+    "text": "Sure! Here are your last three texts. Tap 'view all' to see your full text history.",
     "attachment": {
-      "title": "Transaction History",
+      "title": "Text History",
       "buttonTitle": "VIEW DETAILS",
       "buttonAction": {
         "type": "componentView",
-        "name": "1-1_view_transaction_history"
+        "name": "1-3_view_text_history"
       },
       "content": {
         "items": [
           {
-            "text": "March 2017 Bill Statement",
-            "detailText": "03/03/2017 - 4:14PM",
-            "valueText": "$110.97"
+            "icon": "arrowOutgoing",
+            "text": "+1 (555) 123-4567",
+            "detailText": "3/3/2017 - 4:14PM",
+            "valueText": "$0.25"
           },
           {
-            "text": "February 2017 Bill Statement",
-            "detailText": "02/03/2017 - 4:14PM",
-            "valueText": "$110.97"
+            "icon": "arrowOutgoing",
+            "text": "Mom",
+            "detailText": "3/3/2017 - 4:04PM",
+            "valueText": "$0.10"
           },
           {
-            "text": "Upgrade Services",
-            "detailText": "01/03/2017",
-            "valueText": "$34.66"
+            "icon": "placeholder",
+            "text": "+1 (555) 123-4567",
+            "detailText": "3/3/2017 - 1:43PM",
+            "valueText": "$0.10"
           }
         ]
       }
@@ -39,10 +42,10 @@
         }
       },
       {
-        "title": "Texts",
+        "title": "Payments",
         "action": {
           "type": "treewalk",
-          "classification": "1-3_message_text_history"
+          "classification": "1-1_message_transaction_history"
         }
       },
       {

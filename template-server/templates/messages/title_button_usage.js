@@ -11,7 +11,7 @@ module.exports = function(data) {
 				title: attachmentContent.title,
 				buttonTitle: attachmentContent.buttonTitle,
 				buttonAction: attachmentContent.buttonAction,
-				content: new Templates.BasicItemList(attachmentContent.content)
+				content: new Templates.ProgressHeaderDetailError(attachmentContent.content)
 			})
 		}
 	});
