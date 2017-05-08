@@ -3,6 +3,7 @@ const Router = require('node-router');
 
 const USE_CASES_DIRECTORY = './use_cases';
 const MESSAGE_TEMPLATES_DIRECTORY = './templates/messages';
+const VIEW_TEMPLATES_DIRECTORY = './templates/views';
 const OUTPUT_DIRECTORY = './output';
 const JSON_DIRECTORY = './json/';
 
@@ -43,15 +44,26 @@ route('GET', '/use_case', function(req, res, next) {
       return;
     }
 
-    const useCase = JSON.parse(data);
+    try {
+      var useCase = JSON.parse(data);
+    } catch (err) {
+      console.log('Unable to parse JSON from: ' + useCaseFilepath);
+      res.send(500, 'Unable to parse JSON from: ' + useCaseFilepath);
+      return;
+    }
     if (!useCase) {
-      res.send(500, 'Unable to parse use cases data');
+      res.send(500, 'Missing data after parsing JSON from: ' + useCaseFilepath);
       return;
     }
     
     // Fetch the template
-    const templateName = useCase.template || id;
-    const templateFilepath = MESSAGE_TEMPLATES_DIRECTORY + '/' + templateName;
+    const templateName = useCase.template;
+    let templateFilepath = "";
+    if (useCase.type === 'message') {
+      templateFilepath = MESSAGE_TEMPLATES_DIRECTORY + '/' + templateName;
+    } else if (useCase.type === 'view') {
+      templateFilepath = VIEW_TEMPLATES_DIRECTORY + '/' + templateName;
+    }
 
     console.log('  Fetching template at: ' + templateFilepath);
     try {
