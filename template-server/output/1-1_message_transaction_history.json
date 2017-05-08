@@ -38,7 +38,7 @@
                       "action": {
                         "type": "componentView",
                         "content": {
-                          "name": "1-1_view_transaction_history"
+                          "name": "01-1_view_transaction_history"
                         }
                       },
                       "style": "textPrimary"

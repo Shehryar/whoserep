@@ -149,7 +149,7 @@
       "action": {
         "type": "treewalk",
         "content": {
-          "classification": "1-1_message_transaction_history"
+          "classification": "01-1_message_transaction_history"
         }
       }
     },

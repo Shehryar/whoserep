@@ -8,7 +8,7 @@
       "buttonTitle": "VIEW DETAILS",
       "buttonAction": {
         "type": "componentView",
-        "name": "1-4-3_view_data_usage"
+        "name": "01-4-3_view_data_usage"
       },
       "content": {
         "fillPercentage": 1,
@@ -24,21 +24,21 @@
         "title": "Texts",
         "action": {
           "type": "treewalk",
-          "classification": "1-3_message_text_history"
+          "classification": "01-3_message_text_history"
         }
       },
       {
         "title": "Payments",
         "action": {
           "type": "treewalk",
-          "classification": "1-1_message_transaction_history"
+          "classification": "01-1_message_transaction_history"
         }
       },
       {
         "title": "Calls",
         "action": {
           "type": "treewalk",
-          "classification": "1-2_message_talk_history"
+          "classification": "01-2_message_talk_history"
         }
       }
     ]

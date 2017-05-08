@@ -1,5 +1,5 @@
 {
-  "text": "Sure! Here are your last three texts. Tap 'view all' to see your full text history.",
+  "text": "Sure! Here are your last three calls. Tap 'view all' to see your full talk history.",
   "attachment": {
     "content": {
       "body": {
@@ -22,7 +22,7 @@
                     },
                     "type": "label",
                     "content": {
-                      "text": "Text History"
+                      "text": "Talk History"
                     }
                   },
                   {
@@ -38,7 +38,7 @@
                       "action": {
                         "type": "componentView",
                         "content": {
-                          "name": "1-3_view_text_history"
+                          "name": "01-2_view_talk_history"
                         }
                       },
                       "style": "textPrimary"
@@ -116,78 +116,7 @@
                           },
                           "type": "label",
                           "content": {
-                            "text": "$0.25"
-                          }
-                        }
-                      ],
-                      "orientation": "horizontal"
-                    }
-                  },
-                  {
-                    "type": "separator"
-                  },
-                  {
-                    "style": {
-                      "padding": "12 0"
-                    },
-                    "type": "stackView",
-                    "content": {
-                      "items": [
-                        {
-                          "style": {
-                            "weight": 0,
-                            "gravity": "middle",
-                            "height": 10,
-                            "width": 10,
-                            "marginRight": 20
-                          },
-                          "type": "icon",
-                          "content": {
-                            "icon": "arrowOutgoing"
-                          }
-                        },
-                        {
-                          "style": {
-                            "gravity": "middle",
-                            "weight": 1,
-                            "marginRight": 8
-                          },
-                          "type": "stackView",
-                          "content": {
-                            "items": [
-                              {
-                                "style": {
-                                  "textType": "body",
-                                  "marginBottom": 4
-                                },
-                                "type": "label",
-                                "content": {
-                                  "text": "Mom"
-                                }
-                              },
-                              {
-                                "style": {
-                                  "textType": "detail1"
-                                },
-                                "type": "label",
-                                "content": {
-                                  "text": "3/3/2017 - 4:04PM"
-                                }
-                              }
-                            ],
-                            "orientation": "vertical"
-                          }
-                        },
-                        {
-                          "style": {
-                            "textType": "bodyBold",
-                            "gravity": "middle",
-                            "align": "right",
-                            "textAlign": "right"
-                          },
-                          "type": "label",
-                          "content": {
-                            "text": "$0.10"
+                            "text": "0:25"
                           }
                         }
                       ],
@@ -233,7 +162,7 @@
                                 },
                                 "type": "label",
                                 "content": {
-                                  "text": "+1 (555) 123-4567"
+                                  "text": "Mom"
                                 }
                               },
                               {
@@ -242,7 +171,7 @@
                                 },
                                 "type": "label",
                                 "content": {
-                                  "text": "3/3/2017 - 1:43PM"
+                                  "text": "3/2/2017 - 12:31PM"
                                 }
                               }
                             ],
@@ -258,7 +187,78 @@
                           },
                           "type": "label",
                           "content": {
-                            "text": "$0.10"
+                            "text": "09:14"
+                          }
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "padding": "12 0"
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 0,
+                            "gravity": "middle",
+                            "height": 10,
+                            "width": 10,
+                            "marginRight": 20
+                          },
+                          "type": "icon",
+                          "content": {
+                            "icon": "arrowOutgoing"
+                          }
+                        },
+                        {
+                          "style": {
+                            "gravity": "middle",
+                            "weight": 1,
+                            "marginRight": 8
+                          },
+                          "type": "stackView",
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "body",
+                                  "marginBottom": 4
+                                },
+                                "type": "label",
+                                "content": {
+                                  "text": "+1 (555) 123-4567"
+                                }
+                              },
+                              {
+                                "style": {
+                                  "textType": "detail1"
+                                },
+                                "type": "label",
+                                "content": {
+                                  "text": "2/28/2017 - 8:07PM"
+                                }
+                              }
+                            ],
+                            "orientation": "vertical"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "gravity": "middle",
+                            "align": "right",
+                            "textAlign": "right"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "07:02"
                           }
                         }
                       ],
@@ -276,33 +276,35 @@
     },
     "type": "componentView"
   },
-  "quickReplies": [
-    {
-      "title": "Data Usage",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-4_message_data_usage"
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Data Usage",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-4_message_data_usage"
+          }
+        }
+      },
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-3_message_text_history"
+          }
+        }
+      },
+      {
+        "title": "Payments",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-1_message_transaction_history"
+          }
         }
       }
-    },
-    {
-      "title": "Payments",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "01-1_message_transaction_history"
-        }
-      }
-    },
-    {
-      "title": "Calls",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-2_message_talk_history"
-        }
-      }
-    }
-  ]
+    ]
+  }
 }

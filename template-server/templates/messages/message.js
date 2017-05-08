@@ -38,3 +38,5 @@ function parseQuickReplies(quickRepliesData) {
 	}
 	return quickReplies;
 }
+
+

@@ -2,13 +2,13 @@
   "type": "message",
   "template": "title_button_basic_item_list",
   "data": {
-    "text": "Sure! Here are your last three calls. Tap 'view all' to see your full talk history.",
+    "text": "Sure! Here are your last three texts. Tap 'view all' to see your full text history.",
     "attachment": {
-      "title": "Talk History",
+      "title": "Text History",
       "buttonTitle": "VIEW DETAILS",
       "buttonAction": {
         "type": "componentView",
-        "name": "1-2_view_talk_history"
+        "name": "01-3_view_text_history"
       },
       "content": {
         "items": [
@@ -16,19 +16,19 @@
             "icon": "arrowOutgoing",
             "text": "+1 (555) 123-4567",
             "detailText": "3/3/2017 - 4:14PM",
-            "valueText": "0:25"
-          },
-          {
-            "icon": "placeholder",
-            "text": "Mom",
-            "detailText": "3/2/2017 - 12:31PM",
-            "valueText": "09:14"
+            "valueText": "$0.25"
           },
           {
             "icon": "arrowOutgoing",
+            "text": "Mom",
+            "detailText": "3/3/2017 - 4:04PM",
+            "valueText": "$0.10"
+          },
+          {
+            "icon": "placeholder",
             "text": "+1 (555) 123-4567",
-            "detailText": "2/28/2017 - 8:07PM",
-            "valueText": "07:02"
+            "detailText": "3/3/2017 - 1:43PM",
+            "valueText": "$0.10"
           }
         ]
       }
@@ -38,21 +38,21 @@
         "title": "Data Usage",
         "action": {
           "type": "treewalk",
-          "classification": "1-4_message_data_usage"
-        }
-      },
-      {
-        "title": "Texts",
-        "action": {
-          "type": "treewalk",
-          "classification": "1-3_message_text_history"
+          "classification": "01-4_message_data_usage"
         }
       },
       {
         "title": "Payments",
         "action": {
           "type": "treewalk",
-          "classification": "1-1_message_transaction_history"
+          "classification": "01-1_message_transaction_history"
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-2_message_talk_history"
         }
       }
     ]

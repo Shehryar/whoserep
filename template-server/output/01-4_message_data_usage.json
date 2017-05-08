@@ -38,7 +38,7 @@
                       "action": {
                         "type": "componentView",
                         "content": {
-                          "name": "1-4_view_data_usage"
+                          "name": "01-4_view_data_usage"
                         }
                       },
                       "style": "textPrimary"
@@ -107,7 +107,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "1-3_message_text_history"
+            "classification": "01-3_message_text_history"
           }
         }
       },
@@ -125,7 +125,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "1-2_message_talk_history"
+            "classification": "01-2_message_talk_history"
           }
         }
       }

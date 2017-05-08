@@ -1,0 +1,903 @@
+{
+  "body": {
+    "style": {
+      "gravity": "fill"
+    },
+    "type": "tableView",
+    "content": {
+      "sections": [
+        {
+          "header": {
+            "class": "header",
+            "type": "label",
+            "content": {
+              "text": "2017"
+            }
+          },
+          "rows": [
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.25"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:04PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.10"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 1:43PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.10"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 1:43PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.10"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "2/14/2017 - 4:04PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.15"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "1/30/2017 - 1:02PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.25"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "1/15/2017 - 8:54PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.95"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "1/4/2017 - 10:34AM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$01.63"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            }
+          ]
+        },
+        {
+          "header": {
+            "class": "header",
+            "type": "label",
+            "content": {
+              "text": "2016"
+            }
+          },
+          "rows": [
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "12/25/2016 - 5:34PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.23"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Billy"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "12/18/2016 - 5:12PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.62"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "12/14/2016 - 6:54PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.25"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "12/1/2016 - 1:24PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$01.50"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "class": "row",
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 10,
+                      "width": 10,
+                      "marginRight": 20
+                    },
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    }
+                  },
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          }
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 12:31PM"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    }
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "type": "label",
+                    "content": {
+                      "text": "$0.35"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "title": "Text History",
+  "styles": {
+    "header": {
+      "textType": "subheader",
+      "backgroundColor": "#f3f4f6",
+      "padding": "6 24"
+    },
+    "row": {
+      "padding": "12 24"
+    }
+  }
+}
