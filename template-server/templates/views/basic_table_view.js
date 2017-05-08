@@ -22,9 +22,32 @@ module.exports = function(data) {
 
 	// Content
 	let sections = [];
-	if (headerData) {
-		sections.push({ header: headerData });
+	if (headerData && headerData.template) {
+		try {
+			var headerTemplate = require('../templates/' + headerData.template);
+		} catch (err) {
+			console.log('Unable to find template: ' + headerData.template);
+			console.log(err);
+		}
+
+		if (headerTemplate) {
+			try {
+				var headerObject = new headerTemplate(headerData.data);
+			} catch (err) {
+				console.log('Unable to build header template object');
+				console.log(err);
+			}
+
+			if (headerObject) {
+				sections.push(new Components.TableViewSection({
+					header: headerObject
+				}));
+			} else {
+				console.log('Failed to create header object.');
+			}
+		}
 	}
+
 	if (sectionsData && sectionsData.length > 0) {
 		for (var i = 0; i < sectionsData.length; i++) {
 			var sectionData = sectionsData[i];

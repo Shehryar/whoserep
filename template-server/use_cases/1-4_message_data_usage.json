@@ -11,12 +11,9 @@
         "name": "1-4_view_data_usage"
       },
       "content": {
-        "fillPercentage": 1,
-        "progressBarColor": "#EF7667",
-        "headerText": "450 GB",
-        "icon": "alertError",
-        "detailText": "of 450GB",
-        "errorText": "Account Throttled"
+        "fillPercentage": 0.45,
+        "headerText": "200 GB",
+        "detailText": "of 450GB"
       }
     },
     "quickReplies": [

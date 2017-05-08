@@ -13,8 +13,7 @@ module.exports = function(data) {
 
 	// Default Styling
 	data.style = Object.assign({
-		paddingTop: 24,
-		paddingBottom: 24
+		padding: "24 0"
 	}, data.style);
 
 	// Content
