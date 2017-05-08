@@ -1,0 +1,135 @@
+{
+  "type": "view",
+  "template": "basic_table_view",
+  "data": {
+    "title": "Data Usage",
+    "body": {
+      "header": {
+        "template": "progress_header_body_error",
+        "data": {
+          "fillPercentage": 1,
+          "progressBarColor": "#ef7667",
+          "headerText": "200 GB",
+          "icon": "alertError",
+          "detailText": "of 450GB",
+          "errorText": "Account Throttled",
+          "style": {
+            "padding": "40 24 24 24"
+          }
+        }
+      },
+      "sections": [
+        {
+          "headerText": "March 2017",
+          "rows": [
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "3/3/2017",
+              "valueText": "FPO"
+            }
+          ]
+        },
+        {
+          "headerText": "February 2017",
+          "rows": [
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            },
+            {
+              "text": "Sample Content",
+              "detailText": "2/3/2017",
+              "valueText": "FPO"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
