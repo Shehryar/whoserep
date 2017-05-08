@@ -19,9 +19,9 @@ module.exports = function(data) {
 			style: {
 				weight: 0,
 				gravity: 'middle',
-				height: 12,
-				width: 12,
-				marginRight: 16
+				height: 10,
+				width: 10,
+				marginRight: 20
 			}
 		}));
 	}
