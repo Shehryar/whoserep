@@ -8,126 +8,59 @@
 
 import UIKit
 
-public class UseCasePreviewViewController: UIViewController {
+public class UseCasePreviewViewController: RefreshableTableViewController {
+
+    // MARK: Properties
     
-    var useCases: [String] = [String]() {
+    var names: [String] = [String]() {
         didSet {
             tableView.reloadData()
         }
     }
-
-    let tableView = UITableView(frame: .zero, style: .grouped)
     
-    // MARK: Properties: First Responder
-    
-    public override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    // MARK: Init
-    
-    func commonInit() {
-        title = "Use Case Preview"
-        automaticallyAdjustsScrollViewInsets = false
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(UseCasePreviewViewController.refresh))
-        
-        tableView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-        tableView.separatorColor = ASAPP.styles.colors.separatorPrimary
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        commonInit()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-    
-    deinit {
-        tableView.dataSource = nil
-        tableView.delegate = nil
-    }
-    
-    // MARK: View
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-        view.addSubview(tableView)
-        
-        refresh()
-    }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        becomeFirstResponder()
-    }
-    
-    // MARK: Layout
-    
-    public override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        tableView.frame = view.bounds
-        
-        var contentInset = UIEdgeInsets.zero
-        if let navBar = navigationController?.navigationBar {
-            contentInset.top = navBar.frame.maxY
+    var filesType: DemoComponentFileType = .useCase {
+        didSet {
+            refresh()
         }
-        tableView.contentInset = contentInset
     }
-    
+
     // MARK: Content
     
-    func refresh() {
+    override func refresh() {
         becomeFirstResponder()
-        UseCasePreviewAPI.getUseCases { [weak self] (useCases, error) in
-            if let useCases = useCases {
-                self?.useCases = useCases
+        
+        if filesType == .useCase {
+            UseCasePreviewAPI.getUseCases { [weak self] (useCases, error) in
+                if let useCases = useCases {
+                    self?.names = useCases
+                }
             }
-        }
-    }
-    
-    // MARK: Motion
-    
-    public override func motionEnded(_ motion: UIEventSubtype,
-                                     with event: UIEvent?) {
-        if motion == .motionShake {
-            refresh()
+        } else {
+            UseCasePreviewAPI.getJSONFilesNames(completion: { [weak self] (fileNames, error) in
+                if let fileNames = fileNames {
+                    self?.names = fileNames
+                }
+            })
         }
     }
 }
 
 // MARK:- UITableViewDataSource
 
-extension UseCasePreviewViewController: UITableViewDataSource {
-    
-    public func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+extension UseCasePreviewViewController {
+
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return useCases.count
-    }
-    
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Use Cases"
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseId = "NameReuseId"
         let cell = (tableView.dequeueReusableCell(withIdentifier: reuseId)
             ?? UITableViewCell(style: .subtitle, reuseIdentifier: reuseId))
         
         cell.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
-        let useCaseId = useCases[indexPath.row]
+        let useCaseId = names[indexPath.row]
         cell.textLabel?.setAttributedText(DemoComponentType.prettifyFileName(useCaseId),
                                           textStyle: ASAPP.styles.textStyles.body)
         cell.detailTextLabel?.setAttributedText(DemoComponentType.fromFileName(useCaseId).rawValue,
@@ -139,23 +72,26 @@ extension UseCasePreviewViewController: UITableViewDataSource {
 
 // MARK:- UITableViewDelegate
 
-extension UseCasePreviewViewController: UITableViewDelegate {
+extension UseCasePreviewViewController {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let useCaseId = useCases[indexPath.row]
-        let type = DemoComponentType.fromFileName(useCaseId)
+        let fileName = names[indexPath.row]
+        
+        let type = DemoComponentType.fromFileName(fileName)
         switch type {
         case .view, .card:
             let previewVC = ComponentPreviewViewController()
-            previewVC.useCaseId = useCaseId
+            previewVC.fileInfo = DemoComponentFileInfo(fileName: fileName,
+                                                       fileType: filesType)
             navigationController?.pushViewController(previewVC, animated: true)
             break
             
         case .message:
             let viewController = ComponentMessagePreviewViewController()
-            viewController.useCaseId = useCaseId
+            viewController.fileInfo = DemoComponentFileInfo(fileName: fileName,
+                                                            fileType: filesType)
             navigationController?.pushViewController(viewController, animated: true)
             break
         }

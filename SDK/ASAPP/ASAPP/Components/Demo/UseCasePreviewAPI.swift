@@ -8,6 +8,19 @@
 
 import UIKit
 
+enum DemoComponentFileType {
+    case useCase
+    case json
+}
+
+struct DemoComponentFileInfo {
+    let fileName: String
+    let fileType: DemoComponentFileType
+    var componentType: DemoComponentType {
+        return DemoComponentType.fromFileName(fileName)
+    }
+}
+
 enum DemoComponentType: String {
     case message = "Message"
     case view = "View"
@@ -50,6 +63,18 @@ class UseCasePreviewAPI: NSObject {
             }
         }
     }
+    
+    typealias JSONFilesCompletion = (_ fileNames: [String]?, _ err: Error?) -> Void
+    
+    class func getJSONFilesNames(completion: @escaping UseCasesCompletion) {
+        sendGETRequest(path: "/json_files") { (data, response, error) in
+            var useCases = getJSONArray(from: data) as? [String]
+            useCases?.sort()
+            Dispatcher.performOnMainThread {
+                completion(useCases, error)
+            }
+        }
+    }
 }
 
 // MARK: Chat Message
@@ -58,9 +83,21 @@ extension UseCasePreviewAPI {
     
     typealias ChatMessageCompletion = (_ chatMessage: ChatMessage?, _ err: Error?) -> Void
     
-    class func getChatMessage(with useCaseId: String, completion: @escaping ChatMessageCompletion) {
-        sendGETRequest(path: "/use_case",
-                       params: [URLQueryItem(name: "id", value: useCaseId)],
+    class func getChatMessage(fileInfo: DemoComponentFileInfo, completion: @escaping ChatMessageCompletion) {
+        
+        let path: String
+        switch fileInfo.fileType {
+        case .useCase:
+            path = "/use_case"
+            break
+            
+        case .json:
+            path = "/json_file"
+            break
+        }
+
+        sendGETRequest(path: path,
+                       params: [URLQueryItem(name: "id", value: fileInfo.fileName)],
                        completion: { (data, response, error) in
                         var chatMessage: ChatMessage?
                         if let json = getJSON(from: data) {
@@ -85,11 +122,22 @@ extension UseCasePreviewAPI {
     
     typealias ComponentViewContainerCompletion = (_ componentViewContainer: ComponentViewContainer?, _ err: Error?) -> Void
     
-    class func getComponentViewContainer(with useCaseId: String,
+    class func getComponentViewContainer(fileInfo: DemoComponentFileInfo,
                                          completion: @escaping ComponentViewContainerCompletion)  {
         
-        sendGETRequest(path: "/use_case",
-                       params: [URLQueryItem(name: "id", value: useCaseId)],
+        let path: String
+        switch fileInfo.fileType {
+        case .useCase:
+            path = "/use_case"
+            break
+            
+        case .json:
+            path = "/json_file"
+            break
+        }
+        
+        sendGETRequest(path: path,
+                       params: [URLQueryItem(name: "id", value: fileInfo.fileName)],
                        completion: { (data, response, error) in
                         var componentViewContainer: ComponentViewContainer?
                         if let json = getJSON(from: data) {

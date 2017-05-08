@@ -8,7 +8,6 @@ const VIEW_TEMPLATES_DIRECTORY = './templates/views';
 const OUTPUT_DIRECTORY = './output';
 const JSON_DIRECTORY = './json/';
 
-
 const router = Router();
 let route = router.push;
 
@@ -120,7 +119,36 @@ route('GET', '/use_case', function(req, res, next) {
       }
     });
   });
-})
+});
+
+route('GET', '/json_files', function(req, res, next) {
+  FileUtil.getFilesInDirectory(JSON_DIRECTORY, '.json', true, function(code, files, err) {
+    if (files) {
+      console.log('  Found ' + files.length + ' json files.');
+    } else {
+      console.log('  Unable to find any json files.');
+      console.log(err);
+    }
+    res.send(code, files);
+  });
+});
+
+route('GET', '/json_file', function(req, res, next) {
+  const id = req.query.id;
+  if (!id) {
+    res.send(400, 'id query parameter is required.');  
+    return;
+  }
+  const filepath = JSON_DIRECTORY + '/' + id + '.json';
+  FileUtil.getContentsOfFile(filepath, function(code, data, contentType, err) {
+    if (err) {
+      res.send(code, err);
+    } else {
+      res.setHeader('Content-type', contentType);
+      res.end(data);
+    }
+  });
+});
 
 // Request not found
 route(function (req, res, next) {

@@ -17,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let rootVC = UINavigationController(rootViewController: UseCasePreviewViewController())
+        ASAPP.debugLogLevel = .debug
+        ASAPP.loadFonts()
         
+        let rootVC = UINavigationController(rootViewController: ComponentUIPreviewerViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()

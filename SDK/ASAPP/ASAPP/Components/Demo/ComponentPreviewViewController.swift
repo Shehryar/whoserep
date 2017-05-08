@@ -10,20 +10,13 @@ import UIKit
 
 public class ComponentPreviewViewController: UIViewController {
     
-    var componentName: String? {
+    var fileInfo: DemoComponentFileInfo? {
         didSet {
-            title = DemoComponentType.prettifyFileName(componentName)
+            title = DemoComponentType.prettifyFileName(fileInfo?.fileName)
             refresh()
         }
     }
     
-    var useCaseId: String? {
-        didSet {
-            title = DemoComponentType.prettifyFileName(useCaseId)
-            refresh()
-        }
-    }
-
     var componentViewContainer: ComponentViewContainer?
     
     var json: [String : Any]?
@@ -142,20 +135,22 @@ public class ComponentPreviewViewController: UIViewController {
     
     func refresh() {
         becomeFirstResponder()
-        DebugLog.i(caller: self, "Refreshing UI")
         
-        guard let useCaseId = useCaseId else {
+        guard let fileInfo = fileInfo else {
             return
         }
         
-        UseCasePreviewAPI.getComponentViewContainer(with: useCaseId) { [weak self] (componentViewContainer, err) in
+        DebugLog.i(caller: self, "Refreshing UI")
+        
+        
+        let completion: UseCasePreviewAPI.ComponentViewContainerCompletion = { [weak self] (componentViewContainer, err) in
             self?.componentViewContainer = componentViewContainer
             guard let componentViewContainer = componentViewContainer,
                 let strongSelf = self else {
                     return
             }
             
-            switch DemoComponentType.fromFileName(useCaseId) {
+            switch fileInfo.componentType {
             case .card:
                 let cardView = ComponentCardView()
                 cardView.component = componentViewContainer.root
@@ -178,6 +173,8 @@ public class ComponentPreviewViewController: UIViewController {
             
             self?.view.setNeedsLayout()
         }
+
+        UseCasePreviewAPI.getComponentViewContainer(fileInfo: fileInfo, completion: completion)
     }
     
     func viewSource() {

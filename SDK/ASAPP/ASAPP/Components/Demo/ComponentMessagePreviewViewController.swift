@@ -10,7 +10,7 @@ import UIKit
 
 class ComponentMessagePreviewViewController: UIViewController {
     
-    var useCaseId: String? {
+    var fileInfo: DemoComponentFileInfo? {
         didSet {
             refresh()
         }
@@ -123,18 +123,19 @@ class ComponentMessagePreviewViewController: UIViewController {
     }
     
     func refresh() {
-        guard let useCaseId = useCaseId else {
+        guard let fileInfo = fileInfo else {
             return
         }
         
         clear()
         
-        UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
+        UseCasePreviewAPI.getChatMessage(fileInfo: fileInfo, completion: { [weak self] (message, err) in
             self?.addMessage(message)
         })
     }
     
-    func getNextMessage(with messageText: String, useCaseId: String) {
+    func getNextMessage(with messageText: String, nextFileName: String) {
+        
         let metadata = EventMetadata(isReply: false,
                                      isAutomatedMessage: false,
                                      eventId: Int(Date().timeIntervalSince1970),
@@ -148,8 +149,9 @@ class ComponentMessagePreviewViewController: UIViewController {
                                       metadata: metadata)
         addMessage(userMessage)
         
-        
-        UseCasePreviewAPI.getChatMessage(with: useCaseId, completion: { [weak self] (message, err) in
+        let nextFileInfo = DemoComponentFileInfo(fileName: nextFileName,
+                                                 fileType: fileInfo?.fileType ?? .useCase)
+        UseCasePreviewAPI.getChatMessage(fileInfo: nextFileInfo, completion: { [weak self] (message, err) in
             Dispatcher.delay(800, closure: {
                 self?.addMessage(message)
             })
@@ -213,7 +215,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             
         case .treewalk:
             if let treewalkAction = quickReply.action as? TreewalkAction {
-                getNextMessage(with: quickReply.title, useCaseId: treewalkAction.classification)
+                getNextMessage(with: quickReply.title, nextFileName: treewalkAction.classification)
                 return false
             }
             
@@ -302,7 +304,10 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         
         shouldLoad = true
         if shouldLoad {
-            UseCasePreviewAPI.getComponentViewContainer(with: viewName, completion: { (componentViewContainer, err) in
+            let loadFileInfo = DemoComponentFileInfo(fileName: viewName,
+                                                     fileType: fileInfo?.fileType ?? .useCase)
+            
+            UseCasePreviewAPI.getComponentViewContainer(fileInfo: loadFileInfo, completion: { (componentViewContainer, err) in
                 completion(componentViewContainer, err?.localizedDescription)
             })
         } else {
@@ -329,7 +334,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             completion(FinishAction(content: nil), nil)
             
             Dispatcher.delay(500, closure: { [weak self] in
-                self?.getNextMessage(with: text, useCaseId: name)
+                self?.getNextMessage(with: text, nextFileName: name)
             })
         }
     }
