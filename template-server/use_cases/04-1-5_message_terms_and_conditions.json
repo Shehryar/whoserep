@@ -1,0 +1,32 @@
+{
+  "type": "message",
+  "template": "bold_detail_button",
+  "data": {
+    "text": "Okay great, before we proceed, you must read and accept our terms and conditions.",
+    "attachment": {
+      "boldText": "Terms and Conditions",
+      "detailText": "AS OF JAN 22, 2017 —4:15PM",
+      "buttonTitle": "VIEW",
+      "buttonAction": {
+        "type": "componentView",
+        "name": ""
+      }
+    },
+    "quickReplies": [
+      {
+        "title": "I accept",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-1_message_transaction_history"
+        }
+      },
+      {
+        "title": "I do not accept",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-1_message_transaction_history"
+        }
+      }
+    ]
+  }
+}

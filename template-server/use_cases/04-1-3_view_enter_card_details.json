@@ -1,0 +1,18 @@
+{
+  "type": "view",
+  "template": "enter_credit_card",
+  "data": {
+    "title": "Enter Card Details",
+    "body": {
+      "submitButtonTitle": "USE CARD",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/submitCreditCard",
+        "data": {
+          "text": "Use VISA ***********1234",
+          "classification": "04-1-5_message_terms_and_conditions"
+        }
+      }
+    }
+  }
+}

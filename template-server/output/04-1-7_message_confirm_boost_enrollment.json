@@ -1,0 +1,34 @@
+{
+  "text": "Great! You have chosen to enroll Master Card ************7624 in low balance re-boost, automatically charging $50.00 whenever your account balance is under $5.00. If this looks alright to you tap 'Enroll' to finalize your enrollment. ",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enroll me in Low Balance Re-Boost",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-1_message_transaction_history"
+          }
+        }
+      },
+      {
+        "title": "I'd like to change my card",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "04-1-2_message_enter_card_details"
+          }
+        }
+      },
+      {
+        "title": "Cancel enrollment",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-1_message_transaction_history"
+          }
+        }
+      }
+    ]
+  }
+}

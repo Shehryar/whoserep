@@ -1,0 +1,17 @@
+{
+  "text": "Ok great, please click below to enter your card details.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter card details",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "04-1-3_view_enter_card_details",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

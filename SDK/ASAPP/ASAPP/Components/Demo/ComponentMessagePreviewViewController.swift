@@ -323,9 +323,9 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping ((Action?, String?) -> Void)) {
-        guard let text = data?["Text"] as? String,
-            let name = data?["Classification"] as? String else {
-                DebugLog.d("DATA IS MISSING: \(String(describing: data))")
+        guard let text = data?["text"] as? String,
+            let name = data?["classification"] as? String else {
+                DebugLog.d("For testing purposes, 'text' and 'classification' are required in : \(String(describing: data ?? [String:Any]()))")
                 completion(nil, "Missing data")
                 return
         }

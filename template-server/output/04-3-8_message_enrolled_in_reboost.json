@@ -1,5 +1,4 @@
 {
-  "text": "Alright then, have a great day!",
   "attachment": {
     "content": {
       "body": {
@@ -17,7 +16,7 @@
                 "height": 30
               },
               "content": {
-                "icon": "userMinus"
+                "icon": "checkmarkThin"
               },
               "type": "icon"
             },
@@ -32,7 +31,7 @@
                       "textType": "bodyBold"
                     },
                     "content": {
-                      "text": "Michael ended that chat"
+                      "text": "Enrolled in Low Balance Re-Boost"
                     },
                     "type": "label"
                   },
@@ -42,7 +41,7 @@
                       "marginTop": 4
                     },
                     "content": {
-                      "text": "You are no longer connected to an agent"
+                      "text": "You’ve successfully enrolled in autopay using your card ending in 7624"
                     },
                     "type": "label"
                   },
@@ -52,7 +51,7 @@
                       "marginTop": 12
                     },
                     "content": {
-                      "text": "Jan 22, 2017 - 4:15PM"
+                      "text": "MAR 15, 2017 —4:15PM"
                     },
                     "type": "label"
                   }
@@ -67,18 +66,5 @@
       }
     },
     "type": "componentView"
-  },
-  "quickReplies": {
-    "default": [
-      {
-        "title": "How did we do?",
-        "action": {
-          "type": "componentView",
-          "content": {
-            "name": "00-2_view_feedback_survey"
-          }
-        }
-      }
-    ]
   }
 }

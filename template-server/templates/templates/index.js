@@ -1,20 +1,15 @@
 // index.js
 
 module.exports = {
-
 	BasicItemList: require('./basic_item_list'),
-
-	DetailHeaderBodyDetailBolds: require('./detail_header_body_detail_bolds'),
-	IconTextDetailValue: require('./icon_text_detail_value'),
-
-	TextDetail: require('./text_detail'),
-	DetailHeader: require('./detail_header'),
+	BoldDetailButton: require('./bold_detail_button'),
 	DetailBold: require('./detail_bold'),
-
+	DetailHeader: require('./detail_header'),
+	DetailHeaderBodyDetailBolds: require('./detail_header_body_detail_bolds'),
 	IconBoldBodyDetail: require('./icon_bold_body_detail'),
-
+	IconTextDetailValue: require('./icon_text_detail_value'),
+	ProgressHeaderBodyError: require('./progress_header_body_error'),
+	TextDetail: require('./text_detail'),
 	TitleButton: require('./title_button'),
-	TitleButtonContent: require('./title_button_content'),
-
-	ProgressHeaderBodyError: require('./progress_header_body_error')
+	TitleButtonContent: require('./title_button_content')
 };

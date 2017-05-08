@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Sure thing! Would you like to use the card we have on file or a new card to enroll in autopay?\n\nKeep in mind, if you choose a new card it will replace the card we have on file.",
+    "quickReplies": [
+      {
+        "title": "Amex  ************9087",
+        "action": {
+          "type": "treewalk",
+          "classification": "04-1-5_message_terms_and_conditions"
+        }
+      },
+      {
+        "title": "Use a new card",
+        "action": {
+          "type": "treewalk",
+          "classification": "04-1-2_message_enter_card_details"
+        }
+      }
+    ]
+  }
+}

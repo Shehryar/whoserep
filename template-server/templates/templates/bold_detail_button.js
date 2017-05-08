@@ -3,33 +3,35 @@ const TitleButton = require('./title_button');
 
 module.exports = function(data) {
 	// Properties
-	const title = data.title;
+	const boldText = data.boldText;
 	const buttonTitle = data.buttonTitle;
 	const buttonAction = data.buttonAction;
 	const content = data.content;
-	const hideSeparator = data.hideSeparator;
+	const detailText = data.detailText;
 
 	// Default Styling
 	data.style = Object.assign({
-		padding: "4 20 4 20"
+		padding: "4 20 20 20"
 	}, data.style);
 
 	// Content
 	data.orientation = 'vertical';
 	data.items = [];
 	data.items.push(new TitleButton({
-		title: title,
+		title: boldText,
 		buttonTitle: buttonTitle,
 		buttonAction: buttonAction
 	}));
-	if (!hideSeparator) {
-		data.items.push(new Components.Separator());
+	if (detailText) {
+		data.items.push(new Components.Label({
+			text: detailText,
+			style: {
+				textType: 'detail2',
+				marginTop: 4
+			}
+		}));
 	}
-	if (content) {
-		data.items.push(content);
-	}
-
-
+	
 	// Base Component
 	Components.StackView.call(this, data);
 };

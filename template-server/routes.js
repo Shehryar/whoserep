@@ -48,6 +48,7 @@ route('GET', '/use_case', function(req, res, next) {
       var useCase = JSON.parse(data);
     } catch (err) {
       console.log('Unable to parse JSON from: ' + useCaseFilepath);
+      console.log(err);
       res.send(500, 'Unable to parse JSON from: ' + useCaseFilepath);
       return;
     }
