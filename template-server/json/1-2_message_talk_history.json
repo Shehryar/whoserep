@@ -32,7 +32,7 @@
                           "name": "1-2_view_talk_history"
                         }
                       },
-                      "style": "text"
+                      "buttonStyle": "textPrimary"
                     },
                     "style": {
                       "padding": "16 0 16 16",
