@@ -20,7 +20,7 @@ module.exports = function(data) {
 	// Content
 	data.orientation = 'vertical';
 	let progressBarStyle = {
-		marginBottom: (headerText || icon || detailText || errorText) ? 24 : 0
+		marginBottom: (headerText || icon || detailText || errorText) ? 20 : 0
 	};
 	if (progressBarColor) {
 		progressBarStyle.color = progressBarColor;
@@ -86,7 +86,7 @@ module.exports = function(data) {
 			style: {
 				align: "center",
 				marginBottom: errorText ? 12 : 0,
-				textType: "detail1"
+				textType: "body"
 			}
 		}))
 	}

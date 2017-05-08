@@ -8,5 +8,5 @@ module.exports = {
 	TitleButton: require('./title_button'),
 	TitleButtonContent: require('./title_button_content'),
 
-	ProgressHeaderDetailError: require('./progress_header_detail_error')
+	ProgressHeaderBodyError: require('./progress_header_body_error')
 };

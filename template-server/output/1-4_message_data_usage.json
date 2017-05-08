@@ -61,7 +61,7 @@
                 "items": [
                   {
                     "style": {
-                      "marginBottom": 24,
+                      "marginBottom": 20,
                       "color": "#EF7667"
                     },
                     "type": "progressBar",
@@ -107,7 +107,7 @@
                     "style": {
                       "align": "center",
                       "marginBottom": 12,
-                      "textType": "detail1"
+                      "textType": "body"
                     },
                     "type": "label",
                     "content": {
