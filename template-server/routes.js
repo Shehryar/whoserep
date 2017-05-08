@@ -1,5 +1,6 @@
 const FileUtil = require('./file_util');
 const Router = require('node-router');
+const TemplateMessage = require('./templates/messages/template_message');
 
 const USE_CASES_DIRECTORY = './use_cases';
 const MESSAGE_TEMPLATES_DIRECTORY = './templates/messages';
@@ -67,12 +68,16 @@ route('GET', '/use_case', function(req, res, next) {
 
     console.log('  Fetching template at: ' + templateFilepath);
     try {
-      var template = require(templateFilepath);
+      var Template = require(templateFilepath);
     } catch (err) {
-      console.log('  Unable to locate template: ' + templateName);
-      console.log(err);
-      res.send(500, 'Unable to import template');
-      return;
+      console.log('  Could not locate message template: ' + templateName + '.  Falling back to TemplateMessage');
+      // console.log(err);
+      Template = TemplateMessage;
+      useCase.data = useCase.data || {};
+      useCase.data.template = useCase.template;
+
+      // res.send(500, 'Unable to import template');
+      // return;
 
       // console.log('\n  Falling back on JSON');
       // const pathname = JSON_DIRECTORY + '/' + id + '.json';
@@ -91,7 +96,7 @@ route('GET', '/use_case', function(req, res, next) {
     // Generate the JSON
     // const templateOutput = template.build(useCase.data);
     try {
-      var templateOutput = new template(useCase.data);  
+      var templateOutput = new Template(useCase.data);  
     } catch (err) {
       console.log('  Unable to generate output from template: ' + templateName);
       console.log(err);
