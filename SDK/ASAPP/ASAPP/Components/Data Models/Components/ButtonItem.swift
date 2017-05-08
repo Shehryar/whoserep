@@ -29,7 +29,7 @@ class ButtonItem: Component {
     
     enum JSONKey: String {
         case action = "action"
-        case buttonStyle = "style"
+        case buttonStyle = "buttonStyle"
         case icon = "icon"
         case title = "title"
     }

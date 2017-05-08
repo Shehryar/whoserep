@@ -25,7 +25,7 @@ class SeparatorItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case style = "style"
+        case style = "separatorStyle"
     }
     
     // MARK:- Defaults

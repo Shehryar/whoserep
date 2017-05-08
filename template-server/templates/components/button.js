@@ -12,6 +12,6 @@ module.exports = function(data) {
 		action: new Action(data.action)
 	};
 
-	if (data.buttonStyle) this.content.style = data.buttonStyle;
+	if (data.buttonStyle) this.content.buttonStyle = data.buttonStyle;
 	if (data.icon) this.content.icon = data.icon;
 };

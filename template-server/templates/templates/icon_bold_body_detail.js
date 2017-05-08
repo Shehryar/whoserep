@@ -3,6 +3,7 @@ const Components = require('../components');
 module.exports = function(data) {
 	// Properties
 	const icon = data.icon;
+	const iconSize = data.iconSize;
 	const boldText = data.boldText;
 	const bodyText = data.bodyText;
 	const detailText = data.detailText;
@@ -48,10 +49,9 @@ module.exports = function(data) {
 	if (icon) {
 		var leftSide = new Components.Icon({
 			icon: icon,
+			iconSize: data.iconSize || 'medium',
 			style: {
 				gravity: 'top',
-				height: 20,
-				width: 20,
 				weight: 0,
 				marginRight: rightSide ? 16 : 0
 			}

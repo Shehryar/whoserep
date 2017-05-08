@@ -6,6 +6,7 @@ const TextDetail = require('./text_detail');
 module.exports = function(data) {
 	// Properties
 	const icon = data.icon;
+	const iconSize = data.iconSize;
 	const text = data.text;
 	const detail = data.detailText;
 	const value = data.valueText;
@@ -16,11 +17,10 @@ module.exports = function(data) {
 	if (icon) {
 		data.items.push(new Components.Icon({
 			icon: icon,
+			iconSize: iconSize || 'small',
 			style: {
 				weight: 0,
 				gravity: 'middle',
-				height: 10,
-				width: 10,
 				marginRight: 20
 			}
 		}));

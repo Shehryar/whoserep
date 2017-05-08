@@ -8,4 +8,5 @@ module.exports = function(data) {
 		if (data.style) this.style = data.style;
 		if (data.value) this.value = data.value;
 	}
+	this.content = this.content || {};
 };
