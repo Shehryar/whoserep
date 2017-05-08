@@ -158,15 +158,17 @@
     },
     "type": "componentView"
   },
-  "quickReplies": [
-    {
-      "title": "Recent Payments",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-1_message_transaction_history"
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Recent Payments",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "1-1_message_transaction_history"
+          }
         }
       }
-    }
-  ]
+    ]
+  }
 }

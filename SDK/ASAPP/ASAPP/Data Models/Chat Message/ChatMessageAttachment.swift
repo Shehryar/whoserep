@@ -27,19 +27,14 @@ class ChatMessageAttachment: NSObject {
     let image: ChatMessageImage?
     let template: Component?
     let requiresNoContainer: Bool
-    let quickRepliesDictionary: [String : [QuickReply]]?
     
-    var quickReplies: [QuickReply]? {
-        if let quickRepliesDictionary = quickRepliesDictionary,
-            let currentValue = template?.value as? String {
-            return quickRepliesDictionary[currentValue]
-        }
-        return nil
+    var currentValue: Any? {
+        return template?.value
     }
     
     // MARK:- Init
     
-    init(content: Any, requiresNoContainer: Bool? = nil, quickRepliesDictionary: [String : [QuickReply]]? = nil) {
+    init(content: Any, requiresNoContainer: Bool? = nil) {
         var type = AttachmentType.none
         var image: ChatMessageImage? = nil
         var template: Component? = nil
@@ -58,7 +53,6 @@ class ChatMessageAttachment: NSObject {
         self.image = image
         self.template = template
         self.requiresNoContainer = requiresNoContainer ?? false
-        self.quickRepliesDictionary = quickRepliesDictionary
         super.init()
     }
 }
@@ -66,10 +60,6 @@ class ChatMessageAttachment: NSObject {
 // MARK:- JSON Parsing
 
 extension ChatMessageAttachment {
-    
-    enum JSONKey: String {
-        case quickReplies = "quickReplies"
-    }
     
     class func fromJSON(_ json: Any?) -> ChatMessageAttachment? {
         guard let json = json as? [String : Any] else {
@@ -89,24 +79,6 @@ extension ChatMessageAttachment {
             return nil
         }
         
-        var quickRepliesDictionary: [String : [QuickReply]]? = [String : [QuickReply]]()
-        if let quickRepliesJSONDict = json[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
-            for (pageId, buttonsJSON) in quickRepliesJSONDict {
-                var quickReplies = [QuickReply]()
-                for buttonJSON in buttonsJSON {
-                    if let quickReply = QuickReply.fromJSON(buttonJSON) {
-                        quickReplies.append(quickReply)
-                    }
-                }
-                if quickReplies.count > 0 {
-                    quickRepliesDictionary?[pageId] = quickReplies
-                }
-            }
-        }
-        if (quickRepliesDictionary ?? [String : [QuickReply]]()).isEmpty {
-            quickRepliesDictionary = nil
-        }
-
         switch type {
         case .image:
             if let image = ChatMessageImage.fromJSON(payload) {
@@ -117,8 +89,7 @@ extension ChatMessageAttachment {
         case .template:
             if let componentViewContainer = ComponentViewContainer.from(payload) {
                 return ChatMessageAttachment(content: componentViewContainer.root,
-                                             requiresNoContainer: json.bool(for: "requiresNoContainer"),
-                                             quickRepliesDictionary: quickRepliesDictionary)
+                                             requiresNoContainer: json.bool(for: "requiresNoContainer"))
             }
             break
             

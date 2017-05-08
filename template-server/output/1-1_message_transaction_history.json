@@ -237,33 +237,35 @@
     },
     "type": "componentView"
   },
-  "quickReplies": [
-    {
-      "title": "Data Usage",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-4_message_data_usage"
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Data Usage",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "1-4_message_data_usage"
+          }
+        }
+      },
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "1-3_message_text_history"
+          }
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "1-2_message_talk_history"
+          }
         }
       }
-    },
-    {
-      "title": "Texts",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-3_message_text_history"
-        }
-      }
-    },
-    {
-      "title": "Calls",
-      "action": {
-        "type": "treewalk",
-        "content": {
-          "classification": "1-2_message_talk_history"
-        }
-      }
-    }
-  ]
+    ]
+  }
 }
