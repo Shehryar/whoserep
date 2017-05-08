@@ -1,5 +1,3 @@
-// basic_item_list.js
-
 const Components = require('../components');
 const IconTextDetailValue = require('./icon_text_detail_value');
 

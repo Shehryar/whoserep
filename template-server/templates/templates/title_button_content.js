@@ -1,7 +1,5 @@
-// title_button_content.js
-
-var Components = require('../components');
-var TitleButton = require('./title_button');
+const Components = require('../components');
+const TitleButton = require('./title_button');
 
 module.exports = function(data) {
 	// Properties
