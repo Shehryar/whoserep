@@ -53,61 +53,302 @@
           }
         },
         {
-          "type": "checkboxView",
-          "style": {
-            "align": "center",
-            "padding": 20,
-            "borderWidth": 1,
-            "cornerRadius": 6
-          },
+          "type": "carouselView",
           "content": {
-            "root": {
-              "type": "stackView",
-              "content": {
-                "orientation": "vertical",
-                "items": [
-                  {
-                    "type": "label",
+            "itemSpacing": 8,
+            "visibleItemCount": 2,
+            "items": [
+              {
+                "type": "checkboxView",
+                "style": {
+                  "align": "center",
+                  "padding": 20,
+                  "borderWidth": 1,
+                  "cornerRadius": 6
+                },
+                "content": {
+                  "root": {
+                    "type": "stackView",
                     "content": {
-                      "text": "Plan Title Here"
-                    },
-                    "style": {
-                      "textType": "bodyBold",
-                      "align": "center",
-                      "marginBottom": 4
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "style": {
-                      "align": "center",
-                      "weight": 1,
-                      "marginBottom": 20
-                    },
-                    "content": {
-                      "text": "$99.99"
-                    }
-                  },
-                  {
-                    "type": "checkbox",
-                    "style": {
-                      "align": "center",
-                      "marginBottom": 8
-                    }
-                  },
-                  {
-                    "type": "label",
-                    "content": {
-                      "text": "Check this box up top, bro"
-                    },
-                    "style": {
-                      "textType": "detail1",
-                      "align": "center"
+                      "orientation": "vertical",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Plan Title Here"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "align": "center",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "style": {
+                            "align": "center",
+                            "weight": 1,
+                            "marginBottom": 20
+                          },
+                          "content": {
+                            "text": "$99.99"
+                          }
+                        },
+                        {
+                          "type": "checkbox",
+                          "style": {
+                            "align": "center",
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Check this box up top, bro"
+                          },
+                          "style": {
+                            "textType": "detail1",
+                            "align": "center"
+                          }
+                        }
+                      ]
                     }
                   }
-                ]
+                }
+              },
+              {
+                "type": "checkboxView",
+                "style": {
+                  "align": "center",
+                  "padding": 20,
+                  "borderWidth": 1,
+                  "cornerRadius": 6
+                },
+                "content": {
+                  "root": {
+                    "type": "stackView",
+                    "content": {
+                      "orientation": "vertical",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Plan Title Here"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "align": "center",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "style": {
+                            "align": "center",
+                            "weight": 1,
+                            "marginBottom": 20
+                          },
+                          "content": {
+                            "text": "$99.99"
+                          }
+                        },
+                        {
+                          "type": "checkbox",
+                          "style": {
+                            "align": "center",
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Check this box up top, bro"
+                          },
+                          "style": {
+                            "textType": "detail1",
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "checkboxView",
+                "style": {
+                  "align": "center",
+                  "padding": 20,
+                  "borderWidth": 1,
+                  "cornerRadius": 6
+                },
+                "content": {
+                  "root": {
+                    "type": "stackView",
+                    "content": {
+                      "orientation": "vertical",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Plan Title Here"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "align": "center",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "style": {
+                            "align": "center",
+                            "weight": 1,
+                            "marginBottom": 20
+                          },
+                          "content": {
+                            "text": "$99.99"
+                          }
+                        },
+                        {
+                          "type": "checkbox",
+                          "style": {
+                            "align": "center",
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Check this box up top, bro"
+                          },
+                          "style": {
+                            "textType": "detail1",
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "checkboxView",
+                "style": {
+                  "align": "center",
+                  "padding": 20,
+                  "borderWidth": 1,
+                  "cornerRadius": 6
+                },
+                "content": {
+                  "root": {
+                    "type": "stackView",
+                    "content": {
+                      "orientation": "vertical",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Plan Title Here"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "align": "center",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "style": {
+                            "align": "center",
+                            "weight": 1,
+                            "marginBottom": 20
+                          },
+                          "content": {
+                            "text": "$99.99"
+                          }
+                        },
+                        {
+                          "type": "checkbox",
+                          "style": {
+                            "align": "center",
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Check this box up top, bro"
+                          },
+                          "style": {
+                            "textType": "detail1",
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "checkboxView",
+                "style": {
+                  "align": "center",
+                  "padding": 20,
+                  "borderWidth": 1,
+                  "cornerRadius": 6
+                },
+                "content": {
+                  "root": {
+                    "type": "stackView",
+                    "content": {
+                      "orientation": "vertical",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Plan Title Here"
+                          },
+                          "style": {
+                            "textType": "bodyBold",
+                            "align": "center",
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "style": {
+                            "align": "center",
+                            "weight": 1,
+                            "marginBottom": 20
+                          },
+                          "content": {
+                            "text": "$99.99"
+                          }
+                        },
+                        {
+                          "type": "checkbox",
+                          "style": {
+                            "align": "center",
+                            "marginBottom": 8
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Check this box up top, bro"
+                          },
+                          "style": {
+                            "textType": "detail1",
+                            "align": "center"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
               }
-            }
+            ]
           }
         }
       ]
