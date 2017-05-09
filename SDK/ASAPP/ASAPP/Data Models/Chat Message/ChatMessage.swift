@@ -100,9 +100,6 @@ extension ChatMessage {
             quickRepliesDictionary = nil
         }
 
-        
-        let quickReplies = QuickReply.arrayFromJSON(messageJSON[JSONKey.quickReplies.rawValue])
-       
         return ChatMessage(text: text, attachment: attachment, quickReplies: quickRepliesDictionary, metadata: metadata)
     }
 }

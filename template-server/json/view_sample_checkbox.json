@@ -1,0 +1,116 @@
+{
+  "root": {
+    "type": "stackView",
+    "style": {
+      "padding": 20
+    },
+    "content": {
+      "items": [
+        {
+          "type": "label",
+          "style": {
+            "textType": "bodyBold",
+            "marginBottom": 16
+          },
+          "content": {
+            "text": "Checkbox List:"
+          }
+        },
+        {
+          "type": "checkboxView",
+          "style": {
+            "align": "fill",
+            "padding": 20,
+            "borderWidth": 1,
+            "cornerRadius": 6,
+            "marginBottom": 12
+          },
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "checkbox",
+                    "style": {
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Check this box to my left"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "marginLeft": 16
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "checkboxView",
+          "style": {
+            "align": "center",
+            "padding": 20,
+            "borderWidth": 1,
+            "cornerRadius": 6
+          },
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "vertical",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Plan Title Here"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "align": "center",
+                      "marginBottom": 4
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "style": {
+                      "align": "center",
+                      "weight": 1,
+                      "marginBottom": 20
+                    },
+                    "content": {
+                      "text": "$99.99"
+                    }
+                  },
+                  {
+                    "type": "checkbox",
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Check this box up top, bro"
+                    },
+                    "style": {
+                      "textType": "detail1",
+                      "align": "center"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

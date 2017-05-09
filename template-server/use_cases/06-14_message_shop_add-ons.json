@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Before completing your plan change, would you like to shop for any new add-ons?",
+    "quickReplies": [
+      {
+        "title": "Shop Add-ons",
+        "action": {
+          "type": "componentView",
+          "name": "06_15_view_select_add_ons"
+        }
+      },
+      {
+        "title": "No thanks",
+        "action": {
+          "type": "treewalk",
+          "classification": ""
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "type": "radioButtonsContainer",
+  "name": "recommendationChange",
+  "content": {
+    "root": {
+      "type": "stackView",
+      "content": {
+        "items": [
+          {
+            "type": "radioButtonView",
+            "value": "increase",
+            "style": {
+              "borderWidth": 1,
+              "cornerRadius": 6,
+              "padding": "20 16",
+              "align": "fill"
+            },
+            "content": {
+              "root": {
+                "stackView": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "radioButton",
+                      "style": {
+                        "gravity": "middle"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "style": {
+                        "marginLeft": 16,
+                        "gravity": "middle",
+                        "weight": 1
+                      },
+                      "content": {
+                        "text": "Increase"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "radioButtonView",
+            "value": "decrease",
+            "style": {
+              "marginTop": 12,
+              "borderWidth": 1,
+              "cornerRadius": 6,
+              "padding": "20 16",
+              "align": "fill"
+            },
+            "content": {
+              "root": {
+                "stackView": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "radioButton",
+                      "style": {
+                        "gravity": "middle"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "style": {
+                        "marginLeft": 16,
+                        "gravity": "middle",
+                        "weight": 1
+                      },
+                      "content": {
+                        "text": "Decrease"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "radioButtonView",
+            "value": "noChange",
+            "style": {
+              "marginTop": 12,
+              "borderWidth": 1,
+              "cornerRadius": 6,
+              "padding": "20 16",
+              "align": "fill"
+            },
+            "content": {
+              "root": {
+                "stackView": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "radioButton",
+                      "style": {
+                        "gravity": "middle"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "style": {
+                        "marginLeft": 16,
+                        "gravity": "middle",
+                        "weight": 1
+                      },
+                      "content": {
+                        "text": "No Change"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -13,26 +13,26 @@ class CarouselViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case cards = "cards"
-        case cardSpacing = "cardSpacing"
-        case cardDisplayCount = "cardDisplayCount"
+        case items = "items"
+        case itemSpacing = "itemSpacing"
+        case visibleItemCount = "visibleItemCount"
         case pageControl = "pageControl"
         case pagingEnabled = "pagingEnabled"
     }
     
     // MARK:- Defaults
     
-    static let defaultCardSpacing: CGFloat = 8
-    static let defaultCardDisplayCount: CGFloat = 1
+    static let defaultItemSpacing: CGFloat = 8
+    static let defaultVisibleItemCount: CGFloat = 1
     static let defaultPagingEnabled = false
     
     // MARK:- Properties
     
-    let cards: [Component]
+    let items: [Component]
     
-    let cardSpacing: CGFloat
+    let itemSpacing: CGFloat
     
-    let cardDisplayCount: CGFloat
+    let visibleItemCount: CGFloat
     
     let pagingEnabled: Bool
     
@@ -45,7 +45,7 @@ class CarouselViewItem: Component {
     }
     
     override var nestedComponents: [Component]? {
-        return cards
+        return items
     }
     
     // MARK:- Init
@@ -57,26 +57,26 @@ class CarouselViewItem: Component {
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         guard let content = content,
-            let cardsJson = content[JSONKey.cards.rawValue] as? [[String : Any]] else {
+            let itemsJSON = content[JSONKey.items.rawValue] as? [[String : Any]] else {
                 return nil
         }
         
-        var cards = [Component]()
-        for cardJson in cardsJson {
-            if let card = ComponentFactory.component(with: cardJson, styles: styles) {
-                cards.append(card)
+        var items = [Component]()
+        for itemJSON in itemsJSON {
+            if let item = ComponentFactory.component(with: itemJSON, styles: styles) {
+                items.append(item)
             }
         }
     
-        guard cards.count > 0 else {
+        guard items.count > 0 else {
             return nil
         }
     
-        self.cards = cards
-        self.cardSpacing = content.float(for: JSONKey.cardSpacing.rawValue)
-            ?? CarouselViewItem.defaultCardSpacing
-        self.cardDisplayCount = content.float(for: JSONKey.cardDisplayCount.rawValue)
-            ?? CarouselViewItem.defaultCardDisplayCount
+        self.items = items
+        self.itemSpacing = content.float(for: JSONKey.itemSpacing.rawValue)
+            ?? CarouselViewItem.defaultItemSpacing
+        self.visibleItemCount = content.float(for: JSONKey.visibleItemCount.rawValue)
+            ?? CarouselViewItem.defaultVisibleItemCount
         self.pagingEnabled = content.bool(for: JSONKey.pagingEnabled.rawValue)
             ?? CarouselViewItem.defaultPagingEnabled
         if self.pagingEnabled {

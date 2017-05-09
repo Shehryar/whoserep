@@ -393,6 +393,9 @@
 		30F6B4C21EBCFD2A00ABA570 /* ComponentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C11EBCFD2A00ABA570 /* ComponentCardView.swift */; };
 		30F6B4C41EC0E00900ABA570 /* ComponentUIPreviewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C31EC0E00900ABA570 /* ComponentUIPreviewerViewController.swift */; };
 		30F6B4C61EC0E3B100ABA570 /* RefreshableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C51EC0E3B100ABA570 /* RefreshableTableViewController.swift */; };
+		30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */; };
+		30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C91EC2476E00ABA570 /* Checkbox.swift */; };
+		30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -784,6 +787,9 @@
 		30F6B4C11EBCFD2A00ABA570 /* ComponentCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentCardView.swift; sourceTree = "<group>"; };
 		30F6B4C31EC0E00900ABA570 /* ComponentUIPreviewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentUIPreviewerViewController.swift; sourceTree = "<group>"; };
 		30F6B4C51EC0E3B100ABA570 /* RefreshableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableTableViewController.swift; sourceTree = "<group>"; };
+		30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxViewItem.swift; sourceTree = "<group>"; };
+		30F6B4C91EC2476E00ABA570 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _RootComponentWrapperView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -870,8 +876,10 @@
 		281C34781E7F092C001A2AA3 /* Core Components */ = {
 			isa = PBXGroup;
 			children = (
+				30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */,
 				281C34791E7F092C001A2AA3 /* ButtonView.swift */,
 				305FF5D71E857427004DD9D5 /* CheckboxView.swift */,
+				30F6B4C91EC2476E00ABA570 /* Checkbox.swift */,
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				307DBE7A1E9D65F900B8F10F /* PageControlView.swift */,
@@ -1163,6 +1171,7 @@
 			children = (
 				30131FB81EB10FD0009E7299 /* ButtonItem.swift */,
 				30131FB91EB10FD0009E7299 /* CarouselViewItem.swift */,
+				30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */,
 				30131FBA1EB10FD0009E7299 /* CheckboxItem.swift */,
 				30131FBB1EB10FD0009E7299 /* IconItem.swift */,
 				30131FBC1EB10FD0009E7299 /* LabelItem.swift */,
@@ -2015,6 +2024,7 @@
 				30F6B4C21EBCFD2A00ABA570 /* ComponentCardView.swift in Sources */,
 				30131FD91EB10FFC009E7299 /* TextType.swift in Sources */,
 				3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */,
+				30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
 				30131FD51EB10FD0009E7299 /* TableViewItem.swift in Sources */,
@@ -2115,6 +2125,7 @@
 				30131FD11EB10FD0009E7299 /* ScrollViewItem.swift in Sources */,
 				30131F9C1EAFB384009E7299 /* ASAPPColors.swift in Sources */,
 				303699AB1EAFAAE700A819DF /* Colors.swift in Sources */,
+				30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
@@ -2139,6 +2150,7 @@
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
+				30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */,
 				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,
 				30131FCD1EB10FD0009E7299 /* PageControlItem.swift in Sources */,
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,

@@ -63,3 +63,20 @@ extension ComponentView where Self: Any {
         }
     }
 }
+
+// MARK: Enumerating Children
+
+extension ComponentView where Self: Any {
+    
+    // Return true to stop
+    func enumerateNestedComponentViews(block: ((_ childView: ComponentView) -> Bool)) {
+        if let nestedComponentViews = nestedComponentViews {
+            for nestedView in nestedComponentViews {
+                if block(nestedView) {
+                    return
+                }
+                nestedView.enumerateNestedComponentViews(block: block)
+            }
+        }
+    }
+}

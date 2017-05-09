@@ -1,27 +1,33 @@
 //
-//  CheckboxItem.swift
+//  CheckboxViewItem.swift
 //  ASAPP
 //
-//  Created by Mitchell Morgan on 3/23/17.
+//  Created by Mitchell Morgan on 5/9/17.
 //  Copyright © 2017 asappinc. All rights reserved.
 //
 
 import UIKit
 
-class CheckboxItem: Component {
-
-    // MARK:- Defaults
+class CheckboxViewItem: Component {
     
-    static let defaultWidth: CGFloat = 18
+    // MARK:- JSON Keys
     
-    static let defaultHeight: CGFloat = 18
+    enum JSONKey: String {
+        case root = "root"
+    }
     
-    static let defaultPadding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
-
+    // MARK:- Properties
+    
+    let root: Component
+    
     // MARK:- Component Properties
     
     override var viewClass: UIView.Type {
-        return Checkbox.self
+        return CheckboxView.self
+    }
+    
+    override var nestedComponents: [Component]? {
+        return [root]
     }
     
     // MARK:- Init
@@ -32,7 +38,11 @@ class CheckboxItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
-        // No content
+        guard let root = ComponentFactory.component(with: content?[JSONKey.root.rawValue], styles: styles) else {
+                DebugLog.w(caller: CheckboxItem.self, "root is required: \(String(describing: content))")
+                return nil
+        }
+        self.root = root
         
         super.init(id: id,
                    name: name,

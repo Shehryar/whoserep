@@ -18,15 +18,15 @@ class CarouselView: BaseComponentView {
     
     fileprivate var touchPassThroughView: TouchPassThroughView!
     
-    fileprivate(set) var cardViews: [ComponentView]? {
+    fileprivate(set) var itemViews: [ComponentView]? {
         didSet {
             for subview in scrollView.subviews {
                 subview.removeFromSuperview()
             }
             
-            if let cardViews = cardViews {
-                for cardView in cardViews {
-                    scrollView.addSubview(cardView.view)
+            if let itemViews = itemViews {
+                for itemView in itemViews {
+                    scrollView.addSubview(itemView.view)
                 }
             }
             
@@ -35,7 +35,7 @@ class CarouselView: BaseComponentView {
     }
     
     var numberOfPages: Int {
-        return cardViews?.count ?? 0
+        return itemViews?.count ?? 0
     }
     
     // MARK: ComponentView Properties
@@ -43,21 +43,21 @@ class CarouselView: BaseComponentView {
     override var component: Component? {
         didSet {
             guard let carousel = carouselViewItem else {
-                self.cardViews = nil
+                self.itemViews = nil
                 pageControlView.numberOfPages = 0
                 return
             }
 
-            var cardViews = [ComponentView]()
-            for card in carousel.cards {
-                var cardView = card.createView()
-                cardView?.interactionHandler = interactionHandler
-                cardView?.contentHandler = contentHandler
-                if let cardView = cardView {
-                    cardViews.append(cardView)
+            var itemViews = [ComponentView]()
+            for item in carousel.items {
+                var itemView = item.createView()
+                itemView?.interactionHandler = interactionHandler
+                itemView?.contentHandler = contentHandler
+                if let itemView = itemView {
+                    itemViews.append(itemView)
                 }
             }
-            self.cardViews = cardViews
+            self.itemViews = itemViews
             
             scrollView.isPagingEnabled = carousel.pagingEnabled
             
@@ -73,8 +73,8 @@ class CarouselView: BaseComponentView {
     
     override var nestedComponentViews: [ComponentView]? {
         var nestedComponentViews = [ComponentView]()
-        if let cardViews = cardViews {
-            nestedComponentViews.append(contentsOf: cardViews)
+        if let itemViews = itemViews {
+            nestedComponentViews.append(contentsOf: itemViews)
         }
         nestedComponentViews.append(pageControlView)
         return nestedComponentViews
@@ -115,12 +115,12 @@ class CarouselView: BaseComponentView {
     
     func getFramesThatFit(_ size: CGSize) -> (CGRect, [CGRect], CGSize, CGRect) {
         var scrollViewFrame = CGRect.zero
-        var cardFrames = [CGRect]()
+        var itemFrames = [CGRect]()
         var contentSize = CGSize.zero
         var pageControlFrame = CGRect.zero
         guard let carousel = carouselViewItem,
-            let cardViews = cardViews else {
-                return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
+            let itemViews = itemViews else {
+                return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
         }
         
         // Get Available Size
@@ -134,7 +134,7 @@ class CarouselView: BaseComponentView {
         fitToSize.width -= carousel.style.padding.left + carousel.style.padding.right
         fitToSize.height -= carousel.style.padding.top + carousel.style.padding.bottom
         guard fitToSize.width > 0 && fitToSize.height > 0 else {
-            return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
+            return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
         }
         
         // Size Page Control
@@ -160,32 +160,32 @@ class CarouselView: BaseComponentView {
             fitToSize.height -= pcHeight + pcMargin.top + pcMargin.bottom
         }
         
-        // Sizing Cards
+        // Sizing Items
         let padding = carousel.style.padding
-        let negativeContentWidth = max(0, ceil(carousel.cardDisplayCount) - 1) * carousel.cardSpacing
-        let visibleCardContentWidth = fitToSize.width - negativeContentWidth
-        let cardWidth = ceil(visibleCardContentWidth / carousel.cardDisplayCount)
-        guard cardWidth > 0 else {
-            return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
+        let negativeContentWidth = max(0, ceil(carousel.visibleItemCount) - 1) * carousel.itemSpacing
+        let visibleItemContentWidth = fitToSize.width - negativeContentWidth
+        let itemWidth = ceil(visibleItemContentWidth / carousel.visibleItemCount)
+        guard itemWidth > 0 else {
+            return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
         }
         
         // Set frames horizontally
-        var cardLeft: CGFloat = 0
+        var itemLeft: CGFloat = 0
         if carousel.pagingEnabled {
-            cardLeft = floor(carousel.cardSpacing / 2.0)
+            itemLeft = floor(carousel.itemSpacing / 2.0)
         }
-        for cardView in cardViews {
-            let cardHeight = ceil(cardView.view.sizeThatFits(CGSize(width: cardWidth, height: 0)).height)
-            let cardFrame = CGRect(x: cardLeft, y: 0, width: cardWidth, height: cardHeight)
-            cardFrames.append(cardFrame)
+        for itemView in itemViews {
+            let itemHeight = ceil(itemView.view.sizeThatFits(CGSize(width: itemWidth, height: 0)).height)
+            let itemFrame = CGRect(x: itemLeft, y: 0, width: itemWidth, height: itemHeight)
+            itemFrames.append(itemFrame)
             
-            contentSize.width = max(contentSize.width, cardFrame.maxX)
-            contentSize.height = max(contentSize.height, cardFrame.maxY)
-            cardLeft += cardWidth + carousel.cardSpacing
+            contentSize.width = max(contentSize.width, itemFrame.maxX)
+            contentSize.height = max(contentSize.height, itemFrame.maxY)
+            itemLeft += itemWidth + carousel.itemSpacing
         }
         
         // TODO: Align frames vertically, if necessary
-        let scrollViewWidth = carousel.pagingEnabled ? cardWidth + carousel.cardSpacing : visibleCardContentWidth
+        let scrollViewWidth = carousel.pagingEnabled ? itemWidth + carousel.itemSpacing : visibleItemContentWidth
         scrollViewFrame = CGRect(x: padding.left, y: padding.top, width: scrollViewWidth, height: contentSize.height)
 
         
@@ -196,20 +196,20 @@ class CarouselView: BaseComponentView {
             pageControlFrame = CGRect(x: pcLeft, y: pcTop, width: pcWidth, height: pcHeight)
         }
         
-        return (scrollViewFrame, cardFrames, contentSize, pageControlFrame)
+        return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
     }
     
     override func updateFrames() {
         touchPassThroughView.frame = bounds
-        guard let cardViews = cardViews else {
+        guard let itemViews = itemViews else {
             return
         }
         
-        let (scrollViewFrame, cardFrames, contentSize, pageControlFrame) = getFramesThatFit(bounds.size)
+        let (scrollViewFrame, itemFrames, contentSize, pageControlFrame) = getFramesThatFit(bounds.size)
         scrollView.frame = scrollViewFrame
-        if cardViews.count == cardFrames.count {
-            for (idx, cardView) in cardViews.enumerated() {
-                cardView.view.frame = cardFrames[idx]
+        if itemViews.count == itemFrames.count {
+            for (idx, itemView) in itemViews.enumerated() {
+                itemView.view.frame = itemFrames[idx]
             }
         }
         scrollView.contentSize = contentSize
@@ -268,12 +268,12 @@ extension CarouselView: UIScrollViewDelegate {
     func updateCarouselValue() {
         let currentPage = pageControlView.currentPage
         guard let carouselViewItem = carouselViewItem,
-            currentPage >= 0 && currentPage < carouselViewItem.cards.count else {
+            currentPage >= 0 && currentPage < carouselViewItem.items.count else {
                 return
         }
         
-        let currentCard = carouselViewItem.cards[currentPage]
-        self.carouselViewItem?.value = currentCard.value
+        let currentItem = carouselViewItem.items[currentPage]
+        self.carouselViewItem?.value = currentItem.value
         
         DebugLog.d(caller: self, "Updated carousel value to: \(String(describing: carouselViewItem.value))")
     }
