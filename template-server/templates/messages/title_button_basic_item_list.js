@@ -7,7 +7,7 @@ module.exports = function(data) {
 
 	let attachment = new ComponentViewAttachment({
 		content: {
-			body: new Templates.TitleButtonContent({
+			root: new Templates.TitleButtonContent({
 				title: attachmentContent.title,
 				buttonTitle: attachmentContent.buttonTitle,
 				buttonAction: attachmentContent.buttonAction,

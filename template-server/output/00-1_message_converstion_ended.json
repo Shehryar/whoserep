@@ -2,7 +2,7 @@
   "text": "Alright then, have a great day!",
   "attachment": {
     "content": {
-      "body": {
+      "root": {
         "style": {
           "padding": 20
         },

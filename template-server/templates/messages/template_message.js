@@ -23,7 +23,7 @@ module.exports = function(data) {
 		if (templateOutput) {
 			var attachment = new ComponentViewAttachment({
 				content: {
-					body: templateOutput
+					root: templateOutput
 				}
 			});
 		}

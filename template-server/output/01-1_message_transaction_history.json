@@ -2,7 +2,7 @@
   "text": "Sure! Here are your last three transactions, click “view all” to see your full transaction history.",
   "attachment": {
     "content": {
-      "body": {
+      "root": {
         "style": {
           "padding": "4 20 4 20"
         },
