@@ -92,7 +92,7 @@ public extension ASAPPStyles {
         let styles = ASAPPStyles()
         
         let darkText = UIColor(red:0.345, green:0.388, blue:0.486, alpha:1.000)
-        let boostOrange = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
+        let boostOrange = UIColor(red:0.969, green:0.565, blue:0.122, alpha:1.000)
         
         // Nav button style
         
