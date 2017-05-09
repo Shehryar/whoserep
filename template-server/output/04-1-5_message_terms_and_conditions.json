@@ -2,7 +2,7 @@
   "text": "Okay great, before we proceed, you must read and accept our terms and conditions.",
   "attachment": {
     "content": {
-      "body": {
+      "root": {
         "style": {
           "padding": "4 20 20 20"
         },

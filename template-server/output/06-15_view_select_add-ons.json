@@ -1,0 +1,919 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2"
+                    },
+                    "content": {
+                      "text": "Shop Add-Ons"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginTop": 16
+                    },
+                    "content": {
+                      "text": "Select which add-ons you would like to purchase along with your new plan."
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "marginTop": 32
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "marginBottom": 16
+                          },
+                          "content": {
+                            "text": "Top Selling"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "25 Min to Colombia"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$15"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "boostTV Latino"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$10/mo."
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "Full International Plan for Everyone"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$30/mo."
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "25 Min to Colombia"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$15"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              }
+                            ],
+                            "itemSpacing": 10,
+                            "visibleItemCount": 2.1
+                          },
+                          "type": "carouselView"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "marginTop": 32
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "marginBottom": 16
+                          },
+                          "content": {
+                            "text": "Talk"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "25 Min to Colombia"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$3"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "40 Min to Guatemala"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$5"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "60 Min to France"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$6"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "60 Min to Canada"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$0.50"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "90 day add-on"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              }
+                            ],
+                            "itemSpacing": 10,
+                            "visibleItemCount": 2.1
+                          },
+                          "type": "carouselView"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "marginTop": 32
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "marginBottom": 16
+                          },
+                          "content": {
+                            "text": "Text"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "Text Add-On"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$5"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly Recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "Text Add-On 2"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$15"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly Recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "Text Add-On 3"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$5"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly Recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              },
+                              {
+                                "style": {
+                                  "padding": "24 20 16 20",
+                                  "borderWidth": 1,
+                                  "cornerRadius": 6,
+                                  "gravity": "fill"
+                                },
+                                "content": {
+                                  "root": {
+                                    "content": {
+                                      "items": [
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "bodyBold"
+                                          },
+                                          "content": {
+                                            "text": "Text Add-On 4"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "body",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "$5"
+                                          },
+                                          "type": "label"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "marginTop": 40
+                                          },
+                                          "content": {},
+                                          "type": "checkbox"
+                                        },
+                                        {
+                                          "style": {
+                                            "align": "center",
+                                            "textAlign": "center",
+                                            "textType": "detail1",
+                                            "marginTop": 16
+                                          },
+                                          "content": {
+                                            "text": "Monthly Recurring"
+                                          },
+                                          "type": "label"
+                                        }
+                                      ]
+                                    },
+                                    "type": "stackView"
+                                  }
+                                },
+                                "type": "checkboxView"
+                              }
+                            ],
+                            "itemSpacing": 10,
+                            "visibleItemCount": 2.1
+                          },
+                          "type": "carouselView"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  },
+                  "buttonStyle": "secondary"
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "REVIEW",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/selectAddOns",
+                      "data": {
+                        "text": "Selected Add-ons",
+                        "classification": "04-1-5_message_terms_and_conditions"
+                      }
+                    }
+                  },
+                  "buttonStyle": "primary"
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Shop Add-Ons"
+}

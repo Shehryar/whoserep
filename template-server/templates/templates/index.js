@@ -2,9 +2,9 @@
 
 module.exports = {
 	BasicItemList: require('./basic_item_list'),
-	BoldBodyDetailCheckbox: require('./bold_body_detail_checkbox'),
+	BoldBodyDetailCheckboxView: require('./bold_body_detail_checkbox_view'),
+	BoldBodyDetailCheckboxCarousel: require('./bold_body_detail_checkbox_carousel'),
 	BoldDetailButton: require('./bold_detail_button'),
-	CheckboxCarousel: require('./checkbox_carousel'),
 	DetailBold: require('./detail_bold'),
 	DetailHeader: require('./detail_header'),
 	DetailHeaderBodyDetailBolds: require('./detail_header_body_detail_bolds'),

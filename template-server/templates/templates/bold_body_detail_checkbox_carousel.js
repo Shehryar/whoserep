@@ -1,5 +1,5 @@
 const Components = require('../components');
-const BoldBodyDetailCheckbox = require('./bold_body_detail_checkbox');
+const BoldBodyDetailCheckboxView = require('./bold_body_detail_checkbox_view');
 
 module.exports = function(data) {
 	// Properties
@@ -20,25 +20,19 @@ module.exports = function(data) {
 	if (checkboxItems) {
 		var carouselItems = [];
 		for (let i = 0; i < checkboxItems.length; i++) {
-			carouselItems.push(new BoldBodyDetailCheckbox({
-
-			}));
+			var checkboxData = checkboxItems[i];
+			checkboxData.style = Object.assign({
+				gravity: 'fill'
+			}, checkboxData.style);
+			carouselItems.push(new BoldBodyDetailCheckboxView(checkboxData));
 		}
-		
+		items.push(new Components.CarouselView({
+			items: carouselItems,
+			itemSpacing: 10,
+			visibleItemCount: 2.1
+		}));
 	}
-
-	data.items.push(new TitleButton({
-		title: title,
-		buttonTitle: buttonTitle,
-		buttonAction: buttonAction
-	}));
-	if (!hideSeparator) {
-		data.items.push(new Components.Separator());
-	}
-	if (content) {
-		data.items.push(content);
-	}
-	data.items = [];
+	data.items = items;
 
 	// Base Component
 	Components.StackView.call(this, data);

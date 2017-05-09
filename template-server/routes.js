@@ -71,7 +71,7 @@ route('GET', '/use_case', function(req, res, next) {
       var Template = require(templateFilepath);
     } catch (err) {
       console.log('  Could not locate message template: ' + templateName + '.  Falling back to TemplateMessage');
-      // console.log(err);
+      console.log(err);
       Template = TemplateMessage;
       useCase.data = useCase.data || {};
       useCase.data.template = useCase.template;

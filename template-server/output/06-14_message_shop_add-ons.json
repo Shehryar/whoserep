@@ -7,7 +7,8 @@
         "action": {
           "type": "componentView",
           "content": {
-            "name": "06_15_view_select_add_ons"
+            "name": "06-15_view_select_add-ons",
+            "displayStyle": "inset"
           }
         }
       },
