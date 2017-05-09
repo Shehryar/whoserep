@@ -4,9 +4,9 @@ const Templates = require('../templates');
 
 module.exports = function(data) {
 	// Properties
-	data.body = data.body || {};
-	const headerData = data.body.header;
-	const sectionsData = data.body.sections;
+	data.root = data.root || {};
+	const headerData = data.root.header;
+	const sectionsData = data.root.sections;
 
 	// Default Styles
 	data.styles = Object.assign({
@@ -73,7 +73,7 @@ module.exports = function(data) {
 	      	}));
 	    }
 	}
-	data.body = new Components.TableView({
+	data.root = new Components.TableView({
 		sections: sections,
 		style: {
 			gravity: 'fill'

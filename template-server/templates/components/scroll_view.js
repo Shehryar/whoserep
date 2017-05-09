@@ -5,6 +5,6 @@ module.exports = function(data) {
 
 	this.type = "scrollView";
 	this.content = {
-		content: data.content
+		root: data.root
 	};
 };

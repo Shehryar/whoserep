@@ -139,6 +139,7 @@ public extension ASAPPStyles {
                                                          secondaryButton: UIColor.white)
         
         
+        styles.colors.controlTint = boostOrange
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: boostOrange)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: boostOrange)
         

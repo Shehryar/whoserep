@@ -11,7 +11,7 @@ import UIKit
 class ComponentViewContainer: NSObject {
     
     enum JSONKey: String {
-        case body = "body"
+        case root = "root"
         case styles = "styles"
         case title = "title"
     }
@@ -53,7 +53,7 @@ extension ComponentViewContainer {
         
         let title = json.string(for: JSONKey.title.rawValue)
         let styles = json[JSONKey.styles.rawValue] as? [String : Any]
-        guard let root = ComponentFactory.component(with: json[JSONKey.body.rawValue], styles: styles) else {
+        guard let root = ComponentFactory.component(with: json[JSONKey.root.rawValue], styles: styles) else {
             return nil
         }
         

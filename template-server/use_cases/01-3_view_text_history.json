@@ -3,7 +3,7 @@
   "template": "basic_table_view",
   "data": {
     "title": "Text History",
-    "body": {
+    "root": {
       "sections": [
         {
           "headerText": "2017",

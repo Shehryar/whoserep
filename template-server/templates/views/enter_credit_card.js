@@ -4,11 +4,11 @@ const Templates = require('../templates');
 
 module.exports = function(data) {
 	// Properties
-	data.body = data.body || {};
-	const content = data.body.content;
+	data.root = data.root || {};
+	const content = data.root.content;
 
 	// Content
-	data.body.content = new Components.Label({
+	data.root.scrollContent = new Components.Label({
 		text: 'Hello, world'
 	});
 

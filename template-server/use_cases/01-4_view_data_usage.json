@@ -3,7 +3,7 @@
   "template": "basic_table_view",
   "data": {
     "title": "Data Usage",
-    "body": {
+    "root": {
       "header": {
         "template": "progress_header_body_error",
         "data": {

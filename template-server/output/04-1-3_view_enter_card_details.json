@@ -1,5 +1,5 @@
 {
-  "body": {
+  "root": {
     "style": {
       "gravity": "fill"
     },
@@ -11,7 +11,7 @@
             "gravity": "fill"
           },
           "content": {
-            "content": {
+            "root": {
               "content": {
                 "text": "Hello, world"
               },

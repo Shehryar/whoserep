@@ -29,7 +29,7 @@ class ScrollView: UIScrollView, ComponentView {
     
     var component: Component? {
         didSet {
-            contentView = scrollViewItem?.displayContent.createView()
+            contentView = scrollViewItem?.root.createView()
         }
     }
     

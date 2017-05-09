@@ -3,7 +3,7 @@
   "template": "enter_credit_card",
   "data": {
     "title": "Enter Card Details",
-    "body": {
+    "root": {
       "submitButtonTitle": "USE CARD",
       "submitButtonAction": {
         "type": "api",

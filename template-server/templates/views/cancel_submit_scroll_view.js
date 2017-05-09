@@ -4,18 +4,18 @@ const Templates = require('../templates');
 
 module.exports = function(data) {
 	// Properties
-	data.body = data.body || {};
-	const cancelButtonTitle = data.body.cancelButtonTitle || 'CANCEL';
-	const cancelButtonAction = data.body.cancelButtonAction || {
+	data.root = data.root || {};
+	const cancelButtonTitle = data.root.cancelButtonTitle || 'CANCEL';
+	const cancelButtonAction = data.root.cancelButtonAction || {
 		type: 'finish'
 	};
-	const submitButtonTitle = data.body.submitButtonTitle;
-	const submitButtonAction = data.body.submitButtonAction;
-	let scrollViewContent = data.body.content || {};
+	const submitButtonTitle = data.root.submitButtonTitle;
+	const submitButtonAction = data.root.submitButtonAction;
+	let scrollContent = data.root.scrollContent || {};
 
 	// Content
 	let scrollView = new Components.ScrollView({
-		content: scrollViewContent,
+		root: scrollContent,
 		style: {
 			weight: 1,
 			gravity: 'fill'
@@ -55,7 +55,7 @@ module.exports = function(data) {
 		}
 	});
 
-	data.body = new Components.StackView({
+	data.root = new Components.StackView({
 		items: [
 			scrollView,
 			buttonItemsContainer

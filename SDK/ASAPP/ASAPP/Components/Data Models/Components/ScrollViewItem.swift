@@ -13,12 +13,12 @@ class ScrollViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case content = "content"
+        case root = "root"
     }
     
     // MARK:- Properties
     
-    let displayContent: Component
+    let root: Component
     
     // MARK:- Component Properties
     
@@ -27,7 +27,7 @@ class ScrollViewItem: Component {
     }
     
     override var nestedComponents: [Component]? {
-        return [displayContent]
+        return [root]
     }
     
     // MARK:- Init
@@ -38,13 +38,13 @@ class ScrollViewItem: Component {
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
-        guard let displayContent = ComponentFactory.component(with: content?[JSONKey.content.rawValue],
-                                                              styles: styles)
+        guard let root = ComponentFactory.component(with: content?[JSONKey.root.rawValue],
+                                                    styles: styles)
             else {
-                DebugLog.w(caller: ScrollViewItem.self, "Missing \(JSONKey.content.rawValue): \(String(describing: content))")
+                DebugLog.w(caller: ScrollViewItem.self, "Missing \(JSONKey.root.rawValue): \(String(describing: content))")
                 return nil
         }
-        self.displayContent = displayContent
+        self.root = root
         
         super.init(id: id,
                    name: name,
