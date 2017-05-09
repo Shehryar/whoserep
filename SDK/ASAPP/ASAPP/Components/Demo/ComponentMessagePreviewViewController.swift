@@ -94,10 +94,7 @@ class ComponentMessagePreviewViewController: UIViewController {
         }
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: view.bounds.width, height: quickRepliesHeight)
         
-        var top: CGFloat = 0
-        if let navBar = navigationController?.navigationBar {
-            top = navBar.frame.maxY
-        }
+        let top: CGFloat = 0
         let height = contentBottom - top
         messagesView.frame = CGRect(x: 0, y: top, width: view.bounds.width, height: height)
     }

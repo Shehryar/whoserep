@@ -104,11 +104,7 @@ public class ComponentPreviewViewController: UIViewController {
             return
         }
         
-        var top: CGFloat = 0
-        if let navBar = navigationController?.navigationBar {
-            top = navBar.frame.maxY
-        }
-        
+        let top: CGFloat = 0
         let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
         let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
         controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)

@@ -91,7 +91,8 @@ public extension ASAPPStyles {
     internal class func boostStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
-        let textBlue = UIColor(red:0.345, green:0.388, blue:0.486, alpha:1.000)
+        let darkText = UIColor(red:0.345, green:0.388, blue:0.486, alpha:1.000)
+        let boostOrange = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
         
         // Nav button style
         
@@ -104,19 +105,20 @@ public extension ASAPPStyles {
         
         // Colors
         
-        styles.colors.navBarBackground = UIColor(red:0.969, green:0.565, blue:0.118, alpha:1.000)
+        //styles.colors.navBarBackground = boostOrange
+        styles.colors.navBarBackground = UIColor.black
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
 
-        styles.colors.messageText = textBlue
+        styles.colors.messageText = darkText
         
-        styles.colors.replyMessageText = textBlue
+        styles.colors.replyMessageText = darkText
         styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         styles.colors.replyMessageBorder = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
         
         styles.colors.quickRepliesBackground = UIColor.white
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white,
-                                                           textColor: textBlue)
+                                                           textColor: darkText)
         
         styles.colors.predictiveGradientTop = UIColor(red:0.973, green:0.596, blue:0.188, alpha:1.000)
         styles.colors.predictiveGradientMiddle = UIColor(red:0.937, green:0.502, blue:0.145, alpha:1.000)
@@ -135,6 +137,10 @@ public extension ASAPPStyles {
                                                          border: nil,
                                                          primaryButton: UIColor.white,
                                                          secondaryButton: UIColor.white)
+        
+        
+        styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: boostOrange)
+        styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: boostOrange)
         
         return styles
    

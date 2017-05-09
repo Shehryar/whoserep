@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class RefreshableTableViewController: UIViewController {
+public class RefreshableTableViewController: ASAPPViewController {
 
     let tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -68,12 +68,6 @@ public class RefreshableTableViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         tableView.frame = view.bounds
-        
-        var contentInset = UIEdgeInsets.zero
-        if let navBar = navigationController?.navigationBar {
-            contentInset.top = navBar.frame.maxY
-        }
-        tableView.contentInset = contentInset
     }
     
     // MARK: Content

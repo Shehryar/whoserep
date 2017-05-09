@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ASAPPViewController: UIViewController {
+public class ASAPPViewController: UIViewController {
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         updateNavigationBar()
@@ -21,7 +21,7 @@ class ASAPPViewController: UIViewController {
 
 extension ASAPPViewController {
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
 }
@@ -30,14 +30,14 @@ extension ASAPPViewController {
 
 extension ASAPPViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
         if ASAPP.styles.colors.navBarBackground.isDark() {
             return .lightContent
         }
         return .default
     }
     
-    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+    override public var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
         return .fade
     }
     
