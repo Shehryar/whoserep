@@ -1,0 +1,61 @@
+{
+  "text": "Would you like to keep your current compatible add-ons with this new plan?",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": "20 30 20 30"
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "textType": "bodyBold"
+              },
+              "content": {
+                "text": "Compatible Add-ons:"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "textType": "body",
+                "marginTop": 8
+              },
+              "content": {
+                "text": "• Todo Mexico Plus\n• Phone Insurance"
+              },
+              "type": "label"
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Yes",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "00-2_view_feedback_survey"
+          }
+        }
+      },
+      {
+        "title": "No, manage my add-ons",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "00-2_view_feedback_survey"
+          }
+        }
+      }
+    ]
+  }
+}

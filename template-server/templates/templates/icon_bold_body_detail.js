@@ -65,7 +65,7 @@ module.exports = function(data) {
 		items = [leftSide, rightSide];
 	} else if (rightSide) {
 		orientation = "vertical";
-		items = [rightSideItems];
+		items = rightSideItems;
 	} else if (leftSide) {
 		orientation = "vertical";
 		items = [leftSide];

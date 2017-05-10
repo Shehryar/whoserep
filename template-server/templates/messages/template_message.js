@@ -12,7 +12,14 @@ module.exports = function(data) {
 	}
 
 	if (Template) {
-		const templateData = data && data.attachment ? data.attachment : {};
+		let templateData = data && data.attachment ? data.attachment : {};
+
+		// Default Styling
+		templateData.style = Object.assign({
+			align: 'fill',
+			padding: "20 24 20 24"
+		}, templateData.style);
+
 		try {
 			var templateOutput = new Template(templateData);
 		} catch(err) {

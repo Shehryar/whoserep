@@ -2,23 +2,21 @@
   "type": "message",
   "template": "icon_bold_body_detail",
   "data": {
-    "text": "You have add-ons that are incompatible with this plan and will be removed if you continue. Are you sure you want to continue?",
+    "text": "Would you like to keep your current compatible add-ons with this new plan?",
     "attachment": {
-      "icon": "xThin",
-      "iconSize": "mediumLarge",
-      "boldText": "Incompatible Add-ons:",
+      "boldText": "Compatible Add-ons:",
       "bodyText": "• Todo Mexico Plus\n• Phone Insurance"
     },
     "quickReplies": [
       {
-        "title": "Yes, continue",
+        "title": "Yes",
         "action": {
           "type": "treewalk",
           "classification": "00-2_view_feedback_survey"
         }
       },
       {
-        "title": "No, choose a different plan",
+        "title": "No, manage my add-ons",
         "action": {
           "type": "treewalk",
           "classification": "00-2_view_feedback_survey"

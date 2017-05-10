@@ -1,0 +1,16 @@
+{
+  "text": "Ok, no problem! Tap below to let us know which add-ons you’d like to remove.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Remove Add-Ons",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "06-15_view_select_add-ons"
+          }
+        }
+      }
+    ]
+  }
+}
