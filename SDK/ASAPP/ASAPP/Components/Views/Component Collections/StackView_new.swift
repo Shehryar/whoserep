@@ -108,7 +108,14 @@ class StackView_new: BaseComponentView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (_, contentSize) = getFramesAndContentSize(for: size)
+        guard let component = component else {
+            return .zero
+        }
+        
+        var (_, contentSize) = getFramesAndContentSize(for: size)
+        if component.style.alignment == .fill {
+            contentSize.width = size.width
+        }
         
         return contentSize
     }

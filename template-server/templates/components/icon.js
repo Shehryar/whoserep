@@ -16,6 +16,11 @@ module.exports = function(data) {
 				data.style.height = 20;
 				break;
 
+			case 'mediumLarge':
+				data.style.width = 24;
+				data.style.height = 24;
+				break;
+
 			case 'large':
 				data.style.width = 30;
 				data.style.height = 30;

@@ -1,0 +1,84 @@
+{
+  "text": "You have add-ons that are incompatible with this plan and will be removed if you continue. Are you sure you want to continue?",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": 20
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "gravity": "top",
+                "weight": 0,
+                "marginRight": 20,
+                "width": 24,
+                "height": 24
+              },
+              "content": {
+                "icon": "xThin"
+              },
+              "type": "icon"
+            },
+            {
+              "style": {
+                "gravity": "top"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold"
+                    },
+                    "content": {
+                      "text": "Incompatible Add-ons:"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginTop": 8
+                    },
+                    "content": {
+                      "text": "• Todo Mexico Plus\n• Phone Insurance"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Yes, continue",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "00-2_view_feedback_survey"
+          }
+        }
+      },
+      {
+        "title": "No, choose a different plan",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "00-2_view_feedback_survey"
+          }
+        }
+      }
+    ]
+  }
+}

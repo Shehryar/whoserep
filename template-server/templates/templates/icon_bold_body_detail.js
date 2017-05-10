@@ -24,7 +24,7 @@ module.exports = function(data) {
 				text: bodyText,
 				style: {
 					textType: 'body',
-					marginTop: boldText ? 4 : 0
+					marginTop: boldText ? 8 : 0
 				}
 			}));
 		}
@@ -53,7 +53,7 @@ module.exports = function(data) {
 			style: {
 				gravity: 'top',
 				weight: 0,
-				marginRight: rightSide ? 16 : 0
+				marginRight: rightSide ? 20 : 0
 			}
 		});
 	}

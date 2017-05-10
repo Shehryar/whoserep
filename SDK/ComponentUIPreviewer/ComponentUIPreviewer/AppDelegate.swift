@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ASAPP.debugLogLevel = .debug
         ASAPP.loadFonts()
-        ASAPP.styles = ASAPPStyles.stylesForAppId("boost")
+        ASAPP.styles = ASAPPStyles.stylesForAppId("comcast")
         
         let rootVC = UINavigationController(rootViewController: ComponentUIPreviewerViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
