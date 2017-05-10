@@ -396,6 +396,8 @@
 		30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */; };
 		30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C91EC2476E00ABA570 /* Checkbox.swift */; };
 		30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */; };
+		30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */; };
+		30F6B4D01EC3D5F100ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CF1EC3D5F100ABA570 /* TabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -790,6 +792,8 @@
 		30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxViewItem.swift; sourceTree = "<group>"; };
 		30F6B4C91EC2476E00ABA570 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _RootComponentWrapperView.swift; sourceTree = "<group>"; };
+		30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
+		30F6B4CF1EC3D5F100ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -959,6 +963,7 @@
 				30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */,
 				2880851C1E87FCA800240A5D /* ScrollView.swift */,
 				2880851D1E87FCA800240A5D /* StackView_new.swift */,
+				30F6B4CF1EC3D5F100ABA570 /* TabView.swift */,
 				2880851E1E87FCA800240A5D /* TableView */,
 			);
 			path = "Component Collections";
@@ -1183,6 +1188,7 @@
 				30131FC21EB10FD0009E7299 /* SeparatorItem.swift */,
 				30131FC31EB10FD0009E7299 /* SliderItem.swift */,
 				30131FC41EB10FD0009E7299 /* StackViewItem.swift */,
+				30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */,
 				30131FC51EB10FD0009E7299 /* TableViewItem.swift */,
 				30131FC61EB10FD0009E7299 /* TextAreaItem.swift */,
 				30131FC71EB10FD0009E7299 /* TextInputItem.swift */,
@@ -2184,6 +2190,7 @@
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
+				30F6B4D01EC3D5F100ABA570 /* TabView.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
@@ -2200,6 +2207,7 @@
 				30131FCE1EB10FD0009E7299 /* ProgressBarItem.swift in Sources */,
 				288085231E87FCA800240A5D /* StackView_new.swift in Sources */,
 				302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */,
+				30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */,
 				30131FD41EB10FD0009E7299 /* StackViewItem.swift in Sources */,
 				302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,

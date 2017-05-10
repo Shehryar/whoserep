@@ -30,6 +30,7 @@ enum ComponentType: String {
     case carouselView = "carouselView"
     case scrollView = "scrollView"
     case stackView = "stackView"
+    case tabView = "tabView"
     case tableView = "tableView"
     
     // MARK: Utility
@@ -55,6 +56,7 @@ enum ComponentType: String {
         case .carouselView:  return CarouselViewItem.self
         case .scrollView:    return ScrollViewItem.self
         case .stackView:     return StackViewItem.self
+        case .tabView:       return TabViewItem.self
         case .tableView:     return TableViewItem.self
         }
     }
