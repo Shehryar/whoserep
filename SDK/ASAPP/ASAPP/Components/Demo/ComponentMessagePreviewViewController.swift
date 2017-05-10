@@ -264,7 +264,7 @@ extension ComponentMessagePreviewViewController {
     
     func handleAPIAction(_ action: APIAction, from /** root component **/ component: Component) {
 
-        var requestData = component.getData(for: action.dataInputFields)
+        var requestData = component.getData()
         requestData.add(action.data)
         
         let requestDataString = JSONUtil.stringify(requestData as AnyObject, prettyPrinted: true)

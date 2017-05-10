@@ -105,8 +105,8 @@ public extension ASAPPStyles {
         
         // Colors
         
-        //styles.colors.navBarBackground = boostOrange
-        styles.colors.navBarBackground = UIColor.black
+        styles.colors.navBarBackground = boostOrange
+//        styles.colors.navBarBackground = UIColor.black
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
 

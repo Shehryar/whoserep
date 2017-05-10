@@ -19,11 +19,13 @@ class Component: NSObject {
     
     let id: String?
     
+    let style: ComponentStyle
+    
     let name: String?
     
     var value: Any?
     
-    let style: ComponentStyle
+    var isChecked: Bool?
     
     /// Subclasses should override this, if necessary
     var nestedComponents: [Component]? {
@@ -35,12 +37,14 @@ class Component: NSObject {
     required init?(id: String?,
                    name: String?,
                    value: Any?,
+                   isChecked: Bool?,
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         self.id = id
         self.name = name
         self.value = value
+        self.isChecked = isChecked
         self.style = style
         super.init()
     }
@@ -78,16 +82,22 @@ class Component: NSObject {
         return (component.name, component.value)
     }
     
-    func getData(for componentIds: [String]?) -> [String : Any] {
-        var data = [String : Any]()
-        guard let componentIds = componentIds else {
-            return data
-        }
+    func enumerateNestedComponents(_ block: ((_ nestedComponent: Component) -> Void)) {
         
-        for componentId in componentIds {
-            let (name, value) = findNameValue(for: componentId)
-            if let name = name, let value = value {
-                data[name] = value
+    }
+    
+    func getData() -> [String : Any] {
+        var data = [String : Any]()
+        enumerateNestedComponents { (component) in
+            if let name = component.name,
+                let value = component.value {
+                if let checkbox = component as? CheckboxItem {
+                    if checkbox.isChecked == true {
+                        data[name] = value
+                    }
+                } else {
+                    data[name] = value
+                }
             }
         }
         return data

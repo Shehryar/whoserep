@@ -52,6 +52,7 @@ class StackViewItem: Component {
     required init?(id: String?,
                    name: String?,
                    value: Any?,
+                   isChecked: Bool?,
                    style: ComponentStyle,
                    styles: [String : Any]?,
                    content: [String : Any]?) {
@@ -78,6 +79,7 @@ class StackViewItem: Component {
         super.init(id: id,
                    name: name,
                    value: value,
+                   isChecked: isChecked,
                    style: style,
                    styles: styles,
                    content: content)

@@ -620,7 +620,7 @@ extension ChatViewController {
             requestData.add(params)
         }
         if let rootComponent = rootComponent {
-            requestData.add(rootComponent.getData(for: action.dataInputFields))
+            requestData.add(rootComponent.getData())
         }
         
         let requestDataString = JSONUtil.stringify(requestData as AnyObject,

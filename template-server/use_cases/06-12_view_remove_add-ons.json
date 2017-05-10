@@ -1,0 +1,22 @@
+{
+  "type": "view",
+  "template": "title_body_items_cancel_submit",
+  "data": {
+    "title": "Remove Add-Ons",
+    "root": {
+      "submitButtonTitle": "REMOVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "ACTION-TODO",
+        "data": {
+          "text": "Remove some add-ons",
+          "classification": "06-14_message_shop_add-ons"
+        }
+      },
+      "scrollContent": {
+        "title": "Remove Add-Ons",
+        "bodyText": "Select which of your add-ons you would like removed from your new plan."
+      }
+    }
+  }
+}

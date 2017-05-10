@@ -12,10 +12,6 @@ module.exports = function(data) {
 		cornerRadius: 6
 	}, data.style);
 
-	console.log('\n\n--------------\nstyle:');
-	console.log(data.style);
-	console.log('=============\n\n');
-
 	// Content
 	data.orientation = 'vertical';
 	var items = [];
@@ -36,6 +32,7 @@ module.exports = function(data) {
 				align: "center",
 				textAlign: "center",
 				textType: "body",
+				weight: 1,
 				marginTop: boldText ? 16 : 0
 			}
 		}));

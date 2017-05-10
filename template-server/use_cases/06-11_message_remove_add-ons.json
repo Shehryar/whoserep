@@ -8,7 +8,7 @@
         "title": "Remove Add-Ons",
         "action": {
           "type": "componentView",
-          "name": "06-15_view_select_add-ons"
+          "name": "06-12_view_remove_add-ons"
         }
       }
     ]

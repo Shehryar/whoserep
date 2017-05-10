@@ -184,12 +184,34 @@ class CarouselView: BaseComponentView {
             itemLeft += itemWidth + carousel.itemSpacing
         }
         
-        // TODO: Align frames vertically, if necessary
+        // Align frames vertically, if necessary
+        for (idx, itemView) in itemViews.enumerated() {
+            var frame = itemFrames[idx]
+            if let gravity = itemView.component?.style.gravity {
+                switch gravity {
+                case .top:
+                    // No-op
+                    break
+                    
+                case .middle:
+                    frame.origin.y = floor((contentSize.height - frame.size.height) / 2.0)
+                    break
+                    
+                case .bottom:
+                    frame.origin.y = contentSize.height - frame.size.height
+                    break
+                    
+                case .fill:
+                    frame.size.height = contentSize.height
+                    break
+                }
+            }
+            itemFrames[idx] = frame
+        }
+        
         let scrollViewWidth = carousel.pagingEnabled ? itemWidth + carousel.itemSpacing : visibleItemContentWidth
         scrollViewFrame = CGRect(x: padding.left, y: padding.top, width: scrollViewWidth, height: contentSize.height)
 
-        
-        
         // Set Page Control Top if Carousel is gravity!=fill
         if pcHeight > 0 && carousel.style.gravity != .fill {
             pcTop = scrollViewFrame.maxY + pcMargin.top

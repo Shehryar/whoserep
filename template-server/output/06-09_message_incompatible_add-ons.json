@@ -66,7 +66,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "00-2_view_feedback_survey"
+            "classification": "06-10_message_compatible_add-ons"
           }
         }
       },
@@ -75,7 +75,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "00-2_view_feedback_survey"
+            "classification": "ACTION-TODO"
           }
         }
       }

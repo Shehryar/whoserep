@@ -1,0 +1,25 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Your current plan is a grandfathered plan. If you change plans, you will no longer be able to access this plan again. Are you sure you’d like to change plans?",
+    "quickReplies": {
+      "default": [
+        {
+          "title": "Yes, change plans",
+          "action": {
+            "type": "treewalk",
+            "classification": "06-09_message_incompatible_add-ons"
+          }
+        },
+        {
+          "title": "No, keep grandfatered plan",
+          "action": {
+            "type": "componentView",
+            "name": "ACTION-TODO"
+          }
+        }
+      ]
+    }
+  }
+}

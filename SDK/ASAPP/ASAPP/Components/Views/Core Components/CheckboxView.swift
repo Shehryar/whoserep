@@ -23,8 +23,8 @@ class CheckboxView: _RootComponentWrapperView {
         }
     }
     
-    var currentValue: Bool {
-        return component?.value as? Bool ?? false
+    var isChecked: Bool {
+        return component?.isChecked ?? false
     }
     
     // Init
@@ -38,15 +38,15 @@ class CheckboxView: _RootComponentWrapperView {
     // Actions
     
     func didTap() {
-        component?.value = !currentValue
+        component?.isChecked = !isChecked
         
         updateCheckbox()
         
-        contentHandler?.componentView(self, didUpdateContent: currentValue, requiresLayoutUpdate: false)
+        contentHandler?.componentView(self, didUpdateContent: isChecked, requiresLayoutUpdate: false)
     }
     
     func updateCheckbox() {
-        let isChecked = currentValue
+        let isChecked = self.isChecked
         enumerateNestedComponentViews() { (childView) -> Bool in
             if let checkbox = childView as? Checkbox {
                 checkbox.isChecked = isChecked

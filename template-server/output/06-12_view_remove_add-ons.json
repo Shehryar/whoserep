@@ -1,0 +1,101 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Remove Add-Ons"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 0
+                    },
+                    "content": {
+                      "text": "Select which of your add-ons you would like removed from your new plan."
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  },
+                  "buttonStyle": "secondary"
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "REMOVE",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "ACTION-TODO",
+                      "data": {
+                        "text": "Remove some add-ons",
+                        "classification": "06-14_message_shop_add-ons"
+                      }
+                    }
+                  },
+                  "buttonStyle": "primary"
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Remove Add-Ons"
+}

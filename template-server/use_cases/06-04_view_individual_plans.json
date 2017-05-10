@@ -1,0 +1,22 @@
+{
+  "type": "view",
+  "template": "title_body_items_cancel_submit",
+  "data": {
+    "title": "Remove Add-Ons",
+    "root": {
+      "submitButtonTitle": "REMOVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "ACTION-TODO",
+        "data": {
+          "text": "Remove some add-ons",
+          "classification": "06-14_message_shop_add-ons"
+        }
+      },
+      "scrollContent": {
+        "title": "Individual Plans",
+        "bodyText": "This view needs to be updated."
+      }
+    }
+  }
+}

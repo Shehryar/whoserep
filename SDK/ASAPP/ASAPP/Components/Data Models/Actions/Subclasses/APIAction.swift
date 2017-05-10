@@ -14,9 +14,7 @@ class APIAction: Action {
     
     enum JSONKey: String {
         case data = "data"
-        case inputFields = "inputFields"
         case requestPath = "requestPath"
-        case requiredInputFields = "requiredInputFields"
     }
     
     // MARK: Properties
@@ -28,10 +26,6 @@ class APIAction: Action {
     let requestPath: String
     
     let data: [String : Any]?
-    
-    let dataInputFields: [String]?
-    
-    let requiredDataInputFields: [String]?
     
     // MARK: Init
     
@@ -45,8 +39,6 @@ class APIAction: Action {
         }
         self.requestPath = requestPath
         self.data = content[JSONKey.data.rawValue] as? [String : Any]
-        self.dataInputFields = content.strings(for: JSONKey.inputFields.rawValue)
-        self.requiredDataInputFields = content.strings(for: JSONKey.requiredInputFields.rawValue)
         
         super.init(content: content)
     }

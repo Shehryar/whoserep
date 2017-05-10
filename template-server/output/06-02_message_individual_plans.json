@@ -1,0 +1,45 @@
+{
+  "text": "Here are the available individual plans to choose from. Let us know if you’re interested in moving forward with one.",
+  "quickReplies": {
+    "unlimited_unhookd": [
+      {
+        "title": "Switch to Unlimited Unhook'd",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "ACTION-TODO"
+          }
+        }
+      },
+      {
+        "title": "I have more questions",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "06-04_view_individual_plans"
+          }
+        }
+      }
+    ],
+    "unlimited_starter": [
+      {
+        "title": "Switch to Unlimited Starter",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        }
+      },
+      {
+        "title": "I have more questions",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "06-04_view_individual_plans"
+          }
+        }
+      }
+    ]
+  }
+}

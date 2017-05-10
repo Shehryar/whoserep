@@ -5,7 +5,7 @@
       "root": {
         "style": {
           "align": "fill",
-          "padding": "20 30 20 30"
+          "padding": "20 24 20 24"
         },
         "content": {
           "items": [
@@ -24,7 +24,7 @@
                 "marginTop": 8
               },
               "content": {
-                "text": "• Todo Mexico Plus\n• Phone Insurance"
+                "text": "• Big muscles\n• Nice hair"
               },
               "type": "label"
             }
@@ -43,7 +43,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "00-2_view_feedback_survey"
+            "classification": "ACTION-TODO"
           }
         }
       },
@@ -52,7 +52,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "00-2_view_feedback_survey"
+            "classification": "06-11_message_remove_add-ons"
           }
         }
       }

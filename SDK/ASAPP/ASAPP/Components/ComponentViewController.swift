@@ -248,7 +248,7 @@ extension ComponentViewController {
         
         var requestData = [String : Any]()
         requestData.add(action.data)
-        requestData.add(component.getData(for: action.dataInputFields))
+        requestData.add(component.getData())
         
         buttonView.isLoading = true
         

@@ -268,6 +268,19 @@ extension ComponentLayoutEngine {
         
         let sizes = getRowSizes(for: views, within: boundingRect.size)
 
+        
+        var shouldCheck = false
+        if let labelView = views.first as? LabelView,
+            let labelItem = labelView.component as? LabelItem,
+            labelItem.text == "25 Min to Colombia"{
+            
+            shouldCheck = true
+            DebugLog.d("\n----------\nBounding Rect: \(boundingRect)")
+            DebugLog.d("\(sizes)\n \n--------------")
+        }
+        
+        
+        
         var maxFrameHeight: CGFloat = 0
         var maxFrameWidth: CGFloat = 0
         var top = boundingRect.minY
@@ -279,6 +292,10 @@ extension ComponentLayoutEngine {
             
             let maxSize = sizes[idx].maxSize
             var size = sizes[idx].fittedSize
+            
+            if shouldCheck {
+                
+            }
             
             // fittedSize < maxSize ==> Need to adjust for gravity within maxSize
             var offsetY: CGFloat = 0

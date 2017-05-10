@@ -14,14 +14,14 @@
         "title": "Yes, continue",
         "action": {
           "type": "treewalk",
-          "classification": "00-2_view_feedback_survey"
+          "classification": "06-10_message_compatible_add-ons"
         }
       },
       {
         "title": "No, choose a different plan",
         "action": {
           "type": "treewalk",
-          "classification": "00-2_view_feedback_survey"
+          "classification": "ACTION-TODO"
         }
       }
     ]

@@ -235,7 +235,7 @@ extension ComponentPreviewViewController {
         }
         
         var requestData = action.data ?? [String : Any]()
-        requestData.add(component.getData(for: action.dataInputFields))
+        requestData.add(component.getData())
     
         let requestDataString = JSONUtil.stringify(requestData as AnyObject,
                                                    prettyPrinted: true)
