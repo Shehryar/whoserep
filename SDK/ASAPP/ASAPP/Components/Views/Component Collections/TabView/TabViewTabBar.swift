@@ -1,5 +1,5 @@
 //
-//  TabView.swift
+//  TabViewTabBar.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 5/10/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabView: BaseComponentView {
+class TabViewTabBar: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.

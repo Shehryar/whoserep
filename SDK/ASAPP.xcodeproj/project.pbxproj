@@ -398,6 +398,9 @@
 		30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */; };
 		30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */; };
 		30F6B4D01EC3D5F100ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CF1EC3D5F100ABA570 /* TabView.swift */; };
+		30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D21EC3D67B00ABA570 /* TabView.swift */; };
+		30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */; };
+		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -794,6 +797,9 @@
 		30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _RootComponentWrapperView.swift; sourceTree = "<group>"; };
 		30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
 		30F6B4CF1EC3D5F100ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		30F6B4D21EC3D67B00ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTabBar.swift; sourceTree = "<group>"; };
+		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -964,6 +970,7 @@
 				2880851C1E87FCA800240A5D /* ScrollView.swift */,
 				2880851D1E87FCA800240A5D /* StackView_new.swift */,
 				30F6B4CF1EC3D5F100ABA570 /* TabView.swift */,
+				30F6B4D11EC3D67B00ABA570 /* TabView */,
 				2880851E1E87FCA800240A5D /* TableView */,
 			);
 			path = "Component Collections";
@@ -1710,6 +1717,16 @@
 			path = "SocketRocket-0.5.1";
 			sourceTree = "<group>";
 		};
+		30F6B4D11EC3D67B00ABA570 /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				30F6B4D21EC3D67B00ABA570 /* TabView.swift */,
+				30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */,
+				30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */,
+			);
+			path = TabView;
+			sourceTree = "<group>";
+		};
 		6A10F4CFFA2A2A316A2C20A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2055,6 +2072,8 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */,
+				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
+				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
 				303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */,
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
@@ -2151,6 +2170,7 @@
 				307484E01EB8F2F9008CF3E4 /* FinishAction.swift in Sources */,
 				307484E41EB8FE37008CF3E4 /* TreewalkAction.swift in Sources */,
 				281C34A41E7F092C001A2AA3 /* SeparatorView.swift in Sources */,
+				30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */,
 				281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
