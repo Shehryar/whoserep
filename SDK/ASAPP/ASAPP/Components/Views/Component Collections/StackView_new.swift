@@ -46,6 +46,13 @@ class StackView_new: BaseComponentView {
         return component as? StackViewItem
     }
     
+    // MARK:- Init
+    
+    override func commonInit() {
+        super.commonInit()
+        clipsToBounds = false
+    }
+    
     // MARK: Layout
     
     func getFramesAndContentSize(for size: CGSize) -> ([CGRect], CGSize) {

@@ -268,6 +268,7 @@ extension CarouselView: UIScrollViewDelegate {
     func updateCarouselValue() {
         let currentPage = pageControlView.currentPage
         guard let carouselViewItem = carouselViewItem,
+            carouselViewItem.pagingEnabled &&
             currentPage >= 0 && currentPage < carouselViewItem.items.count else {
                 return
         }

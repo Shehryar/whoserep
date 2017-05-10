@@ -58,6 +58,7 @@ public class ComponentPreviewViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         controlsBar.barStyle = .default
+        controlsBar.barTintColor = UIColor.white
         controlsBar.items = [
             UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.start)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
@@ -99,6 +100,7 @@ public class ComponentPreviewViewController: UIViewController {
     
     override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        view.bringSubview(toFront: controlsBar)
         
         guard let contentView = contentView else {
             return

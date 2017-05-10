@@ -2,7 +2,7 @@
   "text": "Sure! Here are your last three texts. Tap 'view all' to see your full text history.",
   "attachment": {
     "content": {
-      "body": {
+      "root": {
         "style": {
           "padding": "4 20 4 20"
         },

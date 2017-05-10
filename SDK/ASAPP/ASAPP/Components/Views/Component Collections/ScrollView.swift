@@ -59,7 +59,7 @@ class ScrollView: UIScrollView, ComponentView {
     // MARK: Init
     
     func commonInit() {
-        
+        clipsToBounds = false
     }
     
     override init(frame: CGRect) {

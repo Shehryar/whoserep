@@ -45,7 +45,6 @@ class StackView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        
     }
     
     override init(frame: CGRect) {
