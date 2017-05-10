@@ -84,6 +84,7 @@ public class ComponentPreviewViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.clipsToBounds = true
         view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         if let contentView = contentView {
             view.addSubview(contentView)

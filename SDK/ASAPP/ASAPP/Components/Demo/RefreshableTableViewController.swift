@@ -51,6 +51,7 @@ public class RefreshableTableViewController: ASAPPViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.clipsToBounds = true
         view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         view.addSubview(tableView)
         

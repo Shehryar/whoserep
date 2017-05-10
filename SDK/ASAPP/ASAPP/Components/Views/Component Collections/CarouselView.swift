@@ -164,7 +164,7 @@ class CarouselView: BaseComponentView {
         let padding = carousel.style.padding
         let negativeContentWidth = max(0, ceil(carousel.visibleItemCount) - 1) * carousel.itemSpacing
         let visibleItemContentWidth = fitToSize.width - negativeContentWidth
-        let itemWidth = ceil(visibleItemContentWidth / carousel.visibleItemCount)
+        var itemWidth = ceil(visibleItemContentWidth / carousel.visibleItemCount)
         guard itemWidth > 0 else {
             return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
         }
@@ -172,6 +172,9 @@ class CarouselView: BaseComponentView {
         // Set frames horizontally
         var itemLeft: CGFloat = 0
         if carousel.pagingEnabled {
+            if carousel.visibleItemCount <= 1 {
+                itemWidth -= carousel.itemSpacing
+            }
             itemLeft = floor(carousel.itemSpacing / 2.0)
         }
         for itemView in itemViews {

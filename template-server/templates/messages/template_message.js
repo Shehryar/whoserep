@@ -31,7 +31,8 @@ module.exports = function(data) {
 			var attachment = new ComponentViewAttachment({
 				content: {
 					root: templateOutput
-				}
+				},
+				requiresNoContainer: templateData.requiresNoContainer
 			});
 		}
 	}
