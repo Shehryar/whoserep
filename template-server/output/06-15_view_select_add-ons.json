@@ -56,12 +56,14 @@
                           "content": {
                             "items": [
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "25minCol",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -118,12 +120,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "tvAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "boostTVLatino",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -180,12 +184,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "textAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "fullInternational",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -242,6 +248,7 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
@@ -333,12 +340,14 @@
                           "content": {
                             "items": [
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "25minCol",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -395,12 +404,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "40minGuat",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -457,12 +468,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "60minFrance",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -519,12 +532,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "talkAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "60minCanada",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -610,12 +625,14 @@
                           "content": {
                             "items": [
                               {
+                                "name": "textAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "textAddon1",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -672,12 +689,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "textAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "textAddon2",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -734,12 +753,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "textAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "textAddon3",
                                 "content": {
                                   "root": {
                                     "content": {
@@ -796,12 +817,14 @@
                                 "type": "checkboxView"
                               },
                               {
+                                "name": "textAddons[]",
                                 "style": {
                                   "padding": "24 20 16 20",
                                   "borderWidth": 1,
                                   "cornerRadius": 6,
                                   "gravity": "fill"
                                 },
+                                "value": "textAddon4",
                                 "content": {
                                   "root": {
                                     "content": {

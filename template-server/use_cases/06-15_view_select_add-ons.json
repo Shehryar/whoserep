@@ -21,21 +21,29 @@
             "title": "Top Selling",
             "items": [
               {
+                "name": "talkAddons[]",
+                "value": "25minCol",
                 "boldText": "25 Min to Colombia",
                 "bodyText": "$15",
                 "detailText": "90 day add-on"
               },
               {
+                "name": "tvAddons[]",
+                "value": "boostTVLatino",
                 "boldText": "boostTV Latino",
                 "bodyText": "$10/mo.",
                 "detailText": "Monthly recurring"
               },
               {
+                "name": "textAddons[]",
+                "value": "fullInternational",
                 "boldText": "Full International Plan for Everyone",
                 "bodyText": "$30/mo.",
                 "detailText": "Monthly recurring"
               },
               {
+                "name": "talkAddons[]",
+                "value": "",
                 "boldText": "25 Min to Colombia",
                 "bodyText": "$15",
                 "detailText": "90 day add-on"
@@ -46,21 +54,29 @@
             "title": "Talk",
             "items": [
               {
+                "name": "talkAddons[]",
+                "value": "25minCol",
                 "boldText": "25 Min to Colombia",
                 "bodyText": "$3",
                 "detailText": "90 day add-on"
               },
               {
+                "name": "talkAddons[]",
+                "value": "40minGuat",
                 "boldText": "40 Min to Guatemala",
                 "bodyText": "$5",
                 "detailText": "90 day add-on"
               },
               {
+                "name": "talkAddons[]",
+                "value": "60minFrance",
                 "boldText": "60 Min to France",
                 "bodyText": "$6",
                 "detailText": "90 day add-on"
               },
               {
+                "name": "talkAddons[]",
+                "value": "60minCanada",
                 "boldText": "60 Min to Canada",
                 "bodyText": "$0.50",
                 "detailText": "90 day add-on"
@@ -71,21 +87,29 @@
             "title": "Text",
             "items": [
               {
+                "name": "textAddons[]",
+                "value": "textAddon1",
                 "boldText": "Text Add-On",
                 "bodyText": "$5",
                 "detailText": "Monthly Recurring"
               },
               {
+                "name": "textAddons[]",
+                "value": "textAddon2",
                 "boldText": "Text Add-On 2",
                 "bodyText": "$15",
                 "detailText": "Monthly Recurring"
               },
               {
+                "name": "textAddons[]",
+                "value": "textAddon3",
                 "boldText": "Text Add-On 3",
                 "bodyText": "$5",
                 "detailText": "Monthly Recurring"
               },
               {
+                "name": "textAddons[]",
+                "value": "textAddon4",
                 "boldText": "Text Add-On 4",
                 "bodyText": "$5",
                 "detailText": "Monthly Recurring"

@@ -84,22 +84,55 @@ class Component: NSObject {
     
     func enumerateNestedComponents(_ block: ((_ nestedComponent: Component) -> Void)) {
         
+        
+        
+        if let nestedComponents = nestedComponents {
+            for component in nestedComponents {
+                block(component)
+                component.enumerateNestedComponents(block)
+            }
+        }
     }
     
     func getData() -> [String : Any] {
         var data = [String : Any]()
-        enumerateNestedComponents { (component) in
-            if let name = component.name,
-                let value = component.value {
-                if let checkbox = component as? CheckboxItem {
-                    if checkbox.isChecked == true {
-                        data[name] = value
-                    }
-                } else {
-                    data[name] = value
-                }
+        
+        func add(name: String, value: Any) {
+            // Default - add the value under the name
+            if !name.hasSuffix("[]") {
+                data[name] = value
+                return
+            }
+            
+            // Add to, or create, an array
+            if let valuesArray = data[name] as? [Any] {
+                var mutableValuesArray = valuesArray
+                mutableValuesArray.append(value)
+                data[name] = mutableValuesArray
+            } else {
+                data[name] = [value]
             }
         }
+        
+        enumerateNestedComponents { (component) in
+            DebugLog.d("in block")
+            
+            DebugLog.d("name=\(component.name ?? ""), value=\(component.value ?? "")")
+            
+            if let name = component.name,
+                let value = component.value {
+                
+                if let checkbox = component as? CheckboxViewItem {
+                    if checkbox.isChecked == true {
+                        add(name: name, value: value)
+                    }
+                } else {
+                    add(name: name, value: value)
+                }
+                
+            }
+        }
+        DebugLog.d("after block")
         return data
     }
 }
