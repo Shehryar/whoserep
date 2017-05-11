@@ -1,5 +1,3 @@
-// button.js
-
 const Component = require('./component');
 const Action = require('./action');
 

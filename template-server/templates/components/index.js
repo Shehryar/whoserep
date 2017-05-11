@@ -17,5 +17,7 @@ module.exports = {
 	TabView: require('./tab_view'),
 	TabViewPage: require('./tab_view_page'),
 	TableView: require('./table_view'),
-	TableViewSection: require('./table_view_section')
+	TableViewSection: require('./table_view_section'),
+	TextArea: require('./text_area'),
+	TextInput: require('./text_input')
 };

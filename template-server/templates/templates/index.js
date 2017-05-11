@@ -10,6 +10,7 @@ module.exports = {
 	DetailHeaderBodyDetailBolds: require('./detail_header_body_detail_bolds'),
 	IconBoldBodyDetail: require('./icon_bold_body_detail'),
 	IconTextDetailValue: require('./icon_text_detail_value'),
+	HorizontalTextInputs: require('./horizontal_text_inputs'),
 	ProgressHeaderBodyError: require('./progress_header_body_error'),
 	TextDetail: require('./text_detail'),
 	TitleButton: require('./title_button'),

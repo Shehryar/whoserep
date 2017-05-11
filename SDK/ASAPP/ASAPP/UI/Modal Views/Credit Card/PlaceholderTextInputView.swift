@@ -194,6 +194,12 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
+    override var tintColor: UIColor! {
+        didSet {
+            textField.tintColor = tintColor
+        }
+    }
+    
     // MARK: Highlighting / Selection
     
     fileprivate(set) var selected: Bool = false {
@@ -369,11 +375,7 @@ class PlaceholderTextInputView: UIView {
         if let placeholderText = placeholderText {
             let color = (invalid ? placeholderColorError : placeholderColor) ?? placeholderColor
             
-            placeholderLabel.attributedText = NSAttributedString(string: placeholderText, attributes: [
-                NSFontAttributeName : placeholderFont,
-                NSForegroundColorAttributeName : color,
-                NSKernAttributeName : 0.8
-                ])
+            placeholderLabel.setAttributedText(placeholderText, textType: .detail1)
         } else {
             placeholderLabel.attributedText = nil
         }

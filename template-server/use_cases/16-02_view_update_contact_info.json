@@ -1,8 +1,8 @@
 {
   "type": "view",
-  "template": "title_body_checkbox_carousels",
+  "template": "update_contact_info_view",
   "data": {
-    "title": "Shop Add-Ons",
+    "title": "Update Contact Info",
     "root": {
       "submitButtonTitle": "SAVE",
       "submitButtonAction": {
@@ -13,7 +13,10 @@
           "classification": "16-04_message_contact_info_updated"
         }
       },
-      "scrollContent": {}
+      "scrollContent": {
+        "title": "Update Contact Info",
+        "existingPhone": "(555) 555-5555"
+      }
     }
   }
 }
