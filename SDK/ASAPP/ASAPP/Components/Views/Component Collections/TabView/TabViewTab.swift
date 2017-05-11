@@ -10,6 +10,54 @@ import UIKit
 
 class TabViewTab: UIView {
 
+    var isSelected: Bool = false {
+        didSet {
+            updateDisplay()
+        }
+    }
     
+    var title: String? {
+        didSet {
+            updateDisplay()
+        }
+    }
+    
+    // MARK: Private Properties
+    
+    fileprivate let label = UILabel()
+    
+    // MARK: Initialization
+    
+    func commonInit() {
+        addSubview(label)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
 
+    // MARK: Display
+    
+    func updateDisplay() {
+        let tabColor: UIColor
+        let titleColor: UIColor
+        if isSelected {
+            tabColor = ASAPP.styles.colors.backgroundPrimary
+            titleColor = ASAPP.styles.colors.textPrimary
+        } else {
+            tabColor = ASAPP.styles.colors.backgroundSecondary
+            titleColor = ASAPP.styles.colors.textSecondary
+        }
+        
+        backgroundColor = tabColor
+        label.setAttributedText(title,
+                                textType: .subheader,
+                                color: titleColor)
+    }
 }
