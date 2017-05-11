@@ -397,7 +397,6 @@
 		30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4C91EC2476E00ABA570 /* Checkbox.swift */; };
 		30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */; };
 		30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */; };
-		30F6B4D01EC3D5F100ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4CF1EC3D5F100ABA570 /* TabView.swift */; };
 		30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D21EC3D67B00ABA570 /* TabView.swift */; };
 		30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */; };
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
@@ -796,7 +795,6 @@
 		30F6B4C91EC2476E00ABA570 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _RootComponentWrapperView.swift; sourceTree = "<group>"; };
 		30F6B4CD1EC3D44000ABA570 /* TabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewItem.swift; sourceTree = "<group>"; };
-		30F6B4CF1EC3D5F100ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		30F6B4D21EC3D67B00ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTabBar.swift; sourceTree = "<group>"; };
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
@@ -969,7 +967,6 @@
 				30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */,
 				2880851C1E87FCA800240A5D /* ScrollView.swift */,
 				2880851D1E87FCA800240A5D /* StackView_new.swift */,
-				30F6B4CF1EC3D5F100ABA570 /* TabView.swift */,
 				30F6B4D11EC3D67B00ABA570 /* TabView */,
 				2880851E1E87FCA800240A5D /* TableView */,
 			);
@@ -1721,8 +1718,8 @@
 			isa = PBXGroup;
 			children = (
 				30F6B4D21EC3D67B00ABA570 /* TabView.swift */,
-				30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */,
 				30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */,
+				30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */,
 			);
 			path = TabView;
 			sourceTree = "<group>";
@@ -2210,7 +2207,6 @@
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
-				30F6B4D01EC3D5F100ABA570 /* TabView.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
