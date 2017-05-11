@@ -19,6 +19,13 @@ class TabViewTab: UIView {
     var title: String? {
         didSet {
             updateDisplay()
+            setNeedsLayout()
+        }
+    }
+    
+    var padding = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12) {
+        didSet {
+            setNeedsLayout()
         }
     }
     
@@ -29,7 +36,12 @@ class TabViewTab: UIView {
     // MARK: Initialization
     
     func commonInit() {
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         addSubview(label)
+        
+        updateDisplay()
     }
     
     override init(frame: CGRect) {
@@ -59,5 +71,27 @@ class TabViewTab: UIView {
         label.setAttributedText(title,
                                 textType: .subheader,
                                 color: titleColor)
+    }
+    
+    // MARK: Layout
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        label.frame = UIEdgeInsetsInsetRect(bounds, padding)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let maxLabelSize = CGSize(width: max(0, size.width - padding.left - padding.right),
+                                  height: max(0, size.height - padding.top - padding.bottom))
+        let labelSize = label.sizeThatFits(maxLabelSize)
+        guard labelSize.width > 0 && labelSize.height > 0 else {
+            return .zero
+        }
+        
+        let fittedSize = CGSize(width: ceil(labelSize.width + padding.left + padding.right),
+                                height: ceil(labelSize.height + padding.top + padding.bottom))
+        
+        return fittedSize
     }
 }
