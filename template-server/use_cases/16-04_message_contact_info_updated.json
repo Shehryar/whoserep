@@ -1,0 +1,13 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Ok no problem. Tap below to update your contact information.",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Contact Info Updated",
+      "detailText": "May 22, 2017 - 4:15PM"
+    }
+  }
+}

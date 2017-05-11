@@ -1,0 +1,7 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Ok, no problem"
+  }
+}

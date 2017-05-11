@@ -1,0 +1,80 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": []
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  },
+                  "buttonStyle": "secondary"
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SAVE",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/updateContactInfo",
+                      "data": {
+                        "text": "Updated Contact Info",
+                        "classification": "16-04_message_contact_info_updated"
+                      }
+                    }
+                  },
+                  "buttonStyle": "primary"
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Shop Add-Ons"
+}

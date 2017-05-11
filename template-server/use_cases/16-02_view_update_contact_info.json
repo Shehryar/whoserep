@@ -1,0 +1,19 @@
+{
+  "type": "view",
+  "template": "title_body_checkbox_carousels",
+  "data": {
+    "title": "Shop Add-Ons",
+    "root": {
+      "submitButtonTitle": "SAVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/updateContactInfo",
+        "data": {
+          "text": "Updated Contact Info",
+          "classification": "16-04_message_contact_info_updated"
+        }
+      },
+      "scrollContent": {}
+    }
+  }
+}
