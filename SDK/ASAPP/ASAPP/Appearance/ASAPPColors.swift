@@ -34,7 +34,7 @@ public class ASAPPColors: NSObject {
     
     public var separatorPrimary: UIColor = UIColor(red:0.766, green:0.774, blue:0.797, alpha:1.000)
     
-    public var separatorSecondary: UIColor = UIColor(red:0.816, green:0.824, blue:0.847, alpha:1.000)
+    public var separatorSecondary: UIColor = UIColor(red:0.816, green:0.824, blue:0.847, alpha:0.5)
     
     public var controlTint: UIColor = UIColor(red:0.075, green:0.698, blue:0.925, alpha:1)
     

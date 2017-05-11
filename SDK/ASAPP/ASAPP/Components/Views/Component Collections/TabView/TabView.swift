@@ -59,6 +59,8 @@ class TabView: BaseComponentView {
             self.pageViews = pageViews
            
             updateHandlersForNestedComponentViews()
+            
+            setVisiblePageIndex(0)
         }
     }
     
@@ -75,12 +77,14 @@ class TabView: BaseComponentView {
     override func commonInit() {
         super.commonInit()
         
-        backgroundColor = ASAPP.styles.colors.backgroundPrimary
+        backgroundColor = UIColor.orange
         
         pageContainerView.clipsToBounds = true
-        pageContainerView.backgroundColor = backgroundColor
         addSubview(pageContainerView)
         
+        tabBar.onPageSelected = { [weak self] (selectedPage, selectedPageIndex) in
+            self?.setVisiblePageIndex(selectedPageIndex)
+        }
         addSubview(tabBar)
     }
     
@@ -122,8 +126,20 @@ class TabView: BaseComponentView {
         }
         
         let fittedWidth = ceil(max(tabBarSize.width, maxCalculatedPageSize.width))
-        let fittedHeight = ceil(maxCalculatedPageSize.height)
+        let fittedHeight = ceil(tabBarSize.height + maxCalculatedPageSize.height)
         
         return CGSize(width: fittedWidth, height: fittedHeight)
+    }
+    
+    // MARK: Display
+    
+    func setVisiblePageIndex(_ pageIndex: Int) {
+        guard let pageViews = pageViews, pageIndex >= 0 && pageIndex < pageViews.count else {
+            return
+        }
+        
+        for (idx, pageView) in pageViews.enumerated() {
+            pageView.view.isHidden = idx != pageIndex
+        }
     }
 }

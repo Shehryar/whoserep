@@ -52,7 +52,7 @@ class TabViewItem: Component {
             }
         }
         guard pages.count > 0 else {
-            DebugLog.w(caller: TableViewItem.self, "Empty table view sections. Returning nil for: \n\(String(describing: content))")
+            DebugLog.w(caller: TableViewItem.self, "TabView missing pages. Returning nil for: \n\(String(describing: content))")
             return nil
         }
         self.pages = pages

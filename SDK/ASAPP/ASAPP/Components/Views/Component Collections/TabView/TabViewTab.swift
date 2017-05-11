@@ -23,15 +23,31 @@ class TabViewTab: UIView {
         }
     }
     
-    var padding = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12) {
+    var padding = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16) {
         didSet {
             setNeedsLayout()
+        }
+    }
+    
+    var onTap: (() -> Void)?
+    
+    var separatorStroke: CGFloat = 1 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    var showSeparatorLeft: Bool = false {
+        didSet {
+            separatorLeft.isHidden = !showSeparatorLeft
         }
     }
     
     // MARK: Private Properties
     
     fileprivate let label = UILabel()
+    
+    fileprivate let separatorLeft = UIView()
     
     // MARK: Initialization
     
@@ -41,7 +57,13 @@ class TabViewTab: UIView {
         label.lineBreakMode = .byWordWrapping
         addSubview(label)
         
+        separatorLeft.backgroundColor = ASAPP.styles.colors.separatorSecondary
+        separatorLeft.isHidden = true
+        addSubview(separatorLeft)
+        
         updateDisplay()
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))
     }
     
     override init(frame: CGRect) {
@@ -61,7 +83,7 @@ class TabViewTab: UIView {
         let titleColor: UIColor
         if isSelected {
             tabColor = ASAPP.styles.colors.backgroundPrimary
-            titleColor = ASAPP.styles.colors.textPrimary
+            titleColor = ASAPP.styles.colors.controlTint
         } else {
             tabColor = ASAPP.styles.colors.backgroundSecondary
             titleColor = ASAPP.styles.colors.textSecondary
@@ -71,6 +93,8 @@ class TabViewTab: UIView {
         label.setAttributedText(title,
                                 textType: .subheader,
                                 color: titleColor)
+        
+        setNeedsLayout()
     }
     
     // MARK: Layout
@@ -79,6 +103,8 @@ class TabViewTab: UIView {
         super.layoutSubviews()
         
         label.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        
+        separatorLeft.frame = CGRect(x: 0, y: 0, width: separatorStroke, height: bounds.height)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -93,5 +119,11 @@ class TabViewTab: UIView {
                                 height: ceil(labelSize.height + padding.top + padding.bottom))
         
         return fittedSize
+    }
+    
+    // MARK: Actions
+    
+    func didTap() {
+        onTap?()
     }
 }
