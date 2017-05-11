@@ -7,8 +7,9 @@ module.exports = function(data) {
 	this.content = {
 		items: data.items,
 	};
-	if (data.itemSpacing) this.content.itemSpacing = data.itemSpacing;
-	if (data.visibleItemCount) this.content.visibleItemCount = data.visibleItemCount;
+
+	if (data.itemSpacing != null) this.content.itemSpacing = data.itemSpacing;
+	if (data.visibleItemCount != null) this.content.visibleItemCount = data.visibleItemCount;
 	if (data.pageControl) this.content.pageControl = data.pageControl;
 	if (data.pagingEnabled) this.content.pagingEnabled = data.pagingEnabled;
 };

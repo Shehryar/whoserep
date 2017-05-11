@@ -112,9 +112,14 @@ class TabView: BaseComponentView {
             return .zero
         }
         
-        let tabBarSize = tabBar.sizeThatFits(size)
-        let maxPageSize = CGSize(width: size.width,
-                                 height: max(0, size.height - tabBarSize.height))
+        var fitToSize = size
+        fitToSize.width = size.width > 0 ? size.width : UIScreen.main.bounds.width
+        fitToSize.height = size.height > 0 ? size.height : UIScreen.main.bounds.height
+        
+        
+        let tabBarSize = tabBar.sizeThatFits(fitToSize)
+        let maxPageSize = CGSize(width: fitToSize.width,
+                                 height: max(0, fitToSize.height - tabBarSize.height))
         
         var maxCalculatedPageSize = CGSize.zero
         for pageView in pageViews {

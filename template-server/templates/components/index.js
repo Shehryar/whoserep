@@ -14,6 +14,8 @@ module.exports = {
 	ScrollView: require('./scroll_view'),
 	Separator: require('./separator'),
 	StackView: require('./stack_view'),
+	TabView: require('./tab_view'),
+	TabViewPage: require('./tab_view_page'),
 	TableView: require('./table_view'),
 	TableViewSection: require('./table_view_section')
 };

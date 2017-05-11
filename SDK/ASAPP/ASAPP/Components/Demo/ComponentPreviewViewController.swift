@@ -124,8 +124,8 @@ public class ComponentPreviewViewController: UIViewController {
         }
         let contentHeight = contentBottom - top
         var size = contentView.sizeThatFits(CGSize(width: contentWidth, height: contentHeight))
-        size.height = ceil(size.height)
-        size.width = ceil(size.width)
+        size.height = min(contentHeight, ceil(size.height))
+        size.width = min(contentWidth, ceil(size.width))
         
         contentView.frame = CGRect(x: contentLeft, y: contentTop, width: size.width, height: size.height)
     }

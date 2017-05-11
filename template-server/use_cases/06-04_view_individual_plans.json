@@ -1,22 +1,173 @@
 {
   "type": "view",
-  "template": "title_body_items_cancel_submit",
+  "template": "boost_plans_comparison_view",
   "data": {
-    "title": "Remove Add-Ons",
-    "root": {
-      "submitButtonTitle": "REMOVE",
-      "submitButtonAction": {
-        "type": "api",
-        "requestPath": "ACTION-TODO",
-        "data": {
-          "text": "Remove some add-ons",
-          "classification": "06-14_message_shop_add-ons"
+    "title": "Individual Plans",
+    "currentPlan": {
+      "planName": "Unlimited GiGs",
+      "dataLimit": "Unl.",
+      "textLimit": "Unl.",
+      "talkLimit": "4hrs",
+      "basePrice": "$60/mo",
+      "addOns": [
+        {
+          "text": "Todo Mexico Plus",
+          "valueText": "$5/mo."
+        },
+        {
+          "text": "Phone Insurance",
+          "valueText": "$7/mo."
+        },
+        {
+          "text": "Great Talk and Text Coverage",
+          "valueText": "FREE"
+        },
+        {
+          "text": "Best Customer Service",
+          "valueText": "FREE"
+        },
+        {
+          "text": "Bill Reminders",
+          "valueText": "FREE"
         }
+      ],
+      "discounts": [
+        {
+          "text": "Auto Re-Boost Discount",
+          "valueText": "-$1"
+        },
+        {
+          "text": "Lifeline Subsidy",
+          "valueText": "-$1"
+        }
+      ],
+      "summaryText": "Monthly Charge",
+      "summaryValueText": "$70/mo."
+    },
+    "compareToPlans": [
+      {
+        "planName": "Unlimited Unhook'd",
+        "dataLimit": "1GB",
+        "textLimit": "Unl.",
+        "talkLimit": "Unl.",
+        "basePrice": "$55/mo",
+        "addOns": [
+          {
+            "text": "Todo Mexico Plus",
+            "valueText": "$5/mo."
+          },
+          {
+            "text": "Phone Insurance",
+            "valueText": "$7/mo."
+          },
+          {
+            "text": "Great Talk and Text Coverage",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Best Customer Service",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Bill Reminders",
+            "valueText": "FREE"
+          }
+        ],
+        "discounts": [
+          {
+            "text": "Auto Re-Boost Discount",
+            "valueText": "-$1"
+          },
+          {
+            "text": "Lifeline Subsidy",
+            "valueText": "-$1"
+          }
+        ],
+        "summaryText": "Monthly Charge",
+        "summaryValueText": "$65/mo."
       },
-      "scrollContent": {
-        "title": "Individual Plans",
-        "bodyText": "This view needs to be updated."
+      {
+        "planName": "Unlimited Starter",
+        "dataLimit": "3GB",
+        "textLimit": "Unl.",
+        "talkLimit": "Unl.",
+        "basePrice": "$75/mo",
+        "addOns": [
+          {
+            "text": "Todo Mexico Plus",
+            "valueText": "$5/mo."
+          },
+          {
+            "text": "Phone Insurance",
+            "valueText": "$7/mo."
+          },
+          {
+            "text": "Great Talk and Text Coverage",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Best Customer Service",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Bill Reminders",
+            "valueText": "FREE"
+          }
+        ],
+        "discounts": [
+          {
+            "text": "Auto Re-Boost Discount",
+            "valueText": "-$1"
+          },
+          {
+            "text": "Lifeline Subsidy",
+            "valueText": "-$1"
+          }
+        ],
+        "summaryText": "Monthly Charge",
+        "summaryValueText": "$85/mo."
+      },
+      {
+        "planName": "Unlimited Ballin'",
+        "dataLimit": "10GB",
+        "textLimit": "Unl.",
+        "talkLimit": "Unl.",
+        "basePrice": "$100/mo",
+        "addOns": [
+          {
+            "text": "Todo Mexico Plus",
+            "valueText": "$5/mo."
+          },
+          {
+            "text": "Phone Insurance",
+            "valueText": "$7/mo."
+          },
+          {
+            "text": "Great Talk and Text Coverage",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Best Customer Service",
+            "valueText": "FREE"
+          },
+          {
+            "text": "Bill Reminders",
+            "valueText": "FREE"
+          }
+        ],
+        "discounts": [
+          {
+            "text": "Auto Re-Boost Discount",
+            "valueText": "-$1"
+          },
+          {
+            "text": "Lifeline Subsidy",
+            "valueText": "-$1"
+          }
+        ],
+        "summaryText": "Monthly Charge",
+        "summaryValueText": "$110/mo."
       }
-    }
+    ]
   }
 }

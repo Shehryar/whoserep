@@ -13,5 +13,12 @@ module.exports = {
 	ProgressHeaderBodyError: require('./progress_header_body_error'),
 	TextDetail: require('./text_detail'),
 	TitleButton: require('./title_button'),
-	TitleButtonContent: require('./title_button_content')
+	TitleButtonContent: require('./title_button_content'),
+
+
+	BoostPhonePlanCard: require('./boost_phone_plan_card'),
+	BoostPhonePlanCarousel: require('./boost_phone_plan_carousel'),
+	BoostPlanDetailsCarousel: require('./boost_plan_details_carousel'),
+	BoostPlanDetails: require('./boost_plan_details'),
+	BoostPlanLimits: require('./boost_plan_limits')
 };

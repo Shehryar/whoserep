@@ -1,101 +1,2102 @@
 {
   "root": {
     "style": {
+      "align": "fill",
       "gravity": "fill"
     },
     "content": {
-      "items": [
+      "pages": [
         {
-          "style": {
-            "weight": 1,
-            "gravity": "fill"
-          },
-          "content": {
-            "root": {
-              "style": {
-                "padding": "36 24"
-              },
-              "content": {
-                "items": [
-                  {
-                    "style": {
-                      "textType": "header2",
-                      "marginBottom": 16
-                    },
-                    "content": {
-                      "text": "Individual Plans"
-                    },
-                    "type": "label"
+          "title": "CURRENT PLAN",
+          "root": {
+            "content": {
+              "items": [
+                {
+                  "style": {
+                    "weight": 1
                   },
-                  {
-                    "style": {
-                      "textType": "body",
-                      "marginBottom": 0
-                    },
-                    "content": {
-                      "text": "This view needs to be updated."
-                    },
-                    "type": "label"
-                  }
-                ]
-              },
-              "type": "stackView"
-            }
-          },
-          "type": "scrollView"
-        },
-        {
-          "style": {
-            "weight": 0
-          },
-          "content": {
-            "items": [
-              {
-                "style": {
-                  "weight": 1,
-                  "align": "fill",
-                  "gravity": "fill"
-                },
-                "content": {
-                  "title": "CANCEL",
-                  "action": {
-                    "type": "finish",
-                    "content": {}
-                  },
-                  "buttonStyle": "secondary"
-                },
-                "type": "button"
-              },
-              {
-                "style": {
-                  "weight": 1,
-                  "align": "fill",
-                  "gravity": "fill"
-                },
-                "content": {
-                  "title": "REMOVE",
-                  "action": {
-                    "type": "api",
-                    "content": {
-                      "requestPath": "ACTION-TODO",
-                      "data": {
-                        "text": "Remove some add-ons",
-                        "classification": "06-14_message_shop_add-ons"
-                      }
+                  "content": {
+                    "root": {
+                      "style": {
+                        "padding": 32
+                      },
+                      "content": {
+                        "items": [
+                          {
+                            "style": {
+                              "textType": "header2",
+                              "align": "center"
+                            },
+                            "content": {
+                              "text": "Unlimited GiGs"
+                            },
+                            "type": "label"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 32,
+                              "marginBottom": 16
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "padding": "16 16"
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "subheader",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "DATA"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "textType": "header1",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "Unl."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ]
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "fill"
+                                  },
+                                  "content": {
+                                    "separatorStyle": "vertical"
+                                  },
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "padding": "16 16"
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "subheader",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "TEXT"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "textType": "header1",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "Unl."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ]
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "fill"
+                                  },
+                                  "content": {
+                                    "separatorStyle": "vertical"
+                                  },
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "padding": "16 16"
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "subheader",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "TALK"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "textType": "header1",
+                                          "align": "center"
+                                        },
+                                        "content": {
+                                          "text": "4hrs"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ]
+                                  },
+                                  "type": "stackView"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 32
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "textType": "bodyBold",
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Plan Base"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "texttype": "bodyBold",
+                                    "align": "right",
+                                    "textAlign": "right",
+                                    "gravity": "middle"
+                                  },
+                                  "content": {
+                                    "text": "$60/mo"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "margin": "16 0"
+                            },
+                            "content": {},
+                            "type": "separator"
+                          },
+                          {
+                            "style": {
+                              "marginBottom": 3,
+                              "textType": "bodyBold"
+                            },
+                            "content": {
+                              "text": "Add-ons"
+                            },
+                            "type": "label"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Todo Mexico Plus"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "$5/mo."
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Phone Insurance"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "$7/mo."
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Great Talk and Text Coverage"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "FREE"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Best Customer Service"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "FREE"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Bill Reminders"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "FREE"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "margin": "16 0"
+                            },
+                            "content": {},
+                            "type": "separator"
+                          },
+                          {
+                            "style": {
+                              "marginBottom": 3,
+                              "textType": "bodyBold"
+                            },
+                            "content": {
+                              "text": "Discounts"
+                            },
+                            "type": "label"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Auto Re-Boost Discount"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "-$1"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          },
+                          {
+                            "style": {
+                              "marginTop": 4
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "weight": 1,
+                                    "gravity": "middle",
+                                    "marginRight": 10
+                                  },
+                                  "content": {
+                                    "text": "Lifeline Subsidy"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "gravity": "middle",
+                                    "weight": 0,
+                                    "align": "right",
+                                    "textAlign": "right"
+                                  },
+                                  "content": {
+                                    "text": "-$1"
+                                  },
+                                  "type": "label"
+                                }
+                              ],
+                              "orientation": "horizontal"
+                            },
+                            "type": "stackView"
+                          }
+                        ]
+                      },
+                      "type": "stackView"
                     }
                   },
-                  "buttonStyle": "primary"
+                  "type": "scrollView"
                 },
-                "type": "button"
-              }
-            ],
-            "orientation": "horizontal"
-          },
-          "type": "stackView"
+                {
+                  "style": {
+                    "padding": "0 32 20 32",
+                    "weight": 0,
+                    "align": "fill"
+                  },
+                  "content": {
+                    "items": [
+                      {
+                        "style": {
+                          "align": "fill",
+                          "marginBottom": 16
+                        },
+                        "content": {},
+                        "type": "separator"
+                      },
+                      {
+                        "content": {
+                          "items": [
+                            {
+                              "style": {
+                                "weight": 1,
+                                "textType": "header2",
+                                "gravity": "middle",
+                                "marginRight": 10
+                              },
+                              "content": {
+                                "text": "Monthly Charge"
+                              },
+                              "type": "label"
+                            },
+                            {
+                              "style": {
+                                "textType": "header2",
+                                "gravity": "middle",
+                                "align": "right",
+                                "textAlign": "right"
+                              },
+                              "content": {
+                                "text": "$70/mo."
+                              },
+                              "type": "label"
+                            }
+                          ],
+                          "orientation": "horizontal"
+                        },
+                        "type": "stackView"
+                      }
+                    ]
+                  },
+                  "type": "stackView"
+                }
+              ]
+            },
+            "type": "stackView"
+          }
+        },
+        {
+          "title": "AVAILABLE PLANS",
+          "root": {
+            "content": {
+              "items": [
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "style": {
+                          "weight": 1
+                        },
+                        "content": {
+                          "root": {
+                            "style": {
+                              "padding": 32
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "textType": "header2",
+                                    "align": "center"
+                                  },
+                                  "content": {
+                                    "text": "Unlimited Unhook'd"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32,
+                                    "marginBottom": 16
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "DATA"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "1GB"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TEXT"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TALK"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "bodyBold",
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Plan Base"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "texttype": "bodyBold",
+                                          "align": "right",
+                                          "textAlign": "right",
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "text": "$55/mo"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Add-ons"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Todo Mexico Plus"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$5/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Phone Insurance"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$7/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Great Talk and Text Coverage"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Best Customer Service"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Bill Reminders"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Discounts"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Auto Re-Boost Discount"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Lifeline Subsidy"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              ]
+                            },
+                            "type": "stackView"
+                          }
+                        },
+                        "type": "scrollView"
+                      },
+                      {
+                        "style": {
+                          "padding": "0 32 20 32",
+                          "weight": 0,
+                          "align": "fill"
+                        },
+                        "content": {
+                          "items": [
+                            {
+                              "style": {
+                                "align": "fill",
+                                "marginBottom": 16
+                              },
+                              "content": {},
+                              "type": "separator"
+                            },
+                            {
+                              "content": {
+                                "items": [
+                                  {
+                                    "style": {
+                                      "weight": 1,
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "marginRight": 10
+                                    },
+                                    "content": {
+                                      "text": "Monthly Charge"
+                                    },
+                                    "type": "label"
+                                  },
+                                  {
+                                    "style": {
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "align": "right",
+                                      "textAlign": "right"
+                                    },
+                                    "content": {
+                                      "text": "$65/mo."
+                                    },
+                                    "type": "label"
+                                  }
+                                ],
+                                "orientation": "horizontal"
+                              },
+                              "type": "stackView"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    ]
+                  },
+                  "type": "stackView"
+                },
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "style": {
+                          "weight": 1
+                        },
+                        "content": {
+                          "root": {
+                            "style": {
+                              "padding": 32
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "textType": "header2",
+                                    "align": "center"
+                                  },
+                                  "content": {
+                                    "text": "Unlimited Starter"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32,
+                                    "marginBottom": 16
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "DATA"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "3GB"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TEXT"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TALK"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "bodyBold",
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Plan Base"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "texttype": "bodyBold",
+                                          "align": "right",
+                                          "textAlign": "right",
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "text": "$75/mo"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Add-ons"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Todo Mexico Plus"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$5/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Phone Insurance"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$7/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Great Talk and Text Coverage"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Best Customer Service"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Bill Reminders"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Discounts"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Auto Re-Boost Discount"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Lifeline Subsidy"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              ]
+                            },
+                            "type": "stackView"
+                          }
+                        },
+                        "type": "scrollView"
+                      },
+                      {
+                        "style": {
+                          "padding": "0 32 20 32",
+                          "weight": 0,
+                          "align": "fill"
+                        },
+                        "content": {
+                          "items": [
+                            {
+                              "style": {
+                                "align": "fill",
+                                "marginBottom": 16
+                              },
+                              "content": {},
+                              "type": "separator"
+                            },
+                            {
+                              "content": {
+                                "items": [
+                                  {
+                                    "style": {
+                                      "weight": 1,
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "marginRight": 10
+                                    },
+                                    "content": {
+                                      "text": "Monthly Charge"
+                                    },
+                                    "type": "label"
+                                  },
+                                  {
+                                    "style": {
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "align": "right",
+                                      "textAlign": "right"
+                                    },
+                                    "content": {
+                                      "text": "$85/mo."
+                                    },
+                                    "type": "label"
+                                  }
+                                ],
+                                "orientation": "horizontal"
+                              },
+                              "type": "stackView"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    ]
+                  },
+                  "type": "stackView"
+                },
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "style": {
+                          "weight": 1
+                        },
+                        "content": {
+                          "root": {
+                            "style": {
+                              "padding": 32
+                            },
+                            "content": {
+                              "items": [
+                                {
+                                  "style": {
+                                    "textType": "header2",
+                                    "align": "center"
+                                  },
+                                  "content": {
+                                    "text": "Unlimited Ballin'"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32,
+                                    "marginBottom": 16
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "DATA"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "10GB"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TEXT"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "fill"
+                                        },
+                                        "content": {
+                                          "separatorStyle": "vertical"
+                                        },
+                                        "type": "separator"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "padding": "16 16"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "subheader",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "TALK"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "header1",
+                                                "align": "center"
+                                              },
+                                              "content": {
+                                                "text": "Unl."
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 32
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "textType": "bodyBold",
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Plan Base"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "texttype": "bodyBold",
+                                          "align": "right",
+                                          "textAlign": "right",
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "text": "$100/mo"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Add-ons"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Todo Mexico Plus"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$5/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Phone Insurance"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "$7/mo."
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Great Talk and Text Coverage"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Best Customer Service"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Bill Reminders"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "FREE"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "margin": "16 0"
+                                  },
+                                  "content": {},
+                                  "type": "separator"
+                                },
+                                {
+                                  "style": {
+                                    "marginBottom": 3,
+                                    "textType": "bodyBold"
+                                  },
+                                  "content": {
+                                    "text": "Discounts"
+                                  },
+                                  "type": "label"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Auto Re-Boost Discount"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                },
+                                {
+                                  "style": {
+                                    "marginTop": 4
+                                  },
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle",
+                                          "marginRight": 10
+                                        },
+                                        "content": {
+                                          "text": "Lifeline Subsidy"
+                                        },
+                                        "type": "label"
+                                      },
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 0,
+                                          "align": "right",
+                                          "textAlign": "right"
+                                        },
+                                        "content": {
+                                          "text": "-$1"
+                                        },
+                                        "type": "label"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              ]
+                            },
+                            "type": "stackView"
+                          }
+                        },
+                        "type": "scrollView"
+                      },
+                      {
+                        "style": {
+                          "padding": "0 32 20 32",
+                          "weight": 0,
+                          "align": "fill"
+                        },
+                        "content": {
+                          "items": [
+                            {
+                              "style": {
+                                "align": "fill",
+                                "marginBottom": 16
+                              },
+                              "content": {},
+                              "type": "separator"
+                            },
+                            {
+                              "content": {
+                                "items": [
+                                  {
+                                    "style": {
+                                      "weight": 1,
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "marginRight": 10
+                                    },
+                                    "content": {
+                                      "text": "Monthly Charge"
+                                    },
+                                    "type": "label"
+                                  },
+                                  {
+                                    "style": {
+                                      "textType": "header2",
+                                      "gravity": "middle",
+                                      "align": "right",
+                                      "textAlign": "right"
+                                    },
+                                    "content": {
+                                      "text": "$110/mo."
+                                    },
+                                    "type": "label"
+                                  }
+                                ],
+                                "orientation": "horizontal"
+                              },
+                              "type": "stackView"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    ]
+                  },
+                  "type": "stackView"
+                }
+              ],
+              "itemSpacing": 0,
+              "visibleItemCount": 1,
+              "pageControl": {
+                "content": {},
+                "type": "pageControl"
+              },
+              "pagingEnabled": true
+            },
+            "type": "carouselView"
+          }
         }
       ]
     },
-    "type": "stackView"
+    "type": "tabView"
   },
-  "title": "Remove Add-Ons"
+  "title": "Individual Plans"
 }

@@ -32,9 +32,6 @@ module.exports = function(data) {
 	if (items) {
 		stackViewItems = stackViewItems.concat(items);
 	}
-
-	console.log("stack view Items:");
-	console.log(stackViewItems);
 	
 	data.root.scrollContent = new Components.StackView({
 		items: stackViewItems,

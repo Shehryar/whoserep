@@ -49,7 +49,6 @@ class PageControlView: BaseComponentView {
     
     override func commonInit() {
         super.commonInit()
-        
 
         addSubview(pageControl)
     }

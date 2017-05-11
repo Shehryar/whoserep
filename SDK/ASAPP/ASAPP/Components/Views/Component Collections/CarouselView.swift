@@ -125,12 +125,8 @@ class CarouselView: BaseComponentView {
         
         // Get Available Size
         var fitToSize = size
-        if fitToSize.height == 0 {
-            fitToSize.height = UIScreen.main.bounds.height
-        }
-        if fitToSize.width == 0 {
-            fitToSize.width = UIScreen.main.bounds.width
-        }
+        fitToSize.width = size.width > 0 ? size.width : UIScreen.main.bounds.width
+        fitToSize.height = size.height > 0 ? size.height : UIScreen.main.bounds.height
         fitToSize.width -= carousel.style.padding.left + carousel.style.padding.right
         fitToSize.height -= carousel.style.padding.top + carousel.style.padding.bottom
         guard fitToSize.width > 0 && fitToSize.height > 0 else {
@@ -177,8 +173,10 @@ class CarouselView: BaseComponentView {
             }
             itemLeft = floor(carousel.itemSpacing / 2.0)
         }
+        
+        let maxItemHeight = fitToSize.height - pcHeight - pcMargin.top - pcMargin.bottom
         for itemView in itemViews {
-            let itemHeight = ceil(itemView.view.sizeThatFits(CGSize(width: itemWidth, height: 0)).height)
+            let itemHeight = ceil(itemView.view.sizeThatFits(CGSize(width: itemWidth, height: maxItemHeight)).height)
             let itemFrame = CGRect(x: itemLeft, y: 0, width: itemWidth, height: itemHeight)
             itemFrames.append(itemFrame)
             
@@ -246,9 +244,13 @@ class CarouselView: BaseComponentView {
             return .zero
         }
         
-        let (scrollViewFrame, _, _, pageControlFrame) = getFramesThatFit(size)
+        var fitToSize = size
+        fitToSize.width = size.width > 0 ? size.width : UIScreen.main.bounds.width
+        fitToSize.height = size.height > 0 ? size.height : UIScreen.main.bounds.height
+        
+        let (scrollViewFrame, _, _, pageControlFrame) = getFramesThatFit(fitToSize)
         let contentHeight = max(scrollViewFrame.maxY, pageControlFrame.maxY) + component.style.padding.bottom
-        return CGSize(width: size.width, height: contentHeight)
+        return CGSize(width: fitToSize.width, height: min(fitToSize.height, contentHeight))
     }
 }
 
