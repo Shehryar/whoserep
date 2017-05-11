@@ -1,0 +1,21 @@
+{
+  "type": "view",
+  "template": "enter_credit_card",
+  "data": {
+    "title": "Enter Card Details",
+    "root": {
+      "submitButtonTitle": "SAVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/updateCreditCard",
+        "data": {
+          "text": "Uploaded New Credit Card",
+          "classification": "09-03_message_enter_amount"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter Card Details"
+      }
+    }
+  }
+}

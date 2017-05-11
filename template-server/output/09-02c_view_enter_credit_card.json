@@ -1,0 +1,77 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "content": {
+                "text": "Hello, world"
+              },
+              "type": "label"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  },
+                  "buttonStyle": "secondary"
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SAVE",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/updateCreditCard",
+                      "data": {
+                        "text": "Uploaded New Credit Card",
+                        "classification": "09-03_message_enter_amount"
+                      }
+                    }
+                  },
+                  "buttonStyle": "primary"
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Enter Card Details"
+}

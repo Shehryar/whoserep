@@ -40,6 +40,7 @@ route('GET', '/use_case', function(req, res, next) {
   const useCaseFilepath = USE_CASES_DIRECTORY + '/' + id + '.json';
   FileUtil.getContentsOfFile(useCaseFilepath, function(code, data, contentType, err) {
     if (code != 200) {
+      console.log(err);
       res.send(code, err);
       return;
     }

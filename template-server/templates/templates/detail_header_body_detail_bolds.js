@@ -12,8 +12,9 @@ module.exports = function(data) {
 	const icon = data.icon;
 	const boldText = data.boldText;
 	const bodyText = data.bodyText;
+	const errorText = data.errorText;
 	const detailText = data.detailText;
-	const hasMiddleSection = (icon || boldText || bodyText || detailText);
+	const hasMiddleSection = (icon || boldText || bodyText || errorText || detailText);
 
 	const detailTextBottom1 = data.detailTextBottom1;
 	const boldTextBottom1 = data.boldTextBottom1;
@@ -43,6 +44,7 @@ module.exports = function(data) {
 			boldText: boldText,
 			bodyText: bodyText,
 			detailText: detailText,
+			errorText: errorText,
 			style: {
 				marginBottom: hasBottomSection ? 20 : 0
 			}

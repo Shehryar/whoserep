@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Ok no problem. Tap below to update your contact information.",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Payment Complete",
+      "bodyText": "You’ve successfully made a payment of $42.27 using your card ending in 9087 to the account associated with the phone number +1 (555) 111-5555.",
+      "detailText": "MAR 15, 2017 — 4:15PM"
+    },
+    "quickReplies": [
+      {
+        "title": "How's my service now?",
+        "action": {
+          "type": "treewalk",
+          "classification": "09-08_message_service_restored"
+        }
+      }
+    ]
+  }
+}

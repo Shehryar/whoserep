@@ -6,10 +6,11 @@ module.exports = function(data) {
 	const iconSize = data.iconSize;
 	const boldText = data.boldText;
 	const bodyText = data.bodyText;
+	const errorText = data.errorText;
 	const detailText = data.detailText;
 
 	// Content
-	if (boldText || bodyText || detailText) {
+	if (boldText || bodyText || detailText || errorText) {
 		var rightSideItems = [];
 		if (boldText) {
 			rightSideItems.push(new Components.Label({
@@ -28,12 +29,21 @@ module.exports = function(data) {
 				}
 			}));
 		}
+		if (errorText) {
+			rightSideItems.push(new Components.Label({
+				text: errorText,
+				style: {
+					textType: 'error',
+					marginTop: bodyText || boldText ? 8 : 0
+				}
+			}));
+		}
 		if (detailText) {
 			rightSideItems.push(new Components.Label({
 				text: detailText,
 				style: {
 					textType: 'detail1',
-					marginTop: boldText || bodyText ? 12 : 0
+					marginTop: errorText || boldText || bodyText ? 12 : 0
 				}
 			}));
 		}

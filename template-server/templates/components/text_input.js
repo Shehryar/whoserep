@@ -10,5 +10,5 @@ module.exports = function(data) {
 	if (data.capitalize) this.content.capitalize = data.capitalize;
 	if (data.password) this.content.password = data.password;
 	if (data.placeholder) this.content.placeholder = data.placeholder;
-	if (data.type) this.content.type = data.type;
+	if (data.textInputType) this.content.textInputType = data.textInputType;
 };
