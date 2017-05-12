@@ -21,7 +21,7 @@
         "title": "No, a different number",
         "action": {
           "type": "treewalk",
-          "classification": "message_ok"
+          "classification": "08-03b_message_enter_number"
         }
       }
     ]

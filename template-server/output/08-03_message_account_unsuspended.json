@@ -75,7 +75,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "message_ok"
+            "classification": "08-03b_message_enter_number"
           }
         }
       }

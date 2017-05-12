@@ -1,0 +1,16 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Okay, please enter your account number by tapping below.",
+    "quickReplies": [
+      {
+        "title": "Enter Account Number",
+        "action": {
+          "type": "componentView",
+          "name": "08-03c_view_enter_number"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Enter Account Number"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 24
+                    },
+                    "content": {
+                      "text": "Please enter your account number in the field below."
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "name": "accountId",
+                    "style": {
+                      "marginTop": 0
+                    },
+                    "content": {
+                      "placeholder": "ACCOUNT NUMBER"
+                    },
+                    "type": "textInput"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "buttonType": "secondary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "buttonType": "primary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SAVE",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/updateAccountNumber",
+                      "data": {
+                        "text": "Use my account +1 (555) 555-1123",
+                        "classification": "08-04_message_back-up_device"
+                      }
+                    }
+                  }
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Update Contact Info"
+}
