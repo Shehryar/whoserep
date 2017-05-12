@@ -37,7 +37,7 @@
                       "action": {
                         "type": "componentView",
                         "content": {
-                          "name": ""
+                          "name": "04-1-5_view_terms_and_conditions"
                         }
                       }
                     },
@@ -73,7 +73,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "01-1_message_transaction_history"
+            "classification": "04-1-7_message_confirm_boost_enrollment"
           }
         }
       },
@@ -82,7 +82,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "01-1_message_transaction_history"
+            "classification": "message_ok"
           }
         }
       }

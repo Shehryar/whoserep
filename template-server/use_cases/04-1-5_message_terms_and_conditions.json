@@ -12,7 +12,7 @@
       "buttonTitle": "VIEW",
       "buttonAction": {
         "type": "componentView",
-        "name": ""
+        "name": "04-1-5_view_terms_and_conditions"
       }
     },
     "quickReplies": [
@@ -20,14 +20,14 @@
         "title": "I accept",
         "action": {
           "type": "treewalk",
-          "classification": "01-1_message_transaction_history"
+          "classification": "04-1-7_message_confirm_boost_enrollment"
         }
       },
       {
         "title": "I do not accept",
         "action": {
           "type": "treewalk",
-          "classification": "01-1_message_transaction_history"
+          "classification": "message_ok"
         }
       }
     ]

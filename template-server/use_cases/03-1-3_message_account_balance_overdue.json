@@ -8,8 +8,6 @@
       "headerTextTop": "$0.00",
       "icon": "alertError",
       "errorText": "Account balance insufficient to cover your next month of service. Payment overdue. Pay immediately.",
-      "detailTextBottom1": "UPCOMING CHARGE",
-      "boldTextBottom1": "$50.00",
       "detailTextBottom2": "DUE BY",
       "boldTextBottom2": "02/26/17"
     },

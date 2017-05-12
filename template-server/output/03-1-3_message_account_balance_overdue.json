@@ -88,37 +88,6 @@
                 "items": [
                   {
                     "style": {
-                      "weight": 1,
-                      "marginRight": 10
-                    },
-                    "content": {
-                      "items": [
-                        {
-                          "style": {
-                            "textType": "detail2",
-                            "marginBottom": 4
-                          },
-                          "content": {
-                            "text": "UPCOMING CHARGE"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "style": {
-                            "textType": "bodyBold"
-                          },
-                          "content": {
-                            "text": "$50.00"
-                          },
-                          "type": "label"
-                        }
-                      ],
-                      "orientation": "vertical"
-                    },
-                    "type": "stackView"
-                  },
-                  {
-                    "style": {
                       "weight": 1
                     },
                     "content": {

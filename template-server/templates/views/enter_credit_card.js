@@ -6,6 +6,7 @@ module.exports = function(data) {
 	// Properties
 	data.root = data.root || {};
 	data.root.scrollContent = data.root.scrollContent || {};
+	data.root.scrollContent.title = data.root.scrollContent.title || "Enter Card Details";
 	const content = data.root.scrollContent;
 
 	// Content

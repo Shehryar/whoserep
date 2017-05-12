@@ -30,7 +30,7 @@
                       "textType": "header1"
                     },
                     "content": {
-                      "text": "$0.00"
+                      "text": "$50.00"
                     },
                     "type": "label"
                   }
@@ -54,7 +54,7 @@
                       "height": 20
                     },
                     "content": {
-                      "icon": "alertError"
+                      "icon": "checkmarkThin"
                     },
                     "type": "icon"
                   },
@@ -66,11 +66,11 @@
                       "items": [
                         {
                           "style": {
-                            "textType": "error",
+                            "textType": "body",
                             "marginTop": 0
                           },
                           "content": {
-                            "text": "Account balance insufficient to cover your next month of service. Payment overdue. Pay immediately."
+                            "text": "Account balance sufficient to cover your next month of service and will be automatically applied by the due date."
                           },
                           "type": "label"
                         }
@@ -86,37 +86,6 @@
             {
               "content": {
                 "items": [
-                  {
-                    "style": {
-                      "weight": 1,
-                      "marginRight": 10
-                    },
-                    "content": {
-                      "items": [
-                        {
-                          "style": {
-                            "textType": "detail2",
-                            "marginBottom": 4
-                          },
-                          "content": {
-                            "text": "UPCOMING CHARGE"
-                          },
-                          "type": "label"
-                        },
-                        {
-                          "style": {
-                            "textType": "bodyBold"
-                          },
-                          "content": {
-                            "text": "$50.00"
-                          },
-                          "type": "label"
-                        }
-                      ],
-                      "orientation": "vertical"
-                    },
-                    "type": "stackView"
-                  },
                   {
                     "style": {
                       "weight": 1

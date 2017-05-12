@@ -8,7 +8,7 @@
         "title": "Enroll me in Low Balance Re-Boost",
         "action": {
           "type": "treewalk",
-          "classification": "01-1_message_transaction_history"
+          "classification": "04-1-8_message_enrolled_in_reboost"
         }
       },
       {
@@ -22,7 +22,7 @@
         "title": "Cancel enrollment",
         "action": {
           "type": "treewalk",
-          "classification": "01-1_message_transaction_history"
+          "classification": "message_ok"
         }
       }
     ]

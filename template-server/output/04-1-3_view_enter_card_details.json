@@ -18,6 +18,16 @@
               "content": {
                 "items": [
                   {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Enter Card Details"
+                    },
+                    "type": "label"
+                  },
+                  {
                     "name": "name",
                     "style": {
                       "marginTop": 24
