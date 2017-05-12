@@ -43,7 +43,17 @@
                       "marginTop": 8
                     },
                     "content": {
-                      "text": "• Todo Mexico Plus\n• Phone Insurance"
+                      "text": "Todo Mexico Plus"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginTop": 8
+                    },
+                    "content": {
+                      "text": "Phone Insurance"
                     },
                     "type": "label"
                   }
@@ -75,7 +85,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "ACTION-TODO"
+            "classification": "06-02_message_individual_plans"
           }
         }
       }

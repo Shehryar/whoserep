@@ -2,17 +2,20 @@
   "type": "message",
   "template": "icon_bold_body_detail",
   "data": {
-    "text": "Would you like to keep your current compatible add-ons with this new plan?",
+    "text": "Ok, great. Would you like to keep your current compatible add-ons with this new plan?",
     "attachment": {
       "boldText": "Compatible Add-ons:",
-      "bodyText": "• Big muscles\n• Nice hair"
+      "bodyText": [
+        "Big muscles",
+        "Nice hair"
+      ]
     },
     "quickReplies": [
       {
         "title": "Yes",
         "action": {
           "type": "treewalk",
-          "classification": "ACTION-TODO"
+          "classification": "06-14_message_shop_add-ons"
         }
       },
       {

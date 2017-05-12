@@ -616,7 +616,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "ACTION-TODO"
+            "classification": "06-08_message_grandfathered_plan"
           }
         }
       },

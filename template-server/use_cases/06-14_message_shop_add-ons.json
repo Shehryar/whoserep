@@ -16,7 +16,7 @@
         "title": "No thanks",
         "action": {
           "type": "treewalk",
-          "classification": ""
+          "classification": "06-23_message_verify_plan"
         }
       }
     ]

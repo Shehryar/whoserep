@@ -89,7 +89,7 @@
           "title": "Switch to the Unlimited 2GB plan",
           "action": {
             "type": "treewalk",
-            "classification": "ACTION-TODO"
+            "classification": "06-08_message_grandfathered_plan"
           }
         },
         {

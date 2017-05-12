@@ -1,0 +1,43 @@
+{
+  "type": "message",
+  "template": "compare_basic_items",
+  "data": {
+    "text": "Great, your new plan will be started immediately after this process is complete.\n\nPlease take a moment to verify your plan change before moving on to payment.",
+    "attachment": {
+      "style": {
+        "padding": 0
+      },
+      "buttonTitle": "VIEW DETAILS",
+      "buttonAction": {
+        "type": "componentView",
+        "name": "06-24_view_review_plan_details"
+      },
+      "items": [
+        {
+          "title": "Current Phone",
+          "bodyText": "Unlimited Gigs\n$70/mo."
+        },
+        {
+          "title": "New Phone",
+          "bodyText": "Unlimited 3GB\n$40/mo."
+        }
+      ]
+    },
+    "quickReplies": [
+      {
+        "title": "Confirm plan change",
+        "action": {
+          "type": "treewalk",
+          "classification": "06-25_message_time_to_pay"
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

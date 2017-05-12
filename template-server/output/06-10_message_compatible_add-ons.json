@@ -1,5 +1,5 @@
 {
-  "text": "Would you like to keep your current compatible add-ons with this new plan?",
+  "text": "Ok, great. Would you like to keep your current compatible add-ons with this new plan?",
   "attachment": {
     "content": {
       "root": {
@@ -24,7 +24,17 @@
                 "marginTop": 8
               },
               "content": {
-                "text": "• Big muscles\n• Nice hair"
+                "text": "Big muscles"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "textType": "body",
+                "marginTop": 8
+              },
+              "content": {
+                "text": "Nice hair"
               },
               "type": "label"
             }
@@ -43,7 +53,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "ACTION-TODO"
+            "classification": "06-14_message_shop_add-ons"
           }
         }
       },

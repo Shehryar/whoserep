@@ -7,7 +7,10 @@
       "icon": "xThin",
       "iconSize": "mediumLarge",
       "boldText": "Incompatible Add-ons:",
-      "bodyText": "• Todo Mexico Plus\n• Phone Insurance"
+      "bodyText": [
+        "Todo Mexico Plus",
+        "Phone Insurance"
+      ]
     },
     "quickReplies": [
       {
@@ -21,7 +24,7 @@
         "title": "No, choose a different plan",
         "action": {
           "type": "treewalk",
-          "classification": "ACTION-TODO"
+          "classification": "06-02_message_individual_plans"
         }
       }
     ]

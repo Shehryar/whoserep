@@ -15,8 +15,8 @@
         {
           "title": "No, keep grandfatered plan",
           "action": {
-            "type": "componentView",
-            "name": "ACTION-TODO"
+            "type": "treewalk",
+            "classification": "message_ok"
           }
         }
       ]

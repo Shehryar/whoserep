@@ -1,0 +1,34 @@
+{
+  "text": "Ok, that’ll cost $45.99 plus any applicable taxes. How would you like to pay?",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Amex ************9087",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-26_message_plan_changed"
+          }
+        }
+      },
+      {
+        "title": "Credit/Debit Card",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-26_message_plan_changed"
+          }
+        }
+      },
+      {
+        "title": "Re-Boost Card",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-26_message_plan_changed"
+          }
+        }
+      }
+    ]
+  }
+}

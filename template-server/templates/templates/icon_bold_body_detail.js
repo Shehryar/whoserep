@@ -20,21 +20,36 @@ module.exports = function(data) {
 				}
 			}));
 		}
-		if (bodyText) {
+
+		function addBodyText(text, marginTop) {
 			rightSideItems.push(new Components.Label({
-				text: bodyText,
+				text: text,
 				style: {
 					textType: 'body',
-					marginTop: boldText ? 8 : 0
+					marginTop: marginTop
 				}
 			}));
+		}
+		if (Array.isArray(bodyText)) {	
+			for (let i = 0; i < bodyText.length; i++) {
+				let marginTop = 0;
+				if (boldText && i == 0) {
+					marginTop = 8;
+				} else if (i > 0) {
+					marginTop = 8;
+				}
+
+				addBodyText(bodyText[i], marginTop);
+			}
+		} else if (bodyText) {
+			addBodyText(bodyText, boldText ? 12 : 0);
 		}
 		if (errorText) {
 			rightSideItems.push(new Components.Label({
 				text: errorText,
 				style: {
 					textType: 'error',
-					marginTop: bodyText || boldText ? 8 : 0
+					marginTop: bodyText || boldText ? 12 : 0
 				}
 			}));
 		}
