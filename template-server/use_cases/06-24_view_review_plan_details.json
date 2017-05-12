@@ -2,7 +2,7 @@
   "type": "view",
   "template": "boost_plans_comparison_view",
   "data": {
-    "title": "Available Plans",
+    "title": "Compare Plans",
     "openToPage": 1,
     "currentPlan": {
       "planName": "Unlimited GiGs",

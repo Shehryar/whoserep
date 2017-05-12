@@ -14,14 +14,14 @@
       },
       "items": [
         {
-          "title": "Current Phone",
+          "title": "Current Plan",
           "bodyText": [
             "Unlimited Gigs",
             "$70/mo."
           ]
         },
         {
-          "title": "New Phone",
+          "title": "New Plan",
           "bodyText": [
             "Unlimited 3GB",
             "$40/mo."
