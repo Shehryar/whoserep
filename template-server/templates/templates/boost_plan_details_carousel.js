@@ -3,16 +3,20 @@ const BoostPlanDetails = require('./boost_plan_details');
 
 module.exports = function(data) {
 	// Properties
-	const plans = data.plans;
+	const plans = data.plans || [];
+
+	if (plans.length == 1) {
+		BoostPlanDetails.call(this, plans[0]);
+		return;
+	}
 
 	// Content
 	var items = [];
-	if (plans) {
-		for (var i = 0; i < plans.length; i++) {
-			const planData = plans[i];
-			items.push(new BoostPlanDetails(planData));
-		}
+	for (var i = 0; i < plans.length; i++) {
+		const planData = plans[i];
+		items.push(new BoostPlanDetails(planData));
 	}
+
 	
 	data.items = items;
 	data.visibleItemCount = 1;

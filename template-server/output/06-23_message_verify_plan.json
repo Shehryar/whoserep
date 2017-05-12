@@ -10,20 +10,16 @@
         "content": {
           "items": [
             {
-              "style": {
-                "weight": 1,
-                "align": "fill",
-                "gravity": "fill",
-                "paddingBottom": 16
-              },
               "content": {
                 "items": [
                   {
                     "style": {
-                      "padding": "10 16",
+                      "padding": "12 16",
                       "textType": "bodyBold",
                       "textAlign": "center",
-                      "align": "center"
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
                     },
                     "content": {
                       "text": "Current Phone"
@@ -32,82 +28,151 @@
                   },
                   {
                     "style": {
-                      "align": "fill"
+                      "gravity": "fill"
                     },
-                    "content": {},
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
                     "type": "separator"
                   },
                   {
                     "style": {
-                      "padding": "0 16",
-                      "marginTop": 16,
-                      "textAlign": "center",
-                      "align": "center"
-                    },
-                    "content": {
-                      "text": "Unlimited Gigs\n$70/mo."
-                    },
-                    "type": "label"
-                  }
-                ]
-              },
-              "type": "stackView"
-            },
-            {
-              "style": {
-                "gravity": "fill"
-              },
-              "content": {
-                "separatorStyle": "vertical"
-              },
-              "type": "separator"
-            },
-            {
-              "style": {
-                "weight": 1,
-                "align": "fill",
-                "gravity": "fill",
-                "paddingBottom": 16
-              },
-              "content": {
-                "items": [
-                  {
-                    "style": {
-                      "padding": "10 16",
+                      "padding": "12 16",
                       "textType": "bodyBold",
                       "textAlign": "center",
-                      "align": "center"
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
                     },
                     "content": {
                       "text": "New Phone"
                     },
                     "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "align": "fill"
+              },
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "Unlimited Gigs"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 8
+                          },
+                          "content": {
+                            "text": "$70/mo."
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
                   },
                   {
                     "style": {
-                      "align": "fill"
+                      "gravity": "fill"
                     },
-                    "content": {},
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
                     "type": "separator"
                   },
                   {
                     "style": {
-                      "padding": "0 16",
-                      "marginTop": 16,
-                      "textAlign": "center",
-                      "align": "center"
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
                     },
                     "content": {
-                      "text": "Unlimited 3GB\n$40/mo."
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "Unlimited 3GB"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 8
+                          },
+                          "content": {
+                            "text": "$40/mo."
+                          },
+                          "type": "label"
+                        }
+                      ]
                     },
-                    "type": "label"
+                    "type": "stackView"
                   }
-                ]
+                ],
+                "orientation": "horizontal"
               },
               "type": "stackView"
+            },
+            {
+              "style": {
+                "align": "fill"
+              },
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "style": {
+                "align": "fill",
+                "textAlign": "center",
+                "buttonType": "textPrimary"
+              },
+              "content": {
+                "title": "VIEW DETAILS",
+                "action": {
+                  "type": "componentView",
+                  "content": {
+                    "name": "06-24_view_review_plan_details"
+                  }
+                }
+              },
+              "type": "button"
             }
-          ],
-          "orientation": "horizontal"
+          ]
         },
         "type": "stackView"
       }

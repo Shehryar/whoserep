@@ -139,7 +139,7 @@
   "quickReplies": {
     "default": [
       {
-        "title": "Make payment",
+        "title": "Make Payment",
         "action": {
           "type": "treewalk",
           "content": {

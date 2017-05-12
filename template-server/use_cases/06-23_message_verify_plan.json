@@ -15,11 +15,17 @@
       "items": [
         {
           "title": "Current Phone",
-          "bodyText": "Unlimited Gigs\n$70/mo."
+          "bodyText": [
+            "Unlimited Gigs",
+            "$70/mo."
+          ]
         },
         {
           "title": "New Phone",
-          "bodyText": "Unlimited 3GB\n$40/mo."
+          "bodyText": [
+            "Unlimited 3GB",
+            "$40/mo."
+          ]
         }
       ]
     },

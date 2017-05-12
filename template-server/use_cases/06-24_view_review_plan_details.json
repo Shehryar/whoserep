@@ -41,44 +41,8 @@
       "summaryText": "Monthly Charge",
       "summaryValueText": "$55/mo."
     },
+    "compareToPlansTitle": "NEW PLAN",
     "compareToPlans": [
-      {
-        "planName": "Unlimited 2GB",
-        "dataLimit": "2GB",
-        "textLimit": "Unl.",
-        "talkLimit": "Unl.",
-        "basePrice": "$35/mo",
-        "addOns": [
-          {
-            "text": "Phone Insurance",
-            "valueText": "$5/mo."
-          },
-          {
-            "text": "Unlimited music streaming",
-            "valueText": "-"
-          },
-          {
-            "text": "Unlimited 411",
-            "valueText": "-"
-          },
-          {
-            "text": "Call waiting",
-            "valueText": "-"
-          },
-          {
-            "text": "Voicemail",
-            "valueText": "-"
-          }
-        ],
-        "discounts": [
-          {
-            "text": "Auto Re-Boost Discount",
-            "valueText": "-$5/mo."
-          }
-        ],
-        "summaryText": "Monthly Charge",
-        "summaryValueText": "$35/mo."
-      },
       {
         "planName": "Unlimited 3GB",
         "dataLimit": "3GB",
@@ -115,43 +79,6 @@
         ],
         "summaryText": "Monthly Charge",
         "summaryValueText": "$40/mo."
-      },
-      {
-        "planName": "Unlimited",
-        "dataLimit": "Unl.",
-        "textLimit": "Unl.",
-        "talkLimit": "Unl.",
-        "basePrice": "$50/mo",
-        "addOns": [
-          {
-            "text": "Phone Insurance",
-            "valueText": "$5/mo."
-          },
-          {
-            "text": "Unlimited music streaming",
-            "valueText": "-"
-          },
-          {
-            "text": "Unlimited 411",
-            "valueText": "-"
-          },
-          {
-            "text": "Call waiting",
-            "valueText": "-"
-          },
-          {
-            "text": "Voicemail",
-            "valueText": "-"
-          }
-        ],
-        "discounts": [
-          {
-            "text": "Auto Re-Boost Discount",
-            "valueText": "-$5/mo."
-          }
-        ],
-        "summaryText": "Monthly Charge",
-        "summaryValueText": "$50/mo."
       }
     ]
   }
