@@ -400,6 +400,7 @@
 		30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D21EC3D67B00ABA570 /* TabView.swift */; };
 		30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */; };
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
+		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -798,6 +799,7 @@
 		30F6B4D21EC3D67B00ABA570 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTabBar.swift; sourceTree = "<group>"; };
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
+		30F6B4D81EC5331000ABA570 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1436,6 +1438,7 @@
 				30131F9D1EAFB3B2009E7299 /* ASAPPButtonColors.swift */,
 				30131F9F1EAFB416009E7299 /* ASAPPInputColors.swift */,
 				30131FA11EAFB489009E7299 /* ASAPPNavBarButtonStyle.swift */,
+				30F6B4D81EC5331000ABA570 /* ButtonType.swift */,
 				30131FA51EAFB603009E7299 /* UIButton+ASAPPAppearance.swift */,
 				30131FA31EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift */,
 				30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */,
@@ -2061,6 +2064,7 @@
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */,
+				30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				30131FA01EAFB416009E7299 /* ASAPPInputColors.swift in Sources */,
 				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,

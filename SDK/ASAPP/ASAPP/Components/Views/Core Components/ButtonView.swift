@@ -32,7 +32,7 @@ class ButtonView: UIButton, ComponentView {
             isLoading = false
             
             if let buttonItem = buttonItem {
-                updateText(buttonItem.title, buttonStyle: buttonItem.buttonStyle)
+                updateText(buttonItem.title, buttonType: buttonItem.style.buttonType)
                 
                 var contentEdgeInsets = defaultContentEdgeInsets
                 if buttonItem.style.padding != .zero {
@@ -41,7 +41,7 @@ class ButtonView: UIButton, ComponentView {
                 self.contentEdgeInsets = contentEdgeInsets
                 
                 if let iconItem = buttonItem.icon, let iconImage = iconItem.icon.getImage() {
-                    let buttonColors = ASAPP.styles.colors.getButtonColors(for: buttonItem.buttonStyle)
+                    let buttonColors = ASAPP.styles.colors.getButtonColors(for: buttonItem.style.buttonType)
                     setImage(iconImage.tinted(buttonColors.textNormal), for: .normal)
                     setImage(iconImage.tinted(buttonColors.textHighlighted), for: .highlighted)
                     setImage(iconImage.tinted(buttonColors.textDisabled), for: .disabled)

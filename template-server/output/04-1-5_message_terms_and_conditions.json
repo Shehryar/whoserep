@@ -4,7 +4,8 @@
     "content": {
       "root": {
         "style": {
-          "padding": "4 20 20 20"
+          "padding": "4 24 20 24",
+          "align": "fill"
         },
         "content": {
           "items": [
@@ -25,6 +26,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "padding": "16 0 16 16",
                       "textAlign": "right",
                       "align": "right",
@@ -37,8 +39,7 @@
                         "content": {
                           "name": ""
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }

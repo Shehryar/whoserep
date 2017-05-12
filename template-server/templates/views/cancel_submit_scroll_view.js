@@ -27,8 +27,8 @@ module.exports = function(data) {
 		buttonItems.push(new Components.Button({
 			title: cancelButtonTitle,
 			action: cancelButtonAction,
-			buttonStyle: 'secondary',
 			style: {
+				buttonType: 'secondary',
 				weight: 1, 
 				align: 'fill',
 				gravity: 'fill'
@@ -39,8 +39,8 @@ module.exports = function(data) {
 		buttonItems.push(new Components.Button({
 			title: submitButtonTitle,
 			action: submitButtonAction,
-			buttonStyle: 'primary',
 			style: {
+				buttonType: 'primary',
 				weight: 1, 
 				align: 'fill',
 				gravity: 'fill'

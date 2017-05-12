@@ -160,6 +160,7 @@
             "items": [
               {
                 "style": {
+                  "buttonType": "secondary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -169,13 +170,13 @@
                   "action": {
                     "type": "finish",
                     "content": {}
-                  },
-                  "buttonStyle": "secondary"
+                  }
                 },
                 "type": "button"
               },
               {
                 "style": {
+                  "buttonType": "primary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -191,8 +192,7 @@
                         "classification": "09-03_message_enter_amount"
                       }
                     }
-                  },
-                  "buttonStyle": "primary"
+                  }
                 },
                 "type": "button"
               }

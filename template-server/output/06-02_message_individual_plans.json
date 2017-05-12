@@ -185,6 +185,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "align": "fill",
                       "textAlign": "center"
                     },
@@ -195,8 +196,7 @@
                         "content": {
                           "name": "06-04_view_individual_plans"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }
@@ -380,6 +380,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "align": "fill",
                       "textAlign": "center"
                     },
@@ -390,8 +391,7 @@
                         "content": {
                           "name": "06-04_view_individual_plans"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }
@@ -575,6 +575,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "align": "fill",
                       "textAlign": "center"
                     },
@@ -585,8 +586,7 @@
                         "content": {
                           "name": "06-04_view_individual_plans"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }

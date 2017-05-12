@@ -4,7 +4,1134 @@
       "gravity": "fill"
     },
     "content": {
-      "sections": []
+      "sections": [
+        {
+          "header": {
+            "style": {
+              "padding": "40 24 24 24"
+            },
+            "content": {
+              "items": [
+                {
+                  "style": {
+                    "marginBottom": 20
+                  },
+                  "content": {
+                    "fillPercentage": 0.45
+                  },
+                  "type": "progressBar"
+                },
+                {
+                  "style": {
+                    "textType": "header1",
+                    "align": "center",
+                    "marginBottom": 4
+                  },
+                  "content": {
+                    "text": "200 GB"
+                  },
+                  "type": "label"
+                },
+                {
+                  "style": {
+                    "align": "center",
+                    "marginBottom": 0,
+                    "textType": "body"
+                  },
+                  "content": {
+                    "text": "of 450GB"
+                  },
+                  "type": "label"
+                }
+              ],
+              "orientation": "vertical"
+            },
+            "type": "stackView"
+          }
+        },
+        {
+          "header": {
+            "class": "header",
+            "content": {
+              "text": "March 2017"
+            },
+            "type": "label"
+          },
+          "rows": [
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "3/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          ]
+        },
+        {
+          "header": {
+            "class": "header",
+            "content": {
+              "text": "February 2017"
+            },
+            "type": "label"
+          },
+          "rows": [
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "class": "row",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1,
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "body",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "detail1"
+                          },
+                          "content": {
+                            "text": "2/3/2017"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    },
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          ]
+        }
+      ]
     },
     "type": "tableView"
   },

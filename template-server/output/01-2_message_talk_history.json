@@ -25,6 +25,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "padding": "16 0 16 16",
                       "textAlign": "right",
                       "align": "right",
@@ -37,8 +38,7 @@
                         "content": {
                           "name": "01-2_view_talk_history"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }

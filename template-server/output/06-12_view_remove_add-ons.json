@@ -52,6 +52,7 @@
             "items": [
               {
                 "style": {
+                  "buttonType": "secondary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -61,13 +62,13 @@
                   "action": {
                     "type": "finish",
                     "content": {}
-                  },
-                  "buttonStyle": "secondary"
+                  }
                 },
                 "type": "button"
               },
               {
                 "style": {
+                  "buttonType": "primary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -83,8 +84,7 @@
                         "classification": "06-14_message_shop_add-ons"
                       }
                     }
-                  },
-                  "buttonStyle": "primary"
+                  }
                 },
                 "type": "button"
               }

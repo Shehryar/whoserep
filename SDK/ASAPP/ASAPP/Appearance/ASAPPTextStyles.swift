@@ -57,8 +57,8 @@ extension ASAPPTextStyles {
         }
     }
     
-    func getStyle(forButtonStyle buttonStyle: ButtonStyle) -> ASAPPTextStyle {
-        switch buttonStyle {
+    func getStyle(forButtonType buttonType: ButtonType) -> ASAPPTextStyle {
+        switch buttonType {
         case .primary, .secondary:
             return button
             

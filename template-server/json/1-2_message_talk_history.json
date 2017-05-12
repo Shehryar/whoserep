@@ -31,10 +31,10 @@
                         "content": {
                           "name": "1-2_view_talk_history"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "style": {
+                      "buttonType": "textPrimary",
                       "padding": "16 0 16 16",
                       "textAlign": "right"
                     }

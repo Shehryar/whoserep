@@ -128,8 +128,8 @@ public class ASAPPColors: NSObject {
 
 extension ASAPPColors {
     
-    func getButtonColors(for buttonStyle: ButtonStyle) -> ASAPPButtonColors {
-        switch buttonStyle {
+    func getButtonColors(for buttonType: ButtonType) -> ASAPPButtonColors {
+        switch buttonType {
         case .primary: return ASAPP.styles.colors.buttonPrimary
         case .secondary: return ASAPP.styles.colors.buttonSecondary
         case .textPrimary: return ASAPP.styles.colors.textButtonPrimary

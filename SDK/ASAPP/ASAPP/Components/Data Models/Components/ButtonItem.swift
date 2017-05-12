@@ -8,43 +8,23 @@
 
 import UIKit
 
-enum ButtonStyle: String {
-    case primary = "primary"
-    case secondary = "secondary"
-    case textPrimary = "textPrimary"
-    case textSecondary = "textSecondary"
-    
-    static func from(_ string: String?, defaultValue: ButtonStyle) -> ButtonStyle {
-        guard let string = string,
-            let style = ButtonStyle(rawValue: string) else {
-                return defaultValue
-        }
-        return style
-    }
-}
-
 class ButtonItem: Component {
 
     // MARK:- JSON Keys
     
     enum JSONKey: String {
         case action = "action"
-        case buttonStyle = "buttonStyle"
         case icon = "icon"
         case title = "title"
     }
     
     // MARK:- Defaults
     
-    static let defaultButtonStyle = ButtonStyle.primary
-    
     static let defaultIconSpacing: CGFloat = 8
     
     // MARK:- Properties
     
     let title: String?
-    
-    let buttonStyle: ButtonStyle
     
     let icon: IconItem?
     
@@ -83,9 +63,6 @@ class ButtonItem: Component {
             return nil
         }
         self.action = action
-        
-        self.buttonStyle = ButtonStyle.from(content?.string(for: JSONKey.buttonStyle.rawValue),
-                                            defaultValue: ButtonItem.defaultButtonStyle)
         
         super.init(id: id,
                    name: name,

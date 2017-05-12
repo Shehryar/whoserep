@@ -92,8 +92,8 @@ module.exports = function(data) {
 		items.push(new Components.Button({
 			title: buttonTitle,
 			action: buttonAction, 
-			buttonStyle: 'textPrimary',
 			style: {
+				buttonType: 'textPrimary',
 				align: 'fill',
 				textAlign: 'center'
 			}

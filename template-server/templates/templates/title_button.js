@@ -24,8 +24,8 @@ module.exports = function(data) {
 		data.items.push(new Components.Button({
 			title: buttonTitle,
 			action: buttonAction,
-			buttonStyle: "textPrimary",
 			style: {
+				buttonType: 'textPrimary',
 				padding: '16 0 16 16',
 				textAlign: 'right',
 				align: 'right',

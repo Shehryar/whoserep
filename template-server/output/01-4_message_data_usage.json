@@ -25,6 +25,7 @@
                   },
                   {
                     "style": {
+                      "buttonType": "textPrimary",
                       "padding": "16 0 16 16",
                       "textAlign": "right",
                       "align": "right",
@@ -37,8 +38,7 @@
                         "content": {
                           "name": "01-4_view_data_usage"
                         }
-                      },
-                      "buttonStyle": "textPrimary"
+                      }
                     },
                     "type": "button"
                   }

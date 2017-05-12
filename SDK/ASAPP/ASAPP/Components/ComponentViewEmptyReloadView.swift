@@ -32,12 +32,12 @@ class ComponentViewEmptyReloadView: UIView {
         titleLabel.lineBreakMode = .byWordWrapping
         addSubview(titleLabel)
         
-        reloadButton.updateText(ASAPP.strings.failureToLoadScreenReloadButton, buttonStyle: .textPrimary)
+        reloadButton.updateText(ASAPP.strings.failureToLoadScreenReloadButton, buttonType: .textPrimary)
         reloadButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         reloadButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapReloadButton), for: .touchUpInside)
         addSubview(reloadButton)
         
-        closeButton.updateText(ASAPP.strings.failureToLoadScreenCloseButton, buttonStyle: .textSecondary)
+        closeButton.updateText(ASAPP.strings.failureToLoadScreenCloseButton, buttonType: .textSecondary)
         closeButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         closeButton.addTarget(self, action: #selector(ComponentViewEmptyReloadView.didTapCloseButton), for: .touchUpInside)
         addSubview(closeButton)

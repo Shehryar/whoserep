@@ -905,6 +905,7 @@
             "items": [
               {
                 "style": {
+                  "buttonType": "secondary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -914,13 +915,13 @@
                   "action": {
                     "type": "finish",
                     "content": {}
-                  },
-                  "buttonStyle": "secondary"
+                  }
                 },
                 "type": "button"
               },
               {
                 "style": {
+                  "buttonType": "primary",
                   "weight": 1,
                   "align": "fill",
                   "gravity": "fill"
@@ -936,8 +937,7 @@
                         "classification": "04-1-5_message_terms_and_conditions"
                       }
                     }
-                  },
-                  "buttonStyle": "primary"
+                  }
                 },
                 "type": "button"
               }

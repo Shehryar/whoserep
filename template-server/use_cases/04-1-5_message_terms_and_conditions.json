@@ -4,6 +4,9 @@
   "data": {
     "text": "Okay great, before we proceed, you must read and accept our terms and conditions.",
     "attachment": {
+      "style": {
+        "padding": "4 24 20 24"
+      },
       "boldText": "Terms and Conditions",
       "detailText": "AS OF JAN 22, 2017 —4:15PM",
       "buttonTitle": "VIEW",

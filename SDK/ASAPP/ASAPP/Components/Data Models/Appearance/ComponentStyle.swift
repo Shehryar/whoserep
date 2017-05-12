@@ -22,6 +22,8 @@ struct ComponentStyle {
     
     var borderWidth: CGFloat = 0
     
+    var buttonType: ButtonType = .primary
+    
     var color: UIColor?
     
     var cornerRadius: CGFloat = 0
@@ -58,6 +60,7 @@ extension ComponentStyle {
         case backgroundColor = "backgroundColor"
         case borderColor = "borderColor"
         case borderWidth = "borderWidth"
+        case buttonType = "buttonType"
         case color = "color"
         case cornerRadius = "cornerRadius"
         case fontSize = "fontSize"
@@ -90,6 +93,9 @@ extension ComponentStyle {
         }
         if let borderWidth = json.float(for: JSONKey.borderWidth.rawValue) {
             style.borderWidth = borderWidth
+        }
+        if let buttonType = json.buttonType(for: JSONKey.buttonType.rawValue) {
+            style.buttonType = buttonType
         }
         if let color = json.hexColor(for: JSONKey.color.rawValue) {
             style.color = color

@@ -70,6 +70,12 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         return self[key as! Key] as? Bool
     }
     
+    // MARK: ButtonType
+    
+    func buttonType(for key: String) -> ButtonType? {
+        return ButtonType.from(self[key as! Key])
+    }
+    
     // MARK: Strings
     
     func string(for key: String) -> String? {
