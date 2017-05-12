@@ -7,7 +7,8 @@
         "action": {
           "type": "componentView",
           "content": {
-            "name": "08-08_view_enter_iccid"
+            "name": "08-08_view_enter_iccid",
+            "displayStyle": "inset"
           }
         }
       }

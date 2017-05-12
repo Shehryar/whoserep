@@ -2,171 +2,156 @@
   "type": "view",
   "template": "boost_plans_comparison_view",
   "data": {
-    "title": "Individual Plans",
+    "title": "Available Plans",
+    "openToPage": 1,
     "currentPlan": {
       "planName": "Unlimited GiGs",
       "dataLimit": "Unl.",
-      "textLimit": "Unl.",
-      "talkLimit": "4hrs",
-      "basePrice": "$60/mo",
+      "textLimit": "200",
+      "talkLimit": "6hr",
+      "basePrice": "$55/mo",
       "addOns": [
         {
-          "text": "Todo Mexico Plus",
+          "text": "Phone Insurance",
           "valueText": "$5/mo."
         },
         {
-          "text": "Phone Insurance",
-          "valueText": "$7/mo."
+          "text": "Unlimited music streaming",
+          "valueText": "-"
         },
         {
-          "text": "Great Talk and Text Coverage",
-          "valueText": "FREE"
+          "text": "Unlimited 411",
+          "valueText": "-"
         },
         {
-          "text": "Best Customer Service",
-          "valueText": "FREE"
+          "text": "Call waiting",
+          "valueText": "-"
         },
         {
-          "text": "Bill Reminders",
-          "valueText": "FREE"
+          "text": "Voicemail",
+          "valueText": "-"
         }
       ],
       "discounts": [
         {
           "text": "Auto Re-Boost Discount",
-          "valueText": "-$1"
-        },
-        {
-          "text": "Lifeline Subsidy",
-          "valueText": "-$1"
+          "valueText": "-$5/mo."
         }
       ],
       "summaryText": "Monthly Charge",
-      "summaryValueText": "$70/mo."
+      "summaryValueText": "$55/mo."
     },
     "compareToPlans": [
       {
-        "planName": "Unlimited Unhook'd",
-        "dataLimit": "1GB",
+        "planName": "Unlimited 2GB",
+        "dataLimit": "2GB",
         "textLimit": "Unl.",
         "talkLimit": "Unl.",
-        "basePrice": "$55/mo",
+        "basePrice": "$35/mo",
         "addOns": [
           {
-            "text": "Todo Mexico Plus",
+            "text": "Phone Insurance",
             "valueText": "$5/mo."
           },
           {
-            "text": "Phone Insurance",
-            "valueText": "$7/mo."
+            "text": "Unlimited music streaming",
+            "valueText": "-"
           },
           {
-            "text": "Great Talk and Text Coverage",
-            "valueText": "FREE"
+            "text": "Unlimited 411",
+            "valueText": "-"
           },
           {
-            "text": "Best Customer Service",
-            "valueText": "FREE"
+            "text": "Call waiting",
+            "valueText": "-"
           },
           {
-            "text": "Bill Reminders",
-            "valueText": "FREE"
+            "text": "Voicemail",
+            "valueText": "-"
           }
         ],
         "discounts": [
           {
             "text": "Auto Re-Boost Discount",
-            "valueText": "-$1"
-          },
-          {
-            "text": "Lifeline Subsidy",
-            "valueText": "-$1"
+            "valueText": "-$5/mo."
           }
         ],
         "summaryText": "Monthly Charge",
-        "summaryValueText": "$65/mo."
+        "summaryValueText": "$35/mo."
       },
       {
-        "planName": "Unlimited Starter",
+        "planName": "Unlimited 3GB",
         "dataLimit": "3GB",
         "textLimit": "Unl.",
         "talkLimit": "Unl.",
-        "basePrice": "$75/mo",
+        "basePrice": "$40/mo",
         "addOns": [
           {
-            "text": "Todo Mexico Plus",
+            "text": "Phone Insurance",
             "valueText": "$5/mo."
           },
           {
-            "text": "Phone Insurance",
-            "valueText": "$7/mo."
+            "text": "Unlimited music streaming",
+            "valueText": "-"
           },
           {
-            "text": "Great Talk and Text Coverage",
-            "valueText": "FREE"
+            "text": "Unlimited 411",
+            "valueText": "-"
           },
           {
-            "text": "Best Customer Service",
-            "valueText": "FREE"
+            "text": "Call waiting",
+            "valueText": "-"
           },
           {
-            "text": "Bill Reminders",
-            "valueText": "FREE"
+            "text": "Voicemail",
+            "valueText": "-"
           }
         ],
         "discounts": [
           {
             "text": "Auto Re-Boost Discount",
-            "valueText": "-$1"
-          },
-          {
-            "text": "Lifeline Subsidy",
-            "valueText": "-$1"
+            "valueText": "-$5/mo."
           }
         ],
         "summaryText": "Monthly Charge",
-        "summaryValueText": "$85/mo."
+        "summaryValueText": "$40/mo."
       },
       {
-        "planName": "Unlimited Ballin'",
-        "dataLimit": "10GB",
+        "planName": "Unlimited",
+        "dataLimit": "Unl.",
         "textLimit": "Unl.",
         "talkLimit": "Unl.",
-        "basePrice": "$100/mo",
+        "basePrice": "$50/mo",
         "addOns": [
           {
-            "text": "Todo Mexico Plus",
+            "text": "Phone Insurance",
             "valueText": "$5/mo."
           },
           {
-            "text": "Phone Insurance",
-            "valueText": "$7/mo."
+            "text": "Unlimited music streaming",
+            "valueText": "-"
           },
           {
-            "text": "Great Talk and Text Coverage",
-            "valueText": "FREE"
+            "text": "Unlimited 411",
+            "valueText": "-"
           },
           {
-            "text": "Best Customer Service",
-            "valueText": "FREE"
+            "text": "Call waiting",
+            "valueText": "-"
           },
           {
-            "text": "Bill Reminders",
-            "valueText": "FREE"
+            "text": "Voicemail",
+            "valueText": "-"
           }
         ],
         "discounts": [
           {
             "text": "Auto Re-Boost Discount",
-            "valueText": "-$1"
-          },
-          {
-            "text": "Lifeline Subsidy",
-            "valueText": "-$1"
+            "valueText": "-$5/mo."
           }
         ],
         "summaryText": "Monthly Charge",
-        "summaryValueText": "$110/mo."
+        "summaryValueText": "$50/mo."
       }
     ]
   }

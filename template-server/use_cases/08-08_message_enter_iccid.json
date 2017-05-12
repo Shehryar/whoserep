@@ -8,7 +8,8 @@
         "title": "Enter ICCID",
         "action": {
           "type": "componentView",
-          "name": "08-08_view_enter_iccid"
+          "name": "08-08_view_enter_iccid",
+          "displayStyle": "inset"
         }
       }
     ]

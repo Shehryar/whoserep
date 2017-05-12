@@ -15,14 +15,7 @@
         "title": "Family Plans",
         "action": {
           "type": "treewalk",
-          "classification": "ACTION-TODO"
-        }
-      },
-      {
-        "title": "Daily Plans",
-        "action": {
-          "type": "treewalk",
-          "classification": "ACTION-TODO"
+          "classification": "06-02_message_individual_plans"
         }
       }
     ]

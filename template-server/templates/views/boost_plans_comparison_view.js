@@ -29,6 +29,7 @@ module.exports = function(data) {
 	}
 
 	data.root = new Components.TabView({
+		value: data.openToPage,
 		pages: pages,
 		style: {
 			align: 'fill',

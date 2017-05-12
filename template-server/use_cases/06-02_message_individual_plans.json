@@ -2,7 +2,7 @@
   "type": "message",
   "template": "boost_phone_plan_carousel",
   "data": {
-    "text": "Here are the available individual plans to choose from. Let us know if you’re interested in moving forward with one.",
+    "text": "Ok, here are the available plans. Additional lines can be added to each plan for $30/mo. Let us know if you’re interested in moving forward with one.",
     "attachment": {
       "style": {
         "padding": 0
@@ -10,13 +10,13 @@
       "requiresNoContainer": true,
       "plans": [
         {
-          "value": "unlimited_unhookd",
-          "planName": "Unlimited Unhook'd",
-          "price": "$55/mo.",
+          "value": "unlimited_2gb",
+          "planName": "Unlimited 2GB",
+          "price": "$35/mo.",
           "details": [
             {
-              "detailText": "DATA",
-              "headerText": "1GB"
+              "detailText": "4G LTE DATA",
+              "headerText": "2GB"
             },
             {
               "detailText": "TEXT",
@@ -34,12 +34,12 @@
           }
         },
         {
-          "value": "unlimited_starter",
-          "planName": "Unlimited Starter",
-          "price": "$75/mo.",
+          "value": "unlimited_3gb",
+          "planName": "Unlimited 3GB",
+          "price": "$40/mo.",
           "details": [
             {
-              "detailText": "DATA",
+              "detailText": "4G LTE DATA",
               "headerText": "3GB"
             },
             {
@@ -58,13 +58,13 @@
           }
         },
         {
-          "value": "unlimited_ballin",
-          "planName": "Unlimited Ballin'",
-          "price": "$100/mo.",
+          "value": "unlimited",
+          "planName": "Unlimited",
+          "price": "$50/mo.",
           "details": [
             {
-              "detailText": "DATA",
-              "headerText": "10GB"
+              "detailText": "4G LTE DATA",
+              "headerText": "Unl."
             },
             {
               "detailText": "TEXT",
@@ -84,9 +84,9 @@
       ]
     },
     "quickReplies": {
-      "unlimited_unhookd": [
+      "unlimited_2gb": [
         {
-          "title": "Switch to Unlimited Unhook'd",
+          "title": "Switch to the Unlimited 2GB plan",
           "action": {
             "type": "treewalk",
             "classification": "ACTION-TODO"
@@ -95,14 +95,14 @@
         {
           "title": "I have more questions",
           "action": {
-            "type": "componentView",
-            "name": "06-04_view_individual_plans"
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
           }
         }
       ],
-      "unlimited_starter": [
+      "unlimited_3gb": [
         {
-          "title": "Switch to Unlimited Starter",
+          "title": "Switch to the Unlimited 3GB plan",
           "action": {
             "type": "treewalk",
             "classification": "06-08_message_grandfathered_plan"
@@ -111,14 +111,14 @@
         {
           "title": "I have more questions",
           "action": {
-            "type": "componentView",
-            "name": "06-04_view_individual_plans"
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
           }
         }
       ],
-      "unlimited_ballin": [
+      "unlimited": [
         {
-          "title": "Switch to Unlimited BALLIN'",
+          "title": "Switch to the Unlimited plan",
           "action": {
             "type": "treewalk",
             "classification": "06-08_message_grandfathered_plan"
@@ -127,8 +127,8 @@
         {
           "title": "I have more questions",
           "action": {
-            "type": "componentView",
-            "name": "06-04_view_individual_plans"
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
           }
         }
       ]

@@ -100,7 +100,7 @@
                     "content": {
                       "requestPath": "/updateContactInfo",
                       "data": {
-                        "text": "Updated Contact Info",
+                        "text": "XXX00XX00XX00",
                         "classification": "08-08_message_enter_iccid"
                       }
                     }

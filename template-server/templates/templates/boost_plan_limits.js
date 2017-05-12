@@ -21,7 +21,7 @@ module.exports = function(data) {
 		return new Components.StackView({
 			style: {
 				weight: 1,
-				padding: '16 16'
+				padding: '16 10'
 			},
 			items: [
 				new Components.Label({
@@ -53,7 +53,7 @@ module.exports = function(data) {
 
 	var items = [];
 	if (dataLimit) {
-		items.push(createSubview("DATA", dataLimit));
+		items.push(createSubview("4G LTE DATA", dataLimit));
 	}
 	if (textLimit) {
 		if (dataLimit) items.push(createSeparator());

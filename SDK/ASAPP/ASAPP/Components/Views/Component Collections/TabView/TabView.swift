@@ -60,7 +60,11 @@ class TabView: BaseComponentView {
            
             updateHandlersForNestedComponentViews()
             
-            setVisiblePageIndex(0)
+            if let pageIndex = tabViewItem.value as? Int {
+                setVisiblePageIndex(pageIndex)
+            } else {
+                setVisiblePageIndex(0)
+            }
         }
     }
     
@@ -145,6 +149,10 @@ class TabView: BaseComponentView {
         
         for (idx, pageView) in pageViews.enumerated() {
             pageView.view.isHidden = idx != pageIndex
+        }
+        
+        if tabBar.selectedIndex != pageIndex {
+            tabBar.selectedIndex = pageIndex
         }
     }
 }

@@ -90,7 +90,7 @@
                     "content": {
                       "requestPath": "/updateICCID",
                       "data": {
-                        "text": "Updated Contact Info",
+                        "text": "XXX0043423514124124",
                         "classification": "08-11_message_upsell_insurance"
                       }
                     }

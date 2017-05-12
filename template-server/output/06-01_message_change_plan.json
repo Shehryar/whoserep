@@ -16,16 +16,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "ACTION-TODO"
-          }
-        }
-      },
-      {
-        "title": "Daily Plans",
-        "action": {
-          "type": "treewalk",
-          "content": {
-            "classification": "ACTION-TODO"
+            "classification": "06-02_message_individual_plans"
           }
         }
       }
