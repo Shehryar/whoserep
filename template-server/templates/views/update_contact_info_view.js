@@ -11,7 +11,7 @@ module.exports = function(data) {
 	const existingPhone = content.existingPhone;
 
 	// Content
-	var items = []
+	var items = [];
 	if (existingPhone) {
 		items.push(new Components.Label({
 			text: existingPhoneLabel,

@@ -17,7 +17,7 @@ class TextInputItem: Component {
         case capitalize = "capitalize"
         case password = "password"
         case placeholder = "placeholder"
-        case type = "type"
+        case textInputType = "textInputType"
     }
     
     // MARK:- Enums
@@ -99,7 +99,7 @@ class TextInputItem: Component {
         self.isSecure = content?.bool(for: JSONKey.password.rawValue)
             ?? TextInputItem.defaultIsSecure
         
-        let inputType = InputType.from(content?.string(for: JSONKey.type.rawValue))
+        let inputType = InputType.from(content?.string(for: JSONKey.textInputType.rawValue))
             ?? TextInputItem.defaultInputType
         self.keyboardType = inputType.keyboardType()
         
