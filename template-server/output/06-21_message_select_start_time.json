@@ -1,0 +1,25 @@
+{
+  "text": "Ok, these add-ons will be added once this plan change is complete.\n\nWhen would you like for your plan change to take effect?",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Start immediately",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-22_message_confirm_immediate_start"
+          }
+        }
+      },
+      {
+        "title": "Start next billing cycle",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-23_message_verify_plan"
+          }
+        }
+      }
+    ]
+  }
+}

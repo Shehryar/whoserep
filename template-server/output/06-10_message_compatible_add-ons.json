@@ -24,7 +24,7 @@
                 "marginTop": 8
               },
               "content": {
-                "text": "Big muscles"
+                "text": "7 Min to Cuba"
               },
               "type": "label"
             },
@@ -34,7 +34,37 @@
                 "marginTop": 8
               },
               "content": {
-                "text": "Nice hair"
+                "text": "50 Min to Guatemala"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "textType": "body",
+                "marginTop": 8
+              },
+              "content": {
+                "text": "Premium Visual Voicemail"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "textType": "body",
+                "marginTop": 8
+              },
+              "content": {
+                "text": "boostTV Latino"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "textType": "body",
+                "marginTop": 8
+              },
+              "content": {
+                "text": "Korea SBS News"
               },
               "type": "label"
             }

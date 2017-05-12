@@ -1,22 +1,22 @@
 const TitleBodyItemsCancelSubmit = require('./title_body_items_cancel_submit');
 const Components = require('../components');
+const Templates = require('../templates');
 
 module.exports = function(data) {
 	// Properties
 	data.root = data.root || {};
 	data.root.scrollContent = data.root.scrollContent || {};
 	const content = data.root.scrollContent;
-	const textInputs = content.textInputs || [];
+	const checkboxes = content.checkboxes || [];
 
 	var items = [];
-	for (let i = 0; i < textInputs.length; i++) {
+	for (let i = 0; i < checkboxes.length; i++) {
+		let checkboxData = checkboxes[i];
+		checkboxData.style = Object.assign({
+			marginTop: i > 0 ? 8 : 0
+		}, checkboxData.style);
 
-		let item = textInputs[i];
-		item.style = Object.assign({
-			marginTop: i > 0 ? 16 : 0
-		}, item.style);
-
-		items.push(new Components.TextInput(item));
+		items.push(new Templates.HorizontalBoldDetailValueCheckbox(checkboxData));
 	}
 	data.root.scrollContent.items = items;
 

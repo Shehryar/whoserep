@@ -8,8 +8,7 @@
         "title": "Shop Add-ons",
         "action": {
           "type": "componentView",
-          "name": "06-15_view_select_add-ons",
-          "displayStyle": "inset"
+          "name": "06-15_view_select_add-ons"
         }
       },
       {

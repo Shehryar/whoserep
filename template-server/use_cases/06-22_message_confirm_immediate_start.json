@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Okay, keep in mind that if you decide to start this new plan immediately that you will lose any unused minutes, texts and data. Are you sure you want to continue?",
+    "quickReplies": [
+      {
+        "title": "Yes, continue",
+        "action": {
+          "type": "treewalk",
+          "classification": "06-23_message_verify_plan"
+        }
+      },
+      {
+        "title": "No, start plan next billing cycle",
+        "action": {
+          "type": "treewalk",
+          "classification": "06-23_message_verify_plan"
+        }
+      }
+    ]
+  }
+}

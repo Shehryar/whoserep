@@ -1,0 +1,33 @@
+{
+  "type": "view",
+  "template": "review_items_list_view",
+  "data": {
+    "root": {
+      "submitButtonTitle": "CONFIRM",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/selectAddOns",
+        "data": {
+          "text": "I'd like to purchase add-ons: 'boostTV Latino' and '25 Min to Colombia'",
+          "classification": "06-21_message_select_start_time"
+        }
+      },
+      "scrollContent": {
+        "title": "Review",
+        "bodyText": "Confirm you’d like to purchase selected items.",
+        "items": [
+          {
+            "boldText": "boostTV Latino",
+            "valueText": "$10/mo.",
+            "detailText": "Monthly recurring"
+          },
+          {
+            "boldText": "25 Min to Colombia",
+            "valueText": "$15",
+            "detailText": "90 day add-on"
+          }
+        ]
+      }
+    }
+  }
+}

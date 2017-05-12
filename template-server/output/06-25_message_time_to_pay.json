@@ -14,18 +14,9 @@
       {
         "title": "Credit/Debit Card",
         "action": {
-          "type": "treewalk",
+          "type": "componentView",
           "content": {
-            "classification": "06-26_message_confirm_payment_details"
-          }
-        }
-      },
-      {
-        "title": "Re-Boost Card",
-        "action": {
-          "type": "treewalk",
-          "content": {
-            "classification": "06-26_message_confirm_payment_details"
+            "name": "06-25b_view_enter_card_details"
           }
         }
       }

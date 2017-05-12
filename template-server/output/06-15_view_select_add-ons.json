@@ -203,7 +203,7 @@
                                             "textType": "bodyBold"
                                           },
                                           "content": {
-                                            "text": "Full International Plan for Everyone"
+                                            "text": "Full International"
                                           },
                                           "type": "label"
                                         },
@@ -929,13 +929,9 @@
                 "content": {
                   "title": "REVIEW",
                   "action": {
-                    "type": "api",
+                    "type": "componentView",
                     "content": {
-                      "requestPath": "/selectAddOns",
-                      "data": {
-                        "text": "Selected Add-ons",
-                        "classification": "04-1-5_message_terms_and_conditions"
-                      }
+                      "name": "06-16_view_confirm_add-ons"
                     }
                   }
                 },
@@ -949,6 +945,5 @@
       ]
     },
     "type": "stackView"
-  },
-  "title": "Shop Add-Ons"
+  }
 }

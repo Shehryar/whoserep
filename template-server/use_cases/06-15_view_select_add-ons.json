@@ -2,16 +2,11 @@
   "type": "view",
   "template": "title_body_checkbox_carousels",
   "data": {
-    "title": "Shop Add-Ons",
     "root": {
       "submitButtonTitle": "REVIEW",
       "submitButtonAction": {
-        "type": "api",
-        "requestPath": "/selectAddOns",
-        "data": {
-          "text": "Selected Add-ons",
-          "classification": "04-1-5_message_terms_and_conditions"
-        }
+        "type": "componentView",
+        "name": "06-16_view_confirm_add-ons"
       },
       "scrollContent": {
         "title": "Shop Add-Ons",
@@ -37,7 +32,7 @@
               {
                 "name": "textAddons[]",
                 "value": "fullInternational",
-                "boldText": "Full International Plan for Everyone",
+                "boldText": "Full International",
                 "bodyText": "$30/mo.",
                 "detailText": "Monthly recurring"
               },
