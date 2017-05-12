@@ -189,7 +189,7 @@
                       "requestPath": "/submitCreditCard",
                       "data": {
                         "text": "Use VISA ***********1234",
-                        "classification": "04-1-5_message_terms_and_conditions"
+                        "classification": "04-1-4_message_enter_amount"
                       }
                     }
                   }

@@ -39,10 +39,11 @@ enum DemoComponentType: String {
     }
     
     static func prettifyFileName(_ name: String?) -> String? {
-        return name?.replacingOccurrences(of: "_", with: " ")
-            .replacingOccurrences(of: "view" , with: "")
-            .replacingOccurrences(of: "card", with: "")
-            .replacingOccurrences(of: "message", with: "")
+        return name?
+            .replacingOccurrences(of: "_view_" , with: " ")
+            .replacingOccurrences(of: "_card_", with: " ")
+            .replacingOccurrences(of: "_message_", with: " ")
+            .replacingOccurrences(of: "_", with: " ")
             .capitalized
     }
 }

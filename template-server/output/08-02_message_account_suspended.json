@@ -1,0 +1,25 @@
+{
+  "text": "Our records indicate that your account is currently suspended. In order to proceed you must un-suspend your account. Let us know what you would like to do.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Un-suspend my account",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "08-03_message_account_unsuspended"
+          }
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}

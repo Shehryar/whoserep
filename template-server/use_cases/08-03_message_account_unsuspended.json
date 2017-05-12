@@ -1,0 +1,29 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Okay, your account suspension has been removed. You can begin using your account again as normal.\n\nTo confirm, you’d like to swap phones for the account with the phone number, +1 (555) 555-5555, correct?",
+    "attachment": {
+      "icon": "power",
+      "iconSize": "large",
+      "boldText": "Account Un-suspended",
+      "detailText": "Jan 22, 2017 - 4:15PM"
+    },
+    "quickReplies": [
+      {
+        "title": "Correct, +1 (555) 555-5555",
+        "action": {
+          "type": "treewalk",
+          "classification": "08-04_message_back-up_device"
+        }
+      },
+      {
+        "title": "No, a different number",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Congrats! You’ve successfully swapped phones.\n\nBefore you can use your phone as normal, it must first be reprogrammed. Tap below for instructions on how to do so. ",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Phone Swap Complete",
+      "detailText": "Jan 22, 2017 - 4:15PM"
+    },
+    "quickReplies": [
+      {
+        "title": "Reprogram my phone",
+        "action": {
+          "type": "deepLink",
+          "name": "reprogram_phone"
+        }
+      }
+    ]
+  }
+}

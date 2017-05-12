@@ -1,0 +1,34 @@
+{
+  "text": "Okay, before beginning the phone swap it is recommended that you first back-up your phone to prevent any loss of information. Let us know if you need help backing-up your device.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Continue, I've backed up my device",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "08-05_message_enter_unique_id"
+          }
+        }
+      },
+      {
+        "title": "Help me back-up my Android device",
+        "action": {
+          "type": "web",
+          "content": {
+            "url": "https://www.google.com"
+          }
+        }
+      },
+      {
+        "title": "Help me back-up my iPhone",
+        "action": {
+          "type": "web",
+          "content": {
+            "url": "https://www.google.com"
+          }
+        }
+      }
+    ]
+  }
+}

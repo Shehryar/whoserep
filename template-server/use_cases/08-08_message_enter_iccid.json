@@ -1,0 +1,16 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Thanks for providing that. It looks like your phone has a SIM card. We will need the ICCID number found on the SIM card or through the phone’s settings as well. Tap below to enter the ICCID.",
+    "quickReplies": [
+      {
+        "title": "Enter ICCID",
+        "action": {
+          "type": "componentView",
+          "name": "08-08_view_enter_iccid"
+        }
+      }
+    ]
+  }
+}
