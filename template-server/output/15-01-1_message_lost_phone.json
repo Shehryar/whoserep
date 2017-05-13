@@ -1,0 +1,91 @@
+{
+  "text": "Oh no! You can suspend your account until you find or replace your phone.\n\nPlease review what suspending your account entails below and let us know what you’d like to do.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "padding": "4 24 20 24",
+          "align": "fill"
+        },
+        "content": {
+          "items": [
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "text": "Account Suspension Details"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "padding": "16 0 16 16",
+                      "textAlign": "right",
+                      "align": "right",
+                      "gravity": "middle"
+                    },
+                    "content": {
+                      "title": "VIEW",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "15-01-2_view_account_suspension_details"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "textType": "detail2",
+                "marginTop": 4
+              },
+              "content": {
+                "text": "AS OF JAN 22, 2017 — 4:15PM"
+              },
+              "type": "label"
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Yes, suspend my account",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "15-01-3_account_suspended"
+          }
+        }
+      },
+      {
+        "title": "No thanks",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}
