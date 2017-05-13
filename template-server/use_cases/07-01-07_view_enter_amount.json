@@ -1,0 +1,21 @@
+{
+  "type": "view",
+  "template": "submit_amount_view",
+  "data": {
+    "title": "Enter Amount",
+    "root": {
+      "submitButtonTitle": "SUBMIT",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/submitPaymentAmount",
+        "data": {
+          "text": "I'd like to pay $40.00",
+          "classification": "07-01-08_message_confirm_payment"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter Payment Amount"
+      }
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Enter Card Details"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "name": "name",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "NAME ON CARD"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "cardNumber",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "CARD NUMBER",
+                      "textInputType": "number"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "name": "cardExp",
+                          "style": {
+                            "weight": 1,
+                            "marginLeft": 0
+                          },
+                          "content": {
+                            "placeholder": "EXP DATE (MM/YY)"
+                          },
+                          "type": "textInput"
+                        },
+                        {
+                          "name": "cardCVV",
+                          "style": {
+                            "weight": 1,
+                            "marginLeft": 20
+                          },
+                          "content": {
+                            "placeholder": "SECURITY CODE",
+                            "textInputType": "number"
+                          },
+                          "type": "textInput"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "name": "address1",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "BILLING ADDRESS LINE 1"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "address2",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "APT / SUITE (OPTIONAL)"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "city",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "CITY"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "name": "state",
+                          "style": {
+                            "weight": 1,
+                            "marginLeft": 0
+                          },
+                          "content": {
+                            "placeholder": "STATE"
+                          },
+                          "type": "textInput"
+                        },
+                        {
+                          "name": "zip",
+                          "style": {
+                            "weight": 1,
+                            "marginLeft": 20
+                          },
+                          "content": {
+                            "placeholder": "ZIP CODE"
+                          },
+                          "type": "textInput"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "buttonType": "secondary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "buttonType": "primary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/updateCreditCard",
+                      "data": {
+                        "text": "Visa **********1235",
+                        "classification": "07-01-06_message_select_amount"
+                      }
+                    }
+                  }
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  },
+  "title": "Enter Card Details"
+}

@@ -1,0 +1,17 @@
+{
+  "text": "How much would you like to charge to your card?",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter amount",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "07-01-07_view_enter_amount",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}
