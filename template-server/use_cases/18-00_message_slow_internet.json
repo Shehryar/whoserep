@@ -15,14 +15,14 @@
         "title": "Purchase data add-on",
         "action": {
           "type": "treewalk",
-          "classification": ""
+          "classification": "18-02-1_message_select_data_pack"
         }
       },
       {
         "title": "Switch to unlimited plan",
         "action": {
           "type": "treewalk",
-          "classification": ""
+          "classification": "18-03-1_message_select_plan"
         }
       }
     ]

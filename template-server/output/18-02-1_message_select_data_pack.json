@@ -1,0 +1,289 @@
+{
+  "text": "Ok, here are the available plans. Additional lines can be added to each plan for $30/mo. Let us know if you’re interested in moving forward with one.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": 0
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "1gbData",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 24,
+                      "marginBottom": 0,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "1GB Data Pack"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 8,
+                      "marginBottom": 24,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "$5"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "2gbData",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 24,
+                      "marginBottom": 0,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "2GB Data Pack"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 8,
+                      "marginBottom": 24,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "$10"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "4gbData",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 24,
+                      "marginBottom": 0,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "4GB Data Pack"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 8,
+                      "marginBottom": 24,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "$20"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "10gbData",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 24,
+                      "marginBottom": 0,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "10GB Data Pack"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 8,
+                      "marginBottom": 24,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "$40"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "25gbData",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 24,
+                      "marginBottom": 0,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "25GB Data Pack"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1",
+                      "padding": "0 24",
+                      "marginTop": 8,
+                      "marginBottom": 24,
+                      "align": "center",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "text": "$100"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "itemSpacing": 10,
+          "visibleItemCount": 1.2,
+          "pageControl": {
+            "content": {},
+            "type": "pageControl"
+          },
+          "pagingEnabled": true
+        },
+        "type": "carouselView"
+      }
+    },
+    "requiresNoContainer": true,
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "1gbData": [
+      {
+        "title": "Purchase 1GB Data Pack",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-2_message_select_payment"
+          }
+        }
+      }
+    ],
+    "2gbData": [
+      {
+        "title": "Purchase 2GB Data Pack",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-2_message_select_payment"
+          }
+        }
+      }
+    ],
+    "4gbData": [
+      {
+        "title": "Purchase 4GB Data Pack",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-2_message_select_payment"
+          }
+        }
+      }
+    ],
+    "10gbData": [
+      {
+        "title": "Purchase 10GB Data Pack",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-2_message_select_payment"
+          }
+        }
+      }
+    ],
+    "25gbData": [
+      {
+        "title": "Purchase 25GB Data Pack",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-2_message_select_payment"
+          }
+        }
+      }
+    ]
+  }
+}

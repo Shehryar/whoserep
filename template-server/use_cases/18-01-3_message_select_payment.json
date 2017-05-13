@@ -2,7 +2,7 @@
   "type": "message",
   "template": "detail_header_body_detail_bolds",
   "data": {
-    "text": " How would you like to pay for your plan restart?",
+    "text": "How would you like to pay for your plan restart?",
     "attachment": {
       "detailTextTop": "ACCOUNT BALANCE",
       "headerTextTop": "$0.00",

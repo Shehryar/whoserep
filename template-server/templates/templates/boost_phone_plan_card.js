@@ -6,6 +6,8 @@ module.exports = function(data) {
 	const planName = data.planName;
 	const price = data.price;
 	const details = data.details; // { detailText, headerText }
+	const header1 = data.header1;
+	const header2 = data.header2;
 	const buttonTitle = data.buttonTitle;
 	const buttonAction = data.buttonAction;
 
@@ -18,32 +20,66 @@ module.exports = function(data) {
 
 	// Content
 	let items = [];
-	items.push(new Components.StackView({
-		orientation: 'horizontal',
-		style: {
-			padding: '15 20'
-		},
-		items: [
-			new Components.Label({
-				text: planName,
+	if (planName || price) {
+		items.push(new Components.StackView({
+			orientation: 'horizontal',
+			style: {
+				padding: '15 20'
+			},
+			items: [
+				new Components.Label({
+					text: planName,
+					style: {
+						weight: 1,
+						textType: 'bodyBold'
+					}
+				}),
+				new Components.Label({
+					text: price,
+					style: {
+						align: 'right',
+						textAlign: 'right',
+						textType: 'bodyBold'
+					}
+				})
+			]
+		}));
+	}
+
+	if (header1 || header2) {
+		if (items.length > 0) {
+			items.push(new Components.Separator({
+				style: { align: 'fill' }
+			}));
+		}
+
+		if (header1) {
+			items.push(new Components.Label({
+				text: header1,
 				style: {
-					weight: 1,
-					textType: 'bodyBold'
+					textType: 'header1',
+					padding: "0 24",
+					marginTop: 24,
+					marginBottom: header2 ? 0 : 24,
+					align: 'center',
+					textAlign: 'center'
 				}
-			}),
-			new Components.Label({
-				text: price,
+			}));
+		}
+		if (header2) {
+			items.push(new Components.Label({
+				text: header2,
 				style: {
-					align: 'right',
-					textAlign: 'right',
-					textType: 'bodyBold'
+					textType: 'header1',
+					padding: "0 24",
+					marginTop: header1 ? 8 : 24,
+					marginBottom: 24,
+					align: 'center',
+					textAlign: 'center'
 				}
-			})
-		]
-	}));
-	items.push(new Components.Separator({
-		style: { align: 'fill' }
-	}));
+			}));
+		}
+	}
 
 	let detailItems = [];
 	if (details) {
@@ -80,15 +116,26 @@ module.exports = function(data) {
 			}
 		}
 	}
-	items.push(new Components.StackView({
-		orientation: 'horizontal',
-		items: detailItems
-	}));
+	if (detailItems.length > 0) {
+		if (items.length > 0) {
+			items.push(new Components.Separator({
+				style: { align: 'fill' }
+			}));
+		}
+
+		items.push(new Components.StackView({
+			orientation: 'horizontal',
+			items: detailItems
+		}));
+	}
 
 	if (buttonTitle && buttonAction) {
-		items.push(new Components.Separator({
-			style: { align: 'fill' }
-		}));
+		if (items.length > 0) {
+			items.push(new Components.Separator({
+				style: { align: 'fill' }
+			}));
+		}
+		
 		items.push(new Components.Button({
 			title: buttonTitle,
 			action: buttonAction, 
