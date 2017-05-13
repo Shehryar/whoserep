@@ -1,0 +1,26 @@
+{
+  "text": "Ok, if you'd like to change your PIN, tap 'Change PIN' below.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Change PIN",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "17-04_view_enter_new_pin",
+            "displayStyle": "inset"
+          }
+        }
+      },
+      {
+        "title": "Nevermind",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}
