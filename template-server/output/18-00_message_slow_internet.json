@@ -25,7 +25,7 @@
         "action": {
           "type": "treewalk",
           "content": {
-            "classification": "18-03-1_message_select_plan"
+            "classification": "06-02_message_individual_plans"
           }
         }
       }
