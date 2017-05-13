@@ -1,0 +1,34 @@
+{
+  "type": "message",
+  "template": "detail_header_body_detail_bolds",
+  "data": {
+    "text": " How would you like to pay for your plan restart?",
+    "attachment": {
+      "detailTextTop": "ACCOUNT BALANCE",
+      "headerTextTop": "$0.00",
+      "icon": "alertWarning",
+      "bodyText": "Account balance insufficient to cover your service. Payment overdue. Pay immediately.",
+      "detailTextBottom1": "UPCOMING CHARGE",
+      "boldTextBottom1": "$50.00",
+      "detailTextBottom2": "DUE BY",
+      "boldTextBottom2": "Today"
+    },
+    "quickReplies": [
+      {
+        "title": "Amex  ************9087",
+        "action": {
+          "type": "treewalk",
+          "classification": "18-01-5_message_confirm_payment"
+        }
+      },
+      {
+        "title": "Credit/Debit Card",
+        "action": {
+          "type": "componentView",
+          "name": "18-01-4_view_enter_card_details",
+          "displayStyle": "inset"
+        }
+      }
+    ]
+  }
+}
