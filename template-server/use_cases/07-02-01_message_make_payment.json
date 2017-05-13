@@ -1,0 +1,42 @@
+{
+  "type": "message",
+  "template": "detail_header_body_detail_bolds",
+  "data": {
+    "text": "Great, you’d like to make a payment to +1 (555) 555-5555. Here is the account balance for that number. How would you like to pay?",
+    "attachment": {
+      "detailTextTop": "ACCOUNT BALANCE",
+      "headerTextTop": "$45.46",
+      "icon": "alertWarning",
+      "bodyText": "Account balance insufficient to cover your next month of service.",
+      "detailTextBottom1": "UPCOMING CHARGE",
+      "boldTextBottom1": "$50.00",
+      "detailTextBottom2": "DUE BY",
+      "boldTextBottom2": "02/26/17"
+    },
+    "quickReplies": [
+      {
+        "title": "Amex ***********9087",
+        "action": {
+          "type": "treewalk",
+          "classification": "07-02-04_message_select_amount"
+        }
+      },
+      {
+        "title": "Credit/Debit Card",
+        "action": {
+          "type": "componentView",
+          "name": "07-02-02_view_enter_credit_card",
+          "displayStyle": "inset"
+        }
+      },
+      {
+        "title": "Re-Boost Card",
+        "action": {
+          "type": "componentView",
+          "name": "07-02-03_view_enter_re-boost_card",
+          "displayStyle": "inset"
+        }
+      }
+    ]
+  }
+}
