@@ -8,7 +8,8 @@
         "title": "Select new number",
         "action": {
           "type": "componentView",
-          "name": "14-07_view_select_new_number"
+          "name": "14-07_view_select_new_number",
+          "displayStyle": "inset"
         }
       },
       {

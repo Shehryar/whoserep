@@ -10,6 +10,7 @@ module.exports = {
 	DetailHeader: require('./detail_header'),
 	DetailHeaderBodyDetailBolds: require('./detail_header_body_detail_bolds'),
 	HorizontalBoldDetailValueCheckbox: require('./horizontal_bold_detail_value_checkbox'),
+	HorizontalBoldDetailValueRadioButtonView: require('./horizontal_bold_detail_value_radio_button_view'),
 	HorizontalTextInputs: require('./horizontal_text_inputs'),
 	IconBoldBodyDetail: require('./icon_bold_body_detail'),
 	IconTextDetailValue: require('./icon_text_detail_value'),

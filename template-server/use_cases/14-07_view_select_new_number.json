@@ -1,0 +1,36 @@
+{
+  "type": "view",
+  "template": "title_body_radio_buttons_list",
+  "data": {
+    "root": {
+      "submitButtonTitle": "SUBMIT",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/selectPhoneNumber",
+        "data": {
+          "text": "+1 (321) 867-5309",
+          "classification": "14-08_message_confirm_number_change"
+        }
+      },
+      "scrollContent": {
+        "title": "Select a new phone number.",
+        "bodyText": "You may choose from any of the following available numbers:",
+        "radioButtonsContainer": {
+          "name": "phoneNumber",
+          "radioButtons": [
+            {
+              "value": "+1 (321) 867-5309",
+              "boldText": "+1 (321) 867-5309",
+              "detailText": "Kansas City, KS"
+            },
+            {
+              "value": "+1 (321) 123-1212",
+              "boldText": "+1 (321) 123-1212",
+              "detailText": "Kansas City, KS"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

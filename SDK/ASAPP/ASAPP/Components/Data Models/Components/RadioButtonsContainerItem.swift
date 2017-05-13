@@ -1,14 +1,14 @@
 //
-//  CheckboxViewItem.swift
+//  RadioButtonsContainerItem.swift
 //  ASAPP
 //
-//  Created by Mitchell Morgan on 5/9/17.
+//  Created by Mitchell Morgan on 5/13/17.
 //  Copyright © 2017 asappinc. All rights reserved.
 //
 
 import UIKit
 
-class CheckboxViewItem: Component {
+class RadioButtonsContainerItem: Component {
     
     // MARK:- JSON Keys
     
@@ -23,7 +23,7 @@ class CheckboxViewItem: Component {
     // MARK:- Component Properties
     
     override var viewClass: UIView.Type {
-        return CheckboxView.self
+        return RadioButtonsContainerView.self
     }
     
     override var nestedComponents: [Component]? {
@@ -40,8 +40,8 @@ class CheckboxViewItem: Component {
                    styles: [String : Any]?,
                    content: [String : Any]?) {
         guard let root = ComponentFactory.component(with: content?[JSONKey.root.rawValue], styles: styles) else {
-                DebugLog.w(caller: CheckboxViewItem.self, "root is required: \(String(describing: content))")
-                return nil
+            DebugLog.w(caller: RadioButtonsContainerItem.self, "root is required: \(String(describing: content))")
+            return nil
         }
         self.root = root
         

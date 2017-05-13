@@ -1,0 +1,229 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Select a new phone number."
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 24
+                    },
+                    "content": {
+                      "text": "You may choose from any of the following available numbers:"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "name": "phoneNumber",
+                    "content": {
+                      "root": {
+                        "content": {
+                          "items": [
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 0
+                              },
+                              "value": "+1 (321) 867-5309",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (321) 867-5309"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (321) 123-1212",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (321) 123-1212"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    },
+                    "type": "radioButtonsContainer"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "buttonType": "secondary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "buttonType": "primary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/selectPhoneNumber",
+                      "data": {
+                        "text": "+1 (321) 867-5309",
+                        "classification": "14-08_message_confirm_number_change"
+                      }
+                    }
+                  }
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  }
+}

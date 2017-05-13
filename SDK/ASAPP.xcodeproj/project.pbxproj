@@ -47,12 +47,16 @@
 		288084FA1E861D3B00240A5D /* data-usage-near-full-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 288084F91E861D3B00240A5D /* data-usage-near-full-message.json */; };
 		288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */; };
 		288085001E874BF900240A5D /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FF1E874BF900240A5D /* SliderView.swift */; };
-		288085041E875CDE00240A5D /* RadioButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085031E875CDE00240A5D /* RadioButtonsView.swift */; };
 		288085061E875DB700240A5D /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085051E875DB700240A5D /* RadioButtonView.swift */; };
 		288085221E87FCA800240A5D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851C1E87FCA800240A5D /* ScrollView.swift */; };
 		288085231E87FCA800240A5D /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851D1E87FCA800240A5D /* StackView.swift */; };
 		288085241E87FCA800240A5D /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880851F1E87FCA800240A5D /* TableView.swift */; };
 		288085251E87FCA800240A5D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288085201E87FCA800240A5D /* TableViewCell.swift */; };
+		289E040C1EC791CC00CAC413 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E040B1EC791CC00CAC413 /* RadioButton.swift */; };
+		289E040E1EC791FC00CAC413 /* RadioButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E040D1EC791FC00CAC413 /* RadioButtonsContainerView.swift */; };
+		289E04101EC792C400CAC413 /* RadioButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E040F1EC792C400CAC413 /* RadioButtonItem.swift */; };
+		289E04121EC792D100CAC413 /* RadioButtonViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */; };
+		289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */; };
 		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
 		28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B01D888FFD00139C7D /* map-equipment.png */; };
 		28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */; };
@@ -97,8 +101,6 @@
 		30131FCC1EB10FD0009E7299 /* LabelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FBC1EB10FD0009E7299 /* LabelItem.swift */; };
 		30131FCD1EB10FD0009E7299 /* PageControlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FBD1EB10FD0009E7299 /* PageControlItem.swift */; };
 		30131FCE1EB10FD0009E7299 /* ProgressBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FBE1EB10FD0009E7299 /* ProgressBarItem.swift */; };
-		30131FCF1EB10FD0009E7299 /* RadioButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FBF1EB10FD0009E7299 /* RadioButtonItem.swift */; };
-		30131FD01EB10FD0009E7299 /* RadioButtonsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FC01EB10FD0009E7299 /* RadioButtonsItem.swift */; };
 		30131FD11EB10FD0009E7299 /* ScrollViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FC11EB10FD0009E7299 /* ScrollViewItem.swift */; };
 		30131FD21EB10FD0009E7299 /* SeparatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FC21EB10FD0009E7299 /* SeparatorItem.swift */; };
 		30131FD31EB10FD0009E7299 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FC31EB10FD0009E7299 /* SliderItem.swift */; };
@@ -443,12 +445,16 @@
 		288084F91E861D3B00240A5D /* data-usage-near-full-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "data-usage-near-full-message.json"; sourceTree = "<group>"; };
 		288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNavigationController.swift; sourceTree = "<group>"; };
 		288084FF1E874BF900240A5D /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
-		288085031E875CDE00240A5D /* RadioButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsView.swift; sourceTree = "<group>"; };
 		288085051E875DB700240A5D /* RadioButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		2880851C1E87FCA800240A5D /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		2880851D1E87FCA800240A5D /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		2880851F1E87FCA800240A5D /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		288085201E87FCA800240A5D /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		289E040B1EC791CC00CAC413 /* RadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		289E040D1EC791FC00CAC413 /* RadioButtonsContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsContainerView.swift; sourceTree = "<group>"; };
+		289E040F1EC792C400CAC413 /* RadioButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonItem.swift; sourceTree = "<group>"; };
+		289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonViewItem.swift; sourceTree = "<group>"; };
+		289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsContainerItem.swift; sourceTree = "<group>"; };
 		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
 		28AEC0B01D888FFD00139C7D /* map-equipment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment.png"; sourceTree = "<group>"; };
 		28AEC0B11D888FFD00139C7D /* map-equipment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-equipment@2x.png"; sourceTree = "<group>"; };
@@ -494,8 +500,6 @@
 		30131FBC1EB10FD0009E7299 /* LabelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelItem.swift; sourceTree = "<group>"; };
 		30131FBD1EB10FD0009E7299 /* PageControlItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControlItem.swift; sourceTree = "<group>"; };
 		30131FBE1EB10FD0009E7299 /* ProgressBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarItem.swift; sourceTree = "<group>"; };
-		30131FBF1EB10FD0009E7299 /* RadioButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonItem.swift; sourceTree = "<group>"; };
-		30131FC01EB10FD0009E7299 /* RadioButtonsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsItem.swift; sourceTree = "<group>"; };
 		30131FC11EB10FD0009E7299 /* ScrollViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewItem.swift; sourceTree = "<group>"; };
 		30131FC21EB10FD0009E7299 /* SeparatorItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorItem.swift; sourceTree = "<group>"; };
 		30131FC31EB10FD0009E7299 /* SliderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
@@ -892,8 +896,9 @@
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				307DBE7A1E9D65F900B8F10F /* PageControlView.swift */,
 				302AF3321E8049880086B939 /* ProgressBarView.swift */,
+				289E040D1EC791FC00CAC413 /* RadioButtonsContainerView.swift */,
 				288085051E875DB700240A5D /* RadioButtonView.swift */,
-				288085031E875CDE00240A5D /* RadioButtonsView.swift */,
+				289E040B1EC791CC00CAC413 /* RadioButton.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
 				288084FF1E874BF900240A5D /* SliderView.swift */,
 				307DBE7E1E9E827500B8F10F /* TextAreaView.swift */,
@@ -1178,8 +1183,9 @@
 				30131FBC1EB10FD0009E7299 /* LabelItem.swift */,
 				30131FBD1EB10FD0009E7299 /* PageControlItem.swift */,
 				30131FBE1EB10FD0009E7299 /* ProgressBarItem.swift */,
-				30131FBF1EB10FD0009E7299 /* RadioButtonItem.swift */,
-				30131FC01EB10FD0009E7299 /* RadioButtonsItem.swift */,
+				289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */,
+				289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */,
+				289E040F1EC792C400CAC413 /* RadioButtonItem.swift */,
 				30131FC11EB10FD0009E7299 /* ScrollViewItem.swift */,
 				30131FC21EB10FD0009E7299 /* SeparatorItem.swift */,
 				30131FC31EB10FD0009E7299 /* SliderItem.swift */,
@@ -2040,7 +2046,6 @@
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
 				30131FD51EB10FD0009E7299 /* TableViewItem.swift in Sources */,
-				288085041E875CDE00240A5D /* RadioButtonsView.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30131FA81EAFB662009E7299 /* TextSizeCategory.swift in Sources */,
 				30131FCB1EB10FD0009E7299 /* IconItem.swift in Sources */,
@@ -2070,6 +2075,7 @@
 				30131FA41EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
+				289E040E1EC791FC00CAC413 /* RadioButtonsContainerView.swift in Sources */,
 				30131FCA1EB10FD0009E7299 /* CheckboxItem.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,
 				307484D51EB7EF24008CF3E4 /* EventMetadata.swift in Sources */,
@@ -2088,6 +2094,7 @@
 				285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */,
 				281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */,
 				302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */,
+				289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
 				303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */,
@@ -2095,9 +2102,9 @@
 				303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */,
 				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				28D48CA81E83EE23004A002B /* Action.swift in Sources */,
-				30131FCF1EB10FD0009E7299 /* RadioButtonItem.swift in Sources */,
 				30131FCC1EB10FD0009E7299 /* LabelItem.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
+				289E04101EC792C400CAC413 /* RadioButtonItem.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
 				302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
@@ -2106,6 +2113,7 @@
 				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
+				289E04121EC792D100CAC413 /* RadioButtonViewItem.swift in Sources */,
 				30131FD71EB10FD0009E7299 /* TextInputItem.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
@@ -2126,7 +2134,6 @@
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
 				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
-				30131FD01EB10FD0009E7299 /* RadioButtonsItem.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
@@ -2194,6 +2201,7 @@
 				30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */,
 				30131FD61EB10FD0009E7299 /* TextAreaItem.swift in Sources */,
 				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
+				289E040C1EC791CC00CAC413 /* RadioButton.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */,
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
