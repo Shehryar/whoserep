@@ -2,13 +2,13 @@
   "type": "message",
   "template": "message",
   "data": {
-    "text": "Ok great, please click below to enter your card details.",
+    "text": "Ok great, please tap below to enter your card details.",
     "quickReplies": [
       {
         "title": "Enter Card Details",
         "action": {
           "type": "componentView",
-          "name": "09-02b_view_enter_credit_card",
+          "name": "09-02c_view_enter_re-boost_card",
           "displayStyle": "inset"
         }
       }

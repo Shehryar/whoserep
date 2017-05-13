@@ -27,6 +27,13 @@
           "type": "treewalk",
           "classification": "09-02b_message_enter_credit_card"
         }
+      },
+      {
+        "title": "Re-Boost Card",
+        "action": {
+          "type": "treewalk",
+          "classification": "09-02c_message_enter_re-boost_card"
+        }
       }
     ]
   }

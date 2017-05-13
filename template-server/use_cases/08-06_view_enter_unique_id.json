@@ -2,7 +2,6 @@
   "type": "view",
   "template": "submit_text_inputs_view",
   "data": {
-    "title": "Update Contact Info",
     "root": {
       "submitButtonTitle": "SAVE",
       "submitButtonAction": {

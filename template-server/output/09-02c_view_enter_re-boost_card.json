@@ -23,7 +23,7 @@
                       "marginBottom": 16
                     },
                     "content": {
-                      "text": "Enter Unique ID"
+                      "text": "Add Re-Boost Card"
                     },
                     "type": "label"
                   },
@@ -33,7 +33,7 @@
                       "marginBottom": 24
                     },
                     "content": {
-                      "text": "You can use any of the following numbers as your unique ID: Serial Number, IMEI, or MEID."
+                      "text": "Enter your Re-Boost card number below"
                     },
                     "type": "label"
                   },
@@ -43,17 +43,7 @@
                       "marginTop": 0
                     },
                     "content": {
-                      "placeholder": "ENTER SERIAL NUMBER / IMEI / MEID"
-                    },
-                    "type": "textInput"
-                  },
-                  {
-                    "name": "idConfirmation",
-                    "style": {
-                      "marginTop": 16
-                    },
-                    "content": {
-                      "placeholder": "CONFIRM SERIAL NUMBER / IMEI / MEID"
+                      "placeholder": "ENTER CARD NUMBER"
                     },
                     "type": "textInput"
                   }
@@ -94,14 +84,14 @@
                   "gravity": "fill"
                 },
                 "content": {
-                  "title": "SAVE",
+                  "title": "ADD CARD",
                   "action": {
                     "type": "api",
                     "content": {
-                      "requestPath": "/updateContactInfo",
+                      "requestPath": "/addReBoostCard",
                       "data": {
-                        "text": "XXX00XX00XX00",
-                        "classification": "08-08_message_enter_iccid"
+                        "text": "Added Re-Boost card",
+                        "classification": "09-02d_message_enter_re-boost_card"
                       }
                     }
                   }

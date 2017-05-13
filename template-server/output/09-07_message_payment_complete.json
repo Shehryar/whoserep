@@ -40,7 +40,7 @@
                   {
                     "style": {
                       "textType": "body",
-                      "marginTop": 8
+                      "marginTop": 12
                     },
                     "content": {
                       "text": "You’ve successfully made a payment of $42.27 using your card ending in 9087 to the account associated with the phone number +1 (555) 111-5555."

@@ -10,20 +10,16 @@
         "content": {
           "items": [
             {
-              "style": {
-                "weight": 1,
-                "align": "fill",
-                "gravity": "fill",
-                "paddingBottom": 16
-              },
               "content": {
                 "items": [
                   {
                     "style": {
-                      "padding": "10 16",
+                      "padding": "12 16",
                       "textType": "bodyBold",
                       "textAlign": "center",
-                      "align": "center"
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
                     },
                     "content": {
                       "text": "Current Phone"
@@ -32,108 +28,129 @@
                   },
                   {
                     "style": {
-                      "align": "fill"
+                      "gravity": "fill"
                     },
-                    "content": {},
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
                     "type": "separator"
                   },
                   {
                     "style": {
-                      "padding": "0 16",
-                      "marginTop": 16,
-                      "textAlign": "center",
-                      "align": "center"
-                    },
-                    "content": {
-                      "text": "Samsung Galaxy S6"
-                    },
-                    "type": "label"
-                  },
-                  {
-                    "style": {
-                      "padding": "0 16",
-                      "marginTop": 8,
-                      "textType": "detail2",
-                      "textAlign": "center",
-                      "align": "center"
-                    },
-                    "content": {
-                      "text": "MEID: 12413535245"
-                    },
-                    "type": "label"
-                  }
-                ]
-              },
-              "type": "stackView"
-            },
-            {
-              "style": {
-                "gravity": "fill"
-              },
-              "content": {
-                "separatorStyle": "vertical"
-              },
-              "type": "separator"
-            },
-            {
-              "style": {
-                "weight": 1,
-                "align": "fill",
-                "gravity": "fill",
-                "paddingBottom": 16
-              },
-              "content": {
-                "items": [
-                  {
-                    "style": {
-                      "padding": "10 16",
+                      "padding": "12 16",
                       "textType": "bodyBold",
                       "textAlign": "center",
-                      "align": "center"
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
                     },
                     "content": {
                       "text": "New Phone"
                     },
                     "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "align": "fill"
+              },
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "Samsung Galaxy S6"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "marginTop": 8,
+                            "textType": "detail2",
+                            "textAlign": "center",
+                            "align": "center"
+                          },
+                          "content": {
+                            "text": "MEID: 12413535245"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
                   },
                   {
                     "style": {
-                      "align": "fill"
+                      "gravity": "fill"
                     },
-                    "content": {},
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
                     "type": "separator"
                   },
                   {
                     "style": {
-                      "padding": "0 16",
-                      "marginTop": 16,
-                      "textAlign": "center",
-                      "align": "center"
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
                     },
                     "content": {
-                      "text": "iPhone 7"
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "iPhone 7"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "marginTop": 8,
+                            "textType": "detail2",
+                            "textAlign": "center",
+                            "align": "center"
+                          },
+                          "content": {
+                            "text": "MEID: 3523591412"
+                          },
+                          "type": "label"
+                        }
+                      ]
                     },
-                    "type": "label"
-                  },
-                  {
-                    "style": {
-                      "padding": "0 16",
-                      "marginTop": 8,
-                      "textType": "detail2",
-                      "textAlign": "center",
-                      "align": "center"
-                    },
-                    "content": {
-                      "text": "MEID: 3523591412"
-                    },
-                    "type": "label"
+                    "type": "stackView"
                   }
-                ]
+                ],
+                "orientation": "horizontal"
               },
               "type": "stackView"
             }
-          ],
-          "orientation": "horizontal"
+          ]
         },
         "type": "stackView"
       }
