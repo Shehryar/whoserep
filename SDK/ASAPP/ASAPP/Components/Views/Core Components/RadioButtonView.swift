@@ -23,9 +23,13 @@ class RadioButtonView: _RootComponentWrapperView {
         }
     }
     
-    var isChecked: Bool {
-        return component?.isChecked ?? false
+    var isSelected: Bool = false {
+        didSet {            
+            updateRadioButton()
+        }
     }
+    
+    var onTap: (() -> Void)?
     
     // Init
     
@@ -38,21 +42,15 @@ class RadioButtonView: _RootComponentWrapperView {
     // Actions
     
     func didTap() {
-        component?.isChecked = !isChecked
-        
-        updateRadioButton()
-        
-        contentHandler?.componentView(self, didUpdateContent: isChecked, requiresLayoutUpdate: false)
+        onTap?()
     }
     
     func updateRadioButton() {
-        let isChecked = self.isChecked
-        enumerateNestedComponentViews() { (childView) -> Bool in
-            if let checkbox = childView as? Checkbox {
-                checkbox.isChecked = isChecked
-                return true
+        let isSelected = self.isSelected
+        enumerateNestedComponentViews() { (childView) -> Void in
+            if let radioButton = childView as? RadioButton {
+                radioButton.isSelected = isSelected
             }
-            return false
         }
     }
 }

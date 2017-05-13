@@ -47,12 +47,10 @@ class CheckboxView: _RootComponentWrapperView {
     
     func updateCheckbox() {
         let isChecked = self.isChecked
-        enumerateNestedComponentViews() { (childView) -> Bool in
+        enumerateNestedComponentViews() { (childView) -> Void in
             if let checkbox = childView as? Checkbox {
                 checkbox.isChecked = isChecked
-                return true
             }
-            return false
         }
     }
 }

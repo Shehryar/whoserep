@@ -16,7 +16,7 @@ class RadioButtonItem: Component {
     
     static let defaultHeight: CGFloat = 18
     
-    static let defaultPadding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
+    static let defaultPadding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
     // MARK:- Component Properties
     

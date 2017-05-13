@@ -69,12 +69,10 @@ extension ComponentView where Self: Any {
 extension ComponentView where Self: Any {
     
     // Return true to stop
-    func enumerateNestedComponentViews(block: ((_ childView: ComponentView) -> Bool)) {
+    func enumerateNestedComponentViews(block: ((_ childView: ComponentView) -> Void)) {
         if let nestedComponentViews = nestedComponentViews {
             for nestedView in nestedComponentViews {
-                if block(nestedView) {
-                    return
-                }
+                block(nestedView)
                 nestedView.enumerateNestedComponentViews(block: block)
             }
         }

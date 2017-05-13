@@ -1,0 +1,70 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "root": {
+        "style": {
+          "padding": "32 24"
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "margin": 0
+              },
+              "content": {
+                "text": "Before you change your number, here are a few things to note:"
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "margin": "16 0 0 0",
+                "paddingLeft": 32
+              },
+              "content": {
+                "text": " • Once you change your phone number you won’t be able to go back to your old number."
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "margin": "16 0 0 0",
+                "paddingLeft": 32
+              },
+              "content": {
+                "text": "• You might lose saved voicemails when your phone number is changed."
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "margin": "16 0 0 0",
+                "paddingLeft": 32
+              },
+              "content": {
+                "text": "• You may not be able to place or receive calls or texts until your new phone number request has been completed."
+              },
+              "type": "label"
+            },
+            {
+              "style": {
+                "margin": "16 0 0 0",
+                "marginTop": 32
+              },
+              "content": {
+                "text": "Remember that a  number change can take up to 15 minutes to complete. Still having trouble? Update your profile."
+              },
+              "type": "label"
+            }
+          ]
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "scrollView"
+  },
+  "title": "Change Phone Number Info"
+}

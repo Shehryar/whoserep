@@ -10,9 +10,9 @@ import UIKit
 
 class RadioButton: BaseComponentView {
     
-    let checkImageView = UIImageView()
+    let centerView = UIView()
     
-    var isChecked: Bool = false {
+    var isSelected: Bool = false {
         didSet {
             updateDisplay()
         }
@@ -32,16 +32,7 @@ class RadioButton: BaseComponentView {
     override func commonInit() {
         super.commonInit()
         
-        backgroundColor = ASAPP.styles.colors.backgroundPrimary
-        
-        layer.borderWidth = 1
-        layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
-        layer.cornerRadius = 5.0
-        
-        checkImageView.image = Images.asappImage(.iconCheckmark)?.tinted(UIColor.white)
-        checkImageView.contentMode = .scaleAspectFit
-        checkImageView.isHidden = true
-        addSubview(checkImageView)
+        addSubview(centerView)
         
         updateDisplay()
     }
@@ -55,12 +46,15 @@ class RadioButton: BaseComponentView {
         
         var padding = component.style.padding
         if padding.left == 0 && padding.top == 0 && padding.right == 0 && padding.bottom == 0 {
-            padding = CheckboxItem.defaultPadding
+            padding = RadioButtonItem.defaultPadding
         }
         let width = bounds.width - padding.left - padding.right
         let height = bounds.height - padding.top - padding.bottom
         
-        checkImageView.frame = CGRect(x: padding.left, y: padding.top, width: width, height: height)
+        centerView.frame = CGRect(x: padding.left, y: padding.top, width: width, height: height)
+        
+        layer.cornerRadius = bounds.height / 2.0
+        centerView.layer.cornerRadius = centerView.bounds.height / 2.0
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -74,8 +68,8 @@ class RadioButton: BaseComponentView {
             width = component.style.width
             height = component.style.height
         } else {
-            width = CheckboxItem.defaultWidth
-            height = CheckboxItem.defaultHeight
+            width = RadioButtonItem.defaultWidth
+            height = RadioButtonItem.defaultHeight
         }
         
         return CGSize(width: width, height: height)
@@ -86,18 +80,16 @@ extension RadioButton {
     
     fileprivate func updateDisplay() {
         layer.borderWidth = max(1, layer.borderWidth)
-        if layer.cornerRadius == 0 {
-            layer.cornerRadius = 4
-        }
-        
-        if isChecked {
+   
+        if isSelected {
             backgroundColor = ASAPP.styles.colors.controlTint
             layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
             backgroundColor = UIColor.clear
-            layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
+            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
         }
         
-        checkImageView.isHidden = !isChecked
+        centerView.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+        centerView.isHidden = !isSelected
     }
 }

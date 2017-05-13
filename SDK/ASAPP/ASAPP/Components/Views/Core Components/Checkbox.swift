@@ -95,7 +95,7 @@ extension Checkbox {
             layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
             backgroundColor = UIColor.clear
-            layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
+            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
         }
         
         checkImageView.isHidden = !isChecked

@@ -158,6 +158,354 @@
                                 }
                               },
                               "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1234",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1234"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1235",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1235"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1236",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1236"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1237",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1237"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1238",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1238"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
+                            },
+                            {
+                              "style": {
+                                "padding": 20,
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 8
+                              },
+                              "value": "+1 (555) 555-1239",
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "content": {},
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "style": {
+                                          "weight": 1,
+                                          "gravity": "middle"
+                                        },
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "style": {
+                                                "textType": "bodyBold"
+                                              },
+                                              "content": {
+                                                "text": "+1 (555) 555-1239"
+                                              },
+                                              "type": "label"
+                                            },
+                                            {
+                                              "style": {
+                                                "textType": "detail1",
+                                                "marginTop": 4
+                                              },
+                                              "content": {
+                                                "text": "Kansas City, KS"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "type": "radioButtonView"
                             }
                           ]
                         },
