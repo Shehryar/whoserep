@@ -1,0 +1,27 @@
+{
+  "type": "view",
+  "template": "submit_text_inputs_view",
+  "data": {
+    "root": {
+      "submitButtonTitle": "SUBMIT",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/enterZip",
+        "data": {
+          "text": "07302",
+          "classification": "14-06_message_select_new_number"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter Zip Code",
+        "bodyText": "Enter the Zip Code for the area where you make most of your calls.",
+        "textInputs": [
+          {
+            "name": "zipCode",
+            "placeholder": "ZIP CODE"
+          }
+        ]
+      }
+    }
+  }
+}

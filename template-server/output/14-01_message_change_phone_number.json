@@ -1,0 +1,91 @@
+{
+  "text": "Ok, no problem! Before you change your number, there are a couple of things to keep in mind. Take a look and let us know if you’d like to continue.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "padding": "4 24 20 24",
+          "align": "fill"
+        },
+        "content": {
+          "items": [
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "text": "Change Phone Number Info"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "padding": "16 0 16 16",
+                      "textAlign": "right",
+                      "align": "right",
+                      "gravity": "middle"
+                    },
+                    "content": {
+                      "title": "VIEW",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "14-01_view_change_phone_number_info"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "textType": "detail2",
+                "marginTop": 4
+              },
+              "content": {
+                "text": "AS OF JAN 22, 2017 — 4:15PM"
+              },
+              "type": "label"
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Continue",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "14-02_message_confirm_phone_number"
+          }
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}

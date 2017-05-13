@@ -1,0 +1,44 @@
+{
+  "type": "message",
+  "template": "compare_basic_items",
+  "data": {
+    "text": "Please take a moment to review your requested change. If this looks good to you, let us know by confirming. Remember that once this is confirmed you cannot switch back to your old phone number.",
+    "attachment": {
+      "style": {
+        "padding": 0
+      },
+      "items": [
+        {
+          "title": "Current Number",
+          "bodyText": [
+            "+1 (555) 555-5555",
+            "Kansas City, KS"
+          ]
+        },
+        {
+          "title": "New Number",
+          "bodyText": [
+            "+1 (321) 867-5309",
+            "Kansas City, KS"
+          ]
+        }
+      ]
+    },
+    "quickReplies": [
+      {
+        "title": "Confirm number change",
+        "action": {
+          "type": "treewalk",
+          "classification": "14-09_message_number_changed"
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

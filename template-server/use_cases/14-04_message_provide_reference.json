@@ -1,0 +1,25 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Ok, to complete this process you will need to provide your Zip Code or Reference Phone Number and then select a new phone number. Tap below to begin.",
+    "quickReplies": [
+      {
+        "title": "Enter zip code",
+        "action": {
+          "type": "componentView",
+          "name": "14-05a_view_enter_zip_code",
+          "displayStyle": "inset"
+        }
+      },
+      {
+        "title": "Enter reference phone number",
+        "action": {
+          "type": "componentView",
+          "name": "14-05b_view_enter_reference_phone_number",
+          "displayStyle": "inset"
+        }
+      }
+    ]
+  }
+}
