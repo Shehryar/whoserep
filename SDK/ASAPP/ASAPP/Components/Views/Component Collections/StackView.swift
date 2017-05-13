@@ -1,5 +1,5 @@
 //
-//  StackView_new.swift
+//  StackView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/18/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StackView_new: BaseComponentView {
+class StackView: BaseComponentView {
 
     // MARK: ComponentView Properties
     

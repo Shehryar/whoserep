@@ -40,7 +40,7 @@ class StackViewItem: Component {
     // MARK:- Component Properties
     
     override var viewClass: UIView.Type {
-        return StackView_new.self
+        return StackView.self
     }
     
     override var nestedComponents: [Component]? {

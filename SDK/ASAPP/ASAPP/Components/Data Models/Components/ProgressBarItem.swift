@@ -18,10 +18,6 @@ class ProgressBarItem: Component {
     
     // MARK:- Defaults
     
-    static let defaultColor = UIColor(red:0.447, green:0.788, blue:0.384, alpha:1.000)
-    
-    static let defaultBackgroundColor = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
-    
     static let defaultHeight: CGFloat = 10.0
 
     static let defaultFillPercentage: CGFloat = 0.0
