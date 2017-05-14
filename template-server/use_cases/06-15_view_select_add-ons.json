@@ -5,8 +5,11 @@
     "root": {
       "submitButtonTitle": "REVIEW",
       "submitButtonAction": {
-        "type": "componentView",
-        "name": "06-16_view_confirm_add-ons"
+        "type": "api",
+        "requestPath": "/getNextView",
+        "data": {
+          "name": "06-16_view_confirm_add-ons"
+        }
       },
       "scrollContent": {
         "title": "Shop Add-Ons",

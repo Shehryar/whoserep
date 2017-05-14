@@ -91,7 +91,6 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
         emptyView.onCloseButtonTap = { [weak self] in
             self?.finish()
-            
         }
         spinnerView.hidesWhenStopped = true
     }

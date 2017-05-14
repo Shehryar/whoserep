@@ -320,30 +320,57 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        
-        guard let text = data?["text"] as? String,
-            let name = data?["classification"] as? String else {
-                DebugLog.d("For testing purposes, 'text' and 'classification' are required in : \(String(describing: data ?? [String:Any]()))")
+        if let text = data?["text"] as? String,
+            let name = data?["classification"] as? String {
+            Dispatcher.delay(1500) {
+                completion(APIActionResponse(type: .finish))
                 
-                let error = APIActionError(code: 400,
-                                           userMessage: "For testing purposes, the action should supply a 'text' and 'classification' value",
-                                           debugMessage: "",
-                                           invalidInputs: nil)
-                
-                completion(APIActionResponse(type: .error,
-                                             view: nil,
-                                             error: error))
-                return
+                Dispatcher.delay(500, closure: { [weak self] in
+                    self?.getNextMessage(with: text, nextFileName: name)
+                })
+            }
+            return
         }
         
-        // TODO: MITCH
-        
-        Dispatcher.delay(1500) {
-            completion(APIActionResponse(type: .finish))
-                        
-            Dispatcher.delay(500, closure: { [weak self] in
-                self?.getNextMessage(with: text, nextFileName: name)
+        if let viewName = data?["name"] as? String {
+            let nextFileInfo = DemoComponentFileInfo(fileName: viewName,
+                                                     fileType: fileInfo?.fileType ?? .useCase)
+            
+            UseCasePreviewAPI.getComponentViewContainer(fileInfo: nextFileInfo, completion: { (viewContainer, error) in
+                let type: APIActionResponseType
+                var actionError: APIActionError?
+                if let viewContainer = viewContainer {
+                    if data?.bool(for: "refresh") == true {
+                        type = .refreshView
+                    } else {
+                        type = .componentView
+                    }
+                } else {
+                    type = .error
+                    actionError = APIActionError(code: 500,
+                                                 userMessage: nil,
+                                                 debugMessage: error?.localizedDescription ?? "Ooops!",
+                                                 invalidInputs: nil)
+                }
+                let response = APIActionResponse(type: type,
+                                                 view: viewContainer,
+                                                 error: actionError)
+                
+                completion(response)
+                
             })
+            return
         }
+        
+        
+        let error = APIActionError(code: 400,
+                                   userMessage: "For testing purposes, the action should supply a 'text' and 'classification' value, or should supply a 'name' value",
+                                   debugMessage: "",
+                                   invalidInputs: nil)
+        
+        completion(APIActionResponse(type: .error,
+                                     view: nil,
+                                     error: error))
+        
     }
 }

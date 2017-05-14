@@ -929,9 +929,13 @@
                 "content": {
                   "title": "REVIEW",
                   "action": {
-                    "type": "componentView",
+                    "type": "api",
                     "content": {
-                      "name": "06-16_view_confirm_add-ons"
+                      "requestPath": "/getNextView",
+                      "data": {
+                        "name": "06-16_view_confirm_add-ons",
+                        "refresh": true
+                      }
                     }
                   }
                 },
