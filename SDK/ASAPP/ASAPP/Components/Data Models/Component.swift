@@ -57,6 +57,36 @@ class Component: NSObject {
         return view
     }
     
+    // MARK: Comparing Values
+    
+    func valueEquals(_ otherValue: Any?) -> Bool {
+        guard value != nil && otherValue != nil else {
+            return false
+        }
+        
+        if let intValue = value as? Int,
+            let otherIntValue = otherValue as? Int {
+            return intValue == otherIntValue
+        }
+        
+        if let floatValue = value as? Float,
+            let otherFloatValue = otherValue as? Float32 {
+            return floatValue == otherFloatValue
+        }
+        
+        if let stringValue = value as? String,
+            let otherStringValue = otherValue as? String {
+            return stringValue == otherStringValue
+        }
+        
+        if let boolValue = value as? Bool,
+            let otherBoolValue = otherValue as? Bool {
+            return boolValue == otherBoolValue
+        }
+        
+        return false
+    }
+    
     // MARK: Finding a Component
 
     func findComponent(with componentId: String) -> Component? {
@@ -83,9 +113,6 @@ class Component: NSObject {
     }
     
     func enumerateNestedComponents(_ block: ((_ nestedComponent: Component) -> Void)) {
-        
-        
-        
         if let nestedComponents = nestedComponents {
             for component in nestedComponents {
                 block(component)
@@ -115,10 +142,7 @@ class Component: NSObject {
         }
         
         enumerateNestedComponents { (component) in
-            DebugLog.d("in block")
-            
-            DebugLog.d("name=\(component.name ?? ""), value=\(component.value ?? "")")
-            
+
             if let name = component.name,
                 let value = component.value {
                 
@@ -132,7 +156,6 @@ class Component: NSObject {
                 
             }
         }
-        DebugLog.d("after block")
         return data
     }
 }

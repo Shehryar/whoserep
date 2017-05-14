@@ -43,6 +43,7 @@ class RadioButtonsContainerView: _RootComponentWrapperView {
             }
         }
         self.radioButtonViews = radioButtonViews
+        updateRadioButtonStates()
     }
     
     func didTap(_ radioButtonView: RadioButtonView) {
@@ -51,25 +52,31 @@ class RadioButtonsContainerView: _RootComponentWrapperView {
                 return
         }
         
+        // Deselect if already selected
         if radioButtonView.isSelected {
-            radioButtonView.isSelected = false
             component?.value = nil
         } else {
-            radioButtonView.isSelected = true
             component?.value = radioButtonView.component?.value
-            
-            for otherRadioButtonView in radioButtonViews {
-                if otherRadioButtonView != radioButtonView {
-                    otherRadioButtonView.isSelected = false
-                }
-            }
         }
+        
+        updateRadioButtonStates()
         
         DebugLog.d("Updated radio button value to \(component?.value ?? "nil")")
         
         contentHandler?.componentView(self,
                                       didUpdateContent: component?.value,
                                       requiresLayoutUpdate: false)
+    }
+    
+    func updateRadioButtonStates() {
+        guard let radioButtonViews = radioButtonViews,
+            let component = component else {
+                return
+        }
+
+        for radioButtonView in radioButtonViews {
+            radioButtonView.isSelected = component.valueEquals(radioButtonView.component?.value)
+        }
     }
     
 }

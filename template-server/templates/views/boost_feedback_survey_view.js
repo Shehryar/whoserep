@@ -136,11 +136,11 @@ module.exports = function(data) {
 		name: 'willCallCustomerCare',
 		radioButtons: [
 			{
-				value: true,
+				value: 'yes',
 				bodyText: 'I will be calling customer care.'
 			},
 			{
-				value: false,
+				value: 'no',
 				bodyText: 'I will not be calling customer care.'
 			}
 		], 

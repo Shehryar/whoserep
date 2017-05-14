@@ -26,6 +26,7 @@ class TextAreaView: BaseComponentView {
             if let textAreaItem = textAreaItem {
                 textView.text = textAreaItem.value as? String
                 placeholderTextView.text = textAreaItem.placeholder
+                placeholderTextView.isHidden = !self.textView.text.isEmpty
                 
                 styleTextView(textView, for: textAreaItem, isPlaceholder: false)
                 styleTextView(placeholderTextView, for: textAreaItem, isPlaceholder: true)
