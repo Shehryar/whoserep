@@ -17,6 +17,13 @@
           }
         },
         {
+          "type": "textInput",
+          "value": "oooooh yea boi!",
+          "content": {
+            "placeholder": "hey there"
+          }
+        },
+        {
           "type": "checkboxView",
           "style": {
             "align": "fill",

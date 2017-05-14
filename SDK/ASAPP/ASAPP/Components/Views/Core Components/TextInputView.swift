@@ -20,6 +20,7 @@ class TextInputView: BaseComponentView {
             textInputView.placeholderText = nil
             
             if let textInputItem = textInputItem {
+                textInputView.text = textInputItem.value as? String
                 textInputView.placeholderText = textInputItem.placeholder
                 textInputView.textColor = textInputItem.style.color ?? ASAPP.styles.colors.textPrimary
                 textInputView.font = ASAPP.styles.textStyles.style(for:textInputItem.style.textType).font
