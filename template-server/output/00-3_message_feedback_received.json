@@ -1,11 +1,11 @@
 {
-  "text": "Alright then, have a great day!",
+  "text": "Great, thanks for your feedback!",
   "attachment": {
     "content": {
       "root": {
         "style": {
           "align": "fill",
-          "padding": 20
+          "padding": "20 24 20 24"
         },
         "content": {
           "items": [
@@ -18,7 +18,7 @@
                 "height": 30
               },
               "content": {
-                "icon": "userMinus"
+                "icon": "checkmarkThin"
               },
               "type": "icon"
             },
@@ -33,17 +33,7 @@
                       "textType": "bodyBold"
                     },
                     "content": {
-                      "text": "Michael ended that chat"
-                    },
-                    "type": "label"
-                  },
-                  {
-                    "style": {
-                      "textType": "body",
-                      "marginTop": 12
-                    },
-                    "content": {
-                      "text": "You are no longer connected to an agent"
+                      "text": "Feedback Submitted"
                     },
                     "type": "label"
                   },
@@ -68,19 +58,5 @@
       }
     },
     "type": "componentView"
-  },
-  "quickReplies": {
-    "default": [
-      {
-        "title": "How did we do?",
-        "action": {
-          "type": "componentView",
-          "content": {
-            "name": "00-2_view_leave_feedback",
-            "displayStyle": "inset"
-          }
-        }
-      }
-    ]
   }
 }

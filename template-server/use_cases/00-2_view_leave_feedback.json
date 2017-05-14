@@ -1,0 +1,17 @@
+{
+  "type": "view",
+  "template": "boost_feedback_survey_view",
+  "data": {
+    "root": {
+      "submitButtonTitle": "SUBMIT",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/submitFeedback",
+        "data": {
+          "text": "Uploaded feedback",
+          "classification": "00-3_message_feedback_received"
+        }
+      }
+    }
+  }
+}

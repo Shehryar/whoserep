@@ -2,6 +2,7 @@
 
 module.exports = {
 	BasicItemList: require('./basic_item_list'),
+	BasicRadioButtonsList: require('./basic_radio_buttons_list'),
 	BoldBodyDetailCheckboxView: require('./bold_body_detail_checkbox_view'),
 	BoldBodyDetailCheckboxCarousel: require('./bold_body_detail_checkbox_carousel'),
 	BoldDetailButton: require('./bold_detail_button'),

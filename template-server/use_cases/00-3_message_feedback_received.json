@@ -1,0 +1,13 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Great, thanks for your feedback!",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Feedback Submitted",
+      "detailText": "Jan 22, 2017 - 4:15PM"
+    }
+  }
+}

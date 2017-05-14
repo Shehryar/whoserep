@@ -16,6 +16,7 @@ module.exports = {
 	RadioButtonsContainer: require('./radio_buttons_container'),
 	ScrollView: require('./scroll_view'),
 	Separator: require('./separator'),
+	Slider: require('./slider'),
 	StackView: require('./stack_view'),
 	TabView: require('./tab_view'),
 	TabViewPage: require('./tab_view_page'),

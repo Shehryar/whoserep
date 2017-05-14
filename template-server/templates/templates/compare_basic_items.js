@@ -59,9 +59,6 @@ module.exports = function(data) {
 		const bodyText = item.bodyText;
 		const detailText = item.detailText;
 
-		console.log('adding body text');
-		console.log(bodyText);
-
 		let verticalBodyItems = [];
 
 		function addBodyText(text, marginTop, addToItems) {

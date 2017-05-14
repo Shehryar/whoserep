@@ -3,6 +3,7 @@ const Components = require('../components');
 module.exports = function(data) {
 	// Properties
 	const boldText = data.boldText;
+	const bodyText = data.bodyText;
 	const detailText = data.detailText;
 	const valueText = data.valueText;
 
@@ -31,12 +32,21 @@ module.exports = function(data) {
 			}
 		}));
 	}
+	if (bodyText) {
+		middleItems.push(new Components.Label({
+			text: bodyText,
+			style: {
+				textType: 'body',
+				marginTop: boldText ? 4 : 0
+			}
+		}));
+	}
 	if (detailText) {
 		middleItems.push(new Components.Label({
 			text: detailText,
 			style: {
 				textType: 'detail1',
-				marginTop: boldText ? 4 : 0
+				marginTop: boldText || bodyText ? 4 : 0
 			}
 		}));
 	}
@@ -65,10 +75,6 @@ module.exports = function(data) {
 		orientation: 'horizontal',
 		items: items
 	});
-
-	console.log('2. items:');
-		console.log(items);
-		console.log('---')
 
 	// Base Component
 	Components.RadioButtonView.call(this, data);

@@ -18,7 +18,8 @@
         "title": "How did we do?",
         "action": {
           "type": "componentView",
-          "name": "00-2_view_feedback_survey"
+          "name": "00-2_view_leave_feedback",
+          "displayStyle": "inset"
         }
       }
     ]

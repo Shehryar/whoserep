@@ -10,14 +10,6 @@ module.exports = function(data) {
 	let radioButtonsContainer = content.radioButtonsContainer || {};
 	const radioButtons = radioButtonsContainer.radioButtons || {};
 
-	console.log('radiobuttonscontainer:');
-	console.log(radioButtonsContainer);
-	console.log('-----');
-
-console.log('radiobuttons:');
-	console.log(radioButtons);
-	console.log('-----');
-
 	var items = [];
 	for (let i = 0; i < radioButtons.length; i++) {
 		let radioButton = radioButtons[i];
