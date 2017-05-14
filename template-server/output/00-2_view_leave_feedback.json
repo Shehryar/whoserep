@@ -12,6 +12,9 @@
           },
           "content": {
             "root": {
+              "style": {
+                "paddingBottom": 32
+              },
               "content": {
                 "items": [
                   {
@@ -33,7 +36,7 @@
                       "marginBottom": 16
                     },
                     "content": {
-                      "text": "Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvment purposes."
+                      "text": "Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvement purposes."
                     },
                     "type": "label"
                   },
@@ -68,6 +71,45 @@
                       "text": "How likely are you to recommend Boost to friends or family?"
                     },
                     "type": "label"
+                  },
+                  {
+                    "name": "rating",
+                    "style": {
+                      "padding": "0 24",
+                      "align": "fill",
+                      "marginBottom": 32
+                    },
+                    "content": {
+                      "label": {
+                        "style": {
+                          "padding": "16 20",
+                          "textType": "header2",
+                          "backgroundColor": "#8b92a3",
+                          "color": "#ffffff",
+                          "marginBottom": 24,
+                          "align": "center",
+                          "cornerRadius": 8
+                        },
+                        "content": {
+                          "text": " "
+                        },
+                        "type": "label"
+                      },
+                      "min": 0,
+                      "max": 10
+                    },
+                    "type": "slider"
+                  },
+                  {
+                    "name": "ratingComment",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "content": {
+                      "placeholder": "Leave a comment (optional)"
+                    },
+                    "type": "textArea"
                   },
                   {
                     "style": {
@@ -153,7 +195,7 @@
                                 "padding": 20,
                                 "borderWidth": 1,
                                 "cornerRadius": 6,
-                                "marginTop": 8
+                                "marginTop": 10
                               },
                               "value": "decrease",
                               "content": {
@@ -202,7 +244,7 @@
                                 "padding": 20,
                                 "borderWidth": 1,
                                 "cornerRadius": 6,
-                                "marginTop": 8
+                                "marginTop": 10
                               },
                               "value": "noChange",
                               "content": {
@@ -275,6 +317,17 @@
                     "type": "label"
                   },
                   {
+                    "name": "recommendationComment",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "content": {
+                      "placeholder": "Leave a comment (optional)"
+                    },
+                    "type": "textArea"
+                  },
+                  {
                     "style": {
                       "align": "fill",
                       "marginTop": 32,
@@ -294,6 +347,17 @@
                       "text": "What could we do to better serve you?"
                     },
                     "type": "label"
+                  },
+                  {
+                    "name": "improvementComment",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "content": {
+                      "placeholder": "Leave a comment (optional)"
+                    },
+                    "type": "textArea"
                   },
                   {
                     "style": {
@@ -379,7 +443,7 @@
                                 "padding": 20,
                                 "borderWidth": 1,
                                 "cornerRadius": 6,
-                                "marginTop": 8
+                                "marginTop": 10
                               },
                               "content": {
                                 "root": {

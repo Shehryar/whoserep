@@ -10,7 +10,7 @@ module.exports = function(data) {
 	for (var i = 0; i < radioButtons.length; i++) {
 		let radioButton = radioButtons[i];
 		radioButton.style = Object.assign({
-			marginTop: i > 0 ? 8 : 0
+			marginTop: i > 0 ? 10 : 0
 		}, radioButton.style);
 		items.push(new RadioButtonView(radioButton));
 	}

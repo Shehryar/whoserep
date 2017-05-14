@@ -8,7 +8,7 @@ module.exports = function(data) {
 	data.root.scrollContent = data.root.scrollContent || {};
 
 	data.root.scrollContent.title = 'Feedback Survey';
-	data.root.scrollContent.bodyText = 'Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvment purposes.\n\nThank you!';
+	data.root.scrollContent.bodyText = 'Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvement purposes.\n\nThank you!';
 
 	var items = [];
 	
@@ -57,14 +57,47 @@ module.exports = function(data) {
 		}
 	}
 
+	function addTextArea(name) {
+		items.push(new Components.TextArea({
+			name: name,
+			placeholder: 'Leave a comment (optional)',
+			style: {
+				align: 'fill',
+				padding: defaultPadding
+			}
+		}));
+	}
 
 	addSectionHeader('Feedback Survey', 32);
-	addBodyText('Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvment purposes.');
+	addBodyText('Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your responses will help us better serve your needs. Your individual survey answers may be shared internally for service improvement purposes.');
 	addBodyText('Thank you!');
 
 
 	addSeparator(16);
 	addSectionHeader('How likely are you to recommend Boost to friends or family?');
+	items.push(new Components.Slider({
+		name: 'rating',
+		min: 0,
+		max: 10,
+		label: new Components.Label({
+			text: ' ',
+			style: {
+				padding: "16 20",
+				textType: 'header2',
+				backgroundColor: '#8b92a3',
+				color: '#ffffff',
+				marginBottom: 24,
+				align: 'center',
+				cornerRadius: 8
+			}
+		}),
+		style: {
+			padding: defaultPadding,
+			align: 'fill',
+			marginBottom: 32
+		}
+	}));
+	addTextArea('ratingComment')
 
 	addSeparator();
 	addSectionHeader('Did this chat increase, decrease or not change your likelihood to recommend Boost?');
@@ -91,9 +124,11 @@ module.exports = function(data) {
 
 	addSeparator();
 	addSectionHeader('Based on your answer to the previous question, could you explain why?');
+	addTextArea('recommendationComment');
 
 	addSeparator();	
 	addSectionHeader('What could we do to better serve you?');
+	addTextArea('improvementComment');
 
 	addSeparator();	
 	addSectionHeader('Will you be calling customer care to follow up on this particular issue?');
@@ -121,7 +156,10 @@ module.exports = function(data) {
 
 
 	data.root.scrollContent = new Components.StackView({
-		items: items
+		items: items,
+		style: {
+			paddingBottom: 32
+		}
 	});
 
 	CancelSubmitScrollView.call(this, data);
