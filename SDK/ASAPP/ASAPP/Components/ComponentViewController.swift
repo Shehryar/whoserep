@@ -293,10 +293,13 @@ extension ComponentViewController {
     }
     
     func handleAPIActionError(_ error: APIActionError?) {
-        let alert = UIAlertController(title: "Shit!",
-                                      message: "Yeah, man... we fucked up hard.",
+        let message = error?.userMessage ?? ASAPP.strings.requestErrorGenericFailure
+        let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
+                                      message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "mmmk", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: ASAPP.strings.requestErrorDismissButton,
+                                      style: .cancel,
+                                      handler: nil))
         present(alert, animated: true, completion: nil)
     }
 }

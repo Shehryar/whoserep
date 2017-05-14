@@ -72,7 +72,9 @@ public class ASAPPStrings: NSObject {
     // Generic
     
     public var reqeustErrorMessageNoConnection: String = ASAPPLocalizedString("Please check your connection and try again.")
+    public var requestErrorGenericFailureTitle: String = ASAPPLocalizedString("Oops!")
     public var requestErrorGenericFailure: String = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")
+    public var requestErrorDismissButton: String = ASAPPLocalizedString("Ok")
     public var failureToLoadScreen: String = ASAPPLocalizedString("Oops! We were unable to find what you're looking for. Please try again later.")
     public var failureToLoadScreenReloadButton: String = ASAPPLocalizedString("Try Again")
     public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
