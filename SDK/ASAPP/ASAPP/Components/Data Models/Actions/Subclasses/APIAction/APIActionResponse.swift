@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias APIActionResponseHandler = (_ response: APIActionResponse?) -> Void
+
 enum APIActionResponseType: String {
     case finish = "finish"
     case refreshView = "refreshView"
@@ -33,8 +35,8 @@ class APIActionResponse: NSObject {
     // MARK:- Init
     
     init(type: APIActionResponseType,
-         view: ComponentViewContainer?,
-         error: APIActionError?) {
+         view: ComponentViewContainer? = nil,
+         error: APIActionError? = nil) {
         self.type = type
         self.view = view
         self.error = error

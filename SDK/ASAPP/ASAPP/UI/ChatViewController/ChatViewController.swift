@@ -778,9 +778,9 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((Action?, String?) -> Void)) {
-        conversationManager.sendRequestForAPIAction(action, params: data, completion: { (action) in
-            completion(action, nil)
+                                 completion: @escaping APIActionResponseHandler) {
+        conversationManager.sendRequestForAPIAction(action, params: data, completion: { (response) in
+            completion(response)
         })
     }
 }

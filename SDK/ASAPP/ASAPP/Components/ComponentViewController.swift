@@ -12,14 +12,14 @@ protocol ComponentViewControllerDelegate: class {
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((_ nextAction: Action?, _ error: String?) -> Void))
+                                 completion: @escaping APIActionResponseHandler)
     
-    func componentViewController(_ viweController: ComponentViewController,
+    func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
 }
 
-class ComponentViewController: UIViewController, UpdatableFrames {
+class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     // MARK: Properties
     
@@ -115,29 +115,8 @@ class ComponentViewController: UIViewController, UpdatableFrames {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Navigation Bar
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.isTranslucent = true
-            navigationBar.shadowImage = nil
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.setBackgroundImage(nil, for: .compact)
-            navigationBar.backgroundColor = nil
-            if ASAPP.styles.colors.navBarBackground.isDark() {
-                navigationBar.barStyle = .black
-                if ASAPP.styles.colors.navBarBackground != UIColor.black {
-                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-                }
-            } else {
-                navigationBar.barStyle = .default
-                if ASAPP.styles.colors.navBarBackground != UIColor.white {
-                    navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-                }
-            }
-            navigationBar.tintColor = ASAPP.styles.colors.navBarButton
-            setNeedsStatusBarAppearanceUpdate()
-        }
-        view.backgroundColor = UIColor.white
+    
+        view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         // Empty / Spinner View
         view.addSubview(spinnerView)
@@ -166,11 +145,7 @@ class ComponentViewController: UIViewController, UpdatableFrames {
     }
     
     func updateFrames() {
-        var top: CGFloat = 0.0
-        if let navBar = navigationController?.navigationBar {
-            top = navBar.frame.maxY
-        }
-        
+        let top: CGFloat = 0.0
         let height = view.bounds.height - top
         let width = view.bounds.width
         rootView?.view.frame = CGRect(x: 0, y: top, width: width, height: height)
@@ -215,9 +190,9 @@ extension ComponentViewController: InteractionHandler {
         if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
-            handleComponentViewAction(componentViewAction)
+            showComponentView(named: componentViewAction.name)
         } else if let finishAction = buttonItem.action as? FinishAction {
-            handleFinishAction(finishAction)
+            finish()
         }
     }
 }
@@ -241,6 +216,10 @@ extension ComponentViewController: ComponentViewContentHandler {
 
 extension ComponentViewController {
     
+    func handleAPIActionError(_ error: APIActionError?) {
+        
+    }
+    
     func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
         guard let component = componentViewContainer?.root, let delegate = delegate else {
             return
@@ -255,25 +234,62 @@ extension ComponentViewController {
         delegate.componentViewController(self,
                                          didTapAPIAction: action,
                                          with: requestData,
-                                         completion: { [weak self] (nextAction, error) in
-                                            
+                                         completion: { [weak self] (response) in
                                             buttonView.isLoading = false
                                             
-                                            if let finishAction = nextAction as? FinishAction {
-                                                self?.handleFinishAction(finishAction)
-                                            } else if let viewAction = nextAction as? ComponentViewAction {
-                                                self?.handleComponentViewAction(viewAction)
+                                            if let response = response, response.type != .error {
+                                                switch response.type {
+                                                case .error:
+                                                    // Handled in if statement
+                                                    break
+                                                    
+                                                case .componentView:
+                                                    self?.showComponentView(response.view)
+                                                    break
+                                                    
+                                                case .refreshView:
+                                                    self?.refreshView(with: response.view)
+                                                    break
+                                                    
+                                                case .finish:
+                                                    self?.finish()
+                                                    break
+                                                }
+                                                
+                                            } else {
+                                                self?.handleAPIActionError(response?.error)
                                             }
         })
     }
     
-    func handleComponentViewAction(_ action: ComponentViewAction) {
-        let viewController = ComponentViewController(componentName: action.name)
-        viewController.delegate = delegate
-        navigationController?.pushViewController(viewController, animated: true)
+    func refreshView(with componentViewContainer: ComponentViewContainer?) {
+        guard let componentViewContainer = componentViewContainer else {
+            return
+        }
+        
+        
     }
     
-    func handleFinishAction(_ action: FinishAction) {
+    func showComponentView(_ view: ComponentViewContainer? = nil, named name: String? = nil) {
+        guard view != nil || name != nil else {
+            DebugLog.d(caller: self, "Must pass view or name")
+            return
+        }
+        
+        var viewController: ComponentViewController?
+        if let view = view {
+//            viewController =
+        } else if let name = name {
+            viewController = ComponentViewController(componentName: name)
+        }
+        
+        viewController?.delegate = delegate
+        if let viewController = viewController {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func finish() {
         dismiss(animated: true, completion: nil)
     }
 }

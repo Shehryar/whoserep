@@ -81,15 +81,14 @@ extension ConversationManager {
     
     func sendRequestForAPIAction(_ action: APIAction,
                                   params: [String : Any]?,
-                                  completion: @escaping ((Action?) -> Void)) {
+                                  completion: @escaping APIActionResponseHandler) {
             
         func handleResponse(_ message: IncomingMessage,
                             _ request: SocketRequest?,
                             _ responseTime: ResponseTimeInMilliseconds) {
             
-            // Get Action from this
-            let action = ActionFactory.action(with: message.body)
-            completion(action)
+            let response = APIActionResponse.fromJSON(message.body)
+            completion(response)
         }
         
         let path = action.requestPath

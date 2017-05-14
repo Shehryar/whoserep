@@ -319,17 +319,28 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
-                                 completion: @escaping ((Action?, String?) -> Void)) {
+                                 completion: @escaping APIActionResponseHandler) {
+        
         guard let text = data?["text"] as? String,
             let name = data?["classification"] as? String else {
                 DebugLog.d("For testing purposes, 'text' and 'classification' are required in : \(String(describing: data ?? [String:Any]()))")
-                completion(nil, "Missing data")
+                
+                let error = APIActionError(code: 400,
+                                           userMessage: "For testing purposes, the action should supply a 'text' and 'classification' value",
+                                           debugMessage: "",
+                                           invalidInputs: nil)
+                
+                completion(APIActionResponse(type: .error,
+                                             view: nil,
+                                             error: error))
                 return
         }
         
+        // TODO: MITCH
+        
         Dispatcher.delay(1500) {
-            completion(FinishAction(content: nil), nil)
-            
+            completion(APIActionResponse(type: .finish))
+                        
             Dispatcher.delay(500, closure: { [weak self] in
                 self?.getNextMessage(with: text, nextFileName: name)
             })
