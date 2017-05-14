@@ -72,7 +72,7 @@ class CarouselViewItem: Component {
         guard items.count > 0 else {
             return nil
         }
-    
+            
         self.items = items
         self.itemSpacing = content.float(for: JSONKey.itemSpacing.rawValue)
             ?? CarouselViewItem.defaultItemSpacing

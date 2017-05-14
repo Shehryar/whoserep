@@ -65,7 +65,9 @@ class CarouselView: BaseComponentView {
             pageControlView.numberOfPages = numberOfPages
             pageControlView.currentPage = 0
             
-            updateCarouselValue()
+            if getPageIndexOfCurrentValue() == nil {
+                updateCarouselValue()
+            }
             
             setNeedsLayout()
         }
@@ -237,6 +239,13 @@ class CarouselView: BaseComponentView {
         }
         scrollView.contentSize = contentSize
         pageControlView.frame = pageControlFrame
+        
+        if let currentPage = getPageIndexOfCurrentValue() {
+            pageControlView.currentPage = currentPage
+            let offset = CGFloat(currentPage) * scrollView.bounds.width
+            scrollView.contentOffset = CGPoint(x: offset, y: 0)
+        }
+        
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -255,6 +264,19 @@ class CarouselView: BaseComponentView {
 }
 
 extension CarouselView: UIScrollViewDelegate {
+    
+    func getPageIndexOfCurrentValue() -> Int? {
+        guard let component = component, let itemViews = itemViews else {
+            return nil
+        }
+        
+        for (idx, itemView) in itemViews.enumerated() {
+            if component.valueEquals(itemView.component?.value) {
+                return idx
+            }
+        }
+        return nil
+    }
     
     func scrollToPage(_ page: Int, animated: Bool = true) {
         guard page >= 0 && page < numberOfPages else {
