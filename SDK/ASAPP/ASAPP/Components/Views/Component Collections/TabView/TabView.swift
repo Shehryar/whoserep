@@ -94,8 +94,8 @@ class TabView: BaseComponentView {
     
     // MARK: Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func updateFrames() {
+        super.updateFrames()
         
         let tabBarHeight = ceil(tabBar.sizeThatFits(bounds.size).height)
         tabBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: tabBarHeight)

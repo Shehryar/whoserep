@@ -64,6 +64,9 @@
 		28AEC0B91D888FFD00139C7D /* map-tech.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B31D888FFD00139C7D /* map-tech.png */; };
 		28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B41D888FFD00139C7D /* map-tech@2x.png */; };
 		28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28AEC0B51D888FFD00139C7D /* map-tech@3x.png */; };
+		28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE51EC8EC3C00455E1A /* APIAction.swift */; };
+		28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */; };
+		28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE91EC8EE5100455E1A /* APIActionError.swift */; };
 		28C008931E5E8AE300260883 /* wow-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088E1E5E8AE300260883 /* wow-1.wav */; };
 		28C008941E5E8AE300260883 /* wow-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088F1E5E8AE300260883 /* wow-2.wav */; };
 		28C008951E5E8AE300260883 /* wow-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008901E5E8AE300260883 /* wow-3.wav */; };
@@ -326,7 +329,6 @@
 		307484D51EB7EF24008CF3E4 /* EventMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484D41EB7EF24008CF3E4 /* EventMetadata.swift */; };
 		307484D71EB8F007008CF3E4 /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484D61EB8F007008CF3E4 /* ActionType.swift */; };
 		307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484D81EB8F2CB008CF3E4 /* ActionFactory.swift */; };
-		307484DE1EB8F2F9008CF3E4 /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484DB1EB8F2F9008CF3E4 /* APIAction.swift */; };
 		307484DF1EB8F2F9008CF3E4 /* ComponentViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484DC1EB8F2F9008CF3E4 /* ComponentViewAction.swift */; };
 		307484E01EB8F2F9008CF3E4 /* FinishAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484DD1EB8F2F9008CF3E4 /* FinishAction.swift */; };
 		307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307484E11EB8FE29008CF3E4 /* DeepLinkAction.swift */; };
@@ -462,6 +464,9 @@
 		28AEC0B31D888FFD00139C7D /* map-tech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech.png"; sourceTree = "<group>"; };
 		28AEC0B41D888FFD00139C7D /* map-tech@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@2x.png"; sourceTree = "<group>"; };
 		28AEC0B51D888FFD00139C7D /* map-tech@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-tech@3x.png"; sourceTree = "<group>"; };
+		28B06DE51EC8EC3C00455E1A /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
+		28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionResponse.swift; sourceTree = "<group>"; };
+		28B06DE91EC8EE5100455E1A /* APIActionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionError.swift; sourceTree = "<group>"; };
 		28C0088E1E5E8AE300260883 /* wow-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-1.wav"; sourceTree = "<group>"; };
 		28C0088F1E5E8AE300260883 /* wow-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-2.wav"; sourceTree = "<group>"; };
 		28C008901E5E8AE300260883 /* wow-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-3.wav"; sourceTree = "<group>"; };
@@ -726,7 +731,6 @@
 		307484D41EB7EF24008CF3E4 /* EventMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMetadata.swift; sourceTree = "<group>"; };
 		307484D61EB8F007008CF3E4 /* ActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionType.swift; sourceTree = "<group>"; };
 		307484D81EB8F2CB008CF3E4 /* ActionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionFactory.swift; sourceTree = "<group>"; };
-		307484DB1EB8F2F9008CF3E4 /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
 		307484DC1EB8F2F9008CF3E4 /* ComponentViewAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewAction.swift; sourceTree = "<group>"; };
 		307484DD1EB8F2F9008CF3E4 /* FinishAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishAction.swift; sourceTree = "<group>"; };
 		307484E11EB8FE29008CF3E4 /* DeepLinkAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkAction.swift; sourceTree = "<group>"; };
@@ -995,6 +999,16 @@
 				3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */,
 			);
 			path = "Utility Views";
+			sourceTree = "<group>";
+		};
+		28B06DE41EC8EC3C00455E1A /* APIAction */ = {
+			isa = PBXGroup;
+			children = (
+				28B06DE51EC8EC3C00455E1A /* APIAction.swift */,
+				28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */,
+				28B06DE91EC8EE5100455E1A /* APIActionError.swift */,
+			);
+			path = APIAction;
 			sourceTree = "<group>";
 		};
 		300012C11DD4D10E007226B9 /* Tooltips */ = {
@@ -1575,7 +1589,7 @@
 		307484DA1EB8F2F9008CF3E4 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
-				307484DB1EB8F2F9008CF3E4 /* APIAction.swift */,
+				28B06DE41EC8EC3C00455E1A /* APIAction */,
 				307484DC1EB8F2F9008CF3E4 /* ComponentViewAction.swift */,
 				307484E11EB8FE29008CF3E4 /* DeepLinkAction.swift */,
 				307484DD1EB8F2F9008CF3E4 /* FinishAction.swift */,
@@ -2033,6 +2047,7 @@
 				3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */,
 				281C34A31E7F092C001A2AA3 /* LabelView.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
+				28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				288085001E874BF900240A5D /* SliderView.swift in Sources */,
 				307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */,
@@ -2111,6 +2126,7 @@
 				302A20C31E5E2D7E007C522A /* StarView.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
 				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
+				28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				289E04121EC792D100CAC413 /* RadioButtonViewItem.swift in Sources */,
@@ -2127,6 +2143,7 @@
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
+				28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */,
 				30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */,
 				281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */,
 				30131FC81EB10FD0009E7299 /* ButtonItem.swift in Sources */,
@@ -2215,7 +2232,6 @@
 				30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */,
 				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
-				307484DE1EB8F2F9008CF3E4 /* APIAction.swift in Sources */,
 				305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
