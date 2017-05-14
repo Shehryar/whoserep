@@ -8,7 +8,10 @@
 
 import UIKit
 
+// MARK:- ComponentViewControllerDelegate
+
 protocol ComponentViewControllerDelegate: class {
+    
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
@@ -18,6 +21,8 @@ protocol ComponentViewControllerDelegate: class {
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
 }
+
+// MARK:- ComponentViewController
 
 class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
@@ -50,6 +55,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     fileprivate var rootView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
+            var mutableOldValue = oldValue
+            mutableOldValue?.interactionHandler = nil
+            mutableOldValue?.contentHandler = nil
             
             rootView?.interactionHandler = self
             rootView?.contentHandler = self
@@ -75,14 +83,14 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         navigationItem.rightBarButtonItem = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
                                                                                     side: .right,
                                                                                     target: self,
-                                                                                    action: #selector(ComponentViewController.dismissAnimated))
+                                                                                    action: #selector(ComponentViewController.finish))
         
         emptyView.isHidden = true
         emptyView.onReloadButtonTap = { [weak self] in
             self?.refreshView()
         }
         emptyView.onCloseButtonTap = { [weak self] in
-            self?.dismissAnimated()
+            self?.finish()
             
         }
         spinnerView.hidesWhenStopped = true
@@ -162,10 +170,6 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     // MARK: Instance Methods
     
-    func dismissAnimated() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     func refreshView() {
         guard let componentName = componentName,
             let delegate = delegate else {
@@ -179,6 +183,30 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
                 self?.isLoading = false
             }
         }
+    }
+    
+    func showComponentView(_ view: ComponentViewContainer? = nil, named name: String? = nil) {
+        guard view != nil || name != nil else {
+            DebugLog.d(caller: self, "Must pass view or name")
+            return
+        }
+        
+        var viewController: ComponentViewController?
+        if let view = view {
+            viewController = ComponentViewController()
+            viewController?.componentViewContainer = view
+        } else if let name = name {
+            viewController = ComponentViewController(componentName: name)
+        }
+        
+        viewController?.delegate = delegate
+        if let viewController = viewController {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func finish() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -197,11 +225,11 @@ extension ComponentViewController: InteractionHandler {
     }
 }
 
+// MARK:- ComponentViewContentHandler
+
 extension ComponentViewController: ComponentViewContentHandler {
     
-    func componentView(_ componentView: ComponentView, didPageCarousel carousel: CarouselViewItem) {
-        
-    }
+    func componentView(_ componentView: ComponentView, didPageCarousel carousel: CarouselViewItem) {}
 
     func componentView(_ componentView: ComponentView,
                        didUpdateContent value: Any?,
@@ -212,13 +240,9 @@ extension ComponentViewController: ComponentViewContentHandler {
     }
 }
 
-// MARK:- Routing Actions
+// MARK:- APIAction Handling
 
 extension ComponentViewController {
-    
-    func handleAPIActionError(_ error: APIActionError?) {
-        
-    }
     
     func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
         guard let component = componentViewContainer?.root, let delegate = delegate else {
@@ -235,61 +259,45 @@ extension ComponentViewController {
                                          didTapAPIAction: action,
                                          with: requestData,
                                          completion: { [weak self] (response) in
-                                            buttonView.isLoading = false
-                                            
-                                            if let response = response, response.type != .error {
-                                                switch response.type {
-                                                case .error:
-                                                    // Handled in if statement
-                                                    break
-                                                    
-                                                case .componentView:
-                                                    self?.showComponentView(response.view)
-                                                    break
-                                                    
-                                                case .refreshView:
-                                                    self?.refreshView(with: response.view)
-                                                    break
-                                                    
-                                                case .finish:
-                                                    self?.finish()
-                                                    break
-                                                }
-                                                
-                                            } else {
-                                                self?.handleAPIActionError(response?.error)
+                                            Dispatcher.performOnMainThread {
+                                                buttonView.isLoading = false
+                                                self?.handleAPIActionResponse(response)
                                             }
         })
     }
     
-    func refreshView(with componentViewContainer: ComponentViewContainer?) {
-        guard let componentViewContainer = componentViewContainer else {
-            return
+    func handleAPIActionResponse(_ response: APIActionResponse?) {
+        if let response = response, response.type != .error {
+            switch response.type {
+            case .error:
+                // Handled in if statement
+                break
+                
+            case .componentView:
+                showComponentView(response.view)
+                break
+                
+            case .refreshView:
+                if let viewContainer = response.view {
+                    componentViewContainer = viewContainer
+                }
+                break
+                
+            case .finish:
+                finish()
+                break
+            }
+            
+        } else {
+            handleAPIActionError(response?.error)
         }
-        
-        
     }
     
-    func showComponentView(_ view: ComponentViewContainer? = nil, named name: String? = nil) {
-        guard view != nil || name != nil else {
-            DebugLog.d(caller: self, "Must pass view or name")
-            return
-        }
-        
-        var viewController: ComponentViewController?
-        if let view = view {
-//            viewController =
-        } else if let name = name {
-            viewController = ComponentViewController(componentName: name)
-        }
-        
-        viewController?.delegate = delegate
-        if let viewController = viewController {
-            navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
-    
-    func finish() {
-        dismiss(animated: true, completion: nil)
+    func handleAPIActionError(_ error: APIActionError?) {
+        let alert = UIAlertController(title: "Shit!",
+                                      message: "Yeah, man... we fucked up hard.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "mmmk", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
