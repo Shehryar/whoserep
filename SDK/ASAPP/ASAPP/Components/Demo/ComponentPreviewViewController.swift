@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ComponentPreviewViewController: UIViewController {
+public class ComponentPreviewViewController: ASAPPViewController {
     
     var fileInfo: DemoComponentFileInfo? {
         didSet {

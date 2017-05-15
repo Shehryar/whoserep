@@ -60,25 +60,7 @@ extension ASAPPViewController {
         guard let navigationBar = navigationController?.navigationBar else {
             return
         }
-        
-        navigationBar.isTranslucent = false
-        navigationBar.isOpaque = true
-        navigationBar.shadowImage = nil
-        navigationBar.setBackgroundImage(nil, for: .default)
-        navigationBar.setBackgroundImage(nil, for: .compact)
-        navigationBar.backgroundColor = nil
-        if ASAPP.styles.colors.navBarBackground.isDark() {
-            navigationBar.barStyle = .black
-            if ASAPP.styles.colors.navBarBackground != UIColor.black {
-                navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-            }
-        } else {
-            navigationBar.barStyle = .default
-            if ASAPP.styles.colors.navBarBackground != UIColor.white {
-                navigationBar.barTintColor = ASAPP.styles.colors.navBarBackground
-            }
-        }
-        navigationBar.tintColor = ASAPP.styles.colors.navBarButton
+        navigationBar.applyASAPPStyles()
         setNeedsStatusBarAppearanceUpdate()
     }
 }

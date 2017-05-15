@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComponentMessagePreviewViewController: UIViewController {
+class ComponentMessagePreviewViewController: ASAPPViewController {
     
     var fileInfo: DemoComponentFileInfo? {
         didSet {
