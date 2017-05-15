@@ -204,7 +204,6 @@ extension HomeViewController: HomeTableViewDelegate {
     
     func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
         showUseCasePreview()
-//        showDemoComponents()
     }
 }
 
@@ -323,7 +322,13 @@ extension HomeViewController {
     
     func showUseCasePreview() {
         let useCasePreviewVC = UseCasePreviewViewController()
-        navigationController?.pushViewController(useCasePreviewVC, animated: true)
+        useCasePreviewVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(HomeViewController.dismissAnimated))
+        let nc = UINavigationController(rootViewController: useCasePreviewVC)
+        present(nc, animated: true, completion: nil)
+    }
+    
+    func dismissAnimated() {
+        dismiss(animated: true, completion: nil)
     }
     
     func showViewController(_ imageName: String, title: String?) -> Bool {
