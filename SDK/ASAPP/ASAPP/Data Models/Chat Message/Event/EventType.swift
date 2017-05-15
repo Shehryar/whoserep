@@ -20,6 +20,7 @@ enum EventType: Int {
     case srsAction = 24
     case scheduleAppointment = 27
     case switchSRSToChat = 28
+    case switchChatToSRS = 31
     
     static func from(_ value: Any?) -> EventType? {
         guard let value = value as? Int else {
@@ -41,7 +42,8 @@ extension EventType {
             newRep,
             conversationEnd,
             conversationTimedOut,
-            switchSRSToChat
+            switchSRSToChat,
+            switchChatToSRS
         ].contains(type)
     }
     
@@ -49,7 +51,7 @@ extension EventType {
     
     static func getLiveChatStatus(for type: EventType) -> Bool? {
         switch type {
-        case conversationEnd:
+        case conversationEnd, switchChatToSRS:
             return false
             
         case switchSRSToChat, newRep:
