@@ -10,10 +10,69 @@ import UIKit
 
 public class ASAPPViewController: UIViewController {
 
+    var hideViewContentsWhileBackgrounded: Bool = false
+    
+    let backgroundedViewCover = SecureScreenCoverView()
+    
+    deinit {
+        stopObservingNotifications()
+    }
+    
+    // MARK:- View
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
 
+        // BackgroundViewCover
+        backgroundedViewCover.backgroundColor = ASAPP.styles.colors.backgroundSecondary
+        backgroundedViewCover.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showViewContents)))
+        
+        // Nav Bar
         updateNavigationBar()
+        
+        // Notifications
+        beginObservingNotifications()
+    }
+    
+    // MARK:- Layout
+    
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        backgroundedViewCover.frame = view.bounds
+    }
+}
+
+// MARK:- Notifications
+
+extension ASAPPViewController {
+    
+    func beginObservingNotifications() {
+        // App left foreground
+        let backgroundNotificationNames = [Notification.Name.UIApplicationDidEnterBackground,
+                                        Notification.Name.UIApplicationWillResignActive]
+        let hideContentsSelector = #selector(ASAPPViewController.hideViewContents)
+        for notificationName in backgroundNotificationNames {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: hideContentsSelector,
+                                                   name: notificationName,
+                                                   object: nil)
+        }
+        
+        // App entered foreground
+        let foregroundNotificationNames = [Notification.Name.UIApplicationDidBecomeActive,
+                                           Notification.Name.UIApplicationWillEnterForeground]
+        let showContentsSelector = #selector(ASAPPViewController.showViewContents)
+        for notificationName in foregroundNotificationNames {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: showContentsSelector,
+                                                   name: notificationName,
+                                                   object: nil)
+        }
+    }
+    
+    func stopObservingNotifications() {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -62,5 +121,26 @@ extension ASAPPViewController {
         }
         navigationBar.applyASAPPStyles()
         setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+// MARK:- Screen Cover
+
+extension ASAPPViewController {
+    
+    func hideViewContents() {
+        guard hideViewContentsWhileBackgrounded else {
+            return
+        }
+        
+        if view.subviews.contains(backgroundedViewCover) {
+            view.bringSubview(toFront: backgroundedViewCover)
+        } else {
+            view.addSubview(backgroundedViewCover)
+        }
+    }
+    
+    func showViewContents() {
+        backgroundedViewCover.removeFromSuperview()
     }
 }

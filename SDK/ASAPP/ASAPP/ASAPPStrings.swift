@@ -71,6 +71,7 @@ public class ASAPPStrings: NSObject {
     
     // Generic
     
+    public var secureScreenCoverText: String = ASAPPLocalizedString("View content hidden for security purposes.\n\nTap to dismiss.")
     public var reqeustErrorMessageNoConnection: String = ASAPPLocalizedString("Please check your connection and try again.")
     public var requestErrorGenericFailureTitle: String = ASAPPLocalizedString("Oops!")
     public var requestErrorGenericFailure: String = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")

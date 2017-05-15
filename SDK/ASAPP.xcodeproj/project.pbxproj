@@ -369,6 +369,7 @@
 		30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */; };
 		30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */; };
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
+		30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
 		30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87871DC00C350008042D /* bill-autopay-scheduled.json */; };
 		30BD878C1DC00C350008042D /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87881DC00C350008042D /* bill-credit.json */; };
@@ -772,6 +773,7 @@
 		30A4BB191D52400D00795BA7 /* ChatTypingIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCell.swift; sourceTree = "<group>"; };
 		30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderView.swift; sourceTree = "<group>"; };
 		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
+		30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureScreenCoverView.swift; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		30BD87871DC00C350008042D /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
 		30BD87881DC00C350008042D /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 				300012C11DD4D10E007226B9 /* Tooltips */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
 				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
+				30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2218,6 +2221,7 @@
 				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
 				303699A51EAFA9FB00A819DF /* ASAPPStyles+Presets.swift in Sources */,
+				30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
 				30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */,
 				30131FD61EB10FD0009E7299 /* TextAreaItem.swift in Sources */,

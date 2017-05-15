@@ -391,6 +391,25 @@ class ChatViewController: ASAPPViewController {
         
         dismissChatViewController()
     }
+    
+    // MARK: View Layout Overrides
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        updateFrames()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        updateFrames()
+        
+        if isInitialLayout {
+            chatMessagesView.scrollToBottomAnimated(false)
+            isInitialLayout = false
+        }
+    }
 }
 
 // MARK:- Tooltip
@@ -443,23 +462,6 @@ extension ChatViewController {
 // MARK:- Layout
 
 extension ChatViewController {
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        updateFrames()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateFrames()
-        
-        if isInitialLayout {
-            chatMessagesView.scrollToBottomAnimated(false)
-            isInitialLayout = false
-        }
-    }
     
     func updateFrames() {
         // Predictive

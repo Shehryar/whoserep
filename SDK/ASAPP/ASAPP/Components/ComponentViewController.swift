@@ -87,6 +87,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
                                                                                     target: self,
                                                                                     action: #selector(ComponentViewController.didTapNavigationCloseButton))
         
+        hideViewContentsWhileBackgrounded = true
         emptyView.isHidden = true
         emptyView.onReloadButtonTap = { [weak self] in
             self?.refreshView()
