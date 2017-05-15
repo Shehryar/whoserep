@@ -1,4 +1,3 @@
-// action.js
 
 module.exports = function(data) {
 	this.type = data.type;
@@ -23,7 +22,7 @@ module.exports = function(data) {
 			break;
 
 		case 'finish':
-			// No content
+			if (data.classification) this.content.classification = data.classification;
 			break;
 
 		case 'treewalk':

@@ -80,7 +80,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     func sendRequestForAPIAction(_ action: APIAction,
-                                  params: [String : Any]?,
+                                  data: [String : Any]?,
                                   completion: @escaping APIActionResponseHandler) {
             
         func handleResponse(_ message: IncomingMessage,
@@ -90,6 +90,16 @@ extension ConversationManager {
             let response = APIActionResponse.fromJSON(message.body)
             completion(response)
         }
+        
+        var params = [String : Any]()
+        if let data = data {
+            params["data"] = data
+            
+            if let actionTarget = data["actionTarget"] as? String {
+                params["actionTarget"] = actionTarget
+            }
+        }
+        
         
         let path = action.requestPath
         if path.contains("srs/") {

@@ -20,6 +20,8 @@ protocol ComponentViewControllerDelegate: class {
     func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
+    
+    func componentViewControllerDidFinish(with action: FinishAction?)
 }
 
 // MARK:- ComponentViewController
@@ -83,14 +85,14 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         navigationItem.rightBarButtonItem = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
                                                                                     side: .right,
                                                                                     target: self,
-                                                                                    action: #selector(ComponentViewController.finish))
+                                                                                    action: #selector(ComponentViewController.didTapNavigationCloseButton))
         
         emptyView.isHidden = true
         emptyView.onReloadButtonTap = { [weak self] in
             self?.refreshView()
         }
         emptyView.onCloseButtonTap = { [weak self] in
-            self?.finish()
+            self?.finish(with: nil)
         }
         spinnerView.hidesWhenStopped = true
     }
@@ -204,8 +206,16 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
     }
     
-    func finish() {
-        dismiss(animated: true, completion: nil)
+    func didTapNavigationCloseButton() {
+        finish(with: nil)
+    }
+    
+    func finish(with action: FinishAction?) {
+        if let delegate = delegate {
+            delegate.componentViewControllerDidFinish(with: action)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -219,7 +229,7 @@ extension ComponentViewController: InteractionHandler {
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             showComponentView(named: componentViewAction.name)
         } else if let finishAction = buttonItem.action as? FinishAction {
-            finish()
+            finish(with: finishAction)
         }
     }
 }
@@ -283,7 +293,7 @@ extension ComponentViewController {
                 break
                 
             case .finish:
-                finish()
+                finish(with: response.finishAction)
                 break
             }
             

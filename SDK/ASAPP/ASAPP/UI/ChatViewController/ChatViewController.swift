@@ -767,6 +767,15 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ComponentViewControllerDelegate {
     
+    func componentViewControllerDidFinish(with action: FinishAction?) {
+        if let classification = action?.classification {
+            quickRepliesActionSheet.disableCurrentButtons()
+            conversationManager.sendSRSQuery(classification)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
@@ -779,7 +788,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
                                  didTapAPIAction action: APIAction,
                                  with data: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        conversationManager.sendRequestForAPIAction(action, params: data, completion: { (response) in
+        conversationManager.sendRequestForAPIAction(action, data: data, completion: { (response) in
             completion(response)
         })
     }

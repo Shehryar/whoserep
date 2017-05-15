@@ -28,6 +28,8 @@ class APIActionResponse: NSObject {
 
     let type: APIActionResponseType
     
+    let finishAction: FinishAction?
+    
     let view: ComponentViewContainer?
     
     let error: APIActionError?
@@ -35,9 +37,11 @@ class APIActionResponse: NSObject {
     // MARK:- Init
     
     init(type: APIActionResponseType,
+         finishAction: FinishAction? = nil,
          view: ComponentViewContainer? = nil,
          error: APIActionError? = nil) {
         self.type = type
+        self.finishAction = finishAction
         self.view = view
         self.error = error
         super.init()
@@ -61,11 +65,12 @@ extension APIActionResponse {
         }
         let content = json[JSONKey.content.rawValue]
         
+        var finishAction: FinishAction?
         var view: ComponentViewContainer?
         var error: APIActionError?
         switch type {
         case .finish:
-            // No content
+            finishAction = FinishAction(content: content)
             break
             
         case .refreshView, .componentView:
@@ -77,6 +82,6 @@ extension APIActionResponse {
             break
         }
         
-        return APIActionResponse(type: type, view: view, error: error)
+        return APIActionResponse(type: type, finishAction: finishAction, view: view, error: error)
     }
 }

@@ -295,6 +295,16 @@ extension ComponentMessagePreviewViewController {
 
 extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate {
     
+    func componentViewControllerDidFinish(with action: FinishAction?) {
+        dismiss(animated: true) { [weak self] in
+            if let classification = action?.classification {
+                let alert = UIAlertController(title: "Classification: \(classification)", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
@@ -339,7 +349,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             UseCasePreviewAPI.getComponentViewContainer(fileInfo: nextFileInfo, completion: { (viewContainer, error) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
-                if let viewContainer = viewContainer {
+                if let _ = viewContainer {
                     if data?.bool(for: "refresh") == true {
                         type = .refreshView
                     } else {

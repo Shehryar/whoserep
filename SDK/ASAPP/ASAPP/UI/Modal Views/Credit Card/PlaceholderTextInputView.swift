@@ -375,7 +375,7 @@ class PlaceholderTextInputView: UIView {
         if let placeholderText = placeholderText {
             let color = (invalid ? placeholderColorError : placeholderColor) ?? placeholderColor
             
-            placeholderLabel.setAttributedText(placeholderText, textType: .detail1)
+            placeholderLabel.setAttributedText(placeholderText, textType: .detail1, color: color)
         } else {
             placeholderLabel.attributedText = nil
         }

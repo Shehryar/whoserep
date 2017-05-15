@@ -10,7 +10,26 @@ import UIKit
 
 class FinishAction: Action {
 
+    enum JSONKey: String {
+        case classification = "classification"
+    }
+    
+    // MARK: Properties
+    
     override var type: ActionType {
         return .finish
+    }
+    
+    let classification: String?
+    
+    // MARK: Init
+    
+    required init?(content: Any?) {
+        guard let content = content as? [String : Any] else {
+            return nil
+        }
+        self.classification = content.string(for: JSONKey.classification.rawValue)
+        
+        super.init(content: content)
     }
 }

@@ -19,10 +19,17 @@ class QuickRepliesListView: UIView {
         }
     }
     
+    var selectionDisabled: Bool = false {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     fileprivate(set) var selectedQuickReply: QuickReply?
     
     fileprivate(set) var quickReplies: [QuickReply]? {
         didSet {
+            selectionDisabled = false
             tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: false)
             updateGradientVisibility()
@@ -173,7 +180,7 @@ extension QuickRepliesListView: UITableViewDataSource {
             cell.label.text = nil
         }
         
-        if selectedQuickReply != nil {
+        if selectedQuickReply != nil || selectionDisabled {
             if selectedQuickReply == quickReplyForIndexPath(indexPath) {
                 cell.label.alpha = 1
             } else {
@@ -202,7 +209,7 @@ extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard selectedQuickReply == nil else { return }
+        guard selectedQuickReply == nil && !selectionDisabled else { return }
         
         if let quickReply = quickReplyForIndexPath(indexPath),
             let onQuickReplySelected = onQuickReplySelected {
@@ -262,6 +269,7 @@ extension QuickRepliesListView {
     
     func clearSelection() {
         selectedQuickReply = nil
+        selectionDisabled = false
         tableView.reloadData()
     }
     

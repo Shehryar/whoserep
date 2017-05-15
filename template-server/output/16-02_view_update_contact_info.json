@@ -47,7 +47,27 @@
                     "type": "label"
                   },
                   {
-                    "name": "addressLine1",
+                    "name": "altPhone",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "ALTERNATE PHONE"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "email",
+                    "style": {
+                      "marginTop": 24
+                    },
+                    "content": {
+                      "placeholder": "EMAIL ADDRESS"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "address1",
                     "style": {
                       "marginTop": 24
                     },
@@ -57,7 +77,7 @@
                     "type": "textInput"
                   },
                   {
-                    "name": "addressLine2",
+                    "name": "address2",
                     "style": {
                       "marginTop": 24
                     },

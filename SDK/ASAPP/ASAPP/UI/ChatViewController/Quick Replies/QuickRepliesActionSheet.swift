@@ -292,6 +292,14 @@ extension QuickRepliesActionSheet {
         }
     }
     
+    func disableCurrentButtons() {
+        guard let currentView = listViews.last else {
+            return
+        }
+        
+        currentView.selectionDisabled = true
+    }
+    
     func reloadButtons(for message: ChatMessage) {
         for listView in listViews {
             if listView.message?.metadata.eventId == message.metadata.eventId {
