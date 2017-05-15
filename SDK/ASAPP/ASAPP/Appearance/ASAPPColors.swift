@@ -40,6 +40,8 @@ public class ASAPPColors: NSObject {
     
     public var controlSecondary: UIColor = UIColor(red:0.898, green:0.906, blue:0.918, alpha:1)
     
+    public var controlSelectedBackground: UIColor = UIColor(red:0.953, green:0.957, blue:0.965, alpha:1.000)
+    
     // MARK:- Buttons
     
     public var textButtonPrimary: ASAPPButtonColors = ASAPPButtonColors(textColor: UIColor(red:0.125, green:0.714, blue:0.931, alpha:1))
@@ -84,6 +86,9 @@ public class ASAPPColors: NSObject {
     
     public var quickReplyButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.972, green:0.969, blue:0.968, alpha:1),
                                                                        textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0))
+    
+    public var quickReplyViewButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.953, green:0.957, blue:0.965, alpha:1),
+                                                                           textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0))
     
     public var chatInput: ASAPPInputColors = ASAPPInputColors(background: UIColor.white,
                                                               text: UIColor(red:0.283,  green:0.290,  blue:0.307, alpha:1),
