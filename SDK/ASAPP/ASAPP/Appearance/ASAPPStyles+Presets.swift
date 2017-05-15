@@ -105,8 +105,8 @@ public extension ASAPPStyles {
         
         // Colors
         
-        styles.colors.navBarBackground = boostOrange
-//        styles.colors.navBarBackground = UIColor.black
+//        styles.colors.navBarBackground = boostOrange
+        styles.colors.navBarBackground = UIColor.black
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
 
@@ -142,6 +142,8 @@ public extension ASAPPStyles {
         styles.colors.controlTint = boostOrange
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: boostOrange)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: boostOrange)
+        
+        styles.colors.helpButtonBackground = boostOrange
         
         return styles
    

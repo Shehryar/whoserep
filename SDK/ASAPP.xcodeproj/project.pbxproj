@@ -350,6 +350,7 @@
 		307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7E1E9E827500B8F10F /* TextAreaView.swift */; };
 		307DBE811E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */; };
 		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
+		308CFF441ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */; };
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
 		3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091BC1F1D933F3E00B0A7F9 /* ConversationFileStore.swift */; };
@@ -752,6 +753,7 @@
 		307DBE7E1E9E827500B8F10F /* TextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaView.swift; sourceTree = "<group>"; };
 		307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
+		308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+ASAPPAppearance.swift"; sourceTree = "<group>"; };
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3091BC1F1D933F3E00B0A7F9 /* ConversationFileStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationFileStore.swift; sourceTree = "<group>"; };
@@ -1448,6 +1450,7 @@
 				30131F9F1EAFB416009E7299 /* ASAPPInputColors.swift */,
 				30131FA11EAFB489009E7299 /* ASAPPNavBarButtonStyle.swift */,
 				30F6B4D81EC5331000ABA570 /* ButtonType.swift */,
+				308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */,
 				30131FA51EAFB603009E7299 /* UIButton+ASAPPAppearance.swift */,
 				30131FA31EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift */,
 				30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */,
@@ -2170,6 +2173,7 @@
 				302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */,
 				281C34841E7F092C001A2AA3 /* ComponentFactory.swift in Sources */,
 				3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */,
+				308CFF441ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift in Sources */,
 				306619271D9458F50092B4C5 /* UIImageView+WebCache.m in Sources */,
 				288085241E87FCA800240A5D /* TableView.swift in Sources */,
 				3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */,

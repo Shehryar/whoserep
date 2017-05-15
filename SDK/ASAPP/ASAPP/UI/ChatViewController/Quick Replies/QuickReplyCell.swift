@@ -76,7 +76,30 @@ class QuickReplyCell: UITableViewCell {
         commonInit()
     }
     
-    // MARK: Layout
+    // MARK: Selected / Highlighted
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        separatorBottomView.backgroundColor = separatorBottomColor
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        separatorBottomView.backgroundColor = separatorBottomColor
+    }
+    
+    // MARK: Content
+    
+    func updateImageView() {
+        imageView?.image = Images.asappImage(.iconExitLink)?.tinted(imageTintColor)
+    }
+}
+
+// MARK:- Layout
+
+extension QuickReplyCell {
     
     func labelSizeThatFits(size: CGSize) -> CGSize {
         let sideInset = contentInset.right + imageSize + 10
@@ -88,7 +111,7 @@ class QuickReplyCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         let labelSize = labelSizeThatFits(size: bounds.size)
         let labelLeft = floor((bounds.size.width - labelSize.width) / 2.0)
         let labelTop = floor((bounds.size.height - labelSize.height) / 2.0)
@@ -111,25 +134,5 @@ class QuickReplyCell: UITableViewCell {
         }
         
         return CGSize(width: size.width, height: contentHeight)
-    }
-    
-    // MARK: Selected / Highlighted
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        separatorBottomView.backgroundColor = separatorBottomColor
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        separatorBottomView.backgroundColor = separatorBottomColor
-    }
-    
-    // MARK: Content
-    
-    func updateImageView() {
-        imageView?.image = Images.asappImage(.iconExitLink)?.tinted(imageTintColor)
     }
 }

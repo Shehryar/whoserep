@@ -1166,18 +1166,9 @@ extension ChatViewController {
     
     func createImagePickerController(withSourceType sourceType: UIImagePickerControllerSourceType) -> UIImagePickerController {
         let imagePickerController = UIImagePickerController()
-        imagePickerController.allowsEditing = true
         
-        let barTintColor = ASAPP.styles.colors.backgroundSecondary
-        imagePickerController.navigationBar.shadowImage = nil
-        imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
-        imagePickerController.navigationBar.barTintColor = barTintColor
-        imagePickerController.navigationBar.tintColor = ASAPP.styles.colors.textSecondary
-        if barTintColor.isBright() {
-            imagePickerController.navigationBar.barStyle = .default
-        } else {
-            imagePickerController.navigationBar.barStyle = .black
-        }
+        imagePickerController.allowsEditing = true
+        imagePickerController.navigationBar.applyASAPPStyles()
         imagePickerController.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         return imagePickerController
