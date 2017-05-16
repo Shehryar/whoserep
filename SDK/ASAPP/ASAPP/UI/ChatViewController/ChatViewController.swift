@@ -1227,12 +1227,6 @@ extension ChatViewController {
     func reloadMessageEvents() {
         conversationManager.getEvents { [weak self] (fetchedEvents, error) in
             if let strongSelf = self, let fetchedEvents = fetchedEvents {
-                if let lastEvent = fetchedEvents.last,
-                    lastEvent.eventType == .switchChatToSRS,
-                    let classification = lastEvent.switchToSRSClassification {
-                    self?.conversationManager.sendSRSTreewalk(classification: classification)
-                }
-                
                 strongSelf.quickRepliesMessage = nil
                 strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)

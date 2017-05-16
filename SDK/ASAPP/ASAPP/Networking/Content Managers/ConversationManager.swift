@@ -196,10 +196,6 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
-        if event.eventType == .switchChatToSRS, let classification = event.switchToSRSClassification {
-            sendSRSTreewalk(classification: classification)
-        }
-        
         // Updated Event
         if (event.ephemeralType == .eventStatus) {
             if let message = event.chatMessage {
