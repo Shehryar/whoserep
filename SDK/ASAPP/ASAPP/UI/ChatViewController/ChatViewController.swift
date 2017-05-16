@@ -347,7 +347,7 @@ class ChatViewController: ASAPPViewController {
         updateNavigationActionButton()
         
         if isLiveChat {
-            clearquickRepliesActionSheet(true, completion: nil)
+            clearQuickRepliesActionSheet(true, completion: nil)
             chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
         } else {
             view.endEditing(true)
@@ -810,7 +810,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         view.endEditing(true)
         
         if visible {
-            clearquickRepliesActionSheet(true)
+            clearQuickRepliesActionSheet(true)
             keyboardObserver.deregisterForNotification()
         } else {
             keyboardObserver.registerForNotifications()
@@ -960,7 +960,7 @@ extension ChatViewController {
     
     // MARK: Hiding
     
-    func clearquickRepliesActionSheet(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+    func clearQuickRepliesActionSheet(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = nil
         
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: { [weak self] in
@@ -978,7 +978,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
         if isLiveChat {
             _ = chatInputView.becomeFirstResponder()
         }
-        clearquickRepliesActionSheet()
+        clearQuickRepliesActionSheet()
     }
     
     func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {
@@ -1018,7 +1018,7 @@ extension ChatViewController: ConversationManagerDelegate {
             if message.quickReplies != nil {
                 self?.didReceiveMessageWithQuickReplies(message)
             } else if message.metadata.isReply {
-                self?.clearquickRepliesActionSheet(true, completion: nil)
+                self?.clearQuickRepliesActionSheet(true, completion: nil)
             }
         }
         
@@ -1233,6 +1233,7 @@ extension ChatViewController {
                     self?.conversationManager.sendSRSTreewalk(classification: classification)
                 }
                 
+                strongSelf.quickRepliesMessage = nil
                 strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
