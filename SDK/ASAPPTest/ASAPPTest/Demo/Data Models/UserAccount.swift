@@ -130,12 +130,12 @@ extension UserAccount {
         case .rachelBoost1: return UserAccount(name: "Rachel B1",
                                               imageName: "user-rachel",
                                               company: "boost",
-                                              userToken: "demo_customer_1")
+                                              userToken: "test_customer_1")
             
         case .rachelBoost2: return UserAccount(name: "Rachel B2",
                                               imageName: "user-rachel",
                                               company: "boost",
-                                              userToken: "demo_customer_2")
+                                              userToken: "test_customer_2")
         }
     }
     

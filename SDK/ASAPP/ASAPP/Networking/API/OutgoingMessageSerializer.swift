@@ -153,10 +153,7 @@ extension OutgoingMessageSerializer {
             ]
             
             if ASAPP.isInternalBuild {
-                if user.userIdentifier.isLikelyASAPPPhoneNumber ||
-                    user.userIdentifier == "demo_customer_1" ||
-                    user.userIdentifier == "demo_customer_2"  {
-                    
+                if user.userIdentifier.isLikelyASAPPPhoneNumber {
                     params["IdentifierType"] = "PHONE"
                 }
             }
