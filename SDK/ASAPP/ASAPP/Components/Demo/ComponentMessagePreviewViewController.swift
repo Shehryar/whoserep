@@ -16,6 +16,13 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         }
     }
     
+    fileprivate(set) var classification: String?
+    
+    func setMessage(_ message: ChatMessage, with classification: String) {
+        self.classification = classification
+        addMessage(message)
+    }
+    
     // MARK:- Private Properties
     
     fileprivate let messagesView = ChatMessagesView()
@@ -25,8 +32,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     public override var canBecomeFirstResponder: Bool {
         return true
     }
-    
-    var shouldLoad = false
     
     // MARK:- Initialization
     
@@ -38,6 +43,8 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         
         quickRepliesView.clipsToBounds = true
         quickRepliesView.delegate = self
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentMessagePreviewViewController.refresh))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,6 +127,19 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     }
     
     func refresh() {
+        if let classification = classification {
+            clear()
+            UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (message, viewContainer, err) in
+                if let message = message {
+                    self?.addMessage(message)
+                } else {
+                    self?.showAlert(with: "Failed to get message: \(err ?? "empty error")")
+                }
+            })
+            return
+        }
+        
+        
         guard let fileInfo = fileInfo else {
             return
         }
@@ -162,6 +182,20 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         if motion == .motionShake {
             refresh()
         }
+    }
+    
+    // MARK: Instance Methods
+    
+    func showAlert(title: String? = nil, with message: String?) {
+        let alert = UIAlertController(title: title ?? "Oops!",
+                                      message: message ?? "You messed up, bro",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -308,22 +342,22 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
-        
-        shouldLoad = true
-        if shouldLoad {
+        if let fileInfo = fileInfo {
             let loadFileInfo = DemoComponentFileInfo(fileName: viewName,
-                                                     fileType: fileInfo?.fileType ?? .useCase)
+                                                     fileType: fileInfo.fileType)
             
             UseCasePreviewAPI.getComponentViewContainer(fileInfo: loadFileInfo, completion: { (componentViewContainer, err) in
                 completion(componentViewContainer, err?.localizedDescription)
+            })
+        } else if let _ = classification {
+            UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
+                completion(componentViewContainer, err)
             })
         } else {
             Dispatcher.delay(1000) {
                 completion(nil, "whoops!")
             }
         }
-        
-//        shouldLoad = !shouldLoad
     }
     
     func componentViewController(_ viewController: ComponentViewController,

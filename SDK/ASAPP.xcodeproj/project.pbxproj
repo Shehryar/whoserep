@@ -373,6 +373,7 @@
 		30B3FE291ECB661700D43068 /* iconLoginKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE261ECB661700D43068 /* iconLoginKey.png */; };
 		30B3FE2A1ECB661700D43068 /* iconLoginKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */; };
 		30B3FE2B1ECB661700D43068 /* iconLoginKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */; };
+		30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
 		30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87871DC00C350008042D /* bill-autopay-scheduled.json */; };
 		30BD878C1DC00C350008042D /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87881DC00C350008042D /* bill-credit.json */; };
@@ -780,6 +781,7 @@
 		30B3FE261ECB661700D43068 /* iconLoginKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLoginKey.png; sourceTree = "<group>"; };
 		30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@2x.png"; sourceTree = "<group>"; };
 		30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@3x.png"; sourceTree = "<group>"; };
+		30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMTextInputCell.swift; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		30BD87871DC00C350008042D /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
 		30BD87881DC00C350008042D /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
@@ -876,10 +878,11 @@
 		281C346C1E7F092C001A2AA3 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				30B3FE2E1ECB9CF500D43068 /* Cells */,
 				30F6B4C51EC0E3B100ABA570 /* RefreshableTableViewController.swift */,
+				30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */,
 				30F6B4C31EC0E00900ABA570 /* ComponentUIPreviewerViewController.swift */,
 				30F6B4BD1EBCE6C100ABA570 /* UseCasePreviewViewController.swift */,
-				30F6B4BF1EBCE7D700ABA570 /* UseCasePreviewAPI.swift */,
 				3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
 				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
@@ -1697,6 +1700,14 @@
 			path = "Supplementary Views";
 			sourceTree = "<group>";
 		};
+		30B3FE2E1ECB9CF500D43068 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		30CF55B61D7750A000C7DB6D /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -2159,6 +2170,7 @@
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
+				30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */,

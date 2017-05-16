@@ -21,6 +21,14 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     var json: [String : Any]?
     
+    fileprivate(set) var classification: String?
+    
+    func setComponentViewContainer(_ viewContainer: ComponentViewContainer, with classification: String) {
+        self.componentViewContainer = viewContainer
+        self.classification = classification
+        reloadView(with: viewContainer)
+    }
+    
     // MARK: Private Properties
     
     fileprivate(set) var contentView: UIView? {
@@ -57,6 +65,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
+        controlsBar.clipsToBounds = true
         controlsBar.barStyle = .default
         controlsBar.barTintColor = UIColor.white
         controlsBar.items = [
@@ -108,7 +117,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         }
         
         let top: CGFloat = 0
-        let controlBarHeight: CGFloat = ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
+        let controlBarHeight: CGFloat = 0//ceil(controlsBar.sizeThatFits(CGSize(width: view.bounds.width, height: 0)).height)
         let controlBarTop: CGFloat = view.bounds.height - controlBarHeight
         controlsBar.frame = CGRect(x: 0, y: controlBarTop, width: view.bounds.width, height: controlBarHeight)
         
@@ -132,8 +141,54 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     // MARK: Content
     
+    func reloadView(with componentViewContainer: ComponentViewContainer) {
+        var componentType = DemoComponentType.view
+        if let fileInfo = fileInfo {
+            componentType = fileInfo.componentType
+        } else if let classification = classification {
+            if classification.contains("_card") {
+                componentType = .card
+            }
+        }
+        
+        switch componentType {
+        case .card:
+            let cardView = ComponentCardView()
+            cardView.component = componentViewContainer.root
+            cardView.interactionHandler = self
+            contentView = cardView
+            view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
+            break
+            
+        case .view:
+            var componentView = componentViewContainer.root.createView()
+            componentView?.interactionHandler = self
+            contentView = componentView?.view
+            view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+            break
+            
+        case .message:
+            
+            break
+        }
+        
+        view.setNeedsLayout()
+    }
+    
     func refresh() {
         becomeFirstResponder()
+        
+        if let classification = classification {
+            UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (_, viewContainer, err) in
+                if let viewContainer = viewContainer {
+                    self?.componentViewContainer = viewContainer
+                    self?.reloadView(with: viewContainer)
+                } else {
+                    self?.showAlert(with: err ?? "Unable to refresh view")
+                }
+            })
+            return
+        }
         
         guard let fileInfo = fileInfo else {
             return
@@ -148,29 +203,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
                 let strongSelf = self else {
                     return
             }
-            
-            switch fileInfo.componentType {
-            case .card:
-                let cardView = ComponentCardView()
-                cardView.component = componentViewContainer.root
-                cardView.interactionHandler = self
-                self?.contentView = cardView
-                self?.view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-                break
-                
-            case .view:
-                var componentView = componentViewContainer.root.createView()
-                componentView?.interactionHandler = strongSelf
-                self?.contentView = componentView?.view
-                self?.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-                break
-                
-            case .message:
-                
-                break
-            }
-            
-            self?.view.setNeedsLayout()
+            strongSelf.reloadView(with: componentViewContainer)
         }
 
         UseCasePreviewAPI.getComponentViewContainer(fileInfo: fileInfo, completion: completion)
@@ -208,6 +241,22 @@ public class ComponentPreviewViewController: ASAPPViewController {
         if motion == .motionShake {
             refresh()
         }
+    }
+    
+    // MARK: Instance Methods
+    
+    // MARK: Instance Methods
+    
+    func showAlert(title: String? = nil, with message: String?) {
+        let alert = UIAlertController(title: title ?? "Oops!",
+                                      message: message ?? "You messed up, bro",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -252,6 +301,7 @@ extension ComponentPreviewViewController {
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
         let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
@@ -263,3 +313,54 @@ extension ComponentPreviewViewController {
         present(alert, animated: true, completion: nil)
     }
 }
+
+extension ComponentPreviewViewController: ComponentViewControllerDelegate {
+    
+    func componentViewControllerDidFinish(with action: FinishAction?) {
+        dismiss(animated: true) { [weak self] in
+            if let classification = action?.classification {
+                let alert = UIAlertController(title: "Classification: \(classification)", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func componentViewController(_ viweController: ComponentViewController,
+                                 fetchContentForViewNamed viewName: String,
+                                 completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
+        
+        if let fileInfo = fileInfo {
+            let loadFileInfo = DemoComponentFileInfo(fileName: viewName,
+                                                     fileType: fileInfo.fileType)
+            
+            UseCasePreviewAPI.getComponentViewContainer(fileInfo: loadFileInfo, completion: { (componentViewContainer, err) in
+                completion(componentViewContainer, err?.localizedDescription)
+            })
+        } else if let _ = classification {
+            UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
+                completion(componentViewContainer, err)
+            })
+        } else {
+            Dispatcher.delay(1000) {
+                completion(nil, "whoops!")
+            }
+        }
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapAPIAction action: APIAction,
+                                 with data: [String : Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        let error = APIActionError(code: 500,
+                                   userMessage: "Sorry, this feature is not supported in this view",
+                                   debugMessage: "",
+                                   invalidInputs: nil)
+        
+        completion(APIActionResponse(type: .error,
+                                     view: nil,
+                                     error: error))
+        
+    }
+}
+

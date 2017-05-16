@@ -28,7 +28,7 @@ public class UseCasePreviewViewController: RefreshableTableViewController {
     
     override func refresh() {
         becomeFirstResponder()
-        
+                
         if filesType == .useCase {
             UseCasePreviewAPI.getUseCases { [weak self] (useCases, error) in
                 if let useCases = useCases {
