@@ -44,7 +44,10 @@ class HomeViewController: BaseViewController {
             return self?.appSettings.getAuthData() ?? ["" : ""]
         }
         self.contextBlock = { [weak self] in
-            return self?.appSettings.getContext() ?? ["" : ""]
+            guard let strongSelf = self else {
+                return ["" : ""]
+            }
+            return strongSelf.appSettings.getContext(for: strongSelf.currentAccount.userToken)
         }
         self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
             guard let blockSelf = self else { return }
