@@ -73,6 +73,15 @@ extension ConversationManager {
         
         sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }
+    
+    func sendSRSTreewalk(_ query: String, isRequestFromPrediction: Bool = false) {
+        let path = "srs/SendTextMessageAndHierAndTreewalk"
+        let params = [
+            "Classification" : query
+        ]
+        
+        sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
+    }
 }
 
 // MARK:- Action Requests
@@ -118,7 +127,7 @@ extension ConversationManager {
     func getComponentView(named name: String, completion: @escaping ((ComponentViewContainer?) -> Void)) {
         let path = "srs/GetComponentView"
         let params = [
-            "Classification" : name
+            "ComponentView" : name
         ]
         
         sendSRSRequest(path: path,

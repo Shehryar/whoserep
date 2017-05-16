@@ -772,7 +772,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewControllerDidFinish(with action: FinishAction?) {
         if let classification = action?.classification {
             quickRepliesActionSheet.disableCurrentButtons()
-            conversationManager.sendSRSQuery(classification)
+            conversationManager.sendSRSTreewalk(classification)
         }
         
         dismiss(animated: true, completion: nil)

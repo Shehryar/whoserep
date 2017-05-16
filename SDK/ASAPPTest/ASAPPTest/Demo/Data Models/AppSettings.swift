@@ -189,7 +189,8 @@ extension AppSettings {
     func getContext() -> [String : Any] {
         return [
             "fake_context_key_1" : "fake_context_value_1",
-            "fake_context_key_2" : "fake_context_value_2"
+            "fake_context_key_2" : "fake_context_value_2",
+            "accountId" : "test"
         ]
     }
     
