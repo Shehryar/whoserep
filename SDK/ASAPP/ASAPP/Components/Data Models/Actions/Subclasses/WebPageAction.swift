@@ -22,6 +22,10 @@ class WebPageAction: Action {
         return .web
     }
     
+    override var willExitASAPP: Bool {
+        return true
+    }
+    
     let url: URL
     
     // MARK: Init

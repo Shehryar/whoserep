@@ -164,9 +164,20 @@ extension QuickRepliesListView: UITableViewDataSource {
         cell.separatorBottomColor = ASAPP.styles.colors.separatorSecondary
         
         if let quickReply = quickReplyForIndexPath(indexPath) {
-            cell.label.setAttributedText(quickReply.title,
-                                         textType: .body,
-                                         color: ASAPP.styles.colors.quickReplyButton.textNormal)
+            
+            if quickReply.action.type == .componentView {
+                cell.backgroundColor = ASAPP.styles.colors.quickReplyViewButton.backgroundNormal
+                cell.label.setAttributedText(quickReply.title,
+                                             textType: .bodyBold,
+                                             color: ASAPP.styles.colors.quickReplyButton.textNormal)
+            } else {
+                cell.backgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundNormal
+                cell.label.setAttributedText(quickReply.title,
+                                             textType: .body,
+                                             color: ASAPP.styles.colors.quickReplyButton.textNormal)
+            }
+            
+            
             cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
             
             if quickReply.action.willExitASAPP {
