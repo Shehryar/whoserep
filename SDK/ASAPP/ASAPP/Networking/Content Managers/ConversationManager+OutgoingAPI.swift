@@ -74,11 +74,14 @@ extension ConversationManager {
         sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }
     
-    func sendSRSTreewalk(classification: String, isRequestFromPrediction: Bool = false) {
+    func sendSRSTreewalk(classification: String, text: String? = nil, isRequestFromPrediction: Bool = false) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
-        let params = [
+        var params = [
             "Classification" : classification
         ]
+        if let text = text {
+            params["Text"] = text
+        }
         
         sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }

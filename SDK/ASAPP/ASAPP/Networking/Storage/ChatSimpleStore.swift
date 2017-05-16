@@ -107,11 +107,10 @@ extension ChatSimpleStore {
             return nil
         }
         
-        guard mostRecentReplyMessageIfHasQuickReplies(fromEvents: events) != nil else {
+        guard let mostRecent = mostRecentReplyMessageIfHasQuickReplies(fromEvents: events) else {
             return nil
         }
         
-
         let eventIdsSet = Set(eventIds)
         
         var quickReplyMessages = [ChatMessage]()
@@ -129,6 +128,13 @@ extension ChatSimpleStore {
             }
         }
         quickReplyMessages = quickReplyMessages.reversed()
+        
+        if !quickReplyMessages.contains(mostRecent) {
+            // The saved eventIds are not consistent... Most likely a change from another client
+            // TODO: Look at the parentEventLogSeq
+            return [mostRecent]
+        }
+        
         
         return quickReplyMessages.count > 0 ? quickReplyMessages : nil
     }

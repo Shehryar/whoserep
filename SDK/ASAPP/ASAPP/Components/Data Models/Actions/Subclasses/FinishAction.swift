@@ -12,6 +12,7 @@ class FinishAction: Action {
 
     enum JSONKey: String {
         case classification = "classification"
+        case text = "text"
     }
     
     // MARK: Properties
@@ -22,6 +23,8 @@ class FinishAction: Action {
     
     let classification: String?
     
+    let text: String?
+    
     // MARK: Init
     
     required init?(content: Any?) {
@@ -29,6 +32,7 @@ class FinishAction: Action {
             return nil
         }
         self.classification = content.string(for: JSONKey.classification.rawValue)
+        self.text = content.string(for: JSONKey.text.rawValue)
         
         super.init(content: content)
     }

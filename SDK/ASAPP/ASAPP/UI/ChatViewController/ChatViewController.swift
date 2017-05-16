@@ -772,7 +772,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewControllerDidFinish(with action: FinishAction?) {
         if let classification = action?.classification {
             quickRepliesActionSheet.disableCurrentButtons()
-            conversationManager.sendSRSTreewalk(classification: classification)
+            conversationManager.sendSRSTreewalk(classification: classification, text: action?.text)
         }
         
         dismiss(animated: true, completion: nil)
@@ -1233,6 +1233,7 @@ extension ChatViewController {
                     self?.conversationManager.sendSRSTreewalk(classification: classification)
                 }
                 
+                strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
                 
