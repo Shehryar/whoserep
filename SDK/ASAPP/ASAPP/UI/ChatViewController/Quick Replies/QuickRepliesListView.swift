@@ -166,12 +166,10 @@ extension QuickRepliesListView: UITableViewDataSource {
         if let quickReply = quickReplyForIndexPath(indexPath) {
             
             if quickReply.action.type == .componentView {
-                cell.backgroundColor = ASAPP.styles.colors.quickReplyViewButton.backgroundNormal
                 cell.label.setAttributedText(quickReply.title,
                                              textType: .bodyBold,
                                              color: ASAPP.styles.colors.quickReplyButton.textNormal)
             } else {
-                cell.backgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundNormal
                 cell.label.setAttributedText(quickReply.title,
                                              textType: .body,
                                              color: ASAPP.styles.colors.quickReplyButton.textNormal)

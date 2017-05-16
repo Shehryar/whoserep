@@ -40,6 +40,9 @@ extension Event {
         
         // Typing Status
         case isTyping = "IsTyping"
+        
+        //  SwitchChatToSRS
+        case intent = "Intent"
     }
 }
 
@@ -87,6 +90,8 @@ extension Event {
         
         if event.ephemeralType == .typingStatus {
             event.typingStatus = getTypingStatus(from: eventJSON)
+        } else if event.eventType == .switchChatToSRS {
+            event.switchToSRSClassification = getSwitchChatToSRSIntent(from: eventJSON)
         } else {
             event.chatMessage = event.makeChatMessage(from: eventJSON)
         }
@@ -132,6 +137,13 @@ extension Event {
                 return nil
         }
         return typingStatus
+    }
+    
+    fileprivate class func getSwitchChatToSRSIntent(from json: Any?) -> String? {
+        guard let json = json as? [String : Any] else {
+            return nil
+        }
+        return json.string(for: JSONKey.intent.rawValue)
     }
     
     // MARK: Instance Methods

@@ -772,7 +772,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewControllerDidFinish(with action: FinishAction?) {
         if let classification = action?.classification {
             quickRepliesActionSheet.disableCurrentButtons()
-            conversationManager.sendSRSTreewalk(classification)
+            conversationManager.sendSRSTreewalk(classification: classification)
         }
         
         dismiss(animated: true, completion: nil)
@@ -1227,6 +1227,12 @@ extension ChatViewController {
     func reloadMessageEvents() {
         conversationManager.getEvents { [weak self] (fetchedEvents, error) in
             if let strongSelf = self, let fetchedEvents = fetchedEvents {
+                if let lastEvent = fetchedEvents.last,
+                    lastEvent.eventType == .switchChatToSRS,
+                    let classification = lastEvent.switchToSRSClassification {
+                    self?.conversationManager.sendSRSTreewalk(classification: classification)
+                }
+                
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
                 
