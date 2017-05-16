@@ -83,7 +83,7 @@ extension ChatMessage {
         let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
         
         var quickRepliesDictionary: [String : [QuickReply]]? = [String : [QuickReply]]()
-        if let quickRepliesJSONDict = json[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
+        if let quickRepliesJSONDict = messageJSON[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
             for (pageId, buttonsJSON) in quickRepliesJSONDict {
                 var quickReplies = [QuickReply]()
                 for buttonJSON in buttonsJSON {

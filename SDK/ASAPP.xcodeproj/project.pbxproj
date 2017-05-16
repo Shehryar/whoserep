@@ -370,6 +370,9 @@
 		30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */; };
 		30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */; };
 		30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */; };
+		30B3FE291ECB661700D43068 /* iconLoginKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE261ECB661700D43068 /* iconLoginKey.png */; };
+		30B3FE2A1ECB661700D43068 /* iconLoginKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */; };
+		30B3FE2B1ECB661700D43068 /* iconLoginKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
 		30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87871DC00C350008042D /* bill-autopay-scheduled.json */; };
 		30BD878C1DC00C350008042D /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87881DC00C350008042D /* bill-credit.json */; };
@@ -774,6 +777,9 @@
 		30A4BB241D52402800795BA7 /* ChatMessagesTimeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderView.swift; sourceTree = "<group>"; };
 		30AE79F81D4BC5E900651F09 /* ChatMessagesViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSource.swift; sourceTree = "<group>"; };
 		30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureScreenCoverView.swift; sourceTree = "<group>"; };
+		30B3FE261ECB661700D43068 /* iconLoginKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconLoginKey.png; sourceTree = "<group>"; };
+		30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@2x.png"; sourceTree = "<group>"; };
+		30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@3x.png"; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		30BD87871DC00C350008042D /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
 		30BD87881DC00C350008042D /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
@@ -1507,6 +1513,9 @@
 				3046CE5A1E8AF0C90022AEE5 /* iconCheckmarkThin.png */,
 				3046CE5B1E8AF0C90022AEE5 /* iconCheckmarkThin@2x.png */,
 				3046CE5C1E8AF0C90022AEE5 /* iconCheckmarkThin@3x.png */,
+				30B3FE261ECB661700D43068 /* iconLoginKey.png */,
+				30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */,
+				30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */,
 				3046CEB41E8AF7D60022AEE5 /* iconPaperclip@2x.png */,
 				3046CEB51E8AF7D60022AEE5 /* iconPaperclip3x.png */,
 				3046CE631E8AF0C90022AEE5 /* iconPower.png */,
@@ -1907,6 +1916,7 @@
 				3046CE8D1E8AF0C90022AEE5 /* iconTrash.png in Resources */,
 				285F7B051DAB3409008C2EF6 /* cancel-appointment-confirmation.json in Resources */,
 				3025D9BF1E52803C004149D7 /* icon-arrow-left@2x.png in Resources */,
+				30B3FE291ECB661700D43068 /* iconLoginKey.png in Resources */,
 				3046CE761E8AF0C90022AEE5 /* iconAlertError@2x.png in Resources */,
 				3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */,
 				3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */,
@@ -1948,6 +1958,7 @@
 				28C008931E5E8AE300260883 /* wow-1.wav in Resources */,
 				285F7AD41DA9A526008C2EF6 /* SprintSans-Regular.ttf in Resources */,
 				3046CE951E8AF0C90022AEE5 /* iconUserMinus@3x.png in Resources */,
+				30B3FE2A1ECB661700D43068 /* iconLoginKey@2x.png in Resources */,
 				3046CEB11E8AF7300022AEE5 /* iconXThick.png in Resources */,
 				301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */,
 				3025D9AE1E527FDB004149D7 /* icon-credit-card@3x.png in Resources */,
@@ -1991,6 +2002,7 @@
 				28AEC0B81D888FFD00139C7D /* map-equipment@3x.png in Resources */,
 				28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */,
 				302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */,
+				30B3FE2B1ECB661700D43068 /* iconLoginKey@3x.png in Resources */,
 				285F7B071DAB3409008C2EF6 /* device-restart.json in Resources */,
 				302268521D80690500EC4FB1 /* icon-x-small.png in Resources */,
 				3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */,

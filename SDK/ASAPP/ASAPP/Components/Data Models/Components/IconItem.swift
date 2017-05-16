@@ -25,6 +25,7 @@ class IconItem: Component {
         case checkmarkCircle = "checkmarkCircle"
         case checkmarkThick = "checkmarkThick"
         case checkmarkThin = "checkmarkThin"
+        case loginKey = "loginKey"
         case power = "power"
         case trash = "trash"
         case user = "user"
@@ -40,6 +41,7 @@ class IconItem: Component {
             .checkmarkCircle: .checkmarkCircle,
             .checkmarkThick: .checkmarkThick,
             .checkmarkThin: .checkmarkThin,
+            .loginKey: .loginKey,
             .power: .power,
             .trash: .trash,
             .user: .user,
