@@ -302,8 +302,17 @@ extension HomeViewController {
 extension HomeViewController {
     
     func showSpeechToTextViewController() {
-        let vc = SpeechToTextViewController(appSettings: appSettings)
-        navigationController?.pushViewController(vc, animated: true)
+        
+        if #available(iOS 10.0, *) {
+            let vc = SpeechToTextViewController(appSettings: appSettings)
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Only Available on iOS 10",
+                                          message: "You must update your operating system to use this feature.",
+                                          preferredStyle: .alert)
+            present(alert, animated: true, completion: nil)
+        }
+        
     }
     
     func showBillDetails() {
