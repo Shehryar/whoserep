@@ -1,0 +1,180 @@
+{
+  "text": "Please take a moment to review your requested change. If this looks good to you, let us know by confirming. Remember that once this is confirmed you cannot switch back to your old phone number.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": 0
+        },
+        "content": {
+          "items": [
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": "12 16",
+                      "textType": "bodyBold",
+                      "textAlign": "center",
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
+                    },
+                    "content": {
+                      "text": "Current Number"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "padding": "12 16",
+                      "textType": "bodyBold",
+                      "textAlign": "center",
+                      "align": "fill",
+                      "gravity": "middle",
+                      "weight": 1
+                    },
+                    "content": {
+                      "text": "New Number"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "align": "fill"
+              },
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "+1 (555) 555-5555"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 8
+                          },
+                          "content": {
+                            "text": "Kansas City, KS"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "separatorStyle": "vertical"
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "padding": 16,
+                      "weight": 1,
+                      "align": "fill",
+                      "gravity": "fill"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "+1 (321) 867-5309"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textAlign": "center",
+                            "align": "center",
+                            "marginTop": 8
+                          },
+                          "content": {
+                            "text": "Kansas City, KS"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          ]
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Confirm number change",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "14-09_message_number_changed"
+          }
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}

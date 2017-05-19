@@ -1,0 +1,25 @@
+{
+  "text": "There are a variety of individual, family and daily plans you can choose from. Which type of plan would you like to see?",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Individual Plans",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-02_message_individual_plans"
+          }
+        }
+      },
+      {
+        "title": "Family Plans",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-02_message_individual_plans"
+          }
+        }
+      }
+    ]
+  }
+}

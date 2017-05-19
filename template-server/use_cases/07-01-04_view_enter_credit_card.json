@@ -1,0 +1,21 @@
+{
+  "type": "view",
+  "template": "enter_credit_card",
+  "data": {
+    "title": "Enter Card Details",
+    "root": {
+      "submitButtonTitle": "SUBMIT",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/updateCreditCard",
+        "data": {
+          "text": "Visa **********1235",
+          "classification": "07-01-06_message_select_amount"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter Card Details"
+      }
+    }
+  }
+}

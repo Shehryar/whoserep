@@ -1,0 +1,82 @@
+{
+  "text": "Alright then, have a great day!",
+  "quickReplies": [
+    {
+      "title": "Leave Feedback",
+      "action": {
+        "type": "componentView",
+        "content": {
+          "name": "0_view_feedback",
+          "displayStyle": "inset"
+        }
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "style": {
+          "padding": "20"
+        },
+        "content": {
+          "orientation": "horizontal",
+          "items": [
+            {
+              "type": "icon",
+              "content": {
+                "icon": "userMinus"
+              },
+              "style": {
+                "gravity": "top",
+                "height": 32,
+                "width": 32,
+                "marginRight": 20
+              }
+            },
+            {
+              "type": "stackView",
+              "style": {
+                "gravity": "top"
+              },
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Michael ended the chat"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "marginBottom": 6
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "You are no longer connected to an agent."
+                    },
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 12
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "March 31, 2017"
+                    },
+                    "style": {
+                      "textType": "detail2"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

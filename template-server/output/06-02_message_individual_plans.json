@@ -1,0 +1,674 @@
+{
+  "text": "Ok, here are the available plans. Additional lines can be added to each plan for $30/mo. Let us know if you’re interested in moving forward with one.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": 0
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "unlimited_2gb",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": "15 20"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "Unlimited 2GB"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "align": "right",
+                            "textAlign": "right",
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "$35/mo."
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "4G LTE DATA"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "2GB"
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "TEXT"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "TALK"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "align": "fill",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "06-04_view_individual_plans"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "unlimited_3gb",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": "15 20"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "Unlimited 3GB"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "align": "right",
+                            "textAlign": "right",
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "$40/mo."
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "4G LTE DATA"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "3GB"
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "TEXT"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Talk"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "align": "fill",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "06-04_view_individual_plans"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ]
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "borderWidth": 1,
+                "cornerRadius": 6,
+                "backgroundColor": "#ffffff"
+              },
+              "value": "unlimited",
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": "15 20"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "Unlimited"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "align": "right",
+                            "textAlign": "right",
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "$50/mo."
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "4G LTE DATA"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "TEXT"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "separatorStyle": "vertical"
+                          },
+                          "type": "separator"
+                        },
+                        {
+                          "style": {
+                            "weight": 1,
+                            "padding": "16 16"
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "subheader",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Talk"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "header1",
+                                  "align": "center"
+                                },
+                                "content": {
+                                  "text": "Unl."
+                                },
+                                "type": "label"
+                              }
+                            ]
+                          },
+                          "type": "stackView"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "fill"
+                    },
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "align": "fill",
+                      "textAlign": "center"
+                    },
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "06-04_view_individual_plans"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "itemSpacing": 10,
+          "visibleItemCount": 1,
+          "pageControl": {
+            "content": {},
+            "type": "pageControl"
+          },
+          "pagingEnabled": true
+        },
+        "type": "carouselView"
+      }
+    },
+    "requiresNoContainer": true,
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "unlimited_2gb": [
+      {
+        "title": "Switch to the Unlimited 2GB plan",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        }
+      },
+      {
+        "title": "I have more questions",
+        "action": {
+          "type": "web",
+          "content": {
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      }
+    ],
+    "unlimited_3gb": [
+      {
+        "title": "Switch to the Unlimited 3GB plan",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        }
+      },
+      {
+        "title": "I have more questions",
+        "action": {
+          "type": "web",
+          "content": {
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      }
+    ],
+    "unlimited": [
+      {
+        "title": "Switch to the Unlimited plan",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        }
+      },
+      {
+        "title": "I have more questions",
+        "action": {
+          "type": "web",
+          "content": {
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      }
+    ]
+  }
+}

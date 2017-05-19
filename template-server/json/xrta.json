@@ -1,0 +1,88 @@
+{
+  "text": "Let's try these options to fix the issue. Did any of these work?",
+  "quickReplies": [
+    {
+      "title": "That worked!",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "_XRTA_Success"
+        }
+      }
+    },
+    {
+      "title": "I am still having issues",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "_XRTA_Fail"
+        }
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {
+        "label": {
+          "marginBottom": 16
+        }
+      },
+      "body": {
+        "type": "stackView",
+        "style": {
+          "padding": "20"
+        },
+        "content": {
+          "items": [
+            {
+              "type": "label",
+              "class": "label",
+              "content": {
+                "text": "1. Verify that there are no earphones or headphones connected to your TV or any other connected device."
+              }
+            },
+            {
+              "type": "label",
+              "class": "label",
+              "content": {
+                "text": "2. Verify that none of your connected devices are muted."
+              }
+            },
+            {
+              "type": "label",
+              "class": "label",
+              "content": {
+                "text": "3. Make sure the video device is connected directly to the TV."
+              }
+            },
+            {
+              "type": "label",
+              "class": "label",
+              "content": {
+                "text": "4. Check to make sure you are using the correct audio input."
+              }
+            },
+            {
+              "type": "label",
+              "class": "label",
+              "content": {
+                "text": "5. On the video device remote, press mute to reset the audio."
+              }
+            },
+            {
+              "type": "label",
+              "class": "label",
+              "style": {
+                "marginBottom": 0
+              },
+              "content": {
+                "text": "6. Reset the device by unplugging the device for 30 seconds, then plug it back in."
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

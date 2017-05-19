@@ -1,0 +1,17 @@
+{
+  "text": "Ok, please enter an amount below between $10 and $99 that you'd like us to automatically add whenever your account balance drops below $5.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter amount",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "04-1-4_view_enter_amount",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

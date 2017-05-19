@@ -1,0 +1,27 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Alright then, have a great day!",
+    "attachment": {
+      "icon": "userMinus",
+      "iconSize": "large",
+      "boldText": "Michael ended that chat",
+      "bodyText": "You are no longer connected to an agent",
+      "detailText": "Jan 22, 2017 - 4:15PM",
+      "style": {
+        "padding": 20
+      }
+    },
+    "quickReplies": [
+      {
+        "title": "How did we do?",
+        "action": {
+          "type": "componentView",
+          "name": "00-2_view_leave_feedback",
+          "displayStyle": "inset"
+        }
+      }
+    ]
+  }
+}

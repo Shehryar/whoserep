@@ -1,0 +1,31 @@
+{
+  "type": "view",
+  "template": "submit_text_inputs_view",
+  "data": {
+    "root": {
+      "submitButtonTitle": "SAVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/updateContactInfo",
+        "data": {
+          "text": "XXX00XX00XX00",
+          "classification": "08-08_message_enter_iccid"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter Unique ID",
+        "bodyText": "You can use any of the following numbers as your unique ID: Serial Number, IMEI, or MEID.",
+        "textInputs": [
+          {
+            "name": "id",
+            "placeholder": "ENTER SERIAL NUMBER / IMEI / MEID"
+          },
+          {
+            "name": "idConfirmation",
+            "placeholder": "CONFIRM SERIAL NUMBER / IMEI / MEID"
+          }
+        ]
+      }
+    }
+  }
+}

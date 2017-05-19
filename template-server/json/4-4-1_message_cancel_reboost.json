@@ -1,0 +1,22 @@
+{
+  "text": "Are you sure you'd like to remove auto re-boost from your account?",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "Yes, cancel auto re-boost",
+      "value": {
+        "type": "AID",
+        "content": "4-4-2_message_cancel_reboost_confirmation"
+      }
+    },
+    {
+      "type": "button",
+      "label": "Nevermind",
+      "value": {
+        "type": "AID",
+        "content": "4-4-0_message_opted_out_of_cancel"
+      }
+    }
+  ],
+  "attachment": {}
+}

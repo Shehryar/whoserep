@@ -1,0 +1,231 @@
+{
+  "title": "Carousel",
+  "styles": {
+    "page": {
+      "padding": "20 24"
+    },
+    "titleBlock": {
+      "marginBottom": 36
+    },
+    "titleLeft": {
+      "textType": "header2",
+      "marginRight": 12,
+      "weight": 1
+    },
+    "titleRight": {
+      "textType": "header2",
+      "textAlign": "right",
+      "weight": 0
+    },
+    "bodyText": {
+      "textType": "body"
+    }
+  },
+  "body": {
+    "type": "carouselView",
+    "style": {
+      "padding": 0,
+      "gravity": "fill"
+    },
+    "content": {
+      "pagingEnabled": true,
+      "cardDisplayCount": 1,
+      "cardSpacing": 0,
+      "pageControl": {
+        "type": "pageControl"
+      },
+      "cards": [
+        {
+          "type": "stackView",
+          "class": "page",
+          "content": {
+            "items": [
+              {
+                "type": "stackView",
+                "class": "titleBlock",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "1GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$X"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "page",
+          "content": {
+            "items": [
+              {
+                "type": "stackView",
+                "class": "titleBlock",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "2GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XX"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "page",
+          "content": {
+            "items": [
+              {
+                "type": "stackView",
+                "class": "titleBlock",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "4GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXX"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "page",
+          "content": {
+            "items": [
+              {
+                "type": "stackView",
+                "class": "titleBlock",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "10GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXXX"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "stackView",
+          "class": "page",
+          "content": {
+            "items": [
+              {
+                "type": "stackView",
+                "class": "titleBlock",
+                "content": {
+                  "orientation": "horizontal",
+                  "items": [
+                    {
+                      "type": "label",
+                      "class": "titleLeft",
+                      "content": {
+                        "text": "20GB Data Pack"
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "class": "titleRight",
+                      "content": {
+                        "text": "$XXXXX"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "label",
+                "class": "bodyText",
+                "content": {
+                  "text": "Details about what this add-on does/how it works goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta magna vitae velit convallis, ac posuere neque condimentum."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

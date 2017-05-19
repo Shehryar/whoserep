@@ -1,0 +1,17 @@
+{
+  "text": "Okay, please enter your account number by tapping below.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter Account Number",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "08-03c_view_enter_number",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

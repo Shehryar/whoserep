@@ -1,0 +1,274 @@
+{
+  "text": "Sure! Here are your last three transactions, click “view all” to see your full transaction history.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "padding": "4 20 4 20"
+        },
+        "content": {
+          "items": [
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "text": "Transaction History"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "padding": "16 0 16 16",
+                      "textAlign": "right",
+                      "align": "right",
+                      "gravity": "middle"
+                    },
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "01-1_view_transaction_history"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "padding": "12 0"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "gravity": "middle",
+                            "weight": 1,
+                            "marginRight": 8
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "body",
+                                  "marginBottom": 4
+                                },
+                                "content": {
+                                  "text": "March 2017 Bill Statement"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "detail1"
+                                },
+                                "content": {
+                                  "text": "03/03/2017 - 4:14PM"
+                                },
+                                "type": "label"
+                              }
+                            ],
+                            "orientation": "vertical"
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "gravity": "middle",
+                            "align": "right",
+                            "textAlign": "right"
+                          },
+                          "content": {
+                            "text": "$110.97"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "padding": "12 0"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "gravity": "middle",
+                            "weight": 1,
+                            "marginRight": 8
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "body",
+                                  "marginBottom": 4
+                                },
+                                "content": {
+                                  "text": "February 2017 Bill Statement"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "detail1"
+                                },
+                                "content": {
+                                  "text": "02/03/2017 - 4:14PM"
+                                },
+                                "type": "label"
+                              }
+                            ],
+                            "orientation": "vertical"
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "gravity": "middle",
+                            "align": "right",
+                            "textAlign": "right"
+                          },
+                          "content": {
+                            "text": "$110.97"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "content": {},
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "padding": "12 0"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "gravity": "middle",
+                            "weight": 1,
+                            "marginRight": 8
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "style": {
+                                  "textType": "body",
+                                  "marginBottom": 4
+                                },
+                                "content": {
+                                  "text": "Upgrade Services"
+                                },
+                                "type": "label"
+                              },
+                              {
+                                "style": {
+                                  "textType": "detail1"
+                                },
+                                "content": {
+                                  "text": "01/03/2017"
+                                },
+                                "type": "label"
+                              }
+                            ],
+                            "orientation": "vertical"
+                          },
+                          "type": "stackView"
+                        },
+                        {
+                          "style": {
+                            "textType": "bodyBold",
+                            "gravity": "middle",
+                            "align": "right",
+                            "textAlign": "right"
+                          },
+                          "content": {
+                            "text": "$34.66"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "vertical"
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Data Usage",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-4_message_data_usage"
+          }
+        }
+      },
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-3_message_text_history"
+          }
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-2_message_talk_history"
+          }
+        }
+      }
+    ]
+  }
+}

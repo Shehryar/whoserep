@@ -1,0 +1,24 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Ok no problem. Enter your account phone number and we’ll text your PIN to you.",
+    "quickReplies": [
+      {
+        "title": "Enter account phone number",
+        "action": {
+          "type": "componentView",
+          "name": "17-01_view_enter_account_phone",
+          "displayStyle": "inset"
+        }
+      },
+      {
+        "title": "Nevermind",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

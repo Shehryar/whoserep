@@ -1,0 +1,110 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Add Re-Boost Card"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 24
+                    },
+                    "content": {
+                      "text": "Enter your Re-Boost card number below"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "name": "id",
+                    "style": {
+                      "marginTop": 0
+                    },
+                    "content": {
+                      "placeholder": "ENTER CARD NUMBER"
+                    },
+                    "type": "textInput"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "buttonType": "secondary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "buttonType": "primary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "ADD CARD",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/addReBoostCard",
+                      "data": {
+                        "text": "Added Re-Boost card",
+                        "classification": "09-02d_message_enter_re-boost_card"
+                      }
+                    }
+                  }
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  }
+}

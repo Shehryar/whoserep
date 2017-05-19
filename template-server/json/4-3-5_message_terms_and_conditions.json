@@ -1,0 +1,91 @@
+{
+  "text": "Great. Before we proceed, you must read and accept our terms and conditions.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "I accept",
+      "value": {
+        "type": "AID",
+        "content": "4-3-7_message_confirm_rebost_enrollment"
+      }
+    },
+    {
+      "type": "button",
+      "label": "I do not accept",
+      "value": {
+        "type": "AID",
+        "content": "4-1-0_message_stopped_enrollment"
+      }
+    }
+  ],
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "styles": {},
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Terms and Conditions"
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "fontWeight": "black",
+                      "fontSize": 15,
+                      "color": "#5b657e"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW",
+                      "style": "text",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "4-3-5_view_terms_and_conditions"
+                        }
+                      }
+                    },
+                    "style": {
+                      "align": "right",
+                      "gravity": "middle",
+                      "weight": 1,
+                      "paddingTop": 12,
+                      "paddingLeft": 16,
+                      "paddingBottom": 12,
+                      "paddingRight": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "label",
+              "content": {
+                "text": "As of March 31, 2017 at 9:05AM"
+              },
+              "style": {
+                "fontWeight": "regular",
+                "fontSize": 11,
+                "color": "#a4a9b7"
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": 20,
+          "paddingTop": 8
+        }
+      }
+    }
+  }
+}

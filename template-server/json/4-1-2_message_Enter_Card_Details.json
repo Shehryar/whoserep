@@ -1,0 +1,16 @@
+{
+  "text": "Ok great, please tap below to securely enter your card details.",
+  "quickReplies": [
+    {
+      "type": "button",
+      "label": "ENTER CARD DETAILS",
+      "value": {
+        "type": "COMPONENT_VIEW",
+        "content": {
+          "name": "4-1-3_view_Enter_Card_Details",
+          "displayStyle": "inset"
+        }
+      }
+    }
+  ]
+}

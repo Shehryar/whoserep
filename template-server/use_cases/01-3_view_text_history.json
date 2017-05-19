@@ -1,0 +1,99 @@
+{
+  "type": "view",
+  "template": "basic_table_view",
+  "data": {
+    "title": "Text History",
+    "root": {
+      "sections": [
+        {
+          "headerText": "2017",
+          "rows": [
+            {
+              "icon": "arrowOutgoing",
+              "text": "+1 (555) 123-4567",
+              "detailText": "3/3/2017 - 4:14PM",
+              "valueText": "$0.25"
+            },
+            {
+              "icon": "arrowOutgoing",
+              "text": "Mom",
+              "detailText": "3/3/2017 - 4:04PM",
+              "valueText": "$0.10"
+            },
+            {
+              "icon": "placeholder",
+              "text": "+1 (555) 123-4567",
+              "detailText": "3/3/2017 - 1:43PM",
+              "valueText": "$0.10"
+            },
+            {
+              "icon": "placeholder",
+              "text": "+1 (555) 123-4567",
+              "detailText": "3/3/2017 - 1:43PM",
+              "valueText": "$0.10"
+            },
+            {
+              "icon": "arrowOutgoing",
+              "text": "+1 (555) 123-4567",
+              "detailText": "2/14/2017 - 4:04PM",
+              "valueText": "$0.15"
+            },
+            {
+              "icon": "arrowOutgoing",
+              "text": "+1 (555) 123-4567",
+              "detailText": "1/30/2017 - 1:02PM",
+              "valueText": "$0.25"
+            },
+            {
+              "icon": "placeholder",
+              "text": "Billy",
+              "detailText": "1/15/2017 - 8:54PM",
+              "valueText": "$0.95"
+            },
+            {
+              "icon": "placeholder",
+              "text": "Mom",
+              "detailText": "1/4/2017 - 10:34AM",
+              "valueText": "$01.63"
+            }
+          ]
+        },
+        {
+          "headerText": "2016",
+          "rows": [
+            {
+              "icon": "arrowOutgoing",
+              "text": "Billy",
+              "detailText": "12/25/2016 - 5:34PM",
+              "valueText": "$0.23"
+            },
+            {
+              "icon": "placeholder",
+              "text": "Billy",
+              "detailText": "12/18/2016 - 5:12PM",
+              "valueText": "$0.62"
+            },
+            {
+              "icon": "arrowOutgoing",
+              "text": "Mom",
+              "detailText": "12/14/2016 - 6:54PM",
+              "valueText": "$0.25"
+            },
+            {
+              "icon": "placeholder",
+              "text": "+1 (555) 123-4567",
+              "detailText": "12/1/2016 - 1:24PM",
+              "valueText": "$01.50"
+            },
+            {
+              "icon": "arrowOutgoing",
+              "text": "Mom",
+              "detailText": "3/2/2017 - 12:31PM",
+              "valueText": "$0.35"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

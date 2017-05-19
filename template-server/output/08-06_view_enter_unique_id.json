@@ -1,0 +1,120 @@
+{
+  "root": {
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "style": {
+            "weight": 1,
+            "gravity": "fill"
+          },
+          "content": {
+            "root": {
+              "style": {
+                "padding": "36 24"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "header2",
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "text": "Enter Unique ID"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginBottom": 24
+                    },
+                    "content": {
+                      "text": "You can use any of the following numbers as your unique ID: Serial Number, IMEI, or MEID."
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "name": "id",
+                    "style": {
+                      "marginTop": 0
+                    },
+                    "content": {
+                      "placeholder": "ENTER SERIAL NUMBER / IMEI / MEID"
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "name": "idConfirmation",
+                    "style": {
+                      "marginTop": 16
+                    },
+                    "content": {
+                      "placeholder": "CONFIRM SERIAL NUMBER / IMEI / MEID"
+                    },
+                    "type": "textInput"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          },
+          "type": "scrollView"
+        },
+        {
+          "style": {
+            "weight": 0
+          },
+          "content": {
+            "items": [
+              {
+                "style": {
+                  "buttonType": "secondary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "type": "button"
+              },
+              {
+                "style": {
+                  "buttonType": "primary",
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill"
+                },
+                "content": {
+                  "title": "SAVE",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "/updateContactInfo",
+                      "data": {
+                        "text": "XXX00XX00XX00",
+                        "classification": "08-08_message_enter_iccid"
+                      }
+                    }
+                  }
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "type": "stackView"
+  }
+}

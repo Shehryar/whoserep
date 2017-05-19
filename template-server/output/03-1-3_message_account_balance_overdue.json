@@ -1,0 +1,144 @@
+{
+  "text": "Sure! Here is your current account balance, upcoming charge and due date.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "padding": "20 24 20 24",
+          "align": "fill"
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "marginBottom": 12
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "detail2",
+                      "marginBottom": 4
+                    },
+                    "content": {
+                      "text": "ACCOUNT BALANCE"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "header1"
+                    },
+                    "content": {
+                      "text": "$0.00"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "vertical"
+              },
+              "type": "stackView"
+            },
+            {
+              "style": {
+                "marginBottom": 20
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "gravity": "top",
+                      "weight": 0,
+                      "marginRight": 20,
+                      "width": 20,
+                      "height": 20
+                    },
+                    "content": {
+                      "icon": "alertError"
+                    },
+                    "type": "icon"
+                  },
+                  {
+                    "style": {
+                      "gravity": "top"
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "error",
+                            "marginTop": 0
+                          },
+                          "content": {
+                            "text": "Account balance insufficient to cover your next month of service. Payment overdue. Pay immediately."
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "weight": 1
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "detail2",
+                            "marginBottom": 4
+                          },
+                          "content": {
+                            "text": "DUE BY"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "textType": "bodyBold"
+                          },
+                          "content": {
+                            "text": "02/26/17"
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          ]
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Recent Payments",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-1_message_transaction_history"
+          }
+        }
+      }
+    ]
+  }
+}

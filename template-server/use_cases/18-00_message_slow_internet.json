@@ -1,0 +1,30 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Looks like you’ve used all of your highspeed data. There are a couple of options to get more. Let us know what you’d like to do.",
+    "quickReplies": [
+      {
+        "title": "Restart my plan",
+        "action": {
+          "type": "treewalk",
+          "classification": "18-01-1_message_restart_plan"
+        }
+      },
+      {
+        "title": "Purchase data add-on",
+        "action": {
+          "type": "treewalk",
+          "classification": "18-02-1_message_select_data_pack"
+        }
+      },
+      {
+        "title": "Switch to unlimited plan",
+        "action": {
+          "type": "treewalk",
+          "classification": "06-02_message_individual_plans"
+        }
+      }
+    ]
+  }
+}

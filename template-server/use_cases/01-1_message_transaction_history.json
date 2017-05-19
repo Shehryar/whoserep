@@ -1,0 +1,57 @@
+{
+  "type": "message",
+  "template": "title_button_basic_item_list",
+  "data": {
+    "text": "Sure! Here are your last three transactions, click “view all” to see your full transaction history.",
+    "attachment": {
+      "title": "Transaction History",
+      "buttonTitle": "VIEW DETAILS",
+      "buttonAction": {
+        "type": "componentView",
+        "name": "01-1_view_transaction_history"
+      },
+      "content": {
+        "items": [
+          {
+            "text": "March 2017 Bill Statement",
+            "detailText": "03/03/2017 - 4:14PM",
+            "valueText": "$110.97"
+          },
+          {
+            "text": "February 2017 Bill Statement",
+            "detailText": "02/03/2017 - 4:14PM",
+            "valueText": "$110.97"
+          },
+          {
+            "text": "Upgrade Services",
+            "detailText": "01/03/2017",
+            "valueText": "$34.66"
+          }
+        ]
+      }
+    },
+    "quickReplies": [
+      {
+        "title": "Data Usage",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-4_message_data_usage"
+        }
+      },
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-3_message_text_history"
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-2_message_talk_history"
+        }
+      }
+    ]
+  }
+}

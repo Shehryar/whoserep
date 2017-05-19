@@ -1,0 +1,30 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Okay, with a payment of $40.00 you will also have to pay $2.27 in applicable taxes. Let us know if this is alright or if you’d like to change your payment amount.",
+    "quickReplies": [
+      {
+        "title": "Yes, that is alright",
+        "action": {
+          "type": "treewalk",
+          "classification": "07-01-09_message_confirm_payment_again"
+        }
+      },
+      {
+        "title": "Change payment amount",
+        "action": {
+          "type": "treewalk",
+          "classification": "07-01-06_message_select_amount"
+        }
+      },
+      {
+        "title": "Cancel payment",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

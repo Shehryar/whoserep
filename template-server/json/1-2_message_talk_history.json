@@ -1,0 +1,293 @@
+{
+  "text": "Sure! Here are your last three calls. Tap 'view all' to see your full talk history.",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Talk History"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW ALL",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-2_view_talk_history"
+                        }
+                      }
+                    },
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "padding": "16 0 16 16",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "0:25"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "placeholder"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Mom"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/2/2017 - 12:31PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "09:14"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "icon",
+                    "content": {
+                      "icon": "arrowOutgoing"
+                    },
+                    "style": {
+                      "weight": 0,
+                      "gravity": "middle",
+                      "height": 12,
+                      "width": 12,
+                      "marginRight": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "+1 (555) 123-4567"
+                          },
+                          "style": {
+                            "marginBottom": 4
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "2/28/2017 - 8:07PM"
+                          },
+                          "style": {
+                            "textType": "detail2"
+                          }
+                        }
+                      ],
+                      "orientation": "vertical"
+                    },
+                    "style": {
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "07:02"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "align": "right",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "padding": "12 0"
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": "0 20"
+        }
+      }
+    }
+  },
+  "quickReplies": [
+    {
+      "title": "Data Usage",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-4_message_data_usage"
+        }
+      }
+    },
+    {
+      "title": "Texts",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-3_message_text_history"
+        }
+      }
+    },
+    {
+      "title": "Payments",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "01-1_message_transaction_history"
+        }
+      }
+    }
+  ]
+}

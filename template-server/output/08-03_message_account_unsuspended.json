@@ -1,0 +1,84 @@
+{
+  "text": "Okay, your account suspension has been removed. You can begin using your account again as normal.\n\nTo confirm, you’d like to swap phones for the account with the phone number, +1 (555) 555-5555, correct?",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": "20 24 20 24"
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "gravity": "top",
+                "weight": 0,
+                "marginRight": 20,
+                "width": 30,
+                "height": 30
+              },
+              "content": {
+                "icon": "power"
+              },
+              "type": "icon"
+            },
+            {
+              "style": {
+                "gravity": "top"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold"
+                    },
+                    "content": {
+                      "text": "Account Un-suspended"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "detail1",
+                      "marginTop": 12
+                    },
+                    "content": {
+                      "text": "Jan 22, 2017 - 4:15PM"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Correct, +1 (555) 555-5555",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "08-04_message_back-up_device"
+          }
+        }
+      },
+      {
+        "title": "No, a different number",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "08-03b_message_enter_number"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Ok no problem. Tap below to update your contact information.",
+    "quickReplies": [
+      {
+        "title": "Update Contact Info",
+        "action": {
+          "type": "componentView",
+          "name": "16-02_view_update_contact_info",
+          "displayStyle": "inset"
+        }
+      },
+      {
+        "title": "Nevermind",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

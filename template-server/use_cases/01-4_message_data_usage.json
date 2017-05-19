@@ -1,0 +1,43 @@
+{
+  "type": "message",
+  "template": "title_button_usage",
+  "data": {
+    "text": "Sure! Here’s a snapshot of your data usage, tap 'view details' to see more information.",
+    "attachment": {
+      "title": "Data Usage",
+      "buttonTitle": "VIEW DETAILS",
+      "buttonAction": {
+        "type": "componentView",
+        "name": "01-4_view_data_usage"
+      },
+      "content": {
+        "fillPercentage": 0.45,
+        "headerText": "200 GB",
+        "detailText": "of 450GB"
+      }
+    },
+    "quickReplies": [
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-3_message_text_history"
+        }
+      },
+      {
+        "title": "Payments",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-1_message_transaction_history"
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-2_message_talk_history"
+        }
+      }
+    ]
+  }
+}

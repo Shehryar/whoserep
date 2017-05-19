@@ -1,0 +1,128 @@
+{
+  "text": "Sure! Here are your last three transactions. Tap 'view all' to see your full transaction history.",
+  "attachment": {
+    "type": "componentView",
+    "content": {
+      "body": {
+        "type": "stackView",
+        "content": {
+          "items": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Data Usage"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "gravity": "middle",
+                      "weight": 1
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "1-4_view_data_usage"
+                        }
+                      },
+                      "style": "text"
+                    },
+                    "style": {
+                      "padding": "16 0 16 16",
+                      "textAlign": "right"
+                    }
+                  }
+                ],
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "progressBar",
+                    "content": {
+                      "fillPercentage": 0.45
+                    },
+                    "style": {
+                      "marginBottom": 20
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "200GB"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "align": "fill",
+                      "textAlign": "center",
+                      "marginBottom": 8
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "of 450GB"
+                    },
+                    "style": {
+                      "textType": "detail1",
+                      "align": "fill",
+                      "textAlign": "center"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "padding": 20
+              }
+            }
+          ]
+        },
+        "style": {
+          "padding": "0 20"
+        }
+      }
+    }
+  },
+  "quickReplies": [
+    {
+      "title": "Texts",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-3_message_text_history"
+        }
+      }
+    },
+    {
+      "title": "Payments",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "01-1_message_transaction_history"
+        }
+      }
+    },
+    {
+      "title": "Calls",
+      "action": {
+        "type": "treewalk",
+        "content": {
+          "classification": "1-2_message_talk_history"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,791 @@
+{
+  "text": "Here are some available options.",
+  "attachment": {
+    "type": "componentView",
+    "requiresNoContainer": true,
+    "quickReplies": {
+      "unlimitedStarter": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter"
+          }
+        }
+      ],
+      "unlimitedStarter+": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter+",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter+"
+          }
+        }
+      ],
+      "unlimitedStarter++": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter++",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarter++"
+          }
+        }
+      ],
+      "unlimitedFreal": [
+        {
+          "type": "button",
+          "label": "Unilimited Starter F'real",
+          "value": {
+            "type": "AID",
+            "content": "unlimitedStarterF'real"
+          }
+        }
+      ]
+    },
+    "content": {
+      "title": "Carousel",
+      "styles": {
+        "card": {
+          "backgroundColor": "#ffffff",
+          "borderColor": "#cecece",
+          "borderWidth": 1,
+          "cornerRadius": 8,
+          "padding": 16
+        },
+        "title": {
+          "fontSize": 24,
+          "fontWeight": "black",
+          "color": "#5b657e",
+          "marginBottom": 8
+        },
+        "message": {
+          "fontSize": 15,
+          "fontWeight": "regular",
+          "color": "#7c869f"
+        },
+        "bigLabel": {
+          "fontSize": 24,
+          "color": "#5b657e",
+          "fontWeight": "black",
+          "align": "center"
+        },
+        "detailLabel": {
+          "fontWeight": "bold",
+          "color": "#afb3bf",
+          "fontSize": 10,
+          "align": "center"
+        },
+        "label": {
+          "fontWeight": "black",
+          "fontSize": 15,
+          "color": "#5a647d"
+        }
+      },
+      "body": {
+        "type": "carouselView",
+        "value" : "unlimitedStarter",
+        "style": {
+          "padding": 0
+        },
+        "content": {
+          "pagingEnabled": true,
+          "cardDisplayCount": 1.1,
+          "pageControl": {
+            "type": "pageControl",
+            "style": {},
+            "content": {}
+          },
+          "cards": [
+            {
+              "value": "unlimitedStarter",
+              "type": "stackView",
+              "class": "card",
+              "style": {
+                "padding": 0
+              },
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 16
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "weight": 1
+                          },
+                          "content": {
+                            "text": "Unlimited Starter"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "marginLeft": 12,
+                            "weight": 0
+                          },
+                          "content": {
+                            "text": "$35/mo."
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 0
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "DATA"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "2GB"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TEXT"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TALK"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "style": "text",
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "0-1_view_full_carousel"
+                        }
+                      }
+                    },
+                    "style": {
+                      "padding": "16 16",
+                      "align": "fill"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "value": "unlimitedStarter+",
+              "type": "stackView",
+              "class": "card",
+              "style": {
+                "padding": 0
+              },
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 16
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "weight": 1
+                          },
+                          "content": {
+                            "text": "Unlimited Starter+"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "marginLeft": 12,
+                            "weight": 0
+                          },
+                          "content": {
+                            "text": "$40/mo."
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 0
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "DATA"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "3GB"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TEXT"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TALK"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "style": "text",
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "0-1_view_full_carousel"
+                        }
+                      }
+                    },
+                    "style": {
+                      "padding": "16 16",
+                      "align": "fill"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "value": "unlimitedStarter++",
+              "type": "stackView",
+              "class": "card",
+              "style": {
+                "padding": 0
+              },
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 16
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "weight": 1
+                          },
+                          "content": {
+                            "text": "Unlimited Starter++"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "marginLeft": 12,
+                            "weight": 0
+                          },
+                          "content": {
+                            "text": "$45/mo."
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 0
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "DATA"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "4GB"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TEXT"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TALK"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "style": "text",
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "0-1_view_full_carousel"
+                        }
+                      }
+                    },
+                    "style": {
+                      "padding": "16 16",
+                      "align": "fill"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "value": "unlimitedFreal",
+              "type": "stackView",
+              "class": "card",
+              "style": {
+                "padding": 0
+              },
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 16
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "weight": 1
+                          },
+                          "content": {
+                            "text": "Unlimited F'real"
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "class": "label",
+                          "style": {
+                            "marginLeft": 12,
+                            "weight": 0
+                          },
+                          "content": {
+                            "text": "$50/mo."
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "stackView",
+                    "style": {
+                      "padding": 0
+                    },
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "DATA"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TEXT"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "style": {
+                            "gravity": "fill"
+                          },
+                          "content": {
+                            "style": "vertical"
+                          }
+                        },
+                        {
+                          "type": "stackView",
+                          "style": {
+                            "weight": 1,
+                            "padding": 16
+                          },
+                          "content": {
+                            "items": [
+                              {
+                                "type": "label",
+                                "class": "detailLabel",
+                                "content": {
+                                  "text": "TALK"
+                                }
+                              },
+                              {
+                                "type": "label",
+                                "class": "bigLabel",
+                                "content": {
+                                  "text": "Unl."
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "separator"
+                  },
+                  {
+                    "type": "button",
+                    "content": {
+                      "style": "text",
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "0-1_view_full_carousel"
+                        }
+                      }
+                    },
+                    "style": {
+                      "padding": "16 16",
+                      "align": "fill"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

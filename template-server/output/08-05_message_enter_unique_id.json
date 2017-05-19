@@ -1,0 +1,17 @@
+{
+  "text": "Great! To begin the phone swap we need a unique ID from your new phone in order to connect it to your account.\n\nYou can use any of the following numbers: Serial Number, IMEI, or MEID.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter Unique ID",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "08-06_view_enter_unique_id",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

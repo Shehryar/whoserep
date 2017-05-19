@@ -1,0 +1,85 @@
+{
+  "text": "Ok no problem. Tap below to update your contact information.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": "20 24 20 24"
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "gravity": "top",
+                "weight": 0,
+                "marginRight": 20,
+                "width": 30,
+                "height": 30
+              },
+              "content": {
+                "icon": "checkmarkThin"
+              },
+              "type": "icon"
+            },
+            {
+              "style": {
+                "gravity": "top"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold"
+                    },
+                    "content": {
+                      "text": "Payment Complete"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginTop": 12
+                    },
+                    "content": {
+                      "text": "You’ve successfully made a payment of $42.27 using your card ending in 9087 to the account associated with the phone number +1 (555) 111-5555."
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "detail1",
+                      "marginTop": 12
+                    },
+                    "content": {
+                      "text": "MAR 15, 2017 — 4:15PM"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "How's my service now?",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "09-08_message_service_restored"
+          }
+        }
+      }
+    ]
+  }
+}

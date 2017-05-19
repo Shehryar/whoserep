@@ -1,0 +1,17 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Ok, no problem! Tap below to let us know which add-ons you’d like to remove.",
+    "quickReplies": [
+      {
+        "title": "Remove Add-Ons",
+        "action": {
+          "type": "componentView",
+          "name": "06-12_view_remove_add-ons",
+          "displayStyle": "inset"
+        }
+      }
+    ]
+  }
+}

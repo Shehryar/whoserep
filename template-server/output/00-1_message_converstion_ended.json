@@ -1,0 +1,86 @@
+{
+  "text": "Alright then, have a great day!",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "align": "fill",
+          "padding": 20
+        },
+        "content": {
+          "items": [
+            {
+              "style": {
+                "gravity": "top",
+                "weight": 0,
+                "marginRight": 20,
+                "width": 30,
+                "height": 30
+              },
+              "content": {
+                "icon": "userMinus"
+              },
+              "type": "icon"
+            },
+            {
+              "style": {
+                "gravity": "top"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold"
+                    },
+                    "content": {
+                      "text": "Michael ended that chat"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "body",
+                      "marginTop": 12
+                    },
+                    "content": {
+                      "text": "You are no longer connected to an agent"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "textType": "detail1",
+                      "marginTop": 12
+                    },
+                    "content": {
+                      "text": "Jan 22, 2017 - 4:15PM"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "How did we do?",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "00-2_view_leave_feedback",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

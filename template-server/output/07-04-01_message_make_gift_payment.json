@@ -1,0 +1,26 @@
+{
+  "text": "That’s very nice of you! Enter the phone number you’d like to send a gift payment to.",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Enter phone number",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "07-04-02_view_enter_phone_number",
+            "displayStyle": "inset"
+          }
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "message_ok"
+          }
+        }
+      }
+    ]
+  }
+}

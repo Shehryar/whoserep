@@ -1,0 +1,134 @@
+{
+  "title": "Enter Phone Number",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "scrollView",
+          "style": {
+            "weight": 1,
+            "align": "fill",
+            "gravity" : "fill"
+          },
+          "content": {
+            "content": {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Enter Phone Number"
+                          },
+                          "style": {
+                            "fontSize": 18,
+                            "fontWeight": "black",
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Enter the phone number that is associated with the account to which you'd like to make a payment."
+                          },
+                          "style": {
+                            "fontSize": 14,
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "id": "phoneInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "phone",
+                          "content": {
+                            "placeholder": "Phone Number",
+                            "type" : "phone"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "padding": 20
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "stackView",
+          "style": {
+            "weight": 0,
+            "align": "fill"
+          },
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
+                  "action": {
+                    "type": "finish"
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
+                      "inputFields": [
+                        "phoneInput"
+                      ],
+                      "requiredInputFields": [
+                        "phoneInput"
+                      ],
+                      "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "7-1-03_message_select_payment_method",
+                        "Text" : "+1 (555) 333-5555",
+                        "type": "paymentAccount"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

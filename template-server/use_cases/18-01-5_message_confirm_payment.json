@@ -1,0 +1,39 @@
+{
+  "type": "message",
+  "template": "detail_header_body_detail_bolds",
+  "data": {
+    "text": "Great! To verify, please take a look at the information within the card below. If this looks good to you, click “Make Payment” to finalize your payment.",
+    "attachment": {
+      "detailTextTop": "PAYMENT AMOUNT",
+      "headerTextTop": "$50.00",
+      "bodyText": "(+$2.27 in applicable taxes)",
+      "detailTextBottom1": "PAYMENT METHOD",
+      "boldTextBottom1": "Amex *9807",
+      "detailTextBottom2": "ACCOUNT NUMBER",
+      "boldTextBottom2": "+1 (555) 111-5555"
+    },
+    "quickReplies": [
+      {
+        "title": "Make payment",
+        "action": {
+          "type": "treewalk",
+          "classification": "18-01-6_message_payment_complete"
+        }
+      },
+      {
+        "title": "Edit payment details",
+        "action": {
+          "type": "treewalk",
+          "classification": "18-01-3_message_select_payment"
+        }
+      },
+      {
+        "title": "Cancel payment",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

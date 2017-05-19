@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Success! Your number has been changed! It can take up to 15 minutes to process this change.\n\nBefore you can use your phone as normal, it must first be reprogrammed. Tap below for instructions on how to do so.",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Phone Number Changed",
+      "bodyText": "You’ve successfully changed your phone number to +1 (321) 867-5309.",
+      "detailText": "MAR 15, 2017 — 4:15PM"
+    },
+    "quickReplies": [
+      {
+        "title": "Reprogram my phone",
+        "action": {
+          "type": "web",
+          "url": "https://www.google.com"
+        }
+      }
+    ]
+  }
+}

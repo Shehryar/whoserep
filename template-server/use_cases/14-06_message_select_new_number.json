@@ -1,0 +1,24 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Great, tap below to select your new number.",
+    "quickReplies": [
+      {
+        "title": "Select new number",
+        "action": {
+          "type": "componentView",
+          "name": "14-07_view_select_new_number",
+          "displayStyle": "inset"
+        }
+      },
+      {
+        "title": "Cancel",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

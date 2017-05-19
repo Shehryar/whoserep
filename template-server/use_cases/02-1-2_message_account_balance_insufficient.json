@@ -1,0 +1,26 @@
+{
+  "type": "message",
+  "template": "detail_header_body_detail_bolds",
+  "data": {
+    "text": "Sure! Here is your current account balance, upcoming charge and due date.",
+    "attachment": {
+      "detailTextTop": "ACCOUNT BALANCE",
+      "headerTextTop": "$0.00",
+      "icon": "alertWarning",
+      "bodyText": "Account balance insufficient to cover your next month of service.",
+      "detailTextBottom1": "UPCOMING CHARGE",
+      "boldTextBottom1": "$50.00",
+      "detailTextBottom2": "DUE BY",
+      "boldTextBottom2": "02/26/17"
+    },
+    "quickReplies": [
+      {
+        "title": "Recent Payments",
+        "action": {
+          "type": "treewalk",
+          "classification": "01-1_message_transaction_history"
+        }
+      }
+    ]
+  }
+}

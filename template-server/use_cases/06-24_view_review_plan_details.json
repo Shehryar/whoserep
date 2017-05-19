@@ -1,0 +1,85 @@
+{
+  "type": "view",
+  "template": "boost_plans_comparison_view",
+  "data": {
+    "title": "Compare Plans",
+    "openToPage": 1,
+    "currentPlan": {
+      "planName": "Unlimited GiGs",
+      "dataLimit": "Unl.",
+      "textLimit": "200",
+      "talkLimit": "6hr",
+      "basePrice": "$55/mo",
+      "addOns": [
+        {
+          "text": "Phone Insurance",
+          "valueText": "$5/mo."
+        },
+        {
+          "text": "Unlimited music streaming",
+          "valueText": "-"
+        },
+        {
+          "text": "Unlimited 411",
+          "valueText": "-"
+        },
+        {
+          "text": "Call waiting",
+          "valueText": "-"
+        },
+        {
+          "text": "Voicemail",
+          "valueText": "-"
+        }
+      ],
+      "discounts": [
+        {
+          "text": "Auto Re-Boost Discount",
+          "valueText": "-$5/mo."
+        }
+      ],
+      "summaryText": "Monthly Charge",
+      "summaryValueText": "$55/mo."
+    },
+    "compareToPlansTitle": "NEW PLAN",
+    "compareToPlans": [
+      {
+        "planName": "Unlimited 3GB",
+        "dataLimit": "3GB",
+        "textLimit": "Unl.",
+        "talkLimit": "Unl.",
+        "basePrice": "$40/mo",
+        "addOns": [
+          {
+            "text": "Phone Insurance",
+            "valueText": "$5/mo."
+          },
+          {
+            "text": "Unlimited music streaming",
+            "valueText": "-"
+          },
+          {
+            "text": "Unlimited 411",
+            "valueText": "-"
+          },
+          {
+            "text": "Call waiting",
+            "valueText": "-"
+          },
+          {
+            "text": "Voicemail",
+            "valueText": "-"
+          }
+        ],
+        "discounts": [
+          {
+            "text": "Auto Re-Boost Discount",
+            "valueText": "-$5/mo."
+          }
+        ],
+        "summaryText": "Monthly Charge",
+        "summaryValueText": "$40/mo."
+      }
+    ]
+  }
+}

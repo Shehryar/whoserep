@@ -1,6 +1,0 @@
-framework module Pods_ComcastTech {
-  umbrella header "Pods-ComcastTech-umbrella.h"
-
-  export *
-  module * { export * }
-}

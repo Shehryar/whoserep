@@ -1,0 +1,134 @@
+{
+  "title": "Add Credit Card",
+  "styles": {
+    "textInput": {
+      "align": "fill",
+      "marginBottom": 4,
+      "color": "#55607a"
+    }
+  },
+  "body": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "scrollView",
+          "style": {
+            "weight": 1,
+            "align": "fill",
+            "gravity" : "fill"
+          },
+          "content": {
+            "content": {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Select Amount"
+                          },
+                          "style": {
+                            "fontSize": 18,
+                            "fontWeight": "black",
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "This amount will automatically be added to your account whenever your account balance drops below $5."
+                          },
+                          "style": {
+                            "fontSize": 14,
+                            "color": "#55607a",
+                            "marginBottom": 12
+                          }
+                        },
+                        {
+                          "id": "amountInput",
+                          "type": "textInput",
+                          "class": "textInput",
+                          "name": "amount",
+                          "content": {
+                            "placeholder": "Amount ($)",
+                            "type" : "decimal"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "padding": 20
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "stackView",
+          "style": {
+            "weight": 0,
+            "align": "fill"
+          },
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "style": "secondary",
+                  "action": {
+                    "type": "finish"
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/SendTextMessageAndHierAndTreewalk",
+                      "inputFields": [
+                        "amountInput"
+                      ],
+                      "requiredInputFields": [
+                        "amountInput"
+                      ],
+                      "data": {
+                        "SendFinishMessage" : true,
+                        "Classification" : "4-3-5_message_terms_and_conditions",
+                        "Text" : "$50.00",
+                        "type": "reboost"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

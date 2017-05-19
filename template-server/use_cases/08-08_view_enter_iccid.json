@@ -1,0 +1,27 @@
+{
+  "type": "view",
+  "template": "submit_text_inputs_view",
+  "data": {
+    "root": {
+      "submitButtonTitle": "SAVE",
+      "submitButtonAction": {
+        "type": "api",
+        "requestPath": "/updateICCID",
+        "data": {
+          "text": "XXX0043423514124124",
+          "classification": "08-11_message_upsell_insurance"
+        }
+      },
+      "scrollContent": {
+        "title": "Enter ICCID",
+        "bodyText": "An ICCID is a unique number either found on your phone’s SIM card or in the phone’s settings.",
+        "textInputs": [
+          {
+            "name": "iccid",
+            "placeholder": "ENTER ICCID"
+          }
+        ]
+      }
+    }
+  }
+}

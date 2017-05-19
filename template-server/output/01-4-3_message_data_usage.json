@@ -1,0 +1,169 @@
+{
+  "text": "Sure! Here’s a snapshot of your data usage, tap 'view details' to see more information.",
+  "attachment": {
+    "content": {
+      "root": {
+        "style": {
+          "padding": "4 20 4 20"
+        },
+        "content": {
+          "items": [
+            {
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "textType": "bodyBold",
+                      "weight": 1,
+                      "gravity": "middle",
+                      "marginRight": 8
+                    },
+                    "content": {
+                      "text": "Data Usage"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "buttonType": "textPrimary",
+                      "padding": "16 0 16 16",
+                      "textAlign": "right",
+                      "align": "right",
+                      "gravity": "middle"
+                    },
+                    "content": {
+                      "title": "VIEW DETAILS",
+                      "action": {
+                        "type": "componentView",
+                        "content": {
+                          "name": "01-4-3_view_data_usage"
+                        }
+                      }
+                    },
+                    "type": "button"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {},
+              "type": "separator"
+            },
+            {
+              "style": {
+                "padding": "24 0"
+              },
+              "content": {
+                "items": [
+                  {
+                    "style": {
+                      "marginBottom": 20,
+                      "color": "#ef7667"
+                    },
+                    "content": {
+                      "fillPercentage": 1
+                    },
+                    "type": "progressBar"
+                  },
+                  {
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 4
+                    },
+                    "content": {
+                      "items": [
+                        {
+                          "style": {
+                            "textType": "header1",
+                            "gravity": "middle",
+                            "marginRight": 8
+                          },
+                          "content": {
+                            "text": "200 GB"
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "style": {
+                            "width": 20,
+                            "height": 20,
+                            "gravity": "middle"
+                          },
+                          "content": {
+                            "icon": "alertError"
+                          },
+                          "type": "icon"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 12,
+                      "textType": "body"
+                    },
+                    "content": {
+                      "text": "of 450GB"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "align": "center",
+                      "textType": "error"
+                    },
+                    "content": {
+                      "text": "Account Throttled"
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "vertical"
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "vertical"
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "componentView"
+  },
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Texts",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-3_message_text_history"
+          }
+        }
+      },
+      {
+        "title": "Payments",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-1_message_transaction_history"
+          }
+        }
+      },
+      {
+        "title": "Calls",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "01-2_message_talk_history"
+          }
+        }
+      }
+    ]
+  }
+}

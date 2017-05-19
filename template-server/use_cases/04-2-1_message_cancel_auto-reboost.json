@@ -1,0 +1,23 @@
+{
+  "type": "message",
+  "template": "message",
+  "data": {
+    "text": "Are you sure you’d like to remove auto re-boost from your account?",
+    "quickReplies": [
+      {
+        "title": "Yes, cancel auto re-boost",
+        "action": {
+          "type": "treewalk",
+          "classification": "04-2-2_message_auto-reboost_canceled"
+        }
+      },
+      {
+        "title": "Nevermind",
+        "action": {
+          "type": "treewalk",
+          "classification": "message_ok"
+        }
+      }
+    ]
+  }
+}

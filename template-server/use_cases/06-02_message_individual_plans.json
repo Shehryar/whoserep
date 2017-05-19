@@ -1,0 +1,137 @@
+{
+  "type": "message",
+  "template": "boost_phone_plan_carousel",
+  "data": {
+    "text": "Ok, here are the available plans. Additional lines can be added to each plan for $30/mo. Let us know if you’re interested in moving forward with one.",
+    "attachment": {
+      "style": {
+        "padding": 0
+      },
+      "requiresNoContainer": true,
+      "plans": [
+        {
+          "value": "unlimited_2gb",
+          "planName": "Unlimited 2GB",
+          "price": "$35/mo.",
+          "details": [
+            {
+              "detailText": "4G LTE DATA",
+              "headerText": "2GB"
+            },
+            {
+              "detailText": "TEXT",
+              "headerText": "Unl."
+            },
+            {
+              "detailText": "TALK",
+              "headerText": "Unl."
+            }
+          ],
+          "buttonTitle": "VIEW DETAILS",
+          "buttonAction": {
+            "type": "componentView",
+            "name": "06-04_view_individual_plans"
+          }
+        },
+        {
+          "value": "unlimited_3gb",
+          "planName": "Unlimited 3GB",
+          "price": "$40/mo.",
+          "details": [
+            {
+              "detailText": "4G LTE DATA",
+              "headerText": "3GB"
+            },
+            {
+              "detailText": "TEXT",
+              "headerText": "Unl."
+            },
+            {
+              "detailText": "Talk",
+              "headerText": "Unl."
+            }
+          ],
+          "buttonTitle": "VIEW DETAILS",
+          "buttonAction": {
+            "type": "componentView",
+            "name": "06-04_view_individual_plans"
+          }
+        },
+        {
+          "value": "unlimited",
+          "planName": "Unlimited",
+          "price": "$50/mo.",
+          "details": [
+            {
+              "detailText": "4G LTE DATA",
+              "headerText": "Unl."
+            },
+            {
+              "detailText": "TEXT",
+              "headerText": "Unl."
+            },
+            {
+              "detailText": "Talk",
+              "headerText": "Unl."
+            }
+          ],
+          "buttonTitle": "VIEW DETAILS",
+          "buttonAction": {
+            "type": "componentView",
+            "name": "06-04_view_individual_plans"
+          }
+        }
+      ]
+    },
+    "quickReplies": {
+      "unlimited_2gb": [
+        {
+          "title": "Switch to the Unlimited 2GB plan",
+          "action": {
+            "type": "treewalk",
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        },
+        {
+          "title": "I have more questions",
+          "action": {
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      ],
+      "unlimited_3gb": [
+        {
+          "title": "Switch to the Unlimited 3GB plan",
+          "action": {
+            "type": "treewalk",
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        },
+        {
+          "title": "I have more questions",
+          "action": {
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      ],
+      "unlimited": [
+        {
+          "title": "Switch to the Unlimited plan",
+          "action": {
+            "type": "treewalk",
+            "classification": "06-08_message_grandfathered_plan"
+          }
+        },
+        {
+          "title": "I have more questions",
+          "action": {
+            "type": "web",
+            "url": "https://www.boostmobile.com/#!/shop/plans/monthly-phone-plans/"
+          }
+        }
+      ]
+    }
+  }
+}

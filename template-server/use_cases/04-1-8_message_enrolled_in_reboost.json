@@ -1,0 +1,16 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Enrolled in Low Balance Re-Boost",
+      "bodyText": "You’ve successfully enrolled in autopay using your card ending in 7624",
+      "detailText": "MAR 15, 2017 —4:15PM",
+      "style": {
+        "padding": 20
+      }
+    }
+  }
+}

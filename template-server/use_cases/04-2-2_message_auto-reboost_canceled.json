@@ -1,0 +1,17 @@
+{
+  "type": "message",
+  "template": "icon_bold_body_detail",
+  "data": {
+    "text": "Alright, auto re-boost is now cancelled for your account.",
+    "attachment": {
+      "icon": "checkmarkThin",
+      "iconSize": "large",
+      "boldText": "Canceled Auto Re-Boost",
+      "bodyText": "You’ve successfully removed autopay from your account.",
+      "detailText": "MAR 15, 2017 —4:15PM",
+      "style": {
+        "padding": 20
+      }
+    }
+  }
+}

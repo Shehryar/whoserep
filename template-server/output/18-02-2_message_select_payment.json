@@ -1,0 +1,26 @@
+{
+  "text": "Great, that’ll cost $10.00 plus any applicable taxes. How would you like to pay?",
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Amex  ************9087",
+        "action": {
+          "type": "treewalk",
+          "content": {
+            "classification": "18-02-4_message_confirm_payment"
+          }
+        }
+      },
+      {
+        "title": "Credit/Debit Card",
+        "action": {
+          "type": "componentView",
+          "content": {
+            "name": "18-02-3_view_enter_card_details",
+            "displayStyle": "inset"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "actions" : {},
+  "styles": {},
+  "body": {
+    "type": "stackView",
+    "content": {
+      "orientation": "horizontal",
+      "items": [
+        {
+          "type": "icon",
+          "content": {
+            "icon": "user"
+          },
+          "style": {
+            "gravity": "middle",
+            "marginRight": 21,
+            "width": 32,
+            "height": 32
+          }
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "items": [
+              {
+                "type": "label",
+                "content": {
+                  "text": "Connected with Michael"
+                },
+                "style": {
+                  "marginBottom": 6,
+                  "fontWeight": "bold",
+                  "fontSize": 15,
+                  "color": "#57617b"
+                }
+              },
+              {
+                "type": "label",
+                "content": {
+                  "text": "Jan 22, 2017 -- 4:15PM"
+                },
+                "style": {
+                  "fontWeight": "regular",
+                  "fontSize": 11,
+                  "color": "#b2b7c2"
+                }
+              }
+            ]
+          },
+          "style": {
+            "gravity": "middle"
+          }
+        }
+      ]
+    },
+    "style": {
+      "align": "center",
+      "marginBottom": 4,
+      "padding": 21
+    }
+  }
+}
