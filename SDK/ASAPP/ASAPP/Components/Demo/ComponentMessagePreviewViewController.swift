@@ -166,13 +166,26 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                       metadata: metadata)
         addMessage(userMessage)
         
-        let nextFileInfo = DemoComponentFileInfo(fileName: nextFileName,
-                                                 fileType: fileInfo?.fileType ?? .useCase)
-        UseCasePreviewAPI.getChatMessage(fileInfo: nextFileInfo, completion: { [weak self] (message, err) in
-            Dispatcher.delay(800, closure: {
-                self?.addMessage(message)
+        if let fileInfo = fileInfo {
+            let nextFileInfo = DemoComponentFileInfo(fileName: nextFileName,
+                                                     fileType: fileInfo.fileType)
+            UseCasePreviewAPI.getChatMessage(fileInfo: nextFileInfo, completion: { [weak self] (message, err) in
+                Dispatcher.delay(800, closure: {
+                    self?.addMessage(message)
+                })
             })
-        })
+        } else if classification != nil{
+            UseCasePreviewAPI.getTreewalk(with: nextFileName, completion: { [weak self] (message, _, err) in
+                guard let message = message else {
+                    self?.showAlert(with: "Unable to fetch message from classification: \(nextFileName)")
+                    return
+                }
+                
+                Dispatcher.delay(800, closure: {
+                    self?.addMessage(message)
+                })
+            })
+        }
     }
     
     // MARK: Motion

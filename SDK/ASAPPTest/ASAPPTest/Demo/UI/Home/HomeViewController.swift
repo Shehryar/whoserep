@@ -65,6 +65,8 @@ class HomeViewController: BaseViewController {
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
             self?.changeBranding(brandingType: type)
         }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(HomeViewController.showSpeechToTextViewController))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -108,7 +110,7 @@ class HomeViewController: BaseViewController {
         
         let config = ASAPPConfig(appId: currentAccount.company,
                                  apiHostName: appSettings.apiHostName,
-                                 clientId: "ASAPP_DEMO_CLIENT_ID")
+                                 clientSecret: "ASAPP_DEMO_CLIENT_ID")
         
         let user = ASAPPUser(userIdentifier: currentAccount.userToken,
                              requestAuthProvider: authenticationBlock,
@@ -298,6 +300,11 @@ extension HomeViewController {
 // MARK:- Navigation to View Controllers
 
 extension HomeViewController {
+    
+    func showSpeechToTextViewController() {
+        let vc = SpeechToTextViewController(appSettings: appSettings)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController(appSettings: appSettings)

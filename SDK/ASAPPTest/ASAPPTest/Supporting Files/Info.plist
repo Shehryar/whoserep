@@ -56,8 +56,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allows user to upload camera photo to chat.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allows you to speak your questions.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows user to upload photo to chat.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Allows user to speak questions</string>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN)</string>
 	<key>UIRequiredDeviceCapabilities</key>

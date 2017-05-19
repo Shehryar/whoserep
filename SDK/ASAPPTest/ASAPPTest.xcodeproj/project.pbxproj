@@ -27,6 +27,7 @@
 		307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */; };
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
+		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
@@ -88,6 +89,7 @@
 		307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
+		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,14 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
+		3077DBEF1ECE461E005818B8 /* Speech to Text */ = {
+			isa = PBXGroup;
+			children = (
+				3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */,
+			);
+			path = "Speech to Text";
+			sourceTree = "<group>";
+		};
 		30988E881DC7B69A00470E09 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +225,7 @@
 				30988EA51DC7BA8700470E09 /* Home */,
 				30988EA11DC7BA8700470E09 /* Bill Details */,
 				281D8E041DC973A000E4A65B /* Accounts */,
+				3077DBEF1ECE461E005818B8 /* Speech to Text */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -417,6 +428,7 @@
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				302A20D61E60BC55007C522A /* AddAPIHostNameViewController.swift in Sources */,
 				30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */,
+				3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */,
 				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,

@@ -18,16 +18,16 @@ public class ASAPPConfig: NSObject {
     
     public let apiHostName: String
     
-    public let clientId: String
+    public let clientSecret: String
     
     // MARK: Init
     
     public init(appId: String,
                 apiHostName: String,
-                clientId: String) {
+                clientSecret: String) {
         self.appId = appId
         self.apiHostName = apiHostName
-        self.clientId = clientId
+        self.clientSecret = clientSecret
         super.init()
     }
 }
