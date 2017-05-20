@@ -8,7 +8,7 @@ Organization
 
 ```
 .
-├── SDK		Chat SDK
+├── SDK			Chat SDK
 ├── Provisioning	Provisioning profile and credentials
 └── template-server	NodeJS server for creating and testing UI files
 ```
