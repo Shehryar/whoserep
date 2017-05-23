@@ -23,9 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // Crashlytics
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
         
+        // ASAPP
         ASAPP.debugLogLevel = .debug
         ASAPP.loadFonts()
         
@@ -33,20 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
+
         
+        // Root View controller
         let appSettings = buildAppSettings()
-        
         homeController = HomeViewController(appSettings: appSettings)
-    
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationController(rootViewController: homeController)
         window?.makeKeyAndVisible()
         
-        
-        // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
-          if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self
-        }
+        setupNotifications()
         
         return true
     }
@@ -116,8 +114,56 @@ extension AppDelegate {
 
 extension AppDelegate {
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    func setupNotifications() {
+        let settings = UIUserNotificationSettings(types:[.sound, .alert, .badge], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(settings)
         
+        // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+        }
+    }
+    
+    // MARK: Notifications Registration
+    
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        print("\napplication:didRegister:\n \n ")
+        
+        application.registerForRemoteNotifications()
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        print("\napplication:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(String(describing: Bundle.main.bundleIdentifier))\n  device token: \(token)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("\napplication: didFailToRegisterForRemoteNotificationsWithError: \(error)\n \n ")
+    }
+    
+    // MARK: Notification Received
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print("\napplication:didReceiveRemoteNotification\n \(userInfo)) \n ")
+        
+        if let isAsapp = userInfo["asapp"] as? Bool, isAsapp {
+            print("\n \n IS ASAPP!\n \n ")
+        }
+    }
+    
+    func application(_ application: UIApplication,
+                     handleActionWithIdentifier identifier: String?,
+                     forRemoteNotification userInfo: [AnyHashable : Any],
+                     completionHandler: @escaping () -> Void) {
+        print("\napplication:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo)) \n ")
+    }
+    
+    func application(_ application: UIApplication,
+                     handleActionWithIdentifier identifier: String?,
+                     forRemoteNotification userInfo: [AnyHashable : Any],
+                     withResponseInfo responseInfo: [AnyHashable : Any],
+                     completionHandler: @escaping () -> Void) {
+        print("\napplication:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo)) \n ")
     }
 }
 
@@ -128,5 +174,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.alert)
+        
+        print("userNotificationCenter:willPresent:withCompletionHandler:")
     }
 }
