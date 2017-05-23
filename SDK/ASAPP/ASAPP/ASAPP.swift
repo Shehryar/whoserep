@@ -37,12 +37,16 @@ public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData:
 
 public extension ASAPP {
 
-    public class func createChatViewController(appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?,
+                                               appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
         let chatViewController = ChatViewController(config: config,
                                                     user: user,
                                                     appCallbackHandler: appCallbackHandler)
+        if canHandleNotification(with: userInfo) {
+            chatViewController.showPredictiveOnViewAppear = false
+        }
 
         return NavigationController(rootViewController: chatViewController)
     }
@@ -57,9 +61,9 @@ public extension ASAPP {
                            presentingViewController: presentingViewController)
     }
     
-    public class func canHandleNotification(with userInfo: [AnyHashable : Any]) -> Bool {
-        var aps = userInfo["aps"] as? [AnyHashable : Any] ?? userInfo
-        guard let isASAPP = aps["asapp"] as? Bool else {
+    public class func canHandleNotification(with userInfo: [AnyHashable : Any]?) -> Bool {
+        var aps = userInfo?["aps"] as? [AnyHashable : Any] ?? userInfo
+        guard let isASAPP = aps?["asapp"] as? Bool else {
             return false
         }
         return isASAPP
