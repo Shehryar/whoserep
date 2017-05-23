@@ -9,6 +9,7 @@
 import UIKit
 import ASAPP
 import Fabric
+import UserNotifications
 import Crashlytics
 
 @UIApplicationMain
@@ -40,6 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationController(rootViewController: homeController)
         window?.makeKeyAndVisible()
+        
+        
+        // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
+          if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+        }
         
         return true
     }
@@ -101,5 +108,25 @@ extension AppDelegate {
                                       branding: AppSettings.getSavedBranding())
                 
         return appSettings
+    }
+}
+
+
+// MARK:- Notifications
+
+extension AppDelegate {
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+    }
+}
+
+@available(iOS 10.0, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(UNNotificationPresentationOptions.alert)
     }
 }
