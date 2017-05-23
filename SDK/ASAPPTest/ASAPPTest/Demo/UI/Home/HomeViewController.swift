@@ -119,6 +119,16 @@ class HomeViewController: BaseViewController {
         ASAPP.initialize(with: config)
         ASAPP.user = user
     }
+    
+    func showChat(fromNotificationWith userInfo: [AnyHashable : Any]? = nil) {
+        guard presentedViewController == nil else {
+            return
+        }
+        
+        let chatViewController = ASAPP.createChatViewController(appCallbackHandler: callbackHandler)
+        
+        present(chatViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK:- Styling 
@@ -192,7 +202,7 @@ extension HomeViewController: HomeTableViewDelegate {
     }
     
     func homeTableViewDidTapHelp(homeTableView: HomeTableView) {
-        showHelp()
+        showChat()
     }
     
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView) {
@@ -318,12 +328,6 @@ extension HomeViewController {
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
         navigationController?.pushViewController(billDetailsVC, animated: true)
-    }
-    
-    func showHelp() {
-        let chatViewController = ASAPP.createChatViewController(appCallbackHandler: callbackHandler)
-
-        present(chatViewController, animated: true, completion: nil)
     }
     
     func showAccountsPage() {

@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ASAPP.debugLogLevel = .debug
         ASAPP.loadFonts()
         
+        
         // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
@@ -146,8 +147,9 @@ extension AppDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         print("\napplication:didReceiveRemoteNotification\n \(userInfo)) \n ")
         
-        if let isAsapp = userInfo["asapp"] as? Bool, isAsapp {
-            print("\n \n IS ASAPP!\n \n ")
+        if ASAPP.canHandleNotification(with: userInfo) {
+            homeController.showChat(fromNotificationWith: userInfo)
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
     }
     

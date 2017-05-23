@@ -56,6 +56,14 @@ public extension ASAPP {
                            appCallbackHandler: appCallbackHandler,
                            presentingViewController: presentingViewController)
     }
+    
+    public class func canHandleNotification(with userInfo: [AnyHashable : Any]) -> Bool {
+        var aps = userInfo["aps"] as? [AnyHashable : Any] ?? userInfo
+        guard let isASAPP = aps["asapp"] as? Bool else {
+            return false
+        }
+        return isASAPP
+    }
 }
 
 // MARK:- Internal Utility
