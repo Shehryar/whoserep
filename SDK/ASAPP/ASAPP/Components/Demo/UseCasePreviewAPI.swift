@@ -167,7 +167,7 @@ extension UseCasePreviewAPI {
             params["context"] = context
         }
         
-        sendGETRequest(host: "http://localhost:7000",
+        sendGETRequest(host: "http://localhost:9000",
                        path: "/treewalk",
                        params: params) { (data, response, statusCode, error) in
                         if let error = error {
