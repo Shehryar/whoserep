@@ -78,6 +78,7 @@ extension TemplateServerPreviewViewController {
             ?? UITableViewCell(style: .subtitle, reuseIdentifier: reuseIdLeftTextCell))
         
         cell.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+        cell.accessoryType = .disclosureIndicator
         cell.textLabel?.setAttributedText("List of Intents", textStyle: ASAPP.styles.textStyles.body)
         
         return cell
