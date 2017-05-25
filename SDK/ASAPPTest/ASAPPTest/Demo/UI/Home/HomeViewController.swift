@@ -119,6 +119,17 @@ class HomeViewController: BaseViewController {
         ASAPP.initialize(with: config)
         ASAPP.user = user
     }
+    
+    func showChat(fromNotificationWith userInfo: [AnyHashable : Any]? = nil) {
+        guard presentedViewController == nil else {
+            return
+        }
+        
+        let chatViewController = ASAPP.createChatViewController(fromNotificationWith: userInfo,
+                                                                appCallbackHandler: callbackHandler)
+        
+        present(chatViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK:- Styling 
@@ -192,7 +203,7 @@ extension HomeViewController: HomeTableViewDelegate {
     }
     
     func homeTableViewDidTapHelp(homeTableView: HomeTableView) {
-        showHelp()
+        showChat()
     }
     
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView) {
@@ -320,12 +331,6 @@ extension HomeViewController {
         navigationController?.pushViewController(billDetailsVC, animated: true)
     }
     
-    func showHelp() {
-        let chatViewController = ASAPP.createChatViewController(appCallbackHandler: callbackHandler)
-
-        present(chatViewController, animated: true, completion: nil)
-    }
-    
     func showAccountsPage() {
         let accountsVC = AccountsViewController(appSettings: appSettings)
         accountsVC.currentAccount = currentAccount
@@ -340,7 +345,7 @@ extension HomeViewController {
     }
     
     func showUseCasePreview() {
-        let useCasePreviewVC = UseCasePreviewViewController()
+        let useCasePreviewVC = TemplateServerPreviewViewController()
         useCasePreviewVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(HomeViewController.dismissAnimated))
         let nc = UINavigationController(rootViewController: useCasePreviewVC)
         present(nc, animated: true, completion: nil)

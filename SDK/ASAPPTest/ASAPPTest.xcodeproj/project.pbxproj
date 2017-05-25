@@ -50,6 +50,7 @@
 		30E78EDA1DCA62C0006A2AD8 /* TitleToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
 		30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */; };
+		30F20EE71ED4CBF700A14FA9 /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30F20EE61ED4CBF700A14FA9 /* hey.caf */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -114,6 +115,8 @@
 		30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnvironmentViewController.swift; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
+		30F20EE61ED4CBF700A14FA9 /* hey.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hey.caf; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -307,10 +310,12 @@
 		FD8D8B1B1D107A19001B420B /* ASAPPTest */ = {
 			isa = PBXGroup;
 			children = (
+				30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */,
 				FD8D8B1C1D107A19001B420B /* AppDelegate.swift */,
 				307301D81DAE9C750002CF3B /* Demo */,
 				307301D51DAE9C750002CF3B /* Common */,
 				FD8D8B231D107A19001B420B /* Assets.xcassets */,
+				30F20EE61ED4CBF700A14FA9 /* hey.caf */,
 				307301C61DAE9BAA0002CF3B /* Supporting Files */,
 			);
 			path = ASAPPTest;
@@ -352,6 +357,11 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = GHJ79KTB8D;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -383,6 +393,7 @@
 				307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */,
 				307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */,
 				30A003551DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard in Resources */,
+				30F20EE71ED4CBF700A14FA9 /* hey.caf in Resources */,
 				FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */,
 				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
 			);
@@ -523,7 +534,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -539,6 +550,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
+				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
 				DEFAULT_ENVIRONMENT = demo;
@@ -556,6 +568,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Test App Enterprise Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -602,7 +615,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -645,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -662,6 +675,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
+				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
@@ -679,8 +693,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f56388d1-7874-4e5b-81dc-9e41e325c810";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Development Profile";
+				PROVISIONING_PROFILE = "ce0012ec-3ba9-4248-9fb2-a6dcea1bbff4";
+				PROVISIONING_PROFILE_SPECIFIER = "Debug Test App";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -695,6 +709,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
+				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
 				DEFAULT_ENVIRONMENT = demo;

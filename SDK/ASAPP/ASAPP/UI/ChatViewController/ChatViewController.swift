@@ -81,8 +81,8 @@ class ChatViewController: ASAPPViewController {
         return connectionStatus == .connecting || connectionStatus == .disconnected
     }
     
+    var showPredictiveOnViewAppear = true
     fileprivate var connectedAtLeastOnce = false
-    fileprivate var showPredictiveOnViewAppear = true
     fileprivate var isInitialLayout = true
     fileprivate var didPresentPredictiveView = false
     fileprivate var predictiveVCVisible = false

@@ -10,12 +10,6 @@ import UIKit
 
 class ComponentMessagePreviewViewController: ASAPPViewController {
     
-    var fileInfo: DemoComponentFileInfo? {
-        didSet {
-            refresh()
-        }
-    }
-    
     fileprivate(set) var classification: String?
     
     func setMessage(_ message: ChatMessage, with classification: String) {
@@ -127,27 +121,17 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     }
     
     func refresh() {
-        if let classification = classification {
-            clear()
-            UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (message, viewContainer, err) in
-                if let message = message {
-                    self?.addMessage(message)
-                } else {
-                    self?.showAlert(with: "Failed to get message: \(err ?? "empty error")")
-                }
-            })
-            return
-        }
-        
-        
-        guard let fileInfo = fileInfo else {
+        guard let classification = classification else {
             return
         }
         
         clear()
-        
-        UseCasePreviewAPI.getChatMessage(fileInfo: fileInfo, completion: { [weak self] (message, err) in
-            self?.addMessage(message)
+        UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (message, viewContainer, err) in
+            if let message = message {
+                self?.addMessage(message)
+            } else {
+                self?.showAlert(with: "Failed to get message: \(err ?? "empty error")")
+            }
         })
     }
     
@@ -166,26 +150,16 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                       metadata: metadata)
         addMessage(userMessage)
         
-        if let fileInfo = fileInfo {
-            let nextFileInfo = DemoComponentFileInfo(fileName: nextFileName,
-                                                     fileType: fileInfo.fileType)
-            UseCasePreviewAPI.getChatMessage(fileInfo: nextFileInfo, completion: { [weak self] (message, err) in
-                Dispatcher.delay(800, closure: {
-                    self?.addMessage(message)
-                })
+        UseCasePreviewAPI.getTreewalk(with: nextFileName, completion: { [weak self] (message, _, err) in
+            guard let message = message else {
+                self?.showAlert(with: "Unable to fetch message from classification: \(nextFileName)")
+                return
+            }
+            
+            Dispatcher.delay(800, closure: {
+                self?.addMessage(message)
             })
-        } else if classification != nil{
-            UseCasePreviewAPI.getTreewalk(with: nextFileName, completion: { [weak self] (message, _, err) in
-                guard let message = message else {
-                    self?.showAlert(with: "Unable to fetch message from classification: \(nextFileName)")
-                    return
-                }
-                
-                Dispatcher.delay(800, closure: {
-                    self?.addMessage(message)
-                })
-            })
-        }
+        })
     }
     
     // MARK: Motion
@@ -355,22 +329,9 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     func componentViewController(_ viweController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
-        if let fileInfo = fileInfo {
-            let loadFileInfo = DemoComponentFileInfo(fileName: viewName,
-                                                     fileType: fileInfo.fileType)
-            
-            UseCasePreviewAPI.getComponentViewContainer(fileInfo: loadFileInfo, completion: { (componentViewContainer, err) in
-                completion(componentViewContainer, err?.localizedDescription)
-            })
-        } else if let _ = classification {
-            UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
-                completion(componentViewContainer, err)
-            })
-        } else {
-            Dispatcher.delay(1000) {
-                completion(nil, "whoops!")
-            }
-        }
+        UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
+            completion(componentViewContainer, err)
+        })
     }
     
     func componentViewController(_ viewController: ComponentViewController,
@@ -390,10 +351,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         }
         
         if let viewName = data?["name"] as? String {
-            let nextFileInfo = DemoComponentFileInfo(fileName: viewName,
-                                                     fileType: fileInfo?.fileType ?? .useCase)
-            
-            UseCasePreviewAPI.getComponentViewContainer(fileInfo: nextFileInfo, completion: { (viewContainer, error) in
+            UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, viewContainer, errorString) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
                 if let _ = viewContainer {
@@ -406,7 +364,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                     type = .error
                     actionError = APIActionError(code: 500,
                                                  userMessage: nil,
-                                                 debugMessage: error?.localizedDescription ?? "Ooops!",
+                                                 debugMessage: errorString ?? "Ooops!",
                                                  invalidInputs: nil)
                 }
                 let response = APIActionResponse(type: type,

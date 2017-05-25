@@ -23,7 +23,7 @@ public class RefreshableTableViewController: ASAPPViewController {
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(UseCasePreviewViewController.refresh))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(RefreshableTableViewController.refresh))
         
         tableView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         tableView.separatorColor = ASAPP.styles.colors.separatorPrimary
@@ -101,5 +101,50 @@ extension RefreshableTableViewController: UITableViewDataSource, UITableViewDele
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+}
+
+// MARK: Alerts
+
+extension RefreshableTableViewController {
+    
+    func showAlert(title: String? = nil, with message: String?) {
+        let alert = UIAlertController(title: title ?? "Oops!",
+                                      message: message ?? "You messed up, bro",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: Showing a Preview
+
+extension RefreshableTableViewController {
+    
+    func showPreview(for classification: String) {
+        UseCasePreviewAPI.getTreewalk(with: classification) { [weak self] (message, viewContainer, error) in
+            if let error = error {
+                self?.showAlert(with: error)
+                return
+            }
+            
+            DebugLog.d("Received: message=\(message != nil), view=\(viewContainer != nil)")
+            
+            if let message = message {
+                let viewController = ComponentMessagePreviewViewController()
+                viewController.setMessage(message, with: classification)
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            } else if let viewContainer = viewContainer {
+                let previewVC = ComponentPreviewViewController()
+                previewVC.setComponentViewContainer(viewContainer, with: classification)
+                self?.navigationController?.pushViewController(previewVC, animated: true)
+            } else {
+                self?.showAlert(with: "Unable to determine contents of response. Please check that your JSON follows proper MitchML.")
+            }
+        }
     }
 }

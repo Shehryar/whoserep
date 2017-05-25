@@ -1,7 +1,0 @@
-{
-  "type": "message",
-  "template": "message",
-  "data": {
-    "text": "Unfortunately, your device is not eligible for a phone swap. Tough shit."
-  }
-}
