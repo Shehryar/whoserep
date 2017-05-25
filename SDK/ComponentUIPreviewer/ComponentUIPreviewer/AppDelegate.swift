@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ASAPP.loadFonts()
         ASAPP.styles = ASAPPStyles.stylesForAppId("boost")
         
-        let rootVC = UINavigationController(rootViewController: ComponentUIPreviewerViewController())
+        let rootVC = UINavigationController(rootViewController: TemplateServerPreviewViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()

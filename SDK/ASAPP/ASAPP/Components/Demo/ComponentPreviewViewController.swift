@@ -10,13 +10,6 @@ import UIKit
 
 public class ComponentPreviewViewController: ASAPPViewController {
     
-    var fileInfo: DemoComponentFileInfo? {
-        didSet {
-            title = DemoComponentType.prettifyFileName(fileInfo?.fileName)
-            refresh()
-        }
-    }
-    
     var componentViewContainer: ComponentViewContainer?
     
     var json: [String : Any]?
@@ -71,7 +64,6 @@ public class ComponentPreviewViewController: ASAPPViewController {
         controlsBar.items = [
             UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.start)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "View Source", style: .plain, target: self, action: #selector(ComponentPreviewViewController.viewSource))
         ]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
@@ -143,12 +135,8 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     func reloadView(with componentViewContainer: ComponentViewContainer) {
         var componentType = DemoComponentType.view
-        if let fileInfo = fileInfo {
-            componentType = fileInfo.componentType
-        } else if let classification = classification {
-            if classification.contains("_card") {
-                componentType = .card
-            }
+        if let classification = classification, classification.contains("_card") {
+            componentType = .card
         }
         
         switch componentType {
@@ -178,49 +166,19 @@ public class ComponentPreviewViewController: ASAPPViewController {
     func refresh() {
         becomeFirstResponder()
         
-        if let classification = classification {
-            UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (_, viewContainer, err) in
-                if let viewContainer = viewContainer {
-                    self?.componentViewContainer = viewContainer
-                    self?.reloadView(with: viewContainer)
-                } else {
-                    self?.showAlert(with: err ?? "Unable to refresh view")
-                }
-            })
-            return
+        guard let classification = classification else {
+             return
         }
         
-        guard let fileInfo = fileInfo else {
-            return
-        }
-        
-        DebugLog.i(caller: self, "Refreshing UI")
-        
-        
-        let completion: UseCasePreviewAPI.ComponentViewContainerCompletion = { [weak self] (componentViewContainer, err) in
-            self?.componentViewContainer = componentViewContainer
-            guard let componentViewContainer = componentViewContainer,
-                let strongSelf = self else {
-                    return
-            }
-            strongSelf.reloadView(with: componentViewContainer)
-        }
 
-        UseCasePreviewAPI.getComponentViewContainer(fileInfo: fileInfo, completion: completion)
-    }
-    
-    func viewSource() {
-        if let jsonString = JSONUtil.stringify(json as AnyObject, prettyPrinted: true) {
-            let sourcePreviewVC = ComponentPreviewSourceViewController()
-            sourcePreviewVC.json = jsonString
-            navigationController?.pushViewController(sourcePreviewVC, animated: true)
-        } else {
-            let alertController = UIAlertController(title: "Source Unavailable", message: nil, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
-                
-            }))
-            present(alertController, animated: true, completion: nil)
-        }
+        UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (_, viewContainer, err) in
+            if let viewContainer = viewContainer {
+                self?.componentViewContainer = viewContainer
+                self?.reloadView(with: viewContainer)
+            } else {
+                self?.showAlert(with: err ?? "Unable to refresh view")
+            }
+        })
     }
     
     func start() {
@@ -330,22 +288,9 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
                                  fetchContentForViewNamed viewName: String,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
         
-        if let fileInfo = fileInfo {
-            let loadFileInfo = DemoComponentFileInfo(fileName: viewName,
-                                                     fileType: fileInfo.fileType)
-            
-            UseCasePreviewAPI.getComponentViewContainer(fileInfo: loadFileInfo, completion: { (componentViewContainer, err) in
-                completion(componentViewContainer, err?.localizedDescription)
-            })
-        } else if let _ = classification {
-            UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
-                completion(componentViewContainer, err)
-            })
-        } else {
-            Dispatcher.delay(1000) {
-                completion(nil, "whoops!")
-            }
-        }
+        UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
+            completion(componentViewContainer, err)
+        })
     }
     
     func componentViewController(_ viewController: ComponentViewController,

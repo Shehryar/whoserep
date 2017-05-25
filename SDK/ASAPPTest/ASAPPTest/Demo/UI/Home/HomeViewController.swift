@@ -345,7 +345,7 @@ extension HomeViewController {
     }
     
     func showUseCasePreview() {
-        let useCasePreviewVC = UseCasePreviewViewController()
+        let useCasePreviewVC = TemplateServerPreviewViewController()
         useCasePreviewVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(HomeViewController.dismissAnimated))
         let nc = UINavigationController(rootViewController: useCasePreviewVC)
         present(nc, animated: true, completion: nil)

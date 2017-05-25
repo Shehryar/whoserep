@@ -8,17 +8,10 @@
 
 import UIKit
 
-enum DemoComponentFileType {
-    case useCase
-    case json
-}
-
-struct DemoComponentFileInfo {
-    let fileName: String
-    let fileType: DemoComponentFileType
-    var componentType: DemoComponentType {
-        return DemoComponentType.fromFileName(fileName)
-    }
+struct Intent {
+    let code: String
+    let description: String
+    let fileName: String?
 }
 
 enum DemoComponentType: String {
@@ -49,111 +42,47 @@ enum DemoComponentType: String {
 }
 
 // MARK:- UseCasePreviewAPI
-// MARK: Use Cases
 
 class UseCasePreviewAPI: NSObject {
     
-    typealias UseCasesCompletion = (_ useCases: [String]?, _ err: Error?) -> Void
+    // MARK: Treewalk Intents
     
-    class func getUseCases(completion: @escaping UseCasesCompletion) {
-        sendGETRequest(path: "/use_cases") { (data, response, statusCode, error) in
-            var useCases = getJSONArray(from: data) as? [String]
-            useCases?.sort()
+    typealias TreewalkIntentsCompletionHandler = ([Intent]?, String?) -> Void
+    
+    class func getTreewalkIntents(completion: @escaping TreewalkIntentsCompletionHandler) {
+        sendGETRequest(path: "/treewalk/intents") { (data, response, statusCode, error) in
+            if error != nil || statusCode != 200 {
+                Dispatcher.performOnMainThread {
+                    completion(nil, error?.localizedDescription ?? "Non-200 status code: \(statusCode)")
+                }
+                return
+            }
+            
+            var intents: [Intent]?
+            var errorString: String?
+            if let json = getJSON(from: data), let intentsJSON = json["intents"] as? [[String : Any]] {
+                intents = [Intent]()
+                for intentJSON in intentsJSON {
+                    if let intentCode = intentJSON["Classifications"] as? String,
+                        let intentDescription = intentJSON["DEBUG_Display"] as? String {
+                        
+                        intents?.append(Intent(code: intentCode,
+                                               description: intentDescription,
+                                               fileName: intentJSON["File"] as? String))
+                    }
+                }
+            } else {
+                errorString = "Unable to parse json response"
+            }
+            
             Dispatcher.performOnMainThread {
-                completion(useCases, error)
+                completion(intents, errorString)
             }
         }
-    }
-    
-    typealias JSONFilesCompletion = (_ fileNames: [String]?, _ err: Error?) -> Void
-    
-    class func getJSONFilesNames(completion: @escaping UseCasesCompletion) {
-        sendGETRequest(path: "/json_files") { (data, response, statusCode, error) in
-            var useCases = getJSONArray(from: data) as? [String]
-            useCases?.sort()
-            Dispatcher.performOnMainThread {
-                completion(useCases, error)
-            }
-        }
-    }
-}
-
-// MARK: Chat Message
-
-extension UseCasePreviewAPI {
-    
-    typealias ChatMessageCompletion = (_ chatMessage: ChatMessage?, _ err: Error?) -> Void
-    
-    class func getChatMessage(fileInfo: DemoComponentFileInfo, completion: @escaping ChatMessageCompletion) {
         
-        let path: String
-        switch fileInfo.fileType {
-        case .useCase:
-            path = "/use_case"
-            break
-            
-        case .json:
-            path = "/json_file"
-            break
-        }
-
-        sendGETRequest(path: path,
-                       params: ["id" : fileInfo.fileName],
-                       completion: { (data, response, statusCode, error) in
-                        var chatMessage: ChatMessage?
-                        if let json = getJSON(from: data) {
-                            let metadata = EventMetadata(isReply: true,
-                                                         isAutomatedMessage: true,
-                                                         eventId: Int(Date().timeIntervalSince1970),
-                                                         eventType: .srsResponse,
-                                                         issueId: 1,
-                                                         sendTime: Date())
-                            chatMessage = ChatMessage.fromJSON(json, with: metadata)
-                        }
-                        Dispatcher.performOnMainThread {
-                            completion(chatMessage, error)
-                        }
-        })
     }
-}
-
-// MARK: ComponentViewContainer
-
-extension UseCasePreviewAPI {
     
-    typealias ComponentViewContainerCompletion = (_ componentViewContainer: ComponentViewContainer?, _ err: Error?) -> Void
-    
-    class func getComponentViewContainer(fileInfo: DemoComponentFileInfo,
-                                         completion: @escaping ComponentViewContainerCompletion)  {
-        
-        let path: String
-        switch fileInfo.fileType {
-        case .useCase:
-            path = "/use_case"
-            break
-            
-        case .json:
-            path = "/json_file"
-            break
-        }
-        
-        sendGETRequest(path: path,
-                       params: ["id" : fileInfo.fileName],
-                       completion: { (data, response, statusCode, error) in
-                        var componentViewContainer: ComponentViewContainer?
-                        if let json = getJSON(from: data) {
-                            componentViewContainer = ComponentViewContainer.from(json)
-                        }
-                        Dispatcher.performOnMainThread {
-                            completion(componentViewContainer, error)
-                        }
-        })
-    }
-}
-
-// MARK:- Treewalk
-
-extension UseCasePreviewAPI {
+    // MARK: Treewalk
     
     typealias TreewalkCompletionHandler = (ChatMessage?, ComponentViewContainer?, String?) -> Void
     
@@ -170,16 +99,9 @@ extension UseCasePreviewAPI {
         sendGETRequest(host: "http://localhost:9000",
                        path: "/treewalk",
                        params: params) { (data, response, statusCode, error) in
-                        if let error = error {
+                        if error != nil || statusCode != 200 {
                             Dispatcher.performOnMainThread {
-                                completion(nil, nil, error.localizedDescription)
-                            }
-                            return
-                        }
-                        
-                        if statusCode != 200 {
-                            Dispatcher.performOnMainThread {
-                                completion(nil, nil, "Non-200 status code: \(statusCode)")
+                                completion(nil, nil, error?.localizedDescription ?? "Non-200 status code: \(statusCode)")
                             }
                             return
                         }
@@ -199,7 +121,7 @@ extension UseCasePreviewAPI {
                         } else {
                             errorString = "Unable to parse json response"
                         }
-
+                        
                         Dispatcher.performOnMainThread {
                             completion(chatMessage, viewContainer, errorString)
                         }
@@ -304,17 +226,17 @@ extension UseCasePreviewAPI {
         var lastLine: String?
         if let _ = getJSON(from: data) {
             lastLine = "Body: JSON Object"
-//            lastLine = String(describing: jsonObject)
+            //            lastLine = String(describing: jsonObject)
         } else if let _ = getJSONArray(from: data) {
             lastLine = "Body: JSON Array"
-//            lastLine = String(describing: jsonArray)
+            //            lastLine = String(describing: jsonArray)
         } else if let error = error {
             lastLine = "Error: \(error.localizedDescription)"
         }
         
         DebugLog.d(
             "\nRequest: \(request.url?.absoluteString ?? "--")\n" +
-            "  Returned with: \(code ?? -1)\n" +
+                "  Returned with: \(code ?? -1)\n" +
             "    \(lastLine ?? "")"
         )
     }
