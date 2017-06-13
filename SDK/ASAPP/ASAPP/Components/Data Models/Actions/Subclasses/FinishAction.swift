@@ -17,10 +17,6 @@ class FinishAction: Action {
     
     // MARK: Properties
     
-    override var type: ActionType {
-        return .finish
-    }
-    
     let classification: String?
     
     let text: String?

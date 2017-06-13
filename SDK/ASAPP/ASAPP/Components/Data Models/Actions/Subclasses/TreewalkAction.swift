@@ -18,10 +18,6 @@ class TreewalkAction: Action {
     
     // MARK: Properties
     
-    override var type: ActionType {
-        return .treewalk
-    }
-    
     let classification: String
     
     // MARK: Init

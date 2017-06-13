@@ -227,8 +227,26 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
         var message: String?
         
         switch quickReply.action.type {
+        case .api:
+            title = "API"
+            message = (quickReply.action as? APIAction)?.requestPath
+            break
+            
+        case .componentView:
+            if let action = quickReply.action as? ComponentViewAction {
+                handleComponentViewAction(action)
+                return false
+            }
+            title = "Component View"
+            message = "Unknown"
+            break
+            
         case .deepLink:
             title = "Link"
+            break
+            
+        case .finish:
+            title = "Finish"
             break
             
         case .treewalk:
@@ -241,27 +259,17 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             message = "Classification: \(String(describing: (quickReply.action as? TreewalkAction)?.classification))"
             break
             
-        case .api:
-            title = "API"
-            message = (quickReply.action as? APIAction)?.requestPath
+        case .userLogin:
+            // MITCH MITCH TODO:
             break
-            
-        case .componentView:
-            if let action = quickReply.action as? ComponentViewAction {
-                handleComponentViewAction(action)
-                 return false
-            }
-            title = "Component View"
-            message = "Unknown"
-            break
-            
-        case .finish:
-            title = "Finish"
-            break
-            
+    
         case .web:
             title = "Web"
             message = (quickReply.action as? WebPageAction)?.url.absoluteString
+            break
+            
+        case .unknown:
+            // No-op
             break
         }
         

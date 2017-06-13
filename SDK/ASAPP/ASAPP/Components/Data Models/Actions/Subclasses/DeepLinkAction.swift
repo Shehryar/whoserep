@@ -19,17 +19,9 @@ class DeepLinkAction: Action {
     
     // MARK: Properties
     
-    override var type: ActionType {
-        return .deepLink
-    }
-    
     let name: String
     
     let data: [String : Any]?
-    
-    override var willExitASAPP: Bool {
-        return true
-    }
     
     // MARK: Init
     

@@ -18,14 +18,6 @@ class WebPageAction: Action {
     
     // MARK: Properties
     
-    override var type: ActionType {
-        return .web
-    }
-    
-    override var willExitASAPP: Bool {
-        return true
-    }
-    
     let url: URL
     
     // MARK: Init

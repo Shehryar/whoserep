@@ -10,14 +10,6 @@ import UIKit
 
 class Action: NSObject {
 
-    var type: ActionType {
-        fatalError("Subclass must override property -type")
-    }
-    
-    var willExitASAPP: Bool {
-        return false
-    }
-    
     // MARK:- Init
     
     required init?(content: Any?) {

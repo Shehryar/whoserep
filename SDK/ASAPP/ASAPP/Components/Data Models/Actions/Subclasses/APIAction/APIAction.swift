@@ -19,10 +19,6 @@ class APIAction: Action {
     
     // MARK: Properties
     
-    override var type: ActionType {
-        return .api
-    }
-    
     let requestPath: String
     
     let data: [String : Any]?

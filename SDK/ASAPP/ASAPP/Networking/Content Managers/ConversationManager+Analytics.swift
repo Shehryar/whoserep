@@ -84,19 +84,23 @@ extension ConversationManager {
     
     func trackAction(_ action: Action) {
         switch action.type {
-        case .web:
-            if let webAction = action as? WebPageAction {
-                trackWebLink(webAction.url.absoluteString)
-            }
-            break
-            
         case .deepLink:
             if let deepLinkAction = action as? DeepLinkAction {
                 trackDeepLink(link: deepLinkAction.name, deepLinkData: deepLinkAction.data)
             }
             break
             
-        case .treewalk, .api, .finish, .componentView:
+        case .web:
+            if let webAction = action as? WebPageAction {
+                trackWebLink(webAction.url.absoluteString)
+            }
+            break
+            
+        case .userLogin:
+            // MITCH MITCH MITCH TODO: Track user login
+            break
+            
+        case .treewalk, .api, .finish, .componentView, .unknown:
             // Not explicitly tracked for now
             break
         }

@@ -602,8 +602,16 @@ extension ChatViewController {
             }
             break
             
+        case .userLogin:
+            // MITCH MITCH TODO:
+            break
+            
         case .web:
             handleWebPageAction(action)
+            break
+            
+        case .unknown:
+            // No-op
             break
         }
         return false

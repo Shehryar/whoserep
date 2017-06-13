@@ -8,13 +8,17 @@
 
 import UIKit
 
+// MARK: ActionType
+
 enum ActionType: String {
     case api            = "api"
     case componentView  = "componentView"
     case deepLink       = "deepLink"
     case finish         = "finish"
     case treewalk       = "treewalk"
+    case userLogin      = "userLogin"
     case web            = "web"
+    case unknown        = ""
     
     // MARK: JSON Parsing
     
@@ -22,19 +26,7 @@ enum ActionType: String {
         guard let value = value as? String else {
             return nil
         }
-        if let actionType = ActionType(rawValue: value) {
-            return actionType
-        }
-        
-        // Old Values
-        switch value {
-        case "LINK": return .deepLink
-        case "AID": return .treewalk
-        case "ACTION": return .api
-//        case "APP_ACTION": return .action
-        case "COMPONENT_VIEW": return .componentView
-        default: return nil
-        }
+        return ActionType(rawValue: value)
     }
 }
 
@@ -49,21 +41,44 @@ extension ActionType {
         case .deepLink: return DeepLinkAction.self
         case .finish: return FinishAction.self
         case .treewalk: return TreewalkAction.self
+        case .userLogin: return UserLoginAction.self
         case .web: return WebPageAction.self
+        case .unknown: return Action.self
         }
     }
 }
 
-// MARK:- AppAction
+// MARK: ActionType-based Action Extensions
 
-/*
-
-enum AppAction: String {
-    case ask = "ask"
-    case addCreditCard = "addCreditCard"
-    case leaveFeedback = "leaveFeedback"
+extension Action {
+    
+    var type: ActionType {
+        switch self {
+        case is APIAction: return .api
+        case is ComponentViewAction: return .componentView
+        case is DeepLinkAction: return .deepLink
+        case is FinishAction: return .finish
+        case is TreewalkAction: return .treewalk
+        case is UserLoginAction: return .userLogin
+        case is WebPageAction: return .web
+        default: return .unknown
+        }
+    }
+    
+    var willExitASAPP: Bool {
+        switch self {
+        case is DeepLinkAction,
+             is UserLoginAction,
+             is WebPageAction:
+            return true
+            
+        case is APIAction,
+             is ComponentViewAction,
+             is TreewalkAction,
+             is FinishAction:
+            return false
+         
+        default: return false
+        }
+    }
 }
- 
-*/
-
-

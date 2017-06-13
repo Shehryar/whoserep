@@ -27,11 +27,7 @@ class ComponentViewAction: Action {
     static let defaultDisplayStyle = ComponentViewDisplayStyle.full
     
     // MARK: Properties
-    
-    override var type: ActionType {
-        return .componentView
-    }
-    
+
     let displayStyle: ComponentViewDisplayStyle
     
     let name: String
