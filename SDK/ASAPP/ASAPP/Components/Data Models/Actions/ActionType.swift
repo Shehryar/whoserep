@@ -15,6 +15,7 @@ enum ActionType: String {
     case componentView  = "componentView"
     case deepLink       = "deepLink"
     case finish         = "finish"
+    case http           = "http"
     case treewalk       = "treewalk"
     case userLogin      = "userLogin"
     case web            = "web"
@@ -40,6 +41,7 @@ extension ActionType {
         case .componentView: return ComponentViewAction.self
         case .deepLink: return DeepLinkAction.self
         case .finish: return FinishAction.self
+        case .http: return HTTPAction.self
         case .treewalk: return TreewalkAction.self
         case .userLogin: return UserLoginAction.self
         case .web: return WebPageAction.self
@@ -58,6 +60,7 @@ extension Action {
         case is ComponentViewAction: return .componentView
         case is DeepLinkAction: return .deepLink
         case is FinishAction: return .finish
+        case is HTTPAction: return .http
         case is TreewalkAction: return .treewalk
         case is UserLoginAction: return .userLogin
         case is WebPageAction: return .web
@@ -74,10 +77,29 @@ extension Action {
             
         case is APIAction,
              is ComponentViewAction,
+             is HTTPAction,
              is TreewalkAction,
              is FinishAction:
             return false
          
+        default: return false
+        }
+    }
+    
+    var performsUIBlockingNetworkRequest: Bool {
+        switch self {
+        case is APIAction,
+             is HTTPAction,
+             is TreewalkAction:
+            return true
+            
+        case is ComponentViewAction,
+             is DeepLinkAction,
+             is FinishAction,
+             is UserLoginAction,
+             is WebPageAction:
+            return false
+            
         default: return false
         }
     }

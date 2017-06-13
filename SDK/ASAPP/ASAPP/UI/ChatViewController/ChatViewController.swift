@@ -561,7 +561,8 @@ extension ChatViewController {
     /// Returns true if the button should be disabled
     func performAction(_ action: Action,
                        from button: Any?,
-                       message: ChatMessage?) -> Bool {
+                       message: ChatMessage?,
+                       queueRequestIfNoConnection: Bool = false) -> Bool {
     
         let isConnected = conversationManager.isConnected(retryConnectionIfNeeded: true)
         var title: String? = nil
@@ -575,14 +576,14 @@ extension ChatViewController {
         
         switch action.type {
         case .api:
-            if isConnected {
+            if isConnected || queueRequestIfNoConnection {
                 handleAPIAction(action, with: nil, rootComponent: message?.attachment?.template)
                 return true
             }
             break
             
         case .componentView:
-            if isConnected {
+            if isConnected || queueRequestIfNoConnection {
                 handleComponentViewAction(action)
             }
             break
@@ -596,7 +597,7 @@ extension ChatViewController {
             break
             
         case .treewalk:
-            if isConnected {
+            if isConnected || queueRequestIfNoConnection {
                 handleTreewalkAction(action, with: title, from: message)
                 return true
             }
@@ -687,7 +688,7 @@ extension ChatViewController {
         chatMessagesView.scrollToBottomAnimated(true)
         
         conversationManager.sendRequestForTreewalkAction(action,
-                                                         with: title ?? "",
+                                                         with: title ?? action.messageText ?? "",
                                                          parentMessage: message,
                                                          originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
                                                          completion: { [weak self] (message, _, _) in
