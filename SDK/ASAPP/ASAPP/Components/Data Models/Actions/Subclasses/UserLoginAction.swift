@@ -10,22 +10,33 @@ import UIKit
 
 class UserLoginAction: Action {
     
+    // MARK: Properties
+    
     enum JSONKey: String {
         case mergeCustomerId = "mergeCustomerId"
         case mergeCustomerGUID = "mergeCustomerGUID"
         case nextAction = "nextAction"
     }
     
-    // MARK: Properties
+    let mergeCustomerId: UInt64
     
-    let classification: String?
+    let mergeCustomerGUID: String
     
-    let text: String?
+    let nextAction: Action?
     
     // MARK: Init
     
     required init?(content: Any?) {
-        return nil
+        guard let content = content as? [String : Any],
+            let mergeCustomerId = content[JSONKey.mergeCustomerId.rawValue] as? UInt64,
+            let mergeCustomerGUID = content.string(for: JSONKey.mergeCustomerGUID.rawValue) else {
+                DebugLog.w(caller: UserLoginAction.self, "\(JSONKey.mergeCustomerId.rawValue) and \(JSONKey.mergeCustomerGUID.rawValue) are both required. Returning nil")
+                return nil
+        }
+        self.mergeCustomerId = mergeCustomerId
+        self.mergeCustomerGUID = mergeCustomerGUID
+        self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
+        super.init(content: content)
     }
 
 }

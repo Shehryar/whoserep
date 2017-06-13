@@ -276,8 +276,8 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
     
     func componentViewControllerDidFinish(with action: FinishAction?) {
         dismiss(animated: true) { [weak self] in
-            if let classification = action?.classification {
-                let alert = UIAlertController(title: "Classification: \(classification)", message: nil, preferredStyle: .alert)
+            if let nextAction = action?.nextAction {
+                let alert = UIAlertController(title: "nextAction: \(nextAction)", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self?.present(alert, animated: true, completion: nil)
             }

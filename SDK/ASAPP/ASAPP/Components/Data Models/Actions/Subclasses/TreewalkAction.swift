@@ -10,15 +10,16 @@ import UIKit
 
 class TreewalkAction: Action {
 
-    // MARK: JSON Keys
+    // MARK: Properties
     
     enum JSONKey: String {
         case classification = "classification"
+        case messageText = "messageText"
     }
     
-    // MARK: Properties
-    
     let classification: String
+    
+    let messageText: String?
     
     // MARK: Init
     
@@ -29,6 +30,7 @@ class TreewalkAction: Action {
                 return nil
         }
         self.classification = classification
+        self.messageText = content.string(for: JSONKey.messageText.rawValue)
         super.init(content: content)
     }
 }

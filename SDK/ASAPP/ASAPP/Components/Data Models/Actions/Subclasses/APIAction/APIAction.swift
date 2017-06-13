@@ -10,18 +10,13 @@ import UIKit
 
 class APIAction: Action {
 
-    // MARK: JSON Keys
+    // MARK: Properties
     
     enum JSONKey: String {
-        case data = "data"
         case requestPath = "requestPath"
     }
     
-    // MARK: Properties
-    
     let requestPath: String
-    
-    let data: [String : Any]?
     
     // MARK: Init
     
@@ -34,7 +29,6 @@ class APIAction: Action {
                 return nil
         }
         self.requestPath = requestPath
-        self.data = content[JSONKey.data.rawValue] as? [String : Any]
         
         super.init(content: content)
     }

@@ -10,18 +10,14 @@ import UIKit
 
 class DeepLinkAction: Action {
 
-    // MARK: JSON Keys
-    
-    enum JSONKey: String {
-        case data = "data"
-        case name = "name"
-    }
-    
     // MARK: Properties
     
-    let name: String
+    enum JSONKey: String {
+        case name = "name"
+        case url = "url"
+    }
     
-    let data: [String : Any]?
+    let name: String
     
     // MARK: Init
     
@@ -32,7 +28,6 @@ class DeepLinkAction: Action {
                 return nil
         }
         self.name = name
-        self.data = content.jsonObject(for: JSONKey.data.rawValue)
         super.init(content: content)
     }
 }
@@ -40,7 +35,7 @@ class DeepLinkAction: Action {
 extension DeepLinkAction {
     
     func getWebLink() -> URL? {
-        if name == "url", let urlString = data?["url"] as? String {
+        if name == JSONKey.url.rawValue, let urlString = data?[JSONKey.url.rawValue] as? String {
             return URL(string: urlString)
         }
         return nil

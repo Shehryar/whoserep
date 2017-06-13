@@ -560,7 +560,7 @@ extension ChatViewController {
     
     /// Returns true if the button should be disabled
     func performAction(_ action: Action,
-                       from button: Any,
+                       from button: Any?,
                        message: ChatMessage?) -> Bool {
     
         let isConnected = conversationManager.isConnected(retryConnectionIfNeeded: true)
@@ -657,7 +657,7 @@ extension ChatViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    func handleDeepLinkAction(_ action: Action, from button: Any) {
+    func handleDeepLinkAction(_ action: Action, from button: Any?) {
         guard let action = action as? DeepLinkAction else {
             return
         }
@@ -778,9 +778,9 @@ extension ChatViewController: ChatMessagesViewDelegate {
 extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewControllerDidFinish(with action: FinishAction?) {
-        if let classification = action?.classification {
+        if let nextAction = action?.nextAction {
             quickRepliesActionSheet.disableCurrentButtons()
-            conversationManager.sendSRSTreewalk(classification: classification, text: action?.text)
+            _ = performAction(nextAction, from: nil, message: nil)
         }
         
         dismiss(animated: true, completion: nil)

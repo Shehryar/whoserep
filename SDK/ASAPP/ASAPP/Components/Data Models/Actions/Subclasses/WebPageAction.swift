@@ -10,13 +10,11 @@ import UIKit
 
 class WebPageAction: Action {
     
-    // MARK: JSON Keys
+    // MARK: Properties
     
     enum JSONKey: String {
         case url = "url"
     }
-    
-    // MARK: Properties
     
     let url: URL
     

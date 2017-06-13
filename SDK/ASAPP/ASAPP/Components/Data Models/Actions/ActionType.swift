@@ -18,7 +18,7 @@ enum ActionType: String {
     case treewalk       = "treewalk"
     case userLogin      = "userLogin"
     case web            = "web"
-    case unknown        = ""
+    case unknown        = "unknown"
     
     // MARK: JSON Parsing
     
