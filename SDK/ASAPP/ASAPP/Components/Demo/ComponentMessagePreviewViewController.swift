@@ -249,6 +249,11 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             title = "Finish"
             break
             
+        case .http:
+            title = "HTTP"
+            // MITCH MITCH MITCH
+            break
+            
         case .treewalk:
             if let treewalkAction = quickReply.action as? TreewalkAction {
                 getNextMessage(with: quickReply.title, nextFileName: treewalkAction.classification)

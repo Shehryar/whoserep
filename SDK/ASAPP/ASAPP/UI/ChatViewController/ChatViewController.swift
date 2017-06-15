@@ -596,6 +596,10 @@ extension ChatViewController {
             // This action  has no meaning in this context
             break
             
+        case .http:
+            // MITCH MITCH MITCH
+            break;
+            
         case .treewalk:
             if isConnected || queueRequestIfNoConnection {
                 handleTreewalkAction(action, with: title, from: message)

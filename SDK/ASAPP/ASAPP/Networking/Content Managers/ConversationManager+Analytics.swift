@@ -100,7 +100,8 @@ extension ConversationManager {
             // MITCH MITCH MITCH TODO: Track user login
             break
             
-        case .treewalk, .api, .finish, .componentView, .unknown:
+            
+        case .api, .componentView, .finish, .http, .treewalk, .unknown:
             // Not explicitly tracked for now
             break
         }
