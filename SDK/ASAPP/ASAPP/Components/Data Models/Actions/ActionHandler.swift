@@ -10,6 +10,13 @@ import UIKit
 import SafariServices
 
 
+protocol ActionHandlerDelegate: class {
+    func actionHandlerFinish()
+    func actionHandlerDeepLink(name: String, data: [String : Any]?)
+    func actionHandlerUserLogin(_ action: UserLoginAction)
+}
+
+
 /// Returns true if the action was performed.
 /// If false, a debug message will be returned.
 typealias ActionHandlerCompletion = (Bool, String) -> Void
@@ -27,6 +34,8 @@ class ActionHandler: NSObject {
     // MARK: Properties
     
     weak var viewController: UIViewController?
+    
+    weak var delegate: ActionHandlerDelegate?
     
     var conversationManager: ConversationManager
     
@@ -102,6 +111,8 @@ extension ActionHandler {
             
         case .unknown: /* No-op */ break
         }
+        
+        conversationManager.trackAction(action)
     }
 }
 
@@ -115,7 +126,31 @@ fileprivate extension ActionHandler {
         guard let action = action else { return }
         
         let data = generateDataForRequest(action: action, root: root)
-        conversationManager.sendRequestForAPIAction(action, data: data) { (response) in
+        conversationManager.sendRequestForAPIAction(action, data: data) { [weak self] (response) in
+            guard let response = response else {
+                return
+            }
+            
+            switch response.type {
+            case .componentView:
+                
+                break
+                
+            case .refreshView:
+                
+                break
+                
+            case .error:
+                
+                
+                break
+                
+            case .finish:
+                if let finishAction = response.finishAction {
+                    self?.performFinishAction(finishAction)
+                }
+                break
+            }
             
         }
         
@@ -155,6 +190,8 @@ fileprivate extension ActionHandler {
                                completion: ActionHandlerCompletion?) {
         guard let action = action else { return }
         
+        
+        
     }
     
     func performUserLoginAction(_ action: UserLoginAction?,
@@ -169,10 +206,10 @@ fileprivate extension ActionHandler {
         
         // SFSafariViewController
         if #available(iOS 9.0, *) {
-            if let urlScheme = url.scheme {
+            if let viewController = viewController, let urlScheme = url.scheme {
                 if ["http", "https"].contains(urlScheme) {
                     let safariVC = SFSafariViewController(url: url)
-                    viewController?.present(safariVC, animated: true, completion: nil)
+                    viewController.present(safariVC, animated: true, completion: nil)
                     return
                 } else {
                     DebugLog.w("URL is missing http/https url scheme: \(url)")
@@ -204,4 +241,175 @@ fileprivate extension ActionHandler {
         
         return requestData
     }
+    
+    func showAlert(message: String) {
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+/**
+ *
+ * other files
+ *
+ */
+
+
+class FromChatViewController: UIViewController {
+    /// Returns true if the button should be disabled
+    func performAction(_ action: Action,
+                       from button: Any?,
+                       message: ChatMessage?,
+                       queueRequestIfNoConnection: Bool = false) -> Bool {
+        
+        let isConnected = conversationManager.isConnected(retryConnectionIfNeeded: true)
+        var title: String? = nil
+        if let buttonItem = button as? ButtonItem {
+            title = buttonItem.title
+        } else if let quickReply = button as? QuickReply {
+            title = quickReply.title
+        }
+        
+        conversationManager.trackAction(action)
+        
+        switch action.type {
+        case .api:
+            if isConnected || queueRequestIfNoConnection {
+                handleAPIAction(action, with: nil, rootComponent: message?.attachment?.template)
+                return true
+            }
+            break
+            
+        case .componentView:
+            if isConnected || queueRequestIfNoConnection {
+                handleComponentViewAction(action)
+            }
+            break
+            
+        case .deepLink:
+            handleDeepLinkAction(action, from: button)
+            break
+            
+        case .finish:
+            // This action  has no meaning in this context
+            break
+            
+        case .http:
+            // MITCH MITCH MITCH
+            break;
+            
+        case .treewalk:
+            if isConnected || queueRequestIfNoConnection {
+                handleTreewalkAction(action, with: title, from: message)
+                return true
+            }
+            break
+            
+        case .userLogin:
+            // MITCH MITCH TODO:
+            break
+            
+        case .web:
+            handleWebPageAction(action)
+            break
+            
+        case .unknown:
+            // No-op
+            break
+        }
+        return false
+    }
+    
+    // MARK:- Handling Actions
+    
+    func handleAPIAction(_ action: Action, with params: [String : Any]?, rootComponent: Component?) {
+        guard let action = action as? APIAction else {
+            return
+        }
+        
+        var requestData = [String : Any]()
+        requestData.add(action.data)
+        if let params = params {
+            requestData.add(params)
+        }
+        if let rootComponent = rootComponent {
+            requestData.add(rootComponent.getData())
+        }
+        
+        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
+                                                   prettyPrinted: true)
+        
+        let title = action.requestPath
+        
+        let alert = UIAlertController(title: title,
+                                      message: requestDataString,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func handleComponentViewAction(_ action: Action) {
+        guard let action = action as? ComponentViewAction else {
+            return
+        }
+        
+        let viewController = ComponentViewController(componentName: action.name)
+        viewController.delegate = self
+        let navigationController = ComponentNavigationController(rootViewController: viewController)
+        navigationController.displayStyle = action.displayStyle
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    func handleDeepLinkAction(_ action: Action, from button: Any?) {
+        guard let action = action as? DeepLinkAction else {
+            return
+        }
+        
+        var title: String?
+        if let button = button as? ButtonItem {
+            title = button.title
+        } else if let quickReply = button as? QuickReply {
+            title = quickReply.title
+        }
+        
+        DebugLog.d("\nDid select action: \(action.name) w/ context: \(String(describing: action.data))")
+        
+        conversationManager.sendRequestForDeepLinkAction(action, with: title ?? "")
+        
+        dismiss(animated: true, completion: { [weak self] in
+            self?.appCallbackHandler(action.name, action.data)
+        })
+    }
+    
+    func handleTreewalkAction(_ action: Action, with title: String?, from message: ChatMessage?) {
+        guard let action = action as? TreewalkAction else {
+            return
+        }
+        
+        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
+        chatMessagesView.scrollToBottomAnimated(true)
+        
+        conversationManager.sendRequestForTreewalkAction(action,
+                                                         with: title ?? action.messageText ?? "",
+                                                         parentMessage: message,
+                                                         originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                                                         completion: { [weak self] (message, _, _) in
+                                                            if message.type != .Response {
+                                                                self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                                                            }
+        })
+    }
+
+}
+
+
+
+
