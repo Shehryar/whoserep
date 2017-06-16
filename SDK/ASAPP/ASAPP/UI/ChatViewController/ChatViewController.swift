@@ -563,48 +563,80 @@ extension ChatViewController {
                        from button: Any?,
                        message: ChatMessage?,
                        queueRequestIfNoConnection: Bool = false) -> Bool {
-    
-        let isConnected = conversationManager.isConnected(retryConnectionIfNeeded: true)
-        var title: String? = nil
-        if let buttonItem = button as? ButtonItem {
-            title = buttonItem.title
-        } else if let quickReply = button as? QuickReply {
-            title = quickReply.title
-        }
         
-        conversationManager.trackAction(action)
+        if !ActionHandler.actionCanBeHandled(action,
+                                             conversationManager: conversationManager,
+                                             queueNetworkRequestIfNoConnection: queueRequestIfNoConnection) {
+            return false
+        }
         
         switch action.type {
         case .api:
-            if isConnected || queueRequestIfNoConnection {
-                handleAPIAction(action, with: nil, rootComponent: message?.attachment?.template)
-                return true
-            }
+            ActionHandler.handleAPIAction(action, 
+                                          root: message?.attachment?.template,
+                                          conversationManager: conversationManager,
+                                          completion: { (response) in
+                                            guard let response = response else {
+                                                // Show error
+                                                return
+                                            }
+                                            
+                                            switch response.type {
+                                            case .error:
+                                                // Show error
+                                                break
+                                                
+                                            case .componentView:
+                                                break
+                                                
+                                                
+                                            case .refreshView:
+                                                break
+                                                
+                                            case .finish:
+                                                break
+                                            }
+            })
             break
             
         case .componentView:
-            if isConnected || queueRequestIfNoConnection {
-                handleComponentViewAction(action)
-            }
+            ActionHandler.handleComponentViewAction(action, delegate: self, from: self)
             break
             
         case .deepLink:
-            handleDeepLinkAction(action, from: button)
+            if let deepLinkAction = action as? DeepLinkAction {
+                ActionHandler.sendRequestForDeepLinkAction(action, conversationManager: conversationManager)
+                
+                dismiss(animated: true, completion: { [weak self] in
+                    self?.appCallbackHandler(deepLinkAction.name, deepLinkAction.data)
+                })
+            }
             break
             
         case .finish:
-            // This action  has no meaning in this context
+            if let nextAction = (action as? FinishAction)?.nextAction {
+                _ = performAction(nextAction, from: nil, message: nil, queueRequestIfNoConnection: true)
+            }
             break
             
         case .http:
-            // MITCH MITCH MITCH
+            ActionHandler.handleHTTPAction(action)
+            
             break;
             
         case .treewalk:
-            if isConnected || queueRequestIfNoConnection {
-                handleTreewalkAction(action, with: title, from: message)
-                return true
-            }
+            chatMessagesView.scrollToBottomAnimated(true)
+            
+            ActionHandler.handleTreewalkAction(action,
+                                               from: button,
+                                               message: message,
+                                               simpleStore: simpleStore,
+                                               conversationManager: conversationManager,
+                                               completion: { [weak self] (success) in
+                                                if !success {
+                                                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                                                }
+            })
             break
             
         case .userLogin:
@@ -612,120 +644,18 @@ extension ChatViewController {
             break
             
         case .web:
-            handleWebPageAction(action)
+            ActionHandler.handleWebPageAction(action as? WebPageAction, from: self)
             break
             
         case .unknown:
             // No-op
             break
         }
-        return false
-    }
-    
-    // MARK:- Handling Actions
-    
-    func handleAPIAction(_ action: Action, with params: [String : Any]?, rootComponent: Component?) {
-        guard let action = action as? APIAction else {
-            return
-        }
         
-        var requestData = [String : Any]()
-        requestData.add(action.data)
-        if let params = params {
-            requestData.add(params)
-        }
-        if let rootComponent = rootComponent {
-            requestData.add(rootComponent.getData())
-        }
         
-        let requestDataString = JSONUtil.stringify(requestData as AnyObject,
-                                                   prettyPrinted: true)
+        conversationManager.trackAction(action)
         
-        let title = action.requestPath
-        
-        let alert = UIAlertController(title: title,
-                                      message: requestDataString,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func handleComponentViewAction(_ action: Action) {
-        guard let action = action as? ComponentViewAction else {
-            return
-        }
-        
-        let viewController = ComponentViewController(componentName: action.name)
-        viewController.delegate = self
-        let navigationController = ComponentNavigationController(rootViewController: viewController)
-        navigationController.displayStyle = action.displayStyle
-        present(navigationController, animated: true, completion: nil)
-    }
-    
-    func handleDeepLinkAction(_ action: Action, from button: Any?) {
-        guard let action = action as? DeepLinkAction else {
-            return
-        }
-        
-        var title: String?
-        if let button = button as? ButtonItem {
-            title = button.title
-        } else if let quickReply = button as? QuickReply {
-            title = quickReply.title
-        }
-        
-        DebugLog.d("\nDid select action: \(action.name) w/ context: \(String(describing: action.data))")
-    
-        conversationManager.sendRequestForDeepLinkAction(action, with: title ?? "")
-        
-        dismiss(animated: true, completion: { [weak self] in
-            self?.appCallbackHandler(action.name, action.data)
-        })
-    }
-    
-    func handleTreewalkAction(_ action: Action, with title: String?, from message: ChatMessage?) {
-        guard let action = action as? TreewalkAction else {
-            return
-        }
-        
-        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
-        chatMessagesView.scrollToBottomAnimated(true)
-        
-        conversationManager.sendRequestForTreewalkAction(action,
-                                                         with: title ?? action.messageText ?? "",
-                                                         parentMessage: message,
-                                                         originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
-                                                         completion: { [weak self] (message, _, _) in
-                                                            if message.type != .Response {
-                                                                self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
-                                                            }
-        })
-    }
-    
-    func handleWebPageAction(_ action: Action) {
-        guard let action = action as? WebPageAction else {
-            return
-        }
-        
-        let url = action.url
-        
-        // SFSafariViewController
-        if #available(iOS 9.0, *) {
-            if let urlScheme = url.scheme {
-                if ["http", "https"].contains(urlScheme) {
-                    let safariVC = SFSafariViewController(url: url)
-                    present(safariVC, animated: true, completion: nil)
-                    return
-                } else {
-                    DebugLog.e("Url is missing http/https url scheme: \(url)")
-                }
-            }
-        }
-        
-        // Open in Safari
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.openURL(url)
-        }
+        return action.performsUIBlockingNetworkRequest
     }
 }
 
@@ -770,11 +700,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
-        if let apiAction = buttonItem.action as? APIAction {
-            handleAPIAction(apiAction, with: nil, rootComponent: message.attachment?.template)
-        } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
-            handleComponentViewAction(componentViewAction)
-        }
+        // TODO: MITCH MITCH Handle this action here, yo
     }
 }
 
