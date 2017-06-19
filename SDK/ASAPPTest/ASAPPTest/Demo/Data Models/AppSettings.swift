@@ -188,20 +188,10 @@ extension AppSettings {
     
     func getContext(for user: String) -> [String : Any] {
         return [
+            ASAPP.AUTH_KEY_ACCESS_TOKEN : "asapp_ios_fake_access_token",
             "fake_context_key_1" : "fake_context_value_1",
             "fake_context_key_2" : "fake_context_value_2",
             "accountId" : user
-        ]
-    }
-    
-    func getAuthData() -> [String : Any] {
-        
-        //        sleep(1) // Mimic slow response from Comcast
-        
-        return [
-            ASAPP.AUTH_KEY_ACCESS_TOKEN : "asapp_ios_fake_access_token",
-            ASAPP.AUTH_KEY_ISSUED_TIME : Date(),
-            ASAPP.AUTH_KEY_EXPIRES_IN : 60 * 60
         ]
     }
 }

@@ -21,7 +21,6 @@ class HomeViewController: BaseViewController {
     
     // MARK: Private Properties
     
-    fileprivate var authenticationBlock: ASAPPRequestAuthProvider!
     fileprivate var contextBlock: ASAPPRequestContextProvider!
     fileprivate var callbackHandler: ASAPPAppCallbackHandler!
 
@@ -40,9 +39,6 @@ class HomeViewController: BaseViewController {
         self.currentAccount = appSettings.getCurrentAccount()
         super.init(appSettings: appSettings)
         
-        self.authenticationBlock = { [weak self] in
-            return self?.appSettings.getAuthData() ?? ["" : ""]
-        }
         self.contextBlock = { [weak self] in
             guard let strongSelf = self else {
                 return ["" : ""]
@@ -113,7 +109,6 @@ class HomeViewController: BaseViewController {
                                  clientSecret: "ASAPP_DEMO_CLIENT_ID")
         
         let user = ASAPPUser(userIdentifier: currentAccount.userToken,
-                             requestAuthProvider: authenticationBlock,
                              requestContextProvider: contextBlock)
         
         ASAPP.initialize(with: config)

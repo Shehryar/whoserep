@@ -575,25 +575,25 @@ extension ChatViewController {
             ActionHandler.handleAPIAction(action, 
                                           root: message?.attachment?.template,
                                           conversationManager: conversationManager,
-                                          completion: { (response) in
+                                          completion: { [weak self] (response) in
                                             guard let response = response else {
-                                                // Show error
+                                                ActionHandler.showAlert(presenter: self)
                                                 return
                                             }
                                             
                                             switch response.type {
                                             case .error:
-                                                // Show error
+                                                ActionHandler.showAlert(message: response.error?.userMessage,
+                                                                        presenter: self)
                                                 break
                                                 
                                             case .componentView:
+                                                // Show view
                                                 break
                                                 
-                                                
-                                            case .refreshView:
-                                                break
-                                                
-                                            case .finish:
+                                            case .refreshView,
+                                                 .finish:
+                                                // No meaning in this context
                                                 break
                                             }
             })
@@ -647,9 +647,7 @@ extension ChatViewController {
             ActionHandler.handleWebPageAction(action as? WebPageAction, from: self)
             break
             
-        case .unknown:
-            // No-op
-            break
+        case .unknown: /* No-op */ break
         }
         
         

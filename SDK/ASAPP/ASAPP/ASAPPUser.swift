@@ -8,8 +8,6 @@
 
 import UIKit
 
-public typealias ASAPPRequestAuthProvider = (() -> [String : Any])
-
 public typealias ASAPPRequestContextProvider = (() -> [String : Any])
 
 // MARK:- ASAPPUser
@@ -18,17 +16,13 @@ public class ASAPPUser: NSObject {
 
     public let userIdentifier: String
     
-    public let requestAuthProvider: ASAPPRequestAuthProvider
-    
     public let requestContextProvider: ASAPPRequestContextProvider
 
     // MARK:- Init
     
     public init(userIdentifier: String,
-                requestAuthProvider: @escaping ASAPPRequestAuthProvider,
                 requestContextProvider: @escaping ASAPPRequestContextProvider) {
         self.userIdentifier = userIdentifier
-        self.requestAuthProvider = requestAuthProvider
         self.requestContextProvider = requestContextProvider
         super.init()
     }
@@ -38,21 +32,14 @@ public class ASAPPUser: NSObject {
 
 extension ASAPPUser {
     
-    func getAuthToken() -> (String?, [String : Any]) {
-        DebugLog.d("Requesting auth for user: \(userIdentifier)")
-        
-        let authJSON = requestAuthProvider()
-        let accessToken = authJSON[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String
-        
-        DebugLog.d(caller: self, "Access Token: \(String(describing: accessToken)), from auth json: \(authJSON)")
-        
-        return (accessToken, authJSON)
-    }
+    typealias ContextRequestCompletion = ((_ context: [String : Any]?, _ authToken: String?) -> Void)
     
-    func getContextString() -> String {
-        let context = requestContextProvider()
-        let contextString = JSONUtil.stringify(context)
-        
-        return contextString ?? ""
+    func getContext(completion: @escaping ContextRequestCompletion) {
+        Dispatcher.performOnBackgroundThread { [weak self] in
+            let context = self?.requestContextProvider()
+            let authToken = context?[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String
+            
+            completion(context, authToken)
+        }
     }
 }

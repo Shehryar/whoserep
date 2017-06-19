@@ -12,22 +12,44 @@ import UIKit
 
 extension ConversationManager {
 
+    func getRequestParameters(with params: [String : Any]?,
+                              requiresContext: Bool = true,
+                              insertContextAsString: Bool = true,
+                              contextKey: String = "Context",
+                              completion: @escaping (_ params: [String : Any]) -> Void) {
+        
+        var requestParams: [String : Any] = [
+            ASAPP.CLIENT_TYPE_KEY: ASAPP.CLIENT_TYPE_VALUE,
+            ASAPP.CLIENT_VERSION_KEY: ASAPP.clientVersion
+        ].with(params)
+        
+        if requiresContext {
+            user.getContext(completion: { (context, authToken) in
+                if let context = context {
+                    if !insertContextAsString {
+                        requestParams[contextKey] =  context
+                    } else if insertContextAsString, let contextString = JSONUtil.stringify(context) {
+                        requestParams[contextKey] =  contextString
+                    }
+                }
+                if let authToken = authToken {
+                    requestParams["Auth"] = authToken
+                }
+                completion(requestParams)
+            })
+        } else {
+            completion(requestParams)
+        }
+    }
+    
     fileprivate func sendSRSRequest(path: String,
                                     params: [String : Any]?,
                                     isRequestFromPrediction: Bool = false,
                                     completion: IncomingMessageHandler? = nil) {
-        
-        Dispatcher.performOnBackgroundThread {
-            var srsParams: [String : Any] = [ "Context" : self.user.getContextString()].with(params)
-            srsParams[ASAPP.CLIENT_TYPE_KEY] = ASAPP.CLIENT_TYPE_VALUE
-            srsParams[ASAPP.CLIENT_VERSION_KEY] = ASAPP.clientVersion
-            let (authToken, _) = self.user.getAuthToken()
-            if let authToken = authToken {
-                srsParams["Auth"] = authToken
-            }
+        getRequestParameters(with: params) { (requestParams) in
             
             Dispatcher.performOnMainThread {
-                self.socketConnection.sendRequest(withPath: path, params: srsParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
+                self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
                     completion?(incomingMessage, request, responseTime)
                     
                     self.trackSRSRequest(path: path,

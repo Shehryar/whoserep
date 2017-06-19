@@ -172,4 +172,31 @@ fileprivate extension ActionHandler {
     }
 }
 
+// MARK:- Errors
+
+extension ActionHandler {
+    
+    class func showAlert(title: String? = nil,
+                         message: String? = nil,
+                         presenter: UIViewController?) {
+        if !Thread.isMainThread {
+            Dispatcher.performOnMainThread {
+                showAlert(title: title, message: message, presenter: presenter)
+            }
+            return
+        }
+        
+        let alert = UIAlertController(title: title ?? ASAPP.strings.requestErrorGenericFailureTitle,
+                                      message: message ?? ASAPP.strings.requestErrorGenericFailure,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: ASAPP.strings.requestErrorDismissButton,
+                                      style: .cancel,
+                                      handler: { (action) in
+                                        
+        }))
+        
+        presenter?.present(alert, animated: true, completion: nil)
+    }
+}
 
