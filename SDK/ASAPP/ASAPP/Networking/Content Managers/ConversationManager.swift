@@ -179,11 +179,11 @@ extension ConversationManager {
         var parentEventLogSeq = currentQuickReplyEvent.parentEventLogSeq
         
         for (_, event) in events.enumerated().reversed() {
-            if parentEventLogSeq == nil || parentEventLogSeq! < event.eventLogSeq {
+            if parentEventLogSeq == nil || parentEventLogSeq! > event.eventLogSeq || parentEventLogSeq == 0 {
                 break
             }
-
-            if event.parentEventLogSeq == parentEventLogSeq {
+            
+            if event.eventLogSeq == parentEventLogSeq {
                 if let message = event.chatMessage {
                     quickReplyMessages.append(message)
                     parentEventLogSeq = event.parentEventLogSeq
@@ -193,7 +193,7 @@ extension ConversationManager {
             }
         }
         
-        return quickReplyMessages.isEmpty ? nil : quickReplyMessages.reversed()
+        return quickReplyMessages.reversed()
     }
     
     private func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {

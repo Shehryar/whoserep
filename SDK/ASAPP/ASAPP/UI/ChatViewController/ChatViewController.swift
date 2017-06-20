@@ -864,15 +864,8 @@ extension ChatViewController {
     private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?,
                                                         animated: Bool = true,
                                                         completion: (() -> Void)? = nil) {
-        guard let messages = messages, quickRepliesMessage == nil else { return }
-    
-        for message in messages {
-            if message.quickReplies == nil {
-                DebugLog.d("Passed message without quickReplies to showQuickRepliesActionSheetIfNecessary")
-                return
-            }
-        }
-        
+        guard let messages = messages else { return }
+            
         quickRepliesMessage = messages.last
         
         quickRepliesActionSheet.reload(with: messages)

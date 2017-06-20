@@ -25,7 +25,7 @@ extension Event {
         case eventTime = "EventTime"
         case eventType = "EventType"
         case issueId = "IssueId"
-        case parentEventLogSeq = "ParentEventLogSeq"
+        case parentEventLogSeq = "parentEventLogSeq"
         case repId = "RepId"
         
         // Text Message Event
