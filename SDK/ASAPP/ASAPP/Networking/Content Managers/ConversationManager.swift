@@ -119,11 +119,13 @@ extension ConversationManager {
     
     func enterConversation() {
         DebugLog.d("Entering Conversation")
+        
         socketConnection.connectIfNeeded()
     }
     
     func exitConversation() {
         DebugLog.d("\n\nExiting Conversation\n")
+        
         fileStore.save()
         socketConnection.disconnect()
     }
@@ -133,8 +135,10 @@ extension ConversationManager {
 
 extension ConversationManager {
     
+    typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
+    
     func getEvents(afterEvent: Event? = nil,
-                   completion: @escaping ((_ fetchedEvents: [Event]?, _ error: String?) -> Void)) {
+                   completion: @escaping FetchedEventsCompletion) {
         
         let path = "customer/GetEvents"
         let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
@@ -159,6 +163,56 @@ extension ConversationManager {
                 }
             }
         }
+    }
+}
+
+// MARK:- Quick Replies
+
+extension ConversationManager {
+    
+    func getQuickReplyMessages() -> [ChatMessage]? {
+        guard let (currentQuickReplyEvent, currentQuickReplyMessage) = getCurrentQuickReplyMessage() else {
+            return nil
+        }
+        
+        var quickReplyMessages: [ChatMessage] = [currentQuickReplyMessage]
+        var parentEventLogSeq = currentQuickReplyEvent.parentEventLogSeq
+        
+        for (_, event) in events.enumerated().reversed() {
+            if parentEventLogSeq == nil || parentEventLogSeq! < event.eventLogSeq {
+                break
+            }
+
+            if event.parentEventLogSeq == parentEventLogSeq {
+                if let message = event.chatMessage {
+                    quickReplyMessages.append(message)
+                    parentEventLogSeq = event.parentEventLogSeq
+                } else {
+                    break
+                }
+            }
+        }
+        
+        return quickReplyMessages.isEmpty ? nil : quickReplyMessages.reversed()
+    }
+    
+    private func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
+        for (_, event) in events.enumerated().reversed() {
+            if event.eventType == .accountMerge {
+                break
+            }
+            
+            if event.isReply {
+                if let chatMessage = event.chatMessage,
+                    let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
+                    DebugLog.d("Found current quick reply message: \(String(describing: chatMessage.text)), parentId = \(String(describing: event.parentEventLogSeq))")
+                    return (event, chatMessage)
+                }
+                break
+            }
+        }
+        
+        return nil
     }
 }
 

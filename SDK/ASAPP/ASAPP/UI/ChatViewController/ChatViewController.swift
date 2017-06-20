@@ -856,7 +856,7 @@ extension ChatViewController {
     // MARK: Showing
     
     func showQuickRepliesActionSheetIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
-        if let quickReplyMessages = simpleStore.getQuickReplyMessages(fromEvents: conversationManager.events) {
+        if let quickReplyMessages = conversationManager.getQuickReplyMessages() {
             showQuickRepliesActionSheetIfNecessary(with: quickReplyMessages, animated: animated, completion: completion)
         }
     }
@@ -878,8 +878,6 @@ extension ChatViewController {
         quickRepliesActionSheet.reload(with: messages)
         conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
-        
-        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
     }
     
     func showQuickRepliesActionSheet(with message: ChatMessage,
@@ -891,8 +889,6 @@ extension ChatViewController {
         quickRepliesActionSheet.add(message: message, animated: animated)
         conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
-        
-        simpleStore.updateQuickReplyEventIds(quickRepliesActionSheet.eventIds)
     }
     
     // MARK: Hiding

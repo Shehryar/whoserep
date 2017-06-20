@@ -74,7 +74,9 @@ extension Event {
         let (eventType, eventJSON) = getEventTypeAndContent(from: json,
                                                             eventType: originalEventType,
                                                             ephemeralType: ephemeralType)
-        let parentEventLogSeq = eventJSON?.int(for: JSONKey.parentEventLogSeq.rawValue)
+        
+        let parentEventLogSeq = json.int(for: JSONKey.parentEventLogSeq.rawValue) ??
+            eventJSON?.int(for: JSONKey.parentEventLogSeq.rawValue)
         
         let event = Event(eventId: max(customerEventLogSeq, companyEventLogSeq),
                           parentEventLogSeq: parentEventLogSeq,
