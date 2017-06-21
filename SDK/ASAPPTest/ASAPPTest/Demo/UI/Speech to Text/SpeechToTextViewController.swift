@@ -59,8 +59,8 @@ class SpeechToTextViewController: BaseViewController {
     
     // MARK:- Initialization
     
-    required init(appSettings: AppSettings) {
-        super.init(appSettings: appSettings)
+    override func commonInit() {
+        super.commonInit()
         
         /**
          UI
@@ -99,10 +99,6 @@ class SpeechToTextViewController: BaseViewController {
          */
         
         speechRecognizer?.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {

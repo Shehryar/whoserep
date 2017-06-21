@@ -15,22 +15,10 @@ class TableHeaderView: UIView {
             setNeedsLayout()
         }
     }
-    
-    var appSettings: AppSettings? {
-        didSet {
-            if appSettings != oldValue {
-                updateLabel()
-                setNeedsLayout()
-            }
-        }
-    }
-    
+
     var title: String? {
         didSet {
-            if title != oldValue {
-                updateLabel()
-                setNeedsLayout()
-            }
+            updateLabel()
         }
     }
     
@@ -61,11 +49,12 @@ class TableHeaderView: UIView {
             label.attributedText = NSAttributedString(string: title.uppercased(), attributes: [
                 NSFontAttributeName : DemoFonts.latoBlackFont(withSize: 11),
                 NSKernAttributeName : 1.5,
-                NSForegroundColorAttributeName : appSettings?.branding.colors.secondaryTextColor ?? UIColor.lightGray
+                NSForegroundColorAttributeName : AppSettings.shared.branding.colors.secondaryTextColor
                 ])
         } else {
             label.attributedText = nil
         }
+        setNeedsLayout()
     }
     
     // MARK:- Layout

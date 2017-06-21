@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var homeController: HomeViewController!
+    var homeController = HomeViewController()
     
     // MARK:- Application Lifecycle
     
@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ASAPP.debugLogLevel = .debug
         ASAPP.loadFonts()
         
-        
         // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
@@ -39,8 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         // Root View controller
-        let appSettings = buildAppSettings()
-        homeController = HomeViewController(appSettings: appSettings)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationController(rootViewController: homeController)
         window?.makeKeyAndVisible()
@@ -78,38 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.synchronize()
     }
 }
-
-// MARK:- Setup
-
-extension AppDelegate {
-    
-    func buildAppSettings() -> AppSettings {
-        /*
-        let infoDict = Bundle.main.infoDictionary
-        let liveChatEnabled = infoDict?["demo-live-chat"] as? String == "YES"
-        let demoContentEnabled = infoDict?["demo-content-enabled"] as? String == "YES"
-        
-        let environment: Environment
-        if let environmentString = infoDict?["default-environment"] as? String {
-            environment = Environment(rawValue: environmentString) ?? .asapp
-        } else {
-            environment = .asapp
-         
-        }
-         
-         let canChangeEnvironment = Bundle.main.infoDictionary?["can-change-environment"] as? String == "YES"
-        */
-        
-        
- 
-        let appSettings = AppSettings(apiHostName: AppSettings.getSavedAPIHostName(),
-                                      defaultCompany: AppSettings.getSavedDefaultCompany(),
-                                      branding: AppSettings.getSavedBranding())
-                
-        return appSettings
-    }
-}
-
 
 // MARK:- Notifications
 

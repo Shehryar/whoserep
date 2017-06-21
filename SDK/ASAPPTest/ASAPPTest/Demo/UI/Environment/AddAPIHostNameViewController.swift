@@ -27,17 +27,14 @@ class AddAPIHostNameViewController: BaseTableViewController {
     
     // MARK: Init
     
-    required init(appSettings: AppSettings) {
-        super.init(appSettings: appSettings)
+    
+    override func commonInit() {
+        super.commonInit()
         
         title = "API Host Name"
         
         tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK:- View
@@ -101,7 +98,7 @@ extension AddAPIHostNameViewController {
             return
         }
         
-        cell.appSettings = appSettings
+        cell.appSettings = AppSettings.shared
         cell.currentText = apiHostName
         cell.placeholderText = "e.g. mitch.asapp.com"
         cell.textField.autocorrectionType = .no
@@ -118,7 +115,7 @@ extension AddAPIHostNameViewController {
         guard let cell = cell else {
             return
         }
-        cell.appSettings = appSettings
+        cell.appSettings = AppSettings.shared
         cell.title = "Save"
     }
 }

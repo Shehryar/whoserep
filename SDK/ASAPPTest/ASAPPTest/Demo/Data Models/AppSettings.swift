@@ -11,57 +11,86 @@ import ASAPP
 
 class AppSettings: NSObject {
     
+    enum Key: String {
+        case apiHostName = "asapp_api_host_name"
+        case appId = "asapp_app_id"
+        case customerIdentifier = "asapp_customer_identifier"
+        case userName = "asapp_user_name"
+        case userImageName = "asapp_user_image_name"
+        case brandingType = "asapp_branding"
+        
+        case apiHostNameList = "asapp_api_host_name_list"
+        case appIdList = "asapp_app_id_list"
+        case customerIdentifierList = "asapp_customer_identifier_list"
+    }
+    
+    // MARK: Shared Instance
+    
+    static let shared = AppSettings()
+    
+    // MARK:- Properties
+    
     var apiHostName: String {
+        return AppSettings.getString(forKey: Key.apiHostName,
+                                     defaultValue: AppSettings.defaultAPIHostName)
+    }
+    
+    var appId: String {
+        return AppSettings.getString(forKey: Key.appId,
+                                     defaultValue: AppSettings.defaultAppId)
+    }
+    
+    var customerIdentifier: String {
+        return AppSettings.getString(forKey: Key.customerIdentifier,
+                                     defaultValue: AppSettings.getRandomCustomerIdentifier())
+    }
+    
+    var userName: String {
+        return AppSettings.getString(forKey: Key.userName,
+                                     defaultValue: AppSettings.defaultUserName)
+    }
+    
+    var userImageName: String {
+        return AppSettings.getString(forKey: Key.userImageName,
+                                     defaultValue: AppSettings.defaultUserImageName)
+    }
+    
+    var branding: Branding {
         didSet {
-            AppSettings.saveAPIHostName(apiHostName)
+            AppSettings.saveObject(branding.brandingType.rawValue, forKey: Key.brandingType)
         }
     }
     
-    var defaultCompany: String {
-        didSet {
-            AppSettings.saveDefaultCompany(defaultCompany)
-        }
+    var apiHostNames: [String] {
+        return AppSettings.getStringArray(forKey: Key.apiHostNameList) ?? AppSettings.getDefaultAPIHostNames()
+    }
+    
+    var appIds: [String] {
+        return AppSettings.getStringArray(forKey: Key.appIdList) ?? AppSettings.getDefaultAppIds()
+    }
+    
+    var customerIdentifiers: [String] {
+        return AppSettings.getStringArray(forKey: Key.customerIdentifierList) ?? AppSettings.getDefaultCustomerIdentifiers()
+    }
+    
+    var userImageNames: [String] {
+        return AppSettings.getDefaultImageNames()
     }
     
     let versionString: String
-    
-    var branding: Branding
     
     //
     // MARK:- Init
     //
     
-    init(apiHostName: String?, defaultCompany: String?, branding: Branding? = nil) {
-        let nonNilAPIHostName = apiHostName ?? APIHostNamePreset.asapp.rawValue
-        self.apiHostName = nonNilAPIHostName
-        self.defaultCompany = defaultCompany ?? CompanyPreset.defaultCompanyFor(apiHostName: nonNilAPIHostName).rawValue
-        
-        if let branding = branding {
-            self.branding = branding
-        } else if let apiHostNamePreset = APIHostNamePreset(rawValue: self.apiHostName) {
-            switch apiHostNamePreset {
-            case .comcast:
-                self.branding = Branding(brandingType: .xfinity)
-                break
-            
-            case .sprint:
-                self.branding = Branding(brandingType: .sprint)
-                break
-                
-            case .mitch, .asapp:
-                self.branding = Branding(brandingType: .asapp)
-                break
-            }
-        } else {
-            self.branding = Branding(brandingType: .asapp)
-        }
-        
-        // Version Info
+    override init() {
+        let brandingType = BrandingType.from(AppSettings.getString(forKey: Key.brandingType)) ?? AppSettings.defaultBrandingType
+        self.branding = Branding(brandingType: brandingType)
+    
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
         self.versionString = "\(version) (\(build))"
         
-        // Demo Settings
         super.init()
     }
     
@@ -70,115 +99,165 @@ class AppSettings: NSObject {
     }
 }
 
-// MARK:- User Token
+// MARK:- Defaults
+
+fileprivate extension AppSettings {
+    
+    static let defaultAPIHostName = getDefaultAPIHostNames().first!
+    
+    static let defaultAppId = getDefaultAppIds().first!
+    
+    static let defaultUserName = "Jon"
+    
+    static let defaultUserImageName = "user-anonymous"
+    
+    static let defaultBrandingType = BrandingType.asapp
+    
+    class func getDefaultAPIHostNames() -> [String] {
+        return [
+            "sprint.preprod.asapp.com",
+            "comcast.preprod.asapp.com",
+            "demo.asapp.com"
+        ]
+    }
+    
+    class func getDefaultAppIds() -> [String] {
+        return [
+            "boost",
+            "comcast",
+            "asapp",
+            "company1",
+            "company2",
+            "company3",
+            "company4",
+            "company5",
+            "company6",
+            "company7",
+            "company8",
+            "company9",
+            "company10",
+            "company11",
+        ]
+    }
+    
+    class func getDefaultCustomerIdentifiers() -> [String] {
+        return [
+            "test_customer_1",
+            "test_customer_2",
+            "+13126089137",
+            "+13473040637",
+            "+19179911056",
+            "+19176646758",
+            "+19084337447",
+            "+19173708897",
+            "+19173241544",
+            "+17038638070",
+            "+19134818010",
+            "+16173317845",
+            "+12152065821",
+            "+16173317845"
+        ]
+    }
+    
+    class func getDefaultImageNames() -> [String] {
+        return [
+            "user-gustavo",
+            "user-jane",
+            "user-alan",
+            "user-joshua",
+            "user-susan",
+            "user-tim",
+            "user-tony",
+            "user-lori",
+            "user-sandy",
+            "user-rachel",
+            "user-max"
+        ]
+    }
+}
+
+// MARK:- Storage
 
 extension AppSettings {
     
-    private func accountStorageKey() -> String {
-        return "\(apiHostName)-Demo-Account-Key"
-    }
-    
-    func getCurrentAccount() -> UserAccount {
-        if let savedAccount = UserAccount.getSavedAccount(withKey: accountStorageKey()) {
-            return savedAccount
+    class func saveObject(_ object: Any, forKey key: Key, async: Bool = true) {
+        let saveBlock = {
+            print("Saving object: \(object), for key: \(key.rawValue), async = \(async)")
+            
+            UserDefaults.standard.set(object, forKey: key.rawValue)
+            UserDefaults.standard.synchronize()
         }
         
-        let account = UserAccount.newRandomAccount(company: defaultCompany)
-        account.save(withKey: accountStorageKey())
-        
-        return account
-    }
-    
-    func setCurrentAccount(account: UserAccount) {
-        account.save(withKey: accountStorageKey())
-    }
-}
-
-// MARK:- Saving: API Host Name
-
-extension AppSettings {
-    private static let KEY_API_HOST_NAME = "ASAPP_DEMO_KEY_API_HOST_NAME"
-    
-    class func saveAPIHostName(_ apiHostName: String) {
-        UserDefaults.standard.set(apiHostName, forKey: KEY_API_HOST_NAME)
-        UserDefaults.standard.synchronize()
-    }
-    
-    class func getSavedAPIHostName() -> String? {
-        return UserDefaults.standard.string(forKey: KEY_API_HOST_NAME)
-    }
-}
-
-// MARK:- Custom API Host Names
-
-extension AppSettings {
-     private static let KEY_CUSTOM_API_HOST_NAMES = "ASAPP_DEMO_KEY_CUSTOM_API_HOST_NAMES"
-    
-    class func getSavedCustomAPIHostNames() -> [String] {
-        if let apiHostNames = UserDefaults.standard.array(forKey: KEY_CUSTOM_API_HOST_NAMES) as? [String] {
-            return apiHostNames
+        if async {
+            DispatchQueue.global(qos: .background).async(execute: saveBlock)
+        } else {
+            saveBlock()
         }
-        return [String]()
     }
     
-    class func saveCustomAPIHostNames(_ apiHostNames: [String]?) {
-        guard let apiHostNames = apiHostNames else {
-            return
+    class func addStringToArray(_ stringValue: String, forKey key: Key) {
+        var stringArray = getStringArray(forKey: key) ?? [String]()
+        stringArray.append(stringValue)
+        saveObject(stringArray, forKey: key)
+    }
+    
+    class func getString(forKey key: Key, defaultValue: String) -> String {
+        var stringValue = UserDefaults.standard.string(forKey: key.rawValue)
+        if let stringValue = stringValue {
+            print("Found string: \(stringValue), for key: \(key.rawValue)")
+            return stringValue
         }
         
-        UserDefaults.standard.set(apiHostNames, forKey: KEY_CUSTOM_API_HOST_NAMES)
-        UserDefaults.standard.synchronize()
+        print("Using default string: \(defaultValue), for key: \(key.rawValue)")
+        saveObject(defaultValue, forKey: key)
+        
+        return defaultValue
     }
     
-    class func addCustomAPIHostName(_ apiHostName: String) {
-        var apiHostNames = getSavedCustomAPIHostNames()
-        if !apiHostNames.contains(apiHostName) {
-            apiHostNames.append(apiHostName)
-        }
-        saveCustomAPIHostNames(apiHostNames)
-    }
-    
-    class func deleteCustomAPIHostName(_ apiHostName: String) {
-        var apiHostNames = getSavedCustomAPIHostNames()
-        if let existingIndex = apiHostNames.index(of: apiHostName) {
-            apiHostNames.remove(at: existingIndex)
-        }
-        saveCustomAPIHostNames(apiHostNames)
-    }
-    
-}
+    class func getString(forKey key: Key) -> String? {
+        let stringValue = UserDefaults.standard.string(forKey: key.rawValue)
 
-// MARK:- Saving: Default Company
+        print("Found string: \(stringValue ?? "nil"), for key: \(key.rawValue)")
+        
+        return stringValue
+    }
 
-extension AppSettings {
-    private static let KEY_DEFAULT_COMPANY = "ASAPP_DEMO_KEY_DEFAULT_COMPANY"
-    
-    class func saveDefaultCompany(_ company: String) {
-        UserDefaults.standard.set(company, forKey: KEY_DEFAULT_COMPANY)
-        UserDefaults.standard.synchronize()
+    class func getStringArray(forKey key: Key) -> [String]? {
+        let stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue)
+        
+        print("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
+        
+        return stringArray ?? getDefaultStringArray(forKey: key)
     }
     
-    class func getSavedDefaultCompany() -> String? {
-        return UserDefaults.standard.string(forKey: KEY_DEFAULT_COMPANY)
+    private class func getDefaultStringArray(forKey key: Key) -> [String]? {
+        switch key {
+        case .apiHostNameList: return getDefaultAPIHostNames()
+        case .appIdList: return getDefaultAppIds()
+        case .customerIdentifierList: return getDefaultCustomerIdentifiers()
+        default: return nil
+        }
     }
 }
 
-// MARK:- Saving: Branding
+// MARK:- Custom Vaues
 
 extension AppSettings {
-    private static let KEY_BRANDING_PRESET = "ASAPP_DEMO_KEY_BRANDING_PRESET"
     
-    class func saveBranding(_ branding: Branding) {
-        UserDefaults.standard.set(branding.brandingType.rawValue, forKey: KEY_BRANDING_PRESET)
-        UserDefaults.standard.synchronize()
+    func addAPIHostName(_ value: String) {
+        AppSettings.addStringToArray(value, forKey: Key.apiHostNameList)
     }
     
-    class func getSavedBranding() -> Branding? {
-        if let rawValue = UserDefaults.standard.string(forKey: KEY_BRANDING_PRESET),
-            let brandingType = BrandingType(rawValue: rawValue) {
-            return Branding(brandingType: brandingType)
-        }
-        return nil
+    func addAppId(_ value: String) {
+        AppSettings.addStringToArray(value, forKey: Key.appIdList)
+    }
+    
+    func addCustomerIdentifier(_ value: String) {
+        AppSettings.addStringToArray(value, forKey: Key.customerIdentifierList)
+    }
+    
+    class func getRandomCustomerIdentifier() -> String {
+        return "test-token-\(Int(Date().timeIntervalSince1970))"
     }
 }
 
@@ -186,12 +265,11 @@ extension AppSettings {
 
 extension AppSettings {
     
-    func getContext(for user: String) -> [String : Any] {
+    func getContext() -> [String : Any] {
         return [
             ASAPP.AUTH_KEY_ACCESS_TOKEN : "asapp_ios_fake_access_token",
             "fake_context_key_1" : "fake_context_value_1",
-            "fake_context_key_2" : "fake_context_value_2",
-            "accountId" : user
+            "fake_context_key_2" : "fake_context_value_2"
         ]
     }
 }

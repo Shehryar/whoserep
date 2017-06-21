@@ -11,14 +11,6 @@ import ASAPP
 
 class HomeViewController: BaseViewController {
     
-    var currentAccount: UserAccount {
-        didSet {
-            appSettings.setCurrentAccount(account: currentAccount)
-            homeTableView.currentAccount = currentAccount
-            refreshChatButton()
-        }
-    }
-    
     // MARK: Private Properties
     
     fileprivate var contextBlock: ASAPPRequestContextProvider!
@@ -28,22 +20,17 @@ class HomeViewController: BaseViewController {
     
     fileprivate let brandingSwitcherView = BrandingSwitcherView()
     
-    fileprivate let homeTableView: HomeTableView
+    fileprivate let homeTableView = HomeTableView()
     
     fileprivate var chatButton: ASAPPButton?
     
     // MARK:- Initialization
 
-    required init(appSettings: AppSettings) {
-        self.homeTableView = HomeTableView(appSettings: appSettings)
-        self.currentAccount = appSettings.getCurrentAccount()
-        super.init(appSettings: appSettings)
+    override func commonInit() {
+        super.commonInit()
         
-        self.contextBlock = { [weak self] in
-            guard let strongSelf = self else {
-                return ["" : ""]
-            }
-            return strongSelf.appSettings.getContext(for: strongSelf.currentAccount.userToken)
+        self.contextBlock = {
+            return AppSettings.shared.getContext()
         }
         self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
             guard let blockSelf = self else { return }
@@ -54,7 +41,6 @@ class HomeViewController: BaseViewController {
         }
         updateConfig()
         
-        homeTableView.currentAccount = currentAccount
         homeTableView.delegate = self
         homeTableView.reloadData()
         
@@ -63,10 +49,6 @@ class HomeViewController: BaseViewController {
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(HomeViewController.showSpeechToTextViewController))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {
@@ -80,6 +62,11 @@ class HomeViewController: BaseViewController {
         
         view.addSubview(homeTableView)
         view.addSubview(brandingSwitcherView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        homeTableView.reloadData()
     }
     
     // MARK: Layout
@@ -102,13 +89,13 @@ class HomeViewController: BaseViewController {
     // MARK:- ASAPPConfig
     
     func updateConfig() {
-         DemoLog("\nUpdating Demo Config:\n--------------------\nAppId: \(currentAccount.company)\nAPI:   \(appSettings.apiHostName)\nUser:  \(currentAccount.userToken)\n")
+         DemoLog("\n\nCurrent ASAPPConfig:\n--------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(AppSettings.shared.customerIdentifier)\n--------------------\n")
         
-        let config = ASAPPConfig(appId: currentAccount.company,
-                                 apiHostName: appSettings.apiHostName,
+        let config = ASAPPConfig(appId: AppSettings.shared.appId,
+                                 apiHostName: AppSettings.shared.apiHostName,
                                  clientSecret: "ASAPP_DEMO_CLIENT_ID")
         
-        let user = ASAPPUser(userIdentifier: currentAccount.userToken,
+        let user = ASAPPUser(userIdentifier: AppSettings.shared.customerIdentifier,
                              requestContextProvider: contextBlock)
         
         ASAPP.initialize(with: config)
@@ -134,15 +121,14 @@ extension HomeViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        homeTableView.appSettings = appSettings
-        
         // Nav Logo
-        let logoImageView = UIImageView(image: appSettings.branding.logoImage)
+        let logoImageView = UIImageView(image: AppSettings.shared.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: appSettings.branding.logoImageSize.width, height: appSettings.branding.logoImageSize.height)
+        logoImageView.frame = CGRect(x: 0, y: 0,
+                                     width: AppSettings.shared.branding.logoImageSize.width,
+                                     height: AppSettings.shared.branding.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
 
-        
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
         singleTapGesture.numberOfTapsRequired = 1
         logoImageView.addGestureRecognizer(singleTapGesture)
@@ -151,11 +137,12 @@ extension HomeViewController {
         
         // Chat Button
         refreshChatButton()
+        
+        homeTableView.reloadData()
     }
     
     func changeBranding(brandingType: BrandingType) {
-        appSettings.branding = Branding(brandingType: brandingType)
-        AppSettings.saveBranding(appSettings.branding)
+        AppSettings.shared.branding = Branding(brandingType: brandingType)
         
         reloadViewForUpdatedSettings()
     }
@@ -174,7 +161,7 @@ extension HomeViewController {
 
         updateConfig()
         
-        ASAPP.styles = appSettings.branding.styles
+        ASAPP.styles = AppSettings.shared.branding.styles
         ASAPP.debugLogLevel = .info
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
@@ -192,6 +179,40 @@ extension HomeViewController {
 // MARK:- HomeTableViewDelegate
 
 extension HomeViewController: HomeTableViewDelegate {
+    
+    func homeTableViewDidTapUserName(_ homeTableView: HomeTableView) {
+        
+    }
+    
+    func homeTableViewDidTapAppId(_ homeTableView: HomeTableView) {
+        let optionsVC = OptionsForKeyViewController()
+        optionsVC.title = "App Id"
+        optionsVC.update(selectedOptionKey: AppSettings.Key.appId,
+                         optionsListKey: AppSettings.Key.appIdList)
+        
+        navigationController?.pushViewController(optionsVC, animated: true)
+    }
+    
+    func homeTableViewDidTapAPIHostName(_ homeTableView: HomeTableView) {
+        let optionsVC = OptionsForKeyViewController()
+        optionsVC.title = "API Host Name"
+        optionsVC.update(selectedOptionKey: AppSettings.Key.apiHostName,
+                         optionsListKey: AppSettings.Key.apiHostNameList)
+        
+        navigationController?.pushViewController(optionsVC, animated: true)
+    }
+    
+    func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView) {
+        let optionsVC = OptionsForKeyViewController()
+        optionsVC.title = "Customer Identifier"
+        optionsVC.update(selectedOptionKey: AppSettings.Key.customerIdentifier,
+                         optionsListKey: AppSettings.Key.customerIdentifierList)
+        
+        navigationController?.pushViewController(optionsVC, animated: true)
+    }
+    
+    
+    
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView) {
         showBillDetails()
@@ -215,26 +236,6 @@ extension HomeViewController: HomeTableViewDelegate {
     
     func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
         showUseCasePreview()
-    }
-}
-
-// MARK:- AccountsViewControllerDelegate
-
-extension HomeViewController: AccountsViewControllerDelegate {
-    
-    func accountsViewController(viewController: AccountsViewController, didSelectAccount account: UserAccount) {
-        currentAccount = account
-        _ = navigationController?.popToViewController(self, animated: true)
-    }
-}
-
-// MARK:- DemoEnvironmentViewControllerDelegate
-
-extension HomeViewController: DemoEnvironmentViewControllerDelegate {
-    
-    func demoEnvironmentViewController(_ viewController: DemoEnvironmentViewController,
-                                       didUpdateAppSettings appSettings: AppSettings) {
-        self.appSettings = appSettings
     }
 }
 
@@ -310,7 +311,7 @@ extension HomeViewController {
     func showSpeechToTextViewController() {
         
         if #available(iOS 10.0, *) {
-            let vc = SpeechToTextViewController(appSettings: appSettings)
+            let vc = SpeechToTextViewController()
             navigationController?.pushViewController(vc, animated: true)
         } else {
             let alert = UIAlertController(title: "Only Available on iOS 10",
@@ -322,21 +323,21 @@ extension HomeViewController {
     }
     
     func showBillDetails() {
-        let billDetailsVC = BillDetailsViewController(appSettings: appSettings)
+        let billDetailsVC = BillDetailsViewController()
         navigationController?.pushViewController(billDetailsVC, animated: true)
     }
     
     func showAccountsPage() {
-        let accountsVC = AccountsViewController(appSettings: appSettings)
-        accountsVC.currentAccount = currentAccount
-        accountsVC.delegate = self
-        navigationController?.pushViewController(accountsVC, animated: true)
+//        let accountsVC = AccountsViewController(appSettings: appSettings)
+//        accountsVC.currentAccount = currentAccount
+//        accountsVC.delegate = self
+//        navigationController?.pushViewController(accountsVC, animated: true)
     }
     
     func showEnvironmentSettings() {
-        let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
-        environmentVC.delegate = self
-        navigationController?.pushViewController(environmentVC, animated: true)
+//        let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
+//        environmentVC.delegate = self
+//        navigationController?.pushViewController(environmentVC, animated: true)
     }
     
     func showUseCasePreview() {
@@ -355,7 +356,7 @@ extension HomeViewController {
             return false
         }
         
-        let viewController = ImageBackgroundViewController(appSettings: appSettings)
+        let viewController = ImageBackgroundViewController()
         viewController.title = title
         viewController.imageView.image = image
         viewController.statusBarStyle = statusBarStyle
@@ -367,7 +368,7 @@ extension HomeViewController {
     // MARK: Utility
     
     private func imageForImageName(imageName: String) -> UIImage? {
-        if let image = UIImage(named: "\(appSettings.defaultCompany)-\(imageName)") {
+        if let image = UIImage(named: "\(AppSettings.shared.appId)-\(imageName)") {
             return image
         }
         return nil
