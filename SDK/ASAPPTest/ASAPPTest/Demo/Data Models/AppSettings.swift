@@ -201,9 +201,16 @@ extension AppSettings {
         saveObject(stringArray, forKey: key)
     }
     
+    class func deleteStringFromArray(_ stringValue: String, forKey key: Key) {
+        var stringArray = getStringArray(forKey: key) ?? [String]()
+        if let index = stringArray.index(of: stringValue) {
+            stringArray.remove(at: index)
+            saveObject(stringArray, forKey: key)
+        }
+    }
+    
     class func getString(forKey key: Key, defaultValue: String) -> String {
-        var stringValue = UserDefaults.standard.string(forKey: key.rawValue)
-        if let stringValue = stringValue {
+        if let stringValue = UserDefaults.standard.string(forKey: key.rawValue) {
             print("Found string: \(stringValue), for key: \(key.rawValue)")
             return stringValue
         }

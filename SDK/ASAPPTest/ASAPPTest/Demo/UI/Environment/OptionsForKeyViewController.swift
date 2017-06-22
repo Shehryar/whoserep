@@ -25,6 +25,12 @@ class OptionsForKeyViewController: BaseTableViewController {
     fileprivate(set) var selectedOption: String?
     
     fileprivate(set) var options: [String]?
+    
+    override func commonInit() {
+        super.commonInit()
+        
+        tableView.allowsSelectionDuringEditing = false
+    }
 }
 
 // MARK: Data
@@ -100,6 +106,27 @@ extension OptionsForKeyViewController {
             return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == Section.options.rawValue,
+            let option = options?[indexPath.row] {
+            return option != selectedOption
+        }
+        return false
+        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete && indexPath.section == Section.options.rawValue else {
+            return
+        }
+        
+        if let option = options?[indexPath.row], let optionsListKey = optionsListKey {
+            AppSettings.deleteStringFromArray(option, forKey: optionsListKey)
+            reload()
+        }
+    }
+
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

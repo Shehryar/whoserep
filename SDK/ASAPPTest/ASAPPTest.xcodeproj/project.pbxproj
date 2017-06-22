@@ -146,14 +146,6 @@
 			path = TableView;
 			sourceTree = "<group>";
 		};
-		281D8E041DC973A000E4A65B /* Accounts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Accounts;
-			path = ASAPPTest/Demo/UI/Accounts;
-			sourceTree = SOURCE_ROOT;
-		};
 		307301C61DAE9BAA0002CF3B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +210,6 @@
 				30E78EDF1DCA731E006A2AD8 /* Environment */,
 				30988EA51DC7BA8700470E09 /* Home */,
 				30988EA11DC7BA8700470E09 /* Bill Details */,
-				281D8E041DC973A000E4A65B /* Accounts */,
 				3077DBEF1ECE461E005818B8 /* Speech to Text */,
 			);
 			path = UI;
