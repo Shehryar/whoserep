@@ -74,26 +74,50 @@ class TitleDetailValueCell: TableViewCell {
     
     func labelFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
         let contentWidth = size.width - contentInset.left - contentInset.right
-        let leftWidth = floor(contentWidth * 0.6)
-        let leftRightMargin: CGFloat = 10
-        let rightWidth = contentWidth - leftWidth - leftRightMargin
+        let columnSpacing: CGFloat = 10
         
-        let nameHeight = ceil(titleLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
-        let nameLabelFrame = CGRect(x: contentInset.left, y: contentInset.top, width: leftWidth, height: nameHeight)
-        
-        let detailHeight = ceil(detailLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
-        let detailLabelFrame: CGRect
-        if detailHeight > 0 {
-            detailLabelFrame = CGRect(x: contentInset.left, y: nameLabelFrame.maxY + titleDetailMargin, width: leftWidth, height: detailHeight)
-        } else {
-            detailLabelFrame = .zero
+        let framesWithSizes: (CGSize, CGSize, CGSize) -> (CGRect, CGRect, CGRect) = { (titleSize, detailSize, valueSize) in
+            var leftColumnHeight = ceil(titleSize.height) + ceil(detailSize.height)
+            if titleSize.height > 0 && detailSize.height > 0 {
+                leftColumnHeight += self.titleDetailMargin
+            }
+            let contentHeight = max(leftColumnHeight, valueSize.height)
+            
+            // Left Column
+            let leftColumnTop = self.contentInset.top + floor((contentHeight - leftColumnHeight) / 2.0)
+            let titleLabelFrame = CGRect(x: self.contentInset.left, y: leftColumnTop,
+                                         width: ceil(titleSize.width), height: ceil(titleSize.height))
+            
+            let detailTop = titleLabelFrame.maxY + (titleSize.height > 0 ? self.titleDetailMargin : 0.0)
+            let detailLabelFrame = CGRect(x: self.contentInset.left, y: detailTop,
+                                          width: ceil(detailSize.width), height: ceil(detailSize.height))
+            
+            // Right Column
+            let rightColumnLeft = size.width - self.contentInset.right - ceil(valueSize.width)
+            let rightColumnTop = self.contentInset.top + floor((contentHeight - valueSize.height) / 2.0)
+            let valueLabelFrame = CGRect(x: rightColumnLeft, y: rightColumnTop,
+                                         width: ceil(valueSize.width), height: ceil(valueSize.height))
+            
+            return (titleLabelFrame, detailLabelFrame, valueLabelFrame)
         }
         
-        let valueLeft = size.width - contentInset.right - rightWidth
-        let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: rightWidth, height: 0)).height)
-        let valueLabelFrame = CGRect(x: valueLeft, y: contentInset.top, width: rightWidth, height: valueHeight)
+        let titleSize = titleLabel.sizeThatFits(.zero)
+        let detailSize = detailLabel.sizeThatFits(.zero)
+        let valueSize = valueLabel.sizeThatFits(.zero)
+        if max(titleSize.width, detailSize.width) < contentWidth - valueSize.width - columnSpacing {
+            return framesWithSizes(titleSize, detailSize, valueSize)
+        }
         
-        return (nameLabelFrame, detailLabelFrame, valueLabelFrame)
+        let leftRelativeSize: CGFloat = max(titleSize.width, detailSize.width) > valueSize.width ? 0.6 : 0.4
+        let leftWidth = floor(contentWidth * leftRelativeSize)
+        let rightWidth = contentWidth - leftWidth - columnSpacing
+        let titleHeight = ceil(titleLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
+        let detailHeight = ceil(detailLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)
+        let valueHeight = ceil(valueLabel.sizeThatFits(CGSize(width: rightWidth, height: 0)).height)
+        
+        return framesWithSizes(CGSize(width: leftWidth, height: titleHeight),
+                               CGSize(width: leftWidth, height: detailHeight),
+                               CGSize(width: rightWidth, height: valueHeight))
     }
     
     override func layoutSubviews() {

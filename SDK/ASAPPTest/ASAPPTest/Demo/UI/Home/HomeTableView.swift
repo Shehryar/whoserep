@@ -129,7 +129,7 @@ extension HomeTableView {
         var title: String?
         switch section {
         case Section.user.rawValue:
-            title = "User"
+            title = ""
             break
             
         case Section.settings.rawValue:
