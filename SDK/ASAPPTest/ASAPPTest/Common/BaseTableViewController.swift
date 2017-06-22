@@ -16,12 +16,33 @@ class BaseTableViewController: BaseViewController {
     
     // MARK:- Private Properties
     
-    fileprivate let headerSizingView = TableHeaderView()
-    fileprivate let imageNameSizingCell = ImageNameCell()
-    fileprivate let labelIconSizingCell = LabelIconCell()
-    fileprivate let titleDetailValueSizingCell = TitleDetailValueCell()
-    fileprivate let titleCheckmarkSizingCell = TitleCheckmarkCell()
-    fileprivate let buttonSizingCell = ButtonCell()
+    fileprivate lazy var headerSizingView: TableHeaderView = {
+        return TableHeaderView()
+    }()
+    
+    fileprivate lazy var imageNameSizingCell: ImageNameCell = {
+        return ImageNameCell()
+    }()
+    
+    fileprivate lazy var labelIconSizingCell: LabelIconCell = {
+        return LabelIconCell()
+    }()
+    
+    fileprivate lazy var titleDetailValueSizingCell: TitleDetailValueCell = {
+        return TitleDetailValueCell()
+    }()
+    
+    fileprivate lazy var titleCheckmarkSizingCell: TitleCheckmarkCell = {
+        return TitleCheckmarkCell()
+    }()
+    
+    fileprivate lazy var buttonSizingCell: ButtonCell = {
+        return ButtonCell()
+    }()
+    
+    fileprivate lazy var imageViewCarouselSizingCell: ImageViewCarouselCell = {
+        return ImageViewCarouselCell()
+    }()
     
     // MARK:- Initialization
     
@@ -35,6 +56,7 @@ class BaseTableViewController: BaseViewController {
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
+        tableView.register(ImageViewCarouselCell.self, forCellReuseIdentifier: ImageViewCarouselCell.reuseId)
         tableView.backgroundColor = AppSettings.shared.branding.colors.secondaryBackgroundColor
         tableView.dataSource = self
         tableView.delegate = self
@@ -184,6 +206,22 @@ extension BaseTableViewController {
         return cell ?? UITableViewCell()
     }
     
+    func imageViewCarouselCell(imageNames: [String]?,
+                               selectedImageName: String? = nil,
+                               onSelection: ((_ imageName: String) -> Void)? = nil,
+                               for indexPath: IndexPath,
+                               sizingOnly: Bool) -> UITableViewCell {
+        let cell = sizingOnly
+            ? imageViewCarouselSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: ImageViewCarouselCell.reuseId, for: indexPath) as? ImageViewCarouselCell
+        
+        cell?.imageNames = imageNames
+        cell?.selectedImageName = selectedImageName
+        cell?.onSelection = onSelection
+        
+        return cell ?? UITableViewCell()
+    }
+
     // MARK: OVERRIDE THIS METHOD
     
     func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {

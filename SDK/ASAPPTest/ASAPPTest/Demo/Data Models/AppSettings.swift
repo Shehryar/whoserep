@@ -161,6 +161,7 @@ fileprivate extension AppSettings {
     
     class func getDefaultImageNames() -> [String] {
         return [
+            "user-anonymous",
             "user-gustavo",
             "user-jane",
             "user-alan",

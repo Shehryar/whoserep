@@ -28,6 +28,8 @@
 		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
 		3089940F1EFB2B800068D616 /* OptionsForKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */; };
 		308994131EFC2EF40068D616 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994121EFC2EF40068D616 /* AccountViewController.swift */; };
+		308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */; };
+		308994181EFC40060068D616 /* RoundImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994171EFC40060068D616 /* RoundImageCVCell.swift */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
@@ -89,6 +91,8 @@
 		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
 		3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsForKeyViewController.swift; sourceTree = "<group>"; };
 		308994121EFC2EF40068D616 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewCarouselCell.swift; sourceTree = "<group>"; };
+		308994171EFC40060068D616 /* RoundImageCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageCVCell.swift; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 				30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */,
 				30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */,
 				30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */,
+				308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -195,6 +200,14 @@
 			path = "Speech to Text";
 			sourceTree = "<group>";
 		};
+		308994161EFC3FDC0068D616 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				308994171EFC40060068D616 /* RoundImageCVCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		30988E881DC7B69A00470E09 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +221,7 @@
 		30988EA01DC7BA8700470E09 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				308994161EFC3FDC0068D616 /* CollectionView */,
 				281D8DF91DC967AC00E4A65B /* TableView */,
 				30E78EDF1DCA731E006A2AD8 /* Environment */,
 				30988EA51DC7BA8700470E09 /* Home */,
@@ -427,10 +441,12 @@
 				30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */,
 				3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
+				308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
 				300A27741E4289C9000A624A /* Branding.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
+				308994181EFC40060068D616 /* RoundImageCVCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,

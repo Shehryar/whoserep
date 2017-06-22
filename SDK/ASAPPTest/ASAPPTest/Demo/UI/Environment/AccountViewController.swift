@@ -10,9 +10,9 @@ import UIKit
 
 class AccountViewController: BaseTableViewController {
 
-    enum Row: Int {
-        case image
+    enum Section: Int {
         case name
+        case image
         case count
     }
     
@@ -30,26 +30,33 @@ class AccountViewController: BaseTableViewController {
 extension AccountViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Section.count.rawValue
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Row.count.rawValue
+        return 1
     }
     
     override func titleForSection(_ section: Int) -> String? {
-        return ""
+        switch section {
+        case Section.name.rawValue: return ""
+        case Section.image.rawValue: return "Avatar Image"
+        default: return nil
+        }
     }
     
     override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
-        switch indexPath.row {
-        case Row.image.rawValue:
-            return titleDetailValueCell(title: "Image",
-                                        value: AppSettings.shared.userImageName,
-                                        for: indexPath,
-                                        sizingOnly: forSizing)
+        switch indexPath.section {
+        case Section.image.rawValue:
+            return imageViewCarouselCell(imageNames: AppSettings.shared.userImageNames,
+                                         selectedImageName: AppSettings.shared.userImageName,
+                                         onSelection: { (imageName) in
+                                            AppSettings.saveObject(imageName, forKey: AppSettings.Key.userImageName)
+            },
+                                         for: indexPath,
+                                         sizingOnly: forSizing)
             
-        case Row.name.rawValue:
+        case Section.name.rawValue:
             return titleDetailValueCell(title: "Name",
                                         value: AppSettings.shared.userName,
                                         for: indexPath,
@@ -64,11 +71,11 @@ extension AccountViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        switch indexPath.row {
-        case Row.image.rawValue:
+        switch indexPath.section {
+        case Section.image.rawValue:
             break
             
-        case Row.name.rawValue:
+        case Section.name.rawValue:
             let viewController = TextInputViewController()
             viewController.title = "Set Name"
             viewController.instructionText = "Enter a Name"
