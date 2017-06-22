@@ -35,8 +35,6 @@ class TextInputViewController: BaseTableViewController {
     override func commonInit() {
         super.commonInit()
         
-        title = "Add New Option"
-        
         tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
     }

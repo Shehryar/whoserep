@@ -143,12 +143,25 @@ extension OptionsForKeyViewController {
             
         case Section.createNew.rawValue:
             let viewController = TextInputViewController()
-            viewController.instructionText = title ?? "Add Option"
+            viewController.title = "Add New Option"
+            if let title = title {
+                viewController.instructionText = "Add \(title)"
+            } else {
+                viewController.instructionText = "Add Option"
+            }
             viewController.onFinish = { [weak self] (text) in
                 guard !text.isEmpty,
                     let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
                     return
                 }
+                
+                
+                if strongSelf.isRestrictedText(text) {
+                    strongSelf.showAlert(title: "Sorry!",
+                                         message: "You are not allowed to do this.")
+                    return
+                }
+                
                 
                 AppSettings.addStringToArray(text, forKey: optionsListKey)
                 strongSelf.reload()
@@ -161,5 +174,18 @@ extension OptionsForKeyViewController {
             // No-op
             break
         }
+    }
+    
+    func isRestrictedText(_ text: String) -> Bool {
+        return [
+            "comcast.asapp.com",
+            "sprint.asapp.com"
+        ].contains(text.lowercased())
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
