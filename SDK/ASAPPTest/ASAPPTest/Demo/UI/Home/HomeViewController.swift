@@ -181,7 +181,8 @@ extension HomeViewController {
 extension HomeViewController: HomeTableViewDelegate {
     
     func homeTableViewDidTapUserName(_ homeTableView: HomeTableView) {
-        
+        let viewController = AccountViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func homeTableViewDidTapAppId(_ homeTableView: HomeTableView) {

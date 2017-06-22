@@ -386,7 +386,7 @@ extension HomeTableView: UITableViewDelegate {
      
         switch indexPath.section {
         case Section.user.rawValue:
-            
+            delegate?.homeTableViewDidTapUserName(self)
             break
             
         case Section.settings.rawValue:
