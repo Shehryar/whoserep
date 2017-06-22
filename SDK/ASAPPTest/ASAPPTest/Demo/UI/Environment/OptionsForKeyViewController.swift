@@ -143,6 +143,7 @@ extension OptionsForKeyViewController {
             
         case Section.createNew.rawValue:
             let viewController = TextInputViewController()
+            viewController.instructionText = title ?? "Add Option"
             viewController.onFinish = { [weak self] (text) in
                 guard !text.isEmpty,
                     let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
