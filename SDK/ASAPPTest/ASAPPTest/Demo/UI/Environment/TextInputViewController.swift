@@ -1,5 +1,5 @@
 //
-//  AddAPIHostNameViewController.swift
+//  TextInputViewController.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 2/24/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddAPIHostNameViewController: BaseTableViewController {
+class TextInputViewController: BaseTableViewController {
 
     enum Section: Int {
         case textInput
@@ -18,9 +18,13 @@ class AddAPIHostNameViewController: BaseTableViewController {
     
     // MARK: Properties
     
-    var onFinish: ((_ apiHostName: String) -> Void)?
+    var onFinish: ((_ text: String) -> Void)?
     
-    fileprivate(set) var apiHostName: String = ""
+    var instructionText: String = ""
+    
+    var placeholderText: String = "Enter text..."
+    
+    fileprivate(set) var text: String = ""
     
     fileprivate let textInputSizingCell = TextInputCell()
     fileprivate let buttonSizingCell = ButtonCell()
@@ -48,17 +52,17 @@ class AddAPIHostNameViewController: BaseTableViewController {
     // MARK:- Actions
     
     func finish() {
-        guard !apiHostName.isEmpty else {
+        guard !text.isEmpty else {
             return
         }
         
-        onFinish?(apiHostName)
+        onFinish?(text)
     }
 }
 
 // MARK:- UITableViewDataSource
 
-extension AddAPIHostNameViewController {
+extension TextInputViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count.rawValue
@@ -99,15 +103,14 @@ extension AddAPIHostNameViewController {
         }
         
         cell.appSettings = AppSettings.shared
-        cell.currentText = apiHostName
-        cell.placeholderText = "e.g. mitch.asapp.com"
+        cell.currentText = text
+        cell.placeholderText = placeholderText
         cell.textField.autocorrectionType = .no
         cell.textField.autocapitalizationType = .none
-        cell.textField.keyboardType = .URL
         cell.textField.returnKeyType = .done
         cell.dismissKeyboardOnReturn = true
         cell.onTextChange = { [weak self] (text) in
-            self?.apiHostName = text
+            self?.text = text
         }
     }
     
@@ -122,11 +125,11 @@ extension AddAPIHostNameViewController {
 
 // MARK:- UITableViewDelegate
 
-extension AddAPIHostNameViewController {
+extension TextInputViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.textInput.rawValue: return "ENTER API HOST NAME"
+        case Section.textInput.rawValue: return instructionText
         case Section.saveButton.rawValue: return ""
         default: return nil
         }

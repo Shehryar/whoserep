@@ -180,7 +180,7 @@ fileprivate extension AppSettings {
 
 extension AppSettings {
     
-    class func saveObject(_ object: Any, forKey key: Key, async: Bool = true) {
+    class func saveObject(_ object: Any, forKey key: Key, async: Bool = false) {
         let saveBlock = {
             print("Saving object: \(object), for key: \(key.rawValue), async = \(async)")
             

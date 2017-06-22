@@ -35,6 +35,17 @@ extension OptionsForKeyViewController {
         self.selectedOptionKey = selectedOptionKey
         self.optionsListKey = optionsListKey
         
+        reload()
+    }
+    
+    func reload() {
+        guard let selectedOptionKey = selectedOptionKey, let optionsListKey = optionsListKey else {
+            selectedOption = nil
+            options = nil
+            tableView.reloadData()
+            return
+        }
+        
         selectedOption = AppSettings.getString(forKey: selectedOptionKey)
         options = AppSettings.getStringArray(forKey: optionsListKey)
         
@@ -104,7 +115,18 @@ extension OptionsForKeyViewController {
             break
             
         case Section.createNew.rawValue:
-            
+            let viewController = TextInputViewController()
+            viewController.onFinish = { [weak self] (text) in
+                guard !text.isEmpty,
+                    let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
+                    return
+                }
+                
+                AppSettings.addStringToArray(text, forKey: optionsListKey)
+                strongSelf.reload()
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+            navigationController?.pushViewController(viewController, animated: true)
             break
             
         default:
