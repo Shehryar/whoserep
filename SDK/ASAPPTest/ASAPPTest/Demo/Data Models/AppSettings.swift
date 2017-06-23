@@ -183,7 +183,7 @@ extension AppSettings {
     
     class func saveObject(_ object: Any, forKey key: Key, async: Bool = false) {
         let saveBlock = {
-            print("Saving object: \(object), for key: \(key.rawValue), async = \(async)")
+            // DemoLog("Saving object: \(object), for key: \(key.rawValue), async = \(async)")
             
             UserDefaults.standard.set(object, forKey: key.rawValue)
             UserDefaults.standard.synchronize()
@@ -212,11 +212,11 @@ extension AppSettings {
     
     class func getString(forKey key: Key, defaultValue: String) -> String {
         if let stringValue = UserDefaults.standard.string(forKey: key.rawValue) {
-            print("Found string: \(stringValue), for key: \(key.rawValue)")
+            // DemoLog("Found string: \(stringValue), for key: \(key.rawValue)")
             return stringValue
         }
         
-        print("Using default string: \(defaultValue), for key: \(key.rawValue)")
+        // DemoLog("Using default string: \(defaultValue), for key: \(key.rawValue)")
         saveObject(defaultValue, forKey: key)
         
         return defaultValue
@@ -225,7 +225,7 @@ extension AppSettings {
     class func getString(forKey key: Key) -> String? {
         let stringValue = UserDefaults.standard.string(forKey: key.rawValue)
 
-        print("Found string: \(stringValue ?? "nil"), for key: \(key.rawValue)")
+        // DemoLog("Found string: \(stringValue ?? "nil"), for key: \(key.rawValue)")
         
         return stringValue
     }
@@ -233,7 +233,7 @@ extension AppSettings {
     class func getStringArray(forKey key: Key) -> [String]? {
         let stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue)
         
-        print("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
+        // DemoLog("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
         
         return stringArray ?? getDefaultStringArray(forKey: key)
     }
