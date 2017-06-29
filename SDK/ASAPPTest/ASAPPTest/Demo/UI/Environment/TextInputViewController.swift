@@ -26,15 +26,11 @@ class TextInputViewController: BaseTableViewController {
     
     var randomEntryPrefix: String? {
         didSet {
-            
+            updateBarButtonItems()
         }
     }
     
-    fileprivate(set) var text: String = "" {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    fileprivate(set) var text: String = ""
     
     fileprivate let textInputSizingCell = TextInputCell()
     fileprivate let buttonSizingCell = ButtonCell()
@@ -78,6 +74,7 @@ class TextInputViewController: BaseTableViewController {
         }
         
         text = "\(randomEntryPrefix)\(Int(Date().timeIntervalSince1970))"
+        tableView.reloadData()
     }
     
     func finish() {

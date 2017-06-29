@@ -14,17 +14,29 @@ public typealias ASAPPRequestContextProvider = (() -> [String : Any])
 
 public class ASAPPUser: NSObject {
 
+    public let isAnonymous: Bool
+    
     public let userIdentifier: String
     
     public let requestContextProvider: ASAPPRequestContextProvider
 
     // MARK:- Init
     
-    public init(userIdentifier: String,
+    public init(userIdentifier: String?,
                 requestContextProvider: @escaping ASAPPRequestContextProvider) {
-        self.userIdentifier = userIdentifier
+        if let userIdentifier = userIdentifier {
+            self.userIdentifier = userIdentifier;
+            self.isAnonymous = false
+        } else {
+            self.userIdentifier = ASAPPUser.createAnonymousIdentifier()
+            self.isAnonymous = true
+        }
         self.requestContextProvider = requestContextProvider
         super.init()
+    }
+    
+    private class func createAnonymousIdentifier() -> String {
+        return "anonymous_user_\(Date().timeIntervalSince1970)"
     }
 }
 

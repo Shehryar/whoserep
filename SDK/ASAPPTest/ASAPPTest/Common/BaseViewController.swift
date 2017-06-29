@@ -27,7 +27,9 @@ class BaseViewController: UIViewController {
     // MARK:- Initialization
     
     func commonInit() {
-        self.statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
+        statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -26,10 +26,37 @@ class OptionsForKeyViewController: BaseTableViewController {
     
     fileprivate(set) var options: [String]?
     
+    var rightBarButtonItemTitle: String? {
+        didSet {
+            updateBarButtonItems()
+        }
+    }
+    
+    var onRightBarButtonItemTap: (() -> Void)?
+    
+    var randomEntryPrefix: String?
+    
     override func commonInit() {
         super.commonInit()
         
         tableView.allowsSelectionDuringEditing = false
+    }
+}
+
+// MARK: UIBarButtonItems
+
+extension OptionsForKeyViewController {
+    
+    func updateBarButtonItems() {
+        if let rightBarButtonItemTitle = rightBarButtonItemTitle {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonItemTitle, style: .plain, target: self, action: #selector(OptionsForKeyViewController.didTapRightBarButtonItem))
+        } else {
+            navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    func didTapRightBarButtonItem() {
+        onRightBarButtonItemTap?()
     }
 }
 
@@ -149,6 +176,7 @@ extension OptionsForKeyViewController {
             } else {
                 viewController.instructionText = "Add Option"
             }
+            viewController.randomEntryPrefix = randomEntryPrefix
             viewController.onFinish = { [weak self] (text) in
                 guard !text.isEmpty,
                     let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {

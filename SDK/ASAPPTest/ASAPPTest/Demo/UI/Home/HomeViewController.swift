@@ -89,7 +89,7 @@ class HomeViewController: BaseViewController {
     // MARK:- ASAPPConfig
     
     func updateConfig() {
-         DemoLog("\n\nCurrent ASAPPConfig:\n--------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(AppSettings.shared.customerIdentifier)\n--------------------\n")
+         DemoLog("\n\nCurrent ASAPPConfig:\n--------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(String(describing: AppSettings.shared.customerIdentifier))\n--------------------\n")
         
         let config = ASAPPConfig(appId: AppSettings.shared.appId,
                                  apiHostName: AppSettings.shared.apiHostName,
@@ -97,7 +97,7 @@ class HomeViewController: BaseViewController {
         
         let user = ASAPPUser(userIdentifier: AppSettings.shared.customerIdentifier,
                              requestContextProvider: contextBlock)
-        
+
         ASAPP.initialize(with: config)
         ASAPP.user = user
     }
@@ -206,14 +206,32 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView) {
         let optionsVC = OptionsForKeyViewController()
         optionsVC.title = "Customer Identifier"
+        optionsVC.randomEntryPrefix = "test-user-"
+        optionsVC.update(selectedOptionKey: AppSettings.Key.customerIdentifier,
+                         optionsListKey: AppSettings.Key.customerIdentifierList)
+        optionsVC.rightBarButtonItemTitle = "Anonymous"
+        optionsVC.onRightBarButtonItemTap = { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
+            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+
+        }
+        
+        navigationController?.pushViewController(optionsVC, animated: true)
+    }
+    
+    func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
+        let optionsVC = OptionsForKeyViewController()
+        optionsVC.title = "Customer Identifier"
+        optionsVC.randomEntryPrefix = "test-user-"
         optionsVC.update(selectedOptionKey: AppSettings.Key.customerIdentifier,
                          optionsListKey: AppSettings.Key.customerIdentifierList)
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
-    
-    
-    
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView) {
         showBillDetails()

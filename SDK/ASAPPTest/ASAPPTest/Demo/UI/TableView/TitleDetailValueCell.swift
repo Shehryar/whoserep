@@ -49,8 +49,8 @@ class TitleDetailValueCell: TableViewCell {
         valueLabel.font = DemoFonts.latoLightFont(withSize: 16)
         valueLabel.textColor = UIColor.darkText
         valueLabel.textAlignment = .right
-        valueLabel.adjustsFontSizeToFitWidth = true
-        valueLabel.minimumScaleFactor = 0.4
+        valueLabel.numberOfLines = 0
+        valueLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(valueLabel)
     }
     
@@ -108,7 +108,7 @@ class TitleDetailValueCell: TableViewCell {
             return framesWithSizes(titleSize, detailSize, valueSize)
         }
         
-        let leftRelativeSize: CGFloat = max(titleSize.width, detailSize.width) > valueSize.width ? 0.6 : 0.4
+        let leftRelativeSize: CGFloat = max(titleSize.width, detailSize.width) > valueSize.width ? 0.55 : 0.45
         let leftWidth = floor(contentWidth * leftRelativeSize)
         let rightWidth = contentWidth - leftWidth - columnSpacing
         let titleHeight = ceil(titleLabel.sizeThatFits(CGSize(width: leftWidth, height: 0)).height)

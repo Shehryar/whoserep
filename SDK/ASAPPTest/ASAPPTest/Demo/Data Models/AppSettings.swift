@@ -15,6 +15,7 @@ class AppSettings: NSObject {
         case apiHostName = "asapp_api_host_name"
         case appId = "asapp_app_id"
         case customerIdentifier = "asapp_customer_identifier"
+        case authToken = "asapp_auth_token"
         case userName = "asapp_user_name"
         case userImageName = "asapp_user_image_name"
         case brandingType = "asapp_branding"
@@ -40,9 +41,13 @@ class AppSettings: NSObject {
                                      defaultValue: AppSettings.defaultAppId)
     }
     
-    var customerIdentifier: String {
-        return AppSettings.getString(forKey: Key.customerIdentifier,
-                                     defaultValue: AppSettings.getRandomCustomerIdentifier())
+    var customerIdentifier: String? {
+        return AppSettings.getString(forKey: Key.customerIdentifier)
+    }
+    
+    var authToken: String {
+        return AppSettings.getString(forKey: Key.authToken,
+                                     defaultValue: "asapp_ios_fake_access_token")
     }
     
     var userName: String {
@@ -107,6 +112,8 @@ fileprivate extension AppSettings {
     
     static let defaultAppId = getDefaultAppIds().first!
     
+    static let defaultAuthToken = ""
+    
     static let defaultUserName = "Jon"
     
     static let defaultUserImageName = "user-anonymous"
@@ -154,8 +161,7 @@ fileprivate extension AppSettings {
             "+17038638070",
             "+19134818010",
             "+16173317845",
-            "+12152065821",
-            "+16173317845"
+            "+12152065821"
         ]
     }
     
@@ -163,6 +169,7 @@ fileprivate extension AppSettings {
         return [
             "user-anonymous",
             "user-gustavo",
+            "user-mitch",
             "user-jane",
             "user-alan",
             "user-joshua",
@@ -180,6 +187,19 @@ fileprivate extension AppSettings {
 // MARK:- Storage
 
 extension AppSettings {
+    
+    class func deleteObject(forKey key: Key, async: Bool = false) {
+        let saveBlock = {
+            UserDefaults.standard.removeObject(forKey: key.rawValue)
+            UserDefaults.standard.synchronize()
+        }
+        
+        if async {
+            DispatchQueue.global(qos: .background).async(execute: saveBlock)
+        } else {
+            saveBlock()
+        }
+    }
     
     class func saveObject(_ object: Any, forKey key: Key, async: Bool = false) {
         let saveBlock = {
@@ -275,7 +295,7 @@ extension AppSettings {
     
     func getContext() -> [String : Any] {
         return [
-            ASAPP.AUTH_KEY_ACCESS_TOKEN : "asapp_ios_fake_access_token",
+            ASAPP.AUTH_KEY_ACCESS_TOKEN: AppSettings.shared.authToken,
             "fake_context_key_1" : "fake_context_value_1",
             "fake_context_key_2" : "fake_context_value_2"
         ]

@@ -66,13 +66,15 @@ class RoundImageCVCell: UICollectionViewCell {
     // MARK: Border
     
     func updateBorder() {
-        imageView.layer.borderWidth = 3.0
+        
         
         let color: UIColor
         if isHighlighted || shouldHighlightImageBorder {
             color = AppSettings.shared.branding.colors.accentColor
+            imageView.layer.borderWidth = 3.0
         } else {
-            color = AppSettings.shared.branding.colors.separatorColor
+            color = AppSettings.shared.branding.colors.secondaryTextColor
+            imageView.layer.borderWidth = 2.0
         }
         imageView.layer.borderColor = color.cgColor
         imageView.layer.rasterizationScale = UIScreen.main.scale

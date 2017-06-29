@@ -14,6 +14,7 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapAppId(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAPIHostName(_ homeTableView: HomeTableView)
     func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView)
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
@@ -36,6 +37,7 @@ class HomeTableView: UIView {
         case apiHostName
         case appId
         case customerIdentifier
+        case authToken
         case count
     }
     
@@ -175,7 +177,7 @@ extension HomeTableView {
             var value: String?
             switch indexPath.row {
             case SettingsRow.apiHostName.rawValue:
-                title = "API Host Name"
+                title = "API Host"
                 value = AppSettings.shared.apiHostName
                 break
                 
@@ -185,8 +187,17 @@ extension HomeTableView {
                 break
                 
             case SettingsRow.customerIdentifier.rawValue:
-                title = "Customer Identifier"
-                value = AppSettings.shared.customerIdentifier
+                title = "Customer Id"
+                if let customerIdentifier = AppSettings.shared.customerIdentifier {
+                    value = customerIdentifier
+                } else {
+                    value = "Anonymous User"
+                }
+                break
+                
+            case SettingsRow.authToken.rawValue:
+                title = "Auth Token"
+                value = AppSettings.shared.authToken
                 break
                 
             default:
@@ -403,6 +414,10 @@ extension HomeTableView: UITableViewDelegate {
                 delegate?.homeTableViewDidTapCustomerIdentifier(self)
                 break
              
+            case SettingsRow.authToken.rawValue:
+                delegate?.homeTableViewDidTapAuthToken(self)
+                break
+                
             default:
                 // No-op
                 break
