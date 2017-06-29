@@ -93,24 +93,24 @@ extension AppDelegate {
     // MARK: Notifications Registration
     
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        print("\napplication:didRegister:\n \n ")
+//        DemoLog("\napplication:didRegister:\n \n ")
         
         application.registerForRemoteNotifications()
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("\napplication:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(String(describing: Bundle.main.bundleIdentifier))\n  device token: \(token)")
+        DemoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(String(describing: Bundle.main.bundleIdentifier))\n  device token: \(token)")
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("\napplication: didFailToRegisterForRemoteNotificationsWithError: \(error)\n \n ")
+        DemoLog("application: didFailToRegisterForRemoteNotificationsWithError: \(error)")
     }
     
     // MARK: Notification Received
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        print("\napplication:didReceiveRemoteNotification\n \(userInfo)) \n ")
+        DemoLog("application:didReceiveRemoteNotification\n \(userInfo))")
         
         if ASAPP.canHandleNotification(with: userInfo) {
             homeController.showChat(fromNotificationWith: userInfo)
@@ -122,7 +122,7 @@ extension AppDelegate {
                      handleActionWithIdentifier identifier: String?,
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        print("\napplication:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo)) \n ")
+        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
     }
     
     func application(_ application: UIApplication,
@@ -130,7 +130,7 @@ extension AppDelegate {
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      withResponseInfo responseInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        print("\napplication:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo)) \n ")
+        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
     }
 }
 
@@ -142,6 +142,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.alert)
         
-        print("userNotificationCenter:willPresent:withCompletionHandler:")
+        DemoLog("userNotificationCenter:willPresent:withCompletionHandler:")
     }
 }

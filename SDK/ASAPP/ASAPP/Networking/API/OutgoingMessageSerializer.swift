@@ -115,7 +115,12 @@ extension OutgoingMessageSerializer {
     
     func createAuthRequest() -> (path: String, params: [String : Any]) {
         var path: String
-        var params: [String : Any]
+        var params: [String : Any] = [
+            "App" : "ios-sdk",
+            "CompanyMarker": config.appId,
+            "RegionCode" : "US"
+        ]
+        
         
         var sessionInfoJson: [String : Any]?
         if let sessionInfo = sessionInfo {
@@ -127,50 +132,33 @@ extension OutgoingMessageSerializer {
         //
         // Session
         //
-        
         if let sessionInfoJson = sessionInfoJson {
-            // Session
-    
+            DebugLog.d(caller: self, "Authenticating with Session")
+            
             path = "auth/AuthenticateWithSession"
-            params =  [
-                "SessionInfo": sessionInfoJson, // convert to json?
-                "App": "ios-sdk"
-            ]
+            params["SessionInfo"] = sessionInfoJson
         }
-        
+ 
+ 
         //
         // User Token
         //
-        else { //if let userToken = config.userIdentifier {
+        if !user.isAnonymous {
+            DebugLog.d(caller: self, "Authenticating with Customer Identifier")
+            
             path = "auth/AuthenticateWithCustomerIdentifier"
-            
-            params = [
-                "CompanyMarker" : config.appId,
-                "CustomerIdentifier" : user.userIdentifier,
-                "IdentifierType" : "\(config.appId)_CUSTOMER_ACCOUNT_ID",
-                "App" : "ios-sdk",
-                "RegionCode" : "US",
-            ]
-            
-            if ASAPP.isInternalBuild {
-                if user.userIdentifier.isLikelyASAPPPhoneNumber {
-                    params["IdentifierType"] = "PHONE"
-                }
-            }
+            params["IdentifierType"] = config.identifierType
+            params["CustomerIdentifier"] = user.userIdentifier
         }
         
         //
         // Anonymous User
         //
-        /* Currently no anonymous users alowed
         else {
+            DebugLog.d(caller: self, "Authenticating with Anonymous User")
+            
             path = "auth/CreateAnonCustomerAccount"
-            params = [
-                "CompanyMarker": config.appId,
-                "RegionCode": "US"
-            ]
         }
-         */
         
         return (path, params)
     }

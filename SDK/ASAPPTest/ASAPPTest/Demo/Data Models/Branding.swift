@@ -186,7 +186,6 @@ class BrandingFonts: NSObject {
             break
         }
         
-        DemoLog("Created branding w/ light font: \(lightFont)")
         super.init()
     }
 }

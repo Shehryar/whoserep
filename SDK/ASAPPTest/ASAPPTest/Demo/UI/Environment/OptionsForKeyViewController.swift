@@ -26,6 +26,8 @@ class OptionsForKeyViewController: BaseTableViewController {
     
     fileprivate(set) var options: [String]?
     
+    var onSelection: ((_ selectedOption: String?) -> Void)?
+    
     var rightBarButtonItemTitle: String? {
         didSet {
             updateBarButtonItems()
@@ -165,6 +167,8 @@ extension OptionsForKeyViewController {
                 selectedOption = option
                 AppSettings.saveObject(option, forKey: selectedOptionKey)
                 tableView.reloadData()
+                
+                onSelection?(option)
             }
             break
             

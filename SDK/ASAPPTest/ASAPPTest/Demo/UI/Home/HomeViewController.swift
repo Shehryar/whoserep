@@ -39,7 +39,8 @@ class HomeViewController: BaseViewController {
                 blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
             }
         }
-        updateConfig()
+        
+        updateASAPPSettings(updateConfig: true, updateUser: true)
         
         homeTableView.delegate = self
         homeTableView.reloadData()
@@ -66,6 +67,8 @@ class HomeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        updateASAPPSettings(updateConfig: true, updateUser: false)
         homeTableView.reloadData()
     }
     
@@ -88,18 +91,29 @@ class HomeViewController: BaseViewController {
     
     // MARK:- ASAPPConfig
     
-    func updateConfig() {
-         DemoLog("\n\nCurrent ASAPPConfig:\n--------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(String(describing: AppSettings.shared.customerIdentifier))\n--------------------\n")
+    func updateASAPPSettings(updateConfig: Bool, updateUser: Bool) {
+        if updateConfig {
+            let config = ASAPPConfig(appId: AppSettings.shared.appId,
+                                     apiHostName: AppSettings.shared.apiHostName,
+                                     clientSecret: "ASAPP_DEMO_CLIENT_ID")
+            
+            ASAPP.initialize(with: config)
+        }
         
-        let config = ASAPPConfig(appId: AppSettings.shared.appId,
-                                 apiHostName: AppSettings.shared.apiHostName,
-                                 clientSecret: "ASAPP_DEMO_CLIENT_ID")
+        if updateUser {
+            let user = ASAPPUser(userIdentifier: AppSettings.shared.customerIdentifier,
+                                 requestContextProvider: contextBlock)
+            
+            ASAPP.user = user
+        }
         
-        let user = ASAPPUser(userIdentifier: AppSettings.shared.customerIdentifier,
-                             requestContextProvider: contextBlock)
-
-        ASAPP.initialize(with: config)
-        ASAPP.user = user
+        var updates = [String]()
+        if updateConfig { updates.append("config") }
+        if updateUser { updates.append("user") }
+        
+        DemoLog("Updates for: \(updates.joined(separator: ", ")):\n----------------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
+        
+        refreshChatButton()
     }
     
     func showChat(fromNotificationWith userInfo: [AnyHashable : Any]? = nil) {
@@ -135,9 +149,7 @@ extension HomeViewController {
         
         navigationItem.titleView = logoImageView
         
-        // Chat Button
         refreshChatButton()
-        
         homeTableView.reloadData()
     }
     
@@ -159,8 +171,6 @@ extension HomeViewController {
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
 
-        updateConfig()
-        
         ASAPP.styles = AppSettings.shared.branding.styles
         ASAPP.debugLogLevel = .info
         
@@ -173,6 +183,8 @@ extension HomeViewController {
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
+        
+        DemoLog("Chat Button Updated")
     }
 }
 
@@ -217,7 +229,10 @@ extension HomeViewController: HomeTableViewDelegate {
             
             AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
             strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-
+            strongSelf.updateASAPPSettings(updateConfig: false, updateUser: true)
+        }
+        optionsVC.onSelection = { [weak self] (customerIdentifier) in
+            self?.updateASAPPSettings(updateConfig: false, updateUser: true)
         }
         
         navigationController?.pushViewController(optionsVC, animated: true)
