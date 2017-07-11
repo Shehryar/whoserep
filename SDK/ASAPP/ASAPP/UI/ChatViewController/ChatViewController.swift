@@ -15,9 +15,15 @@ class ChatViewController: ASAPPViewController {
     
     let config: ASAPPConfig
     
-    let user: ASAPPUser
+    private(set) var user: ASAPPUser!
     
     let appCallbackHandler: ASAPPAppCallbackHandler
+    
+    // MARK: Properties: Storage
+    
+    fileprivate private(set) var simpleStore: ChatSimpleStore!
+    fileprivate private(set) var conversationManager: ConversationManager!
+    fileprivate var quickRepliesMessage: ChatMessage?
 
     // MARK: Properties: Views / UI
     
@@ -30,12 +36,6 @@ class ChatViewController: ASAPPViewController {
     fileprivate let quickRepliesActionSheet = QuickRepliesActionSheet()
     fileprivate var askTooltipPresenter: TooltipPresenter?
     fileprivate var hapticFeedbackGenerator: Any?
-    
-    // MARK: Properties: Storage
-    
-    fileprivate let simpleStore: ChatSimpleStore
-    fileprivate let conversationManager: ConversationManager
-    fileprivate var quickRepliesMessage: ChatMessage?
     
     // MARK: Properties: Status
     
@@ -99,26 +99,22 @@ class ChatViewController: ASAPPViewController {
     
     init(config: ASAPPConfig, user: ASAPPUser, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
-        self.user = user
         self.appCallbackHandler = appCallbackHandler
-        
-        self.simpleStore = ChatSimpleStore(config: config, user: user)
-        self.conversationManager = ConversationManager(config: config, user: user)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
-        self.isLiveChat = conversationManager.isLiveChat
         super.init(nibName: nil, bundle: nil)
         
+        updateUser(user)
+        
+        //
+        // UI Setup
+        //
         automaticallyAdjustsScrollViewInsets = false
-        
-        conversationManager.delegate = self
-    
-        // Predictive View Controller
-        
+  
+        // Predictive
         predictiveVC.delegate = self
         predictiveNavController.view.alpha = 0.0
         
-        // Buttons
-        
+        // Close Button
         let closeButton = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
                                                                   side: .right,
                                                                   target: self,
@@ -126,11 +122,11 @@ class ChatViewController: ASAPPViewController {
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         navigationItem.rightBarButtonItem = closeButton
         
-        // Subviews
-        
+        // Chat Messages View
         chatMessagesView.delegate = self
         chatMessagesView.reloadWithEvents(conversationManager.events)
         
+        // Live Chat
         if isLiveChat {
             showPredictiveOnViewAppear = false
         } else {
@@ -146,6 +142,7 @@ class ChatViewController: ASAPPViewController {
             }
         }
         
+        // Chat Input
         chatInputView.delegate = self
         chatInputView.displayMediaButton = true
         chatInputView.layer.shadowColor = UIColor.black.cgColor
@@ -153,20 +150,28 @@ class ChatViewController: ASAPPViewController {
         chatInputView.layer.shadowRadius = 2
         chatInputView.layer.shadowOpacity = 0.1
         
+        // Quick Replies
         quickRepliesActionSheet.delegate = self
         
+        // Connection Status View
         connectionStatusView.onTapToConnect = { [weak self] in
             self?.reconnect()
         }
         
+        // Fonts
+        updateFonts()
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
 
-
-        // Keyboard
+        //
+        // Interaction Setup
+        //
         
+        // Keyboard
         keyboardObserver.delegate = self
         
         // Haptic Feedback
-        
         if #available(iOS 10.0, *) {
             //                let generator = UINotificationFeedbackGenerator()
             //                generator.prepare()
@@ -177,19 +182,13 @@ class ChatViewController: ASAPPViewController {
                 hapticFeedbackGenerator.prepare()
             }
         }
-        
-        // Fonts (+ Accessibility Font Sizes Support)
-        
-        updateFonts()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
-                                               name: Notification.Name.UIContentSizeCategoryDidChange,
-                                               object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK:- Deinit
     
     deinit {
         predictiveVC.delegate = nil
@@ -202,6 +201,23 @@ class ChatViewController: ASAPPViewController {
         conversationManager.exitConversation()
         
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK:- User
+    
+    func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
+        if conversationManager != nil {
+            conversationManager.delegate = nil
+            conversationManager.exitConversation()
+        }
+        
+        self.user = user
+        simpleStore = ChatSimpleStore(config: config, user: user)
+        conversationManager = ConversationManager(config: config,
+                                                  user: user,
+                                                  userLoginAction: userLoginAction)
+        conversationManager.delegate = self
+        isLiveChat = conversationManager.isLiveChat
     }
     
     // MARK:- View
@@ -640,7 +656,16 @@ extension ChatViewController {
             break
             
         case .userLogin:
-            // MITCH MITCH TODO:
+            if let userLoginAction = action as? UserLoginAction {
+                let completionBlock: ASAPPUserLoginHandlerCompletion = { [weak self] (_ user: ASAPPUser) in
+                    DebugLog.d("Did log in with user: \(user.userIdentifier)")
+                    DebugLog.d("mergeCustomerId: \(userLoginAction.mergeCustomerId), mergeCustomerGUID: \(userLoginAction.mergeCustomerGUID)")
+                    
+                    self?.updateUser(user, with: userLoginAction)
+                }
+                
+                user.userLoginHandler(completionBlock)
+            }
             break
             
         case .web:

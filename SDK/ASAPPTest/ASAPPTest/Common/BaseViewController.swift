@@ -49,6 +49,16 @@ class BaseViewController: UIViewController {
         
         reloadViewForUpdatedSettings()
     }
+    
+    func canNavigateBack() -> Bool {
+        if let navigationController = navigationController,
+            let index = navigationController.viewControllers.index(of: self),
+            index > 0 {
+            return true
+        }
+        return false
+    }
+    
 }
 
 extension BaseViewController: AppSettingsViewController {

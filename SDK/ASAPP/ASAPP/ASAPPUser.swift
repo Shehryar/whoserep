@@ -10,6 +10,10 @@ import UIKit
 
 public typealias ASAPPRequestContextProvider = (() -> [String : Any])
 
+public typealias ASAPPUserLoginHandlerCompletion = ((_ newUser: ASAPPUser) -> Void)
+
+public typealias ASAPPUserLoginHandler = ((_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) -> Void)
+
 // MARK:- ASAPPUser
 
 public class ASAPPUser: NSObject {
@@ -19,11 +23,14 @@ public class ASAPPUser: NSObject {
     public let userIdentifier: String
     
     public let requestContextProvider: ASAPPRequestContextProvider
+    
+    public let userLoginHandler: ASAPPUserLoginHandler
 
     // MARK:- Init
     
     public init(userIdentifier: String?,
-                requestContextProvider: @escaping ASAPPRequestContextProvider) {
+                requestContextProvider: @escaping ASAPPRequestContextProvider,
+                userLoginHandler: @escaping ASAPPUserLoginHandler) {
         if let userIdentifier = userIdentifier {
             self.userIdentifier = userIdentifier;
             self.isAnonymous = false
@@ -32,6 +39,7 @@ public class ASAPPUser: NSObject {
             self.isAnonymous = true
         }
         self.requestContextProvider = requestContextProvider
+        self.userLoginHandler = userLoginHandler
         super.init()
     }
     

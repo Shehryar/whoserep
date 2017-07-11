@@ -56,7 +56,7 @@ class ConversationManager: NSObject {
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
