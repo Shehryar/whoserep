@@ -29,7 +29,6 @@ class ChatViewController: ASAPPViewController {
     
     fileprivate let predictiveVC = PredictiveViewController()
     fileprivate let predictiveNavController: UINavigationController!
-    
     fileprivate let chatMessagesView = ChatMessagesView()
     fileprivate let chatInputView = ChatInputView()
     fileprivate let connectionStatusView = ChatConnectionStatusView()
@@ -39,48 +38,6 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Status
     
-    fileprivate var isLiveChat = false {
-        didSet {
-            if isLiveChat != oldValue {
-                DebugLog.d("Chat Mode Changed: \(isLiveChat ? "LIVE CHAT" : "SRS")")
-                if isLiveChat {
-                    conversationManager.currentSRSClassification = nil
-                } else {
-                    conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
-                }
-                
-                updateViewForLiveChat()
-            }
-            
-            if isLiveChat && askTooltipPresenter != nil {
-                askTooltipPresenter?.dismiss()
-                askTooltipPresenter = nil
-            }
-        }
-    }
-    
-    fileprivate var connectionStatus: ChatConnectionStatus = .disconnected {
-        didSet {
-            connectionStatusView.status = connectionStatus
-        }
-    }
-    
-    fileprivate var shouldShowConnectionStatusView: Bool {
-        if let delayedDisconnectTime = delayedDisconnectTime {
-            if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-        if connectedAtLeastOnce {
-            return connectionStatus == .connecting || connectionStatus == .disconnected
-        }
-        
-        return connectionStatus == .connecting || connectionStatus == .disconnected
-    }
-    
     var showPredictiveOnViewAppear = true
     fileprivate var connectedAtLeastOnce = false
     fileprivate var isInitialLayout = true
@@ -88,13 +45,13 @@ class ChatViewController: ASAPPViewController {
     fileprivate var predictiveVCVisible = false
     fileprivate var delayedDisconnectTime: Date?
     
-    
     // MARK: Properties: Keyboard
     
     fileprivate var keyboardObserver = KeyboardObserver()
     fileprivate var keyboardOffset: CGFloat = 0
     fileprivate var keyboardRenderedHeight: CGFloat = 0
 
+    
     // MARK:- Initialization
     
     init(config: ASAPPConfig, user: ASAPPUser, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
@@ -203,7 +160,51 @@ class ChatViewController: ASAPPViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK:- User
+    // MARK: Dynamic Properties
+    
+    fileprivate var isLiveChat = false {
+        didSet {
+            if isLiveChat != oldValue {
+                DebugLog.d("Chat Mode Changed: \(isLiveChat ? "LIVE CHAT" : "SRS")")
+                if isLiveChat {
+                    conversationManager.currentSRSClassification = nil
+                } else {
+                    conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
+                }
+                
+                updateViewForLiveChat()
+            }
+            
+            if isLiveChat && askTooltipPresenter != nil {
+                askTooltipPresenter?.dismiss()
+                askTooltipPresenter = nil
+            }
+        }
+    }
+    
+    fileprivate var connectionStatus: ChatConnectionStatus = .disconnected {
+        didSet {
+            connectionStatusView.status = connectionStatus
+        }
+    }
+    
+    fileprivate var shouldShowConnectionStatusView: Bool {
+        if let delayedDisconnectTime = delayedDisconnectTime {
+            if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        if connectedAtLeastOnce {
+            return connectionStatus == .connecting || connectionStatus == .disconnected
+        }
+        
+        return connectionStatus == .connecting || connectionStatus == .disconnected
+    }
+    
+    // MARK: User
     
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         if conversationManager != nil {
