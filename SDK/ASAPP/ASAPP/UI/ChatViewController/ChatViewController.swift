@@ -145,7 +145,7 @@ class ChatViewController: ASAPPViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK:- Deinit
+    // MARK: Deinit
     
     deinit {
         predictiveVC.delegate = nil
