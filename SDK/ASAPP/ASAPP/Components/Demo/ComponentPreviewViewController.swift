@@ -135,7 +135,8 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     func reloadView(with componentViewContainer: ComponentViewContainer) {
         var componentType = DemoComponentType.view
-        if let classification = classification, classification.contains("_card") {
+        if let classification = classification,
+            classification.contains("_card") && !classification.contains("credit_card") {
             componentType = .card
         }
         
