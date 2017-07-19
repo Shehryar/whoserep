@@ -670,6 +670,7 @@ extension ChatViewController {
         case .userLogin:
             if let userLoginAction = action as? UserLoginAction {
                 let completionBlock: ASAPPUserLoginHandlerCompletion = { [weak self] (_ user: ASAPPUser) in
+                    self?.clearQuickRepliesActionSheet(true, completion: nil)
                     self?.updateUser(user, with: userLoginAction)
                 }
                 
