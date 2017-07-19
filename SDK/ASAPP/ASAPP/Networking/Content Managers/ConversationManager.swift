@@ -60,7 +60,7 @@ class ConversationManager: NSObject {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
-        self.socketConnection = SocketConnection(config: config, user: user)
+        self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.fileStore = ConversationFileStore(config: config, user: user)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
         self.isLiveChat = EventType.getLiveChatStatus(from: self.events)

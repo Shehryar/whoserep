@@ -8,66 +8,6 @@
 
 import Foundation
 
-class SocketRequest {
-    let requestId: Int
-    let path: String
-    let params: [String : Any]?
-    let context: [String : Any]?
-    let requestData: Data?
-    
-    let requestUUID: String
-    
-    required init(requestId: Int, path: String, params: [String : Any]?, context: [String : Any]?, requestData: Data?) {
-        let uuid = UUID().uuidString
-        
-        self.requestUUID = uuid
-        self.requestId = requestId
-        self.path = path
-        self.params = [ "RequestId" : uuid ].with(params)
-        self.context = context
-        self.requestData = requestData
-    }
-    
-    // MARK: Print Utilities
-    
-    var containsSensitiveData: Bool {
-        return path.contains("CreditCard")
-    }
-    
-    func getParametersCleanedOfSensitiveData() -> [String : Any] {
-        var cleanedParams = [String : Any]()
-        cleanedParams.add(params)
-        if path.contains("CreditCard") {
-            if cleanedParams["Number"] != nil {
-                cleanedParams["Number"] = "xxxx"
-            }
-            if cleanedParams["CVV"] != nil {
-                cleanedParams["CVV"] = "xxx"
-            }
-            
-        }
-        
-        return cleanedParams
-    }
-    
-    func getLoggableDescription() -> String {
-        let cleanedParams = getParametersCleanedOfSensitiveData()
-        let paramsJSONString = JSONUtil.stringify(cleanedParams, prettyPrinted: true) ?? "{}"
-        let contextJSONString = JSONUtil.stringify((context ?? [:]), prettyPrinted: true) ?? "{}"
-        
-        return "\(path)|\(requestId)|\(contextJSONString)|\(paramsJSONString)"
-    }
-    
-    func logRequest(with requestString: String) {
-        let loggableRequestString: String
-        if containsSensitiveData {
-            loggableRequestString = getLoggableDescription()
-        } else {
-            loggableRequestString = requestString
-        }
-        DebugLog.d("Sending request:\n\n\(loggableRequestString)")
-    }
-}
 
 class OutgoingMessageSerializer: NSObject {
     
@@ -75,6 +15,7 @@ class OutgoingMessageSerializer: NSObject {
     
     let config: ASAPPConfig
     let user: ASAPPUser
+    fileprivate(set) var userLoginAction: UserLoginAction?
     
     var myId: Int = 0
     var issueId: Int = 0
@@ -88,9 +29,10 @@ class OutgoingMessageSerializer: NSObject {
 
     // MARK: Init 
     
-    init(config: ASAPPConfig, user: ASAPPUser) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil) {
         self.config = config
         self.user = user
+        self.userLoginAction = userLoginAction
         super.init()
     }
 }
@@ -98,6 +40,7 @@ class OutgoingMessageSerializer: NSObject {
 // MARK:- Public Instance Methods
 
 extension OutgoingMessageSerializer {
+    
     func createRequest(withPath path: String, params: [String : Any]?, context: [String : Any]?) -> SocketRequest {
         return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
     }
@@ -107,10 +50,10 @@ extension OutgoingMessageSerializer {
     }
     
     func createRequestString(withRequest request: SocketRequest) -> String {
-        let paramsJSONString = jsonStringify(request.params ?? [:])
-        let contextJSONString = jsonStringify(request.context ?? contextForRequest(withPath: request.path))
+        let paramsJSONString = JSONUtil.stringify(request.params)
+        let contextJSONString = JSONUtil.stringify(request.context ?? contextForRequest(withPath: request.path))
 
-        return "\(request.path)|\(request.requestId)|\(contextJSONString)|\(paramsJSONString)"
+        return "\(request.path)|\(request.requestId)|\(contextJSONString ?? "")|\(paramsJSONString ?? "")"
     }
     
     func createAuthRequest() -> (path: String, params: [String : Any]) {
@@ -120,7 +63,6 @@ extension OutgoingMessageSerializer {
             "CompanyMarker": config.appId,
             "RegionCode" : "US"
         ]
-        
         
         var sessionInfoJson: [String : Any]?
         if let sessionInfo = sessionInfo {
@@ -149,6 +91,11 @@ extension OutgoingMessageSerializer {
             path = "auth/AuthenticateWithCustomerIdentifier"
             params["IdentifierType"] = config.identifierType
             params["CustomerIdentifier"] = user.userIdentifier
+            
+            if let userLoginAction = userLoginAction {
+                params["MergeCustomerId"] = userLoginAction.mergeCustomerId
+                params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
+            }
         }
         
         //
@@ -189,33 +136,19 @@ extension OutgoingMessageSerializer {
                 myId = rawId
             }
         }
+        
+        // Conversations are merged on authentication. No need to keep this around
+        userLoginAction = nil;
     }
 }
 
 // MARK: - Private Utility Methods
 
 extension OutgoingMessageSerializer {
+    
     fileprivate func getNextRequestId() -> Int {
         currentRequestId += 1
         return currentRequestId
-    }
-    
-    fileprivate func jsonStringify(_ dictionary: [String : Any]) -> String {
-        guard JSONSerialization.isValidJSONObject(dictionary) else {
-            DebugLog.e("Dictionary is not valid JSON object: \(dictionary)")
-            return ""
-        }
-        
-        if let json = try? JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) {
-            if let jsonString = String(data: json, encoding: String.Encoding.utf8) {
-                return jsonString
-            }
-            DebugLog.e("Unable to create string from json: \(json)")
-            return ""
-        }
-        
-        DebugLog.e("Unable to serialize dictionary as JSON: \(dictionary)")
-        return ""
     }
     
     fileprivate func requestWithPathIsCustomerEndpoint(_ path: String) -> Bool {

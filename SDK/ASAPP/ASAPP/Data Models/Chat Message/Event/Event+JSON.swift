@@ -67,7 +67,7 @@ extension Event {
             let customerEventLogSeq = json[JSONKey.customerEventLogSeq.rawValue] as? Int,
             let companyEventLogSeq = json[JSONKey.companyEventLogSeq.rawValue] as? Int
             else {
-                DebugLog.d(caller: self, "Event missing required properties: \(json)")
+//                DebugLog.d(caller: self, "Event missing required properties: \(json)")
                 return nil
         }
         

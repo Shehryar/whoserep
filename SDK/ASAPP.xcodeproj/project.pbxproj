@@ -288,6 +288,8 @@
 		305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */; };
 		305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */; };
 		305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5D71E857427004DD9D5 /* CheckboxView.swift */; };
+		3060DE771F1FA80200A67384 /* OverlayLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */; };
+		3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060DE781F1FAC7200A67384 /* SocketRequest.swift */; };
 		3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
@@ -428,7 +430,7 @@
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		281C347B1E7F092C001A2AA3 /* LabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		281C347C1E7F092C001A2AA3 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
-		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
+		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BouncingBallsLoadingView.swift; path = ../BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
 		285F7ACB1DA9A526008C2EF6 /* SprintSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Black.ttf"; sourceTree = "<group>"; };
 		285F7ACC1DA9A526008C2EF6 /* SprintSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Bold.ttf"; sourceTree = "<group>"; };
 		285F7ACE1DA9A526008C2EF6 /* SprintSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -700,6 +702,8 @@
 		305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		305FF5D71E857427004DD9D5 /* CheckboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
+		3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayLoadingView.swift; sourceTree = "<group>"; };
+		3060DE781F1FAC7200A67384 /* SocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketRequest.swift; sourceTree = "<group>"; };
 		3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCellHeightCache.swift; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
@@ -1270,6 +1274,7 @@
 			isa = PBXGroup;
 			children = (
 				30226CC81D4933F200871453 /* SocketConnection.swift */,
+				3060DE781F1FAC7200A67384 /* SocketRequest.swift */,
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
 				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
 				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
@@ -1347,18 +1352,18 @@
 		30226CEE1D493F5300871453 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				30226CF01D493F5300871453 /* BubbleView.swift */,
-				28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */,
-				3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */,
-				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
-				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
-				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
-				307C54571D8C87C60091E74A /* NavigationController.swift */,
-				3008888B1D620D3700C25802 /* Button.swift */,
 				300012C11DD4D10E007226B9 /* Tooltips */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
-				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
+				30226CF01D493F5300871453 /* BubbleView.swift */,
+				3008888B1D620D3700C25802 /* Button.swift */,
+				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
+				3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */,
+				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
+				307C54571D8C87C60091E74A /* NavigationController.swift */,
+				3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */,
 				30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */,
+				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
+				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1682,6 +1687,7 @@
 		30A4BB041D51095400795BA7 /* ImageViewer */ = {
 			isa = PBXGroup;
 			children = (
+				28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */,
 				30A4BB051D5109F700795BA7 /* ImageViewer.swift */,
 				30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */,
 				30A4BB0B1D510A8F00795BA7 /* ImageViewerImageView.swift */,
@@ -2177,6 +2183,7 @@
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
+				3060DE771F1FA80200A67384 /* OverlayLoadingView.swift in Sources */,
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
@@ -2184,6 +2191,7 @@
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
+				3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */,
 				30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,

@@ -206,7 +206,14 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: User
     
+    // TODO: Separate out initial setup and changes needed after changing user mid-flow
+    
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
+        DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
+        if let userLoginAction = userLoginAction {
+            DebugLog.d("Merging Accounts: {\n  mergeCustomerId: \(userLoginAction.mergeCustomerId),\n  mergeCustomerGUID: \(userLoginAction.mergeCustomerGUID)\n}")
+        }
+        
         if conversationManager != nil {
             conversationManager.delegate = nil
             conversationManager.exitConversation()
@@ -219,6 +226,10 @@ class ChatViewController: ASAPPViewController {
                                                   userLoginAction: userLoginAction)
         conversationManager.delegate = self
         isLiveChat = conversationManager.isLiveChat
+        
+        if let nextAction = userLoginAction?.nextAction {
+            _ = performAction(nextAction, from: nil, message: nil, queueRequestIfNoConnection: true)
+        }
     }
     
     // MARK:- View
@@ -659,9 +670,6 @@ extension ChatViewController {
         case .userLogin:
             if let userLoginAction = action as? UserLoginAction {
                 let completionBlock: ASAPPUserLoginHandlerCompletion = { [weak self] (_ user: ASAPPUser) in
-                    DebugLog.d("Did log in with user: \(user.userIdentifier)")
-                    DebugLog.d("mergeCustomerId: \(userLoginAction.mergeCustomerId), mergeCustomerGUID: \(userLoginAction.mergeCustomerGUID)")
-                    
                     self?.updateUser(user, with: userLoginAction)
                 }
                 
