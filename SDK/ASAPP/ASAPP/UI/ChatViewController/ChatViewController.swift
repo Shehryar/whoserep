@@ -228,7 +228,7 @@ class ChatViewController: ASAPPViewController {
         isLiveChat = conversationManager.isLiveChat
         
         if let nextAction = userLoginAction?.nextAction {
-            _ = performAction(nextAction, from: nil, message: nil, queueRequestIfNoConnection: true)
+            _ = performAction(nextAction, fromButton: nil, inMessage: nil, queueRequestIfNoConnection: true)
         }
     }
     
@@ -588,8 +588,8 @@ extension ChatViewController {
     
     /// Returns true if the button should be disabled
     func performAction(_ action: Action,
-                       from button: Any?,
-                       message: ChatMessage?,
+                       fromButton button: Any?,
+                       inMessage message: ChatMessage?,
                        queueRequestIfNoConnection: Bool = false) -> Bool {
         
         if !ActionHandler.actionCanBeHandled(action,
@@ -598,37 +598,36 @@ extension ChatViewController {
             return false
         }
         
+        
+        let rootComponent = message?.attachment?.template
+        
         switch action.type {
         case .api:
-            ActionHandler.handleAPIAction(action, 
-                                          root: message?.attachment?.template,
-                                          conversationManager: conversationManager,
-                                          completion: { [weak self] (response) in
-                                            guard let response = response else {
-                                                ActionHandler.showAlert(presenter: self)
-                                                return
-                                            }
-                                            
-                                            switch response.type {
-                                            case .error:
-                                                ActionHandler.showAlert(message: response.error?.userMessage,
-                                                                        presenter: self)
-                                                break
-                                                
-                                            case .componentView:
-                                                // Show view
-                                                break
-                                                
-                                            case .refreshView,
-                                                 .finish:
-                                                // No meaning in this context
-                                                break
-                                            }
+            conversationManager.sendRequestForAPIAction(action as! APIAction, rootComponent: rootComponent, completion: { [weak self] (response) in
+                guard let response = response else {
+                    self?.showRequestErrorAlert()
+                    return
+                }
+                
+                switch response.type {
+                case .error:
+                    self?.showRequestErrorAlert(message: response.error?.userMessage)
+                    break
+                    
+                case .componentView:
+                    // Show view
+                    break
+                    
+                case .refreshView,
+                     .finish:
+                    // No meaning in this context
+                    break
+                }
             })
             break
             
         case .componentView:
-            ActionHandler.handleComponentViewAction(action, delegate: self, from: self)
+            showComponentView(fromAction: action, delegate: self)
             break
             
         case .deepLink:
@@ -642,14 +641,17 @@ extension ChatViewController {
             break
             
         case .finish:
-            if let nextAction = (action as? FinishAction)?.nextAction {
-                _ = performAction(nextAction, from: nil, message: nil, queueRequestIfNoConnection: true)
-            }
+            // No meaning in this context
             break
             
         case .http:
-            ActionHandler.handleHTTPAction(action)
-            
+            if let httpAction = action as? HTTPAction {
+                conversationManager.sendRequestForHTTPAction(action, rootComponent: rootComponent, completion: { [weak self] (response) in
+                    if let onResponseAction = httpAction.onResponseAction {
+                        
+                    }
+                })
+            }
             break;
             
         case .treewalk:
@@ -744,7 +746,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewControllerDidFinish(with action: FinishAction?) {
         if let nextAction = action?.nextAction {
             quickRepliesActionSheet.disableCurrentButtons()
-            _ = performAction(nextAction, from: nil, message: nil)
+            _ = performAction(nextAction, fromButton: nil, inMessage: nil)
         }
         
         dismiss(animated: true, completion: nil)
@@ -954,7 +956,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
                                  didSelect quickReply: QuickReply,
                                  from message: ChatMessage) -> Bool {
-        return performAction(quickReply.action, from: quickReply, message: message)
+        return performAction(quickReply.action, fromButton: quickReply, inMessage: message)
     }
 }
 
@@ -1050,7 +1052,7 @@ extension ChatViewController: ConversationManagerDelegate {
         // Immediate Action
         if let autoSelectQuickReply = message.getAutoSelectQuickReply() {
             Dispatcher.delay(1200, closure: { [weak self] in
-                _ = self?.performAction(autoSelectQuickReply.action, from: autoSelectQuickReply, message: message)
+                _ = self?.performAction(autoSelectQuickReply.action, fromButton: autoSelectQuickReply, inMessage: message)
             })
         }
         
@@ -1081,7 +1083,7 @@ extension ChatViewController {
         
         if !cameraIsAvailable && !photoLibraryIsAvailable {
             // Show alert to check settings
-            showAlert(withTitle: ASAPPLocalizedString("Photos Unavailable"),
+            showAlert(title: ASAPPLocalizedString("Photos Unavailable"),
                       message: ASAPPLocalizedString("Please update your settings to allow access to the camera and/or photo library."))
             return
         }
@@ -1154,18 +1156,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK:- Alerts
-
-extension ChatViewController {
-    
-    func showAlert(withTitle title: String, message: String?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
     }
 }
 

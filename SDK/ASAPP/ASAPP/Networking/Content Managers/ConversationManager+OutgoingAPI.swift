@@ -114,8 +114,8 @@ extension ConversationManager {
 extension ConversationManager {
     
     func sendRequestForAPIAction(_ action: APIAction,
-                                  data: [String : Any]?,
-                                  completion: @escaping APIActionResponseHandler) {
+                                 rootComponent: Component?,
+                                 completion: @escaping APIActionResponseHandler) {
             
         func handleResponse(_ message: IncomingMessage,
                             _ request: SocketRequest?,
@@ -126,14 +126,9 @@ extension ConversationManager {
         }
         
         var params = [String : Any]()
-        if let data = data {
+        if let data = action.getDataForRequest(rootComponent: rootComponent) {
             params["data"] = data
-            
-            if let actionTarget = data["actionTarget"] as? String {
-                params["actionTarget"] = actionTarget
-            }
         }
-        
         
         let path = action.requestPath
         if path.contains("srs/") {
@@ -147,6 +142,28 @@ extension ConversationManager {
                                          context: nil,
                                          requestHandler: handleResponse)
         }
+    }
+    
+    func sendRequestForHTTPAction(_ action: Action,
+                                  rootComponent: Component?,
+                                  completion: @escaping ((_ data: [String : Any]?) -> Void)) {
+        guard let action = action as? HTTPAction else {
+            DebugLog.d(caller: self, "Passed non-HTTPAction to sendRequestForHTTPAction")
+            return
+        }
+        
+        func handleResponse(_ message: IncomingMessage,
+                            _ request: SocketRequest?,
+                            _ responseTime: ResponseTimeInMilliseconds) {
+            
+        }
+        
+        var params = [String : Any]()
+        if let data = action.getDataForRequest(rootComponent: rootComponent) {
+            params["data"] = data
+        }
+        
+        DebugLog.e(caller: self, "\n\n\n\nsendRequestForHTTPAction() NOT IMPLEMENTED\n\n")
     }
     
     func getComponentView(named name: String, completion: @escaping ((ComponentViewContainer?) -> Void)) {

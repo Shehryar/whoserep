@@ -308,7 +308,7 @@ extension ComponentViewController {
         let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
                                       message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: ASAPP.strings.requestErrorDismissButton,
+        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
                                       style: .cancel,
                                       handler: nil))
         present(alert, animated: true, completion: nil)

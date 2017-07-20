@@ -50,7 +50,7 @@ extension ASAPPViewController {
     func beginObservingNotifications() {
         // App left foreground
         let backgroundNotificationNames = [Notification.Name.UIApplicationDidEnterBackground,
-                                        Notification.Name.UIApplicationWillResignActive]
+                                           Notification.Name.UIApplicationWillResignActive]
         let hideContentsSelector = #selector(ASAPPViewController.hideViewContents)
         for notificationName in backgroundNotificationNames {
             NotificationCenter.default.addObserver(self,
@@ -144,3 +144,56 @@ extension ASAPPViewController {
         backgroundedViewCover.removeFromSuperview()
     }
 }
+
+// MARK:- Alerts
+
+extension ASAPPViewController {
+    
+    func showAlert(title: String? = nil, message: String? = nil) {
+        if title == nil && message == nil {
+            DebugLog.w(caller: self, "Unable to call showAlert(::) with nil title and message.")
+            return
+        }
+        
+        if !Thread.isMainThread {
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.showAlert(title: title, message: message)
+            }
+            return
+        }
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showRequestErrorAlert(title: String? = nil, message: String? = nil) {
+        showAlert(title: title ?? ASAPP.strings.requestErrorGenericFailureTitle,
+                  message: message ?? ASAPP.strings.requestErrorGenericFailure)
+    }
+}
+
+// MARK:- Actions
+
+extension ASAPPViewController {
+    
+    func showComponentView(fromAction action: Action, delegate: ComponentViewControllerDelegate) {
+        guard let action = action as? ComponentViewAction else {
+            return
+        }
+        
+        let componentViewController = ComponentViewController(componentName: action.name)
+        componentViewController.delegate = delegate
+        
+        let navigationController = ComponentNavigationController(rootViewController: componentViewController)
+        navigationController.displayStyle = action.displayStyle
+        present(navigationController, animated: true, completion: nil)
+    }
+}
+

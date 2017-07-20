@@ -16,7 +16,7 @@ class Action: NSObject {
         case data = "data"
     }
 
-    let data: [String : Any]?
+    fileprivate(set) var data: [String : Any]?
     
     // MARK: Init
     
@@ -27,5 +27,25 @@ class Action: NSObject {
             self.data = nil
         }
         super.init()
+    }
+}
+
+// MARK: Data
+
+extension Action {
+    
+    func getDataForRequest(rootComponent: Component?) -> [String : Any]? {
+        var requestData = [String : Any]()
+        requestData.add(data)
+        requestData.add(rootComponent?.getData())
+        
+        return requestData.isEmpty ? nil : requestData
+    }
+    
+    func injectData(key: String, value: Any) {
+        if data == nil {
+            data = [String : Any]()
+        }
+        data?[key] = value
     }
 }

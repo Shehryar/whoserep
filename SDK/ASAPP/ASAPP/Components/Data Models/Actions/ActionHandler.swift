@@ -190,7 +190,7 @@ extension ActionHandler {
                                       message: message ?? ASAPP.strings.requestErrorGenericFailure,
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: ASAPP.strings.requestErrorDismissButton,
+        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
                                       style: .cancel,
                                       handler: { (action) in
                                         
