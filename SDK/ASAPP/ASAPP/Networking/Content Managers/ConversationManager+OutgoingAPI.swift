@@ -95,18 +95,6 @@ extension ConversationManager {
         
         sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }
-    
-    func sendSRSTreewalk(classification: String, text: String? = nil, isRequestFromPrediction: Bool = false) {
-        let path = "srs/SendTextMessageAndHierAndTreewalk"
-        var params = [
-            "Classification" : classification
-        ]
-        if let text = text {
-            params["Text"] = text
-        }
-        
-        sendSRSRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
-    }
 }
 
 // MARK:- Action Requests
@@ -199,13 +187,15 @@ extension ConversationManager {
     }
     
     func sendRequestForTreewalkAction(_ action: TreewalkAction,
-                                      with messageText: String,
+                                      messageText: String?,
                                       parentMessage: ChatMessage?,
                                       originalSearchQuery: String?,
-                                      completion: IncomingMessageHandler? = nil) {
+                                      completion: ((Bool) -> Void)? = nil) {
+        let text = action.messageText ?? messageText ?? ""
+        
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         var params: [String : Any] = [
-            "Text" : messageText,
+            "Text" : text,
             "Classification" : action.classification
         ]
         if let originalSearchQuery = originalSearchQuery {
@@ -216,8 +206,9 @@ extension ConversationManager {
         }
         
         sendSRSRequest(path: path, params: params) { [weak self] (incomingMessage, request, responseTime) in
-            completion?(incomingMessage, request, responseTime)
-            self?.trackTreewalk(message: messageText, classification: action.classification)
+            completion?(incomingMessage.type == .Response)
+            
+            self?.trackTreewalk(message: text, classification: action.classification)
         }
     }
 }

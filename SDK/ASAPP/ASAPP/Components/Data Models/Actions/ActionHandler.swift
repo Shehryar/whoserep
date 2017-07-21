@@ -88,31 +88,6 @@ extension ActionHandler {
     }
 }
 
-// MARK:- Treewalk
-
-extension ActionHandler {
-    
-    typealias TreewalkCompletionBlock = (_ success: Bool) -> Void
-    
-    class func handleTreewalkAction(_ action: Action?,
-                                    from button: Any?,
-                                    message: ChatMessage?,
-                                    simpleStore: ChatSimpleStore,
-                                    conversationManager: ConversationManager,
-                                    completion: TreewalkCompletionBlock?) {
-        guard let action = action as? TreewalkAction else { return }
-        
-        conversationManager.sendRequestForTreewalkAction(action,
-                                                         with: getTitleFrom(button) ?? action.messageText ?? "",
-                                                         parentMessage: message,
-                                                         originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
-                                                         completion: { (message, _, _) in
-                                                            completion?(message.type == .Response)
-        })
-        
-    }
-}
-
 // MARK:- WebPageAction
 
 extension ActionHandler {

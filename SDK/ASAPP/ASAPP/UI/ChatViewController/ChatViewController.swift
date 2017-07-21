@@ -228,7 +228,7 @@ class ChatViewController: ASAPPViewController {
         isLiveChat = conversationManager.isLiveChat
         
         if let nextAction = userLoginAction?.nextAction {
-            _ = performAction(nextAction, fromButton: nil, inMessage: nil, queueRequestIfNoConnection: true)
+            _ = performAction(nextAction, queueRequestIfNoConnection: true)
         }
     }
     
@@ -586,10 +586,26 @@ extension ChatViewController: KeyboardObserverDelegate {
 
 extension ChatViewController {
     
+    func canPerformAction(_ action: Action?, queueNetworkRequestIfNoConnection: Bool) -> Bool {
+        guard let action = action else {
+            return false
+        }
+        
+        if action.performsUIBlockingNetworkRequest &&
+            !conversationManager.isConnected(retryConnectionIfNeeded: true) &&
+            !queueNetworkRequestIfNoConnection {
+            DebugLog.d(caller: self, "No connection to perform action: \(action)")
+            return false
+        }
+        
+        return true
+    }
+    
     /// Returns true if the button should be disabled
     func performAction(_ action: Action,
-                       fromButton button: Any?,
-                       inMessage message: ChatMessage?,
+                       fromMessage message: ChatMessage? = nil,
+                       quickReply: QuickReply? = nil,
+                       buttonItem: ButtonItem? = nil,
                        queueRequestIfNoConnection: Bool = false) -> Bool {
         
         if !ActionHandler.actionCanBeHandled(action,
@@ -606,12 +622,16 @@ extension ChatViewController {
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
                     self?.showRequestErrorAlert()
+                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
                     return
                 }
                 
                 switch response.type {
                 case .error:
                     self?.showRequestErrorAlert(message: response.error?.userMessage)
+                    if quickReply != nil {
+                        self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                    }
                     break
                     
                 case .componentView:
@@ -632,7 +652,8 @@ extension ChatViewController {
             
         case .deepLink:
             if let deepLinkAction = action as? DeepLinkAction {
-                ActionHandler.sendRequestForDeepLinkAction(action, conversationManager: conversationManager)
+                // NOTE: We need the title. Will it always be a quick reply? No
+                conversationManager.sendRequestForDeepLinkAction(deepLinkAction, with: quickReply?.title ?? buttonItem?.title ?? "")
                 
                 dismiss(animated: true, completion: { [weak self] in
                     self?.appCallbackHandler(deepLinkAction.name, deepLinkAction.data)
@@ -651,7 +672,7 @@ extension ChatViewController {
                         if let response = response {
                             onResponseAction.injectData(key: "response", value: response)
                         }
-                        _ = self?.performAction(onResponseAction, fromButton: nil, inMessage: nil)
+                        _ = self?.performAction(onResponseAction)
                     }
                 })
             }
@@ -659,16 +680,15 @@ extension ChatViewController {
             
         case .treewalk:
             chatMessagesView.scrollToBottomAnimated(true)
-            
-            ActionHandler.handleTreewalkAction(action,
-                                               from: button,
-                                               message: message,
-                                               simpleStore: simpleStore,
-                                               conversationManager: conversationManager,
-                                               completion: { [weak self] (success) in
-                                                if !success {
-                                                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
-                                                }
+                        
+            conversationManager.sendRequestForTreewalkAction(action as! TreewalkAction,
+                                                             messageText: quickReply?.title,
+                                                             parentMessage: message,
+                                                             originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
+                                                             completion: { [weak self] (success) in
+                                                                if !success {
+                                                                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                                                                }
             })
             break
             
@@ -738,7 +758,9 @@ extension ChatViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
-        // TODO: MITCH MITCH Handle this action here, yo
+        _ = performAction(buttonItem.action, fromMessage: message, buttonItem: buttonItem)
+        
+        /// TODO: MITCH MITCH MITCH Disable this button until request is performed, if necessary
     }
 }
 
@@ -749,7 +771,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     func componentViewControllerDidFinish(with action: FinishAction?) {
         if let nextAction = action?.nextAction {
             quickRepliesActionSheet.disableCurrentButtons()
-            _ = performAction(nextAction, fromButton: nil, inMessage: nil)
+            _ = performAction(nextAction)
         }
         
         dismiss(animated: true, completion: nil)
@@ -959,7 +981,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
                                  didSelect quickReply: QuickReply,
                                  from message: ChatMessage) -> Bool {
-        return performAction(quickReply.action, fromButton: quickReply, inMessage: message)
+        return performAction(quickReply.action, fromMessage: message, quickReply: quickReply)
     }
 }
 
@@ -1055,7 +1077,7 @@ extension ChatViewController: ConversationManagerDelegate {
         // Immediate Action
         if let autoSelectQuickReply = message.getAutoSelectQuickReply() {
             Dispatcher.delay(1200, closure: { [weak self] in
-                _ = self?.performAction(autoSelectQuickReply.action, fromButton: autoSelectQuickReply, inMessage: message)
+                _ = self?.performAction(autoSelectQuickReply.action, fromMessage: message, quickReply: autoSelectQuickReply)
             })
         }
         
