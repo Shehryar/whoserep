@@ -608,9 +608,7 @@ extension ChatViewController {
                        buttonItem: ButtonItem? = nil,
                        queueRequestIfNoConnection: Bool = false) -> Bool {
         
-        if !ActionHandler.actionCanBeHandled(action,
-                                             conversationManager: conversationManager,
-                                             queueNetworkRequestIfNoConnection: queueRequestIfNoConnection) {
+        if !canPerformAction(action, queueNetworkRequestIfNoConnection: queueRequestIfNoConnection) {
             return false
         }
         
@@ -704,7 +702,7 @@ extension ChatViewController {
             break
             
         case .web:
-            ActionHandler.handleWebPageAction(action as? WebPageAction, from: self)
+            showWebPage(fromAction: action)
             break
             
         case .unknown: /* No-op */ break
