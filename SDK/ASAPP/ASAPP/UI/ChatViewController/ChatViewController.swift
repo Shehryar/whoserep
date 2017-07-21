@@ -648,7 +648,10 @@ extension ChatViewController {
             if let httpAction = action as? HTTPAction {
                 conversationManager.sendRequestForHTTPAction(action, rootComponent: rootComponent, completion: { [weak self] (response) in
                     if let onResponseAction = httpAction.onResponseAction {
-                        
+                        if let response = response {
+                            onResponseAction.injectData(key: "response", value: response)
+                        }
+                        _ = self?.performAction(onResponseAction, fromButton: nil, inMessage: nil)
                     }
                 })
             }
