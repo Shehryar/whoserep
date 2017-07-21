@@ -40,10 +40,8 @@ extension ActionHandler {
                                conversationManager: ConversationManager,
                                completion: @escaping APIActionResponseHandler) {
         guard let action = action as? APIAction else { return }
-        
-        let data = getDataFrom(action: action, root: root)
-        
-        conversationManager.sendRequestForAPIAction(action, data: data, completion: completion)
+                
+        conversationManager.sendRequestForAPIAction(action, formData: root?.getData(), completion: completion)
     }
 }
 

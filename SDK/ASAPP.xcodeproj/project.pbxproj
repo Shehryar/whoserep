@@ -390,6 +390,7 @@
 		30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
+		30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
 		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
@@ -804,6 +805,7 @@
 		30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
+		30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
@@ -1278,6 +1280,7 @@
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
 				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
 				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
+				30DF3F5D1F22798400D6DB02 /* HTTP */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1750,6 +1753,14 @@
 				30CF55BC1D77511700C7DB6D /* Localizable.strings */,
 			);
 			path = es.lproj;
+			sourceTree = "<group>";
+		};
+		30DF3F5D1F22798400D6DB02 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */,
+			);
+			path = HTTP;
 			sourceTree = "<group>";
 		};
 		30E87C4B1D93112E00B5EF9E /* Embedded Third-Party Code */ = {
@@ -2301,6 +2312,7 @@
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */,
 				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
+				30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */,
 				307484D11EB7BDAC008CF3E4 /* Event+JSON.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,
 				288085061E875DB700240A5D /* RadioButtonView.swift in Sources */,

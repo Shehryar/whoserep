@@ -31,5 +31,31 @@ class JSONUtil: NSObject {
         DebugLog.e("Unable to serialize dictionary as JSON: \(object)")
         return nil
     }
+    
+    class func getDataFrom(_ object: Any?) -> Data? {
+        guard let object = object else {
+            return nil
+        }
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+            DebugLog.w(caller: self, "Unable to create data from JSON: \(object)")
+            return nil
+        }
+        
+        return data
+    }
+    
+    class func getObjectFrom(_ data: Data?) -> Any? {
+        guard let data = data else {
+            return nil
+        }
+        
+        guard let object = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {
+            DebugLog.w(caller: self, "Unable to create object from data")
+            return nil
+        }
+        
+        return object
+    }
 }
 

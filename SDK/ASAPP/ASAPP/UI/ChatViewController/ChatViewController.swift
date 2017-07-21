@@ -599,11 +599,11 @@ extension ChatViewController {
         }
         
         
-        let rootComponent = message?.attachment?.template
+        let formData = message?.attachment?.template?.getData()
         
         switch action.type {
         case .api:
-            conversationManager.sendRequestForAPIAction(action as! APIAction, rootComponent: rootComponent, completion: { [weak self] (response) in
+            conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
                     self?.showRequestErrorAlert()
                     return
@@ -646,7 +646,7 @@ extension ChatViewController {
             
         case .http:
             if let httpAction = action as? HTTPAction {
-                conversationManager.sendRequestForHTTPAction(action, rootComponent: rootComponent, completion: { [weak self] (response) in
+                conversationManager.sendRequestForHTTPAction(action, formData: formData, completion: { [weak self] (response) in
                     if let onResponseAction = httpAction.onResponseAction {
                         if let response = response {
                             onResponseAction.injectData(key: "response", value: response)
@@ -765,9 +765,9 @@ extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 with data: [String : Any]?,
+                                 withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        conversationManager.sendRequestForAPIAction(action, data: data, completion: { (response) in
+        conversationManager.sendRequestForAPIAction(action, formData: formData, completion: { (response) in
             completion(response)
         })
     }

@@ -34,10 +34,10 @@ class Action: NSObject {
 
 extension Action {
     
-    func getDataForRequest(rootComponent: Component?) -> [String : Any]? {
+    func getDataWithFormData(_ formData: [String : Any]?) -> [String : Any]? {
         var requestData = [String : Any]()
         requestData.add(data)
-        requestData.add(rootComponent?.getData())
+        requestData.add(formData)
         
         return requestData.isEmpty ? nil : requestData
     }

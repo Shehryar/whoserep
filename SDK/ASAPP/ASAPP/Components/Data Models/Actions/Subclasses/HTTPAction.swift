@@ -51,14 +51,4 @@ class HTTPAction: Action {
         }
         super.init(content: content)
     }
-    
-    // MARK: Data
-    
-    override func getDataForRequest(rootComponent: Component?) -> [String : Any]? {
-        var requestData = super.getDataForRequest(rootComponent: rootComponent) ?? [String : Any]()
-        if let requestResponse = requestResponse {
-            requestData[JSONKey.response.rawValue] = requestResponse
-        }
-        return requestData
-    }
 }

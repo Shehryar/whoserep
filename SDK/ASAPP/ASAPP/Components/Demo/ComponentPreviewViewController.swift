@@ -296,7 +296,7 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 with data: [String : Any]?,
+                                 withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         let error = APIActionError(code: 500,
                                    userMessage: "Sorry, this feature is not supported in this view",

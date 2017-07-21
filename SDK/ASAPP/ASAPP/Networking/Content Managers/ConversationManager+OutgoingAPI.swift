@@ -114,7 +114,7 @@ extension ConversationManager {
 extension ConversationManager {
     
     func sendRequestForAPIAction(_ action: APIAction,
-                                 rootComponent: Component?,
+                                 formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
             
         func handleResponse(_ message: IncomingMessage,
@@ -126,7 +126,7 @@ extension ConversationManager {
         }
         
         var params = [String : Any]()
-        if let data = action.getDataForRequest(rootComponent: rootComponent) {
+        if let data = action.getDataWithFormData(formData) {
             params["data"] = data
         }
         
@@ -145,25 +145,23 @@ extension ConversationManager {
     }
     
     func sendRequestForHTTPAction(_ action: Action,
-                                  rootComponent: Component?,
+                                  formData: [String : Any]?,
                                   completion: @escaping ((_ data: [String : Any]?) -> Void)) {
         guard let action = action as? HTTPAction else {
             DebugLog.d(caller: self, "Passed non-HTTPAction to sendRequestForHTTPAction")
             return
         }
-        
-        func handleResponse(_ message: IncomingMessage,
-                            _ request: SocketRequest?,
-                            _ responseTime: ResponseTimeInMilliseconds) {
-            
-        }
-        
+
         var params = [String : Any]()
-        if let data = action.getDataForRequest(rootComponent: rootComponent) {
+        if let data = action.getDataWithFormData(formData) {
             params["data"] = data
         }
         
-        DebugLog.e(caller: self, "\n\n\n\nsendRequestForHTTPAction() NOT IMPLEMENTED\n\n")
+        HTTPClient.shared.sendRequest(method: action.method,
+                                      url: action.url,
+                                      params: params) { (responseBody, response, error) in
+                                        
+        }
     }
     
     func getComponentView(named name: String, completion: @escaping ((ComponentViewContainer?) -> Void)) {

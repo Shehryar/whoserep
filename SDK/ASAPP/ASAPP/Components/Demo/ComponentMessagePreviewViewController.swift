@@ -349,10 +349,13 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 with data: [String : Any]?,
+                                 withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        if let text = data?["text"] as? String,
-            let name = data?["classification"] as? String {
+        var data = action.data ?? [String : Any]()
+        data.add(formData)
+        
+        if let text = data["text"] as? String,
+            let name = data["classification"] as? String {
             Dispatcher.delay(1500) {
                 completion(APIActionResponse(type: .finish))
                 
@@ -363,12 +366,12 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             return
         }
         
-        if let viewName = data?["name"] as? String {
+        if let viewName = data["name"] as? String {
             UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, viewContainer, errorString) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
                 if let _ = viewContainer {
-                    if data?.bool(for: "refresh") == true {
+                    if data.bool(for: "refresh") == true {
                         type = .refreshView
                     } else {
                         type = .componentView
