@@ -392,6 +392,9 @@
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
 		30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */; };
 		30DF3F611F267F2000D6DB02 /* ConversationManager+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */; };
+		30DF3F671F26911000D6DB02 /* iconClock.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F641F26911000D6DB02 /* iconClock.png */; };
+		30DF3F681F26911000D6DB02 /* iconClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F651F26911000D6DB02 /* iconClock@2x.png */; };
+		30DF3F691F26911000D6DB02 /* iconClock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F661F26911000D6DB02 /* iconClock@3x.png */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
 		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
@@ -808,6 +811,9 @@
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
 		30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Actions.swift"; sourceTree = "<group>"; };
+		30DF3F641F26911000D6DB02 /* iconClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconClock.png; sourceTree = "<group>"; };
+		30DF3F651F26911000D6DB02 /* iconClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@2x.png"; sourceTree = "<group>"; };
+		30DF3F661F26911000D6DB02 /* iconClock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@3x.png"; sourceTree = "<group>"; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
@@ -1537,6 +1543,9 @@
 				3046CE5A1E8AF0C90022AEE5 /* iconCheckmarkThin.png */,
 				3046CE5B1E8AF0C90022AEE5 /* iconCheckmarkThin@2x.png */,
 				3046CE5C1E8AF0C90022AEE5 /* iconCheckmarkThin@3x.png */,
+				30DF3F641F26911000D6DB02 /* iconClock.png */,
+				30DF3F651F26911000D6DB02 /* iconClock@2x.png */,
+				30DF3F661F26911000D6DB02 /* iconClock@3x.png */,
 				30B3FE261ECB661700D43068 /* iconLoginKey.png */,
 				30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */,
 				30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */,
@@ -2031,6 +2040,7 @@
 				302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */,
 				285F7AD11DA9A526008C2EF6 /* SprintSans-Bold.ttf in Resources */,
 				3046CE7E1E8AF0C90022AEE5 /* iconCheckmarkThick.png in Resources */,
+				30DF3F691F26911000D6DB02 /* iconClock@3x.png in Resources */,
 				3046CEA11E8AF6020022AEE5 /* iconAlertWarning@3x.png in Resources */,
 				3025D9B21E527FEB004149D7 /* icon-hide-keyboard.png in Resources */,
 				3025D9C01E52803C004149D7 /* icon-arrow-left@3x.png in Resources */,
@@ -2085,10 +2095,12 @@
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
 				3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */,
 				302472A71D89B7680005A6C9 /* XFINITYSans-Lgt.ttf in Resources */,
+				30DF3F681F26911000D6DB02 /* iconClock@2x.png in Resources */,
 				3046CDF71E8990840022AEE5 /* BoostNeo-Light.ttf in Resources */,
 				3046CE831E8AF0C90022AEE5 /* iconCheckmarkThin@3x.png in Resources */,
 				3046CE821E8AF0C90022AEE5 /* iconCheckmarkThin@2x.png in Resources */,
 				3022684B1D80690500EC4FB1 /* icon-back@3x.png in Resources */,
+				30DF3F671F26911000D6DB02 /* iconClock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
