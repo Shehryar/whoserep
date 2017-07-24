@@ -21,7 +21,6 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Storage
     
-    fileprivate private(set) var simpleStore: ChatSimpleStore!
     fileprivate private(set) var conversationManager: ConversationManager!
     fileprivate var quickRepliesMessage: ChatMessage?
 
@@ -220,7 +219,6 @@ class ChatViewController: ASAPPViewController {
         }
         
         self.user = user
-        simpleStore = ChatSimpleStore(config: config, user: user)
         conversationManager = ConversationManager(config: config,
                                                   user: user,
                                                   userLoginAction: userLoginAction)
@@ -682,7 +680,6 @@ extension ChatViewController {
             conversationManager.sendRequestForTreewalkAction(action as! TreewalkAction,
                                                              messageText: quickReply?.title,
                                                              parentMessage: message,
-                                                             originalSearchQuery: simpleStore.getSRSOriginalSearchQuery(),
                                                              completion: { [weak self] (success) in
                                                                 if !success {
                                                                     self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
@@ -845,7 +842,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
                                   didFinishWithText queryText: String,
                                   fromPrediction: Bool) {
         
-        simpleStore.updateSRSOriginalSearchQuery(query: queryText)
+        conversationManager.originalSearchQuery = queryText
         
         keyboardObserver.registerForNotifications()
         chatMessagesView.overrideToHideInfoView = true

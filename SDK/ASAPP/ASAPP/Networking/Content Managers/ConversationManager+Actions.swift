@@ -123,7 +123,6 @@ extension ConversationManager {
     func sendRequestForTreewalkAction(_ action: TreewalkAction,
                                       messageText: String?,
                                       parentMessage: ChatMessage?,
-                                      originalSearchQuery: String?,
                                       completion: ((Bool) -> Void)? = nil) {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         

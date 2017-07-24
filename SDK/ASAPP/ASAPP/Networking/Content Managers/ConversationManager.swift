@@ -32,13 +32,26 @@ class ConversationManager: NSObject {
     
     weak var delegate: ConversationManagerDelegate?
     
-    // MARK: Properties: Status
+    var originalSearchQuery: String? {
+        set {
+            simpleStore.updateSRSOriginalSearchQuery(query: newValue)
+        }
+        get {
+            return simpleStore.getSRSOriginalSearchQuery()
+        }
+    }
     
-    var currentSRSClassification: String?
+    var currentSRSClassification: String? {
+        didSet {
+            DebugLog.d(caller: self, "Updating currentSRSClassification: \(currentSRSClassification ?? "nil")")
+        }
+    }
     
     var isConnected: Bool {
         return socketConnection.isConnected
     }
+    
+    fileprivate let simpleStore: ChatSimpleStore
     
     fileprivate(set) var events: [Event]
     
@@ -60,6 +73,7 @@ class ConversationManager: NSObject {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
+        self.simpleStore = ChatSimpleStore(config: config, user: user)
         self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.fileStore = ConversationFileStore(config: config, user: user)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
