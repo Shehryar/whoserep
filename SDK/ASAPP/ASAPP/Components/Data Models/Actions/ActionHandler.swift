@@ -81,10 +81,7 @@ extension ActionHandler {
 extension ActionHandler {
     
     class func handleHTTPAction(_ action: Action?) {
-        guard let action = action as? HTTPAction else { return }
-        
-        // MITCH MITCH TODO
-        
+   
     }
 }
 

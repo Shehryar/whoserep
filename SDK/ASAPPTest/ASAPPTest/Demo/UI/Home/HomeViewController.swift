@@ -65,7 +65,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateASAPPSettings(updateConfig: true, updateUser: false)
+        updateASAPPSettings(updateConfig: true, updateUser: true)
         homeTableView.reloadData()
     }
     
@@ -120,8 +120,6 @@ class HomeViewController: BaseViewController {
         
         present(chatViewController, animated: true, completion: nil)
     }
-    
-    
     
     
     // MARK:- ASAPP Callbacks
