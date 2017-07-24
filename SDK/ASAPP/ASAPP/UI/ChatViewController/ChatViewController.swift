@@ -287,9 +287,9 @@ class ChatViewController: ASAPPViewController {
                 self?.updateFramesAnimated()
             })
             
-            conversationManager.startSRS(completion: { [weak self] (appOpenResponse) in
+            conversationManager.getAppOpen() { [weak self] (appOpenResponse) in
                 self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
-            })
+            }
         }
         
         Dispatcher.delay(500, closure: { [weak self] in
@@ -367,7 +367,7 @@ class ChatViewController: ASAPPViewController {
         if connectionStatus == .disconnected {
             connectionStatus = .connecting
             conversationManager.enterConversation()
-            conversationManager.startSRS()
+            conversationManager.getAppOpen()
         }
     }
     

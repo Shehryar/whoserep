@@ -131,6 +131,70 @@ extension ConversationManager {
     }
 }
 
+// MARK:- Requests 
+
+extension ConversationManager {
+    
+    func getRequestParameters(with params: [String : Any]?,
+                              requiresContext: Bool = true,
+                              insertContextAsString: Bool = true,
+                              contextKey: String = "Context",
+                              completion: @escaping (_ params: [String : Any]) -> Void) {
+        
+        var requestParams: [String : Any] = [
+            ASAPP.CLIENT_TYPE_KEY: ASAPP.CLIENT_TYPE_VALUE,
+            ASAPP.CLIENT_VERSION_KEY: ASAPP.clientVersion
+            ].with(params)
+        
+        if requiresContext {
+            user.getContext(completion: { (context, authToken) in
+                if let context = context {
+                    if !insertContextAsString {
+                        requestParams[contextKey] =  context
+                    } else if insertContextAsString, let contextString = JSONUtil.stringify(context) {
+                        requestParams[contextKey] =  contextString
+                    }
+                }
+                if let authToken = authToken {
+                    requestParams["Auth"] = authToken
+                }
+                completion(requestParams)
+            })
+        } else {
+            completion(requestParams)
+        }
+    }
+    
+    func sendRequest(path: String,
+                     params: [String : Any]? = nil,
+                     requiresContext: Bool = true,
+                     isRequestFromPrediction: Bool = false,
+                     completion: IncomingMessageHandler? = nil) {
+                
+        getRequestParameters(with: params, requiresContext: requiresContext) { (requestParams) in
+            
+            // TODO: Investigate if this needs to be on the main thread
+            Dispatcher.performOnMainThread {
+                
+                
+                self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
+                    completion?(incomingMessage, request, responseTime)
+                    
+                    
+                    
+                    if path.contains("srs/") {
+                        self.trackSRSRequest(path: path,
+                                             requestUUID: request?.requestUUID,
+                                             isPredictive: isRequestFromPrediction,
+                                             params: params,
+                                             responseTimeInMilliseconds: responseTime)
+                    }
+                })
+            }
+        }
+    }
+}
+
 // MARK:- Fetching Events
 
 extension ConversationManager {

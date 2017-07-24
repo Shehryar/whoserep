@@ -25,6 +25,12 @@ class IncomingMessage {
     init(withFullMessage fullMessage: Any? = nil) {
         self.fullMessage = fullMessage
     }
+    
+    class func errorMessage(_ text: String) -> IncomingMessage {
+        let message = IncomingMessage(withFullMessage: text)
+        message.type = .ResponseError
+        return message
+    }
 }
 
 typealias ResponseTimeInMilliseconds = Int
