@@ -8,20 +8,6 @@
 
 import Foundation
 
-// MARK:- ConversationManagerDelegate
-
-protocol ConversationManagerDelegate: class {
-    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage)
-    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage)
-    
-    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
-    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool)
-    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
-}
-
-
-// MARK:- ConversationManager
-
 class ConversationManager: NSObject {
     
     let config: ASAPPConfig
@@ -132,13 +118,13 @@ extension ConversationManager {
 extension ConversationManager {
     
     func enterConversation() {
-        DebugLog.d("Entering Conversation")
+        DebugLog.d(caller: self, "Entering Conversation")
         
         socketConnection.connectIfNeeded()
     }
     
     func exitConversation() {
-        DebugLog.d("\n\nExiting Conversation\n")
+        DebugLog.d(caller: self, "Exiting Conversation")
         
         fileStore.save()
         socketConnection.disconnect()
@@ -186,25 +172,18 @@ extension ConversationManager {
                      completion: IncomingMessageHandler? = nil) {
                 
         getRequestParameters(with: params, requiresContext: requiresContext) { (requestParams) in
-            
-            // TODO: Investigate if this needs to be on the main thread
-            Dispatcher.performOnMainThread {
-                
-                
-                self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
-                    completion?(incomingMessage, request, responseTime)
-                    
-                    
-                    
-                    if path.contains("srs/") {
-                        self.trackSRSRequest(path: path,
-                                             requestUUID: request?.requestUUID,
-                                             isPredictive: isRequestFromPrediction,
-                                             params: params,
-                                             responseTimeInMilliseconds: responseTime)
-                    }
-                })
-            }
+    
+            self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
+                completion?(incomingMessage, request, responseTime)
+       
+                if path.contains("srs/") {
+                    self.trackSRSRequest(path: path,
+                                         requestUUID: request?.requestUUID,
+                                         isPredictive: isRequestFromPrediction,
+                                         params: params,
+                                         responseTimeInMilliseconds: responseTime)
+                }
+            })
         }
     }
 }

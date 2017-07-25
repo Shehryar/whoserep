@@ -15,14 +15,13 @@ extension ConversationManager {
     func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
         let path = "customer/NotifyTypingPreview"
         let params = [ "Text" : text ?? "" ]
-        socketConnection.sendRequest(withPath: path, params: params)
+        sendRequest(path: path, params: params, requiresContext: false, completion: nil)
     }
     
     func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         let path = "customer/SendTextMessage"
-        socketConnection.sendRequest(withPath: path,
-                                     params: ["Text" : message],
-                                     requestHandler: completion)
+        let params = ["Text" : message]
+        sendRequest(path: path, params: params, completion: completion)
     }
     
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {

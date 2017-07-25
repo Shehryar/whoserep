@@ -395,6 +395,7 @@
 		30DF3F671F26911000D6DB02 /* iconClock.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F641F26911000D6DB02 /* iconClock.png */; };
 		30DF3F681F26911000D6DB02 /* iconClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F651F26911000D6DB02 /* iconClock@2x.png */; };
 		30DF3F691F26911000D6DB02 /* iconClock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F661F26911000D6DB02 /* iconClock@3x.png */; };
+		30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
 		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
@@ -814,6 +815,7 @@
 		30DF3F641F26911000D6DB02 /* iconClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconClock.png; sourceTree = "<group>"; };
 		30DF3F651F26911000D6DB02 /* iconClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@2x.png"; sourceTree = "<group>"; };
 		30DF3F661F26911000D6DB02 /* iconClock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@3x.png"; sourceTree = "<group>"; };
+		30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManagerDelegate.swift; sourceTree = "<group>"; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
@@ -1297,6 +1299,7 @@
 			isa = PBXGroup;
 			children = (
 				30226CCA1D4933F200871453 /* ConversationManager.swift */,
+				30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */,
 				30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */,
 				302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */,
 				305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */,
@@ -2214,6 +2217,7 @@
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
+				30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */,
 				307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
