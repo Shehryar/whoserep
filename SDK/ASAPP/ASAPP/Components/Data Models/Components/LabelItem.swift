@@ -26,13 +26,18 @@ class LabelItem: Component {
  
     // MARK: Init
     
-    required init?(id: String?,
-                   name: String?,
-                   value: Any?,
-                   isChecked: Bool?,
+    init?(text: String, style: ComponentStyle) {
+        self.text = text
+        super.init(style: style)
+    }
+    
+    required init?(id: String? = nil,
+                   name: String? = nil,
+                   value: Any? = nil,
+                   isChecked: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]?,
-                   content: [String : Any]?) {
+                   styles: [String : Any]? = nil,
+                   content: [String : Any]? = nil) {
         
         guard let text = content?.string(for: JSONKey.text.rawValue) else {
             DebugLog.w(caller: LabelItem.self, "Missing text: \(String(describing: content))")

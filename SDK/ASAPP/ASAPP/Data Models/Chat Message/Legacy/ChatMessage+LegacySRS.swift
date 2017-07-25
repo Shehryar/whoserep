@@ -52,7 +52,7 @@ extension ChatMessage {
         
         let classification = json.string(for: "classification")
         let content = json.jsonObject(for: "content")
-        let displayContent = json.bool(for: "displayContent")
+        let displayContent = json.bool(for: "displayContent") ?? false
         let parentEventLogSeq = json.int(for: "parentEventLogSeq")
         
         let (message, bodyItems, buttons) = extractLegacyComponents(content)
@@ -69,6 +69,20 @@ extension ChatMessage {
             }
         }
         
+        var attachment: ChatMessageAttachment?
+        if displayContent {
+            if let stackViewItems = ComponentFactory.convertSRSItems(bodyItems) {
+                var style = ComponentStyle()
+                style.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+                
+                if let stackView = StackViewItem(orientation: .vertical,
+                                                 items: stackViewItems,
+                                                 style: style) {
+                    attachment = ChatMessageAttachment(content: stackView)
+                }
+            }
+        }
+        
         var quickRepliesHash: [String : [QuickReply]]?
         if let quickReplies = quickReplies, !quickReplies.isEmpty {
             quickRepliesHash = [
@@ -77,7 +91,7 @@ extension ChatMessage {
         }
     
         return ChatMessage(text: message,
-                           attachment: nil,
+                           attachment: attachment,
                            quickReplies: quickRepliesHash,
                            metadata: metadata)
     }

@@ -34,13 +34,13 @@ class ProgressBarItem: Component {
     
     // MARK:- Init
     
-    required init?(id: String?,
-                   name: String?,
-                   value: Any?,
-                   isChecked: Bool?,
+    required init?(id: String? = nil,
+                   name: String? = nil,
+                   value: Any? = nil,
+                   isChecked: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]?,
-                   content: [String : Any]?) {
+                   styles: [String : Any]? = nil,
+                   content: [String : Any]? = nil) {
         self.fillPercentage = content?.float(for: JSONKey.fillPercentage.rawValue)
             ?? ProgressBarItem.defaultFillPercentage
         

@@ -361,6 +361,7 @@
 		30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */; };
 		30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */; };
 		30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2771F27E7DF00D69824 /* SRSIcon.swift */; };
+		30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
 		30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738331D874B2200E32B78 /* gif-loader-bar.gif */; };
 		30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */; };
@@ -809,6 +810,7 @@
 		30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMTextInputCell.swift; sourceTree = "<group>"; };
 		30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActionFactory+LegacySRS.swift"; sourceTree = "<group>"; };
 		30B7C2771F27E7DF00D69824 /* SRSIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIcon.swift; sourceTree = "<group>"; };
+		30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ComponentFactory+LegacySRS.swift"; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		30C738331D874B2200E32B78 /* gif-loader-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar.gif"; sourceTree = "<group>"; };
 		30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar@2x.gif"; sourceTree = "<group>"; };
@@ -1814,6 +1816,7 @@
 			children = (
 				30DF3F6F1F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift */,
 				30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */,
+				30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */,
 				30DF3F711F27BB5A00D6DB02 /* SRS Models */,
 			);
 			path = Legacy;
@@ -2383,6 +2386,7 @@
 				30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
+				30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */,
 				3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */,
 				30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
