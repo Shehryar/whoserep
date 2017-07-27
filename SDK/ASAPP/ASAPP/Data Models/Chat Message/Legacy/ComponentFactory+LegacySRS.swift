@@ -10,7 +10,7 @@ import UIKit
 
 extension ComponentFactory {
     
-    private static let marginTop: CGFloat = 12.0
+    private static let marginTop: CGFloat = 16.0
     
     static func convertSRSItems(_ items: [SRSItem]?) -> [Component]? {
         guard let items = items else {
@@ -84,6 +84,7 @@ extension ComponentFactory {
         labelStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 12)
         labelStyle.alignment = .left
         labelStyle.textAlign = .left
+        labelStyle.color = info.labelColor
         labelStyle.weight = 1
         if let labelText = info.label,
             let labelItem = LabelItem(text: labelText, style: labelStyle) {
@@ -94,6 +95,7 @@ extension ComponentFactory {
         valueStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 0)
         valueStyle.alignment = .right
         valueStyle.textAlign = .right
+        valueStyle.color = info.valueColor
         valueStyle.weight = 1
         valueStyle.textType = .bodyBold
         if let valueText = info.value,
@@ -125,6 +127,7 @@ extension ComponentFactory {
                 valueStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 0)
                 valueStyle.alignment = .center
                 valueStyle.textAlign = .center
+                valueStyle.color = item.valueColor
                 valueStyle.textType = .header1
                 if let valueText = item.value,
                     let valueItem = LabelItem(text: valueText, style: valueStyle) {
@@ -134,6 +137,7 @@ extension ComponentFactory {
                 var labelStyle = ComponentStyle()
                 labelStyle.margin = UIEdgeInsets(top: item.value != nil ? 6 : marginTop, left: 0, bottom: 0, right: 0)
                 labelStyle.alignment = .center
+                labelStyle.color = item.labelColor
                 labelStyle.textAlign = .center
                 labelStyle.textType = .subheader
                 if let labelText = item.label,

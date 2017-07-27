@@ -12,7 +12,11 @@ class SRSInfo: SRSItem {
     
     let label: String?
     
+    let labelColor: UIColor?
+    
     let value: String?
+    
+    let valueColor: UIColor?
     
     override init?(json: Any?) {
         guard let json = json as? [String : Any] else {
@@ -25,7 +29,9 @@ class SRSInfo: SRSItem {
             return nil
         }
         self.label = label
+        self.labelColor = json.hexColor(for: "labelColor")
         self.value = value
+        self.valueColor = json.hexColor(for: "valueColor")
         super.init(json: json)
     }
 }
