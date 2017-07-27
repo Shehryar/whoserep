@@ -79,6 +79,11 @@ extension ConversationManager {
     
     
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
+        if ASAPP.isDemoContentEnabled(), let demoResponse = Event.demoResponseForQuery(query) {
+            echoMessageResponse(withJSONString: demoResponse)
+            return
+        }
+        
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         let params = [
             "Text" : query,

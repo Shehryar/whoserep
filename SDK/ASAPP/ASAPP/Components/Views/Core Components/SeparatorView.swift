@@ -39,50 +39,74 @@ class SeparatorView: BaseComponentView {
     
     // MARK: Layout
     
-    override func updateFrames() {
+    func frameThatFits(_ size: CGSize) -> (CGRect, CGSize) {
         guard let separatorItem = separatorItem else {
-            return
+            return (.zero, .zero)
         }
-        let padding = separatorItem.style.padding
-        
+        let style = separatorItem.style
+        let padding = style.padding
+    
+        var contentSize = CGSize.zero
+        let left: CGFloat
+        let top: CGFloat
         let width: CGFloat
         let height: CGFloat
+        
         switch separatorItem.separatorStyle {
         case .horizontal:
-            width = bounds.width - padding.left - padding.right
-            height = separatorStroke
+            contentSize.width = min(UIScreen.main.bounds.width, size.width)
+            let defaultWidth = contentSize.width - padding.left - padding.right
+            if style.width > 0 {
+                width = style.width
+            } else {
+                width = defaultWidth
+            }
+            left = padding.left + floor((defaultWidth - width) / 2.0)
+            
+            if style.height > 0 {
+                height = style.height
+            } else {
+                height = separatorStroke
+            }
+            contentSize.height = height + padding.top + padding.bottom
+            top = padding.top
             break
             
         case .vertical:
-            width = separatorStroke
-            height = bounds.height - padding.top - padding.bottom
+            if style.width > 0 {
+                width = style.width
+            } else {
+                width = separatorStroke
+            }
+            contentSize.width = width + padding.left + padding.right
+            left = padding.left
+            
+            contentSize.height = min(UIScreen.main.bounds.height, size.height)
+            let defaultHeight = contentSize.height - padding.top - padding.bottom
+            if style.height > 0 {
+                height = style.height
+            } else {
+                height = defaultHeight
+            }
+            top = padding.top + floor((defaultHeight - height) / 2.0)
             break
         }
         
-        separator.frame = CGRect(x: padding.left, y: padding.top, width: width, height: height)
+        let frame = CGRect(x: left, y: top, width: width, height: height)
+        return (frame, contentSize)
+    }
+    
+    override func updateFrames() {
+        super.updateFrames()
+        
+        (separator.frame, _) = frameThatFits(bounds.size)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        guard let separatorItem = separatorItem else {
+        guard separatorItem != nil else {
             return .zero
         }
-        
-        let padding = separatorItem.style.padding
-        let width: CGFloat
-        let height: CGFloat
-        switch separatorItem.separatorStyle {
-        case .horizontal:
-            width = size.width < UIScreen.main.bounds.width ? size.width : separatorStroke + padding.top + padding.bottom
-            height = separatorStroke + padding.top + padding.bottom
-            break
-            
-        case .vertical:
-            // Vertical separatofs need gravity=fill
-            width = separatorStroke + padding.left + padding.right
-            height = separatorStroke + padding.top + padding.bottom
-            break
-        }
-        
-        return CGSize(width: width, height: height)
+        let (_, contentSize) = frameThatFits(size)
+        return contentSize
     }
 }

@@ -1,0 +1,86 @@
+{
+  "title": "Account > Payment",
+  "classification": "BP",
+  "displayContent": 1,
+  "content": {
+    "value": [
+      {
+        "label": "Here is your current statement.",
+        "type": "label"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "$100.00",
+            "valueColor": "",
+            "label": "HORIZONTAL ITEMLIST",
+            "type": "info"
+          }
+        ],
+        "orientation": "horizontal",
+        "type": "itemlist"
+      },
+      {
+        "type": "filler"
+      },
+      {
+        "label": "Above, you see a filler item.",
+        "type": "label"
+      },
+      {
+        "label": "This item is a label. So are the items above and below this. A label will wrap onto multiple lines if necessary.",
+        "type": "label"
+      },
+      {
+        "label": "This thing below is a separator.",
+        "type": "label"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "This thing below is an itemList with orientaion=vertical.  You can also set a valueColor on these items.",
+        "type": "label"
+      },
+      {
+        "value": [
+          {
+            "icon": "",
+            "value": "$100.00",
+            "label": "Default Item",
+            "valueColor": "badbcolor",
+            "type": "info"
+          },
+          {
+            "icon": "",
+            "value": "+$148.95",
+            "valueColor": "#61c433",
+            "label": "A positive item",
+            "type": "info"
+          },
+          {
+            "icon": "",
+            "value": "-$17.37",
+            "valueColor": "#ec6554",
+            "label": "A negative item",
+            "type": "info"
+          }
+        ],
+        "orientation": "vertical",
+        "type": "itemlist"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label" : "Another label just for good measure.",
+        "type": "label"
+      },
+      
+      
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}
