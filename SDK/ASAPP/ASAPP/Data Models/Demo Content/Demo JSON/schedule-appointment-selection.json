@@ -1,0 +1,12 @@
+{
+  "title": "Appointment Confirmation",
+  "classification": "cancelAppointment",
+  "content": {
+    "value": [
+      {
+        "type": "label",
+        "label": "Sounds great. We will see you then."
+      }
+    ]
+  }
+}

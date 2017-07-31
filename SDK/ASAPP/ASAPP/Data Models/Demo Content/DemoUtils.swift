@@ -12,60 +12,27 @@ class DemoUtils: NSObject {
     
     // MARK:- File Paths
     
-    class func createFilePaths(fileName: String, company: String?) -> (/* filePath */ String?, /* companyFilePath */ String?) {
-        let filePath = ASAPP.bundle.path(forResource: fileName, ofType: "json")
-        
-        var companyFilePath: String?
-        if let company = company {
-
-            let companyFileName: String
-            if company == "text-rex" {
-                companyFileName = "sprint_\(fileName)"
-            } else {
-                companyFileName = "\(company)_\(fileName)"
-            }
-            companyFilePath = ASAPP.bundle.path(forResource: companyFileName, ofType: "json")
-        }
-        
-        return (filePath, companyFilePath)
+    class func createFilePath(for fileName: String, type: String = "json") -> String? {
+        return ASAPP.bundle.path(forResource: fileName, ofType: type)
     }
     
     // MARK:- Reading from File
     
-    class func jsonStringForFile(_ fileName: String, company: String? = nil) -> String? {
-        var stringOnFile: String?
-        
-        let (path, companyPath) = createFilePaths(fileName: fileName, company: company)
-        
-        // Try company path, if available, else fall back to default
-        if let companyPath = companyPath {
-            stringOnFile = try? String(contentsOfFile: companyPath, encoding: String.Encoding.utf8)
+    class func jsonStringForFile(_ fileName: String) -> String? {
+        if let path = createFilePath(for: fileName) {
+            let contents = try? String(contentsOfFile: path, encoding: String.Encoding.utf8)
+            return contents
         }
-        if stringOnFile == nil {
-            if let path = path {
-                stringOnFile = try? String(contentsOfFile: path, encoding: String.Encoding.utf8)
-            }
-        }
-
-        return stringOnFile
+        return nil
+       
     }
     
     class func jsonDataForFile(_ fileName: String, company: String? = nil) -> Data? {
-        var dataOnFile: Data?
-        
-        let (path, companyPath) = createFilePaths(fileName: fileName, company: company)
-        
-        // Try company path, if available, else fall back to default
-        if let companyPath = companyPath {
-            dataOnFile = try? Data(contentsOf: URL(fileURLWithPath: companyPath))
+        if let path = createFilePath(for: fileName) {
+            let contents = try? Data(contentsOf: URL(fileURLWithPath: path))
+            return contents
         }
-        if dataOnFile == nil {
-            if let path = path {
-                dataOnFile = try? Data(contentsOf: URL(fileURLWithPath: path))
-            }
-        }
-        
-        return dataOnFile
+        return nil
     }
     
     // MARK:- JSON Serialization

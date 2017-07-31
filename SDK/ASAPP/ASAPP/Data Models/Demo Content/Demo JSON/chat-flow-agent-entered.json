@@ -1,0 +1,19 @@
+{
+  "title": "Account > Payment",
+  "classification": "BP",
+  "displayContent": 1,
+  "content": {
+    "value": [
+      {
+        "label": "",
+        "type": "label"
+      },
+      {
+        "label" : "You are now connected with Anne.",
+        "type" : "label"
+      }
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}

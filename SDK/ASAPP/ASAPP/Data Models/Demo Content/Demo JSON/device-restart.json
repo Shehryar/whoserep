@@ -1,0 +1,26 @@
+{
+  "title": "Account > Payment",
+  "classification": "BP",
+  "displayContent" : 1,
+  "content": {
+    "value": [
+      {
+        "label": "Ok, I am restarting your device now.",
+        "type": "label"
+      },
+      {
+        "label": "RESTARTING DEVICE",
+        "type": "label"
+      },
+      {
+        "type": "filler"
+      },
+      {
+        "type": "loaderBar",
+        "finished_text" : "Completed at Sep. 9, 2016"
+      }
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  }
+}

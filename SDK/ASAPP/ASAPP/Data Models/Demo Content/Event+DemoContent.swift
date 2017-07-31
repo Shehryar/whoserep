@@ -174,9 +174,9 @@ extension Event {
         return demoEvent
     }
     
-    class func getDemoEventJsonString(eventType: DemoEventType, company: String?) -> String? {
+    class func getDemoEventJsonString(eventType: DemoEventType) -> String? {
         let fileName = jsonFileName(forEventType: eventType)
-        let jsonString = DemoUtils.jsonObjectAsStringForFile(fileName, company: company)
+        let jsonString = DemoUtils.jsonObjectAsStringForFile(fileName)
         
         return jsonString
     }
@@ -186,21 +186,21 @@ extension Event {
 
 extension Event {
     
-    class func demoResponseForMessage(message: String?, company: String?) -> String? {
-        guard let message = message else { return nil }
+    class func demoResponseForQuery(_ query: String?) -> String? {
+        guard let query = query else { return nil }
         
-        if let demoEventType = demoEventTypeForResponseToMessage(message: message) {
-            return Event.getDemoEventJsonString(eventType: demoEventType, company: company)
+        if let demoEventType = demoEventTypeForResponseToQuery(query) {
+            return Event.getDemoEventJsonString(eventType: demoEventType)
         }
         
         return nil
     }
     
-    class func demoEventTypeForResponseToMessage(message: String) -> DemoEventType? {
+    class func demoEventTypeForResponseToQuery(_ query: String) -> DemoEventType? {
         
         for demoEventType in DemoEventType.allTypes {
             if let triggeringStringSets = triggeringSubstringSet(demoEventType: demoEventType) {
-                if message.containsAnySet(substringSets: triggeringStringSets) {
+                if query.containsAnySet(substringSets: triggeringStringSets) {
                     return demoEventType
                 }
             }

@@ -10,6 +10,8 @@ import UIKit
 
 extension ComponentFactory {
     
+    private static let marginTop: CGFloat = 16.0
+    
     static func convertSRSItems(_ items: [SRSItem]?) -> [Component]? {
         guard let items = items else {
             return nil
@@ -19,7 +21,7 @@ extension ComponentFactory {
         for (idx, item) in items.enumerated() {
             var style = ComponentStyle()
             if idx > 0 {
-                style.margin = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+                style.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 0)
             }
             
             switch item.type {
@@ -28,8 +30,8 @@ extension ComponentFactory {
                 break
                 
             case .filler:
-                style.width = 20
-                style.height = 8
+                style.width = 12
+                style.height = 5
                 style.alignment = .center
                 if let separatorItem = SeparatorItem(style: style) {
                     components.append(separatorItem)
@@ -79,9 +81,10 @@ extension ComponentFactory {
         var components = [Component]()
         
         var labelStyle = ComponentStyle()
-        labelStyle.margin = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 12)
+        labelStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 12)
         labelStyle.alignment = .left
         labelStyle.textAlign = .left
+        labelStyle.color = info.labelColor
         labelStyle.weight = 1
         if let labelText = info.label,
             let labelItem = LabelItem(text: labelText, style: labelStyle) {
@@ -89,17 +92,21 @@ extension ComponentFactory {
         }
         
         var valueStyle = ComponentStyle()
-        valueStyle.margin = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+        valueStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 0)
         valueStyle.alignment = .right
         valueStyle.textAlign = .right
+        valueStyle.color = info.valueColor
         valueStyle.weight = 1
         valueStyle.textType = .bodyBold
         if let valueText = info.value,
             let valueItem = LabelItem(text: valueText, style: valueStyle) {
             components.append(valueItem)
         }
+    
+        var stackViewStyle = style
+        stackViewStyle.weight = 1
         
-        return StackViewItem(orientation: .horizontal, items: components, style: style)
+        return StackViewItem(orientation: .horizontal, items: components, style: stackViewStyle)
     }
     
     static func getComponentsForNestedSRSItemList(_ itemList: SRSItemList, style: ComponentStyle) -> [Component]? {
@@ -117,19 +124,22 @@ extension ComponentFactory {
         case .horizontal:
             for item in itemList.items {
                 var valueStyle = ComponentStyle()
-                valueStyle.margin = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+                valueStyle.margin = UIEdgeInsets(top: marginTop, left: 0, bottom: 0, right: 0)
                 valueStyle.alignment = .center
                 valueStyle.textAlign = .center
-                valueStyle.textType = .header2
+                valueStyle.color = item.valueColor
+                valueStyle.textType = .header1
                 if let valueText = item.value,
                     let valueItem = LabelItem(text: valueText, style: valueStyle) {
                     components.append(valueItem)
                 }
                 
                 var labelStyle = ComponentStyle()
-                labelStyle.margin = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+                labelStyle.margin = UIEdgeInsets(top: item.value != nil ? 6 : marginTop, left: 0, bottom: 0, right: 0)
                 labelStyle.alignment = .center
+                labelStyle.color = item.labelColor
                 labelStyle.textAlign = .center
+                labelStyle.textType = .subheader
                 if let labelText = item.label,
                     let labelItem = LabelItem(text: labelText, style: labelStyle) {
                     components.append(labelItem)

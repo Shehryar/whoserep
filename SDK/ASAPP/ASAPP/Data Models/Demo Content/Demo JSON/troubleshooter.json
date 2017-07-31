@@ -1,0 +1,26 @@
+{
+  "content": {
+    "value": [
+      {
+        "label": "It looks like your device needs to be restarted in order to resolve this issue. Restarting your device will take about 5 minutes. This will not erase any of your current settings. If you have XFINITY Voice, we won't restart until all in-progress calls are finished.",
+        "type": "label"
+      },
+      {
+        "value": {
+          "content": {
+            "deepLink": "restartDeviceNow",
+            "deepLinkData": {
+            }
+          },
+          "type": "LINK"
+        },
+        "label": "Restart Now",
+        "type": "button"
+      },
+    ],
+    "orientation": "vertical",
+    "type": "itemlist"
+  },
+  "title": "Device > Troubleshoot",
+  "classification": "TR"
+}
