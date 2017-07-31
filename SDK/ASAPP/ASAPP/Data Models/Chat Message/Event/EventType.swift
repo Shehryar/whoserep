@@ -20,6 +20,7 @@ enum EventType: Int {
     case srsAction = 24
     case scheduleAppointment = 27
     case switchSRSToChat = 28
+    case accountMerge = 30
     case switchChatToSRS = 31
     
     static func from(_ value: Any?) -> EventType? {

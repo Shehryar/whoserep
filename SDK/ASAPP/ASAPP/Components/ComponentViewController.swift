@@ -14,7 +14,7 @@ protocol ComponentViewControllerDelegate: class {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 with data: [String : Any]?,
+                                 withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler)
     
     func componentViewController(_ viewController: ComponentViewController,
@@ -259,15 +259,11 @@ extension ComponentViewController {
             return
         }
         
-        var requestData = [String : Any]()
-        requestData.add(action.data)
-        requestData.add(component.getData())
-        
         buttonView.isLoading = true
         
         delegate.componentViewController(self,
                                          didTapAPIAction: action,
-                                         with: requestData,
+                                         withFormData: component.getData(),
                                          completion: { [weak self] (response) in
                                             Dispatcher.performOnMainThread {
                                                 buttonView.isLoading = false
@@ -308,7 +304,7 @@ extension ComponentViewController {
         let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
                                       message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: ASAPP.strings.requestErrorDismissButton,
+        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
                                       style: .cancel,
                                       handler: nil))
         present(alert, animated: true, completion: nil)

@@ -10,6 +10,12 @@ import UIKit
 import ASAPP
 
 protocol HomeTableViewDelegate: class {
+    func homeTableViewDidTapUserName(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapAppId(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapAPIHostName(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView)
+    
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
     func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
@@ -18,24 +24,39 @@ protocol HomeTableViewDelegate: class {
 }
 
 class HomeTableView: UIView {
+    
+    fileprivate enum Section: Int {
+        case user
+        case settings
+        case billing
+        case other
+        case count
+    }
+    
+    fileprivate enum SettingsRow: Int {
+        case apiHostName
+        case appId
+        case customerIdentifier
+        case authToken
+        case count
+    }
+    
+    fileprivate enum OtherRow: Int {
+        case paymentMethods
+        case usage
+        case invite
+        case notifications
+        case help
+        case touchId
+        case privacy
+        case settings
+        case count
+    }
 
-    var appSettings: AppSettings {
-        didSet {
-            applyAppSettings()
-        }
-    }
-    
-    var currentAccount: UserAccount? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
     var contentInset: UIEdgeInsets = .zero {
         didSet {
             tableView.contentInset = contentInset
             tableView.scrollIndicatorInsets = contentInset
-            
             tableView.contentOffset = CGPoint(x: 0, y: -contentInset.top)
         }
     }
@@ -51,39 +72,11 @@ class HomeTableView: UIView {
     let headerSizingView = TableHeaderView()
     let nameSizingCell = ImageNameCell()
     let labelIconSizingCell = LabelIconCell()
-    let buttonSizingCell = ButtonCell()
     let titleDetailValueSizingCell = TitleDetailValueCell()
-    
-    fileprivate enum Section: Int {
-        case profile
-        case demoSettings
-        case bill
-        case settings
-        case count
-    }
-    
-    fileprivate enum ProfileRow: Int {
-        case profile
-        case signOut
-        case count
-    }
-    
-    fileprivate enum SettingsRow: Int {
-        case paymentMethods
-        case usage
-        case invite
-        case notifications
-        case help
-        case touchId
-        case privacy
-        case settings
-        case count
-    }
     
     // MARK: Initialization
     
-    required init(appSettings: AppSettings) {
-        self.appSettings = appSettings
+    required init() {
         super.init(frame: .zero)
         
         backgroundColor = UIColor.clear
@@ -112,8 +105,8 @@ class HomeTableView: UIView {
     // MARK: View
     
     func applyAppSettings() {
-        tableView.backgroundColor = appSettings.branding.colors.secondaryBackgroundColor
-        tableView.separatorColor = appSettings.branding.colors.separatorColor
+        tableView.backgroundColor = AppSettings.shared.branding.colors.secondaryBackgroundColor
+        tableView.separatorColor = AppSettings.shared.branding.colors.separatorColor
         tableView.reloadData()
     }
     
@@ -130,6 +123,211 @@ class HomeTableView: UIView {
     }
 }
 
+// MARK:- Header
+
+extension HomeTableView {
+    
+    func headerForSection(_ section: Int, viewToStyle: TableHeaderView? = nil) -> TableHeaderView {
+        var title: String?
+        switch section {
+        case Section.user.rawValue:
+            title = ""
+            break
+            
+        case Section.settings.rawValue:
+            title = "SETTINGS - \(AppSettings.shared.versionString)"
+            break
+            
+        case Section.billing.rawValue:
+            title = "Billing"
+            break
+            
+        case Section.other.rawValue:
+            title = "Other"
+            break
+            
+        default: // No-op
+            DemoLog("Missing Title for section: \(section)")
+            break
+        }
+        
+        let headerView = viewToStyle ?? TableHeaderView()
+        headerView.title = title
+        
+        return headerView
+    }
+}
+
+// MARK:- Cells
+
+extension HomeTableView {
+    
+    func getCellForRowAt(indexPath: IndexPath, forSizing: Bool = false) -> UITableViewCell {
+        switch indexPath.section {
+            /** User **/
+        case Section.user.rawValue:
+            return imageNameCell(cellToStyle: forSizing ? nameSizingCell : nil,
+                                 name: AppSettings.shared.userName,
+                                 imageName: AppSettings.shared.userImageName,
+                                 for: indexPath)
+            
+            /** Settings **/
+        case Section.settings.rawValue:
+            var title: String?
+            var value: String?
+            switch indexPath.row {
+            case SettingsRow.apiHostName.rawValue:
+                title = "API Host"
+                value = AppSettings.shared.apiHostName
+                break
+                
+            case SettingsRow.appId.rawValue:
+                title = "App Id"
+                value = AppSettings.shared.appId
+                break
+                
+            case SettingsRow.customerIdentifier.rawValue:
+                title = "Customer Id"
+                if let customerIdentifier = AppSettings.shared.customerIdentifier {
+                    value = customerIdentifier
+                } else {
+                    value = "Anonymous User"
+                }
+                break
+                
+            case SettingsRow.authToken.rawValue:
+                title = "Auth Token"
+                value = AppSettings.shared.authToken
+                break
+                
+            default:
+                DemoLog("Missing cell for index path: \(indexPath)")
+                break
+            }
+            return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
+                                        title: title,
+                                        value: value,
+                                        for: indexPath)
+            
+            /** Billing **/
+        case Section.billing.rawValue:
+            return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
+                                        title: "Current Balance",
+                                        detail: billDetails.dueDateString,
+                                        value: billDetails.total,
+                                        for: indexPath)
+            
+            /** Other **/
+        case Section.other.rawValue:
+            var title: String?, imageName: String?
+            switch indexPath.row {
+            case OtherRow.paymentMethods.rawValue:
+                title = "Payment Accounts"
+                imageName = "icon-creditcard"
+                break
+                
+            case OtherRow.usage.rawValue:
+                title = "Usage"
+                imageName = "icon-line-graph"
+                break
+                
+            case OtherRow.invite.rawValue:
+                title = "Refer Friends"
+                imageName = "icon-users"
+                break
+                
+            case OtherRow.notifications.rawValue:
+                title = "Notifications"
+                imageName = "icon-bell"
+                break
+                
+            case OtherRow.help.rawValue:
+                title = "Help"
+                imageName = "icon-chat-bubble"
+                break
+                
+            case OtherRow.touchId.rawValue:
+                title = "TouchID"
+                imageName = "icon-fingerprint"
+                break
+                
+            case OtherRow.privacy.rawValue:
+                title = "Privacy"
+                imageName = "icon-lock"
+                break
+                
+            case OtherRow.settings.rawValue:
+                title = "Settings"
+                imageName = "icon-gear-2"
+                break
+                
+            default:
+                DemoLog("Missing cell for indexPath: \(indexPath)")
+                break
+            }
+            return labelIconCell(cellToStyle: forSizing ? labelIconSizingCell : nil,
+                                 title: title,
+                                 imageName: imageName,
+                                 for: indexPath)
+            
+        default:
+            DemoLog("Missing cell for indexPath: \(indexPath)")
+            break
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func imageNameCell(cellToStyle: ImageNameCell? = nil,
+                       name: String,
+                       imageName: String,
+                       for indexPath: IndexPath) -> UITableViewCell {
+        let cell = cellToStyle
+            ?? tableView.dequeueReusableCell(withIdentifier: ImageNameCell.reuseId, for: indexPath) as? ImageNameCell
+        
+        cell?.appSettings = AppSettings.shared
+        cell?.selectionStyle = .default
+        cell?.name = name
+        cell?.imageName = imageName
+        
+        return cell ?? UITableViewCell()
+    }
+    
+    func titleDetailValueCell(cellToStyle: TitleDetailValueCell? = nil,
+                              title: String? = nil,
+                              detail: String? = nil,
+                              value: String? = nil,
+                              for indexPath: IndexPath) -> UITableViewCell {
+        let cell = cellToStyle
+            ?? tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TitleDetailValueCell
+        
+        cell?.appSettings = AppSettings.shared
+        cell?.selectionStyle = .default
+        cell?.update(titleText: title, detailText: detail, valueText: value)
+        
+        return cell ?? UITableViewCell()
+    }
+    
+    func labelIconCell(cellToStyle: LabelIconCell? = nil,
+                       title: String?,
+                       imageName: String?,
+                       for indexPath: IndexPath) -> UITableViewCell {
+        let cell = cellToStyle
+            ?? tableView.dequeueReusableCell(withIdentifier: LabelIconCell.reuseId, for: indexPath) as? LabelIconCell
+        
+        cell?.appSettings = AppSettings.shared
+        cell?.selectionStyle = .default
+        cell?.title = title
+        if let imageName = imageName {
+            cell?.iconImage = UIImage(named: imageName)
+        } else {
+            cell?.iconImage = nil
+        }
+        
+        return cell ?? UITableViewCell()
+    }
+}
+
 // MARK:- UITableViewDataSource
 
 extension HomeTableView: UITableViewDataSource {
@@ -140,199 +338,24 @@ extension HomeTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Section.profile.rawValue: return ProfileRow.count.rawValue
-        case Section.demoSettings.rawValue: return 1
-        case Section.bill.rawValue: return 1
+        case Section.user.rawValue: return 1
         case Section.settings.rawValue: return SettingsRow.count.rawValue
+        case Section.billing.rawValue: return 1
+        case Section.other.rawValue: return OtherRow.count.rawValue
         default: return 0
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return headerForSection(section)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: TableViewCell?
-        
-        switch indexPath.section {
-        //
-        // Profile
-        //
-        case Section.profile.rawValue:
-            switch indexPath.row {
-            case ProfileRow.profile.rawValue:
-                cell = tableView.dequeueReusableCell(withIdentifier: ImageNameCell.reuseId, for: indexPath) as? TableViewCell
-                styleUserAccountCell(cell as? ImageNameCell, forIndexPath: indexPath)
-                break
-                
-            case ProfileRow.signOut.rawValue:
-                cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
-                styleButtonCell(cell: cell as? ButtonCell, forIndexPath: indexPath)
-                break
-            
-            default:
-                DemoLog("Missing cell for indexPath: \(indexPath)")
-                break
-            }
-            break
-         
-    
-        //
-        // Demo Settings, Bill Summary
-        //
-        case Section.demoSettings.rawValue, Section.bill.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TableViewCell
-            styleTitleDetailValueCell(cell as? TitleDetailValueCell, forIndexPath: indexPath)
-            break
-            
-        //
-        // Settings
-        //
-        case Section.settings.rawValue:
-            cell = tableView.dequeueReusableCell(withIdentifier: LabelIconCell.reuseId, for: indexPath) as? LabelIconCell
-            styleLabelIconCell(cell: cell as? LabelIconCell, forRow: indexPath.row)
-            break
-            
-        default:
-            DemoLog("Missing cell for indexPath: \(indexPath)")
-            break
-        }
-        
-        return cell ?? TableViewCell()
+        return getCellForRowAt(indexPath: indexPath)
     }
     
-    // MARK: Cell Style Utility
-    
-    func styleTitleDetailValueCell(_ cell: TitleDetailValueCell?, forIndexPath indexPath: IndexPath) {
-        guard let cell = cell else { return }
-        
-        cell.appSettings = appSettings
-        cell.selectionStyle = .default
-        
-        switch indexPath.section {
-        case Section.demoSettings.rawValue:
-            var featuresString: String
-            if ASAPP.isDemoContentEnabled() {
-                featuresString = "DEMO CONTENT ENABLED"
-            } else {
-                featuresString = "Default Configuration"
-            }
-            cell.update(titleText: "API Host:",
-                        detailText: featuresString,
-                        valueText: "\(appSettings.apiHostName)")
-            break
-        
-        case Section.bill.rawValue:
-            cell.update(titleText: "Current Balance",
-                        detailText: billDetails.dueDateString,
-                        valueText: billDetails.total)
-            break
-            
-        default:
-            break
-        }
-    }
-    
-    func styleUserAccountCell(_ cell: ImageNameCell?, forIndexPath indexPath: IndexPath) {
-        guard let cell = cell else { return }
-        
-        cell.selectionStyle = .none
-        cell.appSettings = appSettings
-        cell.name = currentAccount?.name ?? "Sign In"
-        if let currentAccount = currentAccount {
-            cell.detailText = "Company: \(currentAccount.company)\nToken: \(currentAccount.userToken)"
-        } else {
-            cell.detailText = nil
-        }
-        cell.imageName = currentAccount?.imageName
-    }
-    
-    func styleButtonCell(cell: ButtonCell?, forIndexPath indexPath: IndexPath) {
-        guard let cell = cell else { return }
-        
-        cell.appSettings = appSettings
-        cell.titleAlignment = .left
-        
-        switch indexPath.section {
-        case Section.profile.rawValue:
-            switch indexPath.row {
-            case ProfileRow.signOut.rawValue:
-                cell.title = "Switch Account"
-                break
-                
-            default:
-                break
-            }
-            break
-            
-        default:
-            break
-        }
-    }
-    
-    func styleLabelIconCell(cell: LabelIconCell?, forRow row: Int) {
-        guard let cell = cell else { return }
-        cell.appSettings = appSettings
-        
-        var title: String?, imageName: String?
-        
-        switch row {
-        case SettingsRow.paymentMethods.rawValue:
-            title = "Payment Accounts"
-            imageName = "icon-creditcard"
-            break
-            
-        case SettingsRow.usage.rawValue:
-            title = "Usage"
-            imageName = "icon-line-graph"
-            break
-            
-//        case SettingsRow.messages.rawValue:
-//            title = "Messages"
-//            imageName = "icon-chat-bubble"
-//            break
-            
-        case SettingsRow.invite.rawValue:
-            title = "Refer Friends"
-            imageName = "icon-users"
-            break
-            
-//        case SettingsRow.rewards.rawValue:
-//            title = "Rewards"
-//            imageName = "icon-dollar"
-//            break
-            
-        case SettingsRow.notifications.rawValue:
-            title = "Notifications"
-            imageName = "icon-bell"
-            break
-            
-        case SettingsRow.help.rawValue:
-            title = "Help"
-            imageName = "icon-chat-bubble"
-            break
-            
-        case SettingsRow.touchId.rawValue:
-            title = "TouchID"
-            imageName = "icon-fingerprint"
-            break
-            
-        case SettingsRow.privacy.rawValue:
-            title = "Privacy"
-            imageName = "icon-lock"
-            break
-            
-        case SettingsRow.settings.rawValue:
-            title = "Settings"
-            imageName = "icon-gear-2"
-            break
-
-        default: // No-op
-            break
-        }
-        cell.title = title
-        if let imageName = imageName {
-            cell.iconImage = UIImage(named: imageName)
-        } else {
-            cell.iconImage = nil
-        }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
 }
 
@@ -340,54 +363,14 @@ extension HomeTableView: UITableViewDataSource {
 
 extension HomeTableView: UITableViewDelegate {
     
-    // MARK: Header
-    
-    func titleForSection(_ section: Int) -> String? {
-        var title: String?
-        switch section {
-        case Section.profile.rawValue:
-            title = "Profile"
-            break
-            
-        case Section.demoSettings.rawValue:
-            title = "DEMO SETTINGS - \(appSettings.versionString)"
-            break
-            
-        case Section.bill.rawValue:
-            title = "Billing"
-            break
-        
-        case Section.settings.rawValue:
-            title = "Settings"
-            break
-            
-        default: // No-op
-            break
-        }
-        return title
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = TableHeaderView()
-        headerView.appSettings = appSettings
-        headerView.title = titleForSection(section)
-        
-        return headerView
-    }
+    // MARK: Header / Footer Heights
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        headerSizingView.appSettings = appSettings
-        headerSizingView.title = titleForSection(section)
-        let height = ceil(headerSizingView.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height)
-        return height 
+        let headerView = headerForSection(section, viewToStyle: headerSizingView)
+        let height = ceil(headerView.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height)
+        return height
     }
-    
-    // MARK: Footer
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == Section.count.rawValue - 1 {
             return 64.0
@@ -396,64 +379,58 @@ extension HomeTableView: UITableViewDelegate {
         return 0.0001
     }
     
-    // MARK: Cells
+    // MARK: Cell Height
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let sizer = CGSize(width: tableView.bounds.width, height: 0)
-        
-        switch indexPath.section {
-        case Section.profile.rawValue:
-            switch indexPath.row {
-            case ProfileRow.profile.rawValue:
-                styleUserAccountCell(nameSizingCell, forIndexPath: indexPath)
-                return nameSizingCell.sizeThatFits(sizer).height
-                
-            case ProfileRow.signOut.rawValue:
-                styleButtonCell(cell: buttonSizingCell, forIndexPath: indexPath)
-                return buttonSizingCell.sizeThatFits(sizer).height
-                
-            default:
-                return 0
-            }
-            
-        case Section.demoSettings.rawValue, Section.bill.rawValue:
-            styleTitleDetailValueCell(titleDetailValueSizingCell, forIndexPath: indexPath)
-            return titleDetailValueSizingCell.sizeThatFits(sizer).height
-        
-        case Section.settings.rawValue:
-            styleLabelIconCell(cell: labelIconSizingCell, forRow: indexPath.row)
-            return labelIconSizingCell.sizeThatFits(sizer).height
-            
-        default: return 50.0
+        guard tableView.bounds.width > 0  else {
+            return 0
         }
+        
+        let cell = getCellForRowAt(indexPath: indexPath, forSizing: true)
+        return ceil(cell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height)
     }
+    
+    // MARK: Cell Selection
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
      
         switch indexPath.section {
-        case Section.profile.rawValue:
-            switch indexPath.row {
-            case ProfileRow.signOut.rawValue:
-                delegate?.homeTableViewDidTapSwitchAccount(homeTableView: self)
-                break
-                
-            default:
-                break
-            }
-            break
-            
-        case Section.demoSettings.rawValue:
-            delegate?.homeTableViewDidTapEnvironmentSettings(homeTableView: self)
-            break
-            
-        case Section.bill.rawValue:
-            delegate?.homeTableViewDidTapBillDetails(homeTableView: self)
+        case Section.user.rawValue:
+            delegate?.homeTableViewDidTapUserName(self)
             break
             
         case Section.settings.rawValue:
             switch indexPath.row {
-            case SettingsRow.help.rawValue:
+            case SettingsRow.appId.rawValue:
+                delegate?.homeTableViewDidTapAppId(self)
+                break
+                
+            case SettingsRow.apiHostName.rawValue:
+                delegate?.homeTableViewDidTapAPIHostName(self)
+                break
+                
+            case SettingsRow.customerIdentifier.rawValue:
+                delegate?.homeTableViewDidTapCustomerIdentifier(self)
+                break
+             
+            case SettingsRow.authToken.rawValue:
+                delegate?.homeTableViewDidTapAuthToken(self)
+                break
+                
+            default:
+                // No-op
+                break
+            }
+            break
+            
+        case Section.billing.rawValue:
+            delegate?.homeTableViewDidTapBillDetails(homeTableView: self)
+            break
+            
+        case Section.other.rawValue:
+            switch indexPath.row {
+            case OtherRow.help.rawValue:
                 delegate?.homeTableViewDidTapHelp(homeTableView: self)
                 break
                 

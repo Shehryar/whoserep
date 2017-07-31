@@ -14,10 +14,6 @@ public extension ASAPP {
     
     public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
     
-    public static let AUTH_KEY_ISSUED_TIME = "issued_time"
-    
-    public static let AUTH_KEY_EXPIRES_IN = "expires_in"
-    
     public static var clientVersion: String {
         if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion

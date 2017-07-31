@@ -32,17 +32,8 @@
 		285F7AEE1DAB0D82008C2EF6 /* SprintSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AED1DAB0C57008C2EF6 /* SprintSans-Medium.ttf */; };
 		285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7AF11DAB2358008C2EF6 /* ConversationManager+DemoContent.swift */; };
 		285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7AF61DAB33C2008C2EF6 /* Event+DemoContent.swift */; };
-		285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AFA1DAB3409008C2EF6 /* bill-summary.json */; };
-		285F7B051DAB3409008C2EF6 /* cancel-appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AFB1DAB3409008C2EF6 /* cancel-appointment-confirmation.json */; };
-		285F7B061DAB3409008C2EF6 /* cancel-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AFC1DAB3409008C2EF6 /* cancel-appointment.json */; };
-		285F7B071DAB3409008C2EF6 /* device-restart.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AFD1DAB3409008C2EF6 /* device-restart.json */; };
-		285F7B081DAB3409008C2EF6 /* equipment-return.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7AFE1DAB3409008C2EF6 /* equipment-return.json */; };
-		285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7B011DAB3409008C2EF6 /* tech-location.json */; };
-		285F7B0C1DAB3409008C2EF6 /* troubleshooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7B021DAB3409008C2EF6 /* troubleshooter.json */; };
 		285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B0D1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift */; };
 		285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F7B0F1DAB3726008C2EF6 /* DemoUtils.swift */; };
-		285F7B1B1DAC388A008C2EF6 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7B1A1DAC388A008C2EF6 /* phone-plan-upgrade.json */; };
-		285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 285F7B201DAC7D33008C2EF6 /* phone-upgrade.json */; };
 		288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */; };
 		288084FA1E861D3B00240A5D /* data-usage-near-full-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 288084F91E861D3B00240A5D /* data-usage-near-full-message.json */; };
 		288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */; };
@@ -118,11 +109,9 @@
 		30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */; };
 		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
 		3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DE1D5B92760036D74E /* ColorExtensions.swift */; };
-		301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BE91DAD7D23002BF4D9 /* device-tracking.json */; };
 		301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEB1DAD804C002BF4D9 /* map-device.png */; };
 		301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */; };
 		301C4BF01DAD804C002BF4D9 /* map-device@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BED1DAD804C002BF4D9 /* map-device@3x.png */; };
-		301C4BF21DAD91FF002BF4D9 /* phone-upgrade-ineligible.json in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BF11DAD91FF002BF4D9 /* phone-upgrade-ineligible.json */; };
 		302268461D80690500EC4FB1 /* bg-dash-tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268341D80690500EC4FB1 /* bg-dash-tile.png */; };
 		302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268351D80690500EC4FB1 /* bg-dash-tile@2x.png */; };
 		302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268361D80690500EC4FB1 /* bg-dash-tile@3x.png */; };
@@ -154,10 +143,6 @@
 		3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */; };
 		3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */; };
 		3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C21E578DEA003BE6AB /* chat-notification.wav */; };
-		3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */; };
-		3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */; };
-		3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */; };
-		3023A5CB1E57BA36003BE6AB /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */; };
 		302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472921D89A07B0005A6C9 /* Lato-Black.ttf */; };
 		302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472931D89A07B0005A6C9 /* Lato-Bold.ttf */; };
 		302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472941D89A07B0005A6C9 /* Lato-Light.ttf */; };
@@ -188,7 +173,6 @@
 		3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C11E528048004149D7 /* icon-arrow-right.png */; };
 		3025D9C51E528048004149D7 /* icon-arrow-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C21E528048004149D7 /* icon-arrow-right@2x.png */; };
 		3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C31E528048004149D7 /* icon-arrow-right@3x.png */; };
-		3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9DA1E5351AB004149D7 /* add-credit-card.json */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */; };
 		302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */; };
@@ -278,14 +262,16 @@
 		3046CEB71E8AF7D60022AEE5 /* iconPaperclip3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3046CEB51E8AF7D60022AEE5 /* iconPaperclip3x.png */; };
 		3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049CD231D42AD8500F0C0E6 /* DebugLog.swift */; };
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
-		305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */; };
-		305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */; };
+		30523B891EF031A50014C5ED /* LegacyActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30523B881EF031A50014C5ED /* LegacyActionType.swift */; };
+		30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30523B8A1EF032960014C5ED /* UserLoginAction.swift */; };
 		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
 		305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */; };
 		305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */; };
 		305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */; };
 		305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */; };
 		305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5D71E857427004DD9D5 /* CheckboxView.swift */; };
+		3060DE771F1FA80200A67384 /* OverlayLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */; };
+		3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060DE781F1FAC7200A67384 /* SocketRequest.swift */; };
 		3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */; };
 		3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */; };
@@ -340,8 +326,6 @@
 		30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */; };
 		30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B361E53AF9700D78E8E /* CreditCard.swift */; };
 		30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B381E54E26A00D78E8E /* CreditCardResponse.swift */; };
-		30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3A1E5503A400D78E8E /* live-chat-begin.json */; };
-		30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30756B3C1E5503B400D78E8E /* live-chat-end.json */; };
 		30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */; };
 		30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B421E562BFF00D78E8E /* ASAPPStrings.swift */; };
 		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
@@ -359,7 +343,8 @@
 		3093A4B11E730D5700C65818 /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4B01E730D5700C65818 /* AppOpenResponse.swift */; };
 		3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */; };
 		3093A52C1E772F4400C65818 /* transaction-history-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 3093A52B1E772F4400C65818 /* transaction-history-message.json */; };
-		30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A003491DC258A700CFA4CD /* json-style-example.json */; };
+		30A460FD1EF0840F00DFAA5A /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */; };
+		30A460FF1EF0871B00DFAA5A /* HTTPAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A460FE1EF0871B00DFAA5A /* HTTPAction.swift */; };
 		30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB051D5109F700795BA7 /* ImageViewer.swift */; };
 		30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */; };
 		30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB091D510A3600795BA7 /* ImageViewerTransitionAnimator.swift */; };
@@ -374,16 +359,90 @@
 		30B3FE2A1ECB661700D43068 /* iconLoginKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */; };
 		30B3FE2B1ECB661700D43068 /* iconLoginKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */; };
 		30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */; };
+		30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */; };
+		30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2771F27E7DF00D69824 /* SRSIcon.swift */; };
+		30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
-		30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87871DC00C350008042D /* bill-autopay-scheduled.json */; };
-		30BD878C1DC00C350008042D /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87881DC00C350008042D /* bill-credit.json */; };
-		30BD878D1DC00C350008042D /* bill-paid.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD87891DC00C350008042D /* bill-paid.json */; };
-		30BD878E1DC00C350008042D /* bill-past-due.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BD878A1DC00C350008042D /* bill-past-due.json */; };
+		30BF4DA71F2A654A00556E5A /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8B1F2A654A00556E5A /* add-credit-card.json */; };
+		30BF4DA81F2A654A00556E5A /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8C1F2A654A00556E5A /* appointment-confirmation.json */; };
+		30BF4DA91F2A654A00556E5A /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8D1F2A654A00556E5A /* bill-autopay-scheduled.json */; };
+		30BF4DAA1F2A654A00556E5A /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8E1F2A654A00556E5A /* bill-credit.json */; };
+		30BF4DAB1F2A654A00556E5A /* bill-paid.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8F1F2A654A00556E5A /* bill-paid.json */; };
+		30BF4DAC1F2A654A00556E5A /* bill-past-due.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D901F2A654A00556E5A /* bill-past-due.json */; };
+		30BF4DAD1F2A654A00556E5A /* bill-summary.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D911F2A654A00556E5A /* bill-summary.json */; };
+		30BF4DAE1F2A654A00556E5A /* cancel-appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D921F2A654A00556E5A /* cancel-appointment-confirmation.json */; };
+		30BF4DAF1F2A654A00556E5A /* cancel-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D931F2A654A00556E5A /* cancel-appointment.json */; };
+		30BF4DB01F2A654A00556E5A /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D941F2A654A00556E5A /* chat-flow-agent-entered.json */; };
+		30BF4DB11F2A654A00556E5A /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D951F2A654A00556E5A /* chat-flow-pay-bill.json */; };
+		30BF4DB21F2A654A00556E5A /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D961F2A654A00556E5A /* chat-flow-queue-entered.json */; };
+		30BF4DB31F2A654A00556E5A /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D971F2A654A00556E5A /* chat-flow-wait-or-callback.json */; };
+		30BF4DB41F2A654A00556E5A /* device-restart.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D981F2A654A00556E5A /* device-restart.json */; };
+		30BF4DB51F2A654A00556E5A /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D991F2A654A00556E5A /* device-tracking.json */; };
+		30BF4DB61F2A654A00556E5A /* equipment-return.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9A1F2A654A00556E5A /* equipment-return.json */; };
+		30BF4DB71F2A654A00556E5A /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9B1F2A654A00556E5A /* json-style-example.json */; };
+		30BF4DB81F2A654A00556E5A /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9C1F2A654A00556E5A /* live-chat-begin.json */; };
+		30BF4DB91F2A654A00556E5A /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9D1F2A654A00556E5A /* live-chat-end.json */; };
+		30BF4DBA1F2A654A00556E5A /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9E1F2A654A00556E5A /* phone-plan-upgrade.json */; };
+		30BF4DBB1F2A654A00556E5A /* phone-upgrade-ineligible.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D9F1F2A654A00556E5A /* phone-upgrade-ineligible.json */; };
+		30BF4DBC1F2A654A00556E5A /* phone-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA01F2A654A00556E5A /* phone-upgrade.json */; };
+		30BF4DBD1F2A654A00556E5A /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA11F2A654A00556E5A /* schedule-appointment-5-day.json */; };
+		30BF4DBE1F2A654A00556E5A /* schedule-appointment-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA21F2A654A00556E5A /* schedule-appointment-selection.json */; };
+		30BF4DBF1F2A654A00556E5A /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA31F2A654A00556E5A /* schedule-appointment.json */; };
+		30BF4DC01F2A654A00556E5A /* tech-location.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA41F2A654A00556E5A /* tech-location.json */; };
+		30BF4DC11F2A654A00556E5A /* transaction-history.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA51F2A654A00556E5A /* transaction-history.json */; };
+		30BF4DC21F2A654A00556E5A /* troubleshooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4DA61F2A654A00556E5A /* troubleshooter.json */; };
 		30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738331D874B2200E32B78 /* gif-loader-bar.gif */; };
 		30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */; };
 		30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
+		30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */; };
+		30DF3F611F267F2000D6DB02 /* ConversationManager+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */; };
+		30DF3F671F26911000D6DB02 /* iconClock.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F641F26911000D6DB02 /* iconClock.png */; };
+		30DF3F681F26911000D6DB02 /* iconClock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F651F26911000D6DB02 /* iconClock@2x.png */; };
+		30DF3F691F26911000D6DB02 /* iconClock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F661F26911000D6DB02 /* iconClock@3x.png */; };
+		30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */; };
+		30DF3F701F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F6F1F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift */; };
+		30DF3F731F27BB7D00D6DB02 /* SRSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F721F27BB7D00D6DB02 /* SRSItem.swift */; };
+		30DF3F751F27BC1D00D6DB02 /* SRSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F741F27BC1D00D6DB02 /* SRSLabel.swift */; };
+		30DF3F771F27BE2000D6DB02 /* SRSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F761F27BE2000D6DB02 /* SRSButton.swift */; };
+		30DF3F791F27BE4300D6DB02 /* SRSFiller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F781F27BE4300D6DB02 /* SRSFiller.swift */; };
+		30DF3F7B1F27C09A00D6DB02 /* SRSSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F7A1F27C09A00D6DB02 /* SRSSeparator.swift */; };
+		30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F7C1F27C0C400D6DB02 /* SRSInfo.swift */; };
+		30DF3F7F1F27CA7900D6DB02 /* SRSItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F7E1F27CA7900D6DB02 /* SRSItemList.swift */; };
+		30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */; };
+		30DF3F891F27CEB100D6DB02 /* ASAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */; };
+		30DF3F8B1F27CEB100D6DB02 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */; };
+		30DF3F941F27D02800D6DB02 /* SRSItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */; };
+		30DF3FB21F27D2D200D6DB02 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F961F27D2D200D6DB02 /* add-credit-card.json */; };
+		30DF3FB31F27D2D200D6DB02 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */; };
+		30DF3FB41F27D2D200D6DB02 /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */; };
+		30DF3FB51F27D2D200D6DB02 /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F991F27D2D200D6DB02 /* bill-credit.json */; };
+		30DF3FB61F27D2D200D6DB02 /* bill-paid.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */; };
+		30DF3FB71F27D2D200D6DB02 /* bill-past-due.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */; };
+		30DF3FB81F27D2D200D6DB02 /* bill-summary.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */; };
+		30DF3FB91F27D2D200D6DB02 /* cancel-appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */; };
+		30DF3FBA1F27D2D200D6DB02 /* cancel-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */; };
+		30DF3FBB1F27D2D200D6DB02 /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */; };
+		30DF3FBC1F27D2D200D6DB02 /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */; };
+		30DF3FBD1F27D2D200D6DB02 /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */; };
+		30DF3FBE1F27D2D200D6DB02 /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */; };
+		30DF3FBF1F27D2D200D6DB02 /* device-restart.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA31F27D2D200D6DB02 /* device-restart.json */; };
+		30DF3FC01F27D2D200D6DB02 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA41F27D2D200D6DB02 /* device-tracking.json */; };
+		30DF3FC11F27D2D200D6DB02 /* equipment-return.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA51F27D2D200D6DB02 /* equipment-return.json */; };
+		30DF3FC21F27D2D200D6DB02 /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA61F27D2D200D6DB02 /* json-style-example.json */; };
+		30DF3FC31F27D2D200D6DB02 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */; };
+		30DF3FC41F27D2D200D6DB02 /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */; };
+		30DF3FC51F27D2D200D6DB02 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */; };
+		30DF3FC61F27D2D200D6DB02 /* phone-upgrade-ineligible.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */; };
+		30DF3FC71F27D2D200D6DB02 /* phone-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */; };
+		30DF3FC81F27D2D200D6DB02 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */; };
+		30DF3FC91F27D2D200D6DB02 /* schedule-appointment-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */; };
+		30DF3FCA1F27D2D200D6DB02 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */; };
+		30DF3FCB1F27D2D200D6DB02 /* tech-location.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAF1F27D2D200D6DB02 /* tech-location.json */; };
+		30DF3FCC1F27D2D200D6DB02 /* transaction-history.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FB01F27D2D200D6DB02 /* transaction-history.json */; };
+		30DF3FCD1F27D2D200D6DB02 /* troubleshooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */; };
+		30DF3FCF1F27D38300D6DB02 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
 		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
@@ -412,6 +471,16 @@
 		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		30DF3F8C1F27CEB100D6DB02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FD8D8AF11D0F6E2A001B420B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FD8D8AF91D0F6E2A001B420B;
+			remoteInfo = ASAPP;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachment.swift; sourceTree = "<group>"; };
 		2804CE081E7886F60001E516 /* ChatMessageImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageImage.swift; sourceTree = "<group>"; };
@@ -424,7 +493,7 @@
 		281C347A1E7F092C001A2AA3 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		281C347B1E7F092C001A2AA3 /* LabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		281C347C1E7F092C001A2AA3 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
-		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
+		28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BouncingBallsLoadingView.swift; path = ../BouncingBallsLoadingView.swift; sourceTree = "<group>"; };
 		285F7ACB1DA9A526008C2EF6 /* SprintSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Black.ttf"; sourceTree = "<group>"; };
 		285F7ACC1DA9A526008C2EF6 /* SprintSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Bold.ttf"; sourceTree = "<group>"; };
 		285F7ACE1DA9A526008C2EF6 /* SprintSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-RegularItalic.ttf"; sourceTree = "<group>"; };
@@ -438,17 +507,8 @@
 		285F7AED1DAB0C57008C2EF6 /* SprintSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SprintSans-Medium.ttf"; path = "ASAPP/Resources/Fonts/Sprint/SprintSans-Medium.ttf"; sourceTree = SOURCE_ROOT; };
 		285F7AF11DAB2358008C2EF6 /* ConversationManager+DemoContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+DemoContent.swift"; sourceTree = "<group>"; };
 		285F7AF61DAB33C2008C2EF6 /* Event+DemoContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Event+DemoContent.swift"; sourceTree = "<group>"; };
-		285F7AFA1DAB3409008C2EF6 /* bill-summary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-summary.json"; sourceTree = "<group>"; };
-		285F7AFB1DAB3409008C2EF6 /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
-		285F7AFC1DAB3409008C2EF6 /* cancel-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment.json"; sourceTree = "<group>"; };
-		285F7AFD1DAB3409008C2EF6 /* device-restart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-restart.json"; sourceTree = "<group>"; };
-		285F7AFE1DAB3409008C2EF6 /* equipment-return.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "equipment-return.json"; sourceTree = "<group>"; };
-		285F7B011DAB3409008C2EF6 /* tech-location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tech-location.json"; sourceTree = "<group>"; };
-		285F7B021DAB3409008C2EF6 /* troubleshooter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = troubleshooter.json; sourceTree = "<group>"; };
 		285F7B0D1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SRSAppOpenResponse+DemoContent.swift"; sourceTree = "<group>"; };
 		285F7B0F1DAB3726008C2EF6 /* DemoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoUtils.swift; sourceTree = "<group>"; };
-		285F7B1A1DAC388A008C2EF6 /* phone-plan-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
-		285F7B201DAC7D33008C2EF6 /* phone-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade.json"; sourceTree = "<group>"; };
 		288084F71E861B0400240A5D /* ChatComponentViewMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComponentViewMessageCell.swift; sourceTree = "<group>"; };
 		288084F91E861D3B00240A5D /* data-usage-near-full-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "data-usage-near-full-message.json"; sourceTree = "<group>"; };
 		288084FB1E86EC6A00240A5D /* ComponentNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentNavigationController.swift; sourceTree = "<group>"; };
@@ -525,11 +585,9 @@
 		30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+ASAPPAppearance.swift"; sourceTree = "<group>"; };
 		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
 		3019F5DE1D5B92760036D74E /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
-		301C4BE91DAD7D23002BF4D9 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
 		301C4BEB1DAD804C002BF4D9 /* map-device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device.png"; sourceTree = "<group>"; };
 		301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device@2x.png"; sourceTree = "<group>"; };
 		301C4BED1DAD804C002BF4D9 /* map-device@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device@3x.png"; sourceTree = "<group>"; };
-		301C4BF11DAD91FF002BF4D9 /* phone-upgrade-ineligible.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade-ineligible.json"; sourceTree = "<group>"; };
 		302268341D80690500EC4FB1 /* bg-dash-tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-dash-tile.png"; sourceTree = "<group>"; };
 		302268351D80690500EC4FB1 /* bg-dash-tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-dash-tile@2x.png"; sourceTree = "<group>"; };
 		302268361D80690500EC4FB1 /* bg-dash-tile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-dash-tile@3x.png"; sourceTree = "<group>"; };
@@ -561,10 +619,6 @@
 		3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSimpleStore.swift; sourceTree = "<group>"; };
 		3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffectPlayer.swift; sourceTree = "<group>"; };
 		3023A5C21E578DEA003BE6AB /* chat-notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chat-notification.wav"; sourceTree = "<group>"; };
-		3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
-		3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
-		3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
-		3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
 		302472921D89A07B0005A6C9 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		302472931D89A07B0005A6C9 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		302472941D89A07B0005A6C9 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -595,7 +649,6 @@
 		3025D9C11E528048004149D7 /* icon-arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right.png"; sourceTree = "<group>"; };
 		3025D9C21E528048004149D7 /* icon-arrow-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right@2x.png"; sourceTree = "<group>"; };
 		3025D9C31E528048004149D7 /* icon-arrow-right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-right@3x.png"; sourceTree = "<group>"; };
-		3025D9DA1E5351AB004149D7 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardActionButtonToolbar.swift; sourceTree = "<group>"; };
 		302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputView.swift; sourceTree = "<group>"; };
@@ -686,14 +739,16 @@
 		3046CEB51E8AF7D60022AEE5 /* iconPaperclip3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconPaperclip3x.png; sourceTree = "<group>"; };
 		3049CD231D42AD8500F0C0E6 /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
-		305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
+		30523B881EF031A50014C5ED /* LegacyActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyActionType.swift; sourceTree = "<group>"; };
+		30523B8A1EF032960014C5ED /* UserLoginAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginAction.swift; sourceTree = "<group>"; };
 		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
 		305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomingMessage+EventList.swift"; sourceTree = "<group>"; };
 		305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
 		305FF5CD1E841EC3004DD9D5 /* ComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
 		305FF5D71E857427004DD9D5 /* CheckboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
+		3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayLoadingView.swift; sourceTree = "<group>"; };
+		3060DE781F1FAC7200A67384 /* SocketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketRequest.swift; sourceTree = "<group>"; };
 		3062FCDD1E71CECF00A29014 /* ChatMessageCellHeightCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCellHeightCache.swift; sourceTree = "<group>"; };
 		306618F01D9458F50092B4C5 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		306618F11D9458F50092B4C5 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
@@ -748,8 +803,6 @@
 		30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@3x.png"; sourceTree = "<group>"; };
 		30756B361E53AF9700D78E8E /* CreditCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
 		30756B381E54E26A00D78E8E /* CreditCardResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardResponse.swift; sourceTree = "<group>"; };
-		30756B3A1E5503A400D78E8E /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
-		30756B3C1E5503B400D78E8E /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
 		30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesEmptyView.swift; sourceTree = "<group>"; };
 		30756B421E562BFF00D78E8E /* ASAPPStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStrings.swift; sourceTree = "<group>"; };
 		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -767,7 +820,8 @@
 		3093A4B01E730D5700C65818 /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOpenResponse.swift; sourceTree = "<group>"; };
 		3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowingBallsLoadingView.swift; sourceTree = "<group>"; };
 		3093A52B1E772F4400C65818 /* transaction-history-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "transaction-history-message.json"; sourceTree = "<group>"; };
-		30A003491DC258A700CFA4CD /* json-style-example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
+		30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
+		30A460FE1EF0871B00DFAA5A /* HTTPAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAction.swift; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
 		30A4BB091D510A3600795BA7 /* ImageViewerTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -782,16 +836,91 @@
 		30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@2x.png"; sourceTree = "<group>"; };
 		30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconLoginKey@3x.png"; sourceTree = "<group>"; };
 		30B3FE2F1ECB9CF500D43068 /* COMTextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMTextInputCell.swift; sourceTree = "<group>"; };
+		30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActionFactory+LegacySRS.swift"; sourceTree = "<group>"; };
+		30B7C2771F27E7DF00D69824 /* SRSIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIcon.swift; sourceTree = "<group>"; };
+		30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ComponentFactory+LegacySRS.swift"; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
-		30BD87871DC00C350008042D /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
-		30BD87881DC00C350008042D /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
-		30BD87891DC00C350008042D /* bill-paid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-paid.json"; sourceTree = "<group>"; };
-		30BD878A1DC00C350008042D /* bill-past-due.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-past-due.json"; sourceTree = "<group>"; };
+		30BF4D8B1F2A654A00556E5A /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
+		30BF4D8C1F2A654A00556E5A /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
+		30BF4D8D1F2A654A00556E5A /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
+		30BF4D8E1F2A654A00556E5A /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
+		30BF4D8F1F2A654A00556E5A /* bill-paid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-paid.json"; sourceTree = "<group>"; };
+		30BF4D901F2A654A00556E5A /* bill-past-due.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-past-due.json"; sourceTree = "<group>"; };
+		30BF4D911F2A654A00556E5A /* bill-summary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-summary.json"; sourceTree = "<group>"; };
+		30BF4D921F2A654A00556E5A /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
+		30BF4D931F2A654A00556E5A /* cancel-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment.json"; sourceTree = "<group>"; };
+		30BF4D941F2A654A00556E5A /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
+		30BF4D951F2A654A00556E5A /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
+		30BF4D961F2A654A00556E5A /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
+		30BF4D971F2A654A00556E5A /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
+		30BF4D981F2A654A00556E5A /* device-restart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-restart.json"; sourceTree = "<group>"; };
+		30BF4D991F2A654A00556E5A /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
+		30BF4D9A1F2A654A00556E5A /* equipment-return.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "equipment-return.json"; sourceTree = "<group>"; };
+		30BF4D9B1F2A654A00556E5A /* json-style-example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
+		30BF4D9C1F2A654A00556E5A /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
+		30BF4D9D1F2A654A00556E5A /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
+		30BF4D9E1F2A654A00556E5A /* phone-plan-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
+		30BF4D9F1F2A654A00556E5A /* phone-upgrade-ineligible.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade-ineligible.json"; sourceTree = "<group>"; };
+		30BF4DA01F2A654A00556E5A /* phone-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade.json"; sourceTree = "<group>"; };
+		30BF4DA11F2A654A00556E5A /* schedule-appointment-5-day.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-5-day.json"; sourceTree = "<group>"; };
+		30BF4DA21F2A654A00556E5A /* schedule-appointment-selection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-selection.json"; sourceTree = "<group>"; };
+		30BF4DA31F2A654A00556E5A /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
+		30BF4DA41F2A654A00556E5A /* tech-location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tech-location.json"; sourceTree = "<group>"; };
+		30BF4DA51F2A654A00556E5A /* transaction-history.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "transaction-history.json"; sourceTree = "<group>"; };
+		30BF4DA61F2A654A00556E5A /* troubleshooter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = troubleshooter.json; sourceTree = "<group>"; };
 		30C738331D874B2200E32B78 /* gif-loader-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar.gif"; sourceTree = "<group>"; };
 		30C738341D874B2200E32B78 /* gif-loader-bar@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif-loader-bar@2x.gif"; sourceTree = "<group>"; };
 		30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
+		30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Actions.swift"; sourceTree = "<group>"; };
+		30DF3F641F26911000D6DB02 /* iconClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconClock.png; sourceTree = "<group>"; };
+		30DF3F651F26911000D6DB02 /* iconClock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@2x.png"; sourceTree = "<group>"; };
+		30DF3F661F26911000D6DB02 /* iconClock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconClock@3x.png"; sourceTree = "<group>"; };
+		30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManagerDelegate.swift; sourceTree = "<group>"; };
+		30DF3F6F1F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatMessage+LegacySRS.swift"; sourceTree = "<group>"; };
+		30DF3F721F27BB7D00D6DB02 /* SRSItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItem.swift; sourceTree = "<group>"; };
+		30DF3F741F27BC1D00D6DB02 /* SRSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSLabel.swift; sourceTree = "<group>"; };
+		30DF3F761F27BE2000D6DB02 /* SRSButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSButton.swift; sourceTree = "<group>"; };
+		30DF3F781F27BE4300D6DB02 /* SRSFiller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSFiller.swift; sourceTree = "<group>"; };
+		30DF3F7A1F27C09A00D6DB02 /* SRSSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSSeparator.swift; sourceTree = "<group>"; };
+		30DF3F7C1F27C0C400D6DB02 /* SRSInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSInfo.swift; sourceTree = "<group>"; };
+		30DF3F7E1F27CA7900D6DB02 /* SRSItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemList.swift; sourceTree = "<group>"; };
+		30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemFactory.swift; sourceTree = "<group>"; };
+		30DF3F861F27CEB100D6DB02 /* ASAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPTests.swift; sourceTree = "<group>"; };
+		30DF3F8A1F27CEB100D6DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemTests.swift; sourceTree = "<group>"; };
+		30DF3F961F27D2D200D6DB02 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
+		30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
+		30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
+		30DF3F991F27D2D200D6DB02 /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
+		30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-paid.json"; sourceTree = "<group>"; };
+		30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-past-due.json"; sourceTree = "<group>"; };
+		30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-summary.json"; sourceTree = "<group>"; };
+		30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
+		30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment.json"; sourceTree = "<group>"; };
+		30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
+		30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
+		30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
+		30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
+		30DF3FA31F27D2D200D6DB02 /* device-restart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-restart.json"; sourceTree = "<group>"; };
+		30DF3FA41F27D2D200D6DB02 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
+		30DF3FA51F27D2D200D6DB02 /* equipment-return.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "equipment-return.json"; sourceTree = "<group>"; };
+		30DF3FA61F27D2D200D6DB02 /* json-style-example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
+		30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
+		30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
+		30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
+		30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade-ineligible.json"; sourceTree = "<group>"; };
+		30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade.json"; sourceTree = "<group>"; };
+		30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-5-day.json"; sourceTree = "<group>"; };
+		30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-selection.json"; sourceTree = "<group>"; };
+		30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
+		30DF3FAF1F27D2D200D6DB02 /* tech-location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tech-location.json"; sourceTree = "<group>"; };
+		30DF3FB01F27D2D200D6DB02 /* transaction-history.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "transaction-history.json"; sourceTree = "<group>"; };
+		30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = troubleshooter.json; sourceTree = "<group>"; };
+		30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestUtil.swift; path = ASAPPTests/TestUtil.swift; sourceTree = SOURCE_ROOT; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
@@ -822,6 +951,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		30DF3F831F27CEB100D6DB02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30DF3F8B1F27CEB100D6DB02 /* ASAPP.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		30EE29EF1D95D7520079932D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -868,8 +1005,10 @@
 			isa = PBXGroup;
 			children = (
 				307484D61EB8F007008CF3E4 /* ActionType.swift */,
+				30523B881EF031A50014C5ED /* LegacyActionType.swift */,
 				28D48CA71E83EE23004A002B /* Action.swift */,
 				307484D81EB8F2CB008CF3E4 /* ActionFactory.swift */,
+				30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */,
 				307484DA1EB8F2F9008CF3E4 /* Subclasses */,
 			);
 			path = Actions;
@@ -950,33 +1089,36 @@
 		285F7AF81DAB3409008C2EF6 /* Demo JSON */ = {
 			isa = PBXGroup;
 			children = (
-				285F7AFA1DAB3409008C2EF6 /* bill-summary.json */,
-				30BD87871DC00C350008042D /* bill-autopay-scheduled.json */,
-				30BD87881DC00C350008042D /* bill-credit.json */,
-				30BD878A1DC00C350008042D /* bill-past-due.json */,
-				30BD87891DC00C350008042D /* bill-paid.json */,
-				285F7AFB1DAB3409008C2EF6 /* cancel-appointment-confirmation.json */,
-				285F7AFC1DAB3409008C2EF6 /* cancel-appointment.json */,
-				285F7AFD1DAB3409008C2EF6 /* device-restart.json */,
-				285F7AFE1DAB3409008C2EF6 /* equipment-return.json */,
-				285F7B011DAB3409008C2EF6 /* tech-location.json */,
-				285F7B021DAB3409008C2EF6 /* troubleshooter.json */,
-				285F7B201DAC7D33008C2EF6 /* phone-upgrade.json */,
-				30756B3A1E5503A400D78E8E /* live-chat-begin.json */,
-				30756B3C1E5503B400D78E8E /* live-chat-end.json */,
-				301C4BF11DAD91FF002BF4D9 /* phone-upgrade-ineligible.json */,
-				285F7B1A1DAC388A008C2EF6 /* phone-plan-upgrade.json */,
-				301C4BE91DAD7D23002BF4D9 /* device-tracking.json */,
+				30BF4D8B1F2A654A00556E5A /* add-credit-card.json */,
+				30BF4D8C1F2A654A00556E5A /* appointment-confirmation.json */,
+				30BF4D8D1F2A654A00556E5A /* bill-autopay-scheduled.json */,
+				30BF4D8E1F2A654A00556E5A /* bill-credit.json */,
+				30BF4D8F1F2A654A00556E5A /* bill-paid.json */,
+				30BF4D901F2A654A00556E5A /* bill-past-due.json */,
+				30BF4D911F2A654A00556E5A /* bill-summary.json */,
+				30BF4D921F2A654A00556E5A /* cancel-appointment-confirmation.json */,
+				30BF4D931F2A654A00556E5A /* cancel-appointment.json */,
+				30BF4D941F2A654A00556E5A /* chat-flow-agent-entered.json */,
+				30BF4D951F2A654A00556E5A /* chat-flow-pay-bill.json */,
+				30BF4D961F2A654A00556E5A /* chat-flow-queue-entered.json */,
+				30BF4D971F2A654A00556E5A /* chat-flow-wait-or-callback.json */,
+				30BF4D981F2A654A00556E5A /* device-restart.json */,
+				30BF4D991F2A654A00556E5A /* device-tracking.json */,
+				30BF4D9A1F2A654A00556E5A /* equipment-return.json */,
+				30BF4D9B1F2A654A00556E5A /* json-style-example.json */,
+				30BF4D9C1F2A654A00556E5A /* live-chat-begin.json */,
+				30BF4D9D1F2A654A00556E5A /* live-chat-end.json */,
+				30BF4D9E1F2A654A00556E5A /* phone-plan-upgrade.json */,
+				30BF4D9F1F2A654A00556E5A /* phone-upgrade-ineligible.json */,
+				30BF4DA01F2A654A00556E5A /* phone-upgrade.json */,
+				30BF4DA11F2A654A00556E5A /* schedule-appointment-5-day.json */,
+				30BF4DA21F2A654A00556E5A /* schedule-appointment-selection.json */,
+				30BF4DA31F2A654A00556E5A /* schedule-appointment.json */,
+				30BF4DA41F2A654A00556E5A /* tech-location.json */,
+				30BF4DA51F2A654A00556E5A /* transaction-history.json */,
+				30BF4DA61F2A654A00556E5A /* troubleshooter.json */,
 				307301B81DAE90460002CF3B /* predictive-response.json */,
 				307301B91DAE90460002CF3B /* sprint_predictive-response.json */,
-				305C6C901DB57ADD00FF0AF4 /* schedule-appointment.json */,
-				305C6C921DB5875C00FF0AF4 /* appointment-confirmation.json */,
-				30A003491DC258A700CFA4CD /* json-style-example.json */,
-				3025D9DA1E5351AB004149D7 /* add-credit-card.json */,
-				3023A5C41E57B703003BE6AB /* chat-flow-pay-bill.json */,
-				3023A5C61E57B724003BE6AB /* chat-flow-wait-or-callback.json */,
-				3023A5C81E57B739003BE6AB /* chat-flow-queue-entered.json */,
-				3023A5CA1E57BA36003BE6AB /* chat-flow-agent-entered.json */,
 				3093A52B1E772F4400C65818 /* transaction-history-message.json */,
 				288084F91E861D3B00240A5D /* data-usage-near-full-message.json */,
 			);
@@ -1260,9 +1402,11 @@
 			isa = PBXGroup;
 			children = (
 				30226CC81D4933F200871453 /* SocketConnection.swift */,
+				3060DE781F1FAC7200A67384 /* SocketRequest.swift */,
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
 				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
 				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
+				30DF3F5D1F22798400D6DB02 /* HTTP */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1271,6 +1415,8 @@
 			isa = PBXGroup;
 			children = (
 				30226CCA1D4933F200871453 /* ConversationManager.swift */,
+				30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */,
+				30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */,
 				302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */,
 				305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */,
 				285F7AF11DAB2358008C2EF6 /* ConversationManager+DemoContent.swift */,
@@ -1337,18 +1483,18 @@
 		30226CEE1D493F5300871453 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				30226CF01D493F5300871453 /* BubbleView.swift */,
-				28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */,
-				3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */,
-				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
-				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
-				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
-				307C54571D8C87C60091E74A /* NavigationController.swift */,
-				3008888B1D620D3700C25802 /* Button.swift */,
 				300012C11DD4D10E007226B9 /* Tooltips */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
-				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
+				30226CF01D493F5300871453 /* BubbleView.swift */,
+				3008888B1D620D3700C25802 /* Button.swift */,
+				307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */,
+				3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */,
+				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
+				307C54571D8C87C60091E74A /* NavigationController.swift */,
+				3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */,
 				30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */,
+				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
+				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1516,6 +1662,9 @@
 				3046CE5A1E8AF0C90022AEE5 /* iconCheckmarkThin.png */,
 				3046CE5B1E8AF0C90022AEE5 /* iconCheckmarkThin@2x.png */,
 				3046CE5C1E8AF0C90022AEE5 /* iconCheckmarkThin@3x.png */,
+				30DF3F641F26911000D6DB02 /* iconClock.png */,
+				30DF3F651F26911000D6DB02 /* iconClock@2x.png */,
+				30DF3F661F26911000D6DB02 /* iconClock@3x.png */,
 				30B3FE261ECB661700D43068 /* iconLoginKey.png */,
 				30B3FE271ECB661700D43068 /* iconLoginKey@2x.png */,
 				30B3FE281ECB661700D43068 /* iconLoginKey@3x.png */,
@@ -1611,7 +1760,9 @@
 				307484DC1EB8F2F9008CF3E4 /* ComponentViewAction.swift */,
 				307484E11EB8FE29008CF3E4 /* DeepLinkAction.swift */,
 				307484DD1EB8F2F9008CF3E4 /* FinishAction.swift */,
+				30A460FE1EF0871B00DFAA5A /* HTTPAction.swift */,
 				307484E31EB8FE37008CF3E4 /* TreewalkAction.swift */,
+				30523B8A1EF032960014C5ED /* UserLoginAction.swift */,
 				307484E51EB8FF66008CF3E4 /* WebPageAction.swift */,
 			);
 			path = Subclasses;
@@ -1651,6 +1802,7 @@
 				2804CE081E7886F60001E516 /* ChatMessageImage.swift */,
 				307484C81EB39B10008CF3E4 /* QuickReply.swift */,
 				3093A4A61E730D4F00C65818 /* Event */,
+				30DF3F6E1F27AFF900D6DB02 /* Legacy */,
 			);
 			path = "Chat Message";
 			sourceTree = "<group>";
@@ -1670,6 +1822,7 @@
 		30A4BB041D51095400795BA7 /* ImageViewer */ = {
 			isa = PBXGroup;
 			children = (
+				28580A411D4C54DC005C91DF /* BouncingBallsLoadingView.swift */,
 				30A4BB051D5109F700795BA7 /* ImageViewer.swift */,
 				30A4BB0F1D510AAA00795BA7 /* ImageViewerImage.swift */,
 				30A4BB0B1D510A8F00795BA7 /* ImageViewerImageView.swift */,
@@ -1734,6 +1887,96 @@
 			path = es.lproj;
 			sourceTree = "<group>";
 		};
+		30DF3F5D1F22798400D6DB02 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F5E1F22798400D6DB02 /* HTTPClient.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		30DF3F6E1F27AFF900D6DB02 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F6F1F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift */,
+				30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */,
+				30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */,
+				30DF3F711F27BB5A00D6DB02 /* SRS Models */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		30DF3F711F27BB5A00D6DB02 /* SRS Models */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F721F27BB7D00D6DB02 /* SRSItem.swift */,
+				30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */,
+				30DF3F761F27BE2000D6DB02 /* SRSButton.swift */,
+				30DF3F781F27BE4300D6DB02 /* SRSFiller.swift */,
+				30B7C2771F27E7DF00D69824 /* SRSIcon.swift */,
+				30DF3F7E1F27CA7900D6DB02 /* SRSItemList.swift */,
+				30DF3F741F27BC1D00D6DB02 /* SRSLabel.swift */,
+				30DF3F7C1F27C0C400D6DB02 /* SRSInfo.swift */,
+				30DF3F7A1F27C09A00D6DB02 /* SRSSeparator.swift */,
+			);
+			path = "SRS Models";
+			sourceTree = "<group>";
+		};
+		30DF3F871F27CEB100D6DB02 /* ASAPPTests */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */,
+				30DF3F921F27D00300D6DB02 /* SRS Tests */,
+				30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */,
+				30DF3F8A1F27CEB100D6DB02 /* Info.plist */,
+			);
+			path = ASAPPTests;
+			sourceTree = "<group>";
+		};
+		30DF3F921F27D00300D6DB02 /* SRS Tests */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */,
+				30DF3F951F27D0EA00D6DB02 /* Sample JSON */,
+			);
+			path = "SRS Tests";
+			sourceTree = "<group>";
+		};
+		30DF3F951F27D0EA00D6DB02 /* Sample JSON */ = {
+			isa = PBXGroup;
+			children = (
+				30DF3F961F27D2D200D6DB02 /* add-credit-card.json */,
+				30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */,
+				30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */,
+				30DF3F991F27D2D200D6DB02 /* bill-credit.json */,
+				30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */,
+				30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */,
+				30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */,
+				30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */,
+				30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */,
+				30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */,
+				30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */,
+				30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */,
+				30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */,
+				30DF3FA31F27D2D200D6DB02 /* device-restart.json */,
+				30DF3FA41F27D2D200D6DB02 /* device-tracking.json */,
+				30DF3FA51F27D2D200D6DB02 /* equipment-return.json */,
+				30DF3FA61F27D2D200D6DB02 /* json-style-example.json */,
+				30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */,
+				30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */,
+				30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */,
+				30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */,
+				30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */,
+				30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */,
+				30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */,
+				30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */,
+				30DF3FAF1F27D2D200D6DB02 /* tech-location.json */,
+				30DF3FB01F27D2D200D6DB02 /* transaction-history.json */,
+				30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */,
+			);
+			path = "Sample JSON";
+			sourceTree = "<group>";
+		};
 		30E87C4B1D93112E00B5EF9E /* Embedded Third-Party Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -1776,6 +2019,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8D8AFC1D0F6E2A001B420B /* ASAPP */,
+				30DF3F871F27CEB100D6DB02 /* ASAPPTests */,
 				FD8D8AFB1D0F6E2A001B420B /* Products */,
 				6A10F4CFFA2A2A316A2C20A4 /* Frameworks */,
 			);
@@ -1785,6 +2029,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */,
+				30DF3F861F27CEB100D6DB02 /* ASAPPTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1831,6 +2076,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		30DF3F851F27CEB100D6DB02 /* ASAPPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30DF3F8E1F27CEB100D6DB02 /* Build configuration list for PBXNativeTarget "ASAPPTests" */;
+			buildPhases = (
+				30DF3F821F27CEB100D6DB02 /* Sources */,
+				30DF3F831F27CEB100D6DB02 /* Frameworks */,
+				30DF3F841F27CEB100D6DB02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30DF3F8D1F27CEB100D6DB02 /* PBXTargetDependency */,
+			);
+			name = ASAPPTests;
+			productName = ASAPPTests;
+			productReference = 30DF3F861F27CEB100D6DB02 /* ASAPPTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FD8D8AF91D0F6E2A001B420B /* ASAPP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD8D8B021D0F6E2A001B420B /* Build configuration list for PBXNativeTarget "ASAPP" */;
@@ -1855,9 +2118,14 @@
 		FD8D8AF11D0F6E2A001B420B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = asappinc;
 				TargetAttributes = {
+					30DF3F851F27CEB100D6DB02 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
 					FD8D8AF91D0F6E2A001B420B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = GHJ79KTB8D;
@@ -1880,11 +2148,47 @@
 			projectRoot = "";
 			targets = (
 				FD8D8AF91D0F6E2A001B420B /* ASAPP */,
+				30DF3F851F27CEB100D6DB02 /* ASAPPTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		30DF3F841F27CEB100D6DB02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30DF3FBC1F27D2D200D6DB02 /* chat-flow-pay-bill.json in Resources */,
+				30DF3FCA1F27D2D200D6DB02 /* schedule-appointment.json in Resources */,
+				30DF3FB61F27D2D200D6DB02 /* bill-paid.json in Resources */,
+				30DF3FC51F27D2D200D6DB02 /* phone-plan-upgrade.json in Resources */,
+				30DF3FC11F27D2D200D6DB02 /* equipment-return.json in Resources */,
+				30DF3FC61F27D2D200D6DB02 /* phone-upgrade-ineligible.json in Resources */,
+				30DF3FBB1F27D2D200D6DB02 /* chat-flow-agent-entered.json in Resources */,
+				30DF3FB81F27D2D200D6DB02 /* bill-summary.json in Resources */,
+				30DF3FBE1F27D2D200D6DB02 /* chat-flow-wait-or-callback.json in Resources */,
+				30DF3FB71F27D2D200D6DB02 /* bill-past-due.json in Resources */,
+				30DF3FBA1F27D2D200D6DB02 /* cancel-appointment.json in Resources */,
+				30DF3FC21F27D2D200D6DB02 /* json-style-example.json in Resources */,
+				30DF3FCD1F27D2D200D6DB02 /* troubleshooter.json in Resources */,
+				30DF3FB31F27D2D200D6DB02 /* appointment-confirmation.json in Resources */,
+				30DF3FB91F27D2D200D6DB02 /* cancel-appointment-confirmation.json in Resources */,
+				30DF3FC41F27D2D200D6DB02 /* live-chat-end.json in Resources */,
+				30DF3FC81F27D2D200D6DB02 /* schedule-appointment-5-day.json in Resources */,
+				30DF3FCC1F27D2D200D6DB02 /* transaction-history.json in Resources */,
+				30DF3FC91F27D2D200D6DB02 /* schedule-appointment-selection.json in Resources */,
+				30DF3FBF1F27D2D200D6DB02 /* device-restart.json in Resources */,
+				30DF3FCB1F27D2D200D6DB02 /* tech-location.json in Resources */,
+				30DF3FC71F27D2D200D6DB02 /* phone-upgrade.json in Resources */,
+				30DF3FB21F27D2D200D6DB02 /* add-credit-card.json in Resources */,
+				30DF3FC31F27D2D200D6DB02 /* live-chat-begin.json in Resources */,
+				30DF3FB41F27D2D200D6DB02 /* bill-autopay-scheduled.json in Resources */,
+				30DF3FC01F27D2D200D6DB02 /* device-tracking.json in Resources */,
+				30DF3FB51F27D2D200D6DB02 /* bill-credit.json in Resources */,
+				30DF3FBD1F27D2D200D6DB02 /* chat-flow-queue-entered.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FD8D8AF81D0F6E2A001B420B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1895,7 +2199,7 @@
 				3046CE931E8AF0C90022AEE5 /* iconUserMinus.png in Resources */,
 				3046CE8C1E8AF0C90022AEE5 /* iconPower@3x.png in Resources */,
 				3046CE8A1E8AF0C90022AEE5 /* iconPower.png in Resources */,
-				30BD878E1DC00C350008042D /* bill-past-due.json in Resources */,
+				30BF4DB61F2A654A00556E5A /* equipment-return.json in Resources */,
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				302472A31D89B7680005A6C9 /* XFINITYSans-Reg.otf in Resources */,
 				3046CEB31E8AF7300022AEE5 /* iconXThick@3x.png in Resources */,
@@ -1903,17 +2207,14 @@
 				302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */,
 				30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
+				30BF4DAC1F2A654A00556E5A /* bill-past-due.json in Resources */,
 				302472AA1D89B7680005A6C9 /* XFINITYSans-Thin.ttf in Resources */,
 				3046CE9A1E8AF0C90022AEE5 /* iconXThin@2x.png in Resources */,
 				3046CEA51E8AF6380022AEE5 /* iconArrowBack.png in Resources */,
-				305C6C911DB57ADD00FF0AF4 /* schedule-appointment.json in Resources */,
 				3046CEB21E8AF7300022AEE5 /* iconXThick@2x.png in Resources */,
-				30756B3B1E5503A400D78E8E /* live-chat-begin.json in Resources */,
 				3046CE7F1E8AF0C90022AEE5 /* iconCheckmarkThick@2x.png in Resources */,
 				3046CE801E8AF0C90022AEE5 /* iconCheckmarkThick@3x.png in Resources */,
-				30BD878B1DC00C350008042D /* bill-autopay-scheduled.json in Resources */,
 				3046CEB61E8AF7D60022AEE5 /* iconPaperclip@2x.png in Resources */,
-				3023A5C51E57B703003BE6AB /* chat-flow-pay-bill.json in Resources */,
 				3046CEAD1E8AF6FC0022AEE5 /* iconCheckmarkCircle@3x.png in Resources */,
 				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
 				28C008961E5E8AE300260883 /* wow-4.wav in Resources */,
@@ -1922,20 +2223,24 @@
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
 				285F7AE21DA9AD3B008C2EF6 /* button-bg-ask@2x.png in Resources */,
 				3046CE8E1E8AF0C90022AEE5 /* iconTrash@2x.png in Resources */,
+				30BF4DB91F2A654A00556E5A /* live-chat-end.json in Resources */,
 				3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */,
 				302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */,
 				3046CE8D1E8AF0C90022AEE5 /* iconTrash.png in Resources */,
-				285F7B051DAB3409008C2EF6 /* cancel-appointment-confirmation.json in Resources */,
+				30BF4DC21F2A654A00556E5A /* troubleshooter.json in Resources */,
 				3025D9BF1E52803C004149D7 /* icon-arrow-left@2x.png in Resources */,
+				30BF4DB01F2A654A00556E5A /* chat-flow-agent-entered.json in Resources */,
+				30BF4DAF1F2A654A00556E5A /* cancel-appointment.json in Resources */,
 				30B3FE291ECB661700D43068 /* iconLoginKey.png in Resources */,
 				3046CE761E8AF0C90022AEE5 /* iconAlertError@2x.png in Resources */,
 				3025D9C61E528048004149D7 /* icon-arrow-right@3x.png in Resources */,
+				30BF4DAE1F2A654A00556E5A /* cancel-appointment-confirmation.json in Resources */,
 				3025D9C41E528048004149D7 /* icon-arrow-right.png in Resources */,
 				302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */,
+				30BF4DBD1F2A654A00556E5A /* schedule-appointment-5-day.json in Resources */,
 				3093A52C1E772F4400C65818 /* transaction-history-message.json in Resources */,
 				302A20BF1E5E2CFB007C522A /* icon-star@3x.png in Resources */,
 				3025D9B41E527FEB004149D7 /* icon-hide-keyboard@3x.png in Resources */,
-				305C6C931DB5875C00FF0AF4 /* appointment-confirmation.json in Resources */,
 				3046CE9B1E8AF0C90022AEE5 /* iconXThin@3x.png in Resources */,
 				30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */,
 				28C008941E5E8AE300260883 /* wow-2.wav in Resources */,
@@ -1946,14 +2251,17 @@
 				302472A51D89B7680005A6C9 /* XFINITYSans-BoldCond.ttf in Resources */,
 				3025D9C51E528048004149D7 /* icon-arrow-right@2x.png in Resources */,
 				3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */,
-				285F7B211DAC7D33008C2EF6 /* phone-upgrade.json in Resources */,
-				3023A5C91E57B739003BE6AB /* chat-flow-queue-entered.json in Resources */,
 				28C008951E5E8AE300260883 /* wow-3.wav in Resources */,
+				30BF4DBB1F2A654A00556E5A /* phone-upgrade-ineligible.json in Resources */,
+				30BF4DB21F2A654A00556E5A /* chat-flow-queue-entered.json in Resources */,
+				30BF4DC11F2A654A00556E5A /* transaction-history.json in Resources */,
 				30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */,
 				3046CE771E8AF0C90022AEE5 /* iconAlertError@3x.png in Resources */,
 				302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */,
 				3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */,
-				30A0034A1DC258A700CFA4CD /* json-style-example.json in Resources */,
+				30BF4DB11F2A654A00556E5A /* chat-flow-pay-bill.json in Resources */,
+				30BF4DAB1F2A654A00556E5A /* bill-paid.json in Resources */,
+				30BF4DAA1F2A654A00556E5A /* bill-credit.json in Resources */,
 				30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */,
 				301C4BF01DAD804C002BF4D9 /* map-device@3x.png in Resources */,
 				3046CEB71E8AF7D60022AEE5 /* iconPaperclip3x.png in Resources */,
@@ -1963,42 +2271,44 @@
 				3046CE8F1E8AF0C90022AEE5 /* iconTrash@3x.png in Resources */,
 				3005C42E1DB02BFD00946934 /* button-bg-respond@3x.png in Resources */,
 				28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */,
+				30BF4DBA1F2A654A00556E5A /* phone-plan-upgrade.json in Resources */,
 				3025D9A61E527FCC004149D7 /* icon-error-alert-filled.png in Resources */,
 				285F7AD01DA9A526008C2EF6 /* SprintSans-Black.ttf in Resources */,
 				307301BA1DAE90460002CF3B /* predictive-response.json in Resources */,
 				28C008931E5E8AE300260883 /* wow-1.wav in Resources */,
 				285F7AD41DA9A526008C2EF6 /* SprintSans-Regular.ttf in Resources */,
+				30BF4DBC1F2A654A00556E5A /* phone-upgrade.json in Resources */,
 				3046CE951E8AF0C90022AEE5 /* iconUserMinus@3x.png in Resources */,
+				30BF4DB31F2A654A00556E5A /* chat-flow-wait-or-callback.json in Resources */,
+				30BF4DA81F2A654A00556E5A /* appointment-confirmation.json in Resources */,
+				30BF4DA71F2A654A00556E5A /* add-credit-card.json in Resources */,
 				30B3FE2A1ECB661700D43068 /* iconLoginKey@2x.png in Resources */,
 				3046CEB11E8AF7300022AEE5 /* iconXThick.png in Resources */,
-				301C4BEA1DAD7D23002BF4D9 /* device-tracking.json in Resources */,
 				3025D9AE1E527FDB004149D7 /* icon-credit-card@3x.png in Resources */,
 				302472A41D89B7680005A6C9 /* XFINITYSans-Bold.ttf in Resources */,
-				3023A5CB1E57BA36003BE6AB /* chat-flow-agent-entered.json in Resources */,
 				3025D9BE1E52803C004149D7 /* icon-arrow-left.png in Resources */,
 				301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */,
 				288084FA1E861D3B00240A5D /* data-usage-near-full-message.json in Resources */,
 				285F7AE51DA9AD3B008C2EF6 /* button-bg-close@2x.png in Resources */,
-				30BD878C1DC00C350008042D /* bill-credit.json in Resources */,
 				302268531D80690500EC4FB1 /* icon-x-small@2x.png in Resources */,
 				3046CE7A1E8AF0C90022AEE5 /* iconArrowOutgoing@3x.png in Resources */,
-				285F7B0C1DAB3409008C2EF6 /* troubleshooter.json in Resources */,
 				30756B321E53A67D00D78E8E /* icon-credit-card-medium.png in Resources */,
 				3025D9B31E527FEB004149D7 /* icon-hide-keyboard@2x.png in Resources */,
 				3025D9A01E527FBF004149D7 /* icon-error-alert.png in Resources */,
+				30BF4DC01F2A654A00556E5A /* tech-location.json in Resources */,
 				302268461D80690500EC4FB1 /* bg-dash-tile.png in Resources */,
 				3046CE8B1E8AF0C90022AEE5 /* iconPower@2x.png in Resources */,
 				3046CEA61E8AF6380022AEE5 /* iconArrowBack@2x.png in Resources */,
 				302472A91D89B7680005A6C9 /* XFINITYSans-MedCond.ttf in Resources */,
 				3046CE921E8AF0C90022AEE5 /* iconUser@3x.png in Resources */,
+				30BF4DBE1F2A654A00556E5A /* schedule-appointment-selection.json in Resources */,
 				3022684A1D80690500EC4FB1 /* icon-back@2x.png in Resources */,
-				301C4BF21DAD91FF002BF4D9 /* phone-upgrade-ineligible.json in Resources */,
 				3046CE941E8AF0C90022AEE5 /* iconUserMinus@2x.png in Resources */,
 				3046CEAB1E8AF6FC0022AEE5 /* iconCheckmarkCircle.png in Resources */,
-				285F7B061DAB3409008C2EF6 /* cancel-appointment.json in Resources */,
 				302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */,
 				285F7AD11DA9A526008C2EF6 /* SprintSans-Bold.ttf in Resources */,
 				3046CE7E1E8AF0C90022AEE5 /* iconCheckmarkThick.png in Resources */,
+				30DF3F691F26911000D6DB02 /* iconClock@3x.png in Resources */,
 				3046CEA11E8AF6020022AEE5 /* iconAlertWarning@3x.png in Resources */,
 				3025D9B21E527FEB004149D7 /* icon-hide-keyboard.png in Resources */,
 				3025D9C01E52803C004149D7 /* icon-arrow-left@3x.png in Resources */,
@@ -2007,33 +2317,29 @@
 				301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */,
 				28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */,
 				3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */,
-				285F7B1B1DAC388A008C2EF6 /* phone-plan-upgrade.json in Resources */,
 				3046CEAC1E8AF6FC0022AEE5 /* iconCheckmarkCircle@2x.png in Resources */,
+				30BF4DAD1F2A654A00556E5A /* bill-summary.json in Resources */,
 				285F7AD31DA9A526008C2EF6 /* SprintSans-RegularItalic.ttf in Resources */,
 				28AEC0B81D888FFD00139C7D /* map-equipment@3x.png in Resources */,
 				28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */,
 				302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */,
 				30B3FE2B1ECB661700D43068 /* iconLoginKey@3x.png in Resources */,
-				285F7B071DAB3409008C2EF6 /* device-restart.json in Resources */,
+				30BF4DBF1F2A654A00556E5A /* schedule-appointment.json in Resources */,
 				302268521D80690500EC4FB1 /* icon-x-small.png in Resources */,
-				3023A5C71E57B724003BE6AB /* chat-flow-wait-or-callback.json in Resources */,
 				28AEC0B91D888FFD00139C7D /* map-tech.png in Resources */,
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
 				302A20BA1E5E2CFB007C522A /* icon-star-filled.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
-				30756B3D1E5503B400D78E8E /* live-chat-end.json in Resources */,
-				285F7B041DAB3409008C2EF6 /* bill-summary.json in Resources */,
+				30BF4DA91F2A654A00556E5A /* bill-autopay-scheduled.json in Resources */,
 				302472A81D89B7680005A6C9 /* XFINITYSans-Med.ttf in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
-				285F7B081DAB3409008C2EF6 /* equipment-return.json in Resources */,
+				30BF4DB51F2A654A00556E5A /* device-tracking.json in Resources */,
 				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,
 				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				3025D9A81E527FCC004149D7 /* icon-error-alert-filled@3x.png in Resources */,
 				302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */,
 				303C87721D775A5500213F6B /* Localizable.strings in Resources */,
-				285F7B0B1DAB3409008C2EF6 /* tech-location.json in Resources */,
 				3046CEA71E8AF6380022AEE5 /* iconArrowBack@3x.png in Resources */,
-				3025D9DB1E5351AB004149D7 /* add-credit-card.json in Resources */,
 				3046CE791E8AF0C90022AEE5 /* iconArrowOutgoing@2x.png in Resources */,
 				3046CE781E8AF0C90022AEE5 /* iconArrowOutgoing.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
@@ -2043,7 +2349,7 @@
 				3025D9AD1E527FDB004149D7 /* icon-credit-card@2x.png in Resources */,
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,
-				30BD878D1DC00C350008042D /* bill-paid.json in Resources */,
+				30BF4DB71F2A654A00556E5A /* json-style-example.json in Resources */,
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
 				3046CE901E8AF0C90022AEE5 /* iconUser.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
@@ -2053,16 +2359,30 @@
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
 				3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */,
 				302472A71D89B7680005A6C9 /* XFINITYSans-Lgt.ttf in Resources */,
+				30DF3F681F26911000D6DB02 /* iconClock@2x.png in Resources */,
 				3046CDF71E8990840022AEE5 /* BoostNeo-Light.ttf in Resources */,
 				3046CE831E8AF0C90022AEE5 /* iconCheckmarkThin@3x.png in Resources */,
 				3046CE821E8AF0C90022AEE5 /* iconCheckmarkThin@2x.png in Resources */,
+				30BF4DB41F2A654A00556E5A /* device-restart.json in Resources */,
 				3022684B1D80690500EC4FB1 /* icon-back@3x.png in Resources */,
+				30DF3F671F26911000D6DB02 /* iconClock.png in Resources */,
+				30BF4DB81F2A654A00556E5A /* live-chat-begin.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		30DF3F821F27CEB100D6DB02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30DF3F941F27D02800D6DB02 /* SRSItemTests.swift in Sources */,
+				30DF3FCF1F27D38300D6DB02 /* TestUtil.swift in Sources */,
+				30DF3F891F27CEB100D6DB02 /* ASAPPTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FD8D8AF51D0F6E2A001B420B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2076,6 +2396,7 @@
 				3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */,
 				281C34A31E7F092C001A2AA3 /* LabelView.swift in Sources */,
 				30A4BB0E1D510A9D00795BA7 /* ImageViewerImageViewController.swift in Sources */,
+				30A460FF1EF0871B00DFAA5A /* HTTPAction.swift in Sources */,
 				28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				288085001E874BF900240A5D /* SliderView.swift in Sources */,
@@ -2089,6 +2410,7 @@
 				30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
+				30A460FD1EF0840F00DFAA5A /* ActionHandler.swift in Sources */,
 				30131FD51EB10FD0009E7299 /* TableViewItem.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30131FA81EAFB662009E7299 /* TextSizeCategory.swift in Sources */,
@@ -2119,6 +2441,7 @@
 				30131FA41EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
+				30DF3F731F27BB7D00D6DB02 /* SRSItem.swift in Sources */,
 				289E040E1EC791FC00CAC413 /* RadioButtonsContainerView.swift in Sources */,
 				30131FCA1EB10FD0009E7299 /* CheckboxItem.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,
@@ -2129,6 +2452,7 @@
 				30131FD31EB10FD0009E7299 /* SliderItem.swift in Sources */,
 				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
 				3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */,
+				30DF3F611F267F2000D6DB02 /* ConversationManager+Actions.swift in Sources */,
 				307484DF1EB8F2F9008CF3E4 /* ComponentViewAction.swift in Sources */,
 				303699A91EAFAA2E00A819DF /* ASAPPTextStyles.swift in Sources */,
 				281C34861E7F092C001A2AA3 /* ComponentType.swift in Sources */,
@@ -2141,6 +2465,7 @@
 				289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
+				30DF3F791F27BE4300D6DB02 /* SRSFiller.swift in Sources */,
 				303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */,
 				306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */,
 				303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */,
@@ -2163,24 +2488,32 @@
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
 				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
+				3060DE771F1FA80200A67384 /* OverlayLoadingView.swift in Sources */,
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
+				30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */,
 				307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
+				30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
+				30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */,
+				3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */,
 				30B3FE301ECB9CF500D43068 /* COMTextInputCell.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */,
 				28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */,
 				30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */,
+				30DF3F7B1F27C09A00D6DB02 /* SRSSeparator.swift in Sources */,
 				281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */,
+				30DF3F7F1F27CA7900D6DB02 /* SRSItemList.swift in Sources */,
 				30131FC81EB10FD0009E7299 /* ButtonItem.swift in Sources */,
 				2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */,
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
 				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
+				30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
@@ -2193,6 +2526,7 @@
 				30131FD11EB10FD0009E7299 /* ScrollViewItem.swift in Sources */,
 				30131F9C1EAFB384009E7299 /* ASAPPColors.swift in Sources */,
 				303699AB1EAFAAE700A819DF /* Colors.swift in Sources */,
+				30523B891EF031A50014C5ED /* LegacyActionType.swift in Sources */,
 				30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
@@ -2209,6 +2543,7 @@
 				302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */,
 				305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */,
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,
+				30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */,
 				302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */,
 				307484C91EB39B10008CF3E4 /* QuickReply.swift in Sources */,
 				307484E01EB8F2F9008CF3E4 /* FinishAction.swift in Sources */,
@@ -2217,6 +2552,7 @@
 				30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */,
 				281C349F1E7F092C001A2AA3 /* ComponentView.swift in Sources */,
 				306619231D9458F50092B4C5 /* UIImage+MultiFormat.m in Sources */,
+				30DF3F771F27BE2000D6DB02 /* SRSButton.swift in Sources */,
 				3008888C1D620D3700C25802 /* Button.swift in Sources */,
 				307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */,
 				305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */,
@@ -2226,9 +2562,11 @@
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				30131FB21EB10F61009E7299 /* ComponentStyle.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
+				30DF3F751F27BC1D00D6DB02 /* SRSLabel.swift in Sources */,
 				288085251E87FCA800240A5D /* TableViewCell.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
 				30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */,
+				30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */,
 				30131FA61EAFB603009E7299 /* UIButton+ASAPPAppearance.swift in Sources */,
 				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
@@ -2244,6 +2582,7 @@
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
 				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
+				30DF3F701F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift in Sources */,
 				303699A51EAFA9FB00A819DF /* ASAPPStyles+Presets.swift in Sources */,
 				30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
@@ -2265,6 +2604,7 @@
 				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */,
+				30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
 				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
@@ -2277,6 +2617,7 @@
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */,
 				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
+				30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */,
 				307484D11EB7BDAC008CF3E4 /* Event+JSON.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,
 				288085061E875DB700240A5D /* RadioButtonView.swift in Sources */,
@@ -2286,6 +2627,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		30DF3F8D1F27CEB100D6DB02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FD8D8AF91D0F6E2A001B420B /* ASAPP */;
+			targetProxy = 30DF3F8C1F27CEB100D6DB02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		303C87701D775A5500213F6B /* Localizable.strings */ = {
@@ -2382,6 +2731,52 @@
 				PROVISIONING_PROFILE = "1230933c-4aff-42cd-8b6f-539e181c8712";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = AdHoc;
+		};
+		30DF3F8F1F27CEB100D6DB02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ASAPPTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		30DF3F901F27CEB100D6DB02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ASAPPTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		30DF3F911F27CEB100D6DB02 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = ASAPPTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
 			name = AdHoc;
@@ -2541,6 +2936,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		30DF3F8E1F27CEB100D6DB02 /* Build configuration list for PBXNativeTarget "ASAPPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30DF3F8F1F27CEB100D6DB02 /* Debug */,
+				30DF3F901F27CEB100D6DB02 /* Release */,
+				30DF3F911F27CEB100D6DB02 /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FD8D8AF41D0F6E2A001B420B /* Build configuration list for PBXProject "ASAPP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

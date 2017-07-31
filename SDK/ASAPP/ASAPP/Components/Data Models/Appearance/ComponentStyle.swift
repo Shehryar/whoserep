@@ -49,7 +49,6 @@ struct ComponentStyle {
     var width: CGFloat = 0
 }
 
-
 // MARK:- JSON Parsing
 
 extension ComponentStyle {

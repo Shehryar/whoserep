@@ -25,7 +25,7 @@ extension Event {
         case eventTime = "EventTime"
         case eventType = "EventType"
         case issueId = "IssueId"
-        case parentEventLogSeq = "ParentEventLogSeq"
+        case parentEventLogSeq = "parentEventLogSeq"
         case repId = "RepId"
         
         // Text Message Event
@@ -67,14 +67,16 @@ extension Event {
             let customerEventLogSeq = json[JSONKey.customerEventLogSeq.rawValue] as? Int,
             let companyEventLogSeq = json[JSONKey.companyEventLogSeq.rawValue] as? Int
             else {
-                DebugLog.d(caller: self, "Event missing required properties: \(json)")
+//                DebugLog.d(caller: self, "Event missing required properties: \(json)")
                 return nil
         }
         
         let (eventType, eventJSON) = getEventTypeAndContent(from: json,
                                                             eventType: originalEventType,
                                                             ephemeralType: ephemeralType)
-        let parentEventLogSeq = eventJSON?.int(for: JSONKey.parentEventLogSeq.rawValue)
+        
+        let parentEventLogSeq = json.int(for: JSONKey.parentEventLogSeq.rawValue) ??
+            eventJSON?.int(for: JSONKey.parentEventLogSeq.rawValue)
         
         let event = Event(eventId: max(customerEventLogSeq, companyEventLogSeq),
                           parentEventLogSeq: parentEventLogSeq,

@@ -25,6 +25,7 @@ class IconItem: Component {
         case checkmarkCircle = "checkmarkCircle"
         case checkmarkThick = "checkmarkThick"
         case checkmarkThin = "checkmarkThin"
+        case clock = "clock"
         case loginKey = "loginKey"
         case power = "power"
         case trash = "trash"
@@ -41,6 +42,7 @@ class IconItem: Component {
             .checkmarkCircle: .checkmarkCircle,
             .checkmarkThick: .checkmarkThick,
             .checkmarkThin: .checkmarkThin,
+            .clock: .clock,
             .loginKey: .loginKey,
             .power: .power,
             .trash: .trash,
@@ -91,13 +93,13 @@ class IconItem: Component {
     
     // MARK: Init
     
-    required init?(id: String?,
-                   name: String?,
-                   value: Any?,
-                   isChecked: Bool?,
+    required init?(id: String? = nil,
+                   name: String? = nil,
+                   value: Any? = nil,
+                   isChecked: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]?,
-                   content: [String : Any]?) {
+                   styles: [String : Any]? = nil,
+                   content: [String : Any]? = nil) {
         guard let icon = Icon.from(content?.string(for: JSONKey.icon.rawValue)) else {
             DebugLog.w(caller: IconItem.self, "No icon found in content: \(String(describing: content))")
             return nil

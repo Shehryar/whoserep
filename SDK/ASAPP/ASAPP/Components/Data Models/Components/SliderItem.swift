@@ -47,13 +47,13 @@ class SliderItem: Component {
     
     // MARK:- Init
     
-    required init?(id: String?,
-                   name: String?,
-                   value: Any?,
-                   isChecked: Bool?,
+    required init?(id: String? = nil,
+                   name: String? = nil,
+                   value: Any? = nil,
+                   isChecked: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]?,
-                   content: [String : Any]?) {
+                   styles: [String : Any]? = nil,
+                   content: [String : Any]? = nil) {
         
         self.label = ComponentFactory.component(with: content?[JSONKey.label.rawValue],
                                                 styles: styles) as? LabelItem

@@ -38,13 +38,13 @@ class ButtonItem: Component {
     
     // MARK:- Init
     
-    required init?(id: String?,
-                   name: String?,
-                   value: Any?,
-                   isChecked: Bool?,
+    required init?(id: String? = nil,
+                   name: String? = nil,
+                   value: Any? = nil,
+                   isChecked: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]?,
-                   content: [String : Any]?) {
+                   styles: [String : Any]? = nil,
+                   content: [String : Any]? = nil) {
         let title = content?.string(for: JSONKey.title.rawValue)
         let icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
         guard title != nil || icon != nil else {

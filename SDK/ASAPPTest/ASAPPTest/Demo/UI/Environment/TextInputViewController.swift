@@ -1,5 +1,5 @@
 //
-//  AddAPIHostNameViewController.swift
+//  TextInputViewController.swift
 //  ASAPPTest
 //
 //  Created by Mitchell Morgan on 2/24/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddAPIHostNameViewController: BaseTableViewController {
+class TextInputViewController: BaseTableViewController {
 
     enum Section: Int {
         case textInput
@@ -18,26 +18,31 @@ class AddAPIHostNameViewController: BaseTableViewController {
     
     // MARK: Properties
     
-    var onFinish: ((_ apiHostName: String) -> Void)?
+    var onFinish: ((_ text: String) -> Void)?
     
-    fileprivate(set) var apiHostName: String = ""
+    var instructionText: String = ""
+    
+    var placeholderText: String = "Enter text..."
+    
+    var randomEntryPrefix: String? {
+        didSet {
+            updateBarButtonItems()
+        }
+    }
+    
+    fileprivate(set) var text: String = ""
     
     fileprivate let textInputSizingCell = TextInputCell()
     fileprivate let buttonSizingCell = ButtonCell()
     
     // MARK: Init
     
-    required init(appSettings: AppSettings) {
-        super.init(appSettings: appSettings)
-        
-        title = "API Host Name"
+    
+    override func commonInit() {
+        super.commonInit()
         
         tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK:- View
@@ -48,20 +53,42 @@ class AddAPIHostNameViewController: BaseTableViewController {
         _ = tableView.cellForRow(at: IndexPath(item: 0, section: Section.textInput.rawValue))?.becomeFirstResponder()
     }
     
+    // MARK:- BarButtonItems
+    
+    func updateBarButtonItems() {
+        if randomEntryPrefix != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Random",
+                                                                style: .plain, 
+                                                                target: self,
+                                                                action: #selector(TextInputViewController.generateRandomText))
+        } else {
+            navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
     // MARK:- Actions
     
-    func finish() {
-        guard !apiHostName.isEmpty else {
+    func generateRandomText() {
+        guard let randomEntryPrefix = randomEntryPrefix else {
             return
         }
         
-        onFinish?(apiHostName)
+        text = "\(randomEntryPrefix)\(Int(Date().timeIntervalSince1970))"
+        tableView.reloadData()
+    }
+    
+    func finish() {
+        guard !text.isEmpty else {
+            return
+        }
+        
+        onFinish?(text)
     }
 }
 
 // MARK:- UITableViewDataSource
 
-extension AddAPIHostNameViewController {
+extension TextInputViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count.rawValue
@@ -101,16 +128,15 @@ extension AddAPIHostNameViewController {
             return
         }
         
-        cell.appSettings = appSettings
-        cell.currentText = apiHostName
-        cell.placeholderText = "e.g. mitch.asapp.com"
+        cell.appSettings = AppSettings.shared
+        cell.currentText = text
+        cell.placeholderText = placeholderText
         cell.textField.autocorrectionType = .no
         cell.textField.autocapitalizationType = .none
-        cell.textField.keyboardType = .URL
         cell.textField.returnKeyType = .done
         cell.dismissKeyboardOnReturn = true
         cell.onTextChange = { [weak self] (text) in
-            self?.apiHostName = text
+            self?.text = text
         }
     }
     
@@ -118,18 +144,18 @@ extension AddAPIHostNameViewController {
         guard let cell = cell else {
             return
         }
-        cell.appSettings = appSettings
+        cell.appSettings = AppSettings.shared
         cell.title = "Save"
     }
 }
 
 // MARK:- UITableViewDelegate
 
-extension AddAPIHostNameViewController {
+extension TextInputViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.textInput.rawValue: return "ENTER API HOST NAME"
+        case Section.textInput.rawValue: return instructionText
         case Section.saveButton.rawValue: return ""
         default: return nil
         }

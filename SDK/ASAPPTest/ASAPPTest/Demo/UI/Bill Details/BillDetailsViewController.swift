@@ -39,17 +39,13 @@ class BillDetailsViewController: BaseTableViewController {
     
     // MARK: Init
     
-    required init(appSettings: AppSettings) {
-        super.init(appSettings: appSettings)
+    override func commonInit() {
+        super.commonInit()
         
         title = "Bill Details"
         
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: labelIconCellReuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: titleDetailValueCellReuseId)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -97,7 +93,7 @@ extension BillDetailsViewController {
     
     func stylePaymentCell(_ cell: LabelIconCell?, forRow row: Int) {
         guard let cell = cell else { return }
-        cell.appSettings = appSettings
+        cell.appSettings = AppSettings.shared
         
         switch row {
         case PaymentRow.makePayment.rawValue:
@@ -118,24 +114,24 @@ extension BillDetailsViewController {
     
     func styleLineItemCell(_ cell: TitleDetailValueCell?, for indexPath: IndexPath) {
         guard let cell = cell else { return }
-        cell.appSettings = appSettings
+        cell.appSettings = AppSettings.shared
         cell.selectionStyle = .none
         
         switch indexPath.section {
         case Section.summary.rawValue:
             
-            cell.titleLabel.font = appSettings.branding.fonts.regularFont.withSize(18)
-            cell.valueLabel.font = appSettings.branding.fonts.lightFont.withSize(22)
-            cell.detailLabel.font = appSettings.branding.fonts.lightFont.withSize(16)
+            cell.titleLabel.font = AppSettings.shared.branding.fonts.regularFont.withSize(18)
+            cell.valueLabel.font = AppSettings.shared.branding.fonts.lightFont.withSize(22)
+            cell.detailLabel.font = AppSettings.shared.branding.fonts.lightFont.withSize(16)
             cell.update(titleText: "Current Balance",
                         detailText: billDetails.dueDateString,
                         valueText: billDetails.total)
             break
             
         case Section.lineItems.rawValue:
-            cell.titleLabel.font = appSettings.branding.fonts.regularFont.withSize(16)
-            cell.valueLabel.font = appSettings.branding.fonts.lightFont.withSize(16)
-            cell.detailLabel.font = appSettings.branding.fonts.lightFont.withSize(14)
+            cell.titleLabel.font = AppSettings.shared.branding.fonts.regularFont.withSize(16)
+            cell.valueLabel.font = AppSettings.shared.branding.fonts.lightFont.withSize(16)
+            cell.detailLabel.font = AppSettings.shared.branding.fonts.lightFont.withSize(14)
             let lineItem = billDetails.lineItems[indexPath.row]
             cell.update(titleText: lineItem.name,
                         detailText: lineItem.date,

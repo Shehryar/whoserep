@@ -9,6 +9,27 @@
 import UIKit
 import ASAPP
 
+enum BrandingType: String {
+    case asapp = "asapp"
+    case xfinity = "xfinity"
+    case boost = "boost"
+    
+    static let all = [
+        asapp,
+        xfinity,
+        boost
+    ]
+    
+    static func from(_ value: Any?) -> BrandingType? {
+        guard let value = value as? String else {
+            return nil
+        }
+        return BrandingType(rawValue: value)
+    }
+}
+
+// MARK:- Branding
+
 class Branding: NSObject {
 
     let brandingType: BrandingType
@@ -30,6 +51,8 @@ class Branding: NSObject {
     // MARK:- Init
     
     required init(brandingType: BrandingType) {
+        ASAPP.loadFonts()
+        
         self.brandingType = brandingType
         self.colors = BrandingColors(brandingType: brandingType)
         self.fonts = BrandingFonts(brandingType: brandingType)
@@ -47,15 +70,8 @@ class Branding: NSObject {
             logoImageSize = CGSize(width: 140, height: 28)
             break
             
-        case .sprint:
-            self.styles = ASAPPStyles.stylesForAppId("sprint")
-            logoImageName = "sprint-logo"
-            logoImageSize = CGSize(width: 140, height: 36)
-            break
-            
-        case .boostMobile:
+        case .boost:
             self.styles = ASAPPStyles.stylesForAppId("boost")
-            
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 140, height: 32)
             break
@@ -111,18 +127,7 @@ class BrandingColors: NSObject {
             accentColor = UIColor(red:1, green:0.216, blue:0.212, alpha:1)
             break
             
-        case .sprint:
-            navBarTintColor = UIColor.darkGray
-            navBarTitleColor = UIColor.black
-        
-            foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
-            secondaryTextColor = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
-            backgroundColor = UIColor.white
-            separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
-            accentColor = UIColor(red:0.989, green:0.811, blue:0.003, alpha:1)
-            break
-            
-        case .boostMobile:
+        case .boost:
             navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
             navBarTintColor = UIColor.white
             navBarTitleColor = UIColor.white
@@ -146,35 +151,41 @@ class BrandingFonts: NSObject {
     
     let brandingType: BrandingType
     
-    private(set) var lightFont: UIFont = DemoFonts.latoLightFont(withSize: 14)
-    private(set) var regularFont: UIFont = DemoFonts.latoRegularFont(withSize: 14)
-    private(set) var mediumFont: UIFont = DemoFonts.latoRegularFont(withSize: 14)
-    private(set) var boldFont: UIFont = DemoFonts.latoBoldFont(withSize: 14)
+    let lightFont: UIFont
+    let regularFont: UIFont
+    let mediumFont: UIFont
+    let boldFont: UIFont
     
     // MARK:- Init
     
     required init(brandingType: BrandingType) {
         self.brandingType = brandingType
-        super.init()
-        
-        switch self.brandingType {
-        case .asapp:
-            // Defaults
-            break
-            
+        switch brandingType {
         case .xfinity:
-//            lightFont = DemoFonts.xfinitySansLgtFont()
-//            regularFont = DemoFonts.xfinitySansRegFont()
-//            mediumFont = DemoFonts.xfinitySansMedFont()
-//            boldFont = DemoFonts.xfinitySansBoldFont()
+            lightFont = DemoFonts.xfinitySansLgtFont()
+            regularFont = DemoFonts.xfinitySansRegFont()
+            mediumFont = DemoFonts.xfinitySansMedFont()
+            boldFont = DemoFonts.xfinitySansBoldFont()
             break
             
-        case .sprint, .boostMobile:
-//            lightFont = DemoFonts.sprintSansRegularFont()
-//            regularFont = DemoFonts.sprintSansRegularFont()
-//            mediumFont = DemoFonts.sprintSansMediumFont()
-//            boldFont = DemoFonts.sprintSansBoldFont()
+        case .boost:
+            lightFont = DemoFonts.sprintSansRegularFont()
+            regularFont = DemoFonts.sprintSansRegularFont()
+            mediumFont = DemoFonts.sprintSansMediumFont()
+            boldFont = DemoFonts.sprintSansBoldFont()
+            break
+        
+        case .asapp:
+            fallthrough
+            
+        default:
+            lightFont = DemoFonts.latoLightFont(withSize: 14)
+            regularFont = DemoFonts.latoRegularFont(withSize: 14)
+            mediumFont = DemoFonts.latoRegularFont(withSize: 14)
+            boldFont = DemoFonts.latoBoldFont(withSize: 14)
             break
         }
+        
+        super.init()
     }
 }

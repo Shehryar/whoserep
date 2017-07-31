@@ -20,6 +20,10 @@ public class ASAPPConfig: NSObject {
     
     public let clientSecret: String
     
+    public var identifierType: String {
+        return "\(appId)_CUSTOMER_ACCOUNT_ID"
+    }
+    
     // MARK: Init
     
     public init(appId: String,

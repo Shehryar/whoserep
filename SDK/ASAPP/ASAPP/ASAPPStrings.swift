@@ -41,12 +41,33 @@ public class ASAPPStrings: NSObject {
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     public var chatInputSend: String = ASAPPLocalizedString("SEND")
     
+    // Generic
+    
+    public var secureScreenCoverText: String = ASAPPLocalizedString("View content hidden for security purposes.\n\nTap to dismiss.")
+    public var reqeustErrorMessageNoConnection: String = ASAPPLocalizedString("Please check your connection and try again.")
+    public var requestErrorGenericFailureTitle: String = ASAPPLocalizedString("Oops!")
+    public var requestErrorGenericFailure: String = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")
+    public var alertDismissButton: String = ASAPPLocalizedString("Ok")
+    public var failureToLoadScreen: String = ASAPPLocalizedString("Oops! We were unable to find what you're looking for. Please try again later.")
+    public var failureToLoadScreenReloadButton: String = ASAPPLocalizedString("Try Again")
+    public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Modal View
     
     public var modalViewCancelButton: String = ASAPPLocalizedString("CANCEL")
     public var modalViewSubmitButton: String = ASAPPLocalizedString("SUBMIT")
     public var modalViewDoneButton: String = ASAPPLocalizedString("DONE")
- 
+    
     // Modal View: Credit Card
     
     public var creditCardViewTitle: String = ASAPPLocalizedString("Add a New Card")
@@ -68,15 +89,4 @@ public class ASAPPStrings: NSObject {
     public var feedbackDoneButton: String = ASAPPLocalizedString("DONE")
     public var feedbackMissingRatingError: String = ASAPPLocalizedString("Please select a rating before submitting.")
     public var feedbackSentSuccessMessage: String = ASAPPLocalizedString("Rating successfully sent!")
-    
-    // Generic
-    
-    public var secureScreenCoverText: String = ASAPPLocalizedString("View content hidden for security purposes.\n\nTap to dismiss.")
-    public var reqeustErrorMessageNoConnection: String = ASAPPLocalizedString("Please check your connection and try again.")
-    public var requestErrorGenericFailureTitle: String = ASAPPLocalizedString("Oops!")
-    public var requestErrorGenericFailure: String = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")
-    public var requestErrorDismissButton: String = ASAPPLocalizedString("Ok")
-    public var failureToLoadScreen: String = ASAPPLocalizedString("Oops! We were unable to find what you're looking for. Please try again later.")
-    public var failureToLoadScreenReloadButton: String = ASAPPLocalizedString("Try Again")
-    public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
 }

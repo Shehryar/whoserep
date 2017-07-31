@@ -16,6 +16,7 @@ enum ASAPPIcon: String {
     case checkmarkCircle = "iconCheckmarkCircle"
     case checkmarkThick = "iconCheckmarkThick"
     case checkmarkThin = "iconCheckmarkThin"
+    case clock = "iconClock"
     case loginKey = "iconLoginKey"
     case paperclip = "iconPaperclip"
     case power = "iconPower"

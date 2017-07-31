@@ -227,8 +227,31 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
         var message: String?
         
         switch quickReply.action.type {
+        case .api:
+            title = "API"
+            message = (quickReply.action as? APIAction)?.requestPath
+            break
+            
+        case .componentView:
+            if let action = quickReply.action as? ComponentViewAction {
+                handleComponentViewAction(action)
+                return false
+            }
+            title = "Component View"
+            message = "Unknown"
+            break
+            
         case .deepLink:
             title = "Link"
+            break
+            
+        case .finish:
+            title = "Finish"
+            break
+            
+        case .http:
+            title = "HTTP"
+            // MITCH MITCH MITCH
             break
             
         case .treewalk:
@@ -241,27 +264,17 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             message = "Classification: \(String(describing: (quickReply.action as? TreewalkAction)?.classification))"
             break
             
-        case .api:
-            title = "API"
-            message = (quickReply.action as? APIAction)?.requestPath
+        case .userLogin:
+            // MITCH MITCH TODO:
             break
-            
-        case .componentView:
-            if let action = quickReply.action as? ComponentViewAction {
-                handleComponentViewAction(action)
-                 return false
-            }
-            title = "Component View"
-            message = "Unknown"
-            break
-            
-        case .finish:
-            title = "Finish"
-            break
-            
+    
         case .web:
             title = "Web"
             message = (quickReply.action as? WebPageAction)?.url.absoluteString
+            break
+            
+        case .unknown:
+            // No-op
             break
         }
         
@@ -318,8 +331,8 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     
     func componentViewControllerDidFinish(with action: FinishAction?) {
         dismiss(animated: true) { [weak self] in
-            if let classification = action?.classification {
-                let alert = UIAlertController(title: "Classification: \(classification)", message: nil, preferredStyle: .alert)
+            if let nextAction = action?.nextAction {
+                let alert = UIAlertController(title: "Next Action: \(nextAction)", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self?.present(alert, animated: true, completion: nil)
             }
@@ -336,10 +349,13 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 with data: [String : Any]?,
+                                 withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        if let text = data?["text"] as? String,
-            let name = data?["classification"] as? String {
+        var data = action.data ?? [String : Any]()
+        data.add(formData)
+        
+        if let text = data["text"] as? String,
+            let name = data["classification"] as? String {
             Dispatcher.delay(1500) {
                 completion(APIActionResponse(type: .finish))
                 
@@ -350,12 +366,12 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             return
         }
         
-        if let viewName = data?["name"] as? String {
+        if let viewName = data["name"] as? String {
             UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, viewContainer, errorString) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
                 if let _ = viewContainer {
-                    if data?.bool(for: "refresh") == true {
+                    if data.bool(for: "refresh") == true {
                         type = .refreshView
                     } else {
                         type = .componentView

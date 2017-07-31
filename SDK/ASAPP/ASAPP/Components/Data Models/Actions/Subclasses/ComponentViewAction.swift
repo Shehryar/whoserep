@@ -11,27 +11,28 @@ import UIKit
 enum ComponentViewDisplayStyle: String {
     case full = "full"
     case inset = "inset"
+    
+    // MARK: JSON Parsing
+    
+    static let defaultValue = ComponentViewDisplayStyle.full
+    
+    static func from(_ value: Any?) -> ComponentViewDisplayStyle? {
+        guard let stringValue = value as? String else {
+            return nil
+        }
+        return ComponentViewDisplayStyle(rawValue: stringValue)
+    }
 }
 
 class ComponentViewAction: Action {
-
-    // MARK: JSON Keys
+    
+    // MARK: Properties
     
     enum JSONKey: String {
         case displayStyle = "displayStyle"
         case name = "name"
     }
-    
-    // MARK: Defaults
-    
-    static let defaultDisplayStyle = ComponentViewDisplayStyle.full
-    
-    // MARK: Properties
-    
-    override var type: ActionType {
-        return .componentView
-    }
-    
+
     let displayStyle: ComponentViewDisplayStyle
     
     let name: String
@@ -48,14 +49,9 @@ class ComponentViewAction: Action {
             return nil
         }
         self.name = name
-        
-        if let displayStyleString = content.string(for: JSONKey.displayStyle.rawValue),
-            let displayStyle = ComponentViewDisplayStyle(rawValue: displayStyleString) {
-            self.displayStyle = displayStyle
-        } else {
-            self.displayStyle = ComponentViewAction.defaultDisplayStyle
-        }
-        
+        self.displayStyle = ComponentViewDisplayStyle.from(content[JSONKey.displayStyle.rawValue])
+            ?? ComponentViewDisplayStyle.defaultValue
+
         super.init(content: content)
     }
 }

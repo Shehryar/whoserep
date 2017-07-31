@@ -1,0 +1,300 @@
+{
+  "title": "Account > Schedule an Appointment",
+  "classification": "DEMO_SCHEDULE_APPOINTMENT",
+  "displayContent": true,
+  "contentType" : "carousel",
+  "content": {
+    "message": "Here are some available appointment times. Please let me know which time works best for you.",
+    "type": "carousel",
+    "pages": [
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "Monday",
+                "label": "October 24, 2016",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "3 Availabilities",
+            "type": "label"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 8am - 9am on 10/24/2016",
+              "type": "MESSAGE"
+            },
+            "label": "8am - 9am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 9am - 10am on 10/24/2016",
+              "type": "MESSAGE"
+            },
+            "label": "9am - 10am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 10am - 11am on 10/2/2016",
+              "type": "MESSAGE"
+            },
+            "label": "10am - 11am"
+          }
+        ]
+      },
+
+
+
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "Tuesday",
+                "label": "October 25, 2016",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "4 Availabilities",
+            "type": "label"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 1pm - 2pm on 10/25/2016",
+              "type": "MESSAGE"
+            },
+            "label": "1pm - 2pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 2pm - 3pm on 10/25/2016",
+              "type": "MESSAGE"
+            },
+            "label": "2pm - 3pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 4pm - 5pm on 10/25/2016",
+              "type": "MESSAGE"
+            },
+            "label": "4pm - 5pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 5pm - 6pm on 10/25/2016",
+              "type": "MESSAGE"
+            },
+            "label": "5pm - 6pm"
+          }
+        ]
+      },
+
+
+
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "Wednesday",
+                "label": "October 26, 2016",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "2 Availabilities",
+            "type": "label"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 9am - 10am on 10/26/2016",
+              "type": "MESSAGE"
+            },
+            "label": "9am - 10am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 10am - 11am on 10/26/2016",
+              "type": "MESSAGE"
+            },
+            "label": "10am - 11am"
+          }
+        ]
+      },
+
+
+
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "Thursday",
+                "label": "October 27, 2016",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "5 Availabilities",
+            "type": "label"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 8am - 9am on 10/27/2016",
+              "type": "MESSAGE"
+            },
+            "label": "8am - 9am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 9am - 10am on 10/27/2016",
+              "type": "MESSAGE"
+            },
+            "label": "9am - 10am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 12pm - 1pm on 10/27/2016",
+              "type": "MESSAGE"
+            },
+            "label": "12pm - 1pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 4pm - 5pm on 10/27/2016",
+              "type": "MESSAGE"
+            },
+            "label": "4pm - 5pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 5pm - 6pm on 10/27/2016",
+              "type": "MESSAGE"
+            },
+            "label": "5pm - 6pm"
+          },
+        ]
+      },
+
+
+      {
+        "orientation": "vertical",
+        "type": "itemlist",
+        "value": [
+          {
+            "value": [
+              {
+                "icon": "",
+                "value": "Friday",
+                "label": "October 28, 2016",
+                "type": "info"
+              }
+            ],
+            "orientation": "horizontal",
+            "type": "itemlist"
+          },
+          {
+            "type": "filler"
+          },
+          {
+            "label": "4 Availabilities",
+            "type": "label"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 10am - 11am on 10/28/2016",
+              "type": "MESSAGE"
+            },
+            "label": "10am - 11am"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 11am - 12pm on 10/28/2016",
+              "type": "MESSAGE"
+            },
+            "label": "11am - 12pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 12pm - 1pm on 10/28/2016",
+              "type": "MESSAGE"
+            },
+            "label": "12pm - 1pm"
+          },
+          {
+            "type": "button",
+            "value": {
+              "content": "Schedule 1pm - 2pm on 10/28/2016",
+              "type": "MESSAGE"
+            },
+            "label": "1pm - 2pm"
+          },
+        ]
+      },
+       
+    ]
+  }
+}

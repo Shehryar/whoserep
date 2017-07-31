@@ -12,11 +12,10 @@
 		281D8E001DC9681300E4A65B /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8DFD1DC9681300E4A65B /* TableHeaderView.swift */; };
 		281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8DFE1DC9681300E4A65B /* TableViewCell.swift */; };
 		281D8E031DC9696A00E4A65B /* TitleDetailValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E021DC9696A00E4A65B /* TitleDetailValueCell.swift */; };
-		281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E051DC973D900E4A65B /* AccountsViewController.swift */; };
 		281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E071DC973F500E4A65B /* ImageNameCell.swift */; };
-		281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281D8E091DC9781200E4A65B /* UserAccount.swift */; };
+		300452371F1545FA009475CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300452361F1545FA009475CD /* LoginViewController.swift */; };
 		300A27741E4289C9000A624A /* Branding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* Branding.swift */; };
-		302A20D61E60BC55007C522A /* AddAPIHostNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */; };
+		302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D51E60BC55007C522A /* TextInputViewController.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -28,6 +27,10 @@
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
+		3089940F1EFB2B800068D616 /* OptionsForKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */; };
+		308994131EFC2EF40068D616 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994121EFC2EF40068D616 /* AccountViewController.swift */; };
+		308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */; };
+		308994181EFC40060068D616 /* RoundImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994171EFC40060068D616 /* RoundImageCVCell.swift */; };
 		308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1131DCBE86400477013 /* DemoDispatcher.swift */; };
 		308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CB1151DCCEFFA00477013 /* BillDetails.swift */; };
 		30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */; };
@@ -42,14 +45,12 @@
 		30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C351DCA39E100529785 /* RandomNameGenerator.swift */; };
 		30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C24C371DCA4BEF00529785 /* DemoLog.swift */; };
 		30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */; };
-		30CFF4041E43BD62009A0655 /* DemoEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CFF4031E43BD62009A0655 /* DemoEnums.swift */; };
 		30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C38B1E43E97F0061BFA3 /* BrandingSwitcherView.swift */; };
 		30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C38F1E43EBC60061BFA3 /* BrandingPreview.swift */; };
 		30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */; };
 		30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */; };
 		30E78EDA1DCA62C0006A2AD8 /* TitleToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
-		30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */; };
 		30F20EE71ED4CBF700A14FA9 /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30F20EE61ED4CBF700A14FA9 /* hey.caf */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
@@ -75,11 +76,10 @@
 		281D8DFD1DC9681300E4A65B /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		281D8DFE1DC9681300E4A65B /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		281D8E021DC9696A00E4A65B /* TitleDetailValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleDetailValueCell.swift; sourceTree = "<group>"; };
-		281D8E051DC973D900E4A65B /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		281D8E071DC973F500E4A65B /* ImageNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNameCell.swift; sourceTree = "<group>"; };
-		281D8E091DC9781200E4A65B /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		300452361F1545FA009475CD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		300A27731E4289C9000A624A /* Branding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branding.swift; sourceTree = "<group>"; };
-		302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAPIHostNameViewController.swift; sourceTree = "<group>"; };
+		302A20D51E60BC55007C522A /* TextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -91,6 +91,10 @@
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
+		3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsForKeyViewController.swift; sourceTree = "<group>"; };
+		308994121EFC2EF40068D616 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewCarouselCell.swift; sourceTree = "<group>"; };
+		308994171EFC40060068D616 /* RoundImageCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageCVCell.swift; sourceTree = "<group>"; };
 		308CB1131DCBE86400477013 /* DemoDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoDispatcher.swift; sourceTree = "<group>"; };
 		308CB1151DCCEFFA00477013 /* BillDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetails.swift; sourceTree = "<group>"; };
 		30988EA41DC7BA8700470E09 /* BillDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailsViewController.swift; sourceTree = "<group>"; };
@@ -105,14 +109,12 @@
 		30C24C351DCA39E100529785 /* RandomNameGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNameGenerator.swift; sourceTree = "<group>"; };
 		30C24C371DCA4BEF00529785 /* DemoLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoLog.swift; sourceTree = "<group>"; };
 		30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCheckmarkCell.swift; sourceTree = "<group>"; };
-		30CFF4031E43BD62009A0655 /* DemoEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnums.swift; sourceTree = "<group>"; };
 		30D4C38B1E43E97F0061BFA3 /* BrandingSwitcherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingSwitcherView.swift; sourceTree = "<group>"; };
 		30D4C38F1E43EBC60061BFA3 /* BrandingPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreview.swift; sourceTree = "<group>"; };
 		30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandingPreviewListView.swift; sourceTree = "<group>"; };
 		30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
 		30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleToggleCell.swift; sourceTree = "<group>"; };
 		30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableView.swift; sourceTree = "<group>"; };
-		30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoEnvironmentViewController.swift; sourceTree = "<group>"; };
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
@@ -148,18 +150,18 @@
 				30E78ED91DCA62C0006A2AD8 /* TitleToggleCell.swift */,
 				30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */,
 				30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */,
+				308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
 		};
-		281D8E041DC973A000E4A65B /* Accounts */ = {
+		300452351F1545D3009475CD /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				281D8E051DC973D900E4A65B /* AccountsViewController.swift */,
+				300452361F1545FA009475CD /* LoginViewController.swift */,
 			);
-			name = Accounts;
-			path = ASAPPTest/Demo/UI/Accounts;
-			sourceTree = SOURCE_ROOT;
+			path = Login;
+			sourceTree = "<group>";
 		};
 		307301C61DAE9BAA0002CF3B /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -208,12 +210,18 @@
 			path = "Speech to Text";
 			sourceTree = "<group>";
 		};
+		308994161EFC3FDC0068D616 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				308994171EFC40060068D616 /* RoundImageCVCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		30988E881DC7B69A00470E09 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				30CFF4031E43BD62009A0655 /* DemoEnums.swift */,
 				30988EB21DC7BD7E00470E09 /* AppSettings.swift */,
-				281D8E091DC9781200E4A65B /* UserAccount.swift */,
 				300A27731E4289C9000A624A /* Branding.swift */,
 				308CB1151DCCEFFA00477013 /* BillDetails.swift */,
 			);
@@ -223,11 +231,12 @@
 		30988EA01DC7BA8700470E09 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				308994161EFC3FDC0068D616 /* CollectionView */,
 				281D8DF91DC967AC00E4A65B /* TableView */,
 				30E78EDF1DCA731E006A2AD8 /* Environment */,
 				30988EA51DC7BA8700470E09 /* Home */,
+				300452351F1545D3009475CD /* Login */,
 				30988EA11DC7BA8700470E09 /* Bill Details */,
-				281D8E041DC973A000E4A65B /* Accounts */,
 				3077DBEF1ECE461E005818B8 /* Speech to Text */,
 			);
 			path = UI;
@@ -273,8 +282,9 @@
 		30E78EDF1DCA731E006A2AD8 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				30E78EE01DCA732F006A2AD8 /* DemoEnvironmentViewController.swift */,
-				302A20D51E60BC55007C522A /* AddAPIHostNameViewController.swift */,
+				3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */,
+				302A20D51E60BC55007C522A /* TextInputViewController.swift */,
+				308994121EFC2EF40068D616 /* AccountViewController.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -423,7 +433,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */,
-				30E78EE11DCA732F006A2AD8 /* DemoEnvironmentViewController.swift in Sources */,
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */,
 				30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */,
@@ -431,25 +440,27 @@
 				281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */,
 				30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */,
 				30C24C2C1DC921AE00529785 /* UIImageExtensions.swift in Sources */,
+				308994131EFC2EF40068D616 /* AccountViewController.swift in Sources */,
+				3089940F1EFB2B800068D616 /* OptionsForKeyViewController.swift in Sources */,
 				30C24C341DC9523A00529785 /* UIColorExtensions.swift in Sources */,
 				30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */,
 				281D8E001DC9681300E4A65B /* TableHeaderView.swift in Sources */,
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
 				30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
-				302A20D61E60BC55007C522A /* AddAPIHostNameViewController.swift in Sources */,
+				302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */,
 				30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */,
 				3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */,
-				281D8E061DC973D900E4A65B /* AccountsViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
+				308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
 				300A27741E4289C9000A624A /* Branding.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
+				300452371F1545FA009475CD /* LoginViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
+				308994181EFC40060068D616 /* RoundImageCVCell.swift in Sources */,
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */,
-				30CFF4041E43BD62009A0655 /* DemoEnums.swift in Sources */,
-				281D8E0A1DC9781200E4A65B /* UserAccount.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
 				307022C61DBE592F0027908C /* DemoFonts.swift in Sources */,

@@ -8,20 +8,6 @@
 
 import Foundation
 
-// MARK:- ConversationManagerDelegate
-
-protocol ConversationManagerDelegate: class {
-    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage)
-    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage)
-    
-    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
-    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool)
-    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
-}
-
-
-// MARK:- ConversationManager
-
 class ConversationManager: NSObject {
     
     let config: ASAPPConfig
@@ -32,13 +18,26 @@ class ConversationManager: NSObject {
     
     weak var delegate: ConversationManagerDelegate?
     
-    // MARK: Properties: Status
+    var originalSearchQuery: String? {
+        set {
+            simpleStore.updateSRSOriginalSearchQuery(query: newValue)
+        }
+        get {
+            return simpleStore.getSRSOriginalSearchQuery()
+        }
+    }
     
-    var currentSRSClassification: String?
+    var currentSRSClassification: String? {
+        didSet {
+            DebugLog.d(caller: self, "Updating currentSRSClassification: \(currentSRSClassification ?? "nil")")
+        }
+    }
     
     var isConnected: Bool {
         return socketConnection.isConnected
     }
+    
+    fileprivate let simpleStore: ChatSimpleStore
     
     fileprivate(set) var events: [Event]
     
@@ -56,11 +55,12 @@ class ConversationManager: NSObject {
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
-        self.socketConnection = SocketConnection(config: config, user: user)
+        self.simpleStore = ChatSimpleStore(config: config, user: user)
+        self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.fileStore = ConversationFileStore(config: config, user: user)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
         self.isLiveChat = EventType.getLiveChatStatus(from: self.events)
@@ -118,14 +118,73 @@ extension ConversationManager {
 extension ConversationManager {
     
     func enterConversation() {
-        DebugLog.d("Entering Conversation")
+        DebugLog.d(caller: self, "Entering Conversation")
+        
         socketConnection.connectIfNeeded()
     }
     
     func exitConversation() {
-        DebugLog.d("\n\nExiting Conversation\n")
+        DebugLog.d(caller: self, "Exiting Conversation")
+        
         fileStore.save()
         socketConnection.disconnect()
+    }
+}
+
+// MARK:- Requests 
+
+extension ConversationManager {
+    
+    func getRequestParameters(with params: [String : Any]?,
+                              requiresContext: Bool = true,
+                              insertContextAsString: Bool = true,
+                              contextKey: String = "Context",
+                              completion: @escaping (_ params: [String : Any]) -> Void) {
+        
+        var requestParams: [String : Any] = [
+            ASAPP.CLIENT_TYPE_KEY: ASAPP.CLIENT_TYPE_VALUE,
+            ASAPP.CLIENT_VERSION_KEY: ASAPP.clientVersion
+            ].with(params)
+        
+        if requiresContext {
+            user.getContext(completion: { (context, authToken) in
+                if let context = context {
+                    if !insertContextAsString {
+                        requestParams[contextKey] =  context
+                    } else if insertContextAsString, let contextString = JSONUtil.stringify(context) {
+                        requestParams[contextKey] =  contextString
+                    }
+                }
+                if let authToken = authToken {
+                    requestParams["Auth"] = authToken
+                }
+                completion(requestParams)
+            })
+        } else {
+            completion(requestParams)
+        }
+    }
+    
+    func sendRequest(path: String,
+                     params: [String : Any]? = nil,
+                     requiresContext: Bool = true,
+                     isRequestFromPrediction: Bool = false,
+                     completion: IncomingMessageHandler? = nil) {
+                
+        getRequestParameters(with: params, requiresContext: requiresContext) { (requestParams) in
+    
+            self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
+                completion?(incomingMessage, request, responseTime)
+       
+                if path.contains("srs/") {
+                    self.trackSRSRequest(path: path,
+                                         requestUUID: request?.requestUUID,
+                                         isPredictive: isRequestFromPrediction,
+                                         params: params,
+                                         responseTimeInMilliseconds: responseTime)
+                }
+            })
+        }
     }
 }
 
@@ -133,8 +192,10 @@ extension ConversationManager {
 
 extension ConversationManager {
     
+    typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
+    
     func getEvents(afterEvent: Event? = nil,
-                   completion: @escaping ((_ fetchedEvents: [Event]?, _ error: String?) -> Void)) {
+                   completion: @escaping FetchedEventsCompletion) {
         
         let path = "customer/GetEvents"
         let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
@@ -159,6 +220,56 @@ extension ConversationManager {
                 }
             }
         }
+    }
+}
+
+// MARK:- Quick Replies
+
+extension ConversationManager {
+    
+    func getQuickReplyMessages() -> [ChatMessage]? {
+        guard let (currentQuickReplyEvent, currentQuickReplyMessage) = getCurrentQuickReplyMessage() else {
+            return nil
+        }
+        
+        var quickReplyMessages: [ChatMessage] = [currentQuickReplyMessage]
+        var parentEventLogSeq = currentQuickReplyEvent.parentEventLogSeq
+        
+        for (_, event) in events.enumerated().reversed() {
+            if parentEventLogSeq == nil || parentEventLogSeq! > event.eventLogSeq || parentEventLogSeq == 0 {
+                break
+            }
+            
+            if event.eventLogSeq == parentEventLogSeq {
+                if let message = event.chatMessage {
+                    quickReplyMessages.append(message)
+                    parentEventLogSeq = event.parentEventLogSeq
+                } else {
+                    break
+                }
+            }
+        }
+        
+        return quickReplyMessages.reversed()
+    }
+    
+    private func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
+        for (_, event) in events.enumerated().reversed() {
+            if event.eventType == .accountMerge {
+                break
+            }
+            
+            if event.isReply {
+                if let chatMessage = event.chatMessage,
+                    let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
+                    DebugLog.d("Found current quick reply message: \(String(describing: chatMessage.text)), parentId = \(String(describing: event.parentEventLogSeq))")
+                    return (event, chatMessage)
+                }
+                break
+            }
+        }
+        
+        return nil
     }
 }
 

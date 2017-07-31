@@ -70,7 +70,7 @@ extension APIActionResponse {
         var error: APIActionError?
         switch type {
         case .finish:
-            finishAction = FinishAction(content: content)
+            finishAction = ActionFactory.action(with: content) as? FinishAction
             break
             
         case .refreshView, .componentView:

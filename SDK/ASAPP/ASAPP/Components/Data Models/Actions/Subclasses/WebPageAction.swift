@@ -10,20 +10,10 @@ import UIKit
 
 class WebPageAction: Action {
     
-    // MARK: JSON Keys
+    // MARK: Properties
     
     enum JSONKey: String {
         case url = "url"
-    }
-    
-    // MARK: Properties
-    
-    override var type: ActionType {
-        return .web
-    }
-    
-    override var willExitASAPP: Bool {
-        return true
     }
     
     let url: URL

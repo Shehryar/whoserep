@@ -13,12 +13,6 @@ protocol AppSettingsViewController {
 }
 
 class BaseViewController: UIViewController {
-
-    var appSettings: AppSettings {
-        didSet {
-            reloadViewForUpdatedSettings()
-        }
-    }
     
     var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
@@ -32,32 +26,48 @@ class BaseViewController: UIViewController {
     
     // MARK:- Initialization
     
-    required init(appSettings: AppSettings) {
-        self.appSettings = appSettings
-        self.statusBarStyle = self.appSettings.branding.colors.statusBarStyle
-        super.init(nibName: nil, bundle: nil)
+    func commonInit() {
+        statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+        
     // MARK:- View 
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         reloadViewForUpdatedSettings()
     }
+    
+    func canNavigateBack() -> Bool {
+        if let navigationController = navigationController,
+            let index = navigationController.viewControllers.index(of: self),
+            index > 0 {
+            return true
+        }
+        return false
+    }
+    
 }
 
 extension BaseViewController: AppSettingsViewController {
     
     func reloadViewForUpdatedSettings() {
         
-        statusBarStyle = appSettings.branding.colors.statusBarStyle
+        statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
         
-        view.backgroundColor = appSettings.branding.colors.backgroundColor
+        view.backgroundColor = AppSettings.shared.branding.colors.backgroundColor
         
         styleNavigationBarWithAppSettings(navBar: navigationController?.navigationBar)
     }
@@ -65,31 +75,32 @@ extension BaseViewController: AppSettingsViewController {
     func styleNavigationBarWithAppSettings(navBar: UINavigationBar?) {
         guard let navBar = navBar else { return }
         
+        let branding = AppSettings.shared.branding
+        
         navBar.isTranslucent = true
         navBar.setBackgroundImage(nil, for: .default)
         navBar.backgroundColor = nil
-        if appSettings.branding.colors.navBarColor == UIColor.black {
+        if branding.colors.navBarColor == UIColor.black {
             navBar.barTintColor = nil
             navBar.barStyle = .black
-        } else if appSettings.branding.colors.navBarColor == UIColor.white {
+        } else if AppSettings.shared.branding.colors.navBarColor == UIColor.white {
             navBar.barTintColor = nil
             navBar.barStyle = .default
         } else {
-            navBar.barTintColor = appSettings.branding.colors.navBarColor
+            navBar.barTintColor = AppSettings.shared.branding.colors.navBarColor
         }
         
         
-        navBar.tintColor = appSettings.branding.colors.navBarTintColor
+        navBar.tintColor = AppSettings.shared.branding.colors.navBarTintColor
         navBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : appSettings.branding.colors.navBarTitleColor,
-            NSFontAttributeName : appSettings.branding.fonts.lightFont.withSize(19)
+            NSForegroundColorAttributeName : AppSettings.shared.branding.colors.navBarTitleColor,
+            NSFontAttributeName : AppSettings.shared.branding.fonts.lightFont.withSize(19)
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName : appSettings.branding.fonts.regularFont.withSize(16),
+            NSFontAttributeName : AppSettings.shared.branding.fonts.regularFont.withSize(16),
             //NSForegroundColorAttributeName : appSettings.navBarTintColor
             ],
                                                             for: .normal)
-
     }
 }
