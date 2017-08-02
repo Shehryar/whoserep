@@ -273,7 +273,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             message = (quickReply.action as? WebPageAction)?.url.absoluteString
             break
             
-        case .unknown:
+        case .unknown, .legacyAppAction:
             // No-op
             break
         }

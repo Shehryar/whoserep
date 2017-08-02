@@ -18,6 +18,8 @@ class APIAction: Action {
     
     let requestPath: String
     
+    var tempRequestTopLevelParams = [String : Any]()
+    
     // MARK: Init
     
     required init?(content: Any?) {

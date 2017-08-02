@@ -347,7 +347,7 @@ class ChatViewController: ASAPPViewController {
     // MARK:- Status Bar
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        if showPredictiveOnViewAppear || predictiveVCVisible {
+        if (showPredictiveOnViewAppear || predictiveVCVisible) && !isLiveChat {
             if ASAPP.styles.colors.predictiveGradientTop.isDark() {
                 return .lightContent
             } else {
@@ -409,6 +409,17 @@ class ChatViewController: ASAPPViewController {
     }
     
     func didTapEndChatButton() {
+        let confirmationAlert = UIAlertController(title: ASAPP.strings.endChatConfirmationTitle,
+                                                  message: ASAPP.strings.endChatConfirmationMessage,
+                                                  preferredStyle: .alert)
+        confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationCancelButton, style: .cancel, handler: nil))
+        confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationEndChatButton, style: .default, handler: { [weak self] (_) in
+            self?.endLiveChat()
+        }))
+        present(confirmationAlert, animated: true, completion: nil)
+    }
+    
+    private func endLiveChat() {
         conversationManager.endLiveChat()
     }
     
@@ -617,7 +628,6 @@ extension ChatViewController {
         case .api:
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
-                    self?.showRequestErrorAlert()
                     self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
                     return
                 }
@@ -672,7 +682,16 @@ extension ChatViewController {
                     }
                 })
             }
-            break;
+            break
+            
+        case .legacyAppAction:
+            if let appAction = action as? AppAction {
+                let leaveFeedbackViewController = LeaveFeedbackViewController()
+                leaveFeedbackViewController.issueId = appAction.eventMetadata.issueId
+                leaveFeedbackViewController.delegate = self
+                present(leaveFeedbackViewController, animated: true, completion: nil)
+            }
+            break
             
         case .treewalk:
             chatMessagesView.scrollToBottomAnimated(true)
@@ -795,7 +814,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
 extension ChatViewController: PredictiveViewControllerDelegate {
     
     func setPredictiveViewControllerVisible(_ visible: Bool, animated: Bool, completion: (() -> Void)?) {
-        if predictiveVCVisible == visible {
+        if visible == predictiveVCVisible {
             return
         }
         

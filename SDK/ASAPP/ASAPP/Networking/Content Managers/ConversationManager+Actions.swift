@@ -23,6 +23,9 @@ extension ConversationManager {
         }
         
         var params = [String : Any]()
+        for (key, value) in action.tempRequestTopLevelParams {
+            params[key] = value
+        }
         if let data = JSONUtil.stringify(action.getDataWithFormData(formData)) {
             params["Data"] = data
         }

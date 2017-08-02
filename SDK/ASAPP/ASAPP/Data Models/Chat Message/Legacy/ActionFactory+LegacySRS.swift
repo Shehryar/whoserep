@@ -11,6 +11,7 @@ import UIKit
 extension ActionFactory {
     
     enum LegacyActionType: String {
+        case apiAction = "ACTION"
         case appAction = "APP_ACTION"
         case deepLink = "LINK"
         case treewalk = "AID"
@@ -23,7 +24,7 @@ extension ActionFactory {
         }
     }
  
-    static func legacyAction(with json: Any?) -> Action? {
+    static func legacyAction(with json: Any?, buttonTitle: String, metadata: EventMetadata) -> Action? {
         guard let json = json as? [String : Any],
             let valueJSON = json["value"] as? [String : Any] else {
                 return nil
@@ -36,8 +37,38 @@ extension ActionFactory {
         }
         
         switch type {
+        case .apiAction:
+            var endpoint: String?
+            var endpointPayload: [String : Any]?
+            if let endpointString = valueJSON.string(for: "content") {
+                endpoint = endpointString
+                endpointPayload = nil
+            } else if let contentJSON = valueJSON.jsonObject(for: "content") {
+                endpoint = contentJSON.string(for: "endpoint")
+                endpointPayload = contentJSON.jsonObject(for: "endpointPayload")
+            }
+            
+            if let endpoint = endpoint {
+                let apiAction = APIAction(content: [
+                    APIAction.JSONKey.requestPath.rawValue: "srs/\(endpoint)"
+                    ])
+                apiAction?.tempRequestTopLevelParams["Text"] = buttonTitle
+                
+                if let endpointPayload = endpointPayload {
+                    apiAction?.tempRequestTopLevelParams["Payload"] = endpointPayload
+                }
+                return apiAction
+            }
+            break
+            
         case .appAction:
-            // TODO
+            if let content = valueJSON.jsonObject(for: "content"),
+                let action = content.string(for: "action") {
+                return AppAction(content: [
+                    AppAction.JSONKey.action.rawValue : action,
+                    AppAction.JSONKey.metadata.rawValue : metadata
+                    ])
+            }
             break
             
         case .deepLink:

@@ -38,7 +38,6 @@ extension ChatMessage {
         let jsonKeys = json.keys
         return jsonKeys.contains("content")
             && jsonKeys.contains("displayContent")
-            && jsonKeys.contains("classification")
     }
  
     static func fromLegacySRSJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
@@ -50,12 +49,12 @@ extension ChatMessage {
             return nil
         }
         
-        let classification = json.string(for: "classification")
+//        let classification = json.string(for: "classification")
         let content = json.jsonObject(for: "content")
         let displayContent = json.bool(for: "displayContent") ?? false
-        let parentEventLogSeq = json.int(for: "parentEventLogSeq")
+//        let parentEventLogSeq = json.int(for: "parentEventLogSeq")
         
-        let (message, bodyItems, buttons) = extractLegacyComponents(content)
+        let (message, bodyItems, buttons) = extractLegacyComponents(content, metadata: metadata)
         guard message != nil || bodyItems != nil else {
             DebugLog.d(caller: self, "fromLegacySRSJSON Failed: Missing message and bodyItems")
             return nil
@@ -99,15 +98,15 @@ extension ChatMessage {
     // MARK:- Private Utility Methods
     
     /// Returns (message, body elements, buttons)
-    private static func extractLegacyComponents(_ json: [String : Any]?) -> (String?, [SRSItem]?, [SRSButton]?) {
+    private static func extractLegacyComponents(_ json: [String : Any]?, metadata: EventMetadata) -> (String?, [SRSItem]?, [SRSButton]?) {
         guard let json = json else {
             return (nil, nil, nil)
         }
      
-        let type = json.string(for: "type")
-        let orientation = json.string(for: "orientation")
+        let type = json.string(for: "type") ?? "itemlist"
+        let orientation = json.string(for: "orientation") ?? "vertical"
         guard type == "itemlist" && orientation == "vertical" else {
-            DebugLog.w(caller: self, "extractLegacyComponents Failed: Unsupported type (\(type ?? "nil")) orientation (\(orientation ?? "nil"))")
+            DebugLog.w(caller: self, "extractLegacyComponents Failed: Unsupported type (\(type)) orientation (\(orientation))")
             return (nil, nil, nil)
         }
         
@@ -121,7 +120,7 @@ extension ChatMessage {
         var buttons = [SRSButton]()
         
         for (idx, itemJSON) in itemsJSONArray.enumerated() {
-            guard let item = SRSItemFactory.parseItem(itemJSON) else {
+            guard let item = SRSItemFactory.parseItem(itemJSON, metadata: metadata) else {
                 DebugLog.d(caller: self, "Unable to parse item from json: \(itemJSON)")
                 continue
             }

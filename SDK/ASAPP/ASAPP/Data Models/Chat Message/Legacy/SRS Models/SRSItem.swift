@@ -29,7 +29,7 @@ class SRSItem: NSObject {
 
     let type: SRSItemType
     
-    init?(json: Any?) {
+    init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any],
             let type = SRSItemType.parse(json["type"]) else {
                 return nil

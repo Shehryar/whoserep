@@ -23,7 +23,7 @@ class SRSIcon: SRSItem {
     
     let iconType: IconType
     
-    override init?(json: Any?) {
+    override init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -32,6 +32,6 @@ class SRSIcon: SRSItem {
             return nil
         }
         self.iconType = iconType
-        super.init(json: json)
+        super.init(json: json, metadata: metadata)
     }
 }

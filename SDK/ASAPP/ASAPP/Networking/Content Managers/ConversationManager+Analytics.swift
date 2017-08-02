@@ -101,7 +101,7 @@ extension ConversationManager {
             break
             
             
-        case .api, .componentView, .finish, .http, .treewalk, .unknown:
+        case .api, .componentView, .finish, .http, .treewalk, .unknown, .legacyAppAction:
             // Not explicitly tracked for now
             break
         }

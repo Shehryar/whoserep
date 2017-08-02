@@ -12,7 +12,7 @@ class SRSLabel: SRSItem {
 
     let text: String
     
-    override init?(json: Any?) {
+    override init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -20,6 +20,6 @@ class SRSLabel: SRSItem {
             return nil
         }
         self.text = text
-        super.init(json: json)
+        super.init(json: json, metadata: metadata)
     }
 }
