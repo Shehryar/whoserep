@@ -567,6 +567,7 @@
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -578,8 +579,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Test App Enterprise Distribution";
+				PROVISIONING_PROFILE = "626907cc-6b77-45ae-a422-75ce21073ff9";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -704,8 +705,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ce0012ec-3ba9-4248-9fb2-a6dcea1bbff4";
-				PROVISIONING_PROFILE_SPECIFIER = "Debug Test App";
+				PROVISIONING_PROFILE = "951bc8d6-c652-4220-b250-f8e59d9bccb2";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Debug";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
