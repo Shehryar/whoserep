@@ -45,8 +45,6 @@ class HomeViewController: BaseViewController {
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
             self?.changeBranding(brandingType: type)
         }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(HomeViewController.showSpeechToTextViewController))
     }
     
     deinit {
@@ -199,6 +197,7 @@ extension HomeViewController {
         chatButton?.removeFromSuperview()
 
         ASAPP.styles = AppSettings.shared.branding.styles
+        ASAPP.strings = AppSettings.shared.branding.strings
         ASAPP.debugLogLevel = .info
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,

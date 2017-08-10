@@ -37,6 +37,7 @@ public extension ASAPPStyles {
         let black = "XFINITYSans-Bold"
         
         let ts = styles.textStyles
+        ts.navTitle = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0, color: UIColor.white)
         ts.predictiveHeader = ASAPPTextStyle(fontName: regular, size: 30, letterSpacing: 0.9, color: UIColor.white)
         ts.header1 = ASAPPTextStyle(fontName: black, size: 24, letterSpacing: 0.5, color: textBlue)
         ts.header2 = ASAPPTextStyle(fontName: black, size: 18, letterSpacing: 0.5, color: textBlue)

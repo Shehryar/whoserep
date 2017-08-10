@@ -72,6 +72,7 @@ extension ChatMessage {
         if displayContent {
             if let stackViewItems = ComponentFactory.convertSRSItems(bodyItems) {
                 var style = ComponentStyle()
+                style.alignment = .fill
                 style.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
                 
                 if let stackView = StackViewItem(orientation: .vertical,

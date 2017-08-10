@@ -115,8 +115,8 @@ class ChatViewController: ASAPPViewController {
         }
         
         // Fonts
-        updateFonts()
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
+        updateDisplay()
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
 
@@ -311,7 +311,13 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Display Update
     
-    func updateFonts() {
+    func updateDisplay() {
+        if let titleText = ASAPP.strings.chatTitle {
+            navigationItem.titleView = createASAPPTitleView(title: titleText)
+        } else {
+            navigationItem.titleView = nil
+        }
+        
         updateNavigationActionButton()
         
         chatMessagesView.updateDisplay()

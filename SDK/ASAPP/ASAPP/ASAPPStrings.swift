@@ -16,6 +16,9 @@ public class ASAPPStrings: NSObject {
     public var asappButton: String = ASAPPLocalizedString("HELP")
     public var accessibilityClose: String = ASAPPLocalizedString("Close Help")
     
+    public var chatTitle: String?
+    public var predictiveTitle: String?
+    
     // Predictive
     
     public var predictiveBackToChatButton: String = ASAPPLocalizedString("HISTORY")
@@ -57,8 +60,6 @@ public class ASAPPStrings: NSObject {
     public var endChatConfirmationMessage: String = ASAPPLocalizedString("This will end your current conversation.")
     public var endChatConfirmationEndChatButton: String = ASAPPLocalizedString("End Chat")
     public var endChatConfirmationCancelButton: String = ASAPPLocalizedString("Cancel")
-    
-    
     
     // Modal View
     

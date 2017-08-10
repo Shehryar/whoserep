@@ -9,6 +9,7 @@
 import UIKit
 
 enum TextType: String {
+    case navTitle
     case predictiveHeader
     case header1
     case header2

@@ -362,6 +362,8 @@
 		30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */; };
 		30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2771F27E7DF00D69824 /* SRSIcon.swift */; };
 		30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */; };
+		30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BBB4D21F3CE5C200FD5615 /* UIViewController+TitleView.swift */; };
+		30BBB4D51F3CE5D900FD5615 /* ChatViewController+Multimedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BBB4D41F3CE5D900FD5615 /* ChatViewController+Multimedia.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
 		30BF4DA71F2A654A00556E5A /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8B1F2A654A00556E5A /* add-credit-card.json */; };
 		30BF4DA81F2A654A00556E5A /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30BF4D8C1F2A654A00556E5A /* appointment-confirmation.json */; };
@@ -840,6 +842,8 @@
 		30B7C2751F27E07000D69824 /* ActionFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActionFactory+LegacySRS.swift"; sourceTree = "<group>"; };
 		30B7C2771F27E7DF00D69824 /* SRSIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSIcon.swift; sourceTree = "<group>"; };
 		30B7C2791F27EED300D69824 /* ComponentFactory+LegacySRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ComponentFactory+LegacySRS.swift"; sourceTree = "<group>"; };
+		30BBB4D21F3CE5C200FD5615 /* UIViewController+TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TitleView.swift"; sourceTree = "<group>"; };
+		30BBB4D41F3CE5D900FD5615 /* ChatViewController+Multimedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Multimedia.swift"; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		30BF4D8B1F2A654A00556E5A /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
 		30BF4D8C1F2A654A00556E5A /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
@@ -1451,6 +1455,8 @@
 			isa = PBXGroup;
 			children = (
 				30226CE81D493F5300871453 /* ChatViewController.swift */,
+				30BBB4D41F3CE5D900FD5615 /* ChatViewController+Multimedia.swift */,
+				30BBB4D21F3CE5C200FD5615 /* UIViewController+TitleView.swift */,
 				30226CEB1D493F5300871453 /* Messages List */,
 				30226CE91D493F5300871453 /* Message Input */,
 				3022685C1D80961000EC4FB1 /* Predictive */,
@@ -2437,6 +2443,7 @@
 				281C34831E7F092C001A2AA3 /* Component.swift in Sources */,
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
+				30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */,
 				302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */,
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
@@ -2534,6 +2541,7 @@
 				30523B891EF031A50014C5ED /* LegacyActionType.swift in Sources */,
 				30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
+				30BBB4D51F3CE5D900FD5615 /* ChatViewController+Multimedia.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
 				302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */,

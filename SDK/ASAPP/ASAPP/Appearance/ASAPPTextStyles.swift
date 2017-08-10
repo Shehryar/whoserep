@@ -10,6 +10,12 @@ import UIKit
 
 public class ASAPPTextStyles: NSObject {
     
+    var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold,
+                                                  size: 15,
+                                                  letterSpacing: 0.5,
+                                                  color: UIColor.asapp_manateeGray)
+    
+    // MARK:- ComponentUI
     // MARK: Headers
     
     var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 30, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
@@ -43,6 +49,7 @@ extension ASAPPTextStyles {
     
     func style(for type: TextType) -> ASAPPTextStyle {
         switch type {
+        case .navTitle: return navTitle
         case .predictiveHeader: return predictiveHeader
         case .header1: return header1
         case .header2: return header2
