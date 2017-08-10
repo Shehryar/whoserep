@@ -88,4 +88,11 @@ public class ASAPPStrings: NSObject {
     public var feedbackDoneButton: String = ASAPPLocalizedString("DONE")
     public var feedbackMissingRatingError: String = ASAPPLocalizedString("Please select a rating before submitting.")
     public var feedbackSentSuccessMessage: String = ASAPPLocalizedString("Rating successfully sent!")
+    
+    // Camera Permissions
+    
+    public var cameraPermissionsErrorTitle = ASAPPLocalizedString("Oops!")
+    public var cameraPermissionsErrorMessage = ASAPPLocalizedString("You will need to enable the camera permission from the settings screen before using this feature.")
+    public var cameraPermissionsErrorCancelButton = ASAPPLocalizedString("Cancel")
+    public var cameraPermissionsErrorSettingsButton = ASAPPLocalizedString("Settings")
 }
