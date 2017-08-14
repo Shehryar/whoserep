@@ -228,6 +228,11 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.title = "App Id"
         optionsVC.update(selectedOptionKey: AppSettings.Key.appId,
                          optionsListKey: AppSettings.Key.appIdList)
+        optionsVC.onSelection = { [weak self] (_) in
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
@@ -237,6 +242,11 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.title = "API Host Name"
         optionsVC.update(selectedOptionKey: AppSettings.Key.apiHostName,
                          optionsListKey: AppSettings.Key.apiHostNameList)
+        optionsVC.onSelection = { [weak self] (_) in
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
@@ -256,9 +266,14 @@ extension HomeViewController: HomeTableViewDelegate {
             AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
             strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             strongSelf.updateASAPPSettings(updateConfig: false, updateUser: true)
+            
         }
         optionsVC.onSelection = { [weak self] (customerIdentifier) in
             self?.updateASAPPSettings(updateConfig: false, updateUser: true)
+           
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
         }
         
         navigationController?.pushViewController(optionsVC, animated: true)

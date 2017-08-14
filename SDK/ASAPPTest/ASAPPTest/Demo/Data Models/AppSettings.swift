@@ -170,14 +170,12 @@ fileprivate extension AppSettings {
             "user-anonymous",
             "user-gustavo",
             "user-mitch",
-            "user-jane",
             "user-alan",
             "user-joshua",
             "user-susan",
             "user-tim",
             "user-tony",
             "user-lori",
-            "user-sandy",
             "user-rachel",
             "user-max"
         ]
