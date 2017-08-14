@@ -16,6 +16,7 @@
 		300452371F1545FA009475CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300452361F1545FA009475CD /* LoginViewController.swift */; };
 		300A27741E4289C9000A624A /* Branding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* Branding.swift */; };
 		302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D51E60BC55007C522A /* TextInputViewController.swift */; };
+		3065A76E1F425A3600382443 /* AuthTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3065A76D1F425A3600382443 /* AuthTokenViewController.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -80,6 +81,7 @@
 		300452361F1545FA009475CD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		300A27731E4289C9000A624A /* Branding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branding.swift; sourceTree = "<group>"; };
 		302A20D51E60BC55007C522A /* TextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
+		3065A76D1F425A3600382443 /* AuthTokenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTokenViewController.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */,
 				302A20D51E60BC55007C522A /* TextInputViewController.swift */,
 				308994121EFC2EF40068D616 /* AccountViewController.swift */,
+				3065A76D1F425A3600382443 /* AuthTokenViewController.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
+				3065A76E1F425A3600382443 /* AuthTokenViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
 				307022C61DBE592F0027908C /* DemoFonts.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
