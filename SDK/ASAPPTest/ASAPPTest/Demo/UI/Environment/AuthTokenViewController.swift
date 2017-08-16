@@ -9,88 +9,64 @@
 import UIKit
 
 class AuthTokenViewController: BaseTableViewController {
+    
     enum Section: Int {
-        case options
-        case createNew
+        case user
+        case spear
+        case count
+    }
+    
+    enum UserRow: Int {
+        case userId
+        case authToken
+        case count
+    }
+    
+    enum SpearRow: Int {
+        case environment
+        case pin
         case count
     }
     
     // MARK: Properties
     
-    fileprivate(set) var selectedOptionKey: AppSettings.Key?
+    var onFinish: ((_ user: String, _ authToken: String) -> Void)?
     
-    fileprivate(set) var optionsListKey: AppSettings.Key?
+    fileprivate let textInputSizingCell = TextInputCell()
+    fileprivate let buttonSizingCell = ButtonCell()
     
-    fileprivate(set) var selectedOption: String?
+    // MARK: Init
     
-    fileprivate(set) var options: [String]?
-    
-    var onSelection: ((_ selectedOption: String?) -> Void)?
-    
-    var rightBarButtonItemTitle: String? {
-        didSet {
-            updateBarButtonItems()
-        }
-    }
-    
-    var onRightBarButtonItemTap: (() -> Void)?
-    
-    var randomEntryPrefix: String?
     
     override func commonInit() {
         super.commonInit()
         
-        tableView.allowsSelectionDuringEditing = false
-    }
-}
-
-// MARK: UIBarButtonItems
-
-extension AuthTokenViewController {
-    
-    func updateBarButtonItems() {
-        if let rightBarButtonItemTitle = rightBarButtonItemTitle {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonItemTitle, style: .plain, target: self, action: #selector(OptionsForKeyViewController.didTapRightBarButtonItem))
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
+        tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Anon",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(AuthTokenViewController.useAnonymousUser))
     }
     
-    func didTapRightBarButtonItem() {
-        onRightBarButtonItemTap?()
-    }
-}
-
-// MARK: Data
-
-extension AuthTokenViewController {
+    // MARK:- Actions
     
-    func update(selectedOptionKey: AppSettings.Key, optionsListKey: AppSettings.Key) {
-        self.selectedOptionKey = selectedOptionKey
-        self.optionsListKey = optionsListKey
+    func useAnonymousUser() {
         
-        reload()
     }
     
-    func reload() {
-        guard let selectedOptionKey = selectedOptionKey, let optionsListKey = optionsListKey else {
-            selectedOption = nil
-            options = nil
-            tableView.reloadData()
-            return
-        }
-        
-        selectedOption = AppSettings.getString(forKey: selectedOptionKey)
-        options = AppSettings.getStringArray(forKey: optionsListKey)
-        
-        DemoLog("Found Selected Option: \(String(describing: selectedOption)), for key: \(selectedOptionKey.rawValue)")
-        DemoLog("With Options List: \(String(describing: options) ), for key: \(optionsListKey.rawValue)")
-        
+    func useRandomUser() {
+        let text = "ASAPPDemoUser-\(Int(Date().timeIntervalSince1970))"
         tableView.reloadData()
     }
+    
+    func finish() {
+        
+    }
 }
 
-// MARK: UITableView
+// MARK:- UITableViewDataSource
 
 extension AuthTokenViewController {
     
@@ -100,122 +76,100 @@ extension AuthTokenViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Section.options.rawValue: return options?.count ?? 0
-        case Section.createNew.rawValue: return 1
-        default: return 0
+        case Section.textInput.rawValue,
+             Section.saveButton.rawValue:
+            return 1
+            
+        default:
+            return 0
         }
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case Section.textInput.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
+            styleTextInputCell(cell, for: indexPath)
+            return cell ?? TableViewCell()
+            
+        case Section.saveButton.rawValue:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
+            styleButtonCell(cell, for: indexPath)
+            return cell ?? TableViewCell()
+            
+        default: return TableViewCell()
+        }
+    }
+    
+    // MARK: Cell Styling
+    
+    func styleTextInputCell(_ cell: TextInputCell?, for indexPath: IndexPath) {
+        guard let cell = cell else {
+            return
+        }
+        
+        cell.appSettings = AppSettings.shared
+        cell.currentText = text
+        cell.placeholderText = placeholderText
+        cell.textField.autocorrectionType = .no
+        cell.textField.autocapitalizationType = .none
+        cell.textField.returnKeyType = .done
+        cell.dismissKeyboardOnReturn = true
+        cell.onTextChange = { [weak self] (text) in
+            self?.text = text
+        }
+    }
+    
+    func styleButtonCell(_ cell: ButtonCell?, for indexPath: IndexPath) {
+        guard let cell = cell else {
+            return
+        }
+        cell.appSettings = AppSettings.shared
+        cell.title = "Save"
+    }
+}
+
+// MARK:- UITableViewDelegate
+
+extension AuthTokenViewController {
+    
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.options.rawValue: return ""
-        case Section.createNew.rawValue: return ""
+        case Section.textInput.rawValue: return instructionText
+        case Section.saveButton.rawValue: return ""
         default: return nil
         }
     }
     
-    override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let sizer = CGSize(width: tableView.bounds.width, height: 0)
         switch indexPath.section {
-        case Section.options.rawValue:
-            if let options = options {
-                let optionName = options[indexPath.row]
-                
-                return titleCheckMarkCell(title: optionName,
-                                          isChecked: optionName == selectedOption,
-                                          for: indexPath,
-                                          sizingOnly: forSizing)
-            }
-            return UITableViewCell()
+        case Section.textInput.rawValue:
+            styleTextInputCell(textInputSizingCell, for: indexPath)
+            return textInputSizingCell.sizeThatFits(sizer).height
             
-        case Section.createNew.rawValue:
-            return buttonCell(title: "Create New", for: indexPath, sizingOnly: forSizing)
+        case Section.saveButton.rawValue:
+            styleButtonCell(buttonSizingCell, for: indexPath)
+            return buttonSizingCell.sizeThatFits(sizer).height
             
-        default:
-            return UITableViewCell()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == Section.options.rawValue,
-            let option = options?[indexPath.row] {
-            return option != selectedOption
-        }
-        return false
-        
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete && indexPath.section == Section.options.rawValue else {
-            return
-        }
-        
-        if let option = options?[indexPath.row], let optionsListKey = optionsListKey {
-            AppSettings.deleteStringFromArray(option, forKey: optionsListKey)
-            reload()
+            
+        default: return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
         
         switch indexPath.section {
-        case Section.options.rawValue:
-            if let options = options, let selectedOptionKey = selectedOptionKey {
-                let option = options[indexPath.row]
-                selectedOption = option
-                AppSettings.saveObject(option, forKey: selectedOptionKey)
-                tableView.reloadData()
-                
-                onSelection?(option)
-            }
+        case Section.textInput.rawValue:
+            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
             break
             
-        case Section.createNew.rawValue:
-            let viewController = TextInputViewController()
-            viewController.title = "Add New Option"
-            if let title = title {
-                viewController.instructionText = "Add \(title)"
-            } else {
-                viewController.instructionText = "Add Option"
-            }
-            viewController.randomEntryPrefix = randomEntryPrefix
-            viewController.onFinish = { [weak self] (text) in
-                guard !text.isEmpty,
-                    let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
-                        return
-                }
-                
-                
-                if strongSelf.isRestrictedText(text) {
-                    strongSelf.showAlert(title: "Sorry!",
-                                         message: "You are not allowed to do this.")
-                    return
-                }
-                
-                
-                AppSettings.addStringToArray(text, forKey: optionsListKey)
-                strongSelf.reload()
-                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-            }
-            navigationController?.pushViewController(viewController, animated: true)
+        case Section.saveButton.rawValue:
+            finish()
             break
             
-        default:
-            // No-op
-            break
+        default: break
         }
-    }
-    
-    func isRestrictedText(_ text: String) -> Bool {
-        return [
-            "comcast.asapp.com",
-            "sprint.asapp.com"
-            ].contains(text.lowercased())
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 }
