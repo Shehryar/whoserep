@@ -471,6 +471,7 @@ extension PredictiveViewController {
                                hideButtonsForAnimation: animated)
             
             updateFrames()
+            spinner.stopAnimating()
             
             Dispatcher.delay(300) {
                 UIView.animate(withDuration: 0.4, animations: { [weak self] in
@@ -480,7 +481,6 @@ extension PredictiveViewController {
                         }
                     }
                     }, completion: { [weak self] (completed) in
-                        self?.spinner.stopAnimating()
                         self?.buttonsView.animateButtonsIn(true) {
                             self?.viewContentsVisible = true
                         }
@@ -495,7 +495,11 @@ extension PredictiveViewController {
     func presentingViewUpdatedVisibility(_ visible: Bool) {
         if visible {
             keyboardObserver.registerForNotifications()
-            spinner.startAnimating()
+            
+            if appOpenResponse == nil {
+                spinner.startAnimating()
+            }
+            
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, titleLabel)
         } else {
             dismissKeyboard()
