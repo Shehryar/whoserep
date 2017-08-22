@@ -145,14 +145,31 @@ extension AuthTokenViewController {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
         switch indexPath.section {
         case Section.user.rawValue:
-            styleTextInputCell(textInputSizingCell, for: indexPath)
-            return textInputSizingCell.sizeThatFits(sizer).height
+            switch indexPath.row {
+            case UserRow.userId.rawValue:
+                styleTextInputCell(textInputSizingCell, for: indexPath)
+                return textInputSizingCell.sizeThatFits(sizer).height
+                
+            case UserRow.authToken.rawValue:
+                styleTextInputCell(textInputSizingCell, for: indexPath)
+                return textInputSizingCell.sizeThatFits(sizer).height
+                
+            default: return 0
+            }
             
         case Section.spear.rawValue:
-            styleButtonCell(buttonSizingCell, for: indexPath)
-            return buttonSizingCell.sizeThatFits(sizer).height
-            
-            
+            switch indexPath.row {
+            case SpearRow.environment.rawValue:
+                styleButtonCell(buttonSizingCell, for: indexPath)
+                return buttonSizingCell.sizeThatFits(sizer).height
+                
+            case SpearRow.pin.rawValue:
+                styleButtonCell(buttonSizingCell, for: indexPath)
+                return buttonSizingCell.sizeThatFits(sizer).height
+                
+            default: return 0
+            }
+
         default: return 0
         }
     }
@@ -162,10 +179,32 @@ extension AuthTokenViewController {
         
         switch indexPath.section {
         case Section.user.rawValue:
+            switch indexPath.row {
+            case UserRow.userId.rawValue:
+                break
+                
+            case UserRow.authToken.rawValue:
+                break
+                
+            default:
+                break
+            }
+            
             tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
             break
             
         case Section.spear.rawValue:
+            switch indexPath.row {
+            case SpearRow.environment.rawValue:
+                break
+                
+            case SpearRow.pin.rawValue:
+                break
+                
+            default:
+                break
+            }
+            
             finish()
             break
             
