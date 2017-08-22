@@ -57,7 +57,7 @@ class AuthTokenViewController: BaseTableViewController {
     }
     
     func useRandomUser() {
-        let text = "ASAPPDemoUser-\(Int(Date().timeIntervalSince1970))"
+//        let text = "ASAPPDemoUser-\(Int(Date().timeIntervalSince1970))"
         tableView.reloadData()
     }
     
@@ -76,8 +76,8 @@ extension AuthTokenViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Section.textInput.rawValue,
-             Section.saveButton.rawValue:
+        case Section.user.rawValue,
+             Section.spear.rawValue:
             return 1
             
         default:
@@ -87,12 +87,12 @@ extension AuthTokenViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case Section.textInput.rawValue:
+        case Section.user.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
             styleTextInputCell(cell, for: indexPath)
             return cell ?? TableViewCell()
             
-        case Section.saveButton.rawValue:
+        case Section.spear.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
             styleButtonCell(cell, for: indexPath)
             return cell ?? TableViewCell()
@@ -104,20 +104,20 @@ extension AuthTokenViewController {
     // MARK: Cell Styling
     
     func styleTextInputCell(_ cell: TextInputCell?, for indexPath: IndexPath) {
-        guard let cell = cell else {
-            return
-        }
-        
-        cell.appSettings = AppSettings.shared
-        cell.currentText = text
-        cell.placeholderText = placeholderText
-        cell.textField.autocorrectionType = .no
-        cell.textField.autocapitalizationType = .none
-        cell.textField.returnKeyType = .done
-        cell.dismissKeyboardOnReturn = true
-        cell.onTextChange = { [weak self] (text) in
-            self?.text = text
-        }
+//        guard let cell = cell else {
+//            return
+//        }
+//
+//        cell.appSettings = AppSettings.shared
+//        cell.currentText = text
+//        cell.placeholderText = placeholderText
+//        cell.textField.autocorrectionType = .no
+//        cell.textField.autocapitalizationType = .none
+//        cell.textField.returnKeyType = .done
+//        cell.dismissKeyboardOnReturn = true
+//        cell.onTextChange = { [weak self] (text) in
+//            self?.text = text
+//        }
     }
     
     func styleButtonCell(_ cell: ButtonCell?, for indexPath: IndexPath) {
@@ -135,8 +135,8 @@ extension AuthTokenViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.textInput.rawValue: return instructionText
-        case Section.saveButton.rawValue: return ""
+        case Section.spear.rawValue: return "User"
+        case Section.user.rawValue: return "Spear Integration"
         default: return nil
         }
     }
@@ -144,11 +144,11 @@ extension AuthTokenViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
         switch indexPath.section {
-        case Section.textInput.rawValue:
+        case Section.user.rawValue:
             styleTextInputCell(textInputSizingCell, for: indexPath)
             return textInputSizingCell.sizeThatFits(sizer).height
             
-        case Section.saveButton.rawValue:
+        case Section.spear.rawValue:
             styleButtonCell(buttonSizingCell, for: indexPath)
             return buttonSizingCell.sizeThatFits(sizer).height
             
@@ -161,11 +161,11 @@ extension AuthTokenViewController {
         tableView.deselectRow(at: indexPath, animated: false)
         
         switch indexPath.section {
-        case Section.textInput.rawValue:
+        case Section.user.rawValue:
             tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
             break
             
-        case Section.saveButton.rawValue:
+        case Section.spear.rawValue:
             finish()
             break
             
