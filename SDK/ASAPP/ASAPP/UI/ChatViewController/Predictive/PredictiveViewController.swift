@@ -35,6 +35,7 @@ class PredictiveViewController: UIViewController {
     fileprivate let buttonsView: PredictiveButtonsView
     fileprivate let messageInputView: ChatInputView
     fileprivate let connectionStatusLabel = UILabel()
+    fileprivate let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     fileprivate var finishedInitialAnimation = true
     fileprivate var noConnectionFlashTime: TimeInterval?
     
@@ -99,6 +100,9 @@ class PredictiveViewController: UIViewController {
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)
+        
+        spinner.hidesWhenStopped = true
+        blurredBgView.contentView.addSubview(spinner)
         
         keyboardObserver.delegate = self
         
@@ -274,6 +278,9 @@ class PredictiveViewController: UIViewController {
         let buttonsHeight = messageInputView.frame.minY - buttonsTop - 10
         buttonsView.frame = CGRect(x: textLeft, y: buttonsTop, width: contentWidth, height: buttonsHeight)
         buttonsView.updateFrames()
+        
+        // Spinner
+        spinner.center = blurredBgView.center
     }
     
     func updateFramesAnimated() {
@@ -423,6 +430,7 @@ extension PredictiveViewController {
             self.appOpenResponse = nil
             messageLabel.text = nil
             messageLabel.alpha = 0.0
+            spinner.stopAnimating()
             buttonsView.clear()
             return
         }
@@ -454,6 +462,7 @@ extension PredictiveViewController {
             buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
                                otherButtonTitles: appOpenResponse.genericActions,
                                hideButtonsForAnimation: animated)
+            spinner.stopAnimating()
             buttonsView.animateButtonsIn()
             viewContentsVisible = true
         } else {
@@ -462,6 +471,7 @@ extension PredictiveViewController {
                                hideButtonsForAnimation: animated)
             
             updateFrames()
+            spinner.stopAnimating()
             
             Dispatcher.delay(300) {
                 UIView.animate(withDuration: 0.4, animations: { [weak self] in
@@ -485,6 +495,10 @@ extension PredictiveViewController {
     func presentingViewUpdatedVisibility(_ visible: Bool) {
         if visible {
             keyboardObserver.registerForNotifications()
+            
+            if appOpenResponse == nil {
+                spinner.startAnimating()
+            }
             
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, titleLabel)
         } else {
