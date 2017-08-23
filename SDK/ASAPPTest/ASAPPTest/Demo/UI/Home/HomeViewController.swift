@@ -199,7 +199,7 @@ extension HomeViewController {
         chatButton?.removeFromSuperview()
 
         ASAPP.styles = AppSettings.shared.branding.styles
-        ASAPP.debugLogLevel = .info
+        ASAPP.debugLogLevel = .debug
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
                                             presentingViewController: self)
