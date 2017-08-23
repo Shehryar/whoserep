@@ -108,7 +108,8 @@ class BaseTableViewController: BaseViewController {
 
 extension BaseTableViewController {
     
-    func textCell(forIndexPath indexPath: IndexPath, title: String?,
+    func textCell(forIndexPath indexPath: IndexPath,
+                  title: String?,
                   detailText: String? = nil,
                   accessoryType: UITableViewCellAccessoryType = .none) -> UITableViewCell {
         let textCellReuseId = "TextCellReuseId"

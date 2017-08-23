@@ -12,57 +12,106 @@ class AuthTokenViewController: BaseTableViewController {
     
     enum Section: Int {
         case user
+        case authToken
         case spear
         case count
     }
     
     enum UserRow: Int {
         case userId
-        case authToken
+        case count
+    }
+    
+    enum AuthTokenRow: Int {
+        case input
         case count
     }
     
     enum SpearRow: Int {
         case environment
         case pin
+        case generateToken
         case count
     }
     
     // MARK: Properties
-    
-    var onFinish: ((_ user: String, _ authToken: String) -> Void)?
     
     fileprivate let textInputSizingCell = TextInputCell()
     fileprivate let buttonSizingCell = ButtonCell()
     
     // MARK: Init
     
-    
     override func commonInit() {
         super.commonInit()
         
-        tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
-        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Anon",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(AuthTokenViewController.useAnonymousUser))
+        title = "Auth"
     }
     
-    // MARK:- Actions
+    // MARK: View
     
-    func useAnonymousUser() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-    }
-    
-    func useRandomUser() {
-//        let text = "ASAPPDemoUser-\(Int(Date().timeIntervalSince1970))"
         tableView.reloadData()
     }
+}
+
+// MARK:- Cell Styling
+
+extension AuthTokenViewController {
     
-    func finish() {
-        
+    func getCellForRowAt(indexPath: IndexPath, forSizing: Bool = false) -> UITableViewCell {
+        switch indexPath.section {
+        case Section.user.rawValue: return getUserSectionCell(indexPath: indexPath, forSizing: forSizing)
+        case Section.authToken.rawValue: return getAuthTokenSectionCell(indexPath: indexPath, forSizing: forSizing)
+        case Section.spear.rawValue: return getSpearIntegrationSectionCell(indexPath: indexPath, forSizing: forSizing)
+        default: return TableViewCell()
+        }
+    }
+    
+    private func getUserSectionCell(indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+        switch indexPath.row {
+        case UserRow.userId.rawValue:
+            return titleDetailValueCell(title: "Customer ID",
+                                        value: AppSettings.shared.customerIdentifier ?? "Anonymous",
+                                        for: indexPath,
+                                        sizingOnly: forSizing)
+
+        default: return TableViewCell()
+        }
+    }
+    
+    private func getAuthTokenSectionCell(indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+        switch indexPath.row {
+        case AuthTokenRow.input.rawValue:
+            return titleDetailValueCell(title: "Auth Token",
+                                        value: AppSettings.shared.authToken,
+                                        for: indexPath,
+                                        sizingOnly: forSizing)
+            
+        default: return TableViewCell()
+        }
+    }
+    
+    private func getSpearIntegrationSectionCell(indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+        switch indexPath.row {
+        case SpearRow.environment.rawValue:
+            return titleDetailValueCell(title: "Environment",
+                                        value: "<CURRENT_ENVIRONMENT>",
+                                        for: indexPath,
+                                        sizingOnly: forSizing)
+            
+        case SpearRow.pin.rawValue:
+            return titleDetailValueCell(title: "PIN",
+                                        value: "<CURRENT_PIN",
+                                        for: indexPath,
+                                        sizingOnly: forSizing)
+            
+        case SpearRow.generateToken.rawValue:
+            return buttonCell(title: "Generate Token", for: indexPath, sizingOnly: forSizing)
+            
+        default: return TableViewCell()
+        }
     }
 }
 
@@ -76,56 +125,15 @@ extension AuthTokenViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Section.user.rawValue,
-             Section.spear.rawValue:
-            return 1
-            
-        default:
-            return 0
+        case Section.user.rawValue: return UserRow.count.rawValue
+        case Section.authToken.rawValue: return AuthTokenRow.count.rawValue
+        case Section.spear.rawValue: return SpearRow.count.rawValue
+        default: return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case Section.user.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
-            styleTextInputCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-            
-        case Section.spear.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
-            styleButtonCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-            
-        default: return TableViewCell()
-        }
-    }
-    
-    // MARK: Cell Styling
-    
-    func styleTextInputCell(_ cell: TextInputCell?, for indexPath: IndexPath) {
-//        guard let cell = cell else {
-//            return
-//        }
-//
-//        cell.appSettings = AppSettings.shared
-//        cell.currentText = text
-//        cell.placeholderText = placeholderText
-//        cell.textField.autocorrectionType = .no
-//        cell.textField.autocapitalizationType = .none
-//        cell.textField.returnKeyType = .done
-//        cell.dismissKeyboardOnReturn = true
-//        cell.onTextChange = { [weak self] (text) in
-//            self?.text = text
-//        }
-    }
-    
-    func styleButtonCell(_ cell: ButtonCell?, for indexPath: IndexPath) {
-        guard let cell = cell else {
-            return
-        }
-        cell.appSettings = AppSettings.shared
-        cell.title = "Save"
+        return getCellForRowAt(indexPath: indexPath, forSizing: false)
     }
 }
 
@@ -135,43 +143,17 @@ extension AuthTokenViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.spear.rawValue: return "User"
-        case Section.user.rawValue: return "Spear Integration"
+        case Section.user.rawValue: return "User"
+        case Section.authToken.rawValue: return "Authentication"
+        case Section.spear.rawValue: return "Spear Integration"
         default: return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sizer = CGSize(width: tableView.bounds.width, height: 0)
-        switch indexPath.section {
-        case Section.user.rawValue:
-            switch indexPath.row {
-            case UserRow.userId.rawValue:
-                styleTextInputCell(textInputSizingCell, for: indexPath)
-                return textInputSizingCell.sizeThatFits(sizer).height
-                
-            case UserRow.authToken.rawValue:
-                styleTextInputCell(textInputSizingCell, for: indexPath)
-                return textInputSizingCell.sizeThatFits(sizer).height
-                
-            default: return 0
-            }
-            
-        case Section.spear.rawValue:
-            switch indexPath.row {
-            case SpearRow.environment.rawValue:
-                styleButtonCell(buttonSizingCell, for: indexPath)
-                return buttonSizingCell.sizeThatFits(sizer).height
-                
-            case SpearRow.pin.rawValue:
-                styleButtonCell(buttonSizingCell, for: indexPath)
-                return buttonSizingCell.sizeThatFits(sizer).height
-                
-            default: return 0
-            }
-
-        default: return 0
-        }
+        let cell = getCellForRowAt(indexPath: indexPath, forSizing: true)
+        return ceil(cell.sizeThatFits(sizer).height)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -181,31 +163,33 @@ extension AuthTokenViewController {
         case Section.user.rawValue:
             switch indexPath.row {
             case UserRow.userId.rawValue:
+                // Show user id view
                 break
-                
-            case UserRow.authToken.rawValue:
-                break
-                
-            default:
-                break
+
+            default: break
             }
+            break
             
-            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+        case Section.authToken.rawValue:
+            // Do something with auth token here
             break
             
         case Section.spear.rawValue:
             switch indexPath.row {
             case SpearRow.environment.rawValue:
+                
                 break
                 
             case SpearRow.pin.rawValue:
+                
                 break
                 
-            default:
+            case SpearRow.generateToken.rawValue:
+                
                 break
+                
+            default: break
             }
-            
-            finish()
             break
             
         default: break

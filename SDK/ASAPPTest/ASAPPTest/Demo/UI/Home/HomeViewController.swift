@@ -280,17 +280,7 @@ extension HomeViewController: HomeTableViewDelegate {
     }
     
     func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
-        let viewController = TextInputViewController()
-        viewController.title = "Auth Token"
-        viewController.instructionText = "Set Auth Token"
-        viewController.onFinish = { [weak self] (text) in
-            guard !text.isEmpty, let strongSelf = self else {
-                    return
-            }
-            
-            AppSettings.saveObject(text, forKey: AppSettings.Key.authToken)
-            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-        }
+        let viewController = AuthTokenViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
