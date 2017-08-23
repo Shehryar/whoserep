@@ -16,6 +16,9 @@ public class ASAPPStrings: NSObject {
     public var asappButton: String = ASAPPLocalizedString("HELP")
     public var accessibilityClose: String = ASAPPLocalizedString("Close Help")
     
+    public var chatTitle: String?
+    public var predictiveTitle: String?
+    
     // Predictive
     
     public var predictiveBackToChatButton: String = ASAPPLocalizedString("HISTORY")
@@ -53,14 +56,10 @@ public class ASAPPStrings: NSObject {
     public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    public var endChatConfirmationTitle: String = ASAPPLocalizedString("Are you sure?")
+    public var endChatConfirmationMessage: String = ASAPPLocalizedString("This will end your current conversation.")
+    public var endChatConfirmationEndChatButton: String = ASAPPLocalizedString("End Chat")
+    public var endChatConfirmationCancelButton: String = ASAPPLocalizedString("Cancel")
     
     // Modal View
     
@@ -89,4 +88,11 @@ public class ASAPPStrings: NSObject {
     public var feedbackDoneButton: String = ASAPPLocalizedString("DONE")
     public var feedbackMissingRatingError: String = ASAPPLocalizedString("Please select a rating before submitting.")
     public var feedbackSentSuccessMessage: String = ASAPPLocalizedString("Rating successfully sent!")
+    
+    // Camera Permissions
+    
+    public var cameraPermissionsErrorTitle = ASAPPLocalizedString("Oops!")
+    public var cameraPermissionsErrorMessage = ASAPPLocalizedString("You will need to enable the camera permission from the settings screen before using this feature.")
+    public var cameraPermissionsErrorCancelButton = ASAPPLocalizedString("Cancel")
+    public var cameraPermissionsErrorSettingsButton = ASAPPLocalizedString("Settings")
 }

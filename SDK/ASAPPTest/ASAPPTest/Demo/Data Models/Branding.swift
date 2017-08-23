@@ -48,6 +48,8 @@ class Branding: NSObject {
     
     let styles: ASAPPStyles
     
+    let strings: ASAPPStrings
+    
     // MARK:- Init
     
     required init(brandingType: BrandingType) {
@@ -56,7 +58,8 @@ class Branding: NSObject {
         self.brandingType = brandingType
         self.colors = BrandingColors(brandingType: brandingType)
         self.fonts = BrandingFonts(brandingType: brandingType)
-    
+        self.strings = ASAPPStrings()
+        
         switch self.brandingType {
         case .asapp:
             self.styles = ASAPPStyles.stylesForAppId("asapp")
@@ -68,6 +71,8 @@ class Branding: NSObject {
             self.styles = ASAPPStyles.stylesForAppId("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
+            self.strings.chatTitle = "XFINITY Assistant"
+            self.strings.predictiveTitle = "XFINITY Assistant"
             break
             
         case .boost:

@@ -26,7 +26,7 @@ class SRSItemList: SRSItem {
     
     let items: [SRSInfo]
 
-    override init?(json: Any?) {
+    override init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -37,7 +37,7 @@ class SRSItemList: SRSItem {
         
         var items = [SRSInfo]()
         for itemJSON in itemsJSON {
-            if let infoItem = SRSItemFactory.parseItem(itemJSON) as? SRSInfo {
+            if let infoItem = SRSItemFactory.parseItem(itemJSON, metadata: metadata) as? SRSInfo {
                 items.append(infoItem)
             } else {
                 DebugLog.d(caller: SRSItemList.self, "Invalid itemJSON in SRSItemList: \(itemJSON)")
@@ -50,6 +50,6 @@ class SRSItemList: SRSItem {
         
         self.orientation = Orientation.parse(json["orientation"]) ?? .vertical
         self.items = items
-        super.init(json: json)
+        super.init(json: json, metadata: metadata)
     }
 }

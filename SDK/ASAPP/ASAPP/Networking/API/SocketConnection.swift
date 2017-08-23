@@ -203,7 +203,7 @@ extension SocketConnection {
                 if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
                     request.logRequest(with: requestString)
                 } else {
-                    DebugLog.d("Sending analytics request")
+//                    DebugLog.d("Sending analytics request")
                 }
                 
                 socket?.send(requestString)

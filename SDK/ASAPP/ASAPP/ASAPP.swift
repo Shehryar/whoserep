@@ -81,7 +81,6 @@ public extension ASAPP {
     internal class func assertSetupComplete() {
         assert(config != nil, "ASAPP.config must be set before calling this method. You can set the config by calling method +initialize(with:) from your app delegate.")
         
-        
         assert(user != nil, "ASAPP.user must be set before calling this method.")
         
         loadFonts()

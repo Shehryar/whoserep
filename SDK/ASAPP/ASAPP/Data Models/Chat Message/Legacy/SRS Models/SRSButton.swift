@@ -14,7 +14,7 @@ class SRSButton: SRSItem {
     
     let action: Action
 
-    override init?(json: Any?) {
+    override init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -22,13 +22,13 @@ class SRSButton: SRSItem {
             DebugLog.d(caller: SRSButton.self, "JSON missing label: \(json)")
             return nil
         }
-        guard let action = ActionFactory.legacyAction(with: json) else {
+        guard let action = ActionFactory.legacyAction(with: json, buttonTitle: title, metadata: metadata) else {
             DebugLog.d(caller: SRSButton.self, "Unable to parse action from json: \(json)")
             return nil
         }
         
         self.title = title
         self.action = action
-        super.init(json: json)
+        super.init(json: json, metadata: metadata)
     }
 }

@@ -45,8 +45,6 @@ class HomeViewController: BaseViewController {
         brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
             self?.changeBranding(brandingType: type)
         }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(HomeViewController.showSpeechToTextViewController))
     }
     
     deinit {
@@ -199,6 +197,7 @@ extension HomeViewController {
         chatButton?.removeFromSuperview()
 
         ASAPP.styles = AppSettings.shared.branding.styles
+        ASAPP.strings = AppSettings.shared.branding.strings
         ASAPP.debugLogLevel = .debug
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
@@ -229,6 +228,11 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.title = "App Id"
         optionsVC.update(selectedOptionKey: AppSettings.Key.appId,
                          optionsListKey: AppSettings.Key.appIdList)
+        optionsVC.onSelection = { [weak self] (_) in
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
@@ -238,6 +242,11 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.title = "API Host Name"
         optionsVC.update(selectedOptionKey: AppSettings.Key.apiHostName,
                          optionsListKey: AppSettings.Key.apiHostNameList)
+        optionsVC.onSelection = { [weak self] (_) in
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
@@ -257,26 +266,21 @@ extension HomeViewController: HomeTableViewDelegate {
             AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
             strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             strongSelf.updateASAPPSettings(updateConfig: false, updateUser: true)
+            
         }
         optionsVC.onSelection = { [weak self] (customerIdentifier) in
             self?.updateASAPPSettings(updateConfig: false, updateUser: true)
+           
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
         }
         
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
     func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
-        let viewController = TextInputViewController()
-        viewController.title = "Auth Token"
-        viewController.instructionText = "Set Auth Token"
-        viewController.onFinish = { [weak self] (text) in
-            guard !text.isEmpty, let strongSelf = self else {
-                    return
-            }
-            
-            AppSettings.saveObject(text, forKey: AppSettings.Key.authToken)
-            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-        }
+        let viewController = AuthTokenViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     

@@ -18,7 +18,7 @@ class SRSInfo: SRSItem {
     
     let valueColor: UIColor?
     
-    override init?(json: Any?) {
+    override init?(json: Any?, metadata: EventMetadata) {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -32,6 +32,6 @@ class SRSInfo: SRSItem {
         self.labelColor = json.hexColor(for: "labelColor")
         self.value = value
         self.valueColor = json.hexColor(for: "valueColor")
-        super.init(json: json)
+        super.init(json: json, metadata: metadata)
     }
 }

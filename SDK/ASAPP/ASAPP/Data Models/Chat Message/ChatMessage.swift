@@ -77,11 +77,12 @@ extension ChatMessage {
         guard let json = json as? [String : Any] else {
             return nil
         }
-        if jsonIsLikelyLegacy(json), let legacyMessage = fromLegacySRSJSON(json, with: metadata) {
-            return legacyMessage
-        }
         
         let messageJSON = json.jsonObject(for: JSONKey.clientMessage.rawValue) ?? json
+        
+        if jsonIsLikelyLegacy(messageJSON), let legacyMessage = fromLegacySRSJSON(messageJSON, with: metadata) {
+            return legacyMessage
+        }
         
         let text = messageJSON.string(for: JSONKey.text.rawValue)
         let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])

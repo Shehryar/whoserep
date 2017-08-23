@@ -115,8 +115,8 @@ class ChatViewController: ASAPPViewController {
         }
         
         // Fonts
-        updateFonts()
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateFonts),
+        updateDisplay()
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.updateDisplay),
                                                name: Notification.Name.UIContentSizeCategoryDidChange,
                                                object: nil)
 
@@ -311,7 +311,13 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Display Update
     
-    func updateFonts() {
+    func updateDisplay() {
+        if let titleText = ASAPP.strings.chatTitle {
+            navigationItem.titleView = createASAPPTitleView(title: titleText)
+        } else {
+            navigationItem.titleView = nil
+        }
+        
         updateNavigationActionButton()
         
         chatMessagesView.updateDisplay()
@@ -347,7 +353,7 @@ class ChatViewController: ASAPPViewController {
     // MARK:- Status Bar
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        if showPredictiveOnViewAppear || predictiveVCVisible {
+        if (showPredictiveOnViewAppear || predictiveVCVisible) && !isLiveChat {
             if ASAPP.styles.colors.predictiveGradientTop.isDark() {
                 return .lightContent
             } else {
@@ -409,6 +415,17 @@ class ChatViewController: ASAPPViewController {
     }
     
     func didTapEndChatButton() {
+        let confirmationAlert = UIAlertController(title: ASAPP.strings.endChatConfirmationTitle,
+                                                  message: ASAPP.strings.endChatConfirmationMessage,
+                                                  preferredStyle: .alert)
+        confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationCancelButton, style: .cancel, handler: nil))
+        confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationEndChatButton, style: .default, handler: { [weak self] (_) in
+            self?.endLiveChat()
+        }))
+        present(confirmationAlert, animated: true, completion: nil)
+    }
+    
+    private func endLiveChat() {
         conversationManager.endLiveChat()
     }
     
@@ -617,7 +634,6 @@ extension ChatViewController {
         case .api:
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
-                    self?.showRequestErrorAlert()
                     self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
                     return
                 }
@@ -672,7 +688,16 @@ extension ChatViewController {
                     }
                 })
             }
-            break;
+            break
+            
+        case .legacyAppAction:
+            if let appAction = action as? AppAction {
+                let leaveFeedbackViewController = LeaveFeedbackViewController()
+                leaveFeedbackViewController.issueId = appAction.eventMetadata.issueId
+                leaveFeedbackViewController.delegate = self
+                present(leaveFeedbackViewController, animated: true, completion: nil)
+            }
+            break
             
         case .treewalk:
             chatMessagesView.scrollToBottomAnimated(true)
@@ -795,7 +820,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
 extension ChatViewController: PredictiveViewControllerDelegate {
     
     func setPredictiveViewControllerVisible(_ visible: Bool, animated: Bool, completion: (() -> Void)?) {
-        if predictiveVCVisible == visible {
+        if visible == predictiveVCVisible {
             return
         }
         
@@ -1090,73 +1115,6 @@ extension ChatViewController: ConversationManagerDelegate {
                 })
             }
         }
-    }
-}
-
-// MARK:- Image Selection
-
-extension ChatViewController {
-    
-    func presentImageUploadOptions(fromView presentFromView: UIView) {
-        let cameraIsAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
-        let photoLibraryIsAvailable = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
-        
-        if !cameraIsAvailable && !photoLibraryIsAvailable {
-            // Show alert to check settings
-            showAlert(title: ASAPPLocalizedString("Photos Unavailable"),
-                      message: ASAPPLocalizedString("Please update your settings to allow access to the camera and/or photo library."))
-            return
-        }
-        
-        if cameraIsAvailable && photoLibraryIsAvailable {
-            presentCameraOrPhotoLibrarySelection(fromView: presentFromView)
-        } else if cameraIsAvailable {
-            presentCamera()
-        } else if photoLibraryIsAvailable {
-            presentPhotoLibrary()
-        }
-    }
-    
-    func presentCameraOrPhotoLibrarySelection(fromView presentFromView: UIView) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Camera"), style: .default, handler: { [weak self] (alert) in
-            self?.presentCamera()
-        }))
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Photo Library"), style: .default, handler: { [weak self] (alert) in
-            self?.presentPhotoLibrary()
-        }))
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .destructive, handler: { (alert) in
-            // No-op
-        }))
-        alertController.popoverPresentationController?.sourceView = presentFromView
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func presentCamera() {
-        let imagePickerController = createImagePickerController(withSourceType: .camera)
-        imagePickerController.sourceType = .camera
-        imagePickerController.delegate = self
-        
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func presentPhotoLibrary() {
-        let imagePickerController = createImagePickerController(withSourceType: .photoLibrary)
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.delegate = self
-        
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func createImagePickerController(withSourceType sourceType: UIImagePickerControllerSourceType) -> UIImagePickerController {
-        let imagePickerController = UIImagePickerController()
-        
-        imagePickerController.allowsEditing = true
-        imagePickerController.navigationBar.applyASAPPStyles()
-        imagePickerController.view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-        
-        return imagePickerController
     }
 }
 

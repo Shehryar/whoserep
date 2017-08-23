@@ -16,6 +16,7 @@
 		300452371F1545FA009475CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300452361F1545FA009475CD /* LoginViewController.swift */; };
 		300A27741E4289C9000A624A /* Branding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A27731E4289C9000A624A /* Branding.swift */; };
 		302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D51E60BC55007C522A /* TextInputViewController.swift */; };
+		3065A76E1F425A3600382443 /* AuthTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3065A76D1F425A3600382443 /* AuthTokenViewController.swift */; };
 		307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B71DBE531F0027908C /* BaseTableViewController.swift */; };
 		307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022B91DBE554D0027908C /* BaseViewController.swift */; };
 		307022C61DBE592F0027908C /* DemoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307022C51DBE592F0027908C /* DemoFonts.swift */; };
@@ -80,6 +81,7 @@
 		300452361F1545FA009475CD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		300A27731E4289C9000A624A /* Branding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branding.swift; sourceTree = "<group>"; };
 		302A20D51E60BC55007C522A /* TextInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
+		3065A76D1F425A3600382443 /* AuthTokenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTokenViewController.swift; sourceTree = "<group>"; };
 		307022B71DBE531F0027908C /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		307022B91DBE554D0027908C /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		307022C51DBE592F0027908C /* DemoFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoFonts.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */,
 				302A20D51E60BC55007C522A /* TextInputViewController.swift */,
 				308994121EFC2EF40068D616 /* AccountViewController.swift */,
+				3065A76D1F425A3600382443 /* AuthTokenViewController.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				307022B81DBE531F0027908C /* BaseTableViewController.swift in Sources */,
 				30D4C38C1E43E97F0061BFA3 /* BrandingSwitcherView.swift in Sources */,
 				30988EAF1DC7BA8700470E09 /* HomeViewController.swift in Sources */,
+				3065A76E1F425A3600382443 /* AuthTokenViewController.swift in Sources */,
 				308CB1141DCBE86400477013 /* DemoDispatcher.swift in Sources */,
 				307022C61DBE592F0027908C /* DemoFonts.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
@@ -567,6 +571,7 @@
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -578,8 +583,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "439ffd2d-438b-451f-bf90-0c4156fa0b94";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Test App Enterprise Distribution";
+				PROVISIONING_PROFILE = "626907cc-6b77-45ae-a422-75ce21073ff9";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -687,7 +692,7 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell S Morgan (S444KZ7Z7F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell Morgan (95LSW78FNM)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
@@ -704,8 +709,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ce0012ec-3ba9-4248-9fb2-a6dcea1bbff4";
-				PROVISIONING_PROFILE_SPECIFIER = "Debug Test App";
+				PROVISIONING_PROFILE = "951bc8d6-c652-4220-b250-f8e59d9bccb2";
+				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Debug";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

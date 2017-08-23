@@ -131,6 +131,12 @@ class PredictiveViewController: UIViewController {
     
     
     func updateDisplay() {
+        if let titleText = ASAPP.strings.predictiveTitle {
+            navigationItem.titleView = createASAPPTitleView(title: titleText, color: ASAPP.styles.colors.predictiveNavBarTitle)
+        } else {
+            navigationItem.titleView = nil
+        }
+        
         let viewChatButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.predictiveBackToChatButton,
                                                                 style: .respond,
                                                                 location: .predictive,

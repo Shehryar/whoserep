@@ -21,6 +21,8 @@ enum ActionType: String {
     case web            = "web"
     case unknown        = "unknown"
     
+    case legacyAppAction = "APP_ACTION"
+    
     // MARK: JSON Parsing
     
     static func from(_ value: Any?) -> ActionType? {
@@ -42,6 +44,7 @@ extension ActionType {
         case .deepLink: return DeepLinkAction.self
         case .finish: return FinishAction.self
         case .http: return HTTPAction.self
+        case .legacyAppAction: return AppAction.self
         case .treewalk: return TreewalkAction.self
         case .userLogin: return UserLoginAction.self
         case .web: return WebPageAction.self
@@ -57,6 +60,7 @@ extension Action {
     var type: ActionType {
         switch self {
         case is APIAction: return .api
+        case is AppAction: return .legacyAppAction
         case is ComponentViewAction: return .componentView
         case is DeepLinkAction: return .deepLink
         case is FinishAction: return .finish
@@ -78,6 +82,7 @@ extension Action {
         case is APIAction,
              is ComponentViewAction,
              is HTTPAction,
+             is AppAction,
              is TreewalkAction,
              is FinishAction:
             return false
@@ -96,6 +101,7 @@ extension Action {
         case is ComponentViewAction,
              is DeepLinkAction,
              is FinishAction,
+             is AppAction,
              is UserLoginAction,
              is WebPageAction:
             return false
