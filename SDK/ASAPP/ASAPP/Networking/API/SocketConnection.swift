@@ -280,7 +280,17 @@ extension SocketConnection: SRWebSocketDelegate {
                 originalRequestInfo = " [\(request.path)] [\(request.requestUUID)]"
             }
             
-            DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------\n\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+            DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------")
+            
+            if (message as AnyObject).description.characters.count > 1000 {
+                if ASAPP.debugLogLevel.rawValue < ASAPPLogLevel.info.rawValue {
+                    DebugLog.d("(Use info debug level to see long message)")
+                }
+                DebugLog.i("\(message)")
+                DebugLog.d("---------")
+            } else {
+                DebugLog.d("\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+            }
         }
         
         let serializedMessage = incomingMessageSerializer.serializedMessage(message)
