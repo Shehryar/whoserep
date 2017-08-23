@@ -38,6 +38,8 @@ class SocketConnection: NSObject {
     
     // MARK: Private Properties
     
+    fileprivate var isAuthenticated = false
+    
     fileprivate var connectionRequest: URLRequest
     
     fileprivate var socket: SRWebSocket?
@@ -160,6 +162,16 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
+    fileprivate func sendAuthRequest(withPath path: String,
+                         params: [String : Any]?,
+                         requestHandler: IncomingMessageHandler? = nil) {
+        let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: nil)
+        if let requestHandler = requestHandler {
+            requestHandlers[request.requestId] = requestHandler
+        }
+        sendRequestWithRequest(request, isAuthRequest: true)
+    }
+    
     /// Returns true if the message is sent
     
     func sendRequestWithData(_ data: Data,
@@ -171,8 +183,14 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    fileprivate func sendRequestWithRequest(_ request: SocketRequest) {
+    fileprivate func sendRequestWithRequest(_ request: SocketRequest, isAuthRequest: Bool = false) {
         if isConnected {
+            guard isAuthRequest || isAuthenticated else {
+                DebugLog.d("User not authenticated. Queueing request: \(request.path)")
+                requestQueue.append(request)
+                return
+            }
+            
             requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
             requestLookup[request.requestId] = request
             
@@ -206,11 +224,19 @@ extension SocketConnection {
     func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
         let (path, params) = outgoingMessageSerializer.createAuthRequest()
-        sendRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
+        sendAuthRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
             
+            if let messageType = message.type {
+                if messageType == .Response {
+                    self?.isAuthenticated = true
+                } else if messageType == .ResponseError {
+                    self?.isAuthenticated = false
+                }
+            }
+            
             if let completion = completion {
-                completion(message, nil)
+                completion(message, message.debugError)
             }
         }
     }
@@ -280,7 +306,17 @@ extension SocketConnection: SRWebSocketDelegate {
                 originalRequestInfo = " [\(request.path)] [\(request.requestUUID)]"
             }
             
-            DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------\n\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+            DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------")
+            
+            if (message as AnyObject).description.characters.count > 1000 {
+                if ASAPP.debugLogLevel.rawValue < ASAPPLogLevel.info.rawValue {
+                    DebugLog.d("(Use info debug level to see long message)")
+                }
+                DebugLog.i("\(message)")
+                DebugLog.d("---------")
+            } else {
+                DebugLog.d("\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
+            }
         }
         
         let serializedMessage = incomingMessageSerializer.serializedMessage(message)
@@ -333,11 +369,15 @@ extension SocketConnection: SRWebSocketDelegate {
     func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         DebugLog.d("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
         
+        isAuthenticated = false
+        
         delegate?.socketConnectionDidLoseConnection(self)
     }
     
     func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: Error!) {
         DebugLog.d("Socket Did Fail: \(error)")
+        
+        isAuthenticated = false
         
         delegate?.socketConnectionFailedToAuthenticate(self)
     }
