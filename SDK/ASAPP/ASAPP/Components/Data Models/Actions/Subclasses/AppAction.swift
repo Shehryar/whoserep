@@ -40,7 +40,7 @@ class AppAction: Action {
                 return nil
         }
         guard let metadata = contentDict[JSONKey.metadata.rawValue] as? EventMetadata else {
-            DebugLog.d(caller: AppAction.self, "Missing event metatdata: \(content)")
+            DebugLog.d(caller: AppAction.self, "Missing event metatdata: \(String(describing: content))")
             return nil
         }
         

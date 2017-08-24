@@ -163,7 +163,15 @@ extension AuthTokenViewController {
         case Section.user.rawValue:
             switch indexPath.row {
             case UserRow.userId.rawValue:
-                // Show user id view
+                let customerIdVC = CustomerIdViewController()
+                customerIdVC.onSelection = { [weak self] (customerIdentifier) in
+                    self?.tableView.reloadData()
+                    
+                    if let strongSelf = self {
+                        strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+                    }
+                }
+                navigationController?.pushViewController(customerIdVC, animated: true)
                 break
 
             default: break

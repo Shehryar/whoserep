@@ -28,6 +28,7 @@
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
 		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
+		308887261F4F4C50008189AD /* CustomerIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308887251F4F4C50008189AD /* CustomerIdViewController.swift */; };
 		3089940F1EFB2B800068D616 /* OptionsForKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */; };
 		308994131EFC2EF40068D616 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994121EFC2EF40068D616 /* AccountViewController.swift */; };
 		308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */; };
@@ -93,6 +94,7 @@
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
+		308887251F4F4C50008189AD /* CustomerIdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerIdViewController.swift; sourceTree = "<group>"; };
 		3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsForKeyViewController.swift; sourceTree = "<group>"; };
 		308994121EFC2EF40068D616 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		308994141EFC3E500068D616 /* ImageViewCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewCarouselCell.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				302A20D51E60BC55007C522A /* TextInputViewController.swift */,
 				308994121EFC2EF40068D616 /* AccountViewController.swift */,
 				3065A76D1F425A3600382443 /* AuthTokenViewController.swift */,
+				308887251F4F4C50008189AD /* CustomerIdViewController.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */,
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */,
+				308887261F4F4C50008189AD /* CustomerIdViewController.swift in Sources */,
 				30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */,
 				281D8E031DC9696A00E4A65B /* TitleDetailValueCell.swift in Sources */,
 				281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */,

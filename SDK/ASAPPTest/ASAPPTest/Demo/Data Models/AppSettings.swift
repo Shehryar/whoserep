@@ -122,28 +122,17 @@ fileprivate extension AppSettings {
     
     class func getDefaultAPIHostNames() -> [String] {
         return [
+            "demo.asapp.com",
             "sprint.preprod.asapp.com",
-            "comcast.preprod.asapp.com",
-            "demo.asapp.com"
+            "comcast.preprod.asapp.com"
         ]
     }
     
     class func getDefaultAppIds() -> [String] {
         return [
-            "boost",
-            "comcast",
             "asapp",
-            "company1",
-            "company2",
-            "company3",
-            "company4",
-            "company5",
-            "company6",
-            "company7",
-            "company8",
-            "company9",
-            "company10",
-            "company11",
+            "boost",
+            "comcast"
         ]
     }
     
