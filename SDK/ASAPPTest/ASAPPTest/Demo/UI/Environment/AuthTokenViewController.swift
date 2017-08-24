@@ -84,10 +84,13 @@ extension AuthTokenViewController {
     private func getAuthTokenSectionCell(indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
         switch indexPath.row {
         case AuthTokenRow.input.rawValue:
-            return titleDetailValueCell(title: "Auth Token",
-                                        value: AppSettings.shared.authToken,
-                                        for: indexPath,
-                                        sizingOnly: forSizing)
+            return textInputCell(text: AppSettings.shared.authToken,
+                                 placeholder: "Auth Token",
+                                 onTextChange: { (updatedToken) in
+                                    
+                                 },
+                                 for: indexPath,
+                                 sizingOnly: forSizing)
             
         default: return TableViewCell()
         }

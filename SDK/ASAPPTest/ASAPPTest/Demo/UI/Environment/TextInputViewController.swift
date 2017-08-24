@@ -32,7 +32,6 @@ class TextInputViewController: BaseTableViewController {
     
     fileprivate(set) var text: String = ""
     
-    fileprivate let textInputSizingCell = TextInputCell()
     fileprivate let buttonSizingCell = ButtonCell()
     
     // MARK: Init
@@ -40,8 +39,7 @@ class TextInputViewController: BaseTableViewController {
     
     override func commonInit() {
         super.commonInit()
-        
-        tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
+    
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
     }
     
@@ -105,48 +103,26 @@ extension TextInputViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
         switch indexPath.section {
         case Section.textInput.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
-            styleTextInputCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
+            return textInputCell(text: text,
+                                 placeholder: placeholderText,
+                                 onTextChange: { [weak self] (updatedText) in
+                                    self?.text = updatedText
+                                 },
+                                 for: indexPath,
+                                 sizingOnly: forSizing)
             
         case Section.saveButton.rawValue:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
-            styleButtonCell(cell, for: indexPath)
-            return cell ?? TableViewCell()
-        
+            return buttonCell(title: "Save",
+                              for: indexPath,
+                              sizingOnly: forSizing)
+            
         default: return TableViewCell()
         }
     }
-    
-    // MARK: Cell Styling
 
-    func styleTextInputCell(_ cell: TextInputCell?, for indexPath: IndexPath) {
-        guard let cell = cell else {
-            return
-        }
-        
-        cell.appSettings = AppSettings.shared
-        cell.currentText = text
-        cell.placeholderText = placeholderText
-        cell.textField.autocorrectionType = .no
-        cell.textField.autocapitalizationType = .none
-        cell.textField.returnKeyType = .done
-        cell.dismissKeyboardOnReturn = true
-        cell.onTextChange = { [weak self] (text) in
-            self?.text = text
-        }
-    }
-    
-    func styleButtonCell(_ cell: ButtonCell?, for indexPath: IndexPath) {
-        guard let cell = cell else {
-            return
-        }
-        cell.appSettings = AppSettings.shared
-        cell.title = "Save"
-    }
 }
 
 // MARK:- UITableViewDelegate
@@ -158,22 +134,6 @@ extension TextInputViewController {
         case Section.textInput.rawValue: return instructionText
         case Section.saveButton.rawValue: return ""
         default: return nil
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let sizer = CGSize(width: tableView.bounds.width, height: 0)
-        switch indexPath.section {
-        case Section.textInput.rawValue:
-            styleTextInputCell(textInputSizingCell, for: indexPath)
-            return textInputSizingCell.sizeThatFits(sizer).height
-            
-        case Section.saveButton.rawValue:
-            styleButtonCell(buttonSizingCell, for: indexPath)
-            return buttonSizingCell.sizeThatFits(sizer).height
-
-            
-        default: return 0
         }
     }
     

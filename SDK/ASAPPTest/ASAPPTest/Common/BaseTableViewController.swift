@@ -14,34 +14,40 @@ class BaseTableViewController: BaseViewController {
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     
-    // MARK:- Private Properties
+    // MARK:- Sizing-Views
     
     fileprivate lazy var headerSizingView: TableHeaderView = {
         return TableHeaderView()
+    }()
+
+    // MARK: Sizing-Cells
+    
+    fileprivate lazy var buttonSizingCell: ButtonCell = {
+        return ButtonCell()
     }()
     
     fileprivate lazy var imageNameSizingCell: ImageNameCell = {
         return ImageNameCell()
     }()
     
+    fileprivate lazy var imageViewCarouselSizingCell: ImageViewCarouselCell = {
+        return ImageViewCarouselCell()
+    }()
+    
     fileprivate lazy var labelIconSizingCell: LabelIconCell = {
         return LabelIconCell()
     }()
     
-    fileprivate lazy var titleDetailValueSizingCell: TitleDetailValueCell = {
-        return TitleDetailValueCell()
+    fileprivate lazy var textInputSizingCell: TextInputCell = {
+        return  TextInputCell()
     }()
     
     fileprivate lazy var titleCheckmarkSizingCell: TitleCheckmarkCell = {
         return TitleCheckmarkCell()
     }()
     
-    fileprivate lazy var buttonSizingCell: ButtonCell = {
-        return ButtonCell()
-    }()
-    
-    fileprivate lazy var imageViewCarouselSizingCell: ImageViewCarouselCell = {
-        return ImageViewCarouselCell()
+    fileprivate lazy var titleDetailValueSizingCell: TitleDetailValueCell = {
+        return TitleDetailValueCell()
     }()
     
     // MARK:- Initialization
@@ -51,12 +57,14 @@ class BaseTableViewController: BaseViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
-        tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
-        tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
-        tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
+        tableView.register(ImageNameCell.self, forCellReuseIdentifier: ImageNameCell.reuseId)
         tableView.register(ImageViewCarouselCell.self, forCellReuseIdentifier: ImageViewCarouselCell.reuseId)
+        tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
+        tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
+        tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
+        tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
+        
         tableView.backgroundColor = AppSettings.shared.branding.colors.secondaryBackgroundColor
         tableView.dataSource = self
         tableView.delegate = self
@@ -108,24 +116,16 @@ class BaseTableViewController: BaseViewController {
 
 extension BaseTableViewController {
     
-    func textCell(forIndexPath indexPath: IndexPath,
-                  title: String?,
-                  detailText: String? = nil,
-                  accessoryType: UITableViewCellAccessoryType = .none) -> UITableViewCell {
-        let textCellReuseId = "TextCellReuseId"
-        let cell = tableView.dequeueReusableCell(withIdentifier: textCellReuseId) ?? UITableViewCell(style: .value1, reuseIdentifier: textCellReuseId)
+    func buttonCell(title: String?,
+                    for indexPath: IndexPath,
+                    sizingOnly: Bool) -> UITableViewCell {
+        let cell = sizingOnly
+            ? buttonSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
         
-        cell.textLabel?.text = title
-        cell.textLabel?.font = AppSettings.shared.branding.fonts.boldFont.withSize(16)
-        cell.textLabel?.textColor = UIColor.darkGray
+        cell?.title = title
         
-        cell.detailTextLabel?.text = detailText
-        cell.detailTextLabel?.font = AppSettings.shared.branding.fonts.regularFont.withSize(16)
-        cell.detailTextLabel?.textColor = UIColor.gray
-        
-        cell.accessoryType = accessoryType
-        
-        return cell
+        return cell ?? UITableViewCell()
     }
     
     func imageNameCell(name: String,
@@ -144,18 +144,18 @@ extension BaseTableViewController {
         return cell ?? UITableViewCell()
     }
     
-    func titleDetailValueCell(title: String? = nil,
-                              detail: String? = nil,
-                              value: String? = nil,
-                              for indexPath: IndexPath,
-                              sizingOnly: Bool) -> UITableViewCell {
+    func imageViewCarouselCell(imageNames: [String]?,
+                               selectedImageName: String? = nil,
+                               onSelection: ((_ imageName: String) -> Void)? = nil,
+                               for indexPath: IndexPath,
+                               sizingOnly: Bool) -> UITableViewCell {
         let cell = sizingOnly
-            ? titleDetailValueSizingCell
-            : tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TitleDetailValueCell
+            ? imageViewCarouselSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: ImageViewCarouselCell.reuseId, for: indexPath) as? ImageViewCarouselCell
         
-        cell?.appSettings = AppSettings.shared
-        cell?.selectionStyle = .default
-        cell?.update(titleText: title, detailText: detail, valueText: value)
+        cell?.imageNames = imageNames
+        cell?.selectedImageName = selectedImageName
+        cell?.onSelection = onSelection
         
         return cell ?? UITableViewCell()
     }
@@ -180,6 +180,52 @@ extension BaseTableViewController {
         return cell ?? UITableViewCell()
     }
     
+    func textCell(forIndexPath indexPath: IndexPath,
+                  title: String?,
+                  detailText: String? = nil,
+                  accessoryType: UITableViewCellAccessoryType = .none) -> UITableViewCell {
+        let textCellReuseId = "TextCellReuseId"
+        let cell = tableView.dequeueReusableCell(withIdentifier: textCellReuseId) ?? UITableViewCell(style: .value1, reuseIdentifier: textCellReuseId)
+        
+        cell.textLabel?.text = title
+        cell.textLabel?.font = AppSettings.shared.branding.fonts.boldFont.withSize(16)
+        cell.textLabel?.textColor = UIColor.darkGray
+        
+        cell.detailTextLabel?.text = detailText
+        cell.detailTextLabel?.font = AppSettings.shared.branding.fonts.regularFont.withSize(16)
+        cell.detailTextLabel?.textColor = UIColor.gray
+        
+        cell.accessoryType = accessoryType
+        
+        return cell
+    }
+    
+    func textInputCell(text: String? = nil,
+                       placeholder: String? = nil,
+                       autocorrectionType: UITextAutocorrectionType = .no,
+                       autocapitalizationType: UITextAutocapitalizationType = .none,
+                       returnKeyType: UIReturnKeyType = .done,
+                       dismissKeyboardOnReturn: Bool = true,
+                       onTextChange: ((_ text: String) -> Void)?,
+                       for indexPath: IndexPath,
+                       sizingOnly: Bool) -> TextInputCell {
+        
+        let cell = sizingOnly
+            ? textInputSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
+        
+        cell?.appSettings = AppSettings.shared
+        cell?.currentText = text ?? ""
+        cell?.placeholderText = placeholder
+        cell?.textField.autocorrectionType = .no
+        cell?.textField.autocapitalizationType = .none
+        cell?.textField.returnKeyType = .done
+        cell?.dismissKeyboardOnReturn = true
+        cell?.onTextChange = onTextChange
+        
+        return cell ?? TextInputCell()
+    }
+    
     func titleCheckMarkCell(title: String?,
                             isChecked: Bool,
                             for indexPath: IndexPath,
@@ -195,38 +241,20 @@ extension BaseTableViewController {
         return cell ?? UITableViewCell()
     }
     
-    func buttonCell(title: String?,
-                    for indexPath: IndexPath,
-                    sizingOnly: Bool) -> UITableViewCell {
+    func titleDetailValueCell(title: String? = nil,
+                              detail: String? = nil,
+                              value: String? = nil,
+                              for indexPath: IndexPath,
+                              sizingOnly: Bool) -> UITableViewCell {
         let cell = sizingOnly
-            ? buttonSizingCell
-            : tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
+            ? titleDetailValueSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: TitleDetailValueCell.reuseId, for: indexPath) as? TitleDetailValueCell
         
-        cell?.title = title
+        cell?.appSettings = AppSettings.shared
+        cell?.selectionStyle = .default
+        cell?.update(titleText: title, detailText: detail, valueText: value)
         
         return cell ?? UITableViewCell()
-    }
-    
-    func imageViewCarouselCell(imageNames: [String]?,
-                               selectedImageName: String? = nil,
-                               onSelection: ((_ imageName: String) -> Void)? = nil,
-                               for indexPath: IndexPath,
-                               sizingOnly: Bool) -> UITableViewCell {
-        let cell = sizingOnly
-            ? imageViewCarouselSizingCell
-            : tableView.dequeueReusableCell(withIdentifier: ImageViewCarouselCell.reuseId, for: indexPath) as? ImageViewCarouselCell
-        
-        cell?.imageNames = imageNames
-        cell?.selectedImageName = selectedImageName
-        cell?.onSelection = onSelection
-        
-        return cell ?? UITableViewCell()
-    }
-
-    // MARK: OVERRIDE THIS METHOD
-    
-    func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
-        fatalError("Subclass must override tableView:cellForRowAt:")
     }
 }
 
@@ -244,6 +272,12 @@ extension BaseTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return getCellForIndexPath(indexPath, forSizing: false)
+    }
+    
+    // MARK: OVERRIDE THIS METHOD
+    
+    func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+        fatalError("Subclass must override tableView:cellForRowAt:")
     }
 }
 
