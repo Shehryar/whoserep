@@ -19,7 +19,6 @@ class OutgoingMessageSerializer: NSObject {
     
     var myId: Int = 0
     var issueId: Int = 0
-    var sessionInfo: String?
     var targetCustomerToken: String?
     var customerTargetCompanyId: Int = 0
     
@@ -65,14 +64,14 @@ extension OutgoingMessageSerializer {
         ]
         
         var sessionInfoJson: [String : Any]?
-        if let sessionInfo = sessionInfo {
+        if let sessionInfo = user.sessionInfo {
             do {
                 sessionInfoJson = try JSONSerialization.jsonObject(with: sessionInfo.data(using: String.Encoding.utf8)!, options: []) as? [String: Any]
             } catch {}
         }
         
         //
-        // Session
+        // Existing session
         //
         if let sessionInfoJson = sessionInfoJson {
             DebugLog.d(caller: self, "Authenticating with Session")
@@ -80,31 +79,35 @@ extension OutgoingMessageSerializer {
             path = "auth/AuthenticateWithSession"
             params["SessionInfo"] = sessionInfoJson
         }
- 
- 
-        //
-        // User Token
-        //
-        if !user.isAnonymous {
-            DebugLog.d(caller: self, "Authenticating with Customer Identifier")
-            
-            path = "auth/AuthenticateWithCustomerIdentifier"
-            params["IdentifierType"] = config.identifierType
-            params["CustomerIdentifier"] = user.userIdentifier
-            
-            if let userLoginAction = userLoginAction {
-                params["MergeCustomerId"] = userLoginAction.mergeCustomerId
-                params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
-            }
-        }
         
         //
-        // Anonymous User
+        // New session
         //
         else {
-            DebugLog.d(caller: self, "Authenticating with Anonymous User")
+            //
+            // User Token
+            //
+            if !user.isAnonymous {
+                DebugLog.d(caller: self, "Authenticating with Customer Identifier")
+                
+                path = "auth/AuthenticateWithCustomerIdentifier"
+                params["IdentifierType"] = config.identifierType
+                params["CustomerIdentifier"] = user.userIdentifier
+                
+                if let userLoginAction = userLoginAction {
+                    params["MergeCustomerId"] = userLoginAction.mergeCustomerId
+                    params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
+                }
+            }
             
-            path = "auth/CreateAnonCustomerAccount"
+            //
+            // Anonymous User
+            //
+            else {
+                DebugLog.d(caller: self, "Authenticating with Anonymous User")
+                
+                path = "auth/CreateAnonCustomerAccount"
+            }
         }
         
         return (path, params)
@@ -122,7 +125,7 @@ extension OutgoingMessageSerializer {
         }
         
         if let sessionJsonData = try? JSONSerialization.data(withJSONObject: sessionInfoDict, options: []) {
-            sessionInfo = String(data: sessionJsonData, encoding: String.Encoding.utf8)
+            user.sessionInfo = String(data: sessionJsonData, encoding: String.Encoding.utf8)
         }
         
         if let company = sessionInfoDict["Company"] as? [String: Any] {
