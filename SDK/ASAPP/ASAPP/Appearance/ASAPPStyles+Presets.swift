@@ -92,8 +92,7 @@ public extension ASAPPStyles {
     internal class func boostStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
-        let darkText = UIColor(red:0.345, green:0.388, blue:0.486, alpha:1.000)
-        let boostOrange = UIColor(red:0.969, green:0.565, blue:0.122, alpha:1.000)
+        let boostOrange = UIColor(hexString: "#f7901e")!
         
         // Nav button style
         
@@ -101,46 +100,53 @@ public extension ASAPPStyles {
         
         // Text Styles
        
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(fontName: "BoostNeo-Bold", size: 30, letterSpacing: 0.9, color: UIColor.white)
-        
+        styles.textStyles.predictiveHeader = ASAPPTextStyle(fontName: "BoostNeo-Bold", size: 30, letterSpacing: 0.9, color: .white)
         
         // Colors
         
-        styles.colors.navBarBackground = boostOrange
-//        styles.colors.navBarBackground = UIColor.black
-        styles.colors.navBarTitle = UIColor.white
-        styles.colors.navBarButton = UIColor.white
-
-        styles.colors.messageText = darkText
+        styles.colors.navBarBackground = .black
+        styles.colors.navBarTitle = .white
+        styles.colors.navBarButton = .white
         
-        styles.colors.replyMessageText = darkText
-        styles.colors.replyMessageBackground = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
-        styles.colors.replyMessageBorder = UIColor(red:0.918, green:0.925, blue:0.937, alpha:1.000)
+        let messageColor = UIColor(hexString: "#797f90")!
+        styles.colors.messageText = messageColor
+        styles.colors.messageBorder = messageColor
         
-        styles.colors.quickRepliesBackground = UIColor.white
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white,
-                                                           textColor: darkText)
+        styles.colors.replyMessageText = UIColor(hexString: "#444852")!
+        let replyColor = UIColor(hexString: "#eaecef")!
+        styles.colors.replyMessageBackground = replyColor
+        styles.colors.replyMessageBorder = replyColor
         
-        styles.colors.predictiveGradientTop = UIColor(red:0.973, green:0.596, blue:0.188, alpha:1.000)
-        styles.colors.predictiveGradientMiddle = UIColor(red:0.937, green:0.502, blue:0.145, alpha:1.000)
-        styles.colors.predictiveGradientBottom = UIColor(red:0.914, green:0.427, blue:0.110, alpha:1.000)
+        styles.colors.quickRepliesBackground = .white
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: UIColor(hexString: "#5b657e")!)
         
-        styles.colors.predictiveTextPrimary = UIColor.white
-        styles.colors.predictiveTextSecondary = UIColor.white
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red:0.968, green:0.626, blue:0.285, alpha:1.000),
-                                                                  textColor: UIColor.white)
-        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red:0.953, green:0.616, blue:0.275, alpha:1.000),
-                                                                    textColor: UIColor.white)
-        styles.colors.predictiveInput = ASAPPInputColors(background: UIColor(red:0.937, green:0.612, blue:0.361, alpha:1.000),
-                                                         text: UIColor.white,
-                                                         placeholderText: UIColor.white.withAlphaComponent(0.8),
-                                                         tint: UIColor.white,
-                                                         border: nil,
-                                                         primaryButton: UIColor.white,
-                                                         secondaryButton: UIColor.white)
+        let predictiveColor = UIColor(hexString: "#373737")!
+        styles.colors.predictiveGradientTop = predictiveColor
+        styles.colors.predictiveGradientMiddle = predictiveColor
+        styles.colors.predictiveGradientBottom = predictiveColor
         
+        let controlTint = UIColor(hexString: "#13a4a2")!
+        styles.colors.predictiveTextPrimary = .white
+        styles.colors.predictiveTextSecondary = .white
+        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(
+            backgroundNormal: predictiveColor,
+            backgroundHighlighted: boostOrange,
+            backgroundDisabled: predictiveColor,
+            textNormal: boostOrange,
+            textHighlighted: .white,
+            textDisabled: boostOrange,
+            border: boostOrange)
+        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
+        styles.colors.predictiveInput = ASAPPInputColors(
+            background: UIColor(hexString: "#605f60")!,
+            text: .white,
+            placeholderText: UIColor(hexString: "#dedede")!,
+            tint: controlTint,
+            border: nil,
+            primaryButton: controlTint,
+            secondaryButton: controlTint)
         
-        styles.colors.controlTint = boostOrange
+        styles.colors.controlTint = controlTint
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: boostOrange)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: boostOrange)
         
