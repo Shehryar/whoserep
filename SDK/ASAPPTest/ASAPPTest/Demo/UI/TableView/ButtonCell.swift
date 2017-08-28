@@ -50,7 +50,7 @@ class ButtonCell: TableViewCell {
             
             if loading {
                 spinner.startAnimating()
-                titleLabel.alpha = 0.5
+                titleLabel.alpha = 0.25
                 selectionStyle = .none
             } else {
                 spinner.stopAnimating()

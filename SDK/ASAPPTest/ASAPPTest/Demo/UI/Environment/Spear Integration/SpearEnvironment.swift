@@ -13,7 +13,7 @@ enum SpearEnvironment: String {
     case rtb2 = "RTB2"
     case st1 = "ST1"
     
-    static let defaultValue = rtb1
+    static let defaultValue = rtb2
     static let allValues = [rtb1, rtb2, st1]
     
     func getHost() -> String {
