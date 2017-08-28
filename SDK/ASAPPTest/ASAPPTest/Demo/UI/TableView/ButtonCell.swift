@@ -42,6 +42,27 @@ class ButtonCell: TableViewCell {
         }
     }
     
+    var loading: Bool = false {
+        didSet {
+            guard loading != oldValue else {
+                return
+            }
+            
+            if loading {
+                spinner.startAnimating()
+                titleLabel.alpha = 0.5
+                selectionStyle = .none
+            } else {
+                spinner.stopAnimating()
+                titleLabel.alpha = 1
+                selectionStyle = .default
+            }
+            applyAppSettings()
+        }
+    }
+    
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
     let titleLabel = AttributedLabel()
     
     override class var reuseId: String {
@@ -58,6 +79,16 @@ class ButtonCell: TableViewCell {
         
         updateLabel()
         contentView.addSubview(titleLabel)
+        
+        spinner.hidesWhenStopped = true
+        contentView.addSubview(spinner)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        spinner.stopAnimating()
     }
     
     // MARK: Updates
@@ -109,6 +140,9 @@ class ButtonCell: TableViewCell {
         super.layoutSubviews()
         
         titleLabel.frame = labelFrameThatFits(bounds.size)
+        
+        spinner.sizeToFit()
+        spinner.center = titleLabel.center
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

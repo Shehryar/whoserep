@@ -117,6 +117,7 @@ class BaseTableViewController: BaseViewController {
 extension BaseTableViewController {
     
     func buttonCell(title: String?,
+                    loading: Bool = false,
                     for indexPath: IndexPath,
                     sizingOnly: Bool) -> UITableViewCell {
         let cell = sizingOnly
@@ -124,6 +125,7 @@ extension BaseTableViewController {
             : tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
         
         cell?.title = title
+        cell?.loading = loading
         
         return cell ?? UITableViewCell()
     }
@@ -202,6 +204,7 @@ extension BaseTableViewController {
     
     func textInputCell(text: String? = nil,
                        placeholder: String? = nil,
+                       labelText: String? = nil,
                        autocorrectionType: UITextAutocorrectionType = .no,
                        autocapitalizationType: UITextAutocapitalizationType = .none,
                        returnKeyType: UIReturnKeyType = .done,
@@ -217,6 +220,7 @@ extension BaseTableViewController {
         cell?.appSettings = AppSettings.shared
         cell?.currentText = text ?? ""
         cell?.placeholderText = placeholder
+        cell?.labelText = labelText
         cell?.textField.autocorrectionType = .no
         cell?.textField.autocapitalizationType = .none
         cell?.textField.returnKeyType = .done

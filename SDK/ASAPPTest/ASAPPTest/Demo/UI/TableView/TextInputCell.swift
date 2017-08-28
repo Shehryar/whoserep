@@ -16,6 +16,29 @@ class TextInputCell: TableViewCell {
     
     var dismissKeyboardOnReturn: Bool = false
     
+    var labelText: String? {
+        set {
+            textFieldLabel.text = newValue
+            if hasLabelText {
+                textField.textAlignment = .right
+            } else {
+                textField.textAlignment = .left
+            }
+            applyAppSettings()
+            setNeedsLayout()
+        }
+        get {
+            return textFieldLabel.text
+        }
+    }
+    
+    var hasLabelText: Bool {
+        if let labelText = textFieldLabel.text, !labelText.isEmpty {
+            return true
+        }
+        return false
+    }
+    
     var currentText: String {
         set {
             textField.text = newValue
@@ -35,6 +58,8 @@ class TextInputCell: TableViewCell {
         return "TextInputCellReuseId"
     }
     
+    let textFieldLabel = UILabel()
+    
     let textField = UITextField()
     
     // MARK: Init
@@ -43,6 +68,8 @@ class TextInputCell: TableViewCell {
         super.commonInit()
         
         selectionStyle = .none
+        
+        contentView.addSubview(textFieldLabel)
         
         textField.text = ""
         textField.delegate = self
@@ -55,13 +82,28 @@ class TextInputCell: TableViewCell {
         textField.delegate = nil
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        textFieldLabel.text = nil
+        textField.text = nil
+        textField.placeholder = nil
+    }
+    
     // MARK: Styling
     
     override func applyAppSettings() {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            textField.font = appSettings.branding.fonts.regularFont.withSize(16)
+            textFieldLabel.font = appSettings.branding.fonts.regularFont.withSize(16)
+            textFieldLabel.textColor = appSettings.branding.colors.foregroundColor
+            
+            if hasLabelText {
+                textField.font = appSettings.branding.fonts.lightFont.withSize(16)
+            } else {
+                textField.font = appSettings.branding.fonts.regularFont.withSize(16)
+            }
             textField.textColor = appSettings.branding.colors.foregroundColor
             textField.tintColor = appSettings.branding.colors.accentColor
             
@@ -91,21 +133,39 @@ class TextInputCell: TableViewCell {
 
 extension TextInputCell {
     
-    func getFrameThatFits(_ size: CGSize) -> CGRect {
+    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
         let contentWidth = size.width - contentInset.left - contentInset.right
-        let height = ceil(textField.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
-        return CGRect(x: contentInset.left, y: contentInset.top, width: contentWidth, height: height)
+        
+        var labelSize = textFieldLabel.sizeThatFits(CGSize(width: contentWidth / 2.0, height: 0))
+        labelSize.width = ceil(labelSize.width)
+        labelSize.height = ceil(labelSize.height)
+      
+        var textFieldLeft = contentInset.left
+        if labelSize.width > 0 || labelSize.height > 0 {
+            textFieldLeft = contentInset.left + labelSize.width + 12
+        }
+        let textFieldWidth = size.width - textFieldLeft - contentInset.right
+        let textFieldHeight = ceil(textField.sizeThatFits(CGSize(width: textFieldWidth, height: 0)).height)
+        
+        let height = max(labelSize.height, textFieldHeight)
+        
+        let labelFrame = CGRect(x: contentInset.left, y: contentInset.top, width: labelSize.width, height: labelSize.height)
+        let textFieldFrame = CGRect(x: textFieldLeft, y: contentInset.top, width: textFieldWidth, height: height)
+        
+        return (labelFrame, textFieldFrame)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
     
-        textField.frame = getFrameThatFits(bounds.size)
+        let (labelFrame, textFieldFrame) = getFramesThatFit(bounds.size)
+        textFieldLabel.frame = labelFrame
+        textField.frame = textFieldFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let textFieldFrame = getFrameThatFits(size)
-        let height = textFieldFrame.maxY + contentInset.bottom
+        let (labelFrame, textFieldFrame) = getFramesThatFit(size)
+        let height = max(labelFrame.maxY, textFieldFrame.maxY) + contentInset.bottom
         return CGSize(width: size.width, height: height)
     }
 }

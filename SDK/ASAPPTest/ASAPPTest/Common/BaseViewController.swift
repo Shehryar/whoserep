@@ -104,3 +104,29 @@ extension BaseViewController: AppSettingsViewController {
                                                             for: .normal)
     }
 }
+
+extension BaseViewController {
+    
+    func showAlert(title: String? = nil, message: String? = nil) {
+        if title == nil && message == nil {
+            return
+        }
+        
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.showAlert(title: title, message: message)
+            }
+            return
+        }
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
