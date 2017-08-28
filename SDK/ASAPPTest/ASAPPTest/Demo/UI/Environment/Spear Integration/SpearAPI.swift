@@ -13,7 +13,7 @@ class SpearAPI: NSObject {
     class func requestAuthToken(userId: String,
                                 pin: String,
                                 environment: SpearEnvironment,
-                                completion: ((String?) -> Void)?) -> URLSessionDataTask? {
+                                completion: ((_ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
         
         guard let requestUrl = environment.getUrl(path: "/api/prepaid/authentication/1.0/login") else {
             print("Unable to create request url")
@@ -46,20 +46,40 @@ class SpearAPI: NSObject {
                 
                 DemoLog("Spear Auth Token Response: \(jsonDict)")
                 
-                let authToken = jsonDict["access_token"] as? String
-                if authToken == nil {
+                if let authToken = jsonDict["access_token"] as? String {
+                    DispatchQueue.main.async {
+                        completion?(authToken, nil)
+                    }
+                } else {
                     DemoLog("Unable to find Spear Auth Token in json: \(jsonDict)")
+                    
+                    var error = jsonDict["description"] as? String
+                    if error == nil, let errors = jsonDict["errors"] as? [[String : Any]] {
+                        var errorDescriptions = [String]()
+                        for errorObject in errors {
+                            if let errorDescription = errorObject["description"] as? String {
+                                if let errorCode = errorObject["code"] {
+                                    errorDescriptions.append("\(errorCode): \(errorDescription)")
+                                } else {
+                                    errorDescriptions.append(errorDescription)
+                                }
+                            }
+                        }
+                        if errorDescriptions.count > 0 {
+                            error = errorDescriptions.joined(separator: ", ")
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        completion?(nil, error)
+                    }
                 }
-                DispatchQueue.main.async {
-                    completion?(authToken)
-                }
+                
             } else {
                 DemoLog("Unable to fetch Spear Auth Token: \(String(describing: response))")
                 DispatchQueue.main.async {
-                    completion?(nil)
+                    completion?(nil, nil)
                 }
             }
-            
         })
         task.resume()
         

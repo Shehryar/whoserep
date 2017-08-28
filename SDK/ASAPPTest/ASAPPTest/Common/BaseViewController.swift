@@ -123,7 +123,7 @@ extension BaseViewController {
                                       message: message,
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Ok",
+        alert.addAction(UIAlertAction(title: "OK",
                                       style: .cancel,
                                       handler: nil))
         

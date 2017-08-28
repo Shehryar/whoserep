@@ -250,14 +250,14 @@ extension AuthTokenViewController {
         
         requestingSpearAuthToken = true
         
-        _ = SpearAPI.requestAuthToken(userId: userId, pin: pin, environment: spearEnvironment) { [weak self] (authToken) in
+        _ = SpearAPI.requestAuthToken(userId: userId, pin: pin, environment: spearEnvironment) { [weak self] (authToken, error) in
             self?.requestingSpearAuthToken = false
             if let authToken = authToken {
                 AppSettings.saveObject(authToken, forKey: AppSettings.Key.authToken)
                 let indexPath = IndexPath(row: 0, section: Section.authToken.rawValue)
                 self?.tableView.reloadRows(at: [indexPath], with: .none)
             } else {
-                self?.showAlert(title: "Oops!", message: "Unable to fetch token.")
+                self?.showAlert(title: "Oops!", message: error ?? "Unable to fetch token.")
             }
         }
     }
