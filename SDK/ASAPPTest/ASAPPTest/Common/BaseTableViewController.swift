@@ -85,6 +85,18 @@ class BaseTableViewController: BaseViewController {
         view.addSubview(tableView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerForKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        deregisterForKeyboardNotifications()
+    }
+    
     // MARK:- Updates
     
     override func reloadViewForUpdatedSettings() {
@@ -109,6 +121,59 @@ class BaseTableViewController: BaseViewController {
         tableView.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
+    }
+}
+
+// MARK:- Keyboard
+
+extension BaseTableViewController {
+    
+    static let keyboardNotificationNames = [
+        NSNotification.Name.UIKeyboardWillShow,
+        NSNotification.Name.UIKeyboardWillChangeFrame,
+        NSNotification.Name.UIKeyboardWillHide
+    ]
+    
+    func registerForKeyboardNotifications() {
+        for notificationName in BaseTableViewController.keyboardNotificationNames {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(BaseTableViewController.keyboardWillAdjustFrame(_:)),
+                                                   name: notificationName,
+                                                   object: nil)
+        }
+    }
+    
+    func deregisterForKeyboardNotifications() {
+        for notificationName in BaseTableViewController.keyboardNotificationNames {
+            NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
+        }
+    }
+    
+    // MARK: Private Methods
+    
+    @objc fileprivate func keyboardWillAdjustFrame(_ sender: Notification) {
+        guard let userInfo = (sender as NSNotification).userInfo else {
+            return
+        }
+        
+        let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardHeight = UIScreen.main.bounds.height - keyboardFrame.minY
+        let duration = TimeInterval(userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
+        
+        var animationCurve: UIViewAnimationOptions = .curveLinear
+        if let animationCurveInt = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {
+            animationCurve = UIViewAnimationOptions(rawValue: animationCurveInt<<16)
+        }
+        
+        keyboardWillUpdateVisibleHeight(keyboardHeight, withDuration: duration, animationCurve: animationCurve)
+    }
+    
+    func keyboardWillUpdateVisibleHeight(_ height: CGFloat,
+                                         withDuration duration: TimeInterval,
+                                         animationCurve: UIViewAnimationOptions) {
+        var tvContentInset = tableView.contentInset
+        tvContentInset.bottom = height
+        tableView.contentInset = tvContentInset
     }
 }
 

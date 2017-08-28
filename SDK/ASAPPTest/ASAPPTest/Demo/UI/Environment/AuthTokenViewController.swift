@@ -157,8 +157,8 @@ extension AuthTokenViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.user.rawValue: return "User"
-        case Section.authToken.rawValue: return "Authentication"
+        case Section.user.rawValue: return "Current User"
+        case Section.authToken.rawValue: return "Auth Token"
         case Section.spear.rawValue: return "Spear Integration"
         default: return nil
         }
@@ -179,7 +179,7 @@ extension AuthTokenViewController {
             break
             
         case Section.authToken.rawValue:
-            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+            focusOnCell(atIndexPath: indexPath)
             break
             
         case Section.spear.rawValue:
@@ -189,7 +189,7 @@ extension AuthTokenViewController {
                 break
                 
             case SpearRow.pin.rawValue:
-                tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+                focusOnCell(atIndexPath: indexPath)
                 break
                 
             case SpearRow.generateToken.rawValue:
@@ -208,6 +208,11 @@ extension AuthTokenViewController {
 // MARK:- Actions
 
 extension AuthTokenViewController {
+    
+    func focusOnCell(atIndexPath indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+        tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+    }
     
     func showCustomerIdViewController() {
         let customerIdVC = CustomerIdViewController()
