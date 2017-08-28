@@ -12,15 +12,17 @@ enum SpearEnvironment: String {
     case rtb1 = "RTB1"
     case rtb2 = "RTB2"
     case st1 = "ST1"
+    case prod = "Prod"
     
     static let defaultValue = rtb2
-    static let allValues = [rtb1, rtb2, st1]
+    static let allValues = [rtb1, rtb2, st1, prod]
     
     func getHost() -> String {
         switch self {
         case .rtb1: return "https://rtb1-apiservices.boostmobile.com"
         case .rtb2: return "https://rtb2-apiservices.boostmobile.com"
         case .st1: return "https://st1-apiservices.boostmobile.com"
+        case .prod: return "https://aka-apiservices.boostmobile.com"
         }
     }
     
