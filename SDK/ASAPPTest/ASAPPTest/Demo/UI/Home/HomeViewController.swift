@@ -37,7 +37,7 @@ class HomeViewController: BaseViewController {
             }
         }
         
-        updateASAPPSettings(updateConfig: true, updateUser: true)
+        updateASAPPSettings(updateConfig: true)
         
         homeTableView.delegate = self
         homeTableView.reloadData()
@@ -63,7 +63,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateASAPPSettings(updateConfig: true, updateUser: true)
+        updateASAPPSettings(updateConfig: true)
         homeTableView.reloadData()
     }
     
@@ -86,7 +86,7 @@ class HomeViewController: BaseViewController {
     
     // MARK:- ASAPPConfig
     
-    func updateASAPPSettings(updateConfig: Bool, updateUser: Bool) {
+    func updateASAPPSettings(updateConfig: Bool, updateUser: Bool = false) {
         if updateConfig {
             let config = ASAPPConfig(appId: AppSettings.shared.appId,
                                      apiHostName: AppSettings.shared.apiHostName,
@@ -95,7 +95,7 @@ class HomeViewController: BaseViewController {
             ASAPP.initialize(with: config)
         }
         
-        if updateUser {
+        if updateUser || ASAPP.user?.userIdentifier == nil {
             ASAPP.user = createASAPPUser()
         }
         

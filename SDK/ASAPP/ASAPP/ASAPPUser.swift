@@ -25,6 +25,10 @@ public class ASAPPUser: NSObject {
     public let requestContextProvider: ASAPPRequestContextProvider
     
     public let userLoginHandler: ASAPPUserLoginHandler
+    
+    // MARK:- Internal properties
+    
+    internal var sessionInfo: String? = nil
 
     // MARK:- Init
     
@@ -44,7 +48,7 @@ public class ASAPPUser: NSObject {
     }
     
     private class func createAnonymousIdentifier() -> String {
-        return "anonymous_user_\(Date().timeIntervalSince1970)"
+        return "anonymous_user_\(UUID().uuidString)"
     }
 }
 
