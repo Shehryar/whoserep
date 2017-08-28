@@ -119,7 +119,7 @@ class BrandingColors: NSObject {
             break
             
         case .xfinity:
-            navBarColor = UIColor(red:0.074, green:0.075, blue:0.074, alpha:1)
+            navBarColor = UIColor(red:0.169, green:0.204, blue:0.263, alpha:1.000)
             navBarTintColor = UIColor.white
             navBarTitleColor = UIColor.white
             statusBarStyle = .lightContent
@@ -129,7 +129,7 @@ class BrandingColors: NSObject {
             backgroundColor = UIColor.white
             secondaryBackgroundColor = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
             separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
-            accentColor = UIColor(red:1, green:0.216, blue:0.212, alpha:1)
+            accentColor = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
             break
             
         case .boost:

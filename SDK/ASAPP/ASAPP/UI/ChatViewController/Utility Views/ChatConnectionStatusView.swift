@@ -107,7 +107,7 @@ class ChatConnectionStatusView: UIView {
     }
     
     func updateDisplay() {
-        label.font = ASAPP.styles.textStyles.error.font
+        label.font = ASAPP.styles.textStyles.detail1.font
         label.textAlignment = .center
         
         setNeedsLayout()
