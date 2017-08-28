@@ -223,8 +223,15 @@ extension SocketConnection {
     
     func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
-        let (path, params) = outgoingMessageSerializer.createAuthRequest()
+        let (path, params, isSessionAuthRequest) = outgoingMessageSerializer.createAuthRequest()
         sendAuthRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
+            if message.type == .ResponseError && isSessionAuthRequest {
+                // Session auth failed... retry after clearing session info
+                self?.outgoingMessageSerializer.clearSessionInfo()
+                self?.authenticate(completion)
+                return
+            }
+            
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
             
             if let messageType = message.type {
