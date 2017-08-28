@@ -11,8 +11,8 @@ import UIKit
 class OptionsForKeyViewController: BaseTableViewController {
 
     enum Section: Int {
-        case options
         case createNew
+        case options
         case count
     }
     
@@ -109,7 +109,7 @@ extension OptionsForKeyViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {
-        case Section.options.rawValue: return ""
+        case Section.options.rawValue: return "Existing Options"
         case Section.createNew.rawValue: return ""
         default: return nil
         }
@@ -161,13 +161,8 @@ extension OptionsForKeyViewController {
         
         switch indexPath.section {
         case Section.options.rawValue:
-            if let options = options, let selectedOptionKey = selectedOptionKey {
-                let option = options[indexPath.row]
-                selectedOption = option
-                AppSettings.saveObject(option, forKey: selectedOptionKey)
-                tableView.reloadData()
-                
-                onSelection?(option)
+            if let options = options {
+                selectOption(options[indexPath.row])
             }
             break
             
@@ -186,16 +181,16 @@ extension OptionsForKeyViewController {
                     return
                 }
                 
-                
                 if strongSelf.isRestrictedText(text) {
                     strongSelf.showAlert(title: "Sorry!",
                                          message: "You are not allowed to do this.")
                     return
                 }
                 
-                
                 AppSettings.addStringToArray(text, forKey: optionsListKey)
-                strongSelf.reload()
+                
+                strongSelf.selectOption(text)
+                
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
             navigationController?.pushViewController(viewController, animated: true)
@@ -207,16 +202,24 @@ extension OptionsForKeyViewController {
         }
     }
     
+    private func selectOption(_ text: String?) {
+        if let selectedOptionKey = selectedOptionKey {
+            if let text = text {
+                AppSettings.saveObject(text, forKey: selectedOptionKey)
+            } else {
+                AppSettings.deleteObject(forKey: selectedOptionKey)
+            }
+        }
+        selectedOption = text
+        reload()
+        
+        onSelection?(text)
+    }
+    
     func isRestrictedText(_ text: String) -> Bool {
         return [
             "comcast.asapp.com",
             "sprint.asapp.com"
         ].contains(text.lowercased())
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 }
