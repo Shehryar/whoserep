@@ -88,7 +88,10 @@ class ButtonCell: TableViewCell {
         super.prepareForReuse()
         
         titleLabel.text = nil
-        spinner.stopAnimating()
+        
+        if loading {
+            spinner.startAnimating()
+        }
     }
     
     // MARK: Updates
