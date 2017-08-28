@@ -354,7 +354,13 @@ class ChatViewController: ASAPPViewController {
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         if (showPredictiveOnViewAppear || predictiveVCVisible) && !isLiveChat {
-            if ASAPP.styles.colors.predictiveGradientTop.isDark() {
+            if let predictiveNavColor = ASAPP.styles.colors.predictiveNavBarBackground {
+                if predictiveNavColor.isDark() {
+                    return .lightContent
+                } else {
+                    return .default
+                }
+            } else if ASAPP.styles.colors.predictiveGradientTop.isDark() {
                 return .lightContent
             } else {
                 return .default

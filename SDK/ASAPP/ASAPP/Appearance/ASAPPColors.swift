@@ -96,6 +96,8 @@ public class ASAPPColors: NSObject {
     
     // MARK:- Colors: Predictive
     
+    public var predictiveNavBarBackground: UIColor? = nil
+    
     public var predictiveNavBarTitle: UIColor = UIColor.white
     
     public var predictiveNavBarButton: UIColor = UIColor.white
