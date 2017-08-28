@@ -58,7 +58,7 @@ class AuthTokenViewController: BaseTableViewController {
     override func commonInit() {
         super.commonInit()
         
-        title = "Auth"
+        title = "Authentication"
     }
     
     // MARK: View
