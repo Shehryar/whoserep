@@ -108,9 +108,8 @@ public extension ASAPPStyles {
         styles.colors.navBarTitle = .white
         styles.colors.navBarButton = .white
         
-        let messageColor = UIColor(hexString: "#797f90")!
-        styles.colors.messageText = messageColor
-        styles.colors.messageBorder = messageColor
+        styles.colors.messageText = UIColor(hexString: "#797f90")!
+        styles.colors.messageBorder = UIColor(hexString: "#d9dbdf")!
         
         styles.colors.replyMessageText = UIColor(hexString: "#444852")!
         let replyColor = UIColor(hexString: "#eaecef")!
