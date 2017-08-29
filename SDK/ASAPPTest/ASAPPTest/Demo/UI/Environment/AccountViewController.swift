@@ -40,7 +40,7 @@ extension AccountViewController {
     override func titleForSection(_ section: Int) -> String? {
         switch section {
         case Section.name.rawValue: return ""
-        case Section.image.rawValue: return "Avatar Image"
+        case Section.image.rawValue: return "User Image"
         default: return nil
         }
     }
@@ -57,10 +57,15 @@ extension AccountViewController {
                                          sizingOnly: forSizing)
             
         case Section.name.rawValue:
-            return titleDetailValueCell(title: "Name",
-                                        value: AppSettings.shared.userName,
-                                        for: indexPath,
-                                        sizingOnly: forSizing)
+            return textInputCell(text: AppSettings.shared.userName,
+                                 placeholder: "Enter Name",
+                                 labelText: "Name",
+                                 autocapitalizationType: .words,
+                                 onTextChange: { (updatedName) in
+                                    AppSettings.saveObject(updatedName, forKey: AppSettings.Key.userName)
+                                 },
+                                 for: indexPath,
+                                 sizingOnly: forSizing)
             
         default: break
         }
@@ -72,25 +77,8 @@ extension AccountViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
-        case Section.image.rawValue:
-            break
-            
-        case Section.name.rawValue:
-            let viewController = TextInputViewController()
-            viewController.title = "Set Name"
-            viewController.instructionText = "Enter a Name"
-            viewController.onFinish = { [weak self] (text) in
-                guard !text.isEmpty, let strongSelf = self else {
-                        return
-                }
-                
-                AppSettings.saveObject(text, forKey: AppSettings.Key.userName)
-                strongSelf.tableView.reloadData()
-                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-            }
-            navigationController?.pushViewController(viewController, animated: true)
-            break
-            
+        case Section.image.rawValue: break
+        case Section.name.rawValue: break
         default: break
         }
     }
