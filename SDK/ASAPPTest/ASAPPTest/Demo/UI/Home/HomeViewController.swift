@@ -252,31 +252,13 @@ extension HomeViewController: HomeTableViewDelegate {
     }
     
     func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView) {
-        let optionsVC = OptionsForKeyViewController()
-        optionsVC.title = "Customer Id"
-        optionsVC.randomEntryPrefix = "test-user-"
-        optionsVC.update(selectedOptionKey: AppSettings.Key.customerIdentifier,
-                         optionsListKey: AppSettings.Key.customerIdentifierList)
-        optionsVC.rightBarButtonItemTitle = "Anonymous"
-        optionsVC.onRightBarButtonItemTap = { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
-            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-            strongSelf.updateASAPPSettings(updateConfig: false, updateUser: true)
-            
-        }
-        optionsVC.onSelection = { [weak self] (customerIdentifier) in
-            self?.updateASAPPSettings(updateConfig: false, updateUser: true)
-           
+        let customerIdVC = CustomerIdViewController()
+        customerIdVC.onSelection = { [weak self] (customerIdentifier) in
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
         }
-        
-        navigationController?.pushViewController(optionsVC, animated: true)
+        navigationController?.pushViewController(customerIdVC, animated: true)
     }
     
     func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
