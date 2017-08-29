@@ -67,15 +67,15 @@ class PredictiveViewController: UIViewController {
         
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byTruncatingTail
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = ASAPP.styles.colors.predictiveTextPrimary
         titleLabel.setAttributedText(titleText,
                                      textType: .predictiveHeader,
-                                     color: UIColor.white)
+                                     color: ASAPP.styles.colors.predictiveTextPrimary)
         blurredBgView.contentView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
-        messageLabel.textColor = UIColor.white
+        messageLabel.textColor = ASAPP.styles.colors.predictiveTextPrimary
         blurredBgView.contentView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
@@ -91,6 +91,10 @@ class PredictiveViewController: UIViewController {
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = placeholderText
         messageInputView.delegate = self
+        if let inputBorderColor = ASAPP.styles.colors.predictiveInput.border {
+            messageInputView.layer.borderColor = inputBorderColor.cgColor
+            messageInputView.layer.borderWidth = 1.0
+        }
         blurredBgView.contentView.addSubview(messageInputView)
     
         connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
@@ -101,6 +105,11 @@ class PredictiveViewController: UIViewController {
         connectionStatusLabel.alpha = 0.0
         blurredBgView.contentView.addSubview(connectionStatusLabel)
         
+        if ASAPP.styles.colors.predictiveGradientMiddle.isDark() {
+            spinner.activityIndicatorViewStyle = .white
+        } else {
+            spinner.activityIndicatorViewStyle = .gray
+        }
         spinner.hidesWhenStopped = true
         blurredBgView.contentView.addSubview(spinner)
         
@@ -174,14 +183,21 @@ class PredictiveViewController: UIViewController {
         
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.shadowImage = nil
+            navigationBar.shadowImage = UIImage()
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
-            navigationBar.barStyle = .blackTranslucent
-            navigationBar.backgroundColor = UIColor.clear
             navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.shadowImage = UIImage()
-            navigationBar.tintColor = UIColor.white
-            navigationBar.isTranslucent = true
+            navigationBar.backgroundColor = UIColor.clear
+            
+            if let barBackgroundColor = ASAPP.styles.colors.predictiveNavBarBackground {
+                navigationBar.barStyle = .black
+                navigationBar.barTintColor = barBackgroundColor
+                navigationBar.isTranslucent = false
+            } else {
+                navigationBar.isTranslucent = true
+                navigationBar.barStyle = .blackTranslucent
+                navigationBar.backgroundColor = UIColor.clear
+            }
         }
         
         // View
@@ -230,7 +246,12 @@ class PredictiveViewController: UIViewController {
         
         var textTop = contentInset.top
         if let navigationBar = navigationController?.navigationBar {
-            textTop = navigationBar.frame.maxY + contentInset.top
+            if let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
+                let intersection = view.frame.intersection(navBarFrame)
+                if !intersection.isNull {
+                    textTop = intersection.maxY + contentInset.top
+                }
+            }
         }
         
         // Title

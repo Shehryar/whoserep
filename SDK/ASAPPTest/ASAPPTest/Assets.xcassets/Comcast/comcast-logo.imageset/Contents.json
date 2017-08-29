@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "ComcastLogo@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "comcast-logo@3x.png",
+      "filename" : "ComcastLogo@3x.png",
       "scale" : "3x"
     }
   ],

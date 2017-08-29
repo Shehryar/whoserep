@@ -55,13 +55,14 @@ extension OutgoingMessageSerializer {
         return "\(request.path)|\(request.requestId)|\(contextJSONString ?? "")|\(paramsJSONString ?? "")"
     }
     
-    func createAuthRequest() -> (path: String, params: [String : Any]) {
+    func createAuthRequest() -> (path: String, params: [String : Any], isSessionAuthRequest: Bool) {
         var path: String
         var params: [String : Any] = [
             "App" : "ios-sdk",
             "CompanyMarker": config.appId,
             "RegionCode" : "US"
         ]
+        var isSessionAuthRequest = false
         
         var sessionInfoJson: [String : Any]?
         if let sessionInfo = user.sessionInfo {
@@ -78,6 +79,7 @@ extension OutgoingMessageSerializer {
             
             path = "auth/AuthenticateWithSession"
             params["SessionInfo"] = sessionInfoJson
+            isSessionAuthRequest = true
         }
         
         //
@@ -110,7 +112,7 @@ extension OutgoingMessageSerializer {
             }
         }
         
-        return (path, params)
+        return (path, params, isSessionAuthRequest)
     }
     
     func updateWithAuthResponse(_ response: IncomingMessage) {
@@ -142,6 +144,10 @@ extension OutgoingMessageSerializer {
         
         // Conversations are merged on authentication. No need to keep this around
         userLoginAction = nil;
+    }
+    
+    func clearSessionInfo() {
+        user.sessionInfo = nil
     }
 }
 

@@ -58,10 +58,6 @@ public class ASAPPColors: NSObject {
                                                                       textDisabled: UIColor(red:0.357, green:0.396, blue:0.494, alpha:0.8),
                                                                       border: UIColor(red:0.886, green:0.890, blue:0.906, alpha:1))
     
-    public var predictiveButtonPrimary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
-    
-    public var predictiveButtonSecondary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
-    
     // MARK:- Colors: Messages
     
     public var messagesListBackground = UIColor.asapp_alabasterWhite
@@ -100,6 +96,8 @@ public class ASAPPColors: NSObject {
     
     // MARK:- Colors: Predictive
     
+    public var predictiveNavBarBackground: UIColor? = nil
+    
     public var predictiveNavBarTitle: UIColor = UIColor.white
     
     public var predictiveNavBarButton: UIColor = UIColor.white
@@ -117,6 +115,10 @@ public class ASAPPColors: NSObject {
     public var predictiveTextPrimary: UIColor = UIColor.white
     
     public var predictiveTextSecondary: UIColor = UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
+    
+    public var predictiveButtonPrimary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.596, green:0.608, blue:0.647, alpha:1))
+    
+    public var predictiveButtonSecondary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.475, green:0.486, blue:0.549, alpha:1))
     
     public var predictiveInput: ASAPPInputColors = ASAPPInputColors(background: UIColor(red:0.232, green:0.247, blue:0.284, alpha:1),
                                                                     text: UIColor.white,
