@@ -46,6 +46,10 @@ public extension ASAPPStyles {
         ts.button = ASAPPTextStyle(fontName: black, size: 14, letterSpacing: 1.5, color: textBlue)
         ts.link = ASAPPTextStyle(fontName: black, size: 12, letterSpacing: 1.5, color: linkBlue)
         
+        // Segue type
+        
+        styles.segue = .push
+        
         // Nav button style
         
         styles.navBarButtonStyle = .bubble

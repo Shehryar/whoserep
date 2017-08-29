@@ -204,17 +204,20 @@ extension ASAPPButton {
 // MARK:- Actions
 
 extension ASAPPButton {
-    
     func didTap() {
-        let chatViewController = ChatViewController(config: config, user: user, appCallbackHandler: appCallbackHandler)
+        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, appCallbackHandler: appCallbackHandler)
         
-        let navigationController = NavigationController(rootViewController: chatViewController)
-        
-        navigationController.modalPresentationStyle = .custom
-        navigationController.transitioningDelegate = presentationAnimator
-        navigationController.modalPresentationCapturesStatusBarAppearance = true
-        
-        presentingViewController.present(navigationController, animated: true, completion: nil)
+        switch ASAPP.styles.segue {
+        case .present:
+            let navigationController = NavigationController(rootViewController: chatViewController)
+            navigationController.modalPresentationStyle = .custom
+            navigationController.transitioningDelegate = presentationAnimator
+            navigationController.modalPresentationCapturesStatusBarAppearance = true
+            presentingViewController.present(navigationController, animated: true, completion: nil)
+        case .push:
+            let containerViewController = ContainerViewController(rootViewController: chatViewController)
+            presentingViewController.navigationController?.pushViewController(containerViewController, animated: true)
+        }
     }
     
     func didBeginLongHold() {

@@ -23,6 +23,8 @@ class PredictiveViewController: UIViewController {
     
     var tapGesture: UITapGestureRecognizer?
     
+    var segue: ASAPPSegue = .present
+    
     fileprivate(set) var viewContentsVisible = true
     
     // MARK: Private Properties
@@ -44,10 +46,11 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Initialization
     
-    required init(appOpenResponse: AppOpenResponse? = nil) {
+    required init(appOpenResponse: AppOpenResponse? = nil, segue: ASAPPSegue = .present) {
         self.appOpenResponse = appOpenResponse
         self.buttonsView = PredictiveButtonsView()
         self.messageInputView = ChatInputView()
+        self.segue = segue
         super.init(nibName: nil, bundle: nil)
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(PredictiveViewController.dismissKeyboard))
@@ -138,7 +141,6 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Display
     
-    
     func updateDisplay() {
         if let titleText = ASAPP.strings.predictiveTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText, color: ASAPP.styles.colors.predictiveNavBarTitle)
@@ -146,22 +148,31 @@ class PredictiveViewController: UIViewController {
             navigationItem.titleView = nil
         }
         
-        let viewChatButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.predictiveBackToChatButton,
-                                                                style: .respond,
-                                                                location: .predictive,
-                                                                side: .left,
-                                                                target: self,
-                                                                action: #selector(PredictiveViewController.didTapViewChat))
-        navigationItem.leftBarButtonItem = viewChatButton
+        let chatSide = ASAPP.styles.closeButtonSide(for: segue).opposite()
         
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(location: .predictive,
-                                                                  side: .right,
-                                                                  target: self,
-                                                                  action:  #selector(PredictiveViewController.didTapCancel))
+        let viewChatButton = UIBarButtonItem.asappBarButtonItem(
+            title: ASAPP.strings.predictiveBackToChatButton,
+            style: .respond,
+            location: .predictive,
+            side: chatSide,
+            target: self,
+            action: #selector(PredictiveViewController.didTapViewChat))
+        
+        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
+            location: .predictive,
+            segue: segue,
+            target: self,
+            action:  #selector(PredictiveViewController.didTapCancel))
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
         
-        
+        switch chatSide {
+        case .left:
+            navigationItem.leftBarButtonItem = viewChatButton
+            navigationItem.rightBarButtonItem = closeButton
+        case .right:
+            navigationItem.leftBarButtonItem = closeButton
+            navigationItem.rightBarButtonItem = viewChatButton
+        }
         
         titleLabel.updateFont(for: .predictiveHeader)
         messageLabel.updateFont(for: .body)

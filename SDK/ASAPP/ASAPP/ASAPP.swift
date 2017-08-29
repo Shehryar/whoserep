@@ -36,19 +36,36 @@ public class ASAPP: NSObject {
 public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
 
 public extension ASAPP {
-
-    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?,
-                                               appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
-        let chatViewController = ChatViewController(config: config,
-                                                    user: user,
-                                                    appCallbackHandler: appCallbackHandler)
+        let chat = createChatViewController(fromNotificationWith: userInfo, segue: .push, appCallbackHandler: appCallbackHandler)
+        let container = ContainerViewController(rootViewController: chat)
+        
+        return container
+    }
+    
+    public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+        assertSetupComplete()
+        
+        let chat = createChatViewController(fromNotificationWith: userInfo, appCallbackHandler: appCallbackHandler)
+        let nav = NavigationController(rootViewController: chat)
+        
+        return nav
+    }
+    
+    internal class func createChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+        let chatViewController = ChatViewController(
+            config: config,
+            user: user,
+            segue: segue,
+            appCallbackHandler: appCallbackHandler)
+        
         if canHandleNotification(with: userInfo) {
             chatViewController.showPredictiveOnViewAppear = false
         }
-
-        return NavigationController(rootViewController: chatViewController)
+        
+        return chatViewController
     }
     
     public class func createChatButton(appCallbackHandler: @escaping ASAPPAppCallbackHandler,

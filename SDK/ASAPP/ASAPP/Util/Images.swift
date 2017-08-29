@@ -12,6 +12,7 @@ enum ASAPPIcon: String {
     case alertError = "iconAlertError"
     case alertWarning = "iconAlertWarning"
     case arrowBack = "iconArrowBack"
+    case arrowLeft = "iconArrowLeft"
     case arrowOutgoing = "iconArrowOutgoing"
     case checkmarkCircle = "iconCheckmarkCircle"
     case checkmarkThick = "iconCheckmarkThick"

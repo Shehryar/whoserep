@@ -12,21 +12,21 @@ class NavigationController: UINavigationController {
     
     // MARK: Status Bar
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         if let topViewController = topViewController {
             return topViewController.preferredStatusBarStyle
         }
         return super.preferredStatusBarStyle
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         if let topViewController = topViewController {
             return topViewController.prefersStatusBarHidden
         }
         return super.prefersStatusBarHidden
     }
     
-    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         if let topViewController = topViewController {
             return topViewController.preferredStatusBarUpdateAnimation
         }

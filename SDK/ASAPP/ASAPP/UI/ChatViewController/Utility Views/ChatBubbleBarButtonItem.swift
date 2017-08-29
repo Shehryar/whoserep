@@ -18,18 +18,12 @@ enum NavBarButtonLocation {
     case predictive
 }
 
-enum NavBarButtonSide {
-    case left
-    case right
-}
-
 // MARK:- ChatBubbleBarButtonItem
 
 extension UIBarButtonItem {
     
     /// Returns (textColor, backgroundColor, font)
-    private class func getButtonColorsFontInset(location: NavBarButtonLocation,
-                                                side: NavBarButtonSide) -> (UIColor, UIColor?, UIFont, UIEdgeInsets) {
+    private class func getButtonColorsFontInset(location: NavBarButtonLocation, side: NavBarButtonSide) -> (UIColor, UIColor?, UIFont, UIEdgeInsets) {
         let textColor: UIColor
         let backgroundColor: UIColor?
         let font: UIFont
@@ -133,32 +127,27 @@ extension UIBarButtonItem {
         return UIBarButtonItem(customView: button)
     }
     
-    class func asappCloseBarButtonItem(location: NavBarButtonLocation,
-                                       side: NavBarButtonSide,
-                                       target: Any?,
-                                       action: Selector) -> UIBarButtonItem {
+    class func asappCloseBarButtonItem(location: NavBarButtonLocation, side: NavBarButtonSide = .right, segue: ASAPPSegue = .present, target: Any?, action: Selector) -> UIBarButtonItem {
+        var foregroundColor: UIColor
+        var backgroundColor: UIColor?
+        var image: UIImage?
+        var imageSize: CGFloat
+        var imageInsets: UIEdgeInsets
         
-        let foregroundColor: UIColor
-        let backgroundColor: UIColor?
-        let imageSize: CGFloat
-        let imageInsets: UIEdgeInsets
         switch ASAPP.styles.navBarButtonStyle {
         case .bubble:
             switch location {
             case .chat:
                 foregroundColor = ASAPP.styles.colors.navBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-                break
-                
             case .predictive:
                 foregroundColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
-                break
             }
+            
             imageSize = 8
             imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
-            break
-            
+
         case .text:
             foregroundColor = ASAPP.styles.colors.navBarButton
             backgroundColor = nil
@@ -166,23 +155,27 @@ extension UIBarButtonItem {
             switch side {
             case .left:
                 imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
-                break
-                
             case .right:
                 imageInsets = UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 0)
-                break
             }
-            break
         }
         
-        
-        
         let button = SizedImageOnlyButton()
-        
-        // X-Image
         button.imageView?.contentMode = .scaleAspectFit
-        button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 1), for: .normal)
-        button.setImage(Images.asappImage(.iconX)?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
+        
+        switch segue {
+        case .present:
+            image = Images.asappImage(.iconX)
+        case .push:
+            foregroundColor = ASAPP.styles.colors.navBarButtonBackground
+            backgroundColor = nil
+            image = UIImage.asappIcon(.arrowLeft)
+            imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
+            imageSize = 24
+        }
+        
+        button.setImage(image?.tinted(foregroundColor, alpha: 1), for: .normal)
+        button.setImage(image?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
         button.imageSize = CGSize(width: imageSize, height: imageSize)
         
         // Bubble

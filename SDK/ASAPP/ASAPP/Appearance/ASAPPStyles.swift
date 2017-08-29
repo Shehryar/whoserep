@@ -14,9 +14,17 @@ public class ASAPPStyles: NSObject {
     
     public var colors: ASAPPColors = ASAPPColors()
     
-    public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
-    
     public var separatorStrokeWidth: CGFloat = 1.0
     
+    public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
+    
     public var navBarTitlePadding: UIEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    
+    public var segue: ASAPPSegue = .present
+}
+
+extension ASAPPStyles {
+    internal func closeButtonSide(for segue: ASAPPSegue) -> NavBarButtonSide {
+        return segue == .present ? .right : .left
+    }
 }
