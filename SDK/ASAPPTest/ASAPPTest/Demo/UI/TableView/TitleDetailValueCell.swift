@@ -101,9 +101,13 @@ class TitleDetailValueCell: TableViewCell {
             return (titleLabelFrame, detailLabelFrame, valueLabelFrame)
         }
         
-        let titleSize = titleLabel.sizeThatFits(.zero)
-        let detailSize = detailLabel.sizeThatFits(.zero)
-        let valueSize = valueLabel.sizeThatFits(.zero)
+        func ceilSize(_ sizeToCeil: CGSize) -> CGSize {
+            return CGSize(width: ceil(sizeToCeil.width), height: ceil(sizeToCeil.height))
+        }
+        
+        let titleSize = ceilSize(titleLabel.sizeThatFits(.zero))
+        let detailSize = ceilSize(detailLabel.sizeThatFits(.zero))
+        let valueSize = ceilSize(valueLabel.sizeThatFits(.zero))
         if max(titleSize.width, detailSize.width) < contentWidth - valueSize.width - columnSpacing {
             return framesWithSizes(titleSize, detailSize, valueSize)
         }
@@ -131,7 +135,11 @@ class TitleDetailValueCell: TableViewCell {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let (titleLabelFrame, detailLabelFrame, valueLabelFrame) = labelFramesThatFit(size)
-        let height = max(titleLabelFrame.maxY, detailLabelFrame.maxY, valueLabelFrame.maxY) + contentInset.bottom
+        var height = max(titleLabelFrame.maxY, valueLabelFrame.maxY)
+        if !detailLabelFrame.isEmpty {
+            height = max(height, detailLabelFrame.maxY)
+        }
+        height += contentInset.bottom
         
         return CGSize(width: size.width, height: height)
     }

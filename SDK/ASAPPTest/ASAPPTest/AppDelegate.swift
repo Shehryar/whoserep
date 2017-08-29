@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Crashlytics
         Crashlytics.sharedInstance().debugMode = true
-        Fabric.with([Crashlytics.self])
+        Fabric.with([Crashlytics.self, Answers.self])
         
         // ASAPP
         ASAPP.debugLogLevel = .debug
@@ -101,6 +101,10 @@ extension AppDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         DemoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(String(describing: Bundle.main.bundleIdentifier))\n  device token: \(token)")
+        
+        Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
+            "deviceToken": token
+            ])
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
