@@ -66,6 +66,7 @@ public extension ASAPPStyles {
         styles.colors.messageBorder = UIColor(red:0.000, green:0.494, blue:0.745, alpha:1.000)
         styles.colors.messageText = UIColor.white
         
+        styles.colors.quickRepliesBackgroundPattern = false
         styles.colors.quickRepliesBackground = UIColor.white
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white, textColor: UIColor(red:0.000, green:0.494, blue:0.745, alpha:1.000))
         

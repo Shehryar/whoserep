@@ -78,7 +78,7 @@ public class ASAPPColors: NSObject {
     
     public var quickRepliesBackground: UIColor = UIColor(red:0.969, green:0.965, blue:0.965, alpha:1.000)
     
-    
+    public var quickRepliesBackgroundPattern: Bool = true
     
     public var quickReplyButton: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red:0.972, green:0.969, blue:0.968, alpha:1),
                                                                        textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1.0))
