@@ -86,24 +86,34 @@ class HomeViewController: BaseViewController {
     
     // MARK:- ASAPPConfig
     
-    func updateASAPPSettings(updateConfig: Bool, updateUser: Bool = false) {
+    func updateASAPPSettings(updateConfig: Bool) {
         if updateConfig {
             let config = ASAPPConfig(appId: AppSettings.shared.appId,
                                      apiHostName: AppSettings.shared.apiHostName,
                                      clientSecret: "ASAPP_DEMO_CLIENT_ID")
             
             ASAPP.initialize(with: config)
+            
+            DemoLog("Updated Config:\n----------------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\n----------------------------")
         }
         
-        if updateUser || ASAPP.user?.userIdentifier == nil {
+        // Update user if necessary
+        // TODO: Clean logic
+        if let user = ASAPP.user {
+            let customerId = AppSettings.shared.customerIdentifier
+            let shouldBeAnonymous = AppSettings.shared.customerIdentifier == nil
+            
+            if user.isAnonymous && shouldBeAnonymous {
+                // do nothing
+            } else if user.userIdentifier != customerId {
+                DemoLog("Updated User:\n----------------------------\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
+                ASAPP.user = createASAPPUser()
+            }
+            
+        } else {
+            DemoLog("Updated User:\n----------------------------\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
             ASAPP.user = createASAPPUser()
         }
-        
-        var updates = [String]()
-        if updateConfig { updates.append("config") }
-        if updateUser { updates.append("user") }
-        
-        DemoLog("Updates for: \(updates.joined(separator: ", ")):\n----------------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
         
         refreshChatButton()
     }
@@ -198,7 +208,6 @@ extension HomeViewController {
 
         ASAPP.styles = AppSettings.shared.branding.styles
         ASAPP.strings = AppSettings.shared.branding.strings
-        ASAPP.debugLogLevel = .debug
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
                                             presentingViewController: self)
