@@ -28,11 +28,10 @@ extension ConversationManager {
         
         let editedString = jsonString.replacingOccurrences(of: "\n", with: "")
         
-        socketConnection.sendRequest(withPath: "srs/Echo",
-                                     params: ["Echo" : editedString as AnyObject])
-        { (incomingMessage) in
+        socketConnection.sendRequest(
+            withPath: "srs/Echo",
+            params: ["Echo": editedString as AnyObject]) { _ in
             // no-op
-            
         }
     }
     

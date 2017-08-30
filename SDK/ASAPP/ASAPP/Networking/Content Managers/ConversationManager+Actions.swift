@@ -22,7 +22,7 @@ extension ConversationManager {
             return
         }
         
-        var params = [String : Any]()
+        var params = [String: Any]()
         for (key, value) in action.tempRequestTopLevelParams {
             params[key] = value
         }
@@ -49,7 +49,7 @@ extension ConversationManager {
             return
         }
         
-        var params = [String : Any]()
+        var params = [String: Any]()
         if let data = action.getDataWithFormData(formData) {
             params["data"] = data
         }
@@ -72,8 +72,8 @@ extension ConversationManager {
     func getComponentView(named name: String, data: [String : Any]? = nil, completion: @escaping ComponentViewHandler) {
         
         let path = "srs/GetComponentView"
-        var params: [String : Any] = [
-            "ComponentView" : name
+        var params: [String: Any] = [
+            "ComponentView": name
         ]
         if let data = JSONUtil.stringify(data) {
             params["Data"] = data
@@ -110,9 +110,9 @@ extension ConversationManager {
         
         let path = "srs/CreateLinkButtonTapEvent"
         
-        var params: [String : Any] = [
-            "Title" : buttonTitle,
-            "Link" : action.name
+        var params: [String: Any] = [
+            "Title": buttonTitle,
+            "Link": action.name
         ]
         if let deepLinkDataJson = JSONUtil.stringify(action.data) {
             params["Data"] = deepLinkDataJson
@@ -130,9 +130,9 @@ extension ConversationManager {
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         
         let text = action.messageText ?? messageText ?? ""
-        var params: [String : Any] = [
-            "Text" : text,
-            "Classification" : action.classification
+        var params: [String: Any] = [
+            "Text": text,
+            "Classification": action.classification
         ]
         if let originalSearchQuery = originalSearchQuery {
             params["SearchQuery"] = originalSearchQuery
@@ -145,7 +145,7 @@ extension ConversationManager {
         }
         
         let responseHandler: IncomingMessageHandler = { [weak self] (message, request, _) in
-            completion?(message.type == .Response)
+            completion?(message.type == .response)
             self?.trackTreewalk(message: text, classification: action.classification)
         }
         sendRequest(path: path, params: params, completion: responseHandler)

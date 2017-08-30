@@ -13,7 +13,7 @@ class ScrollViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case root = "root"
+        case root
     }
     
     // MARK:- Properties

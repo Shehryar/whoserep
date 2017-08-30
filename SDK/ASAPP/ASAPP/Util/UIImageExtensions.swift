@@ -28,8 +28,7 @@ internal extension UIImage {
         }
     }
     
-    private func modifiedImage(_ draw: (CGContext, CGRect) -> ()) -> UIImage {
-        
+    private func modifiedImage(_ draw: (CGContext, CGRect) -> Void) -> UIImage {
         // using scale correctly preserves retina images
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         let context: CGContext! = UIGraphicsGetCurrentContext()
@@ -52,7 +51,7 @@ internal extension UIImage {
 // MARK:- Color Image
 
 internal extension UIImage {
-    
+
     class func imageWithColor(_ color: UIColor) -> UIImage? {
         let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)

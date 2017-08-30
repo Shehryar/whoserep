@@ -103,7 +103,6 @@ class TextAreaView: BaseComponentView {
             fitToHeight = min(fitToHeight, maxHeight - padding.top - padding.bottom)
         }
         
-        
         guard fitToWidth > 0 && fitToHeight > 0 else {
             return .zero
         }

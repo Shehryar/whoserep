@@ -13,7 +13,7 @@ class FinishAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case nextAction = "nextAction"
+        case nextAction
     }
     
     let nextAction: Action?

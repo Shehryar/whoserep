@@ -29,9 +29,9 @@ class QuickReply: NSObject {
 extension QuickReply {
     
     enum JSONKey: String {
-        case title = "title"
-        case action = "action"
-        case isAutoSelect = "isAutoSelect"
+        case title
+        case action
+        case isAutoSelect
     }
     
     class func fromJSON(_ json: Any?) -> QuickReply? {

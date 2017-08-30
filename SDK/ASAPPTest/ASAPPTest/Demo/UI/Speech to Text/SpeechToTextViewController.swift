@@ -6,7 +6,6 @@
 //  Copyright © 2017 asappinc. All rights reserved.
 //
 
-
 /**
  // Required Info.plist keys
  
@@ -14,7 +13,6 @@
  
  <key>NSSpeechRecognitionUsageDescription</key>  <string>Speech recognition will be used to determine which words you speak into this device&apos;s microphone.</string>
  */
-
 
 import UIKit
 import Speech
@@ -41,11 +39,11 @@ class SpeechToTextViewController: BaseViewController {
     
     // MARK: Styling
     
-    let buttonColor = UIColor(red:0.333, green:0.439, blue:0.890, alpha:1.000)
+    let buttonColor = UIColor(red: 0.333, green: 0.439, blue: 0.890, alpha: 1)
     
-    let buttonHighlightedColor = UIColor(red:0.253, green:0.359, blue:0.720, alpha:1.000)
+    let buttonHighlightedColor = UIColor(red: 0.253, green: 0.359, blue: 0.720, alpha: 1)
     
-    let buttonDisabledColor = UIColor(red:0.85, green:0.87, blue:0.890, alpha:1.000)
+    let buttonDisabledColor = UIColor(red: 0.85, green: 0.87, blue: 0.890, alpha: 1)
     
     // MARK: Subviews
     
@@ -141,7 +139,6 @@ class SpeechToTextViewController: BaseViewController {
             }
         }
     }
-    
     
     // MARK:- Layout
     
@@ -259,7 +256,7 @@ extension SpeechToTextViewController {
         })
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
             self.recognitionRequest?.append(buffer)
         }
         
@@ -289,8 +286,8 @@ extension SpeechToTextViewController {
         
         let transform = isSpeaking ? CGAffineTransform(scaleX: 2.0, y: 2.0) : CGAffineTransform.identity
         let bgColor = isSpeaking
-            ? UIColor(red:0.153, green:0.259, blue:0.620, alpha:1.000)
-            : UIColor(red:0.333, green:0.439, blue:0.890, alpha:1.000)
+            ? UIColor(red: 0.153, green: 0.259, blue: 0.620, alpha: 1)
+            : UIColor(red: 0.333, green: 0.439, blue: 0.890, alpha: 1)
         
         button.layer.removeAllAnimations()
         
@@ -303,7 +300,7 @@ extension SpeechToTextViewController {
                            animations: { [weak self] in
                             self?.button.transform = transform
                             self?.button.backgroundColor = bgColor
-            }) { (completed) in }
+            }, completion: nil)
         } else {
             button.transform = transform
             button.backgroundColor = bgColor

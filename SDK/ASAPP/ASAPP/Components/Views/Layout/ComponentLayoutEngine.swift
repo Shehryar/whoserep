@@ -185,7 +185,7 @@ extension ComponentLayoutEngine {
         var width = totalWidth
         for view in views {
             let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
-            width = width - margin.left - margin.right
+            width -= margin.left - margin.right
         }
         return max(0, width)
     }
@@ -253,7 +253,6 @@ extension ComponentLayoutEngine {
     
 }
 
-
 // MARK:- Vertical
 
 extension ComponentLayoutEngine {
@@ -312,7 +311,6 @@ extension ComponentLayoutEngine {
         guard maxFrameHeight > 0 && maxFrameWidth > 0 else {
             return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
         }
-        
         
         // Adjust frames horizontally
         for (idx, view) in views.enumerated() {

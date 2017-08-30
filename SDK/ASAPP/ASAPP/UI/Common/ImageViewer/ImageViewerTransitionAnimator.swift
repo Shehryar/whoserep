@@ -68,7 +68,6 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
             imageViewerView = transitionContext.view(forKey: UITransitionContextViewKey.to) ?? imageViewer?.view
             containerView = transitionContext.containerView
         
-            
             guard let containerView = containerView else {
                 DebugLog.e("Missing containerView in ImageViewTransitionAnimator")
                 return
@@ -152,14 +151,14 @@ extension ImageViewerTransitionAnimator {
             } else {
                 self.transitioningImageView.setFrame(imageViewerView.frame, contentMode: .scaleAspectFit)
             }
-            }, completion: { (completed) in
-                imageViewer.setAccessoryViewsHidden(false, animated: true)
-                imageViewerView.isHidden = false
-                self.transitioningImageView.isHidden = true
-                
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                
-                imageViewer.shouldOverrideStatusBar = true
+        }, completion: { _ in
+            imageViewer.setAccessoryViewsHidden(false, animated: true)
+            imageViewerView.isHidden = false
+            self.transitioningImageView.isHidden = true
+            
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            
+            imageViewer.shouldOverrideStatusBar = true
         }) 
     }
     
@@ -174,16 +173,14 @@ extension ImageViewerTransitionAnimator {
         UIView.animate(withDuration: 0.3, animations: { 
             self.presentingView?.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
             self.maskView.alpha = 1.0
-            }, completion: { (completed) in
-                
-                UIView.animate(withDuration: 0.3, animations: { 
-                    imageViewerView.alpha = 1.0
-                    }, completion: { (completed) in
-                        self.imageViewer?.setAccessoryViewsHidden(false, animated: true)
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                        
-                        self.imageViewer?.shouldOverrideStatusBar = true
-                })
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.3, animations: { 
+                imageViewerView.alpha = 1.0
+            }, completion: { _ in
+                self.imageViewer?.setAccessoryViewsHidden(false, animated: true)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                self.imageViewer?.shouldOverrideStatusBar = true
+            })
         }) 
     }
 }
@@ -247,12 +244,12 @@ extension ImageViewerTransitionAnimator {
             } else {
                 self.transitioningImageView.setFrame(animateFromFrame, contentMode: contentMode)
             }
-        }) { (completed) in
+        }, completion: { _ in
             self.imageViewer?.presentFromView?.isHidden = false
             self.transitioningImageView.isHidden = true
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+        })
     }
     
     func performDismissOffscreenAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -282,24 +279,24 @@ extension ImageViewerTransitionAnimator {
             }
             self.maskView.alpha = 0.0
             self.transitioningImageView.center = center
-            }) { (completed) in
-                self.imageViewer?.presentFromView?.isHidden = false
-                self.transitioningImageView.isHidden = true
-                
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
+        }, completion: { _ in
+            self.imageViewer?.presentFromView?.isHidden = false
+            self.transitioningImageView.isHidden = true
+            
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        })
     }
     
     func performDismissWithFadeAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         imageViewer?.presentFromView?.isHidden = false
         UIView.animate(withDuration: 0.2, animations: { 
             self.imageViewerView?.alpha = 0.0
-            }, completion: { (completed) in
-                UIView.animate(withDuration: 0.3, animations: { 
-                    self.maskView.alpha = 0.0
-                    }, completion: { (completed) in
-                        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                })
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.3, animations: { 
+                self.maskView.alpha = 0.0
+            }, completion: { _ in
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            })
         }) 
     }
 }
@@ -417,10 +414,10 @@ extension ImageViewerTransitionAnimator {
                 UIView.animate(withDuration: 0.3, animations: { 
                     self.transitioningImageView.center = viewCenter
                     self.maskView.alpha = 1.0
-                    }, completion: { (completed) in
-                        imageViewerView.isHidden = false
-                        self.transitioningImageView.isHidden = true
-                        imageViewer.shouldOverrideStatusBar = true
+                }, completion: { _ in
+                    imageViewerView.isHidden = false
+                    self.transitioningImageView.isHidden = true
+                    imageViewer.shouldOverrideStatusBar = true
                 })
             }
         } else {

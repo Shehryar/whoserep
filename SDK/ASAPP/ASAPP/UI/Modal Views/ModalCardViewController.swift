@@ -129,7 +129,7 @@ class ModalCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red:0.973, green:0.969, blue:0.969, alpha:1)
+        view.backgroundColor = UIColor(red: 0.973, green: 0.969, blue: 0.969, alpha: 1)
         view.clipsToBounds = true
         view.layer.cornerRadius = 5.0
         
@@ -317,7 +317,7 @@ extension ModalCardViewController {
                 self?.loadingView.isLoading = false
                 self?.loadingView.isBlurred = false
             },
-            completion: { [weak self] (completed) in
+            completion: { [weak self] _ in
                 self?.controlsView.confirmButtonEnabled = true
                 self?.loadingView.removeFromSuperview()
             })
@@ -382,18 +382,16 @@ extension ModalCardViewController {
             self?.controlsView.confirmText = buttonText ?? ASAPP.strings.modalViewDoneButton
             self?.controlsView.cancelButtonHidden = true
             self?.controlsView.updateFrames()
-            }, completion: {
-                UIView.animate(
-                    withDuration: 0.6,
-                    delay: 0,
-                    usingSpringWithDamping: 0.65,
-                    initialSpringVelocity: 20.0,
-                    options: .curveEaseOut,
-                    animations: { [weak self] in
-                        self?.successView.transform = .identity
-                }) { (complete) in
-                    
-                }
+        }, completion: {
+            UIView.animate(
+                withDuration: 0.6,
+                delay: 0,
+                usingSpringWithDamping: 0.65,
+                initialSpringVelocity: 20.0,
+                options: .curveEaseOut,
+                animations: { [weak self] in
+                    self?.successView.transform = .identity
+            }, completion: nil)
         })
     }
     

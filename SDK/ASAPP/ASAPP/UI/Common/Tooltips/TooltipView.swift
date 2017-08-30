@@ -161,11 +161,9 @@ extension TooltipView {
     class func showTooltip(withText text: String,
                            targetBarButtonItem: UIBarButtonItem,
                            parentView: UIView,
-                           onDismiss: (() -> Void)?) -> TooltipPresenter?  {
-        guard let targetView = targetBarButtonItem.customView ??
-            targetBarButtonItem.value(forKey: "view") as? UIView
-            else {
-                return nil
+                           onDismiss: (() -> Void)?) -> TooltipPresenter? {
+        guard let targetView = targetBarButtonItem.customView ?? targetBarButtonItem.value(forKey: "view") as? UIView else {
+            return nil
         }
         
         return showTooltip(withText: text,
@@ -174,4 +172,3 @@ extension TooltipView {
                            onDismiss: onDismiss)
     }
 }
-

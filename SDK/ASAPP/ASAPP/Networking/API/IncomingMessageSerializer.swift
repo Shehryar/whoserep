@@ -9,9 +9,9 @@
 import Foundation
 
 enum MessageType: String {
-    case Response = "Response"
-    case Event = "Event"
-    case ResponseError = "ResponseError"
+    case response = "Response"
+    case event = "Event"
+    case responseError = "ResponseError"
 }
 
 class IncomingMessage {
@@ -28,7 +28,7 @@ class IncomingMessage {
     
     class func errorMessage(_ text: String) -> IncomingMessage {
         let message = IncomingMessage(withFullMessage: text)
-        message.type = .ResponseError
+        message.type = .responseError
         return message
     }
 }
@@ -48,22 +48,21 @@ class IncomingMessageSerializer {
             return serializedMessage
         }
         
-    
         let tokens = messageString.characters.split(separator: "|").map(String.init)
         
         serializedMessage.type = MessageType(rawValue: tokens[0])
         if let type = serializedMessage.type {
             switch type {
-            case .Response:
+            case .response:
                 serializedMessage.requestId = Int(tokens[1])
                 serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
                 break
                 
-            case .Event:
+            case .event:
                 serializedMessage.bodyString = tokens[1...(tokens.count-1)].joined(separator: "|")
                 break
                 
-            case .ResponseError:
+            case .responseError:
                 serializedMessage.requestId = Int(tokens[1])
                 serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
                 serializedMessage.debugError = serializedMessage.bodyString

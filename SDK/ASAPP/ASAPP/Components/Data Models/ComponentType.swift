@@ -12,27 +12,27 @@ import UIKit
 enum ComponentType: String {
     
     // Core Components
-    case button = "button"
-    case checkbox = "checkbox"
-    case checkboxView = "checkboxView"
-    case icon = "icon"
-    case label = "label"
-    case pageControl = "pageControl"
-    case progressBar = "progressBar"
-    case radioButtonsContainer = "radioButtonsContainer"
-    case radioButtonView = "radioButtonView"
-    case radioButton = "radioButton"
-    case separator = "separator"
-    case slider = "slider"
-    case textArea = "textArea"
-    case textInput = "textInput"
+    case button
+    case checkbox
+    case checkboxView
+    case icon
+    case label
+    case pageControl
+    case progressBar
+    case radioButtonsContainer
+    case radioButtonView
+    case radioButton
+    case separator
+    case slider
+    case textArea
+    case textInput
     
     // Collections
-    case carouselView = "carouselView"
-    case scrollView = "scrollView"
-    case stackView = "stackView"
-    case tabView = "tabView"
-    case tableView = "tableView"
+    case carouselView
+    case scrollView
+    case stackView
+    case tabView
+    case tableView
     
     // MARK: Utility
     

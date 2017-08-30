@@ -154,8 +154,6 @@ class BrandingPreview: UIView {
         } else {
             setHighlightViewVisible(false, animated: false)
         }
-     
-        
     }
     
     // MARK:- Touch Helpers

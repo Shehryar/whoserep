@@ -58,4 +58,3 @@ class JSONUtil: NSObject {
         return object
     }
 }
-

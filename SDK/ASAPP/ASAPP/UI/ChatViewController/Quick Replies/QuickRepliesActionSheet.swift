@@ -244,7 +244,7 @@ extension QuickRepliesActionSheet {
                 self.updateListViewFrames()
                 self.listViews.removeLast()
                 self.updateBackButtonVisibility()
-                }, completion: { [weak self] (completed) in
+                }, completion: { [weak self] _ in
                     viewToRemove?.removeFromSuperview()
                     
                     if let currentView = self?.listViews.last {
@@ -277,14 +277,12 @@ extension QuickRepliesActionSheet {
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 self.updateBackButtonVisibility()
                 self.updateListViewFrames()
-                }, completion: { (completed) in
-                    self.animating = false
-                    listView.flashScrollIndicatorsIfNecessary()
-                    for previousView in self.listViews {
-                        if previousView != listView {
-                            previousView.clearSelection()
-                        }
-                    }
+            }, completion: { _ in
+                self.animating = false
+                listView.flashScrollIndicatorsIfNecessary()
+                for previousView in self.listViews where previousView != listView {
+                    previousView.clearSelection()
+                }
             })
         } else {
             updateBackButtonVisibility()
@@ -302,12 +300,10 @@ extension QuickRepliesActionSheet {
     }
     
     func reloadButtons(for message: ChatMessage) {
-        for listView in listViews {
-            if listView.message?.metadata.eventId == message.metadata.eventId {
-                listView.message = message
-                break
-            }
-            
+        for listView in listViews
+        where listView.message?.metadata.eventId == message.metadata.eventId {
+            listView.message = message
+            break
         }
     }
     
@@ -325,4 +321,3 @@ extension QuickRepliesActionSheet {
         }
     }
 }
-

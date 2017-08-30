@@ -29,10 +29,10 @@ class COMTextInputCell: UITableViewCell {
         didSet {
             if let placeholderText = placeholderText {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
-                    NSForegroundColorAttributeName : ASAPP.styles.colors.textSecondary,
+                    NSForegroundColorAttributeName: ASAPP.styles.colors.textSecondary,
                     NSFontAttributeName: ASAPP.styles.textStyles.body.font,
                     NSKernAttributeName: ASAPP.styles.textStyles.body.letterSpacing
-                    ])
+                ])
             } else {
                 textField.attributedPlaceholder = nil
             }
@@ -55,7 +55,7 @@ class COMTextInputCell: UITableViewCell {
         textField.text = ""
         textField.delegate = self
         textField.defaultTextAttributes = [
-            NSForegroundColorAttributeName : ASAPP.styles.colors.textPrimary,
+            NSForegroundColorAttributeName: ASAPP.styles.colors.textPrimary,
             NSFontAttributeName: ASAPP.styles.textStyles.body.font,
             NSKernAttributeName: ASAPP.styles.textStyles.body.letterSpacing
         ]

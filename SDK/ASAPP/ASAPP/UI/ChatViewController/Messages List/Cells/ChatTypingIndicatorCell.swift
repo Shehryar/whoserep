@@ -20,7 +20,6 @@ class ChatTypingIndicatorCell: UITableViewCell {
     
     let contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
     
-    
     // MARK: Init
     
     func commonInit() {

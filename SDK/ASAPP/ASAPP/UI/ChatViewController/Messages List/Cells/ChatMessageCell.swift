@@ -256,7 +256,7 @@ extension ChatMessageCell {
             return .zero
         }
         
-        let contentMaxY = max(textBubbleViewFrame.maxY ,max(timeLabelFrame.maxY, attachmentViewFrame.maxY))
+        let contentMaxY = max(textBubbleViewFrame.maxY, max(timeLabelFrame.maxY, attachmentViewFrame.maxY))
         let height = contentMaxY + contentInset.bottom
         
         return CGSize(width: size.width, height: height)
@@ -341,10 +341,9 @@ extension ChatMessageCell {
             animations: { [weak self] in
                 self?.attachmentView?.alpha = 1.0
                 self?.attachmentView?.center = attachmentViewCenterAtEnd
-            }, completion: { [weak self] (completed) in
+        }, completion: { [weak self] _ in
                 self?.isAnimating = false
                 self?.setNeedsLayout()
         })
     }
 }
-

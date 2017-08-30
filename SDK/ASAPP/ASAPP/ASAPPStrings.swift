@@ -55,7 +55,6 @@ public class ASAPPStrings: NSObject {
     public var failureToLoadScreenReloadButton: String = ASAPPLocalizedString("Try Again")
     public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
     
-    
     public var endChatConfirmationTitle: String = ASAPPLocalizedString("Are you sure?")
     public var endChatConfirmationMessage: String = ASAPPLocalizedString("This will end your current conversation.")
     public var endChatConfirmationEndChatButton: String = ASAPPLocalizedString("End Chat")

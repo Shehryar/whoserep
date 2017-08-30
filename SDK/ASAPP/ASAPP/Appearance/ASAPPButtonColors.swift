@@ -52,7 +52,7 @@ public class ASAPPButtonColors: NSObject {
         
         self.textNormal = textColor
         self.textHighlighted = textColor.withAlphaComponent(0.6)
-        self.textDisabled =  UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
+        self.textDisabled =  UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         
         super.init()
     }
@@ -86,7 +86,7 @@ public class ASAPPButtonColors: NSObject {
     public init(backgroundColor: UIColor) {
         self.backgroundNormal = backgroundColor
         self.backgroundHighlighted = backgroundColor.highlightColor() ?? backgroundColor
-        self.backgroundDisabled = UIColor(red:0.6, green:0.6, blue:0.6, alpha:1)
+        self.backgroundDisabled = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         
         self.textNormal = UIColor.white
         self.textHighlighted = UIColor.white

@@ -129,7 +129,7 @@ fileprivate extension ActionHandler {
     }
     
     class func getDataFrom(action: Action, root: Component?) -> [String : Any]? {
-        var requestData = [String : Any]()
+        var requestData = [String: Any]()
         requestData.add(action.data)
         if let root = root {
             requestData.add(root.getData())
@@ -156,17 +156,16 @@ extension ActionHandler {
             return
         }
         
-        let alert = UIAlertController(title: title ?? ASAPP.strings.requestErrorGenericFailureTitle,
-                                      message: message ?? ASAPP.strings.requestErrorGenericFailure,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: title ?? ASAPP.strings.requestErrorGenericFailureTitle,
+            message: message ?? ASAPP.strings.requestErrorGenericFailure,
+            preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
-                                      style: .cancel,
-                                      handler: { (action) in
-                                        
-        }))
+        alert.addAction(UIAlertAction(
+            title: ASAPP.strings.alertDismissButton,
+            style: .cancel,
+            handler: { _ in }))
         
         presenter?.present(alert, animated: true, completion: nil)
     }
 }
-

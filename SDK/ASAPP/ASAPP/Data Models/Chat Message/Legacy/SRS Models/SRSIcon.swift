@@ -11,7 +11,7 @@ import UIKit
 class SRSIcon: SRSItem {
     
     enum IconType: String {
-        case creditCard = "creditCard"
+        case creditCard
         
         static func parse(_ value: Any?) -> IconType? {
             guard let value = value as? String else {

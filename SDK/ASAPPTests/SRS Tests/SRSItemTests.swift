@@ -11,12 +11,13 @@ import XCTest
 
 class SRSTests: XCTestCase {
 
-    let eventMetadata = EventMetadata(isReply: true,
-                                      isAutomatedMessage: true,
-                                      eventId: 0,
-                                      eventType: .srsResponse,
-                                      issueId: 1,
-                                      sendTime: Date())
+    let eventMetadata = EventMetadata(
+        isReply: true,
+        isAutomatedMessage: true,
+        eventId: 0,
+        eventType: .srsResponse,
+        issueId: 1,
+        sendTime: Date())
     
     func testAddCreditCard() {
         guard let json = TestUtil.jsonForFile(named: "add-credit-card") else {
@@ -34,7 +35,5 @@ class SRSTests: XCTestCase {
         } else {
             XCTFail()
         }
-        
-        
     }
 }

@@ -97,7 +97,7 @@ extension ASAPPViewController {
         return .default
     }
     
-    override public var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+    override public var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
     
@@ -220,4 +220,3 @@ extension ASAPPViewController {
 
     }
 }
-

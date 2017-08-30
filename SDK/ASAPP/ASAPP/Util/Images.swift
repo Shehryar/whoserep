@@ -38,10 +38,7 @@ extension UIImage {
     }
 }
 
-
-
 class Images: NSObject {
-    
     // MARK: Image Names
     
     enum ASAPPImage: String {
@@ -88,7 +85,7 @@ class Images: NSObject {
     
     class func gifLoaderBar() -> UIImage? {
         var imageName: String
-        if (UIScreen.main.scale > 1) {
+        if UIScreen.main.scale > 1 {
             imageName = "gif-loader-bar@2x"
         } else {
             imageName = "gif-loader-bar"
@@ -103,6 +100,3 @@ class Images: NSObject {
         return nil
     }
 }
-
-
-

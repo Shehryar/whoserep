@@ -119,7 +119,6 @@ class SliderView: BaseComponentView {
         let sliderHeight = ceil(sliderView.sizeThatFits(CGSize(width: maxContentSize.width, height: 0)).height)
         let sliderFrame = CGRect(x: padding.left, y: sliderTop, width: maxContentSize.width, height: sliderHeight)
         
-        
         return (labelFrame, sliderFrame)
     }
     

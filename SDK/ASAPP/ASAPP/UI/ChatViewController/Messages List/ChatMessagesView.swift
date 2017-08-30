@@ -35,7 +35,7 @@ class ChatMessagesView: UIView {
             var newContentInset = defaultContentInset
             newContentInset.top += max(0, contentInsetTop)
             contentInset = newContentInset
-            tableView.scrollIndicatorInsets = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
+            tableView.scrollIndicatorInsets = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -99,7 +99,6 @@ class ChatMessagesView: UIView {
     func commonInit() {
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         self.dataSource = ChatMessagesViewDataSource()
-        
         
         backgroundColor = ASAPP.styles.colors.messagesListBackground
         clipsToBounds = false
@@ -278,7 +277,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-         guard section < dataSource.numberOfSections() else { return 0.0 }
+        guard section < dataSource.numberOfSections() else { return 0.0 }
         
         return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }

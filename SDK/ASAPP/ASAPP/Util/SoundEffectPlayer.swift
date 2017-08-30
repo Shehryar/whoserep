@@ -29,7 +29,7 @@ class SoundEffectPlayer: NSObject {
         ]
     }
     
-    private var systemSoundIds = [Sound : SystemSoundID]()
+    private var systemSoundIds = [Sound: SystemSoundID]()
     
     deinit {
         for (_, soundId) in systemSoundIds {
@@ -46,36 +46,31 @@ class SoundEffectPlayer: NSObject {
         
         var fileName: String?
         var fileExtension: String?
+        
         switch sound {
         case .liveChatNotification:
             fileName = "chat-notification"
             fileExtension = "wav"
-            break
             
         case .wow1:
             fileName = "wow-1"
             fileExtension = "wav"
-            break;
             
         case .wow2:
             fileName = "wow-2"
             fileExtension = "wav"
-            break;
             
         case .wow3:
             fileName = "wow-3"
             fileExtension = "wav"
-            break;
             
         case .wow4:
             fileName = "wow-4"
             fileExtension = "wav"
-            break;
             
         case .wow5:
             fileName = "wow-5"
             fileExtension = "wav"
-            break;
         }
         
         var soundId: SystemSoundID = 0

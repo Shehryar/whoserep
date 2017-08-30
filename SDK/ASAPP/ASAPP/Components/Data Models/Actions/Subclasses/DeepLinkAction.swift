@@ -13,8 +13,8 @@ class DeepLinkAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case name = "name"
-        case url = "url"
+        case name
+        case url
     }
     
     let name: String

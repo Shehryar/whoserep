@@ -72,7 +72,6 @@ extension ModalCardPresentationAnimator: UIViewControllerAnimatedTransitioning {
                     return
             }
             
-            
             blurView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             blurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ModalCardPresentationAnimator.didTapBlurView)))
             blurView.alpha = 0.0
@@ -142,18 +141,18 @@ extension ModalCardPresentationAnimator {
         
         // TODO: Handle blur effect with iOS 8
         
-        UIView.animate(withDuration: presentationAnimationDuration(),
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 0.0,
-                       options: .curveEaseInOut,
-                       animations:
-            {
-                self.updatePresentedViewFrame(whenVisible: true)
-                self.blurView.alpha = 1.0
-        }) { (completed) in
+        UIView.animate(
+            withDuration: presentationAnimationDuration(),
+            delay: 0.0,
+            usingSpringWithDamping: 0.8,
+            initialSpringVelocity: 0.0,
+            options: .curveEaseInOut,
+            animations: {
+            self.updatePresentedViewFrame(whenVisible: true)
+            self.blurView.alpha = 1.0
+        }, completion: { _ in
             self.completeTransitionAnimation()
-        }
+        })
     }
 }
 
@@ -170,18 +169,18 @@ extension ModalCardPresentationAnimator {
     // MARK: Animation
     
     func performDismissalAnimation() {
-        UIView.animate(withDuration: dismissalAnimationDuration(),
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 0.0,
-                       options: .curveEaseInOut,
-                       animations:
-            {
-                self.updatePresentedViewFrame(whenVisible: false)
-                self.blurView.alpha = 0.0
-        }) { (completed) in
+        UIView.animate(
+            withDuration: dismissalAnimationDuration(),
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.0,
+            options: .curveEaseInOut,
+            animations: {
+            self.updatePresentedViewFrame(whenVisible: false)
+            self.blurView.alpha = 0.0
+        }, completion: { _ in
             self.completeTransitionAnimation()
-        }
+        })
     }
 }
 
@@ -303,8 +302,7 @@ extension ModalCardPresentationAnimator {
                 animations: { [weak self] in
                     self?.updatePresentedViewFrame(whenVisible: true)
                     additionalUpdates?()
-                },
-                completion: { (completed) in
+                }, completion: { _ in
                     completion?()
                 })
         } else {
@@ -314,6 +312,3 @@ extension ModalCardPresentationAnimator {
         }
     }
 }
-
-
-

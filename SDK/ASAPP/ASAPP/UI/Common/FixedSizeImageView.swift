@@ -16,7 +16,7 @@ class FixedSizeImageView: UIImageView {
         }
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return fixedImageSize
     }
 }

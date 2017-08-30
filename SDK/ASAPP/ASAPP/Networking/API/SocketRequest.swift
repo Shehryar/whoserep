@@ -23,7 +23,7 @@ class SocketRequest {
         self.requestUUID = uuid
         self.requestId = requestId
         self.path = path
-        self.params = [ "RequestId" : uuid ].with(params)
+        self.params = [ "RequestId": uuid ].with(params)
         self.context = context
         self.requestData = requestData
     }
@@ -38,7 +38,7 @@ extension SocketRequest {
     }
     
     func getParametersCleanedOfSensitiveData() -> [String : Any] {
-        var cleanedParams = [String : Any]()
+        var cleanedParams = [String: Any]()
         cleanedParams.add(params)
         if path.contains("CreditCard") {
             if cleanedParams["Number"] != nil {

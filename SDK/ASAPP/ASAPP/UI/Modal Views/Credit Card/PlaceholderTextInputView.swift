@@ -9,8 +9,6 @@
 import UIKit
 
 class PlaceholderTextInputView: UIView {
-    
-
     // MARK: Actions
     
     var shouldBeginEditing: (() -> Bool)?
@@ -46,7 +44,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var textColor: UIColor = UIColor(red:0.263, green:0.278, blue:0.310, alpha:1) {
+    var textColor: UIColor = UIColor(red: 0.263, green: 0.278, blue: 0.310, alpha: 1) {
         didSet {
             textField.textColor = textColor
         }
@@ -72,13 +70,13 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderColor: UIColor = UIColor(red:0.663, green:0.682, blue:0.729, alpha:1) {
+    var placeholderColor: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
         didSet {
             updatePlaceholderText()
         }
     }
     
-    var placeholderColorError: UIColor? = UIColor(red:0.945, green:0.459, blue:0.388, alpha:1.000) {
+    var placeholderColorError: UIColor? = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1) {
         didSet {
             updatePlaceholderText()
         }
@@ -86,7 +84,7 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Underline
     
-    var underlineColorDefault: UIColor = UIColor(red:0.663, green:0.682, blue:0.729, alpha:1) {
+    var underlineColorDefault: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
         didSet {
             updateUnderlineColor()
         }
@@ -98,7 +96,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var underlineColorError: UIColor? = UIColor(red:0.945, green:0.459, blue:0.388, alpha:1.000)  {
+    var underlineColorError: UIColor? = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1) {
         didSet {
             updateUnderlineColor()
         }
@@ -175,13 +173,11 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Enabled / Disabled
     
-    var disabled: Bool = false {
+    var disabled = false {
         didSet {
             let subviewAlpha: CGFloat = disabled ? 0.3 : 1.0
-            for subview in subviews {
-                if subview.alpha > 0 {
-                    subview.alpha = subviewAlpha
-                }
+            for subview in subviews where subview.alpha > 0 {
+                subview.alpha = subviewAlpha
             }
         }
     }
@@ -241,7 +237,7 @@ class PlaceholderTextInputView: UIView {
     
         textField.textColor = textColor
         textField.font = font
-        textField.tintColor = UIColor(red:0.180, green:0.627, blue:0.867, alpha:1)
+        textField.tintColor = UIColor(red: 0.180, green: 0.627, blue: 0.867, alpha: 1)
         // Default text attributes with kern has weird bug that breaks side-scrolling
         textField.delegate = self
         addSubview(textField)
@@ -266,88 +262,6 @@ class PlaceholderTextInputView: UIView {
         textField.delegate = nil
     }
     
-    // MARK: Layout
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateFrames()
-        updateUnderlineColor()
-    }
-    
-    private func getTextFieldIntrinsicHeight(for size: CGSize) -> CGFloat {
-//        return ceil(textField.intrinsicContentSize.height)
-        return ceil(textField.sizeThatFits(CGSize(width: size.width, height: 0)).height)
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var height = contentInset.top + contentInset.bottom
-        height += placeholderFont.lineHeight + placeholderMarginBottom
-        height += underlineMarginTop + underlineStrokeWidth
-        height += getTextFieldIntrinsicHeight(for: size)
-
-        return CGSize(width: size.width, height: height)
-    }
-    
-    func updateFrames(animated: Bool = false) {
-        if let inputText = text {
-            updateFrames(inputText.isEmpty, animated: animated)
-        } else {
-            updateFrames(true, animated: animated)
-        }
-    }
-    
-    func updateFrames(_ textIsEmpty: Bool, animated: Bool) {
-        
-        var left = contentInset.left
-        var width = bounds.width - left - contentInset.right
-        
-        // Underline
-        
-        let underlineTop = bounds.height - contentInset.bottom - underlineStrokeWidth
-        let underlineFrame = CGRect(x: left, y: underlineTop, width: width, height: underlineStrokeWidth)
-        
-        //
-        // Labels
-        //
-        
-        let textBottom = underlineTop - underlineMarginTop
-        
-        let textFieldHeight = getTextFieldIntrinsicHeight(for: bounds.size)
-        let textFieldTop = textBottom - textFieldHeight
-        let textFieldFrame = CGRect(x: left, y: textFieldTop, width: width, height: textFieldHeight)
-        
-
-        let placeholderTop: CGFloat
-        let placeholderHeight = ceil(placeholderFont.lineHeight)
-        
-        
-        // Align the placeholder over the textView
-        if textIsEmpty {
-            placeholderTop = textBottom - placeholderHeight
-            
-            // Or center on textView
-            // placehoderTop = textFieldFrame.minY + floor((textFieldFrame.height - placeholderHeight) / 2.0)
-        } else {
-            placeholderTop = textFieldFrame.minY - placeholderMarginBottom - placeholderHeight
-        }
-        let placeholderFrame = CGRect(x: left, y: placeholderTop, width: width, height: placeholderHeight)
-        
-        // Update
-        
-        func updateBlock() {
-            placeholderLabel.frame = placeholderFrame;
-            textField.frame = textFieldFrame;
-            underlineView.frame = underlineFrame
-        }
-        
-        if (animated) {
-            UIView.animate(withDuration: 0.15, animations: updateBlock);
-        } else {
-            updateBlock();
-        }
-    }
-    
     // MARK: Updating Color
     
     func updateUnderlineColor(animated: Bool = false) {
@@ -362,7 +276,7 @@ class PlaceholderTextInputView: UIView {
             underlineView.layer.backgroundColor = (underlineColor ?? underlineColorDefault).cgColor
         }
         
-        if (animated) {
+        if animated {
             UIView.animate(withDuration: 0.2, animations: updateBlock)
         } else {
             updateBlock()
@@ -380,9 +294,86 @@ class PlaceholderTextInputView: UIView {
             placeholderLabel.attributedText = nil
         }
     }
+}
+
+// MARK:- Layout
+
+extension PlaceholderTextInputView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
+        updateUnderlineColor()
+    }
     
-    // Mark: Touches
+    private func getTextFieldIntrinsicHeight(for size: CGSize) -> CGFloat {
+        return ceil(textField.sizeThatFits(CGSize(width: size.width, height: 0)).height)
+    }
     
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var height = contentInset.top + contentInset.bottom
+        height += placeholderFont.lineHeight + placeholderMarginBottom
+        height += underlineMarginTop + underlineStrokeWidth
+        height += getTextFieldIntrinsicHeight(for: size)
+        
+        return CGSize(width: size.width, height: height)
+    }
+    
+    func updateFrames(animated: Bool = false) {
+        if let inputText = text {
+            updateFrames(inputText.isEmpty, animated: animated)
+        } else {
+            updateFrames(true, animated: animated)
+        }
+    }
+    
+    func updateFrames(_ textIsEmpty: Bool, animated: Bool) {
+        var left = contentInset.left
+        var width = bounds.width - left - contentInset.right
+        
+        // Underline
+        
+        let underlineTop = bounds.height - contentInset.bottom - underlineStrokeWidth
+        let underlineFrame = CGRect(x: left, y: underlineTop, width: width, height: underlineStrokeWidth)
+        
+        // Labels
+        
+        let textBottom = underlineTop - underlineMarginTop
+        
+        let textFieldHeight = getTextFieldIntrinsicHeight(for: bounds.size)
+        let textFieldTop = textBottom - textFieldHeight
+        let textFieldFrame = CGRect(x: left, y: textFieldTop, width: width, height: textFieldHeight)
+        
+        let placeholderTop: CGFloat
+        let placeholderHeight = ceil(placeholderFont.lineHeight)
+        
+        // Align the placeholder over the textView
+        if textIsEmpty {
+            placeholderTop = textBottom - placeholderHeight
+        } else {
+            placeholderTop = textFieldFrame.minY - placeholderMarginBottom - placeholderHeight
+        }
+        let placeholderFrame = CGRect(x: left, y: placeholderTop, width: width, height: placeholderHeight)
+        
+        // Update
+        
+        func updateBlock() {
+            placeholderLabel.frame = placeholderFrame
+            textField.frame = textFieldFrame
+            underlineView.frame = underlineFrame
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.15, animations: updateBlock)
+        } else {
+            updateBlock()
+        }
+    }
+}
+
+// Mark:- Touches
+
+extension PlaceholderTextInputView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if disabled {
             return
@@ -390,8 +381,8 @@ class PlaceholderTextInputView: UIView {
         
         super.touchesBegan(touches, with: event)
         
-        let touch:UITouch = touches.first!
-        let point:CGPoint = touch.location(in: self)
+        let touch = touches.first!
+        let point = touch.location(in: self)
         if self.bounds.contains(point) {
             highlighted = true
         }
@@ -408,10 +399,10 @@ class PlaceholderTextInputView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         
-        let touch:UITouch = touches.first!
-        let point:CGPoint = touch.location(in: self)
-        let touchInset:UIEdgeInsets = UIEdgeInsetsMake(-30, -30, -30, -30)
-        let touchBounds:CGRect = UIEdgeInsetsInsetRect(self.bounds, touchInset)
+        let touch = touches.first!
+        let point = touch.location(in: self)
+        let touchInset = UIEdgeInsets(top: -30, left: -30, bottom: -30, right: -30)
+        let touchBounds = UIEdgeInsetsInsetRect(self.bounds, touchInset)
         if !touchBounds.contains(point) {
             self.touchesCancelled(touches, with: event)
         }
@@ -431,10 +422,12 @@ class PlaceholderTextInputView: UIView {
         }
         return nil
     }
-    
-    // MARK: First Responder
-    
-    override var canBecomeFirstResponder : Bool {
+}
+
+// MARK:- First Responder
+
+extension PlaceholderTextInputView {
+    override var canBecomeFirstResponder: Bool {
         if disabled {
             return false
         }
@@ -469,7 +462,7 @@ class PlaceholderTextInputView: UIView {
         return super.resignFirstResponder()
     }
     
-    override var isFirstResponder : Bool {
+    override var isFirstResponder: Bool {
         return super.isFirstResponder || textField.isFirstResponder
     }
     
@@ -528,7 +521,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
             }
         }
         
-        if (text.characters.count > 0) {
+        if text.characters.count > 0 {
             updateFrames(false, animated: true)
         } else {
             updateFrames(true, animated: true)
@@ -542,8 +535,8 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Note textField's current state before performing the change, in case reformatTextField wants to revert it
-        previousTextFieldContent = textField.text;
-        previousSelection = textField.selectedTextRange;
+        previousTextFieldContent = textField.text
+        previousSelection = textField.selectedTextRange
         
         return true
     }

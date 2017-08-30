@@ -453,7 +453,7 @@
 		30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875041D9AFC3600E55A88 /* icon-exit-link@2x.png */; };
 		30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E875051D9AFC3600E55A88 /* icon-exit-link@3x.png */; };
 		30E87C511D93112E00B5EF9E /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E87C4E1D93112E00B5EF9E /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E87C4F1D93112E00B5EF9E /* SRWebSocket.m */; };
+		30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E87C4F1D93112E00B5EF9E /* SRWebSocket.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		30EE29F01D95D75B0079932D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5F1D93149B00B5EF9E /* libicucore.tbd */; };
 		30EE29F11D95D75B0079932D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */; };
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
@@ -2129,6 +2129,7 @@
 				FD8D8AF71D0F6E2A001B420B /* Headers */,
 				30EE29EF1D95D7520079932D /* Frameworks */,
 				FD8D8AF81D0F6E2A001B420B /* Resources */,
+				3A4FEEF31F54748200338B00 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2402,6 +2403,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3A4FEEF31F54748200338B00 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		30DF3F821F27CEB100D6DB02 /* Sources */ = {

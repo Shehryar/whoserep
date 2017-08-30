@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
 
-        
         // Root View controller
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationController(rootViewController: homeController)

@@ -27,7 +27,7 @@ class ChatMessagesViewCellMaster: NSObject {
     
     fileprivate let cellHeightCache = ChatMessageCellHeightCache()
     
-    fileprivate var timeHeaderHeightCache = [Date : CGFloat]()
+    fileprivate var timeHeaderHeightCache = [Date: CGFloat]()
     
     fileprivate var cachedTypingIndicatorCellHeight: CGFloat?
     
@@ -49,8 +49,8 @@ class ChatMessagesViewCellMaster: NSObject {
     
     // MARK: Reuse IDs
     
-    fileprivate let TimeHeaderViewReuseId = "TimeHeaderViewReuseId"
-    fileprivate let TypingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
+    fileprivate let timeHeaderViewReuseId = "TimeHeaderViewReuseId"
+    fileprivate let typingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     
     // MARK: Init
     
@@ -61,8 +61,8 @@ class ChatMessagesViewCellMaster: NSObject {
         pictureMessageSizingCell.pictureView.disableImageLoading = true
         
         // Register Header & Non-Message Cells
-        tableView.register(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: TimeHeaderViewReuseId)
-        tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: TypingIndicatorCellReuseId)
+        tableView.register(ChatMessagesTimeHeaderView.self, forHeaderFooterViewReuseIdentifier: timeHeaderViewReuseId)
+        tableView.register(ChatTypingIndicatorCell.self, forCellReuseIdentifier: typingIndicatorCellReuseId)
         
         // Register Message Cells
         for type in ChatMessageAttachment.AttachmentType.all {
@@ -126,7 +126,7 @@ extension ChatMessagesViewCellMaster {
     // MARK: Public
     
     func timeStampHeaderView(withTime time: Date?) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TimeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: timeHeaderViewReuseId) as? ChatMessagesTimeHeaderView
         styleTimeHeaderView(headerView, withTime: time)
         return headerView
     }
@@ -161,7 +161,7 @@ extension ChatMessagesViewCellMaster {
     // MARK: Public
     
     func typingIndicatorCell(forIndexPath indexPath: IndexPath) -> UITableViewCell? {
-        return getCell(with: TypingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
+        return getCell(with: typingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
     }
     
     func cellForMessage(_ message: ChatMessage,

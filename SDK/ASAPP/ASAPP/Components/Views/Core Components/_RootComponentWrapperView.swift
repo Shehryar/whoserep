@@ -1,5 +1,5 @@
 //
-//  _RootComponentWrapperView.swift
+//  RootComponentWrapperView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 5/9/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class _RootComponentWrapperView: BaseComponentView {
+class RootComponentWrapperView: BaseComponentView {
 
     var rootView: UIView? {
         didSet {

@@ -73,7 +73,7 @@ extension TemplateServerPreviewViewController {
         }
     }
 
-    func allIntentsCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell  {
+    func allIntentsCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCell(withIdentifier: reuseIdLeftTextCell)
             ?? UITableViewCell(style: .subtitle, reuseIdentifier: reuseIdLeftTextCell))
         
@@ -85,7 +85,7 @@ extension TemplateServerPreviewViewController {
 
     }
     
-    func treewalkServerCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell  {
+    func treewalkServerCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case SpecificIntentRow.input.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: COMTextInputCell.reuseId) as! COMTextInputCell
@@ -109,7 +109,6 @@ extension TemplateServerPreviewViewController {
                                               color: ASAPP.styles.colors.textButtonPrimary.textNormal)
             return cell
 
-            
         default:
             return UITableViewCell()
          

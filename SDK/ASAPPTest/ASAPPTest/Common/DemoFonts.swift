@@ -52,7 +52,6 @@ extension DemoFonts {
     }
 }
 
-
 // MARK:- XFINITY Sans Fonts
 
 extension DemoFonts {

@@ -157,9 +157,9 @@ class BrandingSwitcherView: UIView {
                     let time = CFAbsoluteTimeGetCurrent()
                     let angle = weakSelf.getAngleOfView(gestureView)
                     if time > weakSelf.lastTime {
-                        weakSelf.angularVelocity = CGFloat(angle - weakSelf.lastAngle) / CGFloat(time - weakSelf.lastTime);
-                        weakSelf.lastTime = time;
-                        weakSelf.lastAngle = angle;
+                        weakSelf.angularVelocity = CGFloat(angle - weakSelf.lastAngle) / CGFloat(time - weakSelf.lastTime)
+                        weakSelf.lastTime = time
+                        weakSelf.lastAngle = angle
                     }
                 }
                 animator.addBehavior(attachment)
@@ -184,7 +184,7 @@ class BrandingSwitcherView: UIView {
             if magnitude < 800.0 {
                 let snap = UISnapBehavior(item: gestureView, snapTo: getPreviewListCenter(whenHidden: false))
                 animator.addBehavior(snap)
-                return;
+                return
             }
             
             // Otherwise, create UIDynamicItemBehavior that carries on animation from where the gesture left off (notably linear and angular velocity)
@@ -206,10 +206,10 @@ class BrandingSwitcherView: UIView {
     
                     UIView.animate(withDuration: 0.3, animations: {
                         weakSelf.backgroundOverlayView.alpha = 0.0
-                    }) { (completed) in
+                    }, completion: { _ in
                         weakSelf.switcherViewHidden = true
                         weakSelf.isUserInteractionEnabled = false
-                    }
+                    })
                 }
             }
             animator.addBehavior(dynamic)

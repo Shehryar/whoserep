@@ -230,7 +230,7 @@ extension AuthTokenViewController {
         let alert = UIAlertController(title: "Select Environment", message: nil, preferredStyle: .actionSheet)
         
         for environment in SpearEnvironment.allValues {
-            alert.addAction(UIAlertAction(title: environment.rawValue, style: .default, handler: { [weak self] (action) in
+            alert.addAction(UIAlertAction(title: environment.rawValue, style: .default, handler: { [weak self] _ in
                 self?.spearEnvironment = environment
             }))
         }

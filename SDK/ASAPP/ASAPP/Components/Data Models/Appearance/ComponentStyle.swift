@@ -55,23 +55,23 @@ extension ComponentStyle {
     
     enum JSONKey: String {
         // Keep alphabetical
-        case align = "align"
-        case backgroundColor = "backgroundColor"
-        case borderColor = "borderColor"
-        case borderWidth = "borderWidth"
-        case buttonType = "buttonType"
-        case color = "color"
-        case cornerRadius = "cornerRadius"
-        case fontSize = "fontSize"
-        case gravity = "gravity"
-        case height = "height"
-        case letterSpacing = "letterSpacing"
-        case margin = "margin"
-        case padding = "padding"
-        case textAlign = "textAlign"
-        case textType = "textType"
-        case weight = "weight"
-        case width = "width"
+        case align
+        case backgroundColor
+        case borderColor
+        case borderWidth
+        case buttonType
+        case color
+        case cornerRadius
+        case fontSize
+        case gravity
+        case height
+        case letterSpacing
+        case margin
+        case padding
+        case textAlign
+        case textType
+        case weight
+        case width
     }
     
     static func fromJSON(_ json: Any?) -> ComponentStyle {
@@ -138,7 +138,7 @@ extension ComponentStyle {
                 return fromJSON(json)
         }
         
-        var combinedStyleJSON = [String : Any]()
+        var combinedStyleJSON = [String: Any]()
         
         // Style class may actually be a space-separate list of classes
         let styleClassNames = styleClass.components(separatedBy: " ")

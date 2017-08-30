@@ -13,9 +13,9 @@ class UserLoginAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case mergeCustomerId = "mergeCustomerId"
-        case mergeCustomerGUID = "mergeCustomerGUID"
-        case nextAction = "nextAction"
+        case mergeCustomerId
+        case mergeCustomerGUID
+        case nextAction
     }
     
     let mergeCustomerId: UInt64

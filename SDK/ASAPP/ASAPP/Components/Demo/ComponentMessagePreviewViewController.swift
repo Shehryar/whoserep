@@ -126,7 +126,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         }
         
         clear()
-        UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (message, viewContainer, err) in
+        UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (message, _, err) in
             if let message = message {
                 self?.addMessage(message)
             } else {
@@ -150,7 +150,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                       metadata: metadata)
         addMessage(userMessage)
         
-        UseCasePreviewAPI.getTreewalk(with: nextFileName, completion: { [weak self] (message, _, err) in
+        UseCasePreviewAPI.getTreewalk(with: nextFileName, completion: { [weak self] (message, _, _) in
             guard let message = message else {
                 self?.showAlert(with: "Unable to fetch message from classification: \(nextFileName)")
                 return
@@ -218,11 +218,7 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
 
 extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
     
-    
-    
-    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
-                                 didSelect quickReply: QuickReply,
-                                 from message: ChatMessage) -> Bool {
+    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         var title: String?
         var message: String?
         
@@ -230,7 +226,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
         case .api:
             title = "API"
             message = (quickReply.action as? APIAction)?.requestPath
-            break
             
         case .componentView:
             if let action = quickReply.action as? ComponentViewAction {
@@ -239,20 +234,16 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             }
             title = "Component View"
             message = "Unknown"
-            break
             
         case .deepLink:
             title = "Link"
-            break
             
         case .finish:
             title = "Finish"
-            break
             
         case .http:
             title = "HTTP"
-            // MITCH MITCH MITCH
-            break
+            // MITCH MITCH MITCH TODO:
             
         case .treewalk:
             if let treewalkAction = quickReply.action as? TreewalkAction {
@@ -262,7 +253,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             
             title = "SRS Treewalk"
             message = "Classification: \(String(describing: (quickReply.action as? TreewalkAction)?.classification))"
-            break
             
         case .userLogin:
             // MITCH MITCH TODO:
@@ -271,13 +261,11 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
         case .web:
             title = "Web"
             message = (quickReply.action as? WebPageAction)?.url.absoluteString
-            break
             
         case .unknown, .legacyAppAction:
             // No-op
             break
         }
-        
         
         let alert = UIAlertController(title: title,
                                       message: message,
@@ -351,7 +339,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
                                  didTapAPIAction action: APIAction,
                                  withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
-        var data = action.data ?? [String : Any]()
+        var data = action.data ?? [String: Any]()
         data.add(formData)
         
         if let text = data["text"] as? String,
@@ -393,7 +381,6 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             return
         }
         
-        
         let error = APIActionError(code: 400,
                                    userMessage: "For testing purposes, the action should supply a 'text' and 'classification' value, or should supply a 'name' value",
                                    debugMessage: "",
@@ -402,6 +389,5 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         completion(APIActionResponse(type: .error,
                                      view: nil,
                                      error: error))
-        
     }
 }

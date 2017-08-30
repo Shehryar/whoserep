@@ -59,8 +59,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     // MARK:- Instance Methods
     
     func timeTextForDate(_ date: Date) -> String {
-        
-        
         return dateFormatter.string(from: date)
     }
     

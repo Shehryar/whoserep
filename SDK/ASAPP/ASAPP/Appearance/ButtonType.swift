@@ -9,10 +9,10 @@
 import UIKit
 
 enum ButtonType: String {
-    case primary = "primary"
-    case secondary = "secondary"
-    case textPrimary = "textPrimary"
-    case textSecondary = "textSecondary"
+    case primary
+    case secondary
+    case textPrimary
+    case textSecondary
     
     static func from(_ value: Any?) -> ButtonType? {
         guard let value = value as? String,

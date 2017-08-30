@@ -13,8 +13,8 @@ class TreewalkAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case classification = "classification"
-        case messageText = "messageText"
+        case classification
+        case messageText
     }
     
     let classification: String

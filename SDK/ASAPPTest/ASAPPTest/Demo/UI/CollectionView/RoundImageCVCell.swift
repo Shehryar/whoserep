@@ -66,8 +66,6 @@ class RoundImageCVCell: UICollectionViewCell {
     // MARK: Border
     
     func updateBorder() {
-        
-        
         let color: UIColor
         if isHighlighted || shouldHighlightImageBorder {
             color = AppSettings.shared.branding.colors.accentColor

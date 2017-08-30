@@ -45,7 +45,6 @@ class TriangleView: UIView {
         commonInit()
     }
 
-    
     // MARK:- Drawing
     
     override func draw(_ rect: CGRect) {

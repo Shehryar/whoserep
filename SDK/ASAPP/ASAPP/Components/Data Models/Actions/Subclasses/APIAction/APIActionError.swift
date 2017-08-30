@@ -37,10 +37,10 @@ class APIActionError: NSObject {
 extension APIActionError {
  
     enum JSONKey: String {
-        case code = "code"
-        case userMessage = "userMessage"
-        case debugMessage = "debugMessage"
-        case invalidInputs = "invalidInputs"
+        case code
+        case userMessage
+        case debugMessage
+        case invalidInputs
     }
     
     class func fromJSON(_ json: Any?) -> APIActionError? {

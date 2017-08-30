@@ -59,39 +59,34 @@ extension ActionFactory {
                 }
                 return apiAction
             }
-            break
             
         case .appAction:
             if let content = valueJSON.jsonObject(for: "content"),
                 let action = content.string(for: "action") {
                 return AppAction(content: [
-                    AppAction.JSONKey.action.rawValue : action,
-                    AppAction.JSONKey.metadata.rawValue : metadata
+                    AppAction.JSONKey.action.rawValue: action,
+                    AppAction.JSONKey.metadata.rawValue: metadata
                     ])
             }
-            break
             
         case .deepLink:
             if let content = valueJSON.jsonObject(for: "content"),
                 let deepLink = content.string(for: "deepLink"),
                 let data = content.jsonObject(for: "deepLinkData") {
                 return DeepLinkAction(content: [
-                    "name" : deepLink,
-                    "data" : data
-                    ])
+                    "name": deepLink,
+                    "data": data
+                ])
             }
-            break
             
         case .treewalk:
             if let classification = valueJSON.string(for: "content") {
                 return TreewalkAction(content: [
-                    "classification" : classification
-                    ])
+                    "classification": classification
+                ])
             }
-            break
         }
         
         return nil
     }
-
 }

@@ -47,7 +47,6 @@ extension TooltipPresenter {
         tooltipView.center = animationStartCenter
         parentView.addSubview(tappableView)
         
-        
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             self?.tooltipView.alpha = 1.0
             self?.tooltipView.center = animationEndCenter
@@ -73,10 +72,9 @@ extension TooltipPresenter {
                 let animationEndCenter = CGPoint(x: tooltip.center.x, y: tooltip.center.y + 10)
                 tooltip.center = animationEndCenter
                 tooltip.alpha = 0.0
-                
-                }, completion: { [weak self] (completed) in
-                    self?.tappableView.removeFromSuperview()
-                    self?.onDismiss?()
+            }, completion: { [weak self] _ in
+                self?.tappableView.removeFromSuperview()
+                self?.onDismiss?()
             })
         } else {
             tooltipView.alpha = 0.0

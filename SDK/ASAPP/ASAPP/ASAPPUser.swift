@@ -28,7 +28,7 @@ public class ASAPPUser: NSObject {
     
     // MARK:- Internal properties
     
-    internal var sessionInfo: String? = nil
+    internal var sessionInfo: String?
 
     // MARK:- Init
     
@@ -36,7 +36,7 @@ public class ASAPPUser: NSObject {
                 requestContextProvider: @escaping ASAPPRequestContextProvider,
                 userLoginHandler: @escaping ASAPPUserLoginHandler) {
         if let userIdentifier = userIdentifier {
-            self.userIdentifier = userIdentifier;
+            self.userIdentifier = userIdentifier
             self.isAnonymous = false
         } else {
             self.userIdentifier = ASAPPUser.createAnonymousIdentifier()

@@ -85,7 +85,6 @@ extension BillDetailsViewController {
             break
         }
         
-        
         return UITableViewCell()
     }
     

@@ -109,7 +109,6 @@ class ButtonView: UIButton, ComponentView {
         fitToSize.width -= padding.left + padding.right
         fitToSize.height -= padding.top + padding.bottom
         
-        
         // Spacing
         var imageTitleSpacing: CGFloat = 0.0
         

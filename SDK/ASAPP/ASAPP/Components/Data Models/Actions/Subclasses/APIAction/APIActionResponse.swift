@@ -11,10 +11,10 @@ import UIKit
 typealias APIActionResponseHandler = (_ response: APIActionResponse?) -> Void
 
 enum APIActionResponseType: String {
-    case finish = "finish"
-    case refreshView = "refreshView"
-    case componentView = "componentView"
-    case error = "error"
+    case finish
+    case refreshView
+    case componentView
+    case error
     
     static func from(_ value: Any?) -> APIActionResponseType? {
         guard let value = value as? String else {
@@ -51,8 +51,8 @@ class APIActionResponse: NSObject {
 extension APIActionResponse {
     
     enum JSONKey: String {
-        case type = "type"
-        case content = "content"
+        case type
+        case content
     }
     
     class func fromJSON(_ json: Any?) -> APIActionResponse? {

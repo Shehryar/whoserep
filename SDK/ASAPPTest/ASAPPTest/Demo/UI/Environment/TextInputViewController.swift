@@ -30,7 +30,6 @@ class TextInputViewController: BaseTableViewController {
     
     // MARK: Init
     
-    
     override func commonInit() {
         super.commonInit()
     
@@ -125,4 +124,3 @@ extension TextInputViewController {
         }
     }
 }
-

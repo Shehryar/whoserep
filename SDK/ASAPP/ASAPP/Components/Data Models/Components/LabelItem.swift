@@ -13,7 +13,7 @@ class LabelItem: Component {
     // MARK: JSON Keys
     
     enum JSONKey: String {
-        case text = "text"
+        case text
     }
 
     // MARK: Component Properties

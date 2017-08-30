@@ -13,12 +13,12 @@ class APIAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case requestPath = "requestPath"
+        case requestPath
     }
     
     let requestPath: String
     
-    var tempRequestTopLevelParams = [String : Any]()
+    var tempRequestTopLevelParams = [String: Any]()
     
     // MARK: Init
     

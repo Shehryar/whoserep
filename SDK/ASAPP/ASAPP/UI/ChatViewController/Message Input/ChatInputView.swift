@@ -189,19 +189,19 @@ class ChatInputView: UIView {
         let font = ASAPP.styles.textStyles.link.font
         let color = inputColors.primaryButton
         let normalAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color,
-            NSFontAttributeName : font
+            NSKernAttributeName: 1.5,
+            NSForegroundColorAttributeName: color,
+            NSFontAttributeName: font
         ] as [String : Any]
         let highlightedAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.withAlphaComponent(0.7),
-            NSFontAttributeName : font
+            NSKernAttributeName: 1.5,
+            NSForegroundColorAttributeName: color.withAlphaComponent(0.7),
+            NSFontAttributeName: font
         ] as [String : Any]
         let disabledAttributes = [
-            NSKernAttributeName : 1.5,
-            NSForegroundColorAttributeName : color.withAlphaComponent(0.4),
-            NSFontAttributeName : font
+            NSKernAttributeName: 1.5,
+            NSForegroundColorAttributeName: color.withAlphaComponent(0.4),
+            NSFontAttributeName: font
         ] as [String : Any]
         let buttonTitle = sendButtonText
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
@@ -262,7 +262,7 @@ extension ChatInputView {
         return textView.becomeFirstResponder() || super.becomeFirstResponder()
     }
     
-    override var canBecomeFirstResponder : Bool {
+    override var canBecomeFirstResponder: Bool {
         return textView.canBecomeFirstResponder || super.canBecomeFirstResponder
     }
     
@@ -270,11 +270,11 @@ extension ChatInputView {
         return textView.resignFirstResponder() || super.resignFirstResponder()
     }
     
-    override var canResignFirstResponder : Bool {
+    override var canResignFirstResponder: Bool {
         return textView.canResignFirstResponder || super.canResignFirstResponder
     }
     
-    override var isFirstResponder : Bool {
+    override var isFirstResponder: Bool {
         return textView.isFirstResponder || super.isFirstResponder
     }
 }

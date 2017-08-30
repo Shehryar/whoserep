@@ -56,7 +56,7 @@ class ImageViewer: UIViewController {
     
     fileprivate let controlsView = ImageViewerControlsView()
     
-    fileprivate let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey : 10])
+    fileprivate let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 10])
     
     // MARK: Initialization
     
@@ -123,18 +123,18 @@ class ImageViewer: UIViewController {
 // MARK:- UIStatusBar
 
 extension ImageViewer {
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         if shouldOverrideStatusBar {
             return true
         }
         return super.prefersStatusBarHidden
     }
     
-    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .none
     }
 }

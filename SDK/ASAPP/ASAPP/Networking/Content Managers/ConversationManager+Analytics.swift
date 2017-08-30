@@ -46,19 +46,19 @@ extension ConversationManager {
                     metrics: AnalyticsMetrics? = nil) {
         
         var defaultAttributes: [String : Any] = [
-            "device_model" : UIDevice.current.model,
-            "device_platform_name" : UIDevice.current.systemName,
-            "device_platform_version" : UIDevice.current.systemVersion,
-            "device_uuid" : sessionManager.deviceIdentifier,
-            "device_event_sequence" : String(sessionManager.getNextEventSequence())
+            "device_model": UIDevice.current.model,
+            "device_platform_name": UIDevice.current.systemName,
+            "device_platform_version": UIDevice.current.systemVersion,
+            "device_uuid": sessionManager.deviceIdentifier,
+            "device_event_sequence": String(sessionManager.getNextEventSequence())
         ]
         if let currentIntent = currentSRSClassification {
             defaultAttributes["current_classification"] = currentIntent
         }
         
         var params: [String : Any] = [
-            "EventType" : eventType.rawValue,
-            "Attributes" : defaultAttributes.with(attributes)
+            "EventType": eventType.rawValue,
+            "Attributes": defaultAttributes.with(attributes)
         ]
         if let metrics = metrics {
             params["Metrics"] = metrics
@@ -78,7 +78,7 @@ extension ConversationManager {
     
     func trackButtonTap(buttonName: AnalyticsButtonName) {
         trackEvent(eventType: .buttonClick,
-                   attributes: [ "button_clicked" : buttonName.rawValue ],
+                   attributes: ["button_clicked": buttonName.rawValue],
                    metrics: nil)
     }
     
@@ -88,18 +88,15 @@ extension ConversationManager {
             if let deepLinkAction = action as? DeepLinkAction {
                 trackDeepLink(link: deepLinkAction.name, deepLinkData: deepLinkAction.data)
             }
-            break
             
         case .web:
             if let webAction = action as? WebPageAction {
                 trackWebLink(webAction.url.absoluteString)
             }
-            break
             
         case .userLogin:
             // MITCH MITCH MITCH TODO: Track user login
             break
-            
             
         case .api, .componentView, .finish, .http, .treewalk, .unknown, .legacyAppAction:
             // Not explicitly tracked for now
@@ -108,7 +105,7 @@ extension ConversationManager {
     }
 
     func trackDeepLink(link: String, deepLinkData: Any?) {
-        var attributes = [ "url" : link ]
+        var attributes = ["url": link]
         if let deepLinkData = deepLinkData,
             let deepLinkDataString = JSONUtil.stringify(deepLinkData) {
             attributes["deep_link_data"] = deepLinkDataString
@@ -121,15 +118,15 @@ extension ConversationManager {
     
     func trackWebLink(_ link: String) {
         trackEvent(eventType: .webLink,
-                   attributes: [ "url" : link ],
+                   attributes: ["url": link],
                    metrics: nil)
     }
     
     func trackTreewalk(message: String, classification: String) {
         trackEvent(eventType: .treewalk,
                    attributes: [
-                    "button_clicked" : message,
-                    "classification" : classification
+                    "button_clicked": message,
+                    "classification": classification
             ])
     }
     
@@ -140,8 +137,8 @@ extension ConversationManager {
                          responseTimeInMilliseconds: Int) {
         
         var attributes = [
-            "endpoint" : path,
-            "query_is_predictive" : isPredictive ? "true" : "false"
+            "endpoint": path,
+            "query_is_predictive": isPredictive ? "true" : "false"
         ]
         if let requestUUID = requestUUID {
             attributes["request_id"] = requestUUID
@@ -151,7 +148,7 @@ extension ConversationManager {
             attributes["request_parameters"] = paramsString
         }
         
-        let metrics = [ "elapsed_time" : Double(responseTimeInMilliseconds * 1000) ]
+        let metrics = [ "elapsed_time": Double(responseTimeInMilliseconds * 1000) ]
         
         trackEvent(eventType: .srsRequestTime,
                    attributes: attributes,
@@ -159,22 +156,22 @@ extension ConversationManager {
     }
     
     func trackLiveChatBegan(issueId: Int) {
-        let requestResponse = ["issueId" : issueId]
+        let requestResponse = ["issueId": issueId]
         guard let responseJson = JSONUtil.stringify(requestResponse) else {
             DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }
         
-        trackEvent(eventType: .liveChatBegan, attributes: ["request_response" : responseJson])
+        trackEvent(eventType: .liveChatBegan, attributes: ["request_response": responseJson])
     }
     
     func trackLiveChatEnded(issueId: Int) {
-        let requestResponse = ["issueId" : issueId]
+        let requestResponse = ["issueId": issueId]
         guard let responseJson = JSONUtil.stringify(requestResponse) else {
             DebugLog.e("Unabled to stringify JSON for trackLiveChatBegan")
             return
         }
         
-        trackEvent(eventType: .liveChatEnded, attributes: ["request_response" : responseJson])
+        trackEvent(eventType: .liveChatEnded, attributes: ["request_response": responseJson])
     }
 }

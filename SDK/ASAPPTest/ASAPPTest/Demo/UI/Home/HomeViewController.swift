@@ -28,7 +28,6 @@ class HomeViewController: BaseViewController {
     override func commonInit() {
         super.commonInit()
         
-
         self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
             guard let blockSelf = self else { return }
             
@@ -130,30 +129,31 @@ class HomeViewController: BaseViewController {
         present(chatViewController, animated: true, completion: nil)
     }
     
-    
     // MARK:- ASAPP Callbacks
     
     func createASAPPUser(customerIdentifier: String? = nil) -> ASAPPUser {
-        let user = ASAPPUser(userIdentifier: customerIdentifier ?? AppSettings.shared.customerIdentifier,
-                             requestContextProvider: requestContextProvider,
-                             userLoginHandler: { [weak self] (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
-                                let loginViewController = LoginViewController()
-                                
-                                loginViewController.onUserLogin = { [weak self] (customerId) in
-                                    guard let strongSelf = self else {
-                                        return
-                                    }
-                                    
-                                    let user = strongSelf.createASAPPUser(customerIdentifier: customerId)
-                                    onUserLogin(user)
-                                }
-                                
-                                let navController = NavigationController(rootViewController: loginViewController)
-                                if let presentedVC = self?.presentedViewController {
-                                    presentedVC.present(navController, animated: true, completion: nil)
-                                } else {
-                                    self?.present(navController, animated: true, completion: nil)
-                                }
+        let user = ASAPPUser(
+            userIdentifier: customerIdentifier ?? AppSettings.shared.customerIdentifier,
+            requestContextProvider: requestContextProvider,
+            userLoginHandler: { [weak self] (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
+                
+            let loginViewController = LoginViewController()
+            
+            loginViewController.onUserLogin = { [weak self] (customerId) in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                let user = strongSelf.createASAPPUser(customerIdentifier: customerId)
+                onUserLogin(user)
+            }
+            
+            let navController = NavigationController(rootViewController: loginViewController)
+            if let presentedVC = self?.presentedViewController {
+                presentedVC.present(navController, animated: true, completion: nil)
+            } else {
+                self?.present(navController, animated: true, completion: nil)
+            }
         })
         
         return user

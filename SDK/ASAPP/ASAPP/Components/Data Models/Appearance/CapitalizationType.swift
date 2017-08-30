@@ -9,10 +9,10 @@
 import UIKit
 
 enum CapitalizationType: String {
-    case characters = "characters"
-    case none = "none" // Default
-    case sentences = "sentences"
-    case words = "words"
+    case characters
+    case none // Default
+    case sentences
+    case words
     
     func type() -> UITextAutocapitalizationType {
         switch self {

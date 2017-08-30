@@ -63,11 +63,9 @@ extension ChatMessagesViewDataSource {
             
             // Could skip over arrays here if the message happened before the first message's time
             
-            for (row, currMessage) in messages.enumerated().reversed() {
-                
-                if currMessage.metadata.eventId == message.metadata.eventId {
-                    return IndexPath(row: row, section: section)
-                }
+            for (row, currMessage) in messages.enumerated().reversed()
+            where currMessage.metadata.eventId == message.metadata.eventId {
+                return IndexPath(row: row, section: section)
             }
         }
         return nil
@@ -95,10 +93,9 @@ extension ChatMessagesViewDataSource {
             return nil
         }
         
-        for (idx, currMessage) in allMessages.enumerated() {
-            if currMessage.metadata.eventId == message.metadata.eventId {
-                return idx
-            }
+        for (idx, currMessage) in allMessages.enumerated()
+        where currMessage.metadata.eventId == message.metadata.eventId {
+            return idx
         }
         return nil
     }

@@ -179,7 +179,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
         
         isLoading = true
-        delegate.componentViewController(self, fetchContentForViewNamed: componentName) { [weak self] (componentViewContainer, error) in
+        delegate.componentViewController(self, fetchContentForViewNamed: componentName) { [weak self] (componentViewContainer, _) in
             Dispatcher.performOnMainThread {
                 self?.componentViewContainer = componentViewContainer
                 self?.isLoading = false
