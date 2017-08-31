@@ -123,8 +123,9 @@ class HomeViewController: BaseViewController {
             return
         }
         
-        let chatViewController = ASAPP.createChatViewController(fromNotificationWith: userInfo,
-                                                                appCallbackHandler: callbackHandler)
+        let chatViewController = ASAPP.createChatViewControllerForPresenting(
+            fromNotificationWith: userInfo,
+            appCallbackHandler: callbackHandler)
         
         present(chatViewController, animated: true, completion: nil)
     }

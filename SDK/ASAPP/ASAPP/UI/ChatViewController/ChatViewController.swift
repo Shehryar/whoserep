@@ -26,7 +26,7 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: Properties: Views / UI
     
-    fileprivate let predictiveVC = PredictiveViewController()
+    fileprivate var predictiveVC: PredictiveViewController!
     fileprivate let predictiveNavController: UINavigationController!
     fileprivate let chatMessagesView = ChatMessagesView()
     fileprivate let chatInputView = ChatInputView()
@@ -43,6 +43,7 @@ class ChatViewController: ASAPPViewController {
     fileprivate var didPresentPredictiveView = false
     fileprivate var predictiveVCVisible = false
     fileprivate var delayedDisconnectTime: Date?
+    fileprivate var segue: ASAPPSegue = .present
     
     // MARK: Properties: Keyboard
     
@@ -53,10 +54,12 @@ class ChatViewController: ASAPPViewController {
     
     // MARK:- Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
         self.appCallbackHandler = appCallbackHandler
+        self.predictiveVC = PredictiveViewController(segue: segue)
         self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
+        self.segue = segue
         super.init(nibName: nil, bundle: nil)
         
         updateUser(user)
@@ -71,12 +74,21 @@ class ChatViewController: ASAPPViewController {
         predictiveNavController.view.alpha = 0.0
         
         // Close Button
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(location: .chat,
-                                                                  side: .right,
-                                                                  target: self,
-                                                                  action: #selector(ChatViewController.didTapCloseButton))
+        let side = ASAPP.styles.closeButtonSide(for: segue)
+        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
+            location: .chat,
+            segue: segue,
+            target: self,
+            action: #selector(ChatViewController.didTapCloseButton))
+        
+        switch side {
+        case .right:
+            navigationItem.rightBarButtonItem = closeButton
+        case .left:
+            navigationItem.leftBarButtonItem = closeButton
+        }
+        
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
-        navigationItem.rightBarButtonItem = closeButton
         
         // Chat Messages View
         chatMessagesView.delegate = self
@@ -331,22 +343,31 @@ class ChatViewController: ASAPPViewController {
     }
     
     func updateNavigationActionButton() {
+        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
+        let title: String
+        let action: Selector
+        
         if isLiveChat {
-            let askButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.chatEndChatNavBarButton,
-                                                               style: .ask,
-                                                               location: .chat,
-                                                               side: .left,
-                                                               target: self,
-                                                               action: #selector(ChatViewController.didTapEndChatButton))
-            navigationItem.leftBarButtonItem = askButton
+            title = ASAPP.strings.chatEndChatNavBarButton
+            action = #selector(ChatViewController.didTapEndChatButton)
         } else {
-            let askButton = UIBarButtonItem.asappBarButtonItem(title: ASAPP.strings.chatAskNavBarButton,
-                                                               style: .ask,
-                                                               location: .chat,
-                                                               side: .left,
-                                                               target: self,
-                                                               action: #selector(ChatViewController.didTapAskButton))
+            title = ASAPP.strings.chatAskNavBarButton
+            action = #selector(ChatViewController.didTapAskButton)
+        }
+        
+        let askButton = UIBarButtonItem.asappBarButtonItem(
+            title: title,
+            style: .ask,
+            location: .chat,
+            side: side,
+            target: self,
+            action: action)
+        
+        switch side {
+        case .left:
             navigationItem.leftBarButtonItem = askButton
+        case .right:
+            navigationItem.rightBarButtonItem = askButton
         }
     }
     
@@ -368,8 +389,6 @@ class ChatViewController: ASAPPViewController {
         }
         return super.preferredStatusBarStyle
     }
-    
-   
     
     // MARK: Connection
     
@@ -407,6 +426,8 @@ class ChatViewController: ASAPPViewController {
     func dismissChatViewController() {
         if let presentingViewController = presentingViewController {
             presentingViewController.dismiss(animated: true, completion: nil)
+        } else if let container = navigationController?.parent as? ContainerViewController {
+            container.navigationController?.popViewController(animated: true)
         }
     }
     

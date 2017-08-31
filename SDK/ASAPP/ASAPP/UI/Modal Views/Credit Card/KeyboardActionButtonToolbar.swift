@@ -81,10 +81,10 @@ class KeyboardActionButtonToolbar: UIToolbar {
         
         // Previous / Next
         if onPreviousButtonTap != nil {
-            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowLeft), action: #selector(KeyboardActionButtonToolbar.didTapPreviousButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconGuillemetLeft), action: #selector(KeyboardActionButtonToolbar.didTapPreviousButton)))
         }
         if onNextButtonTap != nil {
-            buttonItems.append(createImageButton(image: Images.asappImage(.iconArrowRight), action: #selector(KeyboardActionButtonToolbar.didTapNextButton)))
+            buttonItems.append(createImageButton(image: Images.asappImage(.iconGuillemetRight), action: #selector(KeyboardActionButtonToolbar.didTapNextButton)))
         }
         
         // Done
