@@ -77,6 +77,7 @@ class QuickRepliesActionSheet: UIView {
     
     func commonInit() {
         patternView.backgroundColor = UIColor.asapp_patternBackground
+        patternView.isHidden = !ASAPP.styles.colors.quickRepliesBackgroundPattern
         patternBackgroundView.addSubview(patternView)
         
         patternBackgroundView.backgroundColor = ASAPP.styles.colors.quickRepliesBackground

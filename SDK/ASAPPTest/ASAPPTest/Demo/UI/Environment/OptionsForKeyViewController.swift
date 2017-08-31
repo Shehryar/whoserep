@@ -28,37 +28,18 @@ class OptionsForKeyViewController: BaseTableViewController {
     
     var onSelection: ((_ selectedOption: String?) -> Void)?
     
-    var rightBarButtonItemTitle: String? {
-        didSet {
-            updateBarButtonItems()
-        }
-    }
+    var createCustomOptionTitle: String = "Create New"
     
-    var onRightBarButtonItemTap: (() -> Void)?
+    var createRandomOptionTitle: String?
     
     var randomEntryPrefix: String?
+    
+    var deleteSelectedOptionTitle: String?
     
     override func commonInit() {
         super.commonInit()
         
         tableView.allowsSelectionDuringEditing = false
-    }
-}
-
-// MARK: UIBarButtonItems
-
-extension OptionsForKeyViewController {
-    
-    func updateBarButtonItems() {
-        if let rightBarButtonItemTitle = rightBarButtonItemTitle {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightBarButtonItemTitle, style: .plain, target: self, action: #selector(OptionsForKeyViewController.didTapRightBarButtonItem))
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
-    }
-    
-    func didTapRightBarButtonItem() {
-        onRightBarButtonItemTap?()
     }
 }
 
@@ -84,10 +65,109 @@ extension OptionsForKeyViewController {
         selectedOption = AppSettings.getString(forKey: selectedOptionKey)
         options = AppSettings.getStringArray(forKey: optionsListKey)
         
-        DemoLog("Found Selected Option: \(String(describing: selectedOption)), for key: \(selectedOptionKey.rawValue)")
-        DemoLog("With Options List: \(String(describing: options) ), for key: \(optionsListKey.rawValue)")
+//        DemoLog("Found Selected Option: \(String(describing: selectedOption)), for key: \(selectedOptionKey.rawValue)")
+//        DemoLog("With Options List: \(String(describing: options) ), for key: \(optionsListKey.rawValue)")
         
         tableView.reloadData()
+    }
+}
+
+// MARK: Creation Row Helpers
+
+extension OptionsForKeyViewController {
+    
+    func numberOfCreateNewRows() -> Int {
+        var numRows = 1
+        if createRandomOptionTitle != nil {
+            numRows += 1
+        }
+        if deleteSelectedOptionTitle != nil {
+            numRows += 1
+        }
+        return numRows
+    }
+    
+    func titleForCreateNewRow(_ row: Int) -> String? {
+        switch row {
+        case 0: return createCustomOptionTitle
+        case 1: return createRandomOptionTitle ?? deleteSelectedOptionTitle
+        case 2: return deleteSelectedOptionTitle
+        default: return nil
+        }
+    }
+    
+    func performActionForCreateNewRow(_ row: Int) {
+        switch row {
+        case 0:
+            createNewOption()
+            break
+            
+        case 1:
+            if createRandomOptionTitle != nil {
+                createRandomOption()
+            } else {
+                deleteCurrentSelectedOption()
+            }
+            break
+            
+        case 2:
+            deleteCurrentSelectedOption()
+            break
+            
+        default:
+            // No-op
+            break
+        }
+    }
+    
+    private func createNewOption() {
+        let viewController = TextInputViewController()
+        viewController.title = "Add New Option"
+        if let title = title {
+            viewController.instructionText = "Add \(title)"
+        } else {
+            viewController.instructionText = "Add Option"
+        }
+        viewController.onFinish = { [weak self] (text) in
+            guard !text.isEmpty,
+                let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
+                    return
+            }
+            
+            if strongSelf.isRestrictedText(text) {
+                strongSelf.showAlert(title: "Sorry!",
+                                     message: "You are not allowed to do this.")
+                return
+            }
+            
+            AppSettings.addStringToArray(text, forKey: optionsListKey)
+            
+            strongSelf.selectOption(text)
+            
+            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+        }
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func createRandomOption() {
+        guard let optionsListKey = optionsListKey else {
+            showAlert(title: "Dev Bug", message: "optionsListKey required!")
+            return
+        }
+        
+        let optionText: String
+        if let randomEntryPrefix = randomEntryPrefix {
+            optionText = "\(randomEntryPrefix)\(Int(Date().timeIntervalSince1970))"
+        } else {
+            optionText = "\(Int(Date().timeIntervalSince1970))"
+        }
+        
+        AppSettings.addStringToArray(optionText, forKey: optionsListKey)
+        selectOption(optionText)
+    }
+    
+    private func deleteCurrentSelectedOption() {
+        selectOption(nil)
     }
 }
 
@@ -102,7 +182,7 @@ extension OptionsForKeyViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Section.options.rawValue: return options?.count ?? 0
-        case Section.createNew.rawValue: return 1
+        case Section.createNew.rawValue: return numberOfCreateNewRows()
         default: return 0
         }
     }
@@ -129,7 +209,9 @@ extension OptionsForKeyViewController {
             return UITableViewCell()
             
         case Section.createNew.rawValue:
-            return buttonCell(title: "Create New", for: indexPath, sizingOnly: forSizing)
+            return buttonCell(title: titleForCreateNewRow(indexPath.row),
+                              for: indexPath,
+                              sizingOnly: forSizing)
             
         default:
             return UITableViewCell()
@@ -167,33 +249,7 @@ extension OptionsForKeyViewController {
             break
             
         case Section.createNew.rawValue:
-            let viewController = TextInputViewController()
-            viewController.title = "Add New Option"
-            if let title = title {
-                viewController.instructionText = "Add \(title)"
-            } else {
-                viewController.instructionText = "Add Option"
-            }
-            viewController.randomEntryPrefix = randomEntryPrefix
-            viewController.onFinish = { [weak self] (text) in
-                guard !text.isEmpty,
-                    let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
-                    return
-                }
-                
-                if strongSelf.isRestrictedText(text) {
-                    strongSelf.showAlert(title: "Sorry!",
-                                         message: "You are not allowed to do this.")
-                    return
-                }
-                
-                AppSettings.addStringToArray(text, forKey: optionsListKey)
-                
-                strongSelf.selectOption(text)
-                
-                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
-            }
-            navigationController?.pushViewController(viewController, animated: true)
+            performActionForCreateNewRow(indexPath.row)
             break
             
         default:
@@ -202,7 +258,7 @@ extension OptionsForKeyViewController {
         }
     }
     
-    private func selectOption(_ text: String?) {
+    fileprivate func selectOption(_ text: String?) {
         if let selectedOptionKey = selectedOptionKey {
             if let text = text {
                 AppSettings.saveObject(text, forKey: selectedOptionKey)

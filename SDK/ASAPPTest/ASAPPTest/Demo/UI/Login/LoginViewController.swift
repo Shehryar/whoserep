@@ -24,16 +24,6 @@ class LoginViewController: OptionsForKeyViewController {
         update(selectedOptionKey: AppSettings.Key.customerIdentifier,
                optionsListKey: AppSettings.Key.customerIdentifierList)
         
-//        rightBarButtonItemTitle = "Anonymous"
-//        onRightBarButtonItemTap = { [weak self] in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            
-//            AppSettings.deleteObject(forKey: AppSettings.Key.customerIdentifier)
-//            
-//            strongSelf.onUserLogin?(nil)
-//        }
         onSelection = { [weak self] (customerIdentifier) in
             if let customerIdentifier = customerIdentifier {
                 self?.userDidLogin(customerIdentifier)
@@ -59,7 +49,6 @@ class LoginViewController: OptionsForKeyViewController {
         if dismissOnUserLogin {
             dismiss(animated: true, completion: nil)
         }
-        
     }
     
     func didTapCancel() {

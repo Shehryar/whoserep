@@ -24,12 +24,6 @@ class TextInputViewController: BaseTableViewController {
     
     var placeholderText: String = "Enter text..."
     
-    var randomEntryPrefix: String? {
-        didSet {
-            updateBarButtonItems()
-        }
-    }
-    
     fileprivate(set) var text: String = ""
     
     fileprivate let buttonSizingCell = ButtonCell()
@@ -51,29 +45,7 @@ class TextInputViewController: BaseTableViewController {
         _ = tableView.cellForRow(at: IndexPath(item: 0, section: Section.textInput.rawValue))?.becomeFirstResponder()
     }
     
-    // MARK:- BarButtonItems
-    
-    func updateBarButtonItems() {
-        if randomEntryPrefix != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Random",
-                                                                style: .plain, 
-                                                                target: self,
-                                                                action: #selector(TextInputViewController.generateRandomText))
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
-    }
-    
     // MARK:- Actions
-    
-    func generateRandomText() {
-        guard let randomEntryPrefix = randomEntryPrefix else {
-            return
-        }
-        
-        text = "\(randomEntryPrefix)\(Int(Date().timeIntervalSince1970))"
-        tableView.reloadData()
-    }
     
     func finish() {
         guard !text.isEmpty else {
