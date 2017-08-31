@@ -185,7 +185,7 @@ extension ComponentLayoutEngine {
         var width = totalWidth
         for view in views {
             let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
-            width -= margin.left - margin.right
+            width -= margin.left + margin.right
         }
         return max(0, width)
     }
