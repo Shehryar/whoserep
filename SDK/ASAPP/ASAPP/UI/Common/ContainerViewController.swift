@@ -40,7 +40,9 @@ class ContainerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if isMovingFromParentViewController {
+            navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
     
     // MARK:- Status Bar
