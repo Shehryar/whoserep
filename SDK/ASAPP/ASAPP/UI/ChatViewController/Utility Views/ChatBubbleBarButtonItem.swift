@@ -169,7 +169,7 @@ extension UIBarButtonItem {
         case .push:
             foregroundColor = ASAPP.styles.colors.navBarButtonBackground
             backgroundColor = nil
-            image = UIImage.asappIcon(.arrowLeft)
+            image = Images.asappImage(.iconArrowLeft)
             imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
             imageSize = 24
         }
