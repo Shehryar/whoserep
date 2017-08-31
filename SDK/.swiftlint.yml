@@ -16,4 +16,5 @@ force_cast: warning
 
 excluded:
   - 'ASAPP/Embedded Third-Party Code'
+  - Carthage
 

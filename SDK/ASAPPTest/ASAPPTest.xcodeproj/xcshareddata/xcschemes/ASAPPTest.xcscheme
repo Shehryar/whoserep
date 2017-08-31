@@ -32,10 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "30DF3F851F27CEB100D6DB02"
-               BuildableName = "ASAPPTests.xctest"
-               BlueprintName = "ASAPPTests"
-               ReferencedContainer = "container:../ASAPP.xcodeproj">
+               BlueprintIdentifier = "3A4FEF251F58B42B00338B00"
+               BuildableName = "ASAPP UI Tests.xctest"
+               BlueprintName = "ASAPP UI Tests"
+               ReferencedContainer = "container:ASAPPTest.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3A0449251F59DDB60097AE5D"
+               BuildableName = "ASAPPTestUITests.xctest"
+               BlueprintName = "ASAPPTestUITests"
+               ReferencedContainer = "container:ASAPPTest.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

@@ -127,6 +127,8 @@
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
 		30F20EE61ED4CBF700A14FA9 /* hey.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hey.caf; sourceTree = "<group>"; };
+		3A4FEF361F58B5D900338B00 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		3A4FEF371F58B5D900338B00 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -312,6 +314,8 @@
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A4FEF361F58B5D900338B00 /* Quick.framework */,
+				3A4FEF371F58B5D900338B00 /* Nimble.framework */,
 				30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */,
 				30E87C591D93138D00B5EF9E /* Security.framework */,
 			);
@@ -379,7 +383,7 @@
 		FD8D8B111D107A19001B420B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = asappinc;
 				TargetAttributes = {
