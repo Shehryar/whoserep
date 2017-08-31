@@ -26,7 +26,7 @@ class ModalCardTitleView: UIView {
     let imageWidth: CGFloat = 28
     let imageMargin: CGFloat = 10
     let font = Fonts.latoBoldFont(withSize: 18)
-    let textColor = UIColor(red:0.263, green:0.278, blue:0.318, alpha:1.000)
+    let textColor = UIColor(red: 0.263, green: 0.278, blue: 0.318, alpha: 1)
     
     fileprivate let label = UILabel()
     fileprivate let imageView = UIImageView()
@@ -105,7 +105,7 @@ class ModalCardTitleView: UIView {
     
     func updateImageView() {
         if let image = image {
-            imageView.image = image.tinted(UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000))
+            imageView.image = image.tinted(UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1))
         } else {
             imageView.image = nil
         }

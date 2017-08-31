@@ -11,8 +11,8 @@ import UIKit
 class SeparatorItem: Component {
     
     enum SeparatorStyle: String {
-        case horizontal = "horizontal"
-        case vertical = "vertical"
+        case horizontal
+        case vertical
         
         static func from(_ value: Any?) -> SeparatorStyle? {
             guard let value = value as? String else {

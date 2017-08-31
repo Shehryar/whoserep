@@ -41,7 +41,7 @@ class LeaveFeedbackView: ModalCardContentView {
         
         detailLabel.font = ASAPP.styles.textStyles.subheader.font
         detailLabel.text = "Leave Feedback (optional)"
-        detailLabel.textColor = UIColor(red:0.549, green:0.557, blue:0.576, alpha:1.000)
+        detailLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
         detailLabel.textAlignment = .left
         addSubview(detailLabel)
         
@@ -49,7 +49,7 @@ class LeaveFeedbackView: ModalCardContentView {
         textView.layer.cornerRadius = 6
         textView.backgroundColor = UIColor.white
         textView.font = ASAPP.styles.textStyles.body.font
-        textView.textColor = UIColor(red:0.449, green:0.457, blue:0.476, alpha:1.000)
+        textView.textColor = UIColor(red: 0.449, green: 0.457, blue: 0.476, alpha: 1)
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8)
         addSubview(textView)
     }

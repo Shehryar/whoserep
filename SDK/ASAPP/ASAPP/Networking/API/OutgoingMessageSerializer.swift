@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class OutgoingMessageSerializer: NSObject {
     
     // MARK: Pubic Properties
@@ -58,9 +57,9 @@ extension OutgoingMessageSerializer {
     func createAuthRequest() -> (path: String, params: [String : Any], isSessionAuthRequest: Bool) {
         var path: String
         var params: [String : Any] = [
-            "App" : "ios-sdk",
+            "App": "ios-sdk",
             "CompanyMarker": config.appId,
-            "RegionCode" : "US"
+            "RegionCode": "US"
         ]
         var isSessionAuthRequest = false
         
@@ -143,7 +142,7 @@ extension OutgoingMessageSerializer {
         }
         
         // Conversations are merged on authentication. No need to keep this around
-        userLoginAction = nil;
+        userLoginAction = nil
     }
     
     func clearSessionInfo() {
@@ -165,12 +164,12 @@ extension OutgoingMessageSerializer {
     }
     
     fileprivate func contextForRequest(withPath path: String) -> [String : Any] {
-        var context = [ "CompanyId" : customerTargetCompanyId ]
+        var context = [ "CompanyId": customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {
-                context = [ "IssueId" : issueId ]
+                context = [ "IssueId": issueId ]
             }
         }
-        return context as [String : Any]
+        return context as [String: Any]
     }
 }

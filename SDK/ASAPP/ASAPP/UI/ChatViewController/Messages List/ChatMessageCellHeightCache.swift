@@ -15,7 +15,7 @@ class ChatMessageCellHeightCache: NSObject {
         let messagePosition: MessageListPosition
     }
     
-    fileprivate var cache = [ChatMessage : CachedHeight]()
+    fileprivate var cache = [ChatMessage: CachedHeight]()
 }
 
 // MARK:- Public API

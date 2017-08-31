@@ -30,8 +30,8 @@ enum LegacyActionType: String {
 // MARK:- LegacyAppAction
 
  enum LegacyAppAction: String {
-    case ask = "ask"
-    case addCreditCard = "addCreditCard"
-    case leaveFeedback = "leaveFeedback"
+    case ask
+    case addCreditCard
+    case leaveFeedback
  }
  

@@ -13,11 +13,11 @@ class CarouselViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case items = "items"
-        case itemSpacing = "itemSpacing"
-        case visibleItemCount = "visibleItemCount"
-        case pageControl = "pageControl"
-        case pagingEnabled = "pagingEnabled"
+        case items
+        case itemSpacing
+        case visibleItemCount
+        case pageControl
+        case pagingEnabled
     }
     
     // MARK:- Defaults

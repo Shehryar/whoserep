@@ -283,8 +283,8 @@ extension AppSettings {
     func getContext() -> [String : Any] {
         return [
             ASAPP.AUTH_KEY_ACCESS_TOKEN: AppSettings.shared.authToken,
-            "fake_context_key_1" : "fake_context_value_1",
-            "fake_context_key_2" : "fake_context_value_2"
+            "fake_context_key_1": "fake_context_value_1",
+            "fake_context_key_2": "fake_context_value_2"
         ]
     }
 }

@@ -116,7 +116,6 @@ class CreditCard: NSObject {
             invalidFields.append(.cvv)
         }
     
-        
         return invalidFields.count > 0 ? invalidFields : nil
     }
     
@@ -131,10 +130,10 @@ class CreditCard: NSObject {
         }
         
         return [
-            CreditCardField.name.rawValue : name as AnyObject,
-            CreditCardField.number.rawValue : number as AnyObject,
-            CreditCardField.expiry.rawValue : expiry as AnyObject,
-            CreditCardField.cvv.rawValue : cvv as AnyObject
+            CreditCardField.name.rawValue: name as AnyObject,
+            CreditCardField.number.rawValue: number as AnyObject,
+            CreditCardField.expiry.rawValue: expiry as AnyObject,
+            CreditCardField.cvv.rawValue: cvv as AnyObject
         ]
     }
 }

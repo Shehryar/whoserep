@@ -34,7 +34,7 @@ class KeyboardActionButtonToolbar: UIToolbar {
         }
     }
     
-    var buttonTintColor: UIColor = UIColor(red:0.180, green:0.627, blue:0.867, alpha:1) {
+    var buttonTintColor: UIColor = UIColor(red: 0.180, green: 0.627, blue: 0.867, alpha: 1) {
         didSet {
             tintColor = buttonTintColor
             updateButtons()
@@ -78,7 +78,6 @@ class KeyboardActionButtonToolbar: UIToolbar {
         let flexItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         buttonItems.append(flexItem)
         
-        
         // Previous / Next
         if onPreviousButtonTap != nil {
             buttonItems.append(createImageButton(image: Images.asappImage(.iconGuillemetLeft), action: #selector(KeyboardActionButtonToolbar.didTapPreviousButton)))
@@ -92,11 +91,11 @@ class KeyboardActionButtonToolbar: UIToolbar {
             let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(KeyboardActionButtonToolbar.didTapDoneButton))
             doneButton.tintColor = buttonTintColor
             doneButton.setTitleTextAttributes([
-                NSForegroundColorAttributeName : buttonTintColor
-                ], for: .normal)
+                NSForegroundColorAttributeName: buttonTintColor
+            ], for: .normal)
             doneButton.setTitleTextAttributes([
-                NSForegroundColorAttributeName : buttonTintColor.withAlphaComponent(0.5)
-                ], for: .highlighted)
+                NSForegroundColorAttributeName: buttonTintColor.withAlphaComponent(0.5)
+            ], for: .highlighted)
             buttonItems.append(doneButton)
         }
         

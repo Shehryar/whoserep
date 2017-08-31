@@ -122,7 +122,7 @@ class Component: NSObject {
     }
     
     func getData() -> [String : Any] {
-        var data = [String : Any]()
+        var data = [String: Any]()
         
         func add(name: String, value: Any) {
             // Default - add the value under the name

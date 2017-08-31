@@ -13,27 +13,26 @@ class IconItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case icon = "icon"
+        case icon
     }
 
     enum Icon: String {
-        case placeholder = "placeholder" // Empty icon
+        case placeholder // Empty icon
         
-        case alertError = "alertError"
-        case alertWarning = "alertWarning"
-        case arrowOutgoing = "arrowOutgoing"
-        case checkmarkCircle = "checkmarkCircle"
-        case checkmarkThick = "checkmarkThick"
-        case checkmarkThin = "checkmarkThin"
-        case clock = "clock"
-        case loginKey = "loginKey"
-        case power = "power"
-        case trash = "trash"
-        case user = "user"
-        case userMinus = "userMinus"
-        case xThick = "xThick"
-        case xThin = "xThin"
-        
+        case alertError
+        case alertWarning
+        case arrowOutgoing
+        case checkmarkCircle
+        case checkmarkThick
+        case checkmarkThin
+        case clock
+        case loginKey
+        case power
+        case trash
+        case user
+        case userMinus
+        case xThick
+        case xThin
         
         static let iconToASAPPIconMap: [Icon : ASAPPIcon] = [
             .alertError: .alertError,
@@ -105,7 +104,6 @@ class IconItem: Component {
             return nil
         }
         self.icon = icon
-        
         
         super.init(id: id,
                    name: name,

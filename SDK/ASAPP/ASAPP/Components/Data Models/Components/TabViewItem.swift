@@ -13,7 +13,7 @@ class TabViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case pages = "pages"
+        case pages
     }
     
     // MARK:- Properties
@@ -67,12 +67,11 @@ class TabViewItem: Component {
     }
 }
 
-
 class TabViewPage: NSObject {
     
     enum JSONKey: String {
-        case title = "title"
-        case root = "root"
+        case title
+        case root
     }
     
     // MARK: Properties

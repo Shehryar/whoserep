@@ -50,11 +50,11 @@ class SocketConnection: NSObject {
     
     fileprivate var requestQueue = [SocketRequest]()
     
-    fileprivate var requestHandlers = [Int : IncomingMessageHandler]()
+    fileprivate var requestHandlers = [Int: IncomingMessageHandler]()
     
-    fileprivate var requestSendTimes = [Int : TimeInterval]()
+    fileprivate var requestSendTimes = [Int: TimeInterval]()
     
-    fileprivate var requestLookup = [Int : SocketRequest]()
+    fileprivate var requestLookup = [Int: SocketRequest]()
     
     fileprivate var didManuallyDisconnect = false
     
@@ -75,7 +75,7 @@ class SocketConnection: NSObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self);
+        NotificationCenter.default.removeObserver(self)
         socket?.delegate = nil
     }
 }
@@ -163,8 +163,8 @@ extension SocketConnection {
     }
     
     fileprivate func sendAuthRequest(withPath path: String,
-                         params: [String : Any]?,
-                         requestHandler: IncomingMessageHandler? = nil) {
+                                     params: [String: Any]?,
+                                     requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: nil)
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
@@ -224,8 +224,8 @@ extension SocketConnection {
     func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
         let (path, params, isSessionAuthRequest) = outgoingMessageSerializer.createAuthRequest()
-        sendAuthRequest(withPath: path, params: params) { [weak self] (message, request, responseTime) in
-            if message.type == .ResponseError && isSessionAuthRequest {
+        sendAuthRequest(withPath: path, params: params) { [weak self] (message, _, _) in
+            if message.type == .responseError && isSessionAuthRequest {
                 // Session auth failed... retry after clearing session info
                 self?.outgoingMessageSerializer.clearSessionInfo()
                 self?.authenticate(completion)
@@ -235,9 +235,9 @@ extension SocketConnection {
             self?.outgoingMessageSerializer.updateWithAuthResponse(message)
             
             if let messageType = message.type {
-                if messageType == .Response {
+                if messageType == .response {
                     self?.isAuthenticated = true
-                } else if messageType == .ResponseError {
+                } else if messageType == .responseError {
                     self?.isAuthenticated = false
                 }
             }
@@ -252,9 +252,9 @@ extension SocketConnection {
     
     func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/GetCustomerByCRMCustomerId"
-        let params: [String : Any] = [ "CRMCustomerId" : targetCustomerToken]
+        let params: [String : Any] = [ "CRMCustomerId": targetCustomerToken]
         
-        sendRequest(withPath: path, params: params) { (response, request, responseTime) in
+        sendRequest(withPath: path, params: params) { (response, _, _) in
             guard let customerJSON = response.body?["Customer"] as? [String : Any] else {
                 DebugLog.e("Missing Customer json body in: \(String(describing: response.fullMessage))")
                 
@@ -272,9 +272,9 @@ extension SocketConnection {
     
     func participateInIssueForCustomer(_ customerId: Int, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/ParticipateInIssueForCustomer"
-        let context: [String : Any] = [ "CustomerId" : customerId ]
+        let context: [String: Any] = [ "CustomerId": customerId ]
         
-        sendRequest(withPath: path, params: nil, context: context) { (response, request, responseTime) in
+        sendRequest(withPath: path, params: nil, context: context) { (response, _, _) in
             var errorMessage: String?
             if let issueId = response.body?["IssueId"] as? Int {
                 self.outgoingMessageSerializer.issueId = issueId
@@ -361,7 +361,7 @@ extension SocketConnection: SRWebSocketDelegate {
     func webSocketDidOpen(_ webSocket: SRWebSocket!) {
         DebugLog.d("Socket Did Open")
         
-        authenticate { [weak self] (message, errorMessage) in
+        authenticate { [weak self] (_, errorMessage) in
             guard self != nil else { return }
             
             if errorMessage == nil {

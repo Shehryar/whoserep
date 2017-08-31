@@ -55,7 +55,7 @@ extension ComponentView where Self: Any {
             return
         }
         
-        for (idx, _) in nestedComponentViews.enumerated() {
+        for idx in nestedComponentViews.indices {
             var nestedComponentView = nestedComponentViews[idx]
             
             nestedComponentView.interactionHandler = interactionHandler

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RadioButtonView: _RootComponentWrapperView {
+class RadioButtonView: RootComponentWrapperView {
     
     // MARK: Properties
     
@@ -47,7 +47,7 @@ class RadioButtonView: _RootComponentWrapperView {
     
     func updateRadioButton() {
         let isSelected = self.isSelected
-        enumerateNestedComponentViews() { (childView) -> Void in
+        enumerateNestedComponentViews { childView  in
             if let radioButton = childView as? RadioButton {
                 radioButton.isSelected = isSelected
             }

@@ -150,7 +150,7 @@ extension ImageViewerImageView {
             spinner.startAnimating()
         }
         
-        imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage, options: SDWebImageOptions(rawValue: UInt(0)), completed: { [weak self] (downloadedImage, downloadError, cacheType, downloadedImageURL) in
+        imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage, options: SDWebImageOptions(rawValue: UInt(0)), completed: { [weak self] (downloadedImage, downloadError, _, downloadedImageURL) in
             
             if let downloadedImageURL = downloadedImageURL {
                 if downloadedImageURL == self?.imageURL {

@@ -19,21 +19,21 @@ extension UIButton {
         // Text
         if let text = text {
             setAttributedTitle(NSAttributedString(string: text, attributes: [
-                NSFontAttributeName : textStyle.font,
-                NSForegroundColorAttributeName : colors.textNormal,
-                NSKernAttributeName : textStyle.letterSpacing
-                ]), for: .normal)
+                NSFontAttributeName: textStyle.font,
+                NSForegroundColorAttributeName: colors.textNormal,
+                NSKernAttributeName: textStyle.letterSpacing
+            ]), for: .normal)
             
             setAttributedTitle(NSAttributedString(string: text, attributes: [
-                NSFontAttributeName : textStyle.font,
-                NSForegroundColorAttributeName : colors.textHighlighted,
-                NSKernAttributeName : textStyle.letterSpacing
+                NSFontAttributeName: textStyle.font,
+                NSForegroundColorAttributeName: colors.textHighlighted,
+                NSKernAttributeName: textStyle.letterSpacing
                 ]), for: .highlighted)
             
             setAttributedTitle(NSAttributedString(string: text, attributes: [
-                NSFontAttributeName : textStyle.font,
-                NSForegroundColorAttributeName : colors.textDisabled,
-                NSKernAttributeName : textStyle.letterSpacing
+                NSFontAttributeName: textStyle.font,
+                NSForegroundColorAttributeName: colors.textDisabled,
+                NSKernAttributeName: textStyle.letterSpacing
                 ]), for: .disabled)
         } else {
             setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])

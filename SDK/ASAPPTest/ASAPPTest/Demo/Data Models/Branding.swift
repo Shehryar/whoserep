@@ -10,9 +10,9 @@ import UIKit
 import ASAPP
 
 enum BrandingType: String {
-    case asapp = "asapp"
-    case xfinity = "xfinity"
-    case boost = "boost"
+    case asapp
+    case xfinity
+    case boost
     
     static let all = [
         asapp,
@@ -94,18 +94,18 @@ class BrandingColors: NSObject {
     let brandingType: BrandingType
     
     private(set) var backgroundColor: UIColor = UIColor.white
-    private(set) var secondaryBackgroundColor: UIColor = UIColor(red:0.941, green:0.937, blue:0.949, alpha:1)
-    private(set) var foregroundColor: UIColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
-    private(set) var secondaryTextColor: UIColor = UIColor(red:0.483, green:0.505, blue:0.572, alpha:1)
-    private(set) var separatorColor: UIColor = UIColor(red:0.874, green:0.875, blue:0.874, alpha:1)
-    private(set) var accentColor: UIColor = UIColor(red:0.266, green:0.808, blue:0.600, alpha:1)
+    private(set) var secondaryBackgroundColor: UIColor = UIColor(red: 0.941, green: 0.937, blue: 0.949, alpha: 1)
+    private(set) var foregroundColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.263, alpha: 1)
+    private(set) var secondaryTextColor: UIColor = UIColor(red: 0.483, green: 0.505, blue: 0.572, alpha: 1)
+    private(set) var separatorColor: UIColor = UIColor(red: 0.874, green: 0.875, blue: 0.874, alpha: 1)
+    private(set) var accentColor: UIColor = UIColor(red: 0.266, green: 0.808, blue: 0.600, alpha: 1)
     private(set) var navBarColor: UIColor = UIColor.white
-    private(set) var navBarTintColor: UIColor = UIColor(red:0.220, green:0.231, blue:0.265, alpha:1)
-    private(set) var navBarTitleColor: UIColor = UIColor(red:0.220, green:0.231, blue:0.263, alpha:1)
+    private(set) var navBarTintColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.265, alpha: 1)
+    private(set) var navBarTitleColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.263, alpha: 1)
     private(set) var statusBarStyle: UIStatusBarStyle = .default
     
     var isDarkNavStyle: Bool { return navBarColor.isDark() }
-    var isDarkContentStyle: Bool  { return backgroundColor.isDark() }
+    var isDarkContentStyle: Bool { return backgroundColor.isDark() }
     
     // MARK:- Init
     
@@ -119,17 +119,17 @@ class BrandingColors: NSObject {
             break
             
         case .xfinity:
-            navBarColor = UIColor(red:0.169, green:0.204, blue:0.263, alpha:1.000)
+            navBarColor = UIColor(red: 0.169, green: 0.204, blue: 0.263, alpha: 1)
             navBarTintColor = UIColor.white
             navBarTitleColor = UIColor.white
             statusBarStyle = .lightContent
             
-            foregroundColor = UIColor(red:0.027, green:0.027, blue:0.027, alpha:1)
-            secondaryTextColor = UIColor(red:0.580, green:0.580, blue:0.580, alpha:1)
+            foregroundColor = UIColor(red: 0.027, green: 0.027, blue: 0.027, alpha: 1)
+            secondaryTextColor = UIColor(red: 0.580, green: 0.580, blue: 0.580, alpha: 1)
             backgroundColor = UIColor.white
-            secondaryBackgroundColor = UIColor(red:0.898, green:0.898, blue:0.898, alpha:1)
-            separatorColor = UIColor(red:0.772, green:0.773, blue:0.772, alpha:1)
-            accentColor = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
+            secondaryBackgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+            separatorColor = UIColor(red: 0.772, green: 0.773, blue: 0.772, alpha: 1)
+            accentColor = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
             break
             
         case .boost:
@@ -138,11 +138,11 @@ class BrandingColors: NSObject {
             navBarTitleColor = UIColor.white
             statusBarStyle = .lightContent
             
-            foregroundColor = UIColor(red:0, green:0, blue:0, alpha:1)
-            secondaryTextColor = UIColor(red:0.490, green:0.490, blue:0.490, alpha:1)
+            foregroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
             backgroundColor = UIColor.white
-            separatorColor = UIColor(red:0.882, green:0.882, blue:0.882, alpha:1)
-            accentColor = UIColor(red:0.961, green:0.514, blue:0.071, alpha:1)
+            separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
+            accentColor = UIColor(red: 0.961, green: 0.514, blue: 0.071, alpha: 1)
             break
         }
     }

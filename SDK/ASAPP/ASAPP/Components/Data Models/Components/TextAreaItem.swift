@@ -13,10 +13,10 @@ class TextAreaItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case autocorrect = "autocorrect"
-        case capitalize = "capitalize"
-        case numberOfLines = "numberOfLines"
-        case placeholder = "placeholder"
+        case autocorrect
+        case capitalize
+        case numberOfLines
+        case placeholder
     }
     
     // MARK:- Defaults

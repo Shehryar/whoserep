@@ -9,10 +9,10 @@
 import UIKit
 
 enum VerticalAlignment: String {
-    case top = "top"
-    case middle = "middle"
-    case bottom = "bottom"
-    case fill = "fill"
+    case top
+    case middle
+    case bottom
+    case fill
     
     static func from(_ string: String?) -> VerticalAlignment? {
         guard let string = string,

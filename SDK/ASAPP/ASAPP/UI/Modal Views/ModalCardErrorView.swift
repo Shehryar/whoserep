@@ -33,7 +33,7 @@ class ModalCardErrorView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = UIColor(red:0.945, green:0.459, blue:0.388, alpha:1.000)
+        backgroundColor = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1)
         clipsToBounds = true
         
         label.font = font

@@ -14,12 +14,12 @@ import UIKit
 class AppAction: Action {
     
     enum JSONKey: String {
-        case action = "action"
-        case metadata = "metadata"
+        case action
+        case metadata
     }
     
     enum AppActionType: String {
-        case leaveFeedback = "leaveFeedback"
+        case leaveFeedback
         
         static func parse(_ value: Any?) -> AppActionType? {
             guard let value = value as? String else {
@@ -40,7 +40,7 @@ class AppAction: Action {
                 return nil
         }
         guard let metadata = contentDict[JSONKey.metadata.rawValue] as? EventMetadata else {
-            DebugLog.d(caller: AppAction.self, "Missing event metatdata: \(String(describing: content))")
+            DebugLog.d(caller: AppAction.self, "Missing event metadata: \(String(describing: content))")
             return nil
         }
         

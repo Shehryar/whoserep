@@ -33,7 +33,7 @@ enum DemoComponentType: String {
     
     static func prettifyFileName(_ name: String?) -> String? {
         return name?
-            .replacingOccurrences(of: "_view_" , with: " ")
+            .replacingOccurrences(of: "_view_", with: " ")
             .replacingOccurrences(of: "_card_", with: " ")
             .replacingOccurrences(of: "_message_", with: " ")
             .replacingOccurrences(of: "_", with: " ")
@@ -50,7 +50,7 @@ class UseCasePreviewAPI: NSObject {
     typealias TreewalkIntentsCompletionHandler = ([Intent]?, String?) -> Void
     
     class func getTreewalkIntents(completion: @escaping TreewalkIntentsCompletionHandler) {
-        sendGETRequest(path: "/treewalk/intents") { (data, response, statusCode, error) in
+        sendGETRequest(path: "/treewalk/intents") { (data, _, statusCode, error) in
             if error != nil || statusCode != 200 {
                 Dispatcher.performOnMainThread {
                     completion(nil, error?.localizedDescription ?? "Non-200 status code: \(statusCode)")
@@ -98,7 +98,7 @@ class UseCasePreviewAPI: NSObject {
         
         sendGETRequest(host: "http://localhost:9000",
                        path: "/treewalk",
-                       params: params) { (data, response, statusCode, error) in
+                       params: params) { (data, _, statusCode, error) in
                         if error != nil || statusCode != 200 {
                             Dispatcher.performOnMainThread {
                                 completion(nil, nil, error?.localizedDescription ?? "Non-200 status code: \(statusCode)")
@@ -110,12 +110,13 @@ class UseCasePreviewAPI: NSObject {
                         var viewContainer: ComponentViewContainer?
                         var errorString: String?
                         if let json = getJSON(from: data) {
-                            let metadata = EventMetadata(isReply: true,
-                                                         isAutomatedMessage: true,
-                                                         eventId: Int(Date().timeIntervalSince1970),
-                                                         eventType: .srsResponse,
-                                                         issueId: 1,
-                                                         sendTime: Date())
+                            let metadata = EventMetadata(
+                                isReply: true,
+                                isAutomatedMessage: true,
+                                eventId: Int(Date().timeIntervalSince1970),
+                                eventType: .srsResponse,
+                                issueId: 1,
+                                sendTime: Date())
                             chatMessage = ChatMessage.fromJSON(json, with: metadata)
                             viewContainer = ComponentViewContainer.from(json)
                         } else {

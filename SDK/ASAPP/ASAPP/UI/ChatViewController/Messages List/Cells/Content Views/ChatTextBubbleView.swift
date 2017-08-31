@@ -39,8 +39,8 @@ class ChatTextBubbleView: UIView {
                 let fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
-                    NSForegroundColorAttributeName : ASAPP.styles.colors.replyMessageText,
-                    NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
+                    NSForegroundColorAttributeName: ASAPP.styles.colors.replyMessageText,
+                    NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
                 bubbleView.fillColor = fillColor
@@ -49,8 +49,8 @@ class ChatTextBubbleView: UIView {
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
-                    NSForegroundColorAttributeName : ASAPP.styles.colors.messageText,
-                    NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
+                    NSForegroundColorAttributeName: ASAPP.styles.colors.messageText,
+                    NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
@@ -262,7 +262,8 @@ extension ChatTextBubbleView {
         }
         
         if let dataDetector = dataDetector {
-            return dataDetector.numberOfMatches(in: text, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, text.characters.count)) > 0
+            let range = NSRange(location: 0, length: text.characters.count)
+            return dataDetector.numberOfMatches(in: text, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: range) > 0
         }
         return false
     }
@@ -288,7 +289,7 @@ extension ChatTextBubbleView {
         }
     }
     
-    override var canBecomeFirstResponder : Bool {
+    override var canBecomeFirstResponder: Bool {
         return true
     }
     

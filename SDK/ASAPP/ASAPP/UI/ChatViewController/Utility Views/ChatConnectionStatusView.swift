@@ -29,18 +29,14 @@ class ChatConnectionStatusView: UIView {
             case .connected:
                 spinner.stopAnimating()
                 message =  ASAPP.strings.connectionBannerConnected
-                break
                 
             case .connecting:
                 spinner.startAnimating()
                 message = ASAPP.strings.connectionBannerConnecting
-                break
-                
                 
             case .disconnected:
                 spinner.stopAnimating()
                 message = ASAPP.strings.connectionBannerDisconnected
-                break
             }
             
             updateColors()
@@ -58,7 +54,6 @@ class ChatConnectionStatusView: UIView {
     fileprivate let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     
     // MARK: Init
-
 
     required init() {
         super.init(frame: .zero)
@@ -83,18 +78,14 @@ class ChatConnectionStatusView: UIView {
         case .connected:
             backgroundColor = ASAPP.styles.colors.backgroundSecondary
             label.textColor = ASAPP.styles.colors.textSecondary
-            break
             
         case .connecting:
             backgroundColor = ASAPP.styles.colors.backgroundSecondary
             label.textColor = ASAPP.styles.colors.textSecondary
-            break
-            
             
         case .disconnected:
             backgroundColor = UIColor.asapp_burntSiennaRed
             label.textColor = UIColor.white
-            break
         }
         
         if let backgroundColor = backgroundColor {

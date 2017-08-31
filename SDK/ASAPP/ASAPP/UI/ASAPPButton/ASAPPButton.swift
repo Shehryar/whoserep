@@ -29,8 +29,10 @@ public class ASAPPButton: UIView {
         return isTouching ? .highlighted : .normal
     }
     
-    fileprivate let backgroundColors = [ASAPPButtonState.normal : ASAPP.styles.colors.helpButtonBackground,
-                                        ASAPPButtonState.highlighted : ASAPP.styles.colors.helpButtonBackground.highlightColor()]
+    fileprivate let backgroundColors = [
+        ASAPPButtonState.normal: ASAPP.styles.colors.helpButtonBackground,
+        ASAPPButtonState.highlighted: ASAPP.styles.colors.helpButtonBackground.highlightColor()
+    ]
     
     fileprivate let contentView = UIView()
     
@@ -81,11 +83,10 @@ public class ASAPPButton: UIView {
         
         updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ASAPPButton.updateDisplay),
-                                               name: Notification.Name.UIContentSizeCategoryDidChange,
-                                               object: nil)
-        
-        
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(ASAPPButton.updateDisplay),
+            name: Notification.Name.UIContentSizeCategoryDidChange,
+            object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -116,7 +117,7 @@ public class ASAPPButton: UIView {
         contentView.transform = currentTransform
     }
     
-    public override var intrinsicContentSize : CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: 50, height: 50)
     }
     
@@ -145,7 +146,6 @@ extension ASAPPButton {
             contentView.alpha = 1
         }
         
-     
         switch currentState {
         case .normal:
             contentView.layer.shadowOpacity = 0.5
@@ -251,8 +251,8 @@ extension ASAPPButton {
         UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: { [weak self] in
             self?.contentView.transform = CGAffineTransform.identity
             self?.contentView.alpha = 1.0
-        }) { [weak self] (completed) in
+        }, completion: { [weak self] _ in
             self?.isWaitingToAnimateIn = false
-        }
+        })
     }
 }

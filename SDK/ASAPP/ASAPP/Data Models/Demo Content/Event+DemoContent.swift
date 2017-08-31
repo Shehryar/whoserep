@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 enum DemoEventType {
     case billAutoPay
     case billCredit
@@ -90,18 +89,18 @@ extension Event {
         }
         
         let json = [
-            "CreatedTime" : eventTime,
-            "IssueId" :  afterEvent?.issueId ?? 350001,
-            "CompanyId" : afterEvent?.companyId ?? 10001,
-            "CustomerId" : afterEvent?.customerId ?? 130001,
-            "RepId" : afterEvent?.repId ?? 20001,
-            "EventTime" : eventTime,
-            "EventType" : type.rawValue,
-            "EphemeralType" : 0,
-            "EventFlags" : 0,
-            "CompanyEventLogSeq" : companyEventLogSeq,
-            "CustomerEventLogSeq" : customerEventLogSeq,
-            "EventJSON" : eventJSON
+            "CreatedTime": eventTime,
+            "IssueId": afterEvent?.issueId ?? 350001,
+            "CompanyId": afterEvent?.companyId ?? 10001,
+            "CustomerId": afterEvent?.customerId ?? 130001,
+            "RepId": afterEvent?.repId ?? 20001,
+            "EventTime": eventTime,
+            "EventType": type.rawValue,
+            "EphemeralType": 0,
+            "EventFlags": 0,
+            "CompanyEventLogSeq": companyEventLogSeq,
+            "CustomerEventLogSeq": customerEventLogSeq,
+            "EventJSON": eventJSON
             ] as [String : Any]
         
         return Event.fromJSON(json)
@@ -157,7 +156,6 @@ extension Event {
         case .chatFlowWaitOrCallback: return "chat-flow-wait-or-callback"
         case .chatFlowQueueEntered: return "chat-flow-queue-entered"
         case .chatFlowAgentEntered: return "chat-flow-agent-entered"
-        
         
         case .transactionHistory: return "transaction-history-message"
         case .dataUsage: return "data-usage-near-full-message"

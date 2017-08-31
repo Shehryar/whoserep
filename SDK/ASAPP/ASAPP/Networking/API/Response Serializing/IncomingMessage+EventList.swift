@@ -24,7 +24,7 @@ extension IncomingMessage {
         var eventsJSONArray: [[String : AnyObject]]?
         var errorMessage: String?
         
-        if type == .Response {
+        if type == .response {
             eventsJSONArray = (body?["EventList"] as? [[String : AnyObject]] ?? body?["Events"] as? [[String : AnyObject]])
             if let eventsJSONArray = eventsJSONArray {
                 events = [Event]()
@@ -35,7 +35,7 @@ extension IncomingMessage {
                 }
                 
             }
-        } else if type == .ResponseError {
+        } else if type == .responseError {
             errorMessage = debugError
         }
         

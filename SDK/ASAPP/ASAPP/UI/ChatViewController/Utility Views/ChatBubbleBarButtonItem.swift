@@ -74,7 +74,6 @@ extension UIBarButtonItem {
         return (textColor, backgroundColor, font, insets)
     }
     
-    
     class func asappBarButtonItem(title: String,
                                   style: ChatBubbleBarButtonItemStyle,
                                   location: NavBarButtonLocation,
@@ -89,25 +88,31 @@ extension UIBarButtonItem {
         // Text
         
         button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-            NSFontAttributeName : font,
-            NSForegroundColorAttributeName : textColor,
-            NSKernAttributeName : 1
-            ]), for: .normal)
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: textColor,
+            NSKernAttributeName: 1
+        ]), for: .normal)
         button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-            NSFontAttributeName : font,
-            NSForegroundColorAttributeName : textColor.withAlphaComponent(0.6),
-            NSKernAttributeName : 1
-            ]), for: .highlighted)
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: textColor.withAlphaComponent(0.6),
+            NSKernAttributeName: 1
+        ]), for: .highlighted)
         
         // Bubble
         
         if let backgroundColor = backgroundColor {
-            button.setBackgroundImage(getChatBubbleBackgroundImage(forStyle: style,
-                                                                   color: backgroundColor,
-                                                                   alpha: 1), for: .normal)
-            button.setBackgroundImage( getChatBubbleBackgroundImage(forStyle: style,
-                                                                    color: backgroundColor,
-                                                                    alpha: 0.6), for: .highlighted)
+            button.setBackgroundImage(
+                getChatBubbleBackgroundImage(
+                    forStyle: style,
+                    color: backgroundColor,
+                    alpha: 1),
+                for: .normal)
+            button.setBackgroundImage(
+                getChatBubbleBackgroundImage(
+                    forStyle: style,
+                    color: backgroundColor,
+                    alpha: 0.6),
+                for: .highlighted)
         }
         
         // Sizing

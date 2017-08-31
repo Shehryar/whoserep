@@ -25,10 +25,9 @@ class ComponentPreviewSourceViewController: UIViewController {
         
         textView.isEditable = false
         textView.isSelectable = true
-        textView.backgroundColor = UIColor(red:0.004, green:0.024, blue:0.000, alpha:1.000)
-        textView.textColor = UIColor(red:0.275, green:0.804, blue:0.129, alpha:1.000)
+        textView.backgroundColor = UIColor(red: 0.004, green: 0.024, blue: 0.000, alpha: 1)
+        textView.textColor = UIColor(red: 0.275, green: 0.804, blue: 0.129, alpha: 1)
         textView.font = UIFont(name: "Menlo-Regular", size: 12)
-        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Copy Source", style: .plain, target: self, action: #selector(ComponentPreviewSourceViewController.copyAllText))
         
@@ -49,7 +48,7 @@ class ComponentPreviewSourceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red:0.004, green:0.024, blue:0.000, alpha:1.000)
+        view.backgroundColor = UIColor(red: 0.004, green: 0.024, blue: 0.000, alpha: 1)
         view.addSubview(textView)
     }
     

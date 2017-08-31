@@ -157,7 +157,6 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         var bottom: CGFloat?
         var left: CGFloat?
         
-        
         // String Value
         if let stringValue = (self[name as! Key] as? String)?.trimmingCharacters(in: .whitespaces) {
             let valueStrings = stringValue.components(separatedBy: " ")
@@ -175,19 +174,16 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
                 right = CGFloat(valuesArray[0])
                 bottom = CGFloat(valuesArray[0])
                 left = CGFloat(valuesArray[0])
-            }
-            else if valuesArray.count == 2 {
+            } else if valuesArray.count == 2 {
                 top = CGFloat(valuesArray[0])
                 right = CGFloat(valuesArray[1])
                 bottom = CGFloat(valuesArray[0])
                 left = CGFloat(valuesArray[1])
-            }
-            else if valuesArray.count == 3 {
+            } else if valuesArray.count == 3 {
                 top = CGFloat(valuesArray[0])
                 right = CGFloat(valuesArray[1])
                 bottom = CGFloat(valuesArray[2])
-            }
-            else if valuesArray.count > 3 {
+            } else if valuesArray.count > 3 {
                 top = CGFloat(valuesArray[0])
                 right = CGFloat(valuesArray[1])
                 bottom = CGFloat(valuesArray[2])

@@ -38,7 +38,7 @@ class QuickRepliesListView: UIView {
     
     fileprivate let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
-    fileprivate let CellReuseId = "CellReuseId"
+    fileprivate let cellReuseId = "CellReuseId"
     
     fileprivate let replySizingCell = QuickReplyCell()
     
@@ -54,7 +54,7 @@ class QuickRepliesListView: UIView {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.register(QuickReplyCell.self, forCellReuseIdentifier: CellReuseId)
+        tableView.register(QuickReplyCell.self, forCellReuseIdentifier: cellReuseId)
         addSubview(tableView)
         
         let gradientColor = UIColor(red: 60.0 / 255.0,
@@ -115,7 +115,7 @@ class QuickRepliesListView: UIView {
             let offsetY = tableView.contentOffset.y
             if offsetY < maxVisibleGradientOffset {
                 gradientView.alpha = 1.0
-            } else if offsetY >= maxContentOffset  {
+            } else if offsetY >= maxContentOffset {
                 gradientView.alpha = 0.0
             } else {
                 gradientView.alpha = (maxContentOffset - offsetY) / visibilityBuffer
@@ -137,7 +137,7 @@ extension QuickRepliesListView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId) as? QuickReplyCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId) as? QuickReplyCell {
             styleQuickReplyCell(cell, atIndexPath: indexPath)
             return cell
         }
@@ -175,7 +175,6 @@ extension QuickRepliesListView: UITableViewDataSource {
                                              color: ASAPP.styles.colors.quickReplyButton.textNormal)
             }
             
-            
             cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
             
             if quickReply.action.willExitASAPP {
@@ -200,7 +199,6 @@ extension QuickRepliesListView: UITableViewDataSource {
             cell.label.alpha = 1
             cell.selectedBackgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundHighlighted
         }
-        
         
         cell.layoutSubviews()
     }

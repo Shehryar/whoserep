@@ -79,7 +79,6 @@ public class ComponentPreviewViewController: ASAPPViewController {
         commonInit()
     }
     
-    
     // MARK: View
     
     public override func viewDidLoad() {
@@ -171,7 +170,6 @@ public class ComponentPreviewViewController: ASAPPViewController {
              return
         }
         
-
         UseCasePreviewAPI.getTreewalk(with: classification, completion: { [weak self] (_, viewContainer, err) in
             if let viewContainer = viewContainer {
                 self?.componentViewContainer = viewContainer
@@ -243,7 +241,7 @@ extension ComponentPreviewViewController {
             return
         }
         
-        var requestData = action.data ?? [String : Any]()
+        var requestData = action.data ?? [String: Any]()
         requestData.add(component.getData())
     
         let requestDataString = JSONUtil.stringify(requestData as AnyObject,
@@ -309,4 +307,3 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
         
     }
 }
-

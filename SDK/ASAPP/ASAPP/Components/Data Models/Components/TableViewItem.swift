@@ -13,7 +13,7 @@ class TableViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case sections = "sections"
+        case sections
     }
     
     // MARK:- Properties
@@ -68,12 +68,11 @@ class TableViewItem: Component {
     
 }
 
-
 class TableViewSectionItem: NSObject {
     
     enum JSONKey: String {
-        case header = "header"
-        case rows = "rows"
+        case header
+        case rows
     }
     
     var nestedComponents: [Component] {

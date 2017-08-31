@@ -34,13 +34,13 @@ extension ChatViewController {
     
     func presentCameraOrPhotoLibrarySelection(fromView presentFromView: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Camera"), style: .default, handler: { [weak self] (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Camera"), style: .default, handler: { [weak self] _ in
             self?.presentCameraIfAuthorized()
         }))
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Photo Library"), style: .default, handler: { [weak self] (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Photo Library"), style: .default, handler: { [weak self] _ in
             self?.presentPhotoLibrary()
         }))
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .destructive, handler: { (alert) in
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .destructive, handler: { _ in
             // No-op
         }))
         alertController.popoverPresentationController?.sourceView = presentFromView
@@ -54,9 +54,6 @@ extension ChatViewController {
                 if authorized {
                     self?.presentCamera()
                 } else {
-                    
-                    
-                    
                     self?.showCameraNotAuthorizedAlert()
                 }
             }
@@ -64,19 +61,16 @@ extension ChatViewController {
     }
     
     func showCameraNotAuthorizedAlert() {
-        let alert = UIAlertController(title: ASAPP.strings.cameraPermissionsErrorTitle,
-                                      message: ASAPP.strings.cameraPermissionsErrorMessage,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: ASAPP.strings.cameraPermissionsErrorTitle,
+            message: ASAPP.strings.cameraPermissionsErrorMessage,
+            preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorCancelButton,
-                                      style: .cancel,
-                                      handler: nil))
-        alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorSettingsButton,
-                                      style: .default,
-                                      handler: { (action) in
-                                        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
-                                            UIApplication.shared.openURL(settingsURL)
-                                        }
+        alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorCancelButton, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorSettingsButton, style: .default, handler: { _ in
+            if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(settingsURL)
+            }
         }))
         
         present(alert, animated: true, completion: nil)
@@ -89,7 +83,6 @@ extension ChatViewController {
         
         present(imagePickerController, animated: true, completion: nil)
     }
-    
     
     func presentPhotoLibrary() {
         let imagePickerController = createImagePickerController(withSourceType: .photoLibrary)
@@ -119,10 +112,9 @@ extension ChatViewController {
     }
 }
 
-
 class CameraPermsissions {
     
-    class func isAuthorized(_ completion: @escaping (Bool) -> ()) {
+    class func isAuthorized(_ completion: @escaping (Bool) -> Void) {
         let mediaType = AVMediaTypeVideo
         
         let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)

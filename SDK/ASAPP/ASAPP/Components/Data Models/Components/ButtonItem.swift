@@ -13,9 +13,9 @@ class ButtonItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case action = "action"
-        case icon = "icon"
-        case title = "title"
+        case action
+        case icon
+        case title
     }
     
     // MARK:- Defaults

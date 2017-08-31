@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckboxView: _RootComponentWrapperView {
+class CheckboxView: RootComponentWrapperView {
 
     // MARK: Properties
     
@@ -47,7 +47,7 @@ class CheckboxView: _RootComponentWrapperView {
     
     func updateCheckbox() {
         let isChecked = self.isChecked
-        enumerateNestedComponentViews() { (childView) -> Void in
+        enumerateNestedComponentViews { childView in
             if let checkbox = childView as? Checkbox {
                 checkbox.isChecked = isChecked
             }

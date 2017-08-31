@@ -9,10 +9,10 @@
 import UIKit
 
 enum HorizontalAlignment: String {
-    case left = "left"
-    case center = "center"
-    case right = "right"
-    case fill = "fill"
+    case left
+    case center
+    case right
+    case fill
     
     static func from(_ string: String?) -> HorizontalAlignment? {
         guard let string = string,

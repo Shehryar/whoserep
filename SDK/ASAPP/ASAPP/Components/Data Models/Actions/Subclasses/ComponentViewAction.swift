@@ -9,8 +9,8 @@
 import UIKit
 
 enum ComponentViewDisplayStyle: String {
-    case full = "full"
-    case inset = "inset"
+    case full
+    case inset
     
     // MARK: JSON Parsing
     
@@ -29,8 +29,8 @@ class ComponentViewAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case displayStyle = "displayStyle"
-        case name = "name"
+        case displayStyle
+        case name
     }
 
     let displayStyle: ComponentViewDisplayStyle

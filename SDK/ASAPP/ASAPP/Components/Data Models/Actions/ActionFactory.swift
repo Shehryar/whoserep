@@ -11,8 +11,8 @@ import UIKit
 enum ActionFactory {
     
     enum JSONKey: String {
-        case content = "content"
-        case type = "type"
+        case content
+        case type
     }
     
     static func action(with json: Any?) -> Action? {

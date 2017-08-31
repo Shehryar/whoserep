@@ -28,7 +28,7 @@ class ModalCardSuccessView: UIView {
         }
     }
     
-    var primaryColor: UIColor = UIColor(red:0.192, green:0.208, blue:0.247, alpha:1.000) {
+    var primaryColor: UIColor = UIColor(red: 0.192, green: 0.208, blue: 0.247, alpha: 1) {
         didSet {
             updateDisplay()
         }
@@ -67,10 +67,10 @@ class ModalCardSuccessView: UIView {
     func updateDisplay() {
         if let text = text {
             label.attributedText = NSAttributedString(string: text, attributes: [
-                NSFontAttributeName : font,
-                NSForegroundColorAttributeName : primaryColor,
-                NSKernAttributeName : 1
-                ])
+                NSFontAttributeName: font,
+                NSForegroundColorAttributeName: primaryColor,
+                NSKernAttributeName: 1
+            ])
         } else {
             label.attributedText = nil
         }

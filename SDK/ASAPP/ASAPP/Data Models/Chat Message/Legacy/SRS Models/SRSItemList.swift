@@ -11,8 +11,8 @@ import UIKit
 class SRSItemList: SRSItem {
     
     enum Orientation: String {
-        case vertical = "vertical"
-        case horizontal = "horizontal"
+        case vertical
+        case horizontal
     
         static func parse(_ value: Any?) -> Orientation? {
             guard let value = value as? String else {

@@ -44,6 +44,9 @@ class PredictiveViewController: UIViewController {
     fileprivate let keyboardObserver = KeyboardObserver()
     fileprivate var keyboardOffset: CGFloat = 0
     
+    fileprivate let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
+    fileprivate let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
+    
     // MARK: Initialization
     
     required init(appOpenResponse: AppOpenResponse? = nil, segue: ASAPPSegue = .present) {
@@ -64,7 +67,6 @@ class PredictiveViewController: UIViewController {
                                  middleColor: ASAPP.styles.colors.predictiveGradientMiddle,
                                  bottomColor: ASAPP.styles.colors.predictiveGradientBottom)
         blurredBgView.contentView.addSubview(blurredColorLayer)
-        
         
         let (titleText, placeholderText) = getTitleAndInputPlaceholder()
         
@@ -100,7 +102,7 @@ class PredictiveViewController: UIViewController {
         }
         blurredBgView.contentView.addSubview(messageInputView)
     
-        connectionStatusLabel.backgroundColor = UIColor(red:0.966, green:0.394, blue:0.331, alpha:1)
+        connectionStatusLabel.backgroundColor = UIColor(red: 0.966, green: 0.394, blue: 0.331, alpha: 1)
         connectionStatusLabel.setAttributedText(ASAPP.strings.predictiveNoConnectionText,
                                                 textType: .error,
                                                 color: UIColor.white)
@@ -122,9 +124,10 @@ class PredictiveViewController: UIViewController {
         
         updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PredictiveViewController.updateDisplay),
-                                               name: Notification.Name.UIContentSizeCategoryDidChange,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(PredictiveViewController.updateDisplay),
+            name: Notification.Name.UIContentSizeCategoryDidChange,
+            object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -149,7 +152,7 @@ class PredictiveViewController: UIViewController {
         }
         
         let chatSide = ASAPP.styles.closeButtonSide(for: segue).opposite()
-        
+
         let viewChatButton = UIBarButtonItem.asappBarButtonItem(
             title: ASAPP.strings.predictiveBackToChatButton,
             style: .respond,
@@ -237,9 +240,11 @@ class PredictiveViewController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
-    // MARK: Layout
-    
+}
+
+// MARK:- Layout
+
+extension PredictiveViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         updateFrames()
@@ -288,7 +293,7 @@ class PredictiveViewController: UIViewController {
             textTop += 25
             messageLabel.alpha = 0
         }
-       
+        
         // Input View
         var visibleBottom = view.bounds.height
         if keyboardOffset > 0 {
@@ -349,8 +354,7 @@ class PredictiveViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.connectionStatusLabel.alpha = 1.0
             self?.connectionStatusLabel.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-            }, completion: { [weak self] (completed) in
-                
+            }, completion: { [weak self] _ in
                 UIView.animate(withDuration: 0.2, animations: { [weak self] in
                     self?.connectionStatusLabel.transform = .identity
                 })
@@ -360,9 +364,11 @@ class PredictiveViewController: UIViewController {
                 })
         })
     }
-    
-    // MARK: Actions
-    
+}
+
+// MARK:- Actions
+
+extension PredictiveViewController {
     func finishWithMessage(_ message: String, fromPrediction: Bool) {
         guard let delegate = delegate else { return }
         
@@ -389,12 +395,11 @@ class PredictiveViewController: UIViewController {
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    // MARK:- Saving Text
-    
-    let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
-    let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
-    
+}
+
+// MARK:- Saving Text
+
+extension PredictiveViewController {
     func getTitleAndInputPlaceholder() -> (String /* Title */, String /* Placeholder */) {
         let title = UserDefaults.standard.string(forKey: storageKeyWelcomeTitle) ?? ASAPP.strings.predictiveWelcomeText
         let placeholder = UserDefaults.standard.string(forKey: storageKeyWelcomeInputPlaceholder) ?? ASAPP.strings.predictiveInputPlaceholder
@@ -494,7 +499,6 @@ extension PredictiveViewController {
             messageLabel.text = nil
         }
         
-        
         if keyboardOffset > 0 {
             buttonsView.expanded = false
             buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
@@ -518,14 +522,13 @@ extension PredictiveViewController {
                             self?.messageLabel.alpha = 1.0
                         }
                     }
-                    }, completion: { [weak self] (completed) in
-                        self?.buttonsView.animateButtonsIn(true) {
-                            self?.viewContentsVisible = true
-                        }
+                }, completion: { [weak self] _ in
+                    self?.buttonsView.animateButtonsIn(true) {
+                        self?.viewContentsVisible = true
+                    }
                 })
             }
         }
-        
         
         saveTitle(title: appOpenResponse.greeting, placeholder: appOpenResponse.inputPlaceholder)
     }

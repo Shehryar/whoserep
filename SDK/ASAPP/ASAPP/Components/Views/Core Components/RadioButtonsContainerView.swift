@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RadioButtonsContainerView: _RootComponentWrapperView {
+class RadioButtonsContainerView: RootComponentWrapperView {
     
     // MARK: Properties
     

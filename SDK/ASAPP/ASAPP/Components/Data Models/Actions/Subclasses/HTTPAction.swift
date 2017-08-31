@@ -9,8 +9,8 @@
 import UIKit
 
 enum HTTPMethod: String {
-    case GET = "GET"
-    case POST = "POST"
+    case GET
+    case POST
     
     static func from(_ value: Any?) -> HTTPMethod? {
         guard let value = value as? String else {
@@ -23,10 +23,10 @@ enum HTTPMethod: String {
 class HTTPAction: Action {
     
     enum JSONKey: String {
-        case method = "method"
-        case url = "url"
-        case onResponseAction = "onResponseAction"
-        case response = "response"
+        case method
+        case url
+        case onResponseAction
+        case response
     }
     
     let method: HTTPMethod

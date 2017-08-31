@@ -137,10 +137,10 @@ extension ButtonPresentationAnimator {
         let buttonCenter = self.buttonView.superview?.convert(self.buttonView.center, to: self.containerView)
         UIView.animate(withDuration: buttonCollapseDuration(), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseIn, animations: { [weak self] in
             self?.buttonView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-            }) { [weak self] (completed) in
-                self?.buttonView.isHidden = true
-                completion?(buttonCenter)
-        }
+        }, completion: { [weak self] _ in
+            self?.buttonView.isHidden = true
+            completion?(buttonCenter)
+        })
     }
     
     func expandView(fromPoint expansionPoint: CGPoint, completion: (() -> Void)?) {
@@ -209,9 +209,9 @@ extension ButtonPresentationAnimator {
             if let presentingViewTransform = presentingViewTransform {
                 self?.presentingView?.transform = presentingViewTransform
             }
-            }, completion: { (completed) in
-                completion?()
-        }) 
+        }, completion: { _ in
+            completion?()
+        })
     }
 }
 
@@ -274,8 +274,8 @@ extension ButtonPresentationAnimator {
                 let presentingViewFrame = self?.transitionContext?.finalFrame(for: presentingViewController) {
                 self?.presentingView?.frame = presentingViewFrame
             }
-            }, completion: { (completed) in
-                completion?()
+        }, completion: { _ in
+            completion?()
         }) 
     }
     
@@ -283,9 +283,9 @@ extension ButtonPresentationAnimator {
         buttonView.isHidden = false
         UIView.animate(withDuration: expandButtonDuration(), delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseOut, animations: { [weak self] in
             self?.buttonView.transform = CGAffineTransform.identity
-        }) { (completed) in
+        }, completion: { _ in
             completion?()
-        }
+        })
     }
 }
 

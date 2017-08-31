@@ -22,9 +22,9 @@ public extension ASAPPStyles {
     internal class func comcastStyles() -> ASAPPStyles {
         let styles = ASAPPStyles()
         
-        let textBlue = UIColor(red:0.267, green:0.302, blue:0.396, alpha:1.000)
-        let textGray = UIColor(red:0.659, green:0.678, blue:0.729, alpha:1.000)
-        let linkBlue = UIColor(red:0.243, green:0.541, blue:0.796, alpha:1.000)
+        let textBlue = UIColor(red: 0.267, green: 0.302, blue: 0.396, alpha: 1)
+        let textGray = UIColor(red: 0.659, green: 0.678, blue: 0.729, alpha: 1)
+        let linkBlue = UIColor(red: 0.243, green: 0.541, blue: 0.796, alpha: 1)
         
         // Text Styles
         
@@ -56,43 +56,43 @@ public extension ASAPPStyles {
         
         // Colors
         
-        styles.colors.helpButtonBackground = UIColor(red:0.134, green:0.160, blue:0.205, alpha:1.000)
+        styles.colors.helpButtonBackground = UIColor(red: 0.134, green: 0.160, blue: 0.205, alpha: 1)
         
-        styles.colors.controlTint = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
+        styles.colors.controlTint = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
         
         styles.colors.navBarBackground = UIColor.black
         styles.colors.navBarTitle = UIColor.white
         styles.colors.navBarButton = UIColor.white
         styles.colors.navBarButtonForeground = UIColor.white
-        styles.colors.navBarButtonBackground = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
+        styles.colors.navBarButtonBackground = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
         
-        styles.colors.messageBackground = UIColor(red:0.000, green:0.494, blue:0.745, alpha:1.000)
-        styles.colors.messageBorder = UIColor(red:0.000, green:0.494, blue:0.745, alpha:1.000)
+        styles.colors.messageBackground = UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1)
+        styles.colors.messageBorder = UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1)
         styles.colors.messageText = UIColor.white
         
         styles.colors.quickRepliesBackgroundPattern = false
         styles.colors.quickRepliesBackground = UIColor.white
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white, textColor: UIColor(red:0.000, green:0.494, blue:0.745, alpha:1.000))
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: UIColor.white, textColor: UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1))
         
         styles.colors.predictiveNavBarBackground = UIColor.black
-        styles.colors.predictiveNavBarButton = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
-        styles.colors.predictiveNavBarButtonBackground = UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000)
+        styles.colors.predictiveNavBarButton = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
+        styles.colors.predictiveNavBarButtonBackground = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
         styles.colors.predictiveNavBarButtonForeground = UIColor.white
         styles.colors.predictiveGradientTop = UIColor.white
         styles.colors.predictiveGradientMiddle = UIColor.white
         styles.colors.predictiveGradientBottom = UIColor.white
-        styles.colors.predictiveNavBarButton = UIColor(red:0.184, green:0.220, blue:0.275, alpha:1.000)
-        styles.colors.predictiveTextPrimary = UIColor(red:0.180, green:0.216, blue:0.271, alpha:1.000)
-        styles.colors.predictiveTextSecondary = UIColor(red:0.302, green:0.302, blue:0.302, alpha:1.000)
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000))
-        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red:0.000, green:0.443, blue:0.710, alpha:1.000))
+        styles.colors.predictiveNavBarButton = UIColor(red: 0.184, green: 0.220, blue: 0.275, alpha: 1)
+        styles.colors.predictiveTextPrimary = UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1)
+        styles.colors.predictiveTextSecondary = UIColor(red: 0.302, green: 0.302, blue: 0.302, alpha: 1)
+        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1))
+        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1))
         styles.colors.predictiveInput = ASAPPInputColors(background: UIColor.white,
-                                                         text:  UIColor(red:0.180, green:0.216, blue:0.271, alpha:1.000),
-                                                         placeholderText: UIColor(red:0.459, green:0.478, blue:0.525, alpha:1.000),
-                                                         tint: UIColor(red:0.008, green:0.451, blue:0.714, alpha:1.000),
-                                                         border: UIColor(red:0.631, green:0.659, blue:0.714, alpha:1.000),
-                                                         primaryButton: UIColor(red:0.008, green:0.451, blue:0.714, alpha:1.000),
-                                                         secondaryButton: UIColor(red:0.008, green:0.451, blue:0.714, alpha:1.000))
+                                                         text:  UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1),
+                                                         placeholderText: UIColor(red: 0.459, green: 0.478, blue: 0.525, alpha: 1),
+                                                         tint: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1),
+                                                         border: UIColor(red: 0.631, green: 0.659, blue: 0.714, alpha: 1),
+                                                         primaryButton: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1),
+                                                         secondaryButton: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1))
         
         return styles
     }

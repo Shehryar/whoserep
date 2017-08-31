@@ -20,4 +20,3 @@ protocol ConversationManagerDelegate: class {
     
     func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
 }
-

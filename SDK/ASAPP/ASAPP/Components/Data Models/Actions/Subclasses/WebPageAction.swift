@@ -13,7 +13,7 @@ class WebPageAction: Action {
     // MARK: Properties
     
     enum JSONKey: String {
-        case url = "url"
+        case url
     }
     
     let url: URL

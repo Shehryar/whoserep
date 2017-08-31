@@ -403,5 +403,3 @@ extension BaseTableViewController: UITableViewDelegate {
         // No-op
     }
 }
-
-

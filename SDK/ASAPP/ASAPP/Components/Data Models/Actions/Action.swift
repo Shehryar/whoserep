@@ -13,7 +13,7 @@ class Action: NSObject {
     // MARK: Properties
     
     enum JSONKey: String {
-        case data = "data"
+        case data
     }
 
     fileprivate(set) var data: [String : Any]?
@@ -35,7 +35,7 @@ class Action: NSObject {
 extension Action {
     
     func getDataWithFormData(_ formData: [String : Any]?) -> [String : Any]? {
-        var requestData = [String : Any]()
+        var requestData = [String: Any]()
         requestData.add(data)
         requestData.add(formData)
         
@@ -44,7 +44,7 @@ extension Action {
     
     func injectData(key: String, value: Any) {
         if data == nil {
-            data = [String : Any]()
+            data = [String: Any]()
         }
         data?[key] = value
     }

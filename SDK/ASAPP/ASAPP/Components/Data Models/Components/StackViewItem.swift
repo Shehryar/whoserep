@@ -13,13 +13,13 @@ class StackViewItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case items = "items"
-        case orientation = "orientation"
+        case items
+        case orientation
     }
     
     enum Orientation: String {
-        case vertical = "vertical"
-        case horizontal = "horizontal"
+        case vertical
+        case horizontal
         
         static func from(_ string: String?, defaultValue: Orientation) -> Orientation {
             guard let string = string,

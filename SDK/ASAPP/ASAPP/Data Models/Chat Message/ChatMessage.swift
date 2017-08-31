@@ -53,10 +53,8 @@ class ChatMessage: NSObject {
             return nil
         }
         
-        for quickReply in quickReplies {
-            if quickReply.isAutoSelect {
-                return quickReply
-            }
+        for quickReply in quickReplies where quickReply.isAutoSelect {
+            return quickReply
         }
         return nil
     }
@@ -87,8 +85,8 @@ extension ChatMessage {
         let text = messageJSON.string(for: JSONKey.text.rawValue)
         let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
         
-        var quickRepliesDictionary: [String : [QuickReply]]? = [String : [QuickReply]]()
-        if let quickRepliesJSONDict = messageJSON[JSONKey.quickReplies.rawValue] as? [String : [[String : Any]]] {
+        var quickRepliesDictionary: [String : [QuickReply]]? = [String: [QuickReply]]()
+        if let quickRepliesJSONDict = messageJSON[JSONKey.quickReplies.rawValue] as? [String: [[String: Any]]] {
             for (pageId, buttonsJSON) in quickRepliesJSONDict {
                 var quickReplies = [QuickReply]()
                 for buttonJSON in buttonsJSON {
@@ -101,11 +99,10 @@ extension ChatMessage {
                 }
             }
         }
-        if (quickRepliesDictionary ?? [String : [QuickReply]]()).isEmpty {
+        if (quickRepliesDictionary ?? [String: [QuickReply]]()).isEmpty {
             quickRepliesDictionary = nil
         }
 
         return ChatMessage(text: text, attachment: attachment, quickReplies: quickRepliesDictionary, metadata: metadata)
     }
 }
-

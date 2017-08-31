@@ -13,7 +13,7 @@ class GlowingBallsLoadingView: UIView {
     override var tintColor: UIColor! {
         didSet {
             for ballView in ballViews {
-                ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
+                ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
             }
         }
     }
@@ -54,7 +54,7 @@ class GlowingBallsLoadingView: UIView {
         for ballView in ballViews {
             ballView.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
             ballView.layer.cornerRadius = ballSize / 2.0
-            ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
+            ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
             addSubview(ballView)
         }
     }
@@ -145,7 +145,7 @@ class GlowingBallsLoadingView: UIView {
             view.transform = strongSelf.transformAnimating
             view.alpha = strongSelf.alphaAnimating
             
-        }) { [weak self] (completed) in
+        }, completion: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }
@@ -158,10 +158,9 @@ class GlowingBallsLoadingView: UIView {
                 
                 view.transform = .identity
                 view.alpha = strongSelf.alphaDefault
-                
-            }, completion: { (completed) in
+            }, completion: { _ in
                 completion?()
             })
-        }
+        })
     }
 }

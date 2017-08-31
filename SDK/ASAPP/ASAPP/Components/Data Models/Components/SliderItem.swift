@@ -13,9 +13,9 @@ class SliderItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case label = "label"
-        case max = "max"
-        case min = "min"
+        case label
+        case max
+        case min
     }
     
     // MARK:- Defaults

@@ -13,7 +13,7 @@ class BouncingBallsLoadingView: UIView {
     override var tintColor: UIColor! {
         didSet {
             for ballView in ballViews {
-                ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
+                ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
             }
         }
     }
@@ -61,7 +61,7 @@ class BouncingBallsLoadingView: UIView {
         for ballView in ballViews {
             ballView.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
             ballView.layer.cornerRadius = ballSize / 2.0
-            ballView.backgroundColor = tintColor ?? UIColor(red:0.682,  green:0.682,  blue:0.682, alpha:1)
+            ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
         }
         setNeedsLayout()
     }
@@ -140,9 +140,9 @@ class BouncingBallsLoadingView: UIView {
     }
     
     fileprivate func animateBallView(_ ballView: UIView,
-                                 delay: Double,
-                                 animationBlockStartTime: Double,
-                                 completion: (() -> Void)?) {
+                                     delay: Double,
+                                     animationBlockStartTime: Double,
+                                     completion: (() -> Void)?) {
         animateUp(ballView, withDelay: delay, completion: {
             if self.animating && self.self.animationStartTime == animationBlockStartTime {
                 self.animateDown(ballView, withDelay: 0, completion: completion)
@@ -154,16 +154,16 @@ class BouncingBallsLoadingView: UIView {
         ballView.center = CGPoint(x: ballView.center.x, y: self.centerYDefault())
         UIView.animate(withDuration: 0.24, delay: delay, options: UIViewAnimationOptions(rawValue: 0), animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYUp())
-            }) { (completed) in
-                completion?()
-        }
+        }, completion: { _ in
+            completion?()
+        })
     }
     
     fileprivate func animateDown(_ ballView: UIView, withDelay delay: Double, completion: (() -> Void)?) {
         UIView.animate(withDuration: 0.20, delay: delay, options: UIViewAnimationOptions(rawValue: 0), animations: {
             ballView.center = CGPoint(x: ballView.center.x, y: self.centerYDefault())
-        }) { (completed) in
+        }, completion: { _ in
             completion?()
-        }
+        })
     }
 }

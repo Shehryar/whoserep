@@ -54,7 +54,6 @@ class Button: UIView {
         didSet { setNeedsLayout() }
     }
 
-    
     var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16) {
         didSet { setNeedsLayout() }
     }
@@ -162,11 +161,11 @@ class Button: UIView {
         }
     }
     
-    fileprivate var backgroundColors = [ButtonState : UIColor]()
+    fileprivate var backgroundColors = [ButtonState: UIColor]()
     
-    fileprivate var foregroundColors: [ButtonState : UIColor] = [
-        .normal : UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1),
-        .highlighted : UIColor(red:0.226,  green:0.605,  blue:0.852, alpha:1)
+    fileprivate var foregroundColors: [ButtonState: UIColor] = [
+        .normal: UIColor(red: 0.226, green: 0.605, blue: 0.852, alpha: 1),
+        .highlighted: UIColor(red: 0.226, green: 0.605, blue: 0.852, alpha: 1)
     ]
     
     // MARK: Initialization

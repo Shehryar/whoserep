@@ -13,22 +13,22 @@ class TextInputItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case autocorrect = "autocorrect"
-        case capitalize = "capitalize"
-        case password = "password"
-        case placeholder = "placeholder"
-        case textInputType = "textInputType"
+        case autocorrect
+        case capitalize
+        case password
+        case placeholder
+        case textInputType
     }
     
     // MARK:- Enums
     
     enum InputType: String {
-        case email = "email"
-        case decimal = "decimal"
-        case text = "text" // Default
-        case number = "number"
-        case phone = "phone"
-        case url = "url"
+        case email
+        case decimal
+        case text // Default
+        case number
+        case phone
+        case url
         
         func keyboardType() -> UIKeyboardType {
             switch self {

@@ -301,14 +301,14 @@ class PredictiveButtonsView: UIView {
                             if self.viewIsWithinVisibleHeight(view) {
                                 view.alpha = 1
                             }
-            }) { (completed) in
+            }, completion: { _ in
                 if view == viewsToAnimate.last {
                     self.animating = false
                     
                     self.setNeedsLayout()
                     completion?()
                 }
-            }
+            })
             delay += delayIncrement
         }
     }

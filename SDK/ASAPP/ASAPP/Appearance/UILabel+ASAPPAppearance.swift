@@ -19,9 +19,9 @@ extension UILabel {
         }
         
         attributedText = NSAttributedString(string: text, attributes: [
-            NSFontAttributeName : textStyle.font,
-            NSKernAttributeName : textStyle.letterSpacing,
-            NSForegroundColorAttributeName : color ?? textStyle.color
+            NSFontAttributeName: textStyle.font,
+            NSKernAttributeName: textStyle.letterSpacing,
+            NSForegroundColorAttributeName: color ?? textStyle.color
             ])
     }
     

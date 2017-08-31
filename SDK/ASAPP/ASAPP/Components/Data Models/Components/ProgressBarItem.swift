@@ -13,7 +13,7 @@ class ProgressBarItem: Component {
     // MARK:- JSON Keys
     
     enum JSONKey: String {
-        case fillPercentage = "fillPercentage"
+        case fillPercentage
     }
     
     // MARK:- Defaults

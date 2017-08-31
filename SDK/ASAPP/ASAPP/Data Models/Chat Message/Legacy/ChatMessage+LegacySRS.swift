@@ -86,8 +86,8 @@ extension ChatMessage {
         var quickRepliesHash: [String : [QuickReply]]?
         if let quickReplies = quickReplies, !quickReplies.isEmpty {
             quickRepliesHash = [
-                "default" : quickReplies
-                ]
+                "default": quickReplies
+            ]
         }
     
         return ChatMessage(text: message,

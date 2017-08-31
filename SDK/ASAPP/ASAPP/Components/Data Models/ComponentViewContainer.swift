@@ -11,9 +11,9 @@ import UIKit
 class ComponentViewContainer: NSObject {
     
     enum JSONKey: String {
-        case root = "root"
-        case styles = "styles"
-        case title = "title"
+        case root
+        case styles
+        case title
     }
     
     // MARK:- Properties

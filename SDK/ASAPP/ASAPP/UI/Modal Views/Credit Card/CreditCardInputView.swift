@@ -82,7 +82,7 @@ class CreditCardInputView: ModalCardContentView {
             case 1:
                 if text == "/" {
                     updateToText = previousExpiryText
-                }else if !["0", "1"].contains(text) {
+                } else if !["0", "1"].contains(text) {
                     updateToText = "0\(text)/"
                 }
                 break

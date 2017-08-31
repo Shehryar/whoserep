@@ -84,22 +84,19 @@ extension ChatMessageAttachment {
             if let image = ChatMessageImage.fromJSON(payload) {
                 return ChatMessageAttachment(content: image)
             }
-            break
             
         case .template:
             if let componentViewContainer = ComponentViewContainer.from(payload) {
-                return ChatMessageAttachment(content: componentViewContainer.root,
-                                             requiresNoContainer: json.bool(for: "requiresNoContainer"))
+                return ChatMessageAttachment(
+                    content: componentViewContainer.root,
+                    requiresNoContainer: json.bool(for: "requiresNoContainer"))
             }
-            break
             
         case .none:
             // No-op
-            break;
+            break
         }
         
         return nil
     }
 }
-
-

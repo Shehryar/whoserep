@@ -14,13 +14,13 @@ extension ConversationManager {
     
     func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
         let path = "customer/NotifyTypingPreview"
-        let params = [ "Text" : text ?? "" ]
+        let params = [ "Text": text ?? "" ]
         sendRequest(path: path, params: params, requiresContext: false, completion: nil)
     }
     
     func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
         let path = "customer/SendTextMessage"
-        let params = ["Text" : message]
+        let params = ["Text": message]
         sendRequest(path: path, params: params, completion: completion)
     }
     
@@ -32,13 +32,15 @@ extension ConversationManager {
             return
         }
         let imageFileSize = imageData.count
-        let params: [String : Any] = [ "MimeType" : "image/jpeg",
-                                       "FileSize" : imageFileSize,
-                                       "PicWidth" : image.size.width,
-                                       "PicHeight" : image.size.height ]
+        let params: [String: Any] = [
+            "MimeType": "image/jpeg",
+            "FileSize": imageFileSize,
+            "PicWidth": image.size.width,
+            "PicHeight": image.size.height
+        ]
         
         socketConnection.sendRequest(withPath: path, params: params)
-        socketConnection.sendRequestWithData(imageData) { (incomingMessage) in
+        socketConnection.sendRequestWithData(imageData) { _ in
             completion?()
         }
     }
@@ -63,7 +65,7 @@ extension ConversationManager {
                 completion?(appOpenResponse)
             }
             
-            guard message.type == .Response,
+            guard message.type == .response,
                 let data = message.bodyString?.data(using: String.Encoding.utf8),
                 let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
                 let appOpenResponse = AppOpenResponse.fromJSON(jsonObject)
@@ -77,7 +79,6 @@ extension ConversationManager {
         sendRequest(path: "srs/AppOpen", completion: onResponse)
     }
     
-    
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
         if ASAPP.isDemoContentEnabled(), let demoResponse = Event.demoResponseForQuery(query) {
             echoMessageResponse(withJSONString: demoResponse)
@@ -86,8 +87,8 @@ extension ConversationManager {
         
         let path = "srs/SendTextMessageAndHierAndTreewalk"
         let params = [
-            "Text" : query,
-            "SearchQuery" : query
+            "Text": query,
+            "SearchQuery": query
         ]
         
         sendRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
@@ -102,15 +103,15 @@ extension ConversationManager {
         let path = "customer/SendRatingAndFeedback"
         
         var params: [String : Any] = [
-            "FiveStarRating" : rating,
-            "IssueId" : issueId
+            "FiveStarRating": rating,
+            "IssueId": issueId
         ]
         if let feedback = feedback {
             params["Feedback"] = feedback
         }
         
-        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, request, responseTime) in
-            completion?(message.type == .Response)
+        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, _, _) in
+            completion?(message.type == .response)
         }
     }
     
@@ -118,8 +119,7 @@ extension ConversationManager {
         let path = "customer/SendCreditCard"
         let params = creditCard.toASAPPParams()
         
-        socketConnection.sendRequest(withPath: path, params: params, context: nil)
-        { (message: IncomingMessage, request: SocketRequest?, responseTime: ResponseTimeInMilliseconds) in
+        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message: IncomingMessage, _, _) in
             let creditCardResponse = CreditCardResponse.from(json: message.body)
             completion(creditCardResponse)
         }

@@ -31,5 +31,3 @@ enum SpearEnvironment: String {
         return URL(string: urlString)
     }
 }
-
-

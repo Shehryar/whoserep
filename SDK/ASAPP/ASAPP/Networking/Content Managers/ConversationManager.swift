@@ -199,9 +199,9 @@ extension ConversationManager {
         
         let path = "customer/GetEvents"
         let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
-        let params = ["AfterSeq" : afterSeq as AnyObject]
+        let params = ["AfterSeq": afterSeq as AnyObject]
         
-        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage, request: SocketRequest?,  responseTime: ResponseTimeInMilliseconds) in
+        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage, _, _) in
             
             Dispatcher.performOnBackgroundThread { [weak self] in
                 guard let strongSelf = self else {
@@ -278,7 +278,7 @@ extension ConversationManager {
 extension ConversationManager: SocketConnectionDelegate {
     
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
-        guard message.type == .Event, let event = Event.fromJSON(message.body) else {
+        guard message.type == .event, let event = Event.fromJSON(message.body) else {
             return
         }
     
@@ -308,7 +308,7 @@ extension ConversationManager: SocketConnectionDelegate {
         }
         
         // Updated Event
-        if (event.ephemeralType == .eventStatus) {
+        if event.ephemeralType == .eventStatus {
             if let message = event.chatMessage {
                 delegate?.conversationManager(self, didUpdate: message)
             } else {

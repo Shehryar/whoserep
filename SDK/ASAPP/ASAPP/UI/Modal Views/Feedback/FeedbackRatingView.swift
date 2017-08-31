@@ -46,8 +46,8 @@ class FeedbackRatingView: UIView {
         let numStars = CGFloat(starViews.count)
         if numStars > 1 {
             starSize -= (numStars - 1) * starSpacing
-        }
-        starSize = starSize / numStars
+        } 
+        starSize /= numStars
     
         if size.height > 0 {
             let maxStarHeight = size.height - contentInset.top - contentInset.bottom
@@ -151,16 +151,14 @@ extension FeedbackRatingView {
                 options: .beginFromCurrentState,
                 animations: { 
                     starView.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-                },
-                completion: { (completed) in
-
+                }, completion: { _ in
                     UIView.animate(
                         withDuration: 0.25,
                         delay: 0,
                         options: [.beginFromCurrentState, .curveEaseOut],
                         animations: {
                             starView.transform = CGAffineTransform.identity
-                    }, completion: { (completed) in
+                    }, completion: { _ in
                         starView.updateFrames()
                     })
                 })
@@ -173,11 +171,9 @@ extension FeedbackRatingView {
 extension FeedbackRatingView {
 
     func getRating(from location: CGPoint) -> Int {
-        var rating = 1;
-        for starView in starViews {
-            if location.x > starView.frame.maxX {
-                rating += 1
-            }
+        var rating = 1
+        for starView in starViews where location.x > starView.frame.maxX {
+            rating += 1
         }
         return min(rating, starViews.count)
     }
