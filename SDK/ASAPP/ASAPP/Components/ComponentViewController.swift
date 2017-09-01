@@ -19,6 +19,7 @@ protocol ComponentViewControllerDelegate: class {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
+                                 withData data: [String: Any]?,
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
     
     func componentViewControllerDidFinish(with action: FinishAction?)
@@ -75,7 +76,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     fileprivate let emptyView = ComponentViewEmptyReloadView()
     
-    fileprivate let componentName: String?
+    fileprivate let viewName: String?
+    
+    fileprivate let viewData: [String: Any]?
     
     // MARK: Init
     
@@ -98,20 +101,23 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         spinnerView.hidesWhenStopped = true
     }
     
-    init(componentName: String) {
-        self.componentName = componentName
+    init(viewName: String, viewData: [String: Any]?) {
+        self.viewName = viewName
+        self.viewData = viewData
         super.init(nibName: nil, bundle: nil)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.componentName = nil
+        self.viewName = nil
+        self.viewData = nil
         super.init(coder: aDecoder)
         commonInit()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.componentName = nil
+        self.viewName = nil
+        self.viewData = nil
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
@@ -173,13 +179,13 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     // MARK: Instance Methods
     
     func refreshView() {
-        guard let componentName = componentName,
+        guard let viewName = viewName,
             let delegate = delegate else {
                 return
         }
         
         isLoading = true
-        delegate.componentViewController(self, fetchContentForViewNamed: componentName) { [weak self] (componentViewContainer, _) in
+        delegate.componentViewController(self, fetchContentForViewNamed: viewName, withData: viewData) { [weak self] (componentViewContainer, _) in
             Dispatcher.performOnMainThread {
                 self?.componentViewContainer = componentViewContainer
                 self?.isLoading = false
@@ -187,24 +193,17 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
     }
     
-    func showComponentView(_ view: ComponentViewContainer? = nil, named name: String? = nil) {
-        guard view != nil || name != nil else {
-            DebugLog.d(caller: self, "Must pass view or name")
-            return
-        }
-        
-        var viewController: ComponentViewController?
-        if let view = view {
-            viewController = ComponentViewController()
-            viewController?.componentViewContainer = view
-        } else if let name = name {
-            viewController = ComponentViewController(componentName: name)
-        }
-        
-        viewController?.delegate = delegate
-        if let viewController = viewController {
-            navigationController?.pushViewController(viewController, animated: true)
-        }
+    func showComponentView(_ view: ComponentViewContainer) {
+        let viewController = ComponentViewController()
+        viewController.componentViewContainer = view
+        viewController.delegate = delegate
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func showComponentView(named name: String, withData data: [String: Any]?) {
+        let viewController = ComponentViewController(viewName: name, viewData: data)
+        viewController.delegate = delegate
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func didTapNavigationCloseButton() {
@@ -228,7 +227,7 @@ extension ComponentViewController: InteractionHandler {
         if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
-            showComponentView(named: componentViewAction.name)
+            showComponentView(named: componentViewAction.name, withData: componentViewAction.data)
         } else if let finishAction = buttonItem.action as? FinishAction {
             finish(with: finishAction)
         }
@@ -280,7 +279,9 @@ extension ComponentViewController {
                 break
                 
             case .componentView:
-                showComponentView(response.view)
+                if let view = response.view {
+                    showComponentView(view)
+                }
                 break
                 
             case .refreshView:

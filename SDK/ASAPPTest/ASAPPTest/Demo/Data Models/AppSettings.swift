@@ -23,6 +23,9 @@ class AppSettings: NSObject {
         case apiHostNameList = "asapp_api_host_name_list"
         case appIdList = "asapp_app_id_list"
         case customerIdentifierList = "asapp_customer_identifier_list"
+        
+        case spearPin = "asapp_spear_pin"
+        case spearEnvironment = "asapp_spear_environment"
     }
     
     // MARK: Shared Instance
@@ -81,6 +84,19 @@ class AppSettings: NSObject {
     var userImageNames: [String] {
         return AppSettings.getDefaultImageNames()
     }
+    
+    var spearPin: String? {
+        return AppSettings.getString(forKey: Key.spearPin)
+    }
+    
+    var spearEnvironment: SpearEnvironment {
+        if let savedValue = AppSettings.getString(forKey: Key.spearEnvironment),
+            let savedEnvironment = SpearEnvironment(rawValue: savedValue) {
+            return savedEnvironment
+        }
+        return SpearEnvironment.defaultValue
+    }
+    
     
     let versionString: String
     

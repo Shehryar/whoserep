@@ -815,10 +815,11 @@ extension ChatViewController: ComponentViewControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 
-    func componentViewController(_ viweController: ComponentViewController,
+    func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
+                                 withData data: [String: Any]?,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
-        conversationManager.getComponentView(named: viewName) { (componentViewContainer) in
+        conversationManager.getComponentView(named: viewName, data: data) { (componentViewContainer) in
             completion(componentViewContainer, nil)
         }
     }

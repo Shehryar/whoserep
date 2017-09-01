@@ -36,7 +36,7 @@ class HomeViewController: BaseViewController {
             }
         }
         
-        updateASAPPSettings(updateConfig: true)
+        updateASAPPSettings()
         
         homeTableView.delegate = self
         homeTableView.reloadData()
@@ -62,7 +62,7 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateASAPPSettings(updateConfig: true)
+        updateASAPPSettings()
         homeTableView.reloadData()
     }
     
@@ -85,36 +85,38 @@ class HomeViewController: BaseViewController {
     
     // MARK:- ASAPPConfig
     
-    func updateASAPPSettings(updateConfig: Bool) {
-        if updateConfig {
-            let config = ASAPPConfig(appId: AppSettings.shared.appId,
-                                     apiHostName: AppSettings.shared.apiHostName,
+    func updateASAPPSettings() {
+        var didUpdateConfig = false
+        
+        let apiHostName = AppSettings.shared.apiHostName
+        let appId = AppSettings.shared.appId
+        if ASAPP.config == nil || ASAPP.config.apiHostName != apiHostName || ASAPP.config.appId != appId {
+            let config = ASAPPConfig(appId: appId,
+                                     apiHostName: apiHostName,
                                      clientSecret: "ASAPP_DEMO_CLIENT_ID")
-            
             ASAPP.initialize(with: config)
-            
-            DemoLog("Updated Config:\n----------------------------\nAPI Host Name: \(AppSettings.shared.apiHostName)\nApp Id:        \(AppSettings.shared.appId)\n----------------------------")
+            didUpdateConfig = true
         }
         
-        // Update user if necessary
-        // TODO: Clean logic
-        if let user = ASAPP.user {
-            let customerId = AppSettings.shared.customerIdentifier
-            let shouldBeAnonymous = AppSettings.shared.customerIdentifier == nil
-            
-            if user.isAnonymous && shouldBeAnonymous {
-                // do nothing
-            } else if user.userIdentifier != customerId {
-                DemoLog("Updated User:\n----------------------------\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
-                ASAPP.user = createASAPPUser()
-            }
-            
-        } else {
-            DemoLog("Updated User:\n----------------------------\nCustomer Id:   \(AppSettings.shared.customerIdentifier ?? "nil")\n----------------------------")
-            ASAPP.user = createASAPPUser()
+        var didUpdateUser = false
+        let customerId = AppSettings.shared.customerIdentifier
+        let shouldBeAnonymous = AppSettings.shared.customerIdentifier == nil
+        if ASAPP.user == nil || didUpdateConfig || ASAPP.user.isAnonymous != shouldBeAnonymous
+            || (ASAPP.user.userIdentifier != customerId && !ASAPP.user.isAnonymous) {
+            ASAPP.user = createASAPPUser(customerIdentifier: customerId)
+            didUpdateUser = true
         }
         
-        refreshChatButton()
+        if didUpdateConfig || didUpdateUser {
+            let updatesString = [
+                "APIHostName:   \(apiHostName)",
+                "AppId:         \(appId)",
+                "CustomerId:    \(customerId ?? "nil")"
+            ].joined(separator: "\n")
+            
+            DemoLog("\n\nUpdated ASAPP Config:\n----------------------------------------\n\(updatesString)\n----------------------------------------")
+            refreshChatButton()
+        }
     }
     
     func showChat(fromNotificationWith userInfo: [AnyHashable : Any]? = nil) {
@@ -131,16 +133,16 @@ class HomeViewController: BaseViewController {
     
     // MARK:- ASAPP Callbacks
     
-    func createASAPPUser(customerIdentifier: String? = nil) -> ASAPPUser {
+    func createASAPPUser(customerIdentifier: String?) -> ASAPPUser {
         let user = ASAPPUser(
-            userIdentifier: customerIdentifier ?? AppSettings.shared.customerIdentifier,
+            userIdentifier: customerIdentifier,
             requestContextProvider: requestContextProvider,
             userLoginHandler: { [weak self] (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
                 
             let loginViewController = LoginViewController()
             
             loginViewController.onUserLogin = { [weak self] (customerId) in
-                guard let strongSelf = self else {
+                guard let strongSelf = self, let customerId = customerId else {
                     return
                 }
                 

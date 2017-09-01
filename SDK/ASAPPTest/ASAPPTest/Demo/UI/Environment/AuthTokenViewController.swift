@@ -36,15 +36,25 @@ class AuthTokenViewController: BaseTableViewController {
     
     // MARK: Properties
     
-    fileprivate var spearEnvironment = SpearEnvironment.defaultValue {
+    fileprivate var spearEnvironment = AppSettings.shared.spearEnvironment {
         didSet {
+            AppSettings.saveObject(spearEnvironment.rawValue, forKey: AppSettings.Key.spearEnvironment)
+            
             tableView.reloadRows(at: [IndexPath(row: SpearRow.environment.rawValue,
                                                 section: Section.spear.rawValue)],
                                  with: .none)
         }
     }
     
-    fileprivate var spearPin: String? = "1357"
+    fileprivate var spearPin: String? = AppSettings.shared.spearPin ?? "1357" {
+        didSet {
+            if let spearPin = spearPin {
+                AppSettings.saveObject(spearPin, forKey: AppSettings.Key.spearPin)
+            } else {
+                AppSettings.deleteObject(forKey: AppSettings.Key.spearPin)
+            }
+        }
+    }
     
     fileprivate var requestingSpearAuthToken: Bool = false {
         didSet {
