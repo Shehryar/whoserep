@@ -69,7 +69,7 @@ extension ConversationManager {
     
     typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
     
-    func getComponentView(named name: String, data: [String : Any]? = nil, completion: @escaping ComponentViewHandler) {
+    func getComponentView(named name: String, data: [String : Any]?, completion: @escaping ComponentViewHandler) {
         
         let path = "srs/GetComponentView"
         var params: [String: Any] = [

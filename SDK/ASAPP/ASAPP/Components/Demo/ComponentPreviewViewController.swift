@@ -257,7 +257,7 @@ extension ComponentPreviewViewController {
     }
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
-        let viewController = ComponentViewController(componentName: action.name)
+        let viewController = ComponentViewController(viewName: action.name, viewData: action.data)
         viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle
@@ -283,8 +283,9 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
         }
     }
     
-    func componentViewController(_ viweController: ComponentViewController,
+    func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
+                                 withData data: [String: Any]?,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
         
         UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in

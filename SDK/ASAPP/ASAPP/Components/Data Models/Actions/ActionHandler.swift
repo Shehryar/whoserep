@@ -54,7 +54,7 @@ extension ActionHandler {
                                          from viewController: UIViewController) {
         guard let action = action as? ComponentViewAction else { return }
         
-        let componentViewController = ComponentViewController(componentName: action.name)
+        let componentViewController = ComponentViewController(viewName: action.name, viewData: action.data)
         componentViewController.delegate = delegate
         
         let navigationController = ComponentNavigationController(rootViewController: componentViewController)

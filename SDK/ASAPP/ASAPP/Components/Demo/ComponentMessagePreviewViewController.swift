@@ -243,7 +243,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             
         case .http:
             title = "HTTP"
-            // MITCH MITCH MITCH TODO:
             
         case .treewalk:
             if let treewalkAction = quickReply.action as? TreewalkAction {
@@ -255,8 +254,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
             message = "Classification: \(String(describing: (quickReply.action as? TreewalkAction)?.classification))"
             
         case .userLogin:
-            // MITCH MITCH TODO:
-            break
+            title = "User Login"
     
         case .web:
             title = "Web"
@@ -300,7 +298,7 @@ extension ComponentMessagePreviewViewController {
     }
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
-        let viewController = ComponentViewController(componentName: action.name)
+        let viewController = ComponentViewController(viewName: action.name, viewData: action.data)
         viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle
@@ -327,8 +325,9 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         }
     }
     
-    func componentViewController(_ viweController: ComponentViewController,
+    func componentViewController(_ viewController: ComponentViewController,
                                  fetchContentForViewNamed viewName: String,
+                                 withData data: [String: Any]?,
                                  completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
         UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, componentViewContainer, err) in
             completion(componentViewContainer, err)
