@@ -177,7 +177,9 @@ class ChatViewController: ASAPPViewController {
                     conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
                 }
                 
-                updateViewForLiveChat()
+                if isViewLoaded {
+                    updateViewForLiveChat()
+                }
             }
             
             if isLiveChat && askTooltipPresenter != nil {
