@@ -42,7 +42,7 @@ extension UIBarButtonItem {
                 backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
                 break
             }
-            font = ASAPP.styles.textStyles.link.font
+            font = ASAPP.styles.textStyles.navButton.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
             break
             
@@ -57,7 +57,7 @@ extension UIBarButtonItem {
                 break
             }
             backgroundColor = nil
-            font = ASAPP.styles.textStyles.button.font
+            font = ASAPP.styles.textStyles.navButton.font
             switch side {
             case .left:
                 insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
