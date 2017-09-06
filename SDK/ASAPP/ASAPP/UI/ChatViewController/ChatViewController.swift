@@ -177,7 +177,9 @@ class ChatViewController: ASAPPViewController {
                     conversationManager.currentSRSClassification = quickRepliesActionSheet.currentSRSClassification
                 }
                 
-                updateViewForLiveChat()
+                if isViewLoaded {
+                    updateViewForLiveChat()
+                }
             }
             
             if isLiveChat && askTooltipPresenter != nil {
@@ -506,19 +508,21 @@ extension ChatViewController {
             return
         }
         
+        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
         guard let navView = navigationController?.view,
-            let buttonItem = navigationItem.leftBarButtonItem else {
+              let buttonItem = side == .left ? navigationItem.leftBarButtonItem : navigationItem.rightBarButtonItem else {
                 return
         }
         
         increaseTooltipActionsCount()
         
-        askTooltipPresenter = TooltipView.showTooltip(withText: ASAPP.strings.chatAskTooltip,
-                                                      targetBarButtonItem: buttonItem,
-                                                      parentView: navView,
-                                                      onDismiss: { [weak self] in
-                                                        self?.askTooltipPresenter = nil
-        })
+        askTooltipPresenter = TooltipView.showTooltip(
+            withText: ASAPP.strings.chatAskTooltip,
+            targetBarButtonItem: buttonItem,
+            parentView: navView,
+            onDismiss: { [weak self] in
+                self?.askTooltipPresenter = nil
+            })
     }
 }
 
