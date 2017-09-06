@@ -34,6 +34,7 @@ public extension ASAPPStyles {
         
         let ts = styles.textStyles
         ts.navTitle = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0, color: .white)
+        ts.navButton = ASAPPTextStyle(fontName: bold, size: 14, letterSpacing: 0.5, color: textBlue)
         ts.predictiveHeader = ASAPPTextStyle(fontName: .latoLight, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
         ts.header1 = ASAPPTextStyle(fontName: black, size: 24, letterSpacing: 0.5, color: textBlue)
         ts.header2 = ASAPPTextStyle(fontName: black, size: 18, letterSpacing: 0.5, color: textBlue)
@@ -45,7 +46,6 @@ public extension ASAPPStyles {
         ts.error = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
         ts.button = ASAPPTextStyle(fontName: black, size: 14, letterSpacing: 1.5, color: textBlue)
         ts.link = ASAPPTextStyle(fontName: black, size: 12, letterSpacing: 1.5, color: linkBlue)
-        ts.navButton = ASAPPTextStyle(fontName: bold, size: 14, letterSpacing: 0.5, color: textBlue)
         
         // Segue type
         

@@ -10,6 +10,7 @@ import UIKit
 
 enum TextType: String {
     case navTitle
+    case navButton
     case predictiveHeader
     case header1
     case header2
@@ -21,7 +22,6 @@ enum TextType: String {
     case error
     case button
     case link
-    case navButton
     
     static func from(_ value: Any?) -> TextType? {
         guard let value = value as? String else {

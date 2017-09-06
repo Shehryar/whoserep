@@ -12,6 +12,8 @@ public class ASAPPTextStyles: NSObject {
     
     var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
     
+    var navButton: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
+    
     // MARK:- ComponentUI
     // MARK: Headers
     
@@ -40,8 +42,6 @@ public class ASAPPTextStyles: NSObject {
     var button: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
     
     var link: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
-    
-    var navButton: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
 }
 
 extension ASAPPTextStyles {
@@ -49,6 +49,7 @@ extension ASAPPTextStyles {
     func style(for type: TextType) -> ASAPPTextStyle {
         switch type {
         case .navTitle: return navTitle
+        case .navButton: return navButton
         case .predictiveHeader: return predictiveHeader
         case .header1: return header1
         case .header2: return header2
@@ -60,7 +61,6 @@ extension ASAPPTextStyles {
         case .error: return error
         case .button: return button
         case .link: return link
-        case .navButton: return navButton
         }
     }
     
