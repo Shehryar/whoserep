@@ -10,39 +10,38 @@ import UIKit
 
 public class ASAPPTextStyles: NSObject {
     
-    var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold,
-                                                  size: 15,
-                                                  letterSpacing: 0.5,
-                                                  color: UIColor.asapp_manateeGray)
+    var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
     
     // MARK:- ComponentUI
     // MARK: Headers
     
-    var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 30, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
+    var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 30, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var header1: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 24, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
+    var header1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var header2: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 18, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
+    var header2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 18, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 10, letterSpacing: 1.5, color: UIColor.asapp_manateeGray)
+    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 10, letterSpacing: 1.5, color: .asapp_manateeGray)
     
     // MARK: Body
     
-    var body: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 15, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
+    var body: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(fontName: FontNames.latoBold, size: 15, letterSpacing: 0.5, color: UIColor.asapp_cometBlue)
+    var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var detail1: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoRegular, size: 12, letterSpacing: 0.5, color: UIColor.asapp_manateeGray)
+    var detail1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 12, letterSpacing: 0.5, color: .asapp_manateeGray)
     
-    var detail2: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold, size: 10, letterSpacing: 0.75, color: UIColor.asapp_manateeGray)
+    var detail2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 10, letterSpacing: 0.75, color: .asapp_manateeGray)
     
-    var error: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBold, size: 15, letterSpacing: 0.5, color: UIColor.asapp_burntSiennaRed)
+    var error: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
     
     // MARK: Buttons
     
-    var button: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 14, letterSpacing: 1.5, color: UIColor.asapp_cometBlue)
+    var button: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
     
-    var link: ASAPPTextStyle = ASAPPTextStyle(fontName: FontNames.latoBlack, size: 12, letterSpacing: 1.5, color: UIColor.asapp_ceruleanBlue)
+    var link: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
+    
+    var navButton: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
 }
 
 extension ASAPPTextStyles {
@@ -61,6 +60,7 @@ extension ASAPPTextStyles {
         case .error: return error
         case .button: return button
         case .link: return link
+        case .navButton: return navButton
         }
     }
     

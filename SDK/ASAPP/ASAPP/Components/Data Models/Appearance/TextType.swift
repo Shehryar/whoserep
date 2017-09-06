@@ -21,6 +21,7 @@ enum TextType: String {
     case error
     case button
     case link
+    case navButton
     
     static func from(_ value: Any?) -> TextType? {
         guard let value = value as? String else {

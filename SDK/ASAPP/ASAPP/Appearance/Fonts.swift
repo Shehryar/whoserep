@@ -10,12 +10,11 @@ import UIKit
 
 // MARK:- Font Names
 
-internal class FontNames {
-    
-    static let latoLight = "Lato-Light"
-    static let latoRegular = "Lato-Regular"
-    static let latoBold = "Lato-Bold"
-    static let latoBlack = "Lato-Black"
+internal enum FontName: String {
+    case latoLight = "Lato-Light"
+    case latoRegular = "Lato-Regular"
+    case latoBold = "Lato-Bold"
+    case latoBlack = "Lato-Black"
 }
 
 // MARK:- Fonts

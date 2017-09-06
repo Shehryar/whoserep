@@ -38,6 +38,14 @@ public class ASAPPTextStyle: NSObject {
     
     // MARK: Init
     
+    init(fontName: FontName, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
+        self.fontName = fontName.rawValue
+        self.defaultSize = size
+        self.letterSpacing = letterSpacing
+        self.color = color
+        super.init()
+    }
+    
     init(fontName: String, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
         self.fontName = fontName
         self.defaultSize = size
