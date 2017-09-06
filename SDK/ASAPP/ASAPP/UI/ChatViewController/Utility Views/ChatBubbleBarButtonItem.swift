@@ -75,6 +75,7 @@ extension UIBarButtonItem {
     }
     
     class func asappBarButtonItem(title: String,
+                                  imageStyles: ASAPPNavBarButtonImage? = nil,
                                   style: ChatBubbleBarButtonItemStyle,
                                   location: NavBarButtonLocation,
                                   side: NavBarButtonSide,
@@ -82,23 +83,61 @@ extension UIBarButtonItem {
                                   action: Selector) -> UIBarButtonItem {
         
         let (textColor, backgroundColor, font, insets) = getButtonColorsFontInset(location: location, side: side)
+        let button: UIButton
         
-        let button = UIButton()
-        
-        // Text
-        
-        button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-            NSFontAttributeName: font,
-            NSForegroundColorAttributeName: textColor,
-            NSKernAttributeName: 1
-        ]), for: .normal)
-        button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-            NSFontAttributeName: font,
-            NSForegroundColorAttributeName: textColor.withAlphaComponent(0.6),
-            NSKernAttributeName: 1
-        ]), for: .highlighted)
-        
-        // Bubble
+        if let imageStyles = imageStyles {
+            button = SizedImageOnlyButton()
+            button.imageView?.contentMode = .scaleAspectFit
+            
+            let tintColor = backgroundColor != textColor ? textColor : .white
+            button.setImage(imageStyles.image.tinted(tintColor, alpha: 1), for: .normal)
+            button.setImage(imageStyles.image.tinted(tintColor, alpha: 0.6), for: .highlighted)
+            
+            var insets = imageStyles.insets
+            switch side {
+            case .left:
+                insets.right += 6
+            case .right:
+                insets.left += 6
+            }
+            
+            if backgroundColor != nil {
+                insets.left = max(6, insets.left)
+                insets.right = max(6, insets.right)
+            }
+            
+            if let button = button as? SizedImageOnlyButton {
+                button.imageSize = imageStyles.size
+                button.contentEdgeInsets = .zero
+                button.imageEdgeInsets = insets
+                let buttonSize = CGSize(width: imageStyles.size.width + insets.left + insets.right,
+                                        height: imageStyles.size.height + insets.top + insets.bottom)
+                button.frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height)
+            }
+        } else {
+            button = UIButton()
+            
+            button.setAttributedTitle(NSAttributedString(string: title, attributes: [
+                NSFontAttributeName: font,
+                NSForegroundColorAttributeName: textColor,
+                NSKernAttributeName: 1
+            ]), for: .normal)
+            button.setAttributedTitle(NSAttributedString(string: title, attributes: [
+                NSFontAttributeName: font,
+                NSForegroundColorAttributeName: textColor.withAlphaComponent(0.6),
+                NSKernAttributeName: 1
+            ]), for: .highlighted)
+            
+            if let titleLabel = button.titleLabel {
+                let titleSize = titleLabel.sizeThatFits(.zero)
+                let buttonHeight = ceil(titleSize.height) + insets.top + insets.bottom
+                let buttonWidth = ceil(titleSize.width) + insets.left + insets.right
+                button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
+            } else {
+                button.titleEdgeInsets = insets
+                button.sizeToFit()
+            }
+        }
         
         if let backgroundColor = backgroundColor {
             button.setBackgroundImage(
@@ -115,29 +154,19 @@ extension UIBarButtonItem {
                 for: .highlighted)
         }
         
-        // Sizing
-        if let titleLabel = button.titleLabel {
-            let titleSize = titleLabel.sizeThatFits(.zero)
-            let buttonHeight = ceil(titleSize.height) + insets.top + insets.bottom
-            let buttonWidth = ceil(titleSize.width) + insets.left + insets.right
-            button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
-        } else {
-            button.titleEdgeInsets = insets
-            button.sizeToFit()
-        }
-        
-        // Target-Action
         button.addTarget(target, action: action, for: .touchUpInside)
         
         return UIBarButtonItem(customView: button)
     }
     
     class func asappCloseBarButtonItem(location: NavBarButtonLocation, side: NavBarButtonSide = .right, segue: ASAPPSegue = .present, target: Any?, action: Selector) -> UIBarButtonItem {
+        let closeButtonStyle = ASAPP.styles.navBarButtonImages.close
+        let backButtonStyle = ASAPP.styles.navBarButtonImages.back
         var foregroundColor: UIColor
         var backgroundColor: UIColor?
-        var image: UIImage?
-        var imageSize: CGFloat
-        var imageInsets: UIEdgeInsets
+        var image = closeButtonStyle?.image
+        var imageSize = closeButtonStyle?.size ?? .zero
+        var imageInsets = closeButtonStyle?.insets ?? .zero
         
         switch ASAPP.styles.navBarButtonStyle {
         case .bubble:
@@ -150,18 +179,17 @@ extension UIBarButtonItem {
                 backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
             }
             
-            imageSize = 8
+            imageSize = CGSize(width: 8, height: 8)
             imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
 
         case .text:
             foregroundColor = ASAPP.styles.colors.navBarButton
             backgroundColor = nil
-            imageSize = 13
             switch side {
             case .left:
-                imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
+                imageInsets.right += 6
             case .right:
-                imageInsets = UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 0)
+                imageInsets.left += 6
             }
         }
         
@@ -169,19 +197,19 @@ extension UIBarButtonItem {
         button.imageView?.contentMode = .scaleAspectFit
         
         switch segue {
-        case .present:
-            image = Images.asappImage(.iconX)
+        case .present: break
         case .push:
             foregroundColor = ASAPP.styles.colors.navBarButtonBackground
             backgroundColor = nil
-            image = Images.asappImage(.iconArrowLeft)
-            imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 6)
-            imageSize = 24
+            image = backButtonStyle?.image
+            imageSize = backButtonStyle?.size ?? .zero
+            imageInsets = backButtonStyle?.insets ?? .zero
+            imageInsets.right += 6
         }
         
         button.setImage(image?.tinted(foregroundColor, alpha: 1), for: .normal)
         button.setImage(image?.tinted(foregroundColor, alpha: 0.6), for: .highlighted)
-        button.imageSize = CGSize(width: imageSize, height: imageSize)
+        button.imageSize = imageSize
         
         // Bubble
         if let backgroundColor = backgroundColor {
@@ -192,8 +220,8 @@ extension UIBarButtonItem {
         // Sizing
         button.contentEdgeInsets = .zero
         button.imageEdgeInsets = imageInsets
-        let buttonSize = CGSize(width: imageSize + imageInsets.left + imageInsets.right,
-                                height: imageSize + imageInsets.top + imageInsets.bottom)
+        let buttonSize = CGSize(width: imageSize.width + imageInsets.left + imageInsets.right,
+                                height: imageSize.height + imageInsets.top + imageInsets.bottom)
         
         button.frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height)
         

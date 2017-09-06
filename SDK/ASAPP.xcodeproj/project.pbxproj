@@ -478,6 +478,8 @@
 		3A4FEEFE1F55E31F00338B00 /* icon-arrow-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */; };
 		3A4FEEFF1F55E31F00338B00 /* icon-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */; };
 		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
+		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
+		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -965,6 +967,8 @@
 		3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left@2x.png"; path = "Icons/icon-arrow-left@2x.png"; sourceTree = "<group>"; };
 		3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left.png"; path = "Icons/icon-arrow-left.png"; sourceTree = "<group>"; };
 		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
+		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
+		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1625,11 +1629,13 @@
 			children = (
 				303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */,
 				303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */,
-				303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */,
 				303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */,
+				303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */,
 				30131F9B1EAFB384009E7299 /* ASAPPColors.swift */,
 				30131F9D1EAFB3B2009E7299 /* ASAPPButtonColors.swift */,
 				30131F9F1EAFB416009E7299 /* ASAPPInputColors.swift */,
+				3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */,
+				3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */,
 				30131FA11EAFB489009E7299 /* ASAPPNavBarButtonStyle.swift */,
 				3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */,
 				30F6B4D81EC5331000ABA570 /* ButtonType.swift */,
@@ -2476,6 +2482,7 @@
 				30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */,
 				30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
+				3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */,
 				30131FA01EAFB416009E7299 /* ASAPPInputColors.swift in Sources */,
 				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,
 				306619181D9458F50092B4C5 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -2654,6 +2661,7 @@
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
 				30131FD21EB10FD0009E7299 /* SeparatorItem.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
+				3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */,
 				30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */,
 				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,

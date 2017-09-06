@@ -380,17 +380,21 @@ extension ChatViewController {
         let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
         let title: String
         let action: Selector
+        let imageStyles: ASAPPNavBarButtonImage?
         
         if isLiveChat {
             title = ASAPP.strings.chatEndChatNavBarButton
             action = #selector(ChatViewController.didTapEndChatButton)
+            imageStyles = ASAPP.styles.navBarButtonImages.end
         } else {
             title = ASAPP.strings.chatAskNavBarButton
             action = #selector(ChatViewController.didTapAskButton)
+            imageStyles = ASAPP.styles.navBarButtonImages.ask
         }
         
         let askButton = UIBarButtonItem.asappBarButtonItem(
             title: title,
+            imageStyles: imageStyles,
             style: .ask,
             location: .chat,
             side: side,
