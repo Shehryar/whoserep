@@ -75,7 +75,7 @@ extension UIBarButtonItem {
     }
     
     class func asappBarButtonItem(title: String,
-                                  imageStyles: ASAPPNavBarButtonImage? = nil,
+                                  customImage: ASAPPNavBarButtonImage? = nil,
                                   style: ChatBubbleBarButtonItemStyle,
                                   location: NavBarButtonLocation,
                                   side: NavBarButtonSide,
@@ -85,15 +85,15 @@ extension UIBarButtonItem {
         let (textColor, backgroundColor, font, insets) = getButtonColorsFontInset(location: location, side: side)
         let button: UIButton
         
-        if let imageStyles = imageStyles {
+        if let customImage = customImage {
             button = SizedImageOnlyButton()
             button.imageView?.contentMode = .scaleAspectFit
             
             let tintColor = backgroundColor != textColor ? textColor : .white
-            button.setImage(imageStyles.image.tinted(tintColor, alpha: 1), for: .normal)
-            button.setImage(imageStyles.image.tinted(tintColor, alpha: 0.6), for: .highlighted)
+            button.setImage(customImage.image.tinted(tintColor, alpha: 1), for: .normal)
+            button.setImage(customImage.image.tinted(tintColor, alpha: 0.6), for: .highlighted)
             
-            var insets = imageStyles.insets
+            var insets = customImage.insets
             switch side {
             case .left:
                 insets.right += 6
@@ -107,11 +107,11 @@ extension UIBarButtonItem {
             }
             
             if let button = button as? SizedImageOnlyButton {
-                button.imageSize = imageStyles.size
+                button.imageSize = customImage.size
                 button.contentEdgeInsets = .zero
                 button.imageEdgeInsets = insets
-                let buttonSize = CGSize(width: imageStyles.size.width + insets.left + insets.right,
-                                        height: imageStyles.size.height + insets.top + insets.bottom)
+                let buttonSize = CGSize(width: customImage.size.width + insets.left + insets.right,
+                                        height: customImage.size.height + insets.top + insets.bottom)
                 button.frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height)
             }
         } else {
