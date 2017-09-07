@@ -34,42 +34,28 @@ extension UIBarButtonItem {
             case .chat:
                 textColor = ASAPP.styles.colors.navBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-
-                break
-                
             case .predictive:
                 textColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
-                break
             }
             font = ASAPP.styles.textStyles.navButton.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
-            break
-        
         case .allCapsText: fallthrough
         case .text:
             switch location {
             case .chat:
                 textColor = ASAPP.styles.colors.navBarButton
-                break
-                
             case .predictive:
                 textColor = ASAPP.styles.colors.predictiveNavBarButton
-                break
             }
             backgroundColor = nil
             font = ASAPP.styles.textStyles.navButton.font
             switch side {
             case .left:
                 insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
-                break
-                
             case .right:
                 insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 0)
-                break
             }
-            
-            break
         }
 
         return (textColor, backgroundColor, font, insets)

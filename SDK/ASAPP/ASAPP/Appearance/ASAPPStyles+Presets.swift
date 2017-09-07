@@ -64,7 +64,7 @@ public extension ASAPPStyles {
         
         styles.colors.navBarBackground = .black
         styles.colors.navBarTitle = .white
-        styles.colors.navBarButton = .white
+        styles.colors.navBarButton = navBlue
         styles.colors.navBarButtonForeground = .white
         styles.colors.navBarButtonBackground = navBlue
         
