@@ -21,7 +21,7 @@ public class ASAPPStrings: NSObject {
     
     // Predictive
     
-    public var predictiveBackToChatButton: String = ASAPPLocalizedString("HISTORY")
+    public var predictiveBackToChatButton: String = ASAPPLocalizedString("History")
     public var predictiveWelcomeText: String = ASAPPLocalizedString("How can we help?")
     public var predictiveOtherSuggestions: String = ASAPPLocalizedString("OTHER SUGGESTIONS:")
     public var predictiveInputPlaceholder: String = ASAPPLocalizedString("Ask a new question...")
@@ -37,10 +37,10 @@ public class ASAPPStrings: NSObject {
     // Chat Messages View
     
     public var chatEmptyTitle: String = ASAPPLocalizedString("Hi there, how can we help you?")
-    public var chatEmptyMessage: String = ASAPPLocalizedString("Tap 'ASK' to get started.")
-    public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
-    public var chatEndChatNavBarButton: String = ASAPPLocalizedString("END CHAT")
-    public var chatAskTooltip: String = ASAPPLocalizedString("Tap 'ASK' to ask a new question.")
+    public var chatEmptyMessage: String = ASAPPLocalizedString("Tap 'Ask' to get started.")
+    public var chatAskNavBarButton: String = ASAPPLocalizedString("Ask")
+    public var chatEndChatNavBarButton: String = ASAPPLocalizedString("End Chat")
+    public var chatAskTooltip: String = ASAPPLocalizedString("Tap 'Ask' to ask a new question.")
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     public var chatInputSend: String = ASAPPLocalizedString("SEND")
     

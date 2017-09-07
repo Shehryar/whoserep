@@ -16,13 +16,9 @@ public class ASAPPStyles: NSObject {
     
     public var separatorStrokeWidth: CGFloat = 1.0
     
-    public var navBarButtonStyle: ASAPPNavBarButtonStyle = .bubble
-    
-    public var navBarButtonImages = ASAPPNavBarButtonImages()
-    
-    public var navBarTitlePadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    
     public var segue: ASAPPSegue = .present
+    
+    public var navBarStyles = ASAPPNavBarStyles()
 }
 
 extension ASAPPStyles {

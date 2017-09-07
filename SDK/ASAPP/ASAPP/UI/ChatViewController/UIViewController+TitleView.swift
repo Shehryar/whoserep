@@ -12,7 +12,7 @@ extension UIViewController {
     
     func createASAPPTitleView(title: String,
                               color: UIColor = ASAPP.styles.colors.navBarTitle,
-                              padding: UIEdgeInsets = ASAPP.styles.navBarTitlePadding) -> UIView {
+                              padding: UIEdgeInsets = ASAPP.styles.navBarStyles.titlePadding) -> UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.setAttributedText(title, textType: .navTitle, color: color)

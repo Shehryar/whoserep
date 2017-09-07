@@ -385,11 +385,11 @@ extension ChatViewController {
         if isLiveChat {
             title = ASAPP.strings.chatEndChatNavBarButton
             action = #selector(ChatViewController.didTapEndChatButton)
-            customImage = ASAPP.styles.navBarButtonImages.end
+            customImage = ASAPP.styles.navBarStyles.buttonImages.end
         } else {
             title = ASAPP.strings.chatAskNavBarButton
             action = #selector(ChatViewController.didTapAskButton)
-            customImage = ASAPP.styles.navBarButtonImages.ask
+            customImage = ASAPP.styles.navBarStyles.buttonImages.ask
         }
         
         let askButton = UIBarButtonItem.asappBarButtonItem(

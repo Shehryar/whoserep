@@ -28,7 +28,7 @@ extension UIBarButtonItem {
         let backgroundColor: UIColor?
         let font: UIFont
         let insets: UIEdgeInsets
-        switch ASAPP.styles.navBarButtonStyle {
+        switch ASAPP.styles.navBarStyles.buttonStyle {
         case .bubble:
             switch location {
             case .chat:
@@ -45,7 +45,8 @@ extension UIBarButtonItem {
             font = ASAPP.styles.textStyles.navButton.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
             break
-            
+        
+        case .allCapsText: fallthrough
         case .text:
             switch location {
             case .chat:
@@ -84,6 +85,7 @@ extension UIBarButtonItem {
         
         let (textColor, backgroundColor, font, insets) = getButtonColorsFontInset(location: location, side: side)
         let button: UIButton
+        let title = ASAPP.styles.navBarStyles.buttonStyle == .allCapsText ? title.uppercased(with: Locale.current) : title
         
         if let customImage = customImage {
             button = SizedImageOnlyButton()
@@ -120,12 +122,12 @@ extension UIBarButtonItem {
             button.setAttributedTitle(NSAttributedString(string: title, attributes: [
                 NSFontAttributeName: font,
                 NSForegroundColorAttributeName: textColor,
-                NSKernAttributeName: 1
+                NSKernAttributeName: ASAPP.styles.textStyles.navButton.letterSpacing
             ]), for: .normal)
             button.setAttributedTitle(NSAttributedString(string: title, attributes: [
                 NSFontAttributeName: font,
                 NSForegroundColorAttributeName: textColor.withAlphaComponent(0.6),
-                NSKernAttributeName: 1
+                NSKernAttributeName: ASAPP.styles.textStyles.navButton.letterSpacing
             ]), for: .highlighted)
             
             if let titleLabel = button.titleLabel {
@@ -160,15 +162,15 @@ extension UIBarButtonItem {
     }
     
     class func asappCloseBarButtonItem(location: NavBarButtonLocation, side: NavBarButtonSide = .right, segue: ASAPPSegue = .present, target: Any?, action: Selector) -> UIBarButtonItem {
-        let closeButtonStyle = ASAPP.styles.navBarButtonImages.close
-        let backButtonStyle = ASAPP.styles.navBarButtonImages.back
+        let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
+        let backButtonStyle = ASAPP.styles.navBarStyles.buttonImages.back
         var foregroundColor: UIColor
         var backgroundColor: UIColor?
         var image = closeButtonStyle?.image
         var imageSize = closeButtonStyle?.size ?? .zero
         var imageInsets = closeButtonStyle?.insets ?? .zero
         
-        switch ASAPP.styles.navBarButtonStyle {
+        switch ASAPP.styles.navBarStyles.buttonStyle {
         case .bubble:
             switch location {
             case .chat:
@@ -182,6 +184,7 @@ extension UIBarButtonItem {
             imageSize = CGSize(width: 8, height: 8)
             imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
 
+        case .allCapsText: fallthrough
         case .text:
             foregroundColor = ASAPP.styles.colors.navBarButton
             backgroundColor = nil
@@ -229,7 +232,6 @@ extension UIBarButtonItem {
         button.addTarget(target, action: action, for: .touchUpInside)
         
         return UIBarButtonItem(customView: button)
-    
     }
     
     // MARK:- Bubble Image Helper
