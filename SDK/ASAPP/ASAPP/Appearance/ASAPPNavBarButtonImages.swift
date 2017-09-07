@@ -18,7 +18,7 @@ public class ASAPPNavBarButtonImages: NSObject {
     }()
     
     lazy public var back: ASAPPNavBarButtonImage? = {
-        return ASAPPNavBarButtonImage(image: Images.asappImage(.iconGuillemetLeft)!, size: CGSize(width: 16, height: 18), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+        return ASAPPNavBarButtonImage(image: Images.asappImage(.iconGuillemetThinLeft)!, size: CGSize(width: 24, height: 24), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
     }()
     
     public var ask: ASAPPNavBarButtonImage?

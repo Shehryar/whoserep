@@ -55,6 +55,7 @@ class Images: NSObject {
         case iconArrowLeft = "icon-arrow-left"
         case iconGuillemetLeft = "icon-guillemet-left"
         case iconGuillemetRight = "icon-guillemet-right"
+        case iconGuillemetThinLeft = "icon-guillemet-thin-left"
         case iconStar = "icon-star"
         case iconStarFilled = "icon-star-filled"
         case iconUser = "icon-user"

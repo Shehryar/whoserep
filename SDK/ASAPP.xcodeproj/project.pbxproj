@@ -481,6 +481,9 @@
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
 		3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */; };
+		3A967FE01F619A6E000E9696 /* icon-guillemet-thin-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDD1F619A6E000E9696 /* icon-guillemet-thin-left@3x.png */; };
+		3A967FE11F619A6E000E9696 /* icon-guillemet-thin-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */; };
+		3A967FE21F619A6E000E9696 /* icon-guillemet-thin-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -971,6 +974,9 @@
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
 		3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarStyles.swift; sourceTree = "<group>"; };
+		3A967FDD1F619A6E000E9696 /* icon-guillemet-thin-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left@3x.png"; sourceTree = "<group>"; };
+		3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left@2x.png"; sourceTree = "<group>"; };
+		3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left.png"; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1319,6 +1325,9 @@
 				3025D9C11E528048004149D7 /* icon-guillemet-right.png */,
 				3025D9C21E528048004149D7 /* icon-guillemet-right@2x.png */,
 				3025D9C31E528048004149D7 /* icon-guillemet-right@3x.png */,
+				3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */,
+				3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */,
+				3A967FDD1F619A6E000E9696 /* icon-guillemet-thin-left@3x.png */,
 				3025D9AF1E527FEB004149D7 /* icon-hide-keyboard.png */,
 				3025D9B01E527FEB004149D7 /* icon-hide-keyboard@2x.png */,
 				3025D9B11E527FEB004149D7 /* icon-hide-keyboard@3x.png */,
@@ -2260,6 +2269,7 @@
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
 				285F7AE21DA9AD3B008C2EF6 /* button-bg-ask@2x.png in Resources */,
+				3A967FE21F619A6E000E9696 /* icon-guillemet-thin-left.png in Resources */,
 				3046CE8E1E8AF0C90022AEE5 /* iconTrash@2x.png in Resources */,
 				30BF4DB91F2A654A00556E5A /* live-chat-end.json in Resources */,
 				3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */,
@@ -2356,6 +2366,7 @@
 				301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */,
 				28AEC0B71D888FFD00139C7D /* map-equipment@2x.png in Resources */,
 				3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */,
+				3A967FE01F619A6E000E9696 /* icon-guillemet-thin-left@3x.png in Resources */,
 				3046CEAC1E8AF6FC0022AEE5 /* iconCheckmarkCircle@2x.png in Resources */,
 				30BF4DAD1F2A654A00556E5A /* bill-summary.json in Resources */,
 				285F7AD31DA9A526008C2EF6 /* SprintSans-RegularItalic.ttf in Resources */,
@@ -2390,6 +2401,7 @@
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,
 				30BF4DB71F2A654A00556E5A /* json-style-example.json in Resources */,
+				3A967FE11F619A6E000E9696 /* icon-guillemet-thin-left@2x.png in Resources */,
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
 				3046CE901E8AF0C90022AEE5 /* iconUser.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
