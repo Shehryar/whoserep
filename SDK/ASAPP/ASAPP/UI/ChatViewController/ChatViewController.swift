@@ -663,7 +663,6 @@ extension ChatViewController {
                     if quickReply != nil {
                         self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
                     }
-                    break
                     
                 case .componentView:
                     // Show view
@@ -675,11 +674,9 @@ extension ChatViewController {
                     break
                 }
             })
-            break
             
         case .componentView:
             showComponentView(fromAction: action, delegate: self)
-            break
             
         case .deepLink:
             if let deepLinkAction = action as? DeepLinkAction {
@@ -690,7 +687,6 @@ extension ChatViewController {
                     self?.appCallbackHandler(deepLinkAction.name, deepLinkAction.data)
                 })
             }
-            break
             
         case .finish:
             // No meaning in this context
@@ -707,7 +703,6 @@ extension ChatViewController {
                     }
                 })
             }
-            break
             
         case .legacyAppAction:
             if let appAction = action as? AppAction {
@@ -716,20 +711,19 @@ extension ChatViewController {
                 leaveFeedbackViewController.delegate = self
                 present(leaveFeedbackViewController, animated: true, completion: nil)
             }
-            break
             
         case .treewalk:
             chatMessagesView.scrollToBottomAnimated(true)
                         
-            conversationManager.sendRequestForTreewalkAction(action as! TreewalkAction,
-                                                             messageText: quickReply?.title,
-                                                             parentMessage: message,
-                                                             completion: { [weak self] (success) in
-                                                                if !success {
-                                                                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
-                                                                }
+            conversationManager.sendRequestForTreewalkAction(
+                action as! TreewalkAction,
+                messageText: quickReply?.title,
+                parentMessage: message,
+                completion: { [weak self] (success) in
+                if !success {
+                    self?.quickRepliesActionSheet.deselectCurrentSelection(animated: true)
+                }
             })
-            break
             
         case .userLogin:
             if let userLoginAction = action as? UserLoginAction {
@@ -740,13 +734,13 @@ extension ChatViewController {
                 
                 user.userLoginHandler(completionBlock)
             }
-            break
             
         case .web:
             showWebPage(fromAction: action)
-            break
             
-        case .unknown: /* No-op */ break
+        case .unknown:
+            // No-op
+            break
         }
         
         conversationManager.trackAction(action)
@@ -892,6 +886,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         chatMessagesView.overrideToHideInfoView = true
         chatMessagesView.scrollToBottomAnimated(false)
         
+        clearQuickRepliesActionSheet()
         setPredictiveViewControllerVisible(false, animated: true) { [weak self] in
             Dispatcher.delay(250, closure: {
                 self?.sendMessage(withText: queryText, fromPrediction: fromPrediction)
