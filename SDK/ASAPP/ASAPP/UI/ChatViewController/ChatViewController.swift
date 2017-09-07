@@ -32,7 +32,6 @@ class ChatViewController: ASAPPViewController {
     fileprivate let chatInputView = ChatInputView()
     fileprivate let connectionStatusView = ChatConnectionStatusView()
     fileprivate let quickRepliesActionSheet = QuickRepliesActionSheet()
-    fileprivate var askTooltipPresenter: TooltipPresenter?
     fileprivate var hapticFeedbackGenerator: Any?
     
     // MARK: Properties: Status
@@ -181,11 +180,6 @@ class ChatViewController: ASAPPViewController {
                     updateViewForLiveChat()
                 }
             }
-            
-            if isLiveChat && askTooltipPresenter != nil {
-                askTooltipPresenter?.dismiss()
-                askTooltipPresenter = nil
-            }
         }
     }
     
@@ -294,10 +288,6 @@ class ChatViewController: ASAPPViewController {
             conversationManager.getAppOpen { [weak self] (appOpenResponse) in
                 self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
             }
-        }
-        
-        Dispatcher.delay(500) { [weak self] in
-            self?.showAskButtonTooltipIfNecessary()
         }
     }
     
@@ -456,8 +446,6 @@ extension ChatViewController {
 
 extension ChatViewController {
     func didTapAskButton() {
-        increaseTooltipActionsCount(increaseAmount: 2)
-        
         showPredictiveView()
         
         conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
@@ -478,55 +466,6 @@ extension ChatViewController {
         conversationManager.trackButtonTap(buttonName: .closeChatFromChat)
         
         dismissChatViewController()
-    }
-}
-
-// MARK:- Tooltip
-
-extension ChatViewController {
-    
-    func hasShownAskTooltipKey() -> String {
-        return config.hashKey(with: user, prefix: "AskTooltipShown")
-    }
-    
-    func numberOfTooltipActions() -> Int {
-        return UserDefaults.standard.integer(forKey: hasShownAskTooltipKey())
-    }
-    
-    private static let MAX_TOOLTIP_ACTIONS_COUNT = 3
-    
-    func increaseTooltipActionsCount(increaseAmount: Int = 1) {
-        let numberOfTimesShown = numberOfTooltipActions() + increaseAmount
-        UserDefaults.standard.set(numberOfTimesShown, forKey: hasShownAskTooltipKey())
-    }
-    
-    func showAskButtonTooltipIfNecessary(showRegardlessCount: Bool = false) {
-        guard !showPredictiveOnViewAppear && !predictiveVCVisible && !isLiveChat else {
-            return
-        }
-        guard showRegardlessCount || numberOfTooltipActions() < ChatViewController.MAX_TOOLTIP_ACTIONS_COUNT else {
-            return
-        }
-        
-        if askTooltipPresenter != nil {
-            return
-        }
-        
-        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
-        guard let navView = navigationController?.view,
-              let buttonItem = side == .left ? navigationItem.leftBarButtonItem : navigationItem.rightBarButtonItem else {
-                return
-        }
-        
-        increaseTooltipActionsCount()
-        
-        askTooltipPresenter = TooltipView.showTooltip(
-            withText: ASAPP.strings.chatAskTooltip,
-            targetBarButtonItem: buttonItem,
-            parentView: navView,
-            onDismiss: { [weak self] in
-                self?.askTooltipPresenter = nil
-            })
     }
 }
 
@@ -866,12 +805,6 @@ extension ChatViewController: PredictiveViewControllerDelegate {
             }, completion: { [weak self] _ in
                 self?.predictiveVC.presentingViewUpdatedVisibility(visible)
                 completion?()
-                
-                if !visible {
-                    Dispatcher.delay(4000) {
-                        self?.showAskButtonTooltipIfNecessary()
-                    }
-                }
             })
         } else {
             welcomeView.alpha = alpha
@@ -1036,12 +969,6 @@ extension ChatViewController: ConversationManagerDelegate {
         if message.metadata.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
-        
-        if message.metadata.eventType == .conversationEnd {
-            Dispatcher.delay(1000, closure: { [weak self] in
-                self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
-            })
-        }
     
         chatMessagesView.addMessage(message) { [weak self] in
             if message.quickReplies != nil {
@@ -1181,12 +1108,6 @@ extension ChatViewController {
                 strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
-                
-                if fetchedEvents.last?.eventType == .conversationEnd {
-                    Dispatcher.delay(1000, closure: { [weak self] in
-                        self?.showAskButtonTooltipIfNecessary(showRegardlessCount: true)
-                    })
-                }
             }
         }
     }

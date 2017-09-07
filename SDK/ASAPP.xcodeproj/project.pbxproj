@@ -66,9 +66,6 @@
 		28D48CA81E83EE23004A002B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D48CA71E83EE23004A002B /* Action.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
-		300012C31DD4D148007226B9 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C21DD4D148007226B9 /* TooltipView.swift */; };
-		300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C41DD4D26E007226B9 /* TriangleView.swift */; };
-		300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300012C61DD4F95A007226B9 /* TooltipPresenter.swift */; };
 		3005C4281DB02AF800946934 /* ChatBubbleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */; };
 		3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */ = {isa = PBXBuildFile; fileRef = 3005C4291DB02BFD00946934 /* button-bg-respond.png */; };
 		3005C42D1DB02BFD00946934 /* button-bg-respond@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3005C42A1DB02BFD00946934 /* button-bg-respond@2x.png */; };
@@ -206,7 +203,6 @@
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
 		302B6E1D1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */; };
-		302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1E1E7B21FB0035B584 /* TooltipContainerView.swift */; };
 		303699A51EAFA9FB00A819DF /* ASAPPStyles+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */; };
 		303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */; };
 		303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */; };
@@ -556,9 +552,6 @@
 		28D48CA71E83EE23004A002B /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
-		300012C21DD4D148007226B9 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
-		300012C41DD4D26E007226B9 /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
-		300012C61DD4F95A007226B9 /* TooltipPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipPresenter.swift; sourceTree = "<group>"; };
 		3005C4271DB02AF800946934 /* ChatBubbleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleBarButtonItem.swift; sourceTree = "<group>"; };
 		3005C4291DB02BFD00946934 /* button-bg-respond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg-respond.png"; sourceTree = "<group>"; };
 		3005C42A1DB02BFD00946934 /* button-bg-respond@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg-respond@2x.png"; sourceTree = "<group>"; };
@@ -697,7 +690,6 @@
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
 		302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+OutgoingAPI.swift"; sourceTree = "<group>"; };
-		302B6E1E1E7B21FB0035B584 /* TooltipContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipContainerView.swift; sourceTree = "<group>"; };
 		303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ASAPPStyles+Presets.swift"; sourceTree = "<group>"; };
 		303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStyles.swift; sourceTree = "<group>"; };
 		303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyle.swift; sourceTree = "<group>"; };
@@ -1196,18 +1188,6 @@
 			path = APIAction;
 			sourceTree = "<group>";
 		};
-		300012C11DD4D10E007226B9 /* Tooltips */ = {
-			isa = PBXGroup;
-			children = (
-				300012C61DD4F95A007226B9 /* TooltipPresenter.swift */,
-				302B6E1E1E7B21FB0035B584 /* TooltipContainerView.swift */,
-				300012C21DD4D148007226B9 /* TooltipView.swift */,
-				300012C41DD4D26E007226B9 /* TriangleView.swift */,
-			);
-			name = Tooltips;
-			path = ASAPP/ASAPP/UI/Common/Tooltips;
-			sourceTree = SOURCE_ROOT;
-		};
 		30099DB01D3EDBC400171D56 /* ASAPP */ = {
 			isa = PBXGroup;
 			children = (
@@ -1521,7 +1501,6 @@
 		30226CEE1D493F5300871453 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				300012C11DD4D10E007226B9 /* Tooltips */,
 				30A4BB041D51095400795BA7 /* ImageViewer */,
 				30226CF01D493F5300871453 /* BubbleView.swift */,
 				3008888B1D620D3700C25802 /* Button.swift */,
@@ -2470,7 +2449,6 @@
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
 				288085001E874BF900240A5D /* SliderView.swift in Sources */,
 				307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */,
-				302B6E1F1E7B21FB0035B584 /* TooltipContainerView.swift in Sources */,
 				30131FDF1EB110ED009E7299 /* CapitalizationType.swift in Sources */,
 				30131FDB1EB11076009E7299 /* HorizontalAlignment.swift in Sources */,
 				30F6B4C21EBCFD2A00ABA570 /* ComponentCardView.swift in Sources */,
@@ -2543,7 +2521,6 @@
 				303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */,
 				306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */,
 				303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */,
-				300012C51DD4D26E007226B9 /* TriangleView.swift in Sources */,
 				28D48CA81E83EE23004A002B /* Action.swift in Sources */,
 				30131FCC1EB10FD0009E7299 /* LabelItem.swift in Sources */,
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
@@ -2679,7 +2656,6 @@
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */,
 				30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */,
-				300012C71DD4F95A007226B9 /* TooltipPresenter.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,
 				305FF5D81E857427004DD9D5 /* CheckboxView.swift in Sources */,
 				30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */,
@@ -2694,7 +2670,6 @@
 				302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */,
-				300012C31DD4D148007226B9 /* TooltipView.swift in Sources */,
 				30DF3F5F1F22798400D6DB02 /* HTTPClient.swift in Sources */,
 				307484D11EB7BDAC008CF3E4 /* Event+JSON.swift in Sources */,
 				3066191F1D9458F50092B4C5 /* UIButton+WebCache.m in Sources */,
