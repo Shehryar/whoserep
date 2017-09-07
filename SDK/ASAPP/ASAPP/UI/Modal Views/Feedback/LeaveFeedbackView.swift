@@ -22,11 +22,15 @@ class LeaveFeedbackView: ModalCardContentView {
     
     fileprivate let defaultTextViewHeight: CGFloat = 80.0
     fileprivate let ratingMarginBottom: CGFloat = 24.0
+    fileprivate let promptMarginBottom: CGFloat = 20.0
+    fileprivate let resolutionMarginBottom: CGFloat = 24.0
     fileprivate let detailMarginBottom: CGFloat = 12.0
     
     // MARK: UI
     
     fileprivate let ratingView = FeedbackRatingView()
+    fileprivate let promptLabel = UILabel()
+    fileprivate let resolutionView = YesNoView()
     fileprivate let detailLabel = UILabel()
     fileprivate let textView = UITextView()
     
@@ -35,12 +39,18 @@ class LeaveFeedbackView: ModalCardContentView {
     override func commonInit() {
         super.commonInit()
         
-        titleView.text = "How did we do?"
+        titleView.text = ASAPP.strings.feedbackViewTitle
 
         addSubview(ratingView)
         
+        promptLabel.font = ASAPP.styles.textStyles.header2.font
+        promptLabel.text = ASAPP.strings.feedbackIssueResolutionPrompt
+        promptLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
+        promptLabel.textAlignment = .left
+        addSubview(promptLabel)
+        
         detailLabel.font = ASAPP.styles.textStyles.subheader.font
-        detailLabel.text = "Leave Feedback (optional)"
+        detailLabel.text = ASAPP.strings.feedbackPrompt
         detailLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
         detailLabel.textAlignment = .left
         addSubview(detailLabel)
@@ -67,7 +77,15 @@ extension LeaveFeedbackView {
         let ratingFrame = CGRect(x: contentInset.left, y: titleFrame.maxY + titleMarginBottom,
                                  width: contentWidth, height: ratingHeight)
         
-        let detailTop = ratingFrame.maxY + ratingMarginBottom
+        // TODO: prompt label frame
+        let promptTop = ratingFrame.maxY + ratingMarginBottom
+        let promptHeight = ceil(promptLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
+        let promptFrame = CGRect(x: contentInset.left, y: promptTop, width: contentWidth, height: promptHeight)
+        
+        let resolutionTop = promptFrame.maxY + promptMarginBottom
+        let resolutionFrame = CGRect.zero
+        
+        let detailTop = resolutionFrame.maxY + resolutionMarginBottom
         let detailHeight = ceil(detailLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
         let detailFrame = CGRect(x: contentInset.left, y: detailTop, width: contentWidth, height: detailHeight)
         
