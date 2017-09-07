@@ -155,6 +155,7 @@ class PredictiveViewController: UIViewController {
 
         let viewChatButton = UIBarButtonItem.asappBarButtonItem(
             title: ASAPP.strings.predictiveBackToChatButton,
+            customImage: ASAPP.styles.navBarButtonImages.backToChat,
             style: .respond,
             location: .predictive,
             side: chatSide,

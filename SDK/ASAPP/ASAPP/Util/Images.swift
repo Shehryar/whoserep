@@ -77,8 +77,7 @@ class Images: NSObject {
     }
 
     private class func imageWithName(_ name: String) -> UIImage? {
-        let image = UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
-        return image
+        return UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
     }
     
     // MARK: Gifs
