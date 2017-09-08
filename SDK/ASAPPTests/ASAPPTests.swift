@@ -7,29 +7,53 @@
 //
 
 import XCTest
+@testable import ASAPP
 
 class ASAPPTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testCanHandleNotification() {
+        XCTAssertTrue(ASAPP.canHandleNotification(
+            with: [
+                "aps": [
+                    "asapp": true
+                ]
+            ]))
+        
+        XCTAssertFalse(ASAPP.canHandleNotification(
+            with: [
+                "aps": [
+                    "asapp": false
+                ]
+            ]))
+        
+        XCTAssertTrue(ASAPP.canHandleNotification(
+            with: [
+                "aps": [
+                    "asapp": [
+                        "data": "someData"
+                    ]
+                ]
+            ]))
+        
+        XCTAssertFalse(ASAPP.canHandleNotification(
+            with: [
+                "aps": [
+                    
+                ]
+            ]))
+        
+        XCTAssertTrue(ASAPP.canHandleNotification(
+            with: [
+                "asapp": [
+                    "data": "someData"
+                ]
+            ]))
+        
+        XCTAssertFalse(ASAPP.canHandleNotification(with: nil))
+        
+        XCTAssertFalse(ASAPP.canHandleNotification(
+            with: [
+                "data": "someData"
+            ]))
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
