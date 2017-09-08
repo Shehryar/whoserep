@@ -96,11 +96,13 @@ public extension ASAPP {
     }
     
     public class func canHandleNotification(with userInfo: [AnyHashable : Any]?) -> Bool {
-        var aps = userInfo?["aps"] as? [AnyHashable : Any] ?? userInfo
-        guard let isASAPP = aps?["asapp"] as? Bool else {
+        guard let aps = userInfo?["aps"] as? [AnyHashable: Any] ?? userInfo else {
             return false
         }
-        return isASAPP
+        if let boolValue = aps["asapp"] as? Bool {
+            return boolValue
+        }
+        return aps.keys.contains("asapp")
     }
 }
 
