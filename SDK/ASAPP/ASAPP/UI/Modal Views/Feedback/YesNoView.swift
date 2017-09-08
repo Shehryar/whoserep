@@ -132,19 +132,19 @@ extension YesNoView {
             usingSpringWithDamping: 0.7,
             initialSpringVelocity: 20,
             options: .beginFromCurrentState,
-            animations: {
-                self.yesView.transform = getTransform(for: choice)
-                self.yesView.backgroundColor = getYesColor(for: choice)
-                self.noView.transform = getTransform(for: !choice)
-                self.noView.backgroundColor = getNoColor(for: !choice)
+            animations: { [weak self] in
+                self?.yesView.transform = getTransform(for: choice)
+                self?.yesView.backgroundColor = getYesColor(for: choice)
+                self?.noView.transform = getTransform(for: !choice)
+                self?.noView.backgroundColor = getNoColor(for: !choice)
             }, completion: { _ in
                 UIView.animate(
                     withDuration: 0.25,
                     delay: 0,
                     options: [.beginFromCurrentState, .curveEaseOut],
-                    animations: {
-                        self.yesView.transform = CGAffineTransform.identity
-                        self.noView.transform = CGAffineTransform.identity
+                    animations: { [weak self] in
+                        self?.yesView.transform = CGAffineTransform.identity
+                        self?.noView.transform = CGAffineTransform.identity
                     }, completion: nil)
             })
     }

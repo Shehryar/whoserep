@@ -14,6 +14,10 @@ class LeaveFeedbackView: ModalCardContentView {
         return ratingView.currentRating
     }
     
+    var resolved: Bool? {
+        return resolutionView.currentChoice
+    }
+    
     var feedback: String? {
         return textView.text
     }

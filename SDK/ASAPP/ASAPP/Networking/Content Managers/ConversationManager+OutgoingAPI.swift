@@ -99,13 +99,16 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
+    func sendRating(_ rating: Int, resolved: Bool?, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
         let path = "customer/SendRatingAndFeedback"
         
         var params: [String : Any] = [
             "FiveStarRating": rating,
             "IssueId": issueId
         ]
+        if let resolved = resolved {
+            params["resolved"] = resolved
+        }
         if let feedback = feedback {
             params["Feedback"] = feedback
         }
