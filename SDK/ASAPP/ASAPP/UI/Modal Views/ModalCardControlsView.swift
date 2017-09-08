@@ -43,10 +43,10 @@ class ModalCardControlsView: UIView {
         }
     }
     
-    let buttonColor =  UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
+    let buttonColor = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
     let buttonColorDisabled = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.3)
     
-    var borderColor: UIColor = UIColor(red: 0.925, green: 0.906, blue: 0.906, alpha: 1) {
+    var borderColor = UIColor(red: 0.925, green: 0.906, blue: 0.906, alpha: 1) {
         didSet {
             borderTop.backgroundColor = borderColor
             borderMiddle.backgroundColor = borderColor

@@ -24,15 +24,14 @@ class LeaveFeedbackView: ModalCardContentView {
     fileprivate let ratingMarginBottom: CGFloat = 24.0
     fileprivate let promptMarginBottom: CGFloat = 20.0
     fileprivate let resolutionMarginBottom: CGFloat = 24.0
-    fileprivate let detailMarginBottom: CGFloat = 12.0
     
     // MARK: UI
     
     fileprivate let ratingView = FeedbackRatingView()
     fileprivate let promptLabel = UILabel()
     fileprivate let resolutionView = YesNoView()
-    fileprivate let detailLabel = UILabel()
     fileprivate let textView = UITextView()
+    fileprivate let textViewPlaceholder = UILabel()
     
     // MARK: Initialization
     
@@ -43,17 +42,13 @@ class LeaveFeedbackView: ModalCardContentView {
 
         addSubview(ratingView)
         
-        promptLabel.font = ASAPP.styles.textStyles.header2.font
+        promptLabel.font = ASAPP.styles.textStyles.body.font
         promptLabel.text = ASAPP.strings.feedbackIssueResolutionPrompt
         promptLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
-        promptLabel.textAlignment = .left
+        promptLabel.textAlignment = .center
         addSubview(promptLabel)
         
-        detailLabel.font = ASAPP.styles.textStyles.subheader.font
-        detailLabel.text = ASAPP.strings.feedbackPrompt
-        detailLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
-        detailLabel.textAlignment = .left
-        addSubview(detailLabel)
+        addSubview(resolutionView)
         
         textView.clipsToBounds = true
         textView.layer.cornerRadius = 6
@@ -61,14 +56,20 @@ class LeaveFeedbackView: ModalCardContentView {
         textView.font = ASAPP.styles.textStyles.body.font
         textView.textColor = UIColor(red: 0.449, green: 0.457, blue: 0.476, alpha: 1)
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8)
+        textView.delegate = self
         addSubview(textView)
+        
+        textViewPlaceholder.textColor = textView.textColor!.withAlphaComponent(0.6)
+        textViewPlaceholder.font = textView.font
+        textViewPlaceholder.text = ASAPP.strings.feedbackPrompt
+        textView.addSubview(textViewPlaceholder)
     }
 }
 
 // MARK:- Layout
 
 extension LeaveFeedbackView {
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect, CGRect) {
+    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect, CGRect, CGRect, CGRect) {
         let titleFrame = getTitleViewFrameThatFits(size)
         
         let contentWidth = size.width - contentInset.left - contentInset.right
@@ -77,38 +78,60 @@ extension LeaveFeedbackView {
         let ratingFrame = CGRect(x: contentInset.left, y: titleFrame.maxY + titleMarginBottom,
                                  width: contentWidth, height: ratingHeight)
         
-        // TODO: prompt label frame
         let promptTop = ratingFrame.maxY + ratingMarginBottom
         let promptHeight = ceil(promptLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
         let promptFrame = CGRect(x: contentInset.left, y: promptTop, width: contentWidth, height: promptHeight)
         
         let resolutionTop = promptFrame.maxY + promptMarginBottom
-        let resolutionFrame = CGRect.zero
+        let resolutionHeight = ceil(resolutionView.sizeThatFits(CGSize(width: contentWidth * 0.666, height: 0)).height)
+        let resolutionFrame = CGRect(x: contentInset.left, y: resolutionTop, width: contentWidth, height: resolutionHeight)
         
-        let detailTop = resolutionFrame.maxY + resolutionMarginBottom
-        let detailHeight = ceil(detailLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
-        let detailFrame = CGRect(x: contentInset.left, y: detailTop, width: contentWidth, height: detailHeight)
-        
-        let textViewTop = detailFrame.maxY + detailMarginBottom
+        let textViewTop = resolutionFrame.maxY + resolutionMarginBottom
         let textViewHeight = defaultTextViewHeight
         let textViewFrame = CGRect(x: contentInset.left, y: textViewTop, width: contentWidth, height: textViewHeight)
         
-        return (titleFrame, ratingFrame, detailFrame, textViewFrame)
+        let insets = UIEdgeInsets(
+            top: textView.textContainerInset.top,
+            left: textView.textContainerInset.left + 5,
+            bottom: textView.textContainerInset.bottom,
+            right: textView.textContainerInset.right + 5)
+        let textViewPlaceholderHeight = ceil(textViewPlaceholder.sizeThatFits(CGSize(width: textViewFrame.width - insets.left - insets.right, height: 0)).height)
+        let textViewPlaceholderFrame = CGRect(x: insets.left, y: insets.top, width: textViewFrame.width - insets.left - insets.right, height: textViewPlaceholderHeight)
+        
+        return (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame)
     }
     
     override func updateFrames() {
         super.updateFrames()
         
-        let (titleFrame, ratingFrame, detailFrame, textViewFrame) = getFramesThatFit(bounds.size)
+        let (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame) = getFramesThatFit(bounds.size)
         titleView.frame = titleFrame
         ratingView.frame = ratingFrame
-        detailLabel.frame = detailFrame
+        promptLabel.frame = promptFrame
+        resolutionView.frame = resolutionFrame
         textView.frame = textViewFrame
+        textViewPlaceholder.frame = textViewPlaceholderFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (_, _, _, textViewFrame) = getFramesThatFit(size)
+        let (_, _, _, _, _, textViewFrame) = getFramesThatFit(size)
         
         return CGSize(width: size.width, height: textViewFrame.maxY + contentInset.bottom)
+    }
+}
+
+// Mark:- UITextViewDelegate
+
+extension LeaveFeedbackView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewPlaceholder.isHidden = true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        textViewPlaceholder.isHidden = !textView.text.isEmpty
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textViewPlaceholder.isHidden = !textView.text.isEmpty
     }
 }

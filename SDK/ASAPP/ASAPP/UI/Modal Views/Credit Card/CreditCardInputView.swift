@@ -24,7 +24,6 @@ class CreditCardInputView: ModalCardContentView {
         // Title View
         //
         titleView.text = ASAPP.strings.creditCardViewTitle
-        titleView.image = Images.asappImage(.iconCreditCard)
         
         //
         // Name
