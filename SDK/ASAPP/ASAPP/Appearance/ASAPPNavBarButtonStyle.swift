@@ -12,5 +12,4 @@ import UIKit
 public enum ASAPPNavBarButtonStyle: Int {
     case bubble = 0
     case text = 1
-    case allCapsText = 2
 }

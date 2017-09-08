@@ -40,7 +40,6 @@ extension UIBarButtonItem {
             }
             font = ASAPP.styles.textStyles.navButton.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
-        case .allCapsText: fallthrough
         case .text:
             switch location {
             case .chat:
@@ -71,7 +70,6 @@ extension UIBarButtonItem {
         
         let (textColor, backgroundColor, font, insets) = getButtonColorsFontInset(location: location, side: side)
         let button: UIButton
-        let title = ASAPP.styles.navBarStyles.buttonStyle == .allCapsText ? title.uppercased(with: Locale.current) : title
         
         if let customImage = customImage {
             button = SizedImageOnlyButton()
@@ -170,7 +168,6 @@ extension UIBarButtonItem {
             imageSize = CGSize(width: 8, height: 8)
             imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
 
-        case .allCapsText: fallthrough
         case .text:
             foregroundColor = ASAPP.styles.colors.navBarButton
             backgroundColor = nil

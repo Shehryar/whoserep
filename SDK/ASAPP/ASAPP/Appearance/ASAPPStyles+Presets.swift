@@ -106,7 +106,7 @@ public extension ASAPPStyles {
         
         // Nav button style
         
-        styles.navBarStyles.buttonStyle = .allCapsText
+        styles.navBarStyles.buttonStyle = .text
         
         // Text Styles
        

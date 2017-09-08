@@ -56,30 +56,31 @@ class Branding: NSObject {
         ASAPP.loadFonts()
         
         self.brandingType = brandingType
-        self.colors = BrandingColors(brandingType: brandingType)
-        self.fonts = BrandingFonts(brandingType: brandingType)
-        self.strings = ASAPPStrings()
+        colors = BrandingColors(brandingType: brandingType)
+        fonts = BrandingFonts(brandingType: brandingType)
+        strings = ASAPPStrings()
         
         switch self.brandingType {
         case .asapp:
-            self.styles = ASAPPStyles.stylesForAppId("asapp")
+            styles = ASAPPStyles.stylesForAppId("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
-            break
             
         case .xfinity:
             self.styles = ASAPPStyles.stylesForAppId("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
-            self.strings.chatTitle = "XFINITY Assistant"
-            self.strings.predictiveTitle = "XFINITY Assistant"
-            break
+            strings.chatTitle = "XFINITY Assistant"
+            strings.predictiveTitle = "XFINITY Assistant"
+            strings.predictiveBackToChatButton = "History"
+            strings.chatEmptyMessage = "Tap 'Ask' to get started."
+            strings.chatAskNavBarButton = "Ask"
+            strings.chatEndChatNavBarButton = "End Chat"
             
         case .boost:
             self.styles = ASAPPStyles.stylesForAppId("boost")
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 140, height: 32)
-            break
         }
         super.init()
     }
