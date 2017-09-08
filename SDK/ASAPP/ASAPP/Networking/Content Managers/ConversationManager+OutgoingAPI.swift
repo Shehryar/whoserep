@@ -107,7 +107,7 @@ extension ConversationManager {
             "IssueId": issueId
         ]
         if let resolved = resolved {
-            params["resolved"] = resolved
+            params["Resolved"] = resolved
         }
         if let feedback = feedback {
             params["Feedback"] = feedback

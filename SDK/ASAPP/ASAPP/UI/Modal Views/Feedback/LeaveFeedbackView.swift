@@ -25,9 +25,9 @@ class LeaveFeedbackView: ModalCardContentView {
     // MARK: Layout
     
     fileprivate let defaultTextViewHeight: CGFloat = 80.0
-    fileprivate let ratingMarginBottom: CGFloat = 24.0
-    fileprivate let promptMarginBottom: CGFloat = 20.0
-    fileprivate let resolutionMarginBottom: CGFloat = 24.0
+    fileprivate let ratingMarginBottom: CGFloat = 53.0
+    fileprivate let promptMarginBottom: CGFloat = 22.0
+    fileprivate let resolutionMarginBottom: CGFloat = 40.0
     
     // MARK: UI
     
@@ -48,7 +48,7 @@ class LeaveFeedbackView: ModalCardContentView {
         
         promptLabel.font = ASAPP.styles.textStyles.body.font
         promptLabel.text = ASAPP.strings.feedbackIssueResolutionPrompt
-        promptLabel.textColor = UIColor(red: 0.549, green: 0.557, blue: 0.576, alpha: 1)
+        promptLabel.textColor = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
         promptLabel.textAlignment = .center
         addSubview(promptLabel)
         

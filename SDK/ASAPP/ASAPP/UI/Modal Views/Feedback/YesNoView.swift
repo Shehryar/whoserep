@@ -12,7 +12,7 @@ class YesNoView: UIView {
     fileprivate(set) var currentChoice: Bool?
     
     fileprivate let contentInset = UIEdgeInsets.zero
-    fileprivate let buttonSpacing: CGFloat = 50
+    fileprivate let buttonSpacing: CGFloat = 40
     fileprivate let unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha:1)
     fileprivate let yesColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
     fileprivate let noColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
@@ -81,7 +81,7 @@ class YesNoView: UIView {
     
     func updateFrames() {
         let buttonSize = getButtonSizeThatFits(bounds.size)
-        let horizontalRemainder = 2 * buttonSize.width - buttonSpacing
+        let horizontalRemainder = bounds.size.width - 2 * buttonSize.width - buttonSpacing
         var contentLeft = contentInset.left + horizontalRemainder / 2
         for button in [yesView, noView] {
             guard button.transform.isIdentity else {

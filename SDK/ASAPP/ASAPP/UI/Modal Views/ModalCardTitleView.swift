@@ -17,7 +17,7 @@ class ModalCardTitleView: UIView {
     }
     
     let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    let font = Fonts.latoBoldFont(withSize: 18)
+    let font = ASAPP.styles.textStyles.header2.font
     let textColor = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
     
     fileprivate let label = UILabel()
