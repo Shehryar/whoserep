@@ -25,6 +25,7 @@ public extension ASAPPStyles {
         let textBlue = UIColor(red: 0.267, green: 0.302, blue: 0.396, alpha: 1)
         let textGray = UIColor(red: 0.659, green: 0.678, blue: 0.729, alpha: 1)
         let linkBlue = UIColor(red: 0.243, green: 0.541, blue: 0.796, alpha: 1)
+        let navBlue = UIColor(red: 0.149, green: 0.573, blue: 0.827, alpha: 1)
         
         // Text Styles
         
@@ -33,8 +34,8 @@ public extension ASAPPStyles {
         let black = "XFINITYSans-Bold"
         
         let ts = styles.textStyles
-        ts.navTitle = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0, color: .white)
-        ts.navButton = ASAPPTextStyle(fontName: bold, size: 14, letterSpacing: 0.5, color: textBlue)
+        ts.navTitle = ASAPPTextStyle(fontName: regular, size: 17, letterSpacing: 0, color: .white)
+        ts.navButton = ASAPPTextStyle(fontName: bold, size: 16, letterSpacing: 0, color: textBlue)
         ts.predictiveHeader = ASAPPTextStyle(fontName: .latoLight, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
         ts.header1 = ASAPPTextStyle(fontName: black, size: 24, letterSpacing: 0.5, color: textBlue)
         ts.header2 = ASAPPTextStyle(fontName: black, size: 18, letterSpacing: 0.5, color: textBlue)
@@ -53,19 +54,19 @@ public extension ASAPPStyles {
         
         // Nav button style
         
-        styles.navBarButtonStyle = .bubble
+        styles.navBarStyles.buttonStyle = .text
         
         // Colors
         
         styles.colors.helpButtonBackground = UIColor(red: 0.134, green: 0.160, blue: 0.205, alpha: 1)
         
-        styles.colors.controlTint = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
+        styles.colors.controlTint = navBlue
         
         styles.colors.navBarBackground = .black
         styles.colors.navBarTitle = .white
-        styles.colors.navBarButton = .white
+        styles.colors.navBarButton = navBlue
         styles.colors.navBarButtonForeground = .white
-        styles.colors.navBarButtonBackground = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
+        styles.colors.navBarButtonBackground = navBlue
         
         styles.colors.messageBackground = UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1)
         styles.colors.messageBorder = UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1)
@@ -76,13 +77,12 @@ public extension ASAPPStyles {
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1))
         
         styles.colors.predictiveNavBarBackground = .black
-        styles.colors.predictiveNavBarButton = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
-        styles.colors.predictiveNavBarButtonBackground = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
-        styles.colors.predictiveNavBarButtonForeground = .white
+        styles.colors.predictiveNavBarButton = navBlue
+        styles.colors.predictiveNavBarButtonBackground = .clear
+        styles.colors.predictiveNavBarButtonForeground = navBlue
         styles.colors.predictiveGradientTop = .white
         styles.colors.predictiveGradientMiddle = .white
         styles.colors.predictiveGradientBottom = .white
-        styles.colors.predictiveNavBarButton = UIColor(red: 0.184, green: 0.220, blue: 0.275, alpha: 1)
         styles.colors.predictiveTextPrimary = UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1)
         styles.colors.predictiveTextSecondary = UIColor(red: 0.302, green: 0.302, blue: 0.302, alpha: 1)
         styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1))
@@ -106,7 +106,7 @@ public extension ASAPPStyles {
         
         // Nav button style
         
-        styles.navBarButtonStyle = .text
+        styles.navBarStyles.buttonStyle = .text
         
         // Text Styles
        
