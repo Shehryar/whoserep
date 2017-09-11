@@ -474,6 +474,7 @@
 		3A4FEEFE1F55E31F00338B00 /* icon-arrow-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */; };
 		3A4FEEFF1F55E31F00338B00 /* icon-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */; };
 		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
+		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
 		3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */; };
@@ -964,6 +965,7 @@
 		3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left@2x.png"; path = "Icons/icon-arrow-left@2x.png"; sourceTree = "<group>"; };
 		3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left.png"; path = "Icons/icon-arrow-left.png"; sourceTree = "<group>"; };
 		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
+		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
 		3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarStyles.swift; sourceTree = "<group>"; };
@@ -1224,6 +1226,7 @@
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
+				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2496,6 +2499,7 @@
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				30DF3F731F27BB7D00D6DB02 /* SRSItem.swift in Sources */,
+				3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */,
 				289E040E1EC791FC00CAC413 /* RadioButtonsContainerView.swift in Sources */,
 				30131FCA1EB10FD0009E7299 /* CheckboxItem.swift in Sources */,
 				306619161D9458F50092B4C5 /* SDWebImageDownloader.m in Sources */,

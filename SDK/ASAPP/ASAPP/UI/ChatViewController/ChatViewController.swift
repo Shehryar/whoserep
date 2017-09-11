@@ -630,9 +630,18 @@ extension ChatViewController {
                 // NOTE: We need the title. Will it always be a quick reply? No
                 conversationManager.sendRequestForDeepLinkAction(deepLinkAction, with: quickReply?.title ?? buttonItem?.title ?? "")
                 
-                dismiss(animated: true, completion: { [weak self] in
+                let completion: (() -> Void) = { [weak self] in
                     self?.appCallbackHandler(deepLinkAction.name, deepLinkAction.data)
-                })
+                }
+                
+                switch segue {
+                case .present:
+                    dismiss(animated: true, completion: completion)
+                case .push:
+                    if let container = navigationController?.parent as? ContainerViewController {
+                        container.navigationController?.popViewController(animated: true, completion: completion)
+                    }
+                }
             }
             
         case .finish:
