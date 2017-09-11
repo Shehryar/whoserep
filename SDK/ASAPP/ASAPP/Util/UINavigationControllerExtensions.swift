@@ -20,4 +20,16 @@ extension UINavigationController {
             completion()
         }
     }
+    
+    func popViewController(animated: Bool, completion: @escaping () -> Void) {
+        if animated {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock(completion)
+            self.popViewController(animated: true)
+            CATransaction.commit()
+        } else {
+            self.popViewController(animated: false)
+            completion()
+        }
+    }
 }

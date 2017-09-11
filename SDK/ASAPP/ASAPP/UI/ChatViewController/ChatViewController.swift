@@ -639,7 +639,7 @@ extension ChatViewController {
                     dismiss(animated: true, completion: completion)
                 case .push:
                     if let container = navigationController?.parent as? ContainerViewController {
-                        container.navigationController?.popToRootViewController(animated: true, completion: completion)
+                        container.navigationController?.popViewController(animated: true, completion: completion)
                     }
                 }
             }
