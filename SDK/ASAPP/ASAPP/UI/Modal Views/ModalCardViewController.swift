@@ -27,7 +27,7 @@ class ModalCardViewController: UIViewController {
             
             // Add the new view to the scroll view
             if let contentView = contentView {
-                contentScrollView.addSubview(contentView)
+                containerView.addSubview(contentView)
                 if isViewLoaded {
                     view.setNeedsLayout()
                 }
@@ -41,7 +41,7 @@ class ModalCardViewController: UIViewController {
     fileprivate(set) var isShowingSuccessView: Bool = false
     
     let errorView = ModalCardErrorView()
-    let contentScrollView = UIScrollView()
+    let containerView = UIView()
     let controlsView = ModalCardControlsView()
     let loadingView = ModalCardLoadingView()
     let successView = ModalCardSuccessView()
@@ -53,9 +53,7 @@ class ModalCardViewController: UIViewController {
         modalPresentationStyle = .custom
         transitioningDelegate = presentationAnimator
         
-        contentScrollView.clipsToBounds = false
-        contentScrollView.alwaysBounceVertical = false
-        contentScrollView.addSubview(successView)
+        containerView.addSubview(successView)
         
         // Controls
         controlsView.onCancelButtonTap = { [weak self] in
@@ -129,16 +127,15 @@ class ModalCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red: 0.973, green: 0.969, blue: 0.969, alpha: 1)
-        view.clipsToBounds = true
+        view.backgroundColor = .white
         view.layer.cornerRadius = 5.0
         
         if let contentView = contentView {
-            if !contentScrollView.subviews.contains(contentView) {
-                contentScrollView.addSubview(contentView)
+            if !containerView.subviews.contains(contentView) {
+                containerView.addSubview(contentView)
             }
         }
-        view.addSubview(contentScrollView)
+        view.addSubview(containerView)
         view.addSubview(errorView)
         view.addSubview(controlsView)
     }
@@ -201,26 +198,25 @@ extension ModalCardViewController: ResizableModalCardViewController {
         controlsView.frame = CGRect(x: 0, y: controlsTop, width: view.bounds.width, height: controlsHeight)
         
         // Content Scroll View
-        let contentScrollViewTop = errorView.frame.maxY
-        let contentScrollViewHeight = controlsView.frame.minY - contentScrollViewTop
-        contentScrollView.frame = CGRect(x: 0, y: contentScrollViewTop,
-                                         width: view.bounds.width, height: contentScrollViewHeight)
+        let containerViewTop = errorView.frame.maxY
+        let containerViewHeight = controlsView.frame.minY - containerViewTop
+        containerView.frame = CGRect(x: 0, y: containerViewTop, width: view.bounds.width, height: containerViewHeight)
         
         // Loading View
         loadingView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: controlsView.frame.minY)
         
         // Content View
         let contentViewHeight = getContentViewHeight(for: view.bounds.width)
-        contentView?.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: contentViewHeight)
+        contentView?.frame = CGRect(x: 0, y: 0, width: containerView.bounds.width, height: contentViewHeight)
     
         // Success View
         let successViewHeight = getSuccessViewHeight(for: view.bounds.size)
         if successView.transform.isIdentity {
-            successView.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: successViewHeight)
+            successView.frame = CGRect(x: 0, y: 0, width: containerView.bounds.width, height: successViewHeight)
         }
     
         let contentHeight = isShowingSuccessView ? successViewHeight : contentViewHeight
-        contentScrollView.contentSize = CGSize(width: contentScrollView.bounds.width, height: contentHeight)
+        containerView.frame = CGRect(x: 0, y: 0, width: containerView.frame.size.width, height: contentHeight)
         
         successView.alpha = isShowingSuccessView ? 1.0 : 0.0
         contentView?.alpha = isShowingSuccessView ? 0.0 : 1.0
@@ -372,7 +368,7 @@ extension ModalCardViewController {
         }
         isShowingSuccessView = true
         
-        contentScrollView.bringSubview(toFront: successView)
+        containerView.bringSubview(toFront: successView)
         
         successView.alpha = 0.0
         successView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)

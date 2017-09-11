@@ -15,7 +15,7 @@ protocol ChatInputViewDelegate: class {
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
 
-class ChatInputView: UIView {
+class ChatInputView: UIView, AutoExpandingTextView {
 
     // MARK: Public Properties
     
@@ -82,7 +82,7 @@ class ChatInputView: UIView {
     // MARK: Properties: UI
 
     fileprivate let borderTopView = UIView()
-    fileprivate let textView = UITextView()
+    let textView = UITextView()
     fileprivate let placeholderTextView = UITextView()
     
     fileprivate let mediaButton = UIButton()
@@ -244,15 +244,6 @@ class ChatInputView: UIView {
     func didTapMediaButton() {
         delegate?.chatInputView(self, didTapMediaButton: mediaButton)
     }
-
-    func updateInputMinHeight() {
-        let textViewText = textView.text
-        textView.text = nil
-        resizeIfNeeded(false)
-        inputMinHeight = inputHeight
-        textView.text = textViewText
-        setNeedsLayout()
-    }
 }
 
 // MARK:- First Responder
@@ -317,7 +308,7 @@ extension ChatInputView {
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        resizeIfNeeded(true, notifyDelegateOfChange: true)
+        resizeIfNeeded(true, notifyOfHeightChange: true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
@@ -333,24 +324,13 @@ extension ChatInputView: UITextViewDelegate {
         }
         return true
     }
-    
-    func resizeIfNeeded(_ animated: Bool, notifyDelegateOfChange: Bool = false) {
-        var height = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: inputMaxHeight)).height
-        if height > inputMaxHeight {
-            height = inputMaxHeight
-            textView.isScrollEnabled = true
-            textView.bounces = true
-        } else {
-            textView.isScrollEnabled = false
-            textView.bounces = false
-        }
-        
-        if height != inputHeight {
-            inputHeight = height
-            if notifyDelegateOfChange {
-                delegate?.chatInputViewDidChangeContentSize(self)
-            }
-        }
+}
+
+// MARK:- AutoExpandingTextView
+
+extension ChatInputView {
+    func textViewHeightDidChange() {
+        delegate?.chatInputViewDidChangeContentSize(self)
     }
 }
 
@@ -359,7 +339,7 @@ extension ChatInputView: UITextViewDelegate {
 extension ChatInputView {
     func clear() {
         textView.text = ""
-        resizeIfNeeded(false, notifyDelegateOfChange: true)
+        resizeIfNeeded(false, notifyOfHeightChange: true)
         updateSendButtonForCurrentState()
         
         delegate?.chatInputView(self, didTypeMessageText: nil)

@@ -31,6 +31,8 @@ class LeaveFeedbackViewController: ModalCardViewController {
     override func commonInit() {
         super.commonInit()
         
+        feedbackView.delegate = self
+        
         contentView = feedbackView
         
         successView.text = ASAPP.strings.feedbackSentSuccessMessage
@@ -78,5 +80,23 @@ class LeaveFeedbackViewController: ModalCardViewController {
                 strongSelf.showErrorMessage(ASAPP.strings.reqeustErrorMessageNoConnection)
             }
         }
+    }
+    
+    func updateFramesAnimated(_ animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: 0.35, animations: { [weak self] in
+                self?.updateFrames()
+                self?.presentationAnimator.updatePresentedViewFrame(animated: true)
+            })
+        } else {
+            updateFrames()
+            presentationAnimator.updatePresentedViewFrame(animated: false)
+        }
+    }
+}
+
+extension LeaveFeedbackViewController: LeaveFeedbackViewDelegate {
+    func leaveFeedbackViewDidChangeContentSize(_ leaveFeedbackView: LeaveFeedbackView) {
+        updateFramesAnimated()
     }
 }

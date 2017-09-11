@@ -97,7 +97,6 @@ class AppSettings: NSObject {
         return SpearEnvironment.defaultValue
     }
     
-    
     let versionString: String
     
     //
