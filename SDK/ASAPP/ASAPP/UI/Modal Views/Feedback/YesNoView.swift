@@ -28,7 +28,7 @@ class YesNoView: UIView {
         yesView.setTitleColor(.white, for: .normal)
         yesView.titleLabel!.font = ASAPP.styles.textStyles.header2.font
         yesView.isUserInteractionEnabled = false
-        yesView.setTitle("YES", for: .normal)
+        yesView.setTitle(ASAPP.strings.feedbackIssueResolutionYes, for: .normal)
         yesView.backgroundColor = yesColor
         addSubview(yesView)
         
@@ -37,7 +37,7 @@ class YesNoView: UIView {
         noView.setTitleColor(.white, for: .normal)
         noView.titleLabel!.font = ASAPP.styles.textStyles.header2.font
         noView.isUserInteractionEnabled = false
-        noView.setTitle("NO", for: .normal)
+        noView.setTitle(ASAPP.strings.feedbackIssueResolutionNo, for: .normal)
         noView.backgroundColor = noColor
         addSubview(noView)
     }

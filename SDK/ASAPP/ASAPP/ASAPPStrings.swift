@@ -83,6 +83,8 @@ public class ASAPPStrings: NSObject {
     
     public var feedbackViewTitle: String = ASAPPLocalizedString("How did we do?")
     public var feedbackIssueResolutionPrompt: String = ASAPPLocalizedString("Was your issue resolved?")
+    public var feedbackIssueResolutionYes: String = ASAPPLocalizedString("YES")
+    public var feedbackIssueResolutionNo: String = ASAPPLocalizedString("NO")
     public var feedbackPrompt: String = ASAPPLocalizedString("Leave Feedback (optional)")
     public var feedbackSubmitButton: String = ASAPPLocalizedString("SUBMIT")
     public var feedbackDoneButton: String = ASAPPLocalizedString("DONE")
