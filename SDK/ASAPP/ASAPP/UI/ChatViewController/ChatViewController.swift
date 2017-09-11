@@ -1132,12 +1132,12 @@ extension ChatViewController: CreditCardAPIDelegate {
 
 extension ChatViewController: RatingAPIDelegate {
     
-    func sendRating(_ rating: Int, forIssueId issueId: Int, withFeedback feedback: String?, completion: @escaping ((Bool) -> Void)) -> Bool {
+    func sendRating(_ rating: Int, resolved: Bool?, forIssueId issueId: Int, withFeedback feedback: String?, completion: @escaping ((Bool) -> Void)) -> Bool {
         guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
             return false
         }
         
-        conversationManager.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: completion)
+        conversationManager.sendRating(rating, resolved: resolved, forIssueId: issueId, withFeedback: feedback, completion: completion)
         
         return true
     }

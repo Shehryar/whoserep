@@ -480,6 +480,7 @@
 		3A967FE01F619A6E000E9696 /* icon-guillemet-thin-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDD1F619A6E000E9696 /* icon-guillemet-thin-left@3x.png */; };
 		3A967FE11F619A6E000E9696 /* icon-guillemet-thin-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */; };
 		3A967FE21F619A6E000E9696 /* icon-guillemet-thin-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */; };
+		3A967FE41F6200AA000E9696 /* YesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FE31F6200AA000E9696 /* YesNoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -969,6 +970,7 @@
 		3A967FDD1F619A6E000E9696 /* icon-guillemet-thin-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left@3x.png"; sourceTree = "<group>"; };
 		3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left@2x.png"; sourceTree = "<group>"; };
 		3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left.png"; sourceTree = "<group>"; };
+		3A967FE31F6200AA000E9696 /* YesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesNoView.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1591,6 +1593,7 @@
 				302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */,
 				302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */,
 				302A20C21E5E2D7E007C522A /* StarView.swift */,
+				3A967FE31F6200AA000E9696 /* YesNoView.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -2661,6 +2664,7 @@
 				30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
+				3A967FE41F6200AA000E9696 /* YesNoView.swift in Sources */,
 				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
 				30131FCE1EB10FD0009E7299 /* ProgressBarItem.swift in Sources */,
 				288085231E87FCA800240A5D /* StackView.swift in Sources */,

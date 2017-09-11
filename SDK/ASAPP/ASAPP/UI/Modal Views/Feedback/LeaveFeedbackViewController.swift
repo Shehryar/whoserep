@@ -10,6 +10,7 @@ import UIKit
 
 protocol RatingAPIDelegate: class {
     func sendRating(_ rating: Int,
+                    resolved: Bool?,
                     forIssueId issueId: Int,
                     withFeedback feedback: String?,
                     completion: @escaping ((_ success: Bool) -> Void)) -> Bool
@@ -57,12 +58,13 @@ class LeaveFeedbackViewController: ModalCardViewController {
                     strongSelf.showErrorMessage(ASAPP.strings.feedbackMissingRatingError)
                     return
             }
+            let resolved = strongSelf.feedbackView.resolved
             let feedback = strongSelf.feedbackView.feedback
             
             strongSelf.view.endEditing(true)
             strongSelf.showErrorMessage(nil)
             strongSelf.startLoading()
-            let canSendMessage = delegate.sendRating(rating, forIssueId: issueId, withFeedback: feedback, completion: { (success) in
+            let canSendMessage = delegate.sendRating(rating, resolved: resolved, forIssueId: issueId, withFeedback: feedback, completion: { (success) in
                 if success {
                     strongSelf.stopLoading(hideContentView: true)
                     strongSelf.showSuccessView()

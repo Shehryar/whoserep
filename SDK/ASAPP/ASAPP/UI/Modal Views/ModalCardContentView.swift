@@ -11,7 +11,7 @@ import UIKit
 class ModalCardContentView: UIView {
 
     let contentInset = UIEdgeInsets(top: 26, left: 28, bottom: 32, right: 28)
-    let titleMarginBottom: CGFloat = 20.0
+    let titleMarginBottom: CGFloat = 26.5
     
     let titleView = ModalCardTitleView()
     
