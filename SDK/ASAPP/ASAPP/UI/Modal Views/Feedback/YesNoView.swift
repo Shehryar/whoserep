@@ -83,7 +83,7 @@ class YesNoView: UIView {
         let buttonSize = getButtonSizeThatFits(bounds.size)
         let horizontalRemainder = bounds.size.width - 2 * buttonSize.width - buttonSpacing
         var contentLeft = contentInset.left + horizontalRemainder / 2
-        for button in [yesView, noView] {
+        for button in [noView, yesView] {
             guard button.transform.isIdentity else {
                 contentLeft += buttonSize.width + buttonSpacing
                 continue
@@ -154,7 +154,7 @@ extension YesNoView {
 
 extension YesNoView {
     func getChoice(from location: CGPoint) -> Bool {
-        return location.x < yesView.frame.maxX
+        return location.x >= yesView.frame.minX
     }
     
     func updateChoice(for touches: Set<UITouch>) {
