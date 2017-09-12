@@ -25,6 +25,7 @@ class LeaveFeedbackViewController: ModalCardViewController {
     // MARK: UI
     
     fileprivate let feedbackView = LeaveFeedbackView()
+    fileprivate var focusedView: UIView?
     
     // MARK:- Init
     
@@ -82,6 +83,15 @@ class LeaveFeedbackViewController: ModalCardViewController {
         }
     }
     
+    override func updateFrames() {
+        super.updateFrames()
+        
+        if let focusedView = focusedView {
+            let offsetY = focusedView.frame.origin.y - contentScrollView.bounds.height + focusedView.frame.size.height + feedbackView.contentInset.bottom
+            contentScrollView.contentOffset = CGPoint(x: 0, y: offsetY)
+        }
+    }
+    
     func updateFramesAnimated(_ animated: Bool = true) {
         if animated {
             UIView.animate(withDuration: 0.35, animations: { [weak self] in
@@ -98,5 +108,9 @@ class LeaveFeedbackViewController: ModalCardViewController {
 extension LeaveFeedbackViewController: LeaveFeedbackViewDelegate {
     func leaveFeedbackViewDidChangeContentSize(_ leaveFeedbackView: LeaveFeedbackView) {
         updateFramesAnimated()
+    }
+    
+    func leaveFeedbackViewDidChangeFocus(_ leaveFeedbackView: LeaveFeedbackView, focusedView: UIView?) {
+        self.focusedView = focusedView
     }
 }

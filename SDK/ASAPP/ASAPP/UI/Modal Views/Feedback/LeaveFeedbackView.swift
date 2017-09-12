@@ -10,9 +10,10 @@ import UIKit
 
 protocol LeaveFeedbackViewDelegate: class {
     func leaveFeedbackViewDidChangeContentSize(_ leaveFeedbackView: LeaveFeedbackView)
+    func leaveFeedbackViewDidChangeFocus(_ leaveFeedbackView: LeaveFeedbackView, focusedView: UIView?)
 }
 
-class LeaveFeedbackView: ModalCardContentView, AutoExpandingTextView {
+class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
     weak var delegate: LeaveFeedbackViewDelegate?
     
     var rating: Int? {
@@ -68,6 +69,7 @@ class LeaveFeedbackView: ModalCardContentView, AutoExpandingTextView {
         textView.backgroundColor = .clear
         textView.font = ASAPP.styles.textStyles.body.font
         textView.textColor = UIColor(red: 0.449, green: 0.457, blue: 0.476, alpha: 1)
+        textView.tintColor = ASAPP.styles.colors.buttonPrimary.backgroundNormal
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         textView.delegate = self
         textView.returnKeyType = .send
@@ -151,6 +153,8 @@ extension LeaveFeedbackView {
 extension LeaveFeedbackView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textViewPlaceholder.isHidden = true
+        
+        delegate?.leaveFeedbackViewDidChangeFocus(self, focusedView: textView)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -160,6 +164,8 @@ extension LeaveFeedbackView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewPlaceholder.isHidden = !textView.text.isEmpty
+        
+        delegate?.leaveFeedbackViewDidChangeFocus(self, focusedView: nil)
     }
 }
 

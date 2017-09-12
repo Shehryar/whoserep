@@ -15,7 +15,7 @@ protocol ChatInputViewDelegate: class {
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
 
-class ChatInputView: UIView, AutoExpandingTextView {
+class ChatInputView: UIView, TextViewAutoExpanding {
 
     // MARK: Public Properties
     

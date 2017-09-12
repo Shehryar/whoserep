@@ -1,5 +1,5 @@
 //
-//  AutoExpandingTextView.swift
+//  TextViewAutoExpanding.swift
 //  ASAPP
 //
 //  Created by Hans Hyttinen on 9/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AutoExpandingTextView: class {
+protocol TextViewAutoExpanding: class {
     var inputMaxHeight: CGFloat { get }
     var inputMinHeight: CGFloat { get set }
     var inputHeight: CGFloat { get set }
@@ -19,7 +19,7 @@ protocol AutoExpandingTextView: class {
     func resizeIfNeeded(_ animated: Bool, notifyOfHeightChange: Bool)
 }
 
-extension AutoExpandingTextView where Self: UIView {
+extension TextViewAutoExpanding where Self: UIView {
     func updateInputMinHeight() {
         let textViewText = textView.text
         textView.text = nil
