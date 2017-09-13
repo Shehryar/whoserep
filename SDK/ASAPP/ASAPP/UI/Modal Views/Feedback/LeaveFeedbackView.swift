@@ -8,7 +8,13 @@
 
 import UIKit
 
-class LeaveFeedbackView: ModalCardContentView {
+protocol LeaveFeedbackViewDelegate: class {
+    func leaveFeedbackViewDidChangeContentSize(_ leaveFeedbackView: LeaveFeedbackView)
+    func leaveFeedbackViewDidChangeFocus(_ leaveFeedbackView: LeaveFeedbackView, focusedView: UIView?)
+}
+
+class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
+    weak var delegate: LeaveFeedbackViewDelegate?
     
     var rating: Int? {
         return ratingView.currentRating
@@ -24,17 +30,20 @@ class LeaveFeedbackView: ModalCardContentView {
     
     // MARK: Layout
     
-    fileprivate let defaultTextViewHeight: CGFloat = 80.0
-    fileprivate let ratingMarginBottom: CGFloat = 53.0
-    fileprivate let promptMarginBottom: CGFloat = 22.0
-    fileprivate let resolutionMarginBottom: CGFloat = 40.0
+    var inputHeight: CGFloat = 0
+    let inputMaxHeight: CGFloat = 90
+    var inputMinHeight: CGFloat = 45
+    fileprivate let ratingMarginBottom: CGFloat = 53
+    fileprivate let promptMarginBottom: CGFloat = 22
+    fileprivate let resolutionMarginBottom: CGFloat = 40
     
     // MARK: UI
     
     fileprivate let ratingView = FeedbackRatingView()
     fileprivate let promptLabel = UILabel()
     fileprivate let resolutionView = YesNoView()
-    fileprivate let textView = UITextView()
+    let textView = UITextView()
+    fileprivate let bottomBorder = UIView()
     fileprivate let textViewPlaceholder = UILabel()
     
     // MARK: Initialization
@@ -54,19 +63,33 @@ class LeaveFeedbackView: ModalCardContentView {
         
         addSubview(resolutionView)
         
+        let placeholderText = ASAPP.strings.feedbackPrompt
+        
         textView.clipsToBounds = true
-        textView.layer.cornerRadius = 6
-        textView.backgroundColor = UIColor.white
+        textView.backgroundColor = .clear
         textView.font = ASAPP.styles.textStyles.body.font
         textView.textColor = UIColor(red: 0.449, green: 0.457, blue: 0.476, alpha: 1)
-        textView.textContainerInset = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8)
+        textView.tintColor = ASAPP.styles.colors.buttonPrimary.backgroundNormal
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         textView.delegate = self
+        textView.returnKeyType = .send
+        textView.isAccessibilityElement = true
+        textView.accessibilityTraits = UIAccessibilityTraitSearchField
+        textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         addSubview(textView)
+        textView.sizeToFit()
+        inputHeight = textView.frame.size.height
         
         textViewPlaceholder.textColor = textView.textColor!.withAlphaComponent(0.6)
         textViewPlaceholder.font = textView.font
-        textViewPlaceholder.text = ASAPP.strings.feedbackPrompt
+        textViewPlaceholder.text = placeholderText
+        textViewPlaceholder.isAccessibilityElement = false
         textView.addSubview(textViewPlaceholder)
+        
+        bottomBorder.backgroundColor = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.5)
+        addSubview(bottomBorder)
+        
+        updateInputMinHeight()
     }
 }
 
@@ -91,7 +114,7 @@ extension LeaveFeedbackView {
         let resolutionFrame = CGRect(x: contentInset.left, y: resolutionTop, width: contentWidth, height: resolutionHeight)
         
         let textViewTop = resolutionFrame.maxY + resolutionMarginBottom
-        let textViewHeight = defaultTextViewHeight
+        let textViewHeight = inputHeight
         let textViewFrame = CGRect(x: contentInset.left, y: textViewTop, width: contentWidth, height: textViewHeight)
         
         let insets = UIEdgeInsets(
@@ -115,6 +138,7 @@ extension LeaveFeedbackView {
         resolutionView.frame = resolutionFrame
         textView.frame = textViewFrame
         textViewPlaceholder.frame = textViewPlaceholderFrame
+        bottomBorder.frame = CGRect(x: contentInset.left, y: textView.frame.maxY, width: textView.frame.width, height: 1)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -129,13 +153,26 @@ extension LeaveFeedbackView {
 extension LeaveFeedbackView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textViewPlaceholder.isHidden = true
+        
+        delegate?.leaveFeedbackViewDidChangeFocus(self, focusedView: textView)
     }
     
     func textViewDidChange(_ textView: UITextView) {
         textViewPlaceholder.isHidden = !textView.text.isEmpty
+        resizeIfNeeded(true, notifyOfHeightChange: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewPlaceholder.isHidden = !textView.text.isEmpty
+        
+        delegate?.leaveFeedbackViewDidChangeFocus(self, focusedView: nil)
+    }
+}
+
+// Mark:- AutoExpandingTextView
+
+extension LeaveFeedbackView {
+    func textViewHeightDidChange() {
+        delegate?.leaveFeedbackViewDidChangeContentSize(self)
     }
 }

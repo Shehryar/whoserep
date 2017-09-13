@@ -468,6 +468,7 @@
 		30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */; };
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
 		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
+		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
 		3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */; };
 		3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */; };
 		3A4FEEFD1F55E31F00338B00 /* icon-arrow-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */; };
@@ -959,6 +960,7 @@
 		30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTabBar.swift; sourceTree = "<group>"; };
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
 		30F6B4D81EC5331000ABA570 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
+		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
 		3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left@3x.png"; path = "Icons/icon-arrow-left@3x.png"; sourceTree = "<group>"; };
@@ -1219,14 +1221,15 @@
 				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
 				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
 				308F29731D4168BE00EC7055 /* Images.swift */,
+				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
 				3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */,
-				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
-				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
-				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
+				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
+				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
+				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2618,6 +2621,7 @@
 				30F6B4CC1EC24C2F00ABA570 /* _RootComponentWrapperView.swift in Sources */,
 				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,
 				30131FCD1EB10FD0009E7299 /* PageControlItem.swift in Sources */,
+				3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */,
 				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				30131FB21EB10F61009E7299 /* ComponentStyle.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,

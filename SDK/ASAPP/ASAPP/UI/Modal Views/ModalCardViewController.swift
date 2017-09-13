@@ -128,9 +128,9 @@ class ModalCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = UIColor(red: 0.973, green: 0.969, blue: 0.969, alpha: 1)
+        
         view.clipsToBounds = true
+        view.backgroundColor = .white
         view.layer.cornerRadius = 5.0
         
         if let contentView = contentView {
@@ -200,12 +200,6 @@ extension ModalCardViewController: ResizableModalCardViewController {
         let controlsTop = view.bounds.height - controlsHeight
         controlsView.frame = CGRect(x: 0, y: controlsTop, width: view.bounds.width, height: controlsHeight)
         
-        // Content Scroll View
-        let contentScrollViewTop = errorView.frame.maxY
-        let contentScrollViewHeight = controlsView.frame.minY - contentScrollViewTop
-        contentScrollView.frame = CGRect(x: 0, y: contentScrollViewTop,
-                                         width: view.bounds.width, height: contentScrollViewHeight)
-        
         // Loading View
         loadingView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: controlsView.frame.minY)
         
@@ -218,7 +212,12 @@ extension ModalCardViewController: ResizableModalCardViewController {
         if successView.transform.isIdentity {
             successView.frame = CGRect(x: 0, y: 0, width: contentScrollView.bounds.width, height: successViewHeight)
         }
-    
+        
+        // Content Scroll View
+        let containerViewTop = errorView.frame.maxY
+        let containerViewHeight = controlsView.frame.minY - containerViewTop
+        contentScrollView.frame = CGRect(x: 0, y: containerViewTop, width: view.bounds.width, height: containerViewHeight)
+        
         let contentHeight = isShowingSuccessView ? successViewHeight : contentViewHeight
         contentScrollView.contentSize = CGSize(width: contentScrollView.bounds.width, height: contentHeight)
         
