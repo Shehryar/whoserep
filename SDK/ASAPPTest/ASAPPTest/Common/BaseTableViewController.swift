@@ -112,15 +112,19 @@ class BaseTableViewController: BaseViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        var insetTop: CGFloat = 0.0
-        if let navBar = navigationController?.navigationBar {
-            insetTop = navBar.frame.maxY
-        }
-        
         tableView.frame = view.bounds
-        tableView.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
-        tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
+        
+        guard #available(iOS 11, *) else {
+            var insetTop: CGFloat = 0.0
+            if let navBar = navigationController?.navigationBar {
+                insetTop = navBar.frame.maxY
+            }
+            
+            tableView.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
+            tableView.scrollIndicatorInsets = UIEdgeInsets(top: insetTop, left: 0, bottom: 0, right: 0)
+            tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
+            return
+        }
     }
 }
 

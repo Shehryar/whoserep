@@ -100,7 +100,6 @@ extension OptionsForKeyViewController {
         switch row {
         case 0:
             createNewOption()
-            break
             
         case 1:
             if createRandomOptionTitle != nil {
@@ -108,11 +107,9 @@ extension OptionsForKeyViewController {
             } else {
                 deleteCurrentSelectedOption()
             }
-            break
             
         case 2:
             deleteCurrentSelectedOption()
-            break
             
         default:
             // No-op
