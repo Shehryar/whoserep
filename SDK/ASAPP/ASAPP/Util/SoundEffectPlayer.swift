@@ -13,19 +13,9 @@ class SoundEffectPlayer: NSObject {
 
     enum Sound: SystemSoundID {
         case liveChatNotification
-        case wow1
-        case wow2
-        case wow3
-        case wow4
-        case wow5
         
         static let all: [Sound] = [
             liveChatNotification,
-            wow1,
-            wow2,
-            wow3,
-            wow4,
-            wow5
         ]
     }
     
@@ -50,26 +40,6 @@ class SoundEffectPlayer: NSObject {
         switch sound {
         case .liveChatNotification:
             fileName = "chat-notification"
-            fileExtension = "wav"
-            
-        case .wow1:
-            fileName = "wow-1"
-            fileExtension = "wav"
-            
-        case .wow2:
-            fileName = "wow-2"
-            fileExtension = "wav"
-            
-        case .wow3:
-            fileName = "wow-3"
-            fileExtension = "wav"
-            
-        case .wow4:
-            fileName = "wow-4"
-            fileExtension = "wav"
-            
-        case .wow5:
-            fileName = "wow-5"
             fileExtension = "wav"
         }
         

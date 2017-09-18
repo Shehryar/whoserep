@@ -58,11 +58,6 @@
 		28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE51EC8EC3C00455E1A /* APIAction.swift */; };
 		28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */; };
 		28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE91EC8EE5100455E1A /* APIActionError.swift */; };
-		28C008931E5E8AE300260883 /* wow-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088E1E5E8AE300260883 /* wow-1.wav */; };
-		28C008941E5E8AE300260883 /* wow-2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C0088F1E5E8AE300260883 /* wow-2.wav */; };
-		28C008951E5E8AE300260883 /* wow-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008901E5E8AE300260883 /* wow-3.wav */; };
-		28C008961E5E8AE300260883 /* wow-4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008911E5E8AE300260883 /* wow-4.wav */; };
-		28C008971E5E8AE300260883 /* wow-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 28C008921E5E8AE300260883 /* wow-5.wav */; };
 		28D48CA81E83EE23004A002B /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D48CA71E83EE23004A002B /* Action.swift */; };
 		28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE551D477CE400ACCF86 /* Dispatcher.swift */; };
 		28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */; };
@@ -171,9 +166,6 @@
 		3025D9C51E528048004149D7 /* icon-guillemet-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C21E528048004149D7 /* icon-guillemet-right@2x.png */; };
 		3025D9C61E528048004149D7 /* icon-guillemet-right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9C31E528048004149D7 /* icon-guillemet-right@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
-		302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */; };
-		302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */; };
-		302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */; };
 		302A209B1E5DE9AF007C522A /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */; };
 		302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */; };
 		302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */; };
@@ -547,11 +539,6 @@
 		28B06DE51EC8EC3C00455E1A /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
 		28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionResponse.swift; sourceTree = "<group>"; };
 		28B06DE91EC8EE5100455E1A /* APIActionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionError.swift; sourceTree = "<group>"; };
-		28C0088E1E5E8AE300260883 /* wow-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-1.wav"; sourceTree = "<group>"; };
-		28C0088F1E5E8AE300260883 /* wow-2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-2.wav"; sourceTree = "<group>"; };
-		28C008901E5E8AE300260883 /* wow-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-3.wav"; sourceTree = "<group>"; };
-		28C008911E5E8AE300260883 /* wow-4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-4.wav"; sourceTree = "<group>"; };
-		28C008921E5E8AE300260883 /* wow-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wow-5.wav"; sourceTree = "<group>"; };
 		28D48CA71E83EE23004A002B /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		28E9BE551D477CE400ACCF86 /* Dispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -661,9 +648,6 @@
 		3025D9C21E528048004149D7 /* icon-guillemet-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-right@2x.png"; sourceTree = "<group>"; };
 		3025D9C31E528048004149D7 /* icon-guillemet-right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-right@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardActionButtonToolbar.swift; sourceTree = "<group>"; };
-		302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputView.swift; sourceTree = "<group>"; };
-		302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputViewController.swift; sourceTree = "<group>"; };
 		302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
 		302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackViewController.swift; sourceTree = "<group>"; };
 		302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackView.swift; sourceTree = "<group>"; };
@@ -1518,6 +1502,7 @@
 				302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */,
 				307C54571D8C87C60091E74A /* NavigationController.swift */,
 				3060DE761F1FA80200A67384 /* OverlayLoadingView.swift */,
+				302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */,
 				30B3FE1E1ECA375400D43068 /* SecureScreenCoverView.swift */,
 				30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */,
 				3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */,
@@ -1529,11 +1514,6 @@
 			isa = PBXGroup;
 			children = (
 				3023A5C21E578DEA003BE6AB /* chat-notification.wav */,
-				28C0088E1E5E8AE300260883 /* wow-1.wav */,
-				28C0088F1E5E8AE300260883 /* wow-2.wav */,
-				28C008901E5E8AE300260883 /* wow-3.wav */,
-				28C008911E5E8AE300260883 /* wow-4.wav */,
-				28C008921E5E8AE300260883 /* wow-5.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -1575,21 +1555,9 @@
 				302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */,
 				302A20A71E5DF110007C522A /* ModalCardTitleView.swift */,
 				302A20A81E5DF110007C522A /* ModalCardSuccessView.swift */,
-				302A208A1E5DE9AF007C522A /* Credit Card */,
 				302A209D1E5DED92007C522A /* Feedback */,
 			);
 			path = "Modal Views";
-			sourceTree = "<group>";
-		};
-		302A208A1E5DE9AF007C522A /* Credit Card */ = {
-			isa = PBXGroup;
-			children = (
-				302A208E1E5DE9AF007C522A /* CreditCardInputViewController.swift */,
-				302A208D1E5DE9AF007C522A /* CreditCardInputView.swift */,
-				302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */,
-				302A208B1E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift */,
-			);
-			path = "Credit Card";
 			sourceTree = "<group>";
 		};
 		302A209D1E5DED92007C522A /* Feedback */ = {
@@ -2238,7 +2206,6 @@
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				302472A31D89B7680005A6C9 /* XFINITYSans-Reg.otf in Resources */,
 				3046CEB31E8AF7300022AEE5 /* iconXThick@3x.png in Resources */,
-				28C008971E5E8AE300260883 /* wow-5.wav in Resources */,
 				302268471D80690500EC4FB1 /* bg-dash-tile@2x.png in Resources */,
 				30C738351D874B2200E32B78 /* gif-loader-bar.gif in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
@@ -2252,7 +2219,6 @@
 				3046CEB61E8AF7D60022AEE5 /* iconPaperclip@2x.png in Resources */,
 				3046CEAD1E8AF6FC0022AEE5 /* iconCheckmarkCircle@3x.png in Resources */,
 				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
-				28C008961E5E8AE300260883 /* wow-4.wav in Resources */,
 				30C738361D874B2200E32B78 /* gif-loader-bar@2x.gif in Resources */,
 				285F7AE11DA9AD3B008C2EF6 /* button-bg-ask.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
@@ -2279,7 +2245,6 @@
 				3025D9B41E527FEB004149D7 /* icon-hide-keyboard@3x.png in Resources */,
 				3046CE9B1E8AF0C90022AEE5 /* iconXThin@3x.png in Resources */,
 				30E875061D9AFC3600E55A88 /* icon-exit-link.png in Resources */,
-				28C008941E5E8AE300260883 /* wow-2.wav in Resources */,
 				30756B331E53A67D00D78E8E /* icon-credit-card-medium@2x.png in Resources */,
 				285F7AE61DA9AD3B008C2EF6 /* button-bg-close@3x.png in Resources */,
 				3005C42C1DB02BFD00946934 /* button-bg-respond.png in Resources */,
@@ -2287,7 +2252,6 @@
 				302472A51D89B7680005A6C9 /* XFINITYSans-BoldCond.ttf in Resources */,
 				3025D9C51E528048004149D7 /* icon-guillemet-right@2x.png in Resources */,
 				3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */,
-				28C008951E5E8AE300260883 /* wow-3.wav in Resources */,
 				30BF4DBB1F2A654A00556E5A /* phone-upgrade-ineligible.json in Resources */,
 				30BF4DB21F2A654A00556E5A /* chat-flow-queue-entered.json in Resources */,
 				30BF4DC11F2A654A00556E5A /* transaction-history.json in Resources */,
@@ -2311,7 +2275,6 @@
 				3025D9A61E527FCC004149D7 /* icon-error-alert-filled.png in Resources */,
 				285F7AD01DA9A526008C2EF6 /* SprintSans-Black.ttf in Resources */,
 				307301BA1DAE90460002CF3B /* predictive-response.json in Resources */,
-				28C008931E5E8AE300260883 /* wow-1.wav in Resources */,
 				285F7AD41DA9A526008C2EF6 /* SprintSans-Regular.ttf in Resources */,
 				30BF4DBC1F2A654A00556E5A /* phone-upgrade.json in Resources */,
 				3046CE951E8AF0C90022AEE5 /* iconUserMinus@3x.png in Resources */,
@@ -2492,7 +2455,6 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */,
-				302A20971E5DE9AF007C522A /* CreditCardInputViewController.swift in Sources */,
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
@@ -2526,7 +2488,6 @@
 				302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */,
 				289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
-				302A20961E5DE9AF007C522A /* CreditCardInputView.swift in Sources */,
 				30DF3F791F27BE4300D6DB02 /* SRSFiller.swift in Sources */,
 				303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */,
 				306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */,
@@ -2653,7 +2614,6 @@
 				3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */,
 				30EF00831E81AFCD004B1492 /* ComponentViewContainer.swift in Sources */,
 				30131FD61EB10FD0009E7299 /* TextAreaItem.swift in Sources */,
-				302A20941E5DE9AF007C522A /* KeyboardActionButtonToolbar.swift in Sources */,
 				289E040C1EC791CC00CAC413 /* RadioButton.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */,
