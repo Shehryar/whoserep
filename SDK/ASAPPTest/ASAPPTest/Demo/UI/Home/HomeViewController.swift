@@ -176,16 +176,18 @@ extension HomeViewController {
         // Nav Logo
         let logoImageView = UIImageView(image: AppSettings.shared.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0,
-                                     width: AppSettings.shared.branding.logoImageSize.width,
-                                     height: AppSettings.shared.branding.logoImageSize.height)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: AppSettings.shared.branding.logoImageSize.width, height: AppSettings.shared.branding.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
+        
+        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.width, height: logoImageView.frame.height))
+        logoContainerView.addSubview(logoImageView)
+        logoContainerView.isUserInteractionEnabled = true
 
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
         singleTapGesture.numberOfTapsRequired = 1
         logoImageView.addGestureRecognizer(singleTapGesture)
         
-        navigationItem.titleView = logoImageView
+        navigationItem.titleView = logoContainerView
         
         refreshChatButton()
         homeTableView.reloadData()
