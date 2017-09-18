@@ -74,7 +74,6 @@ public class ASAPPButton: UIView {
         label.textAlignment = .center
         contentView.addSubview(label)
         
-        contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.cornerRadius = frame.height / 2.0
         
         presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
@@ -118,7 +117,7 @@ public class ASAPPButton: UIView {
     }
     
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 50, height: 50)
+        return CGSize(width: 72, height: 34)
     }
     
     func updateCornerRadius() {
@@ -144,20 +143,6 @@ extension ASAPPButton {
             contentView.alpha = 0.58
         } else {
             contentView.alpha = 1
-        }
-        
-        switch currentState {
-        case .normal:
-            contentView.layer.shadowOpacity = 0.5
-            contentView.layer.shadowRadius = 3
-            contentView.layer.shadowOffset = CGSize(width: 0, height: 1)
-            break
-            
-        case .highlighted:
-            contentView.layer.shadowOpacity = 0.6
-            contentView.layer.shadowRadius = 1
-            contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-            break
         }
     }
 }

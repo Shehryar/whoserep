@@ -218,8 +218,8 @@ extension HomeViewController {
                                             presentingViewController: self)
         
         if let chatButton = chatButton {
-            chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
-            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 88))
+            chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)
+            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 34))
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
