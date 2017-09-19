@@ -70,17 +70,24 @@ class HomeViewController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        var visibleTop: CGFloat = 0.0
-        if let navBar = navigationController?.navigationBar {
-            visibleTop = navBar.frame.maxY
-        }
-        
-        let visibleHeight = view.bounds.height - visibleTop
-        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
         
         homeTableView.frame = view.bounds
-        homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
+        
+        guard #available(iOS 11, *) else {
+            var visibleTop: CGFloat = 0.0
+            if let navBar = navigationController?.navigationBar {
+                visibleTop = navBar.frame.maxY
+            }
+            
+            let visibleHeight = view.bounds.height - visibleTop
+            brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
+            
+            homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
+            return
+        }
+        
+        let topInset = view.safeAreaInsets.top
+        brandingSwitcherView.frame = CGRect(x: 0, y: topInset, width: view.bounds.width, height: view.bounds.height - topInset)
     }
     
     // MARK:- ASAPPConfig
