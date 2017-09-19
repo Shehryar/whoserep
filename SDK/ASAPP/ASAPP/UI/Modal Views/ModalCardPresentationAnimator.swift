@@ -139,8 +139,6 @@ extension ModalCardPresentationAnimator {
         updatePresentedViewFrame(whenVisible: false)
         presentedView?.isHidden = false
         
-        // TODO: Handle blur effect with iOS 8
-        
         UIView.animate(
             withDuration: presentationAnimationDuration(),
             delay: 0.0,

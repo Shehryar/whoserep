@@ -207,8 +207,6 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: User
     
-    // TODO: Separate out initial setup and changes needed after changing user mid-flow
-    
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
         if let userLoginAction = userLoginAction {
@@ -747,8 +745,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
         performAction(buttonItem.action, fromMessage: message, buttonItem: buttonItem)
-        
-        /// TODO: MITCH MITCH MITCH Disable this button until request is performed, if necessary
     }
 }
 
@@ -1119,21 +1115,6 @@ extension ChatViewController {
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
             }
         }
-    }
-}
-
-// MARK:- CreditCardAPIDelegate
-
-extension ChatViewController: CreditCardAPIDelegate {
-    
-    func uploadCreditCard(creditCard: CreditCard, completion: @escaping ((CreditCardResponse) -> Void)) -> Bool {
-        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
-            return false
-        }
-        
-        conversationManager.sendCreditCard(creditCard, completion: completion)
-        
-        return true
     }
 }
 

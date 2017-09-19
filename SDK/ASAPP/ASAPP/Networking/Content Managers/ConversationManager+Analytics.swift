@@ -17,6 +17,7 @@ enum AnalyticsEventType: String {
     case srsRequestTime = "SRS_REQUEST_CLIENT"
     case liveChatBegan = "LIVE_CHAT_BEGAN"
     case liveChatEnded = "LIVE_CHAT_ENDED"
+    case userLogin = "USER_LOGIN"
 }
 
 enum AnalyticsButtonName: String {
@@ -95,13 +96,16 @@ extension ConversationManager {
             }
             
         case .userLogin:
-            // MITCH MITCH MITCH TODO: Track user login
-            break
+            trackUserLoginAction()
             
         case .api, .componentView, .finish, .http, .treewalk, .unknown, .legacyAppAction:
             // Not explicitly tracked for now
             break
         }
+    }
+    
+    func trackUserLoginAction() {
+        trackEvent(eventType: .userLogin)
     }
 
     func trackDeepLink(link: String, deepLinkData: Any?) {
