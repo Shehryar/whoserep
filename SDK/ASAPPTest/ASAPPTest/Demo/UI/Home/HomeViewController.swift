@@ -70,17 +70,24 @@ class HomeViewController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        var visibleTop: CGFloat = 0.0
-        if let navBar = navigationController?.navigationBar {
-            visibleTop = navBar.frame.maxY
-        }
-        
-        let visibleHeight = view.bounds.height - visibleTop
-        brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
         
         homeTableView.frame = view.bounds
-        homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
+        
+        guard #available(iOS 11, *) else {
+            var visibleTop: CGFloat = 0.0
+            if let navBar = navigationController?.navigationBar {
+                visibleTop = navBar.frame.maxY
+            }
+            
+            let visibleHeight = view.bounds.height - visibleTop
+            brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
+            
+            homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
+            return
+        }
+        
+        let topInset = view.safeAreaInsets.top
+        brandingSwitcherView.frame = CGRect(x: 0, y: topInset, width: view.bounds.width, height: view.bounds.height - topInset)
     }
     
     // MARK:- ASAPPConfig
@@ -176,16 +183,18 @@ extension HomeViewController {
         // Nav Logo
         let logoImageView = UIImageView(image: AppSettings.shared.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0,
-                                     width: AppSettings.shared.branding.logoImageSize.width,
-                                     height: AppSettings.shared.branding.logoImageSize.height)
+        logoImageView.frame = CGRect(x: 0, y: 0, width: AppSettings.shared.branding.logoImageSize.width, height: AppSettings.shared.branding.logoImageSize.height)
         logoImageView.isUserInteractionEnabled = true
+        
+        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.width, height: logoImageView.frame.height))
+        logoContainerView.addSubview(logoImageView)
+        logoContainerView.isUserInteractionEnabled = true
 
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
         singleTapGesture.numberOfTapsRequired = 1
         logoImageView.addGestureRecognizer(singleTapGesture)
         
-        navigationItem.titleView = logoImageView
+        navigationItem.titleView = logoContainerView
         
         refreshChatButton()
         homeTableView.reloadData()
@@ -216,8 +225,8 @@ extension HomeViewController {
                                             presentingViewController: self)
         
         if let chatButton = chatButton {
-            chatButton.frame = CGRect(x: 0, y: 25, width: 65, height: 65)
-            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 65, height: 88))
+            chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)
+            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 34))
             buttonContainerView.addSubview(chatButton)
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }

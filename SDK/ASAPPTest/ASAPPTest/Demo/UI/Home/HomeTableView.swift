@@ -132,23 +132,18 @@ extension HomeTableView {
         switch section {
         case Section.user.rawValue:
             title = ""
-            break
             
         case Section.settings.rawValue:
             title = "SETTINGS - \(AppSettings.shared.versionString)"
-            break
             
         case Section.billing.rawValue:
             title = "Billing"
-            break
             
         case Section.other.rawValue:
             title = "Other"
-            break
             
         default: // No-op
             DemoLog("Missing Title for section: \(section)")
-            break
         }
         
         let headerView = viewToStyle ?? TableHeaderView()
@@ -164,14 +159,12 @@ extension HomeTableView {
     
     func getCellForRowAt(indexPath: IndexPath, forSizing: Bool = false) -> UITableViewCell {
         switch indexPath.section {
-            /** User **/
         case Section.user.rawValue:
             return imageNameCell(cellToStyle: forSizing ? nameSizingCell : nil,
                                  name: AppSettings.shared.userName,
                                  imageName: AppSettings.shared.userImageName,
                                  for: indexPath)
             
-            /** Settings **/
         case Section.settings.rawValue:
             var title: String?
             var value: String?
@@ -179,12 +172,10 @@ extension HomeTableView {
             case SettingsRow.apiHostName.rawValue:
                 title = "API Host"
                 value = AppSettings.shared.apiHostName
-                break
                 
             case SettingsRow.appId.rawValue:
                 title = "App Id"
                 value = AppSettings.shared.appId
-                break
                 
             case SettingsRow.customerIdentifier.rawValue:
                 title = "Customer Id"
@@ -193,23 +184,19 @@ extension HomeTableView {
                 } else {
                     value = "Anonymous User"
                 }
-                break
                 
             case SettingsRow.authToken.rawValue:
                 title = "Auth Token"
                 value = AppSettings.shared.authToken
-                break
                 
             default:
                 DemoLog("Missing cell for index path: \(indexPath)")
-                break
             }
             return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
                                         title: title,
                                         value: value,
                                         for: indexPath)
             
-            /** Billing **/
         case Section.billing.rawValue:
             return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
                                         title: "Current Balance",
@@ -217,53 +204,43 @@ extension HomeTableView {
                                         value: billDetails.total,
                                         for: indexPath)
             
-            /** Other **/
         case Section.other.rawValue:
             var title: String?, imageName: String?
             switch indexPath.row {
             case OtherRow.paymentMethods.rawValue:
                 title = "Payment Accounts"
                 imageName = "icon-creditcard"
-                break
                 
             case OtherRow.usage.rawValue:
                 title = "Usage"
                 imageName = "icon-line-graph"
-                break
                 
             case OtherRow.invite.rawValue:
                 title = "Refer Friends"
                 imageName = "icon-users"
-                break
                 
             case OtherRow.notifications.rawValue:
                 title = "Notifications"
                 imageName = "icon-bell"
-                break
                 
             case OtherRow.help.rawValue:
                 title = "Help"
                 imageName = "icon-chat-bubble"
-                break
                 
             case OtherRow.touchId.rawValue:
                 title = "TouchID"
                 imageName = "icon-fingerprint"
-                break
                 
             case OtherRow.privacy.rawValue:
                 title = "Privacy"
                 imageName = "icon-lock"
-                break
                 
             case OtherRow.settings.rawValue:
                 title = "Settings"
                 imageName = "icon-gear-2"
-                break
                 
             default:
                 DemoLog("Missing cell for indexPath: \(indexPath)")
-                break
             }
             return labelIconCell(cellToStyle: forSizing ? labelIconSizingCell : nil,
                                  title: title,
@@ -272,7 +249,6 @@ extension HomeTableView {
             
         default:
             DemoLog("Missing cell for indexPath: \(indexPath)")
-            break
         }
         
         return UITableViewCell()
@@ -398,51 +374,40 @@ extension HomeTableView: UITableViewDelegate {
         switch indexPath.section {
         case Section.user.rawValue:
             delegate?.homeTableViewDidTapUserName(self)
-            break
             
         case Section.settings.rawValue:
             switch indexPath.row {
             case SettingsRow.appId.rawValue:
                 delegate?.homeTableViewDidTapAppId(self)
-                break
                 
             case SettingsRow.apiHostName.rawValue:
                 delegate?.homeTableViewDidTapAPIHostName(self)
-                break
                 
             case SettingsRow.customerIdentifier.rawValue:
                 delegate?.homeTableViewDidTapCustomerIdentifier(self)
-                break
              
             case SettingsRow.authToken.rawValue:
                 delegate?.homeTableViewDidTapAuthToken(self)
-                break
                 
             default:
                 // No-op
                 break
             }
-            break
             
         case Section.billing.rawValue:
             delegate?.homeTableViewDidTapBillDetails(homeTableView: self)
-            break
             
         case Section.other.rawValue:
             switch indexPath.row {
             case OtherRow.help.rawValue:
                 delegate?.homeTableViewDidTapHelp(homeTableView: self)
-                break
                 
             default:
                 delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
-                break
             }
-            break
             
         default:
             delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
-            break
         }
     }
 }

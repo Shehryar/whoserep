@@ -102,57 +102,59 @@ extension AuthTokenViewController {
         case Section.user.rawValue:
             switch indexPath.row {
             case UserRow.userId.rawValue:
-                return titleDetailValueCell(title: "Customer ID",
-                                            value: AppSettings.shared.customerIdentifier ?? "Anonymous",
-                                            for: indexPath,
-                                            sizingOnly: forSizing)
+                return titleDetailValueCell(
+                    title: "Customer ID",
+                    value: AppSettings.shared.customerIdentifier ?? "Anonymous",
+                    for: indexPath,
+                    sizingOnly: forSizing)
                 
             default: break
             }
-            break
             
         case Section.authToken.rawValue:
             switch indexPath.row {
             case AuthTokenRow.input.rawValue:
-                return textInputCell(text: AppSettings.shared.authToken,
-                                     placeholder: "Auth Token",
-                                     onTextChange: { (updatedToken) in
-                                        AppSettings.saveObject(updatedToken, forKey: AppSettings.Key.authToken)
-                },
-                                     for: indexPath,
-                                     sizingOnly: forSizing)
+                return textInputCell(
+                    text: AppSettings.shared.authToken,
+                    placeholder: "Auth Token",
+                    onTextChange: { (updatedToken) in
+                        AppSettings.saveObject(updatedToken, forKey: AppSettings.Key.authToken)
+                    },
+                    for: indexPath,
+                    sizingOnly: forSizing)
                 
             default: break
             }
-            break
             
         case Section.spear.rawValue:
             switch indexPath.row {
             case SpearRow.environment.rawValue:
-                return titleDetailValueCell(title: "Environment",
-                                            value: spearEnvironment.rawValue,
-                                            for: indexPath,
-                                            sizingOnly: forSizing)
+                return titleDetailValueCell(
+                    title: "Environment",
+                    value: spearEnvironment.rawValue,
+                    for: indexPath,
+                    sizingOnly: forSizing)
                 
             case SpearRow.pin.rawValue:
-                return textInputCell(text: spearPin,
-                                     placeholder: "Enter PIN",
-                                     labelText: "PIN",
-                                     onTextChange: { [weak self] (updatedPin) in
-                                        self?.spearPin = updatedPin
-                                     },
-                                     for: indexPath,
-                                     sizingOnly: forSizing)
+                return textInputCell(
+                    text: spearPin,
+                    placeholder: "Enter PIN",
+                    labelText: "PIN",
+                    onTextChange: { [weak self] (updatedPin) in
+                        self?.spearPin = updatedPin
+                    },
+                    for: indexPath,
+                    sizingOnly: forSizing)
                 
             case SpearRow.generateToken.rawValue:
-                return buttonCell(title: "Generate Token",
-                                  loading: requestingSpearAuthToken,
-                                  for: indexPath,
-                                  sizingOnly: forSizing)
+                return buttonCell(
+                    title: "Generate Token",
+                    loading: requestingSpearAuthToken,
+                    for: indexPath,
+                    sizingOnly: forSizing)
                 
             default: break
             }
-            break
             
         default: break
         }
@@ -186,29 +188,23 @@ extension AuthTokenViewController {
 
             default: break
             }
-            break
             
         case Section.authToken.rawValue:
             focusOnCell(atIndexPath: indexPath)
-            break
             
         case Section.spear.rawValue:
             switch indexPath.row {
             case SpearRow.environment.rawValue:
                 showSpearEnvironmentOptions()
-                break
                 
             case SpearRow.pin.rawValue:
                 focusOnCell(atIndexPath: indexPath)
-                break
                 
             case SpearRow.generateToken.rawValue:
                 generateSpearToken()
-                break
                 
             default: break
             }
-            break
             
         default: break
         }
@@ -254,7 +250,7 @@ extension AuthTokenViewController {
         }
         
         guard let userId = AppSettings.shared.customerIdentifier, let pin = spearPin else {
-            showAlert(title: "Not so fast", message: "Customer ID and PIN are required, bro")
+            showAlert(title: "Not so fast", message: "Customer ID and PIN are required.")
             return
         }
         

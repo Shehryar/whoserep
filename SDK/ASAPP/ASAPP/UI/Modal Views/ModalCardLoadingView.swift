@@ -46,7 +46,7 @@ class ModalCardLoadingView: UIView {
     func commonInit() {
         addSubview(blurView)
         
-        blurView.addSubview(vibrancyView)
+        blurView.contentView.addSubview(vibrancyView)
         
         spinner.hidesWhenStopped = true
         vibrancyView.contentView.addSubview(spinner)
