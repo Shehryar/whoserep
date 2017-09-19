@@ -410,9 +410,7 @@
 		30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F7C1F27C0C400D6DB02 /* SRSInfo.swift */; };
 		30DF3F7F1F27CA7900D6DB02 /* SRSItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F7E1F27CA7900D6DB02 /* SRSItemList.swift */; };
 		30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */; };
-		30DF3F891F27CEB100D6DB02 /* ASAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */; };
 		30DF3F8B1F27CEB100D6DB02 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */; };
-		30DF3F941F27D02800D6DB02 /* SRSItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */; };
 		30DF3FB21F27D2D200D6DB02 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F961F27D2D200D6DB02 /* add-credit-card.json */; };
 		30DF3FB31F27D2D200D6DB02 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */; };
 		30DF3FB41F27D2D200D6DB02 /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */; };
@@ -469,6 +467,9 @@
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
 		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
+		3A4FB3D61F698B27005F2B9F /* ASAPPSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */; };
+		3A4FB3D71F699E20005F2B9F /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4FEF021F589D2700338B00 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A4FB3D81F699E20005F2B9F /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4FEF031F589D2700338B00 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */; };
 		3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */; };
 		3A4FEEFD1F55E31F00338B00 /* icon-arrow-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */; };
@@ -476,6 +477,7 @@
 		3A4FEEFF1F55E31F00338B00 /* icon-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */; };
 		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
 		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
+		3A967FD61F5EEE73000E9696 /* ChatMessageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD51F5EEE73000E9696 /* ChatMessageSpec.swift */; };
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
 		3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */; };
@@ -483,6 +485,9 @@
 		3A967FE11F619A6E000E9696 /* icon-guillemet-thin-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */; };
 		3A967FE21F619A6E000E9696 /* icon-guillemet-thin-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */; };
 		3A967FE41F6200AA000E9696 /* YesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FE31F6200AA000E9696 /* YesNoView.swift */; };
+		3AF234161F59ED120081CAB7 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4FEF021F589D2700338B00 /* Quick.framework */; };
+		3AF234171F59ED120081CAB7 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4FEF031F589D2700338B00 /* Nimble.framework */; };
+		3AF234191F59EF590081CAB7 /* CreditCardSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -494,6 +499,20 @@
 			remoteInfo = ASAPP;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3A4FEF061F589D6000338B00 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A4FB3D71F699E20005F2B9F /* Quick.framework in CopyFiles */,
+				3A4FB3D81F699E20005F2B9F /* Nimble.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2804CE061E7886DE0001E516 /* ChatMessageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachment.swift; sourceTree = "<group>"; };
@@ -902,9 +921,7 @@
 		30DF3F7E1F27CA7900D6DB02 /* SRSItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemList.swift; sourceTree = "<group>"; };
 		30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemFactory.swift; sourceTree = "<group>"; };
 		30DF3F861F27CEB100D6DB02 /* ASAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPTests.swift; sourceTree = "<group>"; };
 		30DF3F8A1F27CEB100D6DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSItemTests.swift; sourceTree = "<group>"; };
 		30DF3F961F27D2D200D6DB02 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
 		30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
 		30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
@@ -961,13 +978,17 @@
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
 		30F6B4D81EC5331000ABA570 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
+		3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPSpec.swift; path = ASAPPTests/ASAPPSpec.swift; sourceTree = SOURCE_ROOT; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
 		3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left@3x.png"; path = "Icons/icon-arrow-left@3x.png"; sourceTree = "<group>"; };
 		3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left@2x.png"; path = "Icons/icon-arrow-left@2x.png"; sourceTree = "<group>"; };
 		3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-arrow-left.png"; path = "Icons/icon-arrow-left.png"; sourceTree = "<group>"; };
 		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
+		3A4FEF021F589D2700338B00 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		3A4FEF031F589D2700338B00 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
+		3A967FD51F5EEE73000E9696 /* ChatMessageSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatMessageSpec.swift; path = ASAPPTests/ChatMessageSpec.swift; sourceTree = SOURCE_ROOT; };
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
 		3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarStyles.swift; sourceTree = "<group>"; };
@@ -975,6 +996,7 @@
 		3A967FDE1F619A6E000E9696 /* icon-guillemet-thin-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left@2x.png"; sourceTree = "<group>"; };
 		3A967FDF1F619A6E000E9696 /* icon-guillemet-thin-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-thin-left.png"; sourceTree = "<group>"; };
 		3A967FE31F6200AA000E9696 /* YesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesNoView.swift; sourceTree = "<group>"; };
+		3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreditCardSpec.swift; path = ../CreditCardSpec.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -983,6 +1005,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AF234161F59ED120081CAB7 /* Quick.framework in Frameworks */,
+				3AF234171F59ED120081CAB7 /* Nimble.framework in Frameworks */,
 				30DF3F8B1F27CEB100D6DB02 /* ASAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1960,7 +1984,6 @@
 			children = (
 				30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */,
 				30DF3F921F27D00300D6DB02 /* SRS Tests */,
-				30DF3F881F27CEB100D6DB02 /* ASAPPTests.swift */,
 				30DF3F8A1F27CEB100D6DB02 /* Info.plist */,
 			);
 			path = ASAPPTests;
@@ -1969,8 +1992,10 @@
 		30DF3F921F27D00300D6DB02 /* SRS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				30DF3F931F27D02800D6DB02 /* SRSItemTests.swift */,
 				30DF3F951F27D0EA00D6DB02 /* Sample JSON */,
+				3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */,
+				3A967FD51F5EEE73000E9696 /* ChatMessageSpec.swift */,
+				3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */,
 			);
 			path = "SRS Tests";
 			sourceTree = "<group>";
@@ -2041,6 +2066,8 @@
 		6A10F4CFFA2A2A316A2C20A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A4FEF021F589D2700338B00 /* Quick.framework */,
+				3A4FEF031F589D2700338B00 /* Nimble.framework */,
 				30E87C5F1D93149B00B5EF9E /* libicucore.tbd */,
 				30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */,
 				30E87C551D93133E00B5EF9E /* Security.framework */,
@@ -2116,6 +2143,7 @@
 				30DF3F821F27CEB100D6DB02 /* Sources */,
 				30DF3F831F27CEB100D6DB02 /* Frameworks */,
 				30DF3F841F27CEB100D6DB02 /* Resources */,
+				3A4FEF061F589D6000338B00 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2434,9 +2462,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30DF3F941F27D02800D6DB02 /* SRSItemTests.swift in Sources */,
+				3A967FD61F5EEE73000E9696 /* ChatMessageSpec.swift in Sources */,
+				3AF234191F59EF590081CAB7 /* CreditCardSpec.swift in Sources */,
+				3A4FB3D61F698B27005F2B9F /* ASAPPSpec.swift in Sources */,
 				30DF3FCF1F27D38300D6DB02 /* TestUtil.swift in Sources */,
-				30DF3F891F27CEB100D6DB02 /* ASAPPTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2807,8 +2836,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2824,8 +2857,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2840,8 +2877,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
