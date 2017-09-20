@@ -190,7 +190,6 @@
 		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
 		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
 		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
-		302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */; };
 		302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
@@ -331,7 +330,6 @@
 		3093A4B11E730D5700C65818 /* AppOpenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A4B01E730D5700C65818 /* AppOpenResponse.swift */; };
 		3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */; };
 		3093A52C1E772F4400C65818 /* transaction-history-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 3093A52B1E772F4400C65818 /* transaction-history-message.json */; };
-		30A460FD1EF0840F00DFAA5A /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */; };
 		30A460FF1EF0871B00DFAA5A /* HTTPAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A460FE1EF0871B00DFAA5A /* HTTPAction.swift */; };
 		30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB051D5109F700795BA7 /* ImageViewer.swift */; };
 		30A4BB081D510A2400795BA7 /* ImageViewerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */; };
@@ -691,7 +689,6 @@
 		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
 		302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
 		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentPreviewSourceViewController.swift; sourceTree = "<group>"; };
 		302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesActionSheet.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
@@ -833,7 +830,6 @@
 		3093A4B01E730D5700C65818 /* AppOpenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOpenResponse.swift; sourceTree = "<group>"; };
 		3093A5291E76FB5A00C65818 /* GlowingBallsLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowingBallsLoadingView.swift; sourceTree = "<group>"; };
 		3093A52B1E772F4400C65818 /* transaction-history-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "transaction-history-message.json"; sourceTree = "<group>"; };
-		30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		30A460FE1EF0871B00DFAA5A /* HTTPAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAction.swift; sourceTree = "<group>"; };
 		30A4BB051D5109F700795BA7 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		30A4BB071D510A2400795BA7 /* ImageViewerControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerControlsView.swift; sourceTree = "<group>"; };
@@ -1044,7 +1040,6 @@
 				30523B881EF031A50014C5ED /* LegacyActionType.swift */,
 				28D48CA71E83EE23004A002B /* Action.swift */,
 				307484D81EB8F2CB008CF3E4 /* ActionFactory.swift */,
-				30A460FC1EF0840F00DFAA5A /* ActionHandler.swift */,
 				307484DA1EB8F2F9008CF3E4 /* Subclasses */,
 			);
 			path = Actions;
@@ -1060,7 +1055,6 @@
 				30F6B4BD1EBCE6C100ABA570 /* TemplateServerIntentsViewController.swift */,
 				3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */,
 				281C346E1E7F092C001A2AA3 /* ComponentPreviewViewController.swift */,
-				302AF33A1E805CC20086B939 /* ComponentPreviewSourceViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -2458,7 +2452,6 @@
 				30F6B4CA1EC2476E00ABA570 /* Checkbox.swift in Sources */,
 				302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */,
 				302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */,
-				30A460FD1EF0840F00DFAA5A /* ActionHandler.swift in Sources */,
 				30131FD51EB10FD0009E7299 /* TableViewItem.swift in Sources */,
 				28E9BE561D477CE400ACCF86 /* Dispatcher.swift in Sources */,
 				30131FA81EAFB662009E7299 /* TextSizeCategory.swift in Sources */,
@@ -2612,7 +2605,6 @@
 				30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */,
 				30131FCD1EB10FD0009E7299 /* PageControlItem.swift in Sources */,
 				3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */,
-				302AF33B1E805CC20086B939 /* ComponentPreviewSourceViewController.swift in Sources */,
 				30131FB21EB10F61009E7299 /* ComponentStyle.swift in Sources */,
 				3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */,
 				30DF3F751F27BC1D00D6DB02 /* SRSLabel.swift in Sources */,
