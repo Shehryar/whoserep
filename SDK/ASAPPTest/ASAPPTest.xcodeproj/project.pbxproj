@@ -663,49 +663,6 @@
 			};
 			name = Debug;
 		};
-		FD8D8B2A1D107A19001B420B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		FD8D8B2C1D107A19001B420B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -740,38 +697,6 @@
 			};
 			name = Debug;
 		};
-		FD8D8B2D1D107A19001B420B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASAPP_BUNDLE_DISPLAY_NAME = ASAPP;
-				ASAPP_BUNDLE_ID = com.asappinc.TestApp;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CAN_CHANGE_ENVIRONMENT = YES;
-				CAN_USE_DIFFERENT_COMPANY = YES;
-				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Asapp, Inc. (DEGEC37KNQ)";
-				DEFAULT_ENVIRONMENT = demo;
-				DEMO_CONTENT_ENABLED = NO;
-				DEMO_LIVE_CHAT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = "ASAPPTest/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LAUNCH_SCREEN = LaunchScreen;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPSDKApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "70fa41ed-17d5-403a-bf44-349dd8855431";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP SDK App Distribution Profile";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -779,21 +704,19 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD8D8B291D107A19001B420B /* Debug */,
-				FD8D8B2A1D107A19001B420B /* Release */,
 				30AE79F41D4BACD800651F09 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FD8D8B2B1D107A19001B420B /* Build configuration list for PBXNativeTarget "ASAPPTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD8D8B2C1D107A19001B420B /* Debug */,
-				FD8D8B2D1D107A19001B420B /* Release */,
 				30AE79F51D4BACD800651F09 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

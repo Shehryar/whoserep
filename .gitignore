@@ -6,6 +6,7 @@
 build/
 DerivedData
 ASAPP/Output/
+fastlane/build/
 
 ## Various settings
 *.pbxuser
