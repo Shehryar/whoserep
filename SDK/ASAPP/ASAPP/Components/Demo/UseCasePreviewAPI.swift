@@ -227,10 +227,8 @@ extension UseCasePreviewAPI {
         var lastLine: String?
         if let _ = getJSON(from: data) {
             lastLine = "Body: JSON Object"
-            //            lastLine = String(describing: jsonObject)
         } else if let _ = getJSONArray(from: data) {
             lastLine = "Body: JSON Array"
-            //            lastLine = String(describing: jsonArray)
         } else if let error = error {
             lastLine = "Error: \(error.localizedDescription)"
         }

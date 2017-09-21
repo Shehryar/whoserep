@@ -158,7 +158,6 @@ extension ComponentLayoutEngine {
             columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: size.width)
             remainingWidth = max(0, remainingWidth - size.width)
         }
-        //        printColumnSizes(columnSizes, text: "Fitted Sizes:")
         
         let weightedColumnWidths = getWeightedWidths(for: views, totalWidth: remainingWidth)
         for (idx, view) in views.enumerated() {
@@ -176,7 +175,6 @@ extension ComponentLayoutEngine {
                 columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)
             }
         }
-        //        printColumnSizes(columnSizes, text: "Fitted and Weighted Sizes:")
         
         return columnSizes
     }

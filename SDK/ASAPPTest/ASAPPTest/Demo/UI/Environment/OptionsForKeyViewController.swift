@@ -65,9 +65,6 @@ extension OptionsForKeyViewController {
         selectedOption = AppSettings.getString(forKey: selectedOptionKey)
         options = AppSettings.getStringArray(forKey: optionsListKey)
         
-//        DemoLog("Found Selected Option: \(String(describing: selectedOption)), for key: \(selectedOptionKey.rawValue)")
-//        DemoLog("With Options List: \(String(describing: options) ), for key: \(optionsListKey.rawValue)")
-        
         tableView.reloadData()
     }
 }
