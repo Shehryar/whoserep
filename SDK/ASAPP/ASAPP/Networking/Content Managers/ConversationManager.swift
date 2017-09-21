@@ -262,7 +262,6 @@ extension ConversationManager {
             if event.isReply {
                 if let chatMessage = event.chatMessage,
                     let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
-//                    DebugLog.d("Found current quick reply message: \(String(describing: chatMessage.text)), parentId = \(String(describing: event.parentEventLogSeq))")
                     return (event, chatMessage)
                 }
                 break

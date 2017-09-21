@@ -92,8 +92,6 @@ extension AppDelegate {
     // MARK: Notifications Registration
     
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-//        DemoLog("\napplication:didRegister:\n \n ")
-        
         application.registerForRemoteNotifications()
     }
     

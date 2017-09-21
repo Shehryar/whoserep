@@ -49,10 +49,8 @@ extension ChatMessage {
             return nil
         }
         
-//        let classification = json.string(for: "classification")
         let content = json.jsonObject(for: "content")
         let displayContent = json.bool(for: "displayContent") ?? false
-//        let parentEventLogSeq = json.int(for: "parentEventLogSeq")
         
         let (message, bodyItems, buttons) = extractLegacyComponents(content, metadata: metadata)
         guard message != nil || bodyItems != nil else {
