@@ -27,5 +27,9 @@ platform :ios do
       notes: changelog_from_git_commits,
       notifications: true
     )
+
+    add_git_tag(grouping: "fastlane-builds")
+
+    push_git_tags
   end
 end
