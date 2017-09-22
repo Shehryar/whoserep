@@ -1,0 +1,10 @@
+clean true
+
+output_directory "./fastlane/build"
+
+export_options(
+	method: 'enterprise',
+	provisioningProfiles: {
+		'com.asappinc.TestApp' => 'ASAPP Enterprise Test App Distribution'
+	}
+)
