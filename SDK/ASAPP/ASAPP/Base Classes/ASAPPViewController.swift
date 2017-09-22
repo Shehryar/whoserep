@@ -201,15 +201,13 @@ extension ASAPPViewController {
         guard let action = action as? WebPageAction else { return }
         
         // SFSafariViewController
-        if #available(iOS 9.0, *) {
-            if let urlScheme = action.url.scheme {
-                if ["http", "https"].contains(urlScheme) {
-                    let safariVC = SFSafariViewController(url: action.url)
-                    present(safariVC, animated: true, completion: nil)
-                    return
-                } else {
-                    DebugLog.w("URL is missing http/https url scheme: \(action.url)")
-                }
+        if let urlScheme = action.url.scheme {
+            if ["http", "https"].contains(urlScheme) {
+                let safariVC = SFSafariViewController(url: action.url)
+                present(safariVC, animated: true, completion: nil)
+                return
+            } else {
+                DebugLog.w("URL is missing http/https url scheme: \(action.url)")
             }
         }
         
