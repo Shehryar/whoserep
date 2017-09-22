@@ -206,7 +206,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func didTapNavigationCloseButton() {
+    @objc func didTapNavigationCloseButton() {
         finish(with: nil)
     }
     

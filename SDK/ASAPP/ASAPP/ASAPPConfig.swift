@@ -12,6 +12,7 @@ private let OLD_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F
 
 // MARK:- ASAPPConfig
 
+@objcMembers
 public class ASAPPConfig: NSObject {
     
     public let appId: String

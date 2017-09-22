@@ -163,7 +163,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         view.setNeedsLayout()
     }
     
-    func refresh() {
+    @objc func refresh() {
         becomeFirstResponder()
         
         guard let classification = classification else {
@@ -180,7 +180,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         })
     }
     
-    func start() {
+    @objc func start() {
         guard let componentViewContainer = componentViewContainer else {
             return
         }

@@ -185,7 +185,7 @@ extension ModalCardPresentationAnimator {
 // MARK:- Interactions
 
 extension ModalCardPresentationAnimator {
-    func didTapBlurView() {
+    @objc func didTapBlurView() {
         guard tapToDismissEnabled else {
             return
         }

@@ -125,7 +125,7 @@ extension ImageViewerImageViewController {
 // MARK:- Actions
 
 extension ImageViewerImageViewController {
-    func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
+    @objc func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
         guard zoomEnabled else { return }
         
         if scrollView.zoomScale > scrollView.minimumZoomScale {
@@ -137,7 +137,7 @@ extension ImageViewerImageViewController {
         }
     }
     
-    func didSingleTap(_ tapGesture: UITapGestureRecognizer) {
+    @objc func didSingleTap(_ tapGesture: UITapGestureRecognizer) {
         if scrollView.zoomScale != 1 {
             resetZoomScaleAnimated(true)
         } else {

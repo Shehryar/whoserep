@@ -12,6 +12,7 @@ func ASAPPLocalizedString(_ key: String) -> String {
     return NSLocalizedString(key, tableName: nil, bundle: ASAPP.bundle, comment: "")
 }
 
+@objcMembers
 public class ASAPPStrings: NSObject {
     public var asappButton: String = ASAPPLocalizedString("HELP")
     public var accessibilityClose: String = ASAPPLocalizedString("Close Help")

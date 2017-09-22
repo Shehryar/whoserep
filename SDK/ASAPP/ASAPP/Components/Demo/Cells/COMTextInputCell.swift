@@ -29,9 +29,9 @@ class COMTextInputCell: UITableViewCell {
         didSet {
             if let placeholderText = placeholderText {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
-                    NSForegroundColorAttributeName: ASAPP.styles.colors.textSecondary,
-                    NSFontAttributeName: ASAPP.styles.textStyles.body.font,
-                    NSKernAttributeName: ASAPP.styles.textStyles.body.letterSpacing
+                    .foregroundColor: ASAPP.styles.colors.textSecondary,
+                    .font: ASAPP.styles.textStyles.body.font,
+                    .kern: ASAPP.styles.textStyles.body.letterSpacing
                 ])
             } else {
                 textField.attributedPlaceholder = nil
@@ -55,9 +55,9 @@ class COMTextInputCell: UITableViewCell {
         textField.text = ""
         textField.delegate = self
         textField.defaultTextAttributes = [
-            NSForegroundColorAttributeName: ASAPP.styles.colors.textPrimary,
-            NSFontAttributeName: ASAPP.styles.textStyles.body.font,
-            NSKernAttributeName: ASAPP.styles.textStyles.body.letterSpacing
+            NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.textPrimary,
+            NSAttributedStringKey.font.rawValue: ASAPP.styles.textStyles.body.font,
+            NSAttributedStringKey.kern.rawValue: ASAPP.styles.textStyles.body.letterSpacing
         ]
         textField.addTarget(self, action: #selector(COMTextInputCell.textFieldDidChange(_:)), for: .editingChanged)
         
@@ -109,7 +109,7 @@ extension COMTextInputCell {
 
 extension COMTextInputCell: UITextFieldDelegate {
     
-    func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         onTextChange?(currentText)
     }
     

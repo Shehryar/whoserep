@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPInputColors: NSObject {
     
     // MARK: Properties

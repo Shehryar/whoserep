@@ -48,7 +48,7 @@ class KeyboardObserver: NSObject {
         
         let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight = UIScreen.main.bounds.height - keyboardFrame.minY
-        let duration = TimeInterval(userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
+        let duration = TimeInterval(truncating: userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
         
         var animationCurve: UIViewAnimationOptions = .curveLinear
         if let animationCurveInt = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {

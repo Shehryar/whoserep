@@ -120,7 +120,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         updateFrames()
     }
     
-    func refresh() {
+    @objc func refresh() {
         guard let classification = classification else {
             return
         }

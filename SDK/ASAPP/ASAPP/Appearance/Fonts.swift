@@ -89,7 +89,7 @@ class Fonts: NSObject {
             let provider = CGDataProvider(data: data) {
             let font = CGFont(provider)
             var err: Unmanaged<CFError>?
-            CTFontManagerRegisterGraphicsFont(font, &err)
+            CTFontManagerRegisterGraphicsFont(font!, &err)
             if err != nil {
                 DebugLog.e("FONT FAILURE: received error while loading font \(name).\(type)\n\(String(describing: err))")
             }

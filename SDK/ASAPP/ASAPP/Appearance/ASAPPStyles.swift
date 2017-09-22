@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPStyles: NSObject {
     
     public var textStyles = ASAPPTextStyles()

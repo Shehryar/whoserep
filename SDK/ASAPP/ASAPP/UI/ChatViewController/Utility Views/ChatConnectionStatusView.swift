@@ -120,7 +120,7 @@ class ChatConnectionStatusView: UIView {
     
     // MARK: Actions
     
-    func didTap() {
+    @objc func didTap() {
         if status == .disconnected {
             onTapToConnect?()
         }

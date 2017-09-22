@@ -123,7 +123,7 @@ class TabViewTab: UIView {
     
     // MARK: Actions
     
-    func didTap() {
+    @objc func didTap() {
         onTap?()
     }
 }

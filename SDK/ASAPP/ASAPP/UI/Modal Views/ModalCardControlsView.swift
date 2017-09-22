@@ -158,11 +158,11 @@ class ModalCardControlsView: UIView {
     
     // MARK:- Actions
     
-    func didTapCancelButton() {
+    @objc func didTapCancelButton() {
         onCancelButtonTap?()
     }
     
-    func didTapConfirmButton() {
+    @objc func didTapConfirmButton() {
         onConfirmButtonTap?()
     }
 }

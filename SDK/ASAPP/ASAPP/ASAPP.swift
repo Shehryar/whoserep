@@ -10,6 +10,7 @@ import Foundation
 
 // MARK:- ASAPP
 
+@objcMembers
 public class ASAPP: NSObject {
     
     private(set) public static var config: ASAPPConfig!

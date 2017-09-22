@@ -345,7 +345,7 @@ class ChatViewController: ASAPPViewController {
 // MARK: Display Update
 
 extension ChatViewController {
-    func updateDisplay() {
+    @objc func updateDisplay() {
         if let titleText = ASAPP.strings.chatTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText)
         } else {
@@ -443,13 +443,13 @@ extension ChatViewController {
 // MARK:- Button Actions
 
 extension ChatViewController {
-    func didTapAskButton() {
+    @objc func didTapAskButton() {
         showPredictiveView()
         
         conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
     }
     
-    func didTapEndChatButton() {
+    @objc func didTapEndChatButton() {
         let confirmationAlert = UIAlertController(title: ASAPP.strings.endChatConfirmationTitle,
                                                   message: ASAPP.strings.endChatConfirmationMessage,
                                                   preferredStyle: .alert)
@@ -460,7 +460,7 @@ extension ChatViewController {
         present(confirmationAlert, animated: true, completion: nil)
     }
     
-    func didTapCloseButton() {
+    @objc func didTapCloseButton() {
         conversationManager.trackButtonTap(buttonName: .closeChatFromChat)
         
         dismissChatViewController()

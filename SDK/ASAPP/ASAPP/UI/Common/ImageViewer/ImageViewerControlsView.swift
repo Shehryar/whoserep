@@ -60,7 +60,7 @@ class ImageViewerControlsView: UIView {
 
     // MARK: Actions
     
-    func didTapXButton() {
+    @objc func didTapXButton() {
         onDismissButtonTap?()
     }
 }

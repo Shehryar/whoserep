@@ -54,7 +54,7 @@ class ConversationFileStore: NSObject {
     
     // MARK:- Observing Notifications
     
-    func didObserveNotification() {
+    @objc func didObserveNotification() {
         save()
     }
     

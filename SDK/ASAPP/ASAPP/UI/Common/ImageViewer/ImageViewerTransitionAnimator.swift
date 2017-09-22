@@ -380,7 +380,7 @@ extension ImageViewerTransitionAnimator: UIGestureRecognizerDelegate {
 // MARK:- Gestures
 
 extension ImageViewerTransitionAnimator {
-    func didPan(_ withGesture: UIPanGestureRecognizer) {
+    @objc func didPan(_ withGesture: UIPanGestureRecognizer) {
         guard let imageViewer = imageViewer,
             let imageViewerView = imageViewerView else {
                 return

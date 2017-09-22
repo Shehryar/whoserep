@@ -189,7 +189,7 @@ extension ModalCardViewController: ResizableModalCardViewController {
     
     // MARK: Public API
     
-    func updateFrames() {
+    @objc func updateFrames() {
         
         // Error View
         let errorHeight = getErrorViewHeight(for: view.bounds.size)
@@ -251,13 +251,13 @@ extension ModalCardViewController: ResizableModalCardViewController {
 
 extension ModalCardViewController {
     
-    func hideContentWhileBackgrounded() {
+    @objc func hideContentWhileBackgrounded() {
         if shouldHideContentWhenBackgrounded {
             contentView?.alpha = 0.0
         }
     }
     
-    func showContent() {
+    @objc func showContent() {
         if !isShowingSuccessView {
             contentView?.alpha = 1.0
         }

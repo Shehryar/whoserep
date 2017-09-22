@@ -96,7 +96,7 @@ extension ConversationManager {
         return isConnected
     }
     
-    func checkForTypingStatusChange() {
+    @objc func checkForTypingStatusChange() {
         guard let conversantBeganTypingTime = conversantBeganTypingTime else {
             return
         }

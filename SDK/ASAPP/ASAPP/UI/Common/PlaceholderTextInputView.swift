@@ -500,7 +500,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
         return false
     }
     
-    public func textFieldTextDidChange() {
+    @objc public func textFieldTextDidChange() {
         
         let text = textField.text ?? ""
         

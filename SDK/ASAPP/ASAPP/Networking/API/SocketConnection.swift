@@ -98,7 +98,7 @@ extension SocketConnection {
 // MARK:- Managing Connection
 
 extension SocketConnection {
-    func connect() {
+    @objc func connect() {
         if let socket = socket {
             switch socket.readyState {
             case .CLOSING:

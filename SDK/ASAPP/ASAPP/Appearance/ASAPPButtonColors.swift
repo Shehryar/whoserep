@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPButtonColors: NSObject {
     
     // MARK: Properties

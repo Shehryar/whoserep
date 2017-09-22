@@ -144,7 +144,7 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Display
     
-    func updateDisplay() {
+    @objc func updateDisplay() {
         if let titleText = ASAPP.strings.predictiveTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText, color: ASAPP.styles.colors.predictiveNavBarTitle)
         } else {
@@ -382,18 +382,18 @@ extension PredictiveViewController {
         }
     }
     
-    func didTapViewChat() {
+    @objc func didTapViewChat() {
         dismissKeyboard()
         delegate?.predictiveViewControllerDidTapViewChat(self)
     }
     
-    func didTapCancel() {
+    @objc func didTapCancel() {
         dismissKeyboard()
         messageInputView.clear()
         delegate?.predictiveViewControllerDidTapX(self)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }

@@ -131,7 +131,7 @@ public class ASAPPButton: UIView {
 
 extension ASAPPButton {
     
-    func updateDisplay() {
+    @objc func updateDisplay() {
         label.setAttributedText(ASAPP.strings.asappButton,
                                 textType: .link,
                                 color: ASAPP.styles.colors.helpButtonText)

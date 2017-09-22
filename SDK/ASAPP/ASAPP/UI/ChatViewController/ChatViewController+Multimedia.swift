@@ -115,9 +115,9 @@ extension ChatViewController {
 class CameraPermsissions {
     
     class func isAuthorized(_ completion: @escaping (Bool) -> Void) {
-        let mediaType = AVMediaTypeVideo
+        let mediaType = AVMediaType.video
         
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
         switch status {
         case .denied, .restricted:
             DebugLog.d(caller: ChatViewController.self, "Camera Permissions: Denied or Restricted")
@@ -131,7 +131,7 @@ class CameraPermsissions {
             
         case .notDetermined:
             // Request permission from the user
-            AVCaptureDevice.requestAccess(forMediaType: mediaType) { granted in
+            AVCaptureDevice.requestAccess(for: mediaType) { granted in
                 DebugLog.d(caller: ChatViewController.self, "Camera Permissions \(granted ? "Granted" : "Denied")!")
                 completion(granted)
             }

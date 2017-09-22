@@ -40,7 +40,7 @@ extension ConversationManager {
         ]
         
         socketConnection.sendRequest(withPath: path, params: params)
-        socketConnection.sendRequestWithData(imageData) { _ in
+        socketConnection.sendRequestWithData(imageData) { _, _, _ in
             completion?()
         }
     }

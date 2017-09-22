@@ -91,6 +91,19 @@ class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
         
         updateInputMinHeight()
     }
+    
+    override func updateFrames() {
+        super.updateFrames()
+        
+        let (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame) = getFramesThatFit(bounds.size)
+        titleView.frame = titleFrame
+        ratingView.frame = ratingFrame
+        promptLabel.frame = promptFrame
+        resolutionView.frame = resolutionFrame
+        textView.frame = textViewFrame
+        textViewPlaceholder.frame = textViewPlaceholderFrame
+        bottomBorder.frame = CGRect(x: contentInset.left, y: textView.frame.maxY, width: textView.frame.width, height: 1)
+    }
 }
 
 // MARK:- Layout
@@ -126,19 +139,6 @@ extension LeaveFeedbackView {
         let textViewPlaceholderFrame = CGRect(x: insets.left, y: insets.top, width: textViewFrame.width - insets.left - insets.right, height: textViewPlaceholderHeight)
         
         return (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame)
-    }
-    
-    override func updateFrames() {
-        super.updateFrames()
-        
-        let (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame) = getFramesThatFit(bounds.size)
-        titleView.frame = titleFrame
-        ratingView.frame = ratingFrame
-        promptLabel.frame = promptFrame
-        resolutionView.frame = resolutionFrame
-        textView.frame = textViewFrame
-        textViewPlaceholder.frame = textViewPlaceholderFrame
-        bottomBorder.frame = CGRect(x: contentInset.left, y: textView.frame.maxY, width: textView.frame.width, height: 1)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

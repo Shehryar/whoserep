@@ -40,6 +40,10 @@ class ModalCardContentView: UIView {
         
         updateFrames()
     }
+    
+    func updateFrames() {
+        titleView.frame = getTitleViewFrameThatFits(bounds.size)
+    }
 }
 
 // MARK:- Layout
@@ -50,10 +54,6 @@ extension ModalCardContentView {
         let contentWidth = size.width - contentInset.left - contentInset.right
         let titleViewHeight = ceil(titleView.sizeThatFits(CGSize(width: contentWidth, height: 0)).height)
         return CGRect(x: contentInset.left, y: contentInset.top, width: contentWidth, height: titleViewHeight)
-    }
-    
-    func updateFrames() {
-        titleView.frame = getTitleViewFrameThatFits(bounds.size)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

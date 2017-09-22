@@ -55,7 +55,7 @@ class PageControlView: BaseComponentView {
     
     // MARK: Actions
     
-    func onPageChange() {
+    @objc func onPageChange() {
         onPageUpdateTap?(pageControl.currentPage)
     }
     

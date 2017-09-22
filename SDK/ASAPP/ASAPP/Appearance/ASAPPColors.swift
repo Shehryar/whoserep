@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPColors: NSObject {
     
     // MARK:- Navigation Bar
