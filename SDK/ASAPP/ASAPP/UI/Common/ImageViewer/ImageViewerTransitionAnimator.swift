@@ -12,20 +12,20 @@ class ImageViewerTransitionAnimator: NSObject {
 
     // MARK: Properties: Context
     
-    fileprivate var isPresenting: Bool = false
-    fileprivate var presentingViewController: UIViewController?
-    fileprivate var presentingView: UIView?
-    fileprivate var imageViewer: ImageViewer?
-    fileprivate var imageViewerView: UIView?
-    fileprivate var containerView: UIView?
+    private var isPresenting: Bool = false
+    private var presentingViewController: UIViewController?
+    private var presentingView: UIView?
+    private var imageViewer: ImageViewer?
+    private var imageViewerView: UIView?
+    private var containerView: UIView?
     
     // MARK: Properties: Internal
     
-    fileprivate var transitioningImageView = ImageViewerImageView()
-    fileprivate var maskView = UIView()
-    fileprivate var panGesture = UIPanGestureRecognizer()
-    fileprivate var panStart: CGPoint?
-    fileprivate var animateFromFrame: CGRect?
+    private var transitioningImageView = ImageViewerImageView()
+    private var maskView = UIView()
+    private var panGesture = UIPanGestureRecognizer()
+    private var panStart: CGPoint?
+    private var animateFromFrame: CGRect?
     
     // MARK:- Initialization
     

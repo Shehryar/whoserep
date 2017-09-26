@@ -41,7 +41,7 @@ class TabViewTabBar: UIView {
     
     // MARK: Private Properties
     
-    fileprivate var tabs: [TabViewTab]? {
+    private var tabs: [TabViewTab]? {
         didSet {
             if let oldTabs = oldValue {
                 for oldTab in oldTabs {
@@ -59,7 +59,7 @@ class TabViewTabBar: UIView {
         }
     }
     
-    fileprivate let shadowView = UIView()
+    private let shadowView = UIView()
     
     // MARK: Initialization
     
@@ -165,20 +165,20 @@ class TabViewTabBar: UIView {
         }
     }
     
-    fileprivate func didTap(_ page: TabViewPage) {
+    private func didTap(_ page: TabViewPage) {
         if let pageIndex = pages?.index(of: page) {
             selectedIndex = pageIndex
             onPageSelected?(page, pageIndex)
         }
     }
     
-    fileprivate func applyShadowToView(_ view: UIView) {
+    private func applyShadowToView(_ view: UIView) {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.15
         view.layer.shadowOffset = .zero
     }
-    fileprivate func removeShadowFromView(_ view: UIView) {
+    private func removeShadowFromView(_ view: UIView) {
         view.layer.shadowColor = nil
         view.layer.shadowOpacity = 0.0
     }

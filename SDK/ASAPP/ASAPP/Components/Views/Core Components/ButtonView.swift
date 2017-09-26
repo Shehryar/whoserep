@@ -23,7 +23,7 @@ class ButtonView: UIButton, ComponentView {
         }
     }
     
-    fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     // MARK: ComponentView Properties
     

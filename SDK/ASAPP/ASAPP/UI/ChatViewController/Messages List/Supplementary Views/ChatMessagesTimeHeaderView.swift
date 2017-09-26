@@ -20,13 +20,13 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         didSet { updateTimeLabel() }
     }
     
-    fileprivate let timeLabel = UILabel()
+    private let timeLabel = UILabel()
     
-    fileprivate let separatorLeft = HorizontalGradientView()
+    private let separatorLeft = HorizontalGradientView()
     
-    fileprivate let separatorRight = HorizontalGradientView()
+    private let separatorRight = HorizontalGradientView()
     
-    fileprivate let dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
     // MARK:- Init
     

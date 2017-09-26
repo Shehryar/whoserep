@@ -26,17 +26,17 @@ class ModalCardPresentationAnimator: NSObject {
     
     // MARK: Properties: Context
     
-    fileprivate var isPresenting: Bool = false
-    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
-    fileprivate weak var presentingViewController: UIViewController?
-    fileprivate weak var presentingView: UIView?
-    fileprivate weak var presentedViewController: UIViewController?
-    fileprivate weak var presentedView: UIView?
-    fileprivate weak var containerView: UIView?
+    private var isPresenting: Bool = false
+    private weak var transitionContext: UIViewControllerContextTransitioning?
+    private weak var presentingViewController: UIViewController?
+    private weak var presentingView: UIView?
+    private weak var presentedViewController: UIViewController?
+    private weak var presentedView: UIView?
+    private weak var containerView: UIView?
     
-    fileprivate let blurView = UIView()
-    fileprivate let keyboardObserver = KeyboardObserver()
-    fileprivate var keyboardHeight: CGFloat = 0.0
+    private let blurView = UIView()
+    private let keyboardObserver = KeyboardObserver()
+    private var keyboardHeight: CGFloat = 0.0
     
     override init() {
         super.init()
@@ -247,7 +247,7 @@ extension ModalCardPresentationAnimator: KeyboardObserverDelegate {
 
 extension ModalCardPresentationAnimator {
     
-    fileprivate func updatePresentedViewFrame(whenVisible visible: Bool) {
+    private func updatePresentedViewFrame(whenVisible visible: Bool) {
         guard let containerView = containerView,
             let presentedView = presentedView else {
             return

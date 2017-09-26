@@ -52,7 +52,7 @@ extension SessionManager {
         return config.hashKey(with: user, prefix: "ASAPP_DEVICE_ID_")
     }
     
-    fileprivate class func generateDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String {
+    private class func generateDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String {
         let deviceIdentifier = UUID().uuidString
         let storageKey = deviceIdentifierStorageKey(for: config, user: user)
         
@@ -61,7 +61,7 @@ extension SessionManager {
         return deviceIdentifier
     }
     
-    fileprivate class func getSavedDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String? {
+    private class func getSavedDeviceIdentifier(for config: ASAPPConfig, user: ASAPPUser) -> String? {
         let storageKey = deviceIdentifierStorageKey(for: config, user: user)
         let savedDeviceIdentifier = UserDefaults.standard.string(forKey: storageKey)
         

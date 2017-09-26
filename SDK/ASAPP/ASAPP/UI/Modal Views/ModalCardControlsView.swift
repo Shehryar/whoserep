@@ -59,11 +59,11 @@ class ModalCardControlsView: UIView {
         }
     }
     
-    fileprivate let buttonPaddingY: CGFloat = 17.0
-    fileprivate let cancelButton = UIButton()
-    fileprivate let confirmButton = UIButton()
-    fileprivate let borderTop = UIView()
-    fileprivate let borderMiddle = UIView()
+    private let buttonPaddingY: CGFloat = 17.0
+    private let cancelButton = UIButton()
+    private let confirmButton = UIButton()
+    private let borderTop = UIView()
+    private let borderMiddle = UIView()
     
     // MARK: Initialization
     

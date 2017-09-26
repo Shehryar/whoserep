@@ -84,7 +84,7 @@ class Checkbox: BaseComponentView {
 
 extension Checkbox {
     
-    fileprivate func updateDisplay() {
+    private func updateDisplay() {
         layer.borderWidth = max(1, layer.borderWidth)
         if layer.cornerRadius == 0 {
             layer.cornerRadius = 4

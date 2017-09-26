@@ -14,17 +14,17 @@ class ConversationFileStore: NSObject {
     
     let user: ASAPPUser
     
-    fileprivate let fileName: String
+    private let fileName: String
     
-    fileprivate var filePath: URL?
+    private var filePath: URL?
     
-    fileprivate let maxWriteQueueSize = 50
+    private let maxWriteQueueSize = 50
     
-    fileprivate var writeQueue = [String]()
+    private var writeQueue = [String]()
     
-    fileprivate var needsWriteToFile = false
+    private var needsWriteToFile = false
     
-    fileprivate let debugLoggingEnabled = false
+    private let debugLoggingEnabled = false
     
     // MARK: Init
     
@@ -60,7 +60,7 @@ class ConversationFileStore: NSObject {
     
     // MARK:- Debug Logging
     
-    fileprivate func _debugLog(message: String) {
+    private func _debugLog(message: String) {
         if debugLoggingEnabled {
             DebugLog.d(message)
         }
@@ -73,7 +73,7 @@ extension ConversationFileStore {
     
     // MARK: Reading
     
-    fileprivate func readStringFromFile() -> String? {
+    private func readStringFromFile() -> String? {
         guard let filePath = filePath else { return nil }
 
         if let stringOnFile = try? String(contentsOf: filePath, encoding: String.Encoding.utf8) {
@@ -88,7 +88,7 @@ extension ConversationFileStore {
     
     // MARK: Writing
     
-    fileprivate func writeStringToFile(stringToWrite: String) -> Bool {
+    private func writeStringToFile(stringToWrite: String) -> Bool {
         guard let filePath = filePath else { return false }
         
         var successfullyWroteToDisk = false
@@ -113,7 +113,7 @@ extension ConversationFileStore {
 
 extension ConversationFileStore {
     
-    fileprivate func stringForJSONObject(jsonObject: [String : AnyObject]) -> String? {
+    private func stringForJSONObject(jsonObject: [String : AnyObject]) -> String? {
         if let jsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions.prettyPrinted) {
             if let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) {
                 return jsonString
@@ -122,7 +122,7 @@ extension ConversationFileStore {
         return nil
     }
     
-    fileprivate func trimWriteQueueIfNecessary() {
+    private func trimWriteQueueIfNecessary() {
         guard writeQueue.count > maxWriteQueueSize else {
             return
         }

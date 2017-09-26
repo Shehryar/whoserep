@@ -10,11 +10,11 @@ import UIKit
 
 class VerticalGradientView: UIView {
 
-    fileprivate(set) var topColor: UIColor?
-    fileprivate(set) var middleColor: UIColor?
-    fileprivate(set) var bottomColor: UIColor?
+    private(set) var topColor: UIColor?
+    private(set) var middleColor: UIColor?
+    private(set) var bottomColor: UIColor?
     
-    fileprivate let gradientLayer = CAGradientLayer()
+    private let gradientLayer = CAGradientLayer()
     
     // MARK: Initialization
     

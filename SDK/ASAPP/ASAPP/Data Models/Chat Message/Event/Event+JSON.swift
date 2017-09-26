@@ -107,7 +107,7 @@ extension Event {
     
     // MARK: Class Methods
     
-    fileprivate class func getEventTypeAndContent(from json: [String : Any],
+    private class func getEventTypeAndContent(from json: [String : Any],
                                                   eventType originalEventType: EventType,
                                                   ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
         var eventType = originalEventType
@@ -132,7 +132,7 @@ extension Event {
         return (eventType, eventJSON)
     }
     
-    fileprivate class func getTypingStatus(from json: [String : Any]?) -> Bool? {
+    private class func getTypingStatus(from json: [String : Any]?) -> Bool? {
         guard let json = json,
             let typingStatus = json.bool(for: JSONKey.isTyping.rawValue)  else {
                 return nil
@@ -140,7 +140,7 @@ extension Event {
         return typingStatus
     }
     
-    fileprivate class func getSwitchChatToSRSIntent(from json: Any?) -> String? {
+    private class func getSwitchChatToSRSIntent(from json: Any?) -> String? {
         guard let json = json as? [String : Any] else {
             return nil
         }
@@ -149,11 +149,11 @@ extension Event {
     
     // MARK: Instance Methods
     
-    fileprivate func getTextMessageText(from json: [String : Any]?) -> String? {
+    private func getTextMessageText(from json: [String : Any]?) -> String? {
         return json?.string(for: JSONKey.text.rawValue)
     }
     
-    fileprivate func getChatMessageImageFromPictureMessage(_ json: [String : Any]?) -> ChatMessageImage? {
+    private func getChatMessageImageFromPictureMessage(_ json: [String : Any]?) -> ChatMessageImage? {
         guard let json = json,
             let fileBucket = json.string(for: JSONKey.fileBucket.rawValue),
             let fileSecret = json.string(for: JSONKey.fileSecret.rawValue),

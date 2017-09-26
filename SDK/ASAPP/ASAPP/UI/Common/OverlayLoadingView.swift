@@ -10,7 +10,7 @@ import UIKit
 
 class OverlayLoadingView: UIView {
 
-    fileprivate let loader = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let loader = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     // MARK: Initialization
     

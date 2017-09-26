@@ -24,8 +24,8 @@ class LeaveFeedbackViewController: ModalCardViewController {
     
     // MARK: UI
     
-    fileprivate let feedbackView = LeaveFeedbackView()
-    fileprivate var focusedView: UIView?
+    private let feedbackView = LeaveFeedbackView()
+    private var focusedView: UIView?
     
     // MARK:- Init
     

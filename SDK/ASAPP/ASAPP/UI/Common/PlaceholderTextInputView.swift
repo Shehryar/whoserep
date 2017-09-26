@@ -198,13 +198,13 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Highlighting / Selection
     
-    fileprivate(set) var selected: Bool = false {
+    private(set) var selected: Bool = false {
         didSet {
             updateUnderlineColor()
         }
     }
     
-    fileprivate(set) var highlighted: Bool = false {
+    private(set) var highlighted: Bool = false {
         didSet {
             updateUnderlineColor()
         }
@@ -212,17 +212,17 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Internal UI properties
     
-    fileprivate let placeholderLabel = UILabel()
+    private let placeholderLabel = UILabel()
     
-    fileprivate let textField = UITextField()
+    private let textField = UITextField()
     
-    fileprivate let underlineView = UIView()
+    private let underlineView = UIView()
     
     // MARK: Internal Text Editing Properties
     
-    fileprivate var previousTextFieldContent: String?
+    private var previousTextFieldContent: String?
     
-    fileprivate var previousSelection: UITextRange?
+    private var previousSelection: UITextRange?
     
     // MARK:- Initialization
     

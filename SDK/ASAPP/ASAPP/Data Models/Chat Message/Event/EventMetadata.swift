@@ -17,8 +17,8 @@ class EventMetadata: NSObject {
     let issueId: Int
     let classification: String? = nil
     
-    fileprivate(set) var sendTime: Date
-    fileprivate(set) var sendTimeString: String
+    private(set) var sendTime: Date
+    private(set) var sendTimeString: String
     
     // MARK:- Init
     

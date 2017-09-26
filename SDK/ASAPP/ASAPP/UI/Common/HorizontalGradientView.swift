@@ -10,10 +10,10 @@ import UIKit
 
 class HorizontalGradientView: UIView {
 
-    fileprivate(set) var leftColor: UIColor?
-    fileprivate(set) var rightColor: UIColor?
+    private(set) var leftColor: UIColor?
+    private(set) var rightColor: UIColor?
     
-    fileprivate let gradientLayer = CAGradientLayer()
+    private let gradientLayer = CAGradientLayer()
     
     // MARK: Initialization
     

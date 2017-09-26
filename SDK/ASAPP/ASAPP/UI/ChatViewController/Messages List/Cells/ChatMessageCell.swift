@@ -68,7 +68,7 @@ class ChatMessageCell: UITableViewCell {
         return 1.0
     }
     
-    fileprivate(set) var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
+    private(set) var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -76,9 +76,9 @@ class ChatMessageCell: UITableViewCell {
         }
     }
     
-    fileprivate var isAnimating: Bool = false
+    private var isAnimating: Bool = false
     
-    fileprivate var animationStartTime: TimeInterval?
+    private var animationStartTime: TimeInterval?
     
     // MARK:- Properties: UI Elements
     

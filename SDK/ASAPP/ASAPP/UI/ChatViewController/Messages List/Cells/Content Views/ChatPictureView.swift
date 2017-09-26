@@ -29,7 +29,7 @@ class ChatPictureView: UIView {
 
     let imageView = FixedSizeImageView()
     
-    fileprivate var picture: ChatMessageImage? {
+    private var picture: ChatMessageImage? {
         return message?.attachment?.image
     }
     

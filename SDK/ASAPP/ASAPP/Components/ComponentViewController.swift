@@ -40,7 +40,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     weak var delegate: ComponentViewControllerDelegate?
     
-    fileprivate(set) var isLoading: Bool = false {
+    private(set) var isLoading: Bool = false {
         didSet {
             if isLoading {
                 emptyView.isHidden = true
@@ -55,7 +55,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
     }
     
-    fileprivate var rootView: ComponentView? {
+    private var rootView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             var mutableOldValue = oldValue
@@ -72,13 +72,13 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         }
     }
     
-    fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    fileprivate let emptyView = ComponentViewEmptyReloadView()
+    private let emptyView = ComponentViewEmptyReloadView()
     
-    fileprivate let viewName: String?
+    private let viewName: String?
     
-    fileprivate let viewData: [String: Any]?
+    private let viewData: [String: Any]?
     
     // MARK: Init
     

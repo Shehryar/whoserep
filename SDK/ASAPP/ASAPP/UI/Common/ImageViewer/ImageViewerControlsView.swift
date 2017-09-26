@@ -12,11 +12,11 @@ class ImageViewerControlsView: UIView {
 
     var onDismissButtonTap: (() -> Void)?
     
-    fileprivate let dismissButton = UIButton()
+    private let dismissButton = UIButton()
 
-    fileprivate let dismissButtonImageSize: CGFloat = 18
+    private let dismissButtonImageSize: CGFloat = 18
     
-    fileprivate let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+    private let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     
     // MARK: Init
     

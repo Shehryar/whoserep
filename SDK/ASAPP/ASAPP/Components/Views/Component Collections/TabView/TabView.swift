@@ -16,7 +16,7 @@ class TabView: BaseComponentView {
     
     // MARK: Properties
 
-    fileprivate(set) var pageViews: [ComponentView]? {
+    private(set) var pageViews: [ComponentView]? {
         didSet {
             // Remove old views
             if let oldPageViews = pageViews {

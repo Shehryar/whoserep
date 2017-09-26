@@ -24,29 +24,29 @@ class GlowingBallsLoadingView: UIView {
         }
     }
     
-    fileprivate(set) var isAnimating = false
+    private(set) var isAnimating = false
     
-    fileprivate var animationStartTime: TimeInterval = 0
+    private var animationStartTime: TimeInterval = 0
     
-    fileprivate let ballViews = [UIView(), UIView(), UIView()]
+    private let ballViews = [UIView(), UIView(), UIView()]
     
-    fileprivate let ballSize: CGFloat = 8
+    private let ballSize: CGFloat = 8
     
-    fileprivate let ballMargin: CGFloat = 6
+    private let ballMargin: CGFloat = 6
     
     // MARK: Animation Settings
     
-    fileprivate let alphaDefault: CGFloat = 0.5
+    private let alphaDefault: CGFloat = 0.5
     
-    fileprivate let alphaAnimating: CGFloat = 1.0
+    private let alphaAnimating: CGFloat = 1.0
     
-    fileprivate let transformAnimating = CGAffineTransform(scaleX: 1.1, y: 1.1)
+    private let transformAnimating = CGAffineTransform(scaleX: 1.1, y: 1.1)
     
-    fileprivate let animationDelayIncrement: TimeInterval = 0.2
+    private let animationDelayIncrement: TimeInterval = 0.2
     
-    fileprivate let animationDurationGrow: TimeInterval = 0.2
+    private let animationDurationGrow: TimeInterval = 0.2
 
-    fileprivate let animationDurationShrink: TimeInterval = 0.2
+    private let animationDurationShrink: TimeInterval = 0.2
     
     // MARK: Init
     

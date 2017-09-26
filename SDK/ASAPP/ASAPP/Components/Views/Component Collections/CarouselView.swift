@@ -12,13 +12,13 @@ class CarouselView: BaseComponentView {
 
     // MARK: Properties
     
-    fileprivate let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
     
-    fileprivate let pageControlView = PageControlView()
+    private let pageControlView = PageControlView()
     
-    fileprivate var touchPassThroughView: TouchPassThroughView!
+    private var touchPassThroughView: TouchPassThroughView!
     
-    fileprivate(set) var itemViews: [ComponentView]? {
+    private(set) var itemViews: [ComponentView]? {
         didSet {
             for subview in scrollView.subviews {
                 subview.removeFromSuperview()

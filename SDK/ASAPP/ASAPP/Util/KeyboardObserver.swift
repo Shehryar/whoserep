@@ -41,7 +41,7 @@ class KeyboardObserver: NSObject {
     
     // MARK: Private Methods
     
-    @objc fileprivate func keyboardWillAdjustFrame(_ sender: Notification) {
+    @objc private func keyboardWillAdjustFrame(_ sender: Notification) {
         guard let delegate = delegate, let userInfo = (sender as NSNotification).userInfo else {
             return
         }

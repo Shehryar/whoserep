@@ -49,29 +49,29 @@ class QuickRepliesActionSheet: UIView {
     
     // MARK: Private Properties
     
-    fileprivate let buttonSize: CGFloat = 46.0
+    private let buttonSize: CGFloat = 46.0
     
-    fileprivate let separatorTopStroke: CGFloat = 1.0
+    private let separatorTopStroke: CGFloat = 1.0
     
-    fileprivate var listViews = [QuickRepliesListView]()
+    private var listViews = [QuickRepliesListView]()
     
-    fileprivate var currentViewIndex = 0
+    private var currentViewIndex = 0
     
-    fileprivate var animating = false
+    private var animating = false
     
     // MARK: UI Properties
     
-    fileprivate let backButton = Button()
+    private let backButton = Button()
     
-    fileprivate let closeButton = Button()
+    private let closeButton = Button()
     
-    fileprivate let separatorTopView = UIView()
+    private let separatorTopView = UIView()
     
-    fileprivate let patternBackgroundView = UIView()
+    private let patternBackgroundView = UIView()
     
-    fileprivate let patternView = UIView()
+    private let patternView = UIView()
     
-    fileprivate let containerView = UIView()
+    private let containerView = UIView()
     
     // MARK: Initialization
     
@@ -218,7 +218,7 @@ extension QuickRepliesActionSheet {
 
 extension QuickRepliesActionSheet {
   
-    fileprivate func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
+    private func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
         let listView = QuickRepliesListView()
         listView.message = message
         listView.onQuickReplySelected = { [weak self] (quickReply) in
@@ -235,7 +235,7 @@ extension QuickRepliesActionSheet {
         return listView
     }
     
-    fileprivate func goToPreviousListView() {
+    private func goToPreviousListView() {
         if listViews.count > 1 && currentViewIndex > 0 {
             currentViewIndex -= 1
             

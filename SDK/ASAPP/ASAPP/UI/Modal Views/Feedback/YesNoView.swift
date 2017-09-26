@@ -9,16 +9,16 @@
 import UIKit
 
 class YesNoView: UIView {
-    fileprivate(set) var currentChoice: Bool?
+    private(set) var currentChoice: Bool?
     
-    fileprivate let contentInset = UIEdgeInsets.zero
-    fileprivate let buttonSpacing: CGFloat = 40
-    fileprivate let unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha:1)
-    fileprivate let yesColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
-    fileprivate let noColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
+    private let contentInset = UIEdgeInsets.zero
+    private let buttonSpacing: CGFloat = 40
+    private let unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha:1)
+    private let yesColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
+    private let noColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
     
-    fileprivate lazy var yesView = UIButton()
-    fileprivate lazy var noView = UIButton()
+    private lazy var yesView = UIButton()
+    private lazy var noView = UIButton()
     
     // MARK: Initialization
     

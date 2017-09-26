@@ -18,7 +18,7 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
         }
     }
     
-    fileprivate(set) var useCustomPresentation: Bool = false {
+    private(set) var useCustomPresentation: Bool = false {
         didSet {
             if useCustomPresentation {
                 isNavigationBarHidden = true

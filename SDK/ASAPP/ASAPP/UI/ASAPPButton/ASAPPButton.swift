@@ -20,33 +20,33 @@ public class ASAPPButton: UIView {
 
     // MARK:- Private Properties: UI
     
-    fileprivate enum ASAPPButtonState {
+    private enum ASAPPButtonState {
         case normal
         case highlighted
     }
     
-    fileprivate var currentState: ASAPPButtonState {
+    private var currentState: ASAPPButtonState {
         return isTouching ? .highlighted : .normal
     }
     
-    fileprivate let backgroundColors = [
+    private let backgroundColors = [
         ASAPPButtonState.normal: ASAPP.styles.colors.helpButtonBackground,
         ASAPPButtonState.highlighted: ASAPP.styles.colors.helpButtonBackground.highlightColor()
     ]
     
-    fileprivate let contentView = UIView()
+    private let contentView = UIView()
     
-    fileprivate let label = UILabel()
+    private let label = UILabel()
     
-    fileprivate var presentationAnimator: ButtonPresentationAnimator?
+    private var presentationAnimator: ButtonPresentationAnimator?
     
-    fileprivate var isTouching = false {
+    private var isTouching = false {
         didSet {
             updateDisplay()
         }
     }
     
-    fileprivate var isWaitingToAnimateIn = false
+    private var isWaitingToAnimateIn = false
     
     // MARK:- Initialization
     

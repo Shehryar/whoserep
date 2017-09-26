@@ -13,7 +13,7 @@ class FeedbackRatingView: UIView {
     let contentInset = UIEdgeInsets.zero
     let starSpacing: CGFloat = 18.0
     
-    fileprivate(set) var currentRating: Int?
+    private(set) var currentRating: Int?
     
     var maxRating: Int {
         return starViews.count

@@ -22,7 +22,7 @@ class Event: NSObject {
     let customerId: Int
     let repId: Int
     let eventFlags: Int
-    fileprivate let eventJSON: [String : Any]?
+    private let eventJSON: [String : Any]?
     
     // Client-Set
     

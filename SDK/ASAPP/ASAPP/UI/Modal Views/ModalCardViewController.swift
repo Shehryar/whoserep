@@ -37,8 +37,8 @@ class ModalCardViewController: UIViewController {
     
     var shouldHideContentWhenBackgrounded = false
     
-    fileprivate(set) var isLoading: Bool = false
-    fileprivate(set) var isShowingSuccessView: Bool = false
+    private(set) var isLoading: Bool = false
+    private(set) var isShowingSuccessView: Bool = false
     
     let errorView = ModalCardErrorView()
     let contentScrollView = UIScrollView()

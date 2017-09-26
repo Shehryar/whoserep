@@ -33,18 +33,18 @@ class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
     var inputHeight: CGFloat = 0
     let inputMaxHeight: CGFloat = 90
     var inputMinHeight: CGFloat = 45
-    fileprivate let ratingMarginBottom: CGFloat = 53
-    fileprivate let promptMarginBottom: CGFloat = 22
-    fileprivate let resolutionMarginBottom: CGFloat = 40
+    private let ratingMarginBottom: CGFloat = 53
+    private let promptMarginBottom: CGFloat = 22
+    private let resolutionMarginBottom: CGFloat = 40
     
     // MARK: UI
     
-    fileprivate let ratingView = FeedbackRatingView()
-    fileprivate let promptLabel = UILabel()
-    fileprivate let resolutionView = YesNoView()
+    private let ratingView = FeedbackRatingView()
+    private let promptLabel = UILabel()
+    private let resolutionView = YesNoView()
     let textView = UITextView()
-    fileprivate let bottomBorder = UIView()
-    fileprivate let textViewPlaceholder = UILabel()
+    private let bottomBorder = UIView()
+    private let textViewPlaceholder = UILabel()
     
     // MARK: Initialization
     

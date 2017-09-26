@@ -22,9 +22,9 @@ class ImageViewer: UIViewController {
     
     // MARK: Properties: Readonly
     
-    fileprivate(set) var images: [ImageViewerImage]
+    private(set) var images: [ImageViewerImage]
     
-    fileprivate(set) var initialIndex: Int
+    private(set) var initialIndex: Int
     
     var currentImage: ImageViewerImage? {
         return currentImageViewController()?.image
@@ -41,7 +41,7 @@ class ImageViewer: UIViewController {
         return 0
     }
     
-    fileprivate(set) var accessoryViewsHidden = false
+    private(set) var accessoryViewsHidden = false
     
     // MARK: Properties: Private
     
@@ -52,11 +52,11 @@ class ImageViewer: UIViewController {
         }
     }
     
-    fileprivate var transitionAnimator = ImageViewerTransitionAnimator()
+    private var transitionAnimator = ImageViewerTransitionAnimator()
     
-    fileprivate let controlsView = ImageViewerControlsView()
+    private let controlsView = ImageViewerControlsView()
     
-    fileprivate let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 10])
+    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 10])
     
     // MARK: Initialization
     

@@ -10,7 +10,7 @@ import UIKit
 
 class TableViewSectionHeaderView: UIView, ComponentView {
 
-    fileprivate(set) var componentView: ComponentView? {
+    private(set) var componentView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             

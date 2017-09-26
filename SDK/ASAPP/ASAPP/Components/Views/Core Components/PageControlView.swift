@@ -30,7 +30,7 @@ class PageControlView: BaseComponentView {
     
     // MARK: UI Properties
     
-    fileprivate let pageControl = UIPageControl()
+    private let pageControl = UIPageControl()
     
     // MARK: ComponentView Properties
     

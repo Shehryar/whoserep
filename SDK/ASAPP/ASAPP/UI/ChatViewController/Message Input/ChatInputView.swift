@@ -81,13 +81,13 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK: Properties: UI
 
-    fileprivate let borderTopView = UIView()
+    private let borderTopView = UIView()
     let textView = UITextView()
-    fileprivate let placeholderTextView = UITextView()
+    private let placeholderTextView = UITextView()
     
-    fileprivate let mediaButton = UIButton()
-    fileprivate let sendButton = UIButton()
-    fileprivate let buttonSeparator = VerticalGradientView()
+    private let mediaButton = UIButton()
+    private let sendButton = UIButton()
+    private let buttonSeparator = VerticalGradientView()
     
     // MARK:- Initialization
     
@@ -170,7 +170,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK:- Appearance
     
-    fileprivate func applyColors() {
+    private func applyColors() {
         backgroundColor = inputColors.background
         borderTopView.backgroundColor = inputColors.border
         

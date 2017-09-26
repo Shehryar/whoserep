@@ -10,7 +10,7 @@ import UIKit
 
 class ComponentMessagePreviewViewController: ASAPPViewController {
     
-    fileprivate(set) var classification: String?
+    private(set) var classification: String?
     
     func setMessage(_ message: ChatMessage, with classification: String) {
         self.classification = classification
@@ -19,9 +19,9 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     // MARK:- Private Properties
     
-    fileprivate let messagesView = ChatMessagesView()
+    private let messagesView = ChatMessagesView()
     
-    fileprivate let quickRepliesView = QuickRepliesActionSheet()
+    private let quickRepliesView = QuickRepliesActionSheet()
     
     public override var canBecomeFirstResponder: Bool {
         return true
@@ -102,13 +102,13 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     // MARK:- Refresh
     
-    fileprivate func clear() {
+    private func clear() {
         messagesView.reloadWithEvents([Event]())
         quickRepliesView.clear()
         updateFrames()
     }
     
-    fileprivate func addMessage(_ message: ChatMessage?) {
+    private func addMessage(_ message: ChatMessage?) {
         guard let message = message else {
             return
         }

@@ -18,7 +18,7 @@ class ImageViewerImageViewController: UIViewController {
 
     // MARK: Properties
     
-    fileprivate(set) var image: ImageViewerImage?
+    private(set) var image: ImageViewerImage?
     
     var zoomScale: CGFloat {
         return scrollView.zoomScale
@@ -30,9 +30,9 @@ class ImageViewerImageViewController: UIViewController {
     
     // MARK: Private Properties
     
-    fileprivate let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
     
-    fileprivate var zoomEnabled: Bool {
+    private var zoomEnabled: Bool {
         return imageView.image != nil
     }
     

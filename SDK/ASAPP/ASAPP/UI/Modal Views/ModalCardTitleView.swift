@@ -20,7 +20,7 @@ class ModalCardTitleView: UIView {
     let font = ASAPP.styles.textStyles.header2.font
     let textColor = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
     
-    fileprivate let label = UILabel()
+    private let label = UILabel()
     
     // MARK: Initialization
     

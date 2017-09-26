@@ -21,34 +21,34 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Storage
     
-    fileprivate private(set) var conversationManager: ConversationManager!
-    fileprivate var quickRepliesMessage: ChatMessage?
+    private private(set) var conversationManager: ConversationManager!
+    private var quickRepliesMessage: ChatMessage?
 
     // MARK: Properties: Views / UI
     
-    fileprivate var predictiveVC: PredictiveViewController!
-    fileprivate let predictiveNavController: UINavigationController!
-    fileprivate let chatMessagesView = ChatMessagesView()
-    fileprivate let chatInputView = ChatInputView()
-    fileprivate let connectionStatusView = ChatConnectionStatusView()
-    fileprivate let quickRepliesActionSheet = QuickRepliesActionSheet()
-    fileprivate var hapticFeedbackGenerator: Any?
+    private var predictiveVC: PredictiveViewController!
+    private let predictiveNavController: UINavigationController!
+    private let chatMessagesView = ChatMessagesView()
+    private let chatInputView = ChatInputView()
+    private let connectionStatusView = ChatConnectionStatusView()
+    private let quickRepliesActionSheet = QuickRepliesActionSheet()
+    private var hapticFeedbackGenerator: Any?
     
     // MARK: Properties: Status
     
     var showPredictiveOnViewAppear = true
-    fileprivate var connectedAtLeastOnce = false
-    fileprivate var isInitialLayout = true
-    fileprivate var didPresentPredictiveView = false
-    fileprivate var predictiveVCVisible = false
-    fileprivate var delayedDisconnectTime: Date?
-    fileprivate var segue: ASAPPSegue = .present
+    private var connectedAtLeastOnce = false
+    private var isInitialLayout = true
+    private var didPresentPredictiveView = false
+    private var predictiveVCVisible = false
+    private var delayedDisconnectTime: Date?
+    private var segue: ASAPPSegue = .present
     
     // MARK: Properties: Keyboard
     
-    fileprivate var keyboardObserver = KeyboardObserver()
-    fileprivate var keyboardOffset: CGFloat = 0
-    fileprivate var keyboardRenderedHeight: CGFloat = 0
+    private var keyboardObserver = KeyboardObserver()
+    private var keyboardOffset: CGFloat = 0
+    private var keyboardRenderedHeight: CGFloat = 0
 
     // MARK:- Initialization
     
@@ -166,7 +166,7 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Dynamic Properties
     
-    fileprivate var isLiveChat = false {
+    private var isLiveChat = false {
         didSet {
             if isLiveChat != oldValue {
                 DebugLog.d("Chat Mode Changed: \(isLiveChat ? "LIVE CHAT" : "SRS")")
@@ -183,13 +183,13 @@ class ChatViewController: ASAPPViewController {
         }
     }
     
-    fileprivate var connectionStatus: ChatConnectionStatus = .disconnected {
+    private var connectionStatus: ChatConnectionStatus = .disconnected {
         didSet {
             connectionStatusView.status = connectionStatus
         }
     }
     
-    fileprivate var shouldShowConnectionStatusView: Bool {
+    private var shouldShowConnectionStatusView: Bool {
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
                 return true

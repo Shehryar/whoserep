@@ -10,12 +10,12 @@ import UIKit
 
 class ChatMessageCellHeightCache: NSObject {
 
-    fileprivate struct CachedHeight {
+    private struct CachedHeight {
         let height: CGFloat
         let messagePosition: MessageListPosition
     }
     
-    fileprivate var cache = [ChatMessage: CachedHeight]()
+    private var cache = [ChatMessage: CachedHeight]()
 }
 
 // MARK:- Public API

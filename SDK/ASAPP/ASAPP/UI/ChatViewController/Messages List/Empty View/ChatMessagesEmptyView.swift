@@ -26,11 +26,11 @@ class ChatMessagesEmptyView: UIView {
     
     // MARK: Private Properties
     
-    fileprivate let titleLabel = UILabel()
+    private let titleLabel = UILabel()
     
-    fileprivate let messageLabel = UILabel()
+    private let messageLabel = UILabel()
     
-    fileprivate let titleMarginBottom: CGFloat = 10.0
+    private let titleMarginBottom: CGFloat = 10.0
         
     // MARK: Init
     

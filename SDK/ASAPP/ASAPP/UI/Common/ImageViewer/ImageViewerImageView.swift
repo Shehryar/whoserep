@@ -27,11 +27,11 @@ class ImageViewerImageView: UIView {
         }
     }
     
-    fileprivate(set) var imageURL: URL?
+    private(set) var imageURL: URL?
     
-    fileprivate let imageView = UIImageView()
+    private let imageView = UIImageView()
     
-    fileprivate let spinner = UIActivityIndicatorView()
+    private let spinner = UIActivityIndicatorView()
     
     // MARK: Init
     
@@ -133,7 +133,7 @@ extension ImageViewerImageView {
 typealias ImageViewImageDownloadCompletion = ((_ image: UIImage?, _ imageURL: URL, _ error: Error?) -> Void)
 
 extension ImageViewerImageView {
-    fileprivate func _setImage(_ image: UIImage?) {
+    private func _setImage(_ image: UIImage?) {
         imageView.image = image
         updateImageViewFrame()
     }

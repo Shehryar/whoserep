@@ -21,7 +21,7 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
-    fileprivate let LOG_ANALYTICS_EVENTS_VERBOSE = false
+    private let LOG_ANALYTICS_EVENTS_VERBOSE = false
     
     // MARK: Public Properties
     
@@ -38,25 +38,25 @@ class SocketConnection: NSObject {
     
     // MARK: Private Properties
     
-    fileprivate var isAuthenticated = false
+    private var isAuthenticated = false
     
-    fileprivate var connectionRequest: URLRequest
+    private var connectionRequest: URLRequest
     
-    fileprivate var socket: SRWebSocket?
+    private var socket: SRWebSocket?
     
-    fileprivate var outgoingMessageSerializer: OutgoingMessageSerializer
+    private var outgoingMessageSerializer: OutgoingMessageSerializer
     
-    fileprivate var incomingMessageSerializer = IncomingMessageSerializer()
+    private var incomingMessageSerializer = IncomingMessageSerializer()
     
-    fileprivate var requestQueue = [SocketRequest]()
+    private var requestQueue = [SocketRequest]()
     
-    fileprivate var requestHandlers = [Int: IncomingMessageHandler]()
+    private var requestHandlers = [Int: IncomingMessageHandler]()
     
-    fileprivate var requestSendTimes = [Int: TimeInterval]()
+    private var requestSendTimes = [Int: TimeInterval]()
     
-    fileprivate var requestLookup = [Int: SocketRequest]()
+    private var requestLookup = [Int: SocketRequest]()
     
-    fileprivate var didManuallyDisconnect = false
+    private var didManuallyDisconnect = false
     
     // MARK: Initialization
     
@@ -162,7 +162,7 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    fileprivate func sendAuthRequest(withPath path: String,
+    private func sendAuthRequest(withPath path: String,
                                      params: [String: Any]?,
                                      requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: nil)
@@ -183,7 +183,7 @@ extension SocketConnection {
         sendRequestWithRequest(request)
     }
     
-    fileprivate func sendRequestWithRequest(_ request: SocketRequest, isAuthRequest: Bool = false) {
+    private func sendRequestWithRequest(_ request: SocketRequest, isAuthRequest: Bool = false) {
         if isConnected {
             guard isAuthRequest || isAuthenticated else {
                 DebugLog.d("User not authenticated. Queueing request: \(request.path)")

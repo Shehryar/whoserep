@@ -147,23 +147,23 @@ class Button: UIView {
     
     // MARK: Private Properties
     
-    fileprivate let contentView = UIView()
+    private let contentView = UIView()
     
-    fileprivate let label = UILabel()
+    private let label = UILabel()
     
-    fileprivate let imageView = UIImageView()
+    private let imageView = UIImageView()
     
-    fileprivate let foregroundImageView = UIImageView()
+    private let foregroundImageView = UIImageView()
     
-    fileprivate var isTouching = false {
+    private var isTouching = false {
         didSet {
             updateButtonDisplay()
         }
     }
     
-    fileprivate var backgroundColors = [ButtonState: UIColor]()
+    private var backgroundColors = [ButtonState: UIColor]()
     
-    fileprivate var foregroundColors: [ButtonState: UIColor] = [
+    private var foregroundColors: [ButtonState: UIColor] = [
         .normal: UIColor(red: 0.226, green: 0.605, blue: 0.852, alpha: 1),
         .highlighted: UIColor(red: 0.226, green: 0.605, blue: 0.852, alpha: 1)
     ]
