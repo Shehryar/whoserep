@@ -49,7 +49,7 @@ extension ChatViewController {
     }
     
     func presentCameraIfAuthorized() {
-        CameraPermsissions.isAuthorized { [weak self] (authorized) in
+        CameraPermissions.isAuthorized { [weak self] (authorized) in
             Dispatcher.performOnMainThread {
                 if authorized {
                     self?.presentCamera()
@@ -112,7 +112,7 @@ extension ChatViewController {
     }
 }
 
-class CameraPermsissions {
+class CameraPermissions {
     
     class func isAuthorized(_ completion: @escaping (Bool) -> Void) {
         let mediaType = AVMediaTypeVideo
