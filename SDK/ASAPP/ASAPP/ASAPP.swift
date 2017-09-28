@@ -21,6 +21,8 @@ public class ASAPP: NSObject {
     
     public static var strings: ASAPPStrings = ASAPPStrings()
     
+    public static var views: ASAPPViews = ASAPPViews()
+    
     public static var debugLogLevel: ASAPPLogLevel = .errors
     
     // MARK:- Initialization

@@ -220,6 +220,7 @@ extension HomeViewController {
 
         ASAPP.styles = AppSettings.shared.branding.styles
         ASAPP.strings = AppSettings.shared.branding.strings
+        ASAPP.views = AppSettings.shared.branding.views
         
         chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
                                             presentingViewController: self)

@@ -346,7 +346,9 @@ class ChatViewController: ASAPPViewController {
 
 extension ChatViewController {
     @objc func updateDisplay() {
-        if let titleText = ASAPP.strings.chatTitle {
+        if let titleView = ASAPP.views.chatTitle {
+            navigationItem.titleView = titleView
+        } else if let titleText = ASAPP.strings.chatTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText)
         } else {
             navigationItem.titleView = nil

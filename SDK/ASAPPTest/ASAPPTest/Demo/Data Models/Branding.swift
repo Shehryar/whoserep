@@ -11,7 +11,7 @@ import ASAPP
 
 enum BrandingType: String {
     case asapp
-    case xfinity
+    case xfinity = "comcast"
     case boost
     
     static let all = [
@@ -50,6 +50,8 @@ class Branding: NSObject {
     
     let strings: ASAPPStrings
     
+    let views: ASAPPViews
+    
     // MARK:- Init
     
     required init(brandingType: BrandingType) {
@@ -59,15 +61,17 @@ class Branding: NSObject {
         colors = BrandingColors(brandingType: brandingType)
         fonts = BrandingFonts(brandingType: brandingType)
         strings = ASAPPStrings()
+        styles = ASAPPStyles.stylesForAppId(brandingType.rawValue)
+        views = ASAPPViews()
         
-        switch self.brandingType {
+        super.init()
+        
+        switch brandingType {
         case .asapp:
-            styles = ASAPPStyles.stylesForAppId("asapp")
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 100, height: 22)
-            
+            views.chatTitle = asappTitle
         case .xfinity:
-            self.styles = ASAPPStyles.stylesForAppId("comcast")
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 140, height: 28)
             strings.chatTitle = "XFINITY Assistant"
@@ -76,19 +80,37 @@ class Branding: NSObject {
             strings.chatEmptyMessage = "Tap 'Ask' to get started."
             strings.chatAskNavBarButton = "Ask"
             strings.chatEndChatNavBarButton = "End Chat"
-            
         case .boost:
-            self.styles = ASAPPStyles.stylesForAppId("boost")
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 140, height: 32)
         }
-        super.init()
+    }
+    
+    private var asappTitle: UIView {
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        
+        let text = UILabel()
+        text.text = "Help"
+        text.font = fonts.regularFont.withSize(22)
+        text.textColor = colors.navBarTitleColor
+        let textSize = text.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: 44.0))
+        
+        let spacing: CGFloat = 5
+        
+        let logo = UIImageView(image: #imageLiteral(resourceName: "asapp-logo"))
+        var logoFrame = CGRect(x: 0, y: 7, width: 87.6, height: 16.8)
+        logoFrame.origin.x = (logoFrame.size.width + spacing + textSize.width) / -2
+        logo.frame = logoFrame
+        
+        text.frame = CGRect(origin: CGPoint(x: logo.frame.maxX + spacing, y: 2), size: textSize)
+        
+        container.addSubview(logo)
+        container.addSubview(text)
+        container.sizeToFit()
+        
+        return container
     }
 }
-
-/**
- Branding Colors
- */
 
 class BrandingColors: NSObject {
     
@@ -148,10 +170,6 @@ class BrandingColors: NSObject {
         }
     }
 }
-
-/**
- Branding Fonts
- */
 
 class BrandingFonts: NSObject {
     

@@ -145,7 +145,9 @@ class PredictiveViewController: UIViewController {
     // MARK: Display
     
     @objc func updateDisplay() {
-        if let titleText = ASAPP.strings.predictiveTitle {
+        if let titleView = ASAPP.views.predictiveTitle {
+            navigationItem.titleView = titleView
+        } else if let titleText = ASAPP.strings.predictiveTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText, color: ASAPP.styles.colors.predictiveNavBarTitle)
         } else {
             navigationItem.titleView = nil
