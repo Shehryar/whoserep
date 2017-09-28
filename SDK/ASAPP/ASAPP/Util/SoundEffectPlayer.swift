@@ -58,13 +58,7 @@ class SoundEffectPlayer: NSObject {
     
     func playSound(_ sound: Sound) {
         if let soundId = getSystemSoundId(for: sound) {
-            if #available(iOS 9.0, *) {
-                AudioServicesPlaySystemSoundWithCompletion(soundId, {
-                    
-                })
-            } else {
-                AudioServicesPlaySystemSound(soundId)
-            }
+            AudioServicesPlaySystemSoundWithCompletion(soundId, {})
         } else {
             DebugLog.e("Unable to play sound: \(sound)")
         }

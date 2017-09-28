@@ -114,9 +114,7 @@ class ChatTextBubbleView: UIView {
         label.textContainerInset = textInset
         label.textContainer.lineFragmentPadding = 0.0
         label.backgroundColor = UIColor.clear
-        if #available(iOS 9.0, *) {
-            label.dataDetectorTypes = dataDetectorTypes
-        }
+        label.dataDetectorTypes = dataDetectorTypes
         bubbleView.addSubview(label)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextBubbleView.longPressGestureAction(_:)))
@@ -245,10 +243,6 @@ extension ChatTextBubbleView {
 extension ChatTextBubbleView {
     
     func textHasDataDetectorLink(_ text: String?) -> Bool {
-        guard #available(iOS 9.0, *) else {
-            return false
-        }
-        
         guard let text = text, text.characters.count > 0 else {
             return false
         }
