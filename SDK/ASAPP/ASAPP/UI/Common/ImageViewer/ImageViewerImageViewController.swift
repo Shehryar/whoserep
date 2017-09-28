@@ -18,7 +18,7 @@ class ImageViewerImageViewController: UIViewController {
 
     // MARK: Properties
     
-    fileprivate(set) var image: ImageViewerImage?
+    private(set) var image: ImageViewerImage?
     
     var zoomScale: CGFloat {
         return scrollView.zoomScale
@@ -30,9 +30,9 @@ class ImageViewerImageViewController: UIViewController {
     
     // MARK: Private Properties
     
-    fileprivate let scrollView = UIScrollView()
+    private let scrollView = UIScrollView()
     
-    fileprivate var zoomEnabled: Bool {
+    private var zoomEnabled: Bool {
         return imageView.image != nil
     }
     
@@ -125,7 +125,7 @@ extension ImageViewerImageViewController {
 // MARK:- Actions
 
 extension ImageViewerImageViewController {
-    func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
+    @objc func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
         guard zoomEnabled else { return }
         
         if scrollView.zoomScale > scrollView.minimumZoomScale {
@@ -137,7 +137,7 @@ extension ImageViewerImageViewController {
         }
     }
     
-    func didSingleTap(_ tapGesture: UITapGestureRecognizer) {
+    @objc func didSingleTap(_ tapGesture: UITapGestureRecognizer) {
         if scrollView.zoomScale != 1 {
             resetZoomScaleAnimated(true)
         } else {

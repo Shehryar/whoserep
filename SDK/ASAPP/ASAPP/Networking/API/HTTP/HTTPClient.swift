@@ -57,7 +57,7 @@ class HTTPClient: NSObject {
 
 extension HTTPClient {
     
-    fileprivate func makeRequestURL(method: HTTPMethod, url: URL, params: [String : Any]?) -> URL? {
+    private func makeRequestURL(method: HTTPMethod, url: URL, params: [String : Any]?) -> URL? {
         var urlComponents = URLComponents(string: url.absoluteString)
         if [HTTPMethod.GET].contains(method), let params = params {
             var queryItems = urlComponents?.queryItems ?? [URLQueryItem]()

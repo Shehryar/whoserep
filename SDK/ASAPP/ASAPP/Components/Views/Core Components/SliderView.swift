@@ -155,7 +155,7 @@ class SliderView: BaseComponentView {
         setNeedsLayout()
     }
     
-    func onValueChange() {
+    @objc func onValueChange() {
         component?.value = getCurrentValue()
         updateLabelText()
     }

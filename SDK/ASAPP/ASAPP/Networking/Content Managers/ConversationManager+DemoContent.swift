@@ -30,9 +30,7 @@ extension ConversationManager {
         
         socketConnection.sendRequest(
             withPath: "srs/Echo",
-            params: ["Echo": editedString as AnyObject]) { _ in
-            // no-op
-        }
+            params: ["Echo": editedString as AnyObject])
     }
     
     // MARK: Generic

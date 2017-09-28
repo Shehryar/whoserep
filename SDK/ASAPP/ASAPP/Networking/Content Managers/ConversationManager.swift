@@ -37,15 +37,15 @@ class ConversationManager: NSObject {
         return socketConnection.isConnected
     }
     
-    fileprivate let simpleStore: ChatSimpleStore
+    private let simpleStore: ChatSimpleStore
     
-    fileprivate(set) var events: [Event]
+    private(set) var events: [Event]
     
-    fileprivate(set) var isLiveChat: Bool
+    private(set) var isLiveChat: Bool
     
-    fileprivate var conversantBeganTypingTime: TimeInterval?
+    private var conversantBeganTypingTime: TimeInterval?
     
-    fileprivate var timer: Timer?
+    private var timer: Timer?
     
     // MARK: Private Properties
     
@@ -96,7 +96,7 @@ extension ConversationManager {
         return isConnected
     }
     
-    func checkForTypingStatusChange() {
+    @objc func checkForTypingStatusChange() {
         guard let conversantBeganTypingTime = conversantBeganTypingTime else {
             return
         }

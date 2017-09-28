@@ -136,7 +136,7 @@ extension UseCasePreviewAPI {
     
     // MARK: Making a Params Object
     
-    fileprivate class func makeQueryItems(from params: [String : String]) -> [URLQueryItem] {
+    private class func makeQueryItems(from params: [String : String]) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         for (name, value) in params {
             queryItems.append(URLQueryItem(name: name, value: value))
@@ -146,9 +146,9 @@ extension UseCasePreviewAPI {
     
     // MARK: Creating a Request
     
-    fileprivate static let HOST = "http://localhost:9000"
+    private static let HOST = "http://localhost:9000"
     
-    fileprivate class func makeGETRequest(host: String? = nil, path: String, params: [String : String]? = nil) -> URLRequest {
+    private class func makeGETRequest(host: String? = nil, path: String, params: [String : String]? = nil) -> URLRequest {
         
         let apiHost = host ?? HOST
         var urlComponents = URLComponents(string: "\(apiHost)\(path)")
@@ -166,10 +166,10 @@ extension UseCasePreviewAPI {
     
     typealias RequestCompletion = (Data?, URLResponse?, Int, Error?) -> Void
     
-    fileprivate class func sendGETRequest(host: String? = nil,
-                                          path: String,
-                                          params: [String : String]? = nil,
-                                          completion: @escaping RequestCompletion) {
+    private class func sendGETRequest(host: String? = nil,
+                                      path: String,
+                                      params: [String : String]? = nil,
+                                      completion: @escaping RequestCompletion) {
         
         let request = makeGETRequest(host: host, path: path, params: params)
         
@@ -185,7 +185,7 @@ extension UseCasePreviewAPI {
     
     // MARK: Parsing a response
     
-    fileprivate class func getJSON(from data: Data?) -> [String: Any]? {
+    private class func getJSON(from data: Data?) -> [String: Any]? {
         guard let data = data else {
             return nil
         }
@@ -198,7 +198,7 @@ extension UseCasePreviewAPI {
         return json
     }
     
-    fileprivate class func getJSONArray(from data: Data?) -> [Any]? {
+    private class func getJSONArray(from data: Data?) -> [Any]? {
         guard let data = data else {
             return nil
         }
@@ -213,11 +213,11 @@ extension UseCasePreviewAPI {
     
     // MARK: Request Logging
     
-    fileprivate class func logRequest(request: URLRequest) {
+    private class func logRequest(request: URLRequest) {
         DebugLog.d("\nSending Get Request: \(request.url?.absoluteString ?? "Ooops")")
     }
     
-    fileprivate class func logResponse(response: URLResponse?, data: Data?, error: Error?, request: URLRequest) {
+    private class func logResponse(response: URLResponse?, data: Data?, error: Error?, request: URLRequest) {
         
         var code: Int?
         if let response = response as? HTTPURLResponse {

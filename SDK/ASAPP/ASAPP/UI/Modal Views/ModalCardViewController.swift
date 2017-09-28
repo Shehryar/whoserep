@@ -37,8 +37,8 @@ class ModalCardViewController: UIViewController {
     
     var shouldHideContentWhenBackgrounded = false
     
-    fileprivate(set) var isLoading: Bool = false
-    fileprivate(set) var isShowingSuccessView: Bool = false
+    private(set) var isLoading: Bool = false
+    private(set) var isShowingSuccessView: Bool = false
     
     let errorView = ModalCardErrorView()
     let contentScrollView = UIScrollView()
@@ -189,7 +189,7 @@ extension ModalCardViewController: ResizableModalCardViewController {
     
     // MARK: Public API
     
-    func updateFrames() {
+    @objc func updateFrames() {
         
         // Error View
         let errorHeight = getErrorViewHeight(for: view.bounds.size)
@@ -251,13 +251,13 @@ extension ModalCardViewController: ResizableModalCardViewController {
 
 extension ModalCardViewController {
     
-    func hideContentWhileBackgrounded() {
+    @objc func hideContentWhileBackgrounded() {
         if shouldHideContentWhenBackgrounded {
             contentView?.alpha = 0.0
         }
     }
     
-    func showContent() {
+    @objc func showContent() {
         if !isShowingSuccessView {
             contentView?.alpha = 1.0
         }

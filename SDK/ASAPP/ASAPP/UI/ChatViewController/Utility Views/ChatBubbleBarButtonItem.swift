@@ -104,14 +104,14 @@ extension UIBarButtonItem {
             button = UIButton()
             
             button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: font,
-                NSForegroundColorAttributeName: textColor,
-                NSKernAttributeName: ASAPP.styles.textStyles.navButton.letterSpacing
+                .font: font,
+                .foregroundColor: textColor,
+                .kern: ASAPP.styles.textStyles.navButton.letterSpacing
             ]), for: .normal)
             button.setAttributedTitle(NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: font,
-                NSForegroundColorAttributeName: textColor.withAlphaComponent(0.6),
-                NSKernAttributeName: ASAPP.styles.textStyles.navButton.letterSpacing
+                .font: font,
+                .foregroundColor: textColor.withAlphaComponent(0.6),
+                .kern: ASAPP.styles.textStyles.navButton.letterSpacing
             ]), for: .highlighted)
             
             if let titleLabel = button.titleLabel {

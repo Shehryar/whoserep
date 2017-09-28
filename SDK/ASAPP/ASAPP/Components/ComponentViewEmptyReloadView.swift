@@ -92,11 +92,11 @@ class ComponentViewEmptyReloadView: UIView {
     
     // MARK:- Actions
     
-    func didTapReloadButton() {
+    @objc func didTapReloadButton() {
         onReloadButtonTap?()
     }
     
-    func didTapCloseButton() {
+    @objc func didTapCloseButton() {
         onCloseButtonTap?()
     }
 }

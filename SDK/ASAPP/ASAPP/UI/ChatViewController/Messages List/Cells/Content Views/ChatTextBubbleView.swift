@@ -39,8 +39,8 @@ class ChatTextBubbleView: UIView {
                 let fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
-                    NSForegroundColorAttributeName: ASAPP.styles.colors.replyMessageText,
-                    NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue
+                    NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.replyMessageText,
+                    NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
                 bubbleView.fillColor = fillColor
@@ -49,8 +49,8 @@ class ChatTextBubbleView: UIView {
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
-                    NSForegroundColorAttributeName: ASAPP.styles.colors.messageText,
-                    NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue
+                    NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.messageText,
+                    NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
@@ -268,7 +268,7 @@ extension ChatTextBubbleView {
         return false
     }
     
-    func longPressGestureAction(_ gesture: UILongPressGestureRecognizer) {
+    @objc func longPressGestureAction(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             isLongPressing = true
             showCopyMenu()

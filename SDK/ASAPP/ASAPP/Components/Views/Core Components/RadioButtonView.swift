@@ -41,7 +41,7 @@ class RadioButtonView: RootComponentWrapperView {
     
     // Actions
     
-    func didTap() {
+    @objc func didTap() {
         onTap?()
     }
     

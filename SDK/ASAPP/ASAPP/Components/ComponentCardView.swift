@@ -37,7 +37,7 @@ class ComponentCardView: UIView {
         }
     }
     
-    fileprivate(set) var componentView: ComponentView? {
+    private(set) var componentView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             

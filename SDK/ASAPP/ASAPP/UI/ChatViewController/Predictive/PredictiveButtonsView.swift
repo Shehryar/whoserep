@@ -12,7 +12,7 @@ class PredictiveButtonsView: UIView {
 
     var onButtonTap: ((_ buttonTitle: String, _ isFromPrediction: Bool) -> Void)?
     
-    fileprivate(set) var buttonTitles: [String]?
+    private(set) var buttonTitles: [String]?
     
     var expanded: Bool = true {
         didSet {
@@ -20,23 +20,23 @@ class PredictiveButtonsView: UIView {
         }
     }
     
-    fileprivate var waitingToAnimateIn = false
+    private var waitingToAnimateIn = false
     
-    fileprivate var relatedButtons = [Button]()
+    private var relatedButtons = [Button]()
     
-    fileprivate let otherLabel = UILabel()
+    private let otherLabel = UILabel()
     
-    fileprivate var otherButtons = [Button]()
+    private var otherButtons = [Button]()
     
-    fileprivate let otherLabelMarginTop: CGFloat = 25
+    private let otherLabelMarginTop: CGFloat = 25
     
-    fileprivate let otherLabelMarginBottom: CGFloat = 15
+    private let otherLabelMarginBottom: CGFloat = 15
     
-    fileprivate let buttonSpacing: CGFloat = 15
+    private let buttonSpacing: CGFloat = 15
     
-    fileprivate var animating = false
+    private var animating = false
     
-    fileprivate var shouldDisplayOtherLabel: Bool {
+    private var shouldDisplayOtherLabel: Bool {
         return relatedButtons.count > 0 && otherButtons.count > 0 && expanded
     }
     

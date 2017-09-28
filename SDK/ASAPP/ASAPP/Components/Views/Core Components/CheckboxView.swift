@@ -37,7 +37,7 @@ class CheckboxView: RootComponentWrapperView {
     
     // Actions
     
-    func didTap() {
+    @objc func didTap() {
         component?.isChecked = !isChecked
         
         updateCheckbox()

@@ -25,9 +25,9 @@ class QuickRepliesListView: UIView {
         }
     }
     
-    fileprivate(set) var selectedQuickReply: QuickReply?
+    private(set) var selectedQuickReply: QuickReply?
     
-    fileprivate(set) var quickReplies: [QuickReply]? {
+    private(set) var quickReplies: [QuickReply]? {
         didSet {
             selectionDisabled = false
             tableView.reloadData()
@@ -36,13 +36,13 @@ class QuickRepliesListView: UIView {
         }
     }
     
-    fileprivate let tableView = UITableView(frame: CGRect.zero, style: .plain)
+    private let tableView = UITableView(frame: CGRect.zero, style: .plain)
     
-    fileprivate let cellReuseId = "CellReuseId"
+    private let cellReuseId = "CellReuseId"
     
-    fileprivate let replySizingCell = QuickReplyCell()
+    private let replySizingCell = QuickReplyCell()
     
-    fileprivate let gradientView = VerticalGradientView()
+    private let gradientView = VerticalGradientView()
     
     // MARK: Initialization
     
@@ -228,7 +228,7 @@ extension QuickRepliesListView: UITableViewDelegate {
         }
     }
     
-    fileprivate func updateCellsAnimated(animated: Bool) {
+    private func updateCellsAnimated(animated: Bool) {
         func updateBlock() {
             for cell in tableView.visibleCells {
                 if let cell = cell as? QuickReplyCell,

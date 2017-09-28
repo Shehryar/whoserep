@@ -73,7 +73,7 @@ public class RefreshableTableViewController: ASAPPViewController {
     
     // MARK: Content
     
-    func refresh() {
+    @objc func refresh() {
         // Subclass should override
     }
     

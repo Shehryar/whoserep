@@ -129,7 +129,7 @@ extension ASAPPViewController {
 
 extension ASAPPViewController {
     
-    func hideViewContents() {
+    @objc func hideViewContents() {
         guard hideViewContentsWhileBackgrounded else {
             return
         }
@@ -141,7 +141,7 @@ extension ASAPPViewController {
         }
     }
     
-    func showViewContents() {
+    @objc func showViewContents() {
         backgroundedViewCover.removeFromSuperview()
     }
 }

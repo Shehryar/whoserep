@@ -14,7 +14,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     var json: [String : Any]?
     
-    fileprivate(set) var classification: String?
+    private(set) var classification: String?
     
     func setComponentViewContainer(_ viewContainer: ComponentViewContainer, with classification: String) {
         self.componentViewContainer = viewContainer
@@ -24,7 +24,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     // MARK: Private Properties
     
-    fileprivate(set) var contentView: UIView? {
+    private(set) var contentView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
             
@@ -43,9 +43,9 @@ public class ComponentPreviewViewController: ASAPPViewController {
         return nil
     }
     
-    fileprivate let controlsBar = UIToolbar()
+    private let controlsBar = UIToolbar()
     
-    fileprivate let contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private let contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     // MARK: Properties: First Responder
     
@@ -163,7 +163,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         view.setNeedsLayout()
     }
     
-    func refresh() {
+    @objc func refresh() {
         becomeFirstResponder()
         
         guard let classification = classification else {
@@ -180,7 +180,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         })
     }
     
-    func start() {
+    @objc func start() {
         guard let componentViewContainer = componentViewContainer else {
             return
         }

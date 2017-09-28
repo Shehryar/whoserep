@@ -14,21 +14,21 @@ class ButtonPresentationAnimator: NSObject {
     
     // MARK: Properties: Context
     
-    fileprivate var isPresenting: Bool = false
-    fileprivate weak var presentingViewController: UIViewController?
-    fileprivate weak var presentingView: UIView?
-    fileprivate weak var presentedViewController: UIViewController?
-    fileprivate weak var presentedView: UIView?
-    fileprivate weak var containerView: UIView?
-    fileprivate weak var transitionContext: UIViewControllerContextTransitioning?
+    private var isPresenting: Bool = false
+    private weak var presentingViewController: UIViewController?
+    private weak var presentingView: UIView?
+    private weak var presentedViewController: UIViewController?
+    private weak var presentedView: UIView?
+    private weak var containerView: UIView?
+    private weak var transitionContext: UIViewControllerContextTransitioning?
     
     // MARK: Properties: Internal
 
-    fileprivate var circleMaskLayer = CAShapeLayer()
-    fileprivate var expansionPoint: CGPoint?
+    private var circleMaskLayer = CAShapeLayer()
+    private var expansionPoint: CGPoint?
     
-    fileprivate let ANIMATION_KEY_EXPAND = "expand_path"
-    fileprivate let ANIMATION_KEY_COLLAPSE = "collapse_path"
+    private let ANIMATION_KEY_EXPAND = "expand_path"
+    private let ANIMATION_KEY_COLLAPSE = "collapse_path"
     
     // MARK:- Initialization
     

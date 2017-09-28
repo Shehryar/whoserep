@@ -23,7 +23,7 @@ class ButtonView: UIButton, ComponentView {
         }
     }
     
-    fileprivate let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     // MARK: ComponentView Properties
     
@@ -189,7 +189,7 @@ class ButtonView: UIButton, ComponentView {
     
     // MARK: Action
     
-    func onTap() {
+    @objc func onTap() {
         if let buttonItem = buttonItem {
             interactionHandler?.didTapButtonView(self, with: buttonItem)
         }

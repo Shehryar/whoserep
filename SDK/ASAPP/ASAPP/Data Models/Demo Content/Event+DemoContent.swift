@@ -125,7 +125,7 @@ extension Event {
 
 extension Event {
     
-    fileprivate class func jsonFileName(forEventType eventType: DemoEventType) -> String {
+    private class func jsonFileName(forEventType eventType: DemoEventType) -> String {
         switch eventType {
         case .billAutoPay: return "bill-autopay-scheduled"
         case .billCredit: return "bill-credit"
@@ -206,7 +206,7 @@ extension Event {
         return nil
     }
     
-    fileprivate class func triggeringSubstringSet(demoEventType: DemoEventType) -> [[String]]? {
+    private class func triggeringSubstringSet(demoEventType: DemoEventType) -> [[String]]? {
         switch demoEventType {
         case .chatFlowPayBill:
             return [

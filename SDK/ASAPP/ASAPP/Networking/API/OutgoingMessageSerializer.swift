@@ -14,7 +14,7 @@ class OutgoingMessageSerializer: NSObject {
     
     let config: ASAPPConfig
     let user: ASAPPUser
-    fileprivate(set) var userLoginAction: UserLoginAction?
+    private(set) var userLoginAction: UserLoginAction?
     
     var myId: Int = 0
     var issueId: Int = 0
@@ -23,7 +23,7 @@ class OutgoingMessageSerializer: NSObject {
     
     // MARK: Private Properties
     
-    fileprivate var currentRequestId = 1
+    private var currentRequestId = 1
 
     // MARK: Init 
     
@@ -154,16 +154,16 @@ extension OutgoingMessageSerializer {
 
 extension OutgoingMessageSerializer {
     
-    fileprivate func getNextRequestId() -> Int {
+    private func getNextRequestId() -> Int {
         currentRequestId += 1
         return currentRequestId
     }
     
-    fileprivate func requestWithPathIsCustomerEndpoint(_ path: String) -> Bool {
+    private func requestWithPathIsCustomerEndpoint(_ path: String) -> Bool {
         return path.hasPrefix("customer/")
     }
     
-    fileprivate func contextForRequest(withPath path: String) -> [String : Any] {
+    private func contextForRequest(withPath path: String) -> [String : Any] {
         var context = [ "CompanyId": customerTargetCompanyId ]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {

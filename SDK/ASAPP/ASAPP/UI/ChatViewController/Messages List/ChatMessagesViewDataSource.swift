@@ -12,11 +12,11 @@ class ChatMessagesViewDataSource: NSObject {
 
     // MARK: Properties
     
-    fileprivate let secondsBetweenSections: TimeInterval = (4 * 60)
+    private let secondsBetweenSections: TimeInterval = (4 * 60)
     
-    fileprivate(set) var allMessages = [ChatMessage]()
+    private(set) var allMessages = [ChatMessage]()
     
-    fileprivate var sections = [[ChatMessage]]()
+    private var sections = [[ChatMessage]]()
 }
 
 // MARK:- Accessing Content
@@ -88,7 +88,7 @@ extension ChatMessagesViewDataSource {
     
     // MARK: Private
     
-    fileprivate func getIndex(of message: ChatMessage?) -> Int? {
+    private func getIndex(of message: ChatMessage?) -> Int? {
         guard let message = message else {
             return nil
         }

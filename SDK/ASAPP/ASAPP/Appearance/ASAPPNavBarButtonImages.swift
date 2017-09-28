@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc
+@objcMembers
 public class ASAPPNavBarButtonImages: NSObject {
     
     // MARK: Properties

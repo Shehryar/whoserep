@@ -23,15 +23,15 @@ class ChatMessagesViewCellMaster: NSObject {
     
     // MARK: Private Properties
     
-    fileprivate let dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
-    fileprivate let cellHeightCache = ChatMessageCellHeightCache()
+    private let cellHeightCache = ChatMessageCellHeightCache()
     
-    fileprivate var timeHeaderHeightCache = [Date: CGFloat]()
+    private var timeHeaderHeightCache = [Date: CGFloat]()
     
-    fileprivate var cachedTypingIndicatorCellHeight: CGFloat?
+    private var cachedTypingIndicatorCellHeight: CGFloat?
     
-    fileprivate var cachedTableViewWidth: CGFloat = 0.0 {
+    private var cachedTableViewWidth: CGFloat = 0.0 {
         didSet {
             if oldValue != cachedTableViewWidth {
                 clearCache()
@@ -41,16 +41,16 @@ class ChatMessagesViewCellMaster: NSObject {
     
     // MARK: Sizing Cells / Views
     
-    fileprivate let timeHeaderSizingView = ChatMessagesTimeHeaderView(reuseIdentifier: nil)
-    fileprivate let textMessageSizingCell = ChatMessageCell(style: .default, reuseIdentifier: nil)
-    fileprivate let pictureMessageSizingCell = ChatPictureMessageCell(style: .default, reuseIdentifier: nil)
-    fileprivate let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
-    fileprivate let componentViewSizingCell = ChatComponentViewMessageCell(style: .default, reuseIdentifier: nil)
+    private let timeHeaderSizingView = ChatMessagesTimeHeaderView(reuseIdentifier: nil)
+    private let textMessageSizingCell = ChatMessageCell(style: .default, reuseIdentifier: nil)
+    private let pictureMessageSizingCell = ChatPictureMessageCell(style: .default, reuseIdentifier: nil)
+    private let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
+    private let componentViewSizingCell = ChatComponentViewMessageCell(style: .default, reuseIdentifier: nil)
     
     // MARK: Reuse IDs
     
-    fileprivate let timeHeaderViewReuseId = "TimeHeaderViewReuseId"
-    fileprivate let typingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
+    private let timeHeaderViewReuseId = "TimeHeaderViewReuseId"
+    private let typingIndicatorCellReuseId = "TypingIndicatorCellReuseId"
     
     // MARK: Init
     
@@ -81,7 +81,7 @@ extension ChatMessagesViewCellMaster {
         cachedTypingIndicatorCellHeight = nil
     }
     
-    fileprivate func getCellClass(for attachmentType: ChatMessageAttachment.AttachmentType) -> AnyClass {
+    private func getCellClass(for attachmentType: ChatMessageAttachment.AttachmentType) -> AnyClass {
         switch attachmentType {
         case .none: return ChatMessageCell.self
         case .image: return ChatPictureMessageCell.self
@@ -89,7 +89,7 @@ extension ChatMessagesViewCellMaster {
         }
     }
     
-    fileprivate func getCellReuseId(for type: ChatMessageAttachment.AttachmentType?) -> String {
+    private func getCellReuseId(for type: ChatMessageAttachment.AttachmentType?) -> String {
         let prefix = "MessageCellReuseId_"
         if let type = type {
             return prefix + type.rawValue
@@ -97,7 +97,7 @@ extension ChatMessagesViewCellMaster {
         return prefix + ChatMessageAttachment.AttachmentType.none.rawValue
     }
     
-    fileprivate func getMessageSizingCell(forAttachmentType type: ChatMessageAttachment.AttachmentType?) -> ChatMessageCell {
+    private func getMessageSizingCell(forAttachmentType type: ChatMessageAttachment.AttachmentType?) -> ChatMessageCell {
         if let type = type {
             switch type {
             case .none: return textMessageSizingCell
@@ -109,7 +109,7 @@ extension ChatMessagesViewCellMaster {
         return textMessageSizingCell
     }
     
-    fileprivate func updateMessageCell(_ cell: ChatMessageCell?,
+    private func updateMessageCell(_ cell: ChatMessageCell?,
                                        with message: ChatMessage,
                                        listPosition: MessageListPosition,
                                        detailsVisible: Bool) {
@@ -227,7 +227,7 @@ extension ChatMessagesViewCellMaster {
     
     // MARK: Private
     
-    fileprivate func calculateHeightForCell(with message: ChatMessage,
+    private func calculateHeightForCell(with message: ChatMessage,
                                             listPosition: MessageListPosition,
                                             detailsVisible: Bool,
                                             width: CGFloat) -> CGFloat {
@@ -240,7 +240,7 @@ extension ChatMessagesViewCellMaster {
         return heightForStyledView(sizingCell, width: width)
     }
     
-    fileprivate func heightForStyledView(_ view: UIView, width: CGFloat) -> CGFloat {
+    private func heightForStyledView(_ view: UIView, width: CGFloat) -> CGFloat {
         guard width > 0 else { return 0.0 }
         
         return ceil(view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height)

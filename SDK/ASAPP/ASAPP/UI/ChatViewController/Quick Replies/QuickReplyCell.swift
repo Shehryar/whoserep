@@ -47,9 +47,9 @@ class QuickReplyCell: UITableViewCell {
         }
     }
     
-    fileprivate let separatorBottomView = UIView()
+    private let separatorBottomView = UIView()
     
-    fileprivate let customSelectedBackgroundView = UIView()
+    private let customSelectedBackgroundView = UIView()
     
     // MARK: Init
     

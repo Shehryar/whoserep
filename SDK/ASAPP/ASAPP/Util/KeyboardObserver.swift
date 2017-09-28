@@ -41,14 +41,14 @@ class KeyboardObserver: NSObject {
     
     // MARK: Private Methods
     
-    @objc fileprivate func keyboardWillAdjustFrame(_ sender: Notification) {
+    @objc private func keyboardWillAdjustFrame(_ sender: Notification) {
         guard let delegate = delegate, let userInfo = (sender as NSNotification).userInfo else {
             return
         }
         
         let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight = UIScreen.main.bounds.height - keyboardFrame.minY
-        let duration = TimeInterval(userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
+        let duration = TimeInterval(truncating: userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)
         
         var animationCurve: UIViewAnimationOptions = .curveLinear
         if let animationCurveInt = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue {

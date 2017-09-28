@@ -66,7 +66,7 @@ class BubbleView: UIView {
         }
     }
     
-    fileprivate let maskLayer = CAShapeLayer()
+    private let maskLayer = CAShapeLayer()
     
     // MARK:- Init
     

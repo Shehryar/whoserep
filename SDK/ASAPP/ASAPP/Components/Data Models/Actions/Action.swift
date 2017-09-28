@@ -16,7 +16,7 @@ class Action: NSObject {
         case data
     }
 
-    fileprivate(set) var data: [String : Any]?
+    private(set) var data: [String : Any]?
     
     // MARK: Init
     

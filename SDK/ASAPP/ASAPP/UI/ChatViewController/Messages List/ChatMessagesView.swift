@@ -73,26 +73,26 @@ class ChatMessagesView: UIView {
     
     // MARK:- Private Properties
     
-    fileprivate let cellAnimationsEnabled = true
+    private let cellAnimationsEnabled = true
     
-    fileprivate var otherParticipantIsTyping: Bool = false
+    private var otherParticipantIsTyping: Bool = false
         
-    fileprivate var contentInset: UIEdgeInsets {
+    private var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
     
-    fileprivate let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
+    private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
-    fileprivate var cellMaster: ChatMessagesViewCellMaster!
+    private var cellMaster: ChatMessagesViewCellMaster!
     
-    fileprivate var dataSource: ChatMessagesViewDataSource!
+    private var dataSource: ChatMessagesViewDataSource!
     
-    fileprivate let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+    private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
-    fileprivate let emptyView = ChatMessagesEmptyView()
+    private let emptyView = ChatMessagesEmptyView()
     
-    fileprivate var messagesThatShouldAnimate = Set<ChatMessage>()
+    private var messagesThatShouldAnimate = Set<ChatMessage>()
     
     // MARK:- Initialization
     
@@ -182,7 +182,7 @@ extension ChatMessagesView {
         }
     }
     
-    fileprivate func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
+    private func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
         guard let message = dataSource.getMessage(for: indexPath) else { return .none }
         
         let section = indexPath.section

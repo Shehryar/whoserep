@@ -14,7 +14,7 @@ class SeparatorView: BaseComponentView {
     
     let separator = UIView()
     
-    fileprivate let separatorStroke: CGFloat = 1
+    private let separatorStroke: CGFloat = 1
     
     // MARK: ComponentView Properties
     

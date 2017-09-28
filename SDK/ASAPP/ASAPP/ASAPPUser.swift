@@ -16,6 +16,7 @@ public typealias ASAPPUserLoginHandler = ((_ onUserLogin: @escaping ASAPPUserLog
 
 // MARK:- ASAPPUser
 
+@objcMembers
 public class ASAPPUser: NSObject {
 
     public let isAnonymous: Bool

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPNavBarStyles: NSObject {
     public var buttonStyle: ASAPPNavBarButtonStyle = .bubble
     

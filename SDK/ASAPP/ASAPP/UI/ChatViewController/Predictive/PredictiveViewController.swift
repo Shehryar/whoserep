@@ -17,7 +17,7 @@ protocol PredictiveViewControllerDelegate: class {
 
 class PredictiveViewController: UIViewController {
 
-    fileprivate(set) var appOpenResponse: AppOpenResponse?
+    private(set) var appOpenResponse: AppOpenResponse?
     
     weak var delegate: PredictiveViewControllerDelegate?
     
@@ -25,27 +25,27 @@ class PredictiveViewController: UIViewController {
     
     var segue: ASAPPSegue = .present
     
-    fileprivate(set) var viewContentsVisible = true
+    private(set) var viewContentsVisible = true
     
     // MARK: Private Properties
     
-    fileprivate let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
-    fileprivate let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    fileprivate let blurredColorLayer = VerticalGradientView()
-    fileprivate let titleLabel = UILabel()
-    fileprivate let messageLabel = UILabel()
-    fileprivate let buttonsView: PredictiveButtonsView
-    fileprivate let messageInputView: ChatInputView
-    fileprivate let connectionStatusLabel = UILabel()
-    fileprivate let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-    fileprivate var finishedInitialAnimation = true
-    fileprivate var noConnectionFlashTime: TimeInterval?
+    private let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
+    private let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    private let blurredColorLayer = VerticalGradientView()
+    private let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    private let buttonsView: PredictiveButtonsView
+    private let messageInputView: ChatInputView
+    private let connectionStatusLabel = UILabel()
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    private var finishedInitialAnimation = true
+    private var noConnectionFlashTime: TimeInterval?
     
-    fileprivate let keyboardObserver = KeyboardObserver()
-    fileprivate var keyboardOffset: CGFloat = 0
+    private let keyboardObserver = KeyboardObserver()
+    private var keyboardOffset: CGFloat = 0
     
-    fileprivate let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
-    fileprivate let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
+    private let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
+    private let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
     
     // MARK: Initialization
     
@@ -144,7 +144,7 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Display
     
-    func updateDisplay() {
+    @objc func updateDisplay() {
         if let titleText = ASAPP.strings.predictiveTitle {
             navigationItem.titleView = createASAPPTitleView(title: titleText, color: ASAPP.styles.colors.predictiveNavBarTitle)
         } else {
@@ -382,18 +382,18 @@ extension PredictiveViewController {
         }
     }
     
-    func didTapViewChat() {
+    @objc func didTapViewChat() {
         dismissKeyboard()
         delegate?.predictiveViewControllerDidTapViewChat(self)
     }
     
-    func didTapCancel() {
+    @objc func didTapCancel() {
         dismissKeyboard()
         messageInputView.clear()
         delegate?.predictiveViewControllerDidTapX(self)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }

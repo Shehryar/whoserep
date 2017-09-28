@@ -78,7 +78,7 @@ class RadioButton: BaseComponentView {
 
 extension RadioButton {
     
-    fileprivate func updateDisplay() {
+    private func updateDisplay() {
         layer.borderWidth = max(1, layer.borderWidth)
    
         if isSelected {

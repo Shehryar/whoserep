@@ -45,9 +45,9 @@ class TabViewTab: UIView {
     
     // MARK: Private Properties
     
-    fileprivate let label = UILabel()
+    private let label = UILabel()
     
-    fileprivate let separatorLeft = UIView()
+    private let separatorLeft = UIView()
     
     // MARK: Initialization
     
@@ -123,7 +123,7 @@ class TabViewTab: UIView {
     
     // MARK: Actions
     
-    func didTap() {
+    @objc func didTap() {
         onTap?()
     }
 }

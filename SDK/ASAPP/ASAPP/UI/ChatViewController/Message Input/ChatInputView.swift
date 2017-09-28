@@ -81,13 +81,13 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK: Properties: UI
 
-    fileprivate let borderTopView = UIView()
+    private let borderTopView = UIView()
     let textView = UITextView()
-    fileprivate let placeholderTextView = UITextView()
+    private let placeholderTextView = UITextView()
     
-    fileprivate let mediaButton = UIButton()
-    fileprivate let sendButton = UIButton()
-    fileprivate let buttonSeparator = VerticalGradientView()
+    private let mediaButton = UIButton()
+    private let sendButton = UIButton()
+    private let buttonSeparator = VerticalGradientView()
     
     // MARK:- Initialization
     
@@ -170,7 +170,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK:- Appearance
     
-    fileprivate func applyColors() {
+    private func applyColors() {
         backgroundColor = inputColors.background
         borderTopView.backgroundColor = inputColors.border
         
@@ -189,20 +189,20 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         let font = ASAPP.styles.textStyles.link.font
         let color = inputColors.primaryButton
         let normalAttributes = [
-            NSKernAttributeName: 1.5,
-            NSForegroundColorAttributeName: color,
-            NSFontAttributeName: font
-        ] as [String : Any]
+            .kern: 1.5,
+            .foregroundColor: color,
+            .font: font
+        ] as [NSAttributedStringKey: Any]
         let highlightedAttributes = [
-            NSKernAttributeName: 1.5,
-            NSForegroundColorAttributeName: color.withAlphaComponent(0.7),
-            NSFontAttributeName: font
-        ] as [String : Any]
+            .kern: 1.5,
+            .foregroundColor: color.withAlphaComponent(0.7),
+            .font: font
+        ] as [NSAttributedStringKey: Any]
         let disabledAttributes = [
-            NSKernAttributeName: 1.5,
-            NSForegroundColorAttributeName: color.withAlphaComponent(0.4),
-            NSFontAttributeName: font
-        ] as [String : Any]
+            .kern: 1.5,
+            .foregroundColor: color.withAlphaComponent(0.4),
+            .font: font
+        ] as [NSAttributedStringKey: Any]
         let buttonTitle = sendButtonText
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
@@ -235,13 +235,13 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK:- Button Actions
     
-    func didTapSendButton() {
+    @objc func didTapSendButton() {
         if let messageText = textView.text {
             delegate?.chatInputView(self, didTapSendMessage: messageText)
         }
     }
     
-    func didTapMediaButton() {
+    @objc func didTapMediaButton() {
         delegate?.chatInputView(self, didTapMediaButton: mediaButton)
     }
 }

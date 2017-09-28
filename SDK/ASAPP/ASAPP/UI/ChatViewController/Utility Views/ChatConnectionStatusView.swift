@@ -47,11 +47,11 @@ class ChatConnectionStatusView: UIView {
     
     // MARK: Private Properties
     
-    fileprivate let label = UILabel()
+    private let label = UILabel()
     
-    fileprivate let spinner = UIActivityIndicatorView()
+    private let spinner = UIActivityIndicatorView()
     
-    fileprivate let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+    private let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     
     // MARK: Init
 
@@ -120,7 +120,7 @@ class ChatConnectionStatusView: UIView {
     
     // MARK: Actions
     
-    func didTap() {
+    @objc func didTap() {
         if status == .disconnected {
             onTapToConnect?()
         }

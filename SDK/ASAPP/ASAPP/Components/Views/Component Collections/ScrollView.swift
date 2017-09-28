@@ -12,7 +12,7 @@ class ScrollView: UIScrollView, ComponentView {
 
     // MARK: Properties
     
-    fileprivate(set) var contentView: ComponentView? {
+    private(set) var contentView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             
