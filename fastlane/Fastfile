@@ -5,12 +5,16 @@ default_platform :ios
 platform :ios do
   before_all do
     ENV['GYM_WORKSPACE'] = "SDK/ASAPP.xcworkspace"
+    TEST_APP_PROJECT = "SDK/ASAPPTest/ASAPPTest.xcodeproj"
   end
 
   lane :incrementBuildNumber do
-    increment_build_number
+    increment_build_number(xcodeproj: TEST_APP_PROJECT)
 
-    commit_version_bump(message: "increment build number")
+    commit_version_bump(
+      message: "increment build number",
+      xcodeproj: TEST_APP_PROJECT
+    )
 
     push_to_git_remote
   end
