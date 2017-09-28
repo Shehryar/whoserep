@@ -42,7 +42,7 @@ Program   | Version
 ----------|---------
 ruby      | 2.4.2
 [bundler](https://github.com/bundler/bundler)   | 1.15.4
-[fastlane](https://github.com/fastlane/fastlane)  | 2.58.0
+[fastlane](https://github.com/fastlane/fastlane)  | 2.59.0
 
 #### Note
 

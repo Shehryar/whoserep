@@ -594,6 +594,7 @@
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				CURRENT_PROJECT_VERSION = 100;
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
@@ -613,6 +614,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Distribution";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AdHoc;
 		};
@@ -682,6 +684,7 @@
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell Morgan (95LSW78FNM)";
+				CURRENT_PROJECT_VERSION = 100;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
@@ -702,6 +705,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Debug";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
