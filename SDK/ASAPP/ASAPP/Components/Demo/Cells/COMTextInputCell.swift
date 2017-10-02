@@ -117,7 +117,7 @@ extension COMTextInputCell: UITextFieldDelegate {
         if textField == self.textField {
             onReturnKey?()
             if dismissKeyboardOnReturn {
-                _ = self.textField.resignFirstResponder()
+                self.textField.resignFirstResponder()
             }
             return false
         }

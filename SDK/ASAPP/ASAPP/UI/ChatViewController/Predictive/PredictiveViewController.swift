@@ -35,7 +35,7 @@ class PredictiveViewController: UIViewController {
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
     private let buttonsView: PredictiveButtonsView
-    private let messageInputView: ChatInputView
+    private(set) var messageInputView: ChatInputView
     private let connectionStatusLabel = UILabel()
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     private var finishedInitialAnimation = true
@@ -43,6 +43,11 @@ class PredictiveViewController: UIViewController {
     
     private let keyboardObserver = KeyboardObserver()
     private var keyboardOffset: CGFloat = 0
+    lazy private var keyboardOffsetThreshold: CGFloat = 0
+    
+    private var isKeyboardVisible: Bool {
+        return keyboardOffset > keyboardOffsetThreshold
+    }
     
     private let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
     private let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
@@ -90,17 +95,17 @@ class PredictiveViewController: UIViewController {
         
         messageInputView.inputColors = ASAPP.styles.colors.predictiveInput
         messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
-        messageInputView.layer.cornerRadius = 20
+        messageInputView.bubbleInset = UIEdgeInsets(top: 0, left: contentInset.left, bottom: contentInset.bottom, right: contentInset.right)
+        messageInputView.bubbleView.layer.cornerRadius = 20
         messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false
         messageInputView.placeholderText = placeholderText
         messageInputView.delegate = self
         if let inputBorderColor = ASAPP.styles.colors.predictiveInput.border {
-            messageInputView.layer.borderColor = inputBorderColor.cgColor
-            messageInputView.layer.borderWidth = 1.0
+            messageInputView.bubbleView.layer.borderColor = inputBorderColor.cgColor
+            messageInputView.bubbleView.layer.borderWidth = 1.0
         }
-        blurredBgView.contentView.addSubview(messageInputView)
     
         connectionStatusLabel.backgroundColor = UIColor(red: 0.966, green: 0.394, blue: 0.331, alpha: 1)
         connectionStatusLabel.setAttributedText(ASAPP.strings.predictiveNoConnectionText,
@@ -278,7 +283,7 @@ extension PredictiveViewController {
         titleLabel.frame = CGRect(x: textLeft, y: textTop, width: textWidth, height: titleHeight)
         textTop = titleLabel.frame.maxY
         
-        let isExpanded = keyboardOffset <= 0
+        let isExpanded = !isKeyboardVisible
         
         // Message
         let messageHeight = ceil(messageLabel.sizeThatFits(CGSize(width: textWidth, height: 0)).height)
@@ -298,15 +303,12 @@ extension PredictiveViewController {
         }
         
         // Input View
-        var visibleBottom = view.bounds.height
-        if keyboardOffset > 0 {
-            visibleBottom -= keyboardOffset
-        }
+        let visibleBottom = view.frame.size.height - keyboardOffset
         
-        let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: 300)).height)
-        let inputTop = visibleBottom - contentInset.bottom - inputHeight
-        messageInputView.frame = CGRect(x: contentInset.left, y: inputTop, width: contentWidth, height: inputHeight)
-        messageInputView.layoutSubviews()
+        let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: .greatestFiniteMagnitude)).height)
+        if keyboardOffsetThreshold == 0 {
+            keyboardOffsetThreshold = inputHeight
+        }
         
         let noConnectionMargin: CGFloat = 4
         let noConnectionPadding: CGFloat = 10
@@ -321,7 +323,7 @@ extension PredictiveViewController {
         } else {
             buttonsTop = titleLabel.frame.maxY + 25
         }
-        let buttonsHeight = messageInputView.frame.minY - buttonsTop - 10
+        let buttonsHeight = visibleBottom - buttonsTop - 10
         buttonsView.frame = CGRect(x: textLeft, y: buttonsTop, width: contentWidth, height: buttonsHeight)
         buttonsView.updateFrames()
         
@@ -396,7 +398,7 @@ extension PredictiveViewController {
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        messageInputView.resignFirstResponder()
     }
 }
 
@@ -459,7 +461,7 @@ extension PredictiveViewController: KeyboardObserverDelegate {
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
         keyboardOffset = height
         
-        if keyboardOffset > 0 {
+        if isKeyboardVisible {
             buttonsView.expanded = false
         } else {
             buttonsView.expanded = true
@@ -490,7 +492,7 @@ extension PredictiveViewController {
         
         if animated {
             messageLabel.alpha = 0.0
-        } else if keyboardOffset <= 0 {
+        } else if !isKeyboardVisible {
             messageLabel.alpha = 1.0
         }
         
@@ -502,7 +504,7 @@ extension PredictiveViewController {
             messageLabel.text = nil
         }
         
-        if keyboardOffset > 0 {
+        if isKeyboardVisible {
             buttonsView.expanded = false
             buttonsView.update(relatedButtonTitles: appOpenResponse.customizedActions,
                                otherButtonTitles: appOpenResponse.genericActions,
@@ -521,7 +523,7 @@ extension PredictiveViewController {
             Dispatcher.delay(300) {
                 UIView.animate(withDuration: 0.4, animations: { [weak self] in
                     if let blockSelf = self {
-                        if blockSelf.keyboardOffset <= 0 {
+                        if !blockSelf.isKeyboardVisible {
                             self?.messageLabel.alpha = 1.0
                         }
                     }

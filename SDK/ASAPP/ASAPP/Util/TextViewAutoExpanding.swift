@@ -16,14 +16,14 @@ protocol TextViewAutoExpanding: class {
     
     func updateInputMinHeight()
     func textViewHeightDidChange()
-    func resizeIfNeeded(_ animated: Bool, notifyOfHeightChange: Bool)
+    func resizeIfNeeded(animated: Bool, notifyOfHeightChange: Bool)
 }
 
 extension TextViewAutoExpanding where Self: UIView {
     func updateInputMinHeight() {
         let textViewText = textView.text
         textView.text = nil
-        resizeIfNeeded(false)
+        resizeIfNeeded(animated: false)
         inputMinHeight = inputHeight
         textView.text = textViewText
         setNeedsLayout()
@@ -31,7 +31,7 @@ extension TextViewAutoExpanding where Self: UIView {
     
     func textViewHeightDidChange() {}
     
-    func resizeIfNeeded(_ animated: Bool, notifyOfHeightChange: Bool = false) {
+    func resizeIfNeeded(animated: Bool, notifyOfHeightChange: Bool = false) {
         var height = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: inputMaxHeight)).height
         if height > inputMaxHeight {
             height = inputMaxHeight
