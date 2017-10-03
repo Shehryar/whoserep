@@ -180,14 +180,25 @@ extension HomeViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        // Nav Logo
+        let logoWidth = AppSettings.shared.branding.logoImageSize.width
+        let logoHeight = AppSettings.shared.branding.logoImageSize.height
+        
+        let icon = #imageLiteral(resourceName: "icon-down").withRenderingMode(.alwaysTemplate)
+        let indicator = UIImageView(image: icon)
+        indicator.tintColor = AppSettings.shared.branding.colors.navBarTintColor
+        let width: CGFloat = 10.5
+        let height: CGFloat = 5.25
+        let y = (logoHeight - height) / 2
+        indicator.frame = CGRect(x: 0, y: y, width: width, height: height)
+        
         let logoImageView = UIImageView(image: AppSettings.shared.branding.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: AppSettings.shared.branding.logoImageSize.width, height: AppSettings.shared.branding.logoImageSize.height)
+        logoImageView.frame = CGRect(x: indicator.frame.maxX + 4, y: 0, width: logoWidth, height: logoHeight)
         logoImageView.isUserInteractionEnabled = true
         
-        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.width, height: logoImageView.frame.height))
+        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: width + logoImageView.frame.maxX, height: logoImageView.frame.height))
         logoContainerView.addSubview(logoImageView)
+        logoContainerView.addSubview(indicator)
         logoContainerView.isUserInteractionEnabled = true
 
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))

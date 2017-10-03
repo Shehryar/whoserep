@@ -69,11 +69,11 @@ class Branding: NSObject {
         switch brandingType {
         case .asapp:
             logoImageName = "asapp-logo"
-            logoImageSize = CGSize(width: 100, height: 22)
+            logoImageSize = CGSize(width: 115, height: 22)
             views.chatTitle = asappTitle
         case .xfinity:
             logoImageName = "comcast-logo"
-            logoImageSize = CGSize(width: 140, height: 28)
+            logoImageSize = CGSize(width: 86, height: 28)
             strings.chatTitle = "XFINITY Assistant"
             strings.predictiveTitle = "XFINITY Assistant"
             strings.predictiveBackToChatButton = "History"
@@ -82,7 +82,7 @@ class Branding: NSObject {
             strings.chatEndChatNavBarButton = "End Chat"
         case .boost:
             logoImageName = "boost-logo-light"
-            logoImageSize = CGSize(width: 140, height: 32)
+            logoImageSize = CGSize(width: 109, height: 32)
         }
     }
     
