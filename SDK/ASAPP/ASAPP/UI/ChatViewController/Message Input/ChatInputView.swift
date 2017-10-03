@@ -33,6 +33,12 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
     }
     
+    var bubbleInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var contentInset = UIEdgeInsets(top: 18, left: 24, bottom: 18, right: 0) {
         didSet {
             setNeedsLayout()
@@ -74,13 +80,14 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     // MARK: Properties: Data
     
     var inputMinHeight: CGFloat = 36
-    let inputMaxHeight: CGFloat = 150
+    let inputMaxHeight: CGFloat = 66
     let mediaButtonWidth: CGFloat = 44
     let mediaButtonImageSize: CGFloat = 20
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
-
+    
+    let bubbleView = UIView()
     private let borderTopView = UIView()
     let textView = UITextView()
     private let placeholderTextView = UITextView()
@@ -88,6 +95,10 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     private let mediaButton = UIButton()
     private let sendButton = UIButton()
     private let buttonSeparator = VerticalGradientView()
+    
+    fileprivate var verticalInsets: CGFloat {
+        return contentInset.top + contentInset.bottom + bubbleInset.top + bubbleInset.bottom
+    }
     
     // MARK:- Initialization
     
@@ -98,9 +109,13 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         backgroundColor = ASAPP.styles.colors.chatInput.background
         clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        bubbleView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(bubbleView)
         
         // Subviews
-        addSubview(borderTopView)
+        bubbleView.addSubview(borderTopView)
         
         // Text View
         
@@ -122,7 +137,8 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         } else {
             textView.keyboardAppearance = .default
         }
-        inputHeight = textView.frame.size.height
+        inputHeight = inputMinHeight
+        bubbleView.addSubview(textView)
         
         placeholderTextView.text = placeholderText
         placeholderTextView.backgroundColor = UIColor.clear
@@ -132,8 +148,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         placeholderTextView.isScrollEnabled = false
         placeholderTextView.isAccessibilityElement = false
         placeholderTextView.textContainer.lineFragmentPadding = 0
-        addSubview(textView)
-        addSubview(placeholderTextView)
+        bubbleView.addSubview(placeholderTextView)
         
         // Media Button
         
@@ -141,7 +156,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         mediaButton.addTarget(self,
                               action: #selector(ChatInputView.didTapMediaButton),
                               for: .touchUpInside)
-        addSubview(mediaButton)
+        bubbleView.addSubview(mediaButton)
         
         // Send Button
         
@@ -149,15 +164,17 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         sendButton.addTarget(self,
                              action: #selector(ChatInputView.didTapSendButton),
                              for: .touchUpInside)
-        addSubview(sendButton)
+        bubbleView.addSubview(sendButton)
         
-        addSubview(buttonSeparator)
+        bubbleView.addSubview(buttonSeparator)
         
         addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
         
         applyColors()
         updateSendButtonForCurrentState()
         updateInputMinHeight()
+        
+        setNeedsUpdateConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -171,9 +188,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     // MARK:- Appearance
     
     private func applyColors() {
-        backgroundColor = inputColors.background
+        backgroundColor = .clear
         borderTopView.backgroundColor = inputColors.border
-        
+        bubbleView.backgroundColor = inputColors.background
         textView.textColor = inputColors.text
         textView.tintColor = inputColors.tint
         placeholderTextView.textColor = inputColors.placeholderText
@@ -249,6 +266,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
 // MARK:- First Responder
 
 extension ChatInputView {
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         return textView.becomeFirstResponder() || super.becomeFirstResponder()
     }
@@ -257,6 +275,7 @@ extension ChatInputView {
         return textView.canBecomeFirstResponder || super.canBecomeFirstResponder
     }
     
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         return textView.resignFirstResponder() || super.resignFirstResponder()
     }
@@ -272,15 +291,26 @@ extension ChatInputView {
 
 // MARK:- Layout
 
-extension ChatInputView {
+extension ChatInputView {    
+    override func updateConstraints() {
+        super.updateConstraints()
+        
+        addConstraints([
+            NSLayoutConstraint(item: bubbleView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: bubbleInset.top),
+            NSLayoutConstraint(item: bubbleView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -bubbleInset.right),
+            NSLayoutConstraint(item: bubbleView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -bubbleInset.bottom),
+            NSLayoutConstraint(item: bubbleView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: bubbleInset.left)
+        ])
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         borderTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
         
         let buttonWidth = ceil(sendButton.sizeThatFits(CGSize.zero).width) + sendButton.titleEdgeInsets.left + sendButton.titleEdgeInsets.right
-        let sendButtonLeft = bounds.width - buttonWidth - contentInset.right
-        let buttonTop = bounds.height - inputMinHeight - contentInset.bottom
+        let sendButtonLeft = bubbleView.bounds.width - buttonWidth - contentInset.right
+        let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
         mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
@@ -300,7 +330,11 @@ extension ChatInputView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: inputHeight + contentInset.top + contentInset.bottom)
+        return CGSize(width: size.width, height: inputHeight + verticalInsets)
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return sizeThatFits(CGSize(width: bounds.width, height: 0))
     }
 }
 
@@ -308,7 +342,8 @@ extension ChatInputView {
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        resizeIfNeeded(true, notifyOfHeightChange: true)
+        invalidateIntrinsicContentSize()
+        resizeIfNeeded(animated: true, notifyOfHeightChange: true)
         updateSendButtonForCurrentState()
         delegate?.chatInputView(self, didTypeMessageText: textView.text)
     }
@@ -339,7 +374,8 @@ extension ChatInputView {
 extension ChatInputView {
     func clear() {
         textView.text = ""
-        resizeIfNeeded(false, notifyOfHeightChange: true)
+        invalidateIntrinsicContentSize()
+        resizeIfNeeded(animated: false, notifyOfHeightChange: true)
         updateSendButtonForCurrentState()
         
         delegate?.chatInputView(self, didTypeMessageText: nil)

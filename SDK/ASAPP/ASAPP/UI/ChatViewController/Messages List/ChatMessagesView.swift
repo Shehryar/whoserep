@@ -32,10 +32,21 @@ class ChatMessagesView: UIView {
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
-            var newContentInset = defaultContentInset
-            newContentInset.top += max(0, contentInsetTop)
+            var newContentInset = contentInset
+            newContentInset.top = contentInsetTop
             contentInset = newContentInset
-            tableView.scrollIndicatorInsets = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: 0, right: 0)
+            let scrollInsets = tableView.scrollIndicatorInsets
+            tableView.scrollIndicatorInsets = UIEdgeInsets(top: contentInsetTop, left: scrollInsets.left, bottom: scrollInsets.bottom, right: scrollInsets.right)
+        }
+    }
+    
+    var contentInsetBottom: CGFloat = 0 {
+        didSet {
+            var newContentInset = contentInset
+            newContentInset.bottom = contentInsetBottom
+            contentInset = newContentInset
+            let scrollInsets = tableView.scrollIndicatorInsets
+            tableView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
         }
     }
     
@@ -76,8 +87,8 @@ class ChatMessagesView: UIView {
     private let cellAnimationsEnabled = true
     
     private var otherParticipantIsTyping: Bool = false
-        
-    private var contentInset: UIEdgeInsets {
+    
+    internal var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
@@ -110,6 +121,7 @@ class ChatMessagesView: UIView {
         tableView.separatorStyle = .none
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
+        tableView.keyboardDismissMode = .interactive
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)

@@ -159,7 +159,7 @@ extension LeaveFeedbackView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         textViewPlaceholder.isHidden = !textView.text.isEmpty
-        resizeIfNeeded(true, notifyOfHeightChange: true)
+        resizeIfNeeded(animated: true, notifyOfHeightChange: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

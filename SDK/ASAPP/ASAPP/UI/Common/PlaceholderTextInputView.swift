@@ -438,6 +438,7 @@ extension PlaceholderTextInputView {
         return true
     }
     
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         if disabled {
             return false
@@ -454,6 +455,7 @@ extension PlaceholderTextInputView {
         return super.becomeFirstResponder()
     }
     
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         selected = false
         
@@ -476,7 +478,7 @@ extension PlaceholderTextInputView {
         if textEditingEnabled {
             textField.becomeFirstResponder()
         } else {
-            _ = becomeFirstResponder()
+            becomeFirstResponder()
         }
     }
 }
