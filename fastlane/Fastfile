@@ -1,4 +1,4 @@
-fastlane_version "2.59.0"
+fastlane_version "2.60.1"
 
 default_platform :ios
 
@@ -9,6 +9,10 @@ platform :ios do
   end
 
   lane :incrementBuildNumber do
+    clean_build_artifacts
+
+    ensure_git_status_clean
+
     increment_build_number(xcodeproj: TEST_APP_PROJECT)
 
     commit_version_bump(
@@ -20,8 +24,6 @@ platform :ios do
   end
 
   lane :beta do
-    incrementBuildNumber
-
     gym(scheme: 'ASAPPTest')
 
     crashlytics(
@@ -32,9 +34,10 @@ platform :ios do
       notifications: true
     )
 
+    incrementBuildNumber
+
     add_git_tag(grouping: "fastlane-builds")
 
     push_git_tags
   end
 end
-
