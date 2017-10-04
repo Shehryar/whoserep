@@ -22,6 +22,8 @@ platform :ios do
   end
 
   lane :beta do
+    incrementBuildNumber
+
     gym(scheme: 'ASAPPTest')
 
     crashlytics(
@@ -33,8 +35,6 @@ platform :ios do
     )
     
     clean_build_artifacts
-
-    incrementBuildNumber
 
     add_git_tag(grouping: "fastlane-builds")
 
