@@ -17,8 +17,6 @@ platform :ios do
       message: "increment build number",
       xcodeproj: TEST_APP_PROJECT
     )
-
-    push_to_git_remote
   end
 
   lane :beta do
@@ -38,6 +36,13 @@ platform :ios do
 
     add_git_tag(grouping: "fastlane-builds")
 
-    push_git_tags
+    # push build number commit and new tag to master
+    push_to_git_remote
+
+    # update develop
+    sh "git checkout develop"
+    sh "git pull origin develop"
+    sh "git merge --ff-only master"
+    sh "git push origin develop"
   end
 end
