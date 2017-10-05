@@ -199,7 +199,6 @@
 		303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */; };
 		303699A91EAFAA2E00A819DF /* ASAPPTextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */; };
 		303699AB1EAFAAE700A819DF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699AA1EAFAAE700A819DF /* Colors.swift */; };
-		303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */; };
 		303C87721D775A5500213F6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303C87701D775A5500213F6B /* Localizable.strings */; };
 		3046CDF51E8990840022AEE5 /* BoostNeo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF11E8990840022AEE5 /* BoostNeo-Black.ttf */; };
 		3046CDF61E8990840022AEE5 /* BoostNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3046CDF21E8990840022AEE5 /* BoostNeo-Bold.ttf */; };
@@ -699,7 +698,6 @@
 		303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyle.swift; sourceTree = "<group>"; };
 		303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyles.swift; sourceTree = "<group>"; };
 		303699AA1EAFAAE700A819DF /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemVersionChecker.swift; sourceTree = "<group>"; };
 		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
 		3046CDF11E8990840022AEE5 /* BoostNeo-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Black.ttf"; sourceTree = "<group>"; };
@@ -1228,7 +1226,6 @@
 				308F29731D4168BE00EC7055 /* Images.swift */,
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
-				3038505F1D908634006FDFC4 /* SystemVersionChecker.swift */,
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
@@ -2484,7 +2481,6 @@
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
-				303850601D908634006FDFC4 /* SystemVersionChecker.swift in Sources */,
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
 				30131FA41EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
