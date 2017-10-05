@@ -14,7 +14,7 @@ platform :ios do
     increment_build_number(xcodeproj: TEST_APP_PROJECT)
 
     commit_version_bump(
-      message: "increment build number",
+      message: "increment build number [skip ci]",
       xcodeproj: TEST_APP_PROJECT
     )
   end
