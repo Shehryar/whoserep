@@ -352,12 +352,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         }
         
         // Update cell heights
-        if SystemVersionChecker.is8orEarlier() {
-            tableView.reloadData()
-        } else {
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 
@@ -410,22 +406,10 @@ extension ChatMessagesView {
         }
         
         if let indexPath = indexPath {
-            if SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: "9.0") {
-                tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
-            } else {
-                // iOS 8 and below bug
-                Dispatcher.performOnMainThread { [weak self] in
-                    guard let strongSelf = self else {
-                        return
-                    }
-                    strongSelf.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
-                }
+            Dispatcher.delay(200) { [weak self] in
+                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
             }
         }
-    }
-    
-    func SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version: String) -> Bool {
-        return UIDevice.current.systemVersion.compare(version, options: .numeric) != .orderedAscending
     }
 }
 
@@ -493,24 +477,18 @@ extension ChatMessagesView {
             previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
         }
         
-        if SystemVersionChecker.is8orEarlier() {
-            UIView.performWithoutAnimation({
-                self.tableView.reloadData()
-            })
-        } else {
-            UIView.performWithoutAnimation({
-                self.tableView.beginUpdates()
-                if let previousIndexPath = previousIndexPath {
-                    self.tableView.reloadRows(at: [previousIndexPath], with: .none)
-                }
-                if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
-                    self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
-                } else {
-                    self.tableView.insertRows(at: [indexPath], with: .none)
-                }
-                self.tableView.endUpdates()
-            })
-        }
+        UIView.performWithoutAnimation({
+            self.tableView.beginUpdates()
+            if let previousIndexPath = previousIndexPath {
+                self.tableView.reloadRows(at: [previousIndexPath], with: .none)
+            }
+            if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
+                self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
+            } else {
+                self.tableView.insertRows(at: [indexPath], with: .none)
+            }
+            self.tableView.endUpdates()
+        })
         
         focusAccessibilityOnLastMessage()
         
