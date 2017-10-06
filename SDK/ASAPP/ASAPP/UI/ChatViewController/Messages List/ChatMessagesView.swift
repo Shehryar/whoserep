@@ -330,15 +330,20 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func toggleTimeStampForMessage(at indexPath: IndexPath) {
-        
         let previousMessage = showTimeStampForMessage
+        let animated: Bool
+        if #available(iOS 11.0, *) {
+            animated = false
+        } else {
+            animated = true
+        }
         
         // Hide timestamp on previous cell
         if let previousMessage = previousMessage,
             let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
             let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
                 showTimeStampForMessage = nil
-                previousCell.setTimeLabelVisible(false, animated: true)
+                previousCell.setTimeLabelVisible(false, animated: animated)
         }
 
         if let nextMessage = dataSource.getMessage(for: indexPath) {
@@ -346,14 +351,18 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             if previousMessage == nil || nextMessage != previousMessage {
                 if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
                     showTimeStampForMessage = nextMessage
-                    nextCell.setTimeLabelVisible(true, animated: true)
+                    nextCell.setTimeLabelVisible(true, animated: animated)
                 }
             }
         }
         
         // Update cell heights
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        if #available(iOS 11.0, *) {
+            tableView.reloadData()
+        } else {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
 }
 
@@ -396,19 +405,27 @@ extension ChatMessagesView {
     }
     
     func scrollToBottomAnimated(_ animated: Bool) {
-        var indexPath: IndexPath?
-        let lastSection = numberOfSections(in: tableView) - 1
-        if lastSection >= 0 {
-            let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
-            if lastRow >= 0 {
-                indexPath = IndexPath(row: lastRow, section: lastSection)
+        let scroll = { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            var indexPath: IndexPath?
+            let lastSection = strongSelf.numberOfSections(in: strongSelf.tableView) - 1
+            if lastSection >= 0 {
+                let lastRow = strongSelf.tableView(strongSelf.tableView, numberOfRowsInSection: lastSection) - 1
+                if lastRow >= 0 {
+                    indexPath = IndexPath(row: lastRow, section: lastSection)
+                }
+            }
+            
+            if let indexPath = indexPath {
+                strongSelf.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
             }
         }
         
-        if let indexPath = indexPath {
-            Dispatcher.delay(200) { [weak self] in
-                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
-            }
+        if #available(iOS 11, *) {
+            Dispatcher.delay(200, closure: scroll)
+        } else {
+            scroll()
         }
     }
 }

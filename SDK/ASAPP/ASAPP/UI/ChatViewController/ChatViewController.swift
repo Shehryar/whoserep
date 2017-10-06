@@ -533,7 +533,7 @@ extension ChatViewController {
         if isLiveChat && quickRepliesMessage == nil {
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         } else if !isLiveChat && quickRepliesMessage != nil {
-            chatMessagesView.contentInsetBottom = quickRepliesActionSheet.frame.height - quickRepliesActionSheet.transparentInsetTop
+            chatMessagesView.contentInsetBottom = quickRepliesActionSheet.frame.height - quickRepliesActionSheet.transparentInsetTop + 10
         } else {
             chatMessagesView.contentInsetBottom = 0
         }
