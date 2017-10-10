@@ -54,9 +54,21 @@
 		30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */; };
 		30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
-		30F20EE71ED4CBF700A14FA9 /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30F20EE61ED4CBF700A14FA9 /* hey.caf */; };
+		3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811041F7AF55300078E3F /* Assets.xcassets */; };
+		3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110F1F7BE94C00078E3F /* BoostNeo-Black.ttf */; };
+		3A68111A1F7BEB7200078E3F /* BoostNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110C1F7BE94C00078E3F /* BoostNeo-Bold.ttf */; };
+		3A68111B1F7BEB7200078E3F /* BoostNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110D1F7BE94C00078E3F /* BoostNeo-Light.ttf */; };
+		3A68111C1F7BEB7200078E3F /* BoostNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110E1F7BE94C00078E3F /* BoostNeo-Regular.ttf */; };
+		3A68111D1F7BEB7200078E3F /* SprintSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811121F7BE95500078E3F /* SprintSans-Black.ttf */; };
+		3A68111E1F7BEB7200078E3F /* SprintSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811101F7BE95500078E3F /* SprintSans-Bold.ttf */; };
+		3A68111F1F7BEB7200078E3F /* SprintSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811111F7BE95500078E3F /* SprintSans-Medium.ttf */; };
+		3A6811201F7BEB7200078E3F /* SprintSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */; };
+		3A6811211F7BEB7200078E3F /* XFINITYSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */; };
+		3A6811221F7BEB7200078E3F /* XFINITYSans-Lgt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */; };
+		3A6811231F7BEB7200078E3F /* XFINITYSans-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */; };
+		3A6811241F7BEB7200078E3F /* XFINITYSans-Reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */; };
+		3A6811251F7BEB7600078E3F /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811051F7AF55B00078E3F /* hey.caf */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
-		FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD8D8B231D107A19001B420B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -124,12 +136,24 @@
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
-		30F20EE61ED4CBF700A14FA9 /* hey.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = hey.caf; sourceTree = "<group>"; };
 		3A4FEF361F58B5D900338B00 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		3A4FEF371F58B5D900338B00 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		3A6811041F7AF55300078E3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ASAPPTest/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		3A6811051F7AF55B00078E3F /* hey.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = hey.caf; path = ASAPPTest/Resources/hey.caf; sourceTree = SOURCE_ROOT; };
+		3A68110C1F7BE94C00078E3F /* BoostNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Bold.ttf"; sourceTree = "<group>"; };
+		3A68110D1F7BE94C00078E3F /* BoostNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Light.ttf"; sourceTree = "<group>"; };
+		3A68110E1F7BE94C00078E3F /* BoostNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Regular.ttf"; sourceTree = "<group>"; };
+		3A68110F1F7BE94C00078E3F /* BoostNeo-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BoostNeo-Black.ttf"; sourceTree = "<group>"; };
+		3A6811101F7BE95500078E3F /* SprintSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Bold.ttf"; sourceTree = "<group>"; };
+		3A6811111F7BE95500078E3F /* SprintSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Medium.ttf"; sourceTree = "<group>"; };
+		3A6811121F7BE95500078E3F /* SprintSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Black.ttf"; sourceTree = "<group>"; };
+		3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Regular.ttf"; sourceTree = "<group>"; };
+		3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Bold.ttf"; sourceTree = "<group>"; };
+		3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Lgt.ttf"; sourceTree = "<group>"; };
+		3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Med.ttf"; sourceTree = "<group>"; };
+		3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Reg.otf"; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FD8D8B231D107A19001B420B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,17 +209,17 @@
 		307301D51DAE9C750002CF3B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				30C24C2D1DC9396800529785 /* AttributedLabel.swift */,
+				307022B71DBE531F0027908C /* BaseTableViewController.swift */,
+				307022B91DBE554D0027908C /* BaseViewController.swift */,
+				308CB1131DCBE86400477013 /* DemoDispatcher.swift */,
+				307022C51DBE592F0027908C /* DemoFonts.swift */,
+				30C24C371DCA4BEF00529785 /* DemoLog.swift */,
 				307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */,
 				307301D71DAE9C750002CF3B /* NavigationController.swift */,
-				307022B91DBE554D0027908C /* BaseViewController.swift */,
-				30C24C331DC9523A00529785 /* UIColorExtensions.swift */,
-				307022B71DBE531F0027908C /* BaseTableViewController.swift */,
-				307022C51DBE592F0027908C /* DemoFonts.swift */,
-				30C24C2B1DC921AE00529785 /* UIImageExtensions.swift */,
-				30C24C2D1DC9396800529785 /* AttributedLabel.swift */,
 				30C24C351DCA39E100529785 /* RandomNameGenerator.swift */,
-				30C24C371DCA4BEF00529785 /* DemoLog.swift */,
-				308CB1131DCBE86400477013 /* DemoDispatcher.swift */,
+				30C24C331DC9523A00529785 /* UIColorExtensions.swift */,
+				30C24C2B1DC921AE00529785 /* UIImageExtensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -308,6 +332,60 @@
 			path = Environment;
 			sourceTree = "<group>";
 		};
+		3A6811031F7AF51A00078E3F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3A6811041F7AF55300078E3F /* Assets.xcassets */,
+				3A6811051F7AF55B00078E3F /* hey.caf */,
+				3A6811061F7AF56A00078E3F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3A6811061F7AF56A00078E3F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3A6811091F7AF58100078E3F /* Boost Neo */,
+				3A6811081F7AF58100078E3F /* Sprint */,
+				3A6811071F7AF58100078E3F /* XFINITY Sans */,
+			);
+			name = Fonts;
+			path = ASAPPTest/Resources/Fonts;
+			sourceTree = SOURCE_ROOT;
+		};
+		3A6811071F7AF58100078E3F /* XFINITY Sans */ = {
+			isa = PBXGroup;
+			children = (
+				3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */,
+				3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */,
+				3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */,
+				3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */,
+			);
+			path = "XFINITY Sans";
+			sourceTree = "<group>";
+		};
+		3A6811081F7AF58100078E3F /* Sprint */ = {
+			isa = PBXGroup;
+			children = (
+				3A6811121F7BE95500078E3F /* SprintSans-Black.ttf */,
+				3A6811101F7BE95500078E3F /* SprintSans-Bold.ttf */,
+				3A6811111F7BE95500078E3F /* SprintSans-Medium.ttf */,
+				3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */,
+			);
+			path = Sprint;
+			sourceTree = "<group>";
+		};
+		3A6811091F7AF58100078E3F /* Boost Neo */ = {
+			isa = PBXGroup;
+			children = (
+				3A68110F1F7BE94C00078E3F /* BoostNeo-Black.ttf */,
+				3A68110C1F7BE94C00078E3F /* BoostNeo-Bold.ttf */,
+				3A68110E1F7BE94C00078E3F /* BoostNeo-Regular.ttf */,
+				3A68110D1F7BE94C00078E3F /* BoostNeo-Light.ttf */,
+			);
+			path = "Boost Neo";
+			sourceTree = "<group>";
+		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,8 +423,7 @@
 				FD8D8B1C1D107A19001B420B /* AppDelegate.swift */,
 				307301D81DAE9C750002CF3B /* Demo */,
 				307301D51DAE9C750002CF3B /* Common */,
-				FD8D8B231D107A19001B420B /* Assets.xcassets */,
-				30F20EE61ED4CBF700A14FA9 /* hey.caf */,
+				3A6811031F7AF51A00078E3F /* Resources */,
 				307301C61DAE9BAA0002CF3B /* Supporting Files */,
 			);
 			path = ASAPPTest;
@@ -421,12 +498,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A68111F1F7BEB7200078E3F /* SprintSans-Medium.ttf in Resources */,
+				3A6811201F7BEB7200078E3F /* SprintSans-Regular.ttf in Resources */,
+				3A6811231F7BEB7200078E3F /* XFINITYSans-Med.ttf in Resources */,
+				3A6811221F7BEB7200078E3F /* XFINITYSans-Lgt.ttf in Resources */,
+				3A6811241F7BEB7200078E3F /* XFINITYSans-Reg.otf in Resources */,
 				307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */,
 				307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */,
+				3A68111C1F7BEB7200078E3F /* BoostNeo-Regular.ttf in Resources */,
 				30A003551DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard in Resources */,
-				30F20EE71ED4CBF700A14FA9 /* hey.caf in Resources */,
-				FD8D8B241D107A19001B420B /* Assets.xcassets in Resources */,
+				3A68111E1F7BEB7200078E3F /* SprintSans-Bold.ttf in Resources */,
+				3A68111A1F7BEB7200078E3F /* BoostNeo-Bold.ttf in Resources */,
+				3A6811211F7BEB7200078E3F /* XFINITYSans-Bold.ttf in Resources */,
+				3A68111D1F7BEB7200078E3F /* SprintSans-Black.ttf in Resources */,
+				3A68111B1F7BEB7200078E3F /* BoostNeo-Light.ttf in Resources */,
+				3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */,
+				3A6811251F7BEB7600078E3F /* hey.caf in Resources */,
 				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
+				3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,7 +25,7 @@ class Button: UIView {
         }
     }
     
-    var font: UIFont = Fonts.latoBoldFont(withSize: 14) {
+    var font: UIFont = Fonts.default.bold.withSize(14) {
         didSet {
             label.font = font
             setNeedsLayout()

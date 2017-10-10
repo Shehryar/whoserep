@@ -90,5 +90,20 @@
 	<string>$(DEMO_CONTENT_ENABLED)</string>
 	<key>demo-live-chat</key>
 	<string>$(DEMO_LIVE_CHAT)</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BoostNeo-Light.ttf</string>
+		<string>BoostNeo-Regular.ttf</string>
+		<string>BoostNeo-Bold.ttf</string>
+		<string>BoostNeo-Black.ttf</string>
+		<string>SprintSans-Regular.ttf</string>
+		<string>SprintSans-Medium.ttf</string>
+		<string>SprintSans-Bold.ttf</string>
+		<string>SprintSans-Black.ttf</string>
+		<string>XFINITYSans-Lgt.ttf</string>
+		<string>XFINITYSans-Reg.otf</string>
+		<string>XFINITYSans-Med.ttf</string>
+		<string>XFINITYSans-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

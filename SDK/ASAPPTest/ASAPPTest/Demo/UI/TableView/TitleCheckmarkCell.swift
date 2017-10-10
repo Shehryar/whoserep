@@ -50,7 +50,7 @@ class TitleCheckmarkCell: TableViewCell {
     override func commonInit() {
         super.commonInit()
         
-        titleLabel.font = DemoFonts.latoRegularFont(withSize: 16)
+        titleLabel.font = DemoFonts.asapp.regular.withSize(16)
         titleLabel.kerning = 1
         titleLabel.textColor = UIColor.darkText
         contentView.addSubview(titleLabel)
@@ -67,7 +67,7 @@ class TitleCheckmarkCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            titleLabel.font = appSettings.branding.fonts.regularFont.withSize(16)
+            titleLabel.font = appSettings.branding.fontFamily.regular.withSize(16)
             titleLabel.textColor = appSettings.branding.colors.foregroundColor
             
             checkmarkView.image = UIImage(named: "icon-checkmark")?.fillAlpha(appSettings.branding.colors.accentColor)

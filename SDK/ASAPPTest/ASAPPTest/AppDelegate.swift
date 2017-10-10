@@ -17,29 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var homeController = HomeViewController()
+    var homeController: HomeViewController!
     
     // MARK:- Application Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // Crashlytics
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self, Answers.self])
         
-        // ASAPP
         ASAPP.debugLogLevel = .debug
-        ASAPP.loadFonts()
         
-        // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
 
-        // Root View controller
+        ASAPP.loadFonts()
+        homeController = HomeViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = NavigationController(rootViewController: homeController)
-        window?.makeKeyAndVisible()
+        window!.rootViewController = NavigationController(rootViewController: homeController)
+        window!.makeKeyAndVisible()
         
         setupNotifications()
         

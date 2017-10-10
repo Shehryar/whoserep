@@ -29,8 +29,7 @@ public class ASAPP: NSObject {
     
     public class func initialize(with config: ASAPPConfig) {
         ASAPP.config = config
-        
-        Fonts.loadFontsIfNecessary()
+        ASAPP.loadFonts()
     }
 }
 
@@ -39,7 +38,6 @@ public class ASAPP: NSObject {
 public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String : Any]?) -> Void)
 
 public extension ASAPP {
-    @available(*, introduced: 3.0.0)
     public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
@@ -49,7 +47,6 @@ public extension ASAPP {
         return container
     }
     
-    @available(*, introduced: 3.0.0)
     public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
@@ -73,7 +70,7 @@ public extension ASAPP {
         return chatViewController
     }
     
-    @available(*, deprecated: 3.0.0, message: "Use createChatViewControllerForPushing or createChatViewControllerForPresenting instead.")
+    // deprecated in 3.0.0
     public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         let chatViewController = ChatViewController(
             config: config,
@@ -126,6 +123,6 @@ public extension ASAPP {
     }
     
     public class func loadFonts() {
-        Fonts.loadFontsIfNecessary()
+        FontLoader.load(bundle: ASAPP.bundle)
     }
 }

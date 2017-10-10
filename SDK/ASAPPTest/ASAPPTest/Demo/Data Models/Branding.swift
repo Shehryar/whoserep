@@ -44,7 +44,7 @@ class Branding: NSObject {
     
     let colors: BrandingColors
     
-    let fonts: BrandingFonts
+    let fontFamily: ASAPPFontFamily
     
     let styles: ASAPPStyles
     
@@ -55,23 +55,21 @@ class Branding: NSObject {
     // MARK:- Init
     
     required init(brandingType: BrandingType) {
-        ASAPP.loadFonts()
-        
         self.brandingType = brandingType
         colors = BrandingColors(brandingType: brandingType)
-        fonts = BrandingFonts(brandingType: brandingType)
         strings = ASAPPStrings()
-        styles = ASAPPStyles.stylesForAppId(brandingType.rawValue)
         views = ASAPPViews()
-        
-        super.init()
         
         switch brandingType {
         case .asapp:
+            fontFamily = DemoFonts.asapp
+            styles = ASAPPStyles.stylesForAppId(brandingType.rawValue)
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 115, height: 22)
-            views.chatTitle = asappTitle
+            views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: fontFamily)
         case .xfinity:
+            fontFamily = DemoFonts.xfinity
+            styles = ASAPPStyles.stylesForAppId(brandingType.rawValue, fontFamily: fontFamily)
             logoImageName = "comcast-logo"
             logoImageSize = CGSize(width: 86, height: 28)
             strings.chatTitle = "XFINITY Assistant"
@@ -81,17 +79,23 @@ class Branding: NSObject {
             strings.chatAskNavBarButton = "Ask"
             strings.chatEndChatNavBarButton = "End Chat"
         case .boost:
+            fontFamily = DemoFonts.boost
+            styles = ASAPPStyles.stylesForAppId(brandingType.rawValue, fontFamily: fontFamily)
+            let boostMedium = UIFont(name: "BoostNeo-Bold", size: 30)!
+            styles.textStyles.predictiveHeader = ASAPPTextStyle(font: boostMedium, size: 30, letterSpacing: 0.9, color: .white)
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 109, height: 32)
         }
+        
+        super.init()
     }
     
-    private var asappTitle: UIView {
+    private class func createASAPPTitle(colors: BrandingColors, styles: ASAPPStyles, fontFamily: ASAPPFontFamily) -> UIView {
         let container = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         
         let text = UILabel()
         text.text = "Help"
-        text.font = fonts.regularFont.withSize(22)
+        text.font = fontFamily.regular.withSize(22)
         text.textColor = colors.navBarTitleColor
         let textSize = text.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: 44.0))
         
@@ -138,7 +142,6 @@ class BrandingColors: NSObject {
         
         switch self.brandingType {
         case .asapp:
-            
             break
             
         case .xfinity:
@@ -153,7 +156,6 @@ class BrandingColors: NSObject {
             secondaryBackgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
             separatorColor = UIColor(red: 0.772, green: 0.773, blue: 0.772, alpha: 1)
             accentColor = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
-            break
             
         case .boost:
             navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
@@ -166,50 +168,6 @@ class BrandingColors: NSObject {
             backgroundColor = UIColor.white
             separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
             accentColor = UIColor(red: 0.961, green: 0.514, blue: 0.071, alpha: 1)
-            break
         }
-    }
-}
-
-class BrandingFonts: NSObject {
-    
-    let brandingType: BrandingType
-    
-    let lightFont: UIFont
-    let regularFont: UIFont
-    let mediumFont: UIFont
-    let boldFont: UIFont
-    
-    // MARK:- Init
-    
-    required init(brandingType: BrandingType) {
-        self.brandingType = brandingType
-        switch brandingType {
-        case .xfinity:
-            lightFont = DemoFonts.xfinitySansLgtFont()
-            regularFont = DemoFonts.xfinitySansRegFont()
-            mediumFont = DemoFonts.xfinitySansMedFont()
-            boldFont = DemoFonts.xfinitySansBoldFont()
-            break
-            
-        case .boost:
-            lightFont = DemoFonts.sprintSansRegularFont()
-            regularFont = DemoFonts.sprintSansRegularFont()
-            mediumFont = DemoFonts.sprintSansMediumFont()
-            boldFont = DemoFonts.sprintSansBoldFont()
-            break
-        
-        case .asapp:
-            fallthrough
-            
-        default:
-            lightFont = DemoFonts.latoLightFont(withSize: 14)
-            regularFont = DemoFonts.latoRegularFont(withSize: 14)
-            mediumFont = DemoFonts.latoRegularFont(withSize: 14)
-            boldFont = DemoFonts.latoBoldFont(withSize: 14)
-            break
-        }
-        
-        super.init()
     }
 }

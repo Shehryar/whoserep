@@ -8,40 +8,59 @@
 
 import UIKit
 
+@objcMembers
 public class ASAPPTextStyles: NSObject {
     
-    var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
+    public var navTitle: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
     
-    var navButton: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
+    public var navButton: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
     
     // MARK:- ComponentUI
     // MARK: Headers
     
-    var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 30, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var header1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var header1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var header2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 18, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var header2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 10, letterSpacing: 1.5, color: .asapp_manateeGray)
+    public var subheader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 10, letterSpacing: 1.5, color: .asapp_manateeGray)
     
     // MARK: Body
     
-    var body: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var body: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
     
-    var detail1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 12, letterSpacing: 0.5, color: .asapp_manateeGray)
+    public var detail1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: .asapp_manateeGray)
     
-    var detail2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 10, letterSpacing: 0.75, color: .asapp_manateeGray)
+    public var detail2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: .asapp_manateeGray)
     
-    var error: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
+    public var error: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
     
     // MARK: Buttons
     
-    var button: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
+    public var button: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
     
-    var link: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
+    public var link: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
+    
+    // MARK: Fonts
+    
+    public func updateStyles(for fontFamily: ASAPPFontFamily) {
+        navTitle.updateFont(fontFamily.medium)
+        navButton.updateFont(fontFamily.medium)
+        predictiveHeader.updateFont(fontFamily.regular)
+        header1.updateFont(fontFamily.bold)
+        header2.updateFont(fontFamily.bold)
+        subheader.updateFont(fontFamily.bold)
+        body.updateFont(fontFamily.regular)
+        bodyBold.updateFont(fontFamily.medium)
+        detail1.updateFont(fontFamily.regular)
+        detail2.updateFont(fontFamily.medium)
+        error.updateFont(fontFamily.medium)
+        button.updateFont(fontFamily.bold)
+        link.updateFont(fontFamily.bold)
+    }
 }
 
 extension ASAPPTextStyles {

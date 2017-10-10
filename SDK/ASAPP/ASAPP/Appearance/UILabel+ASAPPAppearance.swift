@@ -22,7 +22,7 @@ extension UILabel {
             .font: textStyle.font,
             .kern: textStyle.letterSpacing,
             .foregroundColor: color ?? textStyle.color
-            ])
+        ])
     }
     
     func setAttributedText(_ text: String?,

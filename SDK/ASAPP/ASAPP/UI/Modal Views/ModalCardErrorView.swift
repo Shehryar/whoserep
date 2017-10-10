@@ -25,7 +25,7 @@ class ModalCardErrorView: UIView {
     let contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
     let imageMargin: CGFloat = 16.0
     let imageSize: CGFloat = 16.0
-    let font: UIFont = Fonts.latoBoldFont(withSize: 12)
+    let font: UIFont = Fonts.default.bold.withSize(12)
     
     private let imageView = UIImageView(image: Images.asappImage(.iconErrorAlert)?.tinted(UIColor.white))
     private let label = UILabel()

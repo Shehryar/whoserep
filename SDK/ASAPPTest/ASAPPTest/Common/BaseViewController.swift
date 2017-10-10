@@ -93,12 +93,11 @@ extension BaseViewController: AppSettingsViewController {
         navBar.tintColor = AppSettings.shared.branding.colors.navBarTintColor
         navBar.titleTextAttributes = [
             NSForegroundColorAttributeName: AppSettings.shared.branding.colors.navBarTitleColor,
-            NSFontAttributeName: AppSettings.shared.branding.fonts.lightFont.withSize(19)
+            NSFontAttributeName: AppSettings.shared.branding.fontFamily.light.withSize(19)
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName: AppSettings.shared.branding.fonts.regularFont.withSize(16),
-            //NSForegroundColorAttributeName : appSettings.navBarTintColor
+            NSFontAttributeName: AppSettings.shared.branding.fontFamily.regular.withSize(16)
         ], for: .normal)
     }
 }

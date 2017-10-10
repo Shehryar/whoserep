@@ -9,17 +9,27 @@
 import UIKit
 
 public extension ASAPPStyles {
-    
     public class func stylesForAppId(_ appId: String) -> ASAPPStyles {
+        return stylesForAppId(appId, fontFamily: Fonts.default)
+    }
+    
+    public class func stylesForAppId(_ appId: String, fontFamily: ASAPPFontFamily? = nil) -> ASAPPStyles {
+        let fontFamily = fontFamily ?? Fonts.default
+        
+        ASAPP.loadFonts()
         switch appId {
-        case "comcast": return comcastStyles()
-        case "boost": return boostStyles()
-        default: return ASAPPStyles()
+        case "comcast": return comcastStyles(fontFamily: fontFamily)
+        case "boost": return boostStyles(fontFamily: fontFamily)
+        default:
+            let styles = ASAPPStyles()
+            styles.textStyles.updateStyles(for: fontFamily)
+            return styles
         }
     }
     
-    internal class func comcastStyles() -> ASAPPStyles {
+    internal class func comcastStyles(fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
+        styles.textStyles.updateStyles(for: fontFamily)
         
         let textBlue = UIColor(red: 0.267, green: 0.302, blue: 0.396, alpha: 1)
         let textGray = UIColor(red: 0.659, green: 0.678, blue: 0.729, alpha: 1)
@@ -28,24 +38,24 @@ public extension ASAPPStyles {
         
         // Text Styles
         
-        let regular = "XFINITYSans-Reg"
-        let bold = "XFINITYSans-Med"
-        let black = "XFINITYSans-Bold"
+        let regular = fontFamily.regular
+        let medium = fontFamily.medium
+        let bold = fontFamily.bold
         
         let ts = styles.textStyles
-        ts.navTitle = ASAPPTextStyle(fontName: regular, size: 17, letterSpacing: 0, color: .white)
-        ts.navButton = ASAPPTextStyle(fontName: bold, size: 16, letterSpacing: 0, color: textBlue)
-        ts.predictiveHeader = ASAPPTextStyle(fontName: .latoLight, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
-        ts.header1 = ASAPPTextStyle(fontName: black, size: 24, letterSpacing: 0.5, color: textBlue)
-        ts.header2 = ASAPPTextStyle(fontName: black, size: 18, letterSpacing: 0.5, color: textBlue)
-        ts.subheader = ASAPPTextStyle(fontName: black, size: 10, letterSpacing: 1.5, color: textGray)
-        ts.body = ASAPPTextStyle(fontName: regular, size: 15, letterSpacing: 0.5, color: textBlue)
-        ts.bodyBold  = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0.5, color: textBlue)
-        ts.detail1 = ASAPPTextStyle(fontName: regular, size: 12, letterSpacing: 0.5, color: textGray)
-        ts.detail2 = ASAPPTextStyle(fontName: bold, size: 10, letterSpacing: 0.75, color: textGray)
-        ts.error = ASAPPTextStyle(fontName: bold, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
-        ts.button = ASAPPTextStyle(fontName: black, size: 14, letterSpacing: 1.5, color: textBlue)
-        ts.link = ASAPPTextStyle(fontName: black, size: 12, letterSpacing: 1.5, color: linkBlue)
+        ts.navTitle = ASAPPTextStyle(font: regular, size: 17, letterSpacing: 0, color: .white)
+        ts.navButton = ASAPPTextStyle(font: medium, size: 16, letterSpacing: 0, color: textBlue)
+        ts.predictiveHeader = ASAPPTextStyle(font: Fonts.default.light, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
+        ts.header1 = ASAPPTextStyle(font: bold, size: 24, letterSpacing: 0.5, color: textBlue)
+        ts.header2 = ASAPPTextStyle(font: bold, size: 18, letterSpacing: 0.5, color: textBlue)
+        ts.subheader = ASAPPTextStyle(font: bold, size: 10, letterSpacing: 1.5, color: textGray)
+        ts.body = ASAPPTextStyle(font: regular, size: 15, letterSpacing: 0.5, color: textBlue)
+        ts.bodyBold  = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: textBlue)
+        ts.detail1 = ASAPPTextStyle(font: regular, size: 12, letterSpacing: 0.5, color: textGray)
+        ts.detail2 = ASAPPTextStyle(font: medium, size: 10, letterSpacing: 0.75, color: textGray)
+        ts.error = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
+        ts.button = ASAPPTextStyle(font: bold, size: 14, letterSpacing: 1.5, color: textBlue)
+        ts.link = ASAPPTextStyle(font: bold, size: 12, letterSpacing: 1.5, color: linkBlue)
         
         // Segue type
         
@@ -98,7 +108,7 @@ public extension ASAPPStyles {
         return styles
     }
     
-    internal class func boostStyles() -> ASAPPStyles {
+    internal class func boostStyles(fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         let boostOrange = UIColor(hexString: "#f7901e")!
@@ -106,10 +116,6 @@ public extension ASAPPStyles {
         // Nav button style
         
         styles.navBarStyles.buttonStyle = .text
-        
-        // Text Styles
-       
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(fontName: "BoostNeo-Bold", size: 30, letterSpacing: 0.9, color: .white)
         
         // Colors
         
