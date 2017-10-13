@@ -33,8 +33,18 @@ Xcode   | 9.0
 1. Press the play button to build and run the application
 
 
-Distributing a beta build of the test app (for QA)
---------------------------------------------------
+GitFlow and automatic beta distribution
+----------------------------------------
+
+Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/), `develop` is the default branch. We merge feature branches into `develop` and merge `develop` into `master` when we're ready to release a beta build for QA. `master` is built automatically by [CircleCI](https://circleci.com/gh/ASAPPinc/ASAPP-iOS) using [fastlane](https://fastlane.tools/) and distributed using Crashlytics/Fabric. While the build number is automatically incremented, the version is not. Be sure to update the version number before distributing a beta build to minimize confusion.
+
+1. Create a pull request from `develop` into `master` (the "base" branch should be `master`)
+1. Merge the pull request (**do not** squash or rebase)
+1. If necessary, edit release notes [via Fabric](https://www.fabric.io/asapp/ios/apps/com.asappinc.testapp/beta/releases/latest).
+
+
+Manually distributing a beta build of the test app (for QA)
+-----------------------------------------------------------
 
 ### Pre-requisites
 
@@ -42,7 +52,7 @@ Program   | Version
 ----------|---------
 ruby      | 2.4.2
 [bundler](https://github.com/bundler/bundler)   | 1.15.4
-[fastlane](https://github.com/fastlane/fastlane)  | 2.59.0
+[fastlane](https://github.com/fastlane/fastlane)  | 2.60.1
 
 #### Note
 
