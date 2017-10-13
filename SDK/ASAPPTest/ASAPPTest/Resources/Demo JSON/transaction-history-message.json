@@ -39,7 +39,7 @@
           "color": "#5b657e"
         }
       },
-      "body": {
+      "root": {
         "type": "stackView",
         "content": {
           "items": [
@@ -217,30 +217,28 @@
       }
     }
   },
-  "quick_replies": [
-    {
-      "type": "button",
-      "label": "Alternate Option 1",
-      "value": {
-        "content": {
-          "deepLink": "altOption1",
-          "deepLinkData": {}
-        },
-        "type": "LINK"
+  "quickReplies": {
+    "default": [
+      {
+        "title": "Alternate Option 1",
+        "action": {
+          "type": "deepLink",
+          "content": {
+            "name": "altOption1"
+          }
+        }
+      },
+      {
+        "title": "Alternate Option 2",
+        "action": {
+          "type": "deepLink",
+          "content": {
+            "name": "altOption2"
+          }
+        }
       }
-    },
-    {
-      "type": "button",
-      "label": "Alternate Option 2",
-      "value": {
-        "content": {
-          "deepLink": "altOption2",
-          "deepLinkData": {}
-        },
-        "type": "LINK"
-      }
-    }
-  ],
+    ]
+  },
   "metadata": {
     "classification": "TRANSACTION_HISTORY"
   }

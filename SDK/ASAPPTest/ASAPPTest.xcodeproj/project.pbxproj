@@ -54,6 +54,37 @@
 		30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */; };
 		30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
+		3A1E00641F8ECB5B008C3F39 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00571F8ECB4F008C3F39 /* add-credit-card.json */; };
+		3A1E00651F8ECB5B008C3F39 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00631F8ECB50008C3F39 /* appointment-confirmation.json */; };
+		3A1E00661F8ECB5B008C3F39 /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005F1F8ECB50008C3F39 /* bill-autopay-scheduled.json */; };
+		3A1E00671F8ECB5B008C3F39 /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00491F8ECB4D008C3F39 /* bill-credit.json */; };
+		3A1E00681F8ECB5B008C3F39 /* bill-paid.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00581F8ECB4F008C3F39 /* bill-paid.json */; };
+		3A1E00691F8ECB5B008C3F39 /* bill-past-due.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004D1F8ECB4E008C3F39 /* bill-past-due.json */; };
+		3A1E006A1F8ECB5B008C3F39 /* bill-summary.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005E1F8ECB4F008C3F39 /* bill-summary.json */; };
+		3A1E006B1F8ECB5B008C3F39 /* cancel-appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00461F8ECB4D008C3F39 /* cancel-appointment-confirmation.json */; };
+		3A1E006C1F8ECB5B008C3F39 /* cancel-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005C1F8ECB4F008C3F39 /* cancel-appointment.json */; };
+		3A1E006D1F8ECB5B008C3F39 /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00451F8ECB4D008C3F39 /* chat-flow-agent-entered.json */; };
+		3A1E006E1F8ECB5B008C3F39 /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005A1F8ECB4F008C3F39 /* chat-flow-pay-bill.json */; };
+		3A1E006F1F8ECB5B008C3F39 /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005B1F8ECB4F008C3F39 /* chat-flow-queue-entered.json */; };
+		3A1E00701F8ECB5B008C3F39 /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00511F8ECB4E008C3F39 /* chat-flow-wait-or-callback.json */; };
+		3A1E00711F8ECB5B008C3F39 /* data-usage-near-full-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00611F8ECB50008C3F39 /* data-usage-near-full-message.json */; };
+		3A1E00721F8ECB5B008C3F39 /* device-restart.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00601F8ECB50008C3F39 /* device-restart.json */; };
+		3A1E00731F8ECB5B008C3F39 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00531F8ECB4E008C3F39 /* device-tracking.json */; };
+		3A1E00741F8ECB5B008C3F39 /* equipment-return.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004E1F8ECB4E008C3F39 /* equipment-return.json */; };
+		3A1E00751F8ECB5B008C3F39 /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004F1F8ECB4E008C3F39 /* json-style-example.json */; };
+		3A1E00761F8ECB5B008C3F39 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00541F8ECB4E008C3F39 /* live-chat-begin.json */; };
+		3A1E00771F8ECB5B008C3F39 /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005D1F8ECB4F008C3F39 /* live-chat-end.json */; };
+		3A1E00781F8ECB5B008C3F39 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00551F8ECB4E008C3F39 /* phone-plan-upgrade.json */; };
+		3A1E00791F8ECB5B008C3F39 /* phone-upgrade-ineligible.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00621F8ECB50008C3F39 /* phone-upgrade-ineligible.json */; };
+		3A1E007A1F8ECB5B008C3F39 /* phone-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00561F8ECB4E008C3F39 /* phone-upgrade.json */; };
+		3A1E007B1F8ECB5B008C3F39 /* predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00481F8ECB4D008C3F39 /* predictive-response.json */; };
+		3A1E007C1F8ECB5B008C3F39 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00591F8ECB4F008C3F39 /* schedule-appointment-5-day.json */; };
+		3A1E007D1F8ECB5B008C3F39 /* schedule-appointment-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00471F8ECB4D008C3F39 /* schedule-appointment-selection.json */; };
+		3A1E007E1F8ECB5B008C3F39 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00521F8ECB4E008C3F39 /* schedule-appointment.json */; };
+		3A1E007F1F8ECB5B008C3F39 /* sprint_predictive-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004B1F8ECB4D008C3F39 /* sprint_predictive-response.json */; };
+		3A1E00801F8ECB5B008C3F39 /* tech-location.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004A1F8ECB4D008C3F39 /* tech-location.json */; };
+		3A1E00811F8ECB5B008C3F39 /* transaction-history-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00501F8ECB4E008C3F39 /* transaction-history-message.json */; };
+		3A1E00821F8ECB5B008C3F39 /* troubleshooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E004C1F8ECB4D008C3F39 /* troubleshooter.json */; };
 		3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811041F7AF55300078E3F /* Assets.xcassets */; };
 		3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110F1F7BE94C00078E3F /* BoostNeo-Black.ttf */; };
 		3A68111A1F7BEB7200078E3F /* BoostNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A68110C1F7BE94C00078E3F /* BoostNeo-Bold.ttf */; };
@@ -136,6 +167,37 @@
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
+		3A1E00451F8ECB4D008C3F39 /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
+		3A1E00461F8ECB4D008C3F39 /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
+		3A1E00471F8ECB4D008C3F39 /* schedule-appointment-selection.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "schedule-appointment-selection.json"; sourceTree = "<group>"; };
+		3A1E00481F8ECB4D008C3F39 /* predictive-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "predictive-response.json"; sourceTree = "<group>"; };
+		3A1E00491F8ECB4D008C3F39 /* bill-credit.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
+		3A1E004A1F8ECB4D008C3F39 /* tech-location.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "tech-location.json"; sourceTree = "<group>"; };
+		3A1E004B1F8ECB4D008C3F39 /* sprint_predictive-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sprint_predictive-response.json"; sourceTree = "<group>"; };
+		3A1E004C1F8ECB4D008C3F39 /* troubleshooter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = troubleshooter.json; sourceTree = "<group>"; };
+		3A1E004D1F8ECB4E008C3F39 /* bill-past-due.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bill-past-due.json"; sourceTree = "<group>"; };
+		3A1E004E1F8ECB4E008C3F39 /* equipment-return.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "equipment-return.json"; sourceTree = "<group>"; };
+		3A1E004F1F8ECB4E008C3F39 /* json-style-example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
+		3A1E00501F8ECB4E008C3F39 /* transaction-history-message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "transaction-history-message.json"; sourceTree = "<group>"; };
+		3A1E00511F8ECB4E008C3F39 /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
+		3A1E00521F8ECB4E008C3F39 /* schedule-appointment.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
+		3A1E00531F8ECB4E008C3F39 /* device-tracking.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
+		3A1E00541F8ECB4E008C3F39 /* live-chat-begin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
+		3A1E00551F8ECB4E008C3F39 /* phone-plan-upgrade.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
+		3A1E00561F8ECB4E008C3F39 /* phone-upgrade.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "phone-upgrade.json"; sourceTree = "<group>"; };
+		3A1E00571F8ECB4F008C3F39 /* add-credit-card.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
+		3A1E00581F8ECB4F008C3F39 /* bill-paid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bill-paid.json"; sourceTree = "<group>"; };
+		3A1E00591F8ECB4F008C3F39 /* schedule-appointment-5-day.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "schedule-appointment-5-day.json"; sourceTree = "<group>"; };
+		3A1E005A1F8ECB4F008C3F39 /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
+		3A1E005B1F8ECB4F008C3F39 /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
+		3A1E005C1F8ECB4F008C3F39 /* cancel-appointment.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cancel-appointment.json"; sourceTree = "<group>"; };
+		3A1E005D1F8ECB4F008C3F39 /* live-chat-end.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
+		3A1E005E1F8ECB4F008C3F39 /* bill-summary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bill-summary.json"; sourceTree = "<group>"; };
+		3A1E005F1F8ECB50008C3F39 /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
+		3A1E00601F8ECB50008C3F39 /* device-restart.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "device-restart.json"; sourceTree = "<group>"; };
+		3A1E00611F8ECB50008C3F39 /* data-usage-near-full-message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "data-usage-near-full-message.json"; sourceTree = "<group>"; };
+		3A1E00621F8ECB50008C3F39 /* phone-upgrade-ineligible.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "phone-upgrade-ineligible.json"; sourceTree = "<group>"; };
+		3A1E00631F8ECB50008C3F39 /* appointment-confirmation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
 		3A4FEF361F58B5D900338B00 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		3A4FEF371F58B5D900338B00 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		3A6811041F7AF55300078E3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ASAPPTest/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -332,11 +394,50 @@
 			path = Environment;
 			sourceTree = "<group>";
 		};
+		3A1E00441F8ECB34008C3F39 /* Demo JSON */ = {
+			isa = PBXGroup;
+			children = (
+				3A1E00571F8ECB4F008C3F39 /* add-credit-card.json */,
+				3A1E00631F8ECB50008C3F39 /* appointment-confirmation.json */,
+				3A1E005F1F8ECB50008C3F39 /* bill-autopay-scheduled.json */,
+				3A1E00491F8ECB4D008C3F39 /* bill-credit.json */,
+				3A1E00581F8ECB4F008C3F39 /* bill-paid.json */,
+				3A1E004D1F8ECB4E008C3F39 /* bill-past-due.json */,
+				3A1E005E1F8ECB4F008C3F39 /* bill-summary.json */,
+				3A1E00461F8ECB4D008C3F39 /* cancel-appointment-confirmation.json */,
+				3A1E005C1F8ECB4F008C3F39 /* cancel-appointment.json */,
+				3A1E00451F8ECB4D008C3F39 /* chat-flow-agent-entered.json */,
+				3A1E005A1F8ECB4F008C3F39 /* chat-flow-pay-bill.json */,
+				3A1E005B1F8ECB4F008C3F39 /* chat-flow-queue-entered.json */,
+				3A1E00511F8ECB4E008C3F39 /* chat-flow-wait-or-callback.json */,
+				3A1E00611F8ECB50008C3F39 /* data-usage-near-full-message.json */,
+				3A1E00601F8ECB50008C3F39 /* device-restart.json */,
+				3A1E00531F8ECB4E008C3F39 /* device-tracking.json */,
+				3A1E004E1F8ECB4E008C3F39 /* equipment-return.json */,
+				3A1E004F1F8ECB4E008C3F39 /* json-style-example.json */,
+				3A1E00541F8ECB4E008C3F39 /* live-chat-begin.json */,
+				3A1E005D1F8ECB4F008C3F39 /* live-chat-end.json */,
+				3A1E00551F8ECB4E008C3F39 /* phone-plan-upgrade.json */,
+				3A1E00621F8ECB50008C3F39 /* phone-upgrade-ineligible.json */,
+				3A1E00561F8ECB4E008C3F39 /* phone-upgrade.json */,
+				3A1E00481F8ECB4D008C3F39 /* predictive-response.json */,
+				3A1E00591F8ECB4F008C3F39 /* schedule-appointment-5-day.json */,
+				3A1E00471F8ECB4D008C3F39 /* schedule-appointment-selection.json */,
+				3A1E00521F8ECB4E008C3F39 /* schedule-appointment.json */,
+				3A1E004B1F8ECB4D008C3F39 /* sprint_predictive-response.json */,
+				3A1E004A1F8ECB4D008C3F39 /* tech-location.json */,
+				3A1E00501F8ECB4E008C3F39 /* transaction-history-message.json */,
+				3A1E004C1F8ECB4D008C3F39 /* troubleshooter.json */,
+			);
+			path = "Demo JSON";
+			sourceTree = "<group>";
+		};
 		3A6811031F7AF51A00078E3F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				3A6811041F7AF55300078E3F /* Assets.xcassets */,
 				3A6811051F7AF55B00078E3F /* hey.caf */,
+				3A1E00441F8ECB34008C3F39 /* Demo JSON */,
 				3A6811061F7AF56A00078E3F /* Fonts */,
 			);
 			path = Resources;
@@ -499,23 +600,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A68111F1F7BEB7200078E3F /* SprintSans-Medium.ttf in Resources */,
+				3A1E006D1F8ECB5B008C3F39 /* chat-flow-agent-entered.json in Resources */,
+				3A1E00721F8ECB5B008C3F39 /* device-restart.json in Resources */,
 				3A6811201F7BEB7200078E3F /* SprintSans-Regular.ttf in Resources */,
+				3A1E00651F8ECB5B008C3F39 /* appointment-confirmation.json in Resources */,
+				3A1E006C1F8ECB5B008C3F39 /* cancel-appointment.json in Resources */,
 				3A6811231F7BEB7200078E3F /* XFINITYSans-Med.ttf in Resources */,
+				3A1E00701F8ECB5B008C3F39 /* chat-flow-wait-or-callback.json in Resources */,
+				3A1E00801F8ECB5B008C3F39 /* tech-location.json in Resources */,
 				3A6811221F7BEB7200078E3F /* XFINITYSans-Lgt.ttf in Resources */,
 				3A6811241F7BEB7200078E3F /* XFINITYSans-Reg.otf in Resources */,
 				307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */,
+				3A1E007E1F8ECB5B008C3F39 /* schedule-appointment.json in Resources */,
+				3A1E00771F8ECB5B008C3F39 /* live-chat-end.json in Resources */,
+				3A1E00641F8ECB5B008C3F39 /* add-credit-card.json in Resources */,
+				3A1E00661F8ECB5B008C3F39 /* bill-autopay-scheduled.json in Resources */,
+				3A1E007F1F8ECB5B008C3F39 /* sprint_predictive-response.json in Resources */,
+				3A1E00741F8ECB5B008C3F39 /* equipment-return.json in Resources */,
 				307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */,
+				3A1E00821F8ECB5B008C3F39 /* troubleshooter.json in Resources */,
 				3A68111C1F7BEB7200078E3F /* BoostNeo-Regular.ttf in Resources */,
+				3A1E00751F8ECB5B008C3F39 /* json-style-example.json in Resources */,
 				30A003551DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard in Resources */,
+				3A1E007D1F8ECB5B008C3F39 /* schedule-appointment-selection.json in Resources */,
 				3A68111E1F7BEB7200078E3F /* SprintSans-Bold.ttf in Resources */,
+				3A1E00691F8ECB5B008C3F39 /* bill-past-due.json in Resources */,
 				3A68111A1F7BEB7200078E3F /* BoostNeo-Bold.ttf in Resources */,
+				3A1E00781F8ECB5B008C3F39 /* phone-plan-upgrade.json in Resources */,
 				3A6811211F7BEB7200078E3F /* XFINITYSans-Bold.ttf in Resources */,
+				3A1E00731F8ECB5B008C3F39 /* device-tracking.json in Resources */,
+				3A1E006E1F8ECB5B008C3F39 /* chat-flow-pay-bill.json in Resources */,
+				3A1E00811F8ECB5B008C3F39 /* transaction-history-message.json in Resources */,
+				3A1E00671F8ECB5B008C3F39 /* bill-credit.json in Resources */,
 				3A68111D1F7BEB7200078E3F /* SprintSans-Black.ttf in Resources */,
 				3A68111B1F7BEB7200078E3F /* BoostNeo-Light.ttf in Resources */,
+				3A1E007C1F8ECB5B008C3F39 /* schedule-appointment-5-day.json in Resources */,
+				3A1E00761F8ECB5B008C3F39 /* live-chat-begin.json in Resources */,
 				3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */,
+				3A1E007B1F8ECB5B008C3F39 /* predictive-response.json in Resources */,
+				3A1E006A1F8ECB5B008C3F39 /* bill-summary.json in Resources */,
 				3A6811251F7BEB7600078E3F /* hey.caf in Resources */,
+				3A1E00681F8ECB5B008C3F39 /* bill-paid.json in Resources */,
 				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
+				3A1E006B1F8ECB5B008C3F39 /* cancel-appointment-confirmation.json in Resources */,
 				3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */,
+				3A1E00791F8ECB5B008C3F39 /* phone-upgrade-ineligible.json in Resources */,
+				3A1E00711F8ECB5B008C3F39 /* data-usage-near-full-message.json in Resources */,
+				3A1E006F1F8ECB5B008C3F39 /* chat-flow-queue-entered.json in Resources */,
+				3A1E007A1F8ECB5B008C3F39 /* phone-upgrade.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

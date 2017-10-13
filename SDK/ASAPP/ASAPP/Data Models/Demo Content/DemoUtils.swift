@@ -13,7 +13,7 @@ class DemoUtils: NSObject {
     // MARK:- File Paths
     
     class func createFilePath(for fileName: String, type: String = "json") -> String? {
-        return ASAPP.bundle.path(forResource: fileName, ofType: type)
+        return Bundle.main.path(forResource: fileName, ofType: type)
     }
     
     // MARK:- Reading from File
