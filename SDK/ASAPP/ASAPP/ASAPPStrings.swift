@@ -116,6 +116,9 @@ public class ASAPPStrings: NSObject {
     /// The text for the confirmation button of the end chat alert.
     public var endChatConfirmationEndChatButton: String = ASAPPLocalizedString("End Chat")
     
+    /// The text for the cancel button of the end chat alert.
+    public var endChatConfirmationCancelButton: String = ASAPPLocalizedString("Cancel")
+    
     // Modal View: Feedback
     
     /// The title for the feedback form.
