@@ -383,33 +383,8 @@
 		30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3F801F27CC4F00D6DB02 /* SRSItemFactory.swift */; };
 		30DF3F8B1F27CEB100D6DB02 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */; };
 		30DF3FB21F27D2D200D6DB02 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F961F27D2D200D6DB02 /* add-credit-card.json */; };
-		30DF3FB31F27D2D200D6DB02 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */; };
-		30DF3FB41F27D2D200D6DB02 /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */; };
-		30DF3FB51F27D2D200D6DB02 /* bill-credit.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F991F27D2D200D6DB02 /* bill-credit.json */; };
-		30DF3FB61F27D2D200D6DB02 /* bill-paid.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */; };
-		30DF3FB71F27D2D200D6DB02 /* bill-past-due.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */; };
-		30DF3FB81F27D2D200D6DB02 /* bill-summary.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */; };
-		30DF3FB91F27D2D200D6DB02 /* cancel-appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */; };
-		30DF3FBA1F27D2D200D6DB02 /* cancel-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */; };
-		30DF3FBB1F27D2D200D6DB02 /* chat-flow-agent-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */; };
-		30DF3FBC1F27D2D200D6DB02 /* chat-flow-pay-bill.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */; };
-		30DF3FBD1F27D2D200D6DB02 /* chat-flow-queue-entered.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */; };
-		30DF3FBE1F27D2D200D6DB02 /* chat-flow-wait-or-callback.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */; };
-		30DF3FBF1F27D2D200D6DB02 /* device-restart.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA31F27D2D200D6DB02 /* device-restart.json */; };
-		30DF3FC01F27D2D200D6DB02 /* device-tracking.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA41F27D2D200D6DB02 /* device-tracking.json */; };
-		30DF3FC11F27D2D200D6DB02 /* equipment-return.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA51F27D2D200D6DB02 /* equipment-return.json */; };
-		30DF3FC21F27D2D200D6DB02 /* json-style-example.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA61F27D2D200D6DB02 /* json-style-example.json */; };
 		30DF3FC31F27D2D200D6DB02 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */; };
-		30DF3FC41F27D2D200D6DB02 /* live-chat-end.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */; };
 		30DF3FC51F27D2D200D6DB02 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */; };
-		30DF3FC61F27D2D200D6DB02 /* phone-upgrade-ineligible.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */; };
-		30DF3FC71F27D2D200D6DB02 /* phone-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */; };
-		30DF3FC81F27D2D200D6DB02 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */; };
-		30DF3FC91F27D2D200D6DB02 /* schedule-appointment-selection.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */; };
-		30DF3FCA1F27D2D200D6DB02 /* schedule-appointment.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */; };
-		30DF3FCB1F27D2D200D6DB02 /* tech-location.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FAF1F27D2D200D6DB02 /* tech-location.json */; };
-		30DF3FCC1F27D2D200D6DB02 /* transaction-history.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FB01F27D2D200D6DB02 /* transaction-history.json */; };
-		30DF3FCD1F27D2D200D6DB02 /* troubleshooter.json in Resources */ = {isa = PBXBuildFile; fileRef = 30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */; };
 		30DF3FCF1F27D38300D6DB02 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */; };
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */; };
@@ -438,6 +413,7 @@
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
 		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
+		3A38693C1F8823E6008CCA4D /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A38693B1F8823E6008CCA4D /* security-pin.json */; };
 		3A4FB3D61F698B27005F2B9F /* ASAPPSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */; };
 		3A4FB3D71F699E20005F2B9F /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4FEF021F589D2700338B00 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A4FB3D81F699E20005F2B9F /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4FEF031F589D2700338B00 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -869,33 +845,8 @@
 		30DF3F861F27CEB100D6DB02 /* ASAPPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASAPPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DF3F8A1F27CEB100D6DB02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30DF3F961F27D2D200D6DB02 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
-		30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appointment-confirmation.json"; sourceTree = "<group>"; };
-		30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-autopay-scheduled.json"; sourceTree = "<group>"; };
-		30DF3F991F27D2D200D6DB02 /* bill-credit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-credit.json"; sourceTree = "<group>"; };
-		30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-paid.json"; sourceTree = "<group>"; };
-		30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-past-due.json"; sourceTree = "<group>"; };
-		30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "bill-summary.json"; sourceTree = "<group>"; };
-		30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
-		30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cancel-appointment.json"; sourceTree = "<group>"; };
-		30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
-		30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-pay-bill.json"; sourceTree = "<group>"; };
-		30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-queue-entered.json"; sourceTree = "<group>"; };
-		30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "chat-flow-wait-or-callback.json"; sourceTree = "<group>"; };
-		30DF3FA31F27D2D200D6DB02 /* device-restart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-restart.json"; sourceTree = "<group>"; };
-		30DF3FA41F27D2D200D6DB02 /* device-tracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "device-tracking.json"; sourceTree = "<group>"; };
-		30DF3FA51F27D2D200D6DB02 /* equipment-return.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "equipment-return.json"; sourceTree = "<group>"; };
-		30DF3FA61F27D2D200D6DB02 /* json-style-example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "json-style-example.json"; sourceTree = "<group>"; };
 		30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
-		30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-end.json"; sourceTree = "<group>"; };
 		30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
-		30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade-ineligible.json"; sourceTree = "<group>"; };
-		30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-upgrade.json"; sourceTree = "<group>"; };
-		30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-5-day.json"; sourceTree = "<group>"; };
-		30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-selection.json"; sourceTree = "<group>"; };
-		30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment.json"; sourceTree = "<group>"; };
-		30DF3FAF1F27D2D200D6DB02 /* tech-location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tech-location.json"; sourceTree = "<group>"; };
-		30DF3FB01F27D2D200D6DB02 /* transaction-history.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "transaction-history.json"; sourceTree = "<group>"; };
-		30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = troubleshooter.json; sourceTree = "<group>"; };
 		30DF3FCE1F27D38300D6DB02 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestUtil.swift; path = ASAPPTests/TestUtil.swift; sourceTree = SOURCE_ROOT; };
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
@@ -924,6 +875,7 @@
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
 		30F6B4D81EC5331000ABA570 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
+		3A38693B1F8823E6008CCA4D /* security-pin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "security-pin.json"; sourceTree = "<group>"; };
 		3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPSpec.swift; path = ASAPPTests/ASAPPSpec.swift; sourceTree = SOURCE_ROOT; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
@@ -1897,33 +1849,9 @@
 			isa = PBXGroup;
 			children = (
 				30DF3F961F27D2D200D6DB02 /* add-credit-card.json */,
-				30DF3F971F27D2D200D6DB02 /* appointment-confirmation.json */,
-				30DF3F981F27D2D200D6DB02 /* bill-autopay-scheduled.json */,
-				30DF3F991F27D2D200D6DB02 /* bill-credit.json */,
-				30DF3F9A1F27D2D200D6DB02 /* bill-paid.json */,
-				30DF3F9B1F27D2D200D6DB02 /* bill-past-due.json */,
-				30DF3F9C1F27D2D200D6DB02 /* bill-summary.json */,
-				30DF3F9D1F27D2D200D6DB02 /* cancel-appointment-confirmation.json */,
-				30DF3F9E1F27D2D200D6DB02 /* cancel-appointment.json */,
-				30DF3F9F1F27D2D200D6DB02 /* chat-flow-agent-entered.json */,
-				30DF3FA01F27D2D200D6DB02 /* chat-flow-pay-bill.json */,
-				30DF3FA11F27D2D200D6DB02 /* chat-flow-queue-entered.json */,
-				30DF3FA21F27D2D200D6DB02 /* chat-flow-wait-or-callback.json */,
-				30DF3FA31F27D2D200D6DB02 /* device-restart.json */,
-				30DF3FA41F27D2D200D6DB02 /* device-tracking.json */,
-				30DF3FA51F27D2D200D6DB02 /* equipment-return.json */,
-				30DF3FA61F27D2D200D6DB02 /* json-style-example.json */,
 				30DF3FA71F27D2D200D6DB02 /* live-chat-begin.json */,
-				30DF3FA81F27D2D200D6DB02 /* live-chat-end.json */,
 				30DF3FA91F27D2D200D6DB02 /* phone-plan-upgrade.json */,
-				30DF3FAA1F27D2D200D6DB02 /* phone-upgrade-ineligible.json */,
-				30DF3FAB1F27D2D200D6DB02 /* phone-upgrade.json */,
-				30DF3FAC1F27D2D200D6DB02 /* schedule-appointment-5-day.json */,
-				30DF3FAD1F27D2D200D6DB02 /* schedule-appointment-selection.json */,
-				30DF3FAE1F27D2D200D6DB02 /* schedule-appointment.json */,
-				30DF3FAF1F27D2D200D6DB02 /* tech-location.json */,
-				30DF3FB01F27D2D200D6DB02 /* transaction-history.json */,
-				30DF3FB11F27D2D200D6DB02 /* troubleshooter.json */,
+				3A38693B1F8823E6008CCA4D /* security-pin.json */,
 			);
 			path = "Sample JSON";
 			sourceTree = "<group>";
@@ -2114,34 +2042,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30DF3FBC1F27D2D200D6DB02 /* chat-flow-pay-bill.json in Resources */,
-				30DF3FCA1F27D2D200D6DB02 /* schedule-appointment.json in Resources */,
-				30DF3FB61F27D2D200D6DB02 /* bill-paid.json in Resources */,
 				30DF3FC51F27D2D200D6DB02 /* phone-plan-upgrade.json in Resources */,
-				30DF3FC11F27D2D200D6DB02 /* equipment-return.json in Resources */,
-				30DF3FC61F27D2D200D6DB02 /* phone-upgrade-ineligible.json in Resources */,
-				30DF3FBB1F27D2D200D6DB02 /* chat-flow-agent-entered.json in Resources */,
-				30DF3FB81F27D2D200D6DB02 /* bill-summary.json in Resources */,
-				30DF3FBE1F27D2D200D6DB02 /* chat-flow-wait-or-callback.json in Resources */,
-				30DF3FB71F27D2D200D6DB02 /* bill-past-due.json in Resources */,
-				30DF3FBA1F27D2D200D6DB02 /* cancel-appointment.json in Resources */,
-				30DF3FC21F27D2D200D6DB02 /* json-style-example.json in Resources */,
-				30DF3FCD1F27D2D200D6DB02 /* troubleshooter.json in Resources */,
-				30DF3FB31F27D2D200D6DB02 /* appointment-confirmation.json in Resources */,
-				30DF3FB91F27D2D200D6DB02 /* cancel-appointment-confirmation.json in Resources */,
-				30DF3FC41F27D2D200D6DB02 /* live-chat-end.json in Resources */,
-				30DF3FC81F27D2D200D6DB02 /* schedule-appointment-5-day.json in Resources */,
-				30DF3FCC1F27D2D200D6DB02 /* transaction-history.json in Resources */,
-				30DF3FC91F27D2D200D6DB02 /* schedule-appointment-selection.json in Resources */,
-				30DF3FBF1F27D2D200D6DB02 /* device-restart.json in Resources */,
-				30DF3FCB1F27D2D200D6DB02 /* tech-location.json in Resources */,
-				30DF3FC71F27D2D200D6DB02 /* phone-upgrade.json in Resources */,
+				3A38693C1F8823E6008CCA4D /* security-pin.json in Resources */,
 				30DF3FB21F27D2D200D6DB02 /* add-credit-card.json in Resources */,
 				30DF3FC31F27D2D200D6DB02 /* live-chat-begin.json in Resources */,
-				30DF3FB41F27D2D200D6DB02 /* bill-autopay-scheduled.json in Resources */,
-				30DF3FC01F27D2D200D6DB02 /* device-tracking.json in Resources */,
-				30DF3FB51F27D2D200D6DB02 /* bill-credit.json in Resources */,
-				30DF3FBD1F27D2D200D6DB02 /* chat-flow-queue-entered.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2717,7 +2621,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2738,7 +2642,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2758,7 +2662,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ASAPPTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.ASAPPTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

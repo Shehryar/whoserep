@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "parentEventLogSeq": 0,
+  "quickReplies": {
+    "default": [
+      {
+        "action": {
+          "content": {
+            "displayStyle": "inset",
+            "name": "17-03_message_enter_new_pin"
+          },
+          "type": "componentView"
+        },
+        "title": "Change PIN"
+      },
+      {
+        "action": {
+          "content": {
+            "classification": "17-01_message_forgot_pin"
+          },
+          "type": "treewalk"
+        },
+        "title": "Retrieve PIN"
+      }
+    ]
+  },
+  "text": "What can I help you with regarding your security PIN?"
+}
