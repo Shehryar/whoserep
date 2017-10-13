@@ -458,6 +458,13 @@ extension ChatViewController {
             container.navigationController?.popViewController(animated: true)
         }
     }
+    
+    func shakeConnectionStatusView() {
+        connectionStatusView.label.transform = CGAffineTransform(translationX: 20, y: 0)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { [weak self] in
+            self?.connectionStatusView.label.transform = .identity
+        }, completion: nil)
+    }
 }
 
 // MARK:- Button Actions
@@ -475,7 +482,13 @@ extension ChatViewController {
                                                   preferredStyle: .alert)
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationCancelButton, style: .cancel, handler: nil))
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationEndChatButton, style: .default, handler: { [weak self] _ in
-            self?.conversationManager.endLiveChat()
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if !strongSelf.conversationManager.endLiveChat() {
+                strongSelf.shakeConnectionStatusView()
+            }
         }))
         present(confirmationAlert, animated: true, completion: nil)
     }

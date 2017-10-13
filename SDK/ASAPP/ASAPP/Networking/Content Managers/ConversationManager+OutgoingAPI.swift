@@ -45,12 +45,15 @@ extension ConversationManager {
         }
     }
     
-    func endLiveChat() {
+    @discardableResult
+    func endLiveChat() -> Bool {
         guard isConnected(retryConnectionIfNeeded: true) else {
-            return
+            return false
         }
         
         socketConnection.sendRequest(withPath: "customer/EndConversation", params: nil)
+        
+        return true
     }
 }
 

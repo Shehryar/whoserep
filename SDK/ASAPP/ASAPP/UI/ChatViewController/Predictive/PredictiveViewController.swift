@@ -310,7 +310,7 @@ extension PredictiveViewController {
         let noConnectionMargin: CGFloat = 4
         let noConnectionPadding: CGFloat = 10
         let noConnectionHeight = min(contentInset.bottom - noConnectionMargin, ceil(connectionStatusLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height) + noConnectionPadding)
-        let noConnectionTop = visibleBottom - noConnectionHeight
+        let noConnectionTop = visibleBottom - noConnectionHeight - contentInset.bottom
         connectionStatusLabel.frame = CGRect(x: 0, y: noConnectionTop, width: view.bounds.width, height: noConnectionHeight)
         
         // Buttons View
@@ -335,7 +335,6 @@ extension PredictiveViewController {
     }
     
     func flashNoConnectionLabel() {
-        
         noConnectionFlashTime = floor(NSDate().timeIntervalSince1970)
         
         let delayBeforeHiding: TimeInterval = 5

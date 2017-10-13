@@ -47,7 +47,7 @@ class ChatConnectionStatusView: UIView {
     
     // MARK: Private Properties
     
-    private let label = UILabel()
+    let label = UILabel()
     
     private let spinner = UIActivityIndicatorView()
     
