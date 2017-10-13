@@ -111,7 +111,7 @@ class ModalCardControlsView: UIView {
         commonInit()
     }
 
-    // MARK:- Display
+    // MARK: - Display
     
     func updateCancelButton() {
         cancelButton.updateText(cancelText,
@@ -125,7 +125,7 @@ class ModalCardControlsView: UIView {
                                  colors: ASAPP.styles.colors.buttonPrimary)
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -156,7 +156,7 @@ class ModalCardControlsView: UIView {
         
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     @objc func didTapCancelButton() {
         onCancelButtonTap?()

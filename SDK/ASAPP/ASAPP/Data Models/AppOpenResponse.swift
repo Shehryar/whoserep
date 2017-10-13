@@ -15,7 +15,7 @@ class AppOpenResponse: NSObject {
     var genericActions: [String]?
     var inputPlaceholder: String?
 
-    // MARK:- JSONObject
+    // MARK: - JSONObject
     
     class func fromJSON(_ json: Any?) -> AppOpenResponse? {
         guard let json = json as? [String : Any] else {

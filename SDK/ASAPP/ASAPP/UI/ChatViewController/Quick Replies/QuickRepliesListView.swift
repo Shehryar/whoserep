@@ -84,14 +84,14 @@ class QuickRepliesListView: UIView {
         tableView.delegate = nil
     }
     
-    // MARK:- Display
+    // MARK: - Display
     
     func updateDisplay() {
         tableView.reloadData()
         setNeedsLayout()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -126,7 +126,7 @@ class QuickRepliesListView: UIView {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension QuickRepliesListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -204,7 +204,7 @@ extension QuickRepliesListView: UITableViewDataSource {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -246,7 +246,7 @@ extension QuickRepliesListView: UITableViewDelegate {
     }
 }
 
-// MARK:- UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 
 extension QuickRepliesListView: UIScrollViewDelegate {
     
@@ -255,7 +255,7 @@ extension QuickRepliesListView: UIScrollViewDelegate {
     }
 }
 
-// MARK:- Public Methods
+// MARK: - Public Methods
 
 extension QuickRepliesListView {
     

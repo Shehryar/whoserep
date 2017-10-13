@@ -57,7 +57,7 @@ class TableHeaderView: UIView {
         setNeedsLayout()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     func labelFrameThatFits(_ size: CGSize) -> CGRect {
         let width = size.width - contentInset.left - contentInset.right

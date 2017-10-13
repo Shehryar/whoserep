@@ -10,7 +10,7 @@ import UIKit
 
 class ButtonItem: Component {
 
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case action
@@ -18,11 +18,11 @@ class ButtonItem: Component {
         case title
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultIconSpacing: CGFloat = 8
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let title: String?
     
@@ -30,13 +30,13 @@ class ButtonItem: Component {
     
     let action: Action
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return ButtonView.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

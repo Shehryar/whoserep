@@ -10,7 +10,7 @@ import UIKit
 
 class StackViewItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case items
@@ -31,13 +31,13 @@ class StackViewItem: Component {
         
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let items: [Component]
     
     let orientation: Orientation
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return StackView.self
@@ -47,7 +47,7 @@ class StackViewItem: Component {
         return items
     }
   
-    // MARK:- Init
+    // MARK: - Init
     
     init?(orientation: Orientation, items: [Component], style: ComponentStyle) {
         self.orientation = orientation

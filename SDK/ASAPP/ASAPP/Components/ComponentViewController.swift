@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- ComponentViewControllerDelegate
+// MARK: - ComponentViewControllerDelegate
 
 protocol ComponentViewControllerDelegate: class {
     
@@ -25,7 +25,7 @@ protocol ComponentViewControllerDelegate: class {
     func componentViewControllerDidFinish(with action: FinishAction?)
 }
 
-// MARK:- ComponentViewController
+// MARK: - ComponentViewController
 
 class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
@@ -218,7 +218,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     }
 }
 
-// MARK:- InteractionHandler
+// MARK: - InteractionHandler
 
 extension ComponentViewController: InteractionHandler {
     
@@ -233,7 +233,7 @@ extension ComponentViewController: InteractionHandler {
     }
 }
 
-// MARK:- ComponentViewContentHandler
+// MARK: - ComponentViewContentHandler
 
 extension ComponentViewController: ComponentViewContentHandler {
     
@@ -248,7 +248,7 @@ extension ComponentViewController: ComponentViewContentHandler {
     }
 }
 
-// MARK:- APIAction Handling
+// MARK: - APIAction Handling
 
 extension ComponentViewController {
     

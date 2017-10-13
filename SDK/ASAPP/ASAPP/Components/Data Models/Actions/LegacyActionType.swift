@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- LegacyActionType
+// MARK: - LegacyActionType
 
 enum LegacyActionType: String {
     case api = "ACTION"
@@ -27,7 +27,7 @@ enum LegacyActionType: String {
     }
 }
 
-// MARK:- LegacyAppAction
+// MARK: - LegacyAppAction
 
  enum LegacyAppAction: String {
     case ask

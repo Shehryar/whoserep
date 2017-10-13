@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- SocketConnectionDelegate
+// MARK: - SocketConnectionDelegate
 
 protocol SocketConnectionDelegate: class {
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection)
@@ -17,7 +17,7 @@ protocol SocketConnectionDelegate: class {
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
 
-// MARK:- SocketConnection
+// MARK: - SocketConnection
 
 class SocketConnection: NSObject {
     
@@ -80,7 +80,7 @@ class SocketConnection: NSObject {
     }
 }
 
-// MARK:- Connection URL
+// MARK: - Connection URL
 
 extension SocketConnection {
     
@@ -95,7 +95,7 @@ extension SocketConnection {
     }
 }
 
-// MARK:- Managing Connection
+// MARK: - Managing Connection
 
 extension SocketConnection {
     @objc func connect() {
@@ -147,7 +147,7 @@ extension SocketConnection {
     }
 }
 
-// MARK:- Sending Messages
+// MARK: - Sending Messages
 
 extension SocketConnection {
     func sendRequest(withPath path: String,
@@ -214,7 +214,7 @@ extension SocketConnection {
     }
 }
 
-// MARK:- Authentication
+// MARK: - Authentication
 
 extension SocketConnection {
     typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
@@ -296,13 +296,13 @@ extension SocketConnection {
     }
 }
 
-// MARK:- SocketRocketDelegate
+// MARK: - SocketRocketDelegate
 
 extension SocketConnection: SRWebSocketDelegate {
     
     // MARK: Receiving Messages
     
-    public func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
         
         func logMessageReceived(forRequest request: SocketRequest?, responseTime: Int) {
             let responseTimeString = responseTime > 0 ?  " [\(responseTime) ms]" : ""

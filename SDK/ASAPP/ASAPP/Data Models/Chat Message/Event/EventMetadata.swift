@@ -20,7 +20,7 @@ class EventMetadata: NSObject {
     private(set) var sendTime: Date
     private(set) var sendTimeString: String
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(isReply: Bool,
          isAutomatedMessage: Bool,
@@ -38,7 +38,7 @@ class EventMetadata: NSObject {
         super.init()
     }
     
-    // MARK:- Updates
+    // MARK: - Updates
     
     func updateSendTime(to date: Date) {
         self.sendTime = date

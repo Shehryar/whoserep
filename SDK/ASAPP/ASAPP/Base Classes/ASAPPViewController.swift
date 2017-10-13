@@ -9,6 +9,7 @@
 import UIKit
 import SafariServices
 
+/// :nodoc:
 public class ASAPPViewController: UIViewController {
 
     var hideViewContentsWhileBackgrounded: Bool = false
@@ -19,8 +20,11 @@ public class ASAPPViewController: UIViewController {
         stopObservingNotifications()
     }
     
-    // MARK:- View
+    // MARK: - View
     
+    /**
+     Overrides `UIViewController.viewDidLoad()`.
+     */
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,8 +39,11 @@ public class ASAPPViewController: UIViewController {
         beginObservingNotifications()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
+    /**
+     Overrides `UIViewController.viewWillLayoutSubviews()`.
+     */
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -44,7 +51,7 @@ public class ASAPPViewController: UIViewController {
     }
 }
 
-// MARK:- Notifications
+// MARK: - Notifications
 
 extension ASAPPViewController {
     
@@ -77,8 +84,9 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- Interface Orientation
+// MARK: - Interface Orientation
 
+/// :nodoc:
 extension ASAPPViewController {
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -86,8 +94,9 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- Status Bar
+// MARK: - Status Bar
 
+/// :nodoc:
 extension ASAPPViewController {
     
     override public var preferredStatusBarStyle: UIStatusBarStyle {
@@ -112,7 +121,7 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- UINavigationBar
+// MARK: - UINavigationBar
 
 extension ASAPPViewController {
     
@@ -125,7 +134,7 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- Screen Cover
+// MARK: - Screen Cover
 
 extension ASAPPViewController {
     
@@ -146,7 +155,7 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- Alerts
+// MARK: - Alerts
 
 extension ASAPPViewController {
     
@@ -180,7 +189,7 @@ extension ASAPPViewController {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension ASAPPViewController {
     

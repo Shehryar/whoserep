@@ -20,7 +20,7 @@ class ChatMessageAttachment: NSObject {
         ]
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let type: AttachmentType
     
@@ -32,7 +32,7 @@ class ChatMessageAttachment: NSObject {
         return template?.value
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(content: Any, requiresNoContainer: Bool? = nil) {
         var type = AttachmentType.none
@@ -57,7 +57,7 @@ class ChatMessageAttachment: NSObject {
     }
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension ChatMessageAttachment {
     

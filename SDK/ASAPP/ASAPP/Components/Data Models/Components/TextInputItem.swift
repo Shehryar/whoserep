@@ -10,7 +10,7 @@ import UIKit
 
 class TextInputItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case autocorrect
@@ -20,7 +20,7 @@ class TextInputItem: Component {
         case textInputType
     }
     
-    // MARK:- Enums
+    // MARK: - Enums
     
     enum InputType: String {
         case email
@@ -50,7 +50,7 @@ class TextInputItem: Component {
         }
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultAutocorrectionEnabled = true
     
@@ -60,7 +60,7 @@ class TextInputItem: Component {
     
     static let defaultIsSecure = false
     
-    // MARK:- Properties
+    // MARK: - Properties
 
     let autocapitalizationType: UITextAutocapitalizationType
     
@@ -72,13 +72,13 @@ class TextInputItem: Component {
     
     let placeholder: String?
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TextInputView.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

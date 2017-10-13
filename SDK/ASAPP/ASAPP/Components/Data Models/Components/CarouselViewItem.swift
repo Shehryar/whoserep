@@ -10,7 +10,7 @@ import UIKit
 
 class CarouselViewItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case items
@@ -20,13 +20,13 @@ class CarouselViewItem: Component {
         case pagingEnabled
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultItemSpacing: CGFloat = 8
     static let defaultVisibleItemCount: CGFloat = 1
     static let defaultPagingEnabled = false
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let items: [Component]
     
@@ -38,7 +38,7 @@ class CarouselViewItem: Component {
     
     let pageControlItem: PageControlItem?
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return CarouselView.self
@@ -48,7 +48,7 @@ class CarouselViewItem: Component {
         return items
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

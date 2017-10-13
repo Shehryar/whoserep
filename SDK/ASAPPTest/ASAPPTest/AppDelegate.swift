@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var homeController: HomeViewController!
     
-    // MARK:- Application Lifecycle
+    // MARK: - Application Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// MARK:- Notifications
+// MARK: - Notifications
 
 extension AppDelegate {
     

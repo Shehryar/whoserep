@@ -59,7 +59,7 @@ class ChatViewController: ASAPPViewController {
         return true
     }
 
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
@@ -237,7 +237,7 @@ class ChatViewController: ASAPPViewController {
         }
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -315,7 +315,7 @@ class ChatViewController: ASAPPViewController {
         conversationManager.saveCurrentEvents()
     }
     
-    // MARK:- Status Bar
+    // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if (showPredictiveOnViewAppear || isPredictiveVCVisible) && !isLiveChat {
@@ -467,7 +467,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- Button Actions
+// MARK: - Button Actions
 
 extension ChatViewController {
     @objc func didTapAskButton() {
@@ -500,7 +500,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension ChatViewController {
     
@@ -585,7 +585,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- KeyboardObserver
+// MARK: - KeyboardObserver
 
 extension ChatViewController: KeyboardObserverDelegate {
     
@@ -599,7 +599,7 @@ extension ChatViewController: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- Handling Actions
+// MARK: - Handling Actions
 
 extension ChatViewController {
     
@@ -741,7 +741,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- ChatMessagesViewDelegate
+// MARK: - ChatMessagesViewDelegate
 
 extension ChatViewController: ChatMessagesViewDelegate {
     
@@ -786,7 +786,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
 }
 
-// MARK:- ComponentViewControllerDelegate
+// MARK: - ComponentViewControllerDelegate
 
 extension ChatViewController: ComponentViewControllerDelegate {
     
@@ -818,7 +818,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     }
 }
 
-// MARK:- PredictiveViewController
+// MARK: - PredictiveViewController
 
 extension ChatViewController: PredictiveViewControllerDelegate {
     
@@ -904,7 +904,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
     }
 }
 
-// MARK:- ChatInputViewDelegate
+// MARK: - ChatInputViewDelegate
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
@@ -930,7 +930,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
 }
 
-// MARK:- Showing/Hiding ChatquickRepliesActionSheet
+// MARK: - Showing/Hiding ChatquickRepliesActionSheet
 
 extension ChatViewController {
     
@@ -977,7 +977,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- QuickRepliesActionSheetDelegate
+// MARK: - QuickRepliesActionSheetDelegate
 
 extension ChatViewController: QuickRepliesActionSheetDelegate {
     
@@ -1004,7 +1004,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     }
 }
 
-// MARK:- ConversationManagerDelegate
+// MARK: - ConversationManagerDelegate
 
 extension ChatViewController: ConversationManagerDelegate {
     
@@ -1111,7 +1111,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
 }
 
-// MARK:- UIImagePickerControllerDelegate
+// MARK: - UIImagePickerControllerDelegate
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -1130,7 +1130,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension ChatViewController {
     
@@ -1158,7 +1158,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- RatingAPIDelegate
+// MARK: - RatingAPIDelegate
 
 extension ChatViewController: RatingAPIDelegate {
     

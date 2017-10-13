@@ -80,7 +80,7 @@ class COMTextInputCell: UITableViewCell {
     }
 }
 
-// MARK:- Layout + Sizing
+// MARK: - Layout + Sizing
 
 extension COMTextInputCell {
     
@@ -105,7 +105,7 @@ extension COMTextInputCell {
     }
 }
 
-// MARK:- TextFieldDelegate
+// MARK: - TextFieldDelegate
 
 extension COMTextInputCell: UITextFieldDelegate {
     
@@ -125,7 +125,7 @@ extension COMTextInputCell: UITextFieldDelegate {
     }
 }
 
-// MARK:- First Responder
+// MARK: - First Responder
 
 extension COMTextInputCell {
     

@@ -10,29 +10,29 @@ import UIKit
 
 class ProgressBarItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case fillPercentage
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultHeight: CGFloat = 10.0
 
     static let defaultFillPercentage: CGFloat = 0.0
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let fillPercentage: CGFloat /* 0...1 */
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return ProgressBarView.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

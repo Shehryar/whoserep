@@ -16,7 +16,7 @@ class ComponentViewContainer: NSObject {
         case title
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let root: Component
     
@@ -24,7 +24,7 @@ class ComponentViewContainer: NSObject {
     
     let styles: [String : Any]?
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(root: Component,
          title: String?,
@@ -35,14 +35,14 @@ class ComponentViewContainer: NSObject {
         super.init()
     }
     
-    // MARK:- Instance Methods
+    // MARK: - Instance Methods
     
     func createView() -> ComponentView? {
         return root.createView()
     }
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension ComponentViewContainer {
     

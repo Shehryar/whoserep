@@ -99,7 +99,7 @@ class ImageViewerImageView: UIView {
     }
 }
 
-// MARK:- Utility
+// MARK: - Utility
 
 extension ImageViewerImageView {
     
@@ -128,7 +128,7 @@ extension ImageViewerImageView {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 typealias ImageViewImageDownloadCompletion = ((_ image: UIImage?, _ imageURL: URL, _ error: Error?) -> Void)
 

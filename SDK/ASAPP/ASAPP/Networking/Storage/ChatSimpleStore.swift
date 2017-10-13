@@ -21,7 +21,7 @@ class ChatSimpleStore: NSObject {
     }
 }
 
-// MARK:- Original SRS Search Query
+// MARK: - Original SRS Search Query
 
 extension ChatSimpleStore {
     

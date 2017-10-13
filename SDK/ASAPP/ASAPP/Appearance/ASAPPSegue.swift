@@ -8,8 +8,14 @@
 
 import UIKit
 
+/**
+ Represents the kind of segue used by `ASAPPButton` to show the SDK's view controller.
+ */
 @objc
 public enum ASAPPSegue: Int {
+    /// Present the view controller modally.
     case present
+    
+    /// Push the view controller onto the navigation stack.
     case push
 }

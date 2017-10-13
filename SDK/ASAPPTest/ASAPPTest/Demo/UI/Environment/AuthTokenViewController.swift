@@ -80,7 +80,7 @@ class AuthTokenViewController: BaseTableViewController {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension AuthTokenViewController {
     
@@ -163,7 +163,7 @@ extension AuthTokenViewController {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension AuthTokenViewController {
     
@@ -211,7 +211,7 @@ extension AuthTokenViewController {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension AuthTokenViewController {
     

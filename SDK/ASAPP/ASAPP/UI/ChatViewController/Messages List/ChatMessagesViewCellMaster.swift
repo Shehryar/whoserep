@@ -71,7 +71,7 @@ class ChatMessagesViewCellMaster: NSObject {
     }
 }
 
-// MARK:- Utility Methods
+// MARK: - Utility Methods
 
 extension ChatMessagesViewCellMaster {
     
@@ -119,7 +119,7 @@ extension ChatMessagesViewCellMaster {
     }
 }
 
-// MARK:- Header/Footer
+// MARK: - Header/Footer
 
 extension ChatMessagesViewCellMaster {
     
@@ -154,7 +154,7 @@ extension ChatMessagesViewCellMaster {
     }
 }
 
-// MARK:- Cell Creation
+// MARK: - Cell Creation
 
 extension ChatMessagesViewCellMaster {
 
@@ -183,7 +183,7 @@ extension ChatMessagesViewCellMaster {
     }
 }
 
-// MARK:- Cell Heights
+// MARK: - Cell Heights
 
 extension ChatMessagesViewCellMaster {
     

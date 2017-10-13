@@ -97,7 +97,7 @@ class QuickReplyCell: UITableViewCell {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension QuickReplyCell {
     

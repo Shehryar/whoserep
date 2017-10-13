@@ -28,7 +28,7 @@ enum BrandingType: String {
     }
 }
 
-// MARK:- Branding
+// MARK: - Branding
 
 class Branding: NSObject {
 
@@ -52,7 +52,7 @@ class Branding: NSObject {
     
     let views: ASAPPViews
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init(brandingType: BrandingType) {
         self.brandingType = brandingType
@@ -134,7 +134,7 @@ class BrandingColors: NSObject {
     var isDarkNavStyle: Bool { return navBarColor.isDark() }
     var isDarkContentStyle: Bool { return backgroundColor.isDark() }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init(brandingType: BrandingType) {
         self.brandingType = brandingType

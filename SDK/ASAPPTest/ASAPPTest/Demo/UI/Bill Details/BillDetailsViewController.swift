@@ -49,7 +49,7 @@ class BillDetailsViewController: BaseTableViewController {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension BillDetailsViewController {
     
@@ -143,7 +143,7 @@ extension BillDetailsViewController {
     
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension BillDetailsViewController {
     

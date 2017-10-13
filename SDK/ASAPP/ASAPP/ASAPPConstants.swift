@@ -8,12 +8,19 @@
 
 import UIKit
 
-// MARK:- Public Constants
+// MARK: - Public Constants
 
 public extension ASAPP {
+    // MARK: - Constants
     
+    /// The key for referencing an auth token in a request context dictionary.
     public static let authTokenKey = "access_token"
     
+    /**
+     The SDK version.
+     
+     - returns: A `String` representing the SDK version in x.y.z format.
+     */
     public static var clientVersion: String {
         if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
@@ -22,12 +29,13 @@ public extension ASAPP {
     }
 }
 
-// MARK:- Public Constants: Demo
+// MARK: - Public Constants: Demo
 
 public extension ASAPP {
     
     private static var demoContentEnabled = false
     
+    /// :nodoc:
     public class func isDemoContentEnabled() -> Bool {
         if isInternalBuild {
             return demoContentEnabled
@@ -36,6 +44,7 @@ public extension ASAPP {
         }
     }
     
+    /// :nodoc:
     public class func setDemoContentEnabled(_ enabled: Bool) {
         if isInternalBuild {
             demoContentEnabled = enabled
@@ -55,7 +64,7 @@ public extension ASAPP {
     }
 }
 
-// MARK:- Internal Constants
+// MARK: - Internal Constants
 
 internal extension ASAPP {
     

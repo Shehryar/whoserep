@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Chat Message
+// MARK: - Chat Message
 
 class ChatMessage: NSObject {
     
@@ -55,7 +55,7 @@ class ChatMessage: NSObject {
     }
 }
 
-// MARK:- Parsing
+// MARK: - Parsing
 
 extension ChatMessage {
     

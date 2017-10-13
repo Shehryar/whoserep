@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Used to define a text style.
+ */
 @objcMembers
 public class ASAPPTextStyle: NSObject {
     
@@ -33,6 +36,14 @@ public class ASAPPTextStyle: NSObject {
     
     // MARK: Init
     
+    /**
+     Creates an instance of `ASAPPTextStyle` with the given parameters.
+     
+     - parameter font: The font.
+     - parameter size: The default size.
+     - parameter letterSpacing: The amount of space between characters.
+     - parameter color: The text color.
+     */
     public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
         self.defaultSize = size
         self.fontRef = font
@@ -42,7 +53,6 @@ public class ASAPPTextStyle: NSObject {
     }
     
     internal func updateFont(_ font: UIFont) {
-        self.defaultSize = font.pointSize
         self.fontRef = font
     }
 }

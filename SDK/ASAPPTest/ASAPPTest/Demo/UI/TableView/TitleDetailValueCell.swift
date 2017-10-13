@@ -54,7 +54,7 @@ class TitleDetailValueCell: TableViewCell {
         contentView.addSubview(valueLabel)
     }
     
-    // MARK:- AppSettings
+    // MARK: - AppSettings
     
     override func applyAppSettings() {
         super.applyAppSettings()
@@ -70,7 +70,7 @@ class TitleDetailValueCell: TableViewCell {
         }
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     private struct CalculatedLayout {
         let titleLabelFrame: CGRect

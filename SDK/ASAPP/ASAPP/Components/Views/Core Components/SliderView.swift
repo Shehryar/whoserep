@@ -144,7 +144,7 @@ class SliderView: BaseComponentView {
         return CGSize(width: size.width, height: height)
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     func getCurrentValue() -> Int {
         return Int(round(sliderView.value))

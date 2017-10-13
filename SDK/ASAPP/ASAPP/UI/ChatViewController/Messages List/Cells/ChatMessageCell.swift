@@ -21,7 +21,7 @@ protocol ChatMessageCellDelegate: class {
 
 class ChatMessageCell: UITableViewCell {
 
-    // MARK:- Properties: Content
+    // MARK: - Properties: Content
     
     var message: ChatMessage? {
         didSet {
@@ -58,7 +58,7 @@ class ChatMessageCell: UITableViewCell {
     
     weak var delegate: ChatMessageCellDelegate?
     
-    // MARK:- Properties: Layout + State
+    // MARK: - Properties: Layout + State
     
     let attachmentViewMarginTop: CGFloat = 4.0
     
@@ -80,7 +80,7 @@ class ChatMessageCell: UITableViewCell {
     
     private var animationStartTime: TimeInterval?
     
-    // MARK:- Properties: UI Elements
+    // MARK: - Properties: UI Elements
     
     let textBubbleView = ChatTextBubbleView()
     
@@ -151,7 +151,7 @@ class ChatMessageCell: UITableViewCell {
     }
 }
 
-// MARK:- Reuse
+// MARK: - Reuse
 
 extension ChatMessageCell {
     
@@ -172,7 +172,7 @@ extension ChatMessageCell {
     }
 }
 
-// MARK:- Display
+// MARK: - Display
 
 extension ChatMessageCell {
     
@@ -184,7 +184,7 @@ extension ChatMessageCell {
     }
 }
 
-// MARK:- Layout + Sizing
+// MARK: - Layout + Sizing
 
 extension ChatMessageCell {
     
@@ -268,7 +268,7 @@ extension ChatMessageCell {
     }
 }
 
-// MARK:- Time Label Animation
+// MARK: - Time Label Animation
 
 extension ChatMessageCell {
     
@@ -284,7 +284,7 @@ extension ChatMessageCell {
     }
 }
 
-// MARK:- Cell Entrance Animation
+// MARK: - Cell Entrance Animation
 
 extension ChatMessageCell {
     

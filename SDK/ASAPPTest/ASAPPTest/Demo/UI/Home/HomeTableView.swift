@@ -123,7 +123,7 @@ class HomeTableView: UIView {
     }
 }
 
-// MARK:- Header
+// MARK: - Header
 
 extension HomeTableView {
     
@@ -153,7 +153,7 @@ extension HomeTableView {
     }
 }
 
-// MARK:- Cells
+// MARK: - Cells
 
 extension HomeTableView {
     
@@ -304,7 +304,7 @@ extension HomeTableView {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension HomeTableView: UITableViewDataSource {
     
@@ -335,7 +335,7 @@ extension HomeTableView: UITableViewDataSource {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension HomeTableView: UITableViewDelegate {
     

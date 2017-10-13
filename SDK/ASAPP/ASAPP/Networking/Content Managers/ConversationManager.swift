@@ -84,7 +84,7 @@ class ConversationManager: NSObject {
     }
 }
 
-// MARK:- Utility
+// MARK: - Utility
 
 extension ConversationManager {
     
@@ -113,7 +113,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Entering/Leaving a Conversation
+// MARK: - Entering/Leaving a Conversation
 
 extension ConversationManager {
     
@@ -131,7 +131,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Requests 
+// MARK: - Requests 
 
 extension ConversationManager {
     
@@ -188,7 +188,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Fetching Events
+// MARK: - Fetching Events
 
 extension ConversationManager {
     
@@ -223,7 +223,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Quick Replies
+// MARK: - Quick Replies
 
 extension ConversationManager {
     
@@ -272,7 +272,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- SocketConnectionDelegate
+// MARK: - SocketConnectionDelegate
 
 extension ConversationManager: SocketConnectionDelegate {
     

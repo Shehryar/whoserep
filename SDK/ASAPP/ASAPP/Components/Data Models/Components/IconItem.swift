@@ -31,7 +31,7 @@ enum ComponentIcon: String {
 
 class IconItem: Component {
 
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case icon
@@ -59,13 +59,13 @@ class IconItem: Component {
         }
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultWidth: CGFloat = 16
     
     static let defaultHeight: CGFloat = 16
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return IconView.self

@@ -21,7 +21,7 @@ class ImageViewerImage: NSObject {
     }
 }
 
-// MARK:- Creation Utilities
+// MARK: - Creation Utilities
 
 extension ImageViewerImage {
     class func imagesWithImages(_ images: [UIImage]) -> [ImageViewerImage] {

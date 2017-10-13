@@ -10,17 +10,17 @@ import UIKit
 
 class TabViewItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case pages
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let pages: [TabViewPage]
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TabView.self
@@ -34,7 +34,7 @@ class TabViewItem: Component {
         return components
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

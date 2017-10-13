@@ -79,7 +79,7 @@ class LabelIconCell: TableViewCell {
         }
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     func framesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
         let iconImageLeft = size.width - contentInset.right - iconImageSize

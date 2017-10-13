@@ -35,7 +35,7 @@ class OutgoingMessageSerializer: NSObject {
     }
 }
 
-// MARK:- Public Instance Methods
+// MARK: - Public Instance Methods
 
 extension OutgoingMessageSerializer {
     

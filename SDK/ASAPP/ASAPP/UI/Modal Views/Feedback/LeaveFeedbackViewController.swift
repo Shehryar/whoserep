@@ -27,7 +27,7 @@ class LeaveFeedbackViewController: ModalCardViewController {
     private let feedbackView = LeaveFeedbackView()
     private var focusedView: UIView?
     
-    // MARK:- Init
+    // MARK: - Init
     
     override func commonInit() {
         super.commonInit()
@@ -78,7 +78,7 @@ class LeaveFeedbackViewController: ModalCardViewController {
             })
             
             if !canSendMessage {
-                strongSelf.showErrorMessage(ASAPP.strings.reqeustErrorMessageNoConnection)
+                strongSelf.showErrorMessage(ASAPP.strings.requestErrorMessageNoConnection)
             }
         }
     }

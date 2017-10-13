@@ -33,7 +33,7 @@ public class TemplateServerIntentsViewController: RefreshableTableViewController
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension TemplateServerIntentsViewController {
 
@@ -57,7 +57,7 @@ extension TemplateServerIntentsViewController {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TemplateServerIntentsViewController {
     

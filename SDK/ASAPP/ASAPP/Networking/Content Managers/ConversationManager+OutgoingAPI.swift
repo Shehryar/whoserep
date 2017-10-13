@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Chat
+// MARK: - Chat
 
 extension ConversationManager {
     
@@ -57,7 +57,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- SRS
+// MARK: - SRS
 
 extension ConversationManager {
     
@@ -98,7 +98,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Use cases
+// MARK: - Use cases
 
 extension ConversationManager {
     

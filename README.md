@@ -74,3 +74,25 @@ export CRASHLYTICS_BUILD_SECRET="baaaaaar"
 
 The _beta_ lane is configured to distribute a build to the "ASAPP iOS Dev" group. To view and configure groups, go to [Fabric](https://www.fabric.io/asapp/ios/apps/com.asappinc.testapp/beta/releases/latest) and click "Manage Groups" under "Tools" in the left-hand menu.
 
+
+Generating API reference pages from documentation comments
+----------------------------------------------------------
+
+### Pre-requisites
+
+Program   | Version
+----------|---------
+ruby      | 2.4.2
+[bundler](https://github.com/bundler/bundler)   | 1.15.4
+[jazzy](https://github.com/realm/jazzy)  | 0.8.4
+
+### Running `jazzy`
+
+You may need to run `bundle update` as above.
+
+```
+jazzy --clean --author ASAPP --author_url https://asapp.com --xcodebuild-arguments "-project,SDK/ASAPP.xcodeproj" --module ASAPP --output docs/swift_output --exclude=SDK/ASAPP/ASAPP/Components/Demo/* --readme docs/README.md
+```
+
+The reference website can be found at `docs/swift_output/index.html`.
+

@@ -10,17 +10,17 @@ import UIKit
 
 class TableViewItem: Component {
 
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case sections
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let sections: [TableViewSectionItem]
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TableView.self
@@ -34,7 +34,7 @@ class TableViewItem: Component {
         return nestedComponents
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

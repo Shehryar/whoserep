@@ -32,7 +32,7 @@ class AppSettings: NSObject {
     
     static let shared = AppSettings()
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     var apiHostName: String {
         return AppSettings.getString(forKey: Key.apiHostName,
@@ -100,7 +100,7 @@ class AppSettings: NSObject {
     let versionString: String
     
     //
-    // MARK:- Init
+    // MARK: - Init
     //
     
     override init() {
@@ -119,7 +119,7 @@ class AppSettings: NSObject {
     }
 }
 
-// MARK:- Defaults
+// MARK: - Defaults
 
 fileprivate extension AppSettings {
     
@@ -186,7 +186,7 @@ fileprivate extension AppSettings {
     }
 }
 
-// MARK:- Storage
+// MARK: - Storage
 
 extension AppSettings {
     
@@ -270,7 +270,7 @@ extension AppSettings {
     }
 }
 
-// MARK:- Custom Vaues
+// MARK: - Custom Vaues
 
 extension AppSettings {
     
@@ -291,7 +291,7 @@ extension AppSettings {
     }
 }
 
-// MARK:- Auth + Context
+// MARK: - Auth + Context
 
 extension AppSettings {
     

@@ -148,7 +148,7 @@ class QuickRepliesActionSheet: UIView {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension QuickRepliesActionSheet {
     override func layoutSubviews() {
@@ -214,7 +214,7 @@ extension QuickRepliesActionSheet {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 extension QuickRepliesActionSheet {
   

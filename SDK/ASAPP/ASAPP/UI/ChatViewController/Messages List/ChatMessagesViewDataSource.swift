@@ -19,7 +19,7 @@ class ChatMessagesViewDataSource: NSObject {
     private var sections = [[ChatMessage]]()
 }
 
-// MARK:- Accessing Content
+// MARK: - Accessing Content
 
 extension ChatMessagesViewDataSource {
     
@@ -101,7 +101,7 @@ extension ChatMessagesViewDataSource {
     }
 }
 
-// MARK:- Changing Content
+// MARK: - Changing Content
 
 extension ChatMessagesViewDataSource {
     

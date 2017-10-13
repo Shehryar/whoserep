@@ -95,7 +95,7 @@ class LabelView: BaseComponentView {
         return CGSize(width: width, height: height)
     }
     
-    // MARK:- Text
+    // MARK: - Text
     
     func updateText(_ text: String?) {
         guard let text = text else {

@@ -29,7 +29,7 @@ class SocketRequest {
     }
 }
 
-// MARK:- Logging Utilities
+// MARK: - Logging Utilities
 
 extension SocketRequest {
     

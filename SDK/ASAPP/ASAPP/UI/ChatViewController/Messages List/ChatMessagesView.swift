@@ -28,7 +28,7 @@ protocol ChatMessagesViewDelegate: class {
 
 class ChatMessagesView: UIView {
     
-    // MARK:- Public Properties
+    // MARK: - Public Properties
     
     var contentInsetTop: CGFloat = 0 {
         didSet {
@@ -82,7 +82,7 @@ class ChatMessagesView: UIView {
         }
     }
     
-    // MARK:- Private Properties
+    // MARK: - Private Properties
     
     private let cellAnimationsEnabled = true
     
@@ -105,7 +105,7 @@ class ChatMessagesView: UIView {
     
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     func commonInit() {
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
@@ -168,7 +168,7 @@ class ChatMessagesView: UIView {
     }
 }
 
-// MARK:- Utility
+// MARK: - Utility
 
 extension ChatMessagesView {
 
@@ -218,7 +218,7 @@ extension ChatMessagesView {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
@@ -264,7 +264,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         return cell ?? UITableViewCell()
     }
 
-    // MARK:- UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let isTypingCell = cell as? ChatTypingIndicatorCell {
@@ -366,7 +366,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK:- SRSItemListViewDelegate
+// MARK: - SRSItemListViewDelegate
 
 extension ChatMessagesView: ChatMessageCellDelegate {
     
@@ -383,7 +383,7 @@ extension ChatMessagesView: ChatMessageCellDelegate {
     }
 }
 
-// MARK:- Scroll
+// MARK: - Scroll
 
 extension ChatMessagesView {
     
@@ -434,7 +434,7 @@ extension ChatMessagesView {
     }
 }
 
-// MARK:- Typing Status / Preview
+// MARK: - Typing Status / Preview
 
 extension ChatMessagesView {
     
@@ -464,7 +464,7 @@ extension ChatMessagesView {
     }
 }
 
-// MARK:- Adding / Replacing Messages
+// MARK: - Adding / Replacing Messages
 
 extension ChatMessagesView {
     

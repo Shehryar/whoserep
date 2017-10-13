@@ -18,7 +18,7 @@ class APIActionError: NSObject {
     
     let invalidInputs: [String]?
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(code: Int?,
          userMessage: String?,
@@ -32,7 +32,7 @@ class APIActionError: NSObject {
     }
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension APIActionError {
  

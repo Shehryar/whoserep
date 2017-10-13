@@ -76,7 +76,7 @@ class ImageNameCell: TableViewCell {
         contentView.addSubview(userImageView)
     }
     
-    // MARK:- App Settings
+    // MARK: - App Settings
     
     override func applyAppSettings() {
         super.applyAppSettings()
@@ -96,7 +96,7 @@ class ImageNameCell: TableViewCell {
         setNeedsLayout()
     }
 
-    // MARK:- Layout
+    // MARK: - Layout
     
     private struct CalculatedLayout {
         let imageViewFrame: CGRect

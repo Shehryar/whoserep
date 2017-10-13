@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Tint Colors
+// MARK: - Tint Colors
 
 internal extension UIImage {
 
@@ -48,7 +48,7 @@ internal extension UIImage {
     }
 }
 
-// MARK:- Color Image
+// MARK: - Color Image
 
 internal extension UIImage {
 

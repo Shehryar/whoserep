@@ -81,7 +81,7 @@ class BrandingPreview: UIView {
         commonInit()
     }
 
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -102,7 +102,7 @@ class BrandingPreview: UIView {
         return CGSize(width: size.width, height: BrandingPreview.defaultHeight)
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     func didTap() {
         if let onTap = onTap {
@@ -121,7 +121,7 @@ class BrandingPreview: UIView {
         }
     }
     
-    // MARK:- Touches
+    // MARK: - Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -156,7 +156,7 @@ class BrandingPreview: UIView {
         }
     }
     
-    // MARK:- Touch Helpers
+    // MARK: - Touch Helpers
     
     func getTouchPointIn(_ view: UIView, touches: Set<UITouch>) -> CGPoint? {
         if let touch = touches.first {

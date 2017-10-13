@@ -34,7 +34,7 @@ class ComponentLayoutEngine: NSObject {
     }
 }
 
-// MARK:- Horizontal
+// MARK: - Horizontal
 
 extension ComponentLayoutEngine {
     class func getHorizontalLayout(for views: [UIView], inside boundingRect: CGRect) -> ComponentLayoutEngine.LayoutInfo {
@@ -251,7 +251,7 @@ extension ComponentLayoutEngine {
     
 }
 
-// MARK:- Vertical
+// MARK: - Vertical
 
 extension ComponentLayoutEngine {
     

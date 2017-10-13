@@ -54,7 +54,7 @@ class ComponentViewEmptyReloadView: UIView {
         commonInit()
     }
 
-    // MARK:- Layout
+    // MARK: - Layout
     
     private struct CalculatedLayout {
         let labelFrame: CGRect
@@ -96,7 +96,7 @@ class ComponentViewEmptyReloadView: UIView {
         return CGSize(width: width, height: height)
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     @objc func didTapReloadButton() {
         onReloadButtonTap?()

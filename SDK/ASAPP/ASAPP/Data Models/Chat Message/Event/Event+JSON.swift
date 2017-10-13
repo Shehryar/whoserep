@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- JSON Keys
+// MARK: - JSON Keys
 
 extension Event {
     
@@ -101,7 +101,7 @@ extension Event {
     }
 }
 
-// MARK:- Event Parsing Utilities
+// MARK: - Event Parsing Utilities
 
 extension Event {
     
@@ -175,7 +175,7 @@ extension Event {
     }
 }
 
-// MARK:- Chat Message
+// MARK: - Chat Message
 
 extension Event {
     

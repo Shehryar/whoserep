@@ -247,7 +247,7 @@ class PredictiveViewController: UIViewController {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension PredictiveViewController {
     override func viewWillLayoutSubviews() {
@@ -367,7 +367,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension PredictiveViewController {
     func finishWithMessage(_ message: String, fromPrediction: Bool) {
@@ -398,7 +398,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- Saving Text
+// MARK: - Saving Text
 
 extension PredictiveViewController {
     func getTitleAndInputPlaceholder() -> (String /* Title */, String /* Placeholder */) {
@@ -417,7 +417,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 extension PredictiveViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -430,7 +430,7 @@ extension PredictiveViewController: UIGestureRecognizerDelegate {
     }
 }
 
-// MARK:- ChatInputViewDelegate
+// MARK: - ChatInputViewDelegate
 
 extension PredictiveViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
@@ -450,7 +450,7 @@ extension PredictiveViewController: ChatInputViewDelegate {
     }
 }
 
-// MARK:- KeyboardObserver
+// MARK: - KeyboardObserver
 
 extension PredictiveViewController: KeyboardObserverDelegate {
     
@@ -466,7 +466,7 @@ extension PredictiveViewController: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- External API
+// MARK: - External API
 
 extension PredictiveViewController {
     func setAppOpenResponse(appOpenResponse: AppOpenResponse?, animated: Bool) {

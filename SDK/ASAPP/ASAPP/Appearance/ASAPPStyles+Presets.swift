@@ -9,10 +9,23 @@
 import UIKit
 
 public extension ASAPPStyles {
+    /**
+      Applies the SDK's default font family to per-app style presets.
+     
+     - parameter appId: A `String` identifying your app.
+     - returns: An instance of `ASAPPStyles`.
+     */
     public class func stylesForAppId(_ appId: String) -> ASAPPStyles {
         return stylesForAppId(appId, fontFamily: Fonts.default)
     }
     
+    /**
+     Applies a custom font family to per-app style presets.
+     
+     - parameter appId: A `String` identifying your app.
+     - parameter fontFamily: An `ASAPPFontFamily` instance. Optional.
+     - returns: An instance of `ASAPPStyles`.
+     */
     public class func stylesForAppId(_ appId: String, fontFamily: ASAPPFontFamily? = nil) -> ASAPPStyles {
         let fontFamily = fontFamily ?? Fonts.default
         

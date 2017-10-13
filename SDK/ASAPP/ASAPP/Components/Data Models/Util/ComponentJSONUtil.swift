@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- NSTextAlignment
+// MARK: - NSTextAlignment
 
 extension NSTextAlignment {
     
@@ -31,7 +31,7 @@ extension NSTextAlignment {
     }
 }
 
-// MARK:- String Extensions
+// MARK: - String Extensions
 
 extension String {
     
@@ -48,7 +48,7 @@ extension String {
     }
 }
 
-// MARK:- Dictionary Extensions
+// MARK: - Dictionary Extensions
 
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     

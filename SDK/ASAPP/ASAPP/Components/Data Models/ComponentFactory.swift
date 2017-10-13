@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- ComponentFactory
+// MARK: - ComponentFactory
 
 enum ComponentFactory {
     

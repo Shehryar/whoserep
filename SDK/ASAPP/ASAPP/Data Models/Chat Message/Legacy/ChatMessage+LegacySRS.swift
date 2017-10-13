@@ -28,7 +28,7 @@ extension ChatMessage {
         }
     }
     
-    // MARK:- Parsing
+    // MARK: - Parsing
     
     static func jsonIsLikelyLegacy(_ json: Any?) -> Bool {
         guard let json = json as? [String : Any] else {
@@ -94,7 +94,7 @@ extension ChatMessage {
                            metadata: metadata)
     }
     
-    // MARK:- Private Utility Methods
+    // MARK: - Private Utility Methods
     
     private struct LegacyComponents {
         let message: String?

@@ -22,17 +22,17 @@ class SeparatorItem: Component {
         }
     }
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case style = "separatorStyle"
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultSeparatorStyle = SeparatorStyle.horizontal
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     override var viewClass: UIView.Type {
         return SeparatorView.self
@@ -40,7 +40,7 @@ class SeparatorItem: Component {
     
     let separatorStyle: SeparatorStyle
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

@@ -10,7 +10,7 @@ import UIKit
 
 class Component: NSObject {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     var viewClass: UIView.Type {
         assert(false, "Subclass '\(String(describing: type(of: self)))' must override variable 'viewClass: ComponentView.Type'!")
@@ -32,7 +32,7 @@ class Component: NSObject {
         return nil
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- ComponentStyle
+// MARK: - ComponentStyle
 
 struct ComponentStyle {
     
@@ -49,7 +49,7 @@ struct ComponentStyle {
     var width: CGFloat = 0
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension ComponentStyle {
     

@@ -81,7 +81,7 @@ class BrandingSwitcherView: UIView {
         return center
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     func didTapOverlayView() {
         setSwitcherViewHidden(true, animated: true)
@@ -119,7 +119,7 @@ class BrandingSwitcherView: UIView {
         }
     }
     
-    // MARK:- Gesture
+    // MARK: - Gesture
     
     var attachment: UIAttachmentBehavior?
     var startCenter: CGPoint = .zero

@@ -129,7 +129,7 @@ class TextInputCell: TableViewCell {
     }
 }
 
-// MARK:- Layout + Sizing
+// MARK: - Layout + Sizing
 
 extension TextInputCell {
     
@@ -170,7 +170,7 @@ extension TextInputCell {
     }
 }
 
-// MARK:- TextFieldDelegate
+// MARK: - TextFieldDelegate
 
 extension TextInputCell: UITextFieldDelegate {
     
@@ -190,7 +190,7 @@ extension TextInputCell: UITextFieldDelegate {
     }
 }
 
-// MARK:- First Responder
+// MARK: - First Responder
 
 extension TextInputCell {
     

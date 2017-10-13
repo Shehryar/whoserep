@@ -24,7 +24,7 @@ class BaseViewController: UIViewController {
         return statusBarStyle
     }
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     func commonInit() {
         statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
@@ -42,7 +42,7 @@ class BaseViewController: UIViewController {
         commonInit()
     }
         
-    // MARK:- View 
+    // MARK: - View 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

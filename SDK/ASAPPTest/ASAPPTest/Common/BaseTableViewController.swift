@@ -10,11 +10,11 @@ import UIKit
 
 class BaseTableViewController: BaseViewController {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     
-    // MARK:- Sizing-Views
+    // MARK: - Sizing-Views
     
     fileprivate lazy var headerSizingView: TableHeaderView = {
         return TableHeaderView()
@@ -50,7 +50,7 @@ class BaseTableViewController: BaseViewController {
         return TitleDetailValueCell()
     }()
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     override func commonInit() {
         super.commonInit()
@@ -77,7 +77,7 @@ class BaseTableViewController: BaseViewController {
         tableView.delegate = nil
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +97,7 @@ class BaseTableViewController: BaseViewController {
         deregisterForKeyboardNotifications()
     }
     
-    // MARK:- Updates
+    // MARK: - Updates
     
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
@@ -107,7 +107,7 @@ class BaseTableViewController: BaseViewController {
         tableView.reloadData()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -128,7 +128,7 @@ class BaseTableViewController: BaseViewController {
     }
 }
 
-// MARK:- Keyboard
+// MARK: - Keyboard
 
 extension BaseTableViewController {
     
@@ -181,7 +181,7 @@ extension BaseTableViewController {
     }
 }
 
-// MARK:- UITableViewCell Helpers
+// MARK: - UITableViewCell Helpers
 
 extension BaseTableViewController {
     
@@ -331,7 +331,7 @@ extension BaseTableViewController {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension BaseTableViewController: UITableViewDataSource {
     
@@ -354,7 +354,7 @@ extension BaseTableViewController: UITableViewDataSource {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension BaseTableViewController: UITableViewDelegate {
     

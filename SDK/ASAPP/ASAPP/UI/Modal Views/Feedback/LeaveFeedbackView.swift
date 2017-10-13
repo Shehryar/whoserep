@@ -106,7 +106,7 @@ class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension LeaveFeedbackView {
     
@@ -158,7 +158,7 @@ extension LeaveFeedbackView {
     }
 }
 
-// Mark:- UITextViewDelegate
+// MARK: - UITextViewDelegate
 
 extension LeaveFeedbackView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -179,7 +179,7 @@ extension LeaveFeedbackView: UITextViewDelegate {
     }
 }
 
-// Mark:- AutoExpandingTextView
+// MARK: - AutoExpandingTextView
 
 extension LeaveFeedbackView {
     func textViewHeightDidChange() {

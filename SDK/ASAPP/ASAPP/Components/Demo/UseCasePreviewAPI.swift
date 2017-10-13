@@ -41,7 +41,7 @@ enum DemoComponentType: String {
     }
 }
 
-// MARK:- UseCasePreviewAPI
+// MARK: - UseCasePreviewAPI
 
 class UseCasePreviewAPI: NSObject {
     

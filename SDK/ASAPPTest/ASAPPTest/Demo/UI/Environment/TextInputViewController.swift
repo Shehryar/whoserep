@@ -36,7 +36,7 @@ class TextInputViewController: BaseTableViewController {
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -44,7 +44,7 @@ class TextInputViewController: BaseTableViewController {
         _ = tableView.cellForRow(at: IndexPath(item: 0, section: Section.textInput.rawValue))?.becomeFirstResponder()
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     func finish() {
         guard !text.isEmpty else {
@@ -55,7 +55,7 @@ class TextInputViewController: BaseTableViewController {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension TextInputViewController {
     
@@ -96,7 +96,7 @@ extension TextInputViewController {
 
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TextInputViewController {
     

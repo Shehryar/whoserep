@@ -39,7 +39,7 @@ class Event: NSObject {
     var typingStatus: Bool?
     var switchToSRSClassification: String?
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init(eventId: Int,
                   parentEventLogSeq: Int?,
@@ -75,7 +75,7 @@ class Event: NSObject {
         super.init()
     }
     
-    // MARK:- Metadata
+    // MARK: - Metadata
     
     func makeMetadata() -> EventMetadata {
         let eventId: Int

@@ -217,7 +217,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     }
 }
 
-// MARK:- InteractionHandler
+// MARK: - InteractionHandler
 
 extension ComponentPreviewViewController: InteractionHandler {
     
@@ -232,7 +232,7 @@ extension ComponentPreviewViewController: InteractionHandler {
     }
 }
 
-// MARK:- Routing Actions
+// MARK: - Routing Actions
 
 extension ComponentPreviewViewController {
     

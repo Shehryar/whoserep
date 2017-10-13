@@ -10,7 +10,7 @@ import UIKit
 
 class RadioButtonItem: Component {
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultWidth: CGFloat = 16
     
@@ -18,13 +18,13 @@ class RadioButtonItem: Component {
     
     static let defaultPadding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return RadioButton.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

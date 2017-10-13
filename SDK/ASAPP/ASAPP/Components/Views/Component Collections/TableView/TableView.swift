@@ -75,7 +75,7 @@ class TableView: BaseComponentView {
     }
 }
 
-// MARK:- Data Utility
+// MARK: - Data Utility
 
 extension TableView {
     
@@ -100,7 +100,7 @@ extension TableView {
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension TableView: UITableViewDataSource {
     
@@ -131,7 +131,7 @@ extension TableView: UITableViewDataSource {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TableView: UITableViewDelegate {
     

@@ -48,7 +48,7 @@ class ModalCardPresentationAnimator: NSObject {
     }
 }
 
-// MARK:- UIViewControllerAnimatedTransitioning
+// MARK: - UIViewControllerAnimatedTransitioning
 
 extension ModalCardPresentationAnimator: UIViewControllerAnimatedTransitioning {
     
@@ -115,7 +115,7 @@ extension ModalCardPresentationAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-// MARK:- Presentation Animation
+// MARK: - Presentation Animation
 
 extension ModalCardPresentationAnimator {
     
@@ -154,7 +154,7 @@ extension ModalCardPresentationAnimator {
     }
 }
 
-// MARK:- Dismissal Animation
+// MARK: - Dismissal Animation
 
 extension ModalCardPresentationAnimator {
     
@@ -182,7 +182,7 @@ extension ModalCardPresentationAnimator {
     }
 }
 
-// MARK:- Interactions
+// MARK: - Interactions
 
 extension ModalCardPresentationAnimator {
     @objc func didTapBlurView() {
@@ -196,7 +196,7 @@ extension ModalCardPresentationAnimator {
     }
 }
 
-// MARK:- UIViewControllerTransitioningDelegate
+// MARK: - UIViewControllerTransitioningDelegate
 
 extension ModalCardPresentationAnimator: UIViewControllerTransitioningDelegate {
     
@@ -211,7 +211,7 @@ extension ModalCardPresentationAnimator: UIViewControllerTransitioningDelegate {
     }
 }
 
-// MARK:- UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 extension ModalCardPresentationAnimator: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -219,7 +219,7 @@ extension ModalCardPresentationAnimator: UIGestureRecognizerDelegate {
     }
 }
 
-// MARK:- KeyboardObserverDelegate
+// MARK: - KeyboardObserverDelegate
 
 extension ModalCardPresentationAnimator: KeyboardObserverDelegate {
     
@@ -243,7 +243,7 @@ extension ModalCardPresentationAnimator: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- Updating Frames
+// MARK: - Updating Frames
 
 extension ModalCardPresentationAnimator {
     
@@ -285,7 +285,7 @@ extension ModalCardPresentationAnimator {
     }
 }
 
-// MARK:- Updating Frame Public API
+// MARK: - Updating Frame Public API
 
 extension ModalCardPresentationAnimator {
     

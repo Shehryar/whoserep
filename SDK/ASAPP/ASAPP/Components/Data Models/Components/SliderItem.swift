@@ -10,7 +10,7 @@ import UIKit
 
 class SliderItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case label
@@ -18,13 +18,13 @@ class SliderItem: Component {
         case min
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultMinValue: CGFloat = 0
     
     static let defaultMaxValue: CGFloat = 100
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let label: LabelItem?
     
@@ -32,7 +32,7 @@ class SliderItem: Component {
     
     let maxValue: CGFloat
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return SliderView.self
@@ -45,7 +45,7 @@ class SliderItem: Component {
         return nil
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

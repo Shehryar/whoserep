@@ -25,7 +25,7 @@ class AccountViewController: BaseTableViewController {
     }
 }
 
-// MARK:- TableView
+// MARK: - TableView
 
 extension AccountViewController {
     
