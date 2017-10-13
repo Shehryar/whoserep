@@ -17,29 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var homeController = HomeViewController()
+    var homeController: HomeViewController!
     
-    // MARK:- Application Lifecycle
+    // MARK: - Application Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // Crashlytics
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self, Answers.self])
         
-        // ASAPP
         ASAPP.debugLogLevel = .debug
-        ASAPP.loadFonts()
         
-        // Settings to mimc Comcast
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
 
-        // Root View controller
+        ASAPP.loadFonts()
+        homeController = HomeViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = NavigationController(rootViewController: homeController)
-        window?.makeKeyAndVisible()
+        window!.rootViewController = NavigationController(rootViewController: homeController)
+        window!.makeKeyAndVisible()
         
         setupNotifications()
         
@@ -75,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// MARK:- Notifications
+// MARK: - Notifications
 
 extension AppDelegate {
     
@@ -99,7 +96,7 @@ extension AppDelegate {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         let bundleId = Bundle.main.bundleIdentifier ?? "unknown"
         
-        DemoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
+        demoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
         
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,
@@ -108,13 +105,13 @@ extension AppDelegate {
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        DemoLog("application: didFailToRegisterForRemoteNotificationsWithError: \(error)")
+        demoLog("application: didFailToRegisterForRemoteNotificationsWithError: \(error)")
     }
     
     // MARK: Notification Received
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        DemoLog("application:didReceiveRemoteNotification\n \(userInfo))")
+        demoLog("application:didReceiveRemoteNotification\n \(userInfo))")
         
         if ASAPP.canHandleNotification(with: userInfo) {
             homeController.showChat(fromNotificationWith: userInfo)
@@ -126,7 +123,7 @@ extension AppDelegate {
                      handleActionWithIdentifier identifier: String?,
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
+        demoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
     }
     
     func application(_ application: UIApplication,
@@ -134,7 +131,7 @@ extension AppDelegate {
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      withResponseInfo responseInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
+        demoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
     }
 }
 
@@ -146,6 +143,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.alert)
         
-        DemoLog("userNotificationCenter:willPresent:withCompletionHandler:")
+        demoLog("userNotificationCenter:willPresent:withCompletionHandler:")
     }
 }

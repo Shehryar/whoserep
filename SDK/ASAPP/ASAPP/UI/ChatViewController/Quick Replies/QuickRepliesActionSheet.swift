@@ -76,7 +76,7 @@ class QuickRepliesActionSheet: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        patternView.backgroundColor = UIColor.asapp_patternBackground
+        patternView.backgroundColor = UIColor.ASAPP.patternBackground
         patternView.isHidden = !ASAPP.styles.colors.quickRepliesBackgroundPattern
         patternBackgroundView.addSubview(patternView)
         
@@ -89,7 +89,7 @@ class QuickRepliesActionSheet: UIView {
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
-        backButton.image = Images.asappImage(.iconBack)
+        backButton.image = Images.getImage(.iconBack)
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.onTap = { [weak self] in
             if let blockSelf = self {
@@ -106,7 +106,7 @@ class QuickRepliesActionSheet: UIView {
         addSubview(backButton)
         
         closeButton.isHidden = true
-        closeButton.image = Images.asappImage(.iconSmallX)
+        closeButton.image = Images.getImage(.iconSmallX)
         closeButton.imageSize = CGSize(width: 11, height: 11)
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {
@@ -148,7 +148,7 @@ class QuickRepliesActionSheet: UIView {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension QuickRepliesActionSheet {
     override func layoutSubviews() {
@@ -214,7 +214,7 @@ extension QuickRepliesActionSheet {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 extension QuickRepliesActionSheet {
   

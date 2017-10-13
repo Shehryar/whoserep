@@ -55,7 +55,7 @@ class SpeechToTextViewController: BaseViewController {
     
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     override func commonInit() {
         super.commonInit()
@@ -103,7 +103,7 @@ class SpeechToTextViewController: BaseViewController {
         speechRecognizer?.delegate = nil
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +140,7 @@ class SpeechToTextViewController: BaseViewController {
         }
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -174,7 +174,7 @@ class SpeechToTextViewController: BaseViewController {
     }
 }
 
-// MARK:- Gesture
+// MARK: - Gesture
 
 @available(iOS 10.0, *)
 extension SpeechToTextViewController {
@@ -202,7 +202,7 @@ extension SpeechToTextViewController {
     }
 }
 
-// MARK:- Speech
+// MARK: - Speech
 
 @available(iOS 10.0, *)
 extension SpeechToTextViewController {
@@ -308,7 +308,7 @@ extension SpeechToTextViewController {
     }
 }
 
-// MARK:- SFSpeechRecognizerDelegate
+// MARK: - SFSpeechRecognizerDelegate
 
 @available(iOS 10.0, *)
 extension SpeechToTextViewController: SFSpeechRecognizerDelegate {

@@ -41,7 +41,7 @@ public class TemplateServerPreviewViewController: RefreshableTableViewController
     }
 }
 
-// MARK:- UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension TemplateServerPreviewViewController {
 
@@ -130,7 +130,7 @@ extension TemplateServerPreviewViewController {
     }
 }
 
-// MARK:- UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TemplateServerPreviewViewController {
     

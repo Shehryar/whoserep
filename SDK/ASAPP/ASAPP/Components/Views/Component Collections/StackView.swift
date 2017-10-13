@@ -46,7 +46,7 @@ class StackView: BaseComponentView {
         return component as? StackViewItem
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     override func commonInit() {
         super.commonInit()

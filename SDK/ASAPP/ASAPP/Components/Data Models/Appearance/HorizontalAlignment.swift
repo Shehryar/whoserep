@@ -27,7 +27,7 @@ enum HorizontalAlignment: String {
     }
 }
 
-// MARK:- Dictionary Extension
+// MARK: - Dictionary Extension
 
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     

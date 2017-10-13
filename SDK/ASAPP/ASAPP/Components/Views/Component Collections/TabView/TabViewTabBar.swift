@@ -141,7 +141,7 @@ class TabViewTabBar: UIView {
         return maxSize
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     func updateDisplay() {
         guard let tabs = tabs else {

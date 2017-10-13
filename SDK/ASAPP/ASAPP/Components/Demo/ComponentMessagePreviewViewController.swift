@@ -17,7 +17,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         addMessage(message)
     }
     
-    // MARK:- Private Properties
+    // MARK: - Private Properties
     
     private let messagesView = ChatMessagesView()
     
@@ -27,7 +27,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         return true
     }
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
@@ -56,7 +56,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         quickRepliesView.delegate = nil
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +73,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         becomeFirstResponder()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -100,7 +100,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         messagesView.frame = CGRect(x: 0, y: top, width: view.bounds.width, height: height)
     }
     
-    // MARK:- Refresh
+    // MARK: - Refresh
     
     private func clear() {
         messagesView.reloadWithEvents([Event]())
@@ -186,7 +186,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     }
 }
 
-// MARK:- ChatMessagesViewDelegate
+// MARK: - ChatMessagesViewDelegate
 
 extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     
@@ -357,7 +357,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, viewContainer, errorString) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
-                if let _ = viewContainer {
+                if viewContainer != nil {
                     if data.bool(for: "refresh") == true {
                         type = .refreshView
                     } else {

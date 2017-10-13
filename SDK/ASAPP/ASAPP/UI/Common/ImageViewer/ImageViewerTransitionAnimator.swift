@@ -27,7 +27,7 @@ class ImageViewerTransitionAnimator: NSObject {
     private var panStart: CGPoint?
     private var animateFromFrame: CGRect?
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     required override init() {
         super.init()
@@ -49,7 +49,7 @@ class ImageViewerTransitionAnimator: NSObject {
     }
 }
 
-// MARK:- UIViewControllerAnimatedTransitioning
+// MARK: - UIViewControllerAnimatedTransitioning
 
 extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
     func transitionDuration(whenPresenting presenting: Bool) -> TimeInterval {
@@ -108,7 +108,7 @@ extension ImageViewerTransitionAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-// MARK:- Animations: Presentation
+// MARK: - Animations: Presentation
 
 extension ImageViewerTransitionAnimator {
     func performPresentationAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -185,7 +185,7 @@ extension ImageViewerTransitionAnimator {
     }
 }
 
-// MARK:- Animations: Dismissal
+// MARK: - Animations: Dismissal
 
 extension ImageViewerTransitionAnimator {
     func performDismissalAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -301,7 +301,7 @@ extension ImageViewerTransitionAnimator {
     }
 }
 
-// MARK:- Animation Utilities
+// MARK: - Animation Utilities
 
 extension ImageViewerTransitionAnimator {
     func updateTransitioningImageViewForCurrentImage() {
@@ -354,7 +354,7 @@ extension ImageViewerTransitionAnimator {
     }
 }
 
-// MARK:- UIViewControllerTransitioningDelegate
+// MARK: - UIViewControllerTransitioningDelegate
 
 extension ImageViewerTransitionAnimator: UIViewControllerTransitioningDelegate {
     
@@ -369,7 +369,7 @@ extension ImageViewerTransitionAnimator: UIViewControllerTransitioningDelegate {
     }
 }
 
-// MARK:- UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 extension ImageViewerTransitionAnimator: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -377,7 +377,7 @@ extension ImageViewerTransitionAnimator: UIGestureRecognizerDelegate {
     }
 }
 
-// MARK:- Gestures
+// MARK: - Gestures
 
 extension ImageViewerTransitionAnimator {
     @objc func didPan(_ withGesture: UIPanGestureRecognizer) {
@@ -429,7 +429,7 @@ extension ImageViewerTransitionAnimator {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 extension ImageViewerTransitionAnimator {
     func dismissImageViewer() {

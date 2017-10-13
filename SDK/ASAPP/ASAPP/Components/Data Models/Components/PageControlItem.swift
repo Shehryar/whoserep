@@ -10,7 +10,7 @@ import UIKit
 
 class PageControlItem: Component {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     override var viewClass: UIView.Type {
         return PageControlView.self

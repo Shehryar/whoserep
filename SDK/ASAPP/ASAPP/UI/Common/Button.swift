@@ -25,7 +25,7 @@ class Button: UIView {
         }
     }
     
-    var font: UIFont = Fonts.latoBoldFont(withSize: 14) {
+    var font: UIFont = Fonts.default.bold.withSize(14) {
         didSet {
             label.font = font
             setNeedsLayout()
@@ -230,7 +230,7 @@ class Button: UIView {
     }
 }
 
-// MARK:- Display
+// MARK: - Display
 
 extension Button {
     func updateButtonDisplay() {
@@ -260,7 +260,7 @@ extension Button {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension Button {
     override func layoutSubviews() {
@@ -335,7 +335,7 @@ extension Button {
     }
 }
 
-// MARK:- Touches
+// MARK: - Touches
 
 extension Button {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -382,7 +382,7 @@ extension Button {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension Button {
     func didTap() {

@@ -28,7 +28,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     
     private let dateFormatter = DateFormatter()
     
-    // MARK:- Init
+    // MARK: - Init
     
     func commonInit() {
         contentView.backgroundColor = ASAPP.styles.colors.messagesListBackground
@@ -56,7 +56,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         commonInit()
     }
     
-    // MARK:- Instance Methods
+    // MARK: - Instance Methods
     
     func timeTextForDate(_ date: Date) -> String {
         return dateFormatter.string(from: date)
@@ -73,7 +73,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         setNeedsLayout()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     func textSizeForSize(_ size: CGSize) -> CGSize {
         let textWidth = size.width - contentInset.left - contentInset.right

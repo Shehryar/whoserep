@@ -37,7 +37,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
 
-    var font: UIFont = Fonts.latoRegularFont(withSize: 15) {
+    var font: UIFont = Fonts.default.regular.withSize(15) {
         didSet {
             textField.font = font
             setNeedsLayout()
@@ -63,7 +63,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderFont: UIFont = Fonts.latoBoldFont(withSize: 12) {
+    var placeholderFont: UIFont = Fonts.default.bold.withSize(12) {
         didSet {
             updatePlaceholderText()
             setNeedsLayout()
@@ -224,7 +224,7 @@ class PlaceholderTextInputView: UIView {
     
     private var previousSelection: UITextRange?
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     func commonInit() {
         isExclusiveTouch = true
@@ -296,7 +296,7 @@ class PlaceholderTextInputView: UIView {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension PlaceholderTextInputView {
     override func layoutSubviews() {
@@ -371,7 +371,7 @@ extension PlaceholderTextInputView {
     }
 }
 
-// Mark:- Touches
+// MARK: - Touches
 
 extension PlaceholderTextInputView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -424,7 +424,7 @@ extension PlaceholderTextInputView {
     }
 }
 
-// MARK:- First Responder
+// MARK: - First Responder
 
 extension PlaceholderTextInputView {
     override var canBecomeFirstResponder: Bool {
@@ -487,22 +487,22 @@ extension PlaceholderTextInputView {
 
 extension PlaceholderTextInputView: UITextFieldDelegate {
     
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         selected = true
         onBeginEditing?()
     }
     
-    public func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         selected = false
         onEndEditing?()
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         onReturn?()
         return false
     }
     
-    @objc public func textFieldTextDidChange() {
+    @objc func textFieldTextDidChange() {
         
         let text = textField.text ?? ""
         
@@ -516,7 +516,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
         
         if let allowedCharacterSet = allowedCharacterSet {
             let disallowedCharacterSet = allowedCharacterSet.inverted
-            if let _ = text.rangeOfCharacter(from: disallowedCharacterSet) {
+            if text.rangeOfCharacter(from: disallowedCharacterSet) != nil {
                 textField.text = previousTextFieldContent
                 textField.selectedTextRange = previousSelection
                 return
@@ -535,7 +535,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
         onTextChange?(text)
     }
     
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Note textField's current state before performing the change, in case reformatTextField wants to revert it
         previousTextFieldContent = textField.text
         previousSelection = textField.selectedTextRange

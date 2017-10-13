@@ -59,7 +59,7 @@ class ChatViewController: ASAPPViewController {
         return true
     }
 
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
@@ -82,11 +82,9 @@ class ChatViewController: ASAPPViewController {
         
         // Close Button
         let side = ASAPP.styles.closeButtonSide(for: segue)
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .chat,
-            segue: segue,
-            target: self,
-            action: #selector(ChatViewController.didTapCloseButton))
+        let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
+            .configSegue(segue)
+            .configTarget(self, action: #selector(ChatViewController.didTapCloseButton))
         
         switch side {
         case .right:
@@ -239,7 +237,7 @@ class ChatViewController: ASAPPViewController {
         }
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,7 +315,7 @@ class ChatViewController: ASAPPViewController {
         conversationManager.saveCurrentEvents()
     }
     
-    // MARK:- Status Bar
+    // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if (showPredictiveOnViewAppear || isPredictiveVCVisible) && !isLiveChat {
@@ -400,14 +398,13 @@ extension ChatViewController {
             customImage = ASAPP.styles.navBarStyles.buttonImages.ask
         }
         
-        let askButton = UIBarButtonItem.asappBarButtonItem(
-            title: title,
-            customImage: customImage,
-            style: .ask,
-            location: .chat,
-            side: side,
-            target: self,
-            action: action)
+        let askButton = NavBarButtonItem(location: .chat, side: side)
+        if let customImage = customImage {
+            askButton.configImage(customImage)
+        } else {
+            askButton.configTitle(title)
+        }
+        askButton.configTarget(self, action: action)
         
         switch side {
         case .left:
@@ -461,9 +458,16 @@ extension ChatViewController {
             container.navigationController?.popViewController(animated: true)
         }
     }
+    
+    func shakeConnectionStatusView() {
+        connectionStatusView.label.transform = CGAffineTransform(translationX: 20, y: 0)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { [weak self] in
+            self?.connectionStatusView.label.transform = .identity
+        }, completion: nil)
+    }
 }
 
-// MARK:- Button Actions
+// MARK: - Button Actions
 
 extension ChatViewController {
     @objc func didTapAskButton() {
@@ -478,7 +482,13 @@ extension ChatViewController {
                                                   preferredStyle: .alert)
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationCancelButton, style: .cancel, handler: nil))
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationEndChatButton, style: .default, handler: { [weak self] _ in
-            self?.conversationManager.endLiveChat()
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if !strongSelf.conversationManager.endLiveChat() {
+                strongSelf.shakeConnectionStatusView()
+            }
         }))
         present(confirmationAlert, animated: true, completion: nil)
     }
@@ -490,7 +500,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension ChatViewController {
     
@@ -575,7 +585,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- KeyboardObserver
+// MARK: - KeyboardObserver
 
 extension ChatViewController: KeyboardObserverDelegate {
     
@@ -589,7 +599,7 @@ extension ChatViewController: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- Handling Actions
+// MARK: - Handling Actions
 
 extension ChatViewController {
     
@@ -731,7 +741,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- ChatMessagesViewDelegate
+// MARK: - ChatMessagesViewDelegate
 
 extension ChatViewController: ChatMessagesViewDelegate {
     
@@ -776,7 +786,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
 }
 
-// MARK:- ComponentViewControllerDelegate
+// MARK: - ComponentViewControllerDelegate
 
 extension ChatViewController: ComponentViewControllerDelegate {
     
@@ -808,7 +818,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     }
 }
 
-// MARK:- PredictiveViewController
+// MARK: - PredictiveViewController
 
 extension ChatViewController: PredictiveViewControllerDelegate {
     
@@ -894,7 +904,7 @@ extension ChatViewController: PredictiveViewControllerDelegate {
     }
 }
 
-// MARK:- ChatInputViewDelegate
+// MARK: - ChatInputViewDelegate
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
@@ -920,7 +930,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
 }
 
-// MARK:- Showing/Hiding ChatquickRepliesActionSheet
+// MARK: - Showing/Hiding ChatquickRepliesActionSheet
 
 extension ChatViewController {
     
@@ -967,7 +977,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- QuickRepliesActionSheetDelegate
+// MARK: - QuickRepliesActionSheetDelegate
 
 extension ChatViewController: QuickRepliesActionSheetDelegate {
     
@@ -994,7 +1004,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     }
 }
 
-// MARK:- ConversationManagerDelegate
+// MARK: - ConversationManagerDelegate
 
 extension ChatViewController: ConversationManagerDelegate {
     
@@ -1101,7 +1111,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
 }
 
-// MARK:- UIImagePickerControllerDelegate
+// MARK: - UIImagePickerControllerDelegate
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -1120,7 +1130,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension ChatViewController {
     
@@ -1148,7 +1158,7 @@ extension ChatViewController {
     }
 }
 
-// MARK:- RatingAPIDelegate
+// MARK: - RatingAPIDelegate
 
 extension ChatViewController: RatingAPIDelegate {
     

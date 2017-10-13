@@ -160,20 +160,17 @@ class PredictiveViewController: UIViewController {
         
         let chatSide = ASAPP.styles.closeButtonSide(for: segue).opposite()
 
-        let viewChatButton = UIBarButtonItem.asappBarButtonItem(
-            title: ASAPP.strings.predictiveBackToChatButton,
-            customImage: ASAPP.styles.navBarStyles.buttonImages.backToChat,
-            style: .respond,
-            location: .predictive,
-            side: chatSide,
-            target: self,
-            action: #selector(PredictiveViewController.didTapViewChat))
+        let viewChatButton = NavBarButtonItem(location: .predictive, side: chatSide)
+        if let customImage = ASAPP.styles.navBarStyles.buttonImages.backToChat {
+            viewChatButton.configImage(customImage)
+        } else {
+            viewChatButton.configTitle(ASAPP.strings.predictiveBackToChatButton)
+        }
+        viewChatButton.configTarget(self, action: #selector(PredictiveViewController.didTapViewChat))
         
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .predictive,
-            segue: segue,
-            target: self,
-            action:  #selector(PredictiveViewController.didTapCancel))
+        let closeButton = NavCloseBarButtonItem(location: .predictive, side: .right)
+            .configSegue(segue)
+            .configTarget(self, action: #selector(PredictiveViewController.didTapCancel))
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         
         switch chatSide {
@@ -250,7 +247,7 @@ class PredictiveViewController: UIViewController {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension PredictiveViewController {
     override func viewWillLayoutSubviews() {
@@ -313,7 +310,7 @@ extension PredictiveViewController {
         let noConnectionMargin: CGFloat = 4
         let noConnectionPadding: CGFloat = 10
         let noConnectionHeight = min(contentInset.bottom - noConnectionMargin, ceil(connectionStatusLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height) + noConnectionPadding)
-        let noConnectionTop = visibleBottom - noConnectionHeight
+        let noConnectionTop = visibleBottom - noConnectionHeight - contentInset.bottom
         connectionStatusLabel.frame = CGRect(x: 0, y: noConnectionTop, width: view.bounds.width, height: noConnectionHeight)
         
         // Buttons View
@@ -338,7 +335,6 @@ extension PredictiveViewController {
     }
     
     func flashNoConnectionLabel() {
-        
         noConnectionFlashTime = floor(NSDate().timeIntervalSince1970)
         
         let delayBeforeHiding: TimeInterval = 5
@@ -371,7 +367,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension PredictiveViewController {
     func finishWithMessage(_ message: String, fromPrediction: Bool) {
@@ -402,7 +398,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- Saving Text
+// MARK: - Saving Text
 
 extension PredictiveViewController {
     func getTitleAndInputPlaceholder() -> (String /* Title */, String /* Placeholder */) {
@@ -421,7 +417,7 @@ extension PredictiveViewController {
     }
 }
 
-// MARK:- UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 extension PredictiveViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -434,7 +430,7 @@ extension PredictiveViewController: UIGestureRecognizerDelegate {
     }
 }
 
-// MARK:- ChatInputViewDelegate
+// MARK: - ChatInputViewDelegate
 
 extension PredictiveViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
@@ -454,7 +450,7 @@ extension PredictiveViewController: ChatInputViewDelegate {
     }
 }
 
-// MARK:- KeyboardObserver
+// MARK: - KeyboardObserver
 
 extension PredictiveViewController: KeyboardObserverDelegate {
     
@@ -470,7 +466,7 @@ extension PredictiveViewController: KeyboardObserverDelegate {
     }
 }
 
-// MARK:- External API
+// MARK: - External API
 
 extension PredictiveViewController {
     func setAppOpenResponse(appOpenResponse: AppOpenResponse?, animated: Bool) {

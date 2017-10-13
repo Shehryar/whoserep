@@ -41,7 +41,7 @@ class OverlayLoadingView: UIView {
     }
 }
 
-// MARK:- Public Interface
+// MARK: - Public Interface
 
 extension OverlayLoadingView {
     

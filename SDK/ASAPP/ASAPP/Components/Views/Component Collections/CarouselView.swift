@@ -115,14 +115,21 @@ class CarouselView: BaseComponentView {
     
     // MARK: Layout
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, [CGRect], CGSize, CGRect) {
+    private struct CalculatedLayout {
+        let scrollViewFrame: CGRect
+        let itemFrames: [CGRect]
+        let contentSize: CGSize
+        let pageControlFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         var scrollViewFrame = CGRect.zero
         var itemFrames = [CGRect]()
         var contentSize = CGSize.zero
         var pageControlFrame = CGRect.zero
         guard let carousel = carouselViewItem,
             let itemViews = itemViews else {
-                return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
+                return CalculatedLayout(scrollViewFrame: scrollViewFrame, itemFrames: itemFrames, contentSize: contentSize, pageControlFrame: pageControlFrame)
         }
         
         // Get Available Size
@@ -132,7 +139,7 @@ class CarouselView: BaseComponentView {
         fitToSize.width -= carousel.style.padding.left + carousel.style.padding.right
         fitToSize.height -= carousel.style.padding.top + carousel.style.padding.bottom
         guard fitToSize.width > 0 && fitToSize.height > 0 else {
-            return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
+            return CalculatedLayout(scrollViewFrame: scrollViewFrame, itemFrames: itemFrames, contentSize: contentSize, pageControlFrame: pageControlFrame)
         }
         
         // Size Page Control
@@ -164,7 +171,7 @@ class CarouselView: BaseComponentView {
         let visibleItemContentWidth = fitToSize.width - negativeContentWidth
         var itemWidth = ceil(visibleItemContentWidth / carousel.visibleItemCount)
         guard itemWidth > 0 else {
-            return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
+            return CalculatedLayout(scrollViewFrame: scrollViewFrame, itemFrames: itemFrames, contentSize: contentSize, pageControlFrame: pageControlFrame)
         }
         
         // Set frames horizontally
@@ -221,7 +228,7 @@ class CarouselView: BaseComponentView {
             pageControlFrame = CGRect(x: pcLeft, y: pcTop, width: pcWidth, height: pcHeight)
         }
         
-        return (scrollViewFrame, itemFrames, contentSize, pageControlFrame)
+        return CalculatedLayout(scrollViewFrame: scrollViewFrame, itemFrames: itemFrames, contentSize: contentSize, pageControlFrame: pageControlFrame)
     }
     
     override func updateFrames() {
@@ -230,15 +237,15 @@ class CarouselView: BaseComponentView {
             return
         }
         
-        let (scrollViewFrame, itemFrames, contentSize, pageControlFrame) = getFramesThatFit(bounds.size)
-        scrollView.frame = scrollViewFrame
-        if itemViews.count == itemFrames.count {
+        let layout = getFramesThatFit(bounds.size)
+        scrollView.frame = layout.scrollViewFrame
+        if itemViews.count == layout.itemFrames.count {
             for (idx, itemView) in itemViews.enumerated() {
-                itemView.view.frame = itemFrames[idx]
+                itemView.view.frame = layout.itemFrames[idx]
             }
         }
-        scrollView.contentSize = contentSize
-        pageControlView.frame = pageControlFrame
+        scrollView.contentSize = layout.contentSize
+        pageControlView.frame = layout.pageControlFrame
         
         if let currentPage = getPageIndexOfCurrentValue() {
             pageControlView.currentPage = currentPage
@@ -257,8 +264,8 @@ class CarouselView: BaseComponentView {
         fitToSize.width = size.width > 0 ? size.width : UIScreen.main.bounds.width
         fitToSize.height = size.height > 0 ? size.height : UIScreen.main.bounds.height
         
-        let (scrollViewFrame, _, _, pageControlFrame) = getFramesThatFit(fitToSize)
-        let contentHeight = max(scrollViewFrame.maxY, pageControlFrame.maxY) + component.style.padding.bottom
+        let layout = getFramesThatFit(fitToSize)
+        let contentHeight = max(layout.scrollViewFrame.maxY, layout.pageControlFrame.maxY) + component.style.padding.bottom
         return CGSize(width: fitToSize.width, height: min(fitToSize.height, contentHeight))
     }
 }

@@ -197,7 +197,7 @@ class PredictiveButtonsView: UIView {
         }
     }
     
-    // MARK:- Public Instance Methods
+    // MARK: - Public Instance Methods
     
     func clear() {
         for button in relatedButtons {

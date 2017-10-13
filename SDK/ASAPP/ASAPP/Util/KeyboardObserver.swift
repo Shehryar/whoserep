@@ -8,14 +8,14 @@
 
 import UIKit
 
-// MARK:- KeyboardObserverDelegate
+// MARK: - KeyboardObserverDelegate
 
 protocol KeyboardObserverDelegate: class {
     /// Height is visible height relative to UIScreen.mainScreen
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions)
 }
 
-// MARK:- KeyboardObserver
+// MARK: - KeyboardObserver
 
 class KeyboardObserver: NSObject {
     

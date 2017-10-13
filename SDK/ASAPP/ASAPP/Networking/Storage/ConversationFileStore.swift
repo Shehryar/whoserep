@@ -52,13 +52,13 @@ class ConversationFileStore: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK:- Observing Notifications
+    // MARK: - Observing Notifications
     
     @objc func didObserveNotification() {
         save()
     }
     
-    // MARK:- Debug Logging
+    // MARK: - Debug Logging
     
     private func _debugLog(message: String) {
         if debugLoggingEnabled {
@@ -67,7 +67,7 @@ class ConversationFileStore: NSObject {
     }
 }
 
-// MARK:- Generic File Operations
+// MARK: - Generic File Operations
 
 extension ConversationFileStore {
     
@@ -109,7 +109,7 @@ extension ConversationFileStore {
     }
 }
 
-// MARK:- Utility Methods
+// MARK: - Utility Methods
 
 extension ConversationFileStore {
     
@@ -135,7 +135,7 @@ extension ConversationFileStore {
     }
 }
 
-// MARK:- Fetching Events 
+// MARK: - Fetching Events 
 
 extension ConversationFileStore {
     
@@ -188,7 +188,7 @@ extension ConversationFileStore {
     }
 }
 
-// MARK:- Adding Events
+// MARK: - Adding Events
 
 extension ConversationFileStore {
     
@@ -242,7 +242,7 @@ extension ConversationFileStore {
     }
 }
 
-// MARK:- Saving
+// MARK: - Saving
 
 extension ConversationFileStore {
     

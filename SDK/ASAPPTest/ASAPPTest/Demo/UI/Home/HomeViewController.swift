@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController {
     
     fileprivate var chatButton: ASAPPButton?
     
-    // MARK:- Initialization
+    // MARK: - Initialization
 
     override func commonInit() {
         super.commonInit()
@@ -90,7 +90,7 @@ class HomeViewController: BaseViewController {
         brandingSwitcherView.frame = CGRect(x: 0, y: topInset, width: view.bounds.width, height: view.bounds.height - topInset)
     }
     
-    // MARK:- ASAPPConfig
+    // MARK: - ASAPPConfig
     
     func updateASAPPSettings() {
         var didUpdateConfig = false
@@ -121,7 +121,7 @@ class HomeViewController: BaseViewController {
                 "CustomerId:    \(customerId ?? "nil")"
             ].joined(separator: "\n")
             
-            DemoLog("\n\nUpdated ASAPP Config:\n----------------------------------------\n\(updatesString)\n----------------------------------------")
+            demoLog("\n\nUpdated ASAPP Config:\n----------------------------------------\n\(updatesString)\n----------------------------------------")
             refreshChatButton()
         }
     }
@@ -138,7 +138,7 @@ class HomeViewController: BaseViewController {
         present(chatViewController, animated: true, completion: nil)
     }
     
-    // MARK:- ASAPP Callbacks
+    // MARK: - ASAPP Callbacks
     
     func createASAPPUser(customerIdentifier: String?) -> ASAPPUser {
         let user = ASAPPUser(
@@ -173,7 +173,7 @@ class HomeViewController: BaseViewController {
     }
 }
 
-// MARK:- Styling
+// MARK: - Styling
 
 extension HomeViewController {
     
@@ -222,7 +222,7 @@ extension HomeViewController {
     }
 }
 
-// MARK:- Chat
+// MARK: - Chat
 
 extension HomeViewController {
 
@@ -243,11 +243,11 @@ extension HomeViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
         
-        DemoLog("Chat Button Updated")
+        demoLog("Chat Button Updated")
     }
 }
 
-// MARK:- HomeTableViewDelegate
+// MARK: - HomeTableViewDelegate
 
 extension HomeViewController: HomeTableViewDelegate {
     
@@ -324,7 +324,7 @@ extension HomeViewController: HomeTableViewDelegate {
     }
 }
 
-// MARK:- Handling ASAPP Actions
+// MARK: - Handling ASAPP Actions
 
 extension HomeViewController {
     
@@ -389,7 +389,7 @@ extension HomeViewController {
     }
 }
 
-// MARK:- Navigation to View Controllers
+// MARK: - Navigation to View Controllers
 
 extension HomeViewController {
     

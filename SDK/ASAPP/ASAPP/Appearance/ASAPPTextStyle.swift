@@ -8,17 +8,25 @@
 
 import UIKit
 
+/**
+ Used to define a text style.
+ */
+@objcMembers
 public class ASAPPTextStyle: NSObject {
     
     // MARK: Properties (final)
     
-    let fontName: String
-    
-    let defaultSize: CGFloat
+    private(set) var defaultSize: CGFloat
     
     let letterSpacing: CGFloat
     
     let color: UIColor
+    
+    var font: UIFont {
+        return fontRef.withSize(size)
+    }
+    
+    private var fontRef: UIFont
     
     // MARK: Properties (dynamic)
     
@@ -26,31 +34,25 @@ public class ASAPPTextStyle: NSObject {
         return TextSizeCategory.dynamicFontSize(defaultSize)
     }
     
-    var font: UIFont {
-        if let font = UIFont(name: fontName, size: size) {
-            return font
-        }
-        
-        DebugLog.w(caller: self, "Unable to create font with name: \(fontName)")
-        
-        return UIFont.systemFont(ofSize: size)
-    }
-    
     // MARK: Init
     
-    init(fontName: FontName, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
-        self.fontName = fontName.rawValue
+    /**
+     Creates an instance of `ASAPPTextStyle` with the given parameters.
+     
+     - parameter font: The font.
+     - parameter size: The default size.
+     - parameter letterSpacing: The amount of space between characters.
+     - parameter color: The text color.
+     */
+    public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
         self.defaultSize = size
+        self.fontRef = font
         self.letterSpacing = letterSpacing
         self.color = color
         super.init()
     }
     
-    init(fontName: String, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
-        self.fontName = fontName
-        self.defaultSize = size
-        self.letterSpacing = letterSpacing
-        self.color = color
-        super.init()
+    internal func updateFont(_ font: UIFont) {
+        self.fontRef = font
     }
 }

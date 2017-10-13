@@ -68,7 +68,7 @@ class BubbleView: UIView {
     
     private let maskLayer = CAShapeLayer()
     
-    // MARK:- Init
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,7 +90,7 @@ class BubbleView: UIView {
         }
     }
     
-    // MARK:- Drawing
+    // MARK: - Drawing
     
     override func draw(_ rect: CGRect) {
         

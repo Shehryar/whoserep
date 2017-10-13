@@ -71,7 +71,7 @@ class ChatMessagesViewCellMaster: NSObject {
     }
 }
 
-// MARK:- Utility Methods
+// MARK: - Utility Methods
 
 extension ChatMessagesViewCellMaster {
     
@@ -110,16 +110,16 @@ extension ChatMessagesViewCellMaster {
     }
     
     private func updateMessageCell(_ cell: ChatMessageCell?,
-                                       with message: ChatMessage,
-                                       listPosition: MessageListPosition,
-                                       detailsVisible: Bool) {
+                                   with message: ChatMessage,
+                                   listPosition: MessageListPosition,
+                                   detailsVisible: Bool) {
         cell?.messagePosition = listPosition
         cell?.message = message
         cell?.isTimeLabelVisible = detailsVisible
     }
 }
 
-// MARK:- Header/Footer
+// MARK: - Header/Footer
 
 extension ChatMessagesViewCellMaster {
     
@@ -154,7 +154,7 @@ extension ChatMessagesViewCellMaster {
     }
 }
 
-// MARK:- Cell Creation
+// MARK: - Cell Creation
 
 extension ChatMessagesViewCellMaster {
 
@@ -183,7 +183,7 @@ extension ChatMessagesViewCellMaster {
     }
 }
 
-// MARK:- Cell Heights
+// MARK: - Cell Heights
 
 extension ChatMessagesViewCellMaster {
     
@@ -228,9 +228,9 @@ extension ChatMessagesViewCellMaster {
     // MARK: Private
     
     private func calculateHeightForCell(with message: ChatMessage,
-                                            listPosition: MessageListPosition,
-                                            detailsVisible: Bool,
-                                            width: CGFloat) -> CGFloat {
+                                        listPosition: MessageListPosition,
+                                        detailsVisible: Bool,
+                                        width: CGFloat) -> CGFloat {
         let sizingCell = getMessageSizingCell(forAttachmentType: message.attachment?.type)
         updateMessageCell(sizingCell,
                           with: message,

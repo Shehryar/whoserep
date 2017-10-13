@@ -38,7 +38,7 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
         }
     }
     
-    // MARK:- UpdatableFrames
+    // MARK: - UpdatableFrames
     
     func updateFrames() {
         for viewController in viewControllers {

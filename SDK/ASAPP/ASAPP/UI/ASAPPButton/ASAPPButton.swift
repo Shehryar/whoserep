@@ -8,17 +8,21 @@
 
 import UIKit
 
+/**
+ An `ASAPPButton` will launch the SDK, showing the view controller based on the configured segue.
+ Create one using `ASAPP.createChatButton(appCallbackHandler:presentingViewController:)`.
+ */
 public class ASAPPButton: UIView {
     
-    public let config: ASAPPConfig
+    let config: ASAPPConfig
     
-    public let user: ASAPPUser
+    let user: ASAPPUser
     
-    public let presentingViewController: UIViewController
+    let presentingViewController: UIViewController
     
-    public let appCallbackHandler: ASAPPAppCallbackHandler
+    let appCallbackHandler: ASAPPAppCallbackHandler
 
-    // MARK:- Private Properties: UI
+    // MARK: - Private Properties: UI
     
     private enum ASAPPButtonState {
         case normal
@@ -48,7 +52,7 @@ public class ASAPPButton: UIView {
     
     private var isWaitingToAnimateIn = false
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     init(config: ASAPPConfig,
          user: ASAPPUser,
@@ -88,6 +92,7 @@ public class ASAPPButton: UIView {
             object: nil)
     }
     
+    /// :nodoc:
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -96,8 +101,11 @@ public class ASAPPButton: UIView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
+    /**
+     Lays out subviews. Just as with `UIView.layoutSubviews()`, you should not call this method directly.
+     */
     public override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -116,7 +124,8 @@ public class ASAPPButton: UIView {
         contentView.transform = currentTransform
     }
     
-    public override var intrinsicContentSize: CGSize {
+    /// :nodoc:
+    override public var intrinsicContentSize: CGSize {
         return CGSize(width: 72, height: 34)
     }
     
@@ -127,7 +136,7 @@ public class ASAPPButton: UIView {
     }
 }
 
-// MARK:- Button Display
+// MARK: - Button Display
 
 extension ASAPPButton {
     
@@ -147,21 +156,39 @@ extension ASAPPButton {
     }
 }
 
-// MARK:- Touches
-
 extension ASAPPButton {
+    // MARK: - Touches
+    
+    /**
+     Overrides `UIView.touchesBegan(_:with:)`.
+     
+     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
+     - parameter event: The event to which the touches belong.
+     */
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesInBounds(touches) {
             isTouching = true
         }
     }
     
+    /**
+     Overrides `UIView.touchesMoved(_:with:)`.
+     
+     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
+     - parameter event: The event to which the touches belong.
+     */
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && !touchesInBounds(touches) {
             touchesCancelled(touches, with: event)
         }
     }
     
+    /**
+     Overrides `UIView.touchesEnded(_:with:)`.
+     
+     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
+     - parameter event: The event to which the touches belong.
+     */
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches) {
             didTap()
@@ -169,11 +196,17 @@ extension ASAPPButton {
         isTouching = false
     }
     
+    /**
+     Overrides `UIView.touchesCancelled(_:with:)`.
+     
+     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
+     - parameter event: The event to which the touches belong.
+     */
     public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
     }
     
-    // MARK: Utilies
+    // MARK: Utilities
     
     func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
         guard let touch = touches.first else { return false }
@@ -186,7 +219,7 @@ extension ASAPPButton {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension ASAPPButton {
     func didTap() {
@@ -214,13 +247,19 @@ extension ASAPPButton {
     }
 }
 
-// MARK:- Animations
-
 extension ASAPPButton {
+    // MARK: - Animations
+    
+    /**
+     Simulates a tap on the button, displaying the SDK's view controller.
+     */
     public func triggerTap() {
         didTap()
     }
     
+    /**
+     Hides the button until `animateIn(afterDelay:)` is called.
+     */
     public func hideUntilAnimateInIsCalled() {
         if isWaitingToAnimateIn { return }
         layoutSubviews()
@@ -232,6 +271,11 @@ extension ASAPPButton {
         self.contentView.alpha = 0.0
     }
     
+    /**
+     Reveals the button with an animation.
+     
+     - parameter delay: A `TimeInterval` after which the animation will start.
+     */
     public func animateIn(afterDelay delay: TimeInterval = 0) {
         UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: { [weak self] in
             self?.contentView.transform = CGAffineTransform.identity

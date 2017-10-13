@@ -96,7 +96,7 @@ class YesNoView: UIView {
     }
 }
 
-// MARK:- Updating the choice
+// MARK: - Updating the choice
 
 extension YesNoView {
     func setChoice(_ choice: Bool, animated: Bool) {

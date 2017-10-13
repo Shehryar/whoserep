@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Hue, Saturation, Brightness
+// MARK: - Hue, Saturation, Brightness
 
 struct HSBa {
     var hue: CGFloat = 0
@@ -40,7 +40,7 @@ struct HSBa {
     }
 }
 
-// MARK:- Brightness
+// MARK: - Brightness
 
 internal extension UIColor {
     func isWhite() -> Bool {
@@ -90,7 +90,7 @@ internal extension UIColor {
     }
 }
 
-// MARK:- Highlight Colors
+// MARK: - Highlight Colors
 
 internal extension UIColor {
     func highlightColor() -> UIColor? {
@@ -102,7 +102,7 @@ internal extension UIColor {
     }
 }
 
-// MARK:- Hex Colors
+// MARK: - Hex Colors
 
 internal extension UIColor {
     

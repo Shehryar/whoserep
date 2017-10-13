@@ -120,7 +120,7 @@ class ImageViewer: UIViewController {
     }
 }
 
-// MARK:- UIStatusBar
+// MARK: - UIStatusBar
 
 extension ImageViewer {
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -139,7 +139,7 @@ extension ImageViewer {
     }
 }
 
-// MARK:- Content Utilities
+// MARK: - Content Utilities
 
 extension ImageViewer {
     func imageForPage(_ page: Int) -> ImageViewerImage? {
@@ -184,7 +184,7 @@ extension ImageViewer {
     }
 }
 
-// MARK:- UIPageViewControllerDataSource
+// MARK: - UIPageViewControllerDataSource
 
 extension ImageViewer: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -202,7 +202,7 @@ extension ImageViewer: UIPageViewControllerDataSource {
     }
 }
 
-// MARK:- UIPageViewControllerDelegate
+// MARK: - UIPageViewControllerDelegate
 
 extension ImageViewer: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -214,7 +214,7 @@ extension ImageViewer: UIPageViewControllerDelegate {
     }
 }
 
-// MARK:- ImageViewerImageViewControllerDelegate
+// MARK: - ImageViewerImageViewControllerDelegate
 
 extension ImageViewer: ImageViewerImageViewControllerDelegate {
     func imageViewControllerDidSingleTap(_ viewController: ImageViewerImageViewController) {
@@ -232,7 +232,7 @@ extension ImageViewer: ImageViewerImageViewControllerDelegate {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 extension ImageViewer {
     

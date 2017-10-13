@@ -8,11 +8,17 @@
 
 import UIKit
 
+/**
+ Customizable navigation bar styles.
+ */
 @objcMembers
 public class ASAPPNavBarStyles: NSObject {
+    /// The style of navigation bar buttons. Defaults to `ASAPPNavBarButtonStyle.bubble`.
     public var buttonStyle: ASAPPNavBarButtonStyle = .bubble
     
+    /// The images used in navigation bar buttons.
     public var buttonImages = ASAPPNavBarButtonImages()
     
+    /// The edge insets for the navigation bar title. Defaults to 8 on the sides.
     public var titlePadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
 }

@@ -31,7 +31,7 @@ class LoginViewController: OptionsForKeyViewController {
         }
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()

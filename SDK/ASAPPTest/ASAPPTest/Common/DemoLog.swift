@@ -8,6 +8,6 @@
 
 import UIKit
 
-func DemoLog(_ message: String) {
+func demoLog(_ message: String) {
     print("[ASAPP DEMO] \(message)\n")
 }

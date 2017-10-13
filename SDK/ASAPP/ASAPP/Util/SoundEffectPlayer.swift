@@ -15,7 +15,7 @@ class SoundEffectPlayer: NSObject {
         case liveChatNotification
         
         static let all: [Sound] = [
-            liveChatNotification,
+            liveChatNotification
         ]
     }
     
@@ -27,7 +27,7 @@ class SoundEffectPlayer: NSObject {
         }
     }
     
-    // MARK:- Playing a Sound
+    // MARK: - Playing a Sound
     
     private func getSystemSoundId(for sound: Sound) -> SystemSoundID? {
         if let systemSoundId = systemSoundIds[sound] {

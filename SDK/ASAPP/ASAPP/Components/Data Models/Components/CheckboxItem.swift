@@ -10,7 +10,7 @@ import UIKit
 
 class CheckboxItem: Component {
 
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultWidth: CGFloat = 18
     
@@ -18,13 +18,13 @@ class CheckboxItem: Component {
     
     static let defaultPadding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
 
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return Checkbox.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

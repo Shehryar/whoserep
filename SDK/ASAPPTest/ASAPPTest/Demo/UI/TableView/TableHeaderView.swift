@@ -27,7 +27,7 @@ class TableHeaderView: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        label.font = DemoFonts.latoBlackFont(withSize: 13)
+        label.font = DemoFonts.asapp.bold.withSize(13)
         label.textColor = UIColor.gray
         addSubview(label)
     }
@@ -47,7 +47,7 @@ class TableHeaderView: UIView {
     fileprivate func updateLabel() {
         if let title = title {
             label.attributedText = NSAttributedString(string: title.uppercased(), attributes: [
-                NSFontAttributeName: DemoFonts.latoBlackFont(withSize: 11),
+                NSFontAttributeName: DemoFonts.asapp.bold.withSize(11),
                 NSKernAttributeName: 1.5,
                 NSForegroundColorAttributeName: AppSettings.shared.branding.colors.secondaryTextColor
             ])
@@ -57,7 +57,7 @@ class TableHeaderView: UIView {
         setNeedsLayout()
     }
     
-    // MARK:- Layout
+    // MARK: - Layout
     
     func labelFrameThatFits(_ size: CGSize) -> CGRect {
         let width = size.width - contentInset.left - contentInset.right

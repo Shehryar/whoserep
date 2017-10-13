@@ -132,7 +132,7 @@ class ChatTextBubbleView: UIView {
     }
 }
 
-// MARK:- Display
+// MARK: - Display
 
 extension ChatTextBubbleView {
     
@@ -188,7 +188,7 @@ extension ChatTextBubbleView {
     }
 }
 
-// MARK:- Layout + Sizing
+// MARK: - Layout + Sizing
 
 extension ChatTextBubbleView {
     
@@ -238,7 +238,7 @@ extension ChatTextBubbleView {
     }
 }
 
-// MARK:- Long Press Gesture + Copy Menu
+// MARK: - Long Press Gesture + Copy Menu
 
 extension ChatTextBubbleView {
     

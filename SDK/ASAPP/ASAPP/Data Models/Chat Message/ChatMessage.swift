@@ -8,25 +8,13 @@
 
 import UIKit
 
-// MARK:- Chat Message
+// MARK: - Chat Message
 
 class ChatMessage: NSObject {
     
     let text: String?
     let attachment: ChatMessageAttachment?
-    let _quickReplies: [String : [QuickReply]]?
-    var quickReplies: [QuickReply]? {
-        guard let _quickReplies = _quickReplies else {
-            return nil
-        }
-        
-        if let attachmentValue = attachment?.currentValue as? String,
-            let attachmentQuickReplies = _quickReplies[attachmentValue] {
-            return attachmentQuickReplies
-        }
-        
-        return _quickReplies.first?.value
-    }
+    let quickReplies: [QuickReply]?
     let metadata: EventMetadata
    
     // MARK: Init
@@ -41,7 +29,14 @@ class ChatMessage: NSObject {
         
         self.text = text
         self.attachment = attachment
-        self._quickReplies = quickReplies != nil && !quickReplies!.isEmpty ? quickReplies : nil
+        
+        if let attachmentValue = attachment?.currentValue as? String,
+           let attachmentQuickReplies = quickReplies?[attachmentValue] {
+            self.quickReplies = attachmentQuickReplies
+        } else {
+            self.quickReplies = quickReplies?.first?.value
+        }
+        
         self.metadata = metadata
         super.init()
     }
@@ -60,7 +55,7 @@ class ChatMessage: NSObject {
     }
 }
 
-// MARK:- Parsing
+// MARK: - Parsing
 
 extension ChatMessage {
     

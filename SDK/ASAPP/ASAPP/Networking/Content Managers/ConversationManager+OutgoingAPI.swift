@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Chat
+// MARK: - Chat
 
 extension ConversationManager {
     
@@ -45,16 +45,19 @@ extension ConversationManager {
         }
     }
     
-    func endLiveChat() {
+    @discardableResult
+    func endLiveChat() -> Bool {
         guard isConnected(retryConnectionIfNeeded: true) else {
-            return
+            return false
         }
         
         socketConnection.sendRequest(withPath: "customer/EndConversation", params: nil)
+        
+        return true
     }
 }
 
-// MARK:- SRS
+// MARK: - SRS
 
 extension ConversationManager {
     
@@ -95,7 +98,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Use cases
+// MARK: - Use cases
 
 extension ConversationManager {
     
@@ -115,16 +118,6 @@ extension ConversationManager {
         
         socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, _, _) in
             completion?(message.type == .response)
-        }
-    }
-    
-    func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ response: CreditCardResponse) -> Void)) {
-        let path = "customer/SendCreditCard"
-        let params = creditCard.toASAPPParams()
-        
-        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message: IncomingMessage, _, _) in
-            let creditCardResponse = CreditCardResponse.from(json: message.body)
-            completion(creditCardResponse)
         }
     }
 }

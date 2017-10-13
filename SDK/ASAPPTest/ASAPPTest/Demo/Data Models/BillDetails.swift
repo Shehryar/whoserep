@@ -39,6 +39,6 @@ class BillDetails: NSObject {
                  amount: "$5.99"),
         LineItem(name: "Internet: Misc Charge",
                  date: "10/1/2016",
-                 amount: "$5.99"),
+                 amount: "$5.99")
         ]
 }

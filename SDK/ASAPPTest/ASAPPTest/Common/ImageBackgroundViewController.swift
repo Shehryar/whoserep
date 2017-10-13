@@ -12,7 +12,7 @@ class ImageBackgroundViewController: BaseViewController {
 
     let imageView = UIImageView()
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -54,9 +54,15 @@ class ComponentViewEmptyReloadView: UIView {
         commonInit()
     }
 
-    // MARK:- Layout
+    // MARK: - Layout
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
+    private struct CalculatedLayout {
+        let labelFrame: CGRect
+        let reloadButtonFrame: CGRect
+        let closeButtonFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let left = contentInset.left
         let width = size.width - left - contentInset.right
         var top = contentInset.top
@@ -71,26 +77,26 @@ class ComponentViewEmptyReloadView: UIView {
         let closeButtonHeight = ceil(closeButton.sizeThatFits(CGSize(width: width, height: 0)).height)
         let closeButtonFrame = CGRect(x: left, y: top, width: width, height: closeButtonHeight)
         
-        return (labelFrame, reloadButtonFrame, closeButtonFrame)
+        return CalculatedLayout(labelFrame: labelFrame, reloadButtonFrame: reloadButtonFrame, closeButtonFrame: closeButtonFrame)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
      
-        let (labelFrame, reloadButtonFrame, closeButtonFrame) = getFramesThatFit(bounds.size)
-        titleLabel.frame = labelFrame
-        reloadButton.frame = reloadButtonFrame
-        closeButton.frame = closeButtonFrame
+        let layout = getFramesThatFit(bounds.size)
+        titleLabel.frame = layout.labelFrame
+        reloadButton.frame = layout.reloadButtonFrame
+        closeButton.frame = layout.closeButtonFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (_, _, buttonFrame) = getFramesThatFit(size)
-        let width = buttonFrame.maxX + contentInset.right
-        let height = buttonFrame.maxY + contentInset.bottom
+        let layout = getFramesThatFit(size)
+        let width = layout.closeButtonFrame.maxX + contentInset.right
+        let height = layout.closeButtonFrame.maxY + contentInset.bottom
         return CGSize(width: width, height: height)
     }
     
-    // MARK:- Actions
+    // MARK: - Actions
     
     @objc func didTapReloadButton() {
         onReloadButtonTap?()

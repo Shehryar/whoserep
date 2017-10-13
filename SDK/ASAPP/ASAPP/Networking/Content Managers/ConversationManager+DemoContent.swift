@@ -19,7 +19,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Sending Fake Data
+// MARK: - Sending Fake Data
 
 extension ConversationManager {
     

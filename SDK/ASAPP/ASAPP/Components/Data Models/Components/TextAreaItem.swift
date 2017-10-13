@@ -10,7 +10,7 @@ import UIKit
 
 class TextAreaItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case autocorrect
@@ -19,7 +19,7 @@ class TextAreaItem: Component {
         case placeholder
     }
     
-    // MARK:- Defaults
+    // MARK: - Defaults
     
     static let defaultAutocorrectionEnabled = true
     
@@ -27,7 +27,7 @@ class TextAreaItem: Component {
     
     static let defaultNumberOfLines: Int = 3
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let autocapitalizationType: UITextAutocapitalizationType
     
@@ -37,13 +37,13 @@ class TextAreaItem: Component {
     
     let placeholder: String?
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TextAreaView.self
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

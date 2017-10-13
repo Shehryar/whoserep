@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- NSTextAlignment
+// MARK: - NSTextAlignment
 
 extension NSTextAlignment {
     
@@ -31,7 +31,7 @@ extension NSTextAlignment {
     }
 }
 
-// MARK:- String Extensions
+// MARK: - String Extensions
 
 extension String {
     
@@ -48,7 +48,7 @@ extension String {
     }
 }
 
-// MARK:- Dictionary Extensions
+// MARK: - Dictionary Extensions
 
 extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     
@@ -150,8 +150,14 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     
     // MARK: Content Inset
     
-    /// Returns Top, Right, Bottom, Left
-    func insetValues(for name: String) -> (CGFloat?, CGFloat?, CGFloat?, CGFloat?) {
+    private struct OptionalEdgeInsets {
+        let top: CGFloat?
+        let left: CGFloat?
+        let bottom: CGFloat?
+        let right: CGFloat?
+    }
+    
+    private func insetValues(for name: String) -> OptionalEdgeInsets {
         var top: CGFloat?
         var right: CGFloat?
         var bottom: CGFloat?
@@ -212,23 +218,23 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
             left = leftValue
         }
         
-        return (top, right, bottom, left)
+        return OptionalEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
     
     func inset(for name: String, defaultValue: UIEdgeInsets) -> UIEdgeInsets {
-        let (top, right, bottom, left) = insetValues(for: name)
+        let insets = insetValues(for: name)
         
         var contentInset = defaultValue
-        if let top = top {
+        if let top = insets.top {
             contentInset.top = top
         }
-        if let right = right {
+        if let right = insets.right {
             contentInset.right = right
         }
-        if let bottom = bottom {
+        if let bottom = insets.bottom {
             contentInset.bottom = bottom
         }
-        if let left = left {
+        if let left = insets.left {
             contentInset.left = left
         }
         return contentInset

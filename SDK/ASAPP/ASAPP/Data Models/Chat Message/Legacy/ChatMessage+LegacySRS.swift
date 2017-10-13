@@ -28,7 +28,7 @@ extension ChatMessage {
         }
     }
     
-    // MARK:- Parsing
+    // MARK: - Parsing
     
     static func jsonIsLikelyLegacy(_ json: Any?) -> Bool {
         guard let json = json as? [String : Any] else {
@@ -52,14 +52,14 @@ extension ChatMessage {
         let content = json.jsonObject(for: "content")
         let displayContent = json.bool(for: "displayContent") ?? false
         
-        let (message, bodyItems, buttons) = extractLegacyComponents(content, metadata: metadata)
-        guard message != nil || bodyItems != nil else {
+        let legacyComponents = extractLegacyComponents(content, metadata: metadata)
+        guard legacyComponents.message != nil || legacyComponents.bodyItems != nil else {
             DebugLog.d(caller: self, "fromLegacySRSJSON Failed: Missing message and bodyItems")
             return nil
         }
         
         var quickReplies: [QuickReply]?
-        if let buttons = buttons {
+        if let buttons = legacyComponents.buttons {
             quickReplies = [QuickReply]()
             for button in buttons {
                 quickReplies?.append(QuickReply(title: button.title, action: button.action))
@@ -68,7 +68,7 @@ extension ChatMessage {
         
         var attachment: ChatMessageAttachment?
         if displayContent {
-            if let stackViewItems = ComponentFactory.convertSRSItems(bodyItems) {
+            if let stackViewItems = ComponentFactory.convertSRSItems(legacyComponents.bodyItems) {
                 var style = ComponentStyle()
                 style.alignment = .fill
                 style.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -88,30 +88,35 @@ extension ChatMessage {
             ]
         }
     
-        return ChatMessage(text: message,
+        return ChatMessage(text: legacyComponents.message,
                            attachment: attachment,
                            quickReplies: quickRepliesHash,
                            metadata: metadata)
     }
     
-    // MARK:- Private Utility Methods
+    // MARK: - Private Utility Methods
     
-    /// Returns (message, body elements, buttons)
-    private static func extractLegacyComponents(_ json: [String : Any]?, metadata: EventMetadata) -> (String?, [SRSItem]?, [SRSButton]?) {
+    private struct LegacyComponents {
+        let message: String?
+        let bodyItems: [SRSItem]?
+        let buttons: [SRSButton]?
+    }
+    
+    private static func extractLegacyComponents(_ json: [String : Any]?, metadata: EventMetadata) -> LegacyComponents {
         guard let json = json else {
-            return (nil, nil, nil)
+            return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }
      
         let type = json.string(for: "type") ?? "itemlist"
         let orientation = json.string(for: "orientation") ?? "vertical"
         guard type == "itemlist" && orientation == "vertical" else {
             DebugLog.w(caller: self, "extractLegacyComponents Failed: Unsupported type (\(type)) orientation (\(orientation))")
-            return (nil, nil, nil)
+            return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }
         
         guard let itemsJSONArray = json["value"] as? [[String : Any]], !itemsJSONArray.isEmpty else {
             DebugLog.w(caller: self, "extractLegacyComponents Failed: empty value array")
-            return (nil, nil, nil)
+            return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }
         
         var message: String?
@@ -133,6 +138,6 @@ extension ChatMessage {
             }
         }
     
-        return (message, bodyItems, buttons)
+        return LegacyComponents(message: message, bodyItems: bodyItems, buttons: buttons)
     }
 }

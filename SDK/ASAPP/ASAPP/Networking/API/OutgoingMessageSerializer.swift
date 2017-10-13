@@ -35,7 +35,7 @@ class OutgoingMessageSerializer: NSObject {
     }
 }
 
-// MARK:- Public Instance Methods
+// MARK: - Public Instance Methods
 
 extension OutgoingMessageSerializer {
     
@@ -54,7 +54,13 @@ extension OutgoingMessageSerializer {
         return "\(request.path)|\(request.requestId)|\(contextJSONString ?? "")|\(paramsJSONString ?? "")"
     }
     
-    func createAuthRequest() -> (path: String, params: [String : Any], isSessionAuthRequest: Bool) {
+    struct AuthRequest {
+        let path: String
+        let params: [String: Any]
+        let isSessionAuthRequest: Bool
+    }
+    
+    func createAuthRequest() -> AuthRequest {
         var path: String
         var params: [String : Any] = [
             "App": "ios-sdk",
@@ -111,7 +117,7 @@ extension OutgoingMessageSerializer {
             }
         }
         
-        return (path, params, isSessionAuthRequest)
+        return AuthRequest(path: path, params: params, isSessionAuthRequest: isSessionAuthRequest)
     }
     
     func updateWithAuthResponse(_ response: IncomingMessage) {

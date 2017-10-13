@@ -20,7 +20,7 @@ class ModalCardSuccessView: UIView {
     
     var imageMarginBottom: CGFloat = 25
     
-    var font: UIFont = Fonts.latoBoldFont(withSize: 24)
+    var font: UIFont = Fonts.default.bold.withSize(24)
     
     var text: String? {
         didSet {
@@ -34,7 +34,7 @@ class ModalCardSuccessView: UIView {
         }
     }
     
-    private let imageView = UIImageView(image: UIImage.asappIcon(.checkmarkCircle))
+    private let imageView = UIImageView(image: ComponentIcon.getImage(.checkmarkCircle))
     private let label = UILabel()
     
     // MARK: Initialization

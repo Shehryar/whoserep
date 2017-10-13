@@ -45,7 +45,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    // MARK:- Status Bar
+    // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return nav.topViewController!.preferredStatusBarStyle

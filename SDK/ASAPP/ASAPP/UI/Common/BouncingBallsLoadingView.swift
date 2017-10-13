@@ -140,9 +140,9 @@ class BouncingBallsLoadingView: UIView {
     }
     
     private func animateBallView(_ ballView: UIView,
-                                     delay: Double,
-                                     animationBlockStartTime: Double,
-                                     completion: (() -> Void)?) {
+                                 delay: Double,
+                                 animationBlockStartTime: Double,
+                                 completion: (() -> Void)?) {
         animateUp(ballView, withDelay: delay, completion: {
             if self.animating && self.self.animationStartTime == animationBlockStartTime {
                 self.animateDown(ballView, withDelay: 0, completion: completion)

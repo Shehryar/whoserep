@@ -10,13 +10,13 @@ import UIKit
 
 class DemoUtils: NSObject {
     
-    // MARK:- File Paths
+    // MARK: - File Paths
     
     class func createFilePath(for fileName: String, type: String = "json") -> String? {
-        return ASAPP.bundle.path(forResource: fileName, ofType: type)
+        return Bundle.main.path(forResource: fileName, ofType: type)
     }
     
-    // MARK:- Reading from File
+    // MARK: - Reading from File
     
     class func jsonStringForFile(_ fileName: String) -> String? {
         if let path = createFilePath(for: fileName) {
@@ -35,7 +35,7 @@ class DemoUtils: NSObject {
         return nil
     }
     
-    // MARK:- JSON Serialization
+    // MARK: - JSON Serialization
     
     class func jsonObjectForFile(_ fileName: String, company: String? = nil) -> [String : AnyObject]? {
         guard let jsonData = jsonDataForFile(fileName, company: company) else {

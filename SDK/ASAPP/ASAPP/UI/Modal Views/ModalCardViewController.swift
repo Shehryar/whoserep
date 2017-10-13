@@ -47,7 +47,7 @@ class ModalCardViewController: UIViewController {
     let successView = ModalCardSuccessView()
     let presentationAnimator = ModalCardPresentationAnimator()
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     func commonInit() {
         modalPresentationStyle = .custom
@@ -118,13 +118,13 @@ class ModalCardViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK:- Status Bar
+    // MARK: - Status Bar
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
     
-    // MARK:- View
+    // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,7 +149,7 @@ class ModalCardViewController: UIViewController {
         view.endEditing(true)
     }
     
-    // MARK:- View Layout
+    // MARK: - View Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -158,7 +158,7 @@ class ModalCardViewController: UIViewController {
     }
 }
 
-// MARK:- ResizableModalCardViewController
+// MARK: - ResizableModalCardViewController
 
 extension ModalCardViewController: ResizableModalCardViewController {
     
@@ -247,7 +247,7 @@ extension ModalCardViewController: ResizableModalCardViewController {
     }
 }
 
-// MARK:- Screen Cover
+// MARK: - Screen Cover
 
 extension ModalCardViewController {
     
@@ -264,7 +264,7 @@ extension ModalCardViewController {
     }
 }
 
-// MARK:- Error
+// MARK: - Error
 
 extension ModalCardViewController {
     
@@ -274,7 +274,7 @@ extension ModalCardViewController {
     }
 }
 
-// MARK:- Loading
+// MARK: - Loading
 
 extension ModalCardViewController {
     
@@ -361,7 +361,7 @@ extension ModalCardViewController {
     }
 }
 
-// MARK:- Success View
+// MARK: - Success View
 
 extension ModalCardViewController {
     

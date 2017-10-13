@@ -34,7 +34,7 @@ class APIActionResponse: NSObject {
     
     let error: APIActionError?
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(type: APIActionResponseType,
          finishAction: FinishAction? = nil,

@@ -100,7 +100,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         return contentInset.top + contentInset.bottom + bubbleInset.top + bubbleInset.bottom
     }
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     required init() {
         self.placeholderText = ASAPP.strings.chatInputPlaceholder
@@ -185,7 +185,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.delegate = nil
     }
     
-    // MARK:- Appearance
+    // MARK: - Appearance
     
     private func applyColors() {
         backgroundColor = .clear
@@ -197,9 +197,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         updateSendButtonText()
         
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 1), for: .normal)
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.7), for: .highlighted)
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 1), for: .normal)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
     }
     
     func updateSendButtonText() {
@@ -250,7 +250,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         buttonSeparator.isHidden = (mediaButton.isHidden || mediaButton.alpha == 0) && sendButton.isHidden
     }
     
-    // MARK:- Button Actions
+    // MARK: - Button Actions
     
     @objc func didTapSendButton() {
         if let messageText = textView.text {
@@ -263,7 +263,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     }
 }
 
-// MARK:- First Responder
+// MARK: - First Responder
 
 extension ChatInputView {
     @discardableResult
@@ -289,7 +289,7 @@ extension ChatInputView {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension ChatInputView {    
     override func updateConstraints() {
@@ -338,7 +338,7 @@ extension ChatInputView {
     }
 }
 
-// MARK:- UITextViewDelegate
+// MARK: - UITextViewDelegate
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
@@ -361,7 +361,7 @@ extension ChatInputView: UITextViewDelegate {
     }
 }
 
-// MARK:- AutoExpandingTextView
+// MARK: - AutoExpandingTextView
 
 extension ChatInputView {
     func textViewHeightDidChange() {
@@ -369,7 +369,7 @@ extension ChatInputView {
     }
 }
 
-// MARK:- Public Instance Methods
+// MARK: - Public Instance Methods
 
 extension ChatInputView {
     func clear() {

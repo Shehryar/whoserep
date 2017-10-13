@@ -41,14 +41,14 @@ class SpearAPI: NSObject {
                 let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments),
                 let jsonDict = json as? [String: Any] {
                 
-                DemoLog("Spear Auth Token Response: \(jsonDict)")
+                demoLog("Spear Auth Token Response: \(jsonDict)")
                 
                 if let authToken = jsonDict["access_token"] as? String {
                     DispatchQueue.main.async {
                         completion?(authToken, nil)
                     }
                 } else {
-                    DemoLog("Unable to find Spear Auth Token in json: \(jsonDict)")
+                    demoLog("Unable to find Spear Auth Token in json: \(jsonDict)")
                     
                     var error = jsonDict["description"] as? String
                     if error == nil, let errors = jsonDict["errors"] as? [[String : Any]] {
@@ -72,7 +72,7 @@ class SpearAPI: NSObject {
                 }
                 
             } else {
-                DemoLog("Unable to fetch Spear Auth Token: \(String(describing: response))")
+                demoLog("Unable to fetch Spear Auth Token: \(String(describing: response))")
                 DispatchQueue.main.async {
                     completion?(nil, nil)
                 }

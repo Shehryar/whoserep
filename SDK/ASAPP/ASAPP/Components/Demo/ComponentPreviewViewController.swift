@@ -63,7 +63,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
         controlsBar.barTintColor = UIColor.white
         controlsBar.items = [
             UIBarButtonItem(title: "Start", style: .plain, target: self, action: #selector(ComponentPreviewViewController.start)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         ]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(ComponentPreviewViewController.refresh))
@@ -217,7 +217,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     }
 }
 
-// MARK:- InteractionHandler
+// MARK: - InteractionHandler
 
 extension ComponentPreviewViewController: InteractionHandler {
     
@@ -232,7 +232,7 @@ extension ComponentPreviewViewController: InteractionHandler {
     }
 }
 
-// MARK:- Routing Actions
+// MARK: - Routing Actions
 
 extension ComponentPreviewViewController {
     

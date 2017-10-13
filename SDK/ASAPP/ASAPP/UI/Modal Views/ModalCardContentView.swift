@@ -46,7 +46,7 @@ class ModalCardContentView: UIView {
     }
 }
 
-// MARK:- Layout
+// MARK: - Layout
 
 extension ModalCardContentView {
     

@@ -14,7 +14,7 @@ class ChatMessageImage: NSObject {
     let height: CGFloat
     let aspectRatio: CGFloat
     
-    // MARK:- Init
+    // MARK: - Init
     
     init(url: URL, width: CGFloat, height: CGFloat) {
         self.url = url
@@ -25,7 +25,7 @@ class ChatMessageImage: NSObject {
     }
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension ChatMessageImage {
     

@@ -8,25 +8,37 @@
 
 import UIKit
 
-private let OLD_CLIENT_SECRET = "BD0ED4C975FF217D3FCD00A895130849E5521F517F0162F5D28D61D628B2B990"
+// MARK: - ASAPPConfig
 
-// MARK:- ASAPPConfig
-
+/**
+ Configuration for the SDK's connection to the API.
+ */
 @objcMembers
 public class ASAPPConfig: NSObject {
+    // MARK: - Properties
     
+    /// Your app identifier.
     public let appId: String
     
+    /// Host name for connecting to the API.
     public let apiHostName: String
     
+    /// Your app's client secret.
     public let clientSecret: String
     
-    public var identifierType: String {
+    internal var identifierType: String {
         return "\(appId)_CUSTOMER_ACCOUNT_ID"
     }
     
     // MARK: Init
     
+    /**
+     Creates an instance of `ASAPPConfig` with the given parameters.
+     
+     - parameter appId: Your app identifier. Also known as the company marker.
+     - parameter apiHostName: Host name for connecting to the API.
+     - parameter clientSecret: Your app's client secret used when connecting to the API.
+     */
     public init(appId: String,
                 apiHostName: String,
                 clientSecret: String) {
@@ -37,20 +49,21 @@ public class ASAPPConfig: NSObject {
     }
 }
 
-// MARK:- DebugPrintable
+// MARK: - DebugPrintable
 
 public extension ASAPPConfig {
-    
+    /// :nodoc:
     override public var description: String {
         return "\(appId) @ \(apiHostName)"
     }
     
+    /// :nodoc:
     override public var debugDescription: String {
         return description
     }
 }
 
-// MARK:- Hash Key
+// MARK: - Hash Key
 
 internal extension ASAPPConfig {
     

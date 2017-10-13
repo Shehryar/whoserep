@@ -18,7 +18,7 @@ class ChatMessageCellHeightCache: NSObject {
     private var cache = [ChatMessage: CachedHeight]()
 }
 
-// MARK:- Public API
+// MARK: - Public API
 
 extension ChatMessageCellHeightCache {
     

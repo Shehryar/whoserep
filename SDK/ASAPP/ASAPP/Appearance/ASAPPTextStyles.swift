@@ -8,40 +8,80 @@
 
 import UIKit
 
+/**
+ Customizable text styles for various classes of text.
+ */
+@objcMembers
 public class ASAPPTextStyles: NSObject {
+    // MARK: General
     
-    var navTitle: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
+    /// The style of the navigation bar title.
+    public var navTitle: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
     
-    var navButton: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
+    /// The style of navigation bar buttons.
+    public var navButton: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0, color: UIColor.ASAPP.manateeGray)
     
-    // MARK:- ComponentUI
-    // MARK: Headers
+    // MARK: ComponentUI: Headers
     
-    var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 30, letterSpacing: 0.5, color: .asapp_cometBlue)
+    /// The style of the predictive view title. See `ASAPPStrings.predictiveTitle`.
+    public var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    var header1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
+    /// The style of top-level headers.
+    public var header1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    var header2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 18, letterSpacing: 0.5, color: .asapp_cometBlue)
+    /// The style of second-level headers.
+    public var header2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    var subheader: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 10, letterSpacing: 1.5, color: .asapp_manateeGray)
+    /// The style of subheaders.
+    public var subheader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 10, letterSpacing: 1.5, color: UIColor.ASAPP.manateeGray)
+
+    // MARK: ComponentUI: Body
     
-    // MARK: Body
+    /// The style of body text.
+    public var body: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    var body: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    /// The style of bold body text.
+    public var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    /// The style of top-level detail text.
+    public var detail1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
     
-    var detail1: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoRegular, size: 12, letterSpacing: 0.5, color: .asapp_manateeGray)
+    /// The style of second-level detail text.
+    public var detail2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: UIColor.ASAPP.manateeGray)
     
-    var detail2: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 10, letterSpacing: 0.75, color: .asapp_manateeGray)
+    /// The style of error text.
+    public var error: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.burntSiennaRed)
+
+    // MARK: ComponentUI: Buttons
     
-    var error: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBold, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
+    /// The text style of buttons.
+    public var button: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: UIColor.ASAPP.cometBlue)
     
-    // MARK: Buttons
+    /// The style of links.
+    public var link: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)
     
-    var button: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
+    // MARK: ComponentUI: Fonts
     
-    var link: ASAPPTextStyle = ASAPPTextStyle(fontName: .latoBlack, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
+    /**
+     Updates all text styles above with the given font family.
+     
+     - parameter fontFamily: The font family to apply to all text styles. Each text style will use an appropriate weight.
+     */
+    public func updateStyles(for fontFamily: ASAPPFontFamily) {
+        navTitle.updateFont(fontFamily.medium)
+        navButton.updateFont(fontFamily.medium)
+        predictiveHeader.updateFont(fontFamily.regular)
+        header1.updateFont(fontFamily.bold)
+        header2.updateFont(fontFamily.bold)
+        subheader.updateFont(fontFamily.bold)
+        body.updateFont(fontFamily.regular)
+        bodyBold.updateFont(fontFamily.medium)
+        detail1.updateFont(fontFamily.regular)
+        detail2.updateFont(fontFamily.medium)
+        error.updateFont(fontFamily.medium)
+        button.updateFont(fontFamily.bold)
+        link.updateFont(fontFamily.bold)
+    }
 }
 
 extension ASAPPTextStyles {

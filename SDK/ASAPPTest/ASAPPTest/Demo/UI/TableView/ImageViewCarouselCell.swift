@@ -65,7 +65,7 @@ class ImageViewCarouselCell: TableViewCell {
     }
 }
 
-// MARK:- Sizing
+// MARK: - Sizing
 
 extension ImageViewCarouselCell {
     

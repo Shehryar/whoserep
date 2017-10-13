@@ -90,7 +90,7 @@ class ImageViewerImageViewController: UIViewController {
     }
 }
 
-// MARK:- UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 
 extension ImageViewerImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -109,7 +109,7 @@ extension ImageViewerImageViewController: UIScrollViewDelegate {
     }
 }
 
-// MARK:- Zoom
+// MARK: - Zoom
 
 extension ImageViewerImageViewController {
     func createZoomRect(forScale scale: CGFloat, withCenter zoomCenter: CGPoint) -> CGRect {
@@ -122,7 +122,7 @@ extension ImageViewerImageViewController {
     }
 }
 
-// MARK:- Actions
+// MARK: - Actions
 
 extension ImageViewerImageViewController {
     @objc func didDoubleTap(_ tapGesture: UITapGestureRecognizer) {
@@ -146,7 +146,7 @@ extension ImageViewerImageViewController {
     }
 }
 
-// MARK:- Instance Methods
+// MARK: - Instance Methods
 
 extension ImageViewerImageViewController {
     func setImage(_ image: ImageViewerImage?, placeholderImage: UIImage? = nil) {

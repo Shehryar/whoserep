@@ -12,7 +12,7 @@ class TestUtil: NSObject {
     
     static let bundle = Bundle(for: TestUtil.self)
     
-    // MARK:- JSON
+    // MARK: - JSON
 
     class func jsonForFile(named fileName: String) -> [String : Any]? {
         
@@ -31,7 +31,7 @@ class TestUtil: NSObject {
         return json
     }
     
-    // MARK:- Logging
+    // MARK: - Logging
     
     class func log(caller: Any? = nil, _ message: String) {
         

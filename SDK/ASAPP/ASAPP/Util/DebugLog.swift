@@ -8,11 +8,23 @@
 
 import UIKit
 
+/**
+ Represents the verbosity level of the debugging log.
+ */
 @objc public enum ASAPPLogLevel: Int {
+    /// Silence.
     case none = 0
+    
+    /// Prints only errors.
     case errors = 1
+    
+    /// Prints only warnings.
     case warning = 2
+    
+    /// Prints most debugging information.
     case debug = 3
+    
+    /// The highest level. Prints everything, including very long messages.
     case info = 4
 }
 
@@ -43,7 +55,7 @@ class DebugLog: NSObject {
         print("\(getStringForClass(classObject) ?? "ASAPP") [\(getStringForLogLevel(logLevel))]: \(message)\n")
     }
     
-    // MARK:- Public API
+    // MARK: - Public API
     
     // Info
     class func i(caller: Any? = nil, _ message: String) {

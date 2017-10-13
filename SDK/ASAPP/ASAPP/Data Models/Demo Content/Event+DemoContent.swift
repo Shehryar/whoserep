@@ -282,7 +282,7 @@ extension Event {
                 ["schedule", "on 10/25/2016"],
                 ["schedule", "on 10/26/2016"],
                 ["schedule", "on 10/27/2016"],
-                ["schedule", "on 10/28/2016"],
+                ["schedule", "on 10/28/2016"]
             ]
             
         case .jsonStyleExample:

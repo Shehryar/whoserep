@@ -38,7 +38,7 @@ typealias AnalyticsAttributes = [String : String]
 
 typealias AnalyticsMetrics = [String : Double]
 
-// MARK:- Generic Analytics Tracking
+// MARK: - Generic Analytics Tracking
 
 extension ConversationManager {
     
@@ -69,7 +69,7 @@ extension ConversationManager {
     }
 }
 
-// MARK:- Event-specific Functions
+// MARK: - Event-specific Functions
 
 extension ConversationManager {
     

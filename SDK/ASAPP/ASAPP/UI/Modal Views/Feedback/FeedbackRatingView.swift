@@ -87,7 +87,7 @@ class FeedbackRatingView: UIView {
     }
 }
 
-// MARK:- Updating the rating
+// MARK: - Updating the rating
 
 extension FeedbackRatingView {
     
@@ -134,7 +134,7 @@ extension FeedbackRatingView {
     }
 }
 
-// MARK:- Touches
+// MARK: - Touches
 
 extension FeedbackRatingView {
 

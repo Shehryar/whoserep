@@ -56,7 +56,7 @@ class ChatPictureView: UIView {
     }
 }
 
-// MARK:- Layout + Sizing
+// MARK: - Layout + Sizing
 
 extension ChatPictureView {
     

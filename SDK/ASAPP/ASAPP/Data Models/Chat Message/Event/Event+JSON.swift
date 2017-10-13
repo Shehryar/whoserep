@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- JSON Keys
+// MARK: - JSON Keys
 
 extension Event {
     
@@ -101,15 +101,15 @@ extension Event {
     }
 }
 
-// MARK:- Event Parsing Utilities
+// MARK: - Event Parsing Utilities
 
 extension Event {
     
     // MARK: Class Methods
     
     private class func getEventTypeAndContent(from json: [String : Any],
-                                                  eventType originalEventType: EventType,
-                                                  ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
+                                              eventType originalEventType: EventType,
+                                              ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
         var eventType = originalEventType
         var eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
         
@@ -175,7 +175,7 @@ extension Event {
     }
 }
 
-// MARK:- Chat Message
+// MARK: - Chat Message
 
 extension Event {
     

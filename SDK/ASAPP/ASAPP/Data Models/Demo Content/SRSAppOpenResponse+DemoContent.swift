@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Sample Data
+// MARK: - Sample Data
 
 extension AppOpenResponse {
     class func sampleResponse(forCompany company: String?) -> AppOpenResponse? {

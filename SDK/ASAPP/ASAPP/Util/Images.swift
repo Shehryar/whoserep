@@ -8,40 +8,8 @@
 
 import UIKit
 
-enum ASAPPIcon: String {
-    case alertError = "iconAlertError"
-    case alertWarning = "iconAlertWarning"
-    case arrowBack = "iconArrowBack"
-    case arrowOutgoing = "iconArrowOutgoing"
-    case checkmarkCircle = "iconCheckmarkCircle"
-    case checkmarkThick = "iconCheckmarkThick"
-    case checkmarkThin = "iconCheckmarkThin"
-    case clock = "iconClock"
-    case loginKey = "iconLoginKey"
-    case paperclip = "iconPaperclip"
-    case power = "iconPower"
-    case trash = "iconTrash"
-    case user = "iconUser"
-    case userMinus = "iconUserMinus"
-    case xThick = "iconXThick"
-    case xThin = "iconXThin"
-}
-
-extension UIImage {
-    
-    class func asappImage(named name: String) -> UIImage? {
-        return UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
-    }
-    
-    class func asappIcon(_ icon: ASAPPIcon) -> UIImage? {
-        return asappImage(named: icon.rawValue)
-    }
-}
-
 class Images: NSObject {
-    // MARK: Image Names
-    
-    enum ASAPPImage: String {
+    enum Icon: String {
         case iconX = "icon-x"
         case iconSmallX = "icon-x-small"
         case iconExitLink = "icon-exit-link"
@@ -56,6 +24,7 @@ class Images: NSObject {
         case iconGuillemetLeft = "icon-guillemet-left"
         case iconGuillemetRight = "icon-guillemet-right"
         case iconGuillemetThinLeft = "icon-guillemet-thin-left"
+        case iconPaperclip = "icon-paperclip"
         case iconStar = "icon-star"
         case iconStarFilled = "icon-star-filled"
         case iconUser = "icon-user"
@@ -71,32 +40,7 @@ class Images: NSObject {
         case imageTechLocationMap = "map-tech"
     }
     
-    // MARK: Images
-    
-    class func asappImage(_ image: ASAPPImage) -> UIImage? {
-        return imageWithName(image.rawValue)
-    }
-
-    private class func imageWithName(_ name: String) -> UIImage? {
-        return UIImage(named: name, in: ASAPP.bundle, compatibleWith: nil)
-    }
-    
-    // MARK: Gifs
-    
-    class func gifLoaderBar() -> UIImage? {
-        var imageName: String
-        if UIScreen.main.scale > 1 {
-            imageName = "gif-loader-bar@2x"
-        } else {
-            imageName = "gif-loader-bar"
-        }
-        
-        if let imagePath = ASAPP.bundle.path(forResource: imageName, ofType: "gif") {
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: imagePath)) {
-                return UIImage.sd_animatedGIF(with: data)
-            }
-        }
-        
-        return nil
+    class func getImage(_ icon: Icon) -> UIImage? {
+        return UIImage(named: icon.rawValue, in: ASAPP.bundle, compatibleWith: nil)
     }
 }

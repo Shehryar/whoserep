@@ -10,17 +10,17 @@ import UIKit
 
 class CheckboxViewItem: Component {
     
-    // MARK:- JSON Keys
+    // MARK: - JSON Keys
     
     enum JSONKey: String {
         case root
     }
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     let root: Component
     
-    // MARK:- Component Properties
+    // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return CheckboxView.self
@@ -30,7 +30,7 @@ class CheckboxViewItem: Component {
         return [root]
     }
     
-    // MARK:- Init
+    // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,

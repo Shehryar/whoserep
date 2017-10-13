@@ -27,10 +27,10 @@ class ButtonPresentationAnimator: NSObject {
     private var circleMaskLayer = CAShapeLayer()
     private var expansionPoint: CGPoint?
     
-    private let ANIMATION_KEY_EXPAND = "expand_path"
-    private let ANIMATION_KEY_COLLAPSE = "collapse_path"
+    private let expandAnimationKey = "expand_path"
+    private let collapseAnimationKey = "collapse_path"
     
-    // MARK:- Initialization
+    // MARK: - Initialization
     
     required init(withButtonView buttonView: UIView) {
         self.buttonView = buttonView
@@ -38,7 +38,7 @@ class ButtonPresentationAnimator: NSObject {
     }
 }
 
-// MARK:- UIViewControllerAnimatedTransitioning
+// MARK: - UIViewControllerAnimatedTransitioning
 
 extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
     
@@ -97,7 +97,7 @@ extension ButtonPresentationAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-// MARK:- Presentation Animation
+// MARK: - Presentation Animation
 
 extension ButtonPresentationAnimator {
     
@@ -164,7 +164,7 @@ extension ButtonPresentationAnimator {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = false
         animation.isRemovedOnCompletion = false
-        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_EXPAND)
+        circleMaskLayer.add(animation, forKey: expandAnimationKey)
         
         // Transforms + Translations
         
@@ -215,7 +215,7 @@ extension ButtonPresentationAnimator {
     }
 }
 
-// MARK:- Dismissal Animation
+// MARK: - Dismissal Animation
 
 extension ButtonPresentationAnimator {
     
@@ -266,7 +266,7 @@ extension ButtonPresentationAnimator {
         animation.duration = duration
         animation.autoreverses = false
         animation.isRemovedOnCompletion = false
-        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_COLLAPSE)
+        circleMaskLayer.add(animation, forKey: collapseAnimationKey)
         
         UIView.animate(withDuration: duration, animations: { [weak self] in
             self?.presentingView?.transform = CGAffineTransform.identity
@@ -289,7 +289,7 @@ extension ButtonPresentationAnimator {
     }
 }
 
-// MARK:- Animation Utilities
+// MARK: - Animation Utilities
 
 extension ButtonPresentationAnimator {
     
@@ -308,7 +308,7 @@ extension ButtonPresentationAnimator {
     }
 }
 
-// MARK:- UIViewControllerTransitioningDelegate
+// MARK: - UIViewControllerTransitioningDelegate
 
 extension ButtonPresentationAnimator: UIViewControllerTransitioningDelegate {
     
@@ -323,7 +323,7 @@ extension ButtonPresentationAnimator: UIViewControllerTransitioningDelegate {
     }
 }
 
-// MARK:- UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 extension ButtonPresentationAnimator: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

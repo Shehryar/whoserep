@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- ComponentViewControllerDelegate
+// MARK: - ComponentViewControllerDelegate
 
 protocol ComponentViewControllerDelegate: class {
     
@@ -25,7 +25,7 @@ protocol ComponentViewControllerDelegate: class {
     func componentViewControllerDidFinish(with action: FinishAction?)
 }
 
-// MARK:- ComponentViewController
+// MARK: - ComponentViewController
 
 class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
@@ -85,10 +85,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .chat,
-            target: self,
-            action: #selector(ComponentViewController.didTapNavigationCloseButton))
+        navigationItem.rightBarButtonItem = NavCloseBarButtonItem(location: .chat, side: .right)
+            .configSegue(.present)
+            .configTarget(self, action: #selector(ComponentViewController.didTapNavigationCloseButton))
         
         hideViewContentsWhileBackgrounded = true
         emptyView.isHidden = true
@@ -219,7 +218,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     }
 }
 
-// MARK:- InteractionHandler
+// MARK: - InteractionHandler
 
 extension ComponentViewController: InteractionHandler {
     
@@ -234,7 +233,7 @@ extension ComponentViewController: InteractionHandler {
     }
 }
 
-// MARK:- ComponentViewContentHandler
+// MARK: - ComponentViewContentHandler
 
 extension ComponentViewController: ComponentViewContentHandler {
     
@@ -249,7 +248,7 @@ extension ComponentViewController: ComponentViewContentHandler {
     }
 }
 
-// MARK:- APIAction Handling
+// MARK: - APIAction Handling
 
 extension ComponentViewController {
     

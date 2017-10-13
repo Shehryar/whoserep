@@ -24,7 +24,7 @@ class QuickReply: NSObject {
     }
 }
 
-// MARK:- JSON Parsing
+// MARK: - JSON Parsing
 
 extension QuickReply {
     

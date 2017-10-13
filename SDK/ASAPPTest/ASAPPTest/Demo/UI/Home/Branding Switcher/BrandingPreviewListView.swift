@@ -61,7 +61,7 @@ class BrandingPreviewListView: UIView {
         commonInit()
     }
 
-    // MARK:- Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -47,7 +47,7 @@ class ChatConnectionStatusView: UIView {
     
     // MARK: Private Properties
     
-    private let label = UILabel()
+    let label = UILabel()
     
     private let spinner = UIActivityIndicatorView()
     
@@ -84,7 +84,7 @@ class ChatConnectionStatusView: UIView {
             label.textColor = ASAPP.styles.colors.textSecondary
             
         case .disconnected:
-            backgroundColor = UIColor.asapp_burntSiennaRed
+            backgroundColor = UIColor.ASAPP.burntSiennaRed
             label.textColor = UIColor.white
         }
         

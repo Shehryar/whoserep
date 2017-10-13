@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK:- Tint/Fill Colors
+// MARK: - Tint/Fill Colors
 // Source: (source (slightly modified): https://gist.github.com/fabb/007d30ba0759de9be8a3)
 
 internal extension UIImage {
