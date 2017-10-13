@@ -283,8 +283,6 @@
 		30756B321E53A67D00D78E8E /* icon-credit-card-medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */; };
 		30756B331E53A67D00D78E8E /* icon-credit-card-medium@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B301E53A67D00D78E8E /* icon-credit-card-medium@2x.png */; };
 		30756B341E53A67D00D78E8E /* icon-credit-card-medium@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */; };
-		30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B361E53AF9700D78E8E /* CreditCard.swift */; };
-		30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B381E54E26A00D78E8E /* CreditCardResponse.swift */; };
 		30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */; };
 		30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30756B421E562BFF00D78E8E /* ASAPPStrings.swift */; };
 		307C54581D8C87C60091E74A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C54571D8C87C60091E74A /* NavigationController.swift */; };
@@ -401,7 +399,6 @@
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
 		3AF234161F59ED120081CAB7 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4FEF021F589D2700338B00 /* Quick.framework */; };
 		3AF234171F59ED120081CAB7 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4FEF031F589D2700338B00 /* Nimble.framework */; };
-		3AF234191F59EF590081CAB7 /* CreditCardSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -707,8 +704,6 @@
 		30756B2F1E53A67D00D78E8E /* icon-credit-card-medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium.png"; sourceTree = "<group>"; };
 		30756B301E53A67D00D78E8E /* icon-credit-card-medium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@2x.png"; sourceTree = "<group>"; };
 		30756B311E53A67D00D78E8E /* icon-credit-card-medium@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit-card-medium@3x.png"; sourceTree = "<group>"; };
-		30756B361E53AF9700D78E8E /* CreditCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
-		30756B381E54E26A00D78E8E /* CreditCardResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardResponse.swift; sourceTree = "<group>"; };
 		30756B3F1E56142800D78E8E /* ChatMessagesEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagesEmptyView.swift; sourceTree = "<group>"; };
 		30756B421E562BFF00D78E8E /* ASAPPStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStrings.swift; sourceTree = "<group>"; };
 		307C54571D8C87C60091E74A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -826,7 +821,6 @@
 		3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
-		3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreditCardSpec.swift; path = ../CreditCardSpec.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1205,7 +1199,6 @@
 				3093A4B01E730D5700C65818 /* AppOpenResponse.swift */,
 				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
 				3093A4A41E730D4F00C65818 /* Chat Message */,
-				30756B351E53AF8B00D78E8E /* Customer Models */,
 				285F7AF51DAB33C2008C2EF6 /* Demo Content */,
 			);
 			path = "Data Models";
@@ -1555,15 +1548,6 @@
 			path = Subclasses;
 			sourceTree = "<group>";
 		};
-		30756B351E53AF8B00D78E8E /* Customer Models */ = {
-			isa = PBXGroup;
-			children = (
-				30756B361E53AF9700D78E8E /* CreditCard.swift */,
-				30756B381E54E26A00D78E8E /* CreditCardResponse.swift */,
-			);
-			path = "Customer Models";
-			sourceTree = "<group>";
-		};
 		30756B3E1E56142800D78E8E /* Empty View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1725,7 +1709,6 @@
 				30DF3F951F27D0EA00D6DB02 /* Sample JSON */,
 				3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */,
 				3A967FD51F5EEE73000E9696 /* ChatMessageSpec.swift */,
-				3AF234181F59EF590081CAB7 /* CreditCardSpec.swift */,
 			);
 			path = "SRS Tests";
 			sourceTree = "<group>";
@@ -2084,7 +2067,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A967FD61F5EEE73000E9696 /* ChatMessageSpec.swift in Sources */,
-				3AF234191F59EF590081CAB7 /* CreditCardSpec.swift in Sources */,
 				3A4FB3D61F698B27005F2B9F /* ASAPPSpec.swift in Sources */,
 				30DF3FCF1F27D38300D6DB02 /* TestUtil.swift in Sources */,
 			);
@@ -2131,7 +2113,6 @@
 				30BF4DC41F31115900556E5A /* AppAction.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
-				30756B391E54E26A00D78E8E /* CreditCardResponse.swift in Sources */,
 				30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */,
@@ -2189,7 +2170,6 @@
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
 				302A20C31E5E2D7E007C522A /* StarView.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
-				30756B371E53AF9700D78E8E /* CreditCard.swift in Sources */,
 				28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,

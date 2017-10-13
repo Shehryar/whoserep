@@ -66,20 +66,6 @@ public class ASAPPStrings: NSObject {
     public var modalViewSubmitButton: String = ASAPPLocalizedString("SUBMIT")
     public var modalViewDoneButton: String = ASAPPLocalizedString("DONE")
     
-    // Modal View: Credit Card
-    
-    public var creditCardViewTitle: String = ASAPPLocalizedString("Add a New Card")
-    public var creditCardPlaceholderName: String = ASAPPLocalizedString("NAME ON CARD")
-    public var creditCardPlaceholderNumber: String = ASAPPLocalizedString("CARD NUMBER")
-    public var creditCardPlaceholderExpiry: String = ASAPPLocalizedString("EXP DATE (MM/YY)")
-    public var creditCardPlaceholderCVV: String = ASAPPLocalizedString("SECURITY CODE")
-    public var creditCardNoConnectionError: String = ASAPPLocalizedString("Please check your connection and try again.")
-    public var creditCardInvalidFieldsError: String = ASAPPLocalizedString("Please check that your information is correct and try again.")
-    public var creditCardDefaultError: String = ASAPPLocalizedString("Unable to process your request at this time.")
-    public var creditCardConfirmButton: String = ASAPPLocalizedString("CONFIRM")
-    public var creditCardFinishButton: String = ASAPPLocalizedString("FINISH")
-    public var creditCardSuccessText: String = ASAPPLocalizedString("New Card Added Successfully!")
-    
     // Modal View: Feedback
     
     public var feedbackViewTitle: String = ASAPPLocalizedString("How did we do?")

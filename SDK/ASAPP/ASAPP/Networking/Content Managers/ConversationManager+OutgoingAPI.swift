@@ -120,14 +120,4 @@ extension ConversationManager {
             completion?(message.type == .response)
         }
     }
-    
-    func sendCreditCard(_ creditCard: CreditCard, completion: @escaping ((_ response: CreditCardResponse) -> Void)) {
-        let path = "customer/SendCreditCard"
-        let params = creditCard.toASAPPParams()
-        
-        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message: IncomingMessage, _, _) in
-            let creditCardResponse = CreditCardResponse.from(json: message.body)
-            completion(creditCardResponse)
-        }
-    }
 }

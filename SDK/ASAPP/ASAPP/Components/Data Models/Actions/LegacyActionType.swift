@@ -31,7 +31,6 @@ enum LegacyActionType: String {
 
  enum LegacyAppAction: String {
     case ask
-    case addCreditCard
     case leaveFeedback
  }
  
