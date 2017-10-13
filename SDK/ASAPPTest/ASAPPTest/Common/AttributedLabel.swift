@@ -76,7 +76,7 @@ class AttributedLabel: UILabel {
             let attributes: [String: Any] = [
                 NSFontAttributeName: font ?? DemoFonts.asapp.regular,
                 NSForegroundColorAttributeName: textColor ?? UIColor.darkText,
-                NSKernAttributeName: kerning,
+                NSKernAttributeName: kerning
             ]
             attributedText = NSAttributedString(string: text, attributes: attributes)
         } else {

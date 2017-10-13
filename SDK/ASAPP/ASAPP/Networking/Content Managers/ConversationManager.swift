@@ -142,8 +142,8 @@ extension ConversationManager {
                               completion: @escaping (_ params: [String : Any]) -> Void) {
         
         var requestParams: [String : Any] = [
-            ASAPP.CLIENT_TYPE_KEY: ASAPP.CLIENT_TYPE_VALUE,
-            ASAPP.CLIENT_VERSION_KEY: ASAPP.clientVersion
+            ASAPP.clientTypeKey: ASAPP.clientType,
+            ASAPP.clientVersionKey: ASAPP.clientVersion
             ].with(params)
         
         if requiresContext {
@@ -208,15 +208,15 @@ extension ConversationManager {
                     return
                 }
             
-                let (events, eventsJSONArray, errorMessage) = message.parseEvents()
-                if let events = events, let eventsJSONArray = eventsJSONArray {
+                let parsedEvents = message.parseEvents()
+                if let events = parsedEvents.events, let eventsJSONArray = parsedEvents.eventsJSONArray {
                     strongSelf.events = events
                     strongSelf.fileStore.replaceEventsWithJSONArray(eventsJSONArray: eventsJSONArray)
                     strongSelf.isLiveChat = EventType.getLiveChatStatus(from: strongSelf.events)
                 }
                 
                 Dispatcher.performOnMainThread {
-                    completion(events, errorMessage)
+                    completion(parsedEvents.events, parsedEvents.errorMessage)
                 }
             }
         }

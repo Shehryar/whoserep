@@ -108,8 +108,8 @@ extension Event {
     // MARK: Class Methods
     
     private class func getEventTypeAndContent(from json: [String : Any],
-                                                  eventType originalEventType: EventType,
-                                                  ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
+                                              eventType originalEventType: EventType,
+                                              ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
         var eventType = originalEventType
         var eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
         

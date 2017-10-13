@@ -15,7 +15,7 @@ class SoundEffectPlayer: NSObject {
         case liveChatNotification
         
         static let all: [Sound] = [
-            liveChatNotification,
+            liveChatNotification
         ]
     }
     

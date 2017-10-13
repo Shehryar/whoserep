@@ -357,7 +357,7 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
             UseCasePreviewAPI.getTreewalk(with: viewName, completion: { (_, viewContainer, errorString) in
                 let type: APIActionResponseType
                 var actionError: APIActionError?
-                if let _ = viewContainer {
+                if viewContainer != nil {
                     if data.bool(for: "refresh") == true {
                         type = .refreshView
                     } else {

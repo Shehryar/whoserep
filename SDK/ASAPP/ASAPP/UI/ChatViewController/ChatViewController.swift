@@ -82,11 +82,9 @@ class ChatViewController: ASAPPViewController {
         
         // Close Button
         let side = ASAPP.styles.closeButtonSide(for: segue)
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .chat,
-            segue: segue,
-            target: self,
-            action: #selector(ChatViewController.didTapCloseButton))
+        let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
+            .configSegue(segue)
+            .configTarget(self, action: #selector(ChatViewController.didTapCloseButton))
         
         switch side {
         case .right:
@@ -400,14 +398,13 @@ extension ChatViewController {
             customImage = ASAPP.styles.navBarStyles.buttonImages.ask
         }
         
-        let askButton = UIBarButtonItem.asappBarButtonItem(
-            title: title,
-            customImage: customImage,
-            style: .ask,
-            location: .chat,
-            side: side,
-            target: self,
-            action: action)
+        let askButton = NavBarButtonItem(location: .chat, side: side)
+        if let customImage = customImage {
+            askButton.configImage(customImage)
+        } else {
+            askButton.configTitle(title)
+        }
+        askButton.configTarget(self, action: action)
         
         switch side {
         case .left:

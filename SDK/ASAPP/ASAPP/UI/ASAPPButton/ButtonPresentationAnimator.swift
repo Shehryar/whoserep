@@ -27,8 +27,8 @@ class ButtonPresentationAnimator: NSObject {
     private var circleMaskLayer = CAShapeLayer()
     private var expansionPoint: CGPoint?
     
-    private let ANIMATION_KEY_EXPAND = "expand_path"
-    private let ANIMATION_KEY_COLLAPSE = "collapse_path"
+    private let expandAnimationKey = "expand_path"
+    private let collapseAnimationKey = "collapse_path"
     
     // MARK:- Initialization
     
@@ -164,7 +164,7 @@ extension ButtonPresentationAnimator {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.autoreverses = false
         animation.isRemovedOnCompletion = false
-        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_EXPAND)
+        circleMaskLayer.add(animation, forKey: expandAnimationKey)
         
         // Transforms + Translations
         
@@ -266,7 +266,7 @@ extension ButtonPresentationAnimator {
         animation.duration = duration
         animation.autoreverses = false
         animation.isRemovedOnCompletion = false
-        circleMaskLayer.add(animation, forKey: ANIMATION_KEY_COLLAPSE)
+        circleMaskLayer.add(animation, forKey: collapseAnimationKey)
         
         UIView.animate(withDuration: duration, animations: { [weak self] in
             self?.presentingView?.transform = CGAffineTransform.identity

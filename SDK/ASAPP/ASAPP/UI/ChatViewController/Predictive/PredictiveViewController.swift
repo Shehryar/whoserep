@@ -160,20 +160,17 @@ class PredictiveViewController: UIViewController {
         
         let chatSide = ASAPP.styles.closeButtonSide(for: segue).opposite()
 
-        let viewChatButton = UIBarButtonItem.asappBarButtonItem(
-            title: ASAPP.strings.predictiveBackToChatButton,
-            customImage: ASAPP.styles.navBarStyles.buttonImages.backToChat,
-            style: .respond,
-            location: .predictive,
-            side: chatSide,
-            target: self,
-            action: #selector(PredictiveViewController.didTapViewChat))
+        let viewChatButton = NavBarButtonItem(location: .predictive, side: chatSide)
+        if let customImage = ASAPP.styles.navBarStyles.buttonImages.backToChat {
+            viewChatButton.configImage(customImage)
+        } else {
+            viewChatButton.configTitle(ASAPP.strings.predictiveBackToChatButton)
+        }
+        viewChatButton.configTarget(self, action: #selector(PredictiveViewController.didTapViewChat))
         
-        let closeButton = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .predictive,
-            segue: segue,
-            target: self,
-            action:  #selector(PredictiveViewController.didTapCancel))
+        let closeButton = NavCloseBarButtonItem(location: .predictive, side: .right)
+            .configSegue(segue)
+            .configTarget(self, action: #selector(PredictiveViewController.didTapCancel))
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         
         switch chatSide {

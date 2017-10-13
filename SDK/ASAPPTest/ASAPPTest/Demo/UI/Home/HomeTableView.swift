@@ -143,7 +143,7 @@ extension HomeTableView {
             title = "Other"
             
         default: // No-op
-            DemoLog("Missing Title for section: \(section)")
+            demoLog("Missing Title for section: \(section)")
         }
         
         let headerView = viewToStyle ?? TableHeaderView()
@@ -190,7 +190,7 @@ extension HomeTableView {
                 value = AppSettings.shared.authToken
                 
             default:
-                DemoLog("Missing cell for index path: \(indexPath)")
+                demoLog("Missing cell for index path: \(indexPath)")
             }
             return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
                                         title: title,
@@ -240,7 +240,7 @@ extension HomeTableView {
                 imageName = "icon-gear-2"
                 
             default:
-                DemoLog("Missing cell for indexPath: \(indexPath)")
+                demoLog("Missing cell for indexPath: \(indexPath)")
             }
             return labelIconCell(cellToStyle: forSizing ? labelIconSizingCell : nil,
                                  title: title,
@@ -248,7 +248,7 @@ extension HomeTableView {
                                  for: indexPath)
             
         default:
-            DemoLog("Missing cell for indexPath: \(indexPath)")
+            demoLog("Missing cell for indexPath: \(indexPath)")
         }
         
         return UITableViewCell()

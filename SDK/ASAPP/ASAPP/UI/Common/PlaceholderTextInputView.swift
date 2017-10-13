@@ -516,7 +516,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
         
         if let allowedCharacterSet = allowedCharacterSet {
             let disallowedCharacterSet = allowedCharacterSet.inverted
-            if let _ = text.rangeOfCharacter(from: disallowedCharacterSet) {
+            if text.rangeOfCharacter(from: disallowedCharacterSet) != nil {
                 textField.text = previousTextFieldContent
                 textField.selectedTextRange = previousSelection
                 return

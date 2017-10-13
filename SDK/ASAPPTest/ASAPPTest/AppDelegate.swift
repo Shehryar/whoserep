@@ -96,7 +96,7 @@ extension AppDelegate {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         let bundleId = Bundle.main.bundleIdentifier ?? "unknown"
         
-        DemoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
+        demoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
         
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,
@@ -105,13 +105,13 @@ extension AppDelegate {
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        DemoLog("application: didFailToRegisterForRemoteNotificationsWithError: \(error)")
+        demoLog("application: didFailToRegisterForRemoteNotificationsWithError: \(error)")
     }
     
     // MARK: Notification Received
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        DemoLog("application:didReceiveRemoteNotification\n \(userInfo))")
+        demoLog("application:didReceiveRemoteNotification\n \(userInfo))")
         
         if ASAPP.canHandleNotification(with: userInfo) {
             homeController.showChat(fromNotificationWith: userInfo)
@@ -123,7 +123,7 @@ extension AppDelegate {
                      handleActionWithIdentifier identifier: String?,
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
+        demoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
     }
     
     func application(_ application: UIApplication,
@@ -131,7 +131,7 @@ extension AppDelegate {
                      forRemoteNotification userInfo: [AnyHashable : Any],
                      withResponseInfo responseInfo: [AnyHashable : Any],
                      completionHandler: @escaping () -> Void) {
-        DemoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
+        demoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
     }
 }
 
@@ -143,6 +143,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.alert)
         
-        DemoLog("userNotificationCenter:willPresent:withCompletionHandler:")
+        demoLog("userNotificationCenter:willPresent:withCompletionHandler:")
     }
 }

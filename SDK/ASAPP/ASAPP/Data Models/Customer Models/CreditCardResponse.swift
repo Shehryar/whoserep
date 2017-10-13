@@ -10,7 +10,7 @@ import UIKit
 
 class CreditCardResponse: NSObject {
 
-    static let DEFAULT_ERROR_MESSAGE = ASAPP.strings.creditCardDefaultError
+    static let defaultErrorMessage = ASAPP.strings.creditCardDefaultError
     
     let success: Bool
     
@@ -56,7 +56,7 @@ class CreditCardResponse: NSObject {
     // MARK: Default Error Response
     
     class func defaultErrorResponse() -> CreditCardResponse {
-        return CreditCardResponse(success: false, errorMessage: DEFAULT_ERROR_MESSAGE)
+        return CreditCardResponse(success: false, errorMessage: defaultErrorMessage)
     }
 }
 

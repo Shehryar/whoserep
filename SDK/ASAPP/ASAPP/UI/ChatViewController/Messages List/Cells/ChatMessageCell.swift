@@ -197,8 +197,13 @@ extension ChatMessageCell {
         return attachmentViewSize
     }
     
-    /// Returns (textBubbleViewFrame, attachmentViewFrame, timeLabelFrame)
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect) {
+    private struct CalculatedLayout {
+        let textBubbleViewFrame: CGRect
+        let attachmentViewFrame: CGRect
+        let timeLabelFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let contentWidth = size.width - contentInset.left - contentInset.right
         let contentSizer = CGSize(width: contentWidth, height: 0)
         
@@ -232,15 +237,15 @@ extension ChatMessageCell {
         let timeLabelFrame = CGRect(x: contentInset.left, y: timeLabelTop,
                                     width: contentWidth, height: timeLabelHeight)
         
-        return (textBubbleViewFrame, attachmentViewFrame, timeLabelFrame)
+        return CalculatedLayout(textBubbleViewFrame: textBubbleViewFrame, attachmentViewFrame: attachmentViewFrame, timeLabelFrame: timeLabelFrame)
     }
     
     func updateFrames() {
-        let (textBubbleViewFrame, attachmentViewFrame, timeLabelFrame) = getFramesThatFit(bounds.size)
+        let layout = getFramesThatFit(bounds.size)
         
-        textBubbleView.frame = textBubbleViewFrame
-        attachmentView?.frame = attachmentViewFrame
-        timeLabel.frame = timeLabelFrame
+        textBubbleView.frame = layout.textBubbleViewFrame
+        attachmentView?.frame = layout.attachmentViewFrame
+        timeLabel.frame = layout.timeLabelFrame
     }
     
     // MARK: UIView
@@ -251,12 +256,12 @@ extension ChatMessageCell {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (textBubbleViewFrame, attachmentViewFrame, timeLabelFrame) = getFramesThatFit(size)
-        guard textBubbleViewFrame.height > 0 || attachmentViewFrame.height > 0 else {
+        let layout = getFramesThatFit(size)
+        guard layout.textBubbleViewFrame.height > 0 || layout.attachmentViewFrame.height > 0 else {
             return .zero
         }
         
-        let contentMaxY = max(textBubbleViewFrame.maxY, max(timeLabelFrame.maxY, attachmentViewFrame.maxY))
+        let contentMaxY = max(layout.textBubbleViewFrame.maxY, max(layout.timeLabelFrame.maxY, layout.attachmentViewFrame.maxY))
         let height = contentMaxY + contentInset.bottom
         
         return CGSize(width: size.width, height: height)

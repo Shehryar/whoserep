@@ -98,7 +98,13 @@ class ImageNameCell: TableViewCell {
 
     // MARK:- Layout
     
-    func framesThatFit(size: CGSize) -> (CGRect, CGRect, CGRect) {
+    private struct CalculatedLayout {
+        let imageViewFrame: CGRect
+        let nameLabelFrame: CGRect
+        let viewProfileLabelFrame: CGRect
+    }
+    
+    private func framesThatFit(size: CGSize) -> CalculatedLayout {
 
         let labelLeft = contentInset.left + imageSize + imageMargin
         let labelWidth = size.width - labelLeft - contentInset.right
@@ -120,23 +126,23 @@ class ImageNameCell: TableViewCell {
         let imageTop = contentInset.top + max(0, floor((totalLabelHeight - imageSize) / 2.0))
         let imageViewFrame = CGRect(x: contentInset.left, y: imageTop, width: imageSize, height: imageSize)
         
-        return (imageViewFrame, nameLabelFrame, viewProfileLabelFrame)
+        return CalculatedLayout(imageViewFrame: imageViewFrame, nameLabelFrame: nameLabelFrame, viewProfileLabelFrame: viewProfileLabelFrame)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let (imageViewFrame, nameLabelFrame, viewProfileLabelFrame) = framesThatFit(size: bounds.size)
-        userImageView.frame = imageViewFrame
-        userImageView.layer.cornerRadius = imageViewFrame.height / 2.0
+        let layout = framesThatFit(size: bounds.size)
+        userImageView.frame = layout.imageViewFrame
+        userImageView.layer.cornerRadius = layout.imageViewFrame.height / 2.0
     
-        nameLabel.frame = nameLabelFrame
-        detailLabel.frame = viewProfileLabelFrame
+        nameLabel.frame = layout.nameLabelFrame
+        detailLabel.frame = layout.viewProfileLabelFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (imageViewFrame, nameLabelFrame, viewProfileLabelFrame) = framesThatFit(size: size)
-        let height = max(nameLabelFrame.maxY, viewProfileLabelFrame.maxY, imageViewFrame.maxY) + contentInset.bottom
+        let layout = framesThatFit(size: size)
+        let height = max(layout.nameLabelFrame.maxY, layout.viewProfileLabelFrame.maxY, layout.imageViewFrame.maxY) + contentInset.bottom
         
         return CGSize(width: size.width, height: height)
     }

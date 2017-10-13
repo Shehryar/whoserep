@@ -95,13 +95,13 @@ class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
     override func updateFrames() {
         super.updateFrames()
         
-        let (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame) = getFramesThatFit(bounds.size)
-        titleView.frame = titleFrame
-        ratingView.frame = ratingFrame
-        promptLabel.frame = promptFrame
-        resolutionView.frame = resolutionFrame
-        textView.frame = textViewFrame
-        textViewPlaceholder.frame = textViewPlaceholderFrame
+        let layout = getFramesThatFit(bounds.size)
+        titleView.frame = layout.titleFrame
+        ratingView.frame = layout.ratingFrame
+        promptLabel.frame = layout.promptFrame
+        resolutionView.frame = layout.resolutionFrame
+        textView.frame = layout.textViewFrame
+        textViewPlaceholder.frame = layout.textViewPlaceholderFrame
         bottomBorder.frame = CGRect(x: contentInset.left, y: textView.frame.maxY, width: textView.frame.width, height: 1)
     }
 }
@@ -109,7 +109,17 @@ class LeaveFeedbackView: ModalCardContentView, TextViewAutoExpanding {
 // MARK:- Layout
 
 extension LeaveFeedbackView {
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect, CGRect, CGRect, CGRect, CGRect) {
+    
+    private struct CalculatedLayout {
+        let titleFrame: CGRect
+        let ratingFrame: CGRect
+        let promptFrame: CGRect
+        let resolutionFrame: CGRect
+        let textViewPlaceholderFrame: CGRect
+        let textViewFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let titleFrame = getTitleViewFrameThatFits(size)
         
         let contentWidth = size.width - contentInset.left - contentInset.right
@@ -138,13 +148,13 @@ extension LeaveFeedbackView {
         let textViewPlaceholderHeight = ceil(textViewPlaceholder.sizeThatFits(CGSize(width: textViewFrame.width - insets.left - insets.right, height: 0)).height)
         let textViewPlaceholderFrame = CGRect(x: insets.left, y: insets.top, width: textViewFrame.width - insets.left - insets.right, height: textViewPlaceholderHeight)
         
-        return (titleFrame, ratingFrame, promptFrame, resolutionFrame, textViewPlaceholderFrame, textViewFrame)
+        return CalculatedLayout(titleFrame: titleFrame, ratingFrame: ratingFrame, promptFrame: promptFrame, resolutionFrame: resolutionFrame, textViewPlaceholderFrame: textViewPlaceholderFrame, textViewFrame: textViewFrame)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (_, _, _, _, _, textViewFrame) = getFramesThatFit(size)
+        let layout = getFramesThatFit(size)
         
-        return CGSize(width: size.width, height: textViewFrame.maxY + contentInset.bottom)
+        return CGSize(width: size.width, height: layout.textViewFrame.maxY + contentInset.bottom)
     }
 }
 

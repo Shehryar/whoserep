@@ -121,7 +121,7 @@ class HomeViewController: BaseViewController {
                 "CustomerId:    \(customerId ?? "nil")"
             ].joined(separator: "\n")
             
-            DemoLog("\n\nUpdated ASAPP Config:\n----------------------------------------\n\(updatesString)\n----------------------------------------")
+            demoLog("\n\nUpdated ASAPP Config:\n----------------------------------------\n\(updatesString)\n----------------------------------------")
             refreshChatButton()
         }
     }
@@ -243,7 +243,7 @@ extension HomeViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
         
-        DemoLog("Chat Button Updated")
+        demoLog("Chat Button Updated")
     }
 }
 

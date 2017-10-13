@@ -62,7 +62,7 @@ public class ASAPPColors: NSObject {
     
     // MARK:- Colors: Messages
     
-    public var messagesListBackground = UIColor.asapp_alabasterWhite
+    public var messagesListBackground = UIColor.ASAPP.alabasterWhite
     
     public var messageText: UIColor = UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1)
     

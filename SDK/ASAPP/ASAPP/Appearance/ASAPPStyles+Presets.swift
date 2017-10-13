@@ -45,7 +45,7 @@ public extension ASAPPStyles {
         let ts = styles.textStyles
         ts.navTitle = ASAPPTextStyle(font: regular, size: 17, letterSpacing: 0, color: .white)
         ts.navButton = ASAPPTextStyle(font: medium, size: 16, letterSpacing: 0, color: textBlue)
-        ts.predictiveHeader = ASAPPTextStyle(font: Fonts.default.light, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
+        ts.predictiveHeader = ASAPPTextStyle(font: Fonts.default.light, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
         ts.header1 = ASAPPTextStyle(font: bold, size: 24, letterSpacing: 0.5, color: textBlue)
         ts.header2 = ASAPPTextStyle(font: bold, size: 18, letterSpacing: 0.5, color: textBlue)
         ts.subheader = ASAPPTextStyle(font: bold, size: 10, letterSpacing: 1.5, color: textGray)
@@ -53,7 +53,7 @@ public extension ASAPPStyles {
         ts.bodyBold  = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: textBlue)
         ts.detail1 = ASAPPTextStyle(font: regular, size: 12, letterSpacing: 0.5, color: textGray)
         ts.detail2 = ASAPPTextStyle(font: medium, size: 10, letterSpacing: 0.75, color: textGray)
-        ts.error = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
+        ts.error = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.burntSiennaRed)
         ts.button = ASAPPTextStyle(font: bold, size: 14, letterSpacing: 1.5, color: textBlue)
         ts.link = ASAPPTextStyle(font: bold, size: 12, letterSpacing: 1.5, color: linkBlue)
         

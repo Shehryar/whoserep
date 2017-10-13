@@ -13,8 +13,8 @@ import UIKit
 
 internal class FontLoader {
     private enum SupportedFontExtensions: String {
-        case TrueTypeFont = ".ttf"
-        case OpenTypeFont = ".otf"
+        case trueTypeFont = ".ttf"
+        case openTypeFont = ".otf"
     }
     
     private typealias FontPath = String
@@ -99,8 +99,8 @@ extension FontLoader {
         var fonts = [Font]()
         
         for name in fileNames
-        where name.contains(SupportedFontExtensions.TrueTypeFont.rawValue)
-        || name.contains(SupportedFontExtensions.OpenTypeFont.rawValue) {
+        where name.contains(SupportedFontExtensions.trueTypeFont.rawValue)
+        || name.contains(SupportedFontExtensions.openTypeFont.rawValue) {
             let parsedFont = FontLoader.font(fromName: name)
             let font: Font = (path, parsedFont.0, parsedFont.1)
             fonts.append(font)

@@ -225,9 +225,9 @@ extension UseCasePreviewAPI {
         }
         
         var lastLine: String?
-        if let _ = getJSON(from: data) {
+        if getJSON(from: data) != nil {
             lastLine = "Body: JSON Object"
-        } else if let _ = getJSONArray(from: data) {
+        } else if getJSONArray(from: data) != nil {
             lastLine = "Body: JSON Array"
         } else if let error = error {
             lastLine = "Error: \(error.localizedDescription)"

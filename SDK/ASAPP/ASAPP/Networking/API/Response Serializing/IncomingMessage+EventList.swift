@@ -18,7 +18,13 @@ extension IncomingMessage {
     
     typealias ErrorMessage = String
     
-    func parseEvents() -> (Events?, EventsJSONArray?, ErrorMessage?) {
+    struct ParsedEvents {
+        let events: Events?
+        let eventsJSONArray: EventsJSONArray?
+        let errorMessage: ErrorMessage?
+    }
+    
+    func parseEvents() -> ParsedEvents {
         
         var events: [Event]?
         var eventsJSONArray: [[String : AnyObject]]?
@@ -46,6 +52,6 @@ extension IncomingMessage {
         
         DebugLog.d("Fetched \(numberOfEventsFetched) events\(errorMessage != nil ? " with error: \(errorMessage!)" : "")")
         
-        return (events, eventsJSONArray, errorMessage)
+        return ParsedEvents(events: events, eventsJSONArray: eventsJSONArray, errorMessage: errorMessage)
     }
 }

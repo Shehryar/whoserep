@@ -62,7 +62,7 @@ extension ASAPPUser {
     func getContext(completion: @escaping ContextRequestCompletion) {
         Dispatcher.performOnBackgroundThread { [weak self] in
             let context = self?.requestContextProvider()
-            let authToken = context?[ASAPP.AUTH_KEY_ACCESS_TOKEN] as? String
+            let authToken = context?[ASAPP.authTokenKey] as? String
             
             completion(context, authToken)
         }

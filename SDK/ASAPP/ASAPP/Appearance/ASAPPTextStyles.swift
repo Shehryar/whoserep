@@ -11,38 +11,38 @@ import UIKit
 @objcMembers
 public class ASAPPTextStyles: NSObject {
     
-    public var navTitle: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_manateeGray)
+    public var navTitle: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
     
-    public var navButton: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0, color: .asapp_manateeGray)
+    public var navButton: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0, color: UIColor.ASAPP.manateeGray)
     
     // MARK:- ComponentUI
     // MARK: Headers
     
-    public var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var predictiveHeader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    public var header1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var header1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    public var header2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var header2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    public var subheader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 10, letterSpacing: 1.5, color: .asapp_manateeGray)
+    public var subheader: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 10, letterSpacing: 1.5, color: UIColor.ASAPP.manateeGray)
     
     // MARK: Body
     
-    public var body: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var body: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    public var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_cometBlue)
+    public var bodyBold: ASAPPTextStyle  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
-    public var detail1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: .asapp_manateeGray)
+    public var detail1: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
     
-    public var detail2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: .asapp_manateeGray)
+    public var detail2: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: UIColor.ASAPP.manateeGray)
     
-    public var error: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: .asapp_burntSiennaRed)
+    public var error: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.burntSiennaRed)
     
     // MARK: Buttons
     
-    public var button: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: .asapp_cometBlue)
+    public var button: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: UIColor.ASAPP.cometBlue)
     
-    public var link: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: .asapp_ceruleanBlue)
+    public var link: ASAPPTextStyle = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)
     
     // MARK: Fonts
     

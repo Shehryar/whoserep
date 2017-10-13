@@ -21,7 +21,7 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
-    private let LOG_ANALYTICS_EVENTS_VERBOSE = false
+    private let logAnalyticsEventsVerbose = false
     
     // MARK: Public Properties
     
@@ -87,9 +87,9 @@ extension SocketConnection {
     class func createConnectionRequestion(with config: ASAPPConfig) -> URLRequest {
         let connectionRequest = NSMutableURLRequest()
         connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
-        connectionRequest.addValue(ASAPP.CLIENT_TYPE_VALUE, forHTTPHeaderField: ASAPP.CLIENT_TYPE_KEY)
-        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.CLIENT_VERSION_KEY)
-        connectionRequest.addValue(config.clientSecret, forHTTPHeaderField: ASAPP.CLIENT_SECRET_KEY)
+        connectionRequest.addValue(ASAPP.clientType, forHTTPHeaderField: ASAPP.clientTypeKey)
+        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.clientVersionKey)
+        connectionRequest.addValue(config.clientSecret, forHTTPHeaderField: ASAPP.clientSecretKey)
         
         return connectionRequest as URLRequest
     }
@@ -163,8 +163,8 @@ extension SocketConnection {
     }
     
     private func sendAuthRequest(withPath path: String,
-                                     params: [String: Any]?,
-                                     requestHandler: IncomingMessageHandler? = nil) {
+                                 params: [String: Any]?,
+                                 requestHandler: IncomingMessageHandler? = nil) {
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: nil)
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
@@ -200,7 +200,7 @@ extension SocketConnection {
             } else {
                 let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
                 
-                if !requestString.contains("srs/PutMAEvent") || LOG_ANALYTICS_EVENTS_VERBOSE {
+                if !requestString.contains("srs/PutMAEvent") || logAnalyticsEventsVerbose {
                     request.logRequest(with: requestString)
                 }
                 
@@ -221,9 +221,9 @@ extension SocketConnection {
     
     func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
         
-        let (path, params, isSessionAuthRequest) = outgoingMessageSerializer.createAuthRequest()
-        sendAuthRequest(withPath: path, params: params) { [weak self] (message, _, _) in
-            if message.type == .responseError && isSessionAuthRequest {
+        let authRequest = outgoingMessageSerializer.createAuthRequest()
+        sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
+            if message.type == .responseError && authRequest.isSessionAuthRequest {
                 // Session auth failed... retry after clearing session info
                 self?.outgoingMessageSerializer.clearSessionInfo()
                 self?.authenticate(completion)

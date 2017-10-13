@@ -85,10 +85,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem.asappCloseBarButtonItem(
-            location: .chat,
-            target: self,
-            action: #selector(ComponentViewController.didTapNavigationCloseButton))
+        navigationItem.rightBarButtonItem = NavCloseBarButtonItem(location: .chat, side: .right)
+            .configSegue(.present)
+            .configTarget(self, action: #selector(ComponentViewController.didTapNavigationCloseButton))
         
         hideViewContentsWhileBackgrounded = true
         emptyView.isHidden = true

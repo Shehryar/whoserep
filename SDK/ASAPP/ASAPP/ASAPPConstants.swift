@@ -12,7 +12,7 @@ import UIKit
 
 public extension ASAPP {
     
-    public static let AUTH_KEY_ACCESS_TOKEN = "access_token"
+    public static let authTokenKey = "access_token"
     
     public static var clientVersion: String {
         if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
@@ -59,11 +59,11 @@ public extension ASAPP {
 
 internal extension ASAPP {
     
-    internal static let CLIENT_TYPE_KEY = "ASAPP-ClientType"
+    internal static let clientTypeKey = "ASAPP-ClientType"
     
-    internal static let CLIENT_TYPE_VALUE = "consumer-ios-sdk"
+    internal static let clientType = "consumer-ios-sdk"
     
-    internal static let CLIENT_VERSION_KEY = "ASAPP-ClientVersion"
+    internal static let clientVersionKey = "ASAPP-ClientVersion"
     
-    internal static let CLIENT_SECRET_KEY = "ASAPP-ClientSecret"
+    internal static let clientSecretKey = "ASAPP-ClientSecret"
 }
