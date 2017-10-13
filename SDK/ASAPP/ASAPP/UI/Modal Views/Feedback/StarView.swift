@@ -58,9 +58,9 @@ class StarView: UIView {
     func updateImage() {
         let updatedImage: UIImage?
         if isFilled {
-            updatedImage = Images.asappImage(.iconStarFilled)?.tinted(filledTintColor)
+            updatedImage = Images.getImage(.iconStarFilled)?.tinted(filledTintColor)
         } else {
-            updatedImage = Images.asappImage(.iconStar)?.tinted(defaultTintColor)
+            updatedImage = Images.getImage(.iconStar)?.tinted(defaultTintColor)
         }
         imageView.image = updatedImage
     }

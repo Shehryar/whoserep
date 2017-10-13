@@ -34,7 +34,7 @@ class ModalCardSuccessView: UIView {
         }
     }
     
-    private let imageView = UIImageView(image: UIImage.asappIcon(.checkmarkCircle))
+    private let imageView = UIImageView(image: ComponentIcon.getImage(.checkmarkCircle))
     private let label = UILabel()
     
     // MARK: Initialization

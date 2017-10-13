@@ -38,7 +38,7 @@ class Checkbox: BaseComponentView {
         layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
         layer.cornerRadius = 5.0
         
-        checkImageView.image = Images.asappImage(.iconCheckmark)?.tinted(UIColor.white)
+        checkImageView.image = Images.getImage(.iconCheckmark)?.tinted(UIColor.white)
         checkImageView.contentMode = .scaleAspectFit
         checkImageView.isHidden = true
         addSubview(checkImageView)

@@ -9,7 +9,6 @@
 import UIKit
 
 internal extension UIColor {
-    
     struct ASAPP {
         // MARK: Whites
         static let alabasterWhite = UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1)
@@ -26,7 +25,7 @@ internal extension UIColor {
         
         // MARK: Patterns
         static var patternBackground: UIColor? {
-            if let tileImage = Images.asappImage(.tileImageDash) {
+            if let tileImage = Images.getImage(.tileImageDash) {
                 return UIColor(patternImage: tileImage)
             }
             return nil

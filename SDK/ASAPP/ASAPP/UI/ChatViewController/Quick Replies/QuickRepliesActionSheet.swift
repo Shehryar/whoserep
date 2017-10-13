@@ -89,7 +89,7 @@ class QuickRepliesActionSheet: UIView {
         addSubview(separatorTopView)
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
-        backButton.image = Images.asappImage(.iconBack)
+        backButton.image = Images.getImage(.iconBack)
         backButton.imageSize = CGSize(width: 11, height: 11)
         backButton.onTap = { [weak self] in
             if let blockSelf = self {
@@ -106,7 +106,7 @@ class QuickRepliesActionSheet: UIView {
         addSubview(backButton)
         
         closeButton.isHidden = true
-        closeButton.image = Images.asappImage(.iconSmallX)
+        closeButton.image = Images.getImage(.iconSmallX)
         closeButton.imageSize = CGSize(width: 11, height: 11)
         closeButton.onTap = { [weak self] in
             if let blockSelf = self {

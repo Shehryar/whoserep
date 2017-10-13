@@ -92,8 +92,8 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         
         // Bubble
         if let backgroundColor = styles.backgroundColor {
-            button.setBackgroundImage(Images.asappImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 1), for: .normal)
-            button.setBackgroundImage(Images.asappImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 0.6), for: .highlighted)
+            button.setBackgroundImage(Images.getImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 1), for: .normal)
+            button.setBackgroundImage(Images.getImage(.buttonCloseBG)?.tinted(backgroundColor, alpha: 0.6), for: .highlighted)
         }
         
         // Sizing

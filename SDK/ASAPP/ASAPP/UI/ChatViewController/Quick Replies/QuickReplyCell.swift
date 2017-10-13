@@ -93,7 +93,7 @@ class QuickReplyCell: UITableViewCell {
     // MARK: Content
     
     func updateImageView() {
-        imageView?.image = Images.asappImage(.iconExitLink)?.tinted(imageTintColor)
+        imageView?.image = Images.getImage(.iconExitLink)?.tinted(imageTintColor)
     }
 }
 

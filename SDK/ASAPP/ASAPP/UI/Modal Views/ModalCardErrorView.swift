@@ -27,7 +27,7 @@ class ModalCardErrorView: UIView {
     let imageSize: CGFloat = 16.0
     let font: UIFont = Fonts.default.bold.withSize(12)
     
-    private let imageView = UIImageView(image: Images.asappImage(.iconErrorAlert)?.tinted(UIColor.white))
+    private let imageView = UIImageView(image: Images.getImage(.iconErrorAlert)?.tinted(UIColor.white))
     private let label = UILabel()
     
     // MARK: Initialization

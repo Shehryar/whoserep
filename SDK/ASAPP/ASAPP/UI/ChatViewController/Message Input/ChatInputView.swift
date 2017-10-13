@@ -197,9 +197,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         updateSendButtonText()
         
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 1), for: .normal)
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.7), for: .highlighted)
-        mediaButton.setImage(UIImage.asappIcon(.paperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 1), for: .normal)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 0.7), for: .highlighted)
+        mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
     }
     
     func updateSendButtonText() {

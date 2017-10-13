@@ -108,11 +108,11 @@ class NavBarButtonItem: UIBarButtonItem {
         var image: UIImage?
         switch style {
         case .ask:
-            image = Images.asappImage(.buttonAskBG)?.tinted(color, alpha: alpha)
+            image = Images.getImage(.buttonAskBG)?.tinted(color, alpha: alpha)
             break
             
         case .respond:
-            image = Images.asappImage(.buttonRespondBG)?.tinted(color, alpha: alpha)
+            image = Images.getImage(.buttonRespondBG)?.tinted(color, alpha: alpha)
             break
         }
         

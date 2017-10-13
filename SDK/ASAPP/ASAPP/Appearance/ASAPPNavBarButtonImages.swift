@@ -14,11 +14,11 @@ public class ASAPPNavBarButtonImages: NSObject {
     // MARK: Properties
     
     lazy public var close: ASAPPNavBarButtonImage? = {
-        return ASAPPNavBarButtonImage(image: Images.asappImage(.iconX)!, size: CGSize(width: 13, height: 13), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+        return ASAPPNavBarButtonImage(image: Images.getImage(.iconX)!, size: CGSize(width: 13, height: 13), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
     }()
     
     lazy public var back: ASAPPNavBarButtonImage? = {
-        return ASAPPNavBarButtonImage(image: Images.asappImage(.iconGuillemetThinLeft)!, size: CGSize(width: 24, height: 24), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+        return ASAPPNavBarButtonImage(image: Images.getImage(.iconGuillemetThinLeft)!, size: CGSize(width: 24, height: 24), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
     }()
     
     public var ask: ASAPPNavBarButtonImage?

@@ -8,6 +8,27 @@
 
 import UIKit
 
+enum ComponentIcon: String {
+    case alertError
+    case alertWarning
+    case arrowOutgoing
+    case checkmarkCircle
+    case checkmarkThick
+    case checkmarkThin
+    case clock
+    case loginKey
+    case power
+    case trash
+    case user
+    case userMinus
+    case xThick
+    case xThin
+    
+    static func getImage(_ icon: ComponentIcon) -> UIImage? {
+        return UIImage(named: icon.rawValue, in: ASAPP.bundle, compatibleWith: nil)
+    }
+}
+
 class IconItem: Component {
 
     // MARK:- JSON Keys
@@ -16,56 +37,25 @@ class IconItem: Component {
         case icon
     }
 
-    enum Icon: String {
+    enum Icon {
         case placeholder // Empty icon
-        
-        case alertError
-        case alertWarning
-        case arrowOutgoing
-        case checkmarkCircle
-        case checkmarkThick
-        case checkmarkThin
-        case clock
-        case loginKey
-        case power
-        case trash
-        case user
-        case userMinus
-        case xThick
-        case xThin
-        
-        static let iconToASAPPIconMap: [Icon : ASAPPIcon] = [
-            .alertError: .alertError,
-            .alertWarning: .alertWarning,
-            .arrowOutgoing: .arrowOutgoing,
-            .checkmarkCircle: .checkmarkCircle,
-            .checkmarkThick: .checkmarkThick,
-            .checkmarkThin: .checkmarkThin,
-            .clock: .clock,
-            .loginKey: .loginKey,
-            .power: .power,
-            .trash: .trash,
-            .user: .user,
-            .userMinus: .userMinus,
-            .xThick: .xThick,
-            .xThin: .xThin
-        ]
+        case named(ComponentIcon)
         
         func getImage() -> UIImage? {
-            if let icon = Icon.iconToASAPPIconMap[self] {
-                return UIImage.asappIcon(icon)
+            switch self {
+            case let .named(icon):
+                return ComponentIcon.getImage(icon)
+            case .placeholder:
+                return nil
             }
-            if self != .placeholder {
-                DebugLog.w(caller: self, "Unable to locate asapp icon for: \(self)")
-            }
-            return nil
         }
         
         static func from(_ string: String?) -> Icon? {
-            guard let string = string, let icon = Icon(rawValue: string) else {
+            guard let string = string,
+                  let icon = ComponentIcon(rawValue: string) else {
                 return nil
             }
-            return icon
+            return Icon.named(icon)
         }
     }
     
