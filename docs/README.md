@@ -55,7 +55,7 @@ script area.
 SDK Usage
 ---------
 
-### Initialize ASAPP with ASAPPConfig
+### Initialize [ASAPP](Classes/ASAPP.html) with [ASAPPConfig](Classes/ASAPPConfig.html)
 
     let config = ASAPPConfig(appId: appId,
                              apiHostName: apiHostName,
@@ -63,7 +63,7 @@ SDK Usage
 
     ASAPP.initialize(with: config)
 
-### Set User
+### Set [User](Classes/ASAPPUser.html)
 
     let user = ASAPPUser(userIdentifier: userIdentifier,
                          requestContextProvider: requestContextProvider,
@@ -71,13 +71,13 @@ SDK Usage
 
     ASAPP.user = user
 
-### Customize Styles
+### Customize [Styles](Classes/ASAPPStyles.html)
 
     var styles = ASAPPStyles.stylesForAppId(appId)
 
     ASAPP.styles = styles
 
-### Customize Styles with a Font Family
+### Customize Styles with a [Font Family](Classes/ASAPPFontFamily.html)
 
     let avenirNext = ASAPPFontFamily(
                 light: UIFont(name: "AvenirNext-Regular", size: 16)!,
@@ -87,11 +87,11 @@ SDK Usage
 
     ASAPP.styles = ASAPPStyles.stylesForAppId(appId, fontFamily: avenirNext)
 
-### Customize Text Styles
+### Customize [Text Styles](Classes/ASAPPTextStyles.html)
 
     ASAPP.styles.textStyles.navTitle = ASAPPTextStyle(font: avenirNext.bold, size: 18, letterSpacing: 0, color: .white)
 
-### Customize Strings
+### Customize [Strings](Classes/ASAPPStrings.html)
 
     ASAPP.strings.chatTitle = "Demo Chat"
     ASAPP.strings.predictiveTitle = "Demo Chat"
@@ -99,14 +99,14 @@ SDK Usage
     ASAPP.strings.predictiveBackToChatButton = "History"
     ASAPP.strings.chatEndChatNavBarButton = "End Chat"
 
-### Customize Title Views
+### Customize Title [Views](Classes/ASAPPViews.html)
 
     ASAPP.views.chatTitle = UIImageView(image: UIImage(named: "chat-logo"))
     ASAPP.views.predictiveTitle = UIImageView(image: UIImage(named: "help-logo"))
 
 ### Launch Chat
 
-There are two methods for creating a chat view controller. Which method
+There are [two methods](Classes/ASAPP.html#/Entering%20Chat) for creating a chat view controller. Which method
 you should call is determined by how you display the view controller.
 
 If the chat is being displayed because the user tapped a push
@@ -131,7 +131,7 @@ when creating the chat view controller.
 
 ASAPP can send your users push notifications when they receive a message
 but are not viewing their chat. When your application receives the push
-notification, you can ask the ASAPP SDK if the push notification is
+notification, you can [ask the ASAPP SDK](Classes/ASAPP.html#/Push%20Notifications) if the push notification is
 intended to open chat.
 
     // In your application's delegate
