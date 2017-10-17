@@ -370,6 +370,8 @@
 		30F6B4D51EC3D69200ABA570 /* TabViewTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D41EC3D69200ABA570 /* TabViewTabBar.swift */; };
 		30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */; };
 		30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F6B4D81EC5331000ABA570 /* ButtonType.swift */; };
+		3A0A651F1F96565900BBDB48 /* icon-paperclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */; };
+		3A0A65201F96565900BBDB48 /* icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
 		3A38693C1F8823E6008CCA4D /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A38693B1F8823E6008CCA4D /* security-pin.json */; };
 		3A4FB3D61F698B27005F2B9F /* ASAPPSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */; };
@@ -793,9 +795,9 @@
 		30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewTab.swift; sourceTree = "<group>"; };
 		30F6B4D81EC5331000ABA570 /* ButtonType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
-		3A38693B1F8823E6008CCA4D /* security-pin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "security-pin.json"; sourceTree = "<group>"; };
 		3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@2x.png"; sourceTree = "<group>"; };
+		3A38693B1F8823E6008CCA4D /* security-pin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "security-pin.json"; sourceTree = "<group>"; };
 		3A4FB3D51F698B27005F2B9F /* ASAPPSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASAPPSpec.swift; path = ASAPPTests/ASAPPSpec.swift; sourceTree = SOURCE_ROOT; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
@@ -1994,6 +1996,7 @@
 				3046CEAB1E8AF6FC0022AEE5 /* checkmarkCircle.png in Resources */,
 				302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */,
 				3046CE7E1E8AF0C90022AEE5 /* checkmarkThick.png in Resources */,
+				3A0A65201F96565900BBDB48 /* icon-paperclip@3x.png in Resources */,
 				30DF3F691F26911000D6DB02 /* clock@3x.png in Resources */,
 				3046CEA11E8AF6020022AEE5 /* alertWarning@3x.png in Resources */,
 				3025D9B21E527FEB004149D7 /* icon-hide-keyboard.png in Resources */,
@@ -2011,6 +2014,7 @@
 				30B3FE2B1ECB661700D43068 /* loginKey@3x.png in Resources */,
 				302268521D80690500EC4FB1 /* icon-x-small.png in Resources */,
 				28AEC0B91D888FFD00139C7D /* map-tech.png in Resources */,
+				3A0A651F1F96565900BBDB48 /* icon-paperclip@2x.png in Resources */,
 				302268541D80690500EC4FB1 /* icon-x-small@3x.png in Resources */,
 				302A20BA1E5E2CFB007C522A /* icon-star-filled.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
