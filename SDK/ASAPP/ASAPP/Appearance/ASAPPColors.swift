@@ -71,7 +71,7 @@ public class ASAPPColors: NSObject {
     /// The colors of block-style buttons for primary actions, usually an accent color.
     public var buttonPrimary: ASAPPButtonColors = ASAPPButtonColors(backgroundColor: UIColor(red: 0.204, green: 0.698, blue: 0.925, alpha: 1))
     
-    /// The colors of block-style buttons for secondary atcions like cancelling, usually a muted color.
+    /// The colors of block-style buttons for secondary actions like cancelling, usually a muted color.
     public var buttonSecondary: ASAPPButtonColors = ASAPPButtonColors(
         backgroundNormal: UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1),
         backgroundHighlighted: UIColor(red: 0.903, green: 0.907, blue: 0.915, alpha: 1),

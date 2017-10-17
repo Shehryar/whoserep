@@ -308,9 +308,11 @@ class ChatViewController: ASAPPViewController {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
         
-        inputAccessoryView.resignFirstResponder()
-        inputAccessoryView.isHidden = true
-        reloadInputViews()
+        if isMovingFromParentViewController {
+            inputAccessoryView.resignFirstResponder()
+            inputAccessoryView.isHidden = true
+            reloadInputViews()
+        }
         
         conversationManager.saveCurrentEvents()
     }

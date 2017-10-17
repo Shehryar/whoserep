@@ -81,8 +81,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     var inputMinHeight: CGFloat = 36
     let inputMaxHeight: CGFloat = 66
-    let mediaButtonWidth: CGFloat = 44
-    let mediaButtonImageSize: CGFloat = 20
+    let mediaButtonImageHeight: CGFloat = 22
     var inputHeight: CGFloat = 0
     
     // MARK: Properties: UI
@@ -313,9 +312,9 @@ extension ChatInputView {
         let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
         
-        mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: inputMinHeight)
-        let insetX: CGFloat = (buttonWidth - mediaButtonImageSize) / 2.0
-        mediaButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+        mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: buttonWidth, height: sendButton.frame.height)
+        let insetY: CGFloat = (sendButton.frame.height - mediaButtonImageHeight) / 2.0
+        mediaButton.imageEdgeInsets = UIEdgeInsets(top: insetY, left: 0, bottom: insetY, right: 0)
 
         let separatorStroke: CGFloat = 1.0
         let separatorLeft = sendButton.frame.minX - separatorStroke
