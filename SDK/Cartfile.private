@@ -1,3 +1,5 @@
 github "Quick/Quick"
 github "Quick/Nimble"
+github "facebook/ios-snapshot-test-case"
+github "ashfurrow/Nimble-Snapshots"
 
