@@ -21,7 +21,7 @@ class ChatMessageSpec: QuickSpec {
                 issueId: 1,
                 sendTime: Date())
             
-            describe(".init(text:attachment:quickReplies:metadata") {
+            describe(".init(text:attachment:quickReplies:metadata:)") {
                 let attachment = ChatMessageAttachment(content: "")
                 
                 context("without text, an attachment, and quickReplies") {
