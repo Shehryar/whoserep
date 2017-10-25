@@ -12,6 +12,37 @@ class SizedImageOnlyButton: UIButton {
     
     var imageSize: CGSize?
     
+    init() {
+        super.init(frame: .zero)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    convenience init(button: UIButton) {
+        self.init(frame: button.frame)
+        
+        self.setBackgroundImage(button.backgroundImage(for: .normal), for: .normal)
+        self.setBackgroundImage(button.backgroundImage(for: .highlighted), for: .highlighted)
+        
+        self.setAttributedTitle(button.attributedTitle(for: .normal), for: .normal)
+        self.setAttributedTitle(button.attributedTitle(for: .highlighted), for: .highlighted)
+        
+        self.titleEdgeInsets = button.titleEdgeInsets
+        
+        for target in button.allTargets {
+            let actions = button.actions(forTarget: target, forControlEvent: .touchUpInside)
+            for action in actions ?? [] {
+                self.addTarget(target, action: NSSelectorFromString(action), for: .touchUpInside)
+            }
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
