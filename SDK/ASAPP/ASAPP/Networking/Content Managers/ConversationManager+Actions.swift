@@ -26,10 +26,16 @@ extension ConversationManager {
         for (key, value) in action.tempRequestTopLevelParams {
             params[key] = value
         }
-        if let data = JSONUtil.stringify(action.getDataWithFormData(formData)) {
-            params["Data"] = data
-        }
         
+        if let data = action.getDataWithFormData(formData),
+            let dataString = JSONUtil.stringify(data) {
+            params["Data"] = dataString
+            
+            if let actionTarget = data["actionTarget"] as? String {
+                params["actionTarget"] = actionTarget
+            }
+        }
+ 
         let responseHandler: IncomingMessageHandler = { (message, _, _) in
             let response = APIActionResponse.fromJSON(message.body)
             completion(response)

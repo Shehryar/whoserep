@@ -643,6 +643,11 @@ extension ChatViewController {
                 }
                 
                 switch response.type {
+                case .finish:
+                    if let nextAction = response.finishAction {
+                        self?.performAction(nextAction)
+                    }
+                    
                 case .error:
                     self?.showRequestErrorAlert(message: response.error?.userMessage)
                     if quickReply != nil {
@@ -653,8 +658,7 @@ extension ChatViewController {
                     // Show view
                     break
                     
-                case .refreshView,
-                     .finish:
+                case .refreshView:
                     // No meaning in this context
                     break
                 }
@@ -683,7 +687,9 @@ extension ChatViewController {
             }
             
         case .finish:
-            // No meaning in this context
+            if let finishAction = action as? FinishAction, let nextAction = finishAction.nextAction {
+                performAction(nextAction)
+            }
             break
             
         case .http:

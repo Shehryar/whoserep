@@ -147,11 +147,16 @@ extension ConversationManager {
             ].with(params)
         
         if requiresContext {
-            user.getContext(completion: { (context, authToken) in
+            user.getContext(completion: { [weak self] (context, authToken) in
                 if let context = context {
+                    var updatedContext = context
+                    if let strongSelf = self, !strongSelf.user.isAnonymous {
+                        updatedContext[strongSelf.config.identifierType] = strongSelf.user.userIdentifier
+                    }
+                    
                     if !insertContextAsString {
-                        requestParams[contextKey] =  context
-                    } else if insertContextAsString, let contextString = JSONUtil.stringify(context) {
+                        requestParams[contextKey] =  updatedContext
+                    } else if insertContextAsString, let contextString = JSONUtil.stringify(updatedContext) {
                         requestParams[contextKey] =  contextString
                     }
                 }
