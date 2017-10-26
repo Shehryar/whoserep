@@ -47,27 +47,26 @@ extension ConversationManager {
     
     func sendRequestForHTTPAction(_ action: Action,
                                   formData: [String : Any]?,
-                                  completion: @escaping ((_ data: [String : Any]?) -> Void)) {
+                                  completion: @escaping HTTPClient.CompletionHandler) {
         
         guard let action = action as? HTTPAction else {
             DebugLog.w(caller: self, "sendRequestForHTTPAction called without HTTPAction")
-            completion(nil)
+            completion(nil, nil, nil)
             return
         }
+        
+        // Do we need typical context here?
         
         var params = [String: Any]()
         if let data = action.getDataWithFormData(formData) {
             params["data"] = data
         }
         
-        let responseHandler: HTTPClient.CompletionHandler = { (body, response, error) in
-            completion(nil)
-        }
         getRequestParameters(with: params, contextKey: "context") { (fullParams) in
             HTTPClient.shared.sendRequest(method: action.method,
                                           url: action.url,
                                           params: fullParams,
-                                          completion: responseHandler)
+                                          completion: completion)
         }
     }
     

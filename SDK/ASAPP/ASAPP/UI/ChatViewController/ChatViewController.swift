@@ -694,9 +694,10 @@ extension ChatViewController {
             
         case .http:
             if let httpAction = action as? HTTPAction {
-                conversationManager.sendRequestForHTTPAction(action, formData: formData, completion: { [weak self] (response) in
+                conversationManager.sendRequestForHTTPAction(action, formData: formData, completion: { [weak self] (response, _, error) in
                     if let onResponseAction = httpAction.onResponseAction {
                         if let response = response {
+                            onResponseAction.injectData(key: "success", value: error == nil)
                             onResponseAction.injectData(key: "response", value: response)
                         }
                         self?.performAction(onResponseAction)
@@ -823,6 +824,22 @@ extension ChatViewController: ComponentViewControllerDelegate {
         conversationManager.sendRequestForAPIAction(action, formData: formData, completion: { (response) in
             completion(response)
         })
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String : Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        conversationManager.sendRequestForHTTPAction(action, formData: formData) { [weak self] (data, _, error) in
+            if let apiAction = action.onResponseAction {
+                let success = data != nil && error == nil
+                var formData: [String: Any] = ["success": success]
+                if let data = data {
+                    formData["response"] = data
+                }
+                self?.conversationManager.sendRequestForAPIAction(apiAction, formData: data, completion: completion)
+            }
+        }
     }
 }
 

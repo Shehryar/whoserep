@@ -294,6 +294,13 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
     }
     
     func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String : Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        // TODO
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
                                  withFormData formData: [String : Any]?,
                                  completion: @escaping APIActionResponseHandler) {
