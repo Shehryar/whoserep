@@ -37,6 +37,14 @@ class HTTPClient: NSObject {
         if [HTTPMethod.POST].contains(method), let params = params {
             request.httpBody = JSONUtil.getDataFrom(params)
         }
+       
+        if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.debug.rawValue {
+            let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? ""
+            let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? ""
+            DebugLog.d(caller: HTTPClient.self,
+                       "Sending HTTP Request \(method): \(url)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
+            
+        }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             var jsonMap: [String : Any]?

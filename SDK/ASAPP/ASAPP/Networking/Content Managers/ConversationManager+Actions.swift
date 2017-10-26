@@ -54,9 +54,7 @@ extension ConversationManager {
             completion(nil, nil, nil)
             return
         }
-        
-        // Do we need typical context here?
-        
+                
         var params = [String: Any]()
         if let data = action.getDataWithFormData(formData) {
             params["data"] = data
