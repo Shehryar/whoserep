@@ -14,12 +14,12 @@ protocol ComponentViewControllerDelegate: class {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler)
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapHTTPAction action: HTTPAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler)
     
     func componentViewController(_ viewController: ComponentViewController,
@@ -285,15 +285,16 @@ extension ComponentViewController {
         
         buttonView.isLoading = true
         
-        delegate.componentViewController(self,
-                                         didTapHTTPAction: action,
-                                         withFormData: component.getData(),
-                                         completion: { [weak self] (response) in
-                                            Dispatcher.performOnMainThread {
-                                                buttonView.isLoading = false
-                                                self?.handleAPIActionResponse(response)
-                                            }
-        })
+        delegate.componentViewController(
+            self,
+            didTapHTTPAction: action,
+            withFormData: component.getData(),
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
     }
     
     func handleAPIActionResponse(_ response: APIActionResponse?) {
@@ -307,17 +308,14 @@ extension ComponentViewController {
                 if let view = response.view {
                     showComponentView(view)
                 }
-                break
                 
             case .refreshView:
                 if let viewContainer = response.view {
                     componentViewContainer = viewContainer
                 }
-                break
                 
             case .finish:
                 finish(with: response.finishAction)
-                break
             }
             
         } else {
