@@ -14,7 +14,12 @@ protocol ComponentViewControllerDelegate: class {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
+                                 completion: @escaping APIActionResponseHandler)
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler)
     
     func componentViewController(_ viewController: ComponentViewController,
@@ -223,7 +228,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
 extension ComponentViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
-        if let apiAction = buttonItem.action as? APIAction {
+        if let httpAction = buttonItem.action as? HTTPAction {
+            handleHTTPAction(httpAction, from: buttonView, with: buttonItem)
+        } else if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             showComponentView(named: componentViewAction.name, withData: componentViewAction.data)
@@ -259,15 +266,35 @@ extension ComponentViewController {
         
         buttonView.isLoading = true
         
-        delegate.componentViewController(self,
-                                         didTapAPIAction: action,
-                                         withFormData: component.getData(),
-                                         completion: { [weak self] (response) in
-                                            Dispatcher.performOnMainThread {
-                                                buttonView.isLoading = false
-                                                self?.handleAPIActionResponse(response)
-                                            }
-        })
+        delegate.componentViewController(
+            self,
+            didTapAPIAction: action,
+            withFormData: component.getData(),
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
+    }
+    
+    func handleHTTPAction(_ action: HTTPAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
+        guard let component = componentViewContainer?.root, let delegate = delegate else {
+            return
+        }
+        
+        buttonView.isLoading = true
+        
+        delegate.componentViewController(
+            self,
+            didTapHTTPAction: action,
+            withFormData: component.getData(),
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
     }
     
     func handleAPIActionResponse(_ response: APIActionResponse?) {
@@ -281,17 +308,14 @@ extension ComponentViewController {
                 if let view = response.view {
                     showComponentView(view)
                 }
-                break
                 
             case .refreshView:
                 if let viewContainer = response.view {
                     componentViewContainer = viewContainer
                 }
-                break
                 
             case .finish:
                 finish(with: response.finishAction)
-                break
             }
             
         } else {
