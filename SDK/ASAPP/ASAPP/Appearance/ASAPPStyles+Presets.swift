@@ -111,7 +111,7 @@ public extension ASAPPStyles {
         styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1))
         styles.colors.predictiveInput = ASAPPInputColors(
             background: .white,
-            text:  UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1),
+            text: UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1),
             placeholderText: UIColor(red: 0.459, green: 0.478, blue: 0.525, alpha: 1),
             tint: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1),
             border: UIColor(red: 0.631, green: 0.659, blue: 0.714, alpha: 1),

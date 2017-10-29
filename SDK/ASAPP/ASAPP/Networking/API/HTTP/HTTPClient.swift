@@ -10,7 +10,7 @@ import UIKit
 
 class HTTPClient: NSObject {
     
-    typealias CompletionHandler = ([String : Any]?, URLResponse?, Error?) -> Void
+    typealias CompletionHandler = ([String: Any]?, URLResponse?, Error?) -> Void
     
     static let shared = HTTPClient()
     
@@ -20,8 +20,8 @@ class HTTPClient: NSObject {
     
     func sendRequest(method: HTTPMethod = .GET,
                      url: URL,
-                     headers: [String : String]? = nil,
-                     params: [String : Any]? = nil,
+                     headers: [String: String]? = nil,
+                     params: [String: Any]? = nil,
                      completion: @escaping CompletionHandler) {
         guard let requestURL = makeRequestURL(method: method, url: url, params: params) else {
             DebugLog.w(caller: self, "Failed to construct requestURL.")
@@ -43,7 +43,6 @@ class HTTPClient: NSObject {
             let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? ""
             DebugLog.d(caller: HTTPClient.self,
                        "Sending HTTP Request \(method): \(url)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
-            
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -65,7 +64,7 @@ class HTTPClient: NSObject {
 
 extension HTTPClient {
     
-    private func makeRequestURL(method: HTTPMethod, url: URL, params: [String : Any]?) -> URL? {
+    private func makeRequestURL(method: HTTPMethod, url: URL, params: [String: Any]?) -> URL? {
         var urlComponents = URLComponents(string: url.absoluteString)
         if [HTTPMethod.GET].contains(method), let params = params {
             var queryItems = urlComponents?.queryItems ?? [URLQueryItem]()

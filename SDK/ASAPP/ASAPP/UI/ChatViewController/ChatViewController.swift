@@ -690,7 +690,6 @@ extension ChatViewController {
             if let finishAction = action as? FinishAction, let nextAction = finishAction.nextAction {
                 performAction(nextAction)
             }
-            break
             
         case .http:
             if let httpAction = action as? HTTPAction {
@@ -819,7 +818,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         conversationManager.sendRequestForAPIAction(action, formData: formData, completion: { (response) in
             completion(response)
@@ -828,7 +827,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapHTTPAction action: HTTPAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         conversationManager.sendRequestForHTTPAction(action, formData: formData) { [weak self] (data, _, error) in
             if let apiAction = action.onResponseAction {
@@ -1140,7 +1139,7 @@ extension ChatViewController: ConversationManagerDelegate {
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
         } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {

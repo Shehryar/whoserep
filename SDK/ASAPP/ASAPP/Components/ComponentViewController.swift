@@ -266,15 +266,16 @@ extension ComponentViewController {
         
         buttonView.isLoading = true
         
-        delegate.componentViewController(self,
-                                         didTapAPIAction: action,
-                                         withFormData: component.getData(),
-                                         completion: { [weak self] (response) in
-                                            Dispatcher.performOnMainThread {
-                                                buttonView.isLoading = false
-                                                self?.handleAPIActionResponse(response)
-                                            }
-        })
+        delegate.componentViewController(
+            self,
+            didTapAPIAction: action,
+            withFormData: component.getData(),
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
     }
     
     func handleHTTPAction(_ action: HTTPAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
