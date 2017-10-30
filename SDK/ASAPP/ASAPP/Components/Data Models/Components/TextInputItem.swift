@@ -18,6 +18,7 @@ class TextInputItem: Component {
         case password
         case placeholder
         case textInputType
+        case maxLength
     }
     
     // MARK: - Enums
@@ -72,6 +73,8 @@ class TextInputItem: Component {
     
     let placeholder: String?
     
+    let maxLength: Int?
+    
     // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
@@ -104,6 +107,8 @@ class TextInputItem: Component {
         self.keyboardType = inputType.keyboardType()
         
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
+        
+        self.maxLength = content?.int(for: JSONKey.maxLength.rawValue) ?? nil
         
         super.init(id: id,
                    name: name,

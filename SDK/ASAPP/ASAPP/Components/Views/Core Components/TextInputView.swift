@@ -31,6 +31,7 @@ class TextInputView: BaseComponentView {
                 textInputView.autocapitalizationType = textInputItem.autocapitalizationType
                 textInputView.isSecureTextEntry = textInputItem.isSecure
                 textInputView.keyboardType = textInputItem.keyboardType
+                textInputView.characterLimit = textInputItem.maxLength
             }
         }
     }

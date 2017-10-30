@@ -17,6 +17,7 @@ class TextAreaItem: Component {
         case capitalize
         case numberOfLines
         case placeholder
+        case maxLength
     }
     
     // MARK: - Defaults
@@ -36,6 +37,8 @@ class TextAreaItem: Component {
     let numberOfLines: Int
     
     let placeholder: String?
+    
+    let maxLength: Int?
     
     // MARK: - Component Properties
     
@@ -65,6 +68,8 @@ class TextAreaItem: Component {
             ?? TextAreaItem.defaultNumberOfLines
         
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
+        
+        self.maxLength = content?.int(for: JSONKey.maxLength.rawValue) ?? nil
         
         super.init(id: id,
                    name: name,

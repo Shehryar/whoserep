@@ -38,6 +38,8 @@ class TextAreaView: BaseComponentView {
         return component as? TextAreaItem
     }
     
+    private var previousTextContent: String?
+    
     // MARK: Init
     
     override func commonInit() {
@@ -121,11 +123,25 @@ class TextAreaView: BaseComponentView {
 extension TextAreaView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        component?.value = textView.text
+        var text = textView.text
         
-        placeholderTextView.isHidden = !self.textView.text.isEmpty
+        if let characterLimit = textAreaItem?.maxLength {
+            if textView.text.characters.count > characterLimit {
+                text = previousTextContent
+            }
+        }
+        
+        textView.text = text
+        component?.value = text
+        
+        placeholderTextView.isHidden = !(text ?? "").isEmpty
         contentHandler?.componentView(self,
-                                      didUpdateContent: textView.text,
+                                      didUpdateContent: text,
                                       requiresLayoutUpdate: true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        previousTextContent = textView.text
+        return true
     }
 }

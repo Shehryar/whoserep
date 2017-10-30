@@ -38,6 +38,8 @@
 		3A0521761F9E66480072D089 /* EventMetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521751F9E66480072D089 /* EventMetadataSpec.swift */; };
 		3A0521781F9E6C7A0072D089 /* EventTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */; };
 		3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */; };
+		3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
+		3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */; };
 		3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
@@ -47,9 +49,17 @@
 		3A3D92601F98F1B800E1FAE3 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A3D92611F98F1BC00E1FAE3 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
-		3A797B701F97A29D00883ABF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6F1F97A29D00883ABF /* ViewController.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
+		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
+		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
+		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
+		3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */; };
+		3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */; };
+		3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */; };
+		3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */; };
+		3AED18EF1FA0EB45005955DA /* TextInputMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */; };
+		3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,11 +140,12 @@
 		3A0521751F9E66480072D089 /* EventMetadataSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMetadataSpec.swift; sourceTree = "<group>"; };
 		3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeSpec.swift; sourceTree = "<group>"; };
 		3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItemSpec.swift; sourceTree = "<group>"; };
+		3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaMaxLength.swift; sourceTree = "<group>"; };
+		3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewTestCase.swift; sourceTree = "<group>"; };
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPButtonSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A797B6F1F97A29D00883ABF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A797B771F97A29D00883ABF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A797B791F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +153,11 @@
 		3A797B841F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A797B891F97A29D00883ABF /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B8F1F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
+		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
+		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
+		3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputMaxLength.swift; sourceTree = "<group>"; };
+		3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,7 +251,10 @@
 			isa = PBXGroup;
 			children = (
 				3A797B6D1F97A29D00883ABF /* AppDelegate.swift */,
-				3A797B6F1F97A29D00883ABF /* ViewController.swift */,
+				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
+				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
+				3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */,
+				3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */,
 				3A797B741F97A29D00883ABF /* Assets.xcassets */,
 				3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */,
 				3A797B791F97A29D00883ABF /* Info.plist */,
@@ -267,6 +286,9 @@
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
+				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
+				3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */,
+				3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */,
 				3A797B8F1F97A29D00883ABF /* Info.plist */,
 			);
 			path = "UI Tests";
@@ -435,7 +457,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A797B701F97A29D00883ABF /* ViewController.swift in Sources */,
+				3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */,
+				3AED18EF1FA0EB45005955DA /* TextInputMaxLength.swift in Sources */,
+				3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
+				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,12 +484,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
+				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
+				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
+				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,
+				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
 				3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
+				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
+				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
+				3A0429201F97C1B70031CD78 /* TestUtil.swift in Sources */,
 				3A0521681F992E720072D089 /* ChatInputViewSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
