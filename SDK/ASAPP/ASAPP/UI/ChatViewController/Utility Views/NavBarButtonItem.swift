@@ -83,11 +83,11 @@ class NavBarButtonItem: UIBarButtonItem {
     }
     
     private func setupBackgroundColor() {
-        guard let backgroundColor = styles.backgroundColor,
-            let button = customView as? UIButton else {
+        guard let backgroundColor = styles.backgroundColor else {
                 return
         }
         
+        let button = customView as? UIButton ?? UIButton()
         let style: NavBarButtonStyle = location == .chat ? .ask : .respond
         
         button.setBackgroundImage(
@@ -102,6 +102,8 @@ class NavBarButtonItem: UIBarButtonItem {
                 color: backgroundColor,
                 alpha: 0.6),
             for: .highlighted)
+        
+        customView = button
     }
     
     private class func getChatBubbleBackgroundImage(forStyle style: NavBarButtonStyle, color: UIColor, alpha: CGFloat) -> UIImage? {
@@ -122,18 +124,18 @@ class NavBarButtonItem: UIBarButtonItem {
     
     @discardableResult
     func configTitle(_ title: String) -> Self {
-        let button = UIButton()
+        let button = customView as? UIButton ?? UIButton()
         
         button.setAttributedTitle(NSAttributedString(string: title, attributes: [
             .font: styles.font,
             .foregroundColor: styles.textColor,
             .kern: ASAPP.styles.textStyles.navButton.letterSpacing
-            ]), for: .normal)
+        ]), for: .normal)
         button.setAttributedTitle(NSAttributedString(string: title, attributes: [
             .font: styles.font,
             .foregroundColor: styles.textColor.withAlphaComponent(0.6),
             .kern: ASAPP.styles.textStyles.navButton.letterSpacing
-            ]), for: .highlighted)
+        ]), for: .highlighted)
         
         if let titleLabel = button.titleLabel {
             let titleSize = titleLabel.sizeThatFits(.zero)
@@ -152,7 +154,15 @@ class NavBarButtonItem: UIBarButtonItem {
     
     @discardableResult
     func configImage(_ customImage: ASAPPNavBarButtonImage) -> Self {
-        let button = SizedImageOnlyButton()
+        let button: SizedImageOnlyButton
+        if customView == nil {
+            button = SizedImageOnlyButton()
+        } else if let sizedImageOnlyButton = customView as? SizedImageOnlyButton {
+            button = sizedImageOnlyButton
+        } else {
+            button = SizedImageOnlyButton(button: customView as! UIButton)
+        }
+        
         button.imageView?.contentMode = .scaleAspectFit
         
         let tintColor = styles.backgroundColor != styles.textColor ? styles.textColor : .white

@@ -8,13 +8,19 @@
 
 import UIKit
 
-class TextAreaView: BaseComponentView {
+class TextAreaView: BaseComponentView, InvalidatableInput {
 
     let textView = UITextView()
     
     let placeholderTextView = UITextView()
     
     let underlineView = UIView()
+    
+    let errorLabel = UILabel()
+    
+    lazy var errorIcon: UIImageView = {
+        return UIImageView(image: ComponentIcon.getImage(.alertError))
+    }()
     
     // MARK: ComponentView Properties
     
@@ -25,8 +31,11 @@ class TextAreaView: BaseComponentView {
             
             if let textAreaItem = textAreaItem {
                 textView.text = textAreaItem.value as? String
-                placeholderTextView.text = textAreaItem.placeholder
+                placeholderText = textAreaItem.placeholder
                 placeholderTextView.isHidden = !self.textView.text.isEmpty
+                characterLimit = textAreaItem.maxLength
+                isRequired = textAreaItem.isRequired ?? false
+                underlineColorDefault = ASAPP.styles.colors.controlSecondary
                 
                 styleTextView(textView, for: textAreaItem, isPlaceholder: false)
                 styleTextView(placeholderTextView, for: textAreaItem, isPlaceholder: true)
@@ -36,6 +45,70 @@ class TextAreaView: BaseComponentView {
     
     var textAreaItem: TextAreaItem? {
         return component as? TextAreaItem
+    }
+    
+    var isRequired = false {
+        didSet {
+            updatePlaceholderText()
+        }
+    }
+    
+    // Setting invalid shows the border error color until the text changes
+    var isInvalid: Bool = false {
+        didSet {
+            updateUnderlineColor()
+            updatePlaceholderText()
+        }
+    }
+    
+    // MARK: Placeholder
+    
+    var placeholderText: String? {
+        didSet {
+            updatePlaceholderText()
+        }
+    }
+    
+    var placeholderFont: UIFont = Fonts.default.bold.withSize(12) {
+        didSet {
+            updatePlaceholderText()
+            setNeedsLayout()
+        }
+    }
+    
+    var placeholderColor: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+        didSet {
+            updatePlaceholderText()
+        }
+    }
+    
+    // MARK: Underline
+    
+    var underlineColorDefault: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+        didSet {
+            updateUnderlineColor()
+        }
+    }
+    
+    var underlineColorHighlighted: UIColor? {
+        didSet {
+            updateUnderlineColor()
+        }
+    }
+    
+    var underlineColorError: UIColor? = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1) {
+        didSet {
+            updateUnderlineColor()
+        }
+    }
+    
+    private var characterLimit: Int?
+    private var previousTextContent: String?
+    
+    private var errorLabelHeight: CGFloat {
+        let width = UIEdgeInsetsInsetRect(bounds, component?.style.padding ?? .zero).width
+        let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        return errorLabelSize.height
     }
     
     // MARK: Init
@@ -52,8 +125,14 @@ class TextAreaView: BaseComponentView {
         placeholderTextView.isUserInteractionEnabled = false
         addSubview(placeholderTextView)
         
-        underlineView.backgroundColor = ASAPP.styles.colors.controlSecondary
+        updateUnderlineColor()
         addSubview(underlineView)
+        
+        errorLabel.isHidden = true
+        addSubview(errorLabel)
+        
+        errorIcon.isHidden = true
+        addSubview(errorIcon)
     }
     
     deinit {
@@ -71,23 +150,42 @@ class TextAreaView: BaseComponentView {
     
     // MARK: Layout
     
+    private func bottomPaddingWithError(_ padding: UIEdgeInsets) -> CGFloat {
+        return errorLabel.numberOfVisibleLines > 1
+            ? errorLabelHeight + max(padding.bottom, errorLabel.font.lineHeight) - errorLabel.font.lineHeight + 3
+            : max(padding.bottom, errorLabelHeight)
+    }
+    
     override func updateFrames() {
         guard let component = component else {
             return
         }
         
-        let padding = component.style.padding
-        let textViewFrame = UIEdgeInsetsInsetRect(bounds, padding)
-        let offset = textView.contentOffset
-        textView.frame = textViewFrame
-        textView.setContentOffset(offset, animated: false)
-        placeholderTextView.frame = textViewFrame
+        let errorIconSize = CGSize(width: 20.5, height: 18)
+        
+        var padding = component.style.padding
+        padding.bottom = bottomPaddingWithError(padding)
         
         let lineLeft = padding.left
         let lineWidth = bounds.width - padding.right - lineLeft
         let lineStroke: CGFloat = 1
         let lineTop = bounds.height - padding.bottom - lineStroke
         underlineView.frame = CGRect(x: lineLeft, y: lineTop, width: lineWidth, height: lineStroke)
+        
+        textView.contentInset.right = errorIcon.isHidden ? 0 : errorIconSize.width
+        let textViewFrame = UIEdgeInsetsInsetRect(bounds, padding)
+        let offset = textView.contentOffset
+        textView.frame = textViewFrame
+        textView.setContentOffset(offset, animated: false)
+        placeholderTextView.frame = textViewFrame
+        
+        let errorTop: CGFloat = textView.frame.maxY + lineStroke
+        let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: lineWidth, height: CGFloat.greatestFiniteMagnitude))
+        errorLabel.frame = CGRect(x: textView.frame.minX, y: errorTop, width: errorLabelSize.width, height: errorLabelSize.height)
+        
+        let errorIconLeft = underlineView.frame.maxX - errorIconSize.width
+        let errorIconTop = errorLabel.frame.minY - 5 - errorIconSize.height
+        errorIcon.frame = CGRect(x: errorIconLeft, y: errorIconTop, width: errorIconSize.width, height: errorIconSize.height)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -95,7 +193,8 @@ class TextAreaView: BaseComponentView {
             return .zero
         }
         let padding = textAreaItem.style.padding
-    
+        let bottom = bottomPaddingWithError(padding)
+        
         let fitToWidth = max(0, (size.width > 0 ? size.width : CGFloat.greatestFiniteMagnitude) - padding.left - padding.right)
         var fitToHeight = max(0, (size.height > 0 ? size.height : CGFloat.greatestFiniteMagnitude) - padding.top - padding.bottom)
         if textAreaItem.numberOfLines > 0 {
@@ -113,19 +212,76 @@ class TextAreaView: BaseComponentView {
         }
         
         let fittedWidth = min(fitToWidth, fittedInputSize.width + padding.left + padding.right)
-        let fittedHeight = min(fitToHeight, fittedInputSize.height + padding.top + padding.bottom)
+        let fittedHeight = min(fitToHeight - padding.bottom, fittedInputSize.height + padding.top) + bottom
+        
         return CGSize(width: fittedWidth, height: fittedHeight)
+    }
+    
+    // MARK: Updating Color
+    
+    func updateUnderlineColor(animated: Bool = false) {
+        func updateBlock() {
+            var underlineColor: UIColor?
+            if isInvalid {
+                underlineColor = underlineColorError
+            } else if textView.isFirstResponder {
+                underlineColor = underlineColorHighlighted
+            }
+            
+            underlineView.backgroundColor = underlineColor ?? underlineColorDefault
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: updateBlock)
+        } else {
+            updateBlock()
+        }
+    }
+    
+    // MARK: Updating Placeholder Text
+    
+    func updatePlaceholderText() {
+        if var placeholderText = placeholderText {
+            let requiredSuffix = " *"
+            if isRequired {
+                if !placeholderText.hasSuffix(requiredSuffix) {
+                    placeholderText.append(requiredSuffix)
+                }
+            } else {
+                if placeholderText.hasSuffix(requiredSuffix) {
+                    placeholderText.removeLast(requiredSuffix.characters.count)
+                }
+            }
+            placeholderTextView.setAttributedText(placeholderText, textType: .detail1, color: placeholderColor)
+        } else {
+            placeholderTextView.attributedText = nil
+        }
     }
 }
 
 extension TextAreaView: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        component?.value = textView.text
+        clearError()
         
-        placeholderTextView.isHidden = !self.textView.text.isEmpty
+        var text = textView.text
+        
+        if let characterLimit = characterLimit,
+           textView.text.characters.count > characterLimit {
+            text = previousTextContent
+        }
+        
+        textView.text = text
+        component?.value = text
+        
+        placeholderTextView.isHidden = !(text ?? "").isEmpty
         contentHandler?.componentView(self,
-                                      didUpdateContent: textView.text,
+                                      didUpdateContent: text,
                                       requiresLayoutUpdate: true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        previousTextContent = textView.text
+        return true
     }
 }

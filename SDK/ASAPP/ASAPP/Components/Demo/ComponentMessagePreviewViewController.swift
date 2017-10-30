@@ -335,8 +335,16 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
     }
     
     func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String: Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        
+        showAlert(title: "HTTP Action", with: "Data: \(String(describing: formData))")
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         var data = action.data ?? [String: Any]()
         data.add(formData)

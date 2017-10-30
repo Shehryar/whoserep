@@ -146,17 +146,14 @@ public class ComponentPreviewViewController: ASAPPViewController {
             cardView.interactionHandler = self
             contentView = cardView
             view.backgroundColor = ASAPP.styles.colors.backgroundSecondary
-            break
             
         case .view:
             var componentView = componentViewContainer.root.createView()
             componentView?.interactionHandler = self
             contentView = componentView?.view
             view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-            break
             
         case .message:
-            
             break
         }
         
@@ -294,8 +291,15 @@ extension ComponentPreviewViewController: ComponentViewControllerDelegate {
     }
     
     func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String: Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        showAlert(title: "HTTP Action", with: "Data: \(String(describing: formData))")
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         let error = APIActionError(code: 500,
                                    userMessage: "Sorry, this feature is not supported in this view",

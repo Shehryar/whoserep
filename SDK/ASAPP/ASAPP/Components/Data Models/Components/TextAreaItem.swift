@@ -17,6 +17,7 @@ class TextAreaItem: Component {
         case capitalize
         case numberOfLines
         case placeholder
+        case maxLength
     }
     
     // MARK: - Defaults
@@ -37,10 +38,16 @@ class TextAreaItem: Component {
     
     let placeholder: String?
     
+    let maxLength: Int?
+    
     // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TextAreaView.self
+    }
+    
+    override var valueIsEmpty: Bool {
+        return (value as? String)?.isEmpty ?? true
     }
     
     // MARK: - Init
@@ -49,9 +56,10 @@ class TextAreaItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
         let capitalizationType = CapitalizationType.from(content?.string(for: JSONKey.capitalize.rawValue))
             ?? TextAreaItem.defaultCapitalizationType
@@ -66,10 +74,13 @@ class TextAreaItem: Component {
         
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
         
+        self.maxLength = content?.int(for: JSONKey.maxLength.rawValue) ?? nil
+        
         super.init(id: id,
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

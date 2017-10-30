@@ -12,8 +12,8 @@ enum HTTPMethod: String {
     case GET
     case POST
     
-    static func from(_ value: Any?) -> HTTPMethod? {
-        guard let value = value as? String else {
+    static func from(_ value: String?) -> HTTPMethod? {
+        guard let value = value else {
             return nil
         }
         return HTTPMethod(rawValue: value)
@@ -38,8 +38,8 @@ class HTTPAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        if let content = content as? [String : Any],
-            let method = HTTPMethod.from(JSONKey.method.rawValue),
+        if let content = content as? [String: Any],
+            let method = HTTPMethod.from(content[JSONKey.method.rawValue] as? String),
             let urlString = content[JSONKey.url.rawValue] as? String,
             let url = URL(string: urlString) {
             self.method = method

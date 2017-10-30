@@ -105,6 +105,9 @@ public class ASAPPStrings: NSObject {
     /// The text for the close button displayed when a view could not load.
     public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
     
+    /// The text displayed next to a required form field that was left empty.
+    public var requiredFieldEmptyMessage: String = ASAPPLocalizedString("Required field")
+    
     // MARK: Ending Chat
     
     /// The title for the alert displayed when ending chat.

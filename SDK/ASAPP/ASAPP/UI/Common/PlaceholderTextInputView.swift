@@ -76,12 +76,6 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderColorError: UIColor? = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1) {
-        didSet {
-            updatePlaceholderText()
-        }
-    }
-    
     // MARK: Underline
     
     var underlineColorDefault: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
@@ -179,6 +173,14 @@ class PlaceholderTextInputView: UIView {
             for subview in subviews where subview.alpha > 0 {
                 subview.alpha = subviewAlpha
             }
+        }
+    }
+    
+    // MARK: Required
+    
+    var isRequired = false {
+        didSet {
+            updatePlaceholderText()
         }
     }
     
@@ -286,10 +288,18 @@ class PlaceholderTextInputView: UIView {
     // MARK: Updating Placeholder Text
     
     func updatePlaceholderText() {
-        if let placeholderText = placeholderText {
-            let color = (invalid ? placeholderColorError : placeholderColor) ?? placeholderColor
-            
-            placeholderLabel.setAttributedText(placeholderText, textType: .detail1, color: color)
+        if var placeholderText = placeholderText {
+            let requiredSuffix = " *"
+            if isRequired {
+                if !placeholderText.hasSuffix(requiredSuffix) {
+                    placeholderText.append(requiredSuffix)
+                }
+            } else {
+                if placeholderText.hasSuffix(requiredSuffix) {
+                    placeholderText.removeLast(requiredSuffix.characters.count)
+                }
+            }
+            placeholderLabel.setAttributedText(placeholderText, textType: .detail1, color: placeholderColor)
         } else {
             placeholderLabel.attributedText = nil
         }
@@ -334,7 +344,8 @@ extension PlaceholderTextInputView {
         // Underline
         
         let underlineTop = bounds.height - contentInset.bottom - underlineStrokeWidth
-        let underlineFrame = CGRect(x: left, y: underlineTop, width: width, height: underlineStrokeWidth)
+        let underlineWidth = width + contentInset.left + contentInset.right
+        let underlineFrame = CGRect(x: left, y: underlineTop, width: underlineWidth, height: underlineStrokeWidth)
         
         // Labels
         

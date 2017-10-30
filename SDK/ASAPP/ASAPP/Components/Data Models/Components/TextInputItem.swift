@@ -18,6 +18,7 @@ class TextInputItem: Component {
         case password
         case placeholder
         case textInputType
+        case maxLength
     }
     
     // MARK: - Enums
@@ -72,10 +73,16 @@ class TextInputItem: Component {
     
     let placeholder: String?
     
+    let maxLength: Int?
+    
     // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
         return TextInputView.self
+    }
+    
+    override var valueIsEmpty: Bool {
+        return (value as? String)?.isEmpty ?? true
     }
     
     // MARK: - Init
@@ -84,9 +91,10 @@ class TextInputItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
         let capitalizationType = CapitalizationType.from(content?.string(for: JSONKey.capitalize.rawValue))
             ?? TextInputItem.defaultCapitalizationType
@@ -105,10 +113,13 @@ class TextInputItem: Component {
         
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
         
+        self.maxLength = content?.int(for: JSONKey.maxLength.rawValue) ?? nil
+        
         super.init(id: id,
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

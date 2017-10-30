@@ -26,10 +26,16 @@ extension ConversationManager {
         for (key, value) in action.tempRequestTopLevelParams {
             params[key] = value
         }
-        if let data = JSONUtil.stringify(action.getDataWithFormData(formData)) {
-            params["Data"] = data
-        }
         
+        if let data = action.getDataWithFormData(formData),
+           let dataString = JSONUtil.stringify(data) {
+            params["Data"] = dataString
+            
+            if let actionTarget = data["actionTarget"] as? String {
+                params["actionTarget"] = actionTarget
+            }
+        }
+ 
         let responseHandler: IncomingMessageHandler = { (message, _, _) in
             let response = APIActionResponse.fromJSON(message.body)
             completion(response)
@@ -41,27 +47,24 @@ extension ConversationManager {
     
     func sendRequestForHTTPAction(_ action: Action,
                                   formData: [String : Any]?,
-                                  completion: @escaping ((_ data: [String : Any]?) -> Void)) {
+                                  completion: @escaping HTTPClient.CompletionHandler) {
         
         guard let action = action as? HTTPAction else {
             DebugLog.w(caller: self, "sendRequestForHTTPAction called without HTTPAction")
-            completion(nil)
+            completion(nil, nil, nil)
             return
         }
-        
+                
         var params = [String: Any]()
         if let data = action.getDataWithFormData(formData) {
             params["data"] = data
         }
         
-        let responseHandler: HTTPClient.CompletionHandler = { (body, response, error) in
-            completion(nil)
-        }
         getRequestParameters(with: params, contextKey: "context") { (fullParams) in
             HTTPClient.shared.sendRequest(method: action.method,
                                           url: action.url,
                                           params: fullParams,
-                                          completion: responseHandler)
+                                          completion: completion)
         }
     }
     
@@ -69,7 +72,7 @@ extension ConversationManager {
     
     typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
     
-    func getComponentView(named name: String, data: [String : Any]?, completion: @escaping ComponentViewHandler) {
+    func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler) {
         
         let path = "srs/GetComponentView"
         var params: [String: Any] = [

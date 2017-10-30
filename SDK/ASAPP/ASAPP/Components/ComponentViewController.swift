@@ -14,7 +14,12 @@ protocol ComponentViewControllerDelegate: class {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
+                                 completion: @escaping APIActionResponseHandler)
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler)
     
     func componentViewController(_ viewController: ComponentViewController,
@@ -223,7 +228,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
 extension ComponentViewController: InteractionHandler {
     
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem) {
-        if let apiAction = buttonItem.action as? APIAction {
+        if let httpAction = buttonItem.action as? HTTPAction {
+            handleHTTPAction(httpAction, from: buttonView, with: buttonItem)
+        } else if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
             showComponentView(named: componentViewAction.name, withData: componentViewAction.data)
@@ -248,26 +255,105 @@ extension ComponentViewController: ComponentViewContentHandler {
     }
 }
 
+// MARK: - Form Validation
+
+extension ComponentViewController {
+    @discardableResult
+    func validateRequiredInputs() -> Bool {
+        guard let root = componentViewContainer?.root else {
+            return true
+        }
+        
+        var emptyRequiredInputs = [InvalidInput]()
+        
+        root.enumerateRequiredNestedComponents { component in
+            guard let name = component.name else { return }
+            
+            if component.valueIsEmpty {
+                emptyRequiredInputs.append(InvalidInput(name: name, userMessage: ASAPP.strings.requiredFieldEmptyMessage))
+            }
+        }
+        
+        if emptyRequiredInputs.isEmpty {
+            return true
+        }
+        
+        markInvalidInputs(emptyRequiredInputs)
+        
+        return false
+    }
+    
+    func markInvalidInputs(_ invalidInputs: [InvalidInput]) {
+        let invalidDict = [String: String?](
+            invalidInputs.map {
+                ($0.name, $0.userMessage)
+            },
+            uniquingKeysWith: { first, _ in
+            // only use the first of any duplicates
+            return first
+        })
+        
+        rootView?.enumerateNestedComponentViews { componentView in
+            if let component = componentView.component,
+               let name = component.name,
+               let errorMessage = invalidDict[name],
+               let input = componentView as? InvalidatableInput {
+                input.updateError(for: errorMessage ?? "")
+            }
+        }
+        
+        rootView?.updateFrames()
+    }
+}
+
 // MARK: - APIAction Handling
 
 extension ComponentViewController {
     
     func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let component = componentViewContainer?.root, let delegate = delegate else {
+        guard let component = componentViewContainer?.root,
+              let delegate = delegate,
+              validateRequiredInputs() else {
             return
         }
         
+        let data = component.getData()
+        
         buttonView.isLoading = true
         
-        delegate.componentViewController(self,
-                                         didTapAPIAction: action,
-                                         withFormData: component.getData(),
-                                         completion: { [weak self] (response) in
-                                            Dispatcher.performOnMainThread {
-                                                buttonView.isLoading = false
-                                                self?.handleAPIActionResponse(response)
-                                            }
-        })
+        delegate.componentViewController(
+            self,
+            didTapAPIAction: action,
+            withFormData: data,
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
+    }
+    
+    func handleHTTPAction(_ action: HTTPAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
+        guard let component = componentViewContainer?.root,
+              let delegate = delegate,
+              validateRequiredInputs() else {
+            return
+        }
+        
+        let data = component.getData()
+        
+        buttonView.isLoading = true
+        
+        delegate.componentViewController(
+            self,
+            didTapHTTPAction: action,
+            withFormData: data,
+            completion: { [weak self] (response) in
+                Dispatcher.performOnMainThread {
+                    buttonView.isLoading = false
+                    self?.handleAPIActionResponse(response)
+                }
+            })
     }
     
     func handleAPIActionResponse(_ response: APIActionResponse?) {
@@ -281,17 +367,14 @@ extension ComponentViewController {
                 if let view = response.view {
                     showComponentView(view)
                 }
-                break
                 
             case .refreshView:
                 if let viewContainer = response.view {
                     componentViewContainer = viewContainer
                 }
-                break
                 
             case .finish:
                 finish(with: response.finishAction)
-                break
             }
             
         } else {
@@ -300,6 +383,12 @@ extension ComponentViewController {
     }
     
     func handleAPIActionError(_ error: APIActionError?) {
+        if let error = error,
+           let invalidInputs = error.invalidInputs,
+           !invalidInputs.isEmpty {
+            markInvalidInputs(invalidInputs)
+        }
+        
         let message = error?.userMessage ?? ASAPP.strings.requestErrorGenericFailure
         let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
                                       message: message,

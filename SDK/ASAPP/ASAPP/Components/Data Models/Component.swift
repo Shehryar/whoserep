@@ -27,9 +27,15 @@ class Component: NSObject {
     
     var isChecked: Bool?
     
+    var isRequired: Bool?
+    
     /// Subclasses should override this, if necessary
     var nestedComponents: [Component]? {
         return nil
+    }
+    
+    var valueIsEmpty: Bool {
+        return false
     }
     
     // MARK: - Init
@@ -38,13 +44,15 @@ class Component: NSObject {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         self.id = id
         self.name = name
         self.value = value
         self.isChecked = isChecked
+        self.isRequired = isRequired
         self.style = style
         super.init()
     }
@@ -112,11 +120,22 @@ class Component: NSObject {
         return (component.name, component.value)
     }
     
-    func enumerateNestedComponents(_ block: ((_ nestedComponent: Component) -> Void)) {
+    func enumerateNestedComponents(_ handler: ((_ nestedComponent: Component) -> Void)) {
         if let nestedComponents = nestedComponents {
             for component in nestedComponents {
-                block(component)
-                component.enumerateNestedComponents(block)
+                handler(component)
+                component.enumerateNestedComponents(handler)
+            }
+        }
+    }
+    
+    func enumerateRequiredNestedComponents(_ handler: ((_ nestedComponent: Component) -> Void)) {
+        if let nestedComponents = nestedComponents {
+            for component in nestedComponents {
+                if component.isRequired == true {
+                    handler(component)
+                }
+                component.enumerateRequiredNestedComponents(handler)
             }
         }
     }

@@ -643,6 +643,11 @@ extension ChatViewController {
                 }
                 
                 switch response.type {
+                case .finish:
+                    if let nextAction = response.finishAction {
+                        self?.performAction(nextAction)
+                    }
+                    
                 case .error:
                     self?.showRequestErrorAlert(message: response.error?.userMessage)
                     if quickReply != nil {
@@ -653,8 +658,7 @@ extension ChatViewController {
                     // Show view
                     break
                     
-                case .refreshView,
-                     .finish:
+                case .refreshView:
                     // No meaning in this context
                     break
                 }
@@ -683,14 +687,16 @@ extension ChatViewController {
             }
             
         case .finish:
-            // No meaning in this context
-            break
+            if let finishAction = action as? FinishAction, let nextAction = finishAction.nextAction {
+                performAction(nextAction)
+            }
             
         case .http:
             if let httpAction = action as? HTTPAction {
-                conversationManager.sendRequestForHTTPAction(action, formData: formData, completion: { [weak self] (response) in
+                conversationManager.sendRequestForHTTPAction(action, formData: formData, completion: { [weak self] (response, _, error) in
                     if let onResponseAction = httpAction.onResponseAction {
                         if let response = response {
+                            onResponseAction.injectData(key: "success", value: error == nil)
                             onResponseAction.injectData(key: "response", value: response)
                         }
                         self?.performAction(onResponseAction)
@@ -812,11 +818,27 @@ extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewController(_ viewController: ComponentViewController,
                                  didTapAPIAction action: APIAction,
-                                 withFormData formData: [String : Any]?,
+                                 withFormData formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         conversationManager.sendRequestForAPIAction(action, formData: formData, completion: { (response) in
             completion(response)
         })
+    }
+    
+    func componentViewController(_ viewController: ComponentViewController,
+                                 didTapHTTPAction action: HTTPAction,
+                                 withFormData formData: [String: Any]?,
+                                 completion: @escaping APIActionResponseHandler) {
+        conversationManager.sendRequestForHTTPAction(action, formData: formData) { [weak self] (data, _, error) in
+            if let apiAction = action.onResponseAction {
+                let success = data != nil && error == nil
+                var formData: [String: Any] = ["success": success]
+                if let data = data {
+                    formData["response"] = data
+                }
+                self?.conversationManager.sendRequestForAPIAction(apiAction, formData: data, completion: completion)
+            }
+        }
     }
 }
 
@@ -1117,7 +1139,7 @@ extension ChatViewController: ConversationManagerDelegate {
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
         } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
