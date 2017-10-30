@@ -37,6 +37,9 @@
 		3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
 		3A0521761F9E66480072D089 /* EventMetadataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521751F9E66480072D089 /* EventMetadataSpec.swift */; };
 		3A0521781F9E6C7A0072D089 /* EventTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */; };
+		3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521791F9E9A000072D089 /* LabelViewSpec.swift */; };
+		3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */; };
+		3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */; };
 		3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */; };
 		3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */; };
@@ -139,6 +142,9 @@
 		3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachmentSpec.swift; sourceTree = "<group>"; };
 		3A0521751F9E66480072D089 /* EventMetadataSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMetadataSpec.swift; sourceTree = "<group>"; };
 		3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeSpec.swift; sourceTree = "<group>"; };
+		3A0521791F9E9A000072D089 /* LabelViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViewSpec.swift; sourceTree = "<group>"; };
+		3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewSpec.swift; sourceTree = "<group>"; };
+		3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewSpec.swift; sourceTree = "<group>"; };
 		3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItemSpec.swift; sourceTree = "<group>"; };
 		3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaMaxLength.swift; sourceTree = "<group>"; };
 		3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewTestCase.swift; sourceTree = "<group>"; };
@@ -284,8 +290,11 @@
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
+				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
+				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
+				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
 				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
 				3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */,
 				3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */,
@@ -489,10 +498,13 @@
 				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
+				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,
 				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
+				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
 				3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */,
+				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,

@@ -23,7 +23,7 @@ class TextInputView: BaseComponentView {
                 textInputView.text = textInputItem.value as? String
                 textInputView.placeholderText = textInputItem.placeholder
                 textInputView.textColor = textInputItem.style.color ?? ASAPP.styles.colors.textPrimary
-                textInputView.font = ASAPP.styles.textStyles.style(for:textInputItem.style.textType).font
+                textInputView.font = ASAPP.styles.textStyles.style(for: textInputItem.style.textType).font
                 textInputView.underlineColorDefault = ASAPP.styles.colors.controlSecondary
                 textInputView.underlineStrokeWidth = 1
                 textInputView.tintColor = ASAPP.styles.colors.controlTint
