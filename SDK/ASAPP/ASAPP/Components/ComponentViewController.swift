@@ -264,29 +264,45 @@ extension ComponentViewController {
             return true
         }
         
-        var invalidInputs = Set<Component>()
+        var emptyRequiredInputs = [InvalidInput]()
         
         root.enumerateRequiredNestedComponents { component in
-            if component.valueIsEmpty {
-                invalidInputs.insert(component)
-            }
-        }
-        
-        guard invalidInputs.isEmpty else {
-            rootView?.enumerateNestedComponentViews { componentView in
-                if let component = componentView.component,
-                    invalidInputs.contains(component) {
-                    if let input = componentView as? InvalidatableInput {
-                        input.updateError(for: "Required field")
-                    }
-                }
-            }
+            guard let name = component.name else { return }
             
-            rootView?.updateFrames()
-            return false
+            if component.valueIsEmpty {
+                emptyRequiredInputs.append(InvalidInput(name: name, userMessage: ASAPP.strings.requiredFieldEmptyMessage))
+            }
         }
         
-        return true
+        if emptyRequiredInputs.isEmpty {
+            return true
+        }
+        
+        markInvalidInputs(emptyRequiredInputs)
+        
+        return false
+    }
+    
+    func markInvalidInputs(_ invalidInputs: [InvalidInput]) {
+        let invalidDict = [String: String?](
+            invalidInputs.map {
+                ($0.name, $0.userMessage)
+            },
+            uniquingKeysWith: { first, _ in
+            // only use the first of any duplicates
+            return first
+        })
+        
+        rootView?.enumerateNestedComponentViews { componentView in
+            if let component = componentView.component,
+               let name = component.name,
+               let errorMessage = invalidDict[name],
+               let input = componentView as? InvalidatableInput {
+                input.updateError(for: errorMessage ?? "")
+            }
+        }
+        
+        rootView?.updateFrames()
     }
 }
 
@@ -367,6 +383,12 @@ extension ComponentViewController {
     }
     
     func handleAPIActionError(_ error: APIActionError?) {
+        if let error = error,
+           let invalidInputs = error.invalidInputs,
+           !invalidInputs.isEmpty {
+            markInvalidInputs(invalidInputs)
+        }
+        
         let message = error?.userMessage ?? ASAPP.strings.requestErrorGenericFailure
         let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
                                       message: message,

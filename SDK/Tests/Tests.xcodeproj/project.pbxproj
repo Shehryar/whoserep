@@ -61,6 +61,7 @@
 		3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
 		3A391B4A1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
 		3A391B4B1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
+		3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */; };
 		3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */; };
 		3A3D925E1F98F1A700E1FAE3 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
 		3A3D925F1F98F1A900E1FAE3 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
@@ -173,6 +174,7 @@
 		3A391B371FA14E080085C2DA /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidation.swift; sourceTree = "<group>"; };
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
 		3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form-proper-padding.json"; sourceTree = "<group>"; };
+		3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidInputsSpec.swift; sourceTree = "<group>"; };
 		3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPButtonSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
+				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
@@ -547,6 +550,7 @@
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
 				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
+				3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,

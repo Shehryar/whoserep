@@ -15,6 +15,28 @@ import Nimble_Snapshots
 class TextAreaViewSpec: QuickSpec {
     override func spec() {
         describe("TextAreaView") {
+            func configStyle() -> ComponentStyle {
+                ASAPP.styles = ASAPPStyles()
+                ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
+                ASAPP.styles.colors.controlSecondary = .blue
+                ASAPP.styles.colors.controlTint = .brown
+                
+                var style = ComponentStyle()
+                style.alignment = .center
+                style.backgroundColor = .white
+                style.borderColor = .red
+                style.borderWidth = 1
+                style.color = .blue
+                style.cornerRadius = 10
+                style.fontSize = 22
+                style.letterSpacing = 0.5
+                style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+                style.padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+                style.textType = .body
+                
+                return style
+            }
+            
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -30,23 +52,7 @@ class TextAreaViewSpec: QuickSpec {
                 var style: ComponentStyle!
                 
                 beforeEach {
-                    ASAPP.styles = ASAPPStyles()
-                    ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
-                    ASAPP.styles.colors.controlSecondary = .blue
-                    ASAPP.styles.colors.controlTint = .brown
-                    
-                    style = ComponentStyle()
-                    style.alignment = .center
-                    style.backgroundColor = .white
-                    style.borderColor = .red
-                    style.borderWidth = 1
-                    style.color = .blue
-                    style.cornerRadius = 10
-                    style.fontSize = 22
-                    style.letterSpacing = 0.5
-                    style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                    style.padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-                    style.textType = .body
+                    style = configStyle()
                 }
                 
                 context("with a placeholder") {
@@ -104,6 +110,19 @@ class TextAreaViewSpec: QuickSpec {
                     }
                 }
                 
+                context("marked invalid with a long error message") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "placeholder": "NAME"
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
+                        let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        textAreaView.component = textAreaItem
+                        textAreaView.updateError(for: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum magna sed arcu sagittis")
+                        expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+                
                 context("marked invalid with the required flag set") {
                     it("has a valid snapshot") {
                         let content = [
@@ -125,7 +144,6 @@ class TextAreaViewSpec: QuickSpec {
                         let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
                         let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
                         textAreaView.component = textAreaItem
-                        textAreaView.isInvalid = true
                         textAreaView.updateError(for: "CANNOT BE EMPTY")
                         expect(textAreaView).to(haveValidSnapshot())
                     }
@@ -146,6 +164,64 @@ class TextAreaViewSpec: QuickSpec {
                         textAreaView.textViewDidChange(textAreaView.textView)
                         expect(textAreaView.isInvalid).to(equal(false))
                         expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+            }
+            
+            context("in a stack view") {
+                var style: ComponentStyle!
+                var itemStyle: ComponentStyle!
+                var stackView: StackView!
+                
+                beforeEach {
+                    style = configStyle()
+                    style.backgroundColor = .white
+                    style.borderColor = nil
+                    style.borderWidth = 0
+                    style.cornerRadius = 0
+                    style.margin = .zero
+                    style.padding = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+                    
+                    itemStyle = style
+                    itemStyle.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+                    itemStyle.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    itemStyle.alignment = .fill
+                    
+                    stackView = StackView(frame: CGRect(x: 0, y: 0, width: 320, height: 568))
+                }
+                
+                context("with three lines of text") {
+                    it("has a valid snapshot") {
+                        let content: [String: Any] = [
+                            "placeholder": "Type your message",
+                            "numberOfLines": 3
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: itemStyle, content: content)!
+                        stackView.component = StackViewItem(orientation: .vertical, items: [textAreaItem], style: style)
+                        let textAreaView = stackView.nestedComponentViews!.first as! TextAreaView
+                        textAreaView.becomeFirstResponder()
+                        textAreaView.textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum magna sed arcu sagittis"
+                        textAreaView.textViewDidChange(textAreaView.textView)
+                        textAreaView.resignFirstResponder()
+                        expect(stackView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("marked invalid with a long error message") {
+                    it("has a valid snapshot") {
+                        let content: [String: Any] = [
+                            "placeholder": "Type your message",
+                            "numberOfLines": 3
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: itemStyle, content: content)!
+                        stackView.component = StackViewItem(orientation: .vertical, items: [textAreaItem], style: style)
+                        let textAreaView = stackView.nestedComponentViews!.first as! TextAreaView
+                        textAreaView.becomeFirstResponder()
+                        textAreaView.textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum magna sed arcu sagittis"
+                        textAreaView.textViewDidChange(textAreaView.textView)
+                        textAreaView.resignFirstResponder()
+                        textAreaView.updateError(for: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum magna sed arcu sagittis")
+                        expect(stackView).to(haveValidSnapshot())
                     }
                 }
             }

@@ -33,15 +33,15 @@ class FormValidation: ComponentViewController {
 }
 
 extension FormValidation: ComponentViewControllerDelegate {
-    func componentViewController(_ viewController: ComponentViewController, didTapAPIAction action: APIAction, withFormData formData: [String : Any]?, completion: @escaping APIActionResponseHandler) {
+    func componentViewController(_ viewController: ComponentViewController, didTapAPIAction action: APIAction, withFormData formData: [String: Any]?, completion: @escaping APIActionResponseHandler) {
         return
     }
     
-    func componentViewController(_ viewController: ComponentViewController, didTapHTTPAction action: HTTPAction, withFormData formData: [String : Any]?, completion: @escaping APIActionResponseHandler) {
+    func componentViewController(_ viewController: ComponentViewController, didTapHTTPAction action: HTTPAction, withFormData formData: [String: Any]?, completion: @escaping APIActionResponseHandler) {
         return
     }
     
-    func componentViewController(_ viewController: ComponentViewController, fetchContentForViewNamed viewName: String, withData data: [String : Any]?, completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
+    func componentViewController(_ viewController: ComponentViewController, fetchContentForViewNamed viewName: String, withData data: [String: Any]?, completion: @escaping ((ComponentViewContainer?, String?) -> Void)) {
         return
     }
     

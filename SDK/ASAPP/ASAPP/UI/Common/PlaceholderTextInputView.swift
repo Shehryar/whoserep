@@ -344,7 +344,8 @@ extension PlaceholderTextInputView {
         // Underline
         
         let underlineTop = bounds.height - contentInset.bottom - underlineStrokeWidth
-        let underlineFrame = CGRect(x: left, y: underlineTop, width: width, height: underlineStrokeWidth)
+        let underlineWidth = width + contentInset.left + contentInset.right
+        let underlineFrame = CGRect(x: left, y: underlineTop, width: underlineWidth, height: underlineStrokeWidth)
         
         // Labels
         

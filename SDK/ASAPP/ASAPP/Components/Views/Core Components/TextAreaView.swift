@@ -150,22 +150,21 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
     
     // MARK: Layout
     
+    private func bottomPaddingWithError(_ padding: UIEdgeInsets) -> CGFloat {
+        return errorLabel.numberOfVisibleLines > 1
+            ? errorLabelHeight + max(padding.bottom, errorLabel.font.lineHeight) - errorLabel.font.lineHeight + 3
+            : max(padding.bottom, errorLabelHeight)
+    }
+    
     override func updateFrames() {
         guard let component = component else {
             return
         }
         
-        var padding = component.style.padding
-        let bottom = errorLabel.numberOfVisibleLines > 1
-            ? errorLabelHeight + max(padding.bottom, errorLabelHeight)
-            : max(padding.bottom, errorLabelHeight)
-        padding.bottom = bottom
+        let errorIconSize = CGSize(width: 20.5, height: 18)
         
-        let textViewFrame = UIEdgeInsetsInsetRect(bounds, padding)
-        let offset = textView.contentOffset
-        textView.frame = textViewFrame
-        textView.setContentOffset(offset, animated: false)
-        placeholderTextView.frame = textViewFrame
+        var padding = component.style.padding
+        padding.bottom = bottomPaddingWithError(padding)
         
         let lineLeft = padding.left
         let lineWidth = bounds.width - padding.right - lineLeft
@@ -173,10 +172,17 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
         let lineTop = bounds.height - padding.bottom - lineStroke
         underlineView.frame = CGRect(x: lineLeft, y: lineTop, width: lineWidth, height: lineStroke)
         
-        let errorTop: CGFloat = lineTop + lineStroke
-        errorLabel.frame = CGRect(x: lineLeft, y: errorTop, width: lineWidth, height: 15)
+        textView.contentInset.right = errorIcon.isHidden ? 0 : errorIconSize.width
+        let textViewFrame = UIEdgeInsetsInsetRect(bounds, padding)
+        let offset = textView.contentOffset
+        textView.frame = textViewFrame
+        textView.setContentOffset(offset, animated: false)
+        placeholderTextView.frame = textViewFrame
         
-        let errorIconSize = CGSize(width: 20.5, height: 18)
+        let errorTop: CGFloat = textView.frame.maxY + lineStroke
+        let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: lineWidth, height: CGFloat.greatestFiniteMagnitude))
+        errorLabel.frame = CGRect(x: textView.frame.minX, y: errorTop, width: errorLabelSize.width, height: errorLabelSize.height)
+        
         let errorIconLeft = underlineView.frame.maxX - errorIconSize.width
         let errorIconTop = errorLabel.frame.minY - 5 - errorIconSize.height
         errorIcon.frame = CGRect(x: errorIconLeft, y: errorIconTop, width: errorIconSize.width, height: errorIconSize.height)
@@ -187,10 +193,8 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
             return .zero
         }
         let padding = textAreaItem.style.padding
-        let bottom = errorLabel.numberOfVisibleLines > 1
-            ? errorLabelHeight + max(padding.bottom, errorLabelHeight)
-            : max(padding.bottom, errorLabelHeight)
-    
+        let bottom = bottomPaddingWithError(padding)
+        
         let fitToWidth = max(0, (size.width > 0 ? size.width : CGFloat.greatestFiniteMagnitude) - padding.left - padding.right)
         var fitToHeight = max(0, (size.height > 0 ? size.height : CGFloat.greatestFiniteMagnitude) - padding.top - padding.bottom)
         if textAreaItem.numberOfLines > 0 {
@@ -208,7 +212,8 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
         }
         
         let fittedWidth = min(fitToWidth, fittedInputSize.width + padding.left + padding.right)
-        let fittedHeight = min(fitToHeight, fittedInputSize.height + padding.top + padding.bottom + bottom)
+        let fittedHeight = min(fitToHeight - padding.bottom, fittedInputSize.height + padding.top) + bottom
+        
         return CGSize(width: fittedWidth, height: fittedHeight)
     }
     
@@ -261,10 +266,9 @@ extension TextAreaView: UITextViewDelegate {
         
         var text = textView.text
         
-        if let characterLimit = characterLimit {
-            if textView.text.characters.count > characterLimit {
-                text = previousTextContent
-            }
+        if let characterLimit = characterLimit,
+           textView.text.characters.count > characterLimit {
+            text = previousTextContent
         }
         
         textView.text = text

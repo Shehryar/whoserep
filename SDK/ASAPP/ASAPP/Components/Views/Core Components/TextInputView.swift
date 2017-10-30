@@ -79,20 +79,24 @@ class TextInputView: BaseComponentView, InvalidatableInput {
     
     // MARK: Layout
     
-    override func updateFrames() {
-        var padding = component?.style.padding ?? .zero
-        
-        let bottom = errorLabel.numberOfVisibleLines > 1
-            ? errorLabelHeight + max(padding.bottom, errorLabelHeight)
+    private func bottomPaddingWithError(_ padding: UIEdgeInsets) -> CGFloat {
+        return errorLabel.numberOfVisibleLines > 1
+            ? errorLabelHeight + max(padding.bottom, errorLabel.font.lineHeight) - errorLabel.font.lineHeight
             : max(padding.bottom, errorLabelHeight)
-        padding.bottom = bottom
+    }
+    
+    override func updateFrames() {
+        let errorIconSize = CGSize(width: 20.5, height: 18)
         
+        var padding = component?.style.padding ?? .zero
+        padding.bottom = bottomPaddingWithError(padding)
+        
+        textInputView.contentInset.right = errorIcon.isHidden ? 0 : errorIconSize.width
         textInputView.frame = UIEdgeInsetsInsetRect(bounds, padding)
         
         let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: textInputView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         errorLabel.frame = CGRect(x: textInputView.frame.minX, y: textInputView.frame.maxY - textInputView.underlineMarginTop, width: errorLabelSize.width, height: errorLabelSize.height)
         
-        let errorIconSize = CGSize(width: 20.5, height: 18)
         let errorIconLeft = textInputView.frame.maxX - errorIconSize.width
         let errorIconTop = errorLabel.frame.minY - 5 - errorIconSize.height
         errorIcon.frame = CGRect(x: errorIconLeft, y: errorIconTop, width: errorIconSize.width, height: errorIconSize.height)
@@ -103,9 +107,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
             return .zero
         }
         let padding = component.style.padding
-        let bottom = errorLabel.numberOfVisibleLines > 1
-            ? errorLabelHeight + max(padding.bottom, errorLabelHeight)
-            : max(padding.bottom, errorLabelHeight)
+        let bottom = bottomPaddingWithError(padding)
         
         let fitToWidth = max(0, (size.width > 0 ? size.width : CGFloat.greatestFiniteMagnitude) - padding.left - padding.right)
         let fitToHeight = max(0, (size.height > 0 ? size.height : CGFloat.greatestFiniteMagnitude) - padding.top - padding.bottom)
@@ -119,7 +121,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
         }
         
         let fittedWidth = min(fitToWidth, fittedInputSize.width + padding.left + padding.right)
-        let fittedHeight = min(fitToHeight, fittedInputSize.height + padding.top + bottom)
+        let fittedHeight = min(fitToHeight - padding.bottom, fittedInputSize.height + padding.top) + bottom
         
         return CGSize(width: fittedWidth, height: fittedHeight)
     }

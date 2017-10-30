@@ -78,7 +78,7 @@ extension APIActionResponse {
             break
             
         case .error:
-            error = APIActionError.fromJSON(content)
+            error = APIActionError(content as? [String: Any])
             break
         }
         

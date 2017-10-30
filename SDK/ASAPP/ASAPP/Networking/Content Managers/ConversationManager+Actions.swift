@@ -28,7 +28,7 @@ extension ConversationManager {
         }
         
         if let data = action.getDataWithFormData(formData),
-            let dataString = JSONUtil.stringify(data) {
+           let dataString = JSONUtil.stringify(data) {
             params["Data"] = dataString
             
             if let actionTarget = data["actionTarget"] as? String {
