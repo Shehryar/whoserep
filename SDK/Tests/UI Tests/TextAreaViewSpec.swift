@@ -22,6 +22,8 @@ class TextAreaViewSpec: QuickSpec {
                 let window = UIWindow(frame: UIScreen.main.bounds)
                 window.rootViewController = UIViewController()
                 window.makeKeyAndVisible()
+                
+                TestUtil.setUpASAPP()
             }
             
             context("on its own") {
@@ -43,7 +45,7 @@ class TextAreaViewSpec: QuickSpec {
                     style.fontSize = 22
                     style.letterSpacing = 0.5
                     style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                    style.padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                    style.padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
                     style.textType = .body
                 }
                 
@@ -86,6 +88,63 @@ class TextAreaViewSpec: QuickSpec {
                         textAreaView.textView.text = """
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed vulputate mauris. Morbi sit amet risus ornare, lacinia lorem ut, interdum augue. Suspendisse ornare sit amet lorem sit amet semper.
                         """
+                        expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("with the required flag set") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "placeholder": "NAME"
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
+                        let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        textAreaView.component = textAreaItem
+                        expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("marked invalid with the required flag set") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "placeholder": "NAME"
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
+                        let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        textAreaView.component = textAreaItem
+                        textAreaView.isInvalid = true
+                        expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("marked invalid with an error message with the required flag set") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "placeholder": "NAME"
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
+                        let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        textAreaView.component = textAreaItem
+                        textAreaView.isInvalid = true
+                        textAreaView.updateError(for: "CANNOT BE EMPTY")
+                        expect(textAreaView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("after typing after being marked invalid with the required flag set") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "placeholder": "NAME"
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: style, content: content)
+                        let textAreaView = TextAreaView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        textAreaView.component = textAreaItem
+                        textAreaView.isInvalid = true
+                        textAreaView.updateError(for: "CANNOT BE EMPTY")
+                        textAreaView.becomeFirstResponder()
+                        textAreaView.textView.text = "foo"
+                        textAreaView.textViewDidChange(textAreaView.textView)
+                        expect(textAreaView.isInvalid).to(equal(false))
                         expect(textAreaView).to(haveValidSnapshot())
                     }
                 }

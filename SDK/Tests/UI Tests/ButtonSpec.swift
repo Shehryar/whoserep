@@ -22,6 +22,8 @@ class ButtonSpec: QuickSpec {
                 let window = UIWindow(frame: UIScreen.main.bounds)
                 window.rootViewController = UIViewController()
                 window.makeKeyAndVisible()
+                
+                TestUtil.setUpASAPP()
             }
             
             context("on its own") {

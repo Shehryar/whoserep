@@ -30,6 +30,7 @@ class CheckboxItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
                    styles: [String : Any]? = nil,
                    content: [String : Any]? = nil) {
@@ -39,6 +40,7 @@ class CheckboxItem: Component {
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

@@ -255,21 +255,60 @@ extension ComponentViewController: ComponentViewContentHandler {
     }
 }
 
+// MARK: - Form Validation
+
+extension ComponentViewController {
+    @discardableResult
+    func validateRequiredInputs() -> Bool {
+        guard let root = componentViewContainer?.root else {
+            return true
+        }
+        
+        var invalidInputs = Set<Component>()
+        
+        root.enumerateRequiredNestedComponents { component in
+            if component.valueIsEmpty {
+                invalidInputs.insert(component)
+            }
+        }
+        
+        guard invalidInputs.isEmpty else {
+            rootView?.enumerateNestedComponentViews { componentView in
+                if let component = componentView.component,
+                    invalidInputs.contains(component) {
+                    if let input = componentView as? InvalidatableInput {
+                        input.updateError(for: "Required field")
+                    }
+                }
+            }
+            
+            rootView?.updateFrames()
+            return false
+        }
+        
+        return true
+    }
+}
+
 // MARK: - APIAction Handling
 
 extension ComponentViewController {
     
     func handleAPIAction(_ action: APIAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let component = componentViewContainer?.root, let delegate = delegate else {
+        guard let component = componentViewContainer?.root,
+              let delegate = delegate,
+              validateRequiredInputs() else {
             return
         }
+        
+        let data = component.getData()
         
         buttonView.isLoading = true
         
         delegate.componentViewController(
             self,
             didTapAPIAction: action,
-            withFormData: component.getData(),
+            withFormData: data,
             completion: { [weak self] (response) in
                 Dispatcher.performOnMainThread {
                     buttonView.isLoading = false
@@ -279,16 +318,20 @@ extension ComponentViewController {
     }
     
     func handleHTTPAction(_ action: HTTPAction, from buttonView: ButtonView, with buttonItem: ButtonItem) {
-        guard let component = componentViewContainer?.root, let delegate = delegate else {
+        guard let component = componentViewContainer?.root,
+              let delegate = delegate,
+              validateRequiredInputs() else {
             return
         }
+        
+        let data = component.getData()
         
         buttonView.isLoading = true
         
         delegate.componentViewController(
             self,
             didTapHTTPAction: action,
-            withFormData: component.getData(),
+            withFormData: data,
             completion: { [weak self] (response) in
                 Dispatcher.performOnMainThread {
                     buttonView.isLoading = false

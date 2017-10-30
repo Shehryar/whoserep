@@ -42,9 +42,10 @@ class ButtonItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         let title = content?.string(for: JSONKey.title.rawValue)
         let icon = ComponentFactory.component(with: content?[JSONKey.icon.rawValue], styles: styles) as? IconItem
         guard title != nil || icon != nil else {
@@ -68,6 +69,7 @@ class ButtonItem: Component {
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

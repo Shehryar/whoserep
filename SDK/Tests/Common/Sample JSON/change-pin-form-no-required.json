@@ -1,0 +1,164 @@
+{
+  "formatVersion": 1,
+  "root": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Change PIN"
+                    },
+                    "style": {
+                      "marginBottom": 16,
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "For security purposes, you must enter your current PIN before changing your PIN"
+                    },
+                    "style": {
+                      "marginBottom": 24,
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "password": true,
+                      "placeholder": "ENTER CURRENT PIN",
+                      "textInputType": "number"
+                    },
+                    "name": "currentPIN",
+                    "style": {
+                      "marginTop": 0
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "content": {
+                      "password": true,
+                      "placeholder": "ENTER NEW PIN",
+                      "textInputType": "number"
+                    },
+                    "name": "newPin",
+                    "style": {
+                      "marginTop": 16
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "content": {
+                      "password": true,
+                      "placeholder": "CONFIRM NEW PIN",
+                      "textInputType": "number"
+                    },
+                    "name": "confirmNewPin",
+                    "style": {
+                      "marginTop": 16
+                    },
+                    "type": "textInput"
+                  },
+                  {
+                    "content": {
+                      "text": "•  Choose a 4-digit number (no letters or special characters)"
+                    },
+                    "style": {
+                      "marginTop": 32
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "•  Don’t include more than 3 identical numbers in a row (e.g., 111)"
+                    },
+                    "style": {
+                      "marginTop": 16
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "•  Don’t include more than 3 sequential numbers (e.g., 123)"
+                    },
+                    "style": {
+                      "marginTop": 16
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "style": {
+                "padding": "36 24"
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "gravity": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
+        },
+        {
+          "content": {
+            "items": [
+              {
+                "content": {
+                  "action": {
+                    "content": {},
+                    "type": "finish"
+                  },
+                  "title": "CANCEL"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "secondary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              },
+              {
+                "content": {
+                  "action": {
+                    "content": {
+                      "data": {
+                        "actionTarget": "17-04_submit_pin_change",
+                        "flowId": "deadbeef"
+                      },
+                      "requestPath": "srs/GenerateNextStepInFlow"
+                    },
+                    "type": "api"
+                  },
+                  "title": "OK"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "primary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "style": {
+            "weight": 0
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    },
+    "type": "stackView"
+  }
+}

@@ -36,9 +36,11 @@ class RadioButtonViewItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
+        
         guard let root = ComponentFactory.component(with: content?[JSONKey.root.rawValue], styles: styles) else {
             DebugLog.w(caller: RadioButtonViewItem.self, "root is required: \(String(describing: content))")
             return nil
@@ -49,6 +51,7 @@ class RadioButtonViewItem: Component {
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

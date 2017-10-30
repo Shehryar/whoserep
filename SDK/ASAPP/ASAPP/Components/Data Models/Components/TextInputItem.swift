@@ -81,15 +81,20 @@ class TextInputItem: Component {
         return TextInputView.self
     }
     
+    override var valueIsEmpty: Bool {
+        return (value as? String)?.isEmpty ?? true
+    }
+    
     // MARK: - Init
     
     required init?(id: String? = nil,
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
         let capitalizationType = CapitalizationType.from(content?.string(for: JSONKey.capitalize.rawValue))
             ?? TextInputItem.defaultCapitalizationType
@@ -114,6 +119,7 @@ class TextInputItem: Component {
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

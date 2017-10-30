@@ -20,6 +20,29 @@ extension UITextView {
         applyTextStyle(textStyle, color: color)
     }
     
+    func setAttributedText(_ text: String?,
+                           textStyle: ASAPPTextStyle,
+                           color: UIColor? = nil) {
+        guard let text = text else {
+            attributedText = nil
+            return
+        }
+        
+        attributedText = NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .kern: textStyle.letterSpacing,
+            .foregroundColor: color ?? textStyle.color
+        ])
+    }
+    
+    func setAttributedText(_ text: String?,
+                           textType: TextType,
+                           color: UIColor? = nil) {
+        setAttributedText(text,
+                          textStyle: ASAPP.styles.textStyles.style(for: textType),
+                          color: color)
+    }
+    
     func updateFont(for textType: TextType) {
         font = ASAPP.styles.textStyles.style(for: textType).font
     }

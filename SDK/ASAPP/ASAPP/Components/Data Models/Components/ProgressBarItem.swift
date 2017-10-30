@@ -38,9 +38,10 @@ class ProgressBarItem: Component {
                    name: String? = nil,
                    value: Any? = nil,
                    isChecked: Bool? = nil,
+                   isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         self.fillPercentage = content?.float(for: JSONKey.fillPercentage.rawValue)
             ?? ProgressBarItem.defaultFillPercentage
         
@@ -48,6 +49,7 @@ class ProgressBarItem: Component {
                    name: name,
                    value: value,
                    isChecked: isChecked,
+                   isRequired: isRequired,
                    style: style,
                    styles: styles,
                    content: content)

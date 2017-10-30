@@ -368,6 +368,8 @@
 		3A0A651F1F96565900BBDB48 /* icon-paperclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */; };
 		3A0A65201F96565900BBDB48 /* icon-paperclip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
+		3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B441FA223810085C2DA /* InvalidatableInput.swift */; };
+		3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */; };
 		3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */; };
 		3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */; };
 		3A4FEEFD1F55E31F00338B00 /* icon-arrow-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */; };
@@ -755,6 +757,8 @@
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
 		3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@2x.png"; sourceTree = "<group>"; };
+		3A391B441FA223810085C2DA /* InvalidatableInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidatableInput.swift; sourceTree = "<group>"; };
+		3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
 		3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-left@3x.png"; sourceTree = "<group>"; };
@@ -963,6 +967,7 @@
 				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
 				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
 				308F29731D4168BE00EC7055 /* Images.swift */,
+				3A391B441FA223810085C2DA /* InvalidatableInput.swift */,
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
@@ -971,6 +976,7 @@
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
+				3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2032,6 +2038,7 @@
 				285F7B0E1DAB3706008C2EF6 /* SRSAppOpenResponse+DemoContent.swift in Sources */,
 				289E04101EC792C400CAC413 /* RadioButtonItem.swift in Sources */,
 				3066191D1D9458F50092B4C5 /* SDWebImagePrefetcher.m in Sources */,
+				3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */,
 				302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
 				302A20C31E5E2D7E007C522A /* StarView.swift in Sources */,
@@ -2171,6 +2178,7 @@
 				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
 				30131FCE1EB10FD0009E7299 /* ProgressBarItem.swift in Sources */,
 				288085231E87FCA800240A5D /* StackView.swift in Sources */,
+				3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */,
 				302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */,
 				30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */,
 				30131FD41EB10FD0009E7299 /* StackViewItem.swift in Sources */,

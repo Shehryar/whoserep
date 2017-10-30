@@ -26,11 +26,8 @@ class ASAPPButtonSpec: QuickSpec {
                 window.makeKeyAndVisible()
                 
                 viewController = window.rootViewController
-                let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
-                ASAPP.initialize(with: config)
-                ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
-                    return [:]
-                }, userLoginHandler: { _ in })
+                
+                TestUtil.setUpASAPP()
             }
             
             context("on its own") {

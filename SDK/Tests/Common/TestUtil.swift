@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ASAPP
 
 class TestUtil: NSObject {
     
@@ -43,5 +44,15 @@ class TestUtil: NSObject {
         }
 
         print("\(prefix): \(message)")
+    }
+    
+    // MARK: - Test config
+    
+    class func setUpASAPP() {
+        let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+        ASAPP.initialize(with: config)
+        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+            return [:]
+        }, userLoginHandler: { _ in })
     }
 }

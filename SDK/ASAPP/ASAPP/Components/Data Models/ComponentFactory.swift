@@ -21,6 +21,7 @@ enum ComponentFactory {
         case type = "type"
         case value = "value"
         case isChecked = "checked"
+        case isRequired = "required"
     }
 
     static func component(with json: Any?, styles: [String : Any]?) -> Component? {
@@ -42,6 +43,7 @@ enum ComponentFactory {
         let name = json.string(for: JSONKey.name.rawValue)
         let value = json[JSONKey.value.rawValue]
         let isChecked = json.bool(for: JSONKey.isChecked.rawValue)
+        let isRequired = json.bool(for: JSONKey.isRequired.rawValue)
         let styleClass = json.string(for: JSONKey.styleClass.rawValue)
         let style = ComponentStyle.getStyle(from: json[JSONKey.style.rawValue],
                                             styleClass: styleClass,
@@ -52,6 +54,7 @@ enum ComponentFactory {
                                         name: name,
                                         value: value,
                                         isChecked: isChecked,
+                                        isRequired: isRequired,
                                         style: style,
                                         styles: styles,
                                         content: content)
