@@ -423,7 +423,7 @@ extension ChatMessagesView {
         }
         
         if #available(iOS 11, *) {
-            if !isNearBottom(10) {
+            if !isNearBottom(10) && animated {
                 Dispatcher.delay(200, closure: scroll)
             } else {
                 scroll()
