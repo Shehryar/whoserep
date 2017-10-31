@@ -217,6 +217,33 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPConfig(py)regionCode"></a>
+                    <a name="//apple_ref/swift/Property/regionCode" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPConfig(py)regionCode">regionCode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Your app&rsquo;s region code.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">regionCode</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -231,9 +258,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPConfig(im)initWithAppId:apiHostName:clientSecret:"></a>
-                    <a name="//apple_ref/swift/Method/init(appId:apiHostName:clientSecret:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPConfig(im)initWithAppId:apiHostName:clientSecret:">init(appId:apiHostName:clientSecret:)</a>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPConfig(im)initWithAppId:apiHostName:clientSecret:regionCode:"></a>
+                    <a name="//apple_ref/swift/Method/init(appId:apiHostName:clientSecret:regionCode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPConfig(im)initWithAppId:apiHostName:clientSecret:regionCode:">init(appId:apiHostName:clientSecret:regionCode:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -250,7 +277,8 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">appId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                 <span class="nv">apiHostName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-                <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                <span class="nv">regionCode</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"US"</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -291,6 +319,18 @@
                               <td>
                                 <div>
                                   <p>Your app&rsquo;s client secret used when connecting to the API.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>regionCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Your app&rsquo;s region code. Defaults to <q>US</q>.</p>
                                 </div>
                               </td>
                             </tr>

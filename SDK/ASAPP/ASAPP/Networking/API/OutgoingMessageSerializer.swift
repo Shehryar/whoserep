@@ -65,7 +65,7 @@ extension OutgoingMessageSerializer {
         var params: [String : Any] = [
             "App": "ios-sdk",
             "CompanyMarker": config.appId,
-            "RegionCode": "US"
+            "RegionCode": config.regionCode
         ]
         var isSessionAuthRequest = false
         
