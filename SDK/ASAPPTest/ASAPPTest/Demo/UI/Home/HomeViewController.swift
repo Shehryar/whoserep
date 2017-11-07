@@ -291,6 +291,9 @@ extension HomeViewController: HomeTableViewDelegate {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
         }
+        customerIdVC.onTapClearSavedSession = {
+            ASAPP.clearSavedSession()
+        }
         navigationController?.pushViewController(customerIdVC, animated: true)
     }
     

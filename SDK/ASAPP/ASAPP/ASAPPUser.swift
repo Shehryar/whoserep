@@ -35,10 +35,6 @@ public class ASAPPUser: NSObject {
     
     /// Reference to login handler given at initialization.
     public let userLoginHandler: ASAPPUserLoginHandler
-    
-    // MARK: - Internal properties
-    
-    internal var sessionInfo: String?
 
     // MARK: - Initialization
     

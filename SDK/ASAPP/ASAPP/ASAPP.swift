@@ -154,6 +154,13 @@ public extension ASAPP {
         }
         return aps.keys.contains("asapp")
     }
+    
+    // MARK: - Session Management
+    
+    /// Clears the session saved on disk.
+    public class func clearSavedSession() {
+        SavedSessionManager.clearSession()
+    }
 }
 
 // MARK: - Internal Utility

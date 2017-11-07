@@ -38,5 +38,16 @@ class UserLoginAction: Action {
         self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
         super.init(content: content)
     }
+    
+    init?(customer: Session.Customer, nextAction: Action? = nil) {
+        guard let guid = customer.guid else {
+            return nil
+        }
+        
+        self.mergeCustomerId = customer.id
+        self.mergeCustomerGUID = guid
+        self.nextAction = nextAction
+        super.init(content: nil)
+    }
 
 }
