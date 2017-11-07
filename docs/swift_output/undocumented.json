@@ -1,6 +1,12 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/hans/ASAPP-iOS/SDK/ASAPP/ASAPP/Networking/Storage/CodableStorage.swift",
+      "line": 28,
+      "symbol": "CodableStorage",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/hans/ASAPP-iOS"
 }

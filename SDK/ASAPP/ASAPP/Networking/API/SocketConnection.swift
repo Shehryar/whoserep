@@ -68,10 +68,21 @@ class SocketConnection: NSObject {
         
         DebugLog.d("SocketConnection created with host url: \(String(describing: connectionRequest.url))")
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(SocketConnection.connect),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
-                                               object: nil)
+        if let savedSession = SavedSessionManager.getSession() {
+            if savedSession.customer.matches(id: user.userIdentifier) {
+                outgoingMessageSerializer.session = savedSession
+            } else if savedSession.isAnonymous && !user.isAnonymous {
+                outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: outgoingMessageSerializer.userLoginAction?.nextAction)
+            } else {
+                SavedSessionManager.clearSession()
+            }
+        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(SocketConnection.connect),
+            name: NSNotification.Name.UIApplicationDidBecomeActive,
+            object: nil)
     }
     
     deinit {
@@ -219,31 +230,51 @@ extension SocketConnection {
 extension SocketConnection {
     typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
     
-    func authenticate(_ completion: SocketAuthResponseBlock? = nil) {
-        
+    func authenticate(attempts: Int = 0, _ completion: SocketAuthResponseBlock? = nil) {
         let authRequest = outgoingMessageSerializer.createAuthRequest()
         sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
-            if message.type == .responseError && authRequest.isSessionAuthRequest {
-                // Session auth failed... retry after clearing session info
-                self?.outgoingMessageSerializer.clearSessionInfo()
-                self?.authenticate(completion)
-                return
+            var session: Session?
+            
+            if message.type == .response {
+                session = self?.getSession(from: message)
             }
             
-            self?.outgoingMessageSerializer.updateWithAuthResponse(message)
-            
-            if let messageType = message.type {
-                if messageType == .response {
-                    self?.isAuthenticated = true
-                } else if messageType == .responseError {
-                    self?.isAuthenticated = false
+            if let session = session {
+                SavedSessionManager.save(session: session)
+                self?.outgoingMessageSerializer.session = session
+                self?.isAuthenticated = true
+            } else {
+                self?.isAuthenticated = false
+                
+                if self?.outgoingMessageSerializer.session != nil {
+                    SavedSessionManager.clearSession()
+                    self?.outgoingMessageSerializer.session = nil
+                    
+                    if attempts == 0 {
+                        self?.authenticate(attempts: 1, completion)
+                        return
+                    }
                 }
             }
             
-            if let completion = completion {
-                completion(message, message.debugError)
-            }
+            completion?(message, message.debugError)
         }
+    }
+    
+    func getSession(from response: IncomingMessage) -> Session? {
+        guard let bodyString = response.bodyString else {
+            DebugLog.e("Authentication response missing body: \(response)")
+            return nil
+        }
+        
+        guard let data = bodyString.data(using: .utf8) else {
+            DebugLog.e("Could not interpret UTF-8 string: \(response)")
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.userInfo[Session.rawBodyKey] = bodyString
+        return try? decoder.decode(Session.self, from: data)
     }
     
     // MARK: TargetCustomer

@@ -10,55 +10,77 @@ import UIKit
 
 class AuthTokenViewController: BaseTableViewController {
     
-    enum Section: Int {
+    enum Section: Int, CountableEnum {
         case user
         case authToken
         case spear
-        case count
+        case tetris
     }
     
-    enum UserRow: Int {
+    enum UserRow: Int, CountableEnum {
         case userId
-        case count
     }
     
-    enum AuthTokenRow: Int {
+    enum AuthTokenRow: Int, CountableEnum {
         case input
-        case count
     }
     
-    enum SpearRow: Int {
+    enum SpearRow: Int, CountableEnum {
         case environment
         case pin
         case generateToken
-        case count
+    }
+    
+    enum TetrisRow: Int, CountableEnum {
+        case password
+        case generateToken
     }
     
     // MARK: Properties
     
     fileprivate var spearEnvironment = AppSettings.shared.spearEnvironment {
         didSet {
-            AppSettings.saveObject(spearEnvironment.rawValue, forKey: AppSettings.Key.spearEnvironment)
+            AppSettings.saveObject(spearEnvironment.rawValue, forKey: .spearEnvironment)
             
-            tableView.reloadRows(at: [IndexPath(row: SpearRow.environment.rawValue,
-                                                section: Section.spear.rawValue)],
-                                 with: .none)
+            tableView.reloadRows(at: [
+                IndexPath(row: SpearRow.environment.rawValue,
+                          section: Section.spear.rawValue)
+            ], with: .none)
         }
     }
     
     fileprivate var spearPin: String? = AppSettings.shared.spearPin ?? "1357" {
         didSet {
             if let spearPin = spearPin {
-                AppSettings.saveObject(spearPin, forKey: AppSettings.Key.spearPin)
+                AppSettings.saveObject(spearPin, forKey: .spearPin)
             } else {
-                AppSettings.deleteObject(forKey: AppSettings.Key.spearPin)
+                AppSettings.deleteObject(forKey: .spearPin)
             }
         }
     }
     
     fileprivate var requestingSpearAuthToken: Bool = false {
         didSet {
-            let indexPath = IndexPath(row: SpearRow.generateToken.rawValue, section: Section.spear.rawValue)
+            let indexPath = IndexPath(row: SpearRow.generateToken.rawValue,
+                                      section: Section.spear.rawValue)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
+    fileprivate var tetrisPassword: String? = AppSettings.shared.tetrisPassword {
+        didSet {
+            if let tetrisPassword = tetrisPassword {
+                AppSettings.saveObject(tetrisPassword, forKey: .tetrisPassword)
+            } else {
+                AppSettings.deleteObject(forKey: .tetrisPassword)
+            }
+        }
+    }
+    
+    fileprivate var requestingTetrisAuthToken: Bool = false {
+        didSet {
+            let indexPath = IndexPath(row: TetrisRow.generateToken.rawValue,
+                                      section: Section.tetris.rawValue)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
@@ -85,78 +107,101 @@ class AuthTokenViewController: BaseTableViewController {
 extension AuthTokenViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.count.rawValue
+        return Section.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case Section.user.rawValue: return UserRow.count.rawValue
-        case Section.authToken.rawValue: return AuthTokenRow.count.rawValue
-        case Section.spear.rawValue: return SpearRow.count.rawValue
-        default: return 0
+        switch Section(rawValue: section) {
+        case .some(.user): return UserRow.count
+        case .some(.authToken): return AuthTokenRow.count
+        case .some(.spear): return SpearRow.count
+        case .some(.tetris): return TetrisRow.count
+        case .none: return 0
         }
     }
     
     override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
-        switch indexPath.section {
-        case Section.user.rawValue:
-            switch indexPath.row {
-            case UserRow.userId.rawValue:
+        switch Section(rawValue: indexPath.section) {
+        case .some(.user):
+            switch UserRow(rawValue: indexPath.row) {
+            case .some(.userId):
                 return titleDetailValueCell(
                     title: "Customer ID",
                     value: AppSettings.shared.customerIdentifier ?? "Anonymous",
                     for: indexPath,
                     sizingOnly: forSizing)
                 
-            default: break
+            case .none: break
             }
             
-        case Section.authToken.rawValue:
-            switch indexPath.row {
-            case AuthTokenRow.input.rawValue:
+        case .some(.authToken):
+            switch AuthTokenRow(rawValue: indexPath.row) {
+            case .some(.input):
                 return textInputCell(
                     text: AppSettings.shared.authToken,
                     placeholder: "Auth Token",
-                    onTextChange: { (updatedToken) in
+                    onTextChange: { updatedToken in
                         AppSettings.saveObject(updatedToken, forKey: AppSettings.Key.authToken)
                     },
                     for: indexPath,
                     sizingOnly: forSizing)
                 
-            default: break
+            case .none: break
             }
             
-        case Section.spear.rawValue:
-            switch indexPath.row {
-            case SpearRow.environment.rawValue:
+        case .some(.spear):
+            switch SpearRow(rawValue: indexPath.row) {
+            case .some(.environment):
                 return titleDetailValueCell(
                     title: "Environment",
                     value: spearEnvironment.rawValue,
                     for: indexPath,
                     sizingOnly: forSizing)
                 
-            case SpearRow.pin.rawValue:
+            case .some(.pin):
                 return textInputCell(
                     text: spearPin,
                     placeholder: "Enter PIN",
                     labelText: "PIN",
-                    onTextChange: { [weak self] (updatedPin) in
+                    onTextChange: { [weak self] updatedPin in
                         self?.spearPin = updatedPin
                     },
                     for: indexPath,
                     sizingOnly: forSizing)
                 
-            case SpearRow.generateToken.rawValue:
+            case .some(.generateToken):
                 return buttonCell(
                     title: "Generate Token",
                     loading: requestingSpearAuthToken,
                     for: indexPath,
                     sizingOnly: forSizing)
                 
-            default: break
+            case .none: break
             }
             
-        default: break
+        case .some(.tetris):
+            switch TetrisRow(rawValue: indexPath.row) {
+            case .some(.password):
+                return textInputCell(
+                    text: tetrisPassword,
+                    placeholder: "Enter Password",
+                    labelText: "Password",
+                    isSecureTextEntry: true,
+                    onTextChange: { [weak self] updatedPassword in
+                        self?.tetrisPassword = updatedPassword
+                    }, for: indexPath, sizingOnly: forSizing)
+                
+            case .some(.generateToken):
+                return buttonCell(
+                    title: "Generate Token",
+                    loading: requestingTetrisAuthToken,
+                    for: indexPath,
+                    sizingOnly: forSizing)
+                
+            case .none: break
+            }
+            
+        case .none: break
         }
         
         return TableViewCell()
@@ -168,45 +213,58 @@ extension AuthTokenViewController {
 extension AuthTokenViewController {
     
     override func titleForSection(_ section: Int) -> String? {
-        switch section {
-        case Section.user.rawValue: return "Current User"
-        case Section.authToken.rawValue: return "Auth Token"
-        case Section.spear.rawValue: return "Spear Integration"
-        default: return nil
+        switch Section(rawValue: section) {
+        case .some(.user): return "Current User"
+        case .some(.authToken): return "Auth Token"
+        case .some(.spear): return "Spear Integration"
+        case .some(.tetris): return "Tetris Integration"
+        case .none: return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        switch indexPath.section {
-        case Section.user.rawValue:
-            switch indexPath.row {
-            case UserRow.userId.rawValue:
+        switch Section(rawValue: indexPath.section) {
+        case .some(.user):
+            switch UserRow(rawValue: indexPath.row) {
+            case .some(.userId):
                 showCustomerIdViewController()
-                break
 
-            default: break
+            case .none: break
             }
             
-        case Section.authToken.rawValue:
+        case .some(.authToken):
             focusOnCell(atIndexPath: indexPath)
             
-        case Section.spear.rawValue:
-            switch indexPath.row {
-            case SpearRow.environment.rawValue:
+        case .some(.spear):
+            switch SpearRow(rawValue: indexPath.row) {
+            case .some(.environment):
                 showSpearEnvironmentOptions()
                 
-            case SpearRow.pin.rawValue:
+            case .some(.pin):
                 focusOnCell(atIndexPath: indexPath)
                 
-            case SpearRow.generateToken.rawValue:
+            case .some(.generateToken):
+                tableView.endEditing(true)
                 generateSpearToken()
                 
-            default: break
+            case .none: break
             }
             
-        default: break
+        case .some(.tetris):
+            switch TetrisRow(rawValue: indexPath.row) {
+            case .some(.password):
+                focusOnCell(atIndexPath: indexPath)
+                
+            case .some(.generateToken):
+                tableView.endEditing(true)
+                generateTetrisToken()
+                
+            case .none: break
+            }
+            
+        case .none: break
         }
     }
 }
@@ -256,15 +314,41 @@ extension AuthTokenViewController {
         
         requestingSpearAuthToken = true
         
-        _ = SpearAPI.requestAuthToken(userId: userId, pin: pin, environment: spearEnvironment) { [weak self] (authToken, error) in
+        SpearAPI.requestAuthToken(userId: userId, pin: pin, environment: spearEnvironment) { [weak self] authToken, error in
             self?.requestingSpearAuthToken = false
             if let authToken = authToken {
-                AppSettings.saveObject(authToken, forKey: AppSettings.Key.authToken)
+                AppSettings.saveObject(authToken, forKey: .authToken)
                 let indexPath = IndexPath(row: 0, section: Section.authToken.rawValue)
                 self?.tableView.reloadRows(at: [indexPath], with: .none)
             } else {
                 self?.showAlert(title: "Oops!", message: error ?? "Unable to fetch token.")
             }
+        }
+    }
+    
+    func generateTetrisToken() {
+        guard !requestingTetrisAuthToken else {
+            return
+        }
+        
+        guard let userId = AppSettings.shared.customerIdentifier, let password = tetrisPassword else {
+            showAlert(title: "Not so fast", message: "Customer ID and password are required.")
+            return
+        }
+        
+        requestingTetrisAuthToken = true
+        
+        TetrisAPI.requestAuthToken(userId: userId, password: password) { [weak self] authToken, error in
+            self?.requestingTetrisAuthToken = false
+            
+            guard let authToken = authToken else {
+                self?.showAlert(title: "Oops!", message: error ?? "Unable to fetch token.")
+                return
+            }
+            
+            AppSettings.saveObject(authToken, forKey: .authToken)
+            let indexPath = IndexPath(row: 0, section: Section.authToken.rawValue)
+            self?.tableView.reloadRows(at: [indexPath], with: .none)
         }
     }
 }

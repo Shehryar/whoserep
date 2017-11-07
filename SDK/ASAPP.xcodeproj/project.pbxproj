@@ -379,6 +379,7 @@
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
+		3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C2F091FAA152E00F2407A /* Session.swift */; };
 		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
@@ -391,6 +392,8 @@
 		3ACBD7F21F8E9711004D36A6 /* NavBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */; };
 		3ACBD7F41F8E9743004D36A6 /* NavCloseBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */; };
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
+		3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */; };
+		3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -768,6 +771,7 @@
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
+		3A8C2F091FAA152E00F2407A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
@@ -780,6 +784,8 @@
 		3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
+		3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
+		3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManager.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1168,8 +1174,10 @@
 		30226CC51D4933F200871453 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */,
 				30226CC81D4933F200871453 /* SocketConnection.swift */,
 				3060DE781F1FAC7200A67384 /* SocketRequest.swift */,
+				3A8C2F091FAA152E00F2407A /* Session.swift */,
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
 				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
 				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
@@ -1196,6 +1204,7 @@
 			children = (
 				3091BC1F1D933F3E00B0A7F9 /* ConversationFileStore.swift */,
 				3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */,
+				3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -2047,6 +2056,7 @@
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
 				3066191A1D9458F50092B4C5 /* SDWebImageManager.m in Sources */,
 				289E04121EC792D100CAC413 /* RadioButtonViewItem.swift in Sources */,
+				3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */,
 				30131FD71EB10FD0009E7299 /* TextInputItem.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
@@ -2061,6 +2071,7 @@
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
+				3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */,
 				307484C71EB13B9C008CF3E4 /* ASAPPViewController.swift in Sources */,
 				30B7C27A1F27EED300D69824 /* ComponentFactory+LegacySRS.swift in Sources */,
 				3060DE791F1FAC7200A67384 /* SocketRequest.swift in Sources */,
@@ -2182,6 +2193,7 @@
 				302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */,
 				30F6B4CE1EC3D44000ABA570 /* TabViewItem.swift in Sources */,
 				30131FD41EB10FD0009E7299 /* StackViewItem.swift in Sources */,
+				3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */,
 				302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */,
 				30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */,
 				30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */,

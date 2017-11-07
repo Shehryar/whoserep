@@ -26,6 +26,9 @@ public class ASAPPConfig: NSObject {
     /// Your app's client secret.
     public let clientSecret: String
     
+    /// Your app's region code.
+    public let regionCode: String
+    
     internal var identifierType: String {
         return "\(appId)_CUSTOMER_ACCOUNT_ID"
     }
@@ -38,13 +41,16 @@ public class ASAPPConfig: NSObject {
      - parameter appId: Your app identifier. Also known as the company marker.
      - parameter apiHostName: Host name for connecting to the API.
      - parameter clientSecret: Your app's client secret used when connecting to the API.
+     - parameter regionCode: Your app's region code. Defaults to "US".
      */
     public init(appId: String,
                 apiHostName: String,
-                clientSecret: String) {
+                clientSecret: String,
+                regionCode: String = "US") {
         self.appId = appId
         self.apiHostName = apiHostName
         self.clientSecret = clientSecret
+        self.regionCode = regionCode
         super.init()
     }
 }

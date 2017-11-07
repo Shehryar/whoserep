@@ -10,6 +10,7 @@ import UIKit
 
 class SpearAPI: NSObject {
 
+    @discardableResult
     class func requestAuthToken(userId: String, pin: String, environment: SpearEnvironment, completion: ((_ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
         
         guard let requestUrl = environment.getUrl(path: "/api/prepaid/authentication/1.0/login") else {

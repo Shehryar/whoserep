@@ -284,12 +284,29 @@ extension HomeViewController: HomeTableViewDelegate {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
+    func homeTableViewDidTapRegionCode(_ homeTableView: HomeTableView) {
+        let optionsVC = OptionsForKeyViewController()
+        optionsVC.title = "Region Code"
+        optionsVC.update(selectedOptionKey: AppSettings.Key.regionCode,
+                         optionsListKey: AppSettings.Key.regionCodeList)
+        optionsVC.onSelection = { [weak self] (_) in
+            if let strongSelf = self {
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
+        
+        navigationController?.pushViewController(optionsVC, animated: true)
+    }
+    
     func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView) {
         let customerIdVC = CustomerIdViewController()
         customerIdVC.onSelection = { [weak self] (customerIdentifier) in
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
+        }
+        customerIdVC.onTapClearSavedSession = {
+            ASAPP.clearSavedSession()
         }
         navigationController?.pushViewController(customerIdVC, animated: true)
     }

@@ -76,4 +76,8 @@ class DebugLog: NSObject {
     class func e(caller: Any? = nil, _ message: String) {
         log(classObject: caller, logLevel: .errors, message: message)
     }
+    
+    class func e(caller: Any? = nil, _ error: Error) {
+        log(classObject: caller, logLevel: .errors, message: error.localizedDescription)
+    }
 }

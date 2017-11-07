@@ -10,16 +10,15 @@ import Foundation
 
 class OutgoingMessageSerializer: NSObject {
     
-    // MARK: Pubic Properties
+    // MARK: Public Properties
     
     let config: ASAPPConfig
     let user: ASAPPUser
-    private(set) var userLoginAction: UserLoginAction?
     
-    var myId: Int = 0
     var issueId: Int = 0
     var targetCustomerToken: String?
-    var customerTargetCompanyId: Int = 0
+    var session: Session?
+    var userLoginAction: UserLoginAction?
     
     // MARK: Private Properties
     
@@ -65,15 +64,13 @@ extension OutgoingMessageSerializer {
         var params: [String : Any] = [
             "App": "ios-sdk",
             "CompanyMarker": config.appId,
-            "RegionCode": "US"
+            "RegionCode": config.regionCode
         ]
         var isSessionAuthRequest = false
         
-        var sessionInfoJson: [String : Any]?
-        if let sessionInfo = user.sessionInfo {
-            do {
-                sessionInfoJson = try JSONSerialization.jsonObject(with: sessionInfo.data(using: String.Encoding.utf8)!, options: []) as? [String: Any]
-            } catch {}
+        var sessionInfoJson: [String: Any]?
+        if let session = session {
+            sessionInfoJson = session.fullInfoAsDict
         }
         
         //
@@ -119,41 +116,6 @@ extension OutgoingMessageSerializer {
         
         return AuthRequest(path: path, params: params, isSessionAuthRequest: isSessionAuthRequest)
     }
-    
-    func updateWithAuthResponse(_ response: IncomingMessage) {
-        guard let jsonObj = response.body else {
-            DebugLog.e("Authentication response missing body: \(response)")
-            return
-        }
-        
-        guard let sessionInfoDict = jsonObj["SessionInfo"] as? [String: Any] else {
-            DebugLog.e("Authentication response missing sessionInfo: \(response)")
-            return
-        }
-        
-        if let sessionJsonData = try? JSONSerialization.data(withJSONObject: sessionInfoDict, options: []) {
-            user.sessionInfo = String(data: sessionJsonData, encoding: String.Encoding.utf8)
-        }
-        
-        if let company = sessionInfoDict["Company"] as? [String: Any] {
-            if let companyId = company["CompanyId"] as? Int {
-                customerTargetCompanyId = companyId
-            }
-        }
-        
-        if let customer = sessionInfoDict["Customer"] as? [String: Any] {
-            if let rawId = customer["CustomerId"] as? Int {
-                myId = rawId
-            }
-        }
-        
-        // Conversations are merged on authentication. No need to keep this around
-        userLoginAction = nil
-    }
-    
-    func clearSessionInfo() {
-        user.sessionInfo = nil
-    }
 }
 
 // MARK: - Private Utility Methods
@@ -170,10 +132,10 @@ extension OutgoingMessageSerializer {
     }
     
     private func contextForRequest(withPath path: String) -> [String : Any] {
-        var context = [ "CompanyId": customerTargetCompanyId ]
+        var context = ["CompanyId": session?.company.id ?? 0]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {
-                context = [ "IssueId": issueId ]
+                context = ["IssueId": issueId]
             }
         }
         return context as [String: Any]
