@@ -13,6 +13,7 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapUserName(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAppId(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAPIHostName(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapRegionCode(_ homeTableView: HomeTableView)
     func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView)
     
@@ -25,23 +26,22 @@ protocol HomeTableViewDelegate: class {
 
 class HomeTableView: UIView {
     
-    fileprivate enum Section: Int {
+    fileprivate enum Section: Int, CountableEnum {
         case user
         case settings
         case billing
         case other
-        case count
     }
     
-    fileprivate enum SettingsRow: Int {
+    fileprivate enum SettingsRow: Int, CountableEnum {
         case apiHostName
         case appId
+        case regionCode
         case customerIdentifier
         case authToken
-        case count
     }
     
-    fileprivate enum OtherRow: Int {
+    fileprivate enum OtherRow: Int, CountableEnum {
         case paymentMethods
         case usage
         case invite
@@ -50,7 +50,6 @@ class HomeTableView: UIView {
         case touchId
         case privacy
         case settings
-        case count
     }
 
     var contentInset: UIEdgeInsets = .zero {
@@ -158,26 +157,26 @@ extension HomeTableView {
 extension HomeTableView {
     
     func getCellForRowAt(indexPath: IndexPath, forSizing: Bool = false) -> UITableViewCell {
-        switch indexPath.section {
-        case Section.user.rawValue:
+        switch Section(rawValue: indexPath.section) {
+        case .some(.user):
             return imageNameCell(cellToStyle: forSizing ? nameSizingCell : nil,
                                  name: AppSettings.shared.userName,
                                  imageName: AppSettings.shared.userImageName,
                                  for: indexPath)
             
-        case Section.settings.rawValue:
+        case .some(.settings):
             var title: String?
             var value: String?
-            switch indexPath.row {
-            case SettingsRow.apiHostName.rawValue:
+            switch SettingsRow(rawValue: indexPath.row) {
+            case .some(.apiHostName):
                 title = "API Host"
                 value = AppSettings.shared.apiHostName
                 
-            case SettingsRow.appId.rawValue:
+            case .some(.appId):
                 title = "App Id"
                 value = AppSettings.shared.appId
                 
-            case SettingsRow.customerIdentifier.rawValue:
+            case .some(.customerIdentifier):
                 title = "Customer Id"
                 if let customerIdentifier = AppSettings.shared.customerIdentifier {
                     value = customerIdentifier
@@ -185,11 +184,15 @@ extension HomeTableView {
                     value = "Anonymous User"
                 }
                 
-            case SettingsRow.authToken.rawValue:
+            case .some(.authToken):
                 title = "Auth Token"
                 value = AppSettings.shared.authToken
                 
-            default:
+            case .some(.regionCode):
+                title = "Region Code"
+                value = AppSettings.shared.regionCode
+                
+            case .none:
                 demoLog("Missing cell for index path: \(indexPath)")
             }
             return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
@@ -197,49 +200,49 @@ extension HomeTableView {
                                         value: value,
                                         for: indexPath)
             
-        case Section.billing.rawValue:
+        case .some(.billing):
             return titleDetailValueCell(cellToStyle: forSizing ? titleDetailValueSizingCell : nil,
                                         title: "Current Balance",
                                         detail: billDetails.dueDateString,
                                         value: billDetails.total,
                                         for: indexPath)
             
-        case Section.other.rawValue:
+        case .some(.other):
             var title: String?, imageName: String?
-            switch indexPath.row {
-            case OtherRow.paymentMethods.rawValue:
+            switch OtherRow(rawValue: indexPath.row) {
+            case .some(.paymentMethods):
                 title = "Payment Accounts"
                 imageName = "icon-creditcard"
                 
-            case OtherRow.usage.rawValue:
+            case .some(.usage):
                 title = "Usage"
                 imageName = "icon-line-graph"
                 
-            case OtherRow.invite.rawValue:
+            case .some(.invite):
                 title = "Refer Friends"
                 imageName = "icon-users"
                 
-            case OtherRow.notifications.rawValue:
+            case .some(.notifications):
                 title = "Notifications"
                 imageName = "icon-bell"
                 
-            case OtherRow.help.rawValue:
+            case .some(.help):
                 title = "Help"
                 imageName = "icon-chat-bubble"
                 
-            case OtherRow.touchId.rawValue:
+            case .some(.touchId):
                 title = "TouchID"
                 imageName = "icon-fingerprint"
                 
-            case OtherRow.privacy.rawValue:
+            case .some(.privacy):
                 title = "Privacy"
                 imageName = "icon-lock"
                 
-            case OtherRow.settings.rawValue:
+            case .some(.settings):
                 title = "Settings"
                 imageName = "icon-gear-2"
                 
-            default:
+            case .none:
                 demoLog("Missing cell for indexPath: \(indexPath)")
             }
             return labelIconCell(cellToStyle: forSizing ? labelIconSizingCell : nil,
@@ -247,7 +250,7 @@ extension HomeTableView {
                                  imageName: imageName,
                                  for: indexPath)
             
-        default:
+        case .none:
             demoLog("Missing cell for indexPath: \(indexPath)")
         }
         
@@ -309,16 +312,16 @@ extension HomeTableView {
 extension HomeTableView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.count.rawValue
+        return Section.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case Section.user.rawValue: return 1
-        case Section.settings.rawValue: return SettingsRow.count.rawValue
-        case Section.billing.rawValue: return 1
-        case Section.other.rawValue: return OtherRow.count.rawValue
-        default: return 0
+        switch Section(rawValue: section) {
+        case .some(.user): return 1
+        case .some(.settings): return SettingsRow.count
+        case .some(.billing): return 1
+        case .some(.other): return OtherRow.count
+        case .none: return 0
         }
     }
     
@@ -348,7 +351,7 @@ extension HomeTableView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == Section.count.rawValue - 1 {
+        if section == Section.count - 1 {
             return 64.0
         }
         
@@ -371,42 +374,43 @@ extension HomeTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
      
-        switch indexPath.section {
-        case Section.user.rawValue:
+        switch Section(rawValue: indexPath.section) {
+        case .some(.user):
             delegate?.homeTableViewDidTapUserName(self)
             
-        case Section.settings.rawValue:
-            switch indexPath.row {
-            case SettingsRow.appId.rawValue:
+        case .some(.settings):
+            switch SettingsRow(rawValue: indexPath.row) {
+            case .some(.appId):
                 delegate?.homeTableViewDidTapAppId(self)
                 
-            case SettingsRow.apiHostName.rawValue:
+            case .some(.apiHostName):
                 delegate?.homeTableViewDidTapAPIHostName(self)
                 
-            case SettingsRow.customerIdentifier.rawValue:
+            case .some(.regionCode):
+                delegate?.homeTableViewDidTapRegionCode(self)
+                
+            case .some(.customerIdentifier):
                 delegate?.homeTableViewDidTapCustomerIdentifier(self)
              
-            case SettingsRow.authToken.rawValue:
+            case .some(.authToken):
                 delegate?.homeTableViewDidTapAuthToken(self)
                 
-            default:
-                // No-op
-                break
+            case .none: break
             }
             
-        case Section.billing.rawValue:
+        case .some(.billing):
             delegate?.homeTableViewDidTapBillDetails(homeTableView: self)
             
-        case Section.other.rawValue:
-            switch indexPath.row {
-            case OtherRow.help.rawValue:
+        case .some(.other):
+            switch OtherRow(rawValue: indexPath.row) {
+            case .some(.help):
                 delegate?.homeTableViewDidTapHelp(homeTableView: self)
                 
             default:
                 delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
             }
             
-        default:
+        case .none:
             delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
         }
     }

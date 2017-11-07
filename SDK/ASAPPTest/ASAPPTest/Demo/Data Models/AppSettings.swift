@@ -14,6 +14,7 @@ class AppSettings: NSObject {
     enum Key: String {
         case apiHostName = "asapp_api_host_name"
         case appId = "asapp_app_id"
+        case regionCode = "asapp_region_code"
         case customerIdentifier = "asapp_customer_identifier"
         case authToken = "asapp_auth_token"
         case userName = "asapp_user_name"
@@ -22,10 +23,13 @@ class AppSettings: NSObject {
         
         case apiHostNameList = "asapp_api_host_name_list"
         case appIdList = "asapp_app_id_list"
+        case regionCodeList = "asapp_region_code_list"
         case customerIdentifierList = "asapp_customer_identifier_list"
         
         case spearPin = "asapp_spear_pin"
         case spearEnvironment = "asapp_spear_environment"
+        
+        case tetrisPassword = "asapp_tetris_password"
     }
     
     // MARK: Shared Instance
@@ -35,50 +39,59 @@ class AppSettings: NSObject {
     // MARK: - Properties
     
     var apiHostName: String {
-        return AppSettings.getString(forKey: Key.apiHostName,
+        return AppSettings.getString(forKey: .apiHostName,
                                      defaultValue: AppSettings.defaultAPIHostName)
     }
     
     var appId: String {
-        return AppSettings.getString(forKey: Key.appId,
+        return AppSettings.getString(forKey: .appId,
                                      defaultValue: AppSettings.defaultAppId)
     }
     
+    var regionCode: String {
+        return AppSettings.getString(forKey: .regionCode,
+                                     defaultValue: AppSettings.defaultRegionCode)
+    }
+    
     var customerIdentifier: String? {
-        return AppSettings.getString(forKey: Key.customerIdentifier)
+        return AppSettings.getString(forKey: .customerIdentifier)
     }
     
     var authToken: String {
-        return AppSettings.getString(forKey: Key.authToken,
+        return AppSettings.getString(forKey: .authToken,
                                      defaultValue: "asapp_ios_fake_access_token")
     }
     
     var userName: String {
-        return AppSettings.getString(forKey: Key.userName,
+        return AppSettings.getString(forKey: .userName,
                                      defaultValue: AppSettings.defaultUserName)
     }
     
     var userImageName: String {
-        return AppSettings.getString(forKey: Key.userImageName,
+        return AppSettings.getString(forKey: .userImageName,
                                      defaultValue: AppSettings.defaultUserImageName)
     }
     
     var branding: Branding {
         didSet {
-            AppSettings.saveObject(branding.brandingType.rawValue, forKey: Key.brandingType)
+            AppSettings.saveObject(branding.brandingType.rawValue, forKey: .brandingType)
         }
     }
     
     var apiHostNames: [String] {
-        return AppSettings.getStringArray(forKey: Key.apiHostNameList) ?? AppSettings.getDefaultAPIHostNames()
+        return AppSettings.getStringArray(forKey: .apiHostNameList) ?? AppSettings.getDefaultAPIHostNames()
     }
     
     var appIds: [String] {
-        return AppSettings.getStringArray(forKey: Key.appIdList) ?? AppSettings.getDefaultAppIds()
+        return AppSettings.getStringArray(forKey: .appIdList) ?? AppSettings.getDefaultAppIds()
+    }
+    
+    var regionCodes: [String] {
+        return AppSettings.getStringArray(forKey: .regionCodeList) ?? AppSettings.getDefaultRegionCodes()
     }
     
     var customerIdentifiers: [String] {
-        return AppSettings.getStringArray(forKey: Key.customerIdentifierList) ?? AppSettings.getDefaultCustomerIdentifiers()
+        return AppSettings.getStringArray(forKey: .customerIdentifierList) ?? AppSettings.getDefaultCustomerIdentifiers()
     }
     
     var userImageNames: [String] {
@@ -86,15 +99,19 @@ class AppSettings: NSObject {
     }
     
     var spearPin: String? {
-        return AppSettings.getString(forKey: Key.spearPin)
+        return AppSettings.getString(forKey: .spearPin)
     }
     
     var spearEnvironment: SpearEnvironment {
-        if let savedValue = AppSettings.getString(forKey: Key.spearEnvironment),
+        if let savedValue = AppSettings.getString(forKey: .spearEnvironment),
             let savedEnvironment = SpearEnvironment(rawValue: savedValue) {
             return savedEnvironment
         }
         return SpearEnvironment.defaultValue
+    }
+    
+    var tetrisPassword: String? {
+        return AppSettings.getString(forKey: .tetrisPassword)
     }
     
     let versionString: String
@@ -104,7 +121,7 @@ class AppSettings: NSObject {
     //
     
     override init() {
-        let brandingType = BrandingType.from(AppSettings.getString(forKey: Key.brandingType)) ?? AppSettings.defaultBrandingType
+        let brandingType = BrandingType.from(AppSettings.getString(forKey: .brandingType)) ?? AppSettings.defaultBrandingType
         self.branding = Branding(brandingType: brandingType)
     
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
@@ -127,9 +144,11 @@ fileprivate extension AppSettings {
     
     static let defaultAppId = getDefaultAppIds().first!
     
+    static let defaultRegionCode = getDefaultRegionCodes().first!
+    
     static let defaultAuthToken = ""
     
-    static let defaultUserName = "Jon"
+    static let defaultUserName = "Jessie"
     
     static let defaultUserImageName = "user-anonymous"
     
@@ -139,7 +158,8 @@ fileprivate extension AppSettings {
         return [
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
-            "comcast.preprod.asapp.com"
+            "comcast.preprod.asapp.com",
+            "tetris.test.asapp.com"
         ]
     }
     
@@ -147,7 +167,15 @@ fileprivate extension AppSettings {
         return [
             "asapp",
             "boost",
-            "comcast"
+            "comcast",
+            "tetris"
+        ]
+    }
+    
+    class func getDefaultRegionCodes() -> [String] {
+        return [
+            "US",
+            "AU"
         ]
     }
     
@@ -264,6 +292,7 @@ extension AppSettings {
         switch key {
         case .apiHostNameList: return getDefaultAPIHostNames()
         case .appIdList: return getDefaultAppIds()
+        case .regionCodeList: return getDefaultRegionCodes()
         case .customerIdentifierList: return getDefaultCustomerIdentifiers()
         default: return nil
         }
@@ -275,15 +304,19 @@ extension AppSettings {
 extension AppSettings {
     
     func addAPIHostName(_ value: String) {
-        AppSettings.addStringToArray(value, forKey: Key.apiHostNameList)
+        AppSettings.addStringToArray(value, forKey: .apiHostNameList)
     }
     
     func addAppId(_ value: String) {
-        AppSettings.addStringToArray(value, forKey: Key.appIdList)
+        AppSettings.addStringToArray(value, forKey: .appIdList)
+    }
+    
+    func addRegionCode(_ value: String) {
+        AppSettings.addStringToArray(value, forKey: .regionCodeList)
     }
     
     func addCustomerIdentifier(_ value: String) {
-        AppSettings.addStringToArray(value, forKey: Key.customerIdentifierList)
+        AppSettings.addStringToArray(value, forKey: .customerIdentifierList)
     }
     
     class func getRandomCustomerIdentifier() -> String {

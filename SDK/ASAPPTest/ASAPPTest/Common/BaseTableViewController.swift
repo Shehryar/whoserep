@@ -274,10 +274,8 @@ extension BaseTableViewController {
     func textInputCell(text: String? = nil,
                        placeholder: String? = nil,
                        labelText: String? = nil,
-                       autocorrectionType: UITextAutocorrectionType = .no,
                        autocapitalizationType: UITextAutocapitalizationType = .none,
-                       returnKeyType: UIReturnKeyType = .done,
-                       dismissKeyboardOnReturn: Bool = true,
+                       isSecureTextEntry: Bool = false,
                        onTextChange: ((_ text: String) -> Void)?,
                        for indexPath: IndexPath,
                        sizingOnly: Bool) -> TextInputCell {
@@ -291,8 +289,9 @@ extension BaseTableViewController {
         cell?.placeholderText = placeholder
         cell?.labelText = labelText
         cell?.textField.autocorrectionType = .no
-        cell?.textField.autocapitalizationType = .none
+        cell?.textField.autocapitalizationType = autocapitalizationType
         cell?.textField.returnKeyType = .done
+        cell?.textField.isSecureTextEntry = isSecureTextEntry
         cell?.dismissKeyboardOnReturn = true
         cell?.onTextChange = onTextChange
         
