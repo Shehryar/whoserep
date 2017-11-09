@@ -262,6 +262,7 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.update(selectedOptionKey: AppSettings.Key.appId,
                          optionsListKey: AppSettings.Key.appIdList)
         optionsVC.onSelection = { [weak self] (_) in
+            ASAPP.clearSavedSession()
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
@@ -276,6 +277,7 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.update(selectedOptionKey: AppSettings.Key.apiHostName,
                          optionsListKey: AppSettings.Key.apiHostNameList)
         optionsVC.onSelection = { [weak self] (_) in
+            ASAPP.clearSavedSession()
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
@@ -290,6 +292,7 @@ extension HomeViewController: HomeTableViewDelegate {
         optionsVC.update(selectedOptionKey: AppSettings.Key.regionCode,
                          optionsListKey: AppSettings.Key.regionCodeList)
         optionsVC.onSelection = { [weak self] (_) in
+            ASAPP.clearSavedSession()
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
