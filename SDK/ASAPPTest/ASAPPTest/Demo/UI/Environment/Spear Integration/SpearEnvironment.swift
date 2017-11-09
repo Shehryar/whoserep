@@ -17,7 +17,7 @@ enum SpearEnvironment: String {
     static let defaultValue = rtb2
     static let allValues = [rtb1, rtb2, st1, prod]
     
-    func getHost() -> String {
+    var host: String {
         switch self {
         case .rtb1: return "https://rtb1-apiservices.boostmobile.com"
         case .rtb2: return "https://rtb2-apiservices.boostmobile.com"
@@ -27,7 +27,7 @@ enum SpearEnvironment: String {
     }
     
     func getUrl(path: String) -> URL? {
-        let urlString = getHost() + path
+        let urlString = host + path
         return URL(string: urlString)
     }
 }
