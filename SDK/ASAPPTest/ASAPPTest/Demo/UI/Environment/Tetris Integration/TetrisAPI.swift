@@ -28,8 +28,11 @@ extension URLRequest {
 
 class TetrisAPI: NSObject {
     @discardableResult
-    class func requestAuthToken(userId: String, password: String, completion: ((_ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
-        let url = URL(string: "https://fn1.services.test.bigpond.com/rest/v1/AuthenticationService/authenticate")!
+    class func requestAuthToken(userId: String, password: String, environment: TetrisEnvironment, completion: ((_ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
+        guard let url = environment.getUrl(path: "/rest/v1/AuthenticationService/authenticate") else {
+            print("Unable to create request URL")
+            return nil
+        }
         
         let basicAuth = "iPhoneAM:ETph0neH0m3".data(using: .utf8)!.base64EncodedString()
         

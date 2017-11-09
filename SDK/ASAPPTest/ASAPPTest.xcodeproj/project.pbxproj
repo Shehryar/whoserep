@@ -54,6 +54,7 @@
 		30D4C3941E43EC4B0061BFA3 /* BrandingPreviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C3931E43EC4B0061BFA3 /* BrandingPreviewListView.swift */; };
 		30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */; };
 		30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */; };
+		3A0E7F981FB3A5A3008F9544 /* TetrisEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F971FB3A5A3008F9544 /* TetrisEnvironment.swift */; };
 		3A1E00641F8ECB5B008C3F39 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00571F8ECB4F008C3F39 /* add-credit-card.json */; };
 		3A1E00651F8ECB5B008C3F39 /* appointment-confirmation.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E00631F8ECB50008C3F39 /* appointment-confirmation.json */; };
 		3A1E00661F8ECB5B008C3F39 /* bill-autopay-scheduled.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A1E005F1F8ECB50008C3F39 /* bill-autopay-scheduled.json */; };
@@ -169,6 +170,7 @@
 		30E87C591D93138D00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5D1D9313E900B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30F20EE51ED4C18A00A14FA9 /* ASAPPTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASAPPTest.entitlements; sourceTree = "<group>"; };
+		3A0E7F971FB3A5A3008F9544 /* TetrisEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisEnvironment.swift; sourceTree = "<group>"; };
 		3A1E00451F8ECB4D008C3F39 /* chat-flow-agent-entered.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-flow-agent-entered.json"; sourceTree = "<group>"; };
 		3A1E00461F8ECB4D008C3F39 /* cancel-appointment-confirmation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cancel-appointment-confirmation.json"; sourceTree = "<group>"; };
 		3A1E00471F8ECB4D008C3F39 /* schedule-appointment-selection.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "schedule-appointment-selection.json"; sourceTree = "<group>"; };
@@ -311,8 +313,8 @@
 		30821BAD1F538825009F43EC /* Spear Integration */ = {
 			isa = PBXGroup;
 			children = (
-				30821BAE1F538838009F43EC /* SpearEnvironment.swift */,
 				30821BB01F538921009F43EC /* SpearAPI.swift */,
+				30821BAE1F538838009F43EC /* SpearEnvironment.swift */,
 			);
 			path = "Spear Integration";
 			sourceTree = "<group>";
@@ -497,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8633301FB2417C00E90C18 /* TetrisAPI.swift */,
+				3A0E7F971FB3A5A3008F9544 /* TetrisEnvironment.swift */,
 			);
 			path = "Tetris Integration";
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				281D8E001DC9681300E4A65B /* TableHeaderView.swift in Sources */,
 				30C24C2E1DC9396800529785 /* AttributedLabel.swift in Sources */,
 				30D883771E60BE8C00A1A5C3 /* TextInputCell.swift in Sources */,
+				3A0E7F981FB3A5A3008F9544 /* TetrisEnvironment.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */,
 				30D4C3911E43EBC60061BFA3 /* BrandingPreview.swift in Sources */,

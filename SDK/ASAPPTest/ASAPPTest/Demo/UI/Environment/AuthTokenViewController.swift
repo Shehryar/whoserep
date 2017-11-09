@@ -32,6 +32,7 @@ class AuthTokenViewController: BaseTableViewController {
     }
     
     enum TetrisRow: Int, CountableEnum {
+        case environment
         case password
         case generateToken
     }
@@ -64,6 +65,17 @@ class AuthTokenViewController: BaseTableViewController {
             let indexPath = IndexPath(row: SpearRow.generateToken.rawValue,
                                       section: Section.spear.rawValue)
             tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
+    fileprivate var tetrisEnvironment = AppSettings.shared.tetrisEnvironment {
+        didSet {
+            AppSettings.saveObject(tetrisEnvironment.rawValue, forKey: .tetrisEnvironment)
+            
+            tableView.reloadRows(at: [
+                IndexPath(row: TetrisRow.environment.rawValue,
+                          section: Section.tetris.rawValue)
+            ], with: .none)
         }
     }
     
@@ -181,6 +193,13 @@ extension AuthTokenViewController {
             
         case .some(.tetris):
             switch TetrisRow(rawValue: indexPath.row) {
+            case .some(.environment):
+                return titleDetailValueCell(
+                    title: "Environment",
+                    value: tetrisEnvironment.rawValue,
+                    for: indexPath,
+                    sizingOnly: forSizing)
+                
             case .some(.password):
                 return textInputCell(
                     text: tetrisPassword,
@@ -254,6 +273,9 @@ extension AuthTokenViewController {
             
         case .some(.tetris):
             switch TetrisRow(rawValue: indexPath.row) {
+            case .some(.environment):
+                showTetrisEnvironmentOptions()
+                
             case .some(.password):
                 focusOnCell(atIndexPath: indexPath)
                 
@@ -326,6 +348,18 @@ extension AuthTokenViewController {
         }
     }
     
+    func showTetrisEnvironmentOptions() {
+        let alert = UIAlertController(title: "Select Environment", message: nil, preferredStyle: .actionSheet)
+        
+        for environment in TetrisEnvironment.allValues {
+            alert.addAction(UIAlertAction(title: environment.rawValue, style: .default, handler: { [weak self] _ in
+                self?.tetrisEnvironment = environment
+            }))
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     func generateTetrisToken() {
         guard !requestingTetrisAuthToken else {
             return
@@ -338,7 +372,7 @@ extension AuthTokenViewController {
         
         requestingTetrisAuthToken = true
         
-        TetrisAPI.requestAuthToken(userId: userId, password: password) { [weak self] authToken, error in
+        TetrisAPI.requestAuthToken(userId: userId, password: password, environment: tetrisEnvironment) { [weak self] authToken, error in
             self?.requestingTetrisAuthToken = false
             
             guard let authToken = authToken else {

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ASAPP  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="ASAPP  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">ASAPP Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">ASAPP Reference</a>
+        <img id="carat" src="img/carat.png" />
+        ASAPP  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/ASAPP.html">ASAPP</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPButton.html">ASAPPButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPButtonColors.html">ASAPPButtonColors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPColors.html">ASAPPColors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPConfig.html">ASAPPConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPFontFamily.html">ASAPPFontFamily</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPInputColors.html">ASAPPInputColors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPNavBarButtonImage.html">ASAPPNavBarButtonImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPNavBarButtonImages.html">ASAPPNavBarButtonImages</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPNavBarStyles.html">ASAPPNavBarStyles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPStrings.html">ASAPPStrings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPStyles.html">ASAPPStyles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPTextStyle.html">ASAPPTextStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPTextStyles.html">ASAPPTextStyles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPUser.html">ASAPPUser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ASAPPViews.html">ASAPPViews</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/ASAPPLogLevel.html">ASAPPLogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ASAPPNavBarButtonStyle.html">ASAPPNavBarButtonStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ASAPPSegue.html">ASAPPSegue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5ASAPP23ASAPPAppCallbackHandlera">ASAPPAppCallbackHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5ASAPP27ASAPPRequestContextProvidera">ASAPPRequestContextProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5ASAPP21ASAPPUserLoginHandlera">ASAPPUserLoginHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5ASAPP31ASAPPUserLoginHandlerCompletiona">ASAPPUserLoginHandlerCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='asapp-ios-sdk' class='heading'>ASAPP iOS SDK</h1>
+<h2 id='framework-integration' class='heading'>Framework Integration</h2>
+<h3 id='add-asapp-framework-to-embedded-binaries' class='heading'>Add ASAPP.framework to Embedded Binaries</h3>
+
+<p>Add ASAPP.framework to the desired location in your project&rsquo;s directory.
+After opening Xcode, drag-and-drop ASAPP.framework into <em>Embedded
+Binaries</em> in the <em>General</em> settings of your project&rsquo;s target. Xcode
+should now display ASAPP.framework under both <em>Embedded Binaries</em> and
+<em>Linked Frameworks and Libraries</em>.</p>
+<h3 id='always-embed-swift-standard-libraries-yes' class='heading'>Always Embed Swift Standard Libraries → Yes</h3>
+
+<p>Under your target&rsquo;s <q>Build Settings</q>, set <q>Always Embed Swift Standard
+Libraries</q> to <q>Yes</q>. This is necessary because the ASAPP iOS SDK is
+built using Swift.</p>
+<h3 id='user-defined-setting-em-swift_version-em-3-2-or-4' class='heading'>User-Defined Setting <em>SWIFT_VERSION</em> → 3.2 or 4</h3>
+
+<p>This should not be required for most projects, but if you have used an
+older version of Swift in your project, you may need to add a
+user-defined setting to avoid any compiler issues. Go to the <q>Build
+Settings</q> of your target, scroll to <q>User-Defined</q> near the bottom, and
+add a new key <q>SWIFT\_VERSION</q> with value <q>3.2</q> or <q>4</q>.</p>
+<h3 id='add-nsphotolibraryusagedescription-nscamerausagedescription-to-info-plist' class='heading'>Add NSPhotoLibraryUsageDescription/NSCameraUsageDescription to Info.plist</h3>
+
+<p>As of iOS 10, Apple requires a description for why your app uses the
+photo library and/or camera. Since our SDK has features using the photo
+library and the camera, your Info.plist will need brief descriptions
+(<q>In-app chat allows users to upload images</q>) for both of these. If
+accessing the Info.plist via Xcode, the keys are <q>Privacy - Camera Usage
+Description</q> and <q>Privacy - Photo Library Usage Description</q>. If
+accessing your Info.plist via a text editor, the keys are
+<q>NSPhotoLibraryUsageDescription</q> and <q>NSCameraUsageDescription</q>.</p>
+<h3 id='add-custom-run-script-phase-to-build-phases' class='heading'>Add Custom Run Script Phase to Build Phases</h3>
+
+<p>ASAPP.framework is distributed as a fat framework, meaning that it is
+built to run on all devices and simulators. In order to upload your app
+to the App Store, you will need to strip ASAPP.framework of the
+information used to build it for the iOS Simulator. If you are
+incorporating other custom frameworks, you may already have a run script
+phase that handles this. However, if not, we have included a simple 
+script that will take care of this for you.</p>
+
+<p>Under the <q>Build Phases</q> tab of your target, click the plus button to
+add a <q>New Run Script Phase</q>. Make sure the <q>Shell</q> value is <q>/bin/sh</q>.
+Copy and paste the contents of the strip_unused_architectures.sh file into the
+script area.</p>
+<h2 id='sdk-usage' class='heading'>SDK Usage</h2>
+<h3 id='initialize-a-href-classes-asapp-html-asapp-a-with-a-href-classes-asappconfig-html-asappconfig-a' class='heading'>Initialize <a href="Classes/ASAPP.html">ASAPP</a> with <a href="Classes/ASAPPConfig.html">ASAPPConfig</a></h3>
+<pre class="highlight plaintext"><code>let config = ASAPPConfig(appId: appId,
+                         apiHostName: apiHostName,
+                         clientSecret: clientSecret)
+
+ASAPP.initialize(with: config)
+</code></pre>
+<h3 id='set-a-href-classes-asappuser-html-user-a' class='heading'>Set <a href="Classes/ASAPPUser.html">User</a></h3>
+<pre class="highlight plaintext"><code>let user = ASAPPUser(userIdentifier: userIdentifier,
+                     requestContextProvider: requestContextProvider,
+                     userLoginHandler: userLoginHandler)
+
+ASAPP.user = user
+</code></pre>
+<h3 id='customize-a-href-classes-asappstyles-html-styles-a' class='heading'>Customize <a href="Classes/ASAPPStyles.html">Styles</a></h3>
+<pre class="highlight plaintext"><code>var styles = ASAPPStyles.stylesForAppId(appId)
+
+ASAPP.styles = styles
+</code></pre>
+<h3 id='customize-styles-with-a-a-href-classes-asappfontfamily-html-font-family-a' class='heading'>Customize Styles with a <a href="Classes/ASAPPFontFamily.html">Font Family</a></h3>
+<pre class="highlight plaintext"><code>let avenirNext = ASAPPFontFamily(
+            light: UIFont(name: "AvenirNext-Regular", size: 16)!,
+            regular: UIFont(name: "AvenirNext-Medium", size: 16)!,
+            medium: UIFont(name: "AvenirNext-DemiBold", size: 16)!,
+            bold: UIFont(name: "AvenirNext-Bold", size: 16)!)
+
+ASAPP.styles = ASAPPStyles.stylesForAppId(appId, fontFamily: avenirNext)
+</code></pre>
+<h3 id='customize-a-href-classes-asapptextstyles-html-text-styles-a' class='heading'>Customize <a href="Classes/ASAPPTextStyles.html">Text Styles</a></h3>
+<pre class="highlight plaintext"><code>ASAPP.styles.textStyles.navTitle = ASAPPTextStyle(font: avenirNext.bold, size: 18, letterSpacing: 0, color: .white)
+</code></pre>
+<h3 id='customize-a-href-classes-asappstrings-html-strings-a' class='heading'>Customize <a href="Classes/ASAPPStrings.html">Strings</a></h3>
+<pre class="highlight plaintext"><code>ASAPP.strings.chatTitle = "Demo Chat"
+ASAPP.strings.predictiveTitle = "Demo Chat"
+ASAPP.strings.chatAskNavBarButton = "Ask"
+ASAPP.strings.predictiveBackToChatButton = "History"
+ASAPP.strings.chatEndChatNavBarButton = "End Chat"
+</code></pre>
+<h3 id='customize-title-a-href-classes-asappviews-html-views-a' class='heading'>Customize Title <a href="Classes/ASAPPViews.html">Views</a></h3>
+<pre class="highlight plaintext"><code>ASAPP.views.chatTitle = UIImageView(image: UIImage(named: "chat-logo"))
+ASAPP.views.predictiveTitle = UIImageView(image: UIImage(named: "help-logo"))
+</code></pre>
+<h3 id='launch-chat' class='heading'>Launch Chat</h3>
+
+<p>There are <a href="Classes/ASAPP.html#/Entering%20Chat">two methods</a> for creating a chat view controller. Which method
+you should call is determined by how you display the view controller.</p>
+
+<p>If the chat is being displayed because the user tapped a push
+notification, the notification&rsquo;s userInfo dictionary should be passed in
+when creating the chat view controller.</p>
+<h4 id='presentation-modal' class='heading'>Presentation (Modal)</h4>
+<pre class="highlight plaintext"><code>let viewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil, 
+                                                              appCallbackHandler: deepLinkHandler)
+
+present(viewController, animated: true, completion: nil)
+</code></pre>
+<h4 id='push-navigation-controller' class='heading'>Push (Navigation Controller)</h4>
+<pre class="highlight plaintext"><code>let viewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil, 
+                                                                 appCallbackHandler: deepLinkHandler)
+
+present(viewController, animated: true, completion: nil)
+</code></pre>
+<h3 id='push-notifications' class='heading'>Push Notifications</h3>
+
+<p>ASAPP can send your users push notifications when they receive a message
+but are not viewing their chat. When your application receives the push
+notification, you can <a href="Classes/ASAPP.html#/Push%20Notifications">ask the ASAPP SDK</a> if the push notification is
+intended to open chat.</p>
+<pre class="highlight plaintext"><code>// In your application's delegate
+
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {    
+
+    if ASAPP.canHandleNotification(with: userInfo) {
+
+        // At this point, you should show the chat view controller, passing in the
+        //    userInfo dictionary when creating the view controller.
+        // *Note: You should make sure the chat view controller is not already visible
+        //    before displaying (even though this shouldn't actually happen).
+    }
+}
+</code></pre>
+<h2 id='script-for-stripping-unused-architectures' class='heading'>Script for Stripping Unused Architectures</h2>
+<pre class="highlight plaintext"><code>APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+
+# This script loops through the frameworks embedded in the application and
+# removes unused architectures.
+find "$APP_PATH" -name '*.framework' -type d | while read -r FRAMEWORK
+do
+    FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecutable)
+    FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
+    echo "Executable is $FRAMEWORK_EXECUTABLE_PATH"
+
+    EXTRACTED_ARCHS=()
+
+    for ARCH in $ARCHS
+    do
+    echo "Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME"
+    lipo -extract "$ARCH" "$FRAMEWORK_EXECUTABLE_PATH" -o "$FRAMEWORK_EXECUTABLE_PATH-$ARCH"
+    EXTRACTED_ARCHS+=("$FRAMEWORK_EXECUTABLE_PATH-$ARCH")
+    done
+
+    echo "Merging extracted architectures: ${ARCHS}"
+    lipo -o "$FRAMEWORK_EXECUTABLE_PATH-merged" -create "${EXTRACTED_ARCHS[@]}"
+    rm "${EXTRACTED_ARCHS[@]}"
+
+    echo "Replacing original executable with thinned version"
+    rm "$FRAMEWORK_EXECUTABLE_PATH"
+    mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
+done
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2017-11-08)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

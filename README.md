@@ -20,7 +20,7 @@ iOS Development
 
 Program | Version
 --------|---------
-Xcode   | 9.0
+Xcode   | 9.1
 
 ### Steps for running the apps
 
@@ -51,8 +51,8 @@ Manually distributing a beta build of the test app (for QA)
 Program   | Version
 ----------|---------
 ruby      | 2.4.2
-[bundler](https://github.com/bundler/bundler)   | 1.15.4
-[fastlane](https://github.com/fastlane/fastlane)  | 2.60.1
+[bundler](https://github.com/bundler/bundler)   | 1.16.0
+[fastlane](https://github.com/fastlane/fastlane)  | 2.64.0
 
 #### Note
 
@@ -83,7 +83,7 @@ Generating API reference pages from documentation comments
 Program   | Version
 ----------|---------
 ruby      | 2.4.2
-[bundler](https://github.com/bundler/bundler)   | 1.15.4
+[bundler](https://github.com/bundler/bundler)   | 1.16.0
 [jazzy](https://github.com/realm/jazzy)  | 0.8.4
 
 ### Running `jazzy`
@@ -91,7 +91,7 @@ ruby      | 2.4.2
 You may need to run `bundle update` as above.
 
 ```
-jazzy --clean --author ASAPP --author_url https://asapp.com --xcodebuild-arguments "-project,SDK/ASAPP.xcodeproj" --module ASAPP --output docs/swift_output --exclude=SDK/ASAPP/ASAPP/Components/Demo/* --readme docs/README.md
+scripts/generate_docs.sh
 ```
 
 The reference website can be found at `docs/swift_output/index.html`.

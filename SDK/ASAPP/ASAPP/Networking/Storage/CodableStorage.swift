@@ -25,7 +25,7 @@ enum StorageError: Error {
     case couldNotDeleteFile(String)
 }
 
-public class CodableStorage {
+class CodableStorage {
     fileprivate init() {}
     
     static func store<T: Storable & Encodable>(_ object: T, as fileName: String, to directory: FileManager.SearchPathDirectory? = nil) throws {

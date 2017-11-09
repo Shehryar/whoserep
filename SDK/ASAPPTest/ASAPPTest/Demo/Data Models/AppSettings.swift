@@ -30,6 +30,7 @@ class AppSettings: NSObject {
         case spearEnvironment = "asapp_spear_environment"
         
         case tetrisPassword = "asapp_tetris_password"
+        case tetrisEnvironment = "asapp_tetris_environment"
     }
     
     // MARK: Shared Instance
@@ -112,6 +113,14 @@ class AppSettings: NSObject {
     
     var tetrisPassword: String? {
         return AppSettings.getString(forKey: .tetrisPassword)
+    }
+    
+    var tetrisEnvironment: TetrisEnvironment {
+        if let savedValue = AppSettings.getString(forKey: .tetrisEnvironment),
+            let savedEnvironment = TetrisEnvironment(rawValue: savedValue) {
+            return savedEnvironment
+        }
+        return TetrisEnvironment.defaultValue
     }
     
     let versionString: String
