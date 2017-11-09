@@ -10,6 +10,7 @@ ASAPP/Output/
 fastlane/build/
 .bundle/
 vendor/bundle/
+package/ASAPP.framework
 
 ## Various settings
 *.pbxuser
