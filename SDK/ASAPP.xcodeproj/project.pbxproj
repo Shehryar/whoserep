@@ -380,6 +380,7 @@
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
 		3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C2F091FAA152E00F2407A /* Session.swift */; };
+		3A8D59601FB9F04F00A68F33 /* ASAPPShapeStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D595F1FB9F04F00A68F33 /* ASAPPShapeStyles.swift */; };
 		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPNavBarButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */; };
@@ -772,6 +773,7 @@
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3A8C2F091FAA152E00F2407A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3A8D595F1FB9F04F00A68F33 /* ASAPPShapeStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPShapeStyles.swift; sourceTree = "<group>"; };
 		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPNavBarButtonImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImage.swift; sourceTree = "<group>"; };
@@ -1360,6 +1362,7 @@
 				3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */,
 				30131FA11EAFB489009E7299 /* ASAPPNavBarButtonStyle.swift */,
 				3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */,
+				3A8D595F1FB9F04F00A68F33 /* ASAPPShapeStyles.swift */,
 				30F6B4D81EC5331000ABA570 /* ButtonType.swift */,
 				3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */,
 				308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */,
@@ -2006,6 +2009,7 @@
 				30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */,
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
+				3A8D59601FB9F04F00A68F33 /* ASAPPShapeStyles.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
 				30131FA41EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift in Sources */,
