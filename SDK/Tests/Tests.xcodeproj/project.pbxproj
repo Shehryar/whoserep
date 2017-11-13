@@ -43,6 +43,7 @@
 		3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */; };
 		3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */; };
+		3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */; };
 		3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
@@ -170,6 +171,7 @@
 		3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewSpec.swift; sourceTree = "<group>"; };
 		3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaMaxLength.swift; sourceTree = "<group>"; };
 		3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewTestCase.swift; sourceTree = "<group>"; };
+		3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryRatingViewSpec.swift; sourceTree = "<group>"; };
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		3A391B371FA14E080085C2DA /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidation.swift; sourceTree = "<group>"; };
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */,
+				3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */,
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
@@ -551,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
+				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
 				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
 				3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */,

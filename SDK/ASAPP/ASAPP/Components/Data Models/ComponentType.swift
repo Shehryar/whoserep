@@ -12,6 +12,7 @@ import UIKit
 enum ComponentType: String {
     
     // Core Components
+    case binaryRatingView
     case button
     case checkbox
     case checkboxView
@@ -39,6 +40,7 @@ enum ComponentType: String {
     func getItemClass() -> Component.Type {
         switch self {
         // Core Components
+        case .binaryRatingView: return BinaryRatingItem.self
         case .button: return ButtonItem.self
         case .checkbox: return CheckboxItem.self
         case .checkboxView: return CheckboxViewItem.self
