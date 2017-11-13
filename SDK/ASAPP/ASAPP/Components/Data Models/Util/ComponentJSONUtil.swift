@@ -131,7 +131,7 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         return nil
     }
     
-    func int(for key: String, defaultValue: Int) -> Int? {
+    func int(for key: String, defaultValue: Int) -> Int {
         return int(for: key) ?? defaultValue
     }
     

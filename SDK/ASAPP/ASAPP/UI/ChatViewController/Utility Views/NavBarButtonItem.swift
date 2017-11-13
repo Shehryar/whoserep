@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum NavBarButtonStyle {
-    case ask
-    case respond
-}
-
 enum NavBarButtonLocation {
     case chat
     case predictive
@@ -88,38 +83,14 @@ class NavBarButtonItem: UIBarButtonItem {
         }
         
         let button = customView as? UIButton ?? UIButton()
-        let style: NavBarButtonStyle = location == .chat ? .ask : .respond
         
-        button.setBackgroundImage(
-            NavBarButtonItem.getChatBubbleBackgroundImage(
-                forStyle: style,
-                color: backgroundColor,
-                alpha: 1),
-            for: .normal)
-        button.setBackgroundImage(
-            NavBarButtonItem.getChatBubbleBackgroundImage(
-                forStyle: style,
-                color: backgroundColor,
-                alpha: 0.6),
-            for: .highlighted)
+        button.setBackgroundImage(UIImage.imageWithColor(backgroundColor), for: .normal)
+        button.setBackgroundImage(UIImage.imageWithColor(backgroundColor.withAlphaComponent(0.6)), for: .highlighted)
+        
+        button.clipsToBounds = true
+        button.layer.cornerRadius = button.bounds.height / 2
         
         customView = button
-    }
-    
-    private class func getChatBubbleBackgroundImage(forStyle style: NavBarButtonStyle, color: UIColor, alpha: CGFloat) -> UIImage? {
-        var image: UIImage?
-        switch style {
-        case .ask:
-            image = Images.getImage(.buttonAskBG)?.tinted(color, alpha: alpha)
-            break
-            
-        case .respond:
-            image = Images.getImage(.buttonRespondBG)?.tinted(color, alpha: alpha)
-            break
-        }
-        
-        return image?.resizableImage(withCapInsets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5),
-                                     resizingMode: .stretch)
     }
     
     @discardableResult
@@ -146,6 +117,9 @@ class NavBarButtonItem: UIBarButtonItem {
             button.titleEdgeInsets = styles.insets
             button.sizeToFit()
         }
+        
+        button.clipsToBounds = true
+        button.layer.cornerRadius = button.bounds.height / 2
         
         customView = button
         
@@ -188,6 +162,9 @@ class NavBarButtonItem: UIBarButtonItem {
         let buttonSize = CGSize(width: customImage.size.width + insets.left + insets.right,
                                 height: customImage.size.height + insets.top + insets.bottom)
         button.frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height)
+        
+        button.clipsToBounds = true
+        button.layer.cornerRadius = button.bounds.height / 2
         
         customView = button
         

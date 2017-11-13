@@ -31,7 +31,7 @@ class TextInputViewSpec: QuickSpec {
                 style.fontSize = 22
                 style.letterSpacing = 0.5
                 style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                style.padding = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+                style.padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 style.textType = .body
                 
                 return style
@@ -57,18 +57,7 @@ class TextInputViewSpec: QuickSpec {
                     ASAPP.styles.colors.controlSecondary = .blue
                     ASAPP.styles.colors.controlTint = .brown
                     
-                    style = ComponentStyle()
-                    style.alignment = .center
-                    style.backgroundColor = .white
-                    style.borderColor = .red
-                    style.borderWidth = 1
-                    style.color = .blue
-                    style.cornerRadius = 10
-                    style.fontSize = 22
-                    style.letterSpacing = 0.5
-                    style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                    style.padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                    style.textType = .body
+                    style = configStyle()
                 }
                 
                 context("with a placeholder") {

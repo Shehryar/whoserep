@@ -171,6 +171,8 @@ class ButtonView: UIButton, ComponentView {
     override func layoutSubviews() {
         super.layoutSubviews()
         updateFrames()
+        
+        self.layer.cornerRadius = ASAPP.styles.shapeStyles.primaryButtonsRounded ? self.bounds.size.height / 2 : 0
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

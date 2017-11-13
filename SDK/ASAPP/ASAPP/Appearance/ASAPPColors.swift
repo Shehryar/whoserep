@@ -60,6 +60,12 @@ public class ASAPPColors: NSObject {
     /// The color of the background of selected checkboxes and radio buttons.
     public var controlSelectedBackground: UIColor = UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1)
     
+    /// The default color of the background of a selected button representing a positive choice (such as in a BinaryRatingView).
+    public var positiveSelectedBackground: UIColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
+    
+    /// The default color of the background of a selected button representing a negative choice (such as in a BinaryRatingView).
+    public var negativeSelectedBackground: UIColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
+    
     // MARK: - Chat: Buttons
     
     /// The color of text buttons, usually an accent color.

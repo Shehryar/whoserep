@@ -13,7 +13,7 @@ class YesNoView: UIView {
     
     private let contentInset = UIEdgeInsets.zero
     private let buttonSpacing: CGFloat = 40
-    private let unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha:1)
+    private let unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha: 1)
     private let yesColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
     private let noColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
     

@@ -18,6 +18,8 @@ enum ComponentIcon: String {
     case clock
     case loginKey
     case power
+    case thumbsDown
+    case thumbsUp
     case trash
     case user
     case userMinus

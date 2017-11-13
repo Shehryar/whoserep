@@ -56,7 +56,7 @@ class ChatTextBubbleView: UIView {
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
                 bubbleView.fillColor = fillColor
             }
-            bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
+            bubbleView.strokeLineWidth = ASAPP.styles.shapeStyles.separatorStrokeWidth
             updateBubbleCorners()
             
             setNeedsLayout()

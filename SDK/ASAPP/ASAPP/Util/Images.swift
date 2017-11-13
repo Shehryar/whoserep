@@ -29,8 +29,6 @@ class Images: NSObject {
         case iconStarFilled = "icon-star-filled"
         case iconUser = "icon-user"
         
-        case buttonAskBG = "button-bg-ask"
-        case buttonRespondBG = "button-bg-respond"
         case buttonCloseBG = "button-bg-close"
         
         case tileImageDash = "bg-dash-tile"

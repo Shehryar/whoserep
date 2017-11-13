@@ -20,8 +20,8 @@ public class ASAPPStyles: NSObject {
     /// Customizable colors.
     public var colors = ASAPPColors()
     
-    /// The width of the stroke of separators such as timestamp headers and chat bubble borders.
-    public var separatorStrokeWidth: CGFloat = 1.0
+    /// Customizable shape properties.
+    public var shapeStyles = ASAPPShapeStyles()
     
     /// How the SDK's view controller is displayed by an `ASAPPButton`.
     public var segue: ASAPPSegue = .present
