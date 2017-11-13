@@ -258,7 +258,7 @@ extension ConversationManager {
         return quickReplyMessages.reversed()
     }
     
-    private func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
+    func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
         for (_, event) in events.enumerated().reversed() {
             if event.eventType == .accountMerge {
                 break

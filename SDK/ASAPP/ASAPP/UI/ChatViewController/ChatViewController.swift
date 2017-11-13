@@ -103,7 +103,7 @@ class ChatViewController: ASAPPViewController {
         if isLiveChat {
             showPredictiveOnViewAppear = false
         } else {
-            if let lastMessage = chatMessagesView.lastMessage {
+            if let (_, lastMessage) = conversationManager.getCurrentQuickReplyMessage() {
                 let secondsSinceLastEvent = Date().timeIntervalSince(lastMessage.metadata.sendTime)
                 
                 showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
