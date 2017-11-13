@@ -47,10 +47,11 @@
     
     NSString *appId = nil;
     NSString *apiHostName = nil;
+    NSString *regionCode = nil;
     NSString *clientSecret = nil;
     
-    NSAssert(appId != nil & apiHostName != nil && clientSecret != nil,
-             @"You must set your appId, apiHostName, and clientSecret in ViewController.m before running.");
+    NSAssert(appId != nil & apiHostName != nil && regionCode != nil && clientSecret != nil,
+             @"You must set your appId, apiHostName, regionCode, and clientSecret in ViewController.m before running.");
     
     /**
      ASAPPConfig
@@ -60,8 +61,9 @@
      was placed here for convenience.
      */
     ASAPPConfig *config = [[ASAPPConfig alloc] initWithAppId:appId
-                                                 apiHostName:apiHostName
-                                                clientSecret:clientSecret];
+                                               apiHostName:apiHostName
+                                               clientSecret:clientSecret
+                                               regionCode:regionCode];
     [ASAPP initializeWith:config];
     
     
@@ -76,7 +78,7 @@
     ASAPPUser *user = [[ASAPPUser alloc] initWithUserIdentifier:self.userIdentifier
                                          requestContextProvider:^NSDictionary<NSString *,id> * _Nonnull {
         return @{
-              [ASAPP AUTH_KEY_ACCESS_TOKEN] : @"ios_objc_access_token",
+              [ASAPP authTokenKey] : @"ios_objc_access_token",
               @"fake_context_key_1" : @"fake_context_value_1"
               };
     } userLoginHandler:^(void (^ _Nonnull onUserLogin)(ASAPPUser * _Nonnull)) {

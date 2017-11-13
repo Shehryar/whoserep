@@ -49,10 +49,11 @@ extension ViewController {
          */
         let appId: String = ""
         let apiHostName: String = ""
+        let regionCode: String = ""
         let clientSecret: String = ""
         
-        assert(!appId.isEmpty && !apiHostName.isEmpty && !clientSecret.isEmpty,
-               "You must set your appId, apiHostName, and clientSecret in ViewController.swift before running.")
+        assert(!appId.isEmpty && !apiHostName.isEmpty && !regionCode.isEmpty && !clientSecret.isEmpty,
+               "You must set your appId, apiHostName, regionCode, and clientSecret in ViewController.swift before running.")
         
         
         /**
@@ -62,7 +63,7 @@ extension ViewController {
          A typical setup would place this code in the app's delegate file, but
          is placed here for viewing convenience.
          */
-        let config = ASAPPConfig(appId: appId, apiHostName: apiHostName, clientSecret: clientSecret)
+        let config = ASAPPConfig(appId: appId, apiHostName: apiHostName, clientSecret: clientSecret, regionCode: regionCode)
         ASAPP.initialize(with: config)
         
         
@@ -78,7 +79,7 @@ extension ViewController {
             userIdentifier: getUserIdentifier(),
             requestContextProvider: { () -> [String : Any] in
                 return [
-                    ASAPP.AUTH_KEY_ACCESS_TOKEN: "dist_ios_SDK_Swift_fake_auth_token",
+                    ASAPP.authTokenKey: "dist_ios_SDK_Swift_fake_auth_token",
                     "fake_context_key_1": "fake_context_value_1"
                 ]
         }, userLoginHandler: { /* [weak self] */ (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
