@@ -9,15 +9,17 @@
 import Foundation
 
 enum TetrisEnvironment: String {
-    case test = "Test"
+    case test1 = "Test FN1"
+    case test2 = "Test FN2"
     case prod = "Prod"
     
-    static let defaultValue = test
-    static let allValues = [test, prod]
+    static let defaultValue = test2
+    static let allValues = [test1, test2, prod]
     
     var host: String {
         switch self {
-        case .test: return "https://fn1.services.test.bigpond.com"
+        case .test1: return "https://fn1.services.test.bigpond.com"
+        case .test2: return "https://fn2.services.test.bigpond.com"
         case .prod: return "https://services.bigpond.com"
         }
     }

@@ -59,7 +59,8 @@ SDK Usage
 
     let config = ASAPPConfig(appId: appId,
                              apiHostName: apiHostName,
-                             clientSecret: clientSecret)
+                             clientSecret: clientSecret,
+                             regionCode: regionCode)
 
     ASAPP.initialize(with: config)
 
