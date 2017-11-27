@@ -76,9 +76,9 @@ class BinaryRatingItem: Component {
         
         self.isPositiveOnRight = content.bool(for: JSONKey.positiveOnRight.rawValue) ?? false
         
-        self.circleSize = content.float(for: JSONKey.circleSize.rawValue, defaultValue: 50)
+        self.circleSize = content.float(for: JSONKey.circleSize.rawValue, defaultValue: 56)
         
-        self.circleSpacing = content.float(for: JSONKey.circleSpacing.rawValue, defaultValue: 20)
+        self.circleSpacing = content.float(for: JSONKey.circleSpacing.rawValue, defaultValue: 32)
         
         super.init(id: id,
                    name: name,

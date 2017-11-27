@@ -186,11 +186,45 @@ class BinaryRatingViewSpec: QuickSpec {
                         let binaryRatingView = BinaryRatingView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
                         binaryRatingView.component = binaryRatingItem
                         
+                        expect(binaryRatingItem?.value as? String).to(beNil())
+                        
                         binaryRatingView.setChoice(true, animated: false)
                         expect(binaryRatingItem?.value as? String).to(equal(thumbsUp))
                         
                         binaryRatingView.setChoice(false, animated: false)
                         expect(binaryRatingItem?.value as? String).to(equal(thumbsDown))
+                    }
+                }
+                
+                context("with yes selected") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "positiveValue": "1",
+                            "negativeValue": "0",
+                            "positiveSelectedColor": "#0000ff",
+                            "negativeSelectedColor": "#ffff00"
+                        ]
+                        let binaryRatingItem = BinaryRatingItem(style: style, content: content)
+                        let binaryRatingView = BinaryRatingView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        binaryRatingView.component = binaryRatingItem
+                        binaryRatingView.setChoice(true, animated: false)
+                        expect(binaryRatingView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("with no selected") {
+                    it("has a valid snapshot") {
+                        let content = [
+                            "positiveValue": "1",
+                            "negativeValue": "0",
+                            "positiveSelectedColor": "#0000ff",
+                            "negativeSelectedColor": "#ffff00"
+                        ]
+                        let binaryRatingItem = BinaryRatingItem(style: style, content: content)
+                        let binaryRatingView = BinaryRatingView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+                        binaryRatingView.component = binaryRatingItem
+                        binaryRatingView.setChoice(false, animated: false)
+                        expect(binaryRatingView).to(haveValidSnapshot())
                     }
                 }
             }
