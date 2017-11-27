@@ -15,21 +15,42 @@ class TestUtil: NSObject {
     
     // MARK: - JSON
 
-    class func jsonForFile(named fileName: String) -> [String : Any]? {
-        
+    class func dictForFile(named fileName: String) -> [String : Any]? {
         guard let filePath = bundle.path(forResource: fileName, ofType: "json") else {
             log(caller: self, "Unable to generate filePath for file named: \(fileName)")
             return nil
         }
+        
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
             log(caller: self, "Unable to parse data from file with path: \(filePath)")
             return nil
         }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
+        
+        guard let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
             log(caller: self, "Unable to parse JSON from data")
             return nil
         }
-        return json
+        
+        return dict
+    }
+    
+    class func stringForFile(named fileName: String) -> String? {
+        guard let filePath = bundle.path(forResource: fileName, ofType: "json") else {
+            log(caller: self, "Unable to generate filePath for file named: \(fileName)")
+            return nil
+        }
+        
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
+            log(caller: self, "Unable to parse data from file with path: \(filePath)")
+            return nil
+        }
+        
+        guard let string = String(data: data, encoding: .utf8) else {
+            log(caller: self, "Unable to parse string from data")
+            return nil
+        }
+        
+        return string
     }
     
     // MARK: - Logging

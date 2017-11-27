@@ -1,0 +1,169 @@
+Response|1|{
+  "EventList": [
+    {
+      "CreatedTime": 1509981196647090,
+      "IssueId": 29530001,
+      "CompanyId": 10001,
+      "CustomerId": 10030001,
+      "RepId": 0,
+      "EventTime": 1509981196647090,
+      "EventType": 2,
+      "EphemeralType": 0,
+      "EventFlags": 1,
+      "EventJSON": {
+        "Issue": {
+          "IssueId": 29530001,
+          "CompanyId": 10001,
+          "CompanyGroupId": 10001,
+          "PlatformType": 3,
+          "CustomerId": 10030001,
+          "RepId": 0,
+          "RepIssuePos": 0,
+          "IssueStatus": 8,
+          "IssueStatusTime": 0,
+          "FirstCompanyEventLogSeq": 0,
+          "LastCompanyEventLogSeq": 0,
+          "IssueSecret": "deadbeef",
+          "IssueTopicId": 0,
+          "CustomerState": 1,
+          "CreatedTime": 1509981196624010,
+          "EndedTime": 0,
+          "Resolved": false,
+          "RegionId": 1,
+          "IsSRS": false,
+          "LastSRSIntent": "",
+          "LastSRSIntentDescription": ""
+        }
+      },
+      "CompanyEventLogSeq": 0,
+      "CustomerEventLogSeq": 1,
+      "EventId": 221740001
+    },
+    {
+      "CreatedTime": 1509981196682669,
+      "IssueId": 29530001,
+      "CompanyId": 10001,
+      "CustomerId": 10030001,
+      "RepId": 0,
+      "EventTime": 1509981196682669,
+      "EventType": 29,
+      "EphemeralType": 0,
+      "EventFlags": 4,
+      "EventJSON": {
+        "actions": [
+          "Transaction History",
+          "Security PIN",
+          "Make a Payment"
+        ],
+        "errorType": "graphql_query",
+        "formatVersion": 1,
+        "greeting": "How can we help?",
+        "predictions": [
+          {
+            "prediction_actions": [],
+            "prediction_display_text": "Here are some options, or ask a question."
+          }
+        ],
+        "type": "prediction"
+      },
+      "CompanyEventLogSeq": 0,
+      "CustomerEventLogSeq": 2,
+      "EventId": 221750001
+    },
+    {
+      "CreatedTime": 1510001845403914,
+      "IssueId": 29530001,
+      "CompanyId": 10001,
+      "CustomerId": 10030001,
+      "RepId": 0,
+      "EventTime": 1510001845403914,
+      "EventType": 29,
+      "EphemeralType": 0,
+      "EventFlags": 4,
+      "EventJSON": {
+        "actions": [
+          "Transaction History",
+          "Security PIN",
+          "Make a Payment"
+        ],
+        "errorType": "graphql_query",
+        "formatVersion": 1,
+        "greeting": "How can we help?",
+        "predictions": [
+          {
+            "prediction_actions": [],
+            "prediction_display_text": "Here are some options, or ask a question."
+          }
+        ],
+        "type": "prediction"
+      },
+      "CompanyEventLogSeq": 0,
+      "CustomerEventLogSeq": 3,
+      "EventId": 221760001
+    },
+    {
+      "CreatedTime": 1510001872383667,
+      "IssueId": 29530001,
+      "CompanyId": 10001,
+      "CustomerId": 10030001,
+      "RepId": 0,
+      "EventTime": 1510001872383667,
+      "EventType": 1,
+      "EphemeralType": 0,
+      "EventFlags": 1,
+      "EventJSON": {
+        "Text": "Transaction History",
+        "ClientTimestamp": 0,
+        "IsTreewalk": false
+      },
+      "CompanyEventLogSeq": 0,
+      "CustomerEventLogSeq": 4,
+      "EventId": 221770001
+    },
+    {
+      "CreatedTime": 1510001872894969,
+      "IssueId": 29530001,
+      "CompanyId": 10001,
+      "CustomerId": 10030001,
+      "RepId": 0,
+      "EventTime": 1510001872894970,
+      "EventType": 22,
+      "EphemeralType": 0,
+      "EventFlags": 4,
+      "EventJSON": {
+        "formatVersion": 1,
+        "metadata": {
+          "classification": "AH",
+          "stateName": "001-1_message_transaction_history"
+        },
+        "parentEventLogSeq": 0,
+        "quickReplies": {
+          "default": [
+            {
+              "action": {
+                "content": {
+                  "classification": "001-1_message_transaction_history"
+                },
+                "type": "treewalk"
+              },
+              "title": "Try again"
+            },
+            {
+              "action": {
+                "content": {
+                  "classification": "message_ok"
+                },
+                "type": "treewalk"
+              },
+              "title": "Cancel"
+            }
+          ]
+        },
+        "text": "We encountered an error retrieving your transaction history. Please try again."
+      },
+      "CompanyEventLogSeq": 0,
+      "CustomerEventLogSeq": 5,
+      "EventId": 221780001
+    }
+  ]
+}

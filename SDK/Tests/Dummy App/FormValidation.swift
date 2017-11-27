@@ -26,7 +26,7 @@ class FormValidation: ComponentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
+        let json = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
         componentViewContainer = ComponentViewContainer.from(json)
         delegate = self
     }

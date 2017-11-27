@@ -108,7 +108,7 @@
 		3022685B1D8079C400EC4FB1 /* VerticalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */; };
 		3022685E1D8097E700EC4FB1 /* PredictiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022685D1D8097E700EC4FB1 /* PredictiveViewController.swift */; };
 		302268621D80B89900EC4FB1 /* PredictiveButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268611D80B89900EC4FB1 /* PredictiveButtonsView.swift */; };
-		30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */; };
+		30226CD71D4933F200871453 /* IncomingMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageDeserializer.swift */; };
 		30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */; };
 		30226CD91D4933F200871453 /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC81D4933F200871453 /* SocketConnection.swift */; };
 		30226CDA1D4933F200871453 /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CCA1D4933F200871453 /* ConversationManager.swift */; };
@@ -501,7 +501,7 @@
 		3022685A1D8079C400EC4FB1 /* VerticalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalGradientView.swift; sourceTree = "<group>"; };
 		3022685D1D8097E700EC4FB1 /* PredictiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveViewController.swift; sourceTree = "<group>"; };
 		302268611D80B89900EC4FB1 /* PredictiveButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictiveButtonsView.swift; sourceTree = "<group>"; };
-		30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageSerializer.swift; sourceTree = "<group>"; };
+		30226CC61D4933F200871453 /* IncomingMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageDeserializer.swift; sourceTree = "<group>"; };
 		30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializer.swift; sourceTree = "<group>"; };
 		30226CC81D4933F200871453 /* SocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
 		30226CCA1D4933F200871453 /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
@@ -1179,7 +1179,7 @@
 				3060DE781F1FAC7200A67384 /* SocketRequest.swift */,
 				3A8C2F091FAA152E00F2407A /* Session.swift */,
 				30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */,
-				30226CC61D4933F200871453 /* IncomingMessageSerializer.swift */,
+				30226CC61D4933F200871453 /* IncomingMessageDeserializer.swift */,
 				305C6C981DB6BB0700FF0AF4 /* Response Serializing */,
 				30DF3F5D1F22798400D6DB02 /* HTTP */,
 			);
@@ -2067,7 +2067,7 @@
 				30131FD71EB10FD0009E7299 /* TextInputItem.swift in Sources */,
 				3049CD241D42AD8500F0C0E6 /* DebugLog.swift in Sources */,
 				30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */,
-				30226CD71D4933F200871453 /* IncomingMessageSerializer.swift in Sources */,
+				30226CD71D4933F200871453 /* IncomingMessageDeserializer.swift in Sources */,
 				3060DE771F1FA80200A67384 /* OverlayLoadingView.swift in Sources */,
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,

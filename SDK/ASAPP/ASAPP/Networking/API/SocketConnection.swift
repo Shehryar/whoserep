@@ -46,7 +46,7 @@ class SocketConnection: NSObject {
     
     private var outgoingMessageSerializer: OutgoingMessageSerializer
     
-    private var incomingMessageSerializer = IncomingMessageSerializer()
+    private var incomingMessageDeserializer = IncomingMessageDeserializer()
     
     private var requestQueue = [SocketRequest]()
     
@@ -355,8 +355,8 @@ extension SocketConnection: SRWebSocketDelegate {
             }
         }
         
-        let serializedMessage = incomingMessageSerializer.serializedMessage(message)
-        if let requestId = serializedMessage.requestId {
+        let incomingMessage = incomingMessageDeserializer.deserialize(message)
+        if let requestId = incomingMessage.requestId {
             
             // Original Request
             let originalRequest = requestLookup[requestId]
@@ -375,14 +375,14 @@ extension SocketConnection: SRWebSocketDelegate {
             
             if let requestHandler = requestHandlers[requestId] {
                 requestHandlers[requestId] = nil
-                requestHandler(serializedMessage, originalRequest, responseTime)
+                requestHandler(incomingMessage, originalRequest, responseTime)
             }
             
         } else {
              logMessageReceived(forRequest: nil, responseTime: -1)
         }
         
-        delegate?.socketConnection(self, didReceiveMessage: serializedMessage)
+        delegate?.socketConnection(self, didReceiveMessage: incomingMessage)
     }
     
     // MARK: Connection Opening/Closing

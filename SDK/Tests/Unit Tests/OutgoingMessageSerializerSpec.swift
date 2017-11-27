@@ -12,14 +12,36 @@ import Nimble
 
 class OutgoingMessageSerializerSpec: QuickSpec {
     override func spec() {
+        func createSession(from dict: [String: Any]) -> Session? {
+            let decoder = JSONDecoder()
+            
+            guard let data = try? JSONSerialization.data(withJSONObject: dict, options: []),
+                let string = String(data: data, encoding: .utf8) else {
+                    return nil
+            }
+            
+            decoder.userInfo[Session.rawBodyKey] = string
+            
+            guard let stringData = string.data(using: .utf8),
+                let session = try? decoder.decode(Session.self, from: stringData) else {
+                    return nil
+            }
+            
+            return session
+        }
+        
         describe("OutgoingMessageSerializer") {
             describe(".createAuthRequest()") {
                 context("with a config with the default region code") {
-                    let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
-                    ASAPP.initialize(with: config)
-                    ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
-                        return [:]
-                    }, userLoginHandler: { _ in })
+                    var config: ASAPPConfig!
+                    
+                    beforeEach {
+                        config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                    }
                     
                     it("creates an auth request with the default region code") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
@@ -29,16 +51,135 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                 }
                 
                 context("with a config with a custom region code") {
-                    let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test", regionCode: "AUS")
-                    ASAPP.initialize(with: config)
-                    ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
-                        return [:]
-                    }, userLoginHandler: { _ in })
+                    var config: ASAPPConfig!
+                    
+                    beforeEach {
+                        config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test", regionCode: "AUS")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                    }
                     
                     it("creates an auth request with the custom region code") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         let authRequest = serializer.createAuthRequest()
                         expect(authRequest.params["RegionCode"] as? String).to(equal("AUS"))
+                    }
+                }
+                
+                context("without session info and with an anonymous user") {
+                    var config: ASAPPConfig!
+                    
+                    beforeEach {
+                        config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: nil, requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                    }
+                    
+                    it("creates an auth request for an anonymous user") {
+                        let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
+                        let authRequest = serializer.createAuthRequest()
+                        expect(authRequest.path).to(equal("auth/CreateAnonCustomerAccount"))
+                        expect(authRequest.isSessionAuthRequest).to(beFalse())
+                    }
+                }
+                
+                context("without session info and with a non-anonymous user") {
+                    var config: ASAPPConfig!
+                    
+                    beforeEach {
+                        config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                    }
+                    
+                    it("creates an auth request with a customer identifier") {
+                        let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
+                        let authRequest = serializer.createAuthRequest()
+                        expect(authRequest.path).to(equal("auth/AuthenticateWithCustomerIdentifier"))
+                        expect(authRequest.isSessionAuthRequest).to(beFalse())
+                    }
+                }
+                
+                context("with session info and with an anonymous user") {
+                    var serializer: OutgoingMessageSerializer!
+                    
+                    beforeEach {
+                        let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: nil, requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                        
+                        serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
+                        
+                        let dict = [
+                            "SessionInfo": [
+                                "Customer": [
+                                    "CustomerId": 9000,
+                                    "CustomerGUID": "deadbeef"
+                                ],
+                                "Company": [
+                                    "CompanyId": 42
+                                ]
+                            ]
+                        ]
+                        
+                        guard let session = createSession(from: dict) else {
+                            return fail()
+                        }
+                        
+                        serializer.session = session
+                    }
+                    
+                    it("creates an auth request with an existing session") {
+                        let authRequest = serializer.createAuthRequest()
+                        expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
+                        expect(authRequest.isSessionAuthRequest).to(beTrue())
+                    }
+                }
+                
+                context("with session info and with a non-anonymous user") {
+                    var serializer: OutgoingMessageSerializer!
+                    
+                    beforeEach {
+                        let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
+                        ASAPP.initialize(with: config)
+                        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+                            return [:]
+                        }, userLoginHandler: { _ in })
+                        
+                        serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
+                        
+                        let dict = [
+                            "SessionInfo": [
+                                "Customer": [
+                                    "PrimaryIdentifier": "test",
+                                    "CustomerId": 9000,
+                                    "CustomerGUID": "deadbeef"
+                                ],
+                                "Company": [
+                                    "CompanyId": 42
+                                ]
+                            ]
+                        ]
+                        
+                        guard let session = createSession(from: dict) else {
+                            return fail()
+                        }
+                        
+                        serializer.session = session
+                    }
+                    
+                    it("creates an auth request with an existing session") {
+                        let authRequest = serializer.createAuthRequest()
+                        expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
+                        expect(authRequest.isSessionAuthRequest).to(beTrue())
                     }
                 }
             }

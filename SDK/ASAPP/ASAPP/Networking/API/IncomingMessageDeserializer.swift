@@ -1,5 +1,5 @@
 //
-//  IncomingMessageSerializer.swift
+//  IncomingMessageDeserializer.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 7/23/16.
@@ -37,9 +37,9 @@ typealias ResponseTimeInMilliseconds = Int
 
 typealias IncomingMessageHandler = ((_ message: IncomingMessage, _ request: SocketRequest?, _ responseTime: ResponseTimeInMilliseconds) -> Void)
 
-class IncomingMessageSerializer {
+class IncomingMessageDeserializer {
     
-    func serializedMessage(_ message: Any?) -> (IncomingMessage) {
+    func deserialize(_ message: Any?) -> IncomingMessage {
         let serializedMessage = IncomingMessage(withFullMessage: message)
         
         guard let messageString = message as? String else {
@@ -56,23 +56,20 @@ class IncomingMessageSerializer {
             case .response:
                 serializedMessage.requestId = Int(tokens[1])
                 serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
-                break
                 
             case .event:
                 serializedMessage.bodyString = tokens[1...(tokens.count-1)].joined(separator: "|")
-                break
                 
             case .responseError:
                 serializedMessage.requestId = Int(tokens[1])
                 serializedMessage.bodyString = tokens[2...(tokens.count-1)].joined(separator: "|")
                 serializedMessage.debugError = serializedMessage.bodyString
-                break
             }
         }
         
         if let bodyString = serializedMessage.bodyString {
             do {
-                serializedMessage.body = try JSONSerialization.jsonObject(with: bodyString.data(using: String.Encoding.utf8)!, options: []) as? [String: AnyObject]
+                serializedMessage.body = try JSONSerialization.jsonObject(with: bodyString.data(using: String.Encoding.utf8)!, options: []) as? [String: Any]
             } catch {}
         }
 
