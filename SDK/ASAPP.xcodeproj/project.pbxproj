@@ -85,7 +85,6 @@
 		30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FDC1EB11080009E7299 /* VerticalAlignment.swift */; };
 		30131FDF1EB110ED009E7299 /* CapitalizationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FDE1EB110ED009E7299 /* CapitalizationType.swift */; };
 		30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */; };
-		3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */; };
 		3019F5DF1D5B92760036D74E /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3019F5DE1D5B92760036D74E /* ColorExtensions.swift */; };
 		301C4BEE1DAD804C002BF4D9 /* map-device.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEB1DAD804C002BF4D9 /* map-device.png */; };
 		301C4BEF1DAD804C002BF4D9 /* map-device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */; };
@@ -479,7 +478,6 @@
 		30131FDC1EB11080009E7299 /* VerticalAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalAlignment.swift; sourceTree = "<group>"; };
 		30131FDE1EB110ED009E7299 /* CapitalizationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapitalizationType.swift; sourceTree = "<group>"; };
 		30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+ASAPPAppearance.swift"; sourceTree = "<group>"; };
-		3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPresentationAnimator.swift; sourceTree = "<group>"; };
 		3019F5DE1D5B92760036D74E /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		301C4BEB1DAD804C002BF4D9 /* map-device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device.png"; sourceTree = "<group>"; };
 		301C4BEC1DAD804C002BF4D9 /* map-device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-device@2x.png"; sourceTree = "<group>"; };
@@ -1529,7 +1527,6 @@
 			isa = PBXGroup;
 			children = (
 				30883F941D54E0E7002414E9 /* ASAPPButton.swift */,
-				3019F5D91D58D0810036D74E /* ButtonPresentationAnimator.swift */,
 			);
 			path = ASAPPButton;
 			sourceTree = "<group>";
@@ -1914,7 +1911,6 @@
 				302A20BA1E5E2CFB007C522A /* icon-star-filled.png in Resources */,
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
-				285F7AE31DA9AD3B008C2EF6 /* button-bg-ask@3x.png in Resources */,
 				3A0E7FA91FB5149B008F9544 /* thumbsUp@2x.png in Resources */,
 				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				3025D9A81E527FCC004149D7 /* icon-error-alert-filled@3x.png in Resources */,
@@ -2157,7 +2153,6 @@
 				30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */,
 				30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */,
 				30131FA61EAFB603009E7299 /* UIButton+ASAPPAppearance.swift in Sources */,
-				3019F5DA1D58D0810036D74E /* ButtonPresentationAnimator.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
 				30F6B4BE1EBCE6C100ABA570 /* TemplateServerIntentsViewController.swift in Sources */,
 				306619211D9458F50092B4C5 /* UIImage+GIF.m in Sources */,
