@@ -66,9 +66,23 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
     }
     
-    var sendButtonText: String {
+    var sendButtonImage: ASAPPCustomImage? {
+        didSet {
+            if oldValue != sendButtonImage {
+                updateSendButtonImage()
+            }
+        }
+    }
+    
+    var sendButtonText: String? {
         didSet {
             updateSendButtonText()
+        }
+    }
+    
+    var isRounded = false {
+        didSet {
+            updateDisplay()
         }
     }
     
@@ -103,7 +117,11 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     required init() {
         self.placeholderText = ASAPP.strings.chatInputPlaceholder
-        self.sendButtonText = ASAPP.strings.chatInputSend
+        if let text = ASAPP.strings.chatInputSend {
+            self.sendButtonText = text
+        } else {
+            self.sendButtonImage = ASAPP.styles.shapeStyles.sendButtonImage
+        }
         super.init(frame: .zero)
         
         backgroundColor = ASAPP.styles.colors.chatInput.background
@@ -118,8 +136,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         // Text View
         
-        textView.backgroundColor = UIColor.clear
-        textView.updateFont(for: .body)
+        textView.backgroundColor = .clear
         textView.bounces = false
         textView.isScrollEnabled = false
         textView.scrollsToTop = false
@@ -140,8 +157,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         bubbleView.addSubview(textView)
         
         placeholderTextView.text = placeholderText
-        placeholderTextView.backgroundColor = UIColor.clear
-        placeholderTextView.font = textView.font
+        placeholderTextView.backgroundColor = .clear
         placeholderTextView.isUserInteractionEnabled = false
         placeholderTextView.scrollsToTop = false
         placeholderTextView.isScrollEnabled = false
@@ -201,7 +217,24 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         mediaButton.setImage(Images.getImage(.iconPaperclip)?.tinted(inputColors.secondaryButton, alpha: 0.4), for: .disabled)
     }
     
+    func updateSendButtonImage() {
+        guard let image = sendButtonImage?.image else {
+            return
+        }
+        
+        sendButton.setAttributedTitle(nil, for: UIControlState())
+        sendButton.setAttributedTitle(nil, for: .highlighted)
+        sendButton.setAttributedTitle(nil, for: .disabled)
+        sendButton.setImage(image, for: UIControlState())
+        sendButton.setImage(image.withAlpha(0.7), for: .highlighted)
+        sendButton.setImage(image.withAlpha(0.4), for: .disabled)
+    }
+    
     func updateSendButtonText() {
+        guard let buttonTitle = sendButtonText else {
+            return
+        }
+        
         let font = ASAPP.styles.textStyles.link.font
         let color = inputColors.primaryButton
         let normalAttributes = [
@@ -219,16 +252,17 @@ class ChatInputView: UIView, TextViewAutoExpanding {
             .foregroundColor: color.withAlphaComponent(0.4),
             .font: font
         ] as [NSAttributedStringKey: Any]
-        let buttonTitle = sendButtonText
+        
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: normalAttributes), for: UIControlState())
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: highlightedAttributes), for: .highlighted)
         sendButton.setAttributedTitle(NSAttributedString(string: buttonTitle, attributes: disabledAttributes), for: .disabled)
     }
     
     func updateDisplay() {
-        textView.font = ASAPP.styles.textStyles.body.font
-        placeholderTextView.font = textView.font
+        textView.updateFont(for: .body)
+        placeholderTextView.updateFont(for: .bodyItalic)
         updateSendButtonText()
+        updateSendButtonImage()
         updateInputMinHeight()
         setNeedsLayout()
     }
@@ -326,6 +360,8 @@ extension ChatInputView {
         textView.frame = CGRect(x: contentInset.left, y: contentInset.top, width: textViewWidth, height: textViewHeight)
         
         placeholderTextView.frame = textView.frame
+        
+        bubbleView.layer.cornerRadius = isRounded ? bubbleView.frame.height / 2 : 0
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -356,6 +392,11 @@ extension ChatInputView: UITextViewDelegate {
             }
             return false
         }
+        return true
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        bubbleView.backgroundColor = inputColors.background.withAlphaComponent(1)
         return true
     }
 }

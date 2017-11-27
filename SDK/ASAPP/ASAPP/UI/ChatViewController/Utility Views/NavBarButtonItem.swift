@@ -127,7 +127,7 @@ class NavBarButtonItem: UIBarButtonItem {
     }
     
     @discardableResult
-    func configImage(_ customImage: ASAPPNavBarButtonImage) -> Self {
+    func configImage(_ customImage: ASAPPCustomImage) -> Self {
         let button: SizedImageOnlyButton
         if customView == nil {
             button = SizedImageOnlyButton()

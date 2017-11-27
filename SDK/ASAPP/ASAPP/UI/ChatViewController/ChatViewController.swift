@@ -43,6 +43,7 @@ class ChatViewController: ASAPPViewController {
     private var didPresentPredictiveView = false
     private var isPredictiveVCVisible = false
     private var delayedDisconnectTime: Date?
+    private let disconnectedTimeThreshold: TimeInterval = 2
     private var segue: ASAPPSegue = .present
     
     // MARK: Properties: Keyboard
@@ -242,6 +243,11 @@ class ChatViewController: ASAPPViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.shadowImage = nil
+            navigationBar.shadowImage = UIImage()
+        }
+        
         // View
         
         view.clipsToBounds = true
@@ -287,10 +293,10 @@ class ChatViewController: ASAPPViewController {
             reloadMessageEvents()
         } else {
             connectionStatus = .connecting
-            delayedDisconnectTime = Date(timeIntervalSinceNow: 2) // 2 seconds from now
+            delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
             conversationManager.enterConversation()
-            Dispatcher.delay(2300) { [weak self] in
-                self?.updateFramesAnimated()
+            Dispatcher.delay(1000 * disconnectedTimeThreshold + 300) { [weak self] in
+                self?.updateFramesAnimated(false, scrollToBottomIfNearBottom: false)
             }
             
             conversationManager.getAppOpen { [weak self] (appOpenResponse) in
@@ -327,7 +333,7 @@ class ChatViewController: ASAPPViewController {
                 } else {
                     return .default
                 }
-            } else if ASAPP.styles.colors.predictiveGradientTop.isDark() {
+            } else if ASAPP.styles.colors.predictiveGradientColors[0].isDark() {
                 return .lightContent
             } else {
                 return .default
@@ -337,12 +343,6 @@ class ChatViewController: ASAPPViewController {
     }
     
     // MARK: View Layout Overrides
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        updateFrames()
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -388,7 +388,7 @@ extension ChatViewController {
         let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
         let title: String
         let action: Selector
-        let customImage: ASAPPNavBarButtonImage?
+        let customImage: ASAPPCustomImage?
         
         if isLiveChat {
             title = ASAPP.strings.chatEndChatNavBarButton
@@ -592,12 +592,16 @@ extension ChatViewController {
 extension ChatViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
+        guard keyboardOffset != height else {
+            return
+        }
+        
         keyboardOffset = height
         if height > 0 {
             keyboardRenderedHeight = height
         }
         
-        updateFramesAnimated()
+        updateFramesAnimated(!isInitialLayout)
     }
 }
 
@@ -856,7 +860,6 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         reloadInputViews()
         
         if visible {
-            clearQuickRepliesActionSheet(true)
             keyboardObserver.deregisterForNotification()
         } else {
             keyboardObserver.registerForNotifications()
@@ -1047,6 +1050,7 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
+        predictiveVC.shouldShowViewChatButton = true
     }
     
     // Updated Messages
@@ -1079,9 +1083,9 @@ extension ChatViewController: ConversationManagerDelegate {
             didConnectAtLeastOnce = true
             delayedDisconnectTime = nil
         } else if delayedDisconnectTime == nil {
-            delayedDisconnectTime = Date(timeIntervalSinceNow: 2) // 2 seconds from now
-            Dispatcher.delay(2300) { [weak self] in
-                self?.updateFramesAnimated()
+            delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
+            Dispatcher.delay(1000 * disconnectedTimeThreshold + 300) { [weak self] in
+                self?.updateFramesAnimated(true, scrollToBottomIfNearBottom: false)
             }
         }
         
@@ -1177,6 +1181,7 @@ extension ChatViewController {
                 strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
+                strongSelf.predictiveVC.shouldShowViewChatButton = !strongSelf.chatMessagesView.isEmpty
             }
         }
     }

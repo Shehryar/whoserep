@@ -229,16 +229,15 @@ extension ModalCardPresentationAnimator: KeyboardObserverDelegate {
         keyboardHeight = height
         
         if let containerView = containerView,
-            let presentedView = presentedView {
-            if containerView.bounds.contains(presentedView.center) {
-                
-                UIView.animate(withDuration: duration,
-                               delay: 0,
-                               options: animationCurve,
-                               animations: { [weak self] in
-                                self?.updatePresentedViewFrame(whenVisible: true)
-                    }, completion: nil)
-            }
+           let presentedView = presentedView,
+           containerView.bounds.contains(presentedView.center) {
+            UIView.animate(
+                withDuration: duration,
+                delay: 0,
+                options: animationCurve,
+                animations: { [weak self] in
+                    self?.updatePresentedViewFrame(whenVisible: true)
+                }, completion: nil)
         }
     }
 }

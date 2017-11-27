@@ -43,7 +43,7 @@ public class ASAPPStrings: NSObject {
     public var predictiveInputPlaceholder: String = ASAPPLocalizedString("Ask a new question...")
     
     /// The text for the send button of the predictive view.
-    public var predictiveSendButton: String = ASAPPLocalizedString("SEND")
+    public var predictiveSendButton: String?
     
     /// The text displayed when no connection is available in the predictive view.
     public var predictiveNoConnectionText: String = ASAPPLocalizedString("PLEASE CHECK YOUR CONNECTION...")
@@ -80,7 +80,7 @@ public class ASAPPStrings: NSObject {
     public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
     
     /// The text for the send button of the chat view.
-    public var chatInputSend: String = ASAPPLocalizedString("SEND")
+    public var chatInputSend: String?
     
     // MARK: Generic
     

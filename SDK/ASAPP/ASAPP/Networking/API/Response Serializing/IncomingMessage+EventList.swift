@@ -14,7 +14,7 @@ extension IncomingMessage {
     
     typealias Events = [Event]
     
-    typealias EventsJSONArray = [[String : AnyObject]]
+    typealias EventsJSONArray = [[String: AnyObject]]
     
     typealias ErrorMessage = String
     
@@ -27,19 +27,19 @@ extension IncomingMessage {
     func parseEvents() -> ParsedEvents {
         
         var events: [Event]?
-        var eventsJSONArray: [[String : AnyObject]]?
+        var eventsJSONArray: [[String: AnyObject]]?
         var errorMessage: String?
         
         if type == .response {
-            eventsJSONArray = (body?["EventList"] as? [[String : AnyObject]] ?? body?["Events"] as? [[String : AnyObject]])
-            if let eventsJSONArray = eventsJSONArray {
+            if let array = body?["EventList"] as? [[String: AnyObject]] ?? body?["Events"] as? [[String: AnyObject]] {
                 events = [Event]()
-                for eventJSON in eventsJSONArray {
+                eventsJSONArray = [[String: AnyObject]]()
+                for eventJSON in array {
                     if let event = Event.fromJSON(eventJSON) {
                         events?.append(event)
+                        eventsJSONArray?.append(eventJSON)
                     }
                 }
-                
             }
         } else if type == .responseError {
             errorMessage = debugError

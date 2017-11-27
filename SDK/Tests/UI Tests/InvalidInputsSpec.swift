@@ -28,8 +28,8 @@ class InvalidInputsSpec: QuickSpec {
             
             context("marked invalid with no specific error messages") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
@@ -42,8 +42,8 @@ class InvalidInputsSpec: QuickSpec {
             
             context("marked invalid, one with a specific error message and one without") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
@@ -56,8 +56,8 @@ class InvalidInputsSpec: QuickSpec {
             
             context("marked invalid, both with specific error messages") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
@@ -70,8 +70,8 @@ class InvalidInputsSpec: QuickSpec {
             
             context("marked invalid, both with long, specific error messages") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([

@@ -25,6 +25,18 @@ public class ASAPPFontFamily: NSObject {
     /// The heaviest weight.
     public let bold: UIFont
     
+    /// The lightest-weight italic style.
+    public let lightItalic: UIFont?
+    
+    /// The second-lightest-weight italic style.
+    public let regularItalic: UIFont?
+    
+    /// The second-heaviest-weight italic style.
+    public let mediumItalic: UIFont?
+    
+    /// The heaviest-weight italic style.
+    public let boldItalic: UIFont?
+    
     // MARK: - Init
     
     /**
@@ -34,15 +46,27 @@ public class ASAPPFontFamily: NSObject {
      - parameter regular: A regular-weight `UIFont`.
      - parameter medium: A medium-weight or semi-bold `UIFont`.
      - parameter bold: A heavy-weight `UIFont`.
+     - parameter lightItalic: A light-weight italic `UIFont`, optional.
+     - parameter regularItalic: A regular-weight italic `UIFont`, optional.
+     - parameter mediumItalic: A medium-weight or semi-bold italic `UIFont`, optional.
+     - parameter boldItalic: A heavy-weight italic `UIFont`, optional.
      */
     public init(light: UIFont,
                 regular: UIFont,
                 medium: UIFont,
-                bold: UIFont) {
+                bold: UIFont,
+                lightItalic: UIFont? = nil,
+                regularItalic: UIFont? = nil,
+                mediumItalic: UIFont? = nil,
+                boldItalic: UIFont? = nil) {
         self.light = light
         self.regular = regular
         self.medium = medium
         self.bold = bold
+        self.lightItalic = lightItalic
+        self.regularItalic = regularItalic
+        self.mediumItalic = mediumItalic
+        self.boldItalic = boldItalic
         
         super.init()
     }
@@ -55,6 +79,10 @@ public class ASAPPFontFamily: NSObject {
         regular = UIFont(name: "Lato-Regular", size: 14)!
         medium = UIFont(name: "Lato-Bold", size: 14)!
         bold = UIFont(name: "Lato-Black", size: 14)!
+        lightItalic = UIFont(name: "Lato-LightItalic", size: 14)!
+        regularItalic = UIFont(name: "Lato-Italic", size: 14)!
+        mediumItalic = UIFont(name: "Lato-BoldItalic", size: 14)!
+        boldItalic = UIFont(name: "Lato-BlackItalic", size: 14)!
         
         super.init()
     }

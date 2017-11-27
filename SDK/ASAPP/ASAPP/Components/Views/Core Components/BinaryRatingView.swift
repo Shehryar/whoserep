@@ -28,12 +28,13 @@ class BinaryRatingView: BaseComponentView {
     }
     
     private var isPositiveOnRight = false
-    private var buttonSize: CGFloat = 40
-    private var buttonSpacing: CGFloat = 40
-    private var unselectedColor = UIColor(red: 0.8, green: 0.82, blue: 0.85, alpha: 1)
+    private var buttonSize: CGFloat = 56
+    private var buttonSpacing: CGFloat = 32
+    private var unselectedColor = UIColor(red: 0.89, green: 0.89, blue: 0.89, alpha: 1)
     private var yesColor = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
     private var noColor = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
     private var contentInset = UIEdgeInsets.zero
+    private let animationDuration = 0.3
     
     private(set) var currentChoice: Bool? {
         didSet {
@@ -54,16 +55,20 @@ class BinaryRatingView: BaseComponentView {
             positiveValue = item.positiveValue
             negativeValue = item.negativeValue
             
+            yesColor = item.positiveSelectedColor
+            noColor = item.negativeSelectedColor
+            
             positiveText = item.positiveText
             negativeText = item.negativeText
             
             if positiveText == nil && negativeText == nil {
-                yesView.setImage(ComponentIcon.getImage(.thumbsUp), for: .normal)
-                noView.setImage(ComponentIcon.getImage(.thumbsDown), for: .normal)
+                let thumbsUp = ComponentIcon.getImage(.thumbsUp)
+                let thumbsDown = ComponentIcon.getImage(.thumbsDown)
+                yesView.setImage(thumbsUp?.tinted(yesColor), for: .normal)
+                noView.setImage(thumbsDown?.tinted(noColor), for: .normal)
+                yesView.setImage(thumbsUp, for: .highlighted)
+                noView.setImage(thumbsDown, for: .highlighted)
             }
-            
-            yesColor = item.positiveSelectedColor
-            noColor = item.negativeSelectedColor
             
             isPositiveOnRight = item.isPositiveOnRight
             
@@ -73,6 +78,9 @@ class BinaryRatingView: BaseComponentView {
             contentInset = item.style.padding
             
             setNeedsLayout()
+            
+            updateColors()
+            updateBorderColors()
         }
     }
     
@@ -89,29 +97,19 @@ class BinaryRatingView: BaseComponentView {
         
         let font = ASAPP.styles.textStyles.header2.font.withSize(16)
         
-        yesView.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
-        yesView.layer.cornerRadius = yesView.frame.width / 2
-        yesView.setTitleColor(.white, for: .normal)
-        yesView.titleLabel!.font = font
-        yesView.titleLabel!.adjustsFontSizeToFitWidth = true
-        yesView.titleLabel!.minimumScaleFactor = 0.2
-        yesView.titleLabel!.numberOfLines = 1
-        yesView.titleLabel!.baselineAdjustment = .alignCenters
-        yesView.contentVerticalAlignment = .center
-        yesView.isUserInteractionEnabled = false
-        addSubview(yesView)
-         
-        noView.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
-        noView.layer.cornerRadius = noView.frame.width / 2
-        noView.setTitleColor(.white, for: .normal)
-        noView.titleLabel!.font = font
-        noView.titleLabel!.adjustsFontSizeToFitWidth = true
-        noView.titleLabel!.minimumScaleFactor = 0.2
-        noView.titleLabel!.numberOfLines = 1
-        noView.titleLabel!.baselineAdjustment = .alignCenters
-        noView.contentVerticalAlignment = .center
-        noView.isUserInteractionEnabled = false
-        addSubview(noView)
+        for view in [yesView, noView] {
+            view.titleLabel!.font = font
+            view.titleLabel!.adjustsFontSizeToFitWidth = true
+            view.titleLabel!.minimumScaleFactor = 0.2
+            view.titleLabel!.numberOfLines = 1
+            view.titleLabel!.baselineAdjustment = .alignCenters
+            view.contentVerticalAlignment = .center
+            view.isUserInteractionEnabled = false
+            addSubview(view)
+        }
+        
+        updateColors()
+        updateBorderColors()
     }
     
     // MARK: Layout
@@ -123,9 +121,6 @@ class BinaryRatingView: BaseComponentView {
     }
     
     override func updateFrames() {
-        yesView.backgroundColor = yesColor
-        noView.backgroundColor = noColor
-        
         let totalWidth = 2 * buttonSize + buttonSpacing
         var contentLeft: CGFloat
         let alignment = component?.style.textAlign ?? .center
@@ -139,17 +134,74 @@ class BinaryRatingView: BaseComponentView {
             contentLeft = bounds.width - contentInset.right - totalWidth
         }
         
+        let borderWidth = buttonSize / 18.666
+        let cornerRadius = buttonSize / 2
         let buttons = isPositiveOnRight ? [noView, yesView] : [yesView, noView]
         for button in buttons {
-            guard button.transform.isIdentity else {
-                contentLeft += buttonSize + buttonSpacing
-                continue
-            }
-            
             button.frame = CGRect(x: contentLeft, y: contentInset.top, width: buttonSize, height: buttonSize)
-            button.layer.cornerRadius = buttonSize / 2
+            button.layer.cornerRadius = cornerRadius
+            button.layer.borderWidth = borderWidth
+            let inset = ceil(borderWidth)
+            button.titleEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
             contentLeft = button.frame.maxX + buttonSpacing
         }
+    }
+    
+    func updateColors() {
+        if let choice = currentChoice {
+            yesView.backgroundColor = choice ? yesColor : unselectedColor
+            noView.backgroundColor = !choice ? noColor : unselectedColor
+            yesView.setTitleColor(.white, for: .normal)
+            noView.setTitleColor(.white, for: .normal)
+        } else {
+            yesView.layer.borderColor = yesColor.cgColor
+            noView.layer.borderColor = noColor.cgColor
+            yesView.backgroundColor = .clear
+            noView.backgroundColor = .clear
+            yesView.setTitleColor(yesColor, for: .normal)
+            noView.setTitleColor(noColor, for: .normal)
+        }
+    }
+    
+    func animateBorderColors() {
+        guard let choice = currentChoice else {
+            return
+        }
+        
+        let yesViewColor = choice ? yesColor : unselectedColor
+        let noViewColor = !choice ? noColor : unselectedColor
+        
+        let yesColorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
+        yesColorAnimation.fromValue = yesView.layer.borderColor
+        yesColorAnimation.toValue = yesViewColor.cgColor
+        yesColorAnimation.duration = animationDuration
+        yesColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        let yesGroup = CAAnimationGroup()
+        yesGroup.animations = [yesColorAnimation]
+        yesGroup.beginTime = CACurrentMediaTime()
+        yesGroup.isRemovedOnCompletion = true
+        yesView.layer.add(yesGroup, forKey: nil)
+        
+        let noColorAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.borderColor))
+        noColorAnimation.fromValue = noView.layer.borderColor
+        noColorAnimation.toValue = noViewColor.cgColor
+        noColorAnimation.duration = animationDuration
+        noColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        let noGroup = CAAnimationGroup()
+        noGroup.animations = [noColorAnimation]
+        noGroup.beginTime = CACurrentMediaTime()
+        noGroup.isRemovedOnCompletion = true
+        noView.layer.add(noGroup, forKey: nil)
+        
+        updateBorderColors()
+    }
+    
+    func updateBorderColors() {
+        let yesViewColor = currentChoice ?? true ? yesColor : unselectedColor
+        let noViewColor = !(currentChoice ?? false) ? noColor : unselectedColor
+        
+        yesView.layer.borderColor = yesViewColor.cgColor
+        noView.layer.borderColor = noViewColor.cgColor
     }
 }
 
@@ -161,49 +213,26 @@ extension BinaryRatingView {
             return
         }
         
-        let oldChoice = currentChoice
         currentChoice = choice
         
-        yesView.isEnabled = choice
-        noView.isEnabled = !choice
-        
-        guard animated && oldChoice != choice else {
-            return
+        func updateStates() {
+            yesView.isHighlighted = true
+            noView.isHighlighted = true
         }
         
-        func getTransform(for choice: Bool) -> CGAffineTransform {
-            return choice ? CGAffineTransform(scaleX: 1.4, y: 1.4) : CGAffineTransform.identity
+        if animated {
+            animateBorderColors()
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                updateStates()
+                self?.updateFrames()
+                self?.updateColors()
+            })
+        } else {
+            updateStates()
+            updateFrames()
+            updateColors()
+            updateBorderColors()
         }
-        
-        func getYesColor(for choice: Bool) -> UIColor {
-            return choice ? yesColor : unselectedColor
-        }
-        
-        func getNoColor(for choice: Bool) -> UIColor {
-            return choice ? noColor : unselectedColor
-        }
-        
-        UIView.animate(
-            withDuration: 0.1,
-            delay: 0,
-            usingSpringWithDamping: 0.7,
-            initialSpringVelocity: 20,
-            options: .beginFromCurrentState,
-            animations: { [weak self] in
-                self?.yesView.transform = getTransform(for: choice)
-                self?.yesView.backgroundColor = getYesColor(for: choice)
-                self?.noView.transform = getTransform(for: !choice)
-                self?.noView.backgroundColor = getNoColor(for: !choice)
-            }, completion: { _ in
-                UIView.animate(
-                    withDuration: 0.25,
-                    delay: 0,
-                    options: [.beginFromCurrentState, .curveEaseOut],
-                    animations: { [weak self] in
-                        self?.yesView.transform = CGAffineTransform.identity
-                        self?.noView.transform = CGAffineTransform.identity
-                    }, completion: nil)
-        })
     }
 }
 

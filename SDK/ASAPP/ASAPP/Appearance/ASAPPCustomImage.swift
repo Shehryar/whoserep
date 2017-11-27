@@ -1,5 +1,5 @@
 //
-//  ASAPPNavBarButtonImage.swift
+//  ASAPPCustomImage.swift
 //  ASAPP
 //
 //  Created by Hans Hyttinen on 9/6/17.
@@ -9,10 +9,10 @@
 import UIKit
 
 /**
- Used to define an icon for a navigation bar button.
+ Used to define an icon for a button.
  */
 @objcMembers
-public class ASAPPNavBarButtonImage: NSObject {
+public class ASAPPCustomImage: NSObject {
     
     // MARK: Properties
     
@@ -28,7 +28,7 @@ public class ASAPPNavBarButtonImage: NSObject {
     // MARK: Init
     
     /**
-     Creates an instance of `ASAPPNavBarButtonImage` with the given parameters.
+     Creates an instance of `ASAPPCustomImage` with the given parameters.
      
      - parameter image: The button image.
      - parameter size: The size of the image.

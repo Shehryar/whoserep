@@ -397,13 +397,6 @@ extension ChatMessagesView {
         return false
     }
     
-    func scrollToBottomIfNeeded(_ animated: Bool) {
-        if !isNearBottom(10) {
-            return
-        }
-        scrollToBottomAnimated(animated)
-    }
-    
     func scrollToBottomAnimated(_ animated: Bool) {
         let scroll = { [weak self] in
             guard let strongSelf = self else { return }

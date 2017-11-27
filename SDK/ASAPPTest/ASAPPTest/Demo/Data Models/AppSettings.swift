@@ -79,22 +79,6 @@ class AppSettings: NSObject {
         }
     }
     
-    var apiHostNames: [String] {
-        return AppSettings.getStringArray(forKey: .apiHostNameList) ?? AppSettings.getDefaultAPIHostNames()
-    }
-    
-    var appIds: [String] {
-        return AppSettings.getStringArray(forKey: .appIdList) ?? AppSettings.getDefaultAppIds()
-    }
-    
-    var regionCodes: [String] {
-        return AppSettings.getStringArray(forKey: .regionCodeList) ?? AppSettings.getDefaultRegionCodes()
-    }
-    
-    var customerIdentifiers: [String] {
-        return AppSettings.getStringArray(forKey: .customerIdentifierList) ?? AppSettings.getDefaultCustomerIdentifiers()
-    }
-    
     var userImageNames: [String] {
         return AppSettings.getDefaultImageNames()
     }
@@ -294,7 +278,7 @@ extension AppSettings {
         
         // DemoLog("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
         
-        return stringArray ?? getDefaultStringArray(forKey: key)
+        return getDefaultStringArray(forKey: key)?.union(stringArray ?? [])
     }
     
     private class func getDefaultStringArray(forKey key: Key) -> [String]? {

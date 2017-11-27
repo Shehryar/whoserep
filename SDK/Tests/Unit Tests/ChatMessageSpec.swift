@@ -125,8 +125,8 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("with legacy JSON") {
                     it("returns a proper ChatMessage") {
-                        let json = TestUtil.jsonForFile(named: "add-credit-card")
-                        let msg = ChatMessage.fromJSON(json, with: metadata)
+                        let dict = TestUtil.dictForFile(named: "add-credit-card")
+                        let msg = ChatMessage.fromJSON(dict, with: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("add a credit card"))
                         
@@ -138,8 +138,8 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("with JSON containing a quick reply") {
                     it("returns a ChatMessage with a quick reply") {
-                        let json = TestUtil.jsonForFile(named: "security-pin")
-                        let msg = ChatMessage.fromJSON(json, with: metadata)
+                        let dict = TestUtil.dictForFile(named: "security-pin")
+                        let msg = ChatMessage.fromJSON(dict, with: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("security PIN"))
                         
@@ -160,27 +160,27 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("with contentType of carousel") {
                     it("returns nil") {
-                        let json = TestUtil.jsonForFile(named: "phone-plan-upgrade")
-                        let msg = ChatMessage.fromLegacySRSJSON(json, with: metadata)
+                        let dict = TestUtil.dictForFile(named: "phone-plan-upgrade")
+                        let msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
                         expect(msg).to(beNil())
                     }
                 }
                 
                 context("without a message component") {
                     it("returns nil") {
-                        let json = TestUtil.jsonForFile(named: "live-chat-begin")
-                        let msg = ChatMessage.fromLegacySRSJSON(json, with: metadata)
+                        let dict = TestUtil.dictForFile(named: "live-chat-begin")
+                        let msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
                         expect(msg).to(beNil())
                     }
                 }
                 
                 context("with a new credit card") {
-                    var json: [String: Any]!
+                    var dict: [String: Any]!
                     var msg: ChatMessage!
                     
                     beforeEach {
-                        json = TestUtil.jsonForFile(named: "add-credit-card")
-                        msg = ChatMessage.fromLegacySRSJSON(json, with: metadata)
+                        dict = TestUtil.dictForFile(named: "add-credit-card")
+                        msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
                     }
                     
                     it("has Make a Payment as its first quick reply") {

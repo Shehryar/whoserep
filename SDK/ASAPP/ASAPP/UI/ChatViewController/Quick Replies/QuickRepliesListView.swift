@@ -61,9 +61,11 @@ class QuickRepliesListView: UIView {
                                     green: 64.0 / 255.0,
                                     blue: 73.0 / 255.0,
                                     alpha: 1)
-        gradientView.update(gradientColor.withAlphaComponent(0.0),
-                            middleColor: gradientColor.withAlphaComponent(0.08),
-                            bottomColor: gradientColor.withAlphaComponent(0.3))
+        gradientView.update(colors: [
+            gradientColor.withAlphaComponent(0.0),
+            gradientColor.withAlphaComponent(0.08),
+            gradientColor.withAlphaComponent(0.3)
+        ])
         gradientView.isUserInteractionEnabled = false
         gradientView.alpha = 0.0
         addSubview(gradientView)

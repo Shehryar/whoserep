@@ -47,6 +47,7 @@
 		3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
+		3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */; };
 		3A391B381FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
@@ -72,6 +73,9 @@
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
 		3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */; };
+		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
+		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
+		3A9F51C31FB122F9009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -173,6 +177,7 @@
 		3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAreaViewTestCase.swift; sourceTree = "<group>"; };
 		3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryRatingViewSpec.swift; sourceTree = "<group>"; };
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
+		3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageDeserializerSpec.swift; sourceTree = "<group>"; };
 		3A391B371FA14E080085C2DA /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidation.swift; sourceTree = "<group>"; };
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
 		3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form-proper-padding.json"; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 		3A797B891F97A29D00883ABF /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B8F1F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
+		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 				3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
 				3A0429351F97C1E30031CD78 /* security-pin.json */,
+				3A9F51C01FB122F3009C68AE /* event-list.json */,
 			);
 			path = "Sample JSON";
 			sourceTree = "<group>";
@@ -314,6 +321,7 @@
 				3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */,
 				3A0521751F9E66480072D089 /* EventMetadataSpec.swift */,
 				3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */,
+				3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */,
 				3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */,
 				3A05216E1F9A78C70072D089 /* SessionManagerSpec.swift */,
 				3A797B841F97A29D00883ABF /* Info.plist */,
@@ -460,6 +468,7 @@
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
 				3A391B3E1FA14EB20085C2DA /* live-chat-begin.json in Resources */,
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
+				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 				3A391B3F1FA14EB20085C2DA /* phone-plan-upgrade.json in Resources */,
 				3A391B3B1FA14EB20085C2DA /* add-credit-card.json in Resources */,
@@ -480,6 +489,7 @@
 				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A0429411F97C24C0031CD78 /* security-pin.json in Resources */,
 				3A04293E1F97C24C0031CD78 /* live-chat-begin.json in Resources */,
+				3A9F51C21FB122F3009C68AE /* event-list.json in Resources */,
 				3AED18F61FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A391B4A1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 			);
@@ -495,6 +505,7 @@
 				3A0429441F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A0429461F97C24C0031CD78 /* security-pin.json in Resources */,
 				3A0429431F97C24C0031CD78 /* live-chat-begin.json in Resources */,
+				3A9F51C31FB122F9009C68AE /* event-list.json in Resources */,
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A391B4B1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 			);
@@ -542,6 +553,7 @@
 				3A05216D1F9A6A900072D089 /* AppOpenResponseSpec.swift in Sources */,
 				3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */,
 				3A0521711F9A976B0072D089 /* ChatMessageAttachmentSpec.swift in Sources */,
+				3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */,
 				3A04293A1F97C23C0031CD78 /* ASAPPSpec.swift in Sources */,
 				3A0521781F9E6C7A0072D089 /* EventTypeSpec.swift in Sources */,
 				3A0521761F9E66480072D089 /* EventMetadataSpec.swift in Sources */,

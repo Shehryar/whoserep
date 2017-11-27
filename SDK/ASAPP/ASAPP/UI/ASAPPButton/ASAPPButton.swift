@@ -42,8 +42,6 @@ public class ASAPPButton: UIView {
     
     private let label = UILabel()
     
-    private var presentationAnimator: ButtonPresentationAnimator?
-    
     private var isTouching = false {
         didSet {
             updateDisplay()
@@ -79,8 +77,6 @@ public class ASAPPButton: UIView {
         contentView.addSubview(label)
         
         contentView.layer.cornerRadius = frame.height / 2.0
-        
-        presentationAnimator = ButtonPresentationAnimator(withButtonView: self)
         
         addSubview(contentView)
         
@@ -228,8 +224,7 @@ extension ASAPPButton {
         switch ASAPP.styles.segue {
         case .present:
             let navigationController = NavigationController(rootViewController: chatViewController)
-            navigationController.modalPresentationStyle = .custom
-            navigationController.transitioningDelegate = presentationAnimator
+            navigationController.modalPresentationStyle = .fullScreen
             navigationController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(navigationController, animated: true, completion: nil)
         case .push:

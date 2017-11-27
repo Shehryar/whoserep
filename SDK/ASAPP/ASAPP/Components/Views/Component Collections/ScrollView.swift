@@ -111,11 +111,11 @@ class ScrollView: UIScrollView, ComponentView {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var fitToSize = size
         if fitToSize.width == 0 {
-            DebugLog.w(caller: self, "Should specifiy bounded size when sizing. (used = \(size))")
+            DebugLog.w(caller: self, "Should specify bounded size when sizing. (used = \(size))")
             fitToSize.width = UIScreen.main.bounds.width
         }
         if fitToSize.height == 0 {
-            DebugLog.w(caller: self, "Should specifiy bounded size when sizing. (used = \(size))")
+            DebugLog.w(caller: self, "Should specify bounded size when sizing. (used = \(size))")
             fitToSize.height = UIScreen.main.bounds.height
         }
         

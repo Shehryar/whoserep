@@ -28,8 +28,8 @@ class RequiredComponentsSpec: QuickSpec {
             
             context("without the required flag") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-no-required")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-no-required")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     expect(viewController.view).to(haveValidSnapshot())
@@ -38,8 +38,8 @@ class RequiredComponentsSpec: QuickSpec {
             
             context("with the required flag") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     expect(viewController.view).to(haveValidSnapshot())
@@ -48,8 +48,8 @@ class RequiredComponentsSpec: QuickSpec {
             
             context("validated when left empty with the required flag") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.validateRequiredInputs()
@@ -59,8 +59,8 @@ class RequiredComponentsSpec: QuickSpec {
             
             context("with the required flag in a form with proper padding") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     expect(viewController.view).to(haveValidSnapshot())
@@ -69,8 +69,8 @@ class RequiredComponentsSpec: QuickSpec {
             
             context("validated when left empty with the required flag in a form with proper padding") {
                 it("has a valid snapshot") {
-                    let json = TestUtil.jsonForFile(named: "change-pin-form-proper-padding")
-                    let container = ComponentViewContainer.from(json)
+                    let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")
+                    let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.validateRequiredInputs()
