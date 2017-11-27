@@ -102,6 +102,7 @@
 		3A6811251F7BEB7600078E3F /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811051F7AF55B00078E3F /* hey.caf */; };
 		3A86332C1FB235E400E90C18 /* CountableEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86332B1FB235E400E90C18 /* CountableEnum.swift */; };
 		3A8633311FB2417C00E90C18 /* TetrisAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8633301FB2417C00E90C18 /* TetrisAPI.swift */; };
+		3AB67B2A1FC636D200FC3C69 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -220,6 +221,7 @@
 		3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Reg.otf"; sourceTree = "<group>"; };
 		3A86332B1FB235E400E90C18 /* CountableEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountableEnum.swift; sourceTree = "<group>"; };
 		3A8633301FB2417C00E90C18 /* TetrisAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisAPI.swift; sourceTree = "<group>"; };
+		3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,6 +279,7 @@
 		307301D51DAE9C750002CF3B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */,
 				30C24C2D1DC9396800529785 /* AttributedLabel.swift */,
 				307022B71DBE531F0027908C /* BaseTableViewController.swift */,
 				307022B91DBE554D0027908C /* BaseViewController.swift */,
@@ -718,6 +721,7 @@
 				308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */,
 				307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */,
 				300A27741E4289C9000A624A /* Branding.swift in Sources */,
+				3AB67B2A1FC636D200FC3C69 /* ArrayExtensions.swift in Sources */,
 				30988EAD1DC7BA8700470E09 /* BillDetailsViewController.swift in Sources */,
 				300452371F1545FA009475CD /* LoginViewController.swift in Sources */,
 				30CBACB31DCA883C003D9CD7 /* TitleCheckmarkCell.swift in Sources */,
