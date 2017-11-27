@@ -29,5 +29,10 @@ extension UINavigationBar {
             }
         }
         tintColor = ASAPP.styles.colors.navBarButton
+        
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.07).cgColor
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 10
     }
 }

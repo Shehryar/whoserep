@@ -102,9 +102,7 @@ public extension ASAPPStyles {
         styles.colors.predictiveNavBarButton = navBlue
         styles.colors.predictiveNavBarButtonBackground = .clear
         styles.colors.predictiveNavBarButtonForeground = navBlue
-        styles.colors.predictiveGradientTop = .white
-        styles.colors.predictiveGradientMiddle = .white
-        styles.colors.predictiveGradientBottom = .white
+        styles.colors.predictiveGradientColors = [.white, .white, .white]
         styles.colors.predictiveTextPrimary = UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1)
         styles.colors.predictiveTextSecondary = UIColor(red: 0.302, green: 0.302, blue: 0.302, alpha: 1)
         styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1))
@@ -148,9 +146,7 @@ public extension ASAPPStyles {
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: UIColor(hexString: "#5b657e")!)
         
         let predictiveColor = UIColor(hexString: "#373737")!
-        styles.colors.predictiveGradientTop = predictiveColor
-        styles.colors.predictiveGradientMiddle = predictiveColor
-        styles.colors.predictiveGradientBottom = predictiveColor
+        styles.colors.predictiveGradientColors = [predictiveColor, predictiveColor, predictiveColor]
         
         let controlTint = UIColor(hexString: "#13a4a2")!
         styles.colors.predictiveTextPrimary = .white

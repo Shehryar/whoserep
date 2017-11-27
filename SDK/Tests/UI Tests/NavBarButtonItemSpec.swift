@@ -76,7 +76,7 @@ class NavBarButtonItemSpec: QuickSpec {
                 context("in the predictive view on the left with an image") {
                     it("has a valid snapshot") {
                         let button = NavBarButtonItem(location: .predictive, side: .left)
-                        let navBarButtonImage = ASAPPNavBarButtonImage(image: Images.getImage(Images.Icon.iconErrorAlert)!, size: CGSize(width: 18, height: 16))
+                        let navBarButtonImage = ASAPPCustomImage(image: Images.getImage(Images.Icon.iconErrorAlert)!, size: CGSize(width: 18, height: 16))
                         button.configImage(navBarButtonImage)
                         toolbar.items = [button]
                         expect(toolbar).to(haveValidSnapshot())
@@ -86,7 +86,7 @@ class NavBarButtonItemSpec: QuickSpec {
                 context("in the predictive view on the left with a title and an image") {
                     it("has a valid snapshot") {
                         let button = NavBarButtonItem(location: .predictive, side: .left)
-                        let navBarButtonImage = ASAPPNavBarButtonImage(image: Images.getImage(Images.Icon.iconErrorAlert)!, size: CGSize(width: 18, height: 16))
+                        let navBarButtonImage = ASAPPCustomImage(image: Images.getImage(Images.Icon.iconErrorAlert)!, size: CGSize(width: 18, height: 16))
                         button.configTitle("Test")
                         button.configImage(navBarButtonImage)
                         toolbar.items = [button]

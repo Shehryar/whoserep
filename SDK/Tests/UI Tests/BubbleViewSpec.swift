@@ -34,6 +34,10 @@ class BubbleViewSpec: QuickSpec {
                 context("with default styles") {
                     it("has a valid snapshot") {
                         let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+                        bubbleView.fillColor = .lightGray
+                        bubbleView.strokeColor = .blue
+                        bubbleView.strokeLineWidth = 0.5
+                        bubbleView.clipsToBounds = true
                         expect(bubbleView).to(haveValidSnapshot())
                     }
                 }
@@ -42,6 +46,10 @@ class BubbleViewSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
                         bubbleView.roundedCorners = [.bottomLeft]
+                        bubbleView.fillColor = .lightGray
+                        bubbleView.strokeColor = .blue
+                        bubbleView.strokeLineWidth = 0.5
+                        bubbleView.clipsToBounds = true
                         expect(bubbleView).to(haveValidSnapshot())
                     }
                 }

@@ -10,9 +10,7 @@ import UIKit
 
 class VerticalGradientView: UIView {
 
-    private(set) var topColor: UIColor?
-    private(set) var middleColor: UIColor?
-    private(set) var bottomColor: UIColor?
+    private(set) var colors: [UIColor]?
     
     private let gradientLayer = CAGradientLayer()
     
@@ -34,26 +32,23 @@ class VerticalGradientView: UIView {
     
     // MARK: Instance Methods
     
-    func update(_ topColor: UIColor?, middleColor: UIColor? = nil, bottomColor: UIColor?) {
-        self.topColor = topColor
-        self.middleColor = middleColor
-        self.bottomColor = bottomColor
+    func update(colors: [UIColor]?, locations: [CGFloat]? = nil) {
+        self.colors = colors
         
         var gradientColors = [CGColor]()
-        if let topColor = topColor {
-            gradientColors.append(topColor.cgColor)
-        }
-        if let middleColor = middleColor {
-            gradientColors.append(middleColor.cgColor)
-        }
-        if let bottomColor = bottomColor {
-            gradientColors.append(bottomColor.cgColor)
+        
+        if let colors = colors {
+            gradientColors = colors.map { $0.cgColor }
         }
         
         if gradientColors.count > 0 {
             gradientLayer.colors = gradientColors
         } else {
             gradientLayer.colors = nil
+        }
+        
+        if let locations = locations as [NSNumber]? {
+            gradientLayer.locations = locations
         }
     }
     

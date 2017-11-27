@@ -28,6 +28,9 @@ public class ASAPPStyles: NSObject {
     
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()
+    
+    /// How the welcome page's options are laid out.
+    public var welcomeLayout: ASAPPWelcomeLayout = .buttonMenu
 }
 
 extension ASAPPStyles {

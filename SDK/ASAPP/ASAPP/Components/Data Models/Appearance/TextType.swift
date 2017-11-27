@@ -12,11 +12,14 @@ enum TextType: String {
     case navTitle
     case navButton
     case predictiveHeader
+    case predictiveSubheader
     case header1
     case header2
     case subheader
     case body
     case bodyBold
+    case bodyItalic
+    case bodyBoldItalic
     case detail1
     case detail2
     case error

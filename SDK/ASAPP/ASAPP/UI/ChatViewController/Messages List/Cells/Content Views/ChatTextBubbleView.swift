@@ -43,6 +43,7 @@ class ChatTextBubbleView: UIView {
                     NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
+                bubbleView.strokeLineWidth = 0.5
                 bubbleView.fillColor = fillColor
             } else {
                 let fillColor = ASAPP.styles.colors.messageBackground
@@ -54,6 +55,7 @@ class ChatTextBubbleView: UIView {
                 ]
                 
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
+                bubbleView.strokeLineWidth = 0.5
                 bubbleView.fillColor = fillColor
             }
             bubbleView.strokeLineWidth = ASAPP.styles.shapeStyles.separatorStrokeWidth
@@ -103,6 +105,7 @@ class ChatTextBubbleView: UIView {
         
         bubbleView.backgroundColor = ASAPP.styles.colors.messagesListBackground
         bubbleView.clipsToBounds = false
+        bubbleView.cornerRadius = 14
         addSubview(bubbleView)
         
         label.isEditable = false

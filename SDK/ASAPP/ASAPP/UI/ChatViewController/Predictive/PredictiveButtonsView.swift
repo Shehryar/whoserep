@@ -20,6 +20,8 @@ class PredictiveButtonsView: UIView {
         }
     }
     
+    private var isChatStyle = false
+    
     private var waitingToAnimateIn = false
     
     private var relatedButtons = [Button]()
@@ -32,7 +34,7 @@ class PredictiveButtonsView: UIView {
     
     private let otherLabelMarginBottom: CGFloat = 15
     
-    private let buttonSpacing: CGFloat = 15
+    private let buttonSpacing: CGFloat = 12
     
     private var animating = false
     
@@ -40,16 +42,33 @@ class PredictiveButtonsView: UIView {
         return relatedButtons.count > 0 && otherButtons.count > 0 && expanded
     }
     
+    private var buttonFont: UIFont {
+        return isChatStyle ? ASAPP.styles.textStyles.bodyBoldItalic.font : ASAPP.styles.textStyles.body.font
+    }
+    
     // MARK: Initialization
     
-    required init() {
-        super.init(frame: CGRect.zero)
-    
-        otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
-                                     textType: .subheader,
-                                     color: ASAPP.styles.colors.predictiveTextSecondary)
+    func commonInit() {
+        otherLabel.setAttributedText(
+            ASAPP.strings.predictiveOtherSuggestions,
+            textType: .subheader,
+            color: ASAPP.styles.colors.predictiveTextSecondary)
         otherLabel.alpha = 0.0
         addSubview(otherLabel)
+    }
+    
+    required init() {
+        super.init(frame: .zero)
+        
+        commonInit()
+    }
+    
+    init(style: ASAPPWelcomeLayout) {
+        super.init(frame: .zero)
+        
+        isChatStyle = (style == .chat)
+        
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,16 +78,17 @@ class PredictiveButtonsView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        otherLabel.setAttributedText(ASAPP.strings.predictiveOtherSuggestions,
-                                     textType: .subheader,
-                                     color: ASAPP.styles.colors.predictiveTextSecondary)
+        otherLabel.setAttributedText(
+            ASAPP.strings.predictiveOtherSuggestions,
+            textType: .subheader,
+            color: ASAPP.styles.colors.predictiveTextSecondary)
         
         for button in relatedButtons {
-            button.font = ASAPP.styles.textStyles.body.font
+            button.font = buttonFont
         }
         
         for button in otherButtons {
-            button.font = ASAPP.styles.textStyles.body.font
+            button.font = buttonFont
         }
         
         setNeedsLayout()
@@ -77,45 +97,49 @@ class PredictiveButtonsView: UIView {
     // MARK: View Creation
     
     func newButton(_ title: String, highlighted: Bool = false, isPrediction: Bool) -> Button {
-        let button = Button()
-        button.font = ASAPP.styles.textStyles.body.font
-        button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        let button: Button
+        switch ASAPP.styles.welcomeLayout {
+        case .buttonMenu:
+            button = Button()
+            button.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        case .chat:
+            button = BubbleButton()
+            button.contentInset = UIEdgeInsets(top: 9, left: 20, bottom: 9, right: 20)
+        }
+        
+        button.font = buttonFont
     
         let borderColor: UIColor?
         if highlighted {
-            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textNormal,
-                                      forState: .normal)
-            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textHighlighted,
-                                      forState: .highlighted)
-            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundNormal,
-                                      forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundHighlighted,
-                                      forState: .highlighted)
-            
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textNormal, forState: .normal)
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonPrimary.textHighlighted, forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundNormal, forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonPrimary.backgroundHighlighted, forState: .highlighted)
             borderColor = ASAPP.styles.colors.predictiveButtonPrimary.border
-            
         } else {
-            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textNormal,
-                                      forState: .normal)
-            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textHighlighted,
-                                      forState: .highlighted)
-            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundNormal,
-                                      forState: .normal)
-            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundHighlighted,
-                                      forState: .highlighted)
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textNormal, forState: .normal)
+            button.setForegroundColor(ASAPP.styles.colors.predictiveButtonSecondary.textHighlighted, forState: .highlighted)
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundNormal, forState: .normal)
+            button.setBackgroundColor(ASAPP.styles.colors.predictiveButtonSecondary.backgroundHighlighted, forState: .highlighted)
             borderColor = ASAPP.styles.colors.predictiveButtonSecondary.border
         }
     
-        if let borderColor = borderColor {
-            button.layer.borderColor = borderColor.cgColor
-            button.layer.borderWidth = 1.0
-        } else {
-            button.layer.borderColor = nil
-            button.layer.borderWidth = 0
+        switch ASAPP.styles.welcomeLayout {
+        case .buttonMenu:
+            if let borderColor = borderColor {
+                button.layer.borderColor = borderColor.cgColor
+                button.layer.borderWidth = 1.0
+            } else {
+                button.layer.borderColor = nil
+                button.layer.borderWidth = 0
+            }
+            
+            button.layer.cornerRadius = 18.0
+            button.clipsToBounds = true
+        case .chat:
+            (button as! BubbleButton).bubble.strokeColor = borderColor
         }
         
-        button.layer.cornerRadius = 18.0
-        button.clipsToBounds = true
         button.title = title
         button.onTap = { [weak self] in
             self?.onButtonTap?(title, isPrediction)
@@ -160,7 +184,15 @@ class PredictiveButtonsView: UIView {
         
         for button in relatedButtons {
             let buttonSize = button.sizeThatFits(maxSubviewSize)
-            button.frame = CGRect(x: 0, y: top, width: ceil(buttonSize.width), height: ceil(buttonSize.height))
+            let width = ceil(buttonSize.width)
+            let x: CGFloat
+            switch ASAPP.styles.welcomeLayout {
+            case .buttonMenu:
+                x = 0
+            case .chat:
+                x = maxWidth - width
+            }
+            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
             top = button.frame.maxY + buttonSpacing
         }
         
@@ -180,7 +212,15 @@ class PredictiveButtonsView: UIView {
         
         for button in otherButtons {
             let buttonSize = button.sizeThatFits(maxSubviewSize)
-            button.frame = CGRect(x: 0, y: top, width: ceil(buttonSize.width), height: ceil(buttonSize.height))
+            let width = ceil(buttonSize.width)
+            let x: CGFloat
+            switch ASAPP.styles.welcomeLayout {
+            case .buttonMenu:
+                x = 0
+            case .chat:
+                x = maxWidth - width
+            }
+            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
             top = button.frame.maxY + buttonSpacing
         }
         
@@ -195,6 +235,31 @@ class PredictiveButtonsView: UIView {
         if !animating {
             updateFrames()
         }
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var height: CGFloat = 0
+        
+        for button in relatedButtons {
+            let buttonSize = button.sizeThatFits(size)
+            height += ceil(buttonSize.height) + buttonSpacing
+        }
+        
+        if expanded && shouldDisplayOtherLabel {
+            height += otherLabelMarginTop
+        }
+        
+        let otherLabelSize = otherLabel.sizeThatFits(size)
+        if expanded && shouldDisplayOtherLabel {
+            height += ceil(otherLabelSize.height) + otherLabelMarginBottom
+        }
+        
+        for button in otherButtons {
+            let buttonSize = button.sizeThatFits(size)
+            height += ceil(buttonSize.height) + buttonSpacing
+        }
+        
+        return CGSize(width: size.width, height: height)
     }
     
     // MARK: - Public Instance Methods
@@ -293,14 +358,15 @@ class PredictiveButtonsView: UIView {
         let delayIncrement = 0.1
         
         for view in viewsToAnimate {
-            UIView.animate(withDuration: 0.6,
-                           delay: delay,
-                           options: .curveEaseOut,
-                           animations: {
-                            view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
-                            if self.viewIsWithinVisibleHeight(view) {
-                                view.alpha = 1
-                            }
+            UIView.animate(
+                withDuration: 0.6,
+                delay: delay,
+                options: .curveEaseOut,
+            animations: {
+                view.center = CGPoint(x: view.center.x, y: view.center.y - verticalAdjustment)
+                if self.viewIsWithinVisibleHeight(view) {
+                    view.alpha = 1
+                }
             }, completion: { _ in
                 if view == viewsToAnimate.last {
                     self.animating = false

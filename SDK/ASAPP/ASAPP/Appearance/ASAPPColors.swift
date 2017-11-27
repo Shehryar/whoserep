@@ -154,14 +154,19 @@ public class ASAPPColors: NSObject {
     
     // MARK: - Predictive View: General Content
     
-    /// The color of the top of the background gradient of the predictive view.
-    public var predictiveGradientTop: UIColor = UIColor(red: 0.302, green: 0.310, blue: 0.347, alpha: 0.9)
+    /// The colors of the background gradient of the predictive view.
+    public var predictiveGradientColors: [UIColor] = [
+        UIColor(red: 0.31, green: 0.31, blue: 0.35, alpha: 1),
+        UIColor(red: 0.37, green: 0.38, blue: 0.40, alpha: 1),
+        UIColor(red: 0.44, green: 0.47, blue: 0.51, alpha: 1)
+    ]
     
-    /// The color of the middle of the background gradient of the predictive view.
-    public var predictiveGradientMiddle: UIColor = UIColor(red: 0.366, green: 0.384, blue: 0.426, alpha: 0.8)
-    
-    /// The color of the bottom of the background gradient of the predictive view.
-    public var predictiveGradientBottom: UIColor = UIColor(red: 0.483, green: 0.505, blue: 0.568, alpha: 0.8)
+    /// The locations of the colors of the background gradient of the predictive view.
+    public var predictiveGradientLocations: [CGFloat]? = [
+        0,
+        0.5,
+        1
+    ]
     
     /// The color of most text in the predictive view, including `ASAPPStrings.predictiveTitle` and `ASAPPStrings.predictiveWelcomeText`.
     public var predictiveTextPrimary: UIColor = UIColor.white
@@ -177,7 +182,7 @@ public class ASAPPColors: NSObject {
     
     /// The colors of the input text area in the predictive view.
     public var predictiveInput: ASAPPInputColors = ASAPPInputColors(
-        background: UIColor(red: 0.232, green: 0.247, blue: 0.284, alpha: 1),
+        background: UIColor(red: 0.232, green: 0.247, blue: 0.284, alpha: 0.9),
         text: UIColor.white,
         placeholderText: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
         tint: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),

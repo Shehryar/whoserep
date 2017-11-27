@@ -60,6 +60,20 @@ class ChatInputViewSpec: QuickSpec {
                         expect(input).to(haveValidSnapshot())
                     }
                 }
+                
+                context("with isRounded = true") {
+                    it("has a valid snapshot") {
+                        let input = ChatInputView()
+                        input.frame = CGRect(x: 0, y: 0, width: 320, height: 88)
+                        input.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
+                        input.bubbleInset = UIEdgeInsets(top: 0, left: 20, bottom: 30, right: 20)
+                        input.bubbleView.layer.cornerRadius = 20
+                        input.displayBorderTop = false
+                        input.isRounded = true
+                        input.updateDisplay()
+                        expect(input).to(haveValidSnapshot())
+                    }
+                }
             }
         }
     }

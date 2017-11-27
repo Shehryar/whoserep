@@ -13,7 +13,7 @@ import UIKit
 internal extension UIImage {
 
     func tinted(_ color: UIColor, alpha: CGFloat = 1.0) -> UIImage {
-        // Source: (source (slightly modified): https://gist.github.com/fabb/007d30ba0759de9be8a3)
+        // Source (slightly modified): https://gist.github.com/fabb/007d30ba0759de9be8a3
         
         return modifiedImage { context, rect in
             // draw tint color
@@ -23,6 +23,13 @@ internal extension UIImage {
             
             // mask by alpha values of original image
             context.setBlendMode(.destinationIn)
+            context.setAlpha(alpha)
+            context.draw(self.cgImage!, in: rect)
+        }
+    }
+    
+    func withAlpha(_ alpha: CGFloat) -> UIImage {
+        return modifiedImage { context, rect in
             context.setAlpha(alpha)
             context.draw(self.cgImage!, in: rect)
         }
@@ -60,5 +67,32 @@ internal extension UIImage {
         let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+}
+
+// MARK: - Blurred Image
+
+internal extension UIImage {
+    func blurred(radius: CGFloat = 4) -> UIImage? {
+        let context = CIContext()
+        guard let inputImage = CIImage(image: self),
+              let clampFilter = CIFilter(name: "CIAffineClamp"),
+              let blurFilter = CIFilter(name: "CIGaussianBlur") else {
+            return nil
+        }
+        
+        clampFilter.setDefaults()
+        clampFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        
+        blurFilter.setDefaults()
+        blurFilter.setValue(clampFilter.outputImage, forKey: kCIInputImageKey)
+        blurFilter.setValue(radius, forKey: kCIInputRadiusKey)
+        
+        guard let blurredImage = blurFilter.value(forKey: kCIOutputImageKey) as? CIImage,
+              let cgImage = context.createCGImage(blurredImage, from: inputImage.extent) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
     }
 }

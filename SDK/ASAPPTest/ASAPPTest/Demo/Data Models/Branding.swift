@@ -13,11 +13,13 @@ enum BrandingType: String {
     case asapp
     case xfinity = "comcast"
     case boost
+    case telstra
     
     static let all = [
         asapp,
         xfinity,
-        boost
+        boost,
+        telstra
     ]
     
     static func from(_ value: Any?) -> BrandingType? {
@@ -67,6 +69,10 @@ class Branding: NSObject {
             logoImageName = "asapp-logo"
             logoImageSize = CGSize(width: 115, height: 22)
             views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: fontFamily)
+            styles.shapeStyles.sendButtonImage = nil
+            strings.predictiveSendButton = "SEND"
+            strings.chatInputSend = "SEND"
+            
         case .xfinity:
             fontFamily = DemoFonts.xfinity
             styles = ASAPPStyles.stylesForAppId(brandingType.rawValue, fontFamily: fontFamily)
@@ -78,6 +84,10 @@ class Branding: NSObject {
             strings.chatEmptyMessage = "Tap 'Ask' to get started."
             strings.chatAskNavBarButton = "Ask"
             strings.chatEndChatNavBarButton = "End Chat"
+            styles.shapeStyles.sendButtonImage = nil
+            strings.predictiveSendButton = "SEND"
+            strings.chatInputSend = "SEND"
+            
         case .boost:
             fontFamily = DemoFonts.boost
             styles = ASAPPStyles.stylesForAppId(brandingType.rawValue, fontFamily: fontFamily)
@@ -85,6 +95,58 @@ class Branding: NSObject {
             styles.textStyles.predictiveHeader = ASAPPTextStyle(font: boostMedium, size: 30, letterSpacing: 0.9, color: .white)
             logoImageName = "boost-logo-light"
             logoImageSize = CGSize(width: 109, height: 32)
+            styles.shapeStyles.sendButtonImage = nil
+            strings.predictiveSendButton = "SEND"
+            strings.chatInputSend = "SEND"
+            
+        case .telstra:
+            fontFamily = DemoFonts.asapp
+            logoImageName = "telstra-logo"
+            logoImageSize = CGSize(width: 31.5, height: 34)
+            strings.chatTitle = "24x7 Chat"
+            strings.predictiveTitle = "24x7 Chat"
+            strings.chatEndChatNavBarButton = "END"
+            strings.predictiveWelcomeText = "Talk to us."
+            strings.predictiveOtherSuggestions = "What can our agents help you with?"
+            styles = ASAPPStyles()
+            let telstraBlue = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
+            styles.segue = .push
+            styles.welcomeLayout = .chat
+            styles.navBarStyles.buttonStyle = .text
+            styles.colors.helpButtonBackground = telstraBlue
+            styles.colors.navBarBackground = .white
+            styles.colors.navBarTitle = telstraBlue
+            styles.colors.navBarButton = telstraBlue
+            styles.colors.navBarButtonForeground = telstraBlue
+            styles.colors.predictiveNavBarTitle = telstraBlue
+            styles.colors.predictiveNavBarBackground = .white
+            styles.colors.predictiveNavBarButton = telstraBlue
+            styles.colors.predictiveNavBarButtonForeground = telstraBlue
+            styles.colors.predictiveTextPrimary = .white
+            styles.colors.predictiveTextSecondary = .white
+            styles.colors.predictiveGradientColors = [
+                UIColor.white.withAlphaComponent(0.9),
+                telstraBlue,
+                UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1)
+            ]
+            styles.colors.predictiveGradientLocations = [0.0, 0.33, 1]
+            styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
+            styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
+            styles.colors.predictiveInput = ASAPPInputColors(
+                background: UIColor(red: 1, green: 1, blue: 1, alpha: 0.9),
+                text: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.8),
+                placeholderText: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.5),
+                tint: UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1),
+                border: .white,
+                primaryButton: telstraBlue,
+                secondaryButton: telstraBlue)
+            styles.colors.messageText = .darkGray
+            styles.colors.messageBorder = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
+            styles.colors.replyMessageText = .black
+            styles.colors.replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
+            styles.colors.replyMessageBorder = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
+            styles.textStyles.predictiveHeader = ASAPPTextStyle(font: DemoFonts.asapp.bold, size: 28, letterSpacing: 1, color: .white)
+            styles.textStyles.predictiveSubheader = ASAPPTextStyle(font: DemoFonts.asapp.regular, size: 17, letterSpacing: 0, color: .white)
         }
         
         super.init()
@@ -146,28 +208,40 @@ class BrandingColors: NSObject {
             
         case .xfinity:
             navBarColor = UIColor(red: 0.169, green: 0.204, blue: 0.263, alpha: 1)
-            navBarTintColor = UIColor.white
-            navBarTitleColor = UIColor.white
+            navBarTintColor = .white
+            navBarTitleColor = .white
             statusBarStyle = .lightContent
             
             foregroundColor = UIColor(red: 0.027, green: 0.027, blue: 0.027, alpha: 1)
             secondaryTextColor = UIColor(red: 0.580, green: 0.580, blue: 0.580, alpha: 1)
-            backgroundColor = UIColor.white
+            backgroundColor = .white
             secondaryBackgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
             separatorColor = UIColor(red: 0.772, green: 0.773, blue: 0.772, alpha: 1)
             accentColor = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
             
         case .boost:
             navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
-            navBarTintColor = UIColor.white
-            navBarTitleColor = UIColor.white
+            navBarTintColor = .white
+            navBarTitleColor = .white
             statusBarStyle = .lightContent
             
             foregroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
             secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
-            backgroundColor = UIColor.white
+            backgroundColor = .white
             separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
             accentColor = UIColor(red: 0.961, green: 0.514, blue: 0.071, alpha: 1)
+            
+        case .telstra:
+            navBarColor = .white
+            navBarTintColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
+            navBarTitleColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
+            statusBarStyle = .default
+            
+            foregroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
+            backgroundColor = .white
+            separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
+            accentColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
         }
     }
 }

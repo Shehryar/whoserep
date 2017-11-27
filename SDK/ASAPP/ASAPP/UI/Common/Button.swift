@@ -9,7 +9,7 @@
 import UIKit
 
 class Button: UIView {
-
+    
     enum ButtonState {
         case normal
         case highlighted
@@ -147,9 +147,9 @@ class Button: UIView {
     
     // MARK: Private Properties
     
-    private let contentView = UIView()
+    var contentView: UIView
     
-    private let label = UILabel()
+    let label = UILabel()
     
     private let imageView = UIImageView()
     
@@ -196,12 +196,18 @@ class Button: UIView {
     }
     
     override init(frame: CGRect) {
+        contentView = UIView()
+        
         super.init(frame: frame)
+        
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
+        contentView = UIView()
+        
         super.init(coder: aDecoder)
+        
         commonInit()
     }
     
@@ -228,15 +234,19 @@ class Button: UIView {
     func foregroundColorForState(_ state: ButtonState) -> UIColor? {
         return foregroundColors[state]
     }
+    
+    func updateBackgroundColor() {
+        if let bgColor = backgroundColorForState(currentState) {
+            contentView.backgroundColor = bgColor
+        }
+    }
 }
 
 // MARK: - Display
 
 extension Button {
     func updateButtonDisplay() {
-        if let bgColor = backgroundColorForState(currentState) {
-            contentView.backgroundColor = bgColor
-        }
+        updateBackgroundColor()
         
         if let fgColor = foregroundColorForState(currentState) {
             label.textColor = fgColor

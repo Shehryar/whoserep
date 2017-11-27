@@ -21,6 +21,14 @@ class PredictiveViewController: UIViewController {
     
     weak var delegate: PredictiveViewControllerDelegate?
     
+    var shouldShowViewChatButton = false {
+        didSet {
+            if oldValue != shouldShowViewChatButton {
+                updateDisplay()
+            }
+        }
+    }
+    
     var tapGesture: UITapGestureRecognizer?
     
     var segue: ASAPPSegue = .present
@@ -29,9 +37,9 @@ class PredictiveViewController: UIViewController {
     
     // MARK: Private Properties
     
-    private let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 20)
-    private let blurredBgView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-    private let blurredColorLayer = VerticalGradientView()
+    private let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 21, right: 20)
+    private let containerView = UIView()
+    private let gradientView = VerticalGradientView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
     private let buttonsView: PredictiveButtonsView
@@ -49,14 +57,18 @@ class PredictiveViewController: UIViewController {
         return keyboardOffset > keyboardOffsetThreshold
     }
     
-    private let storageKeyWelcomeTitle = "SRSPredictiveWelcomeTitle"
-    private let storageKeyWelcomeInputPlaceholder = "SRSPredictiveInputPlaceholder"
+    private var storageKeyWelcomeTitle: String {
+        return "\(ASAPP.config.appId).predictiveWelcomeTitle"
+    }
+    private var storageKeyWelcomeInputPlaceholder: String {
+        return "\(ASAPP.config.appId).predictiveInputPlaceholder"
+    }
     
     // MARK: Initialization
     
     required init(appOpenResponse: AppOpenResponse? = nil, segue: ASAPPSegue = .present) {
         self.appOpenResponse = appOpenResponse
-        self.buttonsView = PredictiveButtonsView()
+        self.buttonsView = PredictiveButtonsView(style: ASAPP.styles.welcomeLayout)
         self.messageInputView = ChatInputView()
         self.segue = segue
         super.init(nibName: nil, bundle: nil)
@@ -65,41 +77,45 @@ class PredictiveViewController: UIViewController {
         if let tapGesture = tapGesture {
             tapGesture.cancelsTouchesInView = false
             tapGesture.delegate = self
-            blurredBgView.addGestureRecognizer(tapGesture)
+            containerView.addGestureRecognizer(tapGesture)
         }
         
-        blurredColorLayer.update(ASAPP.styles.colors.predictiveGradientTop,
-                                 middleColor: ASAPP.styles.colors.predictiveGradientMiddle,
-                                 bottomColor: ASAPP.styles.colors.predictiveGradientBottom)
-        blurredBgView.contentView.addSubview(blurredColorLayer)
+        gradientView.update(colors: ASAPP.styles.colors.predictiveGradientColors, locations: ASAPP.styles.colors.predictiveGradientLocations)
+        containerView.backgroundColor = .clear
+        containerView.addSubview(gradientView)
         
         let (titleText, placeholderText) = getTitleAndInputPlaceholder()
         
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = ASAPP.styles.colors.predictiveTextPrimary
-        titleLabel.setAttributedText(titleText,
-                                     textType: .predictiveHeader,
-                                     color: ASAPP.styles.colors.predictiveTextPrimary)
-        blurredBgView.contentView.addSubview(titleLabel)
+        titleLabel.setAttributedText(
+            titleText,
+            textType: .predictiveHeader,
+            color: ASAPP.styles.colors.predictiveTextPrimary)
+        containerView.addSubview(titleLabel)
         
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.textColor = ASAPP.styles.colors.predictiveTextPrimary
-        blurredBgView.contentView.addSubview(messageLabel)
+        containerView.addSubview(messageLabel)
         
         buttonsView.onButtonTap = { [weak self] (buttonTitle, isFromPrediction) in
             self?.finishWithMessage(buttonTitle, fromPrediction: isFromPrediction)
         }
-        blurredBgView.contentView.addSubview(buttonsView)
+        containerView.addSubview(buttonsView)
         
         messageInputView.inputColors = ASAPP.styles.colors.predictiveInput
-        messageInputView.contentInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 0)
+        messageInputView.contentInset = UIEdgeInsets(top: 7, left: 20, bottom: 7, right: 0)
         messageInputView.bubbleInset = UIEdgeInsets(top: 0, left: contentInset.left, bottom: contentInset.bottom, right: contentInset.right)
-        messageInputView.bubbleView.layer.cornerRadius = 20
-        messageInputView.sendButtonText = ASAPP.strings.predictiveSendButton
+        if let text = ASAPP.strings.predictiveSendButton {
+            messageInputView.sendButtonText = text
+        } else {
+            messageInputView.sendButtonImage = ASAPP.styles.shapeStyles.sendButtonImage
+        }
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false
+        messageInputView.isRounded = true
         messageInputView.placeholderText = placeholderText
         messageInputView.delegate = self
         if let inputBorderColor = ASAPP.styles.colors.predictiveInput.border {
@@ -113,15 +129,10 @@ class PredictiveViewController: UIViewController {
                                                 color: UIColor.white)
         connectionStatusLabel.textAlignment = .center
         connectionStatusLabel.alpha = 0.0
-        blurredBgView.contentView.addSubview(connectionStatusLabel)
+        containerView.addSubview(connectionStatusLabel)
         
-        if ASAPP.styles.colors.predictiveGradientMiddle.isDark() {
-            spinner.activityIndicatorViewStyle = .white
-        } else {
-            spinner.activityIndicatorViewStyle = .gray
-        }
         spinner.hidesWhenStopped = true
-        blurredBgView.contentView.addSubview(spinner)
+        containerView.addSubview(spinner)
         
         keyboardObserver.delegate = self
         
@@ -160,13 +171,20 @@ class PredictiveViewController: UIViewController {
         
         let chatSide = ASAPP.styles.closeButtonSide(for: segue).opposite()
 
-        let viewChatButton = NavBarButtonItem(location: .predictive, side: chatSide)
-        if let customImage = ASAPP.styles.navBarStyles.buttonImages.backToChat {
-            viewChatButton.configImage(customImage)
+        let viewChatButton: NavBarButtonItem?
+        
+        if shouldShowViewChatButton {
+            let button = NavBarButtonItem(location: .predictive, side: chatSide)
+            if let customImage = ASAPP.styles.navBarStyles.buttonImages.backToChat {
+                button.configImage(customImage)
+            } else {
+                button.configTitle(ASAPP.strings.predictiveBackToChatButton)
+            }
+            button.configTarget(self, action: #selector(PredictiveViewController.didTapViewChat))
+            viewChatButton = button
         } else {
-            viewChatButton.configTitle(ASAPP.strings.predictiveBackToChatButton)
+            viewChatButton = nil
         }
-        viewChatButton.configTarget(self, action: #selector(PredictiveViewController.didTapViewChat))
         
         let closeButton = NavCloseBarButtonItem(location: .predictive, side: .right)
             .configSegue(segue)
@@ -183,7 +201,7 @@ class PredictiveViewController: UIViewController {
         }
         
         titleLabel.updateFont(for: .predictiveHeader)
-        messageLabel.updateFont(for: .body)
+        messageLabel.updateFont(for: .predictiveSubheader)
         
         buttonsView.updateDisplay()
         messageInputView.updateDisplay()
@@ -206,12 +224,22 @@ class PredictiveViewController: UIViewController {
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.setBackgroundImage(nil, for: .compact)
             navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.backgroundColor = UIColor.clear
+            navigationBar.backgroundColor = .clear
             
             if let barBackgroundColor = ASAPP.styles.colors.predictiveNavBarBackground {
                 navigationBar.barStyle = .black
                 navigationBar.barTintColor = barBackgroundColor
                 navigationBar.isTranslucent = false
+                
+                let gradientColors = ASAPP.styles.colors.predictiveGradientColors
+                if gradientColors.count >= 1
+                   && gradientColors[0].isBright()
+                  && barBackgroundColor.isBright() {
+                    navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+                    navigationBar.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.07).cgColor
+                    navigationBar.layer.shadowOpacity = 1
+                    navigationBar.layer.shadowRadius = 10
+                }
             } else {
                 navigationBar.isTranslucent = true
                 navigationBar.barStyle = .blackTranslucent
@@ -222,13 +250,14 @@ class PredictiveViewController: UIViewController {
         // View
         
         view.backgroundColor = UIColor.clear
-        view.addSubview(blurredBgView)
+        view.addSubview(containerView)
         
         view.accessibilityViewIsModal = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         keyboardObserver.registerForNotifications()
     }
     
@@ -256,14 +285,20 @@ extension PredictiveViewController {
     }
     
     func updateFrames() {
+        switch ASAPP.styles.welcomeLayout {
+        case .buttonMenu:
+            updateFramesForButtonMenuLayout()
+        case .chat:
+            updateFramesForChatLayout()
+        }
+    }
+    
+    func updateFramesForButtonMenuLayout() {
+        updateGeneralFrames()
         
-        blurredBgView.frame = view.bounds
-        blurredColorLayer.frame = blurredBgView.bounds
-        
-        let additionalTextInset: CGFloat = 0.0
         let contentWidth = view.bounds.width - contentInset.left - contentInset.right
-        let textWidth = floor(0.91 * contentWidth - 2 * additionalTextInset)
-        let textLeft = contentInset.left + additionalTextInset
+        let textWidth = floor(0.91 * contentWidth)
+        let textLeft = contentInset.left
         
         var textTop = contentInset.top
         if let navigationBar = navigationController?.navigationBar {
@@ -307,12 +342,6 @@ extension PredictiveViewController {
             keyboardOffsetThreshold = inputHeight
         }
         
-        let noConnectionMargin: CGFloat = 4
-        let noConnectionPadding: CGFloat = 10
-        let noConnectionHeight = min(contentInset.bottom - noConnectionMargin, ceil(connectionStatusLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height) + noConnectionPadding)
-        let noConnectionTop = visibleBottom - noConnectionHeight - contentInset.bottom
-        connectionStatusLabel.frame = CGRect(x: 0, y: noConnectionTop, width: view.bounds.width, height: noConnectionHeight)
-        
         // Buttons View
         var buttonsTop: CGFloat
         if isExpanded {
@@ -325,7 +354,107 @@ extension PredictiveViewController {
         buttonsView.updateFrames()
         
         // Spinner
-        spinner.center = blurredBgView.center
+        let inBetween = (visibleBottom - titleLabel.frame.maxY) / 2
+        spinner.center = CGPoint(x: containerView.frame.midX, y: titleLabel.frame.maxY + inBetween)
+        updateSpinnerColor()
+    }
+    
+    func updateFramesForChatLayout() {
+        updateGeneralFrames()
+        
+        let additionalInset: CGFloat = 13
+        let contentWidth = view.bounds.width - contentInset.left - contentInset.right - 2 * additionalInset
+        let textLeft = contentInset.left + additionalInset
+        let isExpanded = !isKeyboardVisible
+        
+        // Input View
+        let inputHeight = ceil(messageInputView.sizeThatFits(CGSize(width: contentWidth, height: .greatestFiniteMagnitude)).height)
+        if keyboardOffsetThreshold == 0 {
+            keyboardOffsetThreshold = inputHeight
+        }
+        let visibleBottom = view.frame.size.height - max(keyboardOffset, inputHeight) - 5
+        
+        var frame = gradientView.frame
+        if isKeyboardVisible {
+            let offset = keyboardOffset - inputHeight
+            frame.origin.y = -offset
+        } else {
+            frame.origin.y = 0
+        }
+        gradientView.frame = frame
+        
+        let buttonsNaturalSize = buttonsView.sizeThatFits(CGSize(width: contentWidth, height: .greatestFiniteMagnitude))
+        let messageHeight = ceil(messageLabel.sizeThatFits(CGSize(width: contentWidth, height: .greatestFiniteMagnitude)).height)
+        let titleHeight = ceil(titleLabel.sizeThatFits(CGSize(width: contentWidth, height: .greatestFiniteMagnitude)).height)
+        
+        var textTop = contentInset.top
+        if let navigationBar = navigationController?.navigationBar {
+            if let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
+                let intersection = view.frame.intersection(navBarFrame)
+                if !intersection.isNull {
+                    textTop = intersection.maxY + contentInset.top
+                }
+            }
+        }
+        let buttonsCollapsedHeight = visibleBottom - textTop - titleHeight - 15
+        
+        // Buttons View
+        let buttonsNaturalHeight = ceil(buttonsNaturalSize.height)
+        let buttonsWidth = buttonsNaturalSize.width
+        var buttonsTop: CGFloat
+        if isExpanded {
+            buttonsTop = visibleBottom - buttonsNaturalHeight
+        } else {
+            buttonsTop = visibleBottom - min(buttonsCollapsedHeight, buttonsNaturalHeight)
+        }
+        let buttonsHeight = visibleBottom - buttonsTop
+        buttonsView.frame = CGRect(x: textLeft, y: buttonsTop, width: buttonsWidth, height: buttonsHeight)
+        buttonsView.updateFrames()
+        
+        var textBottom = buttonsTop - 40
+        
+        // Message
+        messageLabel.frame = CGRect(x: textLeft, y: textBottom - messageHeight, width: contentWidth, height: messageHeight)
+        
+        if isExpanded {
+            if viewContentsVisible {
+                messageLabel.alpha = 1
+            }
+            textBottom = messageLabel.frame.minY - 5
+        } else {
+            textBottom = textTop + titleHeight
+            messageLabel.alpha = 0
+        }
+        
+        // Title
+        titleLabel.frame = CGRect(x: textLeft, y: textBottom - titleHeight, width: contentWidth, height: titleHeight)
+        
+        // Spinner
+        let inBetween = (visibleBottom - titleLabel.frame.maxY) / 2
+        spinner.center = CGPoint(x: containerView.frame.midX, y: titleLabel.frame.maxY + inBetween)
+        updateSpinnerColor()
+    }
+    
+    func updateGeneralFrames() {
+        containerView.frame = view.bounds
+        gradientView.frame = containerView.bounds
+        
+        let visibleBottom = view.frame.size.height - keyboardOffset
+        let contentWidth = view.bounds.width - contentInset.left - contentInset.right
+        let noConnectionMargin: CGFloat = 4
+        let noConnectionPadding: CGFloat = 10
+        let noConnectionHeight = min(contentInset.bottom - noConnectionMargin, ceil(connectionStatusLabel.sizeThatFits(CGSize(width: contentWidth, height: 0)).height) + noConnectionPadding)
+        let noConnectionTop = visibleBottom - noConnectionHeight - contentInset.bottom
+        connectionStatusLabel.frame = CGRect(x: 0, y: noConnectionTop, width: view.bounds.width, height: noConnectionHeight)
+    }
+    
+    func updateSpinnerColor() {
+        let point = containerView.convert(spinner.center, to: gradientView)
+        if gradientView.layer.color(at: point)?.isDark() == true {
+            spinner.activityIndicatorViewStyle = .white
+        } else {
+            spinner.activityIndicatorViewStyle = .gray
+        }
     }
     
     func updateFramesAnimated() {
@@ -455,7 +584,7 @@ extension PredictiveViewController: ChatInputViewDelegate {
 extension PredictiveViewController: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
-        keyboardOffset = height
+        keyboardOffset = messageInputView.isFirstResponder ? height : 0
         
         if isKeyboardVisible {
             buttonsView.expanded = false
@@ -493,9 +622,10 @@ extension PredictiveViewController {
         }
         
         if let customMessage = appOpenResponse.customizedMessage {
-            messageLabel.setAttributedText(customMessage,
-                                           textType: .body,
-                                           color: ASAPP.styles.colors.predictiveTextPrimary)
+            messageLabel.setAttributedText(
+                customMessage,
+                textType: .predictiveSubheader,
+                color: ASAPP.styles.colors.predictiveTextSecondary)
         } else {
             messageLabel.text = nil
         }

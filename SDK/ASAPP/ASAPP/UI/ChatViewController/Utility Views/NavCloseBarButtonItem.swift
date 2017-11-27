@@ -78,7 +78,10 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         switch segue {
         case .present: break
         case .push:
-            styles.foregroundColor = ASAPP.styles.colors.navBarButtonBackground
+            styles.foregroundColor =
+                location == .chat
+                ? ASAPP.styles.colors.navBarButtonForeground
+                : ASAPP.styles.colors.predictiveNavBarButtonForeground
             styles.backgroundColor = nil
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero
