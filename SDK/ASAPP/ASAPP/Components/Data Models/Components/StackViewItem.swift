@@ -61,10 +61,10 @@ class StackViewItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
-        guard let itemsJSON = content?[JSONKey.items.rawValue] as? [[String : Any]] else {
+        guard let itemsJSON = content?[JSONKey.items.rawValue] as? [[String: Any]] else {
             DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(String(describing: content))")
             return nil
         }

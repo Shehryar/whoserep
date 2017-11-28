@@ -14,7 +14,7 @@ extension String {
         let unallowedCharacterSet = CharacterSet(charactersIn: "+0123456789").inverted
         
         // Example: +13126089137
-        if 9 ... 15 ~= self.characters.count &&
+        if 9 ... 15 ~= self.count &&
             self.rangeOfCharacter(from: unallowedCharacterSet) == nil {
             return true
         }

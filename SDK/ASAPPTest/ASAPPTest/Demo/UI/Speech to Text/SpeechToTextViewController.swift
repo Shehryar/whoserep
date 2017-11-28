@@ -122,19 +122,15 @@ class SpeechToTextViewController: BaseViewController {
                 switch status {
                 case .authorized:
                     print("Speech: Authorized")
-                    break
                     
                 case .denied:
                     print("Speech: Denied")
-                    break
                     
                 case .notDetermined:
                     print("Speech: Not Determined")
-                    break
                     
                 case .restricted:
                     print("Speech: Restricted")
-                    break
                 }
             }
         }
@@ -188,12 +184,10 @@ extension SpeechToTextViewController {
         case .began:
             setIsSpeaking(true, animated: true)
             beginListening()
-            break
             
         case .cancelled, .failed, .ended:
             setIsSpeaking(false, animated: true)
             stopListening()
-            break
             
         case .changed, .possible:
             // No-op

@@ -144,11 +144,9 @@ extension TemplateServerPreviewViewController {
         switch indexPath.section {
         case Section.allIntents.rawValue:
             handleTemplateServerRowTap(indexPath)
-            break
             
         case Section.specificIntent.rawValue:
             handleSpecificIntentRowTap(indexPath)
-            break
             
         default:
             // No-op
@@ -165,15 +163,13 @@ extension TemplateServerPreviewViewController {
         switch indexPath.row {
         case SpecificIntentRow.input.rawValue:
             tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
-            break
             
         case SpecificIntentRow.button.rawValue:
-            if let classification = classification, classification.characters.count > 0 {
+            if let classification = classification, classification.count > 0 {
                 showPreview(for: classification)
             } else {
                 showAlert(with: "Please enter a classification")
             }
-            break
             
         default:
             // No-op

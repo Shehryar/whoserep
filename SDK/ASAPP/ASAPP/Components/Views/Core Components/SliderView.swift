@@ -92,15 +92,12 @@ class SliderView: BaseComponentView {
                 
             case .center:
                 labelLeft += floor((maxLabelWidth - labelSize.width) / 2.0)
-                break
                 
             case .right:
                 labelLeft += maxLabelWidth - labelSize.width
-                break
                 
             case .fill:
                 labelSize.width = maxLabelWidth
-                break
             }
             
             let labelTop = padding.top + labelMargin.top

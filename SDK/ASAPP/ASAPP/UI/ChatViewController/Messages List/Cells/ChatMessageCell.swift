@@ -130,18 +130,15 @@ class ChatMessageCell: UITableViewCell {
         switch messagePosition {
         case .firstOfMany:
             updatedContentInset.bottom = 1
-            break
             
         case .middleOfMany:
             updatedContentInset.top = 1
             if !isTimeLabelVisible {
                 updatedContentInset.bottom = 1
             }
-            break
             
         case .lastOfMany:
             updatedContentInset.top = 1
-            break
             
         case .none:
             // No need to change

@@ -59,7 +59,7 @@ class CarouselViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         guard let content = content,
-            let itemsJSON = content[JSONKey.items.rawValue] as? [[String : Any]] else {
+            let itemsJSON = content[JSONKey.items.rawValue] as? [[String: Any]] else {
                 return nil
         }
         
@@ -82,7 +82,7 @@ class CarouselViewItem: Component {
         self.pagingEnabled = content.bool(for: JSONKey.pagingEnabled.rawValue)
             ?? CarouselViewItem.defaultPagingEnabled
         if self.pagingEnabled {
-            self.pageControlItem = ComponentFactory.component(with: content[JSONKey.pageControl.rawValue] as? [String : Any],
+            self.pageControlItem = ComponentFactory.component(with: content[JSONKey.pageControl.rawValue] as? [String: Any],
                                                               styles: styles) as? PageControlItem
         } else {
             self.pageControlItem = nil

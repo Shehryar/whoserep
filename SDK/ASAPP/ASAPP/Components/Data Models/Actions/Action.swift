@@ -16,13 +16,13 @@ class Action: NSObject {
         case data
     }
 
-    private(set) var data: [String : Any]?
+    private(set) var data: [String: Any]?
     
     // MARK: Init
     
     required init?(content: Any?) {
-        if let content = content as? [String : Any] {
-            self.data = content[JSONKey.data.rawValue] as? [String : Any]
+        if let content = content as? [String: Any] {
+            self.data = content[JSONKey.data.rawValue] as? [String: Any]
         } else {
             self.data = nil
         }
@@ -34,7 +34,7 @@ class Action: NSObject {
 
 extension Action {
     
-    func getDataWithFormData(_ formData: [String : Any]?) -> [String : Any]? {
+    func getDataWithFormData(_ formData: [String: Any]?) -> [String: Any]? {
         var requestData = [String: Any]()
         requestData.add(data)
         requestData.add(formData)

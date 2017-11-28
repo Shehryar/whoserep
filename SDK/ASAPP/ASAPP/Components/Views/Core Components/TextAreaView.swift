@@ -249,7 +249,7 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
                 }
             } else {
                 if placeholderText.hasSuffix(requiredSuffix) {
-                    placeholderText.removeLast(requiredSuffix.characters.count)
+                    placeholderText.removeLast(requiredSuffix.count)
                 }
             }
             placeholderTextView.setAttributedText(placeholderText, textType: .detail1, color: placeholderColor)
@@ -267,7 +267,7 @@ extension TextAreaView: UITextViewDelegate {
         var text = textView.text
         
         if let characterLimit = characterLimit,
-           textView.text.characters.count > characterLimit {
+           textView.text.count > characterLimit {
             text = previousTextContent
         }
         

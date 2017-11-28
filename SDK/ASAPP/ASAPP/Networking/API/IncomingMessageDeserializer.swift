@@ -48,7 +48,7 @@ class IncomingMessageDeserializer {
             return serializedMessage
         }
         
-        let tokens = messageString.characters.split(separator: "|").map(String.init)
+        let tokens = messageString.split(separator: "|").map(String.init)
         
         serializedMessage.type = MessageType(rawValue: tokens[0])
         if let type = serializedMessage.type {

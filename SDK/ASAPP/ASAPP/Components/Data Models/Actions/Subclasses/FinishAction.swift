@@ -21,7 +21,7 @@ class FinishAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        if let content = content as? [String : Any] {
+        if let content = content as? [String: Any] {
             self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
         } else {
             self.nextAction = nil

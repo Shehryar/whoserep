@@ -23,7 +23,7 @@ class APIAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any] else {
+        guard let content = content as? [String: Any] else {
             return nil
         }
         guard let requestPath = content.string(for: JSONKey.requestPath.rawValue) else {

@@ -134,8 +134,12 @@ class Branding: NSObject {
         
         return container
     }
+}
+
+extension Branding {
+    // MARK: - per-client demo styles
     
-    private class func createXfinityStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
+    fileprivate class func createXfinityStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.textStyles.updateStyles(for: fontFamily)
@@ -206,7 +210,7 @@ class Branding: NSObject {
         return styles
     }
     
-    private class func createBoostStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
+    fileprivate class func createBoostStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.textStyles.updateStyles(for: fontFamily)
@@ -262,7 +266,7 @@ class Branding: NSObject {
         return styles
     }
     
-    private class func createTelstraStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
+    fileprivate class func createTelstraStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
         
         styles.textStyles.updateStyles(for: fontFamily)

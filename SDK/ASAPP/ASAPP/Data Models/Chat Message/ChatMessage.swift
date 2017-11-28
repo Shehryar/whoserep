@@ -21,7 +21,7 @@ class ChatMessage: NSObject {
     
     init?(text: String?,
           attachment: ChatMessageAttachment?,
-          quickReplies: [String : [QuickReply]]?,
+          quickReplies: [String: [QuickReply]]?,
           metadata: EventMetadata) {
         guard text != nil || attachment != nil || quickReplies != nil else {
             return nil
@@ -67,7 +67,7 @@ extension ChatMessage {
     }
     
     class func fromJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         
@@ -80,7 +80,7 @@ extension ChatMessage {
         let text = messageJSON.string(for: JSONKey.text.rawValue)
         let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
         
-        var quickRepliesDictionary: [String : [QuickReply]]? = [String: [QuickReply]]()
+        var quickRepliesDictionary: [String: [QuickReply]]? = [String: [QuickReply]]()
         if let quickRepliesJSONDict = messageJSON[JSONKey.quickReplies.rawValue] as? [String: [[String: Any]]] {
             for (pageId, buttonsJSON) in quickRepliesJSONDict {
                 var quickReplies = [QuickReply]()

@@ -11,7 +11,7 @@ import UIKit
 enum SRSItemFactory {
     
     static func parseItem(_ json: Any?, metadata: EventMetadata) -> SRSItem? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         let typeString = json.string(for: "type")

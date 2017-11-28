@@ -21,7 +21,7 @@ class WebPageAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any],
+        guard let content = content as? [String: Any],
             let urlString = content.string(for: JSONKey.url.rawValue) else {
                 DebugLog.d(caller: DeepLinkAction.self, "url is required. Returning nil.")
                 return nil

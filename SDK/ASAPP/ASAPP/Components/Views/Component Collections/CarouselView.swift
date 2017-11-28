@@ -205,15 +205,12 @@ class CarouselView: BaseComponentView {
                     
                 case .middle:
                     frame.origin.y = floor((contentSize.height - frame.size.height) / 2.0)
-                    break
                     
                 case .bottom:
                     frame.origin.y = contentSize.height - frame.size.height
-                    break
                     
                 case .fill:
                     frame.size.height = contentSize.height
-                    break
                 }
             }
             itemFrames[idx] = frame

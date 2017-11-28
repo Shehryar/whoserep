@@ -48,8 +48,8 @@ class SeparatorItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
         self.separatorStyle = SeparatorStyle.from(content?[JSONKey.style.rawValue])
             ?? SeparatorItem.defaultSeparatorStyle

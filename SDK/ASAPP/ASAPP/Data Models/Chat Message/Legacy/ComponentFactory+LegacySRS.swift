@@ -35,8 +35,7 @@ extension ComponentFactory {
                 style.alignment = .center
                 if let separatorItem = SeparatorItem(style: style) {
                     components.append(separatorItem)
-                }                
-                break
+                }
                 
             case .icon:
                 // Not yet
@@ -47,14 +46,12 @@ extension ComponentFactory {
                     let stackViewItem = getHorizontalStackViewItemForSRSInfo(srsInfo, style: style) {
                     components.append(stackViewItem)
                 }
-                break
                 
             case .itemList:
                 if let srsItemList = item as? SRSItemList,
                     let nestedComponents = getComponentsForNestedSRSItemList(srsItemList, style: style) {
                     components.append(contentsOf: nestedComponents)
                 }
-                break
                 
             case .label:
                 style.alignment = .center
@@ -63,14 +60,12 @@ extension ComponentFactory {
                     let labelItem = LabelItem(text: srsLabel.text, style: style) {
                     components.append(labelItem)
                 }
-                break
                 
             case .separator:
                 style.alignment = .fill
                 if let separatorItem = SeparatorItem(style: style) {
                     components.append(separatorItem)
                 }
-                break
             }
         }
         
@@ -119,7 +114,6 @@ extension ComponentFactory {
                     components.append(stackViewItem)
                 }
             }
-            break
             
         case .horizontal:
             for item in itemList.items {
@@ -145,7 +139,6 @@ extension ComponentFactory {
                     components.append(labelItem)
                 }
             }
-            break
         }
         
         return components.isEmpty ? nil : components

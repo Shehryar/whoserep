@@ -14,7 +14,7 @@ class HTTPClient: NSObject {
     
     static let shared = HTTPClient()
     
-    var defaultHeaders: [String : String]?
+    var defaultHeaders: [String: String]?
     
     // MARK: Sending Requests
     
@@ -46,10 +46,10 @@ class HTTPClient: NSObject {
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            var jsonMap: [String : Any]?
+            var jsonMap: [String: Any]?
             
             if let jsonObject = JSONUtil.getObjectFrom(data) {
-                jsonMap = jsonObject as? [String : Any]
+                jsonMap = jsonObject as? [String: Any]
                 if jsonMap == nil {
                     DebugLog.w(caller: HTTPClient.self, "Response data has unexpected type: \(jsonObject)")
                 }
@@ -88,7 +88,7 @@ extension HTTPClient {
 
 extension URLRequest {
     
-    mutating func injectHeaders(_ headers: [String : String]?) {
+    mutating func injectHeaders(_ headers: [String: String]?) {
         guard let headers = headers else {
             return
         }

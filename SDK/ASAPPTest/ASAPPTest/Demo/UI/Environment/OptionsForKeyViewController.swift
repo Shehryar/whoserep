@@ -240,11 +240,9 @@ extension OptionsForKeyViewController {
             if let options = options {
                 selectOption(options[indexPath.row])
             }
-            break
             
         case Section.createNew.rawValue:
             performActionForCreateNewRow(indexPath.row)
-            break
             
         default:
             // No-op

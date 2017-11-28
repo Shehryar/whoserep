@@ -34,9 +34,9 @@ enum SDKErrorType: String {
     case apiResponseError = "api_request_error"
 }
 
-typealias AnalyticsAttributes = [String : String]
+typealias AnalyticsAttributes = [String: String]
 
-typealias AnalyticsMetrics = [String : Double]
+typealias AnalyticsMetrics = [String: Double]
 
 // MARK: - Generic Analytics Tracking
 
@@ -46,7 +46,7 @@ extension ConversationManager {
                     attributes: AnalyticsAttributes? = nil,
                     metrics: AnalyticsMetrics? = nil) {
         
-        var defaultAttributes: [String : Any] = [
+        var defaultAttributes: [String: Any] = [
             "device_model": UIDevice.current.model,
             "device_platform_name": UIDevice.current.systemName,
             "device_platform_version": UIDevice.current.systemVersion,
@@ -57,7 +57,7 @@ extension ConversationManager {
             defaultAttributes["current_classification"] = currentIntent
         }
         
-        var params: [String : Any] = [
+        var params: [String: Any] = [
             "EventType": eventType.rawValue,
             "Attributes": defaultAttributes.with(attributes)
         ]
@@ -137,7 +137,7 @@ extension ConversationManager {
     func trackSRSRequest(path: String,
                          requestUUID: String?,
                          isPredictive: Bool,
-                         params: [String : Any]?,
+                         params: [String: Any]?,
                          responseTimeInMilliseconds: Int) {
         
         var attributes = [

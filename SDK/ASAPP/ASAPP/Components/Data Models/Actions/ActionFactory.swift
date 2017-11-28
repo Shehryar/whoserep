@@ -16,7 +16,7 @@ enum ActionFactory {
     }
     
     static func action(with json: Any?) -> Action? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         

@@ -25,8 +25,8 @@ class TextInputViewTestCase: XCTestCase {
         textInput.forceTap()
         let text = "the quick brown fox jumps over the lazy dog"
         textInput.typeText(text)
-        XCTAssert(text.characters.count > 20)
+        XCTAssert(text.count > 20)
         XCTAssertNotNil(textInput.value as? String)
-        XCTAssert((textInput.value as! String).characters.count == 20)
+        XCTAssert((textInput.value as! String).count == 20)
     }
 }

@@ -140,7 +140,7 @@ class Component: NSObject {
         }
     }
     
-    func getData() -> [String : Any] {
+    func getData() -> [String: Any] {
         var data = [String: Any]()
         
         func add(name: String, value: Any) {

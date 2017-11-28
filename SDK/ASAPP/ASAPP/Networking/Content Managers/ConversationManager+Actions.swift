@@ -13,7 +13,7 @@ extension ConversationManager {
     // MARK: API Action
     
     func sendRequestForAPIAction(_ action: Action?,
-                                 formData: [String : Any]?,
+                                 formData: [String: Any]?,
                                  completion: @escaping APIActionResponseHandler) {
         
         guard let action = action as? APIAction else {
@@ -46,7 +46,7 @@ extension ConversationManager {
     // MARK: HTTP Action
     
     func sendRequestForHTTPAction(_ action: Action,
-                                  formData: [String : Any]?,
+                                  formData: [String: Any]?,
                                   completion: @escaping HTTPClient.CompletionHandler) {
         
         guard let action = action as? HTTPAction else {

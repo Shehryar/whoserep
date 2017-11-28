@@ -24,7 +24,7 @@ class TreewalkAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any],
+        guard let content = content as? [String: Any],
             let classification = content.string(for: JSONKey.classification.rawValue) else {
                 DebugLog.d(caller: TreewalkAction.self, "classification is required. Returning nil.")
                 return nil

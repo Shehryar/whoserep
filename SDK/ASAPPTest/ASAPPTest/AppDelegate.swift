@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func setupNotifications() {
-        let settings = UIUserNotificationSettings(types:[.sound, .alert, .badge], categories: nil)
+        let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
         UIApplication.shared.registerUserNotificationSettings(settings)
         
         // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
@@ -110,7 +110,7 @@ extension AppDelegate {
     
     // MARK: Notification Received
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         demoLog("application:didReceiveRemoteNotification\n \(userInfo))")
         
         if ASAPP.canHandleNotification(with: userInfo) {
@@ -121,15 +121,15 @@ extension AppDelegate {
     
     func application(_ application: UIApplication,
                      handleActionWithIdentifier identifier: String?,
-                     forRemoteNotification userInfo: [AnyHashable : Any],
+                     forRemoteNotification userInfo: [AnyHashable: Any],
                      completionHandler: @escaping () -> Void) {
         demoLog("application:handleActionWithIdentifier:forRemoteNotification:completionHandler\n \(userInfo))")
     }
     
     func application(_ application: UIApplication,
                      handleActionWithIdentifier identifier: String?,
-                     forRemoteNotification userInfo: [AnyHashable : Any],
-                     withResponseInfo responseInfo: [AnyHashable : Any],
+                     forRemoteNotification userInfo: [AnyHashable: Any],
+                     withResponseInfo responseInfo: [AnyHashable: Any],
                      completionHandler: @escaping () -> Void) {
         demoLog("application:handleActionWithIdentifier:forRemoteNotification:withResponseInfo:completionHandler\n \(userInfo))")
     }

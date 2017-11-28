@@ -25,8 +25,8 @@ extension ActionFactory {
     }
  
     static func legacyAction(with json: Any?, buttonTitle: String, metadata: EventMetadata) -> Action? {
-        guard let json = json as? [String : Any],
-            let valueJSON = json["value"] as? [String : Any] else {
+        guard let json = json as? [String: Any],
+            let valueJSON = json["value"] as? [String: Any] else {
                 return nil
         }
         
@@ -39,7 +39,7 @@ extension ActionFactory {
         switch type {
         case .apiAction:
             var endpoint: String?
-            var endpointPayload: [String : Any]?
+            var endpointPayload: [String: Any]?
             if let endpointString = valueJSON.string(for: "content") {
                 endpoint = endpointString
                 endpointPayload = nil

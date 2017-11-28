@@ -27,10 +27,10 @@ class SRSItemList: SRSItem {
     let items: [SRSInfo]
 
     override init?(json: Any?, metadata: EventMetadata) {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
-        guard let itemsJSON = json["value"] as? [[String : Any]] else {
+        guard let itemsJSON = json["value"] as? [[String: Any]] else {
             DebugLog.d(caller: SRSItemList.self, "Missing value items")
             return nil
         }

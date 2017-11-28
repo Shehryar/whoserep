@@ -296,7 +296,7 @@ class PlaceholderTextInputView: UIView {
                 }
             } else {
                 if placeholderText.hasSuffix(requiredSuffix) {
-                    placeholderText.removeLast(requiredSuffix.characters.count)
+                    placeholderText.removeLast(requiredSuffix.count)
                 }
             }
             placeholderLabel.setAttributedText(placeholderText, textType: .detail1, color: placeholderColor)
@@ -518,7 +518,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
         let text = textField.text ?? ""
         
         if let characterLimit = characterLimit {
-            if text.characters.count > characterLimit {
+            if text.count > characterLimit {
                 textField.text = previousTextFieldContent
                 textField.selectedTextRange = previousSelection
                 return
@@ -534,7 +534,7 @@ extension PlaceholderTextInputView: UITextFieldDelegate {
             }
         }
         
-        if text.characters.count > 0 {
+        if text.count > 0 {
             updateFrames(false, animated: true)
         } else {
             updateFrames(true, animated: true)

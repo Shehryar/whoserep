@@ -38,8 +38,8 @@ class RadioButtonsContainerItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         guard let root = ComponentFactory.component(with: content?[JSONKey.root.rawValue], styles: styles) else {
             DebugLog.w(caller: RadioButtonsContainerItem.self, "root is required: \(String(describing: content))")
             return nil

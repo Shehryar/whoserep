@@ -15,7 +15,7 @@ class TestUtil: NSObject {
     
     // MARK: - JSON
 
-    class func dictForFile(named fileName: String) -> [String : Any]? {
+    class func dictForFile(named fileName: String) -> [String: Any]? {
         guard let filePath = bundle.path(forResource: fileName, ofType: "json") else {
             log(caller: self, "Unable to generate filePath for file named: \(fileName)")
             return nil
@@ -26,7 +26,7 @@ class TestUtil: NSObject {
             return nil
         }
         
-        guard let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any] else {
+        guard let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             log(caller: self, "Unable to parse JSON from data")
             return nil
         }

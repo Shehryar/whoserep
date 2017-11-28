@@ -42,10 +42,10 @@ class TableViewItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         var sections = [TableViewSectionItem]()
-        if let sectionsJSON = content?[JSONKey.sections.rawValue] as? [[String : Any]] {
+        if let sectionsJSON = content?[JSONKey.sections.rawValue] as? [[String: Any]] {
             for sectionJSON in sectionsJSON {
                 if let section = TableViewSectionItem(json: sectionJSON, styles: styles) {
                     sections.append(section)
@@ -90,14 +90,14 @@ class TableViewSectionItem: NSObject {
     
     let rows: [Component]
     
-    init?(json: Any?, styles: [String : Any]?) {
-        guard let json = json as? [String : Any] else {
+    init?(json: Any?, styles: [String: Any]?) {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         
         self.header = ComponentFactory.component(with: json[JSONKey.header.rawValue], styles: styles)
         var rows = [Component]()
-        if let rowsJSON = json[JSONKey.rows.rawValue] as? [[String : Any]] {
+        if let rowsJSON = json[JSONKey.rows.rawValue] as? [[String: Any]] {
             for rowJSON in rowsJSON {
                 if let row = ComponentFactory.component(with: rowJSON, styles: styles) {
                     rows.append(row)

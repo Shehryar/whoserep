@@ -22,7 +22,7 @@ class DeepLinkAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any],
+        guard let content = content as? [String: Any],
             let name = content.string(for: JSONKey.name.rawValue) else {
                 DebugLog.d(caller: DeepLinkAction.self, "name is required. Returning nil.")
                 return nil

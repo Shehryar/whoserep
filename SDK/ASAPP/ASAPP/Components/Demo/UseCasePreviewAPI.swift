@@ -60,7 +60,7 @@ class UseCasePreviewAPI: NSObject {
             
             var intents: [Intent]?
             var errorString: String?
-            if let json = getJSON(from: data), let intentsJSON = json["intents"] as? [[String : Any]] {
+            if let json = getJSON(from: data), let intentsJSON = json["intents"] as? [[String: Any]] {
                 intents = [Intent]()
                 for intentJSON in intentsJSON {
                     if let intentCode = intentJSON["Classifications"] as? String,
@@ -136,7 +136,7 @@ extension UseCasePreviewAPI {
     
     // MARK: Making a Params Object
     
-    private class func makeQueryItems(from params: [String : String]) -> [URLQueryItem] {
+    private class func makeQueryItems(from params: [String: String]) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         for (name, value) in params {
             queryItems.append(URLQueryItem(name: name, value: value))
@@ -148,7 +148,7 @@ extension UseCasePreviewAPI {
     
     private static let HOST = "http://localhost:9000"
     
-    private class func makeGETRequest(host: String? = nil, path: String, params: [String : String]? = nil) -> URLRequest {
+    private class func makeGETRequest(host: String? = nil, path: String, params: [String: String]? = nil) -> URLRequest {
         
         let apiHost = host ?? HOST
         var urlComponents = URLComponents(string: "\(apiHost)\(path)")
@@ -168,7 +168,7 @@ extension UseCasePreviewAPI {
     
     private class func sendGETRequest(host: String? = nil,
                                       path: String,
-                                      params: [String : String]? = nil,
+                                      params: [String: String]? = nil,
                                       completion: @escaping RequestCompletion) {
         
         let request = makeGETRequest(host: host, path: path, params: params)
@@ -190,9 +190,9 @@ extension UseCasePreviewAPI {
             return nil
         }
         
-        var json: [String : Any]?
+        var json: [String: Any]?
         do {
-            try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any]
+            try json = JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
         } catch {}
         
         return json

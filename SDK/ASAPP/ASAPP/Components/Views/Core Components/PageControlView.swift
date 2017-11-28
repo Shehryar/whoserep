@@ -100,17 +100,14 @@ class PageControlView: BaseComponentView {
         case .center, .fill:
             left = style.padding.left
             width = fitToSize.width
-            break
             
         case .left:
             left = style.padding.left
             width = pageControlSize.width
-            break
             
         case .right:
             left = style.padding.left + fitToSize.width - pageControlSize.width
             width = pageControlSize.width
-            break
         }
         
         return CGRect(x: left, y: style.padding.top, width: width, height: pageControlSize.height)

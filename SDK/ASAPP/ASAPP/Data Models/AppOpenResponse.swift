@@ -18,7 +18,7 @@ class AppOpenResponse: NSObject {
     // MARK: - JSONObject
     
     class func fromJSON(_ json: Any?) -> AppOpenResponse? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
 
@@ -27,7 +27,7 @@ class AppOpenResponse: NSObject {
         response.inputPlaceholder = json["input_placeholder"] as? String
         
         var actions = [String]()
-        if let predictions = json["predictions"] as? [[String : AnyObject]] {
+        if let predictions = json["predictions"] as? [[String: AnyObject]] {
             
             for (idx, predictionJSON) in predictions.enumerated() {
                 if idx == 0 {

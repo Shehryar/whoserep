@@ -24,7 +24,7 @@ class SRSIcon: SRSItem {
     let iconType: IconType
     
     override init?(json: Any?, metadata: EventMetadata) {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard let iconType = IconType.parse(json["icon"]) else {

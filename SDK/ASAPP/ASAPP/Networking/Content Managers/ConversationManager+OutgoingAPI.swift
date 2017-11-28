@@ -70,7 +70,7 @@ extension ConversationManager {
             
             guard message.type == .response,
                 let data = message.bodyString?.data(using: String.Encoding.utf8),
-                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
                 let appOpenResponse = AppOpenResponse.fromJSON(jsonObject)
                 else {
                     return
@@ -105,7 +105,7 @@ extension ConversationManager {
     func sendRating(_ rating: Int, resolved: Bool?, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
         let path = "customer/SendRatingAndFeedback"
         
-        var params: [String : Any] = [
+        var params: [String: Any] = [
             "FiveStarRating": rating,
             "IssueId": issueId
         ]

@@ -21,3 +21,7 @@ identifier_name:
     - z
     - id
 
+nesting:
+  type_level:
+    warning: 3
+

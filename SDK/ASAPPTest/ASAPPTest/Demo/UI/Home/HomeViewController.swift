@@ -126,7 +126,7 @@ class HomeViewController: BaseViewController {
         }
     }
     
-    func showChat(fromNotificationWith userInfo: [AnyHashable : Any]? = nil) {
+    func showChat(fromNotificationWith userInfo: [AnyHashable: Any]? = nil) {
         guard presentedViewController == nil else {
             return
         }
@@ -168,7 +168,7 @@ class HomeViewController: BaseViewController {
         return user
     }
     
-    func requestContextProvider() -> [String : Any] {
+    func requestContextProvider() -> [String: Any] {
         return AppSettings.shared.getContext()
     }
 }
@@ -348,7 +348,7 @@ extension HomeViewController: HomeTableViewDelegate {
 
 extension HomeViewController {
     
-    func displayHandleActionAlert(_ action: String, userInfo: [String : Any]?) {
+    func displayHandleActionAlert(_ action: String, userInfo: [String: Any]?) {
         var message = "The host app is responsible for handling this action appropriately."
         
         let userInfo = userInfo ?? [:]
@@ -366,43 +366,35 @@ extension HomeViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func handleAction(_ action: String, userInfo: [String : Any]?) -> Bool {
+    func handleAction(_ action: String, userInfo: [String: Any]?) -> Bool {
         
         var handled: Bool
         
         switch action {
         case "tv":
             handled = showViewController("tv", title: "Television")
-            break
             
         case "troubleshoot", "internet-troubleshoot":
             handled = showViewController("troubleshoot", title: "Troubleshooter")
-            break
             
         case "internet":
             handled = showViewController("internet", title: "Internet")
-            break
             
         case "restart":
             handled = showViewController("restart", title: "Device Restart")
-            break
             
         case "payment":
             handled = showViewController("payment", title: "Payments")
-            break
             
         case "showTechMap":
             handled = showViewController("tech-map", title: "Location")
-            break
             
         case "understandBill":
             showBillDetails()
             handled = true
-            break
             
         default:
             handled = false
-            break
         }
         
         return handled
