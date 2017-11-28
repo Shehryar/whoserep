@@ -30,7 +30,7 @@ struct ComponentStyle {
     
     var fontSize: CGFloat?
     
-    var gravity: VerticalAlignment = .top
+    var gravity: VerticalAlignment?
     
     var height: CGFloat = 0
     

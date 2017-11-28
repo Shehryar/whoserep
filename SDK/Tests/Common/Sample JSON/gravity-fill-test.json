@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "title": "How did we do?",
+  "root": {
+    "type": "stackView",
+    "content": {
+      "orientation": "vertical",
+      "items": [
+        {
+          "type": "button",
+          "content": {
+            "title": "SPACER",
+            "action": {
+              "type": "finish",
+              "content": {}
+            }
+          },
+          "style": {
+            "align": "fill",
+            "weight": 1,
+            "buttonType": "secondary"
+          }
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill",
+                  "buttonType": "secondary"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT LOREM IPSUM DOLOR SIT AMET CONSECTETUER ESSET",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "gravity": "fill",
+                  "buttonType": "primary"
+                }
+              }
+            ]
+          },
+          "style": {
+            "weight": 0
+          }
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill",
+      "align": "fill"
+    }
+  }
+}
