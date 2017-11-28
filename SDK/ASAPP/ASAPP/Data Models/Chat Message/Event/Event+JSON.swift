@@ -51,7 +51,7 @@ extension Event {
 extension Event {
     
     class func fromJSON(_ json: Any?) -> Event? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         
@@ -107,9 +107,9 @@ extension Event {
     
     // MARK: Class Methods
     
-    private class func getEventTypeAndContent(from json: [String : Any],
+    private class func getEventTypeAndContent(from json: [String: Any],
                                               eventType originalEventType: EventType,
-                                              ephemeralType: EphemeralEventType) -> (EventType, [String : Any]?) {
+                                              ephemeralType: EphemeralEventType) -> (EventType, [String: Any]?) {
         var eventType = originalEventType
         var eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
         
@@ -132,7 +132,7 @@ extension Event {
         return (eventType, eventJSON)
     }
     
-    private class func getTypingStatus(from json: [String : Any]?) -> Bool? {
+    private class func getTypingStatus(from json: [String: Any]?) -> Bool? {
         guard let json = json,
             let typingStatus = json.bool(for: JSONKey.isTyping.rawValue)  else {
                 return nil
@@ -141,7 +141,7 @@ extension Event {
     }
     
     private class func getSwitchChatToSRSIntent(from json: Any?) -> String? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         return json.string(for: JSONKey.intent.rawValue)
@@ -149,11 +149,11 @@ extension Event {
     
     // MARK: Instance Methods
     
-    private func getTextMessageText(from json: [String : Any]?) -> String? {
+    private func getTextMessageText(from json: [String: Any]?) -> String? {
         return json?.string(for: JSONKey.text.rawValue)
     }
     
-    private func getChatMessageImageFromPictureMessage(_ json: [String : Any]?) -> ChatMessageImage? {
+    private func getChatMessageImageFromPictureMessage(_ json: [String: Any]?) -> ChatMessageImage? {
         guard let json = json,
             let fileBucket = json.string(for: JSONKey.fileBucket.rawValue),
             let fileSecret = json.string(for: JSONKey.fileSecret.rawValue),
@@ -179,7 +179,7 @@ extension Event {
 
 extension Event {
     
-    func makeChatMessage(from json: [String : Any]?) -> ChatMessage? {
+    func makeChatMessage(from json: [String: Any]?) -> ChatMessage? {
         guard let json = json else {
             return nil
         }
@@ -201,7 +201,6 @@ extension Event {
                                    quickReplies: nil,
                                    metadata: metadata)
             }
-            break
             
         default:
             return ChatMessage.fromJSON(json, with: metadata)

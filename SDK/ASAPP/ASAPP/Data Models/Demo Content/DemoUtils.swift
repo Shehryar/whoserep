@@ -37,12 +37,12 @@ class DemoUtils: NSObject {
     
     // MARK: - JSON Serialization
     
-    class func jsonObjectForFile(_ fileName: String, company: String? = nil) -> [String : AnyObject]? {
+    class func jsonObjectForFile(_ fileName: String, company: String? = nil) -> [String: AnyObject]? {
         guard let jsonData = jsonDataForFile(fileName, company: company) else {
             return nil
         }
         
-        if let json = try? JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String : AnyObject] {
+        if let json = try? JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: AnyObject] {
             return json
         }
         return nil

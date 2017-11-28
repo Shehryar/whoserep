@@ -34,7 +34,7 @@ class AppAction: Action {
     let eventMetadata: EventMetadata
     
     required init?(content: Any?) {
-        guard let contentDict = content as? [String : Any],
+        guard let contentDict = content as? [String: Any],
             let appActionType = AppActionType.parse(contentDict[JSONKey.action.rawValue]) else {
                 DebugLog.d(caller: AppAction.self, "Unknown or missing type: \(content ?? "NIL content")")
                 return nil

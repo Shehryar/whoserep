@@ -112,7 +112,7 @@ internal extension UIColor {
         var int = UInt32()
         Scanner(string: hex).scanHexInt32(&int)
         let a, r, g, b: UInt32
-        switch hex.characters.count {
+        switch hex.count {
         case 3: // RGB (12-bit)
             (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6: // RGB (24-bit)
@@ -134,7 +134,7 @@ internal extension UIColor {
             cString.remove(at: cString.startIndex)
         }
         
-        if cString.characters.count != 6 {
+        if cString.count != 6 {
             return nil
         }
         

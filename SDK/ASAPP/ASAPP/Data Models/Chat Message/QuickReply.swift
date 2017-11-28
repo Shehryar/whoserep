@@ -35,7 +35,7 @@ extension QuickReply {
     }
     
     class func fromJSON(_ json: Any?) -> QuickReply? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         
@@ -55,7 +55,7 @@ extension QuickReply {
     }
     
     class func arrayFromJSON(_ jsonArray: Any?) -> [QuickReply]? {
-        guard let jsonArray = jsonArray as? [[String : Any]] else {
+        guard let jsonArray = jsonArray as? [[String: Any]] else {
             return nil
         }
         

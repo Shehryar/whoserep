@@ -13,7 +13,7 @@ extension XCUIElement {
         if self.isHittable {
             tap()
         } else {
-            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx: 0, dy:0))
+            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
             coordinate.tap()
         }
     }

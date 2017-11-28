@@ -136,7 +136,7 @@ class BinaryRatingViewSpec: QuickSpec {
                             "positiveValue": "1",
                             "negativeValue": "0",
                             "positiveOnRight": true
-                        ] as [String : Any]
+                        ] as [String: Any]
                         let binaryRatingItem = BinaryRatingItem(style: style, content: content)
                         let binaryRatingView = BinaryRatingView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
                         binaryRatingView.component = binaryRatingItem
@@ -151,7 +151,7 @@ class BinaryRatingViewSpec: QuickSpec {
                             "negativeValue": "0",
                             "circleSpacing": 10,
                             "circleSize": 70
-                        ] as [String : Any]
+                        ] as [String: Any]
                         let binaryRatingItem = BinaryRatingItem(style: style, content: content)
                         let binaryRatingView = BinaryRatingView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
                         binaryRatingView.component = binaryRatingItem

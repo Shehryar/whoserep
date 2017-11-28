@@ -236,7 +236,7 @@ class PredictiveViewController: UIViewController {
                    && gradientColors[0].isBright()
                   && barBackgroundColor.isBright() {
                     navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
-                    navigationBar.layer.shadowColor = UIColor(red:0, green:0, blue:0, alpha:0.07).cgColor
+                    navigationBar.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.07).cgColor
                     navigationBar.layer.shadowOpacity = 1
                     navigationBar.layer.shadowRadius = 10
                 }

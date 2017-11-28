@@ -12,7 +12,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     var componentViewContainer: ComponentViewContainer?
     
-    var json: [String : Any]?
+    var json: [String: Any]?
     
     private(set) var classification: String?
     

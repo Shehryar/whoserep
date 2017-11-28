@@ -27,7 +27,7 @@ class UserLoginAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any],
+        guard let content = content as? [String: Any],
             let mergeCustomerId = content[JSONKey.mergeCustomerId.rawValue] as? UInt64,
             let mergeCustomerGUID = content.string(for: JSONKey.mergeCustomerGUID.rawValue) else {
                 DebugLog.w(caller: UserLoginAction.self, "\(JSONKey.mergeCustomerId.rawValue) and \(JSONKey.mergeCustomerGUID.rawValue) are both required. Returning nil")

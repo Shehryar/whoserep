@@ -80,11 +80,9 @@ class ImageViewerImageView: UIView {
                 scaledSize = aspectScaleSize(image.size, toWidth: boundsWidth)
             }
             imageFrame = createFrame(withSize: scaledSize, centeredInFrame: bounds)
-            break
             
         case .center:
             imageFrame = createFrame(withSize: image.size, centeredInFrame: bounds)
-            break
             
         default: // case .ScaleAspectFit:
             var scaledSize = aspectScaleSize(image.size, toHeight: boundsHeight)
@@ -92,7 +90,6 @@ class ImageViewerImageView: UIView {
                 scaledSize = aspectScaleSize(image.size, toWidth: boundsWidth)
             }
             imageFrame = createFrame(withSize: scaledSize, centeredInFrame: bounds)
-            break
         }
         
         imageView.frame = imageFrame

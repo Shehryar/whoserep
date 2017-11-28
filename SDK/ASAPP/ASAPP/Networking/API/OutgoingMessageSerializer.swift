@@ -38,7 +38,7 @@ class OutgoingMessageSerializer: NSObject {
 
 extension OutgoingMessageSerializer {
     
-    func createRequest(withPath path: String, params: [String : Any]?, context: [String : Any]?) -> SocketRequest {
+    func createRequest(withPath path: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest {
         return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
     }
     
@@ -61,7 +61,7 @@ extension OutgoingMessageSerializer {
     
     func createAuthRequest() -> AuthRequest {
         var path: String
-        var params: [String : Any] = [
+        var params: [String: Any] = [
             "App": "ios-sdk",
             "CompanyMarker": config.appId,
             "RegionCode": config.regionCode
@@ -131,7 +131,7 @@ extension OutgoingMessageSerializer {
         return path.hasPrefix("customer/")
     }
     
-    private func contextForRequest(withPath path: String) -> [String : Any] {
+    private func contextForRequest(withPath path: String) -> [String: Any] {
         var context = ["CompanyId": session?.company.id ?? 0]
         if !requestWithPathIsCustomerEndpoint(path) {
             if targetCustomerToken != nil {

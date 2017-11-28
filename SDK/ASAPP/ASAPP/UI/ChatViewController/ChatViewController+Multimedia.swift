@@ -122,12 +122,10 @@ class CameraPermissions {
         case .denied, .restricted:
             DebugLog.d(caller: ChatViewController.self, "Camera Permissions: Denied or Restricted")
             completion(false)
-            break
             
         case .authorized:
             DebugLog.d(caller: ChatViewController.self, "Camera Permissions: Authorized")
             completion(true)
-            break
             
         case .notDetermined:
             // Request permission from the user

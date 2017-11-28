@@ -56,7 +56,7 @@ extension APIActionResponse {
     }
     
     class func fromJSON(_ json: Any?) -> APIActionResponse? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard let type = APIActionResponseType.from(json[JSONKey.type.rawValue]) else {
@@ -71,15 +71,12 @@ extension APIActionResponse {
         switch type {
         case .finish:
             finishAction = ActionFactory.action(with: content) as? FinishAction
-            break
             
         case .refreshView, .componentView:
             view = ComponentViewContainer.from(content)
-            break
             
         case .error:
             error = APIActionError(content as? [String: Any])
-            break
         }
         
         return APIActionResponse(type: type, finishAction: finishAction, view: view, error: error)

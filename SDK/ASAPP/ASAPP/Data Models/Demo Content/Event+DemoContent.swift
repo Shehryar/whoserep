@@ -101,7 +101,7 @@ extension Event {
             "CompanyEventLogSeq": companyEventLogSeq,
             "CustomerEventLogSeq": customerEventLogSeq,
             "EventJSON": eventJSON
-            ] as [String : Any]
+            ] as [String: Any]
         
         return Event.fromJSON(json)
     }

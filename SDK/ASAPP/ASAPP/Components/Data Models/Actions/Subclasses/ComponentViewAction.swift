@@ -40,7 +40,7 @@ class ComponentViewAction: Action {
     // MARK: Init
     
     required init?(content: Any?) {
-        guard let content = content as? [String : Any] else {
+        guard let content = content as? [String: Any] else {
             return nil
         }
         

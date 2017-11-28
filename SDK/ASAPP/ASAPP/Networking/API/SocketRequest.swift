@@ -12,12 +12,12 @@ class SocketRequest {
     
     let requestId: Int
     let path: String
-    let params: [String : Any]?
-    let context: [String : Any]?
+    let params: [String: Any]?
+    let context: [String: Any]?
     let requestData: Data?
     let requestUUID: String
     
-    required init(requestId: Int, path: String, params: [String : Any]?, context: [String : Any]?, requestData: Data?) {
+    required init(requestId: Int, path: String, params: [String: Any]?, context: [String: Any]?, requestData: Data?) {
         let uuid = UUID().uuidString
         
         self.requestUUID = uuid
@@ -37,7 +37,7 @@ extension SocketRequest {
         return path.contains("CreditCard")
     }
     
-    func getParametersCleanedOfSensitiveData() -> [String : Any] {
+    func getParametersCleanedOfSensitiveData() -> [String: Any] {
         var cleanedParams = [String: Any]()
         cleanedParams.add(params)
         if path.contains("CreditCard") {

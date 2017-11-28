@@ -28,7 +28,7 @@ class SpearAPI: NSObject {
         request.addValue("test", forHTTPHeaderField: "messageid")
         request.addValue("59045343-1854-90cf-be08-39a39e89c071", forHTTPHeaderField: "postman-token")
   
-        let parameters: [String : Any] = [
+        let parameters: [String: Any] = [
             "mdn": userId,
             "pin": pin,
             "scope": "login_auth"
@@ -52,7 +52,7 @@ class SpearAPI: NSObject {
                     demoLog("Unable to find Spear Auth Token in json: \(jsonDict)")
                     
                     var error = jsonDict["description"] as? String
-                    if error == nil, let errors = jsonDict["errors"] as? [[String : Any]] {
+                    if error == nil, let errors = jsonDict["errors"] as? [[String: Any]] {
                         var errorDescriptions = [String]()
                         for errorObject in errors {
                             if let errorDescription = errorObject["description"] as? String {

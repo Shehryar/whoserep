@@ -148,120 +148,6 @@ class PredictiveButtonsView: UIView {
         return button
     }
     
-    // MARK: Layout
-    
-    func viewIsWithinVisibleHeight(_ view: UIView) -> Bool {
-        return view.frame.maxY < bounds.size.height
-    }
-    
-    func updateSubviewAlphas() {
-        guard !waitingToAnimateIn else { return }
-        
-        for view in subviews {
-            if view == otherLabel {
-                if expanded && viewIsWithinVisibleHeight(view) {
-                    if view == otherLabel {
-                        view.alpha = shouldDisplayOtherLabel ? 1 : 0
-                    } else {
-                        view.alpha = 1
-                    }
-                } else {
-                    view.alpha = 0
-                }
-            } else {
-                view.alpha = viewIsWithinVisibleHeight(view) ? 1 : 0
-            }
-        }
-    }
-    
-    func updateFrames() {
-        let maxWidth = bounds.width
-        let maxSubviewSize = CGSize(width: maxWidth, height: 0)
-        
-        var top: CGFloat = 0.0
-        
-        // Related Buttons
-        
-        for button in relatedButtons {
-            let buttonSize = button.sizeThatFits(maxSubviewSize)
-            let width = ceil(buttonSize.width)
-            let x: CGFloat
-            switch ASAPP.styles.welcomeLayout {
-            case .buttonMenu:
-                x = 0
-            case .chat:
-                x = maxWidth - width
-            }
-            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
-            top = button.frame.maxY + buttonSpacing
-        }
-        
-        // Section Header
-        
-        if expanded && shouldDisplayOtherLabel {
-            top += otherLabelMarginTop
-        }
-        let otherLabelHeight = ceil(otherLabel.sizeThatFits(maxSubviewSize).height)
-        otherLabel.frame = CGRect(x: 0, y: top, width: maxWidth, height: otherLabelHeight)
-        
-        if expanded && shouldDisplayOtherLabel {
-            top = otherLabel.frame.maxY + otherLabelMarginBottom
-        }
-        
-        // Other Buttons
-        
-        for button in otherButtons {
-            let buttonSize = button.sizeThatFits(maxSubviewSize)
-            let width = ceil(buttonSize.width)
-            let x: CGFloat
-            switch ASAPP.styles.welcomeLayout {
-            case .buttonMenu:
-                x = 0
-            case .chat:
-                x = maxWidth - width
-            }
-            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
-            top = button.frame.maxY + buttonSpacing
-        }
-        
-        if !waitingToAnimateIn {
-            updateSubviewAlphas()
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if !animating {
-            updateFrames()
-        }
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var height: CGFloat = 0
-        
-        for button in relatedButtons {
-            let buttonSize = button.sizeThatFits(size)
-            height += ceil(buttonSize.height) + buttonSpacing
-        }
-        
-        if expanded && shouldDisplayOtherLabel {
-            height += otherLabelMarginTop
-        }
-        
-        let otherLabelSize = otherLabel.sizeThatFits(size)
-        if expanded && shouldDisplayOtherLabel {
-            height += ceil(otherLabelSize.height) + otherLabelMarginBottom
-        }
-        
-        for button in otherButtons {
-            let buttonSize = button.sizeThatFits(size)
-            height += ceil(buttonSize.height) + buttonSpacing
-        }
-        
-        return CGSize(width: size.width, height: height)
-    }
-    
     // MARK: - Public Instance Methods
     
     func clear() {
@@ -377,5 +263,121 @@ class PredictiveButtonsView: UIView {
             })
             delay += delayIncrement
         }
+    }
+}
+
+extension PredictiveButtonsView {
+    // MARK: Layout
+    
+    func viewIsWithinVisibleHeight(_ view: UIView) -> Bool {
+        return view.frame.maxY < bounds.size.height
+    }
+    
+    func updateSubviewAlphas() {
+        guard !waitingToAnimateIn else { return }
+        
+        for view in subviews {
+            if view == otherLabel {
+                if expanded && viewIsWithinVisibleHeight(view) {
+                    if view == otherLabel {
+                        view.alpha = shouldDisplayOtherLabel ? 1 : 0
+                    } else {
+                        view.alpha = 1
+                    }
+                } else {
+                    view.alpha = 0
+                }
+            } else {
+                view.alpha = viewIsWithinVisibleHeight(view) ? 1 : 0
+            }
+        }
+    }
+    
+    func updateFrames() {
+        let maxWidth = bounds.width
+        let maxSubviewSize = CGSize(width: maxWidth, height: 0)
+        
+        var top: CGFloat = 0.0
+        
+        // Related Buttons
+        
+        for button in relatedButtons {
+            let buttonSize = button.sizeThatFits(maxSubviewSize)
+            let width = ceil(buttonSize.width)
+            let x: CGFloat
+            switch ASAPP.styles.welcomeLayout {
+            case .buttonMenu:
+                x = 0
+            case .chat:
+                x = maxWidth - width
+            }
+            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
+            top = button.frame.maxY + buttonSpacing
+        }
+        
+        // Section Header
+        
+        if expanded && shouldDisplayOtherLabel {
+            top += otherLabelMarginTop
+        }
+        let otherLabelHeight = ceil(otherLabel.sizeThatFits(maxSubviewSize).height)
+        otherLabel.frame = CGRect(x: 0, y: top, width: maxWidth, height: otherLabelHeight)
+        
+        if expanded && shouldDisplayOtherLabel {
+            top = otherLabel.frame.maxY + otherLabelMarginBottom
+        }
+        
+        // Other Buttons
+        
+        for button in otherButtons {
+            let buttonSize = button.sizeThatFits(maxSubviewSize)
+            let width = ceil(buttonSize.width)
+            let x: CGFloat
+            switch ASAPP.styles.welcomeLayout {
+            case .buttonMenu:
+                x = 0
+            case .chat:
+                x = maxWidth - width
+            }
+            button.frame = CGRect(x: x, y: top, width: width, height: ceil(buttonSize.height))
+            top = button.frame.maxY + buttonSpacing
+        }
+        
+        if !waitingToAnimateIn {
+            updateSubviewAlphas()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !animating {
+            updateFrames()
+        }
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var height: CGFloat = 0
+        
+        for button in relatedButtons {
+            let buttonSize = button.sizeThatFits(size)
+            height += ceil(buttonSize.height) + buttonSpacing
+        }
+        
+        if expanded && shouldDisplayOtherLabel {
+            height += otherLabelMarginTop
+        }
+        
+        let otherLabelSize = otherLabel.sizeThatFits(size)
+        if expanded && shouldDisplayOtherLabel {
+            height += ceil(otherLabelSize.height) + otherLabelMarginBottom
+        }
+        
+        for button in otherButtons {
+            let buttonSize = button.sizeThatFits(size)
+            height += ceil(buttonSize.height) + buttonSpacing
+        }
+        
+        return CGSize(width: size.width, height: height)
     }
 }

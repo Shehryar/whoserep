@@ -11,7 +11,7 @@ import UIKit
 class SRSSeparator: SRSItem {
 
     override init?(json: Any?, metadata: EventMetadata) {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         super.init(json: json, metadata: metadata)

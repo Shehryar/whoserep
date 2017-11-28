@@ -165,7 +165,6 @@
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
 		302B6E1D1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */; };
-		303699A51EAFA9FB00A819DF /* ASAPPStyles+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */; };
 		303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */; };
 		303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */; };
 		303699A91EAFAA2E00A819DF /* ASAPPTextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */; };
@@ -562,7 +561,6 @@
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
 		302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+OutgoingAPI.swift"; sourceTree = "<group>"; };
-		303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ASAPPStyles+Presets.swift"; sourceTree = "<group>"; };
 		303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStyles.swift; sourceTree = "<group>"; };
 		303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyle.swift; sourceTree = "<group>"; };
 		303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyles.swift; sourceTree = "<group>"; };
@@ -1359,7 +1357,6 @@
 			isa = PBXGroup;
 			children = (
 				303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */,
-				303699A21EAFA9FB00A819DF /* ASAPPStyles+Presets.swift */,
 				303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */,
 				303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */,
 				30131F9B1EAFB384009E7299 /* ASAPPColors.swift */,
@@ -1794,7 +1791,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = asappinc;
 				TargetAttributes = {
 					FD8D8AF91D0F6E2A001B420B = {
@@ -2184,7 +2181,6 @@
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
 				3A0E7F9A1FB4BD10008F9544 /* BinaryRatingItem.swift in Sources */,
 				30DF3F701F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift in Sources */,
-				303699A51EAFA9FB00A819DF /* ASAPPStyles+Presets.swift in Sources */,
 				30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */,
 				3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
@@ -2458,7 +2454,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				DYLIB_COMPATIBILITY_VERSION = 1;

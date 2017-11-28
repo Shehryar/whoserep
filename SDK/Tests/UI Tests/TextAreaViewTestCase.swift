@@ -25,8 +25,8 @@ class TextAreaViewTestCase: XCTestCase {
         textView.forceTap()
         let text = "the quick brown fox jumps over the lazy dog"
         textView.typeText(text)
-        XCTAssert(text.characters.count > 20)
+        XCTAssert(text.count > 20)
         XCTAssertNotNil(textView.value as? String)
-        XCTAssert((textView.value as! String).characters.count == 20)
+        XCTAssert((textView.value as! String).count == 20)
     }
 }

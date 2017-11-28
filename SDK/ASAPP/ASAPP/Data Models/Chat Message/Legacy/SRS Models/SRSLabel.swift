@@ -13,7 +13,7 @@ class SRSLabel: SRSItem {
     let text: String
     
     override init?(json: Any?, metadata: EventMetadata) {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard let text = json.string(for: "label") else {

@@ -164,12 +164,10 @@ class BrandingSwitcherView: UIView {
                 }
                 animator.addBehavior(attachment)
             }
-            break
             
         case .changed:
             // As the user makes gesture, update attachment behavior's anchor point, achieving drag 'n' rotate
             attachment?.anchorPoint = gesture.location(in: self)
-            break
             
         case .ended:
             animator.removeAllBehaviors()
@@ -214,7 +212,6 @@ class BrandingSwitcherView: UIView {
             let gravity = UIGravityBehavior(items: [gestureView])
             gravity.magnitude = 0.7
             self.animator.addBehavior(gravity)
-            break
             
         default: break
         }

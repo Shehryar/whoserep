@@ -24,8 +24,8 @@ enum ComponentFactory {
         case isRequired = "required"
     }
 
-    static func component(with json: Any?, styles: [String : Any]?) -> Component? {
-        guard let json = json as? [String : Any] else {
+    static func component(with json: Any?, styles: [String: Any]?) -> Component? {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         
@@ -48,7 +48,7 @@ enum ComponentFactory {
         let style = ComponentStyle.getStyle(from: json[JSONKey.style.rawValue],
                                             styleClass: styleClass,
                                             styles: styles)
-        let content = json[JSONKey.content.rawValue] as? [String : Any]
+        let content = json[JSONKey.content.rawValue] as? [String: Any]
         
         return type.getItemClass().init(id: id,
                                         name: name,

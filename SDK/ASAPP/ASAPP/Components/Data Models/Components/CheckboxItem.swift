@@ -32,8 +32,8 @@ class CheckboxItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         // No content
         
         super.init(id: id,

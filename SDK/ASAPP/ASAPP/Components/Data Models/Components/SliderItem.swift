@@ -53,8 +53,8 @@ class SliderItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         
         self.label = ComponentFactory.component(with: content?[JSONKey.label.rawValue],
                                                 styles: styles) as? LabelItem

@@ -321,7 +321,7 @@ extension AppSettings {
 
 extension AppSettings {
     
-    func getContext() -> [String : Any] {
+    func getContext() -> [String: Any] {
         return [
             ASAPP.authTokenKey: AppSettings.shared.authToken,
             "fake_context_key_1": "fake_context_value_1",

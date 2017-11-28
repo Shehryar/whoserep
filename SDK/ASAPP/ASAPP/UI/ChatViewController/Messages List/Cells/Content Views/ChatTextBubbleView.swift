@@ -154,37 +154,29 @@ extension ChatTextBubbleView {
             switch messagePosition {
             case .none:
                 roundedCorners = [.topLeft, .topRight, .bottomRight]
-                break
                 
             case .firstOfMany:
                 roundedCorners =  .allCorners
-                break
                 
             case .middleOfMany:
                 roundedCorners =  .allCorners
-                break
                 
             case .lastOfMany:
                 roundedCorners = [.topLeft, .topRight, .bottomRight]
-                break
             }
         } else {
             switch messagePosition {
             case .none:
                 roundedCorners = [.topRight, .topLeft, .bottomLeft]
-                break
                 
             case .firstOfMany:
                 roundedCorners = .allCorners
-                break
                 
             case .middleOfMany:
                 roundedCorners = .allCorners
-                break
                 
             case .lastOfMany:
                 roundedCorners =  [.topRight, .topLeft, .bottomLeft]
-                break
             }
         }
         bubbleView.roundedCorners = roundedCorners
@@ -246,7 +238,7 @@ extension ChatTextBubbleView {
 extension ChatTextBubbleView {
     
     func textHasDataDetectorLink(_ text: String?) -> Bool {
-        guard let text = text, text.characters.count > 0 else {
+        guard let text = text, text.count > 0 else {
             return false
         }
         
@@ -259,7 +251,7 @@ extension ChatTextBubbleView {
         }
         
         if let dataDetector = dataDetector {
-            let range = NSRange(location: 0, length: text.characters.count)
+            let range = NSRange(location: 0, length: text.count)
             return dataDetector.numberOfMatches(in: text, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: range) > 0
         }
         return false

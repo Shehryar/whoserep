@@ -62,7 +62,7 @@ class ChatMessageAttachment: NSObject {
 extension ChatMessageAttachment {
     
     class func fromJSON(_ json: Any?) -> ChatMessageAttachment? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard let typeString = json["type"] as? String else {
@@ -74,7 +74,7 @@ extension ChatMessageAttachment {
             return nil
         }
         
-        guard let payload = json["content"] as? [String : AnyObject] else {
+        guard let payload = json["content"] as? [String: AnyObject] else {
             DebugLog.w(caller: self, "Missing payload.")
             return nil
         }

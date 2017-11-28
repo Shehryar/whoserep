@@ -15,7 +15,7 @@ class SRSButton: SRSItem {
     let action: Action
 
     override init?(json: Any?, metadata: EventMetadata) {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard let title = json.string(for: "label") else {

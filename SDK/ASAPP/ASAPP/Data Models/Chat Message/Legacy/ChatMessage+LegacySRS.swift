@@ -31,7 +31,7 @@ extension ChatMessage {
     // MARK: - Parsing
     
     static func jsonIsLikelyLegacy(_ json: Any?) -> Bool {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return false
         }
         
@@ -41,7 +41,7 @@ extension ChatMessage {
     }
  
     static func fromLegacySRSJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return nil
         }
         guard json.string(for: "contentType") != "carousel" else {
@@ -81,7 +81,7 @@ extension ChatMessage {
             }
         }
         
-        var quickRepliesHash: [String : [QuickReply]]?
+        var quickRepliesHash: [String: [QuickReply]]?
         if let quickReplies = quickReplies, !quickReplies.isEmpty {
             quickRepliesHash = [
                 "default": quickReplies
@@ -102,7 +102,7 @@ extension ChatMessage {
         let buttons: [SRSButton]?
     }
     
-    private static func extractLegacyComponents(_ json: [String : Any]?, metadata: EventMetadata) -> LegacyComponents {
+    private static func extractLegacyComponents(_ json: [String: Any]?, metadata: EventMetadata) -> LegacyComponents {
         guard let json = json else {
             return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }
@@ -114,7 +114,7 @@ extension ChatMessage {
             return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }
         
-        guard let itemsJSONArray = json["value"] as? [[String : Any]], !itemsJSONArray.isEmpty else {
+        guard let itemsJSONArray = json["value"] as? [[String: Any]], !itemsJSONArray.isEmpty else {
             DebugLog.w(caller: self, "extractLegacyComponents Failed: empty value array")
             return LegacyComponents(message: nil, bodyItems: nil, buttons: nil)
         }

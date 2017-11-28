@@ -115,7 +115,6 @@ extension SocketConnection {
             case .CLOSING:
                 // Current connection is no longer useful.
                 disconnect()
-                break
                 
             case _ where socket.readyState != .CLOSED:
                 // Connection is valid. No need to connect.
@@ -162,8 +161,8 @@ extension SocketConnection {
 
 extension SocketConnection {
     func sendRequest(withPath path: String,
-                     params: [String : Any]?,
-                     context: [String : Any]? = nil,
+                     params: [String: Any]?,
+                     context: [String: Any]? = nil,
                      requestHandler: IncomingMessageHandler? = nil) {
 
         let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: context)
@@ -281,10 +280,10 @@ extension SocketConnection {
     
     func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
         let path = "rep/GetCustomerByCRMCustomerId"
-        let params: [String : Any] = [ "CRMCustomerId": targetCustomerToken]
+        let params: [String: Any] = [ "CRMCustomerId": targetCustomerToken]
         
         sendRequest(withPath: path, params: params) { (response, _, _) in
-            guard let customerJSON = response.body?["Customer"] as? [String : Any] else {
+            guard let customerJSON = response.body?["Customer"] as? [String: Any] else {
                 DebugLog.e("Missing Customer json body in: \(String(describing: response.fullMessage))")
                 
                 completion?(response, "Failed to update customer by CRMCustomerId")
@@ -344,7 +343,7 @@ extension SocketConnection: SRWebSocketDelegate {
             
             DebugLog.d("SOCKET MESSAGE RECEIVED\(responseTimeString)\(originalRequestInfo):\n---------")
             
-            if (message as AnyObject).description.characters.count > 1000 {
+            if (message as AnyObject).description.count > 1000 {
                 if ASAPP.debugLogLevel.rawValue < ASAPPLogLevel.info.rawValue {
                     DebugLog.d("(Use info debug level to see long message)")
                 }

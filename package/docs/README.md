@@ -74,9 +74,9 @@ SDK Usage
 
 ### Customize [Styles](Classes/ASAPPStyles.html)
 
-    var styles = ASAPPStyles.stylesForAppId(appId)
-
-    ASAPP.styles = styles
+    ASAPP.styles.segue = .push
+    ASAPP.styles.navBarStyles.buttonStyle = .text
+    ASAPP.styles.colors.navBarTitle = .blue
 
 ### Customize Styles with a [Font Family](Classes/ASAPPFontFamily.html)
 
@@ -86,7 +86,7 @@ SDK Usage
                 medium: UIFont(name: "AvenirNext-DemiBold", size: 16)!,
                 bold: UIFont(name: "AvenirNext-Bold", size: 16)!)
 
-    ASAPP.styles = ASAPPStyles.stylesForAppId(appId, fontFamily: avenirNext)
+    ASAPP.styles.textStyles.updateStyles(for: avenirNext)
 
 ### Customize [Text Styles](Classes/ASAPPTextStyles.html)
 

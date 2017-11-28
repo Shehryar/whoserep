@@ -27,15 +27,12 @@ class ButtonCell: TableViewCell {
             switch titleAlignment {
             case .left:
                 titleLabel.textAlignment = .left
-                break
                 
             case .center:
                 titleLabel.textAlignment = .center
-                break
                 
             case .right:
                 titleLabel.textAlignment = .right
-                break
             }
             
             setNeedsLayout()
@@ -121,15 +118,12 @@ class ButtonCell: TableViewCell {
         switch titleAlignment {
         case .left:
             left = contentInset.left
-            break
             
         case .center:
             left = floor((size.width - labelSize.width) / 2.0)
-            break
             
         case .right:
             left = size.width - contentInset.right - labelSize.width
-            break
         }
         let labelFrame = CGRect(x: left, y: contentInset.top,
                                 width: labelSize.width,

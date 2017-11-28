@@ -29,7 +29,7 @@ class ChatMessageImage: NSObject {
 
 extension ChatMessageImage {
     
-    class func fromJSON(_ json: [String : AnyObject]?) -> ChatMessageImage? {
+    class func fromJSON(_ json: [String: AnyObject]?) -> ChatMessageImage? {
         guard let json = json else {
             return nil
         }

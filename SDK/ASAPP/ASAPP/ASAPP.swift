@@ -60,7 +60,7 @@ public extension ASAPP {
      - parameter userInfo: A user info dictionary containing notification metadata
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
-    public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
         let chat = createBareChatViewController(fromNotificationWith: userInfo, segue: .push, appCallbackHandler: appCallbackHandler)
@@ -76,7 +76,7 @@ public extension ASAPP {
      - parameter userInfo: A user info dictionary containing notification metadata
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
-    public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         assertSetupComplete()
         
         let chat = createBareChatViewController(fromNotificationWith: userInfo, appCallbackHandler: appCallbackHandler)
@@ -85,7 +85,7 @@ public extension ASAPP {
         return nav
     }
     
-    internal class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    internal class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         let chatViewController = ChatViewController(
             config: config,
             user: user,
@@ -107,7 +107,7 @@ public extension ASAPP {
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      - warning: Deprecated in 3.0.0. Use `createChatViewControllerForPresenting(fromNotificationWith:appCallbackHandler:)` instead.
      */
-    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable : Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
         let chatViewController = ChatViewController(
             config: config,
             user: user,
@@ -145,7 +145,7 @@ public extension ASAPP {
      - returns: Whether the SDK can handle a notification.
      - parameter userInfo: A user info dictionary containing notification metadata
      */
-    public class func canHandleNotification(with userInfo: [AnyHashable : Any]?) -> Bool {
+    public class func canHandleNotification(with userInfo: [AnyHashable: Any]?) -> Bool {
         guard let aps = userInfo?["aps"] as? [AnyHashable: Any] ?? userInfo else {
             return false
         }

@@ -69,7 +69,7 @@ class ConversationManager: NSObject {
         self.socketConnection.delegate = self
         self.timer = Timer.scheduledTimer(timeInterval: 6,
                                           target: self,
-                                          selector:  #selector(ConversationManager.checkForTypingStatusChange),
+                                          selector: #selector(ConversationManager.checkForTypingStatusChange),
                                           userInfo: nil,
                                           repeats: true)
     }
@@ -135,13 +135,13 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    func getRequestParameters(with params: [String : Any]?,
+    func getRequestParameters(with params: [String: Any]?,
                               requiresContext: Bool = true,
                               insertContextAsString: Bool = true,
                               contextKey: String = "Context",
-                              completion: @escaping (_ params: [String : Any]) -> Void) {
+                              completion: @escaping (_ params: [String: Any]) -> Void) {
         
-        var requestParams: [String : Any] = [
+        var requestParams: [String: Any] = [
             ASAPP.clientTypeKey: ASAPP.clientType,
             ASAPP.clientVersionKey: ASAPP.clientVersion
             ].with(params)
@@ -171,7 +171,7 @@ extension ConversationManager {
     }
     
     func sendRequest(path: String,
-                     params: [String : Any]? = nil,
+                     params: [String: Any]? = nil,
                      requiresContext: Bool = true,
                      isRequestFromPrediction: Bool = false,
                      completion: IncomingMessageHandler? = nil) {

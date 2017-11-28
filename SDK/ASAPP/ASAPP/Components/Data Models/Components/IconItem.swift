@@ -90,8 +90,8 @@ class IconItem: Component {
                    isChecked: Bool? = nil,
                    isRequired: Bool? = nil,
                    style: ComponentStyle,
-                   styles: [String : Any]? = nil,
-                   content: [String : Any]? = nil) {
+                   styles: [String: Any]? = nil,
+                   content: [String: Any]? = nil) {
         guard let icon = Icon.from(content?.string(for: JSONKey.icon.rawValue)) else {
             DebugLog.w(caller: IconItem.self, "No icon found in content: \(String(describing: content))")
             return nil

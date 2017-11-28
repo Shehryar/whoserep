@@ -119,7 +119,6 @@
                 "style": {
                   "align": "fill",
                   "buttonType": "secondary",
-                  "gravity": "fill",
                   "weight": 1
                 },
                 "type": "button"
@@ -141,7 +140,6 @@
                 "style": {
                   "align": "fill",
                   "buttonType": "primary",
-                  "gravity": "fill",
                   "weight": 1
                 },
                 "type": "button"

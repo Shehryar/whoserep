@@ -9,28 +9,10 @@
 import UIKit
 
 class ComponentLayoutEngine: NSObject {
-    
     struct LayoutInfo {
         let frames: [CGRect]
         let maxX: CGFloat
         let maxY: CGFloat
-    }
-    
-    class func getMaxContentSizeThatFits(_ size: CGSize, with style: ComponentStyle) -> (CGSize, UIEdgeInsets) {
-        var maxContentSize = size
-        if maxContentSize.width == 0 {
-            maxContentSize.width = CGFloat.greatestFiniteMagnitude
-        }
-        if maxContentSize.height == 0 {
-            maxContentSize.height = CGFloat.greatestFiniteMagnitude
-        }
-        maxContentSize.width -= style.padding.left + style.padding.right
-        maxContentSize.height -= style.padding.top + style.padding.bottom
-        
-        if maxContentSize.width <= 0 || maxContentSize.height <= 0 {
-            return (.zero, style.padding)
-        }
-        return (maxContentSize, style.padding)
     }
 }
 
@@ -52,8 +34,9 @@ extension ComponentLayoutEngine {
         let top = boundingRect.minY
         var left = boundingRect.minX
         for (idx, view) in views.enumerated() {
-            let margin = (view as? ComponentView)?.component?.style.margin ?? UIEdgeInsets.zero
-            let alignment = (view as? ComponentView)?.component?.style.alignment ?? HorizontalAlignment.left
+            let style = (view as? ComponentView)?.component?.style
+            let margin = style?.margin ?? UIEdgeInsets.zero
+            let alignment = style?.alignment ?? HorizontalAlignment.left
             
             var size = columnSizes[idx].fittedSize
             let columnWidth = columnSizes[idx].maxColumnWidth
@@ -66,15 +49,12 @@ extension ComponentLayoutEngine {
                     
                 case .center:
                     offsetX = floor((columnWidth - size.width) / 2.0)
-                    break
                     
                 case .right:
                     offsetX = columnWidth - size.width
-                    break
                     
                 case .fill:
                     size.width = columnWidth
-                    break
                 }
             }
             
@@ -96,35 +76,30 @@ extension ComponentLayoutEngine {
         
         // Adjust frames vertically, if necessary
         for (idx, view) in views.enumerated() {
+            let style = (view as? ComponentView)?.component?.style ?? ComponentStyle()
+            let gravity = style.gravity ?? .top
+            let margin = style.margin
+            
             var frame = frames[idx]
             
-            if let style = (view as? ComponentView)?.component?.style {
-                switch style.gravity {
-                case .top:
-                    // No change required
-                    break
-                    
-                case .middle:
-                    frame.origin.y = boundingRect.minY + floor((maxFrameHeight - frame.height) / 2.0)
-                    
-                    break
-                    
-                case .bottom:
-                    frame.origin.y = boundingRect.minY + maxFrameHeight - frame.height - style.margin.bottom
-                    break
-                    
-                case .fill:
-                    frame.size.height = maxFrameHeight
-                    break
-                }
-                frames[idx] = frame
+            switch gravity {
+            case .top:
+                frame.origin.y = boundingRect.minY + margin.top
                 
-                maxX = max(maxX, frame.maxX + style.margin.right)
-                maxY = max(maxY, frame.maxY + style.margin.bottom)
-            } else {
-                maxX = max(maxX, frame.maxX)
-                maxY = max(maxY, frame.maxY)
+            case .middle:
+                frame.origin.y = boundingRect.minY + floor((maxFrameHeight - frame.height) / 2.0)
+                
+            case .bottom:
+                frame.origin.y = boundingRect.minY + maxFrameHeight - frame.height - margin.bottom
+                
+            case .fill:
+                frame.origin.y = boundingRect.minY + margin.top
+                frame.size.height = maxFrameHeight
             }
+            frames[idx] = frame
+            
+            maxX = max(maxX, frame.maxX + margin.right)
+            maxY = max(maxY, frame.maxY + margin.bottom)
         }
         
         return LayoutInfo(frames: frames, maxX: maxX, maxY: maxY)
@@ -169,7 +144,7 @@ extension ComponentLayoutEngine {
             let columnWidth = weightedColumnWidths[idx]
             if columnWidth > 0 {
                 var size = view.sizeThatFits(CGSize(width: columnWidth, height: 0))
-                size.width = columnWidth// ceil(size.width)
+                size.width = columnWidth
                 size.height = ceil(size.height)
                 
                 columnSizes[idx] = ColumnSize(fittedSize: size, maxColumnWidth: columnWidth)
@@ -238,17 +213,6 @@ extension ComponentLayoutEngine {
         
         return widths
     }
-    
-    private class func printColumnSizes(_ sizes: [ColumnSize], text: String) {
-        var columnDescriptions = [String]()
-        for size in sizes {
-            let description = "max: \(size.maxColumnWidth), size: \(size.fittedSize)"
-            columnDescriptions.append(description)
-        }
-        
-        DebugLog.i(caller: self, "\n\(text): [\n  \(columnDescriptions.joined(separator: "\n  "))\n]")
-    }
-    
 }
 
 // MARK: - Vertical
@@ -271,8 +235,10 @@ extension ComponentLayoutEngine {
         
         // Layout views vertically
         for (idx, view) in views.enumerated() {
-            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
-            let gravity = (view as? ComponentView)?.component?.style.gravity ?? .top
+            let style = (view as? ComponentView)?.component?.style ?? ComponentStyle()
+            let margin = style.margin
+            let weight = style.weight
+            let gravity = style.gravity ?? (weight == 0 ? .top : .fill)
             
             let maxSize = sizes[idx].maxSize
             var size = sizes[idx].fittedSize
@@ -281,18 +247,18 @@ extension ComponentLayoutEngine {
             var offsetY: CGFloat = 0
             if size.height < maxSize.height {
                 switch gravity {
-                case .top: /* No-op */ break
+                case .top:
+                    // No-op
+                    break
+                    
                 case.middle:
                     offsetY = floor((maxSize.height - size.height) / 2.0)
-                    break
                     
                 case .bottom:
                     offsetY = maxSize.height - size.height
-                    break
                 
                 case .fill:
                     size.height = maxSize.height
-                    break
                 }
             }
             
@@ -312,8 +278,9 @@ extension ComponentLayoutEngine {
         
         // Adjust frames horizontally
         for (idx, view) in views.enumerated() {
-            let alignment = (view as? ComponentView)?.component?.style.alignment ?? .left
-            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
+            let style = (view as? ComponentView)?.component?.style
+            let alignment = style?.alignment ?? .left
+            let margin = style?.margin ?? .zero
             
             var frame = frames[idx]
             
@@ -321,20 +288,16 @@ extension ComponentLayoutEngine {
             switch alignment {
             case .left:
                 frame.origin.x = boundingRect.minX + margin.left
-                break
                 
             case .center:
                 frame.origin.x = boundingRect.minX + margin.left + floor((maxDisplayWidth - frame.size.width) / 2.0)
-                break
                 
             case .right:
                 frame.origin.x = boundingRect.maxX - frame.size.width - margin.right
-                break
                 
             case .fill:
                 frame.origin.x = boundingRect.minX + margin.left
                 frame.size.width = boundingRect.width - margin.left - margin.right
-                break
             }
             frames[idx] = frame
             
@@ -369,11 +332,12 @@ extension ComponentLayoutEngine {
         
         // Update the size for all views with weight==0 (size-to-fit)
         for (idx, view) in views.enumerated() {
-            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
+            let style = (view as? ComponentView)?.component?.style ?? ComponentStyle()
+            let margin = style.margin
+            let weight = style.weight
             guard weight == 0 else {
                 continue
             }
-            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
             
             let maxWidth = maxSize.width - margin.left - margin.right
             let maxSize = CGSize(width: maxWidth, height: remainingHeight)
@@ -410,11 +374,12 @@ extension ComponentLayoutEngine {
         
         // Calculate size for all views with weight != 0
         for (idx, view) in views.enumerated() {
-            let weight = (view as? ComponentView)?.component?.style.weight ?? 0
+            let style = (view as? ComponentView)?.component?.style ?? ComponentStyle()
+            let margin = style.margin
+            let weight = style.weight
             guard weight > 0 else {
                 continue
             }
-            let margin = (view as? ComponentView)?.component?.style.margin ?? .zero
             
             var maxHeight = CGFloat(weight) * heightPerWeight
             if initialRoundingErrorAdjustment > 0 {

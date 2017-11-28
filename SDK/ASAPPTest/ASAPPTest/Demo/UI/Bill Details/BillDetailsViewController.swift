@@ -98,12 +98,10 @@ extension BillDetailsViewController {
         case PaymentRow.makePayment.rawValue:
             cell.title = "Make Payment"
             cell.iconImage = UIImage(named: "icon-coin")
-            break
             
         case PaymentRow.schedulePayment.rawValue:
             cell.title = "Schedule Payment"
             cell.iconImage = UIImage(named: "icon-calendar")
-            break
             
         default:
             // No-op
@@ -125,7 +123,6 @@ extension BillDetailsViewController {
             cell.update(titleText: "Current Balance",
                         detailText: billDetails.dueDateString,
                         valueText: billDetails.total)
-            break
             
         case Section.lineItems.rawValue:
             cell.titleLabel.font = AppSettings.shared.branding.fontFamily.regular.withSize(16)
@@ -135,7 +132,6 @@ extension BillDetailsViewController {
             cell.update(titleText: lineItem.name,
                         detailText: lineItem.date,
                         valueText: lineItem.amount)
-            break
             
         default: break
         }

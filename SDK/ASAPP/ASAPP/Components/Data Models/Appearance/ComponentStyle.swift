@@ -30,7 +30,7 @@ struct ComponentStyle {
     
     var fontSize: CGFloat?
     
-    var gravity: VerticalAlignment = .top
+    var gravity: VerticalAlignment?
     
     var height: CGFloat = 0
     
@@ -75,7 +75,7 @@ extension ComponentStyle {
     }
     
     static func fromJSON(_ json: Any?) -> ComponentStyle {
-        guard let json = json as? [String : Any] else {
+        guard let json = json as? [String: Any] else {
             return ComponentStyle()
         }
         
@@ -132,7 +132,7 @@ extension ComponentStyle {
         return style
     }
     
-    static func getStyle(from json: Any?, styleClass: String?, styles: [String : Any]?) -> ComponentStyle {
+    static func getStyle(from json: Any?, styleClass: String?, styles: [String: Any]?) -> ComponentStyle {
         guard let styleClass = styleClass,
             let styles = styles else {
                 return fromJSON(json)
@@ -143,12 +143,12 @@ extension ComponentStyle {
         // Style class may actually be a space-separate list of classes
         let styleClassNames = styleClass.components(separatedBy: " ")
         for styleClassName in styleClassNames {
-            if let classStyle = styles[styleClassName] as? [String : Any] {
+            if let classStyle = styles[styleClassName] as? [String: Any] {
                 combinedStyleJSON.add(classStyle)
             }
         }
         
-        if let json = json as? [String : Any] {
+        if let json = json as? [String: Any] {
             combinedStyleJSON.add(json)
         }
         

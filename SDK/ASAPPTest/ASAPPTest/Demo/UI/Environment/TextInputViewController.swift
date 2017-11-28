@@ -114,11 +114,9 @@ extension TextInputViewController {
         switch indexPath.section {
         case Section.textInput.rawValue:
             tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
-            break
             
         case Section.saveButton.rawValue:
             finish()
-            break
             
         default: break
         }

@@ -70,7 +70,6 @@ class SeparatorView: BaseComponentView {
             }
             contentSize.height = height + padding.top + padding.bottom
             top = padding.top
-            break
             
         case .vertical:
             if style.width > 0 {
@@ -89,7 +88,6 @@ class SeparatorView: BaseComponentView {
                 height = defaultHeight
             }
             top = padding.top + floor((defaultHeight - height) / 2.0)
-            break
         }
         
         let frame = CGRect(x: left, y: top, width: width, height: height)

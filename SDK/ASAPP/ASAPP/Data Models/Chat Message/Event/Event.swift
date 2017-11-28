@@ -22,7 +22,7 @@ class Event: NSObject {
     let customerId: Int
     let repId: Int
     let eventFlags: Int
-    private let eventJSON: [String : Any]?
+    private let eventJSON: [String: Any]?
     
     // Client-Set
     
@@ -51,7 +51,7 @@ class Event: NSObject {
                   customerId: Int,
                   repId: Int,
                   eventFlags: Int,
-                  eventJSON: [String : Any]?) {
+                  eventJSON: [String: Any]?) {
         
         self.eventLogSeq = eventId
         self.parentEventLogSeq = parentEventLogSeq
