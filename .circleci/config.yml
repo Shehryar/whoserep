@@ -20,11 +20,7 @@ jobs:
             - v1-gems-
       - run:
           name: Bundle install
-          command: bundle check || bundle install
-          environment:
-            BUNDLE_JOBS: 4
-            BUNDLE_RETRY: 3
-            BUNDLE_PATH: vendor/bundle
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
       - save_cache:
           key: v1-gems-{{ checksum "Gemfile.lock" }}
           paths:
