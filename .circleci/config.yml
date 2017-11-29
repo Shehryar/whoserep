@@ -29,6 +29,9 @@ jobs:
           name: Fastlane
           command: bundle exec fastlane beta
       - store_artifacts:
+          path: ./Library/Logs/gym/ASAPPTest-ASAPPTest.log
+          destination: gym
+      - store_artifacts:
           path: ./ASAPPTest.ipa
           destination: ipa
 
