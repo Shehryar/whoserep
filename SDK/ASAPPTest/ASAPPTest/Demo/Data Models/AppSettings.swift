@@ -176,6 +176,9 @@ fileprivate extension AppSettings {
         return [
             "test_customer_1",
             "test_customer_2",
+            "outage_soon",
+            "appointment_soon",
+            "new_customer",
             "+13126089137",
             "+13473040637",
             "+19179911056",
@@ -186,7 +189,9 @@ fileprivate extension AppSettings {
             "+17038638070",
             "+19134818010",
             "+16173317845",
-            "+12152065821"
+            "+12152065821",
+            "+12122561114",
+            "+14167622262"
         ]
     }
     
