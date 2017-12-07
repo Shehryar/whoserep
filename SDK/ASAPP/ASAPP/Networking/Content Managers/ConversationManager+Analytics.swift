@@ -98,7 +98,7 @@ extension ConversationManager {
         case .userLogin:
             trackUserLoginAction()
             
-        case .api, .componentView, .finish, .http, .treewalk, .unknown, .legacyAppAction:
+        case .api, .componentView, .finish, .http, .treewalk, .unknown:
             // Not explicitly tracked for now
             break
         }

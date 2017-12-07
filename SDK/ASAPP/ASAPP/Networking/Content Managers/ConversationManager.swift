@@ -144,7 +144,7 @@ extension ConversationManager {
         var requestParams: [String: Any] = [
             ASAPP.clientTypeKey: ASAPP.clientType,
             ASAPP.clientVersionKey: ASAPP.clientVersion
-            ].with(params)
+        ].with(params)
         
         if requiresContext {
             user.getContext(completion: { [weak self] (context, authToken) in

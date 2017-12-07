@@ -17,8 +17,6 @@ class HomeViewController: BaseViewController {
 
     // MARK: UI
     
-    fileprivate let brandingSwitcherView = BrandingSwitcherView()
-    
     fileprivate let homeTableView = HomeTableView()
     
     fileprivate var chatButton: ASAPPButton?
@@ -36,14 +34,12 @@ class HomeViewController: BaseViewController {
             }
         }
         
+        AppSettings.shared.branding = Branding(appearanceConfig: AppSettings.shared.appearanceConfig)
+        
         updateASAPPSettings()
         
         homeTableView.delegate = self
         homeTableView.reloadData()
-        
-        brandingSwitcherView.didSelectBrandingType = { [weak self] (type) in
-            self?.changeBranding(brandingType: type)
-        }
     }
     
     deinit {
@@ -56,7 +52,6 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         view.addSubview(homeTableView)
-        view.addSubview(brandingSwitcherView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,15 +74,9 @@ class HomeViewController: BaseViewController {
                 visibleTop = navBar.frame.maxY
             }
             
-            let visibleHeight = view.bounds.height - visibleTop
-            brandingSwitcherView.frame = CGRect(x: 0, y: visibleTop, width: view.bounds.width, height: visibleHeight)
-            
             homeTableView.contentInset = UIEdgeInsets(top: visibleTop, left: 0, bottom: 0, right: 0)
             return
         }
-        
-        let topInset = view.safeAreaInsets.top
-        brandingSwitcherView.frame = CGRect(x: 0, y: topInset, width: view.bounds.width, height: view.bounds.height - topInset)
     }
     
     // MARK: - ASAPPConfig
@@ -180,45 +169,19 @@ extension HomeViewController {
     override func reloadViewForUpdatedSettings() {
         super.reloadViewForUpdatedSettings()
         
-        let logoWidth = AppSettings.shared.branding.logoImageSize.width
-        let logoHeight = AppSettings.shared.branding.logoImageSize.height
+        let logoSize = CGSize(width: 115, height: 34)
         
-        let icon = #imageLiteral(resourceName: "icon-down").withRenderingMode(.alwaysTemplate)
-        let indicator = UIImageView(image: icon)
-        indicator.tintColor = AppSettings.shared.branding.colors.navBarTintColor
-        let width: CGFloat = 10.5
-        let height: CGFloat = 5.25
-        let y = (logoHeight - height) / 2
-        indicator.frame = CGRect(x: 0, y: y, width: width, height: height)
-        
-        let logoImageView = UIImageView(image: AppSettings.shared.branding.logoImage)
+        let logoImageView = UIImageView(image: AppSettings.shared.branding.appearanceConfig.logoImage)
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: indicator.frame.maxX + 4, y: 0, width: logoWidth, height: logoHeight)
-        logoImageView.isUserInteractionEnabled = true
+        logoImageView.frame = CGRect(x: 0, y: 0, width: logoSize.width, height: logoSize.height)
         
-        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: width + logoImageView.frame.maxX, height: logoImageView.frame.height))
+        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.maxX, height: logoImageView.frame.height))
         logoContainerView.addSubview(logoImageView)
-        logoContainerView.addSubview(indicator)
-        logoContainerView.isUserInteractionEnabled = true
-
-        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.toggleBrandingViewExpanded(gesture:)))
-        singleTapGesture.numberOfTapsRequired = 1
-        logoImageView.addGestureRecognizer(singleTapGesture)
         
         navigationItem.titleView = logoContainerView
         
         refreshChatButton()
         homeTableView.reloadData()
-    }
-    
-    func changeBranding(brandingType: BrandingType) {
-        AppSettings.shared.branding = Branding(brandingType: brandingType)
-        
-        reloadViewForUpdatedSettings()
-    }
-    
-    func toggleBrandingViewExpanded(gesture: UITapGestureRecognizer?) {
-        brandingSwitcherView.setSwitcherViewHidden(!brandingSwitcherView.switcherViewHidden, animated: true)
     }
 }
 
@@ -316,6 +279,18 @@ extension HomeViewController: HomeTableViewDelegate {
     
     func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
         let viewController = AuthTokenViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func homeTableViewDidTapAppearance(_ homeTableView: HomeTableView) {
+        let viewController = AppearanceViewController()
+        viewController.onSelection = { [weak self] config in
+            if let strongSelf = self {
+                AppSettings.shared.branding = Branding(appearanceConfig: config)
+                strongSelf.reloadViewForUpdatedSettings()
+                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+            }
+        }
         navigationController?.pushViewController(viewController, animated: true)
     }
     

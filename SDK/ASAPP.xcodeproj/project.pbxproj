@@ -138,8 +138,6 @@
 		3025D9B41E527FEB004149D7 /* icon-hide-keyboard@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D9B11E527FEB004149D7 /* icon-hide-keyboard@3x.png */; };
 		3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */; };
 		302A209B1E5DE9AF007C522A /* PlaceholderTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */; };
-		302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */; };
-		302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */; };
 		302A20A31E5DF090007C522A /* ModalCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A21E5DF090007C522A /* ModalCardViewController.swift */; };
 		302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A41E5DF110007C522A /* ModalCardControlsView.swift */; };
 		302A20AA1E5DF110007C522A /* ModalCardErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20A51E5DF110007C522A /* ModalCardErrorView.swift */; };
@@ -154,8 +152,6 @@
 		302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B71E5E2CFB007C522A /* icon-star.png */; };
 		302A20BE1E5E2CFB007C522A /* icon-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B81E5E2CFB007C522A /* icon-star@2x.png */; };
 		302A20BF1E5E2CFB007C522A /* icon-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302A20B91E5E2CFB007C522A /* icon-star@3x.png */; };
-		302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */; };
-		302A20C31E5E2D7E007C522A /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C21E5E2D7E007C522A /* StarView.swift */; };
 		302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20C41E5F73AD007C522A /* ChatMessageCell.swift */; };
 		302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20CF1E5F9634007C522A /* ChatPictureView.swift */; };
 		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
@@ -306,7 +302,6 @@
 		30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BBB4D21F3CE5C200FD5615 /* UIViewController+TitleView.swift */; };
 		30BBB4D51F3CE5D900FD5615 /* ChatViewController+Multimedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BBB4D41F3CE5D900FD5615 /* ChatViewController+Multimedia.swift */; };
 		30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BD87851DBFF06F0008042D /* JSONUtil.swift */; };
-		30BF4DC41F31115900556E5A /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BF4DC31F31115900556E5A /* AppAction.swift */; };
 		30CBACB51DCA9F83003D9CD7 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */; };
 		30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55B81D7750C100C7DB6D /* Localizable.strings */; };
 		30CF55BE1D77511700C7DB6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30CF55BC1D77511700C7DB6D /* Localizable.strings */; };
@@ -370,6 +365,7 @@
 		3A4FEEFE1F55E31F00338B00 /* icon-arrow-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */; };
 		3A4FEEFF1F55E31F00338B00 /* icon-arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */; };
 		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
+		3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */; };
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
@@ -386,7 +382,6 @@
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPCustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */; };
 		3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */; };
-		3A967FE41F6200AA000E9696 /* YesNoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FE31F6200AA000E9696 /* YesNoView.swift */; };
 		3AB25B751F7AB23500CB335F /* ASAPPViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB25B741F7AB23500CB335F /* ASAPPViews.swift */; };
 		3AB948C51FBD1052009AE6C4 /* icon-send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C21FBD1050009AE6C4 /* icon-send.png */; };
 		3AB948C61FBD1052009AE6C4 /* icon-send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */; };
@@ -534,8 +529,6 @@
 		3025D9B11E527FEB004149D7 /* icon-hide-keyboard@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-hide-keyboard@3x.png"; sourceTree = "<group>"; };
 		3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		302A20921E5DE9AF007C522A /* PlaceholderTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextInputView.swift; sourceTree = "<group>"; };
-		302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackViewController.swift; sourceTree = "<group>"; };
-		302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveFeedbackView.swift; sourceTree = "<group>"; };
 		302A20A21E5DF090007C522A /* ModalCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardViewController.swift; sourceTree = "<group>"; };
 		302A20A41E5DF110007C522A /* ModalCardControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardControlsView.swift; sourceTree = "<group>"; };
 		302A20A51E5DF110007C522A /* ModalCardErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalCardErrorView.swift; sourceTree = "<group>"; };
@@ -550,8 +543,6 @@
 		302A20B71E5E2CFB007C522A /* icon-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star.png"; sourceTree = "<group>"; };
 		302A20B81E5E2CFB007C522A /* icon-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@2x.png"; sourceTree = "<group>"; };
 		302A20B91E5E2CFB007C522A /* icon-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@3x.png"; sourceTree = "<group>"; };
-		302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackRatingView.swift; sourceTree = "<group>"; };
-		302A20C21E5E2D7E007C522A /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		302A20C41E5F73AD007C522A /* ChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		302A20CF1E5F9634007C522A /* ChatPictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureView.swift; sourceTree = "<group>"; };
 		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
@@ -703,7 +694,6 @@
 		30BBB4D21F3CE5C200FD5615 /* UIViewController+TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TitleView.swift"; sourceTree = "<group>"; };
 		30BBB4D41F3CE5D900FD5615 /* ChatViewController+Multimedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Multimedia.swift"; sourceTree = "<group>"; };
 		30BD87851DBFF06F0008042D /* JSONUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
-		30BF4DC31F31115900556E5A /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		30CF55B91D7750C100C7DB6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		30CF55BD1D77511700C7DB6D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
@@ -767,6 +757,7 @@
 		3A4FEEFB1F55E31F00338B00 /* icon-arrow-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-left@2x.png"; sourceTree = "<group>"; };
 		3A4FEEFC1F55E31F00338B00 /* icon-arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-left.png"; sourceTree = "<group>"; };
 		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
+		3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
@@ -783,7 +774,6 @@
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPCustomImage.swift; sourceTree = "<group>"; };
 		3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarStyles.swift; sourceTree = "<group>"; };
-		3A967FE31F6200AA000E9696 /* YesNoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesNoView.swift; sourceTree = "<group>"; };
 		3AB25B741F7AB23500CB335F /* ASAPPViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPViews.swift; sourceTree = "<group>"; };
 		3AB948C21FBD1050009AE6C4 /* icon-send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send.png"; sourceTree = "<group>"; };
 		3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@3x.png"; sourceTree = "<group>"; };
@@ -1159,6 +1149,7 @@
 			children = (
 				3093A4B01E730D5700C65818 /* AppOpenResponse.swift */,
 				3050A2BC1DF8A73100A21906 /* SessionManager.swift */,
+				3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */,
 				3093A4A41E730D4F00C65818 /* Chat Message */,
 				285F7AF51DAB33C2008C2EF6 /* Demo Content */,
 			);
@@ -1317,21 +1308,8 @@
 				302A20AE1E5DF542007C522A /* ModalCardLoadingView.swift */,
 				302A20A71E5DF110007C522A /* ModalCardTitleView.swift */,
 				302A20A81E5DF110007C522A /* ModalCardSuccessView.swift */,
-				302A209D1E5DED92007C522A /* Feedback */,
 			);
 			path = "Modal Views";
-			sourceTree = "<group>";
-		};
-		302A209D1E5DED92007C522A /* Feedback */ = {
-			isa = PBXGroup;
-			children = (
-				302A209E1E5DEE16007C522A /* LeaveFeedbackViewController.swift */,
-				302A20A01E5DEE4D007C522A /* LeaveFeedbackView.swift */,
-				302A20C01E5E2D1C007C522A /* FeedbackRatingView.swift */,
-				302A20C21E5E2D7E007C522A /* StarView.swift */,
-				3A967FE31F6200AA000E9696 /* YesNoView.swift */,
-			);
-			path = Feedback;
 			sourceTree = "<group>";
 		};
 		302A20CE1E5F9634007C522A /* Content Views */ = {
@@ -1512,7 +1490,6 @@
 			isa = PBXGroup;
 			children = (
 				28B06DE41EC8EC3C00455E1A /* APIAction */,
-				30BF4DC31F31115900556E5A /* AppAction.swift */,
 				307484DC1EB8F2F9008CF3E4 /* ComponentViewAction.swift */,
 				307484E11EB8FE29008CF3E4 /* DeepLinkAction.swift */,
 				307484DD1EB8F2F9008CF3E4 /* FinishAction.swift */,
@@ -2007,7 +1984,6 @@
 				2804CE091E7886F60001E516 /* ChatMessageImage.swift in Sources */,
 				302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */,
 				3ACBD7F41F8E9743004D36A6 /* NavCloseBarButtonItem.swift in Sources */,
-				30BF4DC41F31115900556E5A /* AppAction.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,
 				30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */,
@@ -2067,7 +2043,6 @@
 				3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */,
 				302A20D11E5F9634007C522A /* ChatPictureView.swift in Sources */,
 				30A4BB201D52400D00795BA7 /* ChatTypingIndicatorCell.swift in Sources */,
-				302A20C31E5E2D7E007C522A /* StarView.swift in Sources */,
 				30A4BB251D52402800795BA7 /* ChatMessagesTimeHeaderView.swift in Sources */,
 				28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */,
 				302A20AD1E5DF110007C522A /* ModalCardSuccessView.swift in Sources */,
@@ -2103,13 +2078,13 @@
 				3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */,
 				3A883C5D1FBB71BA00B44116 /* BubbleButton.swift in Sources */,
 				30131FC81EB10FD0009E7299 /* ButtonItem.swift in Sources */,
+				3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */,
 				2804CE071E7886DE0001E516 /* ChatMessageAttachment.swift in Sources */,
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
 				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
 				30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
-				302A20C11E5E2D1C007C522A /* FeedbackRatingView.swift in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
 				30F6B4C41EC0E00900ABA570 /* TemplateServerPreviewViewController.swift in Sources */,
 				30131FC91EB10FD0009E7299 /* CarouselViewItem.swift in Sources */,
@@ -2141,7 +2116,6 @@
 				3091BC201D933F3E00B0A7F9 /* ConversationFileStore.swift in Sources */,
 				3A883C5B1FBA6AA600B44116 /* ASAPPWelcomeLayout.swift in Sources */,
 				30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */,
-				302A20A11E5DEE4D007C522A /* LeaveFeedbackView.swift in Sources */,
 				307484C91EB39B10008CF3E4 /* QuickReply.swift in Sources */,
 				3A0E7F9C1FB4C3C0008F9544 /* BinaryRatingView.swift in Sources */,
 				307484E01EB8F2F9008CF3E4 /* FinishAction.swift in Sources */,
@@ -2205,8 +2179,6 @@
 				30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */,
 				307C54581D8C87C60091E74A /* NavigationController.swift in Sources */,
 				30756B401E56142800D78E8E /* ChatMessagesEmptyView.swift in Sources */,
-				3A967FE41F6200AA000E9696 /* YesNoView.swift in Sources */,
-				302A209F1E5DEE16007C522A /* LeaveFeedbackViewController.swift in Sources */,
 				30131FCE1EB10FD0009E7299 /* ProgressBarItem.swift in Sources */,
 				288085231E87FCA800240A5D /* StackView.swift in Sources */,
 				3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */,

@@ -97,27 +97,3 @@ extension ConversationManager {
         sendRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
     }
 }
-
-// MARK: - Use cases
-
-extension ConversationManager {
-    
-    func sendRating(_ rating: Int, resolved: Bool?, forIssueId issueId: Int, withFeedback feedback: String?, completion: ((_ success: Bool) -> Void)?) {
-        let path = "customer/SendRatingAndFeedback"
-        
-        var params: [String: Any] = [
-            "FiveStarRating": rating,
-            "IssueId": issueId
-        ]
-        if let resolved = resolved {
-            params["Resolved"] = resolved
-        }
-        if let feedback = feedback {
-            params["Feedback"] = feedback
-        }
-        
-        socketConnection.sendRequest(withPath: path, params: params, context: nil) { (message, _, _) in
-            completion?(message.type == .response)
-        }
-    }
-}

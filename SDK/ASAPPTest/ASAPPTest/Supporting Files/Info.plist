@@ -72,10 +72,14 @@
 		<string>SprintSans-Medium.ttf</string>
 		<string>SprintSans-Bold.ttf</string>
 		<string>SprintSans-Black.ttf</string>
-		<string>XFINITYSans-Lgt.ttf</string>
-		<string>XFINITYSans-Reg.otf</string>
-		<string>XFINITYSans-Med.ttf</string>
-		<string>XFINITYSans-Bold.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-LightItalic.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-MediumItalic.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN)</string>

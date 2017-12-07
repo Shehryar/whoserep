@@ -24,7 +24,7 @@ public class ASAPPStyles: NSObject {
     public var shapeStyles = ASAPPShapeStyles()
     
     /// How the SDK's view controller is displayed by an `ASAPPButton`.
-    public var segue: ASAPPSegue = .present
+    public var segue: ASAPPSegue = .push
     
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()

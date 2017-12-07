@@ -636,6 +636,8 @@ extension ChatViewController {
             return false
         }
         
+        PushNotificationsManager.requestAuthorizationIfNeeded(after: 3)
+        
         let formData = message?.attachment?.template?.getData()
         
         switch action.type {
@@ -706,14 +708,6 @@ extension ChatViewController {
                         self?.performAction(onResponseAction)
                     }
                 })
-            }
-            
-        case .legacyAppAction:
-            if let appAction = action as? AppAction {
-                let leaveFeedbackViewController = LeaveFeedbackViewController()
-                leaveFeedbackViewController.issueId = appAction.eventMetadata.issueId
-                leaveFeedbackViewController.delegate = self
-                present(leaveFeedbackViewController, animated: true, completion: nil)
             }
             
         case .treewalk:
@@ -1172,6 +1166,8 @@ extension ChatViewController {
         } else {
             conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction)
         }
+        
+        PushNotificationsManager.requestAuthorizationIfNeeded(after: 3)
     }
     
     func reloadMessageEvents() {
@@ -1184,20 +1180,5 @@ extension ChatViewController {
                 strongSelf.predictiveVC.shouldShowViewChatButton = !strongSelf.chatMessagesView.isEmpty
             }
         }
-    }
-}
-
-// MARK: - RatingAPIDelegate
-
-extension ChatViewController: RatingAPIDelegate {
-    
-    func sendRating(_ rating: Int, resolved: Bool?, forIssueId issueId: Int, withFeedback feedback: String?, completion: @escaping ((Bool) -> Void)) -> Bool {
-        guard conversationManager.isConnected(retryConnectionIfNeeded: true) else {
-            return false
-        }
-        
-        conversationManager.sendRating(rating, resolved: resolved, forIssueId: issueId, withFeedback: feedback, completion: completion)
-        
-        return true
     }
 }

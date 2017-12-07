@@ -17,8 +17,14 @@ class OutgoingMessageSerializer: NSObject {
     
     var issueId: Int = 0
     var targetCustomerToken: String?
-    var session: Session?
     var userLoginAction: UserLoginAction?
+    var session: Session? {
+        didSet {
+            if oldValue != session {
+                PushNotificationsManager.session = session
+            }
+        }
+    }
     
     // MARK: Private Properties
     
