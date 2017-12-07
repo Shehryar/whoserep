@@ -12,7 +12,6 @@ extension ActionFactory {
     
     enum LegacyActionType: String {
         case apiAction = "ACTION"
-        case appAction = "APP_ACTION"
         case deepLink = "LINK"
         case treewalk = "AID"
         
@@ -58,15 +57,6 @@ extension ActionFactory {
                     apiAction?.tempRequestTopLevelParams["Payload"] = endpointPayload
                 }
                 return apiAction
-            }
-            
-        case .appAction:
-            if let content = valueJSON.jsonObject(for: "content"),
-                let action = content.string(for: "action") {
-                return AppAction(content: [
-                    AppAction.JSONKey.action.rawValue: action,
-                    AppAction.JSONKey.metadata.rawValue: metadata
-                    ])
             }
             
         case .deepLink:

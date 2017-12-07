@@ -26,7 +26,6 @@
 		307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */; };
 		307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */; };
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
-		307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */; };
 		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
 		30821BAF1F538838009F43EC /* SpearEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30821BAE1F538838009F43EC /* SpearEnvironment.swift */; };
 		30821BB11F538921009F43EC /* SpearAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30821BB01F538921009F43EC /* SpearAPI.swift */; };
@@ -95,10 +94,6 @@
 		3A68111E1F7BEB7200078E3F /* SprintSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811101F7BE95500078E3F /* SprintSans-Bold.ttf */; };
 		3A68111F1F7BEB7200078E3F /* SprintSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811111F7BE95500078E3F /* SprintSans-Medium.ttf */; };
 		3A6811201F7BEB7200078E3F /* SprintSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */; };
-		3A6811211F7BEB7200078E3F /* XFINITYSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */; };
-		3A6811221F7BEB7200078E3F /* XFINITYSans-Lgt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */; };
-		3A6811231F7BEB7200078E3F /* XFINITYSans-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */; };
-		3A6811241F7BEB7200078E3F /* XFINITYSans-Reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */; };
 		3A6811251F7BEB7600078E3F /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811051F7AF55B00078E3F /* hey.caf */; };
 		3A86332C1FB235E400E90C18 /* CountableEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86332B1FB235E400E90C18 /* CountableEnum.swift */; };
 		3A8633311FB2417C00E90C18 /* TetrisAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8633301FB2417C00E90C18 /* TetrisAPI.swift */; };
@@ -140,7 +135,6 @@
 		307301CD1DAE9BAA0002CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		307301F21DAEAFB70002CF3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/LaunchScreen-Comcast.storyboard"; sourceTree = "<group>"; };
 		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
 		30821BAE1F538838009F43EC /* SpearEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpearEnvironment.swift; sourceTree = "<group>"; };
 		30821BB01F538921009F43EC /* SpearAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpearAPI.swift; sourceTree = "<group>"; };
@@ -215,10 +209,6 @@
 		3A6811111F7BE95500078E3F /* SprintSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Medium.ttf"; sourceTree = "<group>"; };
 		3A6811121F7BE95500078E3F /* SprintSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Black.ttf"; sourceTree = "<group>"; };
 		3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Regular.ttf"; sourceTree = "<group>"; };
-		3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Bold.ttf"; sourceTree = "<group>"; };
-		3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Lgt.ttf"; sourceTree = "<group>"; };
-		3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Med.ttf"; sourceTree = "<group>"; };
-		3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "XFINITYSans-Reg.otf"; sourceTree = "<group>"; };
 		3A86332B1FB235E400E90C18 /* CountableEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountableEnum.swift; sourceTree = "<group>"; };
 		3A8633301FB2417C00E90C18 /* TetrisAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisAPI.swift; sourceTree = "<group>"; };
 		3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -269,7 +259,6 @@
 			children = (
 				307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */,
 				307301C71DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard */,
-				307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */,
 				30A003531DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard */,
 				307301CD1DAE9BAA0002CF3B /* Info.plist */,
 			);
@@ -459,22 +448,10 @@
 			children = (
 				3A6811091F7AF58100078E3F /* Boost Neo */,
 				3A6811081F7AF58100078E3F /* Sprint */,
-				3A6811071F7AF58100078E3F /* XFINITY Sans */,
 			);
 			name = Fonts;
 			path = ASAPPTest/Resources/Fonts;
 			sourceTree = SOURCE_ROOT;
-		};
-		3A6811071F7AF58100078E3F /* XFINITY Sans */ = {
-			isa = PBXGroup;
-			children = (
-				3A6811141F7BE95E00078E3F /* XFINITYSans-Bold.ttf */,
-				3A6811161F7BE95E00078E3F /* XFINITYSans-Med.ttf */,
-				3A6811171F7BE95E00078E3F /* XFINITYSans-Reg.otf */,
-				3A6811151F7BE95E00078E3F /* XFINITYSans-Lgt.ttf */,
-			);
-			path = "XFINITY Sans";
-			sourceTree = "<group>";
 		};
 		3A6811081F7AF58100078E3F /* Sprint */ = {
 			isa = PBXGroup;
@@ -625,12 +602,8 @@
 				3A6811201F7BEB7200078E3F /* SprintSans-Regular.ttf in Resources */,
 				3A1E00651F8ECB5B008C3F39 /* appointment-confirmation.json in Resources */,
 				3A1E006C1F8ECB5B008C3F39 /* cancel-appointment.json in Resources */,
-				3A6811231F7BEB7200078E3F /* XFINITYSans-Med.ttf in Resources */,
 				3A1E00701F8ECB5B008C3F39 /* chat-flow-wait-or-callback.json in Resources */,
 				3A1E00801F8ECB5B008C3F39 /* tech-location.json in Resources */,
-				3A6811221F7BEB7200078E3F /* XFINITYSans-Lgt.ttf in Resources */,
-				3A6811241F7BEB7200078E3F /* XFINITYSans-Reg.otf in Resources */,
-				307301F31DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard in Resources */,
 				3A1E007E1F8ECB5B008C3F39 /* schedule-appointment.json in Resources */,
 				3A1E00771F8ECB5B008C3F39 /* live-chat-end.json in Resources */,
 				3A1E00641F8ECB5B008C3F39 /* add-credit-card.json in Resources */,
@@ -647,7 +620,6 @@
 				3A1E00691F8ECB5B008C3F39 /* bill-past-due.json in Resources */,
 				3A68111A1F7BEB7200078E3F /* BoostNeo-Bold.ttf in Resources */,
 				3A1E00781F8ECB5B008C3F39 /* phone-plan-upgrade.json in Resources */,
-				3A6811211F7BEB7200078E3F /* XFINITYSans-Bold.ttf in Resources */,
 				3A1E00731F8ECB5B008C3F39 /* device-tracking.json in Resources */,
 				3A1E006E1F8ECB5B008C3F39 /* chat-flow-pay-bill.json in Resources */,
 				3A1E00811F8ECB5B008C3F39 /* transaction-history-message.json in Resources */,
@@ -758,14 +730,6 @@
 				307301CA1DAE9BAA0002CF3B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		307301F11DAEAFB70002CF3B /* LaunchScreen-Comcast.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				307301F21DAEAFB70002CF3B /* Base */,
-			);
-			name = "LaunchScreen-Comcast.storyboard";
 			sourceTree = "<group>";
 		};
 		30A003531DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard */ = {

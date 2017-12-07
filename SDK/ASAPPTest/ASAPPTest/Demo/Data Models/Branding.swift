@@ -11,13 +11,11 @@ import ASAPP
 
 enum BrandingType: String {
     case asapp
-    case xfinity = "comcast"
     case boost
     case telstra
     
     static let all = [
         asapp,
-        xfinity,
         boost,
         telstra
     ]
@@ -73,20 +71,6 @@ class Branding: NSObject {
             strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
             
-        case .xfinity:
-            fontFamily = DemoFonts.xfinity
-            styles = Branding.createXfinityStyles(fontFamily)
-            logoImageName = "comcast-logo"
-            logoImageSize = CGSize(width: 86, height: 28)
-            strings.chatTitle = "XFINITY Assistant"
-            strings.predictiveTitle = "XFINITY Assistant"
-            strings.predictiveBackToChatButton = "History"
-            strings.chatEmptyMessage = "Tap 'Ask' to get started."
-            strings.chatAskNavBarButton = "Ask"
-            strings.chatEndChatNavBarButton = "End Chat"
-            strings.predictiveSendButton = "SEND"
-            strings.chatInputSend = "SEND"
-            
         case .boost:
             fontFamily = DemoFonts.boost
             styles = Branding.createBoostStyles(fontFamily)
@@ -138,77 +122,6 @@ class Branding: NSObject {
 
 extension Branding {
     // MARK: - per-client demo styles
-    
-    fileprivate class func createXfinityStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
-        let styles = ASAPPStyles()
-        
-        styles.textStyles.updateStyles(for: fontFamily)
-        
-        let textBlue = UIColor(red: 0.267, green: 0.302, blue: 0.396, alpha: 1)
-        let textGray = UIColor(red: 0.659, green: 0.678, blue: 0.729, alpha: 1)
-        let linkBlue = UIColor(red: 0.243, green: 0.541, blue: 0.796, alpha: 1)
-        let navBlue = UIColor(red: 0.149, green: 0.573, blue: 0.827, alpha: 1)
-        let cometBlue = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
-        let burntSiennaRed = UIColor(red: 0.937, green: 0.463, blue: 0.404, alpha: 1)
-        let regular = fontFamily.regular
-        let medium = fontFamily.medium
-        let bold = fontFamily.bold
-        
-        styles.textStyles.navTitle = ASAPPTextStyle(font: regular, size: 17, letterSpacing: 0, color: .white)
-        styles.textStyles.navButton = ASAPPTextStyle(font: medium, size: 16, letterSpacing: 0, color: textBlue)
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(font: DemoFonts.asapp.light, size: 24, letterSpacing: 0.5, color: cometBlue)
-        styles.textStyles.header1 = ASAPPTextStyle(font: bold, size: 24, letterSpacing: 0.5, color: textBlue)
-        styles.textStyles.header2 = ASAPPTextStyle(font: bold, size: 18, letterSpacing: 0.5, color: textBlue)
-        styles.textStyles.subheader = ASAPPTextStyle(font: bold, size: 10, letterSpacing: 1.5, color: textGray)
-        styles.textStyles.body = ASAPPTextStyle(font: regular, size: 15, letterSpacing: 0.5, color: textBlue)
-        styles.textStyles.bodyBold = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: textBlue)
-        styles.textStyles.detail1 = ASAPPTextStyle(font: regular, size: 12, letterSpacing: 0.5, color: textGray)
-        styles.textStyles.detail2 = ASAPPTextStyle(font: medium, size: 10, letterSpacing: 0.75, color: textGray)
-        styles.textStyles.error = ASAPPTextStyle(font: medium, size: 15, letterSpacing: 0.5, color: burntSiennaRed)
-        styles.textStyles.button = ASAPPTextStyle(font: bold, size: 14, letterSpacing: 1.5, color: textBlue)
-        styles.textStyles.link = ASAPPTextStyle(font: bold, size: 12, letterSpacing: 1.5, color: linkBlue)
-        styles.segue = .push
-        styles.navBarStyles.buttonStyle = .text
-        styles.colors.helpButtonBackground = UIColor(red: 0.134, green: 0.160, blue: 0.205, alpha: 1)
-        
-        styles.colors.controlTint = navBlue
-        
-        styles.colors.navBarBackground = .black
-        styles.colors.navBarTitle = .white
-        styles.colors.navBarButton = navBlue
-        styles.colors.navBarButtonForeground = .white
-        styles.colors.navBarButtonBackground = navBlue
-        
-        styles.colors.messageBackground = UIColor(red: 0, green: 0.494, blue: 0.745, alpha: 1)
-        styles.colors.messageBorder = UIColor(red: 0, green: 0.494, blue: 0.745, alpha: 1)
-        styles.colors.messageText = .white
-        
-        styles.colors.quickRepliesBackgroundPattern = false
-        styles.colors.quickRepliesBackground = .white
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: UIColor(red: 0.000, green: 0.494, blue: 0.745, alpha: 1))
-        
-        styles.colors.predictiveNavBarBackground = .black
-        styles.colors.predictiveNavBarButton = navBlue
-        styles.colors.predictiveNavBarButtonBackground = .clear
-        styles.colors.predictiveNavBarButtonForeground = navBlue
-        styles.colors.predictiveGradientColors = [.white, .white, .white]
-        styles.colors.predictiveTextPrimary = UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1)
-        styles.colors.predictiveTextSecondary = UIColor(red: 0.302, green: 0.302, blue: 0.302, alpha: 1)
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0, green: 0.443, blue: 0.710, alpha: 1))
-        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 0, green: 0.443, blue: 0.710, alpha: 1))
-        styles.colors.predictiveInput = ASAPPInputColors(
-            background: .white,
-            text: UIColor(red: 0.180, green: 0.216, blue: 0.271, alpha: 1),
-            placeholderText: UIColor(red: 0.459, green: 0.478, blue: 0.525, alpha: 1),
-            tint: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1),
-            border: UIColor(red: 0.631, green: 0.659, blue: 0.714, alpha: 1),
-            primaryButton: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1),
-            secondaryButton: UIColor(red: 0.008, green: 0.451, blue: 0.714, alpha: 1))
-        
-        styles.shapeStyles.sendButtonImage = nil
-        
-        return styles
-    }
     
     fileprivate class func createBoostStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
         let styles = ASAPPStyles()
@@ -342,19 +255,6 @@ class BrandingColors: NSObject {
         switch self.brandingType {
         case .asapp:
             break
-            
-        case .xfinity:
-            navBarColor = UIColor(red: 0.169, green: 0.204, blue: 0.263, alpha: 1)
-            navBarTintColor = .white
-            navBarTitleColor = .white
-            statusBarStyle = .lightContent
-            
-            foregroundColor = UIColor(red: 0.027, green: 0.027, blue: 0.027, alpha: 1)
-            secondaryTextColor = UIColor(red: 0.580, green: 0.580, blue: 0.580, alpha: 1)
-            backgroundColor = .white
-            secondaryBackgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
-            separatorColor = UIColor(red: 0.772, green: 0.773, blue: 0.772, alpha: 1)
-            accentColor = UIColor(red: 0.000, green: 0.443, blue: 0.710, alpha: 1)
             
         case .boost:
             navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)

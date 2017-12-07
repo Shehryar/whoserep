@@ -151,7 +151,6 @@ fileprivate extension AppSettings {
         return [
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
-            "comcast.preprod.asapp.com",
             "tetris.test.asapp.com"
         ]
     }
@@ -160,7 +159,6 @@ fileprivate extension AppSettings {
         return [
             "asapp",
             "boost",
-            "comcast",
             "tetris"
         ]
     }

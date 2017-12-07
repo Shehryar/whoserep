@@ -266,7 +266,6 @@ extension OptionsForKeyViewController {
     
     func isRestrictedText(_ text: String) -> Bool {
         return [
-            "comcast.asapp.com",
             "sprint.asapp.com"
         ].contains(text.lowercased())
     }

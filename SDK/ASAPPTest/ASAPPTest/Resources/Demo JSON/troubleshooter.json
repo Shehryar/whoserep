@@ -2,7 +2,7 @@
   "content": {
     "value": [
       {
-        "label": "It looks like your device needs to be restarted in order to resolve this issue. Restarting your device will take about 5 minutes. This will not erase any of your current settings. If you have XFINITY Voice, we won't restart until all in-progress calls are finished.",
+        "label": "It looks like your device needs to be restarted in order to resolve this issue. Restarting your device will take about 5 minutes. This will not erase any of your current settings. If you have Voice, we won't restart until all in-progress calls are finished.",
         "type": "label"
       },
       {
