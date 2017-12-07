@@ -218,7 +218,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     }
     
     func updateSendButtonImage() {
-        guard let image = sendButtonImage?.image else {
+        guard let image = sendButtonImage?.image.colored(with: inputColors.primaryButton) else {
             return
         }
         

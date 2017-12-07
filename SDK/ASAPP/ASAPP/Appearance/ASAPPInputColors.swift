@@ -31,7 +31,7 @@ public class ASAPPInputColors: NSObject {
     /// The color of the border of the text area.
     public var border: UIColor?
     
-    /// The color of the "Send" text button.
+    /// The fill (or text) color of the send button.
     public var primaryButton: UIColor
     
     /// The color of the media attachment button.

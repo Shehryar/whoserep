@@ -58,13 +58,24 @@ internal extension UIImage {
 // MARK: - Color Image
 
 internal extension UIImage {
-
     class func imageWithColor(_ color: UIColor) -> UIImage? {
         let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
         color.setFill()
         UIRectFill(rect)
         let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    func colored(with color: UIColor) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(in: rect)
+        color.setFill()
+        UIRectFillUsingBlendMode(rect, .color)
+        draw(in: rect, blendMode: .destinationIn, alpha: 1)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
