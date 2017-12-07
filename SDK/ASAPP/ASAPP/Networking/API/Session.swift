@@ -14,10 +14,12 @@ struct Session: Codable {
     struct SessionInfo: Codable {
         let customer: Customer
         let company: Company
+        let auth: Auth
         
         private enum CodingKeys: String, CodingKey {
             case customer = "Customer"
             case company = "Company"
+            case auth = "SessionAuth"
         }
     }
     
@@ -42,6 +44,16 @@ struct Session: Codable {
         
         private enum CodingKeys: String, CodingKey {
             case id = "CompanyId"
+        }
+    }
+    
+    struct Auth: Codable {
+        let time: Int64
+        let secret: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case time = "SessionTime"
+            case secret = "SessionSecret"
         }
     }
     
@@ -72,6 +84,10 @@ struct Session: Codable {
         return parsedInfo.company
     }
     
+    var auth: Auth {
+        return parsedInfo.auth
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -95,7 +111,9 @@ struct Session: Codable {
         }
         let customer = Customer(primaryIdentifier: primaryIdentifier, id: parsedInfo.customer.id, guid: parsedInfo.customer.guid)
         
-        self.parsedInfo = SessionInfo(customer: customer, company: company)
+        let auth = parsedInfo.auth
+        
+        self.parsedInfo = SessionInfo(customer: customer, company: company, auth: auth)
     }
 }
 
@@ -103,6 +121,8 @@ extension Session: Storable {
     static let defaultDirectory = FileManager.SearchPathDirectory.documentDirectory
 }
 
-extension Session: Expirable {
-    static let timeToLive: TimeInterval = 15 * 60 // 15 minutes in seconds
+extension Session: Equatable {
+    static func == (lhs: Session, rhs: Session) -> Bool {
+        return lhs.fullInfo == rhs.fullInfo
+    }
 }

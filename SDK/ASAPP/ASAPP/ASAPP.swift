@@ -85,20 +85,6 @@ public extension ASAPP {
         return nav
     }
     
-    internal class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
-        let chatViewController = ChatViewController(
-            config: config,
-            user: user,
-            segue: segue,
-            appCallbackHandler: appCallbackHandler)
-        
-        if canHandleNotification(with: userInfo) {
-            chatViewController.showPredictiveOnViewAppear = false
-        }
-        
-        return chatViewController
-    }
-    
     /**
      Creates a chat view controller in a navigation controller, ready to be presented modally.
      
@@ -142,6 +128,45 @@ public extension ASAPP {
     // MARK: - Push Notifications
     
     /**
+     Whether the SDK should request notification authorization shortly after a user's first interaction,
+     such as sending a message or pressing a button.
+     */
+    public static var shouldRequestNotificationAuthorization = false
+    
+    /**
+     Called when the user denies notification authorization. iOS 10+. For iOS 9, please implement
+     `application(_:didRegister:)` in your `UIApplicationDelegate`.
+     */
+    @available(iOS 10.0, *)
+    public static var notificationAuthorizationDenied: (() -> Void)?
+    
+    /**
+     Enables ASAPP push notifications for this device.
+     
+     - parameter deviceToken: The token provided by APNS in `didRegisterForRemoteNotificationsWithDeviceToken(_:)`
+     */
+    public class func enablePushNotifications(with deviceToken: Data) {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        PushNotificationsManager.deviceToken = token
+        PushNotificationsManager.enableIfSessionExists()
+    }
+    
+    /// A `Void` closure type that takes an `Int`, the number of unread messages.
+    public typealias UnreadMessagesHandler = ((_ unread: Int) -> Void)
+    
+    /**
+     Gets the number of messages the user received while offline.
+     
+     - parameter handler: An `UnreadNumberHandler` that receives the number of unread ASAPP push notifications.
+     */
+    public class func getNumberOfUnreadMessages(_ handler: @escaping UnreadMessagesHandler) {
+        return PushNotificationsManager.getUnreadMessagesCount(handler)
+    }
+    
+    /**
+     Should be called to detect an ASAPP notification before calling
+     `createChatViewControllerForPresenting(fromNotificationWith:appCallbackHandler:)`.
+     
      - returns: Whether the SDK can handle a notification.
      - parameter userInfo: A user info dictionary containing notification metadata
      */
@@ -161,17 +186,23 @@ public extension ASAPP {
     public class func clearSavedSession() {
         SavedSessionManager.clearSession()
     }
+    
+    // MARK: - Fonts
+    
+    /// Loads the SDK's built-in fonts.
+    public class func loadFonts() {
+        FontLoader.load(bundle: ASAPP.bundle)
+    }
 }
 
-// MARK: - Internal Utility
-
-public extension ASAPP {
+internal extension ASAPP {
+    // MARK: - Internal Utility
     
-    internal static let bundle = Bundle(for: ASAPP.self)
+    static let bundle = Bundle(for: ASAPP.self)
     
-    internal static let soundEffectPlayer = SoundEffectPlayer()
+    static let soundEffectPlayer = SoundEffectPlayer()
     
-    internal class func assertSetupComplete() {
+    class func assertSetupComplete() {
         assert(config != nil, "ASAPP.config must be set before calling this method. You can set the config by calling method +initialize(with:) from your app delegate.")
         
         assert(user != nil, "ASAPP.user must be set before calling this method.")
@@ -179,12 +210,17 @@ public extension ASAPP {
         loadFonts()
     }
     
-    // MARK: - Fonts
-    
-    /**
-     Loads the SDK's built-in fonts.
-     */
-    public class func loadFonts() {
-        FontLoader.load(bundle: ASAPP.bundle)
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+        let chatViewController = ChatViewController(
+            config: config,
+            user: user,
+            segue: segue,
+            appCallbackHandler: appCallbackHandler)
+        
+        if canHandleNotification(with: userInfo) {
+            chatViewController.showPredictiveOnViewAppear = false
+        }
+        
+        return chatViewController
     }
 }

@@ -62,7 +62,7 @@ class SocketConnection: NSObject {
     
     init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil) {
         self.config = config
-        self.connectionRequest = SocketConnection.createConnectionRequestion(with: config)
+        self.connectionRequest = SocketConnection.createConnectionRequest(with: config)
         self.outgoingMessageSerializer = OutgoingMessageSerializer(config: config, user: user, userLoginAction: userLoginAction)
         super.init()
         
@@ -95,7 +95,7 @@ class SocketConnection: NSObject {
 
 extension SocketConnection {
     
-    class func createConnectionRequestion(with config: ASAPPConfig) -> URLRequest {
+    class func createConnectionRequest(with config: ASAPPConfig) -> URLRequest {
         let connectionRequest = NSMutableURLRequest()
         connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
         connectionRequest.addValue(ASAPP.clientType, forHTTPHeaderField: ASAPP.clientTypeKey)

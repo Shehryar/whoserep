@@ -98,6 +98,8 @@ extension AppDelegate {
         
         demoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
         
+        ASAPP.enablePushNotifications(with: deviceToken)
+        
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,
             "bundleId": bundleId

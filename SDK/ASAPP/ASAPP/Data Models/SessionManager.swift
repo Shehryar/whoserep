@@ -21,8 +21,7 @@ class SessionManager: NSObject {
     init(config: ASAPPConfig, user: ASAPPUser) {
         self.config = config
         self.user = user
-        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(for: config, user: user)
-            ?? SessionManager.generateDeviceIdentifier(for: config, user: user)
+        self.deviceIdentifier = SessionManager.getSavedDeviceIdentifier(for: config, user: user) ?? SessionManager.generateDeviceIdentifier(for: config, user: user)
         self.eventSequenceKey = config.hashKey(with: user, prefix: "ASAPP_EVENT_SEQUENCE_")
 
         super.init()
@@ -47,7 +46,6 @@ class SessionManager: NSObject {
 // MARK: UUID Helper
 
 extension SessionManager {
-    
     private class func deviceIdentifierStorageKey(for config: ASAPPConfig, user: ASAPPUser) -> String {
         return config.hashKey(with: user, prefix: "ASAPP_DEVICE_ID_")
     }
