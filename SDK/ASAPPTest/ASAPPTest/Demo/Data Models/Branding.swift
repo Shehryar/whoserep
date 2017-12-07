@@ -9,42 +9,28 @@
 import UIKit
 import ASAPP
 
-enum BrandingType: String {
-    case asapp
-    case boost
-    case telstra
-    
-    static let all = [
-        asapp,
-        boost,
-        telstra
-    ]
-    
-    static func from(_ value: Any?) -> BrandingType? {
-        guard let value = value as? String else {
-            return nil
-        }
-        return BrandingType(rawValue: value)
-    }
-}
-
 // MARK: - Branding
 
 class Branding: NSObject {
 
-    let brandingType: BrandingType
+    let appearanceConfig: AppearanceConfig
     
-    var logoImageSize: CGSize!
-    
-    var logoImageName: String!
-    
-    var logoImage: UIImage? {
-        return UIImage(named: logoImageName)
+    var fontFamily: ASAPPFontFamily {
+        return appearanceConfig.fontFamily
     }
     
-    let colors: BrandingColors
+    static var defaultColors: [AppearanceConfig.ColorName: Color] = {
+        let asappColors = ASAPPColors()
+        let dict: [AppearanceConfig.ColorName: UIColor] = [
+            .brandPrimary: UIColor(red: 0.33, green: 0.35, blue: 0.39, alpha: 1),
+            .brandSecondary: UIColor.black,
+            .textLight: UIColor.white,
+            .textDark: UIColor.black
+        ]
+        return dict.mapValues { Color(uiColor: $0)! }
+    }()
     
-    let fontFamily: ASAPPFontFamily
+    let colors: BrandingColors
     
     let styles: ASAPPStyles
     
@@ -54,42 +40,40 @@ class Branding: NSObject {
     
     // MARK: - Init
     
-    required init(brandingType: BrandingType) {
-        self.brandingType = brandingType
-        colors = BrandingColors(brandingType: brandingType)
+    required init(appearanceConfig: AppearanceConfig) {
+        self.appearanceConfig = appearanceConfig
+        colors = BrandingColors(appearanceConfig: appearanceConfig)
         strings = ASAPPStrings()
         views = ASAPPViews()
         
-        switch brandingType {
+        switch appearanceConfig.brand {
         case .asapp:
-            fontFamily = DemoFonts.asapp
             styles = ASAPPStyles()
             styles.shapeStyles.sendButtonImage = nil
-            logoImageName = "asapp-logo"
-            logoImageSize = CGSize(width: 115, height: 22)
-            views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: fontFamily)
+            views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
             strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
             
         case .boost:
-            fontFamily = DemoFonts.boost
-            styles = Branding.createBoostStyles(fontFamily)
-            logoImageName = "boost-logo-light"
-            logoImageSize = CGSize(width: 109, height: 32)
+            styles = Branding.createBoostStyles(appearanceConfig)
             strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
             
         case .telstra:
-            fontFamily = DemoFonts.asapp
-            styles = Branding.createTelstraStyles(fontFamily)
-            logoImageName = "telstra-logo"
-            logoImageSize = CGSize(width: 31.5, height: 34)
-            strings.chatTitle = "24x7 Chat"
-            strings.predictiveTitle = "24x7 Chat"
+            styles = Branding.createTelstraStyles(appearanceConfig)
             strings.chatEndChatNavBarButton = "END"
             strings.predictiveWelcomeText = "Talk to us."
             strings.predictiveOtherSuggestions = "What can our agents help you with?"
+        
+        case .custom:
+            styles = Branding.createCustomStyles(appearanceConfig)
         }
+        
+        if let helpButtonText = appearanceConfig.strings[.helpButton] {
+            strings.asappButton = helpButtonText
+        }
+        strings.chatTitle = appearanceConfig.strings[.chatTitle]
+        strings.predictiveTitle = appearanceConfig.strings[.predictiveTitle]
         
         super.init()
     }
@@ -123,106 +107,104 @@ class Branding: NSObject {
 extension Branding {
     // MARK: - per-client demo styles
     
-    fileprivate class func createBoostStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
-        let styles = ASAPPStyles()
+    fileprivate class func createBoostStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = createCustomStyles(config)
+        let primary = config.getUIColor(.brandPrimary)
         
-        styles.textStyles.updateStyles(for: fontFamily)
+        // Boost special cases
         
-        let boostOrange = UIColor(hexString: "#f7901e")!
-        let replyColor = UIColor(hexString: "#eaecef")!
-        let predictiveColor = UIColor(hexString: "#373737")!
-        let controlTint = UIColor(hexString: "#13a4a2")!
+        styles.segue = .present
         
-        styles.navBarStyles.buttonStyle = .text
-        styles.colors.navBarBackground = .black
-        styles.colors.navBarTitle = .white
-        styles.colors.navBarButton = .white
-        styles.colors.messageText = UIColor(hexString: "#797f90")!
-        styles.colors.messageBorder = UIColor(hexString: "#d9dbdf")!
-        styles.colors.replyMessageText = UIColor(hexString: "#444852")!
-        styles.colors.replyMessageBackground = replyColor
-        styles.colors.replyMessageBorder = replyColor
-        styles.colors.quickRepliesBackground = .white
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: UIColor(hexString: "#5b657e")!)
-        styles.colors.predictiveGradientColors = [predictiveColor, predictiveColor, predictiveColor]
-        styles.colors.predictiveTextPrimary = .white
-        styles.colors.predictiveTextSecondary = .white
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(
-            backgroundNormal: predictiveColor,
-            backgroundHighlighted: boostOrange,
-            backgroundDisabled: predictiveColor,
-            textNormal: boostOrange,
-            textHighlighted: .white,
-            textDisabled: boostOrange,
-            border: boostOrange)
-        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
         styles.colors.predictiveInput = ASAPPInputColors(
             background: UIColor(hexString: "#605f60")!,
             text: .white,
             placeholderText: UIColor(hexString: "#dedede")!,
-            tint: controlTint,
+            tint: primary,
             border: nil,
-            primaryButton: controlTint,
-            secondaryButton: controlTint)
-        
-        styles.colors.controlTint = controlTint
-        styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: boostOrange)
-        styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: boostOrange)
-        
-        styles.colors.helpButtonBackground = boostOrange
-        
-        let boostMedium = UIFont(name: "BoostNeo-Bold", size: 30)!
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(font: boostMedium, size: 30, letterSpacing: 0.9, color: .white)
+            primaryButton: primary,
+            secondaryButton: primary)
         
         styles.shapeStyles.sendButtonImage = nil
         
         return styles
     }
     
-    fileprivate class func createTelstraStyles(_ fontFamily: ASAPPFontFamily) -> ASAPPStyles {
-        let styles = ASAPPStyles()
+    fileprivate class func createTelstraStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = createCustomStyles(config)
         
-        styles.textStyles.updateStyles(for: fontFamily)
+        let primary = config.getUIColor(.brandPrimary)
         
-        let telstraBlue = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
+        // Telstra special cases
         
-        styles.segue = .push
         styles.welcomeLayout = .chat
-        styles.navBarStyles.buttonStyle = .text
-        styles.colors.helpButtonBackground = telstraBlue
         styles.colors.navBarBackground = .white
-        styles.colors.navBarTitle = telstraBlue
-        styles.colors.navBarButton = telstraBlue
-        styles.colors.navBarButtonForeground = telstraBlue
-        styles.colors.predictiveNavBarTitle = telstraBlue
+        styles.colors.navBarTitle = primary
+        styles.colors.navBarButton = primary
         styles.colors.predictiveNavBarBackground = .white
-        styles.colors.predictiveNavBarButton = telstraBlue
-        styles.colors.predictiveNavBarButtonForeground = telstraBlue
-        styles.colors.predictiveTextPrimary = .white
-        styles.colors.predictiveTextSecondary = .white
+        styles.colors.predictiveNavBarTitle = primary
+        styles.colors.predictiveNavBarButton = primary
         styles.colors.predictiveGradientColors = [
             UIColor.white.withAlphaComponent(0.9),
-            telstraBlue,
+            primary,
             UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1)
         ]
         styles.colors.predictiveGradientLocations = [0.0, 0.33, 1]
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
         styles.colors.predictiveInput = ASAPPInputColors(
             background: UIColor(red: 1, green: 1, blue: 1, alpha: 0.9),
             text: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.8),
             placeholderText: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.5),
             tint: UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1),
             border: .white,
-            primaryButton: telstraBlue,
-            secondaryButton: telstraBlue)
-        styles.colors.messageText = .darkGray
-        styles.colors.messageBorder = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
-        styles.colors.replyMessageText = .black
-        styles.colors.replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
-        styles.colors.replyMessageBorder = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(font: DemoFonts.asapp.bold, size: 28, letterSpacing: 1, color: .white)
-        styles.textStyles.predictiveSubheader = ASAPPTextStyle(font: DemoFonts.asapp.regular, size: 17, letterSpacing: 0, color: .white)
+            primaryButton: primary,
+            secondaryButton: primary)
+        
+        return styles
+    }
+    
+    fileprivate class func createCustomStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        
+        styles.textStyles.updateStyles(for: config.fontFamily)
+        
+        let primary = config.getUIColor(.brandPrimary)
+        let secondary = config.getUIColor(.brandSecondary)
+        let textLight = config.getUIColor(.textLight)
+        let textDark = config.getUIColor(.textDark)
+        let buttonTextColor = primary.isDark() ? primary : secondary.isDark() ? secondary : textDark
+        let predictiveBackground = secondary
+        
+        styles.colors.controlTint = primary
+        styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
+        styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: buttonTextColor)
+        styles.navBarStyles.buttonStyle = .text
+        styles.colors.navBarBackground = primary
+        styles.colors.navBarTitle = styles.colors.navBarBackground.isDark() ? textLight : textDark
+        styles.colors.navBarButton = styles.colors.navBarTitle
+        styles.colors.predictiveNavBarBackground = styles.colors.navBarBackground
+        styles.colors.predictiveNavBarTitle = styles.colors.navBarTitle
+        styles.colors.predictiveNavBarButton = styles.colors.predictiveNavBarTitle
+        styles.colors.messageText = textDark.colorWithRelativeBrightness(0.33)!
+        styles.colors.replyMessageText = textDark
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: buttonTextColor)
+        styles.colors.predictiveGradientColors = [predictiveBackground, predictiveBackground, predictiveBackground]
+        styles.colors.predictiveTextPrimary = predictiveBackground.isDark() ? textLight : textDark
+        styles.colors.predictiveTextSecondary = styles.colors.predictiveTextPrimary
+        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: textLight.withAlphaComponent(0.1), textColor: textLight, border: textLight)
+        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: textLight.withAlphaComponent(0.1), textColor: textLight, border: textLight)
+        styles.colors.helpButtonBackground = primary
+        styles.colors.helpButtonText = primary.isDark() ? textLight : textDark
+        
+        styles.textStyles.predictiveHeader = ASAPPTextStyle(font: config.fontFamily.bold, size: 28, letterSpacing: 1, color: textLight)
+        styles.textStyles.predictiveSubheader = ASAPPTextStyle(font: config.fontFamily.regular, size: 17, letterSpacing: 0, color: textLight)
+        
+        styles.colors.predictiveInput = ASAPPInputColors(
+            background: .white,
+            text: textDark,
+            placeholderText: textDark.colorWithRelativeBrightness(0.5)!,
+            tint: primary,
+            border: nil,
+            primaryButton: primary,
+            secondaryButton: primary)
         
         return styles
     }
@@ -230,55 +212,53 @@ extension Branding {
 
 class BrandingColors: NSObject {
     
-    let brandingType: BrandingType
+    let appearanceConfig: AppearanceConfig
     
-    private(set) var backgroundColor: UIColor = UIColor.white
-    private(set) var secondaryBackgroundColor: UIColor = UIColor(red: 0.941, green: 0.937, blue: 0.949, alpha: 1)
-    private(set) var foregroundColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.263, alpha: 1)
-    private(set) var secondaryTextColor: UIColor = UIColor(red: 0.483, green: 0.505, blue: 0.572, alpha: 1)
-    private(set) var separatorColor: UIColor = UIColor(red: 0.874, green: 0.875, blue: 0.874, alpha: 1)
-    private(set) var accentColor: UIColor = UIColor(red: 0.266, green: 0.808, blue: 0.600, alpha: 1)
-    private(set) var navBarColor: UIColor = UIColor.white
-    private(set) var navBarTintColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.265, alpha: 1)
-    private(set) var navBarTitleColor: UIColor = UIColor(red: 0.220, green: 0.231, blue: 0.263, alpha: 1)
-    private(set) var statusBarStyle: UIStatusBarStyle = .default
+    private(set) var backgroundColor = UIColor.white
+    private(set) var secondaryBackgroundColor = UIColor(red: 0.941, green: 0.937, blue: 0.949, alpha: 1)
+    private(set) var foregroundColor = UIColor.black
+    private(set) var secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
+    private(set) var separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
+    private(set) var accentColor = UIColor(red: 0.266, green: 0.808, blue: 0.600, alpha: 1)
+    private(set) var navBarColor = UIColor.white
+    private(set) var navBarTintColor = UIColor(red: 0.220, green: 0.231, blue: 0.265, alpha: 1)
+    private(set) var navBarTitleColor = UIColor(red: 0.220, green: 0.231, blue: 0.263, alpha: 1)
+    private(set) var statusBarStyle = UIStatusBarStyle.default
     
     var isDarkNavStyle: Bool { return navBarColor.isDark() }
     var isDarkContentStyle: Bool { return backgroundColor.isDark() }
     
     // MARK: - Init
     
-    required init(brandingType: BrandingType) {
-        self.brandingType = brandingType
+    required init(appearanceConfig config: AppearanceConfig) {
+        self.appearanceConfig = config
         super.init()
         
-        switch self.brandingType {
+        let primary = config.getUIColor(.brandPrimary)
+        let textLight = config.getUIColor(.textLight)
+        let textDark = config.getUIColor(.textDark)
+        
+        switch self.appearanceConfig.brand {
         case .asapp:
             break
             
         case .boost:
             navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
-            navBarTintColor = .white
-            navBarTitleColor = .white
+            navBarTintColor = textLight
+            navBarTitleColor = textLight
             statusBarStyle = .lightContent
-            
-            foregroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-            secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
-            backgroundColor = .white
-            separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
-            accentColor = UIColor(red: 0.961, green: 0.514, blue: 0.071, alpha: 1)
+            accentColor = primary
             
         case .telstra:
-            navBarColor = .white
-            navBarTintColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
-            navBarTitleColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
-            statusBarStyle = .default
+            navBarTintColor = primary
+            navBarTitleColor = primary
+            accentColor = primary
             
-            foregroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-            secondaryTextColor = UIColor(red: 0.490, green: 0.490, blue: 0.490, alpha: 1)
-            backgroundColor = .white
-            separatorColor = UIColor(red: 0.882, green: 0.882, blue: 0.882, alpha: 1)
-            accentColor = UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1)
+        case .custom:
+            navBarTintColor = textDark
+            navBarTitleColor = textDark
+            statusBarStyle = navBarColor.isDark() ? .lightContent : .default
+            accentColor = primary
         }
     }
 }

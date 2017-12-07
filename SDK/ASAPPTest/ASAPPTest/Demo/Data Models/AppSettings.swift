@@ -19,12 +19,13 @@ class AppSettings: NSObject {
         case authToken = "asapp_auth_token"
         case userName = "asapp_user_name"
         case userImageName = "asapp_user_image_name"
-        case brandingType = "asapp_branding"
+        case appearanceConfig = "asapp_appearance_config"
         
         case apiHostNameList = "asapp_api_host_name_list"
         case appIdList = "asapp_app_id_list"
         case regionCodeList = "asapp_region_code_list"
         case customerIdentifierList = "asapp_customer_identifier_list"
+        case appearanceConfigList = "asapp_appearance_config_list"
         
         case spearPin = "asapp_spear_pin"
         case spearEnvironment = "asapp_spear_environment"
@@ -40,18 +41,15 @@ class AppSettings: NSObject {
     // MARK: - Properties
     
     var apiHostName: String {
-        return AppSettings.getString(forKey: .apiHostName,
-                                     defaultValue: AppSettings.defaultAPIHostName)
+        return AppSettings.getString(forKey: .apiHostName, defaultValue: AppSettings.defaultAPIHostName)
     }
     
     var appId: String {
-        return AppSettings.getString(forKey: .appId,
-                                     defaultValue: AppSettings.defaultAppId)
+        return AppSettings.getString(forKey: .appId, defaultValue: AppSettings.defaultAppId)
     }
     
     var regionCode: String {
-        return AppSettings.getString(forKey: .regionCode,
-                                     defaultValue: AppSettings.defaultRegionCode)
+        return AppSettings.getString(forKey: .regionCode, defaultValue: AppSettings.defaultRegionCode)
     }
     
     var customerIdentifier: String? {
@@ -59,28 +57,31 @@ class AppSettings: NSObject {
     }
     
     var authToken: String {
-        return AppSettings.getString(forKey: .authToken,
-                                     defaultValue: "asapp_ios_fake_access_token")
+        return AppSettings.getString(forKey: .authToken, defaultValue: "asapp_ios_fake_access_token")
+    }
+    
+    var branding = Branding(appearanceConfig: AppSettings.defaultAppearanceConfig)
+    
+    var appearanceConfig: AppearanceConfig {
+        let decoder = JSONDecoder()
+        guard let string = AppSettings.getString(forKey: .appearanceConfig),
+              let data = string.data(using: .utf8),
+              let config = try? decoder.decode(AppearanceConfig.self, from: data) else {
+            return AppSettings.defaultAppearanceConfig
+        }
+        return config
     }
     
     var userName: String {
-        return AppSettings.getString(forKey: .userName,
-                                     defaultValue: AppSettings.defaultUserName)
+        return AppSettings.getString(forKey: .userName, defaultValue: AppSettings.defaultUserName)
     }
     
     var userImageName: String {
-        return AppSettings.getString(forKey: .userImageName,
-                                     defaultValue: AppSettings.defaultUserImageName)
-    }
-    
-    var branding: Branding {
-        didSet {
-            AppSettings.saveObject(branding.brandingType.rawValue, forKey: .brandingType)
-        }
+        return AppSettings.getString(forKey: .userImageName, defaultValue: AppSettings.defaultUserImageName)
     }
     
     var userImageNames: [String] {
-        return AppSettings.getDefaultImageNames()
+        return AppSettings.defaultImageNames
     }
     
     var spearPin: String? {
@@ -109,14 +110,9 @@ class AppSettings: NSObject {
     
     let versionString: String
     
-    //
     // MARK: - Init
-    //
     
     override init() {
-        let brandingType = BrandingType.from(AppSettings.getString(forKey: .brandingType)) ?? AppSettings.defaultBrandingType
-        self.branding = Branding(brandingType: brandingType)
-    
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
         self.versionString = "\(version) (\(build))"
@@ -133,11 +129,11 @@ class AppSettings: NSObject {
 
 fileprivate extension AppSettings {
     
-    static let defaultAPIHostName = getDefaultAPIHostNames().first!
+    static let defaultAPIHostName = defaultAPIHostNames.first!
     
-    static let defaultAppId = getDefaultAppIds().first!
+    static let defaultAppId = defaultAppIds.first!
     
-    static let defaultRegionCode = getDefaultRegionCodes().first!
+    static let defaultRegionCode = defaultRegionCodes.first!
     
     static let defaultAuthToken = ""
     
@@ -145,9 +141,9 @@ fileprivate extension AppSettings {
     
     static let defaultUserImageName = "user-anonymous"
     
-    static let defaultBrandingType = BrandingType.asapp
+    static let defaultAppearanceConfig = defaultAppearanceConfigs.first!
     
-    class func getDefaultAPIHostNames() -> [String] {
+    class var defaultAPIHostNames: [String] {
         return [
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
@@ -155,7 +151,7 @@ fileprivate extension AppSettings {
         ]
     }
     
-    class func getDefaultAppIds() -> [String] {
+    class var defaultAppIds: [String] {
         return [
             "asapp",
             "boost",
@@ -163,14 +159,14 @@ fileprivate extension AppSettings {
         ]
     }
     
-    class func getDefaultRegionCodes() -> [String] {
+    class var defaultRegionCodes: [String] {
         return [
             "US",
             "AU"
         ]
     }
     
-    class func getDefaultCustomerIdentifiers() -> [String] {
+    class var defaultCustomerIdentifiers: [String] {
         return [
             "test_customer_1",
             "test_customer_2",
@@ -193,7 +189,7 @@ fileprivate extension AppSettings {
         ]
     }
     
-    class func getDefaultImageNames() -> [String] {
+    class var defaultImageNames: [String] {
         return [
             "user-anonymous",
             "user-gustavo",
@@ -206,6 +202,36 @@ fileprivate extension AppSettings {
             "user-lori",
             "user-rachel",
             "user-max"
+        ]
+    }
+    
+    class var defaultAppearanceConfigs: [AppearanceConfig] {
+        let boostOrange = Color(uiColor: UIColor(hexString: "#f7901e")!)!
+        let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
+        let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
+        
+        return [
+            AppearanceConfig(brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
+                .helpButton: "HELP"
+            ], fontFamilyName: .asapp),
+            AppearanceConfig(brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
+                .brandPrimary: boostOrange,
+                .brandSecondary: boostGrey,
+                .textDark: Color(uiColor: .black)!,
+                .textLight: Color(uiColor: .white)!
+            ], strings: [
+                .helpButton: "CHAT"
+            ], fontFamilyName: .boost),
+            AppearanceConfig(brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
+                .brandPrimary: telstraBlue,
+                .brandSecondary: Color(uiColor: .black)!,
+                .textDark: Color(uiColor: .black)!,
+                .textLight: Color(uiColor: .white)!
+            ], strings: [
+                .helpButton: "HELP",
+                .chatTitle: "24x7 Chat",
+                .predictiveTitle: "24x7 Chat"
+            ], fontFamilyName: .asapp)
         ]
     }
 }
@@ -281,21 +307,72 @@ extension AppSettings {
         
         // DemoLog("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
         
-        return getDefaultStringArray(forKey: key)?.union(stringArray ?? [])
+        return (getDefaultStringArray(forKey: key) ?? []).union(stringArray ?? [])
     }
     
     private class func getDefaultStringArray(forKey key: Key) -> [String]? {
         switch key {
-        case .apiHostNameList: return getDefaultAPIHostNames()
-        case .appIdList: return getDefaultAppIds()
-        case .regionCodeList: return getDefaultRegionCodes()
-        case .customerIdentifierList: return getDefaultCustomerIdentifiers()
+        case .apiHostNameList: return defaultAPIHostNames
+        case .appIdList: return defaultAppIds
+        case .regionCodeList: return defaultRegionCodes
+        case .customerIdentifierList: return defaultCustomerIdentifiers
         default: return nil
         }
     }
 }
 
-// MARK: - Custom Vaues
+// MARK: - Appearance Config Storage
+
+extension AppSettings {
+    class func getAppearanceConfigArray() -> [AppearanceConfig] {
+        let stringArray = UserDefaults.standard.stringArray(forKey: AppSettings.Key.appearanceConfigList.rawValue)
+        
+        let appearanceConfigArray = try? (stringArray?.map { (string: String) -> AppearanceConfig? in
+            let decoder = JSONDecoder()
+            guard let data = string.data(using: .utf8) else {
+                return nil
+            }
+            return try decoder.decode(AppearanceConfig.self, from: data)
+        } ?? []).flatMap { $0 }
+        
+        return defaultAppearanceConfigs.union(appearanceConfigArray ?? [])
+    }
+    
+    class func addAppearanceConfigToArray(_ appearanceConfig: AppearanceConfig) {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(appearanceConfig),
+              let string = String.init(data: data, encoding: .utf8) else {
+            return
+        }
+        addStringToArray(string, forKey: .appearanceConfigList)
+    }
+    
+    class func removeAppearanceConfigFromArray(_ appearanceConfig: AppearanceConfig) {
+        let key = AppSettings.Key.appearanceConfigList
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(appearanceConfig),
+              let string = String.init(data: data, encoding: .utf8),
+              var stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue) else {
+            return
+        }
+        
+        if let index = stringArray.index(of: string) {
+            stringArray.remove(at: index)
+            saveObject(stringArray, forKey: key)
+        }
+    }
+    
+    class func saveAppearanceConfig(_ appearanceConfig: AppearanceConfig) {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(appearanceConfig),
+              let string = String.init(data: data, encoding: .utf8) else {
+            return
+        }
+        saveObject(string, forKey: .appearanceConfig)
+    }
+}
+
+// MARK: - Custom Values
 
 extension AppSettings {
     

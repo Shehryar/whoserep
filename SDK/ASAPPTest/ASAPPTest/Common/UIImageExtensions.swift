@@ -75,4 +75,23 @@ internal extension UIImage {
         return image!
     }
     
+    func scaled(to size: CGSize) -> UIImage {
+        let originalSize = self.size
+        let widthRatio = size.width / originalSize.width
+        let heightRatio = size.height / originalSize.height
+        let sizeRatio = min(widthRatio, heightRatio)
+        
+        var imageRect = CGRect.zero
+        imageRect.size.width = originalSize.width * sizeRatio
+        imageRect.size.height = originalSize.height * sizeRatio
+        imageRect.origin.x = (size.width - originalSize.width * sizeRatio) / 2
+        imageRect.origin.y = (size.height - originalSize.height * sizeRatio) / 2
+        
+        UIGraphicsBeginImageContext(size)
+        draw(in: imageRect)
+        let scaled = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaled!
+    }
 }

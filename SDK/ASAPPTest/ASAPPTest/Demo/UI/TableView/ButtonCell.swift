@@ -100,8 +100,10 @@ class ButtonCell: TableViewCell {
     }
     
     func updateLabel() {
+        let accent = AppSettings.shared.branding.colors.accentColor
+        let color = accent.isDark() ? accent : AppSettings.shared.branding.colors.foregroundColor
         titleLabel.update(text: title,
-                          textColor: AppSettings.shared.branding.colors.accentColor,
+                          textColor: color,
                           font: AppSettings.shared.branding.fontFamily.medium.withSize(14),
                           kerning: 1)
     }

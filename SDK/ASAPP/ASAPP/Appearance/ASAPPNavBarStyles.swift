@@ -13,8 +13,8 @@ import UIKit
  */
 @objcMembers
 public class ASAPPNavBarStyles: NSObject {
-    /// The style of navigation bar buttons. Defaults to `ASAPPNavBarButtonStyle.bubble`.
-    public var buttonStyle: ASAPPNavBarButtonStyle = .bubble
+    /// The style of navigation bar buttons. Defaults to `ASAPPNavBarButtonStyle.text`.
+    public var buttonStyle: ASAPPNavBarButtonStyle = .text
     
     /// The images used in navigation bar buttons.
     public var buttonImages = ASAPPNavBarButtonImages()

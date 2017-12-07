@@ -198,6 +198,7 @@ extension TextInputCell {
         return textField.canBecomeFirstResponder
     }
     
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
     }
@@ -206,6 +207,7 @@ extension TextInputCell {
         return textField.canResignFirstResponder
     }
     
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
