@@ -73,7 +73,7 @@ class ButtonViewSpec: QuickSpec {
                 
                 context("with primaryButtonsRounded set to false") {
                     it("has a valid snapshot") {
-                        ASAPP.styles.shapeStyles.primaryButtonsRounded = false
+                        ASAPP.styles.primaryButtonsRounded = false
                         let buttonItem = ButtonItem(style: style, content: content)
                         let buttonView = ButtonView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
                         buttonView.component = buttonItem
@@ -83,7 +83,7 @@ class ButtonViewSpec: QuickSpec {
                 
                 context("with primaryButtonsRounded set to true") {
                     it("has a valid snapshot") {
-                        ASAPP.styles.shapeStyles.primaryButtonsRounded = true
+                        ASAPP.styles.primaryButtonsRounded = true
                         let buttonItem = ButtonItem(style: style, content: content)
                         let buttonView = ButtonView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
                         buttonView.component = buttonItem

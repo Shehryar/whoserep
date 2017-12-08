@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ASAPP.debugLogLevel = .debug
         ASAPP.loadFonts()
-        ASAPP.styles = ASAPPStyles.stylesForAppId("boost")
         
         let rootVC = UINavigationController(rootViewController: TemplateServerPreviewViewController())
         window = UIWindow(frame: UIScreen.main.bounds)

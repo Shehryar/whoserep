@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Represents a font family used by default styles. Individual `ASAPPTextStyle`s will override the font family given to `ASAPPStyles.stylesForAppId(_:fontFamily:)`.
+ Represents a font family used by default styles.`.
  */
 @objcMembers
 public class ASAPPFontFamily: NSObject {

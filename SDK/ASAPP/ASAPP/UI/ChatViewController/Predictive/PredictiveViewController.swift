@@ -111,7 +111,7 @@ class PredictiveViewController: UIViewController {
         if let text = ASAPP.strings.predictiveSendButton {
             messageInputView.sendButtonText = text
         } else {
-            messageInputView.sendButtonImage = ASAPP.styles.shapeStyles.sendButtonImage
+            messageInputView.sendButtonImage = ASAPP.styles.sendButtonImage
         }
         messageInputView.displayMediaButton = false
         messageInputView.displayBorderTop = false

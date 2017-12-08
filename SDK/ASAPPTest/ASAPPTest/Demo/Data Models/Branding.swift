@@ -49,7 +49,7 @@ class Branding: NSObject {
         switch appearanceConfig.brand {
         case .asapp:
             styles = ASAPPStyles()
-            styles.shapeStyles.sendButtonImage = nil
+            styles.sendButtonImage = nil
             views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
             strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
@@ -124,7 +124,7 @@ extension Branding {
             primaryButton: primary,
             secondaryButton: primary)
         
-        styles.shapeStyles.sendButtonImage = nil
+        styles.sendButtonImage = nil
         
         return styles
     }

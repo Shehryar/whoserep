@@ -107,7 +107,7 @@ extension ViewController {
          
          The SDK can be stylized to fit your brand.
          */
-        ASAPP.styles = ASAPPStyles.stylesForAppId(appId, fontFamily: avenirNext)
+        ASAPP.styles.textStyles.updateStyles(for: avenirNext)
         
         ASAPP.styles.textStyles.navTitle = ASAPPTextStyle(font: avenirNext.bold, size: 18, letterSpacing: 0, color: .white)
         
