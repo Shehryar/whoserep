@@ -36,13 +36,13 @@ class SavedSessionManager {
     
     static func getSession() -> Session? {
         do {
-            let session = try CodableStorage.retrieve(sessionFileName, as: Session.self)
-            if let session = session {
+            if let session = try CodableStorage.retrieve(sessionFileName, as: Session.self) {
                 DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
+                return session
             } else {
                 DebugLog.d("Retrieved nil session: expired or non-existent")
+                return nil
             }
-            return session
         } catch {
             DebugLog.e(error)
             return nil
