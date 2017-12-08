@@ -29,6 +29,7 @@ class EditAppearanceViewController: BaseTableViewController {
     ]
     
     fileprivate(set) var allColors: DictionaryLiteral<AppearanceConfig.ColorName, String> = [
+        .demoNavBar: "Demo nav bar",
         .brandPrimary: "Brand primary",
         .brandSecondary: "Brand secondary",
         .textLight: "Text light",
@@ -52,7 +53,7 @@ class EditAppearanceViewController: BaseTableViewController {
     
     init() {
         selectedLogo = AppSettings.shared.appearanceConfig.logo
-        logoOptions = AppSettings.getAppearanceConfigArray().map { ($0.logo, BrandingColors(appearanceConfig: $0).navBarColor) }
+        logoOptions = AppSettings.getAppearanceConfigArray().map { ($0.logo, $0.getUIColor(.demoNavBar)) }
         selectedFontFamily = AppSettings.shared.appearanceConfig.fontFamilyName
         
         super.init(nibName: nil, bundle: nil)

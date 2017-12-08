@@ -90,7 +90,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         timeLabel.frame = CGRect(x: textLeft, y: contentInset.top, width: textSize.width, height: textSize.height)
         
         let separatorMargin: CGFloat = 15.0
-        let separatorStroke: CGFloat = ASAPP.styles.shapeStyles.separatorStrokeWidth
+        let separatorStroke: CGFloat = ASAPP.styles.separatorStrokeWidth
         let separatorTop = ceil(timeLabel.center.y - separatorStroke / 2.0)
         let separatorLeftWidth = timeLabel.frame.minX - separatorMargin - contentInset.left
         separatorLeft.frame = CGRect(x: contentInset.left, y: separatorTop, width: separatorLeftWidth, height: separatorStroke)

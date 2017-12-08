@@ -22,6 +22,7 @@ class Branding: NSObject {
     static var defaultColors: [AppearanceConfig.ColorName: Color] = {
         let asappColors = ASAPPColors()
         let dict: [AppearanceConfig.ColorName: UIColor] = [
+            .demoNavBar: UIColor.white,
             .brandPrimary: UIColor(red: 0.33, green: 0.35, blue: 0.39, alpha: 1),
             .brandSecondary: UIColor.black,
             .textLight: UIColor.white,
@@ -49,7 +50,7 @@ class Branding: NSObject {
         switch appearanceConfig.brand {
         case .asapp:
             styles = ASAPPStyles()
-            styles.shapeStyles.sendButtonImage = nil
+            styles.sendButtonImage = nil
             views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
             strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
@@ -124,7 +125,7 @@ extension Branding {
             primaryButton: primary,
             secondaryButton: primary)
         
-        styles.shapeStyles.sendButtonImage = nil
+        styles.sendButtonImage = nil
         
         return styles
     }
@@ -237,28 +238,15 @@ class BrandingColors: NSObject {
         let primary = config.getUIColor(.brandPrimary)
         let textLight = config.getUIColor(.textLight)
         let textDark = config.getUIColor(.textDark)
+        let demoNavBar = config.getUIColor(.demoNavBar)
+        let demoNavBarText = navBarColor.isBright()
+                                ? primary.isDark() ? primary : textDark
+                                : primary.isBright() ? primary : textLight
         
-        switch self.appearanceConfig.brand {
-        case .asapp:
-            break
-            
-        case .boost:
-            navBarColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
-            navBarTintColor = textLight
-            navBarTitleColor = textLight
-            statusBarStyle = .lightContent
-            accentColor = primary
-            
-        case .telstra:
-            navBarTintColor = primary
-            navBarTitleColor = primary
-            accentColor = primary
-            
-        case .custom:
-            navBarTintColor = textDark
-            navBarTitleColor = textDark
-            statusBarStyle = navBarColor.isDark() ? .lightContent : .default
-            accentColor = primary
-        }
+        navBarColor = demoNavBar
+        navBarTintColor = demoNavBarText
+        navBarTitleColor = demoNavBarText
+        statusBarStyle = navBarColor.isDark() ? .lightContent : .default
+        accentColor = primary
     }
 }

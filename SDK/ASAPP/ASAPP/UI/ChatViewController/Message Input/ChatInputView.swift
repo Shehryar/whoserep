@@ -120,7 +120,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         if let text = ASAPP.strings.chatInputSend {
             self.sendButtonText = text
         } else {
-            self.sendButtonImage = ASAPP.styles.shapeStyles.sendButtonImage
+            self.sendButtonImage = ASAPP.styles.sendButtonImage
         }
         super.init(frame: .zero)
         

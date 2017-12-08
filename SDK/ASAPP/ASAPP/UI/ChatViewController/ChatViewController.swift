@@ -862,6 +862,10 @@ extension ChatViewController: PredictiveViewControllerDelegate {
         guard let welcomeView = predictiveNavController?.view else { return }
         let alpha: CGFloat = visible ? 1 : 0
         
+        if predictiveVC.messageInputView.isHidden && alpha == 1 {
+            predictiveVC.messageInputView.isHidden = false
+        }
+        
         if animated {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 welcomeView.alpha = alpha

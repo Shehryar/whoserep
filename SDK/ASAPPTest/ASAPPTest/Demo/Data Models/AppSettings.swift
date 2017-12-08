@@ -209,24 +209,29 @@ fileprivate extension AppSettings {
         let boostOrange = Color(uiColor: UIColor(hexString: "#f7901e")!)!
         let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
         let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
+        let black = Color(uiColor: .black)!
+        let white = Color(uiColor: .white)!
         
         return [
             AppearanceConfig(brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
                 .helpButton: "HELP"
             ], fontFamilyName: .asapp),
+            
             AppearanceConfig(brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
+                .demoNavBar: Color(uiColor: UIColor(white: 0.01, alpha: 1))!,
                 .brandPrimary: boostOrange,
                 .brandSecondary: boostGrey,
-                .textDark: Color(uiColor: .black)!,
-                .textLight: Color(uiColor: .white)!
+                .textDark: black,
+                .textLight: white
             ], strings: [
                 .helpButton: "CHAT"
             ], fontFamilyName: .boost),
+            
             AppearanceConfig(brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
                 .brandPrimary: telstraBlue,
-                .brandSecondary: Color(uiColor: .black)!,
-                .textDark: Color(uiColor: .black)!,
-                .textLight: Color(uiColor: .white)!
+                .brandSecondary: telstraBlue,
+                .textDark: black,
+                .textLight: white
             ], strings: [
                 .helpButton: "HELP",
                 .chatTitle: "24x7 Chat",
@@ -349,17 +354,29 @@ extension AppSettings {
     
     class func removeAppearanceConfigFromArray(_ appearanceConfig: AppearanceConfig) {
         let key = AppSettings.Key.appearanceConfigList
-        let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(appearanceConfig),
-              let string = String.init(data: data, encoding: .utf8),
-              var stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue) else {
+        guard let stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue) else {
             return
         }
         
-        if let index = stringArray.index(of: string) {
-            stringArray.remove(at: index)
-            saveObject(stringArray, forKey: key)
-        }
+        let appearanceConfigArray = try? stringArray.map { (string: String) -> AppearanceConfig? in
+            let decoder = JSONDecoder()
+            guard let data = string.data(using: .utf8) else {
+                return nil
+            }
+            return try decoder.decode(AppearanceConfig.self, from: data)
+        }.flatMap { $0 }
+        
+        let filteredArray = appearanceConfigArray?.filter { $0 != appearanceConfig }
+        let encoder = JSONEncoder()
+        let encodedArray: [String] = (filteredArray?.map { config in
+            guard let data = try? encoder.encode(config),
+                  let string = String.init(data: data, encoding: .utf8) else {
+                return ""
+            }
+            return string
+        } ?? []).flatMap { $0 }
+        
+        saveObject(encodedArray, forKey: key)
     }
     
     class func saveAppearanceConfig(_ appearanceConfig: AppearanceConfig) {

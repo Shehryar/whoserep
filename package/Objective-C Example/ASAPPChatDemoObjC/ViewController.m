@@ -45,10 +45,10 @@
 {
 #warning Update your credentials before running.
     
-    NSString *appId = nil;
-    NSString *apiHostName = nil;
-    NSString *regionCode = nil;
-    NSString *clientSecret = nil;
+    NSString *appId = @"foo";
+    NSString *apiHostName = @"foo";
+    NSString *regionCode = @"foo";
+    NSString *clientSecret = @"foo";
     
     NSAssert(appId != nil & apiHostName != nil && regionCode != nil && clientSecret != nil,
              @"You must set your appId, apiHostName, regionCode, and clientSecret in ViewController.m before running.");
@@ -101,15 +101,18 @@
                                    initWithLight:[UIFont fontWithName:@"AvenirNext-Regular" size:16]
                                    regular:[UIFont fontWithName:@"AvenirNext-Medium" size:16]
                                    medium:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16]
-                                   bold:[UIFont fontWithName:@"AvenirNext-Bold" size:16]];
+                                   bold:[UIFont fontWithName:@"AvenirNext-Bold" size:16]
+                                   lightItalic:nil
+                                   regularItalic:nil
+                                   mediumItalic:nil
+                                   boldItalic:nil];
     
     /**
      ASAPPStyles
      
      The chat sdk can be stylized to fit your brand.
      */
-    ASAPPStyles *styles = [ASAPPStyles stylesForAppId:appId fontFamily:avenirNext];
-    [ASAPP setStyles:styles];
+    [ASAPP.styles.textStyles updateStylesFor:avenirNext];
     
     ASAPP.styles.textStyles.navTitle = [[ASAPPTextStyle alloc] initWithFont:avenirNext.bold size:18 letterSpacing:0 color:UIColor.whiteColor];
     

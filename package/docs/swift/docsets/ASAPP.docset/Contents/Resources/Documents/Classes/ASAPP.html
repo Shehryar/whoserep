@@ -61,9 +61,6 @@
                 <a href="../Classes/ASAPPNavBarStyles.html">ASAPPNavBarStyles</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/ASAPPShapeStyles.html">ASAPPShapeStyles</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/ASAPPStrings.html">ASAPPStrings</a>
               </li>
               <li class="nav-group-task">
@@ -744,9 +741,9 @@ such as sending a message or pressing a button.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5ASAPPAAC19UnreadNumberHandlera"></a>
-                    <a name="//apple_ref/swift/Alias/UnreadNumberHandler" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5ASAPPAAC19UnreadNumberHandlera">UnreadNumberHandler</a>
+                    <a name="/s:5ASAPPAAC21UnreadMessagesHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/UnreadMessagesHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5ASAPPAAC21UnreadMessagesHandlera">UnreadMessagesHandler</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -754,14 +751,14 @@ such as sending a message or pressing a button.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <code>Void</code> closure type that takes an <code>Int</code>.</p>
+                        <p>A <code>Void</code> closure type that takes an <code>Int</code>, the number of unread messages.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UnreadNumberHandler</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">unread</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UnreadMessagesHandler</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">unread</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -771,9 +768,9 @@ such as sending a message or pressing a button.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@CM@ASAPP@objc(cs)ASAPP(cm)getNumberOfUnreadPushNotifications:"></a>
-                    <a name="//apple_ref/swift/Method/getNumberOfUnreadPushNotifications(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@ASAPP@objc(cs)ASAPP(cm)getNumberOfUnreadPushNotifications:">getNumberOfUnreadPushNotifications(_:)</a>
+                    <a name="/c:@CM@ASAPP@objc(cs)ASAPP(cm)getNumberOfUnreadMessages:"></a>
+                    <a name="//apple_ref/swift/Method/getNumberOfUnreadMessages(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@ASAPP@objc(cs)ASAPP(cm)getNumberOfUnreadMessages:">getNumberOfUnreadMessages(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -788,7 +785,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">getNumberOfUnreadPushNotifications</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ASAPP.html#/s:5ASAPPAAC19UnreadNumberHandlera">UnreadNumberHandler</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">getNumberOfUnreadMessages</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ASAPP.html#/s:5ASAPPAAC21UnreadMessagesHandlera">UnreadMessagesHandler</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -804,7 +801,7 @@ such as sending a message or pressing a button.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An <code><a href="../Classes/ASAPP.html#/s:5ASAPPAAC19UnreadNumberHandlera">UnreadNumberHandler</a></code> that receives the number of unread ASAPP push notifications.</p>
+                                  <p>An <code>UnreadNumberHandler</code> that receives the number of unread ASAPP push notifications.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1015,7 +1012,7 @@ such as sending a message or pressing a button.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2017-12-01)</p>
+          <p>&copy; 2017 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2017-12-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

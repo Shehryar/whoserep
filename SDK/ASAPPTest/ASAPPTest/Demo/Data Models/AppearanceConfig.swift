@@ -19,6 +19,7 @@ struct AppearanceConfig: Codable {
     }
     
     enum ColorName: Int, CountableEnum, Codable {
+        case demoNavBar
         case brandPrimary
         case brandSecondary
         case textDark

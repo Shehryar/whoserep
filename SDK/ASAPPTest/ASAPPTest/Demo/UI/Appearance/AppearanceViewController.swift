@@ -92,7 +92,7 @@ extension AppearanceViewController {
         
         let config = options[indexPath.row]
         cell?.customImage = config.logoImage
-        cell?.backgroundColor = BrandingColors(appearanceConfig: config).navBarColor
+        cell?.backgroundColor = config.getUIColor(.demoNavBar)
         cell?.separatorInset = .zero
         
         return cell ?? UITableViewCell()
