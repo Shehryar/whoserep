@@ -126,6 +126,10 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                                 ],
                                 "Company": [
                                     "CompanyId": 42
+                                ],
+                                "SessionAuth": [
+                                    "SessionTime": 1234567890,
+                                    "SessionSecret": "secretsecret"
                                 ]
                             ]
                         ]
@@ -165,6 +169,10 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                                 ],
                                 "Company": [
                                     "CompanyId": 42
+                                ],
+                                "SessionAuth": [
+                                    "SessionTime": 1234567890,
+                                    "SessionSecret": "secretsecret"
                                 ]
                             ]
                         ]
