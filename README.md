@@ -11,6 +11,8 @@ Organization
 ├── SDK			Chat SDK
 ├── Provisioning	Provisioning profile and credentials
 ├── fastlane		fastlane configuration files
+├── package 		Directory containing docs, the built framework, and example projects that is delivered to partners
+├── scripts		    Utility scripts
 ```
 
 iOS Development
@@ -94,5 +96,5 @@ You may need to run `bundle update` as above.
 scripts/generate_docs.sh
 ```
 
-The reference website can be found at `docs/swift_output/index.html`.
+The reference website can be found at `docs/swift/index.html`.
 
