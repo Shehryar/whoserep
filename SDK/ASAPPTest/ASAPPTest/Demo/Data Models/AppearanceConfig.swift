@@ -38,6 +38,7 @@ struct AppearanceConfig: Codable {
         case predictiveTitle
     }
     
+    let name: String
     let brand: Brand
     let logo: Image
     let colors: [ColorName: Color]
@@ -74,7 +75,8 @@ extension AppearanceConfig {
 
 extension AppearanceConfig: Equatable {
     static func == (lhs: AppearanceConfig, rhs: AppearanceConfig) -> Bool {
-        return lhs.brand == rhs.brand &&
+        return lhs.name == rhs.name &&
+               lhs.brand == rhs.brand &&
                lhs.logo.id == rhs.logo.id &&
                lhs.colors == rhs.colors &&
                lhs.strings == rhs.strings &&

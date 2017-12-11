@@ -19,7 +19,7 @@ class AppearanceViewController: BaseTableViewController {
     fileprivate(set) var selectedOption: AppearanceConfig
     fileprivate(set) var options: [AppearanceConfig]
     
-    fileprivate lazy var logoSizingCell = ImageCell()
+    fileprivate lazy var titleImageSizingCell = TitleImageCell()
     
     init() {
         selectedOption = AppSettings.shared.appearanceConfig
@@ -31,7 +31,7 @@ class AppearanceViewController: BaseTableViewController {
         
         title = "Appearance"
         
-        tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.reuseId)
+        tableView.register(TitleImageCell.self, forCellReuseIdentifier: TitleImageCell.reuseId)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,19 +81,29 @@ extension AppearanceViewController {
         case .some(.createNew):
             return buttonCell(title: "Create New", for: indexPath, sizingOnly: forSizing)
         case .some(.options):
-            return logoCell(image: options[indexPath.row].logoImage, for: indexPath, sizingOnly: forSizing)
+            let config = options[indexPath.row]
+            let title = config.name
+            let image = config.logoImage
+            let backgroundColor = config.getUIColor(.demoNavBar)
+            return titleImageCell(cellToStyle: forSizing ? titleImageSizingCell : nil,
+                                  title: title,
+                                  image: image,
+                                  backgroundColor: backgroundColor,
+                                  for: indexPath)
         case .none:
             return UITableViewCell()
         }
     }
     
-    func logoCell(image: UIImage, for indexPath: IndexPath, sizingOnly: Bool) -> UITableViewCell {
-        let cell = sizingOnly ? logoSizingCell : tableView.dequeueReusableCell(withIdentifier: ImageCell.reuseId, for: indexPath) as? ImageCell
+    func titleImageCell(cellToStyle: TitleImageCell? = nil, title: String?, image: UIImage?, backgroundColor: UIColor?, for indexPath: IndexPath) -> UITableViewCell {
+        let cell = cellToStyle ?? tableView.dequeueReusableCell(withIdentifier: TitleImageCell.reuseId, for: indexPath) as? TitleImageCell
         
-        let config = options[indexPath.row]
-        cell?.customImage = config.logoImage
-        cell?.backgroundColor = config.getUIColor(.demoNavBar)
+        cell?.appSettings = AppSettings.shared
+        cell?.backgroundColor = backgroundColor
+        cell?.selectionStyle = .default
         cell?.separatorInset = .zero
+        cell?.title = title
+        cell?.customImage = image
         
         return cell ?? UITableViewCell()
     }

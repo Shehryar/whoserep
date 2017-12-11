@@ -74,7 +74,6 @@ class HomeTableView: UIView {
     let nameSizingCell = ImageNameCell()
     let labelIconSizingCell = LabelIconCell()
     let titleDetailValueSizingCell = TitleDetailValueCell()
-    let titleImageSizingCell = TitleImageCell()
     
     // MARK: Initialization
     
@@ -88,7 +87,6 @@ class HomeTableView: UIView {
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: LabelIconCell.reuseId)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.reuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
-        tableView.register(TitleImageCell.self, forCellReuseIdentifier: TitleImageCell.reuseId)
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
@@ -198,13 +196,7 @@ extension HomeTableView {
                 
             case .some(.appearance):
                 title = "Appearance"
-                let image = AppSettings.shared.appearanceConfig.logoImage
-                let backgroundColor = AppSettings.shared.branding.colors.navBarColor
-                return titleImageCell(cellToStyle: forSizing ? titleImageSizingCell : nil,
-                                      title: title,
-                                      image: image,
-                                      backgroundColor: backgroundColor,
-                                      for: indexPath)
+                value = AppSettings.shared.appearanceConfig.name
                 
             case .none:
                 demoLog("Missing cell for index path: \(indexPath)")
@@ -316,22 +308,6 @@ extension HomeTableView {
         } else {
             cell?.iconImage = nil
         }
-        
-        return cell ?? UITableViewCell()
-    }
-    
-    func titleImageCell(cellToStyle: TitleImageCell? = nil,
-                        title: String?,
-                        image: UIImage?,
-                        backgroundColor: UIColor?,
-                        for indexPath: IndexPath) -> UITableViewCell {
-        let cell = cellToStyle ?? tableView.dequeueReusableCell(withIdentifier: TitleImageCell.reuseId, for: indexPath) as? TitleImageCell
-        
-        cell?.appSettings = AppSettings.shared
-        cell?.backgroundColor = backgroundColor
-        cell?.selectionStyle = .default
-        cell?.title = title
-        cell?.customImage = image
         
         return cell ?? UITableViewCell()
     }

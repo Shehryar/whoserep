@@ -11,11 +11,14 @@ import Photos
 
 class EditAppearanceViewController: BaseTableViewController {
     enum Section: Int, CountableEnum {
+        case name
         case logo
         case colors
         case strings
         case fontFamily
     }
+    
+    fileprivate(set) var name: String?
     
     fileprivate(set) var selectedLogo: Image
     fileprivate(set) var logoOptions: [(Image, UIColor)]
@@ -52,6 +55,7 @@ class EditAppearanceViewController: BaseTableViewController {
     fileprivate lazy var titleCheckmarkSizingCell = TitleCheckmarkCell()
     
     init() {
+        name = AppSettings.shared.appearanceConfig.name
         selectedLogo = AppSettings.shared.appearanceConfig.logo
         logoOptions = AppSettings.getAppearanceConfigArray().map { ($0.logo, $0.getUIColor(.demoNavBar)) }
         selectedFontFamily = AppSettings.shared.appearanceConfig.fontFamilyName
@@ -81,8 +85,13 @@ class EditAppearanceViewController: BaseTableViewController {
     }
     
     func save() {
+        guard let name = name, !name.isEmpty else {
+            showAlert(title: "Can't save appearance config", message: "You need to specify a name.")
+            return
+        }
+        
         let logo = (newLogo?.id == selectedLogo.id) ? selectedLogo : Image(id: UUID().uuidString, uiImage: selectedLogo.uiImage)
-        let config = AppearanceConfig(brand: .custom, logo: logo, colors: colorSettings.mapValues { Color(uiColor: $0)! }, strings: stringSettings, fontFamilyName: selectedFontFamily)
+        let config = AppearanceConfig(name: name, brand: .custom, logo: logo, colors: colorSettings.mapValues { Color(uiColor: $0)! }, strings: stringSettings, fontFamilyName: selectedFontFamily)
         AppSettings.addAppearanceConfigToArray(config)
         AppSettings.saveAppearanceConfig(config)
         AppSettings.shared.branding = Branding(appearanceConfig: config)
@@ -97,6 +106,8 @@ extension EditAppearanceViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section) {
+        case .some(.name):
+            return 1
         case .some(.logo):
             let extra = (newLogo != nil) ? 2 : 1
             return logoOptions.count + extra
@@ -113,6 +124,8 @@ extension EditAppearanceViewController {
     
     override func titleForSection(_ section: Int) -> String? {
         switch Section(rawValue: section) {
+        case .some(.name):
+            return ""
         case .some(.logo):
             return "Logo"
         case .some(.colors):
@@ -140,6 +153,10 @@ extension EditAppearanceViewController {
     
     override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
         switch Section(rawValue: indexPath.section) {
+        case .some(.name):
+            return stringCell(text: name, placeholder: "Type a name", labelText: "Name", onTextChange: { [weak self] string in
+                self?.name = string
+            }, for: indexPath, sizingOnly: forSizing)
         case .some(.logo):
             if isChooseNewLogoRow(indexPath) {
                 return buttonCell(title: "Choose new logo", for: indexPath, sizingOnly: forSizing)
@@ -156,7 +173,7 @@ extension EditAppearanceViewController {
             let stringName = allStrings[indexPath.row].key
             return stringCell(text: stringSettings[stringName], labelText: allStrings[indexPath.row].value, onTextChange: { [weak self] string in
                 self?.stringSettings[stringName] = string
-                }, for: indexPath, sizingOnly: forSizing)
+            }, for: indexPath, sizingOnly: forSizing)
         case .some(.fontFamily):
             let (fontFamilyCase, fontFamilyString) = fontFamilyOptions[indexPath.row]
             return titleCheckMarkCell(title: fontFamilyString, fontFamily: fontFamilyCase, isChecked: fontFamilyCase == selectedFontFamily, for: indexPath, sizingOnly: forSizing)
@@ -212,7 +229,7 @@ extension EditAppearanceViewController {
         return cell ?? UITableViewCell()
     }
     
-    func stringCell(text: String?, labelText: String?, onTextChange: ((String) -> Void)?, for indexPath: IndexPath, sizingOnly: Bool) -> TextInputCell {
+    func stringCell(text: String?, placeholder: String? = nil, labelText: String?, onTextChange: ((String) -> Void)?, for indexPath: IndexPath, sizingOnly: Bool) -> TextInputCell {
         let cell = sizingOnly
             ? textInputSizingCell
             : tableView.dequeueReusableCell(withIdentifier: TextInputCell.reuseId, for: indexPath) as? TextInputCell
@@ -222,6 +239,7 @@ extension EditAppearanceViewController {
         cell?.labelText = labelText
         cell?.textField.autocorrectionType = .no
         cell?.textField.returnKeyType = .done
+        cell?.placeholderText = placeholder
         cell?.dismissKeyboardOnReturn = true
         cell?.onTextChange = onTextChange
         cell?.textFieldLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).regular.withSize(cell?.textFieldLabel.font.pointSize ?? 16)
@@ -247,6 +265,9 @@ extension EditAppearanceViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch Section(rawValue: indexPath.section) {
+        case .some(.name):
+            tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+            tableView.scrollToRow(at: indexPath, at: .none, animated: true)
         case .some(.logo):
             if isChooseNewLogoRow(indexPath) {
                 presentPhotoLibrary()
