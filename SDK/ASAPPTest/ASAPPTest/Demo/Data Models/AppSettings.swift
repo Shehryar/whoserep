@@ -213,11 +213,11 @@ fileprivate extension AppSettings {
         let white = Color(uiColor: .white)!
         
         return [
-            AppearanceConfig(brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
+            AppearanceConfig(name: "ASAPP", brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
                 .helpButton: "HELP"
             ], fontFamilyName: .asapp),
             
-            AppearanceConfig(brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
+            AppearanceConfig(name: "Spear", brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
                 .demoNavBar: Color(uiColor: UIColor(white: 0.01, alpha: 1))!,
                 .brandPrimary: boostOrange,
                 .brandSecondary: boostGrey,
@@ -227,7 +227,7 @@ fileprivate extension AppSettings {
                 .helpButton: "CHAT"
             ], fontFamilyName: .boost),
             
-            AppearanceConfig(brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
+            AppearanceConfig(name: "Tetris", brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
                 .brandPrimary: telstraBlue,
                 .brandSecondary: telstraBlue,
                 .textDark: black,
