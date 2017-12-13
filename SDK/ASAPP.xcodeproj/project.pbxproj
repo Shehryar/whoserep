@@ -359,6 +359,8 @@
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
 		3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B441FA223810085C2DA /* InvalidatableInput.swift */; };
 		3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */; };
+		3A4FC2811FE031B30098BAE2 /* DropdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */; };
+		3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2821FE063810098BAE2 /* DropdownView.swift */; };
 		3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */; };
 		3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */; };
 		3A4FEEFD1F55E31F00338B00 /* icon-arrow-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */; };
@@ -393,6 +395,9 @@
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
 		3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */; };
 		3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */; };
+		3ADD607C1FE1CD9900FC783C /* caretDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607B1FE1CD7A00FC783C /* caretDown.png */; };
+		3ADD607D1FE1CD9900FC783C /* caretDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607A1FE1CD7900FC783C /* caretDown@2x.png */; };
+		3ADD607E1FE1CD9900FC783C /* caretDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD60791FE1CD7900FC783C /* caretDown@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -750,6 +755,8 @@
 		3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@2x.png"; sourceTree = "<group>"; };
 		3A391B441FA223810085C2DA /* InvalidatableInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidatableInput.swift; sourceTree = "<group>"; };
 		3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownItem.swift; sourceTree = "<group>"; };
+		3A4FC2821FE063810098BAE2 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
 		3A4FEEFA1F55E31F00338B00 /* icon-arrow-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-left@3x.png"; sourceTree = "<group>"; };
@@ -784,6 +791,9 @@
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
 		3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManager.swift; sourceTree = "<group>"; };
+		3ADD60791FE1CD7900FC783C /* caretDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caretDown@3x.png"; sourceTree = "<group>"; };
+		3ADD607A1FE1CD7900FC783C /* caretDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caretDown@2x.png"; sourceTree = "<group>"; };
+		3ADD607B1FE1CD7A00FC783C /* caretDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caretDown.png; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -872,9 +882,11 @@
 			isa = PBXGroup;
 			children = (
 				30F6B4CB1EC24C2F00ABA570 /* _RootComponentWrapperView.swift */,
+				3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */,
 				281C34791E7F092C001A2AA3 /* ButtonView.swift */,
 				305FF5D71E857427004DD9D5 /* CheckboxView.swift */,
 				30F6B4C91EC2476E00ABA570 /* Checkbox.swift */,
+				3A4FC2821FE063810098BAE2 /* DropdownView.swift */,
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				307DBE7A1E9D65F900B8F10F /* PageControlView.swift */,
@@ -886,7 +898,6 @@
 				288084FF1E874BF900240A5D /* SliderView.swift */,
 				307DBE7E1E9E827500B8F10F /* TextAreaView.swift */,
 				30EF00861E82CB1B004B1492 /* TextInputView.swift */,
-				3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */,
 			);
 			path = "Core Components";
 			sourceTree = "<group>";
@@ -1114,6 +1125,7 @@
 				30131FB91EB10FD0009E7299 /* CarouselViewItem.swift */,
 				30F6B4C71EC2466E00ABA570 /* CheckboxViewItem.swift */,
 				30131FBA1EB10FD0009E7299 /* CheckboxItem.swift */,
+				3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */,
 				30131FBB1EB10FD0009E7299 /* IconItem.swift */,
 				30131FBC1EB10FD0009E7299 /* LabelItem.swift */,
 				30131FBD1EB10FD0009E7299 /* PageControlItem.swift */,
@@ -1379,6 +1391,9 @@
 				3046CE511E8AF0C90022AEE5 /* arrowOutgoing.png */,
 				3046CE521E8AF0C90022AEE5 /* arrowOutgoing@2x.png */,
 				3046CE531E8AF0C90022AEE5 /* arrowOutgoing@3x.png */,
+				3ADD607B1FE1CD7A00FC783C /* caretDown.png */,
+				3ADD607A1FE1CD7900FC783C /* caretDown@2x.png */,
+				3ADD60791FE1CD7900FC783C /* caretDown@3x.png */,
 				3046CEA81E8AF6FC0022AEE5 /* checkmarkCircle.png */,
 				3046CEA91E8AF6FC0022AEE5 /* checkmarkCircle@2x.png */,
 				3046CEAA1E8AF6FC0022AEE5 /* checkmarkCircle@3x.png */,
@@ -1895,6 +1910,7 @@
 				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
 				3A0E7FA91FB5149B008F9544 /* thumbsUp@2x.png in Resources */,
+				3ADD607D1FE1CD9900FC783C /* caretDown@2x.png in Resources */,
 				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				3025D9A81E527FCC004149D7 /* icon-error-alert-filled@3x.png in Resources */,
 				302A20BB1E5E2CFB007C522A /* icon-star-filled@2x.png in Resources */,
@@ -1907,6 +1923,7 @@
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
+				3ADD607E1FE1CD9900FC783C /* caretDown@3x.png in Resources */,
 				3025D9AD1E527FDB004149D7 /* icon-credit-card@2x.png in Resources */,
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,
@@ -1914,6 +1931,7 @@
 				3046CE901E8AF0C90022AEE5 /* user.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				3046CE911E8AF0C90022AEE5 /* user@2x.png in Resources */,
+				3ADD607C1FE1CD9900FC783C /* caretDown.png in Resources */,
 				28AEC0B61D888FFD00139C7D /* map-equipment.png in Resources */,
 				30DF3F681F26911000D6DB02 /* clock@2x.png in Resources */,
 				3A4FEEFF1F55E31F00338B00 /* icon-arrow-left.png in Resources */,
@@ -1996,6 +2014,7 @@
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
 				30226CF41D493F5300871453 /* ChatMessagesView.swift in Sources */,
+				3A4FC2811FE031B30098BAE2 /* DropdownItem.swift in Sources */,
 				302381341E858F33001C6251 /* BaseComponentView.swift in Sources */,
 				30131FA41EAFB5F5009E7299 /* UILabel+ASAPPAppearance.swift in Sources */,
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
@@ -2053,6 +2072,7 @@
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
+				3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */,
 				3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */,
 				30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */,
 				307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */,

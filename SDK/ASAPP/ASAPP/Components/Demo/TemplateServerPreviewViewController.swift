@@ -24,6 +24,8 @@ public class TemplateServerPreviewViewController: RefreshableTableViewController
     
     // MARK: Properties
     
+    let classificationKey = "asapp_template_server_preview_classification"
+    
     let reuseIdLeftTextCell = "LeftTextCell"
     
     let reuseIdCenterTextCell = "CenterTextCell"
@@ -36,6 +38,8 @@ public class TemplateServerPreviewViewController: RefreshableTableViewController
         super.commonInit()
         
         title = "Template Previewer"
+        
+        classification = UserDefaults.standard.string(forKey: classificationKey)
         
         tableView.register(COMTextInputCell.self, forCellReuseIdentifier: COMTextInputCell.reuseId)
     }
@@ -166,6 +170,7 @@ extension TemplateServerPreviewViewController {
             
         case SpecificIntentRow.button.rawValue:
             if let classification = classification, classification.count > 0 {
+                UserDefaults.standard.set(classification, forKey: classificationKey)
                 showPreview(for: classification)
             } else {
                 showAlert(with: "Please enter a classification")

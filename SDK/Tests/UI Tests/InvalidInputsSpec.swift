@@ -26,6 +26,11 @@ class InvalidInputsSpec: QuickSpec {
                 TestUtil.setUpASAPP()
             }
             
+            beforeEach {
+                ASAPP.strings = ASAPPStrings()
+                ASAPP.styles = ASAPPStyles()
+            }
+            
             context("marked invalid with no specific error messages") {
                 it("has a valid snapshot") {
                     let dict = TestUtil.dictForFile(named: "change-pin-form-proper-padding")

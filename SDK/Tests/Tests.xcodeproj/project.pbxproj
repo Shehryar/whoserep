@@ -73,6 +73,9 @@
 		3A3D92601F98F1B800E1FAE3 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A3D92611F98F1BC00E1FAE3 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */; };
+		3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
+		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
+		3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
@@ -84,6 +87,7 @@
 		3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
 		3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
 		3ACF189C1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */; };
+		3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -194,6 +198,9 @@
 		3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidInputsSpec.swift; sourceTree = "<group>"; };
 		3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPButtonSpec.swift; sourceTree = "<group>"; };
 		3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewSpec.swift; sourceTree = "<group>"; };
+		3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
+		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
+		3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -316,6 +323,7 @@
 				3A797B6D1F97A29D00883ABF /* AppDelegate.swift */,
 				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
 				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
+				3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */,
 				3A391B371FA14E080085C2DA /* FormValidation.swift */,
 				3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */,
 				3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */,
@@ -354,14 +362,16 @@
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
 				3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */,
+				3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */,
 				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
-				3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */,
 				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
 				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
+				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
+				3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */,
 				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
 				3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */,
 				3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */,
@@ -562,6 +572,7 @@
 				3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
+				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
@@ -608,9 +620,11 @@
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
+				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
 				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A391B431FA14ED90085C2DA /* FormValidationTestCase.swift in Sources */,
+				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3A0521681F992E720072D089 /* ChatInputViewSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

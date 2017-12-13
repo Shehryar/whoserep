@@ -114,7 +114,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
         guard fitToWidth > 0 && fitToHeight > 0 else {
             return .zero
         }
-    
+        
         let fittedInputSize = textInputView.sizeThatFits(CGSize(width: fitToWidth, height: fitToHeight))
         guard fittedInputSize.width > 0 && fittedInputSize.height > 0 else {
             return .zero

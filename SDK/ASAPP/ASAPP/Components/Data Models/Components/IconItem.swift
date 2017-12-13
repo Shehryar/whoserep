@@ -12,6 +12,7 @@ enum ComponentIcon: String {
     case alertError
     case alertWarning
     case arrowOutgoing
+    case caretDown
     case checkmarkCircle
     case checkmarkThick
     case checkmarkThin

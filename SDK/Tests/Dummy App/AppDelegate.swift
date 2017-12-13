@@ -14,7 +14,8 @@ typealias TestCaseViewController = UIViewController & IdentifiableTestCase
 let testCaseViewControllers: [TestCaseViewController.Type] = [
     TextAreaMaxLength.self,
     TextInputMaxLength.self,
-    FormValidation.self
+    FormValidation.self,
+    Dropdown.self
 ]
 
 @UIApplicationMain
