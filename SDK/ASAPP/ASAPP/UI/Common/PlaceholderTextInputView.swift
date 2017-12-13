@@ -155,6 +155,11 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
+    override var inputView: UIView? {
+        get { return textField.inputView }
+        set { textField.inputView = newValue }
+    }
+    
     var adjustsFontSizeToFitWidth: Bool {
         set { textField.adjustsFontSizeToFitWidth = newValue }
         get { return textField.adjustsFontSizeToFitWidth }
@@ -240,7 +245,6 @@ class PlaceholderTextInputView: UIView {
         textField.textColor = textColor
         textField.font = font
         textField.tintColor = UIColor(red: 0.180, green: 0.627, blue: 0.867, alpha: 1)
-        // Default text attributes with kern has weird bug that breaks side-scrolling
         textField.delegate = self
         addSubview(textField)
 
@@ -472,7 +476,7 @@ extension PlaceholderTextInputView {
         
         onEndEditing?()
         
-        return super.resignFirstResponder()
+        return textField.resignFirstResponder() && super.resignFirstResponder()
     }
     
     override var isFirstResponder: Bool {
@@ -487,6 +491,7 @@ extension PlaceholderTextInputView {
         }
         
         if textEditingEnabled {
+            textField.delegate = self
             textField.becomeFirstResponder()
         } else {
             becomeFirstResponder()

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol InteractionHandler: class {
-    
+
     func didTapButtonView(_ buttonView: ButtonView, with buttonItem: ButtonItem)
 }
 
