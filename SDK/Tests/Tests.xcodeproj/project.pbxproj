@@ -88,6 +88,13 @@
 		3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
 		3ACF189C1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */; };
 		3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */; };
+		3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */; };
+		3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60811FE4485A00FC783C /* IconViewSpec.swift */; };
+		3ADD60861FE451EE00FC783C /* CarouselViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60851FE451EE00FC783C /* CarouselViewSpec.swift */; };
+		3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */; };
+		3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */; };
+		3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */; };
+		3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -214,6 +221,13 @@
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "gravity-fill-test.json"; sourceTree = "<group>"; };
 		3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngineSpec.swift; sourceTree = "<group>"; };
+		3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxViewSpec.swift; sourceTree = "<group>"; };
+		3ADD60811FE4485A00FC783C /* IconViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewSpec.swift; sourceTree = "<group>"; };
+		3ADD60851FE451EE00FC783C /* CarouselViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewSpec.swift; sourceTree = "<group>"; };
+		3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarViewSpec.swift; sourceTree = "<group>"; };
+		3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewSpec.swift; sourceTree = "<group>"; };
+		3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSpec.swift; sourceTree = "<group>"; };
+		3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSpec.swift; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -360,14 +374,21 @@
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
+				3ADD60851FE451EE00FC783C /* CarouselViewSpec.swift */,
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
+				3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */,
 				3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */,
 				3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */,
+				3ADD60811FE4485A00FC783C /* IconViewSpec.swift */,
 				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
+				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
+				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
+				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
+				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
 				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
 				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
 				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
@@ -601,14 +622,21 @@
 			files = (
 				3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
+				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
+				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
+				3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */,
 				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
 				3ACF189C1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift in Sources */,
 				3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */,
+				3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
+				3ADD60861FE451EE00FC783C /* CarouselViewSpec.swift in Sources */,
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,
+				3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */,
+				3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */,
 				3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */,
 				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,

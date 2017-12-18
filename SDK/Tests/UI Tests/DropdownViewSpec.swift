@@ -14,29 +14,7 @@ import Nimble_Snapshots
 
 class DropdownViewSpec: QuickSpec {
     override func spec() {
-        describe("DropdownView") {
-            func configStyle() -> ComponentStyle {
-                ASAPP.styles = ASAPPStyles()
-                ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
-                ASAPP.styles.colors.controlSecondary = .blue
-                ASAPP.styles.colors.controlTint = .brown
-                
-                var style = ComponentStyle()
-                style.alignment = .center
-                style.backgroundColor = .white
-                style.borderColor = .red
-                style.borderWidth = 1
-                style.color = .blue
-                style.cornerRadius = 10
-                style.fontSize = 22
-                style.letterSpacing = 0.5
-                style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                style.padding = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                style.textType = .body
-                
-                return style
-            }
-            
+        describe("DropdownView") {            
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -52,12 +30,7 @@ class DropdownViewSpec: QuickSpec {
                 var style: ComponentStyle!
                 
                 beforeEach {
-                    ASAPP.styles = ASAPPStyles()
-                    ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
-                    ASAPP.styles.colors.controlSecondary = .blue
-                    ASAPP.styles.colors.controlTint = .brown
-                    
-                    style = configStyle()
+                    style = TestUtil.createStyle()
                 }
                 
                 context("with a placeholder") {
