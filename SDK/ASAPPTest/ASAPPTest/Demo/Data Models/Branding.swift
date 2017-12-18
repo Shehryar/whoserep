@@ -110,21 +110,10 @@ extension Branding {
     
     fileprivate class func createBoostStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
-        let primary = config.getUIColor(.brandPrimary)
         
         // Boost special cases
         
         styles.segue = .present
-        
-        styles.colors.predictiveInput = ASAPPInputColors(
-            background: UIColor(hexString: "#605f60")!,
-            text: .white,
-            placeholderText: UIColor(hexString: "#dedede")!,
-            tint: primary,
-            border: nil,
-            primaryButton: primary,
-            secondaryButton: primary)
-        
         styles.sendButtonImage = nil
         
         return styles
@@ -144,6 +133,9 @@ extension Branding {
         styles.colors.predictiveNavBarBackground = .white
         styles.colors.predictiveNavBarTitle = primary
         styles.colors.predictiveNavBarButton = primary
+        styles.colors.predictiveTextSecondary = .white
+        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor.white.withAlphaComponent(0.1), textColor: .white, border: .white)
+        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
         styles.colors.predictiveGradientColors = [
             UIColor.white.withAlphaComponent(0.9),
             primary,
@@ -158,6 +150,7 @@ extension Branding {
             border: .white,
             primaryButton: primary,
             secondaryButton: primary)
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: primary)
         
         return styles
     }
@@ -171,15 +164,16 @@ extension Branding {
         let secondary = config.getUIColor(.brandSecondary)
         let textLight = config.getUIColor(.textLight)
         let textDark = config.getUIColor(.textDark)
-        let buttonTextColor = primary.isDark() ? primary : secondary.isDark() ? secondary : textDark
+        let buttonTextColor = UIColor.white.chooseFirstAcceptableColor(of: [primary, secondary, textDark])
         let predictiveBackground = secondary
+        let predictiveText = predictiveBackground.chooseFirstAcceptableColor(of: [textLight, textDark])
         
         styles.colors.controlTint = primary
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: buttonTextColor)
         styles.navBarStyles.buttonStyle = .text
         styles.colors.navBarBackground = primary
-        styles.colors.navBarTitle = styles.colors.navBarBackground.isDark() ? textLight : textDark
+        styles.colors.navBarTitle = styles.colors.navBarBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
         styles.colors.navBarButton = styles.colors.navBarTitle
         styles.colors.predictiveNavBarBackground = styles.colors.navBarBackground
         styles.colors.predictiveNavBarTitle = styles.colors.navBarTitle
@@ -188,24 +182,28 @@ extension Branding {
         styles.colors.replyMessageText = textDark
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: buttonTextColor)
         styles.colors.predictiveGradientColors = [predictiveBackground, predictiveBackground, predictiveBackground]
-        styles.colors.predictiveTextPrimary = predictiveBackground.isDark() ? textLight : textDark
-        styles.colors.predictiveTextSecondary = styles.colors.predictiveTextPrimary
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: textLight.withAlphaComponent(0.1), textColor: textLight, border: textLight)
-        styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: textLight.withAlphaComponent(0.1), textColor: textLight, border: textLight)
+        styles.colors.predictiveTextPrimary = predictiveBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
+        styles.colors.predictiveTextSecondary = predictiveText
+        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: predictiveText.withAlphaComponent(0.1), textColor: predictiveText, border: predictiveText)
+        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
         styles.colors.helpButtonBackground = primary
         styles.colors.helpButtonText = primary.isDark() ? textLight : textDark
         
         styles.textStyles.predictiveHeader = ASAPPTextStyle(font: config.fontFamily.bold, size: 28, letterSpacing: 1, color: textLight)
         styles.textStyles.predictiveSubheader = ASAPPTextStyle(font: config.fontFamily.regular, size: 17, letterSpacing: 0, color: textLight)
         
+        let predictiveInputBackground = predictiveBackground.chooseHighestContrast(of: [predictiveBackground.colorWithRelativeBrightness(0.1)!, predictiveBackground.colorWithRelativeBrightness(-0.1)!])
+        let predictiveInputText = predictiveInputBackground.chooseHighestContrast(of: [textLight, textDark])
+        let predictiveInputPlaceholder = predictiveInputText.isDark() ? predictiveInputText.colorWithRelativeBrightness(0.2)! : predictiveInputText.colorWithRelativeBrightness(-0.2)!
+        let predictiveInputTint = predictiveInputBackground.chooseFirstAcceptableColor(of: [primary, secondary, textDark, textLight])
         styles.colors.predictiveInput = ASAPPInputColors(
-            background: .white,
-            text: textDark,
-            placeholderText: textDark.colorWithRelativeBrightness(0.5)!,
-            tint: primary,
+            background: predictiveInputBackground,
+            text: predictiveInputText,
+            placeholderText: predictiveInputPlaceholder,
+            tint: predictiveInputTint,
             border: nil,
-            primaryButton: primary,
-            secondaryButton: primary)
+            primaryButton: predictiveInputTint,
+            secondaryButton: predictiveInputTint)
         
         return styles
     }
