@@ -34,7 +34,7 @@ platform :ios do
 
     # copy IPA so CircleCI can save it as an artifact"
     sh "mkdir -p build"
-    sh "cp ASAPPTest.ipa build/ASAPPTest.ipa"
+    sh "cp fastlane/build/ASAPPTest.ipa build/ASAPPTest.ipa"
     
     clean_build_artifacts
 
