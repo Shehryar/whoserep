@@ -33,8 +33,8 @@ platform :ios do
     )
 
     # copy IPA so CircleCI can save it as an artifact"
-    sh "mkdir -p build"
-    sh 'cp "$IPA_OUTPUT_PATH" build/'
+    sh "mkdir -p ~/output/build"
+    sh 'cp "$IPA_OUTPUT_PATH" ~/output/build/'
     
     clean_build_artifacts
 
