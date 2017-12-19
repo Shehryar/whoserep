@@ -27,10 +27,14 @@ platform :ios do
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
-      groups: ['asapp'],
+      groups: ['asapp-ios-alpha'],
       notes: changelog_from_git_commits,
       notifications: true
     )
+
+    # copy IPA so CircleCI can save it as an artifact"
+    sh "mkdir build"
+    sh "cp ASAPPTest.ipa build/ASAPPTest.ipa"
     
     clean_build_artifacts
 

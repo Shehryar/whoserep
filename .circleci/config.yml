@@ -13,6 +13,9 @@ jobs:
       GYM_CODE_SIGNING_IDENTITY: 'iPhone Distribution: ASAPP Inc.'
     shell: /bin/bash --login -o pipefail
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e3:f1:08:d5:e9:dd:50:d9:37:29:ab:11:83:34:9a:1d"
       - checkout
       - run:
           name: Install code signing credentials
@@ -35,7 +38,7 @@ jobs:
           path: ../Library/Logs/gym/ASAPPTest-ASAPPTest.log
           destination: gym
       - store_artifacts:
-          path: ./ASAPPTest.ipa
+          path: ./build/ASAPPTest.ipa
           destination: ipa
 
 workflows:
