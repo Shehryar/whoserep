@@ -27,7 +27,7 @@ platform :ios do
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
-      groups: ['asapp-ios-alpha'],
+      groups: ['asapp'],
       notes: changelog_from_git_commits,
       notifications: true
     )
