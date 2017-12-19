@@ -14,6 +14,8 @@ class ProgressBarItem: Component {
     
     enum JSONKey: String {
         case fillPercentage
+        case trackColor
+        case trackFillColor
     }
     
     // MARK: - Defaults
@@ -25,6 +27,10 @@ class ProgressBarItem: Component {
     // MARK: - Properties
     
     let fillPercentage: CGFloat /* 0...1 */
+    
+    let trackColor: UIColor
+    
+    let trackFillColor: UIColor
     
     // MARK: - Component Properties
     
@@ -44,6 +50,10 @@ class ProgressBarItem: Component {
                    content: [String: Any]? = nil) {
         self.fillPercentage = content?.float(for: JSONKey.fillPercentage.rawValue)
             ?? ProgressBarItem.defaultFillPercentage
+        
+        self.trackColor = content?.hexColor(for: JSONKey.trackColor.rawValue) ?? style.backgroundColor ?? ASAPP.styles.colors.controlSecondary
+        
+        self.trackFillColor = content?.hexColor(for: JSONKey.trackFillColor.rawValue) ?? style.color ?? ASAPP.styles.colors.controlTint
         
         super.init(id: id,
                    name: name,

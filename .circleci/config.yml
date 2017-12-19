@@ -1,0 +1,49 @@
+# .circleci/config.yml
+
+version: 2
+
+jobs:
+  fastlane-beta:
+    macos:
+      xcode: "9.2.0"
+    working_directory: /Users/distiller/output
+    environment:
+      XCODE_SCHEME: ASAPPTest
+      XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
+      GYM_CODE_SIGNING_IDENTITY: 'iPhone Distribution: ASAPP Inc.'
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - run:
+          name: Install code signing credentials
+          command: './scripts/install_codesigning_credentials.sh'
+      - restore_cache:
+          keys:
+            - v1-gems-{{ checksum "Gemfile.lock" }}
+            - v1-gems-
+      - run:
+          name: Bundle install
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - save_cache:
+          key: v1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane beta
+      - store_artifacts:
+          path: ../Library/Logs/gym/ASAPPTest-ASAPPTest.log
+          destination: gym
+      - store_artifacts:
+          path: ./ASAPPTest.ipa
+          destination: ipa
+
+workflows:
+  version: 2
+  deploy-beta:
+    jobs:
+      - fastlane-beta:
+          filters:
+            branches:
+              only: master
+

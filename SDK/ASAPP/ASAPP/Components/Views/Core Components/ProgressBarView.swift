@@ -18,10 +18,11 @@ class ProgressBarView: BaseComponentView {
     
     override var component: Component? {
         didSet {
-            let style = progressBarItem?.style
-            progressBar.backgroundColor = style?.color ?? ASAPP.styles.colors.controlTint
-            progressBarContainer.backgroundColor = style?.backgroundColor ?? ASAPP.styles.colors.controlSecondary
-            backgroundColor = UIColor.clear
+            if let progressBarItem = progressBarItem {
+                backgroundColor = progressBarItem.style.backgroundColor ?? .clear
+                progressBar.backgroundColor = progressBarItem.trackFillColor
+                progressBarContainer.backgroundColor = progressBarItem.trackColor
+            }
         }
     }
     
@@ -48,7 +49,7 @@ class ProgressBarView: BaseComponentView {
         let barHeight = progressBarContainer.bounds.height
         
         let fillPercentage = progressBarItem?.fillPercentage ?? 0.0
-        let barWidth = floor(progressBarContainer.bounds.width * fillPercentage)
+        let barWidth = max(barHeight, floor(progressBarContainer.bounds.width * fillPercentage))
         progressBar.frame = CGRect(x: 0, y: 0, width: barWidth, height: barHeight)
         
         progressBarContainer.layer.cornerRadius = barHeight / 2.0
