@@ -45,7 +45,7 @@ class AppSettings: NSObject {
     }
     
     var appId: String {
-        return AppSettings.getString(forKey: .appId, defaultValue: AppSettings.defaultAppId)
+        return AppSettings.getString(forKey: .appId, defaultValue: AppSettings.defaultAppId).lowercased()
     }
     
     var regionCode: String {
