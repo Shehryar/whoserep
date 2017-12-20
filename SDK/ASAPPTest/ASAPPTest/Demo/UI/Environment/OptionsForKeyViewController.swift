@@ -117,21 +117,28 @@ extension OptionsForKeyViewController {
     private func createNewOption() {
         let viewController = TextInputViewController()
         viewController.title = "Add New Option"
+        
         if let title = title {
             viewController.instructionText = "Add \(title)"
         } else {
             viewController.instructionText = "Add Option"
         }
-        viewController.onFinish = { [weak self] (text) in
+        
+        viewController.onFinish = { [weak self] text in
             guard !text.isEmpty,
-                let strongSelf = self, let optionsListKey = strongSelf.optionsListKey else {
-                    return
+                  let strongSelf = self,
+                  let optionsListKey = strongSelf.optionsListKey else {
+                return
             }
             
             if strongSelf.isRestrictedText(text) {
-                strongSelf.showAlert(title: "Sorry!",
-                                     message: "You are not allowed to do this.")
+                strongSelf.showAlert(title: "Sorry!", message: "You are not allowed to do this.")
                 return
+            }
+            
+            var text = text
+            if strongSelf.selectedOptionKey == AppSettings.Key.appId {
+                text = text.lowercased()
             }
             
             AppSettings.addStringToArray(text, forKey: optionsListKey)
@@ -140,6 +147,7 @@ extension OptionsForKeyViewController {
             
             strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
         }
+        
         navigationController?.pushViewController(viewController, animated: true)
     }
     

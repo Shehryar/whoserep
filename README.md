@@ -1,18 +1,18 @@
 ASAPP - iOS
 ===========
 
-© 2017 Asapp Inc, all rights reserved.
+© 2017 ASAPP Inc, all rights reserved.
 
 Organization
 ------------
 
 ```
 .
-├── SDK			Chat SDK
-├── Provisioning	Provisioning profile and credentials
-├── fastlane		fastlane configuration files
-├── package 		Directory containing docs, the built framework, and example projects that is delivered to partners
-├── scripts		    Utility scripts
+├── SDK             Chat SDK
+├── Provisioning    Provisioning profile and credentials
+├── fastlane        fastlane configuration files
+├── package         Directory containing docs, the built framework, and example projects that is delivered to partners
+├── scripts         Utility scripts
 ```
 
 iOS Development
@@ -22,7 +22,7 @@ iOS Development
 
 Program | Version
 --------|---------
-Xcode   | 9.1
+Xcode   | 9.2
 
 ### Steps for running the apps
 
@@ -52,13 +52,13 @@ Manually distributing a beta build of the test app (for QA)
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.2
+ruby      | 2.4.1
 [bundler](https://github.com/bundler/bundler)   | 1.16.0
-[fastlane](https://github.com/fastlane/fastlane)  | 2.64.0
+[fastlane](https://github.com/fastlane/fastlane)  | 2.70.1
 
 #### Note
 
-It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.2 is installed, first install `rbenv`, install Ruby 2.4.2, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
+It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.1 is installed, first install `rbenv`, install Ruby 2.4.1, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
 
 ### Setup
 
@@ -84,7 +84,7 @@ Generating API reference pages from documentation comments
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.2
+ruby      | 2.4.1
 [bundler](https://github.com/bundler/bundler)   | 1.16.0
 [jazzy](https://github.com/realm/jazzy)  | 0.8.4
 
