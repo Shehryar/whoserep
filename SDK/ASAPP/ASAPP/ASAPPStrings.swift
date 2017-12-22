@@ -20,10 +20,13 @@ public class ASAPPStrings: NSObject {
     // MARK: General
     
     /// The text of an `ASAPPButton`.
-    public var asappButton: String = ASAPPLocalizedString("HELP")
+    public var asappButton = ASAPPLocalizedString("HELP")
     
     /// The accessibility label for the close/back button.
-    public var accessibilityClose: String = ASAPPLocalizedString("Close Help")
+    public var accessibilityClose = ASAPPLocalizedString("Close Help")
+    
+    /// The accessibility label for the send button.
+    public var accessibilitySend = ASAPPLocalizedString("Send")
     
     // MARK: Predictive
     
@@ -31,33 +34,33 @@ public class ASAPPStrings: NSObject {
     public var predictiveTitle: String?
     
     /// The text for the button that displays the chat view.
-    public var predictiveBackToChatButton: String = ASAPPLocalizedString("HISTORY")
+    public var predictiveBackToChatButton = ASAPPLocalizedString("HISTORY")
     
     /// The welcome text in the predictive view.
-    public var predictiveWelcomeText: String = ASAPPLocalizedString("How can we help?")
+    public var predictiveWelcomeText = ASAPPLocalizedString("How can we help?")
     
     /// The text for the subheader displayed below the welcome text.
-    public var predictiveOtherSuggestions: String = ASAPPLocalizedString("OTHER SUGGESTIONS:")
+    public var predictiveOtherSuggestions = ASAPPLocalizedString("OTHER SUGGESTIONS:")
     
     /// The placeholder text for the input field of the predictive view.
-    public var predictiveInputPlaceholder: String = ASAPPLocalizedString("Ask a new question...")
+    public var predictiveInputPlaceholder = ASAPPLocalizedString("Ask a new question...")
     
     /// The text for the send button of the predictive view.
     public var predictiveSendButton: String?
     
     /// The text displayed when no connection is available in the predictive view.
-    public var predictiveNoConnectionText: String = ASAPPLocalizedString("PLEASE CHECK YOUR CONNECTION...")
+    public var predictiveNoConnectionText = ASAPPLocalizedString("PLEASE CHECK YOUR CONNECTION...")
 
     // MARK: Connection Status Banner
     
     /// The text displayed in the chat view when a connection has been established.
-    public var connectionBannerConnected: String = ASAPPLocalizedString("Connection Established")
+    public var connectionBannerConnected = ASAPPLocalizedString("Connection Established")
     
     /// The text displayed in the chat view when a connection is being established.
-    public var connectionBannerConnecting: String = ASAPPLocalizedString("Connecting...")
+    public var connectionBannerConnecting = ASAPPLocalizedString("Connecting...")
     
     /// The text displayed in the chat view when there is no connection available.
-    public var connectionBannerDisconnected: String = ASAPPLocalizedString("Not connected. Retry connection?")
+    public var connectionBannerDisconnected = ASAPPLocalizedString("Not connected. Retry connection?")
     
     // MARK: Chat Messages View
     
@@ -65,19 +68,19 @@ public class ASAPPStrings: NSObject {
     public var chatTitle: String?
     
     /// The text for the header displayed when there is no chat history.
-    public var chatEmptyTitle: String = ASAPPLocalizedString("Hi there, how can we help you?")
+    public var chatEmptyTitle = ASAPPLocalizedString("Hi there, how can we help you?")
     
     /// The text for the message displayed when there is no chat history.
-    public var chatEmptyMessage: String = ASAPPLocalizedString("Tap 'ASK' to get started.")
+    public var chatEmptyMessage = ASAPPLocalizedString("Tap 'ASK' to get started.")
     
     /// The text for the navigation bar button that appears in the chat view when not chatting with an agent. When tapped, it shows the predictive view. Overridden by `ASAPPNavBarButtonImages.ask`.
-    public var chatAskNavBarButton: String = ASAPPLocalizedString("ASK")
+    public var chatAskNavBarButton = ASAPPLocalizedString("ASK")
     
     /// The text for the navigation bar button that appears in the chat view when chatting with an agent. When tapped, it ends the chat. Overridden by `ASAPPNavBarButtonImages.end`.
-    public var chatEndChatNavBarButton: String = ASAPPLocalizedString("END CHAT")
+    public var chatEndChatNavBarButton = ASAPPLocalizedString("END CHAT")
     
     /// The placeholder text for the input field of the chat view.
-    public var chatInputPlaceholder: String = ASAPPLocalizedString("Enter a message...")
+    public var chatInputPlaceholder = ASAPPLocalizedString("Enter a message...")
     
     /// The text for the send button of the chat view.
     public var chatInputSend: String?
@@ -85,77 +88,77 @@ public class ASAPPStrings: NSObject {
     // MARK: Generic
     
     /// The text displayed when the screen contents are hidden.
-    public var secureScreenCoverText: String = ASAPPLocalizedString("View content hidden for security purposes.\n\nTap to dismiss.")
+    public var secureScreenCoverText = ASAPPLocalizedString("View content hidden for security purposes.\n\nTap to dismiss.")
     
     /// The title displayed when a request fails to send.
-    public var requestErrorGenericFailureTitle: String = ASAPPLocalizedString("Oops!")
+    public var requestErrorGenericFailureTitle = ASAPPLocalizedString("Oops!")
     
     /// The text displayed when a request fails to send.
-    public var requestErrorGenericFailure: String = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")
+    public var requestErrorGenericFailure = ASAPPLocalizedString("We were unable to complete your request. Please try again later.")
     
     /// The text for the dismiss button of a generic error alert.
-    public var alertDismissButton: String = ASAPPLocalizedString("Ok")
+    public var alertDismissButton = ASAPPLocalizedString("Ok")
     
     /// The text displayed when a view could not load.
-    public var failureToLoadScreen: String = ASAPPLocalizedString("Oops! We were unable to find what you're looking for. Please try again later.")
+    public var failureToLoadScreen = ASAPPLocalizedString("Oops! We were unable to find what you're looking for. Please try again later.")
     
     /// The text for the retry button displayed when a view could not load.
-    public var failureToLoadScreenReloadButton: String = ASAPPLocalizedString("Try Again")
+    public var failureToLoadScreenReloadButton = ASAPPLocalizedString("Try Again")
     
     /// The text for the close button displayed when a view could not load.
-    public var failureToLoadScreenCloseButton: String = ASAPPLocalizedString("Close")
+    public var failureToLoadScreenCloseButton = ASAPPLocalizedString("Close")
     
     /// The text displayed next to a required form field that was left empty.
-    public var requiredFieldEmptyMessage: String = ASAPPLocalizedString("Required field")
+    public var requiredFieldEmptyMessage = ASAPPLocalizedString("Required field")
     
     // MARK: Ending Chat
     
     /// The title for the alert displayed when ending chat.
-    public var endChatConfirmationTitle: String = ASAPPLocalizedString("Are you sure?")
+    public var endChatConfirmationTitle = ASAPPLocalizedString("Are you sure?")
     
     /// The text for the alert displayed when ending chat.
-    public var endChatConfirmationMessage: String = ASAPPLocalizedString("This will end your current conversation.")
+    public var endChatConfirmationMessage = ASAPPLocalizedString("This will end your current conversation.")
     
     /// The text for the confirmation button of the end chat alert.
-    public var endChatConfirmationEndChatButton: String = ASAPPLocalizedString("End Chat")
+    public var endChatConfirmationEndChatButton = ASAPPLocalizedString("End Chat")
     
     /// The text for the cancel button of the end chat alert.
-    public var endChatConfirmationCancelButton: String = ASAPPLocalizedString("Cancel")
+    public var endChatConfirmationCancelButton = ASAPPLocalizedString("Cancel")
     
     // Modal View: Feedback
     
     /// The title for the feedback form.
-    public var feedbackViewTitle: String = ASAPPLocalizedString("How did we do?")
+    public var feedbackViewTitle = ASAPPLocalizedString("How did we do?")
     
     /// The text prompting the user to indicate whether their issues was resolved.
-    public var feedbackIssueResolutionPrompt: String = ASAPPLocalizedString("Was your issue resolved?")
+    public var feedbackIssueResolutionPrompt = ASAPPLocalizedString("Was your issue resolved?")
     
     /// The text indicating that the issue was resolved.
-    public var feedbackIssueResolutionYes: String = ASAPPLocalizedString("YES")
+    public var feedbackIssueResolutionYes = ASAPPLocalizedString("YES")
     
     /// The text indicating that the issue was not resolved.
-    public var feedbackIssueResolutionNo: String = ASAPPLocalizedString("NO")
+    public var feedbackIssueResolutionNo = ASAPPLocalizedString("NO")
     
     /// The text prompting the user to leave feedback, shown as a placeholder in the text area.
-    public var feedbackPrompt: String = ASAPPLocalizedString("Leave Feedback (optional)")
+    public var feedbackPrompt = ASAPPLocalizedString("Leave Feedback (optional)")
     
     /// The text displayed when a rating was no chosen.
-    public var feedbackMissingRatingError: String = ASAPPLocalizedString("Please select a rating before submitting.")
+    public var feedbackMissingRatingError = ASAPPLocalizedString("Please select a rating before submitting.")
     
     /// The text displayed when the rating was sent successfully.
-    public var feedbackSentSuccessMessage: String = ASAPPLocalizedString("Rating successfully sent!")
+    public var feedbackSentSuccessMessage = ASAPPLocalizedString("Rating successfully sent!")
     
     /// The text displayed when a request can't be sent because there is no connection available.
-    public var requestErrorMessageNoConnection: String = ASAPPLocalizedString("Please check your connection and try again.")
+    public var requestErrorMessageNoConnection = ASAPPLocalizedString("Please check your connection and try again.")
     
     /// The text for the cancel button of the modal.
-    public var modalViewCancelButton: String = ASAPPLocalizedString("CANCEL")
+    public var modalViewCancelButton = ASAPPLocalizedString("CANCEL")
     
     /// The text for the submit button of the modal.
-    public var modalViewSubmitButton: String = ASAPPLocalizedString("SUBMIT")
+    public var modalViewSubmitButton = ASAPPLocalizedString("SUBMIT")
     
     /// :nodoc:
-    public var modalViewDoneButton: String = ASAPPLocalizedString("DONE")
+    public var modalViewDoneButton = ASAPPLocalizedString("DONE")
     
     // MARK: Camera Permissions
     

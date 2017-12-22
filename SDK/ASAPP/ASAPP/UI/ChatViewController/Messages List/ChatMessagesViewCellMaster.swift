@@ -115,6 +115,8 @@ extension ChatMessagesViewCellMaster {
                                    detailsVisible: Bool) {
         cell?.messagePosition = listPosition
         cell?.message = message
+        cell?.isAccessibilityElement = true
+        cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
     }
 }

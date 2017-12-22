@@ -118,6 +118,7 @@ class ChatTextBubbleView: UIView {
         label.textContainer.lineFragmentPadding = 0.0
         label.backgroundColor = UIColor.clear
         label.dataDetectorTypes = dataDetectorTypes
+        label.isAccessibilityElement = false
         bubbleView.addSubview(label)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextBubbleView.longPressGestureAction(_:)))

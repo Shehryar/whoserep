@@ -228,6 +228,8 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         sendButton.setImage(image, for: UIControlState())
         sendButton.setImage(image.withAlpha(0.7), for: .highlighted)
         sendButton.setImage(image.withAlpha(0.4), for: .disabled)
+        
+        sendButton.accessibilityLabel = ASAPP.strings.accessibilitySend
     }
     
     func updateSendButtonText() {
