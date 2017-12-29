@@ -58,10 +58,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Instance Methods
     
-    func timeTextForDate(_ date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-    
     func updateTimeLabel() {
         if let time = time {
             dateFormatter.dateFormat = time.dateFormatForMostRecent()

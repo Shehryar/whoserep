@@ -14,7 +14,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
     
     let bubbleView = BubbleView()
     
-    let loadingView = GlowingBallsLoadingView() // BouncingBallsLoadingView()
+    let loadingView = GlowingBallsLoadingView()
     
     // MARK: Properties Layout
     
@@ -29,7 +29,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
         
         bubbleView.fillColor = ASAPP.styles.colors.replyMessageBackground
         bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
-        bubbleView.strokeLineWidth = 0.5
+        bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
         bubbleView.roundedCorners = [.topLeft, .topRight, .bottomRight]
         bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)

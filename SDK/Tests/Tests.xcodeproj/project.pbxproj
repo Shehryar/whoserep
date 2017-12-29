@@ -72,6 +72,9 @@
 		3A3D925F1F98F1A900E1FAE3 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
 		3A3D92601F98F1B800E1FAE3 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A3D92611F98F1BC00E1FAE3 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A4B48F71FF2CB2200988491 /* TableViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */; };
+		3A4B48F91FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */; };
+		3A4B48FB1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */; };
 		3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */; };
 		3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
@@ -83,6 +86,12 @@
 		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C31FB122F9009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
+		3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */; };
+		3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */; };
+		3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */; };
+		3AA1E4F31FF549EB00548E3D /* ChatMessagesEmptyViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F21FF549EB00548E3D /* ChatMessagesEmptyViewSpec.swift */; };
+		3AA1E4F51FF569E300548E3D /* ChatMessagesViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F41FF569E300548E3D /* ChatMessagesViewSpec.swift */; };
+		3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */; };
 		3ACF18981FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
 		3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
 		3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
@@ -204,6 +213,9 @@
 		3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form-proper-padding.json"; sourceTree = "<group>"; };
 		3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidInputsSpec.swift; sourceTree = "<group>"; };
 		3A3D925C1F98F17400E1FAE3 /* ASAPPButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPButtonSpec.swift; sourceTree = "<group>"; };
+		3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSpec.swift; sourceTree = "<group>"; };
+		3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatComponentViewMessageCellSpec.swift; sourceTree = "<group>"; };
+		3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleViewSpec.swift; sourceTree = "<group>"; };
 		3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewSpec.swift; sourceTree = "<group>"; };
 		3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
@@ -219,6 +231,12 @@
 		3A797B8F1F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
+		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
+		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
+		3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellSpec.swift; sourceTree = "<group>"; };
+		3AA1E4F21FF549EB00548E3D /* ChatMessagesEmptyViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesEmptyViewSpec.swift; sourceTree = "<group>"; };
+		3AA1E4F41FF569E300548E3D /* ChatMessagesViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewSpec.swift; sourceTree = "<group>"; };
+		3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSpec.swift; sourceTree = "<group>"; };
 		3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "gravity-fill-test.json"; sourceTree = "<group>"; };
 		3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngineSpec.swift; sourceTree = "<group>"; };
 		3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxViewSpec.swift; sourceTree = "<group>"; };
@@ -375,7 +393,14 @@
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
 				3ADD60851FE451EE00FC783C /* CarouselViewSpec.swift */,
+				3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */,
 				3A0521671F992E720072D089 /* ChatInputViewSpec.swift */,
+				3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */,
+				3AA1E4F21FF549EB00548E3D /* ChatMessagesEmptyViewSpec.swift */,
+				3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */,
+				3AA1E4F41FF569E300548E3D /* ChatMessagesViewSpec.swift */,
+				3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */,
+				3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */,
 				3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */,
 				3ACF189B1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift */,
 				3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */,
@@ -389,6 +414,8 @@
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
+				3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */,
+				3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */,
 				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
 				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
 				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
@@ -628,21 +655,29 @@
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
 				3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */,
 				3AED18F11FA0EB64005955DA /* TextInputViewTestCase.swift in Sources */,
+				3A4B48F71FF2CB2200988491 /* TableViewSpec.swift in Sources */,
+				3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */,
 				3ACF189C1FCDED2F0036B653 /* ComponentLayoutEngineSpec.swift in Sources */,
+				3A4B48FB1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift in Sources */,
+				3A4B48F91FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift in Sources */,
 				3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */,
 				3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
 				3ADD60861FE451EE00FC783C /* CarouselViewSpec.swift in Sources */,
+				3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */,
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,
 				3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */,
+				3AA1E4F31FF549EB00548E3D /* ChatMessagesEmptyViewSpec.swift in Sources */,
 				3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */,
+				3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */,
 				3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */,
 				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,
 				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
+				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */,
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
@@ -654,6 +689,7 @@
 				3A391B431FA14ED90085C2DA /* FormValidationTestCase.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3A0521681F992E720072D089 /* ChatInputViewSpec.swift in Sources */,
+				3AA1E4F51FF569E300548E3D /* ChatMessagesViewSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

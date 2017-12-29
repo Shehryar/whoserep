@@ -49,7 +49,7 @@ class BubbleView: UIView, Bubble {
         }
     }
     
-    var strokeLineWidth: CGFloat = 1.0 {
+    var strokeLineWidth: CGFloat = 0.5 {
         didSet {
             if oldValue != strokeLineWidth {
                 setNeedsDisplay()
