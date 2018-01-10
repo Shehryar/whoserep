@@ -9,25 +9,47 @@
 import Foundation
 import UserNotifications
 
-class PushNotificationsManager {
-    static let deviceTokenKey = "deviceToken"
-    static let deviceIdKey = "deviceId"
+protocol PushNotificationsManagerProtocol {
+    var session: Session? { get set }
+    var deviceToken: String? { get set }
+    var deviceId: Int? { get set }
+    func enableIfSessionExists()
+    func register()
+    func deregister()
+    func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler)
+    func requestAuthorization()
+    func requestAuthorizationIfNeeded(after delay: TimeInterval)
+}
+
+class PushNotificationsManager: PushNotificationsManagerProtocol {
+    static let shared = PushNotificationsManager()
     
-    static var session: Session? {
+    private init() {}
+    
+    private let deviceTokenKey = "deviceToken"
+    
+    private let deviceIdKey = "deviceId"
+    
+    private let defaultParams: [String: Any] = [
+        ASAPP.clientTypeKey: ASAPP.clientType,
+        ASAPP.clientVersionKey: ASAPP.clientVersion
+    ]
+    
+    var session: Session? {
         didSet {
             if oldValue == nil && session != nil {
-                PushNotificationsManager.register()
+                register()
             }
         }
         
         willSet {
             if session != nil && newValue == nil {
-                PushNotificationsManager.deregister()
+                deregister()
             }
         }
     }
     
-    static var deviceToken: String? {
+    var deviceToken: String? {
         get {
             return UserDefaults.standard.string(forKey: deviceTokenKey)
         }
@@ -36,7 +58,7 @@ class PushNotificationsManager {
         }
     }
     
-    static var deviceId: Int? {
+    var deviceId: Int? {
         get {
             let result = UserDefaults.standard.integer(forKey: deviceIdKey)
             return result != 0 ? result : nil
@@ -46,12 +68,7 @@ class PushNotificationsManager {
         }
     }
     
-    static let defaultParams: [String: Any] = [
-        ASAPP.clientTypeKey: ASAPP.clientType,
-        ASAPP.clientVersionKey: ASAPP.clientVersion
-    ]
-    
-    private class func getHeaders(for session: Session) -> [String: String]? {
+    private func getHeaders(for session: Session) -> [String: String]? {
         let passwordPayload: [String: Any] = [
             "CustomerId": session.customer.id,
             "SessionTime": session.auth.time,
@@ -78,19 +95,19 @@ class PushNotificationsManager {
         return headers
     }
     
-    class func enableIfSessionExists() {
+    func enableIfSessionExists() {
         if session != nil {
             register()
         }
     }
     
-    class func register() {
+    func register() {
         ASAPP.assertSetupComplete()
         
         let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/register")!
         
-        guard let token = self.deviceToken,
-              let session = PushNotificationsManager.session else {
+        guard let token = deviceToken,
+              let session = session else {
             DebugLog.e(caller: self, "Could not enable push notifications. Need non-nil token and session.")
             return
         }
@@ -123,12 +140,12 @@ class PushNotificationsManager {
         }
     }
     
-    class func deregister() {
+    func deregister() {
         ASAPP.assertSetupComplete()
         
         let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/deregister")!
         
-        guard let session = PushNotificationsManager.session ?? SavedSessionManager.getSession() else {
+        guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not disable push notifications because no session was found.")
             return
         }
@@ -162,12 +179,12 @@ class PushNotificationsManager {
         }
     }
     
-    class func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler) {
+    func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler) {
         ASAPP.assertSetupComplete()
         
         let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/offlineMessageCount")!
         
-        guard let session = PushNotificationsManager.session ?? SavedSessionManager.getSession() else {
+        guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not get number of unread messages because no session was found.")
             return
         }
@@ -195,7 +212,7 @@ class PushNotificationsManager {
         }
     }
     
-    class func requestAuthorization() {
+    func requestAuthorization() {
         guard ASAPP.shouldRequestNotificationAuthorization else {
             return
         }
@@ -222,10 +239,10 @@ class PushNotificationsManager {
         }
     }
     
-    class func requestAuthorizationIfNeeded(after delay: TimeInterval = 0) {
+    func requestAuthorizationIfNeeded(after delay: TimeInterval = 0) {
         func request() {
-            Dispatcher.delay(delay * 1000.0) {
-                requestAuthorization()
+            Dispatcher.delay(delay * 1000.0) { [weak self] in
+                self?.requestAuthorization()
             }
         }
         

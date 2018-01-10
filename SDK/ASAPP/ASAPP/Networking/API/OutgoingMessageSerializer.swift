@@ -8,35 +8,44 @@
 
 import Foundation
 
-class OutgoingMessageSerializer: NSObject {
+protocol OutgoingMessageSerializerProtocol {
+    var session: Session? { get set }
+    var userLoginAction: UserLoginAction? { get set }
+    var issueId: Int { get set }
+    func createRequest(withPath: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest
+    func createRequestWithData(_: Data) -> SocketRequest
+    func createRequestString(withRequest: SocketRequest) -> String
+    func createAuthRequest() -> OutgoingMessageSerializer.AuthRequest
+}
+
+class OutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
     
     // MARK: Public Properties
     
-    let config: ASAPPConfig
-    let user: ASAPPUser
-    
     var issueId: Int = 0
-    var targetCustomerToken: String?
     var userLoginAction: UserLoginAction?
     var session: Session? {
         didSet {
             if oldValue != session {
-                PushNotificationsManager.session = session
+                pushNotificationsManager.session = session
             }
         }
     }
     
     // MARK: Private Properties
     
+    private let config: ASAPPConfig
+    private let user: ASAPPUser
     private var currentRequestId = 1
+    private var pushNotificationsManager: PushNotificationsManagerProtocol
 
     // MARK: Init 
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, pushNotificationsManager: PushNotificationsManagerProtocol = PushNotificationsManager.shared) {
         self.config = config
         self.user = user
         self.userLoginAction = userLoginAction
-        super.init()
+        self.pushNotificationsManager = pushNotificationsManager
     }
 }
 
@@ -138,12 +147,6 @@ extension OutgoingMessageSerializer {
     }
     
     private func contextForRequest(withPath path: String) -> [String: Any] {
-        var context = ["CompanyId": session?.company.id ?? 0]
-        if !requestWithPathIsCustomerEndpoint(path) {
-            if targetCustomerToken != nil {
-                context = ["IssueId": issueId]
-            }
-        }
-        return context as [String: Any]
+        return ["CompanyId": session?.company.id ?? 0]
     }
 }

@@ -636,7 +636,7 @@ extension ChatViewController {
             return false
         }
         
-        PushNotificationsManager.requestAuthorizationIfNeeded(after: 3)
+        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
         
         let formData = message?.attachment?.template?.getData()
         
@@ -1171,7 +1171,7 @@ extension ChatViewController {
             conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction)
         }
         
-        PushNotificationsManager.requestAuthorizationIfNeeded(after: 3)
+        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
     }
     
     func reloadMessageEvents() {

@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+}
+
+extension URLSession: URLSessionProtocol {}
+
 class HTTPClient: NSObject {
     
     typealias CompletionHandler = ([String: Any]?, URLResponse?, Error?) -> Void
@@ -15,6 +21,12 @@ class HTTPClient: NSObject {
     static let shared = HTTPClient()
     
     var defaultHeaders: [String: String]?
+    
+    private let urlSession: URLSessionProtocol
+    
+    required init(urlSession: URLSessionProtocol = URLSession.shared) {
+        self.urlSession = urlSession
+    }
     
     // MARK: Sending Requests
     
@@ -45,14 +57,16 @@ class HTTPClient: NSObject {
                        "Sending HTTP Request \(method): \(url)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
         }
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        urlSession.dataTask(with: request) { (data, response, error) in
             var jsonMap: [String: Any]?
+            let jsonObject = JSONUtil.getObjectFrom(data)
             
-            if let jsonObject = JSONUtil.getObjectFrom(data) {
-                jsonMap = jsonObject as? [String: Any]
-                if jsonMap == nil {
-                    DebugLog.w(caller: HTTPClient.self, "Response data has unexpected type: \(jsonObject)")
-                }
+            if let jsonObject = jsonObject as? [String: Any] {
+                jsonMap = jsonObject
+            }
+            
+            if jsonMap == nil {
+                DebugLog.w(caller: HTTPClient.self, "Response data has unexpected type: \(jsonObject ?? "nil")")
             }
             
             completion(jsonMap, response, error)

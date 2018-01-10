@@ -168,20 +168,6 @@ class ChatMessagesViewSpec: QuickSpec {
                     }
                 }
                 
-                context("with one message added after a conversation") {
-                    it("has a valid snapshot") {
-                        var events: [Event] = []
-                        for i in 0..<25 {
-                            events.append(createMessageEvent(text: "Message \(i)", isReply: i % 2 == 0))
-                        }
-                        view.reloadWithEvents(events)
-                        let event = createMessageEvent(text: "Hello?", time: 329511937)
-                        view.addMessage(event.chatMessage!) {
-                            expect(view).toEventually(haveValidSnapshot(), timeout: 1)
-                        }
-                    }
-                }
-                
                 context("with custom top and bottom content insets") {
                     it("has a valid snapshot") {
                         var events: [Event] = []

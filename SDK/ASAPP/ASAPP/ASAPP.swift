@@ -147,8 +147,8 @@ public extension ASAPP {
      */
     public class func enablePushNotifications(with deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        PushNotificationsManager.deviceToken = token
-        PushNotificationsManager.enableIfSessionExists()
+        PushNotificationsManager.shared.deviceToken = token
+        PushNotificationsManager.shared.enableIfSessionExists()
     }
     
     /// A `Void` closure type that takes an `Int`, the number of unread messages.
@@ -160,7 +160,7 @@ public extension ASAPP {
      - parameter handler: An `UnreadNumberHandler` that receives the number of unread ASAPP push notifications.
      */
     public class func getNumberOfUnreadMessages(_ handler: @escaping UnreadMessagesHandler) {
-        return PushNotificationsManager.getUnreadMessagesCount(handler)
+        return PushNotificationsManager.shared.getUnreadMessagesCount(handler)
     }
     
     /**
@@ -184,7 +184,7 @@ public extension ASAPP {
     
     /// Clears the session saved on disk.
     public class func clearSavedSession() {
-        SavedSessionManager.clearSession()
+        SavedSessionManager.shared.clearSession()
     }
     
     // MARK: - Fonts

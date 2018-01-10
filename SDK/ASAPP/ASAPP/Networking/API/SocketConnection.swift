@@ -42,9 +42,13 @@ class SocketConnection: NSObject {
     
     private var connectionRequest: URLRequest
     
+    private var webSocketClass: SRWebSocket.Type
+    
     private var socket: SRWebSocket?
     
-    private var outgoingMessageSerializer: OutgoingMessageSerializer
+    private let savedSessionManager: SavedSessionManagerProtocol
+    
+    private var outgoingMessageSerializer: OutgoingMessageSerializerProtocol
     
     private var incomingMessageDeserializer = IncomingMessageDeserializer()
     
@@ -60,21 +64,23 @@ class SocketConnection: NSObject {
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, outgoingMessageSerializer: OutgoingMessageSerializerProtocol? = nil, savedSessionManager: SavedSessionManagerProtocol = SavedSessionManager.shared, webSocketClass: SRWebSocket.Type = SRWebSocket.self) {
         self.config = config
         self.connectionRequest = SocketConnection.createConnectionRequest(with: config)
-        self.outgoingMessageSerializer = OutgoingMessageSerializer(config: config, user: user, userLoginAction: userLoginAction)
+        self.outgoingMessageSerializer = outgoingMessageSerializer ?? OutgoingMessageSerializer(config: config, user: user, userLoginAction: userLoginAction)
+        self.savedSessionManager = savedSessionManager
+        self.webSocketClass = webSocketClass
         super.init()
         
         DebugLog.d("SocketConnection created with host url: \(String(describing: connectionRequest.url))")
         
-        if let savedSession = SavedSessionManager.getSession() {
+        if let savedSession = self.savedSessionManager.getSession() {
             if savedSession.customer.matches(id: user.userIdentifier) {
-                outgoingMessageSerializer.session = savedSession
+                self.outgoingMessageSerializer.session = savedSession
             } else if savedSession.isAnonymous && !user.isAnonymous {
-                outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: outgoingMessageSerializer.userLoginAction?.nextAction)
+                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: self.outgoingMessageSerializer.userLoginAction?.nextAction)
             } else {
-                SavedSessionManager.clearSession()
+                self.savedSessionManager.clearSession()
             }
         }
         
@@ -126,7 +132,7 @@ extension SocketConnection {
         
         didManuallyDisconnect = false
         
-        socket = SRWebSocket(urlRequest: connectionRequest)
+        socket = webSocketClass.init(urlRequest: connectionRequest)
         socket?.delegate = self
         socket?.open()
         
@@ -181,8 +187,6 @@ extension SocketConnection {
         }
         sendRequestWithRequest(request, isAuthRequest: true)
     }
-    
-    /// Returns true if the message is sent
     
     func sendRequestWithData(_ data: Data,
                              requestHandler: IncomingMessageHandler? = nil) {
@@ -239,14 +243,14 @@ extension SocketConnection {
             }
             
             if let session = session {
-                SavedSessionManager.save(session: session)
+                self?.savedSessionManager.save(session: session)
                 self?.outgoingMessageSerializer.session = session
                 self?.isAuthenticated = true
             } else {
                 self?.isAuthenticated = false
                 
                 if self?.outgoingMessageSerializer.session != nil {
-                    SavedSessionManager.clearSession()
+                    self?.savedSessionManager.clearSession()
                     self?.outgoingMessageSerializer.session = nil
                     
                     if attempts == 0 {
@@ -274,47 +278,6 @@ extension SocketConnection {
         let decoder = JSONDecoder()
         decoder.userInfo[Session.rawBodyKey] = bodyString
         return try? decoder.decode(Session.self, from: data)
-    }
-    
-    // MARK: TargetCustomer
-    
-    func updateCustomerByCRMCustomerId(withTargetCustomerToken targetCustomerToken: String, completion: SocketAuthResponseBlock? = nil) {
-        let path = "rep/GetCustomerByCRMCustomerId"
-        let params: [String: Any] = [ "CRMCustomerId": targetCustomerToken]
-        
-        sendRequest(withPath: path, params: params) { (response, _, _) in
-            guard let customerJSON = response.body?["Customer"] as? [String: Any] else {
-                DebugLog.e("Missing Customer json body in: \(String(describing: response.fullMessage))")
-                
-                completion?(response, "Failed to update customer by CRMCustomerId")
-                return
-            }
-            
-            if let customerId = customerJSON["CustomerId"] as? Int {
-                self.participateInIssueForCustomer(customerId, completion: completion)
-            } else if let completion = completion {
-                completion(response, "Missing CustomerId in: \(String(describing: response.fullMessage))")
-            }
-        }
-    }
-    
-    func participateInIssueForCustomer(_ customerId: Int, completion: SocketAuthResponseBlock? = nil) {
-        let path = "rep/ParticipateInIssueForCustomer"
-        let context: [String: Any] = [ "CustomerId": customerId ]
-        
-        sendRequest(withPath: path, params: nil, context: context) { (response, _, _) in
-            var errorMessage: String?
-            if let issueId = response.body?["IssueId"] as? Int {
-                self.outgoingMessageSerializer.issueId = issueId
-            } else {
-                DebugLog.e("Failed to get IssueId with: \(String(describing: response.fullMessage))")
-                errorMessage = "Failed to get IssueId"
-            }
-            
-            if let completion = completion {
-                completion(response, errorMessage)
-            }
-        }
     }
     
     func resendQueuedRequestsIfNeeded() {

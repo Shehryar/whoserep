@@ -50,44 +50,41 @@ extension Event {
 
 extension Event {
     
-    class func fromJSON(_ json: Any?) -> Event? {
-        guard let json = json as? [String: Any] else {
+    class func fromJSON(_ json: [String: Any]) -> Event? {
+        // Required Properties
+        guard let originalEventType = EventType.from(json[JSONKey.eventType.rawValue]),
+              let ephemeralType = EphemeralEventType.from(json[JSONKey.ephemeralType.rawValue]),
+              let issueId = json[JSONKey.issueId.rawValue] as? Int,
+              let companyId = json[JSONKey.companyId.rawValue] as? Int,
+              let customerId = json[JSONKey.customerId.rawValue] as? Int,
+              let repId = json[JSONKey.repId.rawValue] as? Int,
+              let eventTimeInMicroSeconds = json[JSONKey.eventTime.rawValue] as? Double,
+              let eventFlags = json[JSONKey.eventFlags.rawValue] as? Int,
+              let customerEventLogSeq = json[JSONKey.customerEventLogSeq.rawValue] as? Int,
+              let companyEventLogSeq = json[JSONKey.companyEventLogSeq.rawValue] as? Int else {
             return nil
         }
         
-        // Required Properties
-        guard let originalEventType = EventType.from(json[JSONKey.eventType.rawValue]),
-            let ephemeralType = EphemeralEventType.from(json[JSONKey.ephemeralType.rawValue]),
-            let issueId = json[JSONKey.issueId.rawValue] as? Int,
-            let companyId = json[JSONKey.companyId.rawValue] as? Int,
-            let customerId = json[JSONKey.customerId.rawValue] as? Int,
-            let repId = json[JSONKey.repId.rawValue] as? Int,
-            let eventTimeInMicroSeconds = json[JSONKey.eventTime.rawValue] as? Double,
-            let eventFlags = json[JSONKey.eventFlags.rawValue] as? Int,
-            let customerEventLogSeq = json[JSONKey.customerEventLogSeq.rawValue] as? Int,
-            let companyEventLogSeq = json[JSONKey.companyEventLogSeq.rawValue] as? Int
-            else {
-                return nil
-        }
-        
-        let (eventType, eventJSON) = getEventTypeAndContent(from: json,
-                                                            eventType: originalEventType,
-                                                            ephemeralType: ephemeralType)
+        let (eventType, eventJSON) = getEventTypeAndContent(
+            from: json,
+            eventType: originalEventType,
+            ephemeralType: ephemeralType)
         
         let parentEventLogSeq = json.int(for: JSONKey.parentEventLogSeq.rawValue) ??
             eventJSON?.int(for: JSONKey.parentEventLogSeq.rawValue)
         
-        let event = Event(eventId: max(customerEventLogSeq, companyEventLogSeq),
-                          parentEventLogSeq: parentEventLogSeq,
-                          eventType: eventType,
-                          ephemeralType: ephemeralType,
-                          eventTime: eventTimeInMicroSeconds / 1000000,
-                          issueId: issueId,
-                          companyId: companyId,
-                          customerId: customerId,
-                          repId: repId,
-                          eventFlags: eventFlags,
-                          eventJSON: eventJSON)
+        let event = Event(
+            eventId: max(customerEventLogSeq, companyEventLogSeq),
+            parentEventLogSeq: parentEventLogSeq,
+            eventType: eventType,
+            ephemeralType: ephemeralType,
+            eventTime: eventTimeInMicroSeconds / 1000000,
+            issueId: issueId,
+            companyId: companyId,
+            customerId: customerId,
+            repId: repId,
+            eventFlags: eventFlags,
+            eventJSON: eventJSON)
         
         if event.ephemeralType == .typingStatus {
             event.typingStatus = getTypingStatus(from: eventJSON)
@@ -107,9 +104,7 @@ extension Event {
     
     // MARK: Class Methods
     
-    private class func getEventTypeAndContent(from json: [String: Any],
-                                              eventType originalEventType: EventType,
-                                              ephemeralType: EphemeralEventType) -> (EventType, [String: Any]?) {
+    private class func getEventTypeAndContent(from json: [String: Any], eventType originalEventType: EventType, ephemeralType: EphemeralEventType) -> (EventType, [String: Any]?) {
         var eventType = originalEventType
         var eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
         
@@ -121,8 +116,8 @@ extension Event {
         
         // Echo are messages, but the content is nested differently
         if eventType == EventType.srsEcho,
-            let tempJSON = eventJSONString?.toJSONObject(),
-            let echoJSONString = tempJSON.string(for: JSONKey.echo.rawValue) {
+           let tempJSON = eventJSONString?.toJSONObject(),
+           let echoJSONString = tempJSON.string(for: JSONKey.echo.rawValue) {
             eventType = .srsResponse
             eventJSONString = echoJSONString
         }
@@ -132,38 +127,31 @@ extension Event {
         return (eventType, eventJSON)
     }
     
-    private class func getTypingStatus(from json: [String: Any]?) -> Bool? {
-        guard let json = json,
-            let typingStatus = json.bool(for: JSONKey.isTyping.rawValue)  else {
-                return nil
-        }
-        return typingStatus
+    private class func getTypingStatus(from dict: [String: Any]?) -> Bool? {
+        return dict?.bool(for: JSONKey.isTyping.rawValue)
     }
     
-    private class func getSwitchChatToSRSIntent(from json: Any?) -> String? {
-        guard let json = json as? [String: Any] else {
-            return nil
-        }
-        return json.string(for: JSONKey.intent.rawValue)
+    private class func getSwitchChatToSRSIntent(from dict: [String: Any]?) -> String? {
+        return dict?.string(for: JSONKey.intent.rawValue)
     }
     
     // MARK: Instance Methods
     
-    private func getTextMessageText(from json: [String: Any]?) -> String? {
-        return json?.string(for: JSONKey.text.rawValue)
+    private func getTextMessageText(from dict: [String: Any]?) -> String? {
+        return dict?.string(for: JSONKey.text.rawValue)
     }
     
     private func getChatMessageImageFromPictureMessage(_ json: [String: Any]?) -> ChatMessageImage? {
         guard let json = json,
-            let fileBucket = json.string(for: JSONKey.fileBucket.rawValue),
-            let fileSecret = json.string(for: JSONKey.fileSecret.rawValue),
-            let mimeType = json.string(for: JSONKey.mimeType.rawValue),
-            let width = json.int(for: JSONKey.picWidth.rawValue),
-            let height = json.int(for: JSONKey.picHeight.rawValue) else {
-                return nil
+              let fileBucket = json.string(for: JSONKey.fileBucket.rawValue),
+              let fileSecret = json.string(for: JSONKey.fileSecret.rawValue),
+              let mimeType = json.string(for: JSONKey.mimeType.rawValue),
+              let imageSuffix = mimeType.components(separatedBy: "/").last,
+              let width = json.int(for: JSONKey.picWidth.rawValue),
+              let height = json.int(for: JSONKey.picHeight.rawValue) else {
+            return nil
         }
         
-        let imageSuffix = mimeType.components(separatedBy: "/").last ?? "jpg"
         let urlString = "https://\(fileBucket).s3.amazonaws.com/customer/\(customerId)/company/\(companyId)/\(fileSecret)-\(width)x\(height).\(imageSuffix)"
         guard let imageURL = URL(string: urlString) else {
             return nil
@@ -195,7 +183,7 @@ extension Event {
             
         case .pictureMessage:
             if let image = getChatMessageImageFromPictureMessage(json) {
-            let attachment = ChatMessageAttachment(content: image)
+                let attachment = ChatMessageAttachment(content: image)
                 return ChatMessage(text: nil,
                                    attachment: attachment,
                                    quickReplies: nil,

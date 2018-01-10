@@ -282,7 +282,9 @@ extension ConversationManager {
 extension ConversationManager: SocketConnectionDelegate {
     
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
-        guard message.type == .event, let event = Event.fromJSON(message.body) else {
+        guard message.type == .event,
+              let body = message.body,
+              let event = Event.fromJSON(body) else {
             return
         }
     
