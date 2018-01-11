@@ -37,6 +37,9 @@ class MockURLSessionDataTask: URLSessionDataTask {
 class HTTPClientSpec: QuickSpec {
     override func spec() {
         describe("HTTPClient") {
+            let clientTypeQueryItem = URLQueryItem(name: ASAPP.clientTypeKey, value: ASAPP.clientType)
+            let clientVersionQueryItem = URLQueryItem(name: ASAPP.clientVersionKey, value: ASAPP.clientVersion)
+            
             context(".sendRequest(...)") {
                 /*
                  NB: To test the early return due to makeRequest(...) returning nil, you have to find a URL string
@@ -51,7 +54,10 @@ class HTTPClientSpec: QuickSpec {
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
                         subject.sendRequest(url: url, completion: { (_, _, _) in })
-                        expect(urlSession.lastRequest?.url).to(equal(url))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                         expect(urlSession.lastRequest?.httpMethod).to(equal(HTTPMethod.GET.rawValue))
                         expect(task.resumeWasCalled).to(equal(true))
                     }
@@ -63,7 +69,10 @@ class HTTPClientSpec: QuickSpec {
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
                         subject.sendRequest(url: url, params: ["foo": 9001], completion: { (_, _, _) in })
-                        expect(urlSession.lastRequest?.url).to(equal(URL(string: "http://example.com/?")))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                     }
                 }
                 
@@ -73,7 +82,10 @@ class HTTPClientSpec: QuickSpec {
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
                         subject.sendRequest(url: url, params: ["foo": "9001", "bar": "9002"], completion: { (_, _, _) in })
-                        expect(urlSession.lastRequest?.url?.absoluteString).to(contain(["?", "foo=9001", "&", "bar=9002"]))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, URLQueryItem(name: "foo", value: "9001"), URLQueryItem(name: "bar", value: "9002")])))
                     }
                 }
                 
@@ -83,7 +95,10 @@ class HTTPClientSpec: QuickSpec {
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
                         subject.sendRequest(method: .POST, url: url, params: ["foo": 9001], completion: { (_, _, _) in })
-                        expect(urlSession.lastRequest?.url).to(equal(url))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                         expect(urlSession.lastRequest?.httpBody).toNot(beNil())
                         let body = urlSession.lastRequest!.httpBody!
                         let dict = try? JSONSerialization.jsonObject(with: body, options: []) as! [String: Any]
@@ -102,12 +117,15 @@ class HTTPClientSpec: QuickSpec {
                             dict = data
                         })
                         expect(dict).toEventually(beNil())
-                        expect(urlSession.lastRequest?.url).to(equal(url))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                     }
                 }
                 
                 context("with response data") {
-                    it("calls the completion handler with nil data") {
+                    it("calls the completion handler with the data") {
                         let urlSession = MockURLSession()
                         urlSession.nextData = "{\"foo\": \"bar\"}".data(using: .utf8)
                         let subject = HTTPClient(urlSession: urlSession)
@@ -117,7 +135,10 @@ class HTTPClientSpec: QuickSpec {
                             dict = data
                         })
                         expect(dict as? [String: String]).toEventually(equal(["foo": "bar"]))
-                        expect(urlSession.lastRequest?.url).to(equal(url))
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                     }
                 }
                 
@@ -127,6 +148,10 @@ class HTTPClientSpec: QuickSpec {
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
                         subject.sendRequest(url: url, headers: ["foo": "bar", "baz": "alpha"], completion: { (_, _, _) in })
+                        let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
+                        expect(urlComponents?.scheme).to(equal("http"))
+                        expect(urlComponents?.host).to(equal("example.com"))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
                         expect(urlSession.lastRequest?.allHTTPHeaderFields?["foo"]).to(equal("bar"))
                         expect(urlSession.lastRequest?.allHTTPHeaderFields?["baz"]).to(equal("alpha"))
                     }

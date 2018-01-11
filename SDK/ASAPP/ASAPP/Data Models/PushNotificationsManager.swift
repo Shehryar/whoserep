@@ -37,7 +37,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     
     var session: Session? {
         didSet {
-            if oldValue == nil && session != nil {
+            if oldValue != session && session != nil {
                 register()
             }
         }
@@ -54,7 +54,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return UserDefaults.standard.string(forKey: deviceTokenKey)
         }
         set {
-            UserDefaults.standard.set(deviceToken, forKey: deviceTokenKey)
+            UserDefaults.standard.set(newValue, forKey: deviceTokenKey)
         }
     }
     
@@ -64,7 +64,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return result != 0 ? result : nil
         }
         set {
-            UserDefaults.standard.set(deviceId, forKey: deviceIdKey)
+            UserDefaults.standard.set(newValue, forKey: deviceIdKey)
         }
     }
     
@@ -104,7 +104,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     func register() {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/register")!
+        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/register")!
         
         guard let token = deviceToken,
               let session = session else {
@@ -112,9 +112,10 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        var params = defaultParams
-        params["DeviceType"] = "ios"
-        params["Token"] = token
+        let params: [String: Any] = [
+            "DeviceType": "ios",
+            "Token": token
+        ]
         
         guard let headers = getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not enable push notifications because there was an error constructing the request headers.")
@@ -134,16 +135,15 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
                 return
             }
             
-            self.deviceToken = nil
             self.deviceId = deviceId
-            DebugLog.d(caller: self, "Successfully enabled push notifications for token: \(token)")
+            DebugLog.d(caller: self, "Successfully enabled push notifications for token: \(token).\nDevice ID: \(deviceId)")
         }
     }
     
     func deregister() {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/deregister")!
+        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/deregister")!
         
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not disable push notifications because no session was found.")
@@ -155,8 +155,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        var params = defaultParams
-        params["DeviceId"] = deviceId
+        let params: [String: Any] = ["DeviceId": deviceId]
         
         guard let headers = getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not disable push notifications because there was an error constructing the request headers.")
@@ -182,21 +181,19 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler) {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/push/offlineMessageCount")!
+        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/offlineMessageCount")!
         
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not get number of unread messages because no session was found.")
             return
         }
         
-        let params = defaultParams
-        
         guard let headers = getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not get number of unread messages because there was an error constructing the request headers.")
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .GET, url: url, headers: headers, params: params) { data, response, error in
+        HTTPClient.shared.sendRequest(method: .GET, url: url, headers: headers) { data, response, error in
             guard let data = data,
                   (data["Success"] as? Bool) == true,
                   let count = data["Count"] as? Int else {

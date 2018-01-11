@@ -28,6 +28,11 @@ class HTTPClient: NSObject {
         self.urlSession = urlSession
     }
     
+    static let defaultParams: [String: Any] = [
+        ASAPP.clientTypeKey: ASAPP.clientType,
+        ASAPP.clientVersionKey: ASAPP.clientVersion
+    ]
+    
     // MARK: Sending Requests
     
     func sendRequest(method: HTTPMethod = .GET,
@@ -35,7 +40,12 @@ class HTTPClient: NSObject {
                      headers: [String: String]? = nil,
                      params: [String: Any]? = nil,
                      completion: @escaping CompletionHandler) {
-        guard let requestURL = makeRequestURL(method: method, url: url, params: params) else {
+        var urlParams = HTTPClient.defaultParams
+        if method == .GET {
+            urlParams.add(params)
+        }
+        
+        guard let requestURL = makeRequestURL(url: url, params: urlParams) else {
             DebugLog.w(caller: self, "Failed to construct requestURL.")
             return
         }
@@ -46,7 +56,7 @@ class HTTPClient: NSObject {
         request.injectHeaders(defaultHeaders)
         request.injectHeaders(headers)
         
-        if [HTTPMethod.POST].contains(method), let params = params {
+        if method != .GET, let params = params {
             request.httpBody = JSONUtil.getDataFrom(params)
         }
        
@@ -54,7 +64,7 @@ class HTTPClient: NSObject {
             let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? ""
             let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? ""
             DebugLog.d(caller: HTTPClient.self,
-                       "Sending HTTP Request \(method): \(url)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
+                       "Sending HTTP Request \(method): \(requestURL)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
         }
         
         urlSession.dataTask(with: request) { (data, response, error) in
@@ -78,9 +88,9 @@ class HTTPClient: NSObject {
 
 extension HTTPClient {
     
-    private func makeRequestURL(method: HTTPMethod, url: URL, params: [String: Any]?) -> URL? {
+    private func makeRequestURL(url: URL, params: [String: Any]?) -> URL? {
         var urlComponents = URLComponents(string: url.absoluteString)
-        if [HTTPMethod.GET].contains(method), let params = params {
+        if let params = params {
             var queryItems = urlComponents?.queryItems ?? [URLQueryItem]()
             for (name, value) in params {
                 guard let valueString = value as? String else {

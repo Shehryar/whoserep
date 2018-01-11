@@ -59,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -103,7 +105,7 @@ extension AppDelegate {
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,
             "bundleId": bundleId
-            ])
+        ])
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
