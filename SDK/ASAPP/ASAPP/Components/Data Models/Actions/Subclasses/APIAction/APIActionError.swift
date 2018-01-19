@@ -8,26 +8,6 @@
 
 import UIKit
 
-struct InvalidInput {
-    enum JSONKey: String {
-        case name
-        case userMessage
-    }
-    
-    let name: String
-    let userMessage: String?
-}
-
-extension InvalidInput {
-    init?(_ dict: [String: String]) {
-        guard let name = dict[JSONKey.name.rawValue] else {
-            return nil
-        }
-        
-        self.init(name: name, userMessage: dict[JSONKey.userMessage.rawValue])
-    }
-}
-
 class APIActionError: NSObject {
 
     let code: Int?
@@ -36,14 +16,14 @@ class APIActionError: NSObject {
     
     let debugMessage: String?
     
-    let invalidInputs: [InvalidInput]?
+    let invalidInputs: [String: String]?
     
     // MARK: - Init
     
     init(code: Int?,
          userMessage: String?,
          debugMessage: String?,
-         invalidInputs: [InvalidInput]?) {
+         invalidInputs: [String: String]?) {
         self.code = code
         self.userMessage = userMessage
         self.debugMessage = debugMessage
@@ -71,8 +51,7 @@ extension APIActionError {
         let code = dict.int(for: JSONKey.code.rawValue)
         let userMessage = dict.string(for: JSONKey.userMessage.rawValue)
         let debugMessage = dict.string(for: JSONKey.debugMessage.rawValue)
-        let invalidInputsDict = dict[JSONKey.invalidInputs.rawValue] as? [[String: String]]
-        let invalidInputs = invalidInputsDict?.map { return InvalidInput($0) }.flatMap { $0 }
+        let invalidInputs = dict[JSONKey.invalidInputs.rawValue] as? [String: String]
         
         self.init(code: code,
                   userMessage: userMessage,
