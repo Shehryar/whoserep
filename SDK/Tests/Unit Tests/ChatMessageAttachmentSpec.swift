@@ -71,6 +71,13 @@ class ChatMessageAttachmentSpec: QuickSpec {
                     }
                 }
                 
+                context("with a type property value of none") {
+                    it("returns nil") {
+                        let attachment = ChatMessageAttachment.fromJSON(["type": "AttachmentTypeNone", "content": [:]])
+                        expect(attachment).to(beNil())
+                    }
+                }
+                
                 context("without a content payload") {
                     it("returns nil") {
                         let attachment = ChatMessageAttachment.fromJSON(["type": "image"])

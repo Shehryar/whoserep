@@ -23,7 +23,7 @@ class SocketRequest {
         self.requestUUID = uuid
         self.requestId = requestId
         self.path = path
-        self.params = [ "RequestId": uuid ].with(params)
+        self.params = ["RequestId": uuid].with(params)
         self.context = context
         self.requestData = requestData
     }
