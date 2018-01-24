@@ -74,7 +74,7 @@ class TestUtil: NSObject {
         ASAPP.initialize(with: config)
         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
             return [:]
-        }, userLoginHandler: { _ in })
+        })
     }
     
     @discardableResult

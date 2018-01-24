@@ -11,12 +11,6 @@ import UIKit
 /// A type of closure that returns `[String: Any]`. The dictionary needs to contain the key-value pair `ASAPP.AUTH_KEY_ACCESS_TOKEN: authToken` where `authToken` is the user's authentication token.
 public typealias ASAPPRequestContextProvider = (() -> [String: Any])
 
-/// A `Void` closure type that takes an `ASAPPUser`.
-public typealias ASAPPUserLoginHandlerCompletion = ((_ newUser: ASAPPUser) -> Void)
-
-/// A `Void` closure type that takes an `ASAPPUserLoginHandlerCompletion`.
-public typealias ASAPPUserLoginHandler = ((_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) -> Void)
-
 // MARK: - ASAPPUser
 
 /**
@@ -32,9 +26,6 @@ public class ASAPPUser: NSObject {
     
     /// Reference to context provider given at initialization.
     public let requestContextProvider: ASAPPRequestContextProvider
-    
-    /// Reference to login handler given at initialization.
-    public let userLoginHandler: ASAPPUserLoginHandler
 
     // MARK: - Initialization
     
@@ -46,8 +37,7 @@ public class ASAPPUser: NSObject {
      - parameter userLoginHandler: A function called when the user login action is performed.
      */
     public init(userIdentifier: String?,
-                requestContextProvider: @escaping ASAPPRequestContextProvider,
-                userLoginHandler: @escaping ASAPPUserLoginHandler) {
+                requestContextProvider: @escaping ASAPPRequestContextProvider) {
         if let userIdentifier = userIdentifier {
             self.userIdentifier = userIdentifier
             self.isAnonymous = false
@@ -56,7 +46,6 @@ public class ASAPPUser: NSObject {
             self.isAnonymous = true
         }
         self.requestContextProvider = requestContextProvider
-        self.userLoginHandler = userLoginHandler
         super.init()
     }
     

@@ -20,7 +20,7 @@ class SessionManagerSpec: QuickSpec {
                         let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
                         let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         let manager = SessionManager(config: config, user: user)
                         expect(manager.config).to(equal(config))
                         expect(manager.user).to(equal(user))
@@ -37,7 +37,7 @@ class SessionManagerSpec: QuickSpec {
                     let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
                     let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     manager = SessionManager(config: config, user: user)
                 }
                 
@@ -64,7 +64,7 @@ class SessionManagerSpec: QuickSpec {
                     let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
                     let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     manager = SessionManager(config: config, user: user)
                 }
                 

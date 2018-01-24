@@ -356,6 +356,7 @@
 		3A0E7FA81FB5149B008F9544 /* thumbsUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0E7FA11FB5148A008F9544 /* thumbsUp.png */; };
 		3A0E7FA91FB5149B008F9544 /* thumbsUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0E7FA41FB5148A008F9544 /* thumbsUp@2x.png */; };
 		3A0E7FAA1FB5149B008F9544 /* thumbsUp@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A0E7FA31FB5148A008F9544 /* thumbsUp@3x.png */; };
+		3A0F04B42017DD4E0064E76F /* NotificationNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
 		3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B441FA223810085C2DA /* InvalidatableInput.swift */; };
 		3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */; };
@@ -750,6 +751,7 @@
 		3A0E7FA21FB5148A008F9544 /* thumbsDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbsDown.png; sourceTree = "<group>"; };
 		3A0E7FA31FB5148A008F9544 /* thumbsUp@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsUp@3x.png"; sourceTree = "<group>"; };
 		3A0E7FA41FB5148A008F9544 /* thumbsUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsUp@2x.png"; sourceTree = "<group>"; };
+		3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
 		3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@3x.png"; sourceTree = "<group>"; };
 		3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-paperclip@2x.png"; sourceTree = "<group>"; };
@@ -987,6 +989,7 @@
 				3A391B441FA223810085C2DA /* InvalidatableInput.swift */,
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
+				3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */,
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
@@ -2134,6 +2137,7 @@
 				30DF3F811F27CC4F00D6DB02 /* SRSItemFactory.swift in Sources */,
 				307484C91EB39B10008CF3E4 /* QuickReply.swift in Sources */,
 				3A0E7F9C1FB4C3C0008F9544 /* BinaryRatingView.swift in Sources */,
+				3A0F04B42017DD4E0064E76F /* NotificationNameExtensions.swift in Sources */,
 				307484E01EB8F2F9008CF3E4 /* FinishAction.swift in Sources */,
 				307484E41EB8FE37008CF3E4 /* TreewalkAction.swift in Sources */,
 				281C34A41E7F092C001A2AA3 /* SeparatorView.swift in Sources */,

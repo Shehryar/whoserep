@@ -8,6 +8,12 @@
 
 import Foundation
 
+/// A protocol defining functions that can be called by the framework.
+@objc public protocol ASAPPDelegate {
+    /// Called when a user taps a login button. Please set `ASAPP.user` once the user has logged in.
+    func chatViewControllerDidTapUserLoginButton()
+}
+
 /**
  The `ASAPP` class holds references to its various configurable properties and allows you
  to call various functions. No instances of `ASAPP` are to be created.
@@ -16,11 +22,18 @@ import Foundation
 public class ASAPP: NSObject {
     // MARK: - Properties
     
+    /// The delegate, currently only used for handling logging in.
+    public static weak var delegate: ASAPPDelegate?
+    
     /// Set by calling `ASAPP.initialize(with:)`, typically in the `AppDelegate`.
     private(set) public static var config: ASAPPConfig!
     
     /// The current user.
-    public static var user: ASAPPUser!
+    public static var user: ASAPPUser! {
+        didSet {
+            NotificationCenter.default.post(name: .UserDidChange, object: nil)
+        }
+    }
     
     /// The SDK can be styled to fit your brand.
     public static var styles: ASAPPStyles = ASAPPStyles()
@@ -197,6 +210,8 @@ public extension ASAPP {
 
 internal extension ASAPP {
     // MARK: - Internal Utility
+    
+    static var userLoginAction: UserLoginAction?
     
     static let bundle = Bundle(for: ASAPP.self)
     

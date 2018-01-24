@@ -27,13 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self, Answers.self])
         
         ASAPP.debugLogLevel = .debug
+        ASAPP.loadFonts()
         
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
-
-        ASAPP.loadFonts()
+        
         homeController = HomeViewController()
+        ASAPP.delegate = homeController
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = NavigationController(rootViewController: homeController)
         window!.makeKeyAndVisible()

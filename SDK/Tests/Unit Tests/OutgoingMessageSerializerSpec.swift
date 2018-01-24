@@ -40,7 +40,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                     }
                     
                     it("creates an auth request with the default region code") {
@@ -58,7 +58,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                     }
                     
                     it("creates an auth request with the custom region code") {
@@ -76,7 +76,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: nil, requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                     }
                     
                     it("creates an auth request for an anonymous user") {
@@ -95,7 +95,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                     }
                     
                     it("creates an auth request with a customer identifier") {
@@ -114,7 +114,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: nil, requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         
                         serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         
@@ -156,7 +156,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         ASAPP.initialize(with: config)
                         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         
                         serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         

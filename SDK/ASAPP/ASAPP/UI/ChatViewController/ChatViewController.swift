@@ -138,6 +138,8 @@ class ChatViewController: ASAPPViewController {
             selector: #selector(ChatViewController.updateDisplay),
             name: Notification.Name.UIContentSizeCategoryDidChange,
             object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidChange), name: .UserDidChange, object: nil)
 
         //
         // Interaction Setup
@@ -215,6 +217,11 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: User
     
+    @objc func userDidChange() {
+        updateUser(ASAPP.user, with: ASAPP.userLoginAction)
+        ASAPP.userLoginAction = nil
+    }
+    
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
         if let userLoginAction = userLoginAction {
@@ -222,6 +229,7 @@ class ChatViewController: ASAPPViewController {
         }
         
         if conversationManager != nil {
+            clearQuickRepliesActionSheet(true, completion: nil)
             conversationManager.delegate = nil
             conversationManager.exitConversation()
         }
@@ -636,6 +644,7 @@ extension ChatViewController {
             return false
         }
         
+        ASAPP.userLoginAction = nil
         PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
         
         let formData = message?.attachment?.template?.getData()
@@ -725,12 +734,8 @@ extension ChatViewController {
             
         case .userLogin:
             if let userLoginAction = action as? UserLoginAction {
-                let completionBlock: ASAPPUserLoginHandlerCompletion = { [weak self] (_ user: ASAPPUser) in
-                    self?.clearQuickRepliesActionSheet(true, completion: nil)
-                    self?.updateUser(user, with: userLoginAction)
-                }
-                
-                user.userLoginHandler(completionBlock)
+                ASAPP.userLoginAction = userLoginAction
+                ASAPP.delegate?.chatViewControllerDidTapUserLoginButton()
             }
             
         case .web:

@@ -38,7 +38,7 @@ class SocketConnectionSpec: QuickSpec {
                         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                         let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         let serializer = OutgoingMessageSerializer(config: config, user: user)
                         let mockSavedSessionManager = MockSavedSessionManager()
                         let connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: serializer, savedSessionManager: mockSavedSessionManager)
@@ -58,7 +58,7 @@ class SocketConnectionSpec: QuickSpec {
                         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                         let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         let mockSavedSessionManager = MockSavedSessionManager()
                         
                         let dict = [
@@ -100,7 +100,7 @@ class SocketConnectionSpec: QuickSpec {
                         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                         let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         let mockSavedSessionManager = MockSavedSessionManager()
                         
                         let dict = [
@@ -142,7 +142,7 @@ class SocketConnectionSpec: QuickSpec {
                         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                         let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                             return [:]
-                        }, userLoginHandler: { _ in })
+                        })
                         let mockSavedSessionManager = MockSavedSessionManager()
                         
                         let dict = [
@@ -189,7 +189,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
                     let mockSavedSessionManager = MockSavedSessionManager()
                     connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
@@ -230,7 +230,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
                     let mockSavedSessionManager = MockSavedSessionManager()
                     connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
@@ -266,7 +266,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     let serializer = OutgoingMessageSerializer(config: config, user: user)
                     let mockSavedSessionManager = MockSavedSessionManager()
                     let connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: serializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
@@ -292,7 +292,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
                     let mockSavedSessionManager = MockSavedSessionManager()
                     connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
@@ -360,7 +360,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
                     let mockSavedSessionManager = MockSavedSessionManager()
                     connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
@@ -414,7 +414,7 @@ class SocketConnectionSpec: QuickSpec {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
                     let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
                         return [:]
-                    }, userLoginHandler: { _ in })
+                    })
                     mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
                     mockSavedSessionManager = MockSavedSessionManager()
                     connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
