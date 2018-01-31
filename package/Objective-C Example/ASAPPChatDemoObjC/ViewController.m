@@ -10,7 +10,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <ASAPPDelegate>
 @property (nonatomic, strong) UIButton *pushButton;
 @property (nonatomic, strong) UIButton *presentButton;
 @end
@@ -45,10 +45,10 @@
 {
 #warning Update your credentials before running.
     
-    NSString *appId = @"foo";
-    NSString *apiHostName = @"foo";
-    NSString *regionCode = @"foo";
-    NSString *clientSecret = @"foo";
+    NSString *appId = nil;
+    NSString *apiHostName = nil;
+    NSString *regionCode = nil;
+    NSString *clientSecret = nil;
     
     NSAssert(appId != nil & apiHostName != nil && regionCode != nil && clientSecret != nil,
              @"You must set your appId, apiHostName, regionCode, and clientSecret in ViewController.m before running.");
@@ -66,6 +66,12 @@
                                                regionCode:regionCode];
     [ASAPP initializeWith:config];
     
+    /**
+     ASAPPDelegate
+     
+     Set the delegate, which should implement chatViewControllerDidTapUserLoginButton().
+     */
+    ASAPP.delegate = self;
     
     /**
      ASAPPUser
@@ -81,13 +87,6 @@
               [ASAPP authTokenKey] : @"ios_objc_access_token",
               @"fake_context_key_1" : @"fake_context_value_1"
               };
-    } userLoginHandler:^(void (^ _Nonnull onUserLogin)(ASAPPUser * _Nonnull)) {
-       /**
-        Application should present UI to let user login. Once login is finished, the onUserLogin
-        callback method should be called.
-
-        Note: if the user is always logged in, the body of this method may be left blank.
-        */
     }];
     
     [ASAPP setUser:user];
@@ -193,6 +192,17 @@
     
     self.presentButton.bounds = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
     self.presentButton.center = CGPointMake(viewCenter.x, viewCenter.y + buttonSpacing);
+}
+
+#pragma mark - ASAPPDelegate
+
+- (void)chatViewControllerDidTapUserLoginButton
+{
+    /**
+     Application should present UI to let user login. Once login is finished, ASAPP.user should be set.
+     
+     Note: if the user is always logged in, the body of this method may be left blank.
+     */
 }
 
 @end

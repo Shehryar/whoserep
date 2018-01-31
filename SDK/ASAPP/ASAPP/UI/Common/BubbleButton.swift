@@ -17,7 +17,7 @@ class BubbleButton: Button {
         contentView = BubbleView(frame: frame)
         
         bubble.roundedCorners = [.bottomLeft, .topLeft, .topRight]
-        bubble.strokeLineWidth = 1
+        bubble.strokeLineWidth = UIScreen.main.scale > 1 ? 0.5 : 1
         
         super.commonInit()
     }

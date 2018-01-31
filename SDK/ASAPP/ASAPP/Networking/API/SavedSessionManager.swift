@@ -8,14 +8,22 @@
 
 import Foundation
 
-class SavedSessionManager {
+protocol SavedSessionManagerProtocol {
+    func clearSession()
+    func save(session: Session?)
+    func getSession() -> Session?
+}
+
+class SavedSessionManager: SavedSessionManagerProtocol {
+    static let shared = SavedSessionManager()
+    
     private init() {}
     
-    static func clearSession() {
+    func clearSession() {
         save(session: nil)
     }
     
-    static func save(session: Session?) {
+    func save(session: Session?) {
         guard let session = session else {
             do {
                 try CodableStorage.remove(sessionFileName, from: Session.defaultDirectory)
@@ -34,7 +42,7 @@ class SavedSessionManager {
         }
     }
     
-    static func getSession() -> Session? {
+    func getSession() -> Session? {
         do {
             if let session = try CodableStorage.retrieve(sessionFileName, as: Session.self) {
                 DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
@@ -49,7 +57,7 @@ class SavedSessionManager {
         }
     }
     
-    private static var sessionFileName: String {
+    private var sessionFileName: String {
         return "Stored-Session"
     }
 }

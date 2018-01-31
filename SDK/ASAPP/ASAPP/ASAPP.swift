@@ -8,6 +8,12 @@
 
 import Foundation
 
+/// A protocol defining functions that can be called by the framework.
+@objc public protocol ASAPPDelegate {
+    /// Called when a user taps a login button. Please set `ASAPP.user` once the user has logged in.
+    func chatViewControllerDidTapUserLoginButton()
+}
+
 /**
  The `ASAPP` class holds references to its various configurable properties and allows you
  to call various functions. No instances of `ASAPP` are to be created.
@@ -16,11 +22,18 @@ import Foundation
 public class ASAPP: NSObject {
     // MARK: - Properties
     
+    /// The delegate, currently only used for handling logging in.
+    public static weak var delegate: ASAPPDelegate?
+    
     /// Set by calling `ASAPP.initialize(with:)`, typically in the `AppDelegate`.
     private(set) public static var config: ASAPPConfig!
     
     /// The current user.
-    public static var user: ASAPPUser!
+    public static var user: ASAPPUser! {
+        didSet {
+            NotificationCenter.default.post(name: .UserDidChange, object: nil)
+        }
+    }
     
     /// The SDK can be styled to fit your brand.
     public static var styles: ASAPPStyles = ASAPPStyles()
@@ -147,8 +160,8 @@ public extension ASAPP {
      */
     public class func enablePushNotifications(with deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        PushNotificationsManager.deviceToken = token
-        PushNotificationsManager.enableIfSessionExists()
+        PushNotificationsManager.shared.deviceToken = token
+        PushNotificationsManager.shared.enableIfSessionExists()
     }
     
     /// A `Void` closure type that takes an `Int`, the number of unread messages.
@@ -160,7 +173,7 @@ public extension ASAPP {
      - parameter handler: An `UnreadNumberHandler` that receives the number of unread ASAPP push notifications.
      */
     public class func getNumberOfUnreadMessages(_ handler: @escaping UnreadMessagesHandler) {
-        return PushNotificationsManager.getUnreadMessagesCount(handler)
+        return PushNotificationsManager.shared.getUnreadMessagesCount(handler)
     }
     
     /**
@@ -184,7 +197,7 @@ public extension ASAPP {
     
     /// Clears the session saved on disk.
     public class func clearSavedSession() {
-        SavedSessionManager.clearSession()
+        SavedSessionManager.shared.clearSession()
     }
     
     // MARK: - Fonts
@@ -197,6 +210,8 @@ public extension ASAPP {
 
 internal extension ASAPP {
     // MARK: - Internal Utility
+    
+    static var userLoginAction: UserLoginAction?
     
     static let bundle = Bundle(for: ASAPP.self)
     

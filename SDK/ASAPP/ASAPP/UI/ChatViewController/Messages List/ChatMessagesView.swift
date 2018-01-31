@@ -445,16 +445,6 @@ extension ChatMessagesView {
             scrollToBottomAnimated(false)
         }
     }
-    
-    func indexPathForTypingPreviewCell() -> IndexPath {
-        let lastSection = dataSource.numberOfSections() - 1
-        if lastSection < 0 {
-            return IndexPath(row: 0, section: 0)
-        } else {
-            let lastRow = dataSource.numberOfRowsInSection(lastSection)
-            return IndexPath(row: lastRow, section: lastSection)
-        }
-    }
 }
 
 // MARK: - Adding / Replacing Messages

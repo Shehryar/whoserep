@@ -68,6 +68,14 @@ extension ViewController {
         
         
         /**
+         ASAPPDelegate
+         
+         Set the delegate, which should implement chatViewControllerDidTapUserLoginButton().
+         */
+        ASAPP.delegate = self
+        
+        
+        /**
          ASAPPUser
          
          Set the current user of the app.  The user identifer should be unique to the user.
@@ -82,13 +90,6 @@ extension ViewController {
                     ASAPP.authTokenKey: "dist_ios_SDK_Swift_fake_auth_token",
                     "fake_context_key_1": "fake_context_value_1"
                 ]
-        }, userLoginHandler: { /* [weak self] */ (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
-                /**
-                 Application should present UI to let user login. Once login is finished, the onUserLogin
-                 callback method should be called.
-                 
-                 Note: if the user is always logged in, the body of this method may be left blank.
-                 */
         })
         
         /**
@@ -141,6 +142,18 @@ extension ViewController {
             self?.handleASAPPDeepLink(named: deepLink, with: data)
         }
         present(chatViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK:- ASAPPDelegate
+
+extension ViewController: ASAPPDelegate {
+    func chatViewControllerDidTapUserLoginButton() {
+        /**
+         Application should present UI to let user login. Once login is finished, ASAPP.user should be set.
+         
+         Note: if the user is always logged in, the body of this method may be left blank.
+         */
     }
 }
 

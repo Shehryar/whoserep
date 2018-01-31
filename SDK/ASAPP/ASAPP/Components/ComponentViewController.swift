@@ -264,13 +264,13 @@ extension ComponentViewController {
             return true
         }
         
-        var emptyRequiredInputs = [InvalidInput]()
+        var emptyRequiredInputs = [String: String]()
         
         root.enumerateRequiredNestedComponents { component in
             guard let name = component.name else { return }
             
             if component.valueIsEmpty {
-                emptyRequiredInputs.append(InvalidInput(name: name, userMessage: ASAPP.strings.requiredFieldEmptyMessage))
+                emptyRequiredInputs[name] = ASAPP.strings.requiredFieldEmptyMessage
             }
         }
         
@@ -283,22 +283,13 @@ extension ComponentViewController {
         return false
     }
     
-    func markInvalidInputs(_ invalidInputs: [InvalidInput]) {
-        let invalidDict = [String: String?](
-            invalidInputs.map {
-                ($0.name, $0.userMessage)
-            },
-            uniquingKeysWith: { first, _ in
-            // only use the first of any duplicates
-            return first
-        })
-        
+    func markInvalidInputs(_ invalidInputs: [String: String]) {
         rootView?.enumerateNestedComponentViews { componentView in
             if let component = componentView.component,
                let name = component.name,
-               let errorMessage = invalidDict[name],
+               let errorMessage = invalidInputs[name],
                let input = componentView as? InvalidatableInput {
-                input.updateError(for: errorMessage ?? "")
+                input.updateError(for: errorMessage)
             }
         }
         

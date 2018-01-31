@@ -194,7 +194,12 @@ extension Branding {
         
         let predictiveInputBackground = predictiveBackground.chooseHighestContrast(of: [predictiveBackground.colorWithRelativeBrightness(0.1)!, predictiveBackground.colorWithRelativeBrightness(-0.1)!])
         let predictiveInputText = predictiveInputBackground.chooseHighestContrast(of: [textLight, textDark])
-        let predictiveInputPlaceholder = predictiveInputText.isDark() ? predictiveInputText.colorWithRelativeBrightness(0.2)! : predictiveInputText.colorWithRelativeBrightness(-0.2)!
+        let predictiveInputPlaceholder = predictiveInputBackground.chooseFirstAcceptableColor(of: [
+            predictiveInputText.colorWithRelativeBrightness(0.2)!,
+            predictiveInputText.colorWithRelativeBrightness(-0.2)!,
+            predictiveInputText.colorWithRelativeBrightness(0.4)!,
+            predictiveInputText.colorWithRelativeBrightness(-0.4)!
+        ])
         let predictiveInputTint = predictiveInputBackground.chooseFirstAcceptableColor(of: [primary, secondary, textDark, textLight])
         styles.colors.predictiveInput = ASAPPInputColors(
             background: predictiveInputBackground,

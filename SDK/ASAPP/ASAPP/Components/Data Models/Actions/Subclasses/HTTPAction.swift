@@ -39,9 +39,9 @@ class HTTPAction: Action {
     
     required init?(content: Any?) {
         if let content = content as? [String: Any],
-            let method = HTTPMethod.from(content[JSONKey.method.rawValue] as? String),
-            let urlString = content[JSONKey.url.rawValue] as? String,
-            let url = URL(string: urlString) {
+           let method = HTTPMethod.from(content[JSONKey.method.rawValue] as? String),
+           let urlString = content[JSONKey.url.rawValue] as? String,
+           let url = URL(string: urlString) {
             self.method = method
             self.url = url
             self.onResponseAction = ActionFactory.action(with: content[JSONKey.onResponseAction.rawValue])

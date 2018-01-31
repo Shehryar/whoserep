@@ -36,7 +36,7 @@ public class ASAPPTextStyles: NSObject {
     public var header2 = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
     /// The style of subheaders.
-    public var subheader = ASAPPTextStyle(font: Fonts.default.bold, size: 10, letterSpacing: 1.5, color: UIColor.ASAPP.manateeGray)
+    public var subheader = ASAPPTextStyle(font: Fonts.default.bold, size: 11, letterSpacing: 1.5, color: UIColor.ASAPP.manateeGray)
 
     // MARK: ComponentUI: Body
     

@@ -38,8 +38,8 @@ class InvalidInputsSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
-                        InvalidInput(name: "newPin", userMessage: nil),
-                        InvalidInput(name: "confirmNewPin", userMessage: nil)
+                        "newPin": "",
+                        "confirmNewPin": ""
                     ])
                     expect(viewController.view).to(haveValidSnapshot())
                 }
@@ -52,8 +52,8 @@ class InvalidInputsSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
-                        InvalidInput(name: "newPin", userMessage: "Please enter a valid 4-digit PIN"),
-                        InvalidInput(name: "confirmNewPin", userMessage: nil)
+                        "newPin": "Please enter a valid 4-digit PIN",
+                        "confirmNewPin": ""
                     ])
                     expect(viewController.view).to(haveValidSnapshot())
                 }
@@ -66,8 +66,8 @@ class InvalidInputsSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
-                        InvalidInput(name: "newPin", userMessage: "Please enter a valid 4-digit PIN"),
-                        InvalidInput(name: "confirmNewPin", userMessage: "Please confirm your new PIN")
+                        "newPin": "Please enter a valid 4-digit PIN",
+                        "confirmNewPin": "Please confirm your new PIN"
                     ])
                     expect(viewController.view).to(haveValidSnapshot())
                 }
@@ -80,9 +80,9 @@ class InvalidInputsSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     viewController.markInvalidInputs([
-                        InvalidInput(name: "newPin", userMessage: "Please enter a valid 4-digit PIN lorem ipsum dolor sit amet consectetuer esset"),
-                        InvalidInput(name: "confirmNewPin", userMessage: "Please confirm your new PIN lorem ipsum dolor sit amet consectetuer esset")
-                        ])
+                        "newPin": "Please enter a valid 4-digit PIN lorem ipsum dolor sit amet consectetuer esset",
+                        "confirmNewPin": "Please confirm your new PIN lorem ipsum dolor sit amet consectetuer esset"
+                    ])
                     expect(viewController.view).to(haveValidSnapshot())
                 }
             }

@@ -130,35 +130,35 @@ class HomeViewController: BaseViewController {
     // MARK: - ASAPP Callbacks
     
     func createASAPPUser(customerIdentifier: String?) -> ASAPPUser {
-        let user = ASAPPUser(
+        return ASAPPUser(
             userIdentifier: customerIdentifier,
-            requestContextProvider: requestContextProvider,
-            userLoginHandler: { [weak self] (_ onUserLogin: @escaping ASAPPUserLoginHandlerCompletion) in
-                
-            let loginViewController = LoginViewController()
-            
-            loginViewController.onUserLogin = { [weak self] (customerId) in
-                guard let strongSelf = self, let customerId = customerId else {
-                    return
-                }
-                
-                let user = strongSelf.createASAPPUser(customerIdentifier: customerId)
-                onUserLogin(user)
-            }
-            
-            let navController = NavigationController(rootViewController: loginViewController)
-            if let presentedVC = self?.presentedViewController {
-                presentedVC.present(navController, animated: true, completion: nil)
-            } else {
-                self?.present(navController, animated: true, completion: nil)
-            }
-        })
-        
-        return user
+            requestContextProvider: requestContextProvider)
     }
     
     func requestContextProvider() -> [String: Any] {
         return AppSettings.shared.getContext()
+    }
+}
+
+extension HomeViewController: ASAPPDelegate {
+    func chatViewControllerDidTapUserLoginButton() {
+        let loginViewController = LoginViewController()
+        
+        loginViewController.onUserLogin = { [weak self] (customerId) in
+            guard let strongSelf = self, let customerId = customerId else {
+                return
+            }
+            
+            let user = strongSelf.createASAPPUser(customerIdentifier: customerId)
+            ASAPP.user = user
+        }
+        
+        let navController = NavigationController(rootViewController: loginViewController)
+        if let presentedVC = presentedViewController {
+            presentedVC.present(navController, animated: true, completion: nil)
+        } else {
+            present(navController, animated: true, completion: nil)
+        }
     }
 }
 

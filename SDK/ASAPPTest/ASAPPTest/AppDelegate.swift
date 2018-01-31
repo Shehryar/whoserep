@@ -27,13 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self, Answers.self])
         
         ASAPP.debugLogLevel = .debug
+        ASAPP.loadFonts()
         
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false
         navBarAppearance.backgroundColor = UIColor.white
-
-        ASAPP.loadFonts()
+        
         homeController = HomeViewController()
+        ASAPP.delegate = homeController
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = NavigationController(rootViewController: homeController)
         window!.makeKeyAndVisible()
@@ -59,6 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -103,7 +106,7 @@ extension AppDelegate {
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,
             "bundleId": bundleId
-            ])
+        ])
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
