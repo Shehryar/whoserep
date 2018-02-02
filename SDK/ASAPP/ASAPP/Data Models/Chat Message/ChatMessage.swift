@@ -15,13 +15,19 @@ class ChatMessage: NSObject {
     let text: String?
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
+    let userCanTypeResponse: Bool
     let metadata: EventMetadata
+    
+    var hasQuickReplies: Bool {
+        return !(quickReplies?.isEmpty ?? true)
+    }
    
     // MARK: Init
     
     init?(text: String?,
           attachment: ChatMessageAttachment?,
           quickReplies: [String: [QuickReply]]?,
+          userCanTypeResponse: Bool = false,
           metadata: EventMetadata) {
         guard text != nil || attachment != nil || quickReplies != nil else {
             return nil
@@ -38,20 +44,9 @@ class ChatMessage: NSObject {
         }
         
         self.metadata = metadata
-        super.init()
-    }
-    
-    // MARK: Updates
-    
-    func getAutoSelectQuickReply() -> QuickReply? {
-        guard let quickReplies = quickReplies else {
-            return nil
-        }
+        self.userCanTypeResponse = userCanTypeResponse
         
-        for quickReply in quickReplies where quickReply.isAutoSelect {
-            return quickReply
-        }
-        return nil
+        super.init()
     }
 }
 
@@ -60,10 +55,11 @@ class ChatMessage: NSObject {
 extension ChatMessage {
     
     enum JSONKey: String {
-        case attachment = "attachment"
+        case attachment
         case clientMessage = "ClientMessage"
-        case quickReplies = "quickReplies"
-        case text = "text"
+        case quickReplies
+        case text
+        case userCanTypeResponse
     }
     
     class func fromJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
@@ -94,10 +90,13 @@ extension ChatMessage {
                 }
             }
         }
+        
         if (quickRepliesDictionary ?? [String: [QuickReply]]()).isEmpty {
             quickRepliesDictionary = nil
         }
+        
+        let userCanTypeResponse = json.bool(for: JSONKey.userCanTypeResponse.rawValue) ?? false
 
-        return ChatMessage(text: text, attachment: attachment, quickReplies: quickRepliesDictionary, metadata: metadata)
+        return ChatMessage(text: text, attachment: attachment, quickReplies: quickRepliesDictionary, userCanTypeResponse: userCanTypeResponse, metadata: metadata)
     }
 }

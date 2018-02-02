@@ -9,9 +9,10 @@
 import UIKit
 
 protocol QuickRepliesActionSheetDelegate: class {
-    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet)
     func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet)
     func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet)
+    func quickRepliesActionSheetDidTapRestart(_ actionSheet: QuickRepliesActionSheet)
+    func quickRepliesActionSheetDidTapRestartActionButton(_ actionSheet: QuickRepliesActionSheet)
     
     /// Delegate returns YES if the button was successfully acted upon
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
@@ -43,15 +44,17 @@ class QuickRepliesActionSheet: UIView {
         return currentMessage?.metadata.classification
     }
     
-    var transparentInsetTop: CGFloat {
-        return buttonSize / 2.0 - separatorTopStroke / 2.0
+    var isRestartButtonVisible: Bool = false {
+        didSet {
+            restartButton.alpha = isRestartButtonVisible ? 1 : 0
+        }
     }
     
     // MARK: Private Properties
     
-    private let buttonSize: CGFloat = 46.0
+    private let buttonSize: CGFloat = 34
     
-    private let separatorTopStroke: CGFloat = 1.0
+    private let separatorTopStroke: CGFloat = 1
     
     private var listViews = [QuickRepliesListView]()
     
@@ -63,25 +66,16 @@ class QuickRepliesActionSheet: UIView {
     
     private let backButton = Button()
     
-    private let closeButton = Button()
+    private let restartButton = Button()
     
     private let separatorTopView = UIView()
-    
-    private let patternBackgroundView = UIView()
-    
-    private let patternView = UIView()
     
     private let containerView = UIView()
     
     // MARK: Initialization
     
     func commonInit() {
-        patternView.backgroundColor = UIColor.ASAPP.patternBackground
-        patternView.isHidden = !ASAPP.styles.colors.quickRepliesBackgroundPattern
-        patternBackgroundView.addSubview(patternView)
-        
-        patternBackgroundView.backgroundColor = ASAPP.styles.colors.quickRepliesBackground
-        addSubview(patternBackgroundView)
+        backgroundColor = ASAPP.styles.colors.quickRepliesBackground
         
         addSubview(containerView)
         
@@ -90,31 +84,31 @@ class QuickRepliesActionSheet: UIView {
         
         backButton.accessibilityLabel = ASAPPLocalizedString("Previous Options")
         backButton.image = Images.getImage(.iconBack)
-        backButton.imageSize = CGSize(width: 11, height: 11)
+        backButton.imageSize = CGSize(width: 8, height: 8)
         backButton.onTap = { [weak self] in
-            if let blockSelf = self {
-                blockSelf.delegate?.quickRepliesActionSheetWillTapBack(blockSelf)
+            if let strongSelf = self {
+                strongSelf.delegate?.quickRepliesActionSheetWillTapBack(strongSelf)
             }
             
             self?.goToPreviousListView()
             
-            if let blockSelf = self {
-                blockSelf.delegate?.quickRepliesActionSheetDidTapBack(blockSelf)
+            if let strongSelf = self {
+                strongSelf.delegate?.quickRepliesActionSheetDidTapBack(strongSelf)
             }
         }
         styleButton(backButton)
         addSubview(backButton)
         
-        closeButton.isHidden = true
-        closeButton.image = Images.getImage(.iconSmallX)
-        closeButton.imageSize = CGSize(width: 11, height: 11)
-        closeButton.onTap = { [weak self] in
-            if let blockSelf = self {
-                blockSelf.delegate?.quickRepliesActionSheetDidCancel(blockSelf)
+        restartButton.accessibilityLabel = ASAPPLocalizedString("Start Over")
+        restartButton.image = Images.getImage(.iconExitLink)
+        restartButton.imageSize = CGSize(width: 8, height: 8)
+        restartButton.onTap = { [weak self] in
+            if let strongSelf = self {
+                strongSelf.delegate?.quickRepliesActionSheetDidTapRestart(strongSelf)
             }
         }
-        styleButton(closeButton)
-        addSubview(closeButton)
+        styleButton(restartButton)
+        addSubview(restartButton)
         
         updateBackButtonVisibility()
     }
@@ -155,33 +149,24 @@ extension QuickRepliesActionSheet {
         super.layoutSubviews()
         
         // Buttons
-        let buttonInset: CGFloat = 15
+        let buttonInset: CGFloat = 16
         let cornerRadius = buttonSize / 2.0
-        let backButtonLeft = buttonInset
-        backButton.frame = CGRect(x: backButtonLeft, y: 0.0, width: buttonSize, height: buttonSize)
+        let buttonLeft = buttonInset
+        backButton.frame = CGRect(x: buttonLeft, y: 13, width: buttonSize, height: buttonSize)
         backButton.layer.cornerRadius = cornerRadius
-        
-        let closeButtonLeft = bounds.width - buttonSize - buttonInset
-        closeButton.frame = CGRect(x: closeButtonLeft, y: 0.0, width: buttonSize, height: buttonSize)
-        closeButton.layer.cornerRadius = cornerRadius
+        restartButton.layer.cornerRadius = cornerRadius
         
         // Separator Top
         
-        let separatorTop = closeButton.center.y - separatorTopStroke / 2.0
-        separatorTopView.frame = CGRect(x: 0.0, y: separatorTop, width: bounds.width, height: separatorTopStroke)
-        
-        // Background
-        
-        let backgroundTop = separatorTopView.frame.maxY
-        let backgroundHeight = bounds.height - backgroundTop
-        patternBackgroundView.frame = CGRect(x: 0.0, y: backgroundTop, width: bounds.width, height: backgroundHeight)
-        patternView.frame = patternBackgroundView.bounds
+        separatorTopView.frame = CGRect(x: 0.0, y: 0, width: bounds.width, height: separatorTopStroke)
         
         // listViews
         
         let containerTop = separatorTopView.frame.maxY
         let containerHeight = bounds.height - containerTop
         containerView.frame = CGRect(x: 0.0, y: containerTop, width: bounds.width, height: containerHeight)
+        
+        restartButton.frame = CGRect(x: buttonLeft, y: containerHeight - 26 - buttonSize, width: buttonSize, height: buttonSize)
         
         if !animating {
             updateListViewFrames()
@@ -190,8 +175,13 @@ extension QuickRepliesActionSheet {
     
     func preferredDisplayHeight() -> CGFloat {
         let rowHeight = QuickRepliesListView.approximateRowHeight()
-        let visibleRows: CGFloat = UIScreen.main.bounds.height > 575 ? 4.6 : 3.5
-        return rowHeight * visibleRows + transparentInsetTop
+        
+        if listViews.first?.onRestartActionButtonTapped != nil {
+            return rowHeight * 1.25
+        }
+        
+        let visibleRows: CGFloat = 3.65
+        return rowHeight * visibleRows
     }
     
     func updateListViewFrames() {
@@ -223,7 +213,7 @@ extension QuickRepliesActionSheet {
         listView.message = message
         listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
-                let delegate = strongSelf.delegate {
+               let delegate = strongSelf.delegate {
                 return delegate.quickRepliesActionSheet(strongSelf, didSelect: quickReply, from: message)
             }
             return false
@@ -235,6 +225,19 @@ extension QuickRepliesActionSheet {
         return listView
     }
     
+    private func addRestartActionButtonListView() {
+        let listView = QuickRepliesListView()
+        listView.onRestartActionButtonTapped = { [weak self] in
+            if let strongSelf = self,
+               let delegate = strongSelf.delegate {
+                delegate.quickRepliesActionSheetDidTapRestartActionButton(strongSelf)
+            }
+        }
+        containerView.addSubview(listView)
+        listViews.append(listView)
+        updateListViewFrames()
+    }
+    
     private func goToPreviousListView() {
         if listViews.count > 1 && currentViewIndex > 0 {
             currentViewIndex -= 1
@@ -244,12 +247,12 @@ extension QuickRepliesActionSheet {
                 self.updateListViewFrames()
                 self.listViews.removeLast()
                 self.updateBackButtonVisibility()
-                }, completion: { [weak self] _ in
-                    viewToRemove?.removeFromSuperview()
-                    
-                    if let currentView = self?.listViews.last {
-                        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, currentView)
-                    }
+            }, completion: { [weak self] _ in
+                viewToRemove?.removeFromSuperview()
+                
+                if let currentView = self?.listViews.last {
+                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, currentView)
+                }
             })
         }
     }
@@ -274,13 +277,13 @@ extension QuickRepliesActionSheet {
         
         if listViews.count > 1 && animated {
             animating = true
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-                self.updateBackButtonVisibility()
-                self.updateListViewFrames()
-            }, completion: { _ in
-                self.animating = false
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
+                self?.updateBackButtonVisibility()
+                self?.updateListViewFrames()
+            }, completion: { [weak self] _ in
+                self?.animating = false
                 listView.flashScrollIndicatorsIfNecessary()
-                for previousView in self.listViews where previousView != listView {
+                for previousView in (self?.listViews ?? []) where previousView != listView {
                     previousView.clearSelection()
                 }
             })
@@ -318,6 +321,30 @@ extension QuickRepliesActionSheet {
     func deselectCurrentSelection(animated: Bool) {
         if let currentView = listViews.last {
             currentView.deselectButtonSelection(animated: animated)
+        }
+    }
+    
+    func showRestartActionButton(animated: Bool) {
+        clear()
+        addRestartActionButtonListView()
+        
+        if animated {
+            animating = true
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
+                self?.updateBackButtonVisibility()
+                self?.isRestartButtonVisible = false
+                self?.setNeedsLayout()
+                self?.layoutIfNeeded()
+                self?.updateListViewFrames()
+            }, completion: { [weak self] _ in
+                self?.animating = false
+            })
+        } else {
+            updateBackButtonVisibility()
+            isRestartButtonVisible = false
+            setNeedsLayout()
+            layoutIfNeeded()
+//            updateListViewFrames()
         }
     }
 }

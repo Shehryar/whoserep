@@ -12,6 +12,7 @@ protocol ChatInputViewDelegate: class {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?)
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String)
     func chatInputView(_ chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
+    func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView)
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
 
@@ -39,7 +40,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 18, left: 24, bottom: 18, right: 0) {
+    var contentInset = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 0) {
         didSet {
             setNeedsLayout()
         }
@@ -93,8 +94,8 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     // MARK: Properties: Data
     
-    var inputMinHeight: CGFloat = 36
-    let inputMaxHeight: CGFloat = 66
+    var inputMinHeight: CGFloat = 28
+    let inputMaxHeight: CGFloat = 58
     let mediaButtonImageHeight: CGFloat = 22
     var inputHeight: CGFloat = 0
     
@@ -400,6 +401,10 @@ extension ChatInputView: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         bubbleView.backgroundColor = inputColors.background.withAlphaComponent(1)
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.chatInputViewDidBeginEditing(self)
     }
 }
 

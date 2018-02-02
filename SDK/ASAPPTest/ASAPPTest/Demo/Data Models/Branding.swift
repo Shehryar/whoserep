@@ -52,19 +52,15 @@ class Branding: NSObject {
             styles = ASAPPStyles()
             styles.sendButtonImage = nil
             views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
-            strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
             
         case .boost:
             styles = Branding.createBoostStyles(appearanceConfig)
-            strings.predictiveSendButton = "SEND"
             strings.chatInputSend = "SEND"
             
         case .telstra:
             styles = Branding.createTelstraStyles(appearanceConfig)
             strings.chatEndChatNavBarButton = "END"
-            strings.predictiveWelcomeText = "Talk to us."
-            strings.predictiveOtherSuggestions = "What can our agents help you with?"
         
         case .custom:
             styles = Branding.createCustomStyles(appearanceConfig)
@@ -74,7 +70,6 @@ class Branding: NSObject {
             strings.asappButton = helpButtonText
         }
         strings.chatTitle = appearanceConfig.strings[.chatTitle]
-        strings.predictiveTitle = appearanceConfig.strings[.predictiveTitle]
         
         super.init()
     }
@@ -126,30 +121,9 @@ extension Branding {
         
         // Telstra special cases
         
-        styles.welcomeLayout = .chat
         styles.colors.navBarBackground = .white
         styles.colors.navBarTitle = primary
         styles.colors.navBarButton = primary
-        styles.colors.predictiveNavBarBackground = .white
-        styles.colors.predictiveNavBarTitle = primary
-        styles.colors.predictiveNavBarButton = primary
-        styles.colors.predictiveTextSecondary = .white
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor.white.withAlphaComponent(0.1), textColor: .white, border: .white)
-        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
-        styles.colors.predictiveGradientColors = [
-            UIColor.white.withAlphaComponent(0.9),
-            primary,
-            UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1)
-        ]
-        styles.colors.predictiveGradientLocations = [0.0, 0.33, 1]
-        styles.colors.predictiveInput = ASAPPInputColors(
-            background: UIColor(red: 1, green: 1, blue: 1, alpha: 0.9),
-            text: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.8),
-            placeholderText: UIColor(red: 0.07, green: 0.07, blue: 0.2, alpha: 0.5),
-            tint: UIColor(red: 0.28, green: 0.23, blue: 0.49, alpha: 1),
-            border: .white,
-            primaryButton: primary,
-            secondaryButton: primary)
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: primary)
         
         return styles
@@ -165,8 +139,6 @@ extension Branding {
         let textLight = config.getUIColor(.textLight)
         let textDark = config.getUIColor(.textDark)
         let buttonTextColor = UIColor.white.chooseFirstAcceptableColor(of: [primary, secondary, textDark])
-        let predictiveBackground = secondary
-        let predictiveText = predictiveBackground.chooseFirstAcceptableColor(of: [textLight, textDark])
         
         styles.colors.controlTint = primary
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
@@ -175,40 +147,11 @@ extension Branding {
         styles.colors.navBarBackground = primary
         styles.colors.navBarTitle = styles.colors.navBarBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
         styles.colors.navBarButton = styles.colors.navBarTitle
-        styles.colors.predictiveNavBarBackground = styles.colors.navBarBackground
-        styles.colors.predictiveNavBarTitle = styles.colors.navBarTitle
-        styles.colors.predictiveNavBarButton = styles.colors.predictiveNavBarTitle
         styles.colors.messageText = textDark.colorWithRelativeBrightness(0.33)!
-        styles.colors.replyMessageText = textDark
+        styles.colors.replyMessageText = textLight
         styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: buttonTextColor)
-        styles.colors.predictiveGradientColors = [predictiveBackground, predictiveBackground, predictiveBackground]
-        styles.colors.predictiveTextPrimary = predictiveBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
-        styles.colors.predictiveTextSecondary = predictiveText
-        styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: predictiveText.withAlphaComponent(0.1), textColor: predictiveText, border: predictiveText)
-        styles.colors.predictiveButtonSecondary = styles.colors.predictiveButtonPrimary
         styles.colors.helpButtonBackground = primary
         styles.colors.helpButtonText = primary.isDark() ? textLight : textDark
-        
-        styles.textStyles.predictiveHeader = ASAPPTextStyle(font: config.fontFamily.bold, size: 28, letterSpacing: 1, color: textLight)
-        styles.textStyles.predictiveSubheader = ASAPPTextStyle(font: config.fontFamily.regular, size: 17, letterSpacing: 0, color: textLight)
-        
-        let predictiveInputBackground = predictiveBackground.chooseHighestContrast(of: [predictiveBackground.colorWithRelativeBrightness(0.1)!, predictiveBackground.colorWithRelativeBrightness(-0.1)!])
-        let predictiveInputText = predictiveInputBackground.chooseHighestContrast(of: [textLight, textDark])
-        let predictiveInputPlaceholder = predictiveInputBackground.chooseFirstAcceptableColor(of: [
-            predictiveInputText.colorWithRelativeBrightness(0.2)!,
-            predictiveInputText.colorWithRelativeBrightness(-0.2)!,
-            predictiveInputText.colorWithRelativeBrightness(0.4)!,
-            predictiveInputText.colorWithRelativeBrightness(-0.4)!
-        ])
-        let predictiveInputTint = predictiveInputBackground.chooseFirstAcceptableColor(of: [primary, secondary, textDark, textLight])
-        styles.colors.predictiveInput = ASAPPInputColors(
-            background: predictiveInputBackground,
-            text: predictiveInputText,
-            placeholderText: predictiveInputPlaceholder,
-            tint: predictiveInputTint,
-            border: nil,
-            primaryButton: predictiveInputTint,
-            secondaryButton: predictiveInputTint)
         
         return styles
     }

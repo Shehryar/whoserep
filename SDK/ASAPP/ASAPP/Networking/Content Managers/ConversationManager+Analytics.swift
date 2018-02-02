@@ -22,10 +22,7 @@ enum AnalyticsEventType: String {
 
 enum AnalyticsButtonName: String {
     case openChat = "open_chat"
-    case closeChatFromChat = "close_chat_from_chat"
-    case closeChatFromPredictive = "close_chat_from_predictive"
-    case showPredictiveFromChat = "show_predictive_from_chat"
-    case showChatFromPredictive = "show_chat_from_predictive"
+    case closeChat = "close_chat"
     case srsBack = "srs_back"
 }
 

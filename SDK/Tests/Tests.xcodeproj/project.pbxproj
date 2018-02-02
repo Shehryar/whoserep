@@ -31,7 +31,6 @@
 		3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521651F9926220072D089 /* ButtonSpec.swift */; };
 		3A0521681F992E720072D089 /* ChatInputViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521671F992E720072D089 /* ChatInputViewSpec.swift */; };
 		3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */; };
-		3A05216D1F9A6A900072D089 /* AppOpenResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05216C1F9A6A900072D089 /* AppOpenResponseSpec.swift */; };
 		3A05216F1F9A78C70072D089 /* SessionManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05216E1F9A78C70072D089 /* SessionManagerSpec.swift */; };
 		3A0521711F9A976B0072D089 /* ChatMessageAttachmentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */; };
 		3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */; };
@@ -83,6 +82,7 @@
 		3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */; };
+		3A6507AF2020C349008EC815 /* RestartActionButtonCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
@@ -203,7 +203,6 @@
 		3A0521651F9926220072D089 /* ButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSpec.swift; sourceTree = "<group>"; };
 		3A0521671F992E720072D089 /* ChatInputViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewSpec.swift; sourceTree = "<group>"; };
 		3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReplyCellSpec.swift; sourceTree = "<group>"; };
-		3A05216C1F9A6A900072D089 /* AppOpenResponseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenResponseSpec.swift; sourceTree = "<group>"; };
 		3A05216E1F9A78C70072D089 /* SessionManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerSpec.swift; sourceTree = "<group>"; };
 		3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachmentSpec.swift; sourceTree = "<group>"; };
 		3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItemSpec.swift; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
 		3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewSpec.swift; sourceTree = "<group>"; };
+		3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartActionButtonCellSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -441,6 +441,7 @@
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
+				3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
@@ -729,6 +730,7 @@
 				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
+				3A6507AF2020C349008EC815 /* RestartActionButtonCellSpec.swift in Sources */,
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */,
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,

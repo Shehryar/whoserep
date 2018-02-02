@@ -26,6 +26,8 @@ public class ASAPPTextStyle: NSObject {
         return fontRef.withSize(size)
     }
     
+    private(set) var uppercase: Bool = false
+    
     private var fontRef: UIFont
     
     // MARK: Properties (dynamic)
@@ -43,12 +45,14 @@ public class ASAPPTextStyle: NSObject {
      - parameter size: The default size.
      - parameter letterSpacing: The amount of space between characters.
      - parameter color: The text color.
+     - parameter uppercase: Whether the text is rendered as all uppercase.
      */
-    public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor) {
+    public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor, uppercase: Bool = false) {
         self.defaultSize = size
         self.fontRef = font
         self.letterSpacing = letterSpacing
         self.color = color
+        self.uppercase = uppercase
         super.init()
     }
     

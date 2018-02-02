@@ -10,6 +10,12 @@ import UIKit
 import SafariServices
 
 class ChatViewController: ASAPPViewController {
+    enum InputState {
+        case quickReplies
+        case chat
+        case both
+        case conversationEnd
+    }
     
     // MARK: Properties: Public
     
@@ -21,13 +27,11 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Storage
     
-    private private(set) var conversationManager: ConversationManager!
+    private(set) var conversationManager: ConversationManager!
     private var quickRepliesMessage: ChatMessage?
 
     // MARK: Properties: Views / UI
-    
-    private var predictiveVC: PredictiveViewController!
-    private let predictiveNavController: UINavigationController!
+
     private let chatMessagesView = ChatMessagesView()
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
@@ -35,16 +39,13 @@ class ChatViewController: ASAPPViewController {
     private var hapticFeedbackGenerator: Any?
     
     // MARK: Properties: Status
-    
-    var showPredictiveOnViewAppear = true
 
     private var didConnectAtLeastOnce = false
     private var isInitialLayout = true
-    private var didPresentPredictiveView = false
-    private var isPredictiveVCVisible = false
     private var delayedDisconnectTime: Date?
     private let disconnectedTimeThreshold: TimeInterval = 2
     private var segue: ASAPPSegue = .present
+    private var inputState: InputState = .both
     
     // MARK: Properties: Keyboard
     
@@ -53,7 +54,7 @@ class ChatViewController: ASAPPViewController {
     private var keyboardRenderedHeight: CGFloat = 0
     
     override var inputAccessoryView: UIView {
-        return isPredictiveVCVisible ? predictiveVC.messageInputView : chatInputView
+        return chatInputView
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -65,8 +66,6 @@ class ChatViewController: ASAPPViewController {
     init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
         self.appCallbackHandler = appCallbackHandler
-        self.predictiveVC = PredictiveViewController(segue: segue)
-        self.predictiveNavController = UINavigationController(rootViewController: predictiveVC)
         self.segue = segue
         super.init(nibName: nil, bundle: nil)
         
@@ -76,10 +75,6 @@ class ChatViewController: ASAPPViewController {
         // UI Setup
         //
         automaticallyAdjustsScrollViewInsets = false
-  
-        // Predictive
-        predictiveVC.delegate = self
-        predictiveNavController.view.alpha = 0.0
         
         // Close Button
         let side = ASAPP.styles.closeButtonSide(for: segue)
@@ -99,22 +94,6 @@ class ChatViewController: ASAPPViewController {
         // Chat Messages View
         chatMessagesView.delegate = self
         chatMessagesView.reloadWithEvents(conversationManager.events)
-        
-        // Live Chat
-        if isLiveChat {
-            showPredictiveOnViewAppear = false
-        } else {
-            if let (_, lastMessage) = conversationManager.getCurrentQuickReplyMessage() {
-                let secondsSinceLastEvent = Date().timeIntervalSince(lastMessage.metadata.sendTime)
-                
-                showPredictiveOnViewAppear = secondsSinceLastEvent > (15 * 60)
-                if secondsSinceLastEvent < (60 * 15) {
-                    showPredictiveOnViewAppear = false
-                }
-            } else {
-                showPredictiveOnViewAppear = true
-            }
-        }
         
         // Chat Input
         chatInputView.delegate = self
@@ -162,7 +141,6 @@ class ChatViewController: ASAPPViewController {
     // MARK: Deinit
     
     deinit {
-        predictiveVC.delegate = nil
         keyboardObserver.delegate = nil
         chatMessagesView.delegate = nil
         chatInputView.delegate = nil
@@ -272,17 +250,6 @@ class ChatViewController: ASAPPViewController {
         view.addSubview(quickRepliesActionSheet)
         view.addSubview(connectionStatusView)
         
-        // Predictive
-        if let predictiveView = predictiveNavController?.view {
-            if let navView = navigationController?.view {
-                navView.addSubview(predictiveView)
-            } else {
-                view.addSubview(predictiveView)
-            }
-            predictiveView.alpha = 0.0
-            predictiveVC.messageInputView.alpha = 0
-        }
-        
         let minTimeBetweenSessions: TimeInterval = 60 * 15 // 15 minutes
         if chatMessagesView.lastMessage == nil ||
             chatMessagesView.lastMessage!.metadata.sendTime.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
@@ -292,7 +259,7 @@ class ChatViewController: ASAPPViewController {
         // Inferred button
         conversationManager.trackButtonTap(buttonName: .openChat)
         
-        if !(showPredictiveOnViewAppear || chatMessagesView.isEmpty) && !isLiveChat {
+        if !chatMessagesView.isEmpty && !isLiveChat {
             showQuickRepliesActionSheetIfNecessary(animated: false)
         }
         
@@ -307,9 +274,8 @@ class ChatViewController: ASAPPViewController {
                 self?.updateFramesAnimated(false, scrollToBottomIfNearBottom: false)
             }
             
-            conversationManager.getAppOpen { [weak self] (appOpenResponse) in
-                self?.predictiveVC.setAppOpenResponse(appOpenResponse: appOpenResponse, animated: true)
-            }
+            // TODO: clear quick replies that may have been loaded from cache
+            conversationManager.sendEnterChatRequest()
         }
     }
     
@@ -334,20 +300,7 @@ class ChatViewController: ASAPPViewController {
     // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if (showPredictiveOnViewAppear || isPredictiveVCVisible) && !isLiveChat {
-            if let predictiveNavColor = ASAPP.styles.colors.predictiveNavBarBackground {
-                if predictiveNavColor.isDark() {
-                    return .lightContent
-                } else {
-                    return .default
-                }
-            } else if ASAPP.styles.colors.predictiveGradientColors[0].isDark() {
-                return .lightContent
-            } else {
-                return .default
-            }
-        }
-        return super.preferredStatusBarStyle
+        return ASAPP.styles.colors.navBarBackground.isDark() ? .lightContent : .default
     }
     
     // MARK: View Layout Overrides
@@ -359,10 +312,6 @@ class ChatViewController: ASAPPViewController {
         
         if isInitialLayout {
             chatMessagesView.scrollToBottomAnimated(false)
-            if showPredictiveOnViewAppear || chatMessagesView.isEmpty {
-                showPredictiveOnViewAppear = false
-                setPredictiveViewControllerVisible(true, animated: false, completion: nil)
-            }
             isInitialLayout = false
         }
     }
@@ -380,8 +329,6 @@ extension ChatViewController {
             navigationItem.titleView = nil
         }
         
-        updateNavigationActionButton()
-        
         chatMessagesView.updateDisplay()
         quickRepliesActionSheet.updateDisplay()
         connectionStatusView.updateDisplay()
@@ -389,38 +336,6 @@ extension ChatViewController {
         
         if isViewLoaded {
             view.setNeedsLayout()
-        }
-    }
-    
-    func updateNavigationActionButton() {
-        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
-        let title: String
-        let action: Selector
-        let customImage: ASAPPCustomImage?
-        
-        if isLiveChat {
-            title = ASAPP.strings.chatEndChatNavBarButton
-            action = #selector(ChatViewController.didTapEndChatButton)
-            customImage = ASAPP.styles.navBarStyles.buttonImages.end
-        } else {
-            title = ASAPP.strings.chatAskNavBarButton
-            action = #selector(ChatViewController.didTapAskButton)
-            customImage = ASAPP.styles.navBarStyles.buttonImages.ask
-        }
-        
-        let askButton = NavBarButtonItem(location: .chat, side: side)
-        if let customImage = customImage {
-            askButton.configImage(customImage)
-        } else {
-            askButton.configTitle(title)
-        }
-        askButton.configTarget(self, action: action)
-        
-        switch side {
-        case .left:
-            navigationItem.leftBarButtonItem = askButton
-        case .right:
-            navigationItem.rightBarButtonItem = askButton
         }
     }
 }
@@ -432,19 +347,17 @@ extension ChatViewController {
         if connectionStatus == .disconnected {
             connectionStatus = .connecting
             conversationManager.enterConversation()
-            conversationManager.getAppOpen()
+            conversationManager.sendEnterChatRequest()
         }
     }
     
     func updateViewForLiveChat(animated: Bool = true) {
-        updateNavigationActionButton()
+        chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
         
         if isLiveChat {
             clearQuickRepliesActionSheet(true, completion: nil)
-            chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
             inputAccessoryView.becomeFirstResponder()
         } else {
-            chatInputView.placeholderText = ASAPP.strings.predictiveInputPlaceholder
             inputAccessoryView.resignFirstResponder()
         }
         
@@ -455,10 +368,6 @@ extension ChatViewController {
         } else {
             updateFrames()
         }
-    }
-    
-    func showPredictiveView() {
-        setPredictiveViewControllerVisible(true, animated: true, completion: nil)
     }
     
     func dismissChatViewController() {
@@ -480,16 +389,11 @@ extension ChatViewController {
 // MARK: - Button Actions
 
 extension ChatViewController {
-    @objc func didTapAskButton() {
-        showPredictiveView()
-        
-        conversationManager.trackButtonTap(buttonName: .showPredictiveFromChat)
-    }
-    
     @objc func didTapEndChatButton() {
-        let confirmationAlert = UIAlertController(title: ASAPP.strings.endChatConfirmationTitle,
-                                                  message: ASAPP.strings.endChatConfirmationMessage,
-                                                  preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(
+            title: ASAPP.strings.endChatConfirmationTitle,
+            message: ASAPP.strings.endChatConfirmationMessage,
+            preferredStyle: .alert)
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationCancelButton, style: .cancel, handler: nil))
         confirmationAlert.addAction(UIAlertAction(title: ASAPP.strings.endChatConfirmationEndChatButton, style: .default, handler: { [weak self] _ in
             guard let strongSelf = self else {
@@ -504,7 +408,7 @@ extension ChatViewController {
     }
     
     @objc func didTapCloseButton() {
-        conversationManager.trackButtonTap(buttonName: .closeChatFromChat)
+        conversationManager.trackButtonTap(buttonName: .closeChat)
         
         dismissChatViewController()
     }
@@ -515,15 +419,6 @@ extension ChatViewController {
 extension ChatViewController {
     
     func updateFrames() {
-        // Predictive
-        if let predictiveView = predictiveNavController?.view {
-            if let navView = navigationController?.view {
-                predictiveView.frame = navView.bounds
-            } else {
-                predictiveView.frame = view.bounds
-            }
-        }
-        
         var minVisibleY: CGFloat = 0
         if let navigationBar = navigationController?.navigationBar {
             if let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
@@ -543,35 +438,29 @@ extension ChatViewController {
         }
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
-        let repliesHeight: CGFloat = quickRepliesActionSheet.preferredDisplayHeight()
-        var repliesTop = view.bounds.height
-        if quickRepliesMessage != nil && !isLiveChat {
-            repliesTop -= repliesHeight
-        }
-        quickRepliesActionSheet.frame = CGRect(x: 0.0, y: repliesTop, width: viewWidth, height: repliesHeight)
-        
-        if isLiveChat && quickRepliesMessage == nil {
-            chatMessagesView.contentInsetBottom = keyboardRenderedHeight
-        } else if !isLiveChat && quickRepliesMessage != nil {
-            chatMessagesView.contentInsetBottom = quickRepliesActionSheet.frame.height - quickRepliesActionSheet.transparentInsetTop + 10
-        } else {
-            chatMessagesView.contentInsetBottom = 0
-        }
-        
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: view.bounds.height)
         chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = minVisibleY
         
-        if quickRepliesMessage != nil || (quickRepliesMessage == nil && !isLiveChat) {
-            chatInputView.resignFirstResponder()
-            chatInputView.isHidden = true
-        }
+        let quickRepliesHeight: CGFloat = quickRepliesActionSheet.preferredDisplayHeight()
+        var quickRepliesTop = view.bounds.height
         
-        if quickRepliesMessage == nil && isLiveChat {
+        switch inputState {
+        case .chat:
             chatInputView.isHidden = false
+            chatInputView.becomeFirstResponder()
+            chatMessagesView.contentInsetBottom = keyboardRenderedHeight
+        case .both, .quickReplies, .conversationEnd:
+            chatInputView.isHidden = (inputState != .both)
+            chatInputView.resignFirstResponder()
+            quickRepliesTop -= quickRepliesHeight
+            let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
+            quickRepliesTop -= inputHeight
+            chatMessagesView.contentInsetBottom = quickRepliesActionSheet.frame.height + inputHeight
         }
         
-        predictiveVC.messageInputView.isHidden = !isPredictiveVCVisible
+        quickRepliesActionSheet.isRestartButtonVisible = (inputState == .quickReplies)
+        quickRepliesActionSheet.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeight)
     }
     
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
@@ -845,95 +734,6 @@ extension ChatViewController: ComponentViewControllerDelegate {
     }
 }
 
-// MARK: - PredictiveViewController
-
-extension ChatViewController: PredictiveViewControllerDelegate {
-    
-    func setPredictiveViewControllerVisible(_ visible: Bool, animated: Bool, completion: (() -> Void)?) {
-        if visible == isPredictiveVCVisible {
-            return
-        }
-        
-        isPredictiveVCVisible = visible
-        inputAccessoryView.resignFirstResponder()
-        reloadInputViews()
-        
-        if visible {
-            keyboardObserver.deregisterForNotification()
-        } else {
-            keyboardObserver.registerForNotifications()
-        }
-        
-        guard let welcomeView = predictiveNavController?.view else { return }
-        let alpha: CGFloat = visible ? 1 : 0
-        
-        if predictiveVC.messageInputView.isHidden && alpha == 1 {
-            predictiveVC.messageInputView.isHidden = false
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                welcomeView.alpha = alpha
-                self?.predictiveVC.messageInputView.alpha = alpha
-                self?.updateStatusBar(false)
-            }, completion: { [weak self] _ in
-                self?.predictiveVC.presentingViewUpdatedVisibility(visible)
-                completion?()
-            })
-        } else {
-            welcomeView.alpha = alpha
-            predictiveVC.messageInputView.alpha = alpha
-            predictiveVC.presentingViewUpdatedVisibility(visible)
-            updateStatusBar(false)
-            completion?()
-        }
-    }
-    
-    // MARK: Delegate
-    
-    func predictiveViewController(_ viewController: PredictiveViewController,
-                                  didFinishWithText queryText: String,
-                                  fromPrediction: Bool) {
-        
-        conversationManager.originalSearchQuery = queryText
-        
-        keyboardObserver.registerForNotifications()
-        chatMessagesView.overrideToHideInfoView = true
-        chatMessagesView.scrollToBottomAnimated(false)
-        
-        clearQuickRepliesActionSheet()
-        setPredictiveViewControllerVisible(false, animated: true) { [weak self] in
-            Dispatcher.delay(250, closure: {
-                self?.sendMessage(withText: queryText, fromPrediction: fromPrediction)
-            })
-        }
-    }
-    
-    func predictiveViewControllerDidTapViewChat(_ viewController: PredictiveViewController) {
-        setPredictiveViewControllerVisible(false, animated: true) { [weak self] in
-            self?.showQuickRepliesActionSheetIfNecessary()
-        }
-        
-        conversationManager.trackButtonTap(buttonName: .showChatFromPredictive)
-    }
-    
-    func predictiveViewControllerDidTapX(_ viewController: PredictiveViewController) {
-        conversationManager.trackButtonTap(buttonName: .closeChatFromPredictive)
-        
-        dismissChatViewController()
-    }
-    
-    func predictiveViewControllerIsConnected(_ viewController: PredictiveViewController) -> Bool {
-        if connectionStatus == .connected {
-            return true
-        }
-        
-        reconnect()
-        
-        return false
-    }
-}
-
 // MARK: - ChatInputViewDelegate
 
 extension ChatViewController: ChatInputViewDelegate {
@@ -958,11 +758,19 @@ extension ChatViewController: ChatInputViewDelegate {
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView) {
         updateFramesAnimated()
     }
+    
+    func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView) {
+        updateInputState(.chat, animated: true)
+    }
 }
 
-// MARK: - Showing/Hiding ChatquickRepliesActionSheet
+// MARK: - Showing/Hiding QuickRepliesActionSheet
 
 extension ChatViewController {
+    func updateInputState(_ state: InputState, animated: Bool = false) {
+        inputState = state
+        updateFramesAnimated(animated)
+    }
     
     // MARK: Showing
     
@@ -972,11 +780,7 @@ extension ChatViewController {
         }
     }
     
-    private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage]?,
-                                                        animated: Bool = true,
-                                                        completion: (() -> Void)? = nil) {
-        guard let messages = messages else { return }
-            
+    private func showQuickRepliesActionSheetIfNecessary(with messages: [ChatMessage], animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = messages.last
         
         quickRepliesActionSheet.reload(with: messages)
@@ -1005,18 +809,25 @@ extension ChatViewController {
             completion?()
         })
     }
+    
+    func showRestartActionButton() {
+        updateInputState(.conversationEnd, animated: true)
+        quickRepliesActionSheet.showRestartActionButton(animated: false)
+        updateFramesAnimated()
+    }
 }
 
 // MARK: - QuickRepliesActionSheetDelegate
 
 extension ChatViewController: QuickRepliesActionSheetDelegate {
+    func quickRepliesActionSheetDidTapRestartActionButton(_ actionSheet: QuickRepliesActionSheet) {
+        conversationManager.sendAskRequest()
+    }
     
-    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet) {
-        if isLiveChat {
-            inputAccessoryView.becomeFirstResponder()
-            reloadInputViews()
-        }
-        clearQuickRepliesActionSheet()
+    func quickRepliesActionSheetDidTapRestart(_ actionSheet: QuickRepliesActionSheet) {
+        // TODO: show confirmation Action Sheet
+        quickRepliesActionSheet.clear()
+        conversationManager.sendAskRequest()
     }
     
     func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {
@@ -1030,6 +841,7 @@ extension ChatViewController: QuickRepliesActionSheetDelegate {
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
                                  didSelect quickReply: QuickReply,
                                  from message: ChatMessage) -> Bool {
+        updateInputState(.quickReplies, animated: true)
         return performAction(quickReply.action, fromMessage: message, quickReply: quickReply)
     }
 }
@@ -1046,14 +858,26 @@ extension ChatViewController: ConversationManagerDelegate {
         }
     
         chatMessagesView.addMessage(message) { [weak self] in
-            if message.quickReplies != nil {
-                self?.didReceiveMessageWithQuickReplies(message)
+            guard let strongSelf = self else { return }
+            
+            let showChatInput = strongSelf.isLiveChat || message.userCanTypeResponse
+            
+            if showChatInput && message.hasQuickReplies {
+                strongSelf.updateInputState(.both, animated: true)
+            } else if message.hasQuickReplies {
+                strongSelf.updateInputState(.quickReplies, animated: true)
+            } else if showChatInput {
+                strongSelf.updateInputState(.chat, animated: true)
+            }
+            
+            if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
+                strongSelf.showRestartActionButton()
+            } else if message.hasQuickReplies {
+                strongSelf.didReceiveMessageWithQuickReplies(message)
             } else if message.metadata.isReply {
-                self?.clearQuickRepliesActionSheet(true, completion: nil)
+                strongSelf.clearQuickRepliesActionSheet(true, completion: nil)
             }
         }
-        
-        predictiveVC.shouldShowViewChatButton = true
     }
     
     // Updated Messages
@@ -1098,6 +922,9 @@ extension ChatViewController: ConversationManagerDelegate {
         if isConnected {
             // Fetch events
             reloadMessageEvents()
+        } else if inputState == .conversationEnd {
+            // show the restart action button again in case the spinner is visible
+            showRestartActionButton()
         }
         
         DebugLog.d("ChatViewController: Connection -> \(isConnected ? "connected" : "not connected")")
@@ -1118,25 +945,15 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        // Immediate Action
-        if let autoSelectQuickReply = message.getAutoSelectQuickReply() {
-            Dispatcher.delay(1200) { [weak self] in
-                self?.performAction(autoSelectQuickReply.action, fromMessage: message, quickReply: autoSelectQuickReply)
+        if quickRepliesActionSheet.frame.minY < view.bounds.height {
+            // already visible
+            Dispatcher.delay(200) { [weak self] in
+                self?.showQuickRepliesActionSheet(with: message)
             }
-        }
-        
-        // Show Suggested Replies View
-        else {
-            // Already Visible
-            if quickRepliesActionSheet.frame.minY < view.bounds.height {
-                Dispatcher.delay(200) { [weak self] in
-                    self?.showQuickRepliesActionSheet(with: message)
-                }
-            } else {
-                // Not visible yet
-                Dispatcher.delay(1000) { [weak self] in
-                    self?.showQuickRepliesActionSheet(with: message)
-                }
+        } else {
+            // not yet visible
+            Dispatcher.delay(1000) { [weak self] in
+                self?.showQuickRepliesActionSheet(with: message)
             }
         }
     }
@@ -1182,11 +999,10 @@ extension ChatViewController {
     func reloadMessageEvents() {
         conversationManager.getEvents { [weak self] (fetchedEvents, _) in
             if let strongSelf = self, let fetchedEvents = fetchedEvents {
-                strongSelf.quickRepliesMessage = nil
+                strongSelf.clearQuickRepliesActionSheet(false, completion: nil)
                 strongSelf.showQuickRepliesActionSheetIfNecessary(animated: true)
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
-                strongSelf.predictiveVC.shouldShowViewChatButton = !strongSelf.chatMessagesView.isEmpty
             }
         }
     }

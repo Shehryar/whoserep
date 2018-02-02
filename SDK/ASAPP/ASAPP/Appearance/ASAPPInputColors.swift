@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Used to configure the colors of text input area in the predictive view and chat view.
+ Used to configure the colors of text input area in the chat view.
  */
 @objcMembers
 public class ASAPPInputColors: NSObject {

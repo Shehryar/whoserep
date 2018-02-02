@@ -9,35 +9,23 @@
 import UIKit
 
 class QuickReplyCell: UITableViewCell {
-
-    var contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    class var reuseIdentifier: String {
+        return "QuickReplyCell"
+    }
+    
+    static var textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+    
+    static var contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
     
     class func approximateHeight(withFont font: UIFont) -> CGFloat {
         return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
     }
     
-    let label = UILabel()
+    let button = UIButton()
+    
+    let shadowView = UIView()
     
     let imageSize: CGFloat = 13
-    
-    var separatorBottomColor: UIColor? {
-        didSet {
-            separatorBottomView.backgroundColor = separatorBottomColor
-        }
-    }
-    
-    var selectedBackgroundColor: UIColor? {
-        didSet {
-            if let selectedBackgroundColor = selectedBackgroundColor {
-                selectionStyle = .default
-                customSelectedBackgroundView.backgroundColor = selectedBackgroundColor
-                selectedBackgroundView = customSelectedBackgroundView
-            } else {
-                selectionStyle = .none
-                selectedBackgroundView = nil
-            }
-        }
-    }
     
     var imageTintColor: UIColor = UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0) {
         didSet {
@@ -47,20 +35,36 @@ class QuickReplyCell: UITableViewCell {
         }
     }
     
-    private let separatorBottomView = UIView()
-    
-    private let customSelectedBackgroundView = UIView()
-    
     // MARK: Init
     
     func commonInit() {
         accessibilityTraits = UIAccessibilityTraitButton
-        contentView.addSubview(separatorBottomView)
+        selectionStyle = .none
+        backgroundColor = .clear
         
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.lineBreakMode = .byTruncatingTail
-        contentView.addSubview(label)
+        button.isUserInteractionEnabled = false
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.lineBreakMode = .byTruncatingTail
+        button.titleLabel?.font = ASAPP.styles.textStyles.body.font
+        button.setTitleColor(ASAPP.styles.colors.quickReplyButton.textNormal, for: .normal)
+        
+        button.backgroundColor = UIColor.white
+        button.layer.masksToBounds = false
+        button.layer.cornerRadius = 14
+        button.clipsToBounds = true
+        contentView.addSubview(button)
+        
+        shadowView.backgroundColor = button.backgroundColor
+        shadowView.layer.opacity = 1
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        shadowView.layer.shadowRadius = 4
+        shadowView.layer.shadowOpacity = 0.1
+        shadowView.layer.cornerRadius = button.layer.cornerRadius
+        contentView.addSubview(shadowView)
+        
+        contentView.bringSubview(toFront: button)
         
         imageView?.contentMode = .scaleAspectFit
         updateImageView()
@@ -81,13 +85,13 @@ class QuickReplyCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        separatorBottomView.backgroundColor = separatorBottomColor
+        button.isSelected = selected
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
-        separatorBottomView.backgroundColor = separatorBottomColor
+        button.isHighlighted = highlighted
     }
     
     // MARK: Content
@@ -95,42 +99,74 @@ class QuickReplyCell: UITableViewCell {
     func updateImageView() {
         imageView?.image = Images.getImage(.iconExitLink)?.tinted(imageTintColor)
     }
+    
+    func update(for quickReply: QuickReply?, enabled: Bool) {
+        guard let quickReply = quickReply else {
+            imageView?.isHidden = true
+            accessibilityTraits = UIAccessibilityTraitButton
+            button.isEnabled = enabled
+            return
+        }
+        
+        if quickReply.action.type == .componentView {
+            button.updateText(quickReply.title, textStyle: ASAPP.styles.textStyles.bodyBold, colors: ASAPP.styles.colors.quickReplyButton)
+        } else {
+            button.updateText(quickReply.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.quickReplyButton)
+        }
+        
+        imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
+        
+        // TODO: refactor and implement showing custom icon
+        if quickReply.action.willExitASAPP {
+            imageView?.isHidden = false
+            accessibilityTraits = UIAccessibilityTraitLink
+        } else {
+            imageView?.isHidden = true
+            accessibilityTraits = UIAccessibilityTraitButton
+        }
+        
+        button.isEnabled = enabled
+    }
 }
 
 // MARK: - Layout
 
 extension QuickReplyCell {
     
-    func labelSizeThatFits(size: CGSize) -> CGSize {
-        let sideInset = contentInset.right + imageSize + 10
-        let maxLabelWidth = size.width - 2 * sideInset
-        let labelSize = label.sizeThatFits(CGSize(width: maxLabelWidth, height: 0))
+    func buttonSizeThatFits(size: CGSize) -> CGSize {
+        let maxButtonWidth = size.width - QuickReplyCell.contentInset.left - QuickReplyCell.contentInset.right
+        let buttonSize = button.sizeThatFits(CGSize(width: maxButtonWidth, height: 0))
         
-        return CGSize(width: maxLabelWidth, height: ceil(labelSize.height))
+        return CGSize(width: min(maxButtonWidth, ceil(buttonSize.width)), height: max(40, ceil(buttonSize.height)))
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let labelSize = labelSizeThatFits(size: bounds.size)
-        let labelLeft = floor((bounds.size.width - labelSize.width) / 2.0)
-        let labelTop = floor((bounds.size.height - labelSize.height) / 2.0)
-        label.frame = CGRect(x: labelLeft, y: labelTop, width: labelSize.width, height: labelSize.height)
+        let buttonSize = buttonSizeThatFits(size: bounds.size)
+        let buttonLeft = floor((bounds.size.width - buttonSize.width) / 2.0)
+        let buttonTop = floor((bounds.size.height - buttonSize.height) / 2.0)
         
-        let imageLeft = bounds.size.width - contentInset.right - imageSize
+        button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
+        button.contentEdgeInsets = QuickReplyCell.textInset
+        
+        let imageLeft = button.frame.maxX - QuickReplyCell.textInset.right - imageSize
         let imageTop = floor((bounds.size.height - imageSize) / 2.0)
-        imageView?.frame = CGRect(x: imageLeft, y: imageTop, width: imageSize, height: imageSize)
         
-        let separatorStroke: CGFloat = 1.0
-        let separatorTop: CGFloat = bounds.height - separatorStroke
-        separatorBottomView.frame = CGRect(x: 0.0, y: separatorTop, width: bounds.width, height: separatorStroke)
+        if imageView?.image != nil && !(imageView?.isHidden ?? false) {
+            button.contentEdgeInsets.right += QuickReplyCell.textInset.right + imageSize
+        }
+        
+        shadowView.frame = button.frame
+        
+        imageView?.frame = CGRect(x: imageLeft, y: imageTop, width: imageSize, height: imageSize)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let labelSize = labelSizeThatFits(size: size)
-        var contentHeight = labelSize.height
+        let buttonSize = buttonSizeThatFits(size: size)
+        var contentHeight = buttonSize.height
         if contentHeight > 0 {
-            contentHeight += contentInset.top + contentInset.bottom
+            contentHeight += QuickReplyCell.contentInset.top + QuickReplyCell.contentInset.bottom
         }
         
         return CGSize(width: size.width, height: contentHeight)

@@ -76,38 +76,6 @@ class ChatMessageSpec: QuickSpec {
                 }
             }
             
-            describe(".getAutoSelectQuickReply()") {
-                context("without quickReplies") {
-                    it("returns nil") {
-                        let msg = ChatMessage(text: nil, attachment: nil, quickReplies: [:], metadata: metadata)
-                        expect(msg!.getAutoSelectQuickReply()).to(beNil())
-                    }
-                }
-                
-                context("without any auto-select quick replies") {
-                    it("returns nil") {
-                        let msg = ChatMessage(text: nil, attachment: nil, quickReplies: [
-                            "foo": [QuickReply(title: "bar", action: Action(content: "")!)]
-                        ], metadata: metadata)
-                        expect(msg!.getAutoSelectQuickReply()).to(beNil())
-                    }
-                }
-                
-                context("with two auto-select quick replies") {
-                    it("returns the first one") {
-                        let alpha = QuickReply(title: "beta", action: Action(content: "")!, isAutoSelect: true)
-                        let gamma = QuickReply(title: "delta", action: Action(content: "")!, isAutoSelect: true)
-                        let msg = ChatMessage(text: nil, attachment: nil, quickReplies: [
-                            "alpha": [alpha],
-                            "gamma": [gamma]
-                        ], metadata: metadata)
-                        let result = msg!.getAutoSelectQuickReply()
-                        expect(result).toNot(beNil())
-                        expect(result).to(equal(alpha))
-                    }
-                }
-            }
-            
             describe(".fromJson(_:with:)") {
                 context("without json") {
                     it("returns nil") {

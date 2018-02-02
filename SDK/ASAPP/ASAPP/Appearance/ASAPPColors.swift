@@ -102,26 +102,29 @@ public class ASAPPColors: NSObject {
     public var messageBorder: UIColor? = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
     
     /// The color of chat message reply text.
-    public var replyMessageText = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
+    public var replyMessageText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     
     /// The color of the background of chat message replies.
-    public var replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
+    public var replyMessageBackground = UIColor.ASAPP.eggplant
     
     /// The color of the border of chat message replies.
-    public var replyMessageBorder: UIColor? = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
+    public var replyMessageBorder: UIColor?
     
     // MARK: - Chat: Quick Replies
     
     /// The color of the background of the quick replies list.
-    public var quickRepliesBackground = UIColor.white
-    
-    /// Whether the quick replies list has a patterned background.
-    public var quickRepliesBackgroundPattern = true
+    public var quickRepliesBackground = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
     
     /// The colors of quick reply buttons.
     public var quickReplyButton = ASAPPButtonColors(
-        backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
-        textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))
+        backgroundColor: .white,
+        textColor: UIColor(red: 0.18, green: 0.21, blue: 0.24, alpha: 1))
+    
+    /// The colors of action buttons.
+    public var actionButton = ASAPPButtonColors(
+        backgroundColor: .white,
+        textColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1),
+        border: UIColor(red: 0, green: 0.45, blue: 0.73, alpha: 1))
     
     // MARK: - Chat: Input
     
@@ -134,61 +137,6 @@ public class ASAPPColors: NSObject {
         border: UIColor(red: 0.937, green: 0.945, blue: 0.949, alpha: 1),
         primaryButton: UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1),
         secondaryButton: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1))
-    
-    // MARK: - Predictive View: Navigation Bar
-    
-    /// The color of the navigation bar of the predictive view.
-    public var predictiveNavBarBackground: UIColor?
-    
-    /// The color of the title text of the navigation bar of the predictive view.
-    public var predictiveNavBarTitle = UIColor.white
-    
-    /// The color of text in navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.text`, as well as the color of the close/back button.
-    public var predictiveNavBarButton = UIColor.white
-    
-    /// The color of text in navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.bubble`.
-    public var predictiveNavBarButtonForeground = UIColor.white
-    
-    /// The color of the background of navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.bubble`.
-    public var predictiveNavBarButtonBackground = UIColor(red: 0.201, green: 0.215, blue: 0.249, alpha: 1)
-    
-    // MARK: - Predictive View: General Content
-    
-    /// The colors of the background gradient of the predictive view.
-    public var predictiveGradientColors: [UIColor] = [
-        UIColor(red: 0.31, green: 0.31, blue: 0.35, alpha: 1),
-        UIColor(red: 0.37, green: 0.38, blue: 0.40, alpha: 1),
-        UIColor(red: 0.44, green: 0.47, blue: 0.51, alpha: 1)
-    ]
-    
-    /// The locations of the colors of the background gradient of the predictive view.
-    public var predictiveGradientLocations: [CGFloat]? = [
-        0,
-        0.5,
-        1
-    ]
-    
-    /// The color of most text in the predictive view, including `ASAPPStrings.predictiveTitle` and `ASAPPStrings.predictiveWelcomeText`.
-    public var predictiveTextPrimary = UIColor.white
-    
-    /// The color of secondary text in the predictive view, namely `ASAPPStrings.predictiveOtherSuggestions`.
-    public var predictiveTextSecondary = UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
-    
-    /// The colors of primary buttons in the predictive view.
-    public var predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-    
-    /// The colors of secondary buttons in the predictive view.
-    public var predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-    
-    /// The colors of the input text area in the predictive view.
-    public var predictiveInput = ASAPPInputColors(
-        background: UIColor(red: 0.232, green: 0.247, blue: 0.284, alpha: 0.9),
-        text: UIColor.white,
-        placeholderText: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-        tint: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-        border: nil,
-        primaryButton: UIColor.white,
-        secondaryButton: UIColor.white)
     
     // MARK: - ASAPPButton
     

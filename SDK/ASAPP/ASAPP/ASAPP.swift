@@ -99,28 +99,6 @@ public extension ASAPP {
     }
     
     /**
-     Creates a chat view controller in a navigation controller, ready to be presented modally.
-     
-     - returns: A `UIViewController`
-     - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
-     - warning: Deprecated in 3.0.0. Use `createChatViewControllerForPresenting(fromNotificationWith:appCallbackHandler:)` instead.
-     */
-    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
-        let chatViewController = ChatViewController(
-            config: config,
-            user: user,
-            segue: .present,
-            appCallbackHandler: appCallbackHandler)
-        
-        if canHandleNotification(with: userInfo) {
-            chatViewController.showPredictiveOnViewAppear = false
-        }
-        
-        return NavigationController(rootViewController: chatViewController)
-    }
-    
-    /**
      Creates a button that will launch the SDK when tapped. Configure the segue style
      by setting the `ASAPPStyles.segue` property.
      
@@ -231,10 +209,6 @@ internal extension ASAPP {
             user: user,
             segue: segue,
             appCallbackHandler: appCallbackHandler)
-        
-        if canHandleNotification(with: userInfo) {
-            chatViewController.showPredictiveOnViewAppear = false
-        }
         
         return chatViewController
     }

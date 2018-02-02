@@ -91,7 +91,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         var contentBottom = view.bounds.height
         if quickRepliesView.eventIds.count > 0 {
             quickRepliesTop = view.bounds.height - quickRepliesHeight
-            contentBottom = quickRepliesTop + quickRepliesView.transparentInsetTop
+            contentBottom = quickRepliesTop
         }
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: view.bounds.width, height: quickRepliesHeight)
         
@@ -217,7 +217,6 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
 }
 
 extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
-    
     func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         var title: String?
         var message: String?
@@ -275,9 +274,11 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
     
     // Not Handled
     
-    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet) {}
     func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet) {}
     func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesActionSheetDidTapRestart(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesActionSheetDidTapRestartActionButton(_ actionSheet: QuickRepliesActionSheet) {}
+    
 }
 
 extension ComponentMessagePreviewViewController {

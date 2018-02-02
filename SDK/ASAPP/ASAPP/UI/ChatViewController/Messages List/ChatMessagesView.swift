@@ -128,8 +128,6 @@ class ChatMessagesView: UIView {
         
         emptyView.frame = bounds
         emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        emptyView.title = ASAPP.strings.chatEmptyTitle
-        emptyView.message = ASAPP.strings.chatEmptyMessage
         addSubview(emptyView)
         
         updateSubviewVisibility()

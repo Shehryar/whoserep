@@ -16,29 +16,6 @@ extension UIButton {
         setBackgroundImage(UIImage.imageWithColor(colors.backgroundHighlighted), for: .highlighted)
         setBackgroundImage(UIImage.imageWithColor(colors.backgroundDisabled), for: .disabled)
         
-        // Text
-        if let text = text {
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textNormal,
-                .kern: textStyle.letterSpacing
-            ]), for: .normal)
-            
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textHighlighted,
-                .kern: textStyle.letterSpacing
-                ]), for: .highlighted)
-            
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textDisabled,
-                .kern: textStyle.letterSpacing
-                ]), for: .disabled)
-        } else {
-            setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])
-        }
-        
         // Border
         if let borderColor = colors.border {
             layer.borderColor = borderColor.cgColor
@@ -47,6 +24,34 @@ extension UIButton {
             layer.borderColor = nil
             layer.borderWidth = 0
         }
+        
+        guard var text = text else {
+            setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])
+            return
+        }
+        
+        if textStyle.uppercase {
+            text = text.localizedUppercase
+        }
+        
+        // Text
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textNormal,
+            .kern: textStyle.letterSpacing
+        ]), for: .normal)
+        
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textHighlighted,
+            .kern: textStyle.letterSpacing
+        ]), for: .highlighted)
+        
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textDisabled,
+            .kern: textStyle.letterSpacing
+        ]), for: .disabled)
     }
     
     func updateText(_ text: String?, buttonType: ButtonType) {

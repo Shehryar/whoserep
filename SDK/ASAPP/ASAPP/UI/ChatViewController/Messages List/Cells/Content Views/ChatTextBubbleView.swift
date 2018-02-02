@@ -37,6 +37,7 @@ class ChatTextBubbleView: UIView {
             //
             if message.metadata.isReply {
                 let fillColor = ASAPP.styles.colors.replyMessageBackground
+                label.updateFont(for: .bodyBold)
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
                     NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.replyMessageText,
@@ -47,6 +48,7 @@ class ChatTextBubbleView: UIView {
                 bubbleView.fillColor = fillColor
             } else {
                 let fillColor = ASAPP.styles.colors.messageBackground
+                label.updateFont(for: .body)
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [

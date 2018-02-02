@@ -1,9 +1,9 @@
 //
-//  QuickReplyCellSpec.swift
+//  RestartActionButtonCellSpec.swift
 //  UI Tests
 //
-//  Created by Hans Hyttinen on 10/19/17.
-//  Copyright © 2017 ASAPP. All rights reserved.
+//  Created by Hans Hyttinen on 1/30/18.
+//  Copyright © 2018 ASAPP. All rights reserved.
 //
 
 import UIKit
@@ -12,9 +12,9 @@ import Quick
 import Nimble
 import Nimble_Snapshots
 
-class QuickReplyCellSpec: QuickSpec {
+class RestartActionButtonCellSpec: QuickSpec {
     override func spec() {
-        describe("QuickReplyCell") {
+        describe("RestartActionButtonCell") {
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -33,17 +33,15 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with default styles") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = RestartActionButtonCell(style: .default, reuseIdentifier: "restartActionButtonCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
+                        let string = "I want to ask another question."
+                        let style = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, uppercase: true)
                         let colors = ASAPPButtonColors(
-                            backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
-                            textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))
-                        let textStyle = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: colors.textNormal)
-                        ASAPP.styles.textStyles.body = textStyle
-                        cell.button.titleLabel?.font = textStyle.font
-                        cell.button.updateText("Schedule an appointment to return equipment", textStyle: ASAPP.styles.textStyles.body, colors: colors)
-                        cell.button.titleLabel?.textAlignment = .center
-                        cell.imageTintColor = colors.textNormal
+                            backgroundColor: .white,
+                            textColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1),
+                            border: UIColor(red: 0, green: 0.45, blue: 0.73, alpha: 1))
+                        cell.button.updateText(string, textStyle: style, colors: colors)
                         expect(cell).to(haveValidSnapshot())
                     }
                 }

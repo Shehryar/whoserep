@@ -14,8 +14,8 @@ import Nimble
 class ComponentLayoutEngineSpec: QuickSpec {
     override func spec() {
         describe("ComponentLayoutEngine") {
-            let buttonHeight: CGFloat = 49
-            let buttonWidth: CGFloat = 102
+            let buttonHeight: CGFloat = 48
+            let buttonWidth: CGFloat = 108
             
             describe(".getVerticalLayout(for:inside:)") {
                 var style = ComponentStyle()
@@ -34,6 +34,8 @@ class ComponentLayoutEngineSpec: QuickSpec {
                 ] as [String: Any]
                 
                 beforeSuite {
+                    ASAPP.styles.textStyles.button = ASAPPTextStyle(font: Fonts.default.bold, size: 13, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, uppercase: true)
+                    
                     style.alignment = .fill
                     
                     stackStyle = style
@@ -410,12 +412,13 @@ class ComponentLayoutEngineSpec: QuickSpec {
                         button3Style.weight = 2
                         
                         let layoutInfo = getLayout(for: [button1Style, button2Style, button3Style], in: CGRect(x: 0, y: 0, width: width, height: height))
+                        let roundingErrorAdjustment: CGFloat = 2
                         
                         expect(layoutInfo.maxX).to(equal(width))
                         expect(layoutInfo.maxY).to(equal(height))
                         expect(layoutInfo.frames[0]).to(equal(CGRect(x: 0, y: 0, width: width, height: buttonHeight)))
-                        expect(layoutInfo.frames[1]).to(equal(CGRect(x: 0, y: buttonHeight, width: width, height: ceil((height - buttonHeight) / 3))))
-                        let frameHeight = floor((height - buttonHeight) / 3 * 2)
+                        expect(layoutInfo.frames[1]).to(equal(CGRect(x: 0, y: buttonHeight, width: width, height: floor((height - buttonHeight) / 3) + roundingErrorAdjustment)))
+                        let frameHeight = floor((height - buttonHeight) / 3) * 2
                         expect(layoutInfo.frames[2]).to(equal(CGRect(x: 0, y: height - frameHeight, width: width, height: frameHeight)))
                     }
                 }

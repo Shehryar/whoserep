@@ -45,9 +45,6 @@ class NavCloseBarButtonItem: UIBarButtonItem {
             case .chat:
                 foregroundColor = ASAPP.styles.colors.navBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-            case .predictive:
-                foregroundColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
             }
             
             imageSize = CGSize(width: 8, height: 8)
@@ -79,10 +76,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         switch segue {
         case .present: break
         case .push:
-            styles.foregroundColor =
-                location == .chat
-                ? ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.navBarButtonBackground : ASAPP.styles.colors.navBarButton
-                : ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.predictiveNavBarButtonBackground : ASAPP.styles.colors.predictiveNavBarButton
+            styles.foregroundColor = ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.navBarButtonBackground : ASAPP.styles.colors.navBarButton
             styles.backgroundColor = nil
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero

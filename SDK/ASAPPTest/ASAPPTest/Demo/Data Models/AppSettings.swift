@@ -147,7 +147,8 @@ fileprivate extension AppSettings {
         return [
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
-            "tetris.test.asapp.com"
+            "tetris.test.asapp.com",
+            "fullapi-landing20.test.asapp.com"
         ]
     }
     
@@ -243,8 +244,7 @@ fileprivate extension AppSettings {
                 .textLight: white
             ], strings: [
                 .helpButton: "HELP",
-                .chatTitle: "24x7 Chat",
-                .predictiveTitle: "24x7 Chat"
+                .chatTitle: "24x7 Chat"
             ], fontFamilyName: .asapp)
         ]
     }

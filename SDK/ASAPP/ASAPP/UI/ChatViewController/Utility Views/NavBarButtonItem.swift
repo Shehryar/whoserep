@@ -10,7 +10,6 @@ import UIKit
 
 enum NavBarButtonLocation {
     case chat
-    case predictive
 }
 
 class NavBarButtonItem: UIBarButtonItem {
@@ -51,9 +50,6 @@ class NavBarButtonItem: UIBarButtonItem {
             case .chat:
                 textColor = ASAPP.styles.colors.navBarButtonForeground
                 backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-            case .predictive:
-                textColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
             }
             font = ASAPP.styles.textStyles.navButton.font
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
@@ -61,8 +57,6 @@ class NavBarButtonItem: UIBarButtonItem {
             switch location {
             case .chat:
                 textColor = ASAPP.styles.colors.navBarButton
-            case .predictive:
-                textColor = ASAPP.styles.colors.predictiveNavBarButton
             }
             backgroundColor = nil
             font = ASAPP.styles.textStyles.navButton.font

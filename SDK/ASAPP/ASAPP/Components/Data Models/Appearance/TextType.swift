@@ -11,8 +11,6 @@ import UIKit
 enum TextType: String {
     case navTitle
     case navButton
-    case predictiveHeader
-    case predictiveSubheader
     case header1
     case header2
     case subheader

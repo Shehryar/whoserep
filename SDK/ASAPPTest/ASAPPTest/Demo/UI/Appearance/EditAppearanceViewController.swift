@@ -43,7 +43,6 @@ class EditAppearanceViewController: BaseTableViewController {
     
     fileprivate(set) var allStrings: DictionaryLiteral<AppearanceConfig.StringName, String> = [
         .helpButton: "Help button",
-        .predictiveTitle: "Predictive title",
         .chatTitle: "Chat title"
     ]
     fileprivate(set) var stringSettings: [AppearanceConfig.StringName: String] = [:]

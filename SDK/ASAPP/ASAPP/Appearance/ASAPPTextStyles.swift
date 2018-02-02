@@ -23,12 +23,6 @@ public class ASAPPTextStyles: NSObject {
     
     // MARK: ComponentUI: Headers
     
-    /// The style of the predictive view title. See `ASAPPStrings.predictiveTitle`.
-    public var predictiveHeader = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
-    
-    /// The style of the predictive view message under the title. See `ASAPPStrings.predictiveOtherSuggestions`.
-    public var predictiveSubheader = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0, color: UIColor.ASAPP.cometBlue)
-    
     /// The style of top-level headers.
     public var header1 = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
@@ -66,6 +60,9 @@ public class ASAPPTextStyles: NSObject {
     /// The text style of buttons.
     public var button = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: UIColor.ASAPP.cometBlue)
     
+    /// The style of action buttons.
+    public var actionButton = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue, uppercase: true)
+    
     /// The style of links.
     public var link = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)
     
@@ -81,8 +78,6 @@ public class ASAPPTextStyles: NSObject {
         navButton.updateFont(fontFamily.medium)
         bodyItalic.updateFont(fontFamily.regularItalic ?? fontFamily.regular)
         bodyBoldItalic.updateFont(fontFamily.mediumItalic ?? fontFamily.medium)
-        predictiveHeader.updateFont(fontFamily.regular)
-        predictiveSubheader.updateFont(fontFamily.regular)
         header1.updateFont(fontFamily.bold)
         header2.updateFont(fontFamily.bold)
         subheader.updateFont(fontFamily.bold)
@@ -102,8 +97,6 @@ extension ASAPPTextStyles {
         switch type {
         case .navTitle: return navTitle
         case .navButton: return navButton
-        case .predictiveHeader: return predictiveHeader
-        case .predictiveSubheader: return predictiveSubheader
         case .header1: return header1
         case .header2: return header2
         case .subheader: return subheader

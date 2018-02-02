@@ -30,20 +30,9 @@ class ChatMessagesEmptyViewSpec: QuickSpec {
                 TestUtil.createStyle()
             }
             
-            context("with a short title and message") {
+            context("by itself") {
                 it("has a valid snapshot") {
                     let view = ChatMessagesEmptyView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-                    view.title = "Title"
-                    view.message = "Message"
-                    expect(view).to(haveValidSnapshot())
-                }
-            }
-            
-            context("with a long title and message") {
-                it("has a valid snapshot") {
-                    let view = ChatMessagesEmptyView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-                    view.title = "Qui dolorem ipsum, quia dolor sit amet"
-                    view.message = "Consectetur adipisci velit, sed quia non numquam eius modi tempora incidunt"
                     expect(view).to(haveValidSnapshot())
                 }
             }

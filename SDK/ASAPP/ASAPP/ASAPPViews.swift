@@ -15,7 +15,4 @@ public class ASAPPViews: NSObject {
     
     /// The title view displayed in the navigation bar when viewing live chat. Overrides `ASAPP.strings.chatTitle`.
     public var chatTitle: UIView?
-    
-    /// The title view displayed in the navigation bar when viewing the predictive input view. Overrides `ASAPP.strings.predictiveTitle`.
-    public var predictiveTitle: UIView?
 }

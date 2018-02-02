@@ -35,7 +35,6 @@ struct AppearanceConfig: Codable {
     enum StringName: Int, CountableEnum, Codable {
         case helpButton
         case chatTitle
-        case predictiveTitle
     }
     
     let name: String

@@ -29,9 +29,6 @@ public class ASAPPNavBarButtonImages: NSObject {
     /// The ask button appears in the chat view when not chatting with an agent.
     public var ask: ASAPPCustomImage?
     
-    /// The back to chat button appears in the predictive view.
-    public var backToChat: ASAPPCustomImage?
-    
     /// The end chat button appears in the chat view when chatting with an agent.
     public var end: ASAPPCustomImage?
 }
