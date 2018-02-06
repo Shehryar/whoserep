@@ -11,6 +11,7 @@ import UIKit
 /**
  Holds references to optional custom views.
  */
+@objc(ASAPPViews)
 public class ASAPPViews: NSObject {
     
     /// The title view displayed in the navigation bar when viewing live chat. Overrides `ASAPP.strings.chatTitle`.

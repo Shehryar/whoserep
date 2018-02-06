@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// A `Void` closure type that takes a deep link's name as a `String` and the deep link's metadata as a `[String: Any]?`.
+public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String: Any]?) -> Void)
+
 /// A protocol defining functions that can be called by the framework.
 @objc public protocol ASAPPDelegate {
     /// Called when a user taps a login button. Please set `ASAPP.user` once the user has logged in.
@@ -18,8 +21,25 @@ import Foundation
  The `ASAPP` class holds references to its various configurable properties and allows you
  to call various functions. No instances of `ASAPP` are to be created.
  */
+@objc(ASAPP)
 @objcMembers
 public class ASAPP: NSObject {
+    
+    /// The key for referencing an auth token in a request context dictionary.
+    public static let authTokenKey = "access_token"
+    
+    /**
+     The SDK version.
+     
+     - returns: A `String` representing the SDK version in x.y.z format.
+     */
+    public static var clientVersion: String {
+        if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            return bundleVersion
+        }
+        return "3.0.0"
+    }
+    
     // MARK: - Properties
     
     /// The delegate, currently only used for handling logging in.
@@ -58,12 +78,7 @@ public class ASAPP: NSObject {
         ASAPP.config = config
         ASAPP.loadFonts()
     }
-}
 
-/// A `Void` closure type that takes a deep link's name as a `String` and the deep link's metadata as a `[String: Any]?`.
-public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String: Any]?) -> Void)
-
-public extension ASAPP {
     // MARK: - Entering Chat
     
     /**
