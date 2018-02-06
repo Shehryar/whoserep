@@ -15,6 +15,7 @@ func ASAPPLocalizedString(_ key: String) -> String {
 /**
  Customizable strings for various parts of the UI.
  */
+@objc(ASAPPStrings)
 @objcMembers
 public class ASAPPStrings: NSObject {
     // MARK: General

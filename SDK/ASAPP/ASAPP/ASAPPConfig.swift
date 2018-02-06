@@ -13,6 +13,7 @@ import UIKit
 /**
  Configuration for the SDK's connection to the API.
  */
+@objc(ASAPPConfig)
 @objcMembers
 public class ASAPPConfig: NSObject {
     // MARK: - Properties
