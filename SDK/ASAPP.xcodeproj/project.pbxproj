@@ -154,7 +154,7 @@
 		302A20D21E5F9634007C522A /* ChatTextBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */; };
 		302A20D41E5F9A87007C522A /* ChatPictureMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */; };
 		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
-		302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */; };
+		302B6E191E7999770035B584 /* QuickRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesView.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
 		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
 		302B6E1D1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */; };
@@ -380,6 +380,8 @@
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPCustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */; };
 		3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */; };
+		3A9EF21B2028A9FC0092A1AA /* BaseActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF21A2028A9FC0092A1AA /* BaseActionSheet.swift */; };
+		3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */; };
 		3AB25B751F7AB23500CB335F /* ASAPPViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB25B741F7AB23500CB335F /* ASAPPViews.swift */; };
 		3AB948C51FBD1052009AE6C4 /* icon-send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C21FBD1050009AE6C4 /* icon-send.png */; };
 		3AB948C61FBD1052009AE6C4 /* icon-send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */; };
@@ -546,7 +548,7 @@
 		302A20D01E5F9634007C522A /* ChatTextBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleView.swift; sourceTree = "<group>"; };
 		302A20D31E5F9A87007C522A /* ChatPictureMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPictureMessageCell.swift; sourceTree = "<group>"; };
 		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesActionSheet.swift; sourceTree = "<group>"; };
+		302B6E161E7999770035B584 /* QuickRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesView.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
 		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
 		302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+OutgoingAPI.swift"; sourceTree = "<group>"; };
@@ -773,6 +775,8 @@
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPCustomImage.swift; sourceTree = "<group>"; };
 		3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarStyles.swift; sourceTree = "<group>"; };
+		3A9EF21A2028A9FC0092A1AA /* BaseActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseActionSheet.swift; sourceTree = "<group>"; };
+		3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheet.swift; sourceTree = "<group>"; };
 		3AB25B741F7AB23500CB335F /* ASAPPViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPViews.swift; sourceTree = "<group>"; };
 		3AB948C21FBD1050009AE6C4 /* icon-send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send.png"; sourceTree = "<group>"; };
 		3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@3x.png"; sourceTree = "<group>"; };
@@ -1201,6 +1205,7 @@
 		30226CCD1D4933F200871453 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3A9EF2192028A9BF0092A1AA /* Action Sheets */,
 				307484C51EB13B83008CF3E4 /* Base Classes */,
 				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
@@ -1318,7 +1323,7 @@
 			isa = PBXGroup;
 			children = (
 				3A6507AA201FCC35008EC815 /* RestartActionButtonCell.swift */,
-				302B6E161E7999770035B584 /* QuickRepliesActionSheet.swift */,
+				302B6E161E7999770035B584 /* QuickRepliesView.swift */,
 				302B6E171E7999770035B584 /* QuickRepliesListView.swift */,
 				302B6E181E7999770035B584 /* QuickReplyCell.swift */,
 			);
@@ -1666,6 +1671,15 @@
 				30F6B4D61EC3D69A00ABA570 /* TabViewTab.swift */,
 			);
 			path = TabView;
+			sourceTree = "<group>";
+		};
+		3A9EF2192028A9BF0092A1AA /* Action Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				3A9EF21A2028A9FC0092A1AA /* BaseActionSheet.swift */,
+				3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */,
+			);
+			path = "Action Sheets";
 			sourceTree = "<group>";
 		};
 		6A10F4CFFA2A2A316A2C20A4 /* Frameworks */ = {
@@ -2054,6 +2068,7 @@
 				30E5E08F1E9C1F0A00C364F4 /* CarouselView.swift in Sources */,
 				302A20C51E5F73AD007C522A /* ChatMessageCell.swift in Sources */,
 				305FF5CE1E841EC3004DD9D5 /* ComponentViewController.swift in Sources */,
+				3A9EF21B2028A9FC0092A1AA /* BaseActionSheet.swift in Sources */,
 				3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */,
 				3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */,
 				30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */,
@@ -2100,7 +2115,7 @@
 				30BBB4D51F3CE5D900FD5615 /* ChatViewController+Multimedia.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
-				302B6E191E7999770035B584 /* QuickRepliesActionSheet.swift in Sources */,
+				302B6E191E7999770035B584 /* QuickRepliesView.swift in Sources */,
 				281C34841E7F092C001A2AA3 /* ComponentFactory.swift in Sources */,
 				3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */,
 				308CFF441ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift in Sources */,
@@ -2160,6 +2175,7 @@
 				289E040C1EC791CC00CAC413 /* RadioButton.swift in Sources */,
 				30226CF21D493F5300871453 /* ChatInputView.swift in Sources */,
 				307DBE7B1E9D65F900B8F10F /* PageControlView.swift in Sources */,
+				3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */,
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,

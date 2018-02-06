@@ -79,22 +79,22 @@ public class ASAPPStrings: NSObject {
     /// The text displayed next to a required form field that was left empty.
     public var requiredFieldEmptyMessage = ASAPPLocalizedString("Required field")
     
-    // MARK: Ending Chat
+    // MARK: Restart confirmation action sheet
     
     /// The text for the quick reply button displayed at the end of a chat session.
-    public var endChatQuickReplyButton = ASAPPLocalizedString("I want to ask another question.")
+    public var restartActionButton = ASAPPLocalizedString("I want to ask another question.")
     
     /// The title for the alert displayed when ending chat.
-    public var endChatConfirmationTitle = ASAPPLocalizedString("Ask a new question")
+    public var restartConfirmationTitle = ASAPPLocalizedString("Ask a new question")
     
     /// The text for the alert displayed when ending chat.
-    public var endChatConfirmationMessage = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")
+    public var restartConfirmationBody = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")
     
     /// The text for the confirmation button of the end chat alert.
-    public var endChatConfirmationEndChatButton = ASAPPLocalizedString("I want to start over")
+    public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to start over")
     
     /// The text for the cancel button of the end chat alert.
-    public var endChatConfirmationCancelButton = ASAPPLocalizedString("Cancel")
+    public var restartConfirmationHideButton = ASAPPLocalizedString("Cancel")
     
     // Modal View: Feedback
     

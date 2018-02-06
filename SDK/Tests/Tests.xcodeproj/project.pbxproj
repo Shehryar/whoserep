@@ -87,6 +87,7 @@
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
 		3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */; };
+		3A9EF2212028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */; };
 		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C31FB122F9009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
@@ -245,6 +246,7 @@
 		3A797B891F97A29D00883ABF /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B8F1F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
+		3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetSpec.swift; sourceTree = "<group>"; };
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
@@ -394,7 +396,6 @@
 				3AA1E4F81FFC761000548E3D /* Mocks */,
 				3A0F04AF200F057E0064E76F /* APIActionErrorSpec.swift */,
 				3A0F04AD200955C30064E76F /* APIActionResponseSpec.swift */,
-				3A05216C1F9A6A900072D089 /* AppOpenResponseSpec.swift */,
 				3A0429391F97C23C0031CD78 /* ASAPPSpec.swift */,
 				3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */,
 				3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */,
@@ -442,6 +443,7 @@
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
 				3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */,
+				3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
@@ -679,7 +681,6 @@
 				3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */,
 				3A04293C1F97C23E0031CD78 /* ChatMessageSpec.swift in Sources */,
 				3A0F04AC200948DF0064E76F /* HTTPActionSpec.swift in Sources */,
-				3A05216D1F9A6A900072D089 /* AppOpenResponseSpec.swift in Sources */,
 				3A0F04B2201040250064E76F /* SocketRequestSpec.swift in Sources */,
 				3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */,
 				3A0F04B0200F057E0064E76F /* APIActionErrorSpec.swift in Sources */,
@@ -738,6 +739,7 @@
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
+				3A9EF2212028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift in Sources */,
 				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A391B431FA14ED90085C2DA /* FormValidationTestCase.swift in Sources */,

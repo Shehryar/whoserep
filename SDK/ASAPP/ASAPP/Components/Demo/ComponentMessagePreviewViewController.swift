@@ -21,7 +21,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     private let messagesView = ChatMessagesView()
     
-    private let quickRepliesView = QuickRepliesActionSheet()
+    private let quickRepliesView = QuickRepliesView()
     
     public override var canBecomeFirstResponder: Bool {
         return true
@@ -216,8 +216,8 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
 }
 
-extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
-    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
+extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {
+    func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         var title: String?
         var message: String?
         
@@ -274,10 +274,10 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
     
     // Not Handled
     
-    func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet) {}
-    func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {}
-    func quickRepliesActionSheetDidTapRestart(_ actionSheet: QuickRepliesActionSheet) {}
-    func quickRepliesActionSheetDidTapRestartActionButton(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesViewDidTapBack(_ quickRepliesView: QuickRepliesView) {}
+    func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView) {}
+    func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {}
+    func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell) {}
     
 }
 

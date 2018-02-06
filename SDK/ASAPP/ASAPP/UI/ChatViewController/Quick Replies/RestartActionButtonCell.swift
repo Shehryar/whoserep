@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class RestartActionButtonCell: QuickReplyCell {
+    private var activityIndicator: UIActivityIndicatorView?
+    
     override class var reuseIdentifier: String {
         return "RestartActionButtonCell"
     }
@@ -29,13 +31,23 @@ class RestartActionButtonCell: QuickReplyCell {
     
     func showSpinner() {
         button.isEnabled = false
-        button.titleLabel?.removeFromSuperview()
+        button.titleLabel?.alpha = 0
         
-        let spinner = UIActivityIndicatorView(frame: button.bounds)
-        spinner.activityIndicatorViewStyle = .gray
-        button.addSubview(spinner)
-        spinner.startAnimating()
+        activityIndicator = UIActivityIndicatorView(frame: button.bounds)
+        if let spinner = activityIndicator {
+            spinner.activityIndicatorViewStyle = .gray
+            button.addSubview(spinner)
+            spinner.startAnimating()
+        }
         
+        button.setNeedsLayout()
+        button.layoutIfNeeded()
+    }
+    
+    func hideSpinner() {
+        activityIndicator?.removeFromSuperview()
+        button.isEnabled = true
+        button.titleLabel?.alpha = 1
         button.setNeedsLayout()
         button.layoutIfNeeded()
     }

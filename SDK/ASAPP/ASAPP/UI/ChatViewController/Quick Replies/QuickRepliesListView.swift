@@ -12,7 +12,7 @@ class QuickRepliesListView: UIView {
 
     var onQuickReplySelected: ((QuickReply) -> Bool)?
     
-    var onRestartActionButtonTapped: (() -> Void)? {
+    var onRestartActionButtonTapped: ((_ cell: RestartActionButtonCell) -> Void)? {
         didSet {
             updateDisplay()
         }
@@ -178,7 +178,7 @@ extension QuickRepliesListView: UITableViewDataSource {
     }
     
     func styleRestartActionButtonCell(_ cell: RestartActionButtonCell) {
-        cell.button.updateText(ASAPP.strings.endChatQuickReplyButton, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
+        cell.button.updateText(ASAPP.strings.restartActionButton, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
         cell.layoutSubviews()
     }
 }
@@ -205,7 +205,7 @@ extension QuickRepliesListView: UITableViewDelegate {
             if let cell = tableView.cellForRow(at: indexPath) as? RestartActionButtonCell,
                cell.button.isEnabled {
                 cell.showSpinner()
-                onRestartActionButtonTapped?()
+                onRestartActionButtonTapped?(cell)
             }
         } else if let quickReply = quickReplyForIndexPath(indexPath),
             let onQuickReplySelected = onQuickReplySelected {

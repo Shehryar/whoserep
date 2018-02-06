@@ -66,9 +66,11 @@ extension ConversationManager {
         }
         sendRequest(path: "customer/enterChat", completion: handler)
     }
-    func sendAskRequest(_ completion: (() -> Void)? = nil) {
-        let handler: IncomingMessageHandler = { _, _, _ in
-            completion?()
+    
+    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)? = nil) {
+        let handler: IncomingMessageHandler = { (message: IncomingMessage, _, _) in
+            let success = message.type != MessageType.responseError
+            completion?(success)
         }
         sendRequest(path: "customer/ask", completion: handler)
     }

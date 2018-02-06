@@ -1,5 +1,5 @@
 //
-//  QuickRepliesActionSheet.swift
+//  QuickRepliesView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/13/16.
@@ -8,23 +8,23 @@
 
 import UIKit
 
-protocol QuickRepliesActionSheetDelegate: class {
-    func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet)
-    func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet)
-    func quickRepliesActionSheetDidTapRestart(_ actionSheet: QuickRepliesActionSheet)
-    func quickRepliesActionSheetDidTapRestartActionButton(_ actionSheet: QuickRepliesActionSheet)
+protocol QuickRepliesViewDelegate: class {
+    func quickRepliesViewDidTapBack(_ quickRepliesView: QuickRepliesView)
+    func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView)
+    func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView)
+    func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell)
     
-    /// Delegate returns YES if the button was successfully acted upon
-    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet,
-                                 didSelect quickReply: QuickReply,
-                                 from message: ChatMessage) -> Bool
+    /// Delegate returns true if the button was successfully acted upon
+    func quickRepliesView(_ quickRepliesView: QuickRepliesView,
+                          didSelect quickReply: QuickReply,
+                          from message: ChatMessage) -> Bool
 }
 
-class QuickRepliesActionSheet: UIView {
+class QuickRepliesView: UIView {
 
     // MARK: Public Properties
 
-    weak var delegate: QuickRepliesActionSheetDelegate?
+    weak var delegate: QuickRepliesViewDelegate?
     
     var eventIds: [Int] {
         var eventIds = [Int]()
@@ -87,13 +87,13 @@ class QuickRepliesActionSheet: UIView {
         backButton.imageSize = CGSize(width: 8, height: 8)
         backButton.onTap = { [weak self] in
             if let strongSelf = self {
-                strongSelf.delegate?.quickRepliesActionSheetWillTapBack(strongSelf)
+                strongSelf.delegate?.quickRepliesViewWillTapBack(strongSelf)
             }
             
             self?.goToPreviousListView()
             
             if let strongSelf = self {
-                strongSelf.delegate?.quickRepliesActionSheetDidTapBack(strongSelf)
+                strongSelf.delegate?.quickRepliesViewDidTapBack(strongSelf)
             }
         }
         styleButton(backButton)
@@ -104,7 +104,7 @@ class QuickRepliesActionSheet: UIView {
         restartButton.imageSize = CGSize(width: 8, height: 8)
         restartButton.onTap = { [weak self] in
             if let strongSelf = self {
-                strongSelf.delegate?.quickRepliesActionSheetDidTapRestart(strongSelf)
+                strongSelf.delegate?.quickRepliesViewDidTapRestart(strongSelf)
             }
         }
         styleButton(restartButton)
@@ -144,7 +144,7 @@ class QuickRepliesActionSheet: UIView {
 
 // MARK: - Layout
 
-extension QuickRepliesActionSheet {
+extension QuickRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -206,7 +206,7 @@ extension QuickRepliesActionSheet {
 
 // MARK: - Instance Methods
 
-extension QuickRepliesActionSheet {
+extension QuickRepliesView {
   
     private func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
         let listView = QuickRepliesListView()
@@ -214,7 +214,7 @@ extension QuickRepliesActionSheet {
         listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
                let delegate = strongSelf.delegate {
-                return delegate.quickRepliesActionSheet(strongSelf, didSelect: quickReply, from: message)
+                return delegate.quickRepliesView(strongSelf, didSelect: quickReply, from: message)
             }
             return false
         }
@@ -227,10 +227,10 @@ extension QuickRepliesActionSheet {
     
     private func addRestartActionButtonListView() {
         let listView = QuickRepliesListView()
-        listView.onRestartActionButtonTapped = { [weak self] in
+        listView.onRestartActionButtonTapped = { [weak self] cell in
             if let strongSelf = self,
                let delegate = strongSelf.delegate {
-                delegate.quickRepliesActionSheetDidTapRestartActionButton(strongSelf)
+                delegate.quickRepliesViewDidTapRestartActionButton(strongSelf, cell: cell)
             }
         }
         containerView.addSubview(listView)
