@@ -37,6 +37,7 @@ class ChatViewController: ASAPPViewController {
     private let connectionStatusView = ChatConnectionStatusView()
     private let quickRepliesView = QuickRepliesView()
     private var actionSheet: BaseActionSheet?
+    private var notificationBanner: NotificationBanner?
     private var hapticFeedbackGenerator: Any?
     
     // MARK: Properties: Status
@@ -339,6 +340,21 @@ extension ChatViewController {
             view.setNeedsLayout()
         }
     }
+    
+    func updateShadows() {
+        if shouldShowConnectionStatusView || notificationBanner == nil {
+            navigationController?.navigationBar.applyASAPPStyles()
+        } else {
+            navigationController?.navigationBar.removeShadow()
+        }
+        
+        if let banner = notificationBanner {
+            banner.layer.shadowOffset = CGSize(width: 0, height: 2)
+            banner.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.07).cgColor
+            banner.layer.shadowOpacity = 1
+            banner.layer.shadowRadius = 10
+        }
+    }
 }
 
 // MARK: Connection
@@ -414,12 +430,14 @@ extension ChatViewController {
         
         let viewWidth = view.bounds.width
         
-        let connectionStatusHeight: CGFloat = 40
-        var connectionStatusTop = -connectionStatusHeight
-        if shouldShowConnectionStatusView {
-            connectionStatusTop = minVisibleY
-        }
+        let connectionStatusHeight: CGFloat = 44
+        let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY : -connectionStatusHeight
+        connectionStatusView.isHidden = !shouldShowConnectionStatusView
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
+        
+        if let banner = notificationBanner {
+            minVisibleY = banner.bannerContainerHeight
+        }
         
         chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: view.bounds.height)
         chatMessagesView.layoutSubviews()
@@ -444,6 +462,12 @@ extension ChatViewController {
         
         quickRepliesView.isRestartButtonVisible = (inputState == .quickReplies && quickRepliesMessage != nil)
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeight)
+        
+        if let banner = notificationBanner {
+            let bannerHeight = banner.preferredDisplayHeight()
+            banner.frame = CGRect(x: 0, y: 0, width: viewWidth, height: bannerHeight)
+            banner.layoutIfNeeded()
+        }
     }
     
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
@@ -795,6 +819,7 @@ extension ChatViewController {
     
     func showRestartActionButton() {
         updateInputState(.conversationEnd, animated: true)
+        clearQuickRepliesView(animated: false)
         quickRepliesView.showRestartActionButton(animated: false)
         updateFramesAnimated()
     }
@@ -868,6 +893,36 @@ extension ChatViewController: ActionSheetDelegate {
     }
 }
 
+extension ChatViewController: NotificationBannerDelegate {
+    func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, action: Action) {
+        performAction(action)
+    }
+    
+    func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner) {
+        notificationBanner.layoutIfNeeded()
+        updateFramesAnimated()
+    }
+    
+    func notificationBannerDidTapExpand(_ notificationBanner: NotificationBanner) {
+        notificationBanner.layoutIfNeeded()
+        updateFramesAnimated()
+    }
+    
+    func showNotificationBanner(_ notification: ChatMessageNotification) {
+        let banner = NotificationBanner(notification: notification)
+        banner.delegate = self
+        notificationBanner = banner
+        view.insertSubview(banner, belowSubview: connectionStatusView)
+        updateShadows()
+    }
+    
+    func hideNotificationBanner() {
+        notificationBanner?.removeFromSuperview()
+        notificationBanner = nil
+        updateShadows()
+    }
+}
+
 // MARK: - ConversationManagerDelegate
 
 extension ChatViewController: ConversationManagerDelegate {
@@ -885,6 +940,7 @@ extension ChatViewController: ConversationManagerDelegate {
             func update() {
                 let showChatInput = strongSelf.isLiveChat || message.userCanTypeResponse
                 if showChatInput && message.hasQuickReplies {
+                    strongSelf.clearQuickRepliesView(animated: false)
                     strongSelf.updateInputState(.both, animated: true)
                 } else if message.hasQuickReplies {
                     strongSelf.updateInputState(.quickReplies, animated: true)
@@ -892,12 +948,22 @@ extension ChatViewController: ConversationManagerDelegate {
                     strongSelf.updateInputState(.chat, animated: true)
                 }
                 
-                if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
+                if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
+                    || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies) {
                     strongSelf.showRestartActionButton()
                 } else if message.hasQuickReplies {
                     strongSelf.didReceiveMessageWithQuickReplies(message)
                 } else if message.metadata.isReply {
                     strongSelf.clearQuickRepliesView(animated: true, completion: nil)
+                }
+                
+                if let notification = message.notification,
+                    notification.expiration?.compare(Date()) != .orderedDescending {
+                    strongSelf.showNotificationBanner(notification)
+                } else if let banner = strongSelf.notificationBanner,
+                          banner.notification.expiration?.compare(Date()) == .orderedDescending ||
+                          message.notification == nil {
+                    strongSelf.hideNotificationBanner()
                 }
             }
             
@@ -947,6 +1013,7 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         connectionStatus = isConnected ? .connected : .disconnected
+        updateShadows()
         updateFramesAnimated(scrollToBottomIfNearBottom: false)
         
         if isConnected {

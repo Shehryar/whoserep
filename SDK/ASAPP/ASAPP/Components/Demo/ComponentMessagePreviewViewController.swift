@@ -145,6 +145,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                      sendTime: Date())
         
         let userMessage = ChatMessage(text: messageText,
+                                      notification: nil,
                                       attachment: nil,
                                       quickReplies: nil, 
                                       metadata: metadata)
@@ -278,7 +279,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {
     func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView) {}
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {}
     func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell) {}
-    
 }
 
 extension ComponentMessagePreviewViewController {

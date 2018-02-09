@@ -26,12 +26,12 @@ class BaseActionSheet: UIView {
     private let sheetInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
     private let contentInsets = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     private let buttonInsets = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
-    
+
     init(title: String, body: String, hideButtonTitle: String, restartButtonTitle: String) {
         super.init(frame: .zero)
         
         backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        
+
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 6
         addSubview(contentView)

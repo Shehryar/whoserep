@@ -96,7 +96,7 @@ public class ASAPPStrings: NSObject {
     /// The text for the cancel button of the end chat alert.
     public var restartConfirmationHideButton = ASAPPLocalizedString("Cancel")
     
-    // Modal View: Feedback
+    // MARK: Modal View: Feedback
     
     /// The title for the feedback form.
     public var feedbackViewTitle = ASAPPLocalizedString("How did we do?")

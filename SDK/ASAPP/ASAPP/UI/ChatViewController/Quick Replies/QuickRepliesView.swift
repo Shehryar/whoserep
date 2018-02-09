@@ -316,6 +316,7 @@ extension QuickRepliesView {
             view.removeFromSuperview()
         }
         listViews.removeAll()
+        currentViewIndex = 0
     }
     
     func deselectCurrentSelection(animated: Bool) {
@@ -344,7 +345,6 @@ extension QuickRepliesView {
             isRestartButtonVisible = false
             setNeedsLayout()
             layoutIfNeeded()
-//            updateListViewFrames()
         }
     }
 }

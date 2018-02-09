@@ -35,4 +35,11 @@ extension UINavigationBar {
         layer.shadowOpacity = 1
         layer.shadowRadius = 10
     }
+    
+    func removeShadow() {
+        layer.shadowOffset = .zero
+        layer.shadowColor = nil
+        layer.shadowOpacity = 0
+        layer.shadowRadius = 0
+    }
 }

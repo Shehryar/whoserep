@@ -177,6 +177,7 @@ extension Event {
         case .textMessage:
             let text = getTextMessageText(from: json)
             return ChatMessage(text: text,
+                               notification: nil,
                                attachment: nil,
                                quickReplies: nil,
                                metadata: metadata)
@@ -185,6 +186,7 @@ extension Event {
             if let image = getChatMessageImageFromPictureMessage(json) {
                 let attachment = ChatMessageAttachment(content: image)
                 return ChatMessage(text: nil,
+                                   notification: nil,
                                    attachment: attachment,
                                    quickReplies: nil,
                                    metadata: metadata)

@@ -13,6 +13,7 @@ import UIKit
 class ChatMessage: NSObject {
     
     let text: String?
+    let notification: ChatMessageNotification?
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
     let userCanTypeResponse: Bool
@@ -25,6 +26,7 @@ class ChatMessage: NSObject {
     // MARK: Init
     
     init?(text: String?,
+          notification: ChatMessageNotification?,
           attachment: ChatMessageAttachment?,
           quickReplies: [String: [QuickReply]]?,
           userCanTypeResponse: Bool = false,
@@ -34,6 +36,7 @@ class ChatMessage: NSObject {
         }
         
         self.text = text
+        self.notification = notification
         self.attachment = attachment
         
         if let attachmentValue = attachment?.currentValue as? String,
@@ -57,6 +60,7 @@ extension ChatMessage {
     enum JSONKey: String {
         case attachment
         case clientMessage = "ClientMessage"
+        case notification
         case quickReplies
         case text
         case userCanTypeResponse
@@ -74,6 +78,14 @@ extension ChatMessage {
         }
         
         let text = messageJSON.string(for: JSONKey.text.rawValue)
+        
+        let notification: ChatMessageNotification?
+        if let notificationDict = messageJSON[JSONKey.notification.rawValue] as? [String: Any] {
+            notification = ChatMessageNotification.fromDict(notificationDict)
+        } else {
+            notification = nil
+        }
+        
         let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
         
         var quickRepliesDictionary: [String: [QuickReply]]? = [String: [QuickReply]]()
@@ -97,6 +109,6 @@ extension ChatMessage {
         
         let userCanTypeResponse = json.bool(for: JSONKey.userCanTypeResponse.rawValue) ?? false
 
-        return ChatMessage(text: text, attachment: attachment, quickReplies: quickRepliesDictionary, userCanTypeResponse: userCanTypeResponse, metadata: metadata)
+        return ChatMessage(text: text, notification: notification, attachment: attachment, quickReplies: quickRepliesDictionary, userCanTypeResponse: userCanTypeResponse, metadata: metadata)
     }
 }
