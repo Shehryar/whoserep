@@ -323,6 +323,11 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
+        // Continue Event
+        if event.ephemeralType == .continue {
+            delegate?.conversationManager(self, didReturnAfterInactivityWith: event)
+        }
+        
         // Message Event
         if let message = event.chatMessage {
             if message.metadata.isAutomatedMessage {

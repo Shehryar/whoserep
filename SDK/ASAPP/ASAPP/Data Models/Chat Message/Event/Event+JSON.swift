@@ -86,7 +86,9 @@ extension Event {
             eventFlags: eventFlags,
             eventJSON: eventJSON)
         
-        if event.ephemeralType == .typingStatus {
+        if event.ephemeralType == .continue {
+            event.continuePrompt = getContinuePrompt(from: eventJSON)
+        } else if event.ephemeralType == .typingStatus {
             event.typingStatus = getTypingStatus(from: eventJSON)
         } else if event.eventType == .switchChatToSRS {
             event.switchToSRSClassification = getSwitchChatToSRSIntent(from: eventJSON)
@@ -133,6 +135,10 @@ extension Event {
     
     private class func getSwitchChatToSRSIntent(from dict: [String: Any]?) -> String? {
         return dict?.string(for: JSONKey.intent.rawValue)
+    }
+    
+    private class func getContinuePrompt(from dict: [String: Any]?) -> ContinuePrompt? {
+        return ContinuePrompt.fromDict(dict ?? [:])
     }
     
     // MARK: Instance Methods

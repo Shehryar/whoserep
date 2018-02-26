@@ -976,6 +976,31 @@ extension ChatViewController: ConversationManagerDelegate {
         }
     }
     
+    // Welcome Back Action Sheet
+    func conversationManager(_ manager: ConversationManager, didReturnAfterInactivityWith event: Event) {
+        guard let continuePrompt = event.continuePrompt else {
+            return
+        }
+        
+        let continueSheet = WelcomeBackActionSheet(for: continuePrompt)
+        
+        continueSheet.delegate = self
+        actionSheet = continueSheet
+        guard let actionSheet = actionSheet else {
+            return
+        }
+        
+        self.actionSheet = actionSheet
+        actionSheet.frame = view.bounds
+        actionSheet.alpha = 0
+        view.addSubview(actionSheet)
+        updateInputState(.quickReplies, animated: false)
+        actionSheet.setNeedsLayout()
+        UIView.animate(withDuration: 0.3) {
+            actionSheet.alpha = 1
+        }
+    }
+    
     // Updated Messages
     func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage) {
         chatMessagesView.updateMessage(message)

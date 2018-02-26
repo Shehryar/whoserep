@@ -83,6 +83,7 @@
 		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */; };
 		3A6507AF2020C349008EC815 /* RestartActionButtonCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */; };
+		3A73322E2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
@@ -237,6 +238,7 @@
 		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
 		3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewSpec.swift; sourceTree = "<group>"; };
 		3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartActionButtonCellSpec.swift; sourceTree = "<group>"; };
+		3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */,
 				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
 				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
+				3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */,
 				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
 				3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */,
 				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
@@ -707,6 +710,7 @@
 				3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
+				3A73322E2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift in Sources */,
 				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,

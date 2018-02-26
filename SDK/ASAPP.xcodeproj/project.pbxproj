@@ -384,6 +384,8 @@
 		3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */; };
 		3A9EF22320290F700092A1AA /* ChatMessageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF22220290F700092A1AA /* ChatMessageNotification.swift */; };
 		3A9EF226202A53390092A1AA /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF225202A53390092A1AA /* NotificationBanner.swift */; };
+		3A9EF22A202E59B60092A1AA /* ContinuePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF229202E59B60092A1AA /* ContinuePrompt.swift */; };
+		3A9EF22C202E802E0092A1AA /* WelcomeBackActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF22B202E802E0092A1AA /* WelcomeBackActionSheet.swift */; };
 		3A9EF22E203297320092A1AA /* NotificationIconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF22D203297320092A1AA /* NotificationIconItem.swift */; };
 		3A9EF23B20340A0E0092A1AA /* alertOutline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF22F20340A0B0092A1AA /* alertOutline@3x.png */; };
 		3A9EF23C20340A0E0092A1AA /* alertFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23020340A0B0092A1AA /* alertFilled@2x.png */; };
@@ -794,6 +796,8 @@
 		3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheet.swift; sourceTree = "<group>"; };
 		3A9EF22220290F700092A1AA /* ChatMessageNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageNotification.swift; sourceTree = "<group>"; };
 		3A9EF225202A53390092A1AA /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
+		3A9EF229202E59B60092A1AA /* ContinuePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuePrompt.swift; sourceTree = "<group>"; };
+		3A9EF22B202E802E0092A1AA /* WelcomeBackActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheet.swift; sourceTree = "<group>"; };
 		3A9EF22D203297320092A1AA /* NotificationIconItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationIconItem.swift; sourceTree = "<group>"; };
 		3A9EF22F20340A0B0092A1AA /* alertOutline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alertOutline@3x.png"; sourceTree = "<group>"; };
 		3A9EF23020340A0B0092A1AA /* alertFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alertFilled@2x.png"; sourceTree = "<group>"; };
@@ -1567,6 +1571,7 @@
 		3093A4A61E730D4F00C65818 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				3A9EF229202E59B60092A1AA /* ContinuePrompt.swift */,
 				3093A4A71E730D4F00C65818 /* Event.swift */,
 				307484D41EB7EF24008CF3E4 /* EventMetadata.swift */,
 				307484CC1EB7A7D2008CF3E4 /* EventType.swift */,
@@ -1712,6 +1717,7 @@
 			children = (
 				3A9EF21A2028A9FC0092A1AA /* BaseActionSheet.swift */,
 				3A9EF21C2028C0A00092A1AA /* RestartConfirmationActionSheet.swift */,
+				3A9EF22B202E802E0092A1AA /* WelcomeBackActionSheet.swift */,
 			);
 			path = "Action Sheets";
 			sourceTree = "<group>";
@@ -2064,6 +2070,7 @@
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
 				3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */,
 				30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */,
+				3A9EF22C202E802E0092A1AA /* WelcomeBackActionSheet.swift in Sources */,
 				3AB25B751F7AB23500CB335F /* ASAPPViews.swift in Sources */,
 				3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */,
 				3093A4AC1E730D4F00C65818 /* Event.swift in Sources */,
@@ -2258,6 +2265,7 @@
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
+				3A9EF22A202E59B60092A1AA /* ContinuePrompt.swift in Sources */,
 				30131FD21EB10FD0009E7299 /* SeparatorItem.swift in Sources */,
 				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */,

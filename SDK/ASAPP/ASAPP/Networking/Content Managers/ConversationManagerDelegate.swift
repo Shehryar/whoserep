@@ -19,4 +19,6 @@ protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool)
     
     func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
+    
+    func conversationManager(_ manager: ConversationManager, didReturnAfterInactivityWith: Event)
 }

@@ -27,7 +27,7 @@ class BaseActionSheet: UIView {
     private let contentInsets = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     private let buttonInsets = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
 
-    init(title: String, body: String, hideButtonTitle: String, restartButtonTitle: String) {
+    init(title: String?, body: String, hideButtonTitle: String, restartButtonTitle: String) {
         super.init(frame: .zero)
         
         backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -36,9 +36,11 @@ class BaseActionSheet: UIView {
         contentView.layer.cornerRadius = 6
         addSubview(contentView)
         
-        titleLabel.numberOfLines = 0
-        titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header2, color: ASAPP.styles.colors.textPrimary)
-        contentView.addSubview(titleLabel)
+        if let title = title {
+            titleLabel.numberOfLines = 0
+            titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header2, color: ASAPP.styles.colors.textPrimary)
+            contentView.addSubview(titleLabel)
+        }
         
         bodyLabel.numberOfLines = 0
         bodyLabel.setAttributedText(body, textStyle: ASAPP.styles.textStyles.body, color: ASAPP.styles.colors.textPrimary)
@@ -68,11 +70,13 @@ class BaseActionSheet: UIView {
         
         let contentFitSize = CGSize(width: contentView.frame.width - contentInsets.left - contentInsets.right, height: 0)
         
-        let titleLabelSize = titleLabel.sizeThatFits(contentFitSize)
+        let hasTitleLabel = titleLabel.superview != nil
+        let titleLabelSize = hasTitleLabel ? titleLabel.sizeThatFits(contentFitSize) : .zero
         titleLabel.frame = CGRect(x: contentInsets.left, y: contentInsets.top, width: titleLabelSize.width, height: titleLabelSize.height)
         
+        let bodyLabelPadding: CGFloat = hasTitleLabel ? 10 : 0
         let bodyLabelSize = bodyLabel.sizeThatFits(contentFitSize)
-        bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + 10, width: bodyLabelSize.width, height: bodyLabelSize.height)
+        bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + bodyLabelPadding, width: bodyLabelSize.width, height: bodyLabelSize.height)
         
         let hideButtonSize = hideButton.sizeThatFits(contentFitSize)
         hideButton.frame = CGRect(x: contentView.frame.width / 2 - hideButtonSize.width / 2, y: bodyLabel.frame.maxY + 30, width: hideButtonSize.width, height: hideButtonSize.height)
