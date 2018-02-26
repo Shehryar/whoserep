@@ -25,12 +25,20 @@ class QuickReplyCell: UITableViewCell {
     
     let shadowView = UIView()
     
-    let imageSize: CGFloat = 13
+    let leftIcon = UIImageView()
     
-    var imageTintColor: UIColor = UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0) {
+    var leftIconSize = CGSize(width: 16, height: 16)
+    
+    var leftIconImage: UIImage?
+    
+    let exitIcon = UIImageView()
+    
+    let exitIconSize = CGSize(width: 13, height: 13)
+    
+    var iconTintColor: UIColor = UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0) {
         didSet {
-            if imageTintColor != oldValue {
-                updateImageView()
+            if iconTintColor != oldValue {
+                updateIcons()
             }
         }
     }
@@ -55,6 +63,12 @@ class QuickReplyCell: UITableViewCell {
         button.clipsToBounds = true
         contentView.addSubview(button)
         
+        exitIcon.contentMode = .scaleAspectFit
+        contentView.addSubview(exitIcon)
+        
+        leftIcon.contentMode = .scaleAspectFit
+        contentView.addSubview(leftIcon)
+        
         shadowView.backgroundColor = button.backgroundColor
         shadowView.layer.opacity = 1
         shadowView.layer.shadowColor = UIColor.black.cgColor
@@ -62,12 +76,9 @@ class QuickReplyCell: UITableViewCell {
         shadowView.layer.shadowRadius = 4
         shadowView.layer.shadowOpacity = 0.1
         shadowView.layer.cornerRadius = button.layer.cornerRadius
-        contentView.addSubview(shadowView)
+        contentView.insertSubview(shadowView, belowSubview: button)
         
-        contentView.bringSubview(toFront: button)
-        
-        imageView?.contentMode = .scaleAspectFit
-        updateImageView()
+        updateIcons()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,13 +107,15 @@ class QuickReplyCell: UITableViewCell {
     
     // MARK: Content
     
-    func updateImageView() {
-        imageView?.image = Images.getImage(.iconExitLink)?.tinted(imageTintColor)
+    func updateIcons() {
+        leftIcon.image = leftIconImage?.tinted(iconTintColor)
+        exitIcon.image = Images.getImage(.iconExitLink)?.tinted(iconTintColor)
     }
     
     func update(for quickReply: QuickReply?, enabled: Bool) {
         guard let quickReply = quickReply else {
-            imageView?.isHidden = true
+            leftIcon.isHidden = true
+            exitIcon.isHidden = true
             accessibilityTraits = UIAccessibilityTraitButton
             button.isEnabled = enabled
             return
@@ -114,14 +127,22 @@ class QuickReplyCell: UITableViewCell {
             button.updateText(quickReply.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.quickReplyButton)
         }
         
-        imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
+        iconTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
         
-        // TODO: refactor and implement showing custom icon
+        if let notificationIcon = quickReply.icon {
+            leftIconSize = notificationIcon.size
+            leftIconImage = notificationIcon.icon.getImage()
+            leftIcon.isHidden = false
+            updateIcons()
+        } else {
+            leftIcon.isHidden = true
+        }
+        
         if quickReply.action.willExitASAPP {
-            imageView?.isHidden = false
+            exitIcon.isHidden = false
             accessibilityTraits = UIAccessibilityTraitLink
         } else {
-            imageView?.isHidden = true
+            exitIcon.isHidden = true
             accessibilityTraits = UIAccessibilityTraitButton
         }
         
@@ -144,22 +165,29 @@ extension QuickReplyCell {
         super.layoutSubviews()
         
         let buttonSize = buttonSizeThatFits(size: bounds.size)
-        let buttonLeft = floor((bounds.size.width - buttonSize.width) / 2.0)
-        let buttonTop = floor((bounds.size.height - buttonSize.height) / 2.0)
+        let buttonLeft = floor((bounds.size.width - buttonSize.width) / 2)
+        let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
         
         button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
         button.contentEdgeInsets = QuickReplyCell.textInset
         
-        let imageLeft = button.frame.maxX - QuickReplyCell.textInset.right - imageSize
-        let imageTop = floor((bounds.size.height - imageSize) / 2.0)
+        if exitIcon.image != nil && !exitIcon.isHidden {
+            button.contentEdgeInsets.right += QuickReplyCell.textInset.right / 2 + exitIconSize.width
+        }
         
-        if imageView?.image != nil && !(imageView?.isHidden ?? false) {
-            button.contentEdgeInsets.right += QuickReplyCell.textInset.right + imageSize
+        if leftIcon.image != nil && !leftIcon.isHidden {
+            button.contentEdgeInsets.left += QuickReplyCell.textInset.left / 2 + leftIconSize.width
         }
         
         shadowView.frame = button.frame
         
-        imageView?.frame = CGRect(x: imageLeft, y: imageTop, width: imageSize, height: imageSize)
+        let leftIconLeft = button.frame.minX + QuickReplyCell.textInset.left
+        let leftIconTop = floor((bounds.size.height - leftIconSize.height) / 2)
+        leftIcon.frame = CGRect(x: leftIconLeft, y: leftIconTop, width: leftIconSize.width, height: leftIconSize.height)
+        
+        let exitIconLeft = button.frame.maxX - QuickReplyCell.textInset.right - exitIconSize.width
+        let exitIconTop = floor((bounds.size.height - exitIconSize.height) / 2)
+        exitIcon.frame = CGRect(x: exitIconLeft, y: exitIconTop, width: exitIconSize.width, height: exitIconSize.height)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

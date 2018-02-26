@@ -28,8 +28,7 @@ class NotificationBannerSpec: QuickSpec {
             
             context("on its own") {
                 let text = "Your payment of $9001 is due in two days. Please pay on time to avoid any late fees."
-                let style = ComponentStyle.fromJSON(["width": 20.5, "height": 18])
-                let icon = IconItem(style: style, content: ["icon": ComponentIcon.alertError.rawValue])
+                let icon = NotificationIconItem(with: ["name": NotificationIcon.alertError.rawValue])
                 
                 beforeEach {
                     ASAPP.styles = ASAPPStyles()

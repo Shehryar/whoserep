@@ -14,9 +14,12 @@ class QuickReply: NSObject {
     
     let action: Action
     
-    init(title: String, action: Action) {
+    let icon: NotificationIconItem?
+    
+    init(title: String, action: Action, icon: NotificationIconItem? = nil) {
         self.title = title
         self.action = action
+        self.icon = icon
         super.init()
     }
 }
@@ -28,6 +31,7 @@ extension QuickReply {
     enum JSONKey: String {
         case title
         case action
+        case icon
     }
     
     class func fromJSON(_ json: Any?) -> QuickReply? {
@@ -45,7 +49,12 @@ extension QuickReply {
             return nil
         }
         
-        return QuickReply(title: title, action: action)
+        var icon: NotificationIconItem?
+        if let iconDict = json.jsonObject(for: JSONKey.icon.rawValue) {
+            icon = NotificationIconItem(with: iconDict)
+        }
+        
+        return QuickReply(title: title, action: action, icon: icon)
     }
     
     class func arrayFromJSON(_ jsonArray: Any?) -> [QuickReply]? {
