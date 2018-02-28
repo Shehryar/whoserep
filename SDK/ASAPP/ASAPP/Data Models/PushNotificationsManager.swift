@@ -124,7 +124,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         
         HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
             guard let data = data,
-                  (data["Success"] as? Bool) == true,
                   let device = data["Device"] as? [String: Any],
                   let deviceId = device["DeviceID"] as? Int else {
                 if let error = error {
@@ -163,8 +162,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
         
         HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
-            guard let data = data,
-                  (data["Success"] as? Bool) == true else {
+            guard data != nil else {
                 if let error = error {
                     DebugLog.e(error)
                 } else {
@@ -195,7 +193,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         
         HTTPClient.shared.sendRequest(method: .GET, url: url, headers: headers) { data, response, error in
             guard let data = data,
-                  (data["Success"] as? Bool) == true,
                   let count = data["Count"] as? Int else {
                 if let error = error {
                     DebugLog.e(error)
