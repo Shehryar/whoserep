@@ -33,7 +33,6 @@ class BaseActionSheet: UIView {
         backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 6
         addSubview(contentView)
         
         if let title = title {
@@ -68,6 +67,11 @@ class BaseActionSheet: UIView {
         
         contentView.frame = CGRect(x: sheetInsets.left, y: frame.midY, width: frame.width - sheetInsets.left - sheetInsets.right, height: frame.maxY - frame.midY)
         
+        let path = UIBezierPath(roundedRect: contentView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 6, height: 6))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        contentView.layer.mask = mask
+        
         let contentFitSize = CGSize(width: contentView.frame.width - contentInsets.left - contentInsets.right, height: 0)
         
         let hasTitleLabel = titleLabel.superview != nil
@@ -93,6 +97,62 @@ class BaseActionSheet: UIView {
     
     @objc func didTapRestartButton() {
         delegate?.actionSheetDidTapRestartButton(self)
+    }
+    
+    func show(in parent: UIView) {
+        parent.addSubview(self)
+        frame = parent.bounds
+        alpha = 0
+        setNeedsLayout()
+        layoutIfNeeded()
+        
+        let contentViewFinalFrame = contentView.frame
+        
+        var contentViewStartFrame = contentView.frame
+        contentViewStartFrame.origin.y = parent.bounds.maxY
+        contentView.frame = contentViewStartFrame
+        
+        titleLabel.alpha = 0
+        bodyLabel.alpha = 0
+        hideButton.alpha = 0
+        restartButton.alpha = 0
+        
+        contentView.setNeedsLayout()
+        contentView.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.alpha = 1
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.contentView.frame = contentViewFinalFrame
+            }
+            
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                self?.titleLabel.alpha = 1
+                self?.bodyLabel.alpha = 1
+                self?.hideButton.alpha = 1
+                self?.restartButton.alpha = 1
+            }, completion: nil)
+        })
+    }
+    
+    func hide(_ completion: (() -> Void)? = nil) {
+        var contentViewFinalFrame = contentView.frame
+        contentViewFinalFrame.origin.y = contentView.frame.maxY
+        
+        contentView.setNeedsLayout()
+        contentView.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.contentView.frame = contentViewFinalFrame
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.alpha = 0
+            }, completion: { [weak self] _ in
+                self?.removeFromSuperview()
+                completion?()
+            })
+        })
     }
     
     func showSpinner() {

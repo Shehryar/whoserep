@@ -844,13 +844,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
         }
         
         self.actionSheet = actionSheet
-        actionSheet.frame = view.bounds
-        actionSheet.alpha = 0
-        view.addSubview(actionSheet)
-        actionSheet.setNeedsLayout()
-        UIView.animate(withDuration: 0.3) {
-            actionSheet.alpha = 1
-        }
+        actionSheet.show(in: view)
     }
     
     func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView) {
@@ -869,14 +863,10 @@ extension ChatViewController: QuickRepliesViewDelegate {
 
 extension ChatViewController: ActionSheetDelegate {
     private func hideActionSheet(_ actionSheet: BaseActionSheet, completion: (() -> Void)? = nil) {
-        actionSheet.setNeedsLayout()
-        UIView.animate(withDuration: 0.3, animations: {
-            actionSheet.alpha = 0
-        }, completion: { [weak self] _ in
-            actionSheet.removeFromSuperview()
+        actionSheet.hide { [weak self] in
             self?.actionSheet = nil
             completion?()
-        })
+        }
     }
     
     func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
@@ -990,15 +980,10 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        self.actionSheet = actionSheet
-        actionSheet.frame = view.bounds
-        actionSheet.alpha = 0
-        view.addSubview(actionSheet)
         updateInputState(.quickReplies, animated: false)
-        actionSheet.setNeedsLayout()
-        UIView.animate(withDuration: 0.3) {
-            actionSheet.alpha = 1
-        }
+        
+        self.actionSheet = actionSheet
+        actionSheet.show(in: view)
     }
     
     // Updated Messages
