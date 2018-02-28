@@ -11,19 +11,7 @@ import UIKit
 extension UIButton {
     
     func updateText(_ text: String?, textStyle: ASAPPTextStyle, colors: ASAPPButtonColors) {
-        // Background
-        setBackgroundImage(UIImage.imageWithColor(colors.backgroundNormal), for: .normal)
-        setBackgroundImage(UIImage.imageWithColor(colors.backgroundHighlighted), for: .highlighted)
-        setBackgroundImage(UIImage.imageWithColor(colors.backgroundDisabled), for: .disabled)
-        
-        // Border
-        if let borderColor = colors.border {
-            layer.borderColor = borderColor.cgColor
-            layer.borderWidth = 1
-        } else {
-            layer.borderColor = nil
-            layer.borderWidth = 0
-        }
+        updateBackgroundColors(colors)
         
         guard var text = text else {
             setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])
@@ -59,5 +47,19 @@ extension UIButton {
         let colors = ASAPP.styles.colors.getButtonColors(for: buttonType)
 
         updateText(text, textStyle: textStyle, colors: colors)
+    }
+    
+    func updateBackgroundColors(_ colors: ASAPPButtonColors) {
+        setBackgroundImage(UIImage.imageWithColor(colors.backgroundNormal), for: .normal)
+        setBackgroundImage(UIImage.imageWithColor(colors.backgroundHighlighted), for: .highlighted)
+        setBackgroundImage(UIImage.imageWithColor(colors.backgroundDisabled), for: .disabled)
+        
+        if let borderColor = colors.border {
+            layer.borderColor = borderColor.cgColor
+            layer.borderWidth = 1
+        } else {
+            layer.borderColor = nil
+            layer.borderWidth = 0
+        }
     }
 }

@@ -97,24 +97,44 @@ class BaseActionSheet: UIView {
     
     func showSpinner() {
         restartButton.isEnabled = false
-        restartButton.titleLabel?.alpha = 0
         
-        activityIndicator = UIActivityIndicatorView(frame: restartButton.bounds)
+        activityIndicator = UIActivityIndicatorView(frame: restartButton.frame)
         if let spinner = activityIndicator {
+            spinner.backgroundColor = .clear
             spinner.activityIndicatorViewStyle = .gray
-            restartButton.addSubview(spinner)
+            spinner.frame = restartButton.frame
+            contentView.insertSubview(spinner, belowSubview: restartButton)
             spinner.startAnimating()
+            spinner.alpha = 0
         }
         
-        restartButton.setNeedsLayout()
-        restartButton.layoutIfNeeded()
+        var finalButtonFrame = restartButton.frame
+        finalButtonFrame.size.width = restartButton.frame.size.height
+        finalButtonFrame.origin.x += (restartButton.frame.size.width - finalButtonFrame.size.width) / 2
+        
+        let rotation = CGAffineTransform(rotationAngle: .pi / -2)
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {[weak self] in
+            guard let button = self?.restartButton else { return }
+            button.frame = finalButtonFrame
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.6) { [weak self] in
+            guard let button = self?.restartButton else { return }
+            self?.activityIndicator?.alpha = 1
+            button.transform = rotation
+            button.alpha = 0
+        }
     }
     
     func hideSpinner() {
         activityIndicator?.removeFromSuperview()
         restartButton.isEnabled = true
         restartButton.titleLabel?.alpha = 1
-        restartButton.setNeedsLayout()
-        restartButton.layoutIfNeeded()
+        restartButton.transform = .identity
+        restartButton.alpha = 1
+        restartButton.updateBackgroundColors(ASAPP.styles.colors.actionButton)
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 }
