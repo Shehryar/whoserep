@@ -473,7 +473,7 @@ extension ChatViewController {
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom()
         if animated {
-            UIView.animate(withDuration: 0.35, animations: { [weak self] in
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 self?.updateFrames()
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottomAnimated(false)
@@ -810,11 +810,9 @@ extension ChatViewController {
     
     func clearQuickRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = nil
+        quickRepliesView.clear()
         
-        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: { [weak self] in
-            self?.quickRepliesView.clear()
-            completion?()
-        })
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
     
     func showRestartActionButton() {

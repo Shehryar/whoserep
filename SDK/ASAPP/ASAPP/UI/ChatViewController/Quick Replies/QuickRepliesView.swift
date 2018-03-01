@@ -180,6 +180,10 @@ extension QuickRepliesView {
             return rowHeight * 1.25
         }
         
+        if listViews.isEmpty || listViews[currentViewIndex].quickReplies?.isEmpty == true {
+            return 0
+        }
+        
         let visibleRows: CGFloat = 3.65
         return rowHeight * visibleRows
     }
