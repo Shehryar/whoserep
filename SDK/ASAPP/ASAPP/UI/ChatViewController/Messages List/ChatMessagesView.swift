@@ -116,6 +116,7 @@ class ChatMessagesView: UIView {
         
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
+        tableView.estimatedRowHeight = 0
         tableView.clipsToBounds = false
         tableView.backgroundColor = ASAPP.styles.colors.messagesListBackground
         tableView.separatorStyle = .none
@@ -475,8 +476,8 @@ extension ChatMessagesView {
         }
         
         var previousIndexPath: IndexPath?
-        if (indexPath as NSIndexPath).row > 0 {
-            previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
+        if indexPath.row > 0 {
+            previousIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
         }
         
         UIView.performWithoutAnimation({
@@ -484,8 +485,8 @@ extension ChatMessagesView {
             if let previousIndexPath = previousIndexPath {
                 self.tableView.reloadRows(at: [previousIndexPath], with: .none)
             }
-            if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
-                self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
+            if self.tableView.numberOfSections <= indexPath.section {
+                self.tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
             } else {
                 self.tableView.insertRows(at: [indexPath], with: .none)
             }

@@ -19,7 +19,15 @@ class NotificationBanner: UIView {
     
     let notification: ChatMessageNotification
     let bannerContainerHeight: CGFloat = 44
+    var shouldHide = false {
+        didSet {
+            if oldValue != shouldHide {
+                bannerContainer.clipsToBounds = true
+            }
+        }
+    }
     private(set) var isExpanded = false
+    private var expandButtonWidth: CGFloat?
     
     private let bannerContainer = UIView()
     private var iconView: UIImageView?
@@ -44,13 +52,14 @@ class NotificationBanner: UIView {
         
         backgroundColor = .white
         
+        bannerContainer.backgroundColor = .white
+        addSubview(bannerContainer)
+        
         topBorder.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
         addSubview(topBorder)
         
         bottomBorder.backgroundColor = topBorder.backgroundColor
         addSubview(bottomBorder)
-        
-        addSubview(bannerContainer)
         
         if let icon = notification.icon?.icon {
             let imageView = UIImageView(image: icon.getImage())
@@ -68,11 +77,12 @@ class NotificationBanner: UIView {
             // TODO: replace text button with icon
             updateExpandButton()
             expandButton.contentEdgeInsets = expandButtonInsets
+            expandButton.contentHorizontalAlignment = .right
             bannerContainer.addSubview(expandButton)
         }
         
         expandedContainer.clipsToBounds = true
-        addSubview(expandedContainer)
+        insertSubview(expandedContainer, belowSubview: bannerContainer)
         
         separator.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         expandedContainer.addSubview(separator)
@@ -107,7 +117,7 @@ class NotificationBanner: UIView {
         
         // banner container
         
-        bannerContainer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bannerContainerHeight)
+        bannerContainer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: shouldHide ? 0 : bannerContainerHeight)
         
         let titleLabelLeft: CGFloat
         if let iconView = iconView {
@@ -118,10 +128,18 @@ class NotificationBanner: UIView {
             titleLabelLeft = contentInsets.left
         }
         
+        let availableHeight = bannerContainer.frame.height - contentInsets.top - contentInsets.bottom
         let expandButtonSize = expandButton.sizeThatFits(CGSize(width: bannerContainer.frame.width / 2, height: bannerContainer.frame.height - contentInsets.top - contentInsets.bottom))
-        expandButton.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right / 2 - 100, y: contentInsets.top, width: 100, height: expandButtonSize.height)
+        if expandButtonWidth == nil {
+            // FIXME: remove once button is an icon
+            expandButtonWidth = expandButtonSize.width + 30
+        }
+        guard let expandWidth = expandButtonWidth else {
+            return
+        }
+        expandButton.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right / 2 - expandWidth, y: contentInsets.top, width: expandWidth, height: availableHeight)
         
-        titleLabel.frame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainer.frame.width - expandButton.frame.width - contentInsets.right - contentInsets.left, height: bannerContainer.frame.height - contentInsets.top - contentInsets.bottom)
+        titleLabel.frame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainer.frame.width - expandButton.frame.width - contentInsets.right - contentInsets.left, height: availableHeight)
         
         // expanded container
         
@@ -135,7 +153,10 @@ class NotificationBanner: UIView {
         actionButton.frame = CGRect(x: bounds.midX - actionButtonSize.width / 2, y: bodyLabel.frame.maxY + buttonPadding, width: actionButtonSize.width, height: actionButtonSize.height)
         actionButton.layer.cornerRadius = actionButton.frame.height / 2
         
-        expandedContainer.frame = CGRect(x: 0, y: bannerContainer.frame.maxY, width: bounds.width, height: bounds.height - bannerContainerHeight)
+        expandedContainer.frame = CGRect(x: 0, y: bannerContainer.frame.maxY, width: bounds.width, height: shouldHide ? 0 : bounds.height - bannerContainerHeight)
+        
+        bannerContainer.alpha = shouldHide ? 0 : 1
+        expandedContainer.isHidden = shouldHide
     }
     
     private func calculateExpandedContainerHeight() -> CGFloat {
@@ -179,6 +200,10 @@ class NotificationBanner: UIView {
     }
     
     func preferredDisplayHeight() -> CGFloat {
+        if shouldHide {
+            return 0
+        }
+        
         return bannerContainerHeight + (isExpanded ? calculateExpandedContainerHeight() : 0)
     }
 }

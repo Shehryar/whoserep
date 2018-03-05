@@ -50,6 +50,8 @@ class QuickRepliesView: UIView {
         }
     }
     
+    var isCollapsed = true
+    
     // MARK: Private Properties
     
     private let buttonSize: CGFloat = 34
@@ -174,6 +176,10 @@ extension QuickRepliesView {
     }
     
     func preferredDisplayHeight() -> CGFloat {
+        if isCollapsed {
+            return 0
+        }
+        
         let rowHeight = QuickRepliesListView.approximateRowHeight()
         
         if listViews.first?.onRestartActionButtonTapped != nil {

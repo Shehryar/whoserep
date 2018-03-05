@@ -310,8 +310,6 @@ class ChatViewController: ASAPPViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        updateFrames()
-        
         if isInitialLayout {
             chatMessagesView.scrollToBottomAnimated(false)
             isInitialLayout = false
@@ -435,7 +433,7 @@ extension ChatViewController {
         connectionStatusView.isHidden = !shouldShowConnectionStatusView
         connectionStatusView.frame = CGRect(x: 0, y: connectionStatusTop, width: viewWidth, height: connectionStatusHeight)
         
-        if let banner = notificationBanner {
+        if let banner = notificationBanner, !banner.shouldHide {
             minVisibleY = banner.bannerContainerHeight
         }
         
@@ -810,6 +808,11 @@ extension ChatViewController {
     
     func clearQuickRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = nil
+        
+        if !chatMessagesView.isEmpty {
+            quickRepliesView.isCollapsed = false
+        }
+        
         quickRepliesView.clear()
         
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
@@ -896,18 +899,28 @@ extension ChatViewController: NotificationBannerDelegate {
         updateFramesAnimated()
     }
     
-    func showNotificationBanner(_ notification: ChatMessageNotification) {
+    func showNotificationBanner(_ notification: ChatMessageNotification, completion: (() -> Void)? = nil) {
         let banner = NotificationBanner(notification: notification)
         banner.delegate = self
         notificationBanner = banner
         view.insertSubview(banner, belowSubview: connectionStatusView)
+        banner.shouldHide = true
+        updateFrames()
         updateShadows()
+        banner.shouldHide = false
+        updateFramesAnimated {
+            completion?()
+        }
     }
     
-    func hideNotificationBanner() {
-        notificationBanner?.removeFromSuperview()
-        notificationBanner = nil
-        updateShadows()
+    func hideNotificationBanner(completion: (() -> Void)? = nil) {
+        notificationBanner?.shouldHide = true
+        updateFramesAnimated(true, scrollToBottomIfNearBottom: true) { [weak self] in
+            self?.notificationBanner?.removeFromSuperview()
+            self?.notificationBanner = nil
+            self?.updateShadows()
+            completion?()
+        }
     }
 }
 
@@ -918,49 +931,56 @@ extension ChatViewController: ConversationManagerDelegate {
     // New Messages
     func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage) {
         provideHapticFeedbackForMessageIfNecessary(message)
+        
         if message.metadata.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
+        
+        func addMessage() {
+            chatMessagesView.addMessage(message) { [weak self] in
+                self?.messageCompletionHandler(message)
+            }
+        }
+        
+        if let notification = message.notification,
+           notification.expiration?.compare(Date()) != .orderedDescending {
+            showNotificationBanner(notification, completion: addMessage)
+        } else if let banner = notificationBanner,
+                  banner.notification.expiration?.compare(Date()) == .orderedDescending ||
+                  message.notification == nil {
+            hideNotificationBanner(completion: addMessage)
+        } else {
+            addMessage()
+        }
+    }
     
-        chatMessagesView.addMessage(message) { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            func update() {
-                let showChatInput = strongSelf.isLiveChat || message.userCanTypeResponse
-                if showChatInput && message.hasQuickReplies {
-                    strongSelf.clearQuickRepliesView(animated: false)
-                    strongSelf.updateInputState(.both, animated: true)
-                } else if message.hasQuickReplies {
-                    strongSelf.updateInputState(.quickReplies, animated: true)
-                } else if showChatInput {
-                    strongSelf.updateInputState(.chat, animated: true)
-                }
-                
-                if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
-                    || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies) {
-                    strongSelf.showRestartActionButton()
-                } else if message.hasQuickReplies {
-                    strongSelf.didReceiveMessageWithQuickReplies(message)
-                } else if message.metadata.isReply {
-                    strongSelf.clearQuickRepliesView(animated: true, completion: nil)
-                }
-                
-                if let notification = message.notification,
-                    notification.expiration?.compare(Date()) != .orderedDescending {
-                    strongSelf.showNotificationBanner(notification)
-                } else if let banner = strongSelf.notificationBanner,
-                          banner.notification.expiration?.compare(Date()) == .orderedDescending ||
-                          message.notification == nil {
-                    strongSelf.hideNotificationBanner()
-                }
+    private func messageCompletionHandler(_ message: ChatMessage) {
+        func update() {
+            let showChatInput = isLiveChat || message.userCanTypeResponse
+            if showChatInput && message.hasQuickReplies {
+                clearQuickRepliesView(animated: false)
+                updateInputState(.both, animated: true)
+            } else if message.hasQuickReplies {
+                updateInputState(.quickReplies, animated: true)
+            } else if showChatInput {
+                updateInputState(.chat, animated: true)
             }
             
-            if let actionSheet = strongSelf.actionSheet {
-                strongSelf.clearQuickRepliesView(animated: false)
-                strongSelf.hideActionSheet(actionSheet, completion: update)
-            } else {
-                update()
+            if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
+                || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies) {
+                showRestartActionButton()
+            } else if message.hasQuickReplies {
+                didReceiveMessageWithQuickReplies(message)
+            } else if message.metadata.isReply {
+                clearQuickRepliesView(animated: true, completion: nil)
             }
+        }
+        
+        if let actionSheet = actionSheet {
+            clearQuickRepliesView(animated: false)
+            hideActionSheet(actionSheet, completion: update)
+        } else {
+            update()
         }
     }
     
