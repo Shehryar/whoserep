@@ -34,7 +34,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
         bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)
         
-        loadingView.tintColor = ASAPP.styles.colors.replyMessageText.withAlphaComponent(0.6)
+        loadingView.tintColor = ASAPP.styles.colors.replyMessageText
         bubbleView.addSubview(loadingView)
     }
     
