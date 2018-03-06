@@ -839,7 +839,7 @@
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../**",
+					"$(SRCROOT)/../Carthage/Build/iOS/",
 				);
 				INFOPLIST_FILE = "Dummy App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
