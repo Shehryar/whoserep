@@ -11,6 +11,7 @@ import Foundation
 /**
  Represents a font family used by default styles.`.
  */
+@objc(ASAPPFontFamily)
 @objcMembers
 public class ASAPPFontFamily: NSObject {
     /// The lightest weight.

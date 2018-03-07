@@ -11,6 +11,7 @@ import UIKit
 /**
  Configurable colors for various parts of the SDK.
  */
+@objc(ASAPPColors)
 @objcMembers
 public class ASAPPColors: NSObject {
     

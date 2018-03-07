@@ -11,6 +11,7 @@ import UIKit
 /**
  Customizable images for navigation bar buttons.
  */
+@objc(ASAPPNavBarButtonImages)
 @objcMembers
 public class ASAPPNavBarButtonImages: NSObject {
     

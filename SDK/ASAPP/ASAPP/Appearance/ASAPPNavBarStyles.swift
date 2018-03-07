@@ -11,6 +11,7 @@ import UIKit
 /**
  Customizable navigation bar styles.
  */
+@objc(ASAPPNavBarStyles)
 @objcMembers
 public class ASAPPNavBarStyles: NSObject {
     /// The style of navigation bar buttons. Defaults to `ASAPPNavBarButtonStyle.text`.

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ASAPPSegue Enumeration Reference</title>
+    <title>ASAPPWelcomeLayout Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/ASAPPSegue" class="dashAnchor"></a>
-    <a title="ASAPPSegue Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/ASAPPWelcomeLayout" class="dashAnchor"></a>
+    <a title="ASAPPWelcomeLayout Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">ASAPP Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">ASAPP Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ASAPPSegue Enumeration Reference
+        ASAPPWelcomeLayout Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -92,6 +92,9 @@
               <li class="nav-group-task">
                 <a href="../Enums/ASAPPSegue.html">ASAPPSegue</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ASAPPWelcomeLayout.html">ASAPPWelcomeLayout</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -118,14 +121,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ASAPPSegue</h1>
+            <h1>ASAPPWelcomeLayout</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ASAPPSegue</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ASAPPWelcomeLayout</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>Represents the kind of segue used by <code><a href="../Classes/ASAPPButton.html">ASAPPButton</a></code> to show the SDK&rsquo;s view controller.</p>
+            <p>Represents the layout style of the welcome page.</p>
 
           </section>
           <section class="section task-group-section">
@@ -134,9 +137,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@E@ASAPPSegue@ASAPPSeguePresent"></a>
-                    <a name="//apple_ref/swift/Element/present" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPSegue@ASAPPSeguePresent">present</a>
+                    <a name="/c:@M@ASAPP@E@ASAPPWelcomeLayout@ASAPPWelcomeLayoutButtonMenu"></a>
+                    <a name="//apple_ref/swift/Element/buttonMenu" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPWelcomeLayout@ASAPPWelcomeLayoutButtonMenu">buttonMenu</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -144,14 +147,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Present the view controller modally.</p>
+                        <p>The welcome page options will appear as a top-left-aligned list of buttons.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">present</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">buttonMenu</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
 
                         </div>
                       </div>
@@ -165,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@E@ASAPPSegue@ASAPPSeguePush"></a>
-                    <a name="//apple_ref/swift/Element/push" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPSegue@ASAPPSeguePush">push</a>
+                    <a name="/c:@M@ASAPP@E@ASAPPWelcomeLayout@ASAPPWelcomeLayoutChat"></a>
+                    <a name="//apple_ref/swift/Element/chat" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPWelcomeLayout@ASAPPWelcomeLayoutChat">chat</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -175,14 +178,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Push the view controller onto the navigation stack.</p>
+                        <p>The welcome page options will appear as a bottom-right-aligned list of selectable chat messages.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">push</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">chat</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
 
                         </div>
                       </div>
@@ -194,11 +197,7 @@
           </section>
         </section>
         <section id="footer">
-<<<<<<< HEAD
-          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-02-02)</p>
-=======
           <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-02-06)</p>
->>>>>>> develop
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

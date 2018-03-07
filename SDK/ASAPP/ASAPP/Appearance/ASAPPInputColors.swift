@@ -11,6 +11,7 @@ import UIKit
 /**
  Used to configure the colors of text input area in the chat view.
  */
+@objc(ASAPPInputColors)
 @objcMembers
 public class ASAPPInputColors: NSObject {
     

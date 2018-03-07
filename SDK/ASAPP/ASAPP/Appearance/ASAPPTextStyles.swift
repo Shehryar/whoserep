@@ -11,6 +11,7 @@ import UIKit
 /**
  Customizable text styles for various classes of text.
  */
+@objc(ASAPPTextStyles)
 @objcMembers
 public class ASAPPTextStyles: NSObject {
     // MARK: General

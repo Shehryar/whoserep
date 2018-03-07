@@ -18,6 +18,11 @@ xcode-select --install
 
 # Available Actions
 ## iOS
+### ios test
+```
+fastlane ios test
+```
+
 ### ios incrementBuildNumber
 ```
 fastlane ios incrementBuildNumber

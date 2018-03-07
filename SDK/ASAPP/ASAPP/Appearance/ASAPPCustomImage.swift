@@ -11,6 +11,7 @@ import UIKit
 /**
  Used to define an icon for a button.
  */
+@objc(ASAPPCustomImage)
 @objcMembers
 public class ASAPPCustomImage: NSObject {
     

@@ -16,6 +16,7 @@ public typealias ASAPPRequestContextProvider = (() -> [String: Any])
 /**
  Holds configuration information pertaining to the current user session.
  */
+@objc(ASAPPUser)
 @objcMembers
 public class ASAPPUser: NSObject {
     /// Whether the user is anonymous.

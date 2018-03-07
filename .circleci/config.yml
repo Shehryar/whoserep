@@ -3,6 +3,66 @@
 version: 2
 
 jobs:
+  build-and-test:
+    macos:
+      xcode: "9.2.0"
+    working_directory: /Users/distiller/output
+    environment:
+      XCODE_SCHEME: Tests
+      XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
+      GYM_CODE_SIGNING_IDENTITY: 'iPhone Distribution: ASAPP Inc.'
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - run:
+          name: Pre-start simulator
+          command: xcrun instruments -w "iPhone SE (11.2) [" || true
+      - run:
+          name: Install SwiftLint
+          command: brew install swiftlint
+      - add_ssh_keys:
+          fingerprints:
+            - "e3:f1:08:d5:e9:dd:50:d9:37:29:ab:11:83:34:9a:1d"
+      - checkout
+      - run:
+          name: Install code signing credentials
+          command: './scripts/install_codesigning_credentials.sh'
+      - restore_cache:
+          keys:
+            - v1-gems-{{ checksum "Gemfile.lock" }}
+            - v1-gems-
+      - run:
+          name: Bundle install
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - save_cache:
+          key: v1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - restore_cache:
+          keys:
+            - v2-carthage-{{ checksum "SDK/Cartfile.resolved" }}
+            - v2-carthage-
+      - run:
+          name: Carthage update
+          command: ( cd SDK && carthage update --cache-builds --platform ios )
+      - save_cache:
+          key: v2-carthage-{{ checksum "SDK/Cartfile.resolved" }}
+          paths:
+            - SDK/Carthage/Build
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane test
+      - run:
+          command: |
+            mkdir -p ./scan
+            cp ./fastlane/test_output/report.junit ./scan/results.xml
+            mkdir -p ./FailureDiffs
+            [ -d SDK/Tests/UI\ Tests/FailureDiffs ] && mv SDK/Tests/UI\ Tests/FailureDiffs/* ./FailureDiffs || true
+          when: always
+      - store_test_results:
+          path: ./scan
+      - store_artifacts:
+          path: ./FailureDiffs
+
   fastlane-beta:
     macos:
       xcode: "9.2.0"
@@ -43,6 +103,9 @@ jobs:
 
 workflows:
   version: 2
+  build-and-test:
+    jobs:
+      - build-and-test
   deploy-beta:
     jobs:
       - fastlane-beta:

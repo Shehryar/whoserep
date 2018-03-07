@@ -11,6 +11,7 @@ import UIKit
 /**
  Used to define a text style.
  */
+@objc(ASAPPTextStyle)
 @objcMembers
 public class ASAPPTextStyle: NSObject {
     

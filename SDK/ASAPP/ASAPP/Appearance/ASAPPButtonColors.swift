@@ -11,6 +11,7 @@ import UIKit
 /**
  Used for configuring the styles of a button. For example, assign an instance to `ASAPPColors.quickReplyButton`.
  */
+@objc(ASAPPButtonColors)
 @objcMembers
 public class ASAPPButtonColors: NSObject {
     

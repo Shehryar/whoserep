@@ -12,6 +12,7 @@ import UIKit
  An `ASAPPButton` will launch the SDK, showing the view controller based on the configured segue.
  Create one using `ASAPP.createChatButton(appCallbackHandler:presentingViewController:)`.
  */
+@objc(ASAPPButton)
 public class ASAPPButton: UIView {
     
     let config: ASAPPConfig
@@ -130,29 +131,7 @@ public class ASAPPButton: UIView {
             contentView.layer.cornerRadius = frame.height / 2.0
         }
     }
-}
-
-// MARK: - Button Display
-
-extension ASAPPButton {
     
-    @objc func updateDisplay() {
-        label.setAttributedText(ASAPP.strings.asappButton,
-                                textType: .link,
-                                color: ASAPP.styles.colors.helpButtonText)
-        
-        if let buttonBackgroundColor = backgroundColors[currentState] {
-            contentView.alpha = 1
-            contentView.backgroundColor = buttonBackgroundColor
-        } else if isTouching {
-            contentView.alpha = 0.58
-        } else {
-            contentView.alpha = 1
-        }
-    }
-}
-
-extension ASAPPButton {
     // MARK: - Touches
     
     /**
@@ -212,6 +191,26 @@ extension ASAPPButton {
         let touchableArea = bounds.insetBy(dx: -extendedTouchRange, dy: -extendedTouchRange)
         
         return touchableArea.contains(touchLocation)
+    }
+}
+
+// MARK: - Button Display
+
+extension ASAPPButton {
+    
+    @objc func updateDisplay() {
+        label.setAttributedText(ASAPP.strings.asappButton,
+                                textType: .link,
+                                color: ASAPP.styles.colors.helpButtonText)
+        
+        if let buttonBackgroundColor = backgroundColors[currentState] {
+            contentView.alpha = 1
+            contentView.backgroundColor = buttonBackgroundColor
+        } else if isTouching {
+            contentView.alpha = 0.58
+        } else {
+            contentView.alpha = 1
+        }
     }
 }
 

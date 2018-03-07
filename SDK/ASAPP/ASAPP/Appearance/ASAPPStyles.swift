@@ -11,6 +11,7 @@ import UIKit
 /**
  Holds customizable styles and other visual SDK settings.
  */
+@objc(ASAPPStyles)
 @objcMembers
 public class ASAPPStyles: NSObject {
     

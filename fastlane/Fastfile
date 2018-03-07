@@ -8,6 +8,10 @@ platform :ios do
     TEST_APP_PROJECT = "SDK/ASAPPTest/ASAPPTest.xcodeproj"
   end
 
+  lane :test do
+    scan
+  end
+
   lane :incrementBuildNumber do
     ensure_git_status_clean
 
