@@ -455,7 +455,7 @@ extension ChatViewController {
             quickRepliesTop -= quickRepliesHeight
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
             quickRepliesTop -= inputHeight
-            chatMessagesView.contentInsetBottom = quickRepliesView.frame.height + inputHeight
+            chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
         
         quickRepliesView.isRestartButtonVisible = (inputState == .quickReplies && quickRepliesMessage != nil)
@@ -1070,14 +1070,12 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        if quickRepliesView.frame.minY < view.bounds.height {
-            // already visible
+        if quickRepliesView.frame.height > 0 {
             Dispatcher.delay(200) { [weak self] in
                 self?.showQuickRepliesView(with: message)
             }
         } else {
-            // not yet visible
-            Dispatcher.delay(1000) { [weak self] in
+            Dispatcher.delay(400) { [weak self] in
                 self?.showQuickRepliesView(with: message)
             }
         }
