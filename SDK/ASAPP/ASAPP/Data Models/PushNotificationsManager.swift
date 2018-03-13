@@ -69,17 +69,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     }
     
     private func getHeaders(for session: Session) -> [String: String]? {
-        let passwordPayload: [String: Any] = [
-            "CustomerId": session.customer.id,
-            "SessionTime": session.auth.time,
-            "SessionSecret": session.auth.secret
-        ]
-        
-        guard let passwordPayloadData = try? JSONSerialization.data(withJSONObject: passwordPayload, options: []),
-              let passwordPayloadString = String(data: passwordPayloadData, encoding: .utf8) else {
-            DebugLog.e(caller: self, "Could not serialize the password payload.")
-            return nil
-        }
+        let passwordPayloadString = session.sessionTokenForHTTP
         
         let authPayloadString = ":\(passwordPayloadString)"
         guard let authPayloadData = authPayloadString.data(using: .utf8) else {
