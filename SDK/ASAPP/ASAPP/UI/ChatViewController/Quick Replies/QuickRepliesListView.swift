@@ -179,6 +179,7 @@ extension QuickRepliesListView: UITableViewDataSource {
     
     func styleRestartActionButtonCell(_ cell: RestartActionButtonCell) {
         cell.button.updateText(ASAPP.strings.restartActionButton, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
+        cell.activityIndicatorStyle = ASAPP.styles.colors.actionButton.backgroundDisabled.isDark() ? .white : .gray
         cell.layoutSubviews()
     }
 }

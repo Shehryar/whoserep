@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 
 class RestartActionButtonCell: QuickReplyCell {
+    override var textInset: UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 36, bottom: 10, right: 36)
+    }
+    
+    var activityIndicatorStyle: UIActivityIndicatorViewStyle = .white
+    
     private var activityIndicator: UIActivityIndicatorView?
     
     override class var reuseIdentifier: String {
@@ -35,7 +41,7 @@ class RestartActionButtonCell: QuickReplyCell {
         
         activityIndicator = UIActivityIndicatorView(frame: button.bounds)
         if let spinner = activityIndicator {
-            spinner.activityIndicatorViewStyle = .gray
+            spinner.activityIndicatorViewStyle = activityIndicatorStyle
             button.addSubview(spinner)
             spinner.startAnimating()
         }

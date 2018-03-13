@@ -68,7 +68,7 @@ class ChatMessageCell: UITableViewCell {
         return 1.0
     }
     
-    private(set) var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
+    private(set) var contentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -125,20 +125,20 @@ class ChatMessageCell: UITableViewCell {
     // MARK: Styling Methods
     
     private func updateContentInset() {
-        var updatedContentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        var updatedContentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
         
         switch messagePosition {
         case .firstOfMany:
-            updatedContentInset.bottom = 1
+            updatedContentInset.bottom = 2
             
         case .middleOfMany:
-            updatedContentInset.top = 1
+            updatedContentInset.top = 2
             if !isTimeLabelVisible {
-                updatedContentInset.bottom = 1
+                updatedContentInset.bottom = 3
             }
             
         case .lastOfMany:
-            updatedContentInset.top = 1
+            updatedContentInset.top = 2
             
         case .none:
             // No need to change

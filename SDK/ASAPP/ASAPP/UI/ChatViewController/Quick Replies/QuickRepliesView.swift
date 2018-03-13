@@ -183,7 +183,7 @@ extension QuickRepliesView {
         let rowHeight = QuickRepliesListView.approximateRowHeight()
         
         if listViews.first?.onRestartActionButtonTapped != nil {
-            return rowHeight * 1.25
+            return rowHeight * 1.8
         }
         
         if listViews.isEmpty || listViews[currentViewIndex].quickReplies?.isEmpty == true {
@@ -327,6 +327,7 @@ extension QuickRepliesView {
         }
         listViews.removeAll()
         currentViewIndex = 0
+        separatorTopView.alpha = 1
     }
     
     func deselectCurrentSelection(animated: Bool) {
@@ -342,6 +343,7 @@ extension QuickRepliesView {
         if animated {
             animating = true
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
+                self?.separatorTopView.alpha = 0
                 self?.updateBackButtonVisibility()
                 self?.isRestartButtonVisible = false
                 self?.setNeedsLayout()
@@ -351,6 +353,7 @@ extension QuickRepliesView {
                 self?.animating = false
             })
         } else {
+            separatorTopView.alpha = 0
             updateBackButtonVisibility()
             isRestartButtonVisible = false
             setNeedsLayout()

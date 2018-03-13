@@ -36,10 +36,10 @@ public class ASAPPTextStyles: NSObject {
     // MARK: ComponentUI: Body
     
     /// The style of body text.
-    public var body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var body = ASAPPTextStyle(font: Fonts.default.regular, size: 16, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
     /// The style of bold body text.
-    public var bodyBold  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var bodyBold  = ASAPPTextStyle(font: Fonts.default.medium, size: 16, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
     
     /// The style of italic body text.
     public var bodyItalic = ASAPPTextStyle(font: Fonts.default.regularItalic ?? Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
@@ -62,7 +62,7 @@ public class ASAPPTextStyles: NSObject {
     public var button = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: UIColor.ASAPP.cometBlue)
     
     /// The style of action buttons.
-    public var actionButton = ASAPPTextStyle(font: Fonts.default.medium, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue, uppercase: true)
+    public var actionButton = ASAPPTextStyle(font: Fonts.default.bold, size: 11, letterSpacing: 0.5, color: .white, uppercase: true)
     
     /// The style of links.
     public var link = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)

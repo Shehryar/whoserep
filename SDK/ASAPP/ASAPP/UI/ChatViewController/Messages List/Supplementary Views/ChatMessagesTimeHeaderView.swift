@@ -22,10 +22,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     
     private let timeLabel = UILabel()
     
-    private let separatorLeft = HorizontalGradientView()
-    
-    private let separatorRight = HorizontalGradientView()
-    
     private let dateFormatter = DateFormatter()
     
     // MARK: - Init
@@ -38,12 +34,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         timeLabel.textColor = ASAPP.styles.colors.textSecondary
         timeLabel.textAlignment = .center
         contentView.addSubview(timeLabel)
-        
-        let separatorColor = ASAPP.styles.colors.separatorPrimary
-        separatorLeft.update(separatorColor.withAlphaComponent(0.0), rightColor: separatorColor)
-        separatorRight.update(separatorColor, rightColor: separatorColor.withAlphaComponent(0.0))
-        contentView.addSubview(separatorLeft)
-        contentView.addSubview(separatorRight)
     }
     
     override init(reuseIdentifier: String?) {
@@ -84,16 +74,6 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         let textSize = textSizeForSize(bounds.size)
         let textLeft = floor((bounds.width - textSize.width) / 2.0)
         timeLabel.frame = CGRect(x: textLeft, y: contentInset.top, width: textSize.width, height: textSize.height)
-        
-        let separatorMargin: CGFloat = 15.0
-        let separatorStroke: CGFloat = ASAPP.styles.separatorStrokeWidth
-        let separatorTop = ceil(timeLabel.center.y - separatorStroke / 2.0)
-        let separatorLeftWidth = timeLabel.frame.minX - separatorMargin - contentInset.left
-        separatorLeft.frame = CGRect(x: contentInset.left, y: separatorTop, width: separatorLeftWidth, height: separatorStroke)
-        
-        let separatorRightLeft = timeLabel.frame.maxX + separatorMargin
-        let separatorRightWidth = bounds.width - contentInset.right - separatorRightLeft
-        separatorRight.frame = CGRect(x: separatorRightLeft, y: separatorTop, width: separatorRightWidth, height: separatorStroke)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

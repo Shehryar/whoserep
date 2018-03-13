@@ -83,7 +83,7 @@ public class ASAPPStrings: NSObject {
     // MARK: Restart confirmation action sheet
     
     /// The text for the quick reply button displayed at the end of a chat session.
-    public var restartActionButton = ASAPPLocalizedString("I want to ask another question.")
+    public var restartActionButton = ASAPPLocalizedString("Ask a new question")
     
     /// The title for the alert displayed when ending chat.
     public var restartConfirmationTitle = ASAPPLocalizedString("Ask a new question")

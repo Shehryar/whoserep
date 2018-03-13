@@ -35,7 +35,7 @@ class RestartActionButtonCellSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let cell = RestartActionButtonCell(style: .default, reuseIdentifier: "restartActionButtonCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
-                        let string = "I want to ask another question."
+                        let string = "Ask a new question"
                         let style = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, uppercase: true)
                         let colors = ASAPPButtonColors(
                             backgroundColor: .white,

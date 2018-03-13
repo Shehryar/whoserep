@@ -11,6 +11,8 @@ import UIKit
 internal extension UIColor {
     struct ASAPP {
         static let eggplant = UIColor(red: 0.33, green: 0.33, blue: 0.89, alpha: 1)
+        static let finnishGrey = UIColor(red: 0.886, green: 0.898, blue: 0.965, alpha: 1)
+        static let purpleHaze = UIColor(red: 0.29, green: 0.29, blue: 0.49, alpha: 1)
         static let alabasterWhite = UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1)
         static let manateeGray = UIColor(red: 0.573, green: 0.600, blue: 0.663, alpha: 1)
         static let ceruleanBlue = UIColor(red: 0.075, green: 0.698, blue: 0.925, alpha: 1)

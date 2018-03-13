@@ -94,22 +94,22 @@ public class ASAPPColors: NSObject {
     public var messagesListBackground = UIColor.ASAPP.alabasterWhite
     
     /// The color of chat message text.
-    public var messageText = UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1)
+    public var messageText = UIColor.white
     
     /// The color of the background of chat messages sent by the user.
-    public var messageBackground = UIColor.white
+    public var messageBackground = UIColor.ASAPP.eggplant
     
     /// The color of the border of chat messages sent by the user.
-    public var messageBorder: UIColor? = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
+    public var messageBorder: UIColor?
     
     /// The color of chat message reply text.
-    public var replyMessageText = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    public var replyMessageText = UIColor.ASAPP.purpleHaze
     
     /// The color of the background of chat message replies.
-    public var replyMessageBackground = UIColor.ASAPP.eggplant
+    public var replyMessageBackground = UIColor(red: 0.89, green: 0.89, blue: 0.92, alpha: 1)
     
     /// The color of the border of chat message replies.
-    public var replyMessageBorder: UIColor?
+    public var replyMessageBorder = UIColor(red: 0.89, green: 0.89, blue: 0.92, alpha: 1)
     
     // MARK: - Chat: Quick Replies
     
@@ -123,9 +123,9 @@ public class ASAPPColors: NSObject {
     
     /// The colors of action buttons.
     public var actionButton = ASAPPButtonColors(
-        backgroundColor: .white,
-        textColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1),
-        border: UIColor(red: 0, green: 0.45, blue: 0.73, alpha: 1))
+        backgroundColor: UIColor.ASAPP.eggplant,
+        textColor: .white,
+        border: UIColor.ASAPP.eggplant)
     
     // MARK: - Chat: Input
     

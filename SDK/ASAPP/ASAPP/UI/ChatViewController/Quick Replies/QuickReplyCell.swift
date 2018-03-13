@@ -13,13 +13,11 @@ class QuickReplyCell: UITableViewCell {
         return "QuickReplyCell"
     }
     
-    static var textInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
-    
-    static var contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
-    
-    class func approximateHeight(withFont font: UIFont) -> CGFloat {
-        return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
+    var textInset: UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     }
+    
+    static let contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
     
     let button = UIButton()
     
@@ -41,6 +39,10 @@ class QuickReplyCell: UITableViewCell {
                 updateIcons()
             }
         }
+    }
+    
+    class func approximateHeight(withFont font: UIFont) -> CGFloat {
+        return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
     }
     
     // MARK: Init
@@ -169,23 +171,23 @@ extension QuickReplyCell {
         let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
         
         button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
-        button.contentEdgeInsets = QuickReplyCell.textInset
+        button.contentEdgeInsets = textInset
         
         if exitIcon.image != nil && !exitIcon.isHidden {
-            button.contentEdgeInsets.right += QuickReplyCell.textInset.right / 2 + exitIconSize.width
+            button.contentEdgeInsets.right += textInset.right / 2 + exitIconSize.width
         }
         
         if leftIcon.image != nil && !leftIcon.isHidden {
-            button.contentEdgeInsets.left += QuickReplyCell.textInset.left / 2 + leftIconSize.width
+            button.contentEdgeInsets.left += textInset.left / 2 + leftIconSize.width
         }
         
         shadowView.frame = button.frame
         
-        let leftIconLeft = button.frame.minX + QuickReplyCell.textInset.left
+        let leftIconLeft = button.frame.minX + textInset.left
         let leftIconTop = floor((bounds.size.height - leftIconSize.height) / 2)
         leftIcon.frame = CGRect(x: leftIconLeft, y: leftIconTop, width: leftIconSize.width, height: leftIconSize.height)
         
-        let exitIconLeft = button.frame.maxX - QuickReplyCell.textInset.right - exitIconSize.width
+        let exitIconLeft = button.frame.maxX - textInset.right - exitIconSize.width
         let exitIconTop = floor((bounds.size.height - exitIconSize.height) / 2)
         exitIcon.frame = CGRect(x: exitIconLeft, y: exitIconTop, width: exitIconSize.width, height: exitIconSize.height)
     }
