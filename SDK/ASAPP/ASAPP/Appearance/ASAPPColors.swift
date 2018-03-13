@@ -114,7 +114,7 @@ public class ASAPPColors: NSObject {
     // MARK: - Chat: Quick Replies
     
     /// The color of the background of the quick replies list.
-    public var quickRepliesBackground = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+    public var quickRepliesBackground = UIColor.ASAPP.alabasterWhite
     
     /// The colors of quick reply buttons.
     public var quickReplyButton = ASAPPButtonColors(
@@ -131,12 +131,12 @@ public class ASAPPColors: NSObject {
     
     /// The colors of the chat input text area.
     public var chatInput = ASAPPInputColors(
-        background: UIColor.white,
+        background: UIColor.ASAPP.alabasterWhite,
         text: UIColor(red: 0.283, green: 0.290, blue: 0.307, alpha: 1),
-        placeholderText: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1),
-        tint: UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1),
-        border: UIColor(red: 0.937, green: 0.945, blue: 0.949, alpha: 1),
-        primaryButton: UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1),
+        placeholderText: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.4),
+        tint: UIColor.ASAPP.eggplant,
+        border: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15),
+        primaryButton: UIColor.ASAPP.eggplant,
         secondaryButton: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1))
     
     // MARK: - ASAPPButton

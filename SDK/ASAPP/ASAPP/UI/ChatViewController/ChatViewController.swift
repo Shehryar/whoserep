@@ -103,10 +103,7 @@ class ChatViewController: ASAPPViewController {
         // Chat Input
         chatInputView.delegate = self
         chatInputView.displayMediaButton = true
-        chatInputView.layer.shadowColor = UIColor.black.cgColor
-        chatInputView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        chatInputView.layer.shadowRadius = 2
-        chatInputView.layer.shadowOpacity = 0.1
+        chatInputView.isRounded = true
         
         // Quick Replies
         quickRepliesView.delegate = self
@@ -448,10 +445,18 @@ extension ChatViewController {
         switch inputState {
         case .chat:
             chatInputView.isHidden = false
+            chatInputView.displayBorderTop = true
+            chatInputView.contentInset.top = 2
+            chatInputView.contentInset.bottom = 2
+            chatInputView.bubbleInset.bottom = 8
             chatInputView.becomeFirstResponder()
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
             chatInputView.isHidden = (inputState != .both)
+            chatInputView.displayBorderTop = false
+            chatInputView.contentInset.top = 8
+            chatInputView.contentInset.bottom = 8
+            chatInputView.bubbleInset.bottom = 31
             chatInputView.resignFirstResponder()
             quickRepliesTop -= quickRepliesHeight
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0

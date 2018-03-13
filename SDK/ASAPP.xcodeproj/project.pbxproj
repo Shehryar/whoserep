@@ -400,12 +400,12 @@
 		3A9EF24520340A0E0092A1AA /* alertOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23920340A0E0092A1AA /* alertOutline.png */; };
 		3A9EF24620340A0E0092A1AA /* clockFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23A20340A0E0092A1AA /* clockFilled.png */; };
 		3AB25B751F7AB23500CB335F /* ASAPPViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB25B741F7AB23500CB335F /* ASAPPViews.swift */; };
-		3AB948C51FBD1052009AE6C4 /* icon-send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C21FBD1050009AE6C4 /* icon-send.png */; };
-		3AB948C61FBD1052009AE6C4 /* icon-send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */; };
-		3AB948C71FBD1052009AE6C4 /* icon-send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948C41FBD1051009AE6C4 /* icon-send@2x.png */; };
 		3AB948CE1FBDEBF5009AE6C4 /* icon-guillemet-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948CB1FBDEBCE009AE6C4 /* icon-guillemet-left.png */; };
 		3AB948CF1FBDEBF5009AE6C4 /* icon-guillemet-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948CC1FBDEBCE009AE6C4 /* icon-guillemet-left@2x.png */; };
 		3AB948D01FBDEBF5009AE6C4 /* icon-guillemet-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AB948CD1FBDEBCF009AE6C4 /* icon-guillemet-left@3x.png */; };
+		3ACAAA982056F54100963DD3 /* icon-send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA952056F54000963DD3 /* icon-send.png */; };
+		3ACAAA992056F54100963DD3 /* icon-send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA962056F54000963DD3 /* icon-send@2x.png */; };
+		3ACAAA9A2056F54100963DD3 /* icon-send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA972056F54100963DD3 /* icon-send@3x.png */; };
 		3ACBD7F21F8E9711004D36A6 /* NavBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */; };
 		3ACBD7F41F8E9743004D36A6 /* NavCloseBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */; };
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
@@ -812,12 +812,12 @@
 		3A9EF23920340A0E0092A1AA /* alertOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alertOutline.png; sourceTree = "<group>"; };
 		3A9EF23A20340A0E0092A1AA /* clockFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockFilled.png; sourceTree = "<group>"; };
 		3AB25B741F7AB23500CB335F /* ASAPPViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPViews.swift; sourceTree = "<group>"; };
-		3AB948C21FBD1050009AE6C4 /* icon-send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send.png"; sourceTree = "<group>"; };
-		3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@3x.png"; sourceTree = "<group>"; };
-		3AB948C41FBD1051009AE6C4 /* icon-send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@2x.png"; sourceTree = "<group>"; };
 		3AB948CB1FBDEBCE009AE6C4 /* icon-guillemet-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-left.png"; sourceTree = "<group>"; };
 		3AB948CC1FBDEBCE009AE6C4 /* icon-guillemet-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-left@2x.png"; sourceTree = "<group>"; };
 		3AB948CD1FBDEBCF009AE6C4 /* icon-guillemet-left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-guillemet-left@3x.png"; sourceTree = "<group>"; };
+		3ACAAA952056F54000963DD3 /* icon-send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send.png"; sourceTree = "<group>"; };
+		3ACAAA962056F54000963DD3 /* icon-send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@2x.png"; sourceTree = "<group>"; };
+		3ACAAA972056F54100963DD3 /* icon-send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-send@3x.png"; sourceTree = "<group>"; };
 		3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
@@ -1107,9 +1107,9 @@
 				3025D9B11E527FEB004149D7 /* icon-hide-keyboard@3x.png */,
 				3A1E00841F8FAED0008C3F39 /* icon-paperclip@2x.png */,
 				3A1E00831F8FAED0008C3F39 /* icon-paperclip@3x.png */,
-				3AB948C21FBD1050009AE6C4 /* icon-send.png */,
-				3AB948C41FBD1051009AE6C4 /* icon-send@2x.png */,
-				3AB948C31FBD1051009AE6C4 /* icon-send@3x.png */,
+				3ACAAA952056F54000963DD3 /* icon-send.png */,
+				3ACAAA962056F54000963DD3 /* icon-send@2x.png */,
+				3ACAAA972056F54100963DD3 /* icon-send@3x.png */,
 				302A20B41E5E2CFB007C522A /* icon-star-filled.png */,
 				302A20B51E5E2CFB007C522A /* icon-star-filled@2x.png */,
 				302A20B61E5E2CFB007C522A /* icon-star-filled@3x.png */,
@@ -1899,6 +1899,7 @@
 				3046CEAD1E8AF6FC0022AEE5 /* checkmarkCircle@3x.png in Resources */,
 				3A0E7FA71FB5149B008F9544 /* thumbsDown@3x.png in Resources */,
 				302A20BD1E5E2CFB007C522A /* icon-star.png in Resources */,
+				3ACAAA992056F54100963DD3 /* icon-send@2x.png in Resources */,
 				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
 				3A9EF23C20340A0E0092A1AA /* alertFilled@2x.png in Resources */,
 				3046CE8E1E8AF0C90022AEE5 /* trash@2x.png in Resources */,
@@ -1907,7 +1908,6 @@
 				3A9EF23B20340A0E0092A1AA /* alertOutline@3x.png in Resources */,
 				302268481D80690500EC4FB1 /* bg-dash-tile@3x.png in Resources */,
 				3046CE8D1E8AF0C90022AEE5 /* trash.png in Resources */,
-				3AB948C51FBD1052009AE6C4 /* icon-send.png in Resources */,
 				3AB948CE1FBDEBF5009AE6C4 /* icon-guillemet-left.png in Resources */,
 				30B3FE291ECB661700D43068 /* loginKey.png in Resources */,
 				3AB948CF1FBDEBF5009AE6C4 /* icon-guillemet-left@2x.png in Resources */,
@@ -1931,6 +1931,7 @@
 				3046CE811E8AF0C90022AEE5 /* checkmarkThin.png in Resources */,
 				3046CEA01E8AF6020022AEE5 /* alertWarning@2x.png in Resources */,
 				3046CE8F1E8AF0C90022AEE5 /* trash@3x.png in Resources */,
+				3ACAAA9A2056F54100963DD3 /* icon-send@3x.png in Resources */,
 				28AEC0BB1D888FFD00139C7D /* map-tech@3x.png in Resources */,
 				3025D9A61E527FCC004149D7 /* icon-error-alert-filled.png in Resources */,
 				3046CE951E8AF0C90022AEE5 /* userMinus@3x.png in Resources */,
@@ -1946,7 +1947,6 @@
 				3025D9B31E527FEB004149D7 /* icon-hide-keyboard@2x.png in Resources */,
 				3A883C661FBC959F00B44116 /* Lato-Italic.ttf in Resources */,
 				3025D9A01E527FBF004149D7 /* icon-error-alert.png in Resources */,
-				3AB948C61FBD1052009AE6C4 /* icon-send@3x.png in Resources */,
 				302268461D80690500EC4FB1 /* bg-dash-tile.png in Resources */,
 				3A9EF24320340A0E0092A1AA /* bellFilled.png in Resources */,
 				3A9EF23E20340A0E0092A1AA /* alertFilled@3x.png in Resources */,
@@ -1994,7 +1994,6 @@
 				3A0E7FA51FB5149B008F9544 /* thumbsDown.png in Resources */,
 				3A9EF23D20340A0E0092A1AA /* alertFilled.png in Resources */,
 				3046CE781E8AF0C90022AEE5 /* arrowOutgoing.png in Resources */,
-				3AB948C71FBD1052009AE6C4 /* icon-send@2x.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
@@ -2004,6 +2003,7 @@
 				302A20BC1E5E2CFB007C522A /* icon-star-filled@3x.png in Resources */,
 				30E875081D9AFC3600E55A88 /* icon-exit-link@3x.png in Resources */,
 				30E875071D9AFC3600E55A88 /* icon-exit-link@2x.png in Resources */,
+				3ACAAA982056F54100963DD3 /* icon-send.png in Resources */,
 				3046CE901E8AF0C90022AEE5 /* user.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
 				3046CE911E8AF0C90022AEE5 /* user@2x.png in Resources */,

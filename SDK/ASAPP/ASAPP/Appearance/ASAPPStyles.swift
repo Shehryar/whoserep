@@ -32,11 +32,6 @@ public class ASAPPStyles: NSObject {
     
     /// Whether primary Component buttons have rounded corners.
     public var primaryButtonsRounded = false
-    
-    /// The send button image. If nil, `ASAPPStrings.chatInputSend` is displayed instead.
-    lazy public var sendButtonImage: ASAPPCustomImage? = {
-        return ASAPPCustomImage(image: Images.getImage(.iconSend)!, size: CGSize(width: 26, height: 26))
-    }()
 }
 
 extension ASAPPStyles {

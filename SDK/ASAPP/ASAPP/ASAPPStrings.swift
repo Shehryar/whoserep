@@ -49,10 +49,7 @@ public class ASAPPStrings: NSObject {
     public var chatEndChatNavBarButton = ASAPPLocalizedString("END CHAT")
     
     /// The placeholder text for the input field of the chat view.
-    public var chatInputPlaceholder = ASAPPLocalizedString("Enter a message...")
-    
-    /// The text for the send button of the chat view.
-    public var chatInputSend: String?
+    public var chatInputPlaceholder = ASAPPLocalizedString("Type your own question here")
     
     // MARK: Generic
     

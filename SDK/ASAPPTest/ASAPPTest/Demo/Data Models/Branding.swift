@@ -50,13 +50,10 @@ class Branding: NSObject {
         switch appearanceConfig.brand {
         case .asapp:
             styles = ASAPPStyles()
-            styles.sendButtonImage = nil
             views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
-            strings.chatInputSend = "SEND"
             
         case .boost:
             styles = Branding.createBoostStyles(appearanceConfig)
-            strings.chatInputSend = "SEND"
             
         case .telstra:
             styles = Branding.createTelstraStyles(appearanceConfig)
@@ -109,7 +106,6 @@ extension Branding {
         // Boost special cases
         
         styles.segue = .present
-        styles.sendButtonImage = nil
         
         return styles
     }
