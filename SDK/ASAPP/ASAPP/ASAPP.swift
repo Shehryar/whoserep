@@ -219,10 +219,12 @@ internal extension ASAPP {
     }
     
     class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+        let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,
             user: user,
             segue: segue,
+            conversationManager: conversationManager,
             appCallbackHandler: appCallbackHandler)
         
         return chatViewController

@@ -27,7 +27,7 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Storage
     
-    private(set) var conversationManager: ConversationManager!
+    private(set) var conversationManager: ConversationManagerProtocol!
     private var quickRepliesMessage: ChatMessage?
 
     // MARK: Properties: Views / UI
@@ -65,13 +65,16 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
         self.config = config
         self.appCallbackHandler = appCallbackHandler
         self.segue = segue
+        self.conversationManager = conversationManager
         super.init(nibName: nil, bundle: nil)
         
-        updateUser(user)
+        self.user = user
+        self.conversationManager.delegate = self
+        isLiveChat = self.conversationManager.isLiveChat
         
         //
         // UI Setup
@@ -215,9 +218,7 @@ class ChatViewController: ASAPPViewController {
         }
         
         self.user = user
-        conversationManager = ConversationManager(config: config,
-                                                  user: user,
-                                                  userLoginAction: userLoginAction)
+        conversationManager = type(of: conversationManager).init(config: config, user: user, userLoginAction: userLoginAction)
         conversationManager.delegate = self
         isLiveChat = conversationManager.isLiveChat
         
@@ -929,7 +930,7 @@ extension ChatViewController: NotificationBannerDelegate {
 extension ChatViewController: ConversationManagerDelegate {
     
     // New Messages
-    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage) {
         provideHapticFeedbackForMessageIfNecessary(message)
         
         if message.metadata.eventType == .newRep {
@@ -985,7 +986,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Welcome Back Action Sheet
-    func conversationManager(_ manager: ConversationManager, didReturnAfterInactivityWith event: Event) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith event: Event) {
         guard let continuePrompt = event.continuePrompt else {
             return
         }
@@ -1005,17 +1006,17 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Updated Messages
-    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage) {
         chatMessagesView.updateMessage(message)
     }
     
     // Typing Status
-    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool) {
         chatMessagesView.updateTypingStatus(isTyping)
     }
     
     // Live Chat Status
-    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
         let wasLiveChat = self.isLiveChat
         self.isLiveChat = isLiveChat
         
@@ -1029,7 +1030,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Connection Status
-    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
         if isConnected {
             didConnectAtLeastOnce = true
             delayedDisconnectTime = nil

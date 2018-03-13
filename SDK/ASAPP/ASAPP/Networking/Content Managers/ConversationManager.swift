@@ -8,8 +8,71 @@
 
 import Foundation
 
-class ConversationManager: NSObject {
+protocol ConversationManagerProtocol {
+    typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
+    typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
     
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?)
+    
+    weak var delegate: ConversationManagerDelegate? { get set }
+    var events: [Event] { get }
+    var currentSRSClassification: String? { get set }
+    var isLiveChat: Bool { get }
+    var isConnected: Bool { get }
+    
+    func enterConversation()
+    func exitConversation()
+    func saveCurrentEvents(async: Bool)
+    func isConnected(retryConnectionIfNeeded: Bool) -> Bool
+    
+    func getQuickReplyMessages() -> [ChatMessage]?
+    func getEvents(afterEvent: Event?, completion: @escaping FetchedEventsCompletion)
+    func sendEnterChatRequest(_ completion: (() -> Void)?)
+    func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
+    func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String, completion: IncomingMessageHandler?)
+    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.CompletionHandler)
+    func sendRequestForTreewalkAction(_ action: TreewalkAction, messageText: String?, parentMessage: ChatMessage?, completion: ((Bool) -> Void)?)
+    func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
+    func sendUserTypingStatus(isTyping: Bool, withText text: String?)
+    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)?)
+    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
+    func sendTextMessage(_ message: String, completion: IncomingMessageHandler?)
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool)
+    
+    func trackSessionStart()
+    func trackButtonTap(buttonName: AnalyticsButtonName)
+    func trackAction(_ action: Action)
+    func trackLiveChatBegan(issueId: Int)
+    func trackLiveChatEnded(issueId: Int)
+}
+
+extension ConversationManagerProtocol {
+    func sendEnterChatRequest() {
+        return sendEnterChatRequest(nil)
+    }
+    
+    func saveCurrentEvents() {
+        return saveCurrentEvents(async: false)
+    }
+    
+    func sendPictureMessage(_ image: UIImage) {
+        return sendPictureMessage(image, completion: nil)
+    }
+    
+    func sendTextMessage(_ message: String) {
+        return sendTextMessage(message, completion: nil)
+    }
+    
+    func getEvents(completion: @escaping FetchedEventsCompletion) {
+        return getEvents(afterEvent: nil, completion: completion)
+    }
+    
+    func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String) {
+        return sendRequestForDeepLinkAction(action, with: buttonTitle, completion: nil)
+    }
+}
+
+class ConversationManager: NSObject, ConversationManagerProtocol {
     let config: ASAPPConfig
     
     let user: ASAPPUser
@@ -55,7 +118,7 @@ class ConversationManager: NSObject {
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
+    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)

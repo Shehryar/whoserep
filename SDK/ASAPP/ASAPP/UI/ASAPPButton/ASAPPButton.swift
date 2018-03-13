@@ -218,7 +218,8 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     func didTap() {
-        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, appCallbackHandler: appCallbackHandler)
+        let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
+        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager, appCallbackHandler: appCallbackHandler)
         
         switch ASAPP.styles.segue {
         case .present:
