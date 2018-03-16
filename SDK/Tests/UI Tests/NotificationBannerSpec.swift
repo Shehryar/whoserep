@@ -28,7 +28,7 @@ class NotificationBannerSpec: QuickSpec {
             
             context("on its own") {
                 let text = "Your payment of $9001 is due in two days. Please pay on time to avoid any late fees."
-                let icon = NotificationIconItem(with: ["name": NotificationIcon.alertError.rawValue])
+                let icon = NotificationIconItem(with: ["name": NotificationIcon.alertErrorOutline.rawValue])
                 
                 beforeEach {
                     ASAPP.styles = ASAPPStyles()
@@ -78,10 +78,8 @@ class NotificationBannerSpec: QuickSpec {
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
-                                subview.subviews.forEach { subsubview in
-                                    if let button = subsubview as? UIButton {
-                                        button.sendActions(for: .touchUpInside)
-                                    }
+                                if let button = subview as? UIButton {
+                                    button.sendActions(for: .touchUpInside)
                                 }
                             }
                             banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
@@ -109,10 +107,8 @@ class NotificationBannerSpec: QuickSpec {
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
-                                subview.subviews.forEach { subsubview in
-                                    if let button = subsubview as? UIButton {
-                                        button.sendActions(for: .touchUpInside)
-                                    }
+                                if let button = subview as? UIButton {
+                                    button.sendActions(for: .touchUpInside)
                                 }
                             }
                             banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
@@ -139,10 +135,8 @@ class NotificationBannerSpec: QuickSpec {
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
-                                subview.subviews.forEach { subsubview in
-                                    if let button = subsubview as? UIButton {
-                                        button.sendActions(for: .touchUpInside)
-                                    }
+                                if let button = subview as? UIButton {
+                                    button.sendActions(for: .touchUpInside)
                                 }
                             }
                             banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
@@ -170,10 +164,8 @@ class NotificationBannerSpec: QuickSpec {
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
-                                subview.subviews.forEach { subsubview in
-                                    if let button = subsubview as? UIButton {
-                                        button.sendActions(for: .touchUpInside)
-                                    }
+                                if let button = subview as? UIButton {
+                                    button.sendActions(for: .touchUpInside)
                                 }
                             }
                             banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())

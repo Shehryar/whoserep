@@ -469,7 +469,8 @@ extension ChatViewController {
         
         if let banner = notificationBanner {
             let bannerHeight = banner.preferredDisplayHeight()
-            banner.frame = CGRect(x: 0, y: 0, width: viewWidth, height: bannerHeight)
+            banner.frame = CGRect(x: 0, y: banner.shouldHide ? -bannerHeight : 0, width: viewWidth, height: bannerHeight)
+            banner.setNeedsLayout()
             banner.layoutIfNeeded()
         }
     }

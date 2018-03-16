@@ -29,7 +29,7 @@ class QuickReplyCell: UITableViewCell {
     
     let exitIcon = UIImageView()
     
-    let exitIconSize = CGSize(width: 13, height: 13)
+    let exitIconSize = CGSize(width: 16, height: 16)
     
     var iconTintColor: UIColor = UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0) {
         didSet {

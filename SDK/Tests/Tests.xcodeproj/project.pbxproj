@@ -83,14 +83,12 @@
 		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */; };
 		3A6507AF2020C349008EC815 /* RestartActionButtonCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */; };
-		3A73322E2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
 		3A7AE86E2050AD7F0087DA45 /* MockConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7AE86D2050AD7F0087DA45 /* MockConversationManager.swift */; };
 		3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7AE86920509FA90087DA45 /* ChatViewControllerSpec.swift */; };
 		3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */; };
-		3A9EF2212028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */; };
 		3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */; };
 		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
@@ -126,6 +124,8 @@
 		3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */; };
 		3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */; };
 		3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */; };
+		3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */; };
+		3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -246,7 +246,6 @@
 		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
 		3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewSpec.swift; sourceTree = "<group>"; };
 		3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartActionButtonCellSpec.swift; sourceTree = "<group>"; };
-		3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetSpec.swift; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,7 +258,6 @@
 		3A7AE86920509FA90087DA45 /* ChatViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerSpec.swift; sourceTree = "<group>"; };
 		3A7AE86D2050AD7F0087DA45 /* MockConversationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConversationManager.swift; sourceTree = "<group>"; };
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
-		3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetSpec.swift; sourceTree = "<group>"; };
 		3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerSpec.swift; sourceTree = "<group>"; };
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
@@ -289,6 +287,8 @@
 		3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewSpec.swift; sourceTree = "<group>"; };
 		3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSpec.swift; sourceTree = "<group>"; };
 		3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSpec.swift; sourceTree = "<group>"; };
+		3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetTestCase.swift; sourceTree = "<group>"; };
+		3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -468,6 +468,7 @@
 				3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */,
 				3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */,
 				3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */,
+				3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
@@ -475,7 +476,7 @@
 				3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */,
 				3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */,
 				3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */,
-				3A73322D2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift */,
+				3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */,
 				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
 				3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */,
 				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
@@ -737,7 +738,6 @@
 				3A4FC2891FE1A4020098BAE2 /* DropdownTestCase.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
-				3A73322E2037AC7600F47C70 /* WelcomeBackActionSheetSpec.swift in Sources */,
 				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
@@ -764,6 +764,7 @@
 				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,
 				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
+				3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
 				3A6507AF2020C349008EC815 /* RestartActionButtonCellSpec.swift in Sources */,
@@ -775,9 +776,9 @@
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
+				3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
-				3A9EF2212028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift in Sources */,
 				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A391B431FA14ED90085C2DA /* FormValidationTestCase.swift in Sources */,

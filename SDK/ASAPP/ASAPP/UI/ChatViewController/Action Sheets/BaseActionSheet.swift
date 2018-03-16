@@ -17,45 +17,70 @@ class BaseActionSheet: UIView {
     weak var delegate: ActionSheetDelegate?
     
     private let contentView = UIView()
+    private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
     private let hideButton = UIButton()
     private let restartButton = UIButton()
     private var activityIndicator: UIActivityIndicatorView?
     
-    private let sheetInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-    private let contentInsets = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
-    private let buttonInsets = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
+    private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    private let contentInsets = UIEdgeInsets(top: 45, left: 24, bottom: 50, right: 24)
+    private let buttonInsets = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
+    
+    private var hasTitleLabel: Bool {
+        return titleLabel.superview != nil
+    }
+    
+    private var bodyLabelPadding: CGFloat {
+        return hasTitleLabel ? 17 : 0
+    }
 
     init(title: String?, body: String, hideButtonTitle: String, restartButtonTitle: String) {
         super.init(frame: .zero)
         
-        backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        backgroundColor = .clear
+        
+        addSubview(blurredBackground)
 
         contentView.backgroundColor = .white
         addSubview(contentView)
         
         if let title = title {
             titleLabel.numberOfLines = 0
-            titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header2, color: ASAPP.styles.colors.textPrimary)
+            titleLabel.textAlignment = .center
+            titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header1, color: ASAPP.styles.colors.textPrimary)
             contentView.addSubview(titleLabel)
         }
         
         bodyLabel.numberOfLines = 0
+        bodyLabel.textAlignment = .center
         bodyLabel.setAttributedText(body, textStyle: ASAPP.styles.textStyles.body, color: ASAPP.styles.colors.textPrimary)
         contentView.addSubview(bodyLabel)
         
-        hideButton.addTarget(self, action: #selector(didTapHideButton), for: .touchUpInside)
-        hideButton.updateText(hideButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
-        hideButton.contentEdgeInsets = buttonInsets
-        hideButton.clipsToBounds = true
-        contentView.addSubview(hideButton)
-        
+        let actionColors = ASAPP.styles.colors.actionButton
         restartButton.addTarget(self, action: #selector(didTapRestartButton), for: .touchUpInside)
-        restartButton.updateText(restartButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
+        restartButton.updateText(restartButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: actionColors)
+        restartButton.setTitleShadow(opacity: 0.18)
         restartButton.contentEdgeInsets = buttonInsets
         restartButton.clipsToBounds = true
+        restartButton.layer.shadowColor = UIColor.ASAPP.lakeMinnetonka.cgColor
+        restartButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+        restartButton.layer.shadowRadius = 20
+        restartButton.layer.shadowOpacity = 0.25
         contentView.addSubview(restartButton)
+        
+        let inverseColors = ASAPPButtonColors(backgroundColor: actionColors.textNormal, textColor: actionColors.backgroundNormal, border: actionColors.border)
+        hideButton.addTarget(self, action: #selector(didTapHideButton), for: .touchUpInside)
+        hideButton.updateText(hideButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: inverseColors)
+        hideButton.setTitleShadow(opacity: 0.18)
+        hideButton.contentEdgeInsets = buttonInsets
+        hideButton.clipsToBounds = true
+        hideButton.layer.shadowColor = UIColor.ASAPP.lakeMinnetonka.cgColor
+        hideButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+        hideButton.layer.shadowRadius = 20
+        hideButton.layer.shadowOpacity = 0.25
+        contentView.addSubview(hideButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,30 +90,42 @@ class BaseActionSheet: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = CGRect(x: sheetInsets.left, y: frame.midY, width: frame.width - sheetInsets.left - sheetInsets.right, height: frame.maxY - frame.midY)
+        blurredBackground.frame = bounds
         
-        let path = UIBezierPath(roundedRect: contentView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 6, height: 6))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        contentView.layer.mask = mask
+        let contentWidth = frame.width - sheetInsets.left - sheetInsets.right
+        let contentFitSize = CGSize(width: contentWidth - contentInsets.left - contentInsets.right, height: 0)
         
-        let contentFitSize = CGSize(width: contentView.frame.width - contentInsets.left - contentInsets.right, height: 0)
-        
-        let hasTitleLabel = titleLabel.superview != nil
         let titleLabelSize = hasTitleLabel ? titleLabel.sizeThatFits(contentFitSize) : .zero
-        titleLabel.frame = CGRect(x: contentInsets.left, y: contentInsets.top, width: titleLabelSize.width, height: titleLabelSize.height)
+        titleLabel.frame = CGRect(x: contentInsets.left, y: contentInsets.top, width: contentFitSize.width, height: titleLabelSize.height)
         
-        let bodyLabelPadding: CGFloat = hasTitleLabel ? 10 : 0
         let bodyLabelSize = bodyLabel.sizeThatFits(contentFitSize)
-        bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + bodyLabelPadding, width: bodyLabelSize.width, height: bodyLabelSize.height)
-        
-        let hideButtonSize = hideButton.sizeThatFits(contentFitSize)
-        hideButton.frame = CGRect(x: contentView.frame.width / 2 - hideButtonSize.width / 2, y: bodyLabel.frame.maxY + 30, width: hideButtonSize.width, height: hideButtonSize.height)
-        hideButton.layer.cornerRadius = hideButtonSize.height / 2
+        bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + bodyLabelPadding, width: contentFitSize.width, height: bodyLabelSize.height)
         
         let restartButtonSize = restartButton.sizeThatFits(contentFitSize)
-        restartButton.frame = CGRect(x: contentView.frame.width / 2 - restartButtonSize.width / 2, y: hideButton.frame.maxY + 10, width: restartButtonSize.width, height: restartButtonSize.height)
+        restartButton.frame = CGRect(x: contentWidth / 2 - restartButtonSize.width / 2, y: bodyLabel.frame.maxY + 36, width: restartButtonSize.width, height: restartButtonSize.height)
         restartButton.layer.cornerRadius = restartButtonSize.height / 2
+        
+        let hideButtonSize = hideButton.sizeThatFits(contentFitSize)
+        hideButton.frame = CGRect(x: contentWidth / 2 - hideButtonSize.width / 2, y: restartButton.frame.maxY + 10, width: hideButtonSize.width, height: hideButtonSize.height)
+        hideButton.layer.cornerRadius = hideButtonSize.height / 2
+        
+        let totalHeight = hideButton.frame.maxY + contentInsets.bottom
+        contentView.frame = CGRect(x: sheetInsets.left, y: frame.maxY - totalHeight, width: contentWidth, height: totalHeight)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touchesOutOfSheet(touches) {
+            delegate?.actionSheetDidTapHideButton(self)
+        }
+    }
+ 
+    func touchesOutOfSheet(_ touches: Set<UITouch>) -> Bool {
+        guard let touch = touches.first else { return false }
+        
+        let touchLocation = touch.location(in: self)
+        let touchableArea = bounds.divided(atDistance: contentView.frame.height, from: .maxYEdge).remainder
+        
+        return touchableArea.contains(touchLocation)
     }
     
     @objc func didTapHideButton() {
@@ -102,7 +139,6 @@ class BaseActionSheet: UIView {
     func show(in parent: UIView) {
         parent.addSubview(self)
         frame = parent.bounds
-        alpha = 0
         setNeedsLayout()
         layoutIfNeeded()
         
@@ -112,28 +148,12 @@ class BaseActionSheet: UIView {
         contentViewStartFrame.origin.y = parent.bounds.maxY
         contentView.frame = contentViewStartFrame
         
-        titleLabel.alpha = 0
-        bodyLabel.alpha = 0
-        hideButton.alpha = 0
-        restartButton.alpha = 0
-        
         contentView.setNeedsLayout()
         contentView.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            self?.alpha = 1
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.contentView.frame = contentViewFinalFrame
-            }
-            
-            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseIn, animations: { [weak self] in
-                self?.titleLabel.alpha = 1
-                self?.bodyLabel.alpha = 1
-                self?.hideButton.alpha = 1
-                self?.restartButton.alpha = 1
-            }, completion: nil)
-        })
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.contentView.frame = contentViewFinalFrame
+        }
     }
     
     func hide(_ completion: (() -> Void)? = nil) {
@@ -143,15 +163,11 @@ class BaseActionSheet: UIView {
         contentView.setNeedsLayout()
         contentView.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.contentView.frame = contentViewFinalFrame
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: { [weak self] in
-                self?.alpha = 0
-            }, completion: { [weak self] _ in
-                self?.removeFromSuperview()
-                completion?()
-            })
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
+            completion?()
         })
     }
     

@@ -86,7 +86,7 @@ public class ASAPPStrings: NSObject {
     public var restartActionButton = ASAPPLocalizedString("Ask a new question")
     
     /// The title for the alert displayed when ending chat.
-    public var restartConfirmationTitle = ASAPPLocalizedString("Ask a new question")
+    public var restartConfirmationTitle = ASAPPLocalizedString("Are you sure?")
     
     /// The text for the alert displayed when ending chat.
     public var restartConfirmationBody = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")

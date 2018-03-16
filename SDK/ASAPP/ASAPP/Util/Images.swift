@@ -14,6 +14,7 @@ class Images: NSObject {
         case iconSmallX = "icon-x-small"
         case iconExitLink = "icon-exit-link"
         case iconCheckmark = "icon-checkmark"
+        case iconChevron = "icon-chevron"
         case iconCreditCard = "icon-credit-card"
         case iconCreditCardMedium = "icon-credit-card-medium"
         case iconErrorAlert = "icon-error-alert"

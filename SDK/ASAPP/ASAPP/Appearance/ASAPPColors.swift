@@ -88,6 +88,9 @@ public class ASAPPColors: NSObject {
         textDisabled: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.8),
         border: UIColor(red: 0.886, green: 0.890, blue: 0.906, alpha: 1))
     
+    /// The color of the drop shadow for text in certain buttons.
+    public var textShadow = UIColor(red: 0.12, green: 0.13, blue: 0.58, alpha: 1)
+    
     // MARK: - Chat: Messages
     
     /// The color of the background of the chat messages view.

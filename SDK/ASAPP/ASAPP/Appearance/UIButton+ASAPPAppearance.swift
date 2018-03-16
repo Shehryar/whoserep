@@ -62,4 +62,11 @@ extension UIButton {
             layer.borderWidth = 0
         }
     }
+    
+    func setTitleShadow(color: UIColor = ASAPP.styles.colors.textShadow, offset: CGSize = CGSize(width: 0, height: 1), radius: CGFloat = 3, opacity: Float) {
+        titleLabel?.layer.shadowColor = color.cgColor
+        titleLabel?.layer.shadowOffset = offset
+        titleLabel?.layer.shadowRadius = radius
+        titleLabel?.layer.shadowOpacity = opacity
+    }
 }
