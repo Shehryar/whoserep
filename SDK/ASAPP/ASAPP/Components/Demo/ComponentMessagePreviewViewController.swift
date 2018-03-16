@@ -275,8 +275,6 @@ extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {
     
     // Not Handled
     
-    func quickRepliesViewDidTapBack(_ quickRepliesView: QuickRepliesView) {}
-    func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView) {}
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {}
     func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell) {}
 }

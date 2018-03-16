@@ -17,6 +17,12 @@ class Button: UIView {
     
     // MARK: Public Properties
     
+    var contentAlignment: NSTextAlignment = .center {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var title: String? {
         didSet {
             label.text = title
@@ -130,7 +136,7 @@ class Button: UIView {
     }
     
     var currentState: ButtonState {
-        if isTouching {
+        if isTouching || isHighlighted {
             return .highlighted
         } else {
             return .normal
@@ -145,13 +151,15 @@ class Button: UIView {
     
     var onTap: (() -> Void)?
     
-    // MARK: Private Properties
+    var isHighlighted = false
     
     var contentView: UIView
     
     let label = UILabel()
     
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
+    
+    // MARK: Private Properties
     
     private let foregroundImageView = UIImageView()
     
@@ -171,11 +179,10 @@ class Button: UIView {
     // MARK: Initialization
     
     func commonInit() {
-        self.isAccessibilityElement = true
-        self.accessibilityTraits = UIAccessibilityTraitButton
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraitButton
         
         imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
         contentView.addSubview(imageView)
         
         foregroundImageView.contentMode = .scaleAspectFit
@@ -187,7 +194,6 @@ class Button: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.textAlignment = .left
-        label.clipsToBounds = true
         contentView.addSubview(label)
         
         addSubview(contentView)
@@ -283,7 +289,7 @@ extension Button {
         let maxContentHeight = bounds.height - contentInset.top - contentInset.bottom
         
         var imageWidth: CGFloat = 0.0
-        var imageMargin: CGFloat  = 0.0
+        var imageMargin: CGFloat = 0.0
         if image != nil {
             imageWidth = imageSize.width
         }
@@ -299,7 +305,15 @@ extension Button {
         let titleTop = floor((bounds.height - titleHeight) / 2.0)
         
         let contentWidth = titleWidth + imageWidth + imageMargin
-        let contentLeft = floor((bounds.width - contentWidth) / 2.0)
+        let contentLeft: CGFloat
+        switch contentAlignment {
+        case .left:
+            contentLeft = contentInset.left
+        case .right:
+            contentLeft = bounds.width - contentInset.right - contentWidth
+        case .justified, .natural, .center:
+            contentLeft = floor((bounds.width - contentWidth) / 2)
+        }
         
         imageView.frame = CGRect(x: contentLeft, y: imageTop, width: imageWidth, height: imageSize.height)
         foregroundImageView.frame = CGRect(x: 0, y: 0, width: foregroundImageSize.width, height: foregroundImageSize.height)
@@ -371,7 +385,7 @@ extension Button {
         isTouching = false
     }
     
-    // MARK: Utilies
+    // MARK: Utilities
     
     func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
         guard let touch = touches.first else { return false }

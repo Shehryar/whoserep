@@ -70,7 +70,7 @@ public class ASAPPColors: NSObject {
     // MARK: - Chat: Buttons
     
     /// The color of text buttons, usually an accent color.
-    public var textButtonPrimary = ASAPPButtonColors(textColor: UIColor(red: 0.125, green: 0.714, blue: 0.931, alpha: 1))
+    public var textButtonPrimary = ASAPPButtonColors(textColor: UIColor.ASAPP.eggplant)
     
     /// The color of secondary text buttons, usually a muted color.
     public var textButtonSecondary = ASAPPButtonColors(textColor: UIColor(red: 0.663, green: 0.686, blue: 0.733, alpha: 1))
@@ -118,8 +118,13 @@ public class ASAPPColors: NSObject {
     
     /// The colors of quick reply buttons.
     public var quickReplyButton = ASAPPButtonColors(
-        backgroundColor: .white,
-        textColor: UIColor(red: 0.18, green: 0.21, blue: 0.24, alpha: 1))
+        backgroundNormal: .clear,
+        backgroundHighlighted: UIColor.ASAPP.eggplant,
+        backgroundDisabled: .clear,
+        textNormal: UIColor.ASAPP.eggplant,
+        textHighlighted: .white,
+        textDisabled: UIColor.ASAPP.eggplant,
+        border: UIColor.ASAPP.eggplant)
     
     /// The colors of action buttons.
     public var actionButton = ASAPPButtonColors(

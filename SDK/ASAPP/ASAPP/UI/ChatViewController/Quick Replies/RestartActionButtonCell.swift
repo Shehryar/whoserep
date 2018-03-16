@@ -26,18 +26,22 @@ class RestartActionButtonCell: QuickReplyCell {
         super.commonInit()
         
         update(for: nil, enabled: true)
+        
+        button.bubble.roundedCorners = .allCorners
+        button.label.textAlignment = .center
+        button.label.numberOfLines = 1
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        button.center.x = bounds.midX
         button.layer.cornerRadius = button.frame.height / 2
-        shadowView.layer.cornerRadius = button.layer.cornerRadius
     }
     
     func showSpinner() {
         button.isEnabled = false
-        button.titleLabel?.alpha = 0
+        button.label.alpha = 0
         
         activityIndicator = UIActivityIndicatorView(frame: button.bounds)
         if let spinner = activityIndicator {
@@ -53,7 +57,7 @@ class RestartActionButtonCell: QuickReplyCell {
     func hideSpinner() {
         activityIndicator?.removeFromSuperview()
         button.isEnabled = true
-        button.titleLabel?.alpha = 1
+        button.label.alpha = 1
         button.setNeedsLayout()
         button.layoutIfNeeded()
     }

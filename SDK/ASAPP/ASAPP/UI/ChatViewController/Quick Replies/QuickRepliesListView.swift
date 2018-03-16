@@ -31,6 +31,14 @@ class QuickRepliesListView: UIView {
         }
     }
     
+    var contentInsetBottom: CGFloat = 0 {
+        didSet {
+            tableView.contentInset.bottom = contentInsetBottom
+            let scrollInsets = tableView.scrollIndicatorInsets
+            tableView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
+        }
+    }
+    
     private(set) var selectedQuickReply: QuickReply?
     
     private(set) var quickReplies: [QuickReply]? {
@@ -38,7 +46,6 @@ class QuickRepliesListView: UIView {
             selectionDisabled = false
             tableView.reloadData()
             tableView.setContentOffset(.zero, animated: false)
-            updateGradientVisibility()
         }
     }
     
@@ -47,8 +54,6 @@ class QuickRepliesListView: UIView {
     private let replySizingCell = QuickReplyCell()
     
     private let restartActionButtonSizingCell = RestartActionButtonCell()
-    
-    private let gradientView = VerticalGradientView()
     
     // MARK: Initialization
     
@@ -64,19 +69,6 @@ class QuickRepliesListView: UIView {
         tableView.register(QuickReplyCell.self, forCellReuseIdentifier: QuickReplyCell.reuseIdentifier)
         tableView.register(RestartActionButtonCell.self, forCellReuseIdentifier: RestartActionButtonCell.reuseIdentifier)
         addSubview(tableView)
-        
-        let gradientColor = UIColor(red: 60.0 / 255.0,
-                                    green: 64.0 / 255.0,
-                                    blue: 73.0 / 255.0,
-                                    alpha: 1)
-        gradientView.update(colors: [
-            gradientColor.withAlphaComponent(0.0),
-            gradientColor.withAlphaComponent(0.08),
-            gradientColor.withAlphaComponent(0.3)
-        ])
-        gradientView.isUserInteractionEnabled = false
-        gradientView.alpha = 0.0
-        addSubview(gradientView)
     }
     
     override init(frame: CGRect) {
@@ -107,32 +99,6 @@ class QuickRepliesListView: UIView {
         super.layoutSubviews()
         
         tableView.frame = bounds
-        
-        let gradientHeight: CGFloat = 30.0
-        let gradientTop = bounds.height - gradientHeight
-        gradientView.frame = CGRect(x: 0, y: gradientTop, width: bounds.width, height: gradientHeight)
-        
-        updateGradientVisibility()
-    }
-    
-    func updateGradientVisibility() {
-        if tableView.contentSize.height > tableView.bounds.height {
-            
-            let maxContentOffset = tableView.contentSize.height - tableView.bounds.height
-            let visibilityBuffer: CGFloat = 70
-            let maxVisibleGradientOffset = maxContentOffset - visibilityBuffer
-            
-            let offsetY = tableView.contentOffset.y
-            if offsetY < maxVisibleGradientOffset {
-                gradientView.alpha = 1.0
-            } else if offsetY >= maxContentOffset {
-                gradientView.alpha = 0.0
-            } else {
-                gradientView.alpha = (maxContentOffset - offsetY) / visibilityBuffer
-            }
-        } else {
-            gradientView.alpha = 0.0
-        }
     }
 }
 
@@ -178,8 +144,13 @@ extension QuickRepliesListView: UITableViewDataSource {
     }
     
     func styleRestartActionButtonCell(_ cell: RestartActionButtonCell) {
-        cell.button.updateText(ASAPP.strings.restartActionButton, textStyle: ASAPP.styles.textStyles.actionButton, colors: ASAPP.styles.colors.actionButton)
+        cell.button.setBackgroundColor(ASAPP.styles.colors.actionButton.backgroundNormal, forState: .normal)
+        cell.button.setBackgroundColor(ASAPP.styles.colors.actionButton.backgroundNormal, forState: .highlighted)
+        cell.button.foregroundColor = ASAPP.styles.textStyles.actionButton.color
+        cell.button.label.setAttributedText(ASAPP.strings.restartActionButton, textStyle: ASAPP.styles.textStyles.actionButton)
         cell.activityIndicatorStyle = ASAPP.styles.colors.actionButton.backgroundDisabled.isDark() ? .white : .gray
+        cell.button.contentAlignment = .center
+        cell.button.label.textAlignment = .center
         cell.layoutSubviews()
     }
 }
@@ -238,15 +209,6 @@ extension QuickRepliesListView: UITableViewDelegate {
     }
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension QuickRepliesListView: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateGradientVisibility()
-    }
-}
-
 // MARK: - Public Methods
 
 extension QuickRepliesListView {
@@ -273,6 +235,6 @@ extension QuickRepliesListView {
     }
     
     class func approximateRowHeight() -> CGFloat {
-        return QuickReplyCell.approximateHeight(withFont: ASAPP.styles.textStyles.body.font)
+        return QuickReplyCell.approximateHeight(with: ASAPP.styles.textStyles.body.font)
     }
 }

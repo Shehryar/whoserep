@@ -98,6 +98,23 @@ class QuickReplyCellSpec: QuickSpec {
                         expect(cell).to(haveValidSnapshot())
                     }
                 }
+                
+                context("with a short title and an external action icon and a filled bell icon") {
+                    it("has a valid snapshot") {
+                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
+                        
+                        let action = WebPageAction(content: [
+                            "url": "https://asapp.com/"
+                        ])!
+                        let icon = NotificationIconItem(with: ["name": "bell"])
+                        let quickReply = QuickReply(title: "Test", action: action, icon: icon)
+                        
+                        cell.update(for: quickReply, enabled: true)
+                        cell.setNeedsLayout()
+                        expect(cell).to(haveValidSnapshot())
+                    }
+                }
             }
         }
     }

@@ -51,6 +51,9 @@ public class ASAPPStrings: NSObject {
     /// The placeholder text for the input field of the chat view.
     public var chatInputPlaceholder = ASAPPLocalizedString("Type your own question here")
     
+    /// The text for the restart button in the quick replies view.
+    public var quickRepliesRestartButton = ASAPPLocalizedString("New Question")
+    
     // MARK: Generic
     
     /// The text displayed when the screen contents are hidden.

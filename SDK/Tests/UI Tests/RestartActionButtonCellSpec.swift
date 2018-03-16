@@ -36,12 +36,15 @@ class RestartActionButtonCellSpec: QuickSpec {
                         let cell = RestartActionButtonCell(style: .default, reuseIdentifier: "restartActionButtonCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         let string = "Ask a new question"
-                        let style = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, uppercase: true)
+                        let style = ASAPPTextStyle(font: Fonts.default.bold, size: 11, letterSpacing: 0.5, color: .white, uppercase: true)
                         let colors = ASAPPButtonColors(
-                            backgroundColor: .white,
-                            textColor: UIColor(red: 0, green: 0, blue: 0, alpha: 1),
-                            border: UIColor(red: 0, green: 0.45, blue: 0.73, alpha: 1))
-                        cell.button.updateText(string, textStyle: style, colors: colors)
+                            backgroundColor: UIColor.ASAPP.eggplant,
+                            textColor: .white,
+                            border: UIColor.ASAPP.eggplant)
+                        cell.button.setBackgroundColor(colors.backgroundNormal, forState: .normal)
+                        cell.button.setBackgroundColor(colors.backgroundNormal, forState: .highlighted)
+                        cell.button.foregroundColor = colors.textNormal
+                        cell.button.label.setAttributedText(string, textStyle: style)
                         expect(cell).to(haveValidSnapshot())
                     }
                 }

@@ -854,14 +854,6 @@ extension ChatViewController: QuickRepliesViewDelegate {
         actionSheet.show(in: view)
     }
     
-    func quickRepliesViewWillTapBack(_ quickRepliesView: QuickRepliesView) {
-        conversationManager.trackButtonTap(buttonName: .srsBack)
-    }
-    
-    func quickRepliesViewDidTapBack(_ quickRepliesView: QuickRepliesView) {
-        conversationManager.currentSRSClassification = quickRepliesView.currentSRSClassification
-    }
-    
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         updateInputState(.quickReplies, animated: true)
         return performAction(quickReply.action, fromMessage: message, quickReply: quickReply)

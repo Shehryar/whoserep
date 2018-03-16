@@ -19,9 +19,7 @@ class QuickReplyCell: UITableViewCell {
     
     static let contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
     
-    let button = UIButton()
-    
-    let shadowView = UIView()
+    let button = BubbleButton()
     
     let leftIcon = UIImageView()
     
@@ -41,8 +39,20 @@ class QuickReplyCell: UITableViewCell {
         }
     }
     
-    class func approximateHeight(withFont font: UIFont) -> CGFloat {
-        return 20.0 /* insetTop */ + 20.0 /* insetBottom */ + ceil(font.lineHeight)
+    class func approximateButtonHeight(with font: UIFont) -> CGFloat {
+        return 10 /* insetTop */ + 10 /* insetBottom */ + ceil(font.lineHeight)
+    }
+    
+    class func approximateHeight(with font: UIFont) -> CGFloat {
+        return 18 /* insetTop */ + 18 /* insetBottom */ + ceil(font.lineHeight)
+    }
+    
+    private var exitIconVisible: Bool {
+        return exitIcon.image != nil && !exitIcon.isHidden
+    }
+    
+    private var leftIconVisible: Bool {
+        return leftIcon.image != nil && !leftIcon.isHidden
     }
     
     // MARK: Init
@@ -53,16 +63,19 @@ class QuickReplyCell: UITableViewCell {
         backgroundColor = .clear
         
         button.isUserInteractionEnabled = false
-        button.titleLabel?.textAlignment = .center
-        button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.lineBreakMode = .byTruncatingTail
-        button.titleLabel?.font = ASAPP.styles.textStyles.body.font
-        button.setTitleColor(ASAPP.styles.colors.quickReplyButton.textNormal, for: .normal)
-        
-        button.backgroundColor = UIColor.white
+        button.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        button.label.textAlignment = .right
+        button.contentAlignment = .right
+        button.label.numberOfLines = 1
+        button.label.lineBreakMode = .byTruncatingTail
+        button.label.adjustsFontSizeToFitWidth = false
+        button.label.font = ASAPP.styles.textStyles.body.font
+        button.bubble.strokeColor = ASAPP.styles.colors.quickReplyButton.border
+        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textNormal, forState: .normal)
+        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textHighlighted, forState: .highlighted)
+        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundNormal, forState: .normal)
+        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundHighlighted, forState: .highlighted)
         button.layer.masksToBounds = false
-        button.layer.cornerRadius = 14
-        button.clipsToBounds = true
         contentView.addSubview(button)
         
         exitIcon.contentMode = .scaleAspectFit
@@ -70,15 +83,6 @@ class QuickReplyCell: UITableViewCell {
         
         leftIcon.contentMode = .scaleAspectFit
         contentView.addSubview(leftIcon)
-        
-        shadowView.backgroundColor = button.backgroundColor
-        shadowView.layer.opacity = 1
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        shadowView.layer.shadowRadius = 4
-        shadowView.layer.shadowOpacity = 0.1
-        shadowView.layer.cornerRadius = button.layer.cornerRadius
-        contentView.insertSubview(shadowView, belowSubview: button)
         
         updateIcons()
     }
@@ -95,16 +99,11 @@ class QuickReplyCell: UITableViewCell {
     
     // MARK: Selected / Highlighted
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        button.isSelected = selected
-    }
-    
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
         button.isHighlighted = highlighted
+        button.updateButtonDisplay()
     }
     
     // MARK: Content
@@ -123,11 +122,8 @@ class QuickReplyCell: UITableViewCell {
             return
         }
         
-        if quickReply.action.type == .componentView {
-            button.updateText(quickReply.title, textStyle: ASAPP.styles.textStyles.bodyBold, colors: ASAPP.styles.colors.quickReplyButton)
-        } else {
-            button.updateText(quickReply.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.quickReplyButton)
-        }
+        button.title = quickReply.title
+        button.font = ASAPP.styles.textStyles.body.font
         
         iconTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
         
@@ -159,29 +155,31 @@ extension QuickReplyCell {
     func buttonSizeThatFits(size: CGSize) -> CGSize {
         let maxButtonWidth = size.width - QuickReplyCell.contentInset.left - QuickReplyCell.contentInset.right
         let buttonSize = button.sizeThatFits(CGSize(width: maxButtonWidth, height: 0))
+        let totalLeftIconWidth = leftIconVisible ? textInset.left + leftIconSize.width : 0
+        let totalExitIconWidth = exitIconVisible ? textInset.right + exitIconSize.width : 0
+        let totalSize = CGSize(width: buttonSize.width + totalLeftIconWidth + totalExitIconWidth, height: buttonSize.height)
         
-        return CGSize(width: min(maxButtonWidth, ceil(buttonSize.width)), height: max(40, ceil(buttonSize.height)))
+        return CGSize(width: min(maxButtonWidth, ceil(totalSize.width)), height: max(40, ceil(totalSize.height)))
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let buttonSize = buttonSizeThatFits(size: bounds.size)
-        let buttonLeft = floor((bounds.size.width - buttonSize.width) / 2)
+        let buttonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        let buttonSize = buttonSizeThatFits(size: CGSize(width: bounds.size.width - buttonInsets.left - buttonInsets.right, height: bounds.size.height))
+        let buttonLeft = floor((bounds.size.width - buttonSize.width)) - buttonInsets.right
         let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
         
         button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
-        button.contentEdgeInsets = textInset
+        button.contentInset = textInset
         
-        if exitIcon.image != nil && !exitIcon.isHidden {
-            button.contentEdgeInsets.right += textInset.right / 2 + exitIconSize.width
+        if exitIconVisible {
+            button.contentInset.right = textInset.right + exitIconSize.width + 10
         }
         
-        if leftIcon.image != nil && !leftIcon.isHidden {
-            button.contentEdgeInsets.left += textInset.left / 2 + leftIconSize.width
+        if leftIconVisible {
+            button.contentInset.left = textInset.left + leftIconSize.width + 2
         }
-        
-        shadowView.frame = button.frame
         
         let leftIconLeft = button.frame.minX + textInset.left
         let leftIconTop = floor((bounds.size.height - leftIconSize.height) / 2)

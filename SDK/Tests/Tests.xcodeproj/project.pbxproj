@@ -117,6 +117,7 @@
 		3AD60A9C204F3CE100C0F2C2 /* MockFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD60A9B204F3CE100C0F2C2 /* MockFileManager.swift */; };
 		3AD60A9E204F41ED00C0F2C2 /* CodableStorageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD60A9D204F41ED00C0F2C2 /* CodableStorageSpec.swift */; };
 		3AD60AA02050652F00C0F2C2 /* SavedSessionManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD60A9F2050652F00C0F2C2 /* SavedSessionManagerSpec.swift */; };
+		3AD3B243205813C6006DD9FA /* RestartButtonTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */; };
 		3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */; };
 		3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */; };
 		3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60811FE4485A00FC783C /* IconViewSpec.swift */; };
@@ -280,6 +281,7 @@
 		3AD60A9B204F3CE100C0F2C2 /* MockFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFileManager.swift; sourceTree = "<group>"; };
 		3AD60A9D204F41ED00C0F2C2 /* CodableStorageSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorageSpec.swift; sourceTree = "<group>"; };
 		3AD60A9F2050652F00C0F2C2 /* SavedSessionManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManagerSpec.swift; sourceTree = "<group>"; };
+		3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartButtonTestCase.swift; sourceTree = "<group>"; };
 		3ADD607F1FE42F1800FC783C /* CheckboxViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxViewSpec.swift; sourceTree = "<group>"; };
 		3ADD60811FE4485A00FC783C /* IconViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewSpec.swift; sourceTree = "<group>"; };
 		3ADD60851FE451EE00FC783C /* CarouselViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewSpec.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
 				3A6507AE2020C349008EC815 /* RestartActionButtonCellSpec.swift */,
+				3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */,
 				3A9EF2202028F8640092A1AA /* RestartConfirmationActionSheetSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
@@ -768,6 +771,7 @@
 				3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */,
 				3A3D925D1F98F17400E1FAE3 /* ASAPPButtonSpec.swift in Sources */,
 				3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */,
+				3AD3B243205813C6006DD9FA /* RestartButtonTestCase.swift in Sources */,
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
