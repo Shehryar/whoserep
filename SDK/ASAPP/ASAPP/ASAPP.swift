@@ -158,15 +158,15 @@ public class ASAPP: NSObject {
     }
     
     /// A `Void` closure type that takes an `Int`, the number of unread messages.
-    public typealias UnreadMessagesHandler = ((_ unread: Int) -> Void)
+    public typealias ChatStatusHandler = ((_ unread: Int, _ isLiveChat: Bool) -> Void)
     
     /**
-     Gets the number of messages the user received while offline.
+     Gets the number of messages the user received while offline as well as whether user is currently in a live chat.
      
-     - parameter handler: An `UnreadNumberHandler` that receives the number of unread ASAPP push notifications.
+     - parameter handler: A `ChatStatusHandler` that receives the number of unread ASAPP push notifications and the live chat status.
      */
-    public class func getNumberOfUnreadMessages(_ handler: @escaping UnreadMessagesHandler) {
-        return PushNotificationsManager.shared.getUnreadMessagesCount(handler)
+    public class func getChatStatus(_ handler: @escaping ChatStatusHandler) {
+        return PushNotificationsManager.shared.getChatStatus(handler)
     }
     
     /**
