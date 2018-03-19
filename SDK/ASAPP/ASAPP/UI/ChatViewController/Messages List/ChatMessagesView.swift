@@ -24,6 +24,9 @@ protocol ChatMessagesViewDelegate: class {
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTapButtonWith action: Action)
 }
 
 class ChatMessagesView: UIView {
@@ -257,6 +260,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let cell = cellMaster.cellForMessage(message,
                                              listPosition: messageListPositionForIndexPath(indexPath),
                                              detailsVisible: message == showTimeStampForMessage,
+                                             buttonsVisible: message == lastMessage,
                                              atIndexPath: indexPath)
         cell?.delegate = self
         
@@ -301,7 +305,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCell(with: message,
                                               listPosition: listPosition,
-                                              detailsVisible: message == showTimeStampForMessage)
+                                              detailsVisible: message == showTimeStampForMessage,
+                                              buttonsVisible: message == lastMessage)
         return height
     }
     
@@ -379,6 +384,10 @@ extension ChatMessagesView: ChatMessageCellDelegate {
                          didTap buttonItem: ButtonItem,
                          from message: ChatMessage) {
         delegate?.chatMessagesView(self, didTap: buttonItem, from: message)
+    }
+    
+    func chatMessageCell(_ cell: ChatMessageCell, didTapButtonWith action: Action) {
+        delegate?.chatMessagesView(self, didTapButtonWith: action)
     }
 }
 
@@ -464,6 +473,12 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        var rowsToReload: [IndexPath] = []
+        
+        if let previousLastIndexPath = dataSource.getLastIndexPath() {
+            rowsToReload.append(previousLastIndexPath)
+        }
+        
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
             return
@@ -475,16 +490,19 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        var previousIndexPath: IndexPath?
         if indexPath.row > 0 {
-            previousIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            let previousIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            if !rowsToReload.contains(previousIndexPath) {
+                rowsToReload.append(previousIndexPath)
+            }
         }
         
         UIView.performWithoutAnimation({
             self.tableView.beginUpdates()
-            if let previousIndexPath = previousIndexPath {
-                self.tableView.reloadRows(at: [previousIndexPath], with: .none)
+            if !rowsToReload.isEmpty {
+                self.tableView.reloadRows(at: rowsToReload, with: .none)
             }
+            
             if self.tableView.numberOfSections <= indexPath.section {
                 self.tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
             } else {

@@ -9,6 +9,7 @@
 import UIKit
 
 class BubbleView: UIView, Bubble {
+    var borderLayer: CAShapeLayer?
     
     var roundedCorners: UIRectCorner = .allCorners {
         didSet {
@@ -57,8 +58,6 @@ class BubbleView: UIView, Bubble {
         }
     }
     
-    let maskLayer = CAShapeLayer()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -80,7 +79,7 @@ protocol Bubble: class {
     var fillColor: UIColor { get set }
     var strokeColor: UIColor? { get set }
     var strokeLineWidth: CGFloat { get set }
-    var maskLayer: CAShapeLayer { get }
+    var borderLayer: CAShapeLayer? { get set }
 }
 
 extension Bubble where Self: UIView {
@@ -101,26 +100,33 @@ extension Bubble where Self: UIView {
     
     func drawBubble(_ rect: CGRect) {
         
-        let path = bubbleViewPath(forRect: rect, insetForStroke: (strokeColor != nil))
+        let path = bubbleViewPath(for: rect)
     
         fillColor.setFill()
         path.fill()
+        
+        borderLayer?.removeFromSuperlayer()
+        borderLayer = nil
+        
         if let strokeColor = strokeColor {
-            strokeColor.setStroke()
-            path.lineWidth = strokeLineWidth
-            path.stroke()
+            let border = CAShapeLayer()
+            border.lineWidth = strokeLineWidth
+            border.strokeColor = strokeColor.cgColor
+            border.fillColor = nil
+            border.frame = rect
+            let strokeInset = strokeLineWidth / 2
+            var transform = CGAffineTransform(scaleX: (rect.width - 2 * strokeInset) / rect.width, y: (rect.height - 2 * strokeInset) / rect.height).concatenating(CGAffineTransform(translationX: strokeInset, y: strokeInset))
+            border.path = path.cgPath.copy(using: &transform)
+            layer.addSublayer(border)
+            borderLayer = border
         }
         
-        layer.mask = nil
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
     
-    func bubbleViewPath(forRect originalRect: CGRect, insetForStroke: Bool) -> UIBezierPath {
-        var rect = originalRect
-        let strokeInset = strokeLineWidth / 2.0
-        if insetForStroke {
-            rect = originalRect.insetBy(dx: strokeInset, dy: strokeInset)
-        }
-        
+    func bubbleViewPath(for rect: CGRect) -> UIBezierPath {
         let maxCornerRadius = rect.height / 2.0
         func getCornerRadius(_ corner: UIRectCorner) -> CGFloat {
             var cornerRadiusForCorner: CGFloat = 3.0

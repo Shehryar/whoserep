@@ -246,6 +246,16 @@ class Button: UIView {
             contentView.backgroundColor = bgColor
         }
     }
+    
+    func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
+        guard let touch = touches.first else { return false }
+
+        let touchLocation = touch.location(in: self)
+        let extendedTouchRange: CGFloat = 30.0
+        let touchableArea = bounds.insetBy(dx: -extendedTouchRange, dy: -extendedTouchRange)
+
+        return touchableArea.contains(touchLocation)
+    }
 }
 
 // MARK: - Display
@@ -284,25 +294,37 @@ extension Button {
         
         contentView.frame = bounds
         
-        let width = bounds.width
+        let layout = getFramesThatFit(bounds.size)
+        imageView.frame = layout.imageFrame
+        foregroundImageView.frame = layout.foregroundImageFrame
+        label.frame = layout.labelFrame
+    }
+    
+    private struct CalculatedLayout {
+        let imageFrame: CGRect
+        let foregroundImageFrame: CGRect
+        let labelFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        let width = size.width
         let maxContentWidth = width - contentInset.left - contentInset.right
-        let maxContentHeight = bounds.height - contentInset.top - contentInset.bottom
+        let maxContentHeight = size.height - contentInset.top - contentInset.bottom
         
         var imageWidth: CGFloat = 0.0
         var imageMargin: CGFloat = 0.0
         if image != nil {
             imageWidth = imageSize.width
+            imageMargin = imageTitleMargin
         }
-        let imageTop = floor((bounds.height - imageSize.height) / 2.0)
+        let imageTop = floor((size.height - imageSize.height) / 2.0)
         
         let maxTitleWidth = maxContentWidth - imageWidth - imageMargin
         let titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
         let titleWidth = min(maxTitleWidth, ceil(titleSize.width))
-        if titleWidth > 0 && imageWidth > 0 {
-            imageMargin = imageTitleMargin
-        }
+        
         let titleHeight = ceil(titleSize.height)
-        let titleTop = floor((bounds.height - titleHeight) / 2.0)
+        let titleTop = floor((size.height - titleHeight) / 2.0)
         
         let contentWidth = titleWidth + imageWidth + imageMargin
         let contentLeft: CGFloat
@@ -310,52 +332,24 @@ extension Button {
         case .left:
             contentLeft = contentInset.left
         case .right:
-            contentLeft = bounds.width - contentInset.right - contentWidth
+            contentLeft = max(contentInset.left, size.width - contentInset.right - contentWidth)
         case .justified, .natural, .center:
-            contentLeft = floor((bounds.width - contentWidth) / 2)
+            contentLeft = floor((size.width - contentWidth) / 2)
         }
         
-        imageView.frame = CGRect(x: contentLeft, y: imageTop, width: imageWidth, height: imageSize.height)
-        foregroundImageView.frame = CGRect(x: 0, y: 0, width: foregroundImageSize.width, height: foregroundImageSize.height)
-        foregroundImageView.center = CGPoint(x: imageView.frame.midX,
-                                             y: imageView.frame.midY)
-        label.frame = CGRect(x: contentLeft + imageWidth + imageMargin, y: titleTop, width: titleWidth, height: titleHeight)
+        let imageFrame = CGRect(x: contentLeft, y: imageTop, width: imageWidth, height: imageSize.height)
+        
+        let foregroundImageFrame = CGRect(x: (imageFrame.width - foregroundImageSize.width) / 2, y: (imageFrame.height - foregroundImageSize.height) / 2, width: foregroundImageSize.width, height: foregroundImageSize.height)
+        
+        let labelLeft = contentLeft + imageWidth + imageMargin
+        let labelFrame = CGRect(x: labelLeft, y: titleTop, width: titleWidth, height: titleHeight)
+        
+        return CalculatedLayout(imageFrame: imageFrame, foregroundImageFrame: foregroundImageFrame, labelFrame: labelFrame)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var maxContentWidth: CGFloat
-        if size.width.isZero {
-            maxContentWidth = CGFloat.greatestFiniteMagnitude
-        } else {
-            maxContentWidth = max(0, size.width - contentInset.left - contentInset.right)
-        }
-        
-        var maxContentHeight: CGFloat
-        if size.height.isZero {
-            maxContentHeight = CGFloat.greatestFiniteMagnitude
-        } else {
-            maxContentHeight = max(0, size.height - contentInset.top - contentInset.bottom)
-        }
-        
-        var contentWidth: CGFloat = 0.0
-        var contentHeight: CGFloat = 0.0
-        if image != nil {
-            contentWidth += imageSize.width
-            contentHeight = imageSize.height
-        }
-        
-        let maxTitleWidth = max(0, maxContentWidth - contentWidth)
-        var titleSize = label.sizeThatFits(CGSize(width: maxTitleWidth, height: maxContentHeight))
-        titleSize.width = ceil(min(maxTitleWidth, titleSize.width))
-        
-        contentWidth += ceil(titleSize.width)
-        if titleSize.width > 0 && image != nil {
-            contentWidth += imageTitleMargin
-        }
-        contentHeight = max(contentHeight, ceil(titleSize.height))
-        
-        return CGSize(width: contentWidth + contentInset.left + contentInset.right,
-                      height: contentHeight + contentInset.top + contentInset.bottom)
+        let layout = getFramesThatFit(size)
+        return CGSize(width: layout.labelFrame.maxX + contentInset.right, height: max(layout.imageFrame.height, layout.labelFrame.height) + contentInset.top + contentInset.bottom)
     }
 }
 
@@ -383,18 +377,6 @@ extension Button {
     
     override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
-    }
-    
-    // MARK: Utilities
-    
-    func touchesInBounds(_ touches: Set<UITouch>) -> Bool {
-        guard let touch = touches.first else { return false }
-        
-        let touchLocation = touch.location(in: self)
-        let extendedTouchRange: CGFloat = 30.0
-        let touchableArea = bounds.insetBy(dx: -extendedTouchRange, dy: -extendedTouchRange)
-        
-        return touchableArea.contains(touchLocation)
     }
     
     // MARK: Public Methods

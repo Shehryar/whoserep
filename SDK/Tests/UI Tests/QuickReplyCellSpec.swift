@@ -58,7 +58,7 @@ class QuickReplyCellSpec: QuickSpec {
                         
                         let action = Action(content: nil)!
                         let icon = NotificationIconItem(with: ["name": "bell"])
-                        let quickReply = QuickReply(title: "Schedule an appointment to return equipment", action: action, icon: icon)
+                        let quickReply = QuickReply(title: "Sc he du le an ap po in tm en t to return equipment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
                         cell.setNeedsLayout()
@@ -66,7 +66,7 @@ class QuickReplyCellSpec: QuickSpec {
                     }
                 }
                 
-                context("with an external action icon") {
+                context("with a web action") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
@@ -82,7 +82,7 @@ class QuickReplyCellSpec: QuickSpec {
                     }
                 }
                 
-                context("with an external action icon and a filled bell icon") {
+                context("with a web action and a filled bell icon") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
@@ -99,7 +99,7 @@ class QuickReplyCellSpec: QuickSpec {
                     }
                 }
                 
-                context("with a short title and an external action icon and a filled bell icon") {
+                context("with a short title and a web action and a filled bell icon") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
@@ -108,7 +108,7 @@ class QuickReplyCellSpec: QuickSpec {
                             "url": "https://asapp.com/"
                         ])!
                         let icon = NotificationIconItem(with: ["name": "bell"])
-                        let quickReply = QuickReply(title: "Test", action: action, icon: icon)
+                        let quickReply = QuickReply(title: "Appointment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
                         cell.setNeedsLayout()

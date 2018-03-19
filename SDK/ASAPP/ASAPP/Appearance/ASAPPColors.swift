@@ -49,7 +49,7 @@ public class ASAPPColors: NSObject {
     /// The color of most separators.
     public var separatorPrimary = UIColor(red: 0.59, green: 0.60, blue: 0.62, alpha: 1)
     
-    /// The color of secondary separators, such as the borders of quick reply buttons, checkboxes, and tabs.
+    /// The color of secondary separators, such as the borders of checkboxes and tabs.
     public var separatorSecondary = UIColor(red: 0.816, green: 0.824, blue: 0.847, alpha: 0.5)
     
     /// The color of the active portion of controls, such as checkboxes, progress bars, radio buttons, sliders, and tabs.

@@ -18,7 +18,7 @@ class ChatPictureMessageCell: ChatMessageCell {
     }
 
     override var attachmentViewMaxWidthPercentage: CGFloat {
-        return 0.85
+        return 0.8
     }
     
     let pictureView = ChatPictureView()

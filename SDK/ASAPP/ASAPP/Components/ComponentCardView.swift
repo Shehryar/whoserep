@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ComponentCardView: UIView {
-
+class ComponentCardView: UIView, MessageButtonsViewContainer {
+    weak var delegate: MessageButtonsViewContainerDelegate?
+    
     var component: Component? {
         didSet {
             componentView = component?.createView()
@@ -49,6 +50,16 @@ class ComponentCardView: UIView {
         }
     }
     
+    var messageButtonsView: MessageButtonsView? {
+        didSet {
+            if let view = messageButtonsView, oldValue == nil {
+                view.contentInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+                view.delegate = self
+                addSubview(view)
+            }
+        }
+    }
+    
     // MARK: Initialization
     
     func commonInit() {
@@ -81,9 +92,10 @@ class ComponentCardView: UIView {
         } else {
             clipsToBounds = true
             backgroundColor = ASAPP.styles.colors.backgroundPrimary
-            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
+            layer.borderColor = ASAPP.styles.colors.replyMessageBorder.cgColor
             layer.borderWidth = ASAPP.styles.separatorStrokeWidth
-            layer.cornerRadius = 5
+            layer.cornerRadius = 20
+            layer.masksToBounds = true
         }
     }
     
@@ -92,7 +104,10 @@ class ComponentCardView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        componentView?.view.frame = bounds
+        let messageButtonsHeight = getMessageButtonsViewSizeThatFits(bounds.width).height
+        messageButtonsView?.frame = CGRect(x: 0, y: bounds.height - messageButtonsHeight, width: bounds.width, height: messageButtonsHeight)
+        
+        componentView?.view.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - messageButtonsHeight)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -101,7 +116,15 @@ class ComponentCardView: UIView {
         }
         
         let fittedSize = componentView.view.sizeThatFits(size)
+        
+        let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
             
-        return fittedSize
+        return CGSize(width: fittedSize.width, height: fittedSize.height + messageButtonsSize.height)
+    }
+}
+
+extension ComponentCardView: MessageButtonsViewDelegate {
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
+        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
     }
 }

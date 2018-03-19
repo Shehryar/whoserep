@@ -190,7 +190,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
 // MARK: - ChatMessagesViewDelegate
 
 extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
-    
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
@@ -215,6 +214,7 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
     }
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {}
 }
 
 extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {

@@ -68,6 +68,24 @@ extension Action {
         }
     }
     
+    var isMessageAction: Bool {
+        switch self {
+        case is ComponentViewAction,
+             is DeepLinkAction,
+             is UserLoginAction,
+             is WebPageAction:
+            return true
+            
+        case is APIAction,
+             is HTTPAction,
+             is TreewalkAction,
+             is FinishAction:
+            return false
+            
+        default: return false
+        }
+    }
+    
     var willExitASAPP: Bool {
         switch self {
         case is DeepLinkAction,

@@ -30,6 +30,7 @@ class ChatComponentViewMessageCell: ChatMessageCell {
         cardView.interactionHandler = self
         cardView.contentHandler = self
         attachmentView = cardView
+        cardView.delegate = self
     }
     
     deinit {
@@ -42,6 +43,7 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         cardView.component = nil
+        textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
     }
 }
 

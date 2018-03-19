@@ -9,7 +9,6 @@
 import UIKit
 
 protocol ChatMessageCellDelegate: class {
- 
     func chatMessageCell(_ cell: ChatMessageCell,
                          didTap buttonItem: ButtonItem,
                          from message: ChatMessage)
@@ -17,6 +16,9 @@ protocol ChatMessageCellDelegate: class {
     func chatMessageCell(_ cell: ChatMessageCell,
                          didPageCarouselViewItem: CarouselViewItem,
                          from: ComponentView)
+    
+    func chatMessageCell(_ cell: ChatMessageCell,
+                         didTapButtonWith action: Action)
 }
 
 class ChatMessageCell: UITableViewCell {
@@ -29,8 +31,6 @@ class ChatMessageCell: UITableViewCell {
             
             timeLabel.textAlignment = isReply ? .left : .right
             timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2, color: ASAPP.styles.colors.textSecondary)
-            
-            setNeedsLayout()
         }
     }
     
@@ -65,7 +65,7 @@ class ChatMessageCell: UITableViewCell {
     let timeLabelMarginTop: CGFloat = 4.0
     
     internal var attachmentViewMaxWidthPercentage: CGFloat {
-        return 1.0
+        return 0.8
     }
     
     private(set) var contentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16) {
@@ -105,6 +105,7 @@ class ChatMessageCell: UITableViewCell {
         isOpaque = true
         backgroundColor = ASAPP.styles.colors.messagesListBackground
     
+        textBubbleView.delegate = self
         contentView.addSubview(textBubbleView)
         
         timeLabel.alpha = 0.0
@@ -120,6 +121,15 @@ class ChatMessageCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
+    }
+    
+    func update(_ message: ChatMessage?, showButtons: Bool) {
+        self.message = message
+        
+        let actions = showButtons ? message?.messageActions : nil
+        updateMessageButtons(actions)
+        
+        setNeedsLayout()
     }
     
     // MARK: Styling Methods
@@ -159,10 +169,13 @@ extension ChatMessageCell {
         
         textBubbleView.message = nil
         timeLabel.text = nil
+        updateMessageButtons(nil)
         
         textBubbleView.alpha = 1.0
         attachmentView?.alpha = 1.0
         isTimeLabelVisible = false
+        
+        textBubbleView.bubbleView.strokeColor = nil
         
         isAnimating = false
         animationStartTime = nil
@@ -178,6 +191,18 @@ extension ChatMessageCell {
         timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2)
         
         setNeedsLayout()
+    }
+    
+    func updateMessageButtons(_ messageActions: [QuickReply]?) {
+        if let container = (attachmentView ?? textBubbleView) as? MessageButtonsViewContainer {
+            guard let messageActions = messageActions,
+                  !messageActions.isEmpty else {
+                container.messageButtonsView?.removeFromSuperview()
+                container.messageButtonsView = nil
+                return
+            }
+            container.messageButtonsView = MessageButtonsView(messageActions: messageActions, separatorColor: ASAPP.styles.colors.replyMessageBorder)
+        }
     }
 }
 
@@ -347,5 +372,11 @@ extension ChatMessageCell {
                 self?.isAnimating = false
                 self?.setNeedsLayout()
         })
+    }
+}
+
+extension ChatMessageCell: MessageButtonsViewContainerDelegate {
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action) {
+        delegate?.chatMessageCell(self, didTapButtonWith: action)
     }
 }

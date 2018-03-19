@@ -8,7 +8,23 @@
 
 import UIKit
 
-class ChatTextBubbleView: UIView {
+protocol MessageButtonsViewContainerDelegate: class {
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action)
+}
+
+protocol MessageButtonsViewContainer: class {
+    weak var delegate: MessageButtonsViewContainerDelegate? { get set }
+    var messageButtonsView: MessageButtonsView? { get set }
+}
+
+extension MessageButtonsViewContainer {
+    func getMessageButtonsViewSizeThatFits(_ width: CGFloat) -> CGSize {
+        return messageButtonsView?.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)) ?? .zero
+    }
+}
+
+class ChatTextBubbleView: UIView, MessageButtonsViewContainer {
+    weak var delegate: MessageButtonsViewContainerDelegate?
 
     // MARK: Properties: Content
     
@@ -99,6 +115,17 @@ class ChatTextBubbleView: UIView {
     
     let label = UITextView()
     
+    var messageButtonsView: MessageButtonsView? {
+        didSet {
+            if let view = messageButtonsView, oldValue == nil {
+                view.contentInsets = textInset
+                view.delegate = self
+                bubbleView.addSubview(view)
+            }
+            updateBubbleCorners()
+        }
+    }
+    
     // MARK: Initialization
     
     func commonInit() {
@@ -181,6 +208,11 @@ extension ChatTextBubbleView {
                 roundedCorners =  [.topRight, .topLeft, .bottomLeft]
             }
         }
+        
+        if messageButtonsView != nil {
+            roundedCorners = roundedCorners.union([.bottomLeft, .bottomRight])
+        }
+        
         bubbleView.roundedCorners = roundedCorners
     }
 }
@@ -188,36 +220,46 @@ extension ChatTextBubbleView {
 // MARK: - Layout + Sizing
 
 extension ChatTextBubbleView {
+    private struct CalculatedLayout {
+        let bubbleFrame: CGRect
+        let labelFrame: CGRect
+        let messageButtonsFrame: CGRect
+    }
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         guard !isEmpty else {
-            return (.zero, .zero)
+            return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }
         
         let maxBubbleWidth = floor((size.width - contentInset.left - contentInset.right) * maxBubbleWidthPercentage)
         let maxTextWidth = maxBubbleWidth
         let textSize = label.sizeThatFits(CGSize(width: maxTextWidth, height: 0))
         guard textSize.height > 0 else {
-            return (.zero, .zero)
+            return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }
         
-        let bubbleSize = CGSize(width: ceil(textSize.width),
-                                height: ceil(textSize.height))
+        let bubbleWidth = ceil(textSize.width)
+        let messageButtonsSize = getMessageButtonsViewSizeThatFits(bubbleWidth)
+        let bubbleHeight = ceil(textSize.height + contentInset.bottom + messageButtonsSize.height)
+        let bubbleSize = CGSize(width: bubbleWidth, height: bubbleHeight)
         
         var bubbleLeft = contentInset.left
         if let message = message, !message.metadata.isReply {
             bubbleLeft = size.width - bubbleSize.width - contentInset.right
         }
+        
         let bubbleFrame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
         let labelFrame = CGRect(x: 0, y: 0, width: ceil(textSize.width), height: ceil(textSize.height))
+        let messageButtonsFrame = CGRect(x: 0, y: labelFrame.maxY + contentInset.bottom, width: messageButtonsSize.width, height: messageButtonsSize.height)
         
-        return (bubbleFrame, labelFrame)
+        return CalculatedLayout(bubbleFrame: bubbleFrame, labelFrame: labelFrame, messageButtonsFrame: messageButtonsFrame)
     }
     
     func updateFrames() {
-        let (bubbleFrame, labelFrame) = getFramesThatFit(bounds.size)
-        bubbleView.frame = bubbleFrame
-        label.frame = labelFrame
+        let layout = getFramesThatFit(bounds.size)
+        bubbleView.frame = layout.bubbleFrame
+        label.frame = layout.labelFrame
+        messageButtonsView?.frame = layout.messageButtonsFrame
     }
     
     override func layoutSubviews() {
@@ -226,10 +268,10 @@ extension ChatTextBubbleView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (bubbleFrame, _) = getFramesThatFit(size)
-        var height: CGFloat = 0.0
-        if bubbleFrame.height > 0 {
-            height = bubbleFrame.maxY + contentInset.bottom
+        let layout = getFramesThatFit(size)
+        var height: CGFloat = 0
+        if layout.bubbleFrame.height > 0 {
+            height = layout.bubbleFrame.maxY + contentInset.bottom
         }
         return CGSize(width: size.width, height: height)
     }
@@ -290,5 +332,11 @@ extension ChatTextBubbleView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
+    }
+}
+
+extension ChatTextBubbleView: MessageButtonsViewDelegate {
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
+        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
     }
 }

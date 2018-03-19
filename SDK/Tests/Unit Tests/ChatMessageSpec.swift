@@ -98,22 +98,24 @@ class ChatMessageSpec: QuickSpec {
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("add a credit card"))
                         
-                        let action = msg!.quickReplies?.first?.action as? DeepLinkAction
+                        let action = msg!.messageActions?.first?.action as? DeepLinkAction
                         expect(action).toNot(beNil())
-                        expect(action!.name).to(equal("payment"))
+                        expect(action?.name).to(equal("payment"))
+                        expect(msg!.hasQuickReplies).to(equal(false))
                     }
                 }
                 
-                context("with JSON containing a quick reply") {
-                    it("returns a ChatMessage with a quick reply") {
+                context("with JSON containing a quick reply with a component view action") {
+                    it("returns a ChatMessage with a quick reply that is a message action") {
                         let dict = TestUtil.dictForFile(named: "security-pin")
                         let msg = ChatMessage.fromJSON(dict, with: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("security PIN"))
                         
-                        let action = msg!.quickReplies?.first?.action as? ComponentViewAction
+                        expect(msg!.hasQuickReplies).to(equal(true))
+                        let action = msg!.messageActions?.first?.action as? ComponentViewAction
                         expect(action).toNot(beNil())
-                        expect(action!.name).to(contain("new_pin"))
+                        expect(action?.name).to(contain("new_pin"))
                     }
                 }
             }
@@ -151,18 +153,20 @@ class ChatMessageSpec: QuickSpec {
                         msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
                     }
                     
-                    it("has Make a Payment as its first quick reply") {
+                    it("has Make a Payment as its first message action") {
                         expect(msg).toNot(beNil())
                         
                         expect(msg!.text).to(contain("add a credit card"))
                         
-                        let firstReply = msg!.quickReplies?.first
-                        expect(firstReply).toNot(beNil())
-                        expect(firstReply!.title).to(equal("Make a Payment"))
-                        expect(firstReply!.action).to(beAKindOf(DeepLinkAction.self))
+                        expect(msg!.hasQuickReplies).to(equal(false))
                         
-                        let action = firstReply!.action as! DeepLinkAction
-                        expect(action.name).to(equal("payment"))
+                        let firstReply = msg!.messageActions?.first
+                        expect(firstReply).toNot(beNil())
+                        expect(firstReply?.title).to(equal("Make a Payment"))
+                        expect(firstReply?.action).to(beAKindOf(DeepLinkAction.self))
+                        
+                        let action = firstReply?.action as? DeepLinkAction
+                        expect(action?.name).to(equal("payment"))
                     }
                     
                     it("has a StackView as an attachment") {

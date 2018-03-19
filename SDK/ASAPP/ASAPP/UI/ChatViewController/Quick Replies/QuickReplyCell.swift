@@ -14,27 +14,21 @@ class QuickReplyCell: UITableViewCell {
     }
     
     var textInset: UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     
     static let contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
     
     let button = BubbleButton()
     
-    let leftIcon = UIImageView()
-    
     var leftIconSize = CGSize(width: 16, height: 16)
     
     var leftIconImage: UIImage?
     
-    let exitIcon = UIImageView()
-    
-    let exitIconSize = CGSize(width: 16, height: 16)
-    
     var iconTintColor: UIColor = UIColor(red: 121.0 / 255.0, green: 127.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0) {
         didSet {
             if iconTintColor != oldValue {
-                updateIcons()
+                updateIcon()
             }
         }
     }
@@ -47,12 +41,8 @@ class QuickReplyCell: UITableViewCell {
         return 18 /* insetTop */ + 18 /* insetBottom */ + ceil(font.lineHeight)
     }
     
-    private var exitIconVisible: Bool {
-        return exitIcon.image != nil && !exitIcon.isHidden
-    }
-    
     private var leftIconVisible: Bool {
-        return leftIcon.image != nil && !leftIcon.isHidden
+        return leftIconImage != nil
     }
     
     // MARK: Init
@@ -64,10 +54,11 @@ class QuickReplyCell: UITableViewCell {
         
         button.isUserInteractionEnabled = false
         button.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        button.label.textAlignment = .right
-        button.contentAlignment = .right
-        button.label.numberOfLines = 1
-        button.label.lineBreakMode = .byTruncatingTail
+        button.label.textAlignment = .left
+        button.contentAlignment = .left
+        button.label.numberOfLines = 0
+        button.label.lineBreakMode = .byWordWrapping
+        button.label.allowsDefaultTighteningForTruncation = true
         button.label.adjustsFontSizeToFitWidth = false
         button.label.font = ASAPP.styles.textStyles.body.font
         button.bubble.strokeColor = ASAPP.styles.colors.quickReplyButton.border
@@ -78,13 +69,7 @@ class QuickReplyCell: UITableViewCell {
         button.layer.masksToBounds = false
         contentView.addSubview(button)
         
-        exitIcon.contentMode = .scaleAspectFit
-        contentView.addSubview(exitIcon)
-        
-        leftIcon.contentMode = .scaleAspectFit
-        contentView.addSubview(leftIcon)
-        
-        updateIcons()
+        updateIcon()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -108,15 +93,13 @@ class QuickReplyCell: UITableViewCell {
     
     // MARK: Content
     
-    func updateIcons() {
-        leftIcon.image = leftIconImage?.tinted(iconTintColor)
-        exitIcon.image = Images.getImage(.iconExitLink)?.tinted(iconTintColor)
+    func updateIcon() {
+        button.imageSize = leftIconSize
+        button.image = leftIconImage?.tinted(iconTintColor)
     }
     
     func update(for quickReply: QuickReply?, enabled: Bool) {
         guard let quickReply = quickReply else {
-            leftIcon.isHidden = true
-            exitIcon.isHidden = true
             accessibilityTraits = UIAccessibilityTraitButton
             button.isEnabled = enabled
             return
@@ -130,19 +113,10 @@ class QuickReplyCell: UITableViewCell {
         if let notificationIcon = quickReply.icon {
             leftIconSize = notificationIcon.size
             leftIconImage = notificationIcon.icon.getImage()
-            leftIcon.isHidden = false
-            updateIcons()
         } else {
-            leftIcon.isHidden = true
+            leftIconImage = nil
         }
-        
-        if quickReply.action.willExitASAPP {
-            exitIcon.isHidden = false
-            accessibilityTraits = UIAccessibilityTraitLink
-        } else {
-            exitIcon.isHidden = true
-            accessibilityTraits = UIAccessibilityTraitButton
-        }
+        updateIcon()
         
         button.isEnabled = enabled
     }
@@ -155,9 +129,7 @@ extension QuickReplyCell {
     func buttonSizeThatFits(size: CGSize) -> CGSize {
         let maxButtonWidth = size.width - QuickReplyCell.contentInset.left - QuickReplyCell.contentInset.right
         let buttonSize = button.sizeThatFits(CGSize(width: maxButtonWidth, height: 0))
-        let totalLeftIconWidth = leftIconVisible ? textInset.left + leftIconSize.width : 0
-        let totalExitIconWidth = exitIconVisible ? textInset.right + exitIconSize.width : 0
-        let totalSize = CGSize(width: buttonSize.width + totalLeftIconWidth + totalExitIconWidth, height: buttonSize.height)
+        let totalSize = CGSize(width: buttonSize.width, height: buttonSize.height)
         
         return CGSize(width: min(maxButtonWidth, ceil(totalSize.width)), height: max(40, ceil(totalSize.height)))
     }
@@ -165,29 +137,14 @@ extension QuickReplyCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        button.contentInset = textInset
+        
         let buttonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         let buttonSize = buttonSizeThatFits(size: CGSize(width: bounds.size.width - buttonInsets.left - buttonInsets.right, height: bounds.size.height))
         let buttonLeft = floor((bounds.size.width - buttonSize.width)) - buttonInsets.right
         let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
         
         button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
-        button.contentInset = textInset
-        
-        if exitIconVisible {
-            button.contentInset.right = textInset.right + exitIconSize.width + 10
-        }
-        
-        if leftIconVisible {
-            button.contentInset.left = textInset.left + leftIconSize.width + 2
-        }
-        
-        let leftIconLeft = button.frame.minX + textInset.left
-        let leftIconTop = floor((bounds.size.height - leftIconSize.height) / 2)
-        leftIcon.frame = CGRect(x: leftIconLeft, y: leftIconTop, width: leftIconSize.width, height: leftIconSize.height)
-        
-        let exitIconLeft = button.frame.maxX - textInset.right - exitIconSize.width
-        let exitIconTop = floor((bounds.size.height - exitIconSize.height) / 2)
-        exitIcon.frame = CGRect(x: exitIconLeft, y: exitIconTop, width: exitIconSize.width, height: exitIconSize.height)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

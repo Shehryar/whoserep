@@ -656,7 +656,6 @@ extension ChatViewController {
 // MARK: - ChatMessagesViewDelegate
 
 extension ChatViewController: ChatMessagesViewDelegate {
-    
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapImageView imageView: UIImageView,
                           from message: ChatMessage) {
@@ -695,6 +694,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
         performAction(buttonItem.action, fromMessage: message, buttonItem: buttonItem)
+    }
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {
+        performAction(action)
     }
 }
 
@@ -966,7 +969,7 @@ extension ChatViewController: ConversationManagerDelegate {
             }
             
             if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
-                || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies) {
+                || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies && !message.hasMessageActions) {
                 showRestartActionButton()
             } else if message.hasQuickReplies {
                 didReceiveMessageWithQuickReplies(message)

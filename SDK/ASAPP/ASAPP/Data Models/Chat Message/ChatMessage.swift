@@ -16,11 +16,16 @@ class ChatMessage: NSObject {
     let notification: ChatMessageNotification?
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
+    let messageActions: [QuickReply]?
     let userCanTypeResponse: Bool
     let metadata: EventMetadata
     
     var hasQuickReplies: Bool {
         return !(quickReplies?.isEmpty ?? true)
+    }
+    
+    var hasMessageActions: Bool {
+        return !(messageActions?.isEmpty ?? true)
     }
    
     // MARK: Init
@@ -39,12 +44,21 @@ class ChatMessage: NSObject {
         self.notification = notification
         self.attachment = attachment
         
+        var quickRepliesArray: [QuickReply]?
+        
         if let attachmentValue = attachment?.currentValue as? String,
            let attachmentQuickReplies = quickReplies?[attachmentValue] {
-            self.quickReplies = attachmentQuickReplies
+            quickRepliesArray = attachmentQuickReplies
         } else {
-            self.quickReplies = quickReplies?.first?.value
+            quickRepliesArray = quickReplies?.first?.value
         }
+        
+        let (filteredMessageActions, filteredQuickReplies) = quickRepliesArray?.separate { quickReply -> Bool in
+            return quickReply.action.isMessageAction
+        } ?? ([], [])
+        
+        self.quickReplies = filteredQuickReplies.isEmpty ? nil : filteredQuickReplies
+        self.messageActions = filteredMessageActions.isEmpty ? nil : filteredMessageActions
         
         self.metadata = metadata
         self.userCanTypeResponse = userCanTypeResponse

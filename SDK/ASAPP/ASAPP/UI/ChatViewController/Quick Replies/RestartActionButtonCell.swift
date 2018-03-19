@@ -29,14 +29,13 @@ class RestartActionButtonCell: QuickReplyCell {
         
         button.bubble.roundedCorners = .allCorners
         button.label.textAlignment = .center
-        button.label.numberOfLines = 1
+        button.contentAlignment = .center
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         button.center.x = bounds.midX
-        button.layer.cornerRadius = button.frame.height / 2
     }
     
     func showSpinner() {
