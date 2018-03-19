@@ -26,6 +26,9 @@ public class ASAPPStrings: NSObject {
     /// The accessibility label for the close/back button.
     public var accessibilityClose = ASAPPLocalizedString("Close Help")
     
+    /// The accessibiltiy label for the more button.
+    public var accessibilityMore = ASAPPLocalizedString("Open Options Menu")
+    
     /// The accessibility label for the send button.
     public var accessibilitySend = ASAPPLocalizedString("Send")
 
@@ -45,8 +48,8 @@ public class ASAPPStrings: NSObject {
     /// The title for the chat view. Overridden by `ASAPPViews.chatTitle`. Defaults to `nil`.
     public var chatTitle: String?
     
-    /// The text for the navigation bar button that appears in the chat view when chatting with an agent. When tapped, it ends the chat. Overridden by `ASAPPNavBarButtonImages.end`.
-    public var chatEndChatNavBarButton = ASAPPLocalizedString("END CHAT")
+    /// The text for the action sheet button that ends the current live chat.
+    public var endChatTitle = ASAPPLocalizedString("End Live Chat")
     
     /// The placeholder text for the input field of the chat view.
     public var chatInputPlaceholder = ASAPPLocalizedString("Type your own question here")

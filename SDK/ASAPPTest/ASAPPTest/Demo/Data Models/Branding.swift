@@ -57,7 +57,6 @@ class Branding: NSObject {
             
         case .telstra:
             styles = Branding.createTelstraStyles(appearanceConfig)
-            strings.chatEndChatNavBarButton = "END"
         
         case .custom:
             styles = Branding.createCustomStyles(appearanceConfig)
@@ -139,7 +138,6 @@ extension Branding {
         styles.colors.controlTint = primary
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: buttonTextColor)
-        styles.navBarStyles.buttonStyle = .text
         styles.colors.navBarBackground = primary
         styles.colors.navBarTitle = styles.colors.navBarBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
         styles.colors.navBarButton = styles.colors.navBarTitle

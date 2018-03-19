@@ -27,9 +27,8 @@ public class ASAPPNavBarButtonImages: NSObject {
         return ASAPPCustomImage(image: Images.getImage(.iconGuillemetLeft)!, size: CGSize(width: 16, height: 16), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
     }()
     
-    /// The ask button appears in the chat view when not chatting with an agent.
-    public var ask: ASAPPCustomImage?
-    
-    /// The end chat button appears in the chat view when chatting with an agent.
-    public var end: ASAPPCustomImage?
+    /// The more button appears in the chat view when chatting with an agent and lets the user end the live chat. Defaults to a ⋮.
+    lazy public var more: ASAPPCustomImage? = {
+        return ASAPPCustomImage(image: Images.getImage(.iconMore)!, size: CGSize(width: 18, height: 18), insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+    }()
 }

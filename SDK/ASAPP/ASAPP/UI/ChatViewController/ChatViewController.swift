@@ -351,6 +351,32 @@ extension ChatViewController {
             banner.layer.shadowRadius = 10
         }
     }
+    
+    func updateMoreButton() {
+        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
+        
+        func setBarButtonItem(_ item: NavBarButtonItem?) {
+            switch side {
+            case .left:
+                navigationItem.leftBarButtonItem = item
+            case .right:
+                navigationItem.rightBarButtonItem = item
+            }
+        }
+        
+        guard isLiveChat else {
+            setBarButtonItem(nil)
+            return
+        }
+        
+        let moreIcon = ASAPP.styles.navBarStyles.buttonImages.more
+        let moreButton = NavBarButtonItem(location: .chat, side: side)
+        if let moreIcon = moreIcon {
+            moreButton.configImage(moreIcon)
+        }
+        moreButton.configTarget(self, action: #selector(ChatViewController.didTapMoreButton))
+        setBarButtonItem(moreButton)
+    }
 }
 
 // MARK: Connection
@@ -366,6 +392,8 @@ extension ChatViewController {
     
     func updateViewForLiveChat(animated: Bool = true) {
         chatInputView.placeholderText = ASAPP.strings.chatInputPlaceholder
+        
+        updateMoreButton()
         
         if isLiveChat {
             clearQuickRepliesView(animated: true, completion: nil)
@@ -406,6 +434,24 @@ extension ChatViewController {
         conversationManager.trackButtonTap(buttonName: .closeChat)
         
         dismissChatViewController()
+    }
+    
+    @objc func didTapMoreButton() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: ASAPP.strings.endChatTitle, style: .destructive, handler: { [weak self] _ in
+            if self?.conversationManager.endLiveChat() != true {
+                self?.shakeConnectionStatusView()
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .cancel, handler: { _ in
+            // No-op
+        }))
+        
+        alertController.popoverPresentationController?.sourceView = view
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 

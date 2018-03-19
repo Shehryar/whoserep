@@ -23,14 +23,8 @@ public class ASAPPColors: NSObject {
     /// The color of the navigation bar title text.
     public var navBarTitle = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
     
-    /// The color of text in navigation bar buttons in the chat view with `ASAPPNavBarButtonStyle.text`, as well as the color of the close/back button.
+    /// The color of text in navigation bar buttons in the chat view, as well as the color of the close/back button.
     public var navBarButton = UIColor(red: 0.355, green: 0.394, blue: 0.494, alpha: 1)
-    
-    /// The color of text in navigation bar buttons with `ASAPPNavBarButtonStyle.bubble`.
-    public var navBarButtonForeground = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
-    
-    /// The color of the background in navigation bar buttons with `ASAPPNavBarButtonStyle.bubble`.
-    public var navBarButtonBackground = UIColor(red: 0.866, green: 0.878, blue: 0.907, alpha: 1)
     
     // MARK: - Chat: General Content
     

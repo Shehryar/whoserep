@@ -44,28 +44,18 @@ class NavBarButtonItem: UIBarButtonItem {
         let backgroundColor: UIColor?
         let font: UIFont
         let insets: UIEdgeInsets
-        switch ASAPP.styles.navBarStyles.buttonStyle {
-        case .bubble:
-            switch location {
-            case .chat:
-                textColor = ASAPP.styles.colors.navBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-            }
-            font = ASAPP.styles.textStyles.navButton.font
-            insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 11)
-        case .text:
-            switch location {
-            case .chat:
-                textColor = ASAPP.styles.colors.navBarButton
-            }
-            backgroundColor = nil
-            font = ASAPP.styles.textStyles.navButton.font
-            switch side {
-            case .left:
-                insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
-            case .right:
-                insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 0)
-            }
+
+        switch location {
+        case .chat:
+            textColor = ASAPP.styles.colors.navBarButton
+        }
+        backgroundColor = nil
+        font = ASAPP.styles.textStyles.navButton.font
+        switch side {
+        case .left:
+            insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
+        case .right:
+            insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 0)
         }
         
         return Styles(textColor: textColor, backgroundColor: backgroundColor, font: font, insets: insets)

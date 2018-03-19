@@ -38,6 +38,7 @@ protocol ConversationManagerProtocol {
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
     func sendTextMessage(_ message: String, completion: IncomingMessageHandler?)
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool)
+    func endLiveChat() -> Bool
     
     func trackSessionStart()
     func trackButtonTap(buttonName: AnalyticsButtonName)

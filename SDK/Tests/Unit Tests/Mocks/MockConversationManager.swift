@@ -26,6 +26,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledSendPictureMessage = false
     private(set) var calledSendTextMessage = false
     private(set) var calledSendSRSQuery = false
+    private(set) var calledEndLiveChat = false
     private(set) var calledTrackSessionStart = false
     private(set) var calledTrackButtonTap = false
     private(set) var calledTrackAction = false
@@ -116,6 +117,11 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendSRSQuery = true
     }
     
+    func endLiveChat() -> Bool {
+        calledEndLiveChat = true
+        return true
+    }
+    
     func trackSessionStart() {
         calledTrackSessionStart = true
     }
@@ -154,6 +160,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendPictureMessage = false
         calledSendTextMessage = false
         calledSendSRSQuery = false
+        calledEndLiveChat = false
         calledTrackSessionStart = false
         calledTrackButtonTap = false
         calledTrackAction = false

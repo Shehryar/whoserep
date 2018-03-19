@@ -36,30 +36,17 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
         var foregroundColor: UIColor
         var backgroundColor: UIColor?
-        var imageSize = closeButtonStyle?.size ?? .zero
+        let imageSize = closeButtonStyle?.size ?? .zero
         var imageInsets = closeButtonStyle?.insets ?? .zero
-        
-        switch ASAPP.styles.navBarStyles.buttonStyle {
-        case .bubble:
-            switch location {
-            case .chat:
-                foregroundColor = ASAPP.styles.colors.navBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-            }
-            
-            imageSize = CGSize(width: 8, height: 8)
-            imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
-            
-        case .text:
-            foregroundColor = ASAPP.styles.colors.navBarButton
-            backgroundColor = nil
-            imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
-            switch side {
-            case .left:
-                imageInsets.right += 20
-            case .right:
-                imageInsets.left += 20
-            }
+
+        foregroundColor = ASAPP.styles.colors.navBarButton
+        backgroundColor = nil
+        imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+        switch side {
+        case .left:
+            imageInsets.right += 20
+        case .right:
+            imageInsets.left += 20
         }
         
         return Styles(foregroundColor: foregroundColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
@@ -76,7 +63,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         switch segue {
         case .present: break
         case .push:
-            styles.foregroundColor = ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.navBarButtonBackground : ASAPP.styles.colors.navBarButton
+            styles.foregroundColor = ASAPP.styles.colors.navBarButton
             styles.backgroundColor = nil
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero

@@ -88,8 +88,6 @@ class TestUtil: NSObject {
         ASAPP.styles.colors.navBarBackground = UIColor.white
         ASAPP.styles.colors.navBarTitle = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
         ASAPP.styles.colors.navBarButton = UIColor(red: 0.355, green: 0.394, blue: 0.494, alpha: 1)
-        ASAPP.styles.colors.navBarButtonForeground = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
-        ASAPP.styles.colors.navBarButtonBackground = UIColor(red: 0.866, green: 0.878, blue: 0.907, alpha: 1)
         ASAPP.styles.colors.backgroundPrimary = UIColor.white
         ASAPP.styles.colors.backgroundSecondary = UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1)
         ASAPP.styles.colors.textPrimary = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 1)
