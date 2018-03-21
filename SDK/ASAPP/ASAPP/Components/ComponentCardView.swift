@@ -8,8 +8,70 @@
 
 import UIKit
 
-class ComponentCardView: UIView, MessageButtonsViewContainer {
+class ComponentCardView: UIView, Bubble, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
     weak var delegate: MessageButtonsViewContainerDelegate?
+    
+    var roundedCorners: UIRectCorner = .allCorners {
+        didSet {
+            if oldValue != roundedCorners {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var cornerRadius: CGFloat = 20 {
+        didSet {
+            if oldValue != cornerRadius {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var fillColor = ASAPP.styles.colors.backgroundPrimary {
+        didSet {
+            if oldValue != fillColor {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var strokeColor: UIColor? = ASAPP.styles.colors.replyMessageBorder {
+        didSet {
+            if oldValue != strokeColor {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var strokeLineWidth: CGFloat = 1 {
+        didSet {
+            if oldValue != strokeLineWidth {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    var borderLayer: CAShapeLayer?
+    
+    var message: ChatMessage? {
+        didSet {
+            guard let message = message else {
+                return
+            }
+            
+            roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            
+            setNeedsDisplay()
+        }
+    }
+    
+    var messagePosition: MessageListPosition = .none {
+        didSet {
+            if let message = message {
+                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            }
+        }
+    }
     
     var component: Component? {
         didSet {
@@ -22,7 +84,9 @@ class ComponentCardView: UIView, MessageButtonsViewContainer {
     
     var borderDisabled: Bool = false {
         didSet {
-            updateBorder()
+            if borderDisabled {
+                strokeColor = nil
+            }
         }
     }
     
@@ -57,14 +121,11 @@ class ComponentCardView: UIView, MessageButtonsViewContainer {
                 view.delegate = self
                 addSubview(view)
             }
+            
+            if let message = message {
+                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            }
         }
-    }
-    
-    // MARK: Initialization
-    
-    func commonInit() {
-        
-        updateBorder()
     }
     
     override init(frame: CGRect) {
@@ -81,22 +142,8 @@ class ComponentCardView: UIView, MessageButtonsViewContainer {
         componentView?.interactionHandler = nil
     }
     
-    // MAKR: Utility
-    
-    func updateBorder() {
-        if borderDisabled {
-            clipsToBounds = false
-            backgroundColor = UIColor.clear
-            layer.borderColor = nil
-            layer.borderWidth = 0
-        } else {
-            clipsToBounds = true
-            backgroundColor = ASAPP.styles.colors.backgroundPrimary
-            layer.borderColor = ASAPP.styles.colors.replyMessageBorder.cgColor
-            layer.borderWidth = ASAPP.styles.separatorStrokeWidth
-            layer.cornerRadius = 20
-            layer.masksToBounds = true
-        }
+    override func draw(_ rect: CGRect) {
+        drawBubble(rect)
     }
     
     // MARK: Layout

@@ -19,7 +19,7 @@ class BubbleView: UIView, Bubble {
         }
     }
     
-    var cornerRadius: CGFloat = 18 {
+    var cornerRadius: CGFloat = 20 {
         didSet {
             if oldValue != cornerRadius {
                 setNeedsDisplay()
@@ -90,10 +90,6 @@ extension Bubble where Self: UIView {
         clipsToBounds = false
         backgroundColor = UIColor.clear
         contentMode = .redraw
-        
-        if UIScreen.main.scale > 1 {
-            strokeLineWidth = 0.5
-        }
     }
     
     // MARK: - Drawing

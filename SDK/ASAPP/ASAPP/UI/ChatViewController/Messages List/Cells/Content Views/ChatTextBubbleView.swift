@@ -23,7 +23,61 @@ extension MessageButtonsViewContainer {
     }
 }
 
-class ChatTextBubbleView: UIView, MessageButtonsViewContainer {
+protocol MessageBubbleCornerRadiusUpdating: class {
+    var message: ChatMessage? { get set }
+    var messagePosition: MessageListPosition { get set }
+    var messageButtonsView: MessageButtonsView? { get set }
+    func getBubbleCorners(for message: ChatMessage, isAttachment: Bool) -> UIRectCorner
+}
+
+extension MessageBubbleCornerRadiusUpdating {
+    func getBubbleCorners(for message: ChatMessage, isAttachment: Bool = false) -> UIRectCorner {
+        let notTopLeft: UIRectCorner = [.bottomLeft, .topRight, .bottomRight]
+        let notBottomLeft: UIRectCorner = [.topLeft, .topRight, .bottomRight]
+        let notLeft: UIRectCorner = [.topRight, .bottomRight]
+        
+        var roundedCorners: UIRectCorner
+        if message.metadata.isReply {
+            switch messagePosition {
+            case .none, .firstOfMany:
+                if isAttachment {
+                    if messagePosition == .none {
+                        roundedCorners = notTopLeft
+                    } else {
+                        roundedCorners = notLeft
+                    }
+                } else {
+                    roundedCorners = notBottomLeft
+                }
+                
+            case .middleOfMany:
+                roundedCorners = notLeft
+                
+            case .lastOfMany:
+                roundedCorners = notTopLeft
+            }
+        } else {
+            switch messagePosition {
+            case .none, .firstOfMany:
+                roundedCorners = [.topLeft, .topRight, .bottomLeft]
+                
+            case .middleOfMany:
+                roundedCorners = [.topLeft, .bottomLeft]
+                
+            case .lastOfMany:
+                roundedCorners = [.topLeft, .bottomRight, .bottomLeft]
+            }
+        }
+        
+        if messageButtonsView != nil {
+            roundedCorners = roundedCorners.union([.bottomLeft, .bottomRight])
+        }
+        
+        return roundedCorners
+    }
+}
+
+class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
     weak var delegate: MessageButtonsViewContainerDelegate?
 
     // MARK: Properties: Content
@@ -76,7 +130,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer {
                 bubbleView.fillColor = fillColor
             }
             bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
-            updateBubbleCorners()
+            bubbleView.roundedCorners = getBubbleCorners(for: message)
             
             setNeedsLayout()
         }
@@ -84,7 +138,9 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer {
     
     var messagePosition: MessageListPosition = .none {
         didSet {
-            updateBubbleCorners()
+            if let message = message {
+                bubbleView.roundedCorners = getBubbleCorners(for: message)
+            }
         }
     }
     
@@ -122,7 +178,10 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer {
                 view.delegate = self
                 bubbleView.addSubview(view)
             }
-            updateBubbleCorners()
+            
+            if let message = message {
+                bubbleView.roundedCorners = getBubbleCorners(for: message)
+            }
         }
     }
     
@@ -171,49 +230,6 @@ extension ChatTextBubbleView {
     func updateFonts() {
         label.updateFont(for: .body)
         setNeedsLayout()
-    }
-    
-    func updateBubbleCorners() {
-        guard let message = message else {
-            return
-        }
-        
-        var roundedCorners: UIRectCorner
-        if message.metadata.isReply {
-            switch messagePosition {
-            case .none:
-                roundedCorners = [.topLeft, .topRight, .bottomRight]
-                
-            case .firstOfMany:
-                roundedCorners =  .allCorners
-                
-            case .middleOfMany:
-                roundedCorners =  .allCorners
-                
-            case .lastOfMany:
-                roundedCorners = [.topLeft, .topRight, .bottomRight]
-            }
-        } else {
-            switch messagePosition {
-            case .none:
-                roundedCorners = [.topRight, .topLeft, .bottomLeft]
-                
-            case .firstOfMany:
-                roundedCorners = .allCorners
-                
-            case .middleOfMany:
-                roundedCorners = .allCorners
-                
-            case .lastOfMany:
-                roundedCorners =  [.topRight, .topLeft, .bottomLeft]
-            }
-        }
-        
-        if messageButtonsView != nil {
-            roundedCorners = roundedCorners.union([.bottomLeft, .bottomRight])
-        }
-        
-        bubbleView.roundedCorners = roundedCorners
     }
 }
 

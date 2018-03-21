@@ -16,6 +16,7 @@ class ChatComponentViewMessageCell: ChatMessageCell {
             if let attachment = message?.attachment {
                 cardView.borderDisabled = attachment.requiresNoContainer
             }
+            cardView.message = message
             setNeedsLayout()
         }
     }
@@ -43,6 +44,8 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         cardView.component = nil
+        cardView.borderLayer?.removeAllAnimations()
+        cardView.borderLayer?.removeFromSuperlayer()
         textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
     }
 }
