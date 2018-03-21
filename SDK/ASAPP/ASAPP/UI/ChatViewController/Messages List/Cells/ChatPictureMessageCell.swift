@@ -36,5 +36,6 @@ class ChatPictureMessageCell: ChatMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         pictureView.message = nil
+        textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
     }
 }

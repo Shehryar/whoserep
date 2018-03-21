@@ -176,6 +176,7 @@ extension ChatMessageCell {
         isTimeLabelVisible = false
         
         textBubbleView.bubbleView.strokeColor = nil
+        textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
         
         isAnimating = false
         animationStartTime = nil

@@ -485,20 +485,21 @@ extension ChatViewController {
         chatMessagesView.layoutSubviews()
         chatMessagesView.contentInsetTop = minVisibleY
         
+        let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState)
+        quickRepliesView.isRestartButtonVisible = showRestartButton
+        chatInputView.isHidden = showRestartButton
+        
         let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
         
         switch inputState {
         case .chat:
-            chatInputView.isHidden = false
             chatInputView.displayBorderTop = true
             chatInputView.contentInset.top = 2
             chatInputView.contentInset.bottom = 2
             chatInputView.bubbleInset.bottom = 8
-            chatInputView.becomeFirstResponder()
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
-            chatInputView.isHidden = (inputState != .both)
             chatInputView.displayBorderTop = false
             chatInputView.contentInset.top = 8
             chatInputView.contentInset.bottom = 8
@@ -509,8 +510,6 @@ extension ChatViewController {
             quickRepliesTop -= inputHeight
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
-        
-        quickRepliesView.isRestartButtonVisible = (inputState == .quickReplies && quickRepliesMessage != nil)
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeight)
         
         if let banner = notificationBanner {
@@ -821,6 +820,7 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView) {
+        chatInputView.becomeFirstResponder()
         updateInputState(.chat, animated: true)
     }
 }
@@ -838,6 +838,9 @@ extension ChatViewController {
     func showQuickRepliesViewIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
         if let quickReplyMessages = conversationManager.getQuickReplyMessages() {
             showQuickRepliesViewIfNecessary(with: quickReplyMessages, animated: animated, completion: completion)
+        } else if let lastEvent = conversationManager.events.last,
+            lastEvent.eventType == .conversationEnd || lastEvent.chatMessage?.userCanTypeResponse == false {
+            updateInputState(.conversationEnd)
         }
     }
     
@@ -885,13 +888,6 @@ extension ChatViewController {
 // MARK: - QuickRepliesViewDelegate
 
 extension ChatViewController: QuickRepliesViewDelegate {
-    func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell) {
-        conversationManager.sendAskRequest { success in
-            guard !success else { return }
-            cell.hideSpinner()
-        }
-    }
-    
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {
         let restartSheet = RestartConfirmationActionSheet()
         restartSheet.delegate = self
@@ -1011,6 +1007,7 @@ extension ChatViewController: ConversationManagerDelegate {
             } else if message.hasQuickReplies {
                 updateInputState(.quickReplies, animated: true)
             } else if showChatInput {
+                chatInputView.becomeFirstResponder()
                 updateInputState(.chat, animated: true)
             }
             

@@ -10,7 +10,6 @@ import UIKit
 
 protocol QuickRepliesViewDelegate: class {
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView)
-    func quickRepliesViewDidTapRestartActionButton(_ quickRepliesView: QuickRepliesView, cell: RestartActionButtonCell)
     
     /// Delegate returns true if the button was successfully acted upon
     func quickRepliesView(_ quickRepliesView: QuickRepliesView,
@@ -146,16 +145,11 @@ extension QuickRepliesView {
             return 0
         }
         
-        let rowHeight = QuickRepliesListView.approximateRowHeight()
-        
-        if listViews.first?.onRestartActionButtonTapped != nil {
-            return rowHeight * 1.8
-        }
-        
         if listViews.isEmpty || listViews[currentViewIndex].quickReplies?.isEmpty == true {
-            return 0
+            return restartButton.defaultHeight
         }
         
+        let rowHeight = QuickRepliesListView.approximateRowHeight()
         let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
         return restartButtonHeight + rowHeight * 3.25
     }
@@ -191,19 +185,6 @@ extension QuickRepliesView {
         updateListViewFrames()
         
         return listView
-    }
-    
-    private func addRestartActionButtonListView() {
-        let listView = QuickRepliesListView()
-        listView.onRestartActionButtonTapped = { [weak self] cell in
-            if let strongSelf = self,
-               let delegate = strongSelf.delegate {
-                delegate.quickRepliesViewDidTapRestartActionButton(strongSelf, cell: cell)
-            }
-        }
-        containerView.addSubview(listView)
-        listViews.append(listView)
-        updateListViewFrames()
     }
     
     private func goToPreviousListView() {
@@ -293,13 +274,12 @@ extension QuickRepliesView {
     
     func showRestartActionButton(animated: Bool) {
         clear()
-        addRestartActionButtonListView()
         
         if animated {
             animating = true
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
-                self?.separatorTopView.alpha = 0
-                self?.isRestartButtonVisible = false
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: { [weak self] in
+                self?.separatorTopView.alpha = 1
+                self?.isRestartButtonVisible = true
                 self?.setNeedsLayout()
                 self?.layoutIfNeeded()
                 self?.updateListViewFrames()
@@ -307,10 +287,11 @@ extension QuickRepliesView {
                 self?.animating = false
             })
         } else {
-            separatorTopView.alpha = 0
-            isRestartButtonVisible = false
+            separatorTopView.alpha = 1
+            isRestartButtonVisible = true
             setNeedsLayout()
             layoutIfNeeded()
+            updateListViewFrames()
         }
     }
 }

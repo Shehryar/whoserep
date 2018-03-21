@@ -12,12 +12,6 @@ class QuickRepliesListView: UIView {
 
     var onQuickReplySelected: ((QuickReply) -> Bool)?
     
-    var onRestartActionButtonTapped: ((_ cell: RestartActionButtonCell) -> Void)? {
-        didSet {
-            updateDisplay()
-        }
-    }
-    
     var message: ChatMessage? {
         didSet {
             selectedQuickReply = nil
@@ -53,8 +47,6 @@ class QuickRepliesListView: UIView {
     
     private let replySizingCell = QuickReplyCell()
     
-    private let restartActionButtonSizingCell = RestartActionButtonCell()
-    
     // MARK: Initialization
     
     func commonInit() {
@@ -67,7 +59,6 @@ class QuickRepliesListView: UIView {
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: QuickReplyCell.contentInset.top, left: 0, bottom: QuickReplyCell.contentInset.bottom, right: 0)
         tableView.register(QuickReplyCell.self, forCellReuseIdentifier: QuickReplyCell.reuseIdentifier)
-        tableView.register(RestartActionButtonCell.self, forCellReuseIdentifier: RestartActionButtonCell.reuseIdentifier)
         addSubview(tableView)
     }
     
@@ -108,18 +99,12 @@ extension QuickRepliesListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let quickReplies = quickReplies {
             return quickReplies.count
-        } else if onRestartActionButtonTapped != nil {
-            return 1
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if onRestartActionButtonTapped != nil,
-           let cell = tableView.dequeueReusableCell(withIdentifier: RestartActionButtonCell.reuseIdentifier) as? RestartActionButtonCell {
-            styleRestartActionButtonCell(cell)
-            return cell
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: QuickReplyCell.reuseIdentifier) as? QuickReplyCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: QuickReplyCell.reuseIdentifier) as? QuickReplyCell {
             styleQuickReplyCell(cell, atIndexPath: indexPath)
             return cell
         }
@@ -142,30 +127,14 @@ extension QuickRepliesListView: UITableViewDataSource {
         cell.update(for: quickReply, enabled: enabled)
         cell.layoutSubviews()
     }
-    
-    func styleRestartActionButtonCell(_ cell: RestartActionButtonCell) {
-        cell.button.setBackgroundColor(ASAPP.styles.colors.actionButton.backgroundNormal, forState: .normal)
-        cell.button.setBackgroundColor(ASAPP.styles.colors.actionButton.backgroundNormal, forState: .highlighted)
-        cell.button.foregroundColor = ASAPP.styles.textStyles.actionButton.color
-        cell.button.label.setAttributedText(ASAPP.strings.restartActionButton, textStyle: ASAPP.styles.textStyles.actionButton)
-        cell.activityIndicatorStyle = ASAPP.styles.colors.actionButton.backgroundDisabled.isDark() ? .white : .gray
-        cell.button.contentAlignment = .center
-        cell.button.label.textAlignment = .center
-        cell.layoutSubviews()
-    }
 }
 
 // MARK: - UITableViewDelegate
 
 extension QuickRepliesListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if onRestartActionButtonTapped != nil {
-            styleRestartActionButtonCell(restartActionButtonSizingCell)
-            return restartActionButtonSizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
-        } else {
-            styleQuickReplyCell(replySizingCell, atIndexPath: indexPath)
-            return replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
-        }
+        styleQuickReplyCell(replySizingCell, atIndexPath: indexPath)
+        return replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -173,13 +142,7 @@ extension QuickRepliesListView: UITableViewDelegate {
         
         guard selectedQuickReply == nil && !selectionDisabled else { return }
         
-        if onRestartActionButtonTapped != nil {
-            if let cell = tableView.cellForRow(at: indexPath) as? RestartActionButtonCell,
-               cell.button.isEnabled {
-                cell.showSpinner()
-                onRestartActionButtonTapped?(cell)
-            }
-        } else if let quickReply = quickReplyForIndexPath(indexPath),
+        if let quickReply = quickReplyForIndexPath(indexPath),
             let onQuickReplySelected = onQuickReplySelected {
             selectedQuickReply = quickReply
             if !onQuickReplySelected(quickReply) {
@@ -195,8 +158,6 @@ extension QuickRepliesListView: UITableViewDelegate {
                 if let cell = cell as? QuickReplyCell,
                    let cellIndexPath = tableView.indexPath(for: cell) {
                     self.styleQuickReplyCell(cell, atIndexPath: cellIndexPath)
-                } else if let cell = cell as? RestartActionButtonCell {
-                    self.styleRestartActionButtonCell(cell)
                 }
             }
         }

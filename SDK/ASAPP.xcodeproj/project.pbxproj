@@ -368,7 +368,6 @@
 		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
 		3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */; };
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
-		3A6507AB201FCC35008EC815 /* RestartActionButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6507AA201FCC35008EC815 /* RestartActionButtonCell.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
 		3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */; };
@@ -785,7 +784,6 @@
 		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
 		3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		3A6507AA201FCC35008EC815 /* RestartActionButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartActionButtonCell.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButtonsView.swift; sourceTree = "<group>"; };
@@ -1373,7 +1371,6 @@
 		302B6E151E7999770035B584 /* Quick Replies */ = {
 			isa = PBXGroup;
 			children = (
-				3A6507AA201FCC35008EC815 /* RestartActionButtonCell.swift */,
 				3ACAAA9B20570B4700963DD3 /* RestartButton.swift */,
 				302B6E161E7999770035B584 /* QuickRepliesView.swift */,
 				302B6E171E7999770035B584 /* QuickRepliesListView.swift */,
@@ -2070,7 +2067,6 @@
 				30A460FF1EF0871B00DFAA5A /* HTTPAction.swift in Sources */,
 				28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */,
 				306619121D9458F50092B4C5 /* SDWebImageCompat.m in Sources */,
-				3A6507AB201FCC35008EC815 /* RestartActionButtonCell.swift in Sources */,
 				3A9EF22320290F700092A1AA /* ChatMessageNotification.swift in Sources */,
 				288085001E874BF900240A5D /* SliderView.swift in Sources */,
 				307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */,
