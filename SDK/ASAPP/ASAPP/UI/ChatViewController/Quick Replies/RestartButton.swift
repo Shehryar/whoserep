@@ -23,7 +23,7 @@ class RestartButton: Button {
         blurredBackground = UIVisualEffectView(effect: blur)
         contentView.insertSubview(blurredBackground, at: 0)
         
-        imageSize = CGSize(width: 18, height: 17)
+        imageSize = CGSize(width: 18, height: 16.5)
         image = Images.getImage(.iconNewQuestion)
         
         title = ASAPP.strings.quickRepliesRestartButton

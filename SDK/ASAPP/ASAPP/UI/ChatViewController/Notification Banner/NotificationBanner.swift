@@ -45,7 +45,7 @@ class NotificationBanner: UIView {
     private let exitIconSize = CGSize(width: 16, height: 16)
     
     private let contentInsets = UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
-    private let expandButtonInsets = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
+    private let expandButtonInsets = UIEdgeInsets(top: 6, left: 12, bottom: 4, right: 12)
     private let actionButtonInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     
     init(notification: ChatMessageNotification) {

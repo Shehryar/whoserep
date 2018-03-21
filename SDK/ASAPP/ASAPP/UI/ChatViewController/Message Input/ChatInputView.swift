@@ -95,7 +95,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     let mediaButtonSize = CGSize(width: 18, height: 18)
     let sendButtonSize = CGSize(width: 24, height: 24)
-    let sendArrowSize = CGSize(width: 16, height: 16)
+    let sendArrowSize = CGSize(width: 11, height: 11)
     
     // MARK: Properties: UI
     
@@ -337,8 +337,8 @@ extension ChatInputView {
         sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: inputMinHeight)
         
         mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: sendButton.frame.height)
-        let insetX: CGFloat = (sendButton.frame.width - mediaButtonSize.width) / 2
-        let insetY: CGFloat = (sendButton.frame.height - mediaButtonSize.height) / 2
+        let insetX: CGFloat = round((sendButton.frame.width - mediaButtonSize.width) / 2)
+        let insetY: CGFloat = round((sendButton.frame.height - mediaButtonSize.height) / 2)
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)
         
         let textViewWidth = sendButton.frame.maxX - contentInset.left

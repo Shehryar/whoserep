@@ -19,7 +19,6 @@ class Images: NSObject {
         case iconErrorAlertFilled = "icon-error-alert-filled"
         case iconExitLink = "icon-exit-link"
         case iconHideKeyboard = "icon-hide-keyboard"
-        case iconGuillemetLeft = "icon-guillemet-left"
         case iconMore = "icon-more"
         case iconNewQuestion = "icon-new-question"
         case iconPaperclip = "icon-paperclip"
