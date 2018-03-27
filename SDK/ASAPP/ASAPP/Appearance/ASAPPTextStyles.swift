@@ -51,7 +51,7 @@ public class ASAPPTextStyles: NSObject {
     public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
     
     /// The style of second-level detail text.
-    public var detail2 = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: UIColor.ASAPP.manateeGray)
+    public var detail2 = ASAPPTextStyle(font: Fonts.default.medium, size: 11, letterSpacing: 0.75, color: UIColor.ASAPP.manateeGray)
     
     /// The style of error text.
     public var error = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.burntSiennaRed)

@@ -117,14 +117,15 @@ class ChatMessagesView: UIView {
         backgroundColor = ASAPP.styles.colors.messagesListBackground
         clipsToBounds = false
         
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.estimatedRowHeight = 0
         tableView.clipsToBounds = false
         tableView.backgroundColor = ASAPP.styles.colors.messagesListBackground
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.keyboardDismissMode = .interactive
         tableView.dataSource = self
         tableView.delegate = self
@@ -295,6 +296,15 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         guard section < dataSource.numberOfSections() else { return 0.0 }
         
         return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: .leastNonzeroMagnitude))
+        return view
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

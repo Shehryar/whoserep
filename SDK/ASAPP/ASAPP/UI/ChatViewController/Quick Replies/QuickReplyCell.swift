@@ -17,7 +17,7 @@ class QuickReplyCell: UITableViewCell {
         return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     
-    static let contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 24)
+    static let contentInset = UIEdgeInsets(top: 4, left: 24, bottom: 4, right: 24)
     
     let button = BubbleButton()
     
@@ -38,7 +38,7 @@ class QuickReplyCell: UITableViewCell {
     }
     
     class func approximateHeight(with font: UIFont) -> CGFloat {
-        return 18 /* insetTop */ + 18 /* insetBottom */ + ceil(font.lineHeight)
+        return 14 /* insetTop */ + 14 /* insetBottom */ + ceil(font.lineHeight)
     }
     
     private var leftIconVisible: Bool {

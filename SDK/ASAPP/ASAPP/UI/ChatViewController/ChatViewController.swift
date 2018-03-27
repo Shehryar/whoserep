@@ -495,14 +495,10 @@ extension ChatViewController {
         switch inputState {
         case .chat:
             chatInputView.displayBorderTop = true
-            chatInputView.contentInset.top = 2
-            chatInputView.contentInset.bottom = 2
             chatInputView.bubbleInset.bottom = 8
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
             chatInputView.displayBorderTop = false
-            chatInputView.contentInset.top = 8
-            chatInputView.contentInset.bottom = 8
             chatInputView.bubbleInset.bottom = 31
             chatInputView.resignFirstResponder()
             quickRepliesTop -= quickRepliesHeight
@@ -510,6 +506,7 @@ extension ChatViewController {
             quickRepliesTop -= inputHeight
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
+        
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeight)
         
         if let banner = notificationBanner {
@@ -667,7 +664,7 @@ extension ChatViewController {
             
         case .treewalk:
             chatMessagesView.scrollToBottomAnimated(true)
-                        
+            
             conversationManager.sendRequestForTreewalkAction(
                 action as! TreewalkAction,
                 messageText: quickReply?.title,
@@ -878,10 +875,8 @@ extension ChatViewController {
     }
     
     func showRestartActionButton() {
+        quickRepliesView.showRestartActionButton(animated: true)
         updateInputState(.conversationEnd, animated: true)
-        clearQuickRepliesView(animated: false)
-        quickRepliesView.showRestartActionButton(animated: false)
-        updateFramesAnimated()
     }
 }
 

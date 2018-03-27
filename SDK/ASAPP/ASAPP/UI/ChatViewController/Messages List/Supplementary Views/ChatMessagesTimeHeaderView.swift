@@ -10,7 +10,7 @@ import UIKit
 
 class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     
-    var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16) {
+    var contentInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 6, right: 16) {
         didSet {
             setNeedsLayout()
         }
@@ -52,7 +52,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         if let time = time {
             dateFormatter.dateFormat = time.dateFormatForMostRecent()
             let timestamp = dateFormatter.string(from: time)
-            timeLabel.setAttributedText(timestamp, textType: .subheader, color: ASAPP.styles.colors.textSecondary)
+            timeLabel.setAttributedText(timestamp, textType: .detail2, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
         } else {
             timeLabel.attributedText = nil
         }

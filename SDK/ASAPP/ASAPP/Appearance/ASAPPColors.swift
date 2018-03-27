@@ -38,10 +38,10 @@ public class ASAPPColors: NSObject {
     public var textPrimary = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 1)
     
     /// The color of secondary text, such as timestamp labels.
-    public var textSecondary = UIColor(red: 0.42, green: 0.43, blue: 0.45, alpha: 1)
+    public var textSecondary = UIColor.ASAPP.purpleHaze
     
     /// The color of most separators.
-    public var separatorPrimary = UIColor(red: 0.59, green: 0.60, blue: 0.62, alpha: 1)
+    public var separatorPrimary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
     
     /// The color of secondary separators, such as the borders of checkboxes and tabs.
     public var separatorSecondary = UIColor(red: 0.816, green: 0.824, blue: 0.847, alpha: 0.5)

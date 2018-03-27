@@ -47,7 +47,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
     }
     
-    var contentInset = UIEdgeInsets(top: 8, left: 24, bottom: 8, right: 9) {
+    var contentInset = UIEdgeInsets(top: 2, left: 24, bottom: 2, right: 9) {
         didSet {
             setNeedsLayout()
         }
@@ -104,6 +104,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     private let borderTopView = UIView()
     let textView = UITextView()
     private let placeholderTextView = UITextView()
+    private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
     private let mediaButton = UIButton()
     private var sendButtonImage: UIImage?
@@ -121,9 +122,11 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         self.placeholderText = ASAPP.strings.chatInputPlaceholder
         super.init(frame: .zero)
         
-        backgroundColor = ASAPP.styles.colors.chatInput.background
+        backgroundColor = .clear
         clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(blurredBackground)
         
         bubbleView.clipsToBounds = true
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
@@ -329,6 +332,8 @@ extension ChatInputView {
 extension ChatInputView {
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        blurredBackground.frame = bounds
         
         borderTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
         

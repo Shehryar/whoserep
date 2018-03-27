@@ -35,8 +35,7 @@ class Checkbox: BaseComponentView {
         backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         layer.borderWidth = 1
-        layer.borderColor = ASAPP.styles.colors.separatorSecondary.cgColor
-        layer.cornerRadius = 5.0
+        layer.cornerRadius = 5
         
         checkImageView.image = Images.getImage(.iconCheckmark)?.tinted(UIColor.white)
         checkImageView.contentMode = .scaleAspectFit
@@ -95,7 +94,7 @@ extension Checkbox {
             layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
             backgroundColor = UIColor.clear
-            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
+            layer.borderColor = ASAPP.styles.textStyles.body.color.cgColor
         }
         
         checkImageView.isHidden = !isChecked
