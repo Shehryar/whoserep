@@ -116,7 +116,6 @@ class TestUtil: NSObject {
         ASAPP.styles.colors.replyMessageText = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
         ASAPP.styles.colors.replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
         ASAPP.styles.colors.replyMessageBorder = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
-        ASAPP.styles.colors.quickRepliesBackground = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
         ASAPP.styles.colors.quickReplyButton = ASAPPButtonColors(
             backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
             textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))

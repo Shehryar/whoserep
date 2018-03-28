@@ -47,6 +47,11 @@ class QuickRepliesView: UIView {
             listViews.forEach { view in
                 view.contentInsetBottom = isRestartButtonVisible ? restartButton.defaultHeight : 0
             }
+            if isRestartButtonVisible && listViews.count > currentViewIndex && listViews[currentViewIndex].contentHeight > containerView.frame.height - restartButton.defaultHeight {
+                restartButton.showBlur()
+            } else {
+                restartButton.hideBlur()
+            }
         }
     }
     
@@ -72,10 +77,14 @@ class QuickRepliesView: UIView {
     
     private let containerView = UIView()
     
+    private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.colors.quickRepliesBackground
+        backgroundColor = .clear
+        
+        addSubview(blurredBackground)
         
         addSubview(containerView)
         
@@ -132,6 +141,7 @@ extension QuickRepliesView {
         let containerTop = separatorTopView.frame.maxY
         let containerHeight = bounds.height - containerTop
         containerView.frame = CGRect(x: 0, y: containerTop, width: bounds.width, height: containerHeight)
+        blurredBackground.frame = containerView.frame
         
         restartButton.frame = CGRect(x: 0, y: containerView.frame.maxY - restartButton.defaultHeight, width: bounds.width, height: restartButton.defaultHeight)
         

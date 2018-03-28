@@ -25,7 +25,7 @@ class BaseActionSheet: UIView {
     private var activityIndicator: UIActivityIndicatorView?
     
     private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    private let contentInsets = UIEdgeInsets(top: 45, left: 24, bottom: 50, right: 24)
+    private let contentInsets = UIEdgeInsets(top: 50, left: 24, bottom: 55, right: 24)
     private let buttonInsets = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
     
     private var hasTitleLabel: Bool {

@@ -110,9 +110,6 @@ public class ASAPPColors: NSObject {
     
     // MARK: - Chat: Quick Replies
     
-    /// The color of the background of the quick replies list.
-    public var quickRepliesBackground = UIColor.ASAPP.alabasterWhite
-    
     /// The colors of quick reply buttons.
     public var quickReplyButton = ASAPPButtonColors(
         backgroundNormal: .clear,

@@ -107,6 +107,7 @@ class ChatViewController: ASAPPViewController {
         
         // Quick Replies
         quickRepliesView.delegate = self
+        quickRepliesView.isHidden = true
         
         // Connection Status View
         connectionStatusView.onTapToConnect = { [weak self] in
@@ -494,20 +495,26 @@ extension ChatViewController {
         
         switch inputState {
         case .chat:
+            chatInputView.showBlur()
             chatInputView.displayBorderTop = true
             chatInputView.bubbleInset.bottom = 8
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
+            chatInputView.hideBlur()
             chatInputView.displayBorderTop = false
-            chatInputView.bubbleInset.bottom = 31
-            chatInputView.resignFirstResponder()
+            chatInputView.bubbleInset.bottom = 23
             quickRepliesTop -= quickRepliesHeight
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
             quickRepliesTop -= inputHeight
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
         
-        quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeight)
+        let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both ? chatInputView.frame.height : 0)
+        quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeightWithChat)
+        
+        if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
+            quickRepliesView.isHidden = false
+        }
         
         if let banner = notificationBanner {
             let bannerHeight = banner.preferredDisplayHeight()
@@ -827,6 +834,13 @@ extension ChatViewController: ChatInputViewDelegate {
 extension ChatViewController {
     func updateInputState(_ state: InputState, animated: Bool = false) {
         inputState = state
+        
+        if inputState == .chat {
+            chatInputView.becomeFirstResponder()
+        } else {
+            chatInputView.resignFirstResponder()
+        }
+        
         updateFramesAnimated(animated)
     }
     

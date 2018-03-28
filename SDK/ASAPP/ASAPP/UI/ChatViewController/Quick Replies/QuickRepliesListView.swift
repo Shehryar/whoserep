@@ -33,6 +33,10 @@ class QuickRepliesListView: UIView {
         }
     }
     
+    var contentHeight: CGFloat {
+        return tableView.contentSize.height
+    }
+    
     private(set) var selectedQuickReply: QuickReply?
     
     private(set) var quickReplies: [QuickReply]? {
@@ -52,12 +56,12 @@ class QuickRepliesListView: UIView {
     func commonInit() {
         tableView.backgroundColor = .clear
         tableView.scrollsToTop = false
-        tableView.alwaysBounceVertical = true
+        tableView.alwaysBounceVertical = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.contentInset = UIEdgeInsets(top: QuickReplyCell.contentInset.top * 2, left: 0, bottom: QuickReplyCell.contentInset.bottom * 2, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: QuickReplyCell.contentInset.top * 4, left: 0, bottom: QuickReplyCell.contentInset.bottom * 2, right: 0)
         tableView.register(QuickReplyCell.self, forCellReuseIdentifier: QuickReplyCell.reuseIdentifier)
         addSubview(tableView)
     }

@@ -35,12 +35,13 @@ extension MessageBubbleCornerRadiusUpdating {
         let notTopLeft: UIRectCorner = [.bottomLeft, .topRight, .bottomRight]
         let notBottomLeft: UIRectCorner = [.topLeft, .topRight, .bottomRight]
         let notLeft: UIRectCorner = [.topRight, .bottomRight]
+        let hasText = !(message.text?.isEmpty ?? true)
         
         var roundedCorners: UIRectCorner
         if message.metadata.isReply {
             switch messagePosition {
             case .none, .firstOfMany:
-                if isAttachment {
+                if isAttachment && hasText {
                     if messagePosition == .none {
                         roundedCorners = notTopLeft
                     } else {
@@ -54,7 +55,11 @@ extension MessageBubbleCornerRadiusUpdating {
                 roundedCorners = notLeft
                 
             case .lastOfMany:
-                roundedCorners = notTopLeft
+                if !isAttachment && message.attachment != nil {
+                    roundedCorners = notLeft
+                } else {
+                    roundedCorners = notTopLeft
+                }
             }
         } else {
             switch messagePosition {

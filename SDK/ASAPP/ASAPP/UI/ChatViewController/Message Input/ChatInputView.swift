@@ -126,6 +126,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
         
+        blurredBackground.isHidden = true
         addSubview(blurredBackground)
         
         bubbleView.clipsToBounds = true
@@ -416,5 +417,15 @@ extension ChatInputView {
         updateSendButtonForCurrentState()
         
         delegate?.chatInputView(self, didTypeMessageText: nil)
+    }
+    
+    func hideBlur() {
+        blurredBackground.isHidden = true
+        setNeedsDisplay()
+    }
+    
+    func showBlur() {
+        blurredBackground.isHidden = false
+        setNeedsDisplay()
     }
 }

@@ -41,4 +41,21 @@ class RestartButtonTestCase: FBSnapshotTestCase {
         usesDrawViewHierarchyInRect = true
         FBSnapshotVerifyView(container, suffixes: NSOrderedSet(array: [""]))
     }
+    
+    func testInFrontOfAnotherViewWithBlur() {
+        let backgroundView = UIView(frame: CGRect(x: 250, y: 10, width: 30, height: 30))
+        backgroundView.backgroundColor = UIColor.ASAPP.eggplant
+        
+        let button = RestartButton(frame: .zero)
+        button.frame = CGRect(x: 0, y: 0, width: 320, height: button.defaultHeight)
+        button.showBlur()
+        
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: button.defaultHeight))
+        container.backgroundColor = .white
+        container.addSubview(backgroundView)
+        container.addSubview(button)
+        
+        usesDrawViewHierarchyInRect = true
+        FBSnapshotVerifyView(container, suffixes: NSOrderedSet(array: [""]))
+    }
 }

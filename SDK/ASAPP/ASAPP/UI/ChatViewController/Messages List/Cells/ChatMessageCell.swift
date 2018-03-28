@@ -27,6 +27,7 @@ class ChatMessageCell: UITableViewCell {
     
     var message: ChatMessage? {
         didSet {
+            textBubbleView.messagePosition = messagePosition
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right

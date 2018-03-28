@@ -46,7 +46,7 @@ class ChatMessagesView: UIView {
     var contentInsetBottom: CGFloat = 0 {
         didSet {
             var newContentInset = contentInset
-            newContentInset.bottom = contentInsetBottom
+            newContentInset.bottom = contentInsetBottom + bottomPadding
             contentInset = newContentInset
             let scrollInsets = tableView.scrollIndicatorInsets
             tableView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
@@ -97,6 +97,8 @@ class ChatMessagesView: UIView {
     }
     
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
+    
+    private let bottomPadding: CGFloat = 10
     
     private var cellMaster: ChatMessagesViewCellMaster!
     

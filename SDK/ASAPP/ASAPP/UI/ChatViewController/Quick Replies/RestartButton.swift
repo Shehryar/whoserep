@@ -10,7 +10,7 @@ import UIKit
 
 class RestartButton: Button {
     let defaultHeight: CGFloat = 54
-    private var blurredBackground: UIVisualEffectView!
+    private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,8 +19,7 @@ class RestartButton: Button {
         contentAlignment = .left
         contentView.backgroundColor = .clear
         
-        let blur = UIBlurEffect(style: .light)
-        blurredBackground = UIVisualEffectView(effect: blur)
+        blurredBackground.isHidden = true
         contentView.insertSubview(blurredBackground, at: 0)
         
         imageSize = CGSize(width: 18, height: 16.5)
@@ -54,5 +53,15 @@ class RestartButton: Button {
         super.layoutSubviews()
 
         blurredBackground.frame = contentView.bounds
+    }
+    
+    func hideBlur() {
+        blurredBackground.isHidden = true
+        setNeedsDisplay()
+    }
+    
+    func showBlur() {
+        blurredBackground.isHidden = false
+        setNeedsDisplay()
     }
 }

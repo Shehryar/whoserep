@@ -53,6 +53,27 @@ class ChatInputViewTestCase: FBSnapshotTestCase {
         FBSnapshotVerifyView(container, suffixes: NSOrderedSet(array: [""]))
     }
     
+    func testInFrontOfAnotherViewWithBlur() {
+        let backgroundView = UIView(frame: CGRect(x: 290, y: 0, width: 30, height: 30))
+        backgroundView.backgroundColor = UIColor.ASAPP.eggplant
+        
+        let input = ChatInputView()
+        input.frame = CGRect(x: 10, y: 0, width: 320, height: 88)
+        input.contentInset = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 8)
+        input.bubbleInset = UIEdgeInsets(top: 8, left: 20, bottom: 30, right: 20)
+        input.displayBorderTop = false
+        input.showBlur()
+        input.updateDisplay()
+        
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 88))
+        container.backgroundColor = .white
+        container.addSubview(backgroundView)
+        container.addSubview(input)
+        
+        usesDrawViewHierarchyInRect = true
+        FBSnapshotVerifyView(container, suffixes: NSOrderedSet(array: [""]))
+    }
+    
     func testWithTheMediaButtonHidden() {
         let input = ChatInputView()
         input.frame = CGRect(x: 0, y: 0, width: 320, height: 88)

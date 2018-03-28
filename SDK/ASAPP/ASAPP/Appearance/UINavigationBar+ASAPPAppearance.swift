@@ -11,8 +11,9 @@ import UIKit
 extension UINavigationBar {
 
     func applyASAPPStyles() {
-        isTranslucent = false
-        isOpaque = true
+        isTranslucent = true
+        isOpaque = false
+        barStyle = .default
         shadowImage = nil
         setBackgroundImage(nil, for: .default)
         setBackgroundImage(nil, for: .compact)
