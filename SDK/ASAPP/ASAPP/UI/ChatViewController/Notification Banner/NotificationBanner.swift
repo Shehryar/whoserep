@@ -65,7 +65,7 @@ class NotificationBanner: UIView {
         addSubview(bottomBorder)
         
         if let icon = notification.icon?.icon {
-            let imageView = UIImageView(image: icon.getImage()?.tinted(ASAPP.styles.colors.textButtonPrimary.textNormal))
+            let imageView = UIImageView(image: icon.getImage()?.tinted(ASAPP.styles.colors.primary))
             iconView = imageView
             if let iconView = self.iconView {
                 bannerContainer.addSubview(iconView)
@@ -73,11 +73,11 @@ class NotificationBanner: UIView {
         }
         
         titleLabel.numberOfLines = 1
-        titleLabel.setAttributedText(notification.title, textType: .body, color: ASAPP.styles.colors.textPrimary)
+        titleLabel.setAttributedText(notification.title, textType: .body, color: ASAPP.styles.colors.dark)
         bannerContainer.addSubview(titleLabel)
         
         if notification.text != nil || notification.button != nil {
-            expandIcon.image = Images.getImage(.iconChevron)?.tinted(ASAPP.styles.colors.textButtonPrimary.textNormal)
+            expandIcon.image = Images.getImage(.iconChevron)?.tinted(ASAPP.styles.colors.primary)
             updateExpandIcon()
             bannerContainer.addSubview(expandIcon)
             addSubview(overlayButton)
@@ -91,7 +91,7 @@ class NotificationBanner: UIView {
         
         if let text = notification.text {
             bodyLabel.numberOfLines = 0
-            bodyLabel.setAttributedText(text, textType: .body, color: ASAPP.styles.colors.textPrimary)
+            bodyLabel.setAttributedText(text, textType: .body, color: ASAPP.styles.colors.dark.withAlphaComponent(0.8))
             expandedContainer.addSubview(bodyLabel)
         }
         

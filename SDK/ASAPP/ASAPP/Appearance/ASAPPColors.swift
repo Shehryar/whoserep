@@ -15,6 +15,14 @@ import UIKit
 @objcMembers
 public class ASAPPColors: NSObject {
     
+    // MARK: - General
+    
+    /// The color of most primary text and UI elements such as icons and buttons.
+    public var primary = UIColor.ASAPP.eggplant
+    
+    /// The color of most secondary text and UI elements.
+    public var dark = UIColor.ASAPP.purpleHaze
+    
     // MARK: - Chat: Navigation Bar
     
     /// The background color of the navigation bar.
