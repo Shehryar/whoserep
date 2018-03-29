@@ -34,10 +34,4 @@ class BubbleButton: Button {
             bubble.fillColor = bgColor
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        bubble.cornerRadius = bubble.frame.height / 2
-    }
 }

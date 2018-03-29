@@ -93,7 +93,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     private var cornerRadius: CGFloat = 0
     
-    let mediaButtonSize = CGSize(width: 18, height: 18)
+    let mediaButtonSize = CGSize(width: 16, height: 16)
     let sendButtonSize = CGSize(width: 24, height: 24)
     let sendArrowSize = CGSize(width: 11, height: 11)
     
@@ -340,11 +340,11 @@ extension ChatInputView {
         
         let sendButtonLeft = bubbleView.bounds.width - sendButtonSize.width - contentInset.right
         let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom
-        sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: inputMinHeight)
+        sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: ceil(inputMinHeight))
         
         mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: sendButton.frame.height)
-        let insetX: CGFloat = round((sendButton.frame.width - mediaButtonSize.width) / 2)
-        let insetY: CGFloat = round((sendButton.frame.height - mediaButtonSize.height) / 2)
+        let insetX: CGFloat = ceil((sendButton.frame.width - mediaButtonSize.width) / 2)
+        let insetY: CGFloat = ceil((sendButton.frame.height - mediaButtonSize.height) / 2)
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)
         
         let textViewWidth = sendButton.frame.maxX - contentInset.left

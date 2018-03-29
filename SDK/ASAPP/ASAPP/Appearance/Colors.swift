@@ -19,7 +19,8 @@ internal extension UIColor {
         static let manateeGray = UIColor(red: 0.573, green: 0.600, blue: 0.663, alpha: 1)
         static let ceruleanBlue = UIColor(red: 0.075, green: 0.698, blue: 0.925, alpha: 1)
         static let cometBlue = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
-        static let burntSiennaRed = UIColor(red: 0.937, green: 0.463, blue: 0.404, alpha: 1)
+        static let errorRed = UIColor(red: 0.96, green: 0.2, blue: 0.38, alpha: 1)
+        static let successGreen = UIColor(red: 0.11, green: 0.68, blue: 0.52, alpha: 1)
         
         static var patternBackground: UIColor? {
             if let tileImage = Images.getImage(.tileImageDash) {

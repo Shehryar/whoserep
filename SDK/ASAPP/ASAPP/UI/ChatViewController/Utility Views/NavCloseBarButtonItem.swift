@@ -16,6 +16,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
     
     private struct Styles {
         var foregroundColor: UIColor
+        var activeColor: UIColor
         var backgroundColor: UIColor?
         var imageSize: CGSize
         var imageInsets: UIEdgeInsets
@@ -34,13 +35,12 @@ class NavCloseBarButtonItem: UIBarButtonItem {
     }
     private class func getStyles(location: NavBarButtonLocation, side: NavBarButtonSide) -> Styles {
         let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
-        var foregroundColor: UIColor
-        var backgroundColor: UIColor?
+        let backgroundColor: UIColor? = nil
         let imageSize = closeButtonStyle?.size ?? .zero
         var imageInsets = closeButtonStyle?.insets ?? .zero
 
-        foregroundColor = ASAPP.styles.colors.navBarButton
-        backgroundColor = nil
+        let foregroundColor = ASAPP.styles.colors.navBarButton
+        let activeColor = ASAPP.styles.colors.navBarButtonActive
         imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         switch side {
         case .left:
@@ -49,7 +49,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
             imageInsets.left += 20
         }
         
-        return Styles(foregroundColor: foregroundColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
+        return Styles(foregroundColor: foregroundColor, activeColor: activeColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
     }
     
     @discardableResult
@@ -71,8 +71,8 @@ class NavCloseBarButtonItem: UIBarButtonItem {
             styles.imageInsets.right += 6
         }
         
-        button.setImage(image?.tinted(styles.foregroundColor, alpha: 1), for: .normal)
-        button.setImage(image?.tinted(styles.foregroundColor, alpha: 0.6), for: .highlighted)
+        button.setImage(image?.tinted(styles.foregroundColor, alpha: styles.foregroundColor.cgColor.alpha), for: .normal)
+        button.setImage(image?.tinted(styles.activeColor, alpha: styles.activeColor.cgColor.alpha), for: .highlighted)
         button.imageSize = styles.imageSize
         
         // Bubble

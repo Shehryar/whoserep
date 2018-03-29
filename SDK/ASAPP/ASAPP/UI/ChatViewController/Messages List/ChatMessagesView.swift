@@ -116,7 +116,7 @@ class ChatMessagesView: UIView {
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         self.dataSource = ChatMessagesViewDataSource()
         
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
         clipsToBounds = false
         
         if #available(iOS 11.0, *) {
@@ -126,7 +126,7 @@ class ChatMessagesView: UIView {
         tableView.contentInset = defaultContentInset
         tableView.estimatedRowHeight = 0
         tableView.clipsToBounds = false
-        tableView.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .interactive
         tableView.dataSource = self

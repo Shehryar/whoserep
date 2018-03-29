@@ -25,8 +25,8 @@ class MessageButtonsView: UIView {
     var separators: [UIView] = []
     var actions: [Action] = []
     
-    var separatorColor: UIColor = ASAPP.styles.colors.separatorPrimary
-    let separatorHeight: CGFloat = 0.5
+    var separatorColor: UIColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+    let separatorHeight: CGFloat = 1
     
     private var messageActions: [QuickReply]
     
@@ -37,7 +37,9 @@ class MessageButtonsView: UIView {
         if let separatorColor = separatorColor {
             self.separatorColor = separatorColor
         }
-        backgroundColor = .white
+        
+        backgroundColor = ASAPP.styles.colors.messageButtonBackground
+        
         updateViews()
     }
     
@@ -73,7 +75,7 @@ class MessageButtonsView: UIView {
         let button = UIButton()
         button.titleLabel?.numberOfLines = 0
         button.updateText(messageAction.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.textButtonPrimary)
-        button.backgroundColor = .white
+        button.backgroundColor = .clear
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         return button
     }
@@ -105,9 +107,9 @@ class MessageButtonsView: UIView {
         var currentY: CGFloat = 0
         for (i, button) in buttons.enumerated() {
             separators[i].frame = CGRect(
-                x: i == 0 ? 0 : separatorInset,
+                x: (i == 0 ? 0 : separatorInset) + 1,
                 y: currentY,
-                width: i == 0 ? bounds.width : separatorWidth,
+                width: (i == 0 ? bounds.width : separatorWidth) - 2,
                 height: separatorHeight)
             currentY += separatorHeight
             

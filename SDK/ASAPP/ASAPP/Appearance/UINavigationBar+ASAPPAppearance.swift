@@ -11,24 +11,28 @@ import UIKit
 extension UINavigationBar {
 
     func applyASAPPStyles() {
-        isTranslucent = true
+        isTranslucent = ASAPP.styles.colors.navBarBackground == nil
         isOpaque = false
         barStyle = .default
         shadowImage = nil
         setBackgroundImage(nil, for: .default)
         setBackgroundImage(nil, for: .compact)
         backgroundColor = nil
-        if ASAPP.styles.colors.navBarBackground.isDark() {
-            barStyle = .black
-            if ASAPP.styles.colors.navBarBackground != UIColor.black {
-                barTintColor = ASAPP.styles.colors.navBarBackground
-            }
-        } else {
-            barStyle = .default
-            if ASAPP.styles.colors.navBarBackground != UIColor.white {
-                barTintColor = ASAPP.styles.colors.navBarBackground
+        
+        if let navBarBackground = ASAPP.styles.colors.navBarBackground {
+            if navBarBackground.isDark() {
+                barStyle = .black
+                if ASAPP.styles.colors.navBarBackground != UIColor.black {
+                    barTintColor = navBarBackground
+                }
+            } else {
+                barStyle = .default
+                if ASAPP.styles.colors.navBarBackground != UIColor.white {
+                    barTintColor = navBarBackground
+                }
             }
         }
+        
         tintColor = ASAPP.styles.colors.navBarButton
         
         layer.shadowOffset = CGSize(width: 0, height: 2)

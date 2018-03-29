@@ -27,13 +27,6 @@ class BubbleView: UIView, Bubble {
         }
     }
     
-    override var backgroundColor: UIColor? {
-        didSet {
-            guard let color = backgroundColor else { return }
-            fillColor = color
-        }
-    }
-    
     var fillColor = UIColor(red: 0.937, green: 0.945, blue: 0.949, alpha: 1) {
         didSet {
             if oldValue != fillColor {
@@ -71,6 +64,11 @@ class BubbleView: UIView, Bubble {
     override func draw(_ rect: CGRect) {
         drawBubble(rect)
     }
+    
+    func prepareForReuse() {
+        borderLayer?.removeAllAnimations()
+        borderLayer?.removeFromSuperlayer()
+    }
 }
 
 protocol Bubble: class {
@@ -88,7 +86,7 @@ extension Bubble where Self: UIView {
     
     func commonInit() {
         clipsToBounds = false
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
         contentMode = .redraw
     }
     
@@ -96,29 +94,32 @@ extension Bubble where Self: UIView {
     
     func drawBubble(_ rect: CGRect) {
         
-        let path = bubbleViewPath(for: rect)
-    
+        let fullPath = bubbleViewPath(for: rect)
         fillColor.setFill()
-        path.fill()
         
         borderLayer?.removeFromSuperlayer()
         borderLayer = nil
         
         if let strokeColor = strokeColor {
             let border = CAShapeLayer()
-            border.lineWidth = strokeLineWidth
-            border.strokeColor = strokeColor.cgColor
-            border.fillColor = nil
+            border.fillColor = strokeColor.cgColor
             border.frame = rect
-            let strokeInset = strokeLineWidth / 2
-            var transform = CGAffineTransform(scaleX: (rect.width - 2 * strokeInset) / rect.width, y: (rect.height - 2 * strokeInset) / rect.height).concatenating(CGAffineTransform(translationX: strokeInset, y: strokeInset))
-            border.path = path.cgPath.copy(using: &transform)
+            let strokeInset = strokeLineWidth
+            let transform = CGAffineTransform(scaleX: (rect.width - 2 * strokeInset) / rect.width, y: (rect.height - 2 * strokeInset) / rect.height).concatenating(CGAffineTransform(translationX: strokeInset, y: strokeInset))
+            let innerPath = UIBezierPath(cgPath: fullPath.cgPath)
+            innerPath.apply(transform)
+            let borderPath = UIBezierPath(cgPath: fullPath.cgPath)
+            borderPath.append(innerPath.reversing())
+            border.path = borderPath.cgPath
             layer.addSublayer(border)
             borderLayer = border
+            innerPath.fill()
+        } else {
+            fullPath.fill()
         }
         
         let mask = CAShapeLayer()
-        mask.path = path.cgPath
+        mask.path = fullPath.cgPath
         layer.mask = mask
     }
     

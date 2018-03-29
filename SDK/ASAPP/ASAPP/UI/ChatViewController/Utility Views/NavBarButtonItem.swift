@@ -20,6 +20,7 @@ class NavBarButtonItem: UIBarButtonItem {
     
     private struct Styles {
         let textColor: UIColor
+        let activeColor: UIColor
         let backgroundColor: UIColor?
         let font: UIFont
         let insets: UIEdgeInsets
@@ -41,6 +42,7 @@ class NavBarButtonItem: UIBarButtonItem {
     
     private class func getStyles(location: NavBarButtonLocation, side: NavBarButtonSide) -> Styles {
         let textColor: UIColor
+        let activeColor: UIColor
         let backgroundColor: UIColor?
         let font: UIFont
         let insets: UIEdgeInsets
@@ -49,8 +51,11 @@ class NavBarButtonItem: UIBarButtonItem {
         case .chat:
             textColor = ASAPP.styles.colors.navBarButton
         }
+        
+        activeColor = ASAPP.styles.colors.navBarButtonActive
         backgroundColor = nil
         font = ASAPP.styles.textStyles.navButton.font
+        
         switch side {
         case .left:
             insets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 11)
@@ -58,7 +63,7 @@ class NavBarButtonItem: UIBarButtonItem {
             insets = UIEdgeInsets(top: 6, left: 11, bottom: 6, right: 0)
         }
         
-        return Styles(textColor: textColor, backgroundColor: backgroundColor, font: font, insets: insets)
+        return Styles(textColor: textColor, activeColor: activeColor, backgroundColor: backgroundColor, font: font, insets: insets)
     }
     
     private func setupBackgroundColor() {
@@ -69,7 +74,7 @@ class NavBarButtonItem: UIBarButtonItem {
         let button = customView as? UIButton ?? UIButton()
         
         button.setBackgroundImage(UIImage.imageWithColor(backgroundColor), for: .normal)
-        button.setBackgroundImage(UIImage.imageWithColor(backgroundColor.withAlphaComponent(0.6)), for: .highlighted)
+        button.setBackgroundImage(UIImage.imageWithColor(styles.activeColor), for: .highlighted)
         
         button.clipsToBounds = true
         button.layer.cornerRadius = button.bounds.height / 2
@@ -124,8 +129,8 @@ class NavBarButtonItem: UIBarButtonItem {
         button.imageView?.contentMode = .scaleAspectFit
         
         let tintColor = styles.backgroundColor != styles.textColor ? styles.textColor : .white
-        button.setImage(customImage.image.tinted(tintColor, alpha: 1), for: .normal)
-        button.setImage(customImage.image.tinted(tintColor, alpha: 0.6), for: .highlighted)
+        button.setImage(customImage.image.tinted(tintColor, alpha: tintColor.cgColor.alpha), for: .normal)
+        button.setImage(customImage.image.tinted(styles.activeColor, alpha: styles.activeColor.cgColor.alpha), for: .highlighted)
         
         var insets = customImage.insets
         switch side {

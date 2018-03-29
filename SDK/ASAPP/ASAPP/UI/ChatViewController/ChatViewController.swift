@@ -238,7 +238,7 @@ class ChatViewController: ASAPPViewController {
         // View
         
         view.clipsToBounds = true
-        view.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        view.setLinearGradient(degrees: 161, colors: ASAPP.styles.colors.messagesListGradientColors)
         
         if isLiveChat {
             clearQuickRepliesView(animated: false, completion: nil)
@@ -301,7 +301,7 @@ class ChatViewController: ASAPPViewController {
     // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ASAPP.styles.colors.navBarBackground.isDark() ? .lightContent : .default
+        return (ASAPP.styles.colors.navBarBackground?.isDark() == true) ? .lightContent : .default
     }
     
     // MARK: View Layout Overrides

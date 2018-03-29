@@ -110,20 +110,20 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
             //
             // Update Bubble
             //
+            let fillColor: UIColor
+            
+            label.updateFont(for: .body)
+            
             if message.metadata.isReply {
-                let fillColor = ASAPP.styles.colors.replyMessageBackground
-                label.updateFont(for: .body)
+                fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
                     NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.replyMessageText,
                     NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
-                bubbleView.strokeLineWidth = 0.5
-                bubbleView.fillColor = fillColor
             } else {
-                let fillColor = ASAPP.styles.colors.messageBackground
-                label.updateFont(for: .body)
+                fillColor = ASAPP.styles.colors.messageBackground
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
@@ -131,9 +131,10 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
                     NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
-                bubbleView.strokeLineWidth = 0.5
-                bubbleView.fillColor = fillColor
             }
+            
+            bubbleView.strokeLineWidth = 0.5
+            bubbleView.fillColor = fillColor
             bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
             bubbleView.roundedCorners = getBubbleCorners(for: message)
             
@@ -193,9 +194,9 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
         
-        bubbleView.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        bubbleView.fillColor = ASAPP.styles.colors.messageBackground
         bubbleView.clipsToBounds = false
         bubbleView.cornerRadius = 20
         addSubview(bubbleView)

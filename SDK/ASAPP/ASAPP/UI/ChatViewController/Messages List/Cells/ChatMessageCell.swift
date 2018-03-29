@@ -31,7 +31,7 @@ class ChatMessageCell: UITableViewCell {
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2, color: ASAPP.styles.colors.textSecondary)
+            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail1, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
         }
     }
     
@@ -104,13 +104,13 @@ class ChatMessageCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         isOpaque = true
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
     
         textBubbleView.delegate = self
         contentView.addSubview(textBubbleView)
         
         timeLabel.alpha = 0.0
-        timeLabel.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        timeLabel.backgroundColor = .clear
         contentView.insertSubview(timeLabel, belowSubview: textBubbleView)
     }
     
@@ -176,8 +176,7 @@ extension ChatMessageCell {
         attachmentView?.alpha = 1.0
         isTimeLabelVisible = false
         
-        textBubbleView.bubbleView.borderLayer?.removeAllAnimations()
-        textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
+        textBubbleView.bubbleView.prepareForReuse()
         
         isAnimating = false
         animationStartTime = nil

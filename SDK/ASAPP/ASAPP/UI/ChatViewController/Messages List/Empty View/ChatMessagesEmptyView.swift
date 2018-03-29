@@ -17,7 +17,7 @@ class ChatMessagesEmptyView: UIView {
     // MARK: Init
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
         
         spinner.startAnimating()
         addSubview(spinner)

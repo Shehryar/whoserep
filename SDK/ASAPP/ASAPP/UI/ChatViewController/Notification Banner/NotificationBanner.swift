@@ -86,7 +86,7 @@ class NotificationBanner: UIView {
         expandedContainer.clipsToBounds = true
         insertSubview(expandedContainer, belowSubview: bannerContainer)
         
-        separator.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        separator.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
         expandedContainer.addSubview(separator)
         
         if let text = notification.text {

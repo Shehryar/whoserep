@@ -17,17 +17,17 @@ public class ASAPPTextStyle: NSObject {
     
     // MARK: Properties (final)
     
-    private(set) var defaultSize: CGFloat
-    
     let letterSpacing: CGFloat
-    
-    let color: UIColor
     
     var font: UIFont {
         return fontRef.withSize(size)
     }
     
+    private(set) var defaultSize: CGFloat
+    
     private(set) var uppercase: Bool = false
+    
+    private(set) var color: UIColor
     
     private var fontRef: UIFont
     
@@ -59,5 +59,9 @@ public class ASAPPTextStyle: NSObject {
     
     internal func updateFont(_ font: UIFont) {
         self.fontRef = font
+    }
+    
+    internal func updateColor(_ color: UIColor) {
+        self.color = color
     }
 }

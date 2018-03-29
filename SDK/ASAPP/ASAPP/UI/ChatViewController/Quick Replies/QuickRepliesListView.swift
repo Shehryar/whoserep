@@ -61,7 +61,7 @@ class QuickRepliesListView: UIView {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.contentInset = UIEdgeInsets(top: QuickReplyCell.contentInset.top * 4, left: 0, bottom: QuickReplyCell.contentInset.bottom * 2, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: QuickReplyCell.contentInset.top * 3 - 1, left: 0, bottom: QuickReplyCell.contentInset.bottom * 2, right: 0)
         tableView.register(QuickReplyCell.self, forCellReuseIdentifier: QuickReplyCell.reuseIdentifier)
         addSubview(tableView)
     }

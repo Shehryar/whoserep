@@ -8,50 +8,10 @@
 
 import UIKit
 
-class ComponentCardView: UIView, Bubble, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
+class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
     weak var delegate: MessageButtonsViewContainerDelegate?
     
-    var roundedCorners: UIRectCorner = .allCorners {
-        didSet {
-            if oldValue != roundedCorners {
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var cornerRadius: CGFloat = 20 {
-        didSet {
-            if oldValue != cornerRadius {
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var fillColor = ASAPP.styles.colors.backgroundPrimary {
-        didSet {
-            if oldValue != fillColor {
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var strokeColor: UIColor? = ASAPP.styles.colors.replyMessageBorder {
-        didSet {
-            if oldValue != strokeColor {
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var strokeLineWidth: CGFloat = 1 {
-        didSet {
-            if oldValue != strokeLineWidth {
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var borderLayer: CAShapeLayer?
+    var backgroundLayer: CALayer?
     
     var message: ChatMessage? {
         didSet {
@@ -128,6 +88,13 @@ class ComponentCardView: UIView, Bubble, MessageButtonsViewContainer, MessageBub
         }
     }
     
+    func commonInit() {
+        super.commonInit()
+        fillColor = .clear
+        strokeColor = ASAPP.styles.colors.replyMessageBorder
+        strokeLineWidth = 1
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -144,6 +111,13 @@ class ComponentCardView: UIView, Bubble, MessageButtonsViewContainer, MessageBub
     
     override func draw(_ rect: CGRect) {
         drawBubble(rect)
+        
+        backgroundLayer = setLinearGradient(degrees: 25, colors: ASAPP.styles.colors.attachmentGradientColors)
+    }
+    
+    override func prepareForReuse() {
+        backgroundLayer?.removeAllAnimations()
+        backgroundLayer?.removeFromSuperlayer()
     }
     
     // MARK: Layout

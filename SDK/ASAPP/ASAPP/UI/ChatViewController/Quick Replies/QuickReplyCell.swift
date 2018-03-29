@@ -21,6 +21,8 @@ class QuickReplyCell: UITableViewCell {
     
     let button = BubbleButton()
     
+    let buttonMinHeight: CGFloat = 40
+    
     var leftIconSize = CGSize(width: 16, height: 16)
     
     var leftIconImage: UIImage?
@@ -125,35 +127,45 @@ class QuickReplyCell: UITableViewCell {
 // MARK: - Layout
 
 extension QuickReplyCell {
-    
-    func buttonSizeThatFits(size: CGSize) -> CGSize {
-        let maxButtonWidth = size.width - QuickReplyCell.contentInset.left - QuickReplyCell.contentInset.right
-        let buttonSize = button.sizeThatFits(CGSize(width: maxButtonWidth, height: 0))
-        let totalSize = CGSize(width: buttonSize.width, height: buttonSize.height)
-        
-        return CGSize(width: min(maxButtonWidth, ceil(totalSize.width)), height: max(40, ceil(totalSize.height)))
+    private struct CalculatedLayout {
+        let buttonFrame: CGRect
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func buttonSizeThatFits(size: CGSize) -> CGSize {
+        let buttonSize = button.sizeThatFits(CGSize(width: size.width, height: 0))
+        let totalSize = CGSize(width: buttonSize.width, height: buttonSize.height)
         
-        button.contentInset = textInset
-        
+        return CGSize(width: ceil(totalSize.width), height: max(buttonMinHeight, ceil(totalSize.height)))
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let buttonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         let buttonSize = buttonSizeThatFits(size: CGSize(width: bounds.size.width - buttonInsets.left - buttonInsets.right, height: bounds.size.height))
         let buttonLeft = floor((bounds.size.width - buttonSize.width)) - buttonInsets.right
         let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
+        let buttonFrame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
         
-        button.frame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
+        return CalculatedLayout(buttonFrame: buttonFrame)
+    }
+    
+    func updateFrames() {
+        let layout = getFramesThatFit(bounds.size)
+        button.frame = layout.buttonFrame
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        button.contentInset = textInset
+        updateFrames()
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let buttonSize = buttonSizeThatFits(size: size)
-        var contentHeight = buttonSize.height
-        if contentHeight > 0 {
-            contentHeight += QuickReplyCell.contentInset.top + QuickReplyCell.contentInset.bottom
+        let layout = getFramesThatFit(bounds.size)
+        var height = layout.buttonFrame.height
+        if height > 0 {
+            height += QuickReplyCell.contentInset.top + QuickReplyCell.contentInset.bottom
         }
         
-        return CGSize(width: size.width, height: contentHeight)
+        return CGSize(width: size.width, height: height)
     }
 }

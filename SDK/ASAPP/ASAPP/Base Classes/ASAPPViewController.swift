@@ -100,7 +100,7 @@ extension ASAPPViewController {
 extension ASAPPViewController {
     
     override public var preferredStatusBarStyle: UIStatusBarStyle {
-        if ASAPP.styles.colors.navBarBackground.isDark() {
+        if ASAPP.styles.colors.navBarBackground?.isDark() == true {
             return .lightContent
         }
         return .default

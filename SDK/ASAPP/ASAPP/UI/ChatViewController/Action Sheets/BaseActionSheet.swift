@@ -25,7 +25,7 @@ class BaseActionSheet: UIView {
     private var activityIndicator: UIActivityIndicatorView?
     
     private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    private let contentInsets = UIEdgeInsets(top: 50, left: 24, bottom: 55, right: 24)
+    private let contentInsets = UIEdgeInsets(top: 43, left: 24, bottom: 48, right: 24)
     private let buttonInsets = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
     
     private var hasTitleLabel: Bool {
@@ -43,19 +43,19 @@ class BaseActionSheet: UIView {
         
         addSubview(blurredBackground)
 
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         addSubview(contentView)
         
         if let title = title {
             titleLabel.numberOfLines = 0
             titleLabel.textAlignment = .center
-            titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header1, color: ASAPP.styles.colors.textPrimary)
+            titleLabel.setAttributedText(title, textStyle: ASAPP.styles.textStyles.header1)
             contentView.addSubview(titleLabel)
         }
         
         bodyLabel.numberOfLines = 0
         bodyLabel.textAlignment = .center
-        bodyLabel.setAttributedText(body, textStyle: ASAPP.styles.textStyles.body, color: ASAPP.styles.colors.textPrimary)
+        bodyLabel.setAttributedText(body, textStyle: ASAPP.styles.textStyles.body2, color: ASAPP.styles.colors.dark.withAlphaComponent(0.8))
         contentView.addSubview(bodyLabel)
         
         let actionColors = ASAPP.styles.colors.actionButton
@@ -70,7 +70,7 @@ class BaseActionSheet: UIView {
         restartButton.layer.shadowOpacity = 0.25
         contentView.addSubview(restartButton)
         
-        let inverseColors = ASAPPButtonColors(backgroundColor: actionColors.textNormal, textColor: actionColors.backgroundNormal, border: actionColors.border)
+        let inverseColors = ASAPPButtonColors(backgroundColor: actionColors.textNormal.withAlphaComponent(0.1), textColor: actionColors.backgroundNormal, border: actionColors.border)
         hideButton.addTarget(self, action: #selector(didTapHideButton), for: .touchUpInside)
         hideButton.updateText(hideButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: inverseColors)
         hideButton.setTitleShadow(opacity: 0.18)

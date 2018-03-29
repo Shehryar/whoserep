@@ -96,7 +96,7 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
         }
     }
     
-    var underlineColorError: UIColor? = UIColor(red: 0.945, green: 0.459, blue: 0.388, alpha: 1) {
+    var underlineColorError: UIColor? = UIColor.ASAPP.errorRed {
         didSet {
             updateUnderlineColor()
         }

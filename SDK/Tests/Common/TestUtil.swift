@@ -109,7 +109,6 @@ class TestUtil: NSObject {
             textDisabled: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.8),
             border: UIColor(red: 0.886, green: 0.890, blue: 0.906, alpha: 1))
         
-        ASAPP.styles.colors.messagesListBackground = UIColor.ASAPP.alabasterWhite
         ASAPP.styles.colors.messageText = UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1)
         ASAPP.styles.colors.messageBackground = UIColor.white
         ASAPP.styles.colors.messageBorder = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)

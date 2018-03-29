@@ -44,9 +44,8 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         cardView.component = nil
-        cardView.borderLayer?.removeAllAnimations()
-        cardView.borderLayer?.removeFromSuperlayer()
-        textBubbleView.bubbleView.borderLayer?.removeFromSuperlayer()
+        cardView.prepareForReuse()
+        textBubbleView.bubbleView.prepareForReuse()
     }
 }
 

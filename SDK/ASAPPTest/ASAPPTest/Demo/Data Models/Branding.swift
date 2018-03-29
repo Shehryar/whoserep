@@ -73,23 +73,12 @@ class Branding: NSObject {
     private class func createASAPPTitle(colors: BrandingColors, styles: ASAPPStyles, fontFamily: ASAPPFontFamily) -> UIView {
         let container = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         
-        let text = UILabel()
-        text.text = "Help"
-        text.font = fontFamily.regular.withSize(22)
-        text.textColor = colors.navBarTitleColor
-        let textSize = text.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: 44.0))
-        
-        let spacing: CGFloat = 5
-        
         let logo = UIImageView(image: #imageLiteral(resourceName: "asapp-logo"))
-        var logoFrame = CGRect(x: 0, y: 7, width: 87.6, height: 16.8)
-        logoFrame.origin.x = (logoFrame.size.width + spacing + textSize.width) / -2
+        var logoFrame = CGRect(x: 0, y: 7, width: 76, height: 14.6)
+        logoFrame.origin.x = logoFrame.size.width / -2
         logo.frame = logoFrame
         
-        text.frame = CGRect(origin: CGPoint(x: logo.frame.maxX + spacing, y: 2), size: textSize)
-        
         container.addSubview(logo)
-        container.addSubview(text)
         container.sizeToFit()
         
         return container
@@ -139,7 +128,7 @@ extension Branding {
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: buttonTextColor)
         styles.colors.navBarBackground = primary
-        styles.colors.navBarTitle = styles.colors.navBarBackground.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true)
+        styles.colors.navBarTitle = styles.colors.navBarBackground?.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true) ?? textDark
         styles.colors.navBarButton = styles.colors.navBarTitle
         styles.colors.messageText = textDark.colorWithRelativeBrightness(0.33)!
         styles.colors.replyMessageText = textLight

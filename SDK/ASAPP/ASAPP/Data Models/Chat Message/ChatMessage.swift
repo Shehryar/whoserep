@@ -36,7 +36,7 @@ class ChatMessage: NSObject {
           quickReplies: [String: [QuickReply]]?,
           userCanTypeResponse: Bool = false,
           metadata: EventMetadata) {
-        guard text != nil || attachment != nil || quickReplies != nil else {
+        guard (text != nil && !(text?.isEmpty == true)) || attachment != nil || quickReplies != nil else {
             return nil
         }
         

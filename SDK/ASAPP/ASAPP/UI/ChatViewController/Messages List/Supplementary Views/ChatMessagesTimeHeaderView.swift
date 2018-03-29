@@ -27,11 +27,11 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     // MARK: - Init
     
     func commonInit() {
-        contentView.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        contentView.backgroundColor = .clear
         isOpaque = true
         
-        timeLabel.backgroundColor = ASAPP.styles.colors.messagesListBackground
-        timeLabel.textColor = ASAPP.styles.colors.textSecondary
+        timeLabel.backgroundColor = .clear
+        timeLabel.textColor = ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5)
         timeLabel.textAlignment = .center
         contentView.addSubview(timeLabel)
     }
@@ -52,7 +52,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         if let time = time {
             dateFormatter.dateFormat = time.dateFormatForMostRecent()
             let timestamp = dateFormatter.string(from: time)
-            timeLabel.setAttributedText(timestamp, textType: .detail2, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
+            timeLabel.setAttributedText(timestamp, textType: .detail1, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
         } else {
             timeLabel.attributedText = nil
         }

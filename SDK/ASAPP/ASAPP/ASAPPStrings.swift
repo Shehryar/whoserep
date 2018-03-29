@@ -95,10 +95,10 @@ public class ASAPPStrings: NSObject {
     public var restartConfirmationBody = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")
     
     /// The text for the confirmation button of the end chat alert.
-    public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to start over")
+    public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to ask a new question")
     
     /// The text for the cancel button of the end chat alert.
-    public var restartConfirmationHideButton = ASAPPLocalizedString("Cancel")
+    public var restartConfirmationHideButton = ASAPPLocalizedString("Nevermind, I'll continue")
     
     // MARK: Modal View: Feedback
     
