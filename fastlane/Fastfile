@@ -77,4 +77,28 @@ platform :ios do
     # push build number commit and new tag to remote
     push_to_git_remote(local_branch: current_branch)
   end
+
+  lane :accessibility_testing do
+    current_branch = git_branch
+    UI.user_error!("The current branch is #{current_branch}. An alpha release should only be done from a feature branch.") if ["master", "develop"].include?(current_branch)
+
+    incrementBuildNumber
+
+    gym(scheme: 'ASAPPTest')
+
+    crashlytics(
+      api_token: ENV['CRASHLYTICS_API_TOKEN'],
+      build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
+      groups: ['accessibility-testing'],
+      notes: changelog_from_git_commits,
+      notifications: true
+    )
+
+    clean_build_artifacts
+
+    add_git_tag(grouping: "fastlane-builds")
+
+    # push build number commit and new tag to remote
+    push_to_git_remote(local_branch: current_branch)
+  end
 end

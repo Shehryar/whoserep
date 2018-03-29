@@ -148,7 +148,7 @@ fileprivate extension AppSettings {
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
             "tetris.test.asapp.com",
-            "fullapi-landing20.test.asapp.com"
+            "audit01.test.asapp.com"
         ]
     }
     
