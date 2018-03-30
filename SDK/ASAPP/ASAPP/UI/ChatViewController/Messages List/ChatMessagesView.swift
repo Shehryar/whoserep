@@ -16,9 +16,6 @@ protocol ChatMessagesViewDelegate: class {
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didTapLastMessage message: ChatMessage)
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
                           didUpdateQuickRepliesFrom message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
@@ -340,26 +337,22 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         
         if let message = dataSource.getMessage(for: indexPath) {
             if message == dataSource.getLastMessage() {
-                delegate?.chatMessagesView(self, didTapLastMessage: message)
+                if isNearBottom() {
+                    scrollToBottomAnimated(false)
+                }
             }
-        }   
+        }
     }
     
     func toggleTimeStampForMessage(at indexPath: IndexPath) {
         let previousMessage = showTimeStampForMessage
-        let animated: Bool
-        if #available(iOS 11.0, *) {
-            animated = false
-        } else {
-            animated = true
-        }
         
         // Hide timestamp on previous cell
         if let previousMessage = previousMessage,
             let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
             let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
                 showTimeStampForMessage = nil
-                previousCell.setTimeLabelVisible(false, animated: animated)
+                previousCell.setTimeLabelVisible(false, animated: true)
         }
 
         if let nextMessage = dataSource.getMessage(for: indexPath) {
@@ -367,18 +360,13 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             if previousMessage == nil || nextMessage != previousMessage {
                 if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
                     showTimeStampForMessage = nextMessage
-                    nextCell.setTimeLabelVisible(true, animated: animated)
+                    nextCell.setTimeLabelVisible(true, animated: true)
                 }
             }
         }
         
-        // Update cell heights
-        if #available(iOS 11.0, *) {
-            tableView.reloadData()
-        } else {
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 
@@ -409,7 +397,7 @@ extension ChatMessagesView {
     
     func isNearBottom(_ delta: CGFloat = 120) -> Bool {
         let offsetWithDelta = tableView.contentOffset.y + delta
-        let offsetAtBottom = tableView.contentSize.height - tableView.bounds.height - tableView.contentInset.bottom
+        let offsetAtBottom = tableView.contentSize.height + tableView.contentInset.bottom - tableView.bounds.height
         if offsetWithDelta >= offsetAtBottom {
             return true
         }

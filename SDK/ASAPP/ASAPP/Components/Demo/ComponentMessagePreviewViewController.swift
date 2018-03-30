@@ -213,7 +213,6 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
         quickRepliesView.reloadButtons(for: message)
     }
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
     func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {}
 }
 

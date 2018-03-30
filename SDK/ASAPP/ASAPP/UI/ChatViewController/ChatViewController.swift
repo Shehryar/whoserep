@@ -12,6 +12,7 @@ import SafariServices
 class ChatViewController: ASAPPViewController {
     enum InputState {
         case quickReplies
+        case prechat
         case chat
         case both
         case conversationEnd
@@ -48,6 +49,7 @@ class ChatViewController: ASAPPViewController {
     private let disconnectedTimeThreshold: TimeInterval = 2
     private var segue: ASAPPSegue = .present
     private var inputState: InputState = .both
+    private var previousInputState: InputState?
     
     // MARK: Properties: Keyboard
     
@@ -494,7 +496,7 @@ extension ChatViewController {
         var quickRepliesTop = view.bounds.height
         
         switch inputState {
-        case .chat:
+        case .prechat, .chat:
             chatInputView.showBlur()
             chatInputView.displayBorderTop = true
             chatInputView.bubbleInset.bottom = 8
@@ -722,13 +724,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didTapLastMessage message: ChatMessage) {
-        if !isLiveChat {
-            showQuickRepliesViewIfNecessary()
-        }
-    }
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
                           didUpdateQuickRepliesFrom message: ChatMessage) {
         if message == chatMessagesView.lastMessage {
             quickRepliesView.reloadButtons(for: message)
@@ -736,7 +731,13 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {
-        inputAccessoryView.resignFirstResponder()
+        if inputState == .prechat,
+           let previous = previousInputState,
+           previous != .prechat {
+            updateInputState(previous, animated: true)
+        } else {
+            chatInputView.resignFirstResponder()
+        }
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
@@ -825,7 +826,8 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView) {
         chatInputView.becomeFirstResponder()
-        updateInputState(.chat, animated: true)
+        let nextState: InputState = (previousInputState == nil) ? .prechat : .chat
+        updateInputState(nextState, animated: true)
     }
 }
 
@@ -833,11 +835,10 @@ extension ChatViewController: ChatInputViewDelegate {
 
 extension ChatViewController {
     func updateInputState(_ state: InputState, animated: Bool = false) {
+        previousInputState = inputState
         inputState = state
         
-        if inputState == .chat {
-            chatInputView.becomeFirstResponder()
-        } else {
+        if ![.prechat, .chat].contains(inputState) {
             chatInputView.resignFirstResponder()
         }
         
