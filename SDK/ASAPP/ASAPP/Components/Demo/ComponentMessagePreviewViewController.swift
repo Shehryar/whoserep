@@ -33,7 +33,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         messagesView.delegate = self
-        messagesView.overrideToHideInfoView = true
         
         quickRepliesView.clipsToBounds = true
         quickRepliesView.delegate = self

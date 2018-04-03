@@ -110,12 +110,14 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
     }
     
     override func draw(_ rect: CGRect) {
-        drawBubble(rect)
+        super.draw(rect)
         
         backgroundLayer = setLinearGradient(degrees: 25, colors: ASAPP.styles.colors.attachmentGradientColors)
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         backgroundLayer?.removeAllAnimations()
         backgroundLayer?.removeFromSuperlayer()
     }
@@ -139,7 +141,7 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
         let fittedSize = componentView.view.sizeThatFits(size)
         
         let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
-            
+        
         return CGSize(width: fittedSize.width, height: fittedSize.height + messageButtonsSize.height)
     }
 }

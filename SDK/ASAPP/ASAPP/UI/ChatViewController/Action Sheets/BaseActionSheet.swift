@@ -136,8 +136,12 @@ class BaseActionSheet: UIView {
         delegate?.actionSheetDidTapRestartButton(self)
     }
     
-    func show(in parent: UIView) {
-        parent.addSubview(self)
+    func show(in parent: UIView, below other: UIView? = nil) {
+        if let other = other {
+            parent.insertSubview(self, belowSubview: other)
+        } else {
+            parent.addSubview(self)
+        }
         frame = parent.bounds
         setNeedsLayout()
         layoutIfNeeded()

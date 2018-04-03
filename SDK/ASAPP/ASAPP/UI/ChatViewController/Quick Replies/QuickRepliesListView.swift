@@ -43,7 +43,9 @@ class QuickRepliesListView: UIView {
         didSet {
             selectionDisabled = false
             tableView.reloadData()
-            tableView.setContentOffset(.zero, animated: false)
+            if !(quickReplies?.isEmpty ?? true) {
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     

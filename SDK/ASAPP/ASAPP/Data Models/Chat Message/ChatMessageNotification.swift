@@ -35,7 +35,6 @@ class ChatMessageNotification {
         let title = dict.string(for: JSONKey.title.rawValue) ?? ""
         let text = dict.string(for: JSONKey.text.rawValue)
         
-        // TODO: use QuickReply
         let fakeButtonDict = [
             "type": "button",
             "content": dict.jsonObject(for: JSONKey.button.rawValue) ?? ""

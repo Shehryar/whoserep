@@ -64,6 +64,8 @@ class MessageButtonsView: UIView {
             actions.append(messageAction.action)
         }
         
+        updateButtonInsets()
+        
         for _ in 0...buttons.count {
             let separator = createSeparator()
             separators.append(separator)
@@ -97,36 +99,53 @@ class MessageButtonsView: UIView {
         delegate?.messageButtonsView(self, didTapButtonWith: action)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private struct CalculatedLayout {
+        let buttonFrames: [CGRect]
+        let separatorFrames: [CGRect]
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        var buttonFrames: [CGRect] = []
+        var separatorFrames: [CGRect] = []
         
-        let buttonWidth = bounds.width
+        let buttonWidth = size.width
         let separatorInset: CGFloat = 9
-        let separatorWidth = bounds.width - 2 * separatorInset
+        let separatorWidth = size.width - 2 * separatorInset
         
         var currentY: CGFloat = 0
         for (i, button) in buttons.enumerated() {
-            separators[i].frame = CGRect(
+            separatorFrames.append(CGRect(
                 x: (i == 0 ? 0 : separatorInset) + 1,
                 y: currentY,
-                width: (i == 0 ? bounds.width : separatorWidth) - 2,
-                height: separatorHeight)
+                width: (i == 0 ? size.width : separatorWidth) - 2,
+                height: separatorHeight))
             currentY += separatorHeight
             
             let buttonSize = button.sizeThatFits(CGSize(width: buttonWidth, height: .greatestFiniteMagnitude))
-            button.frame = CGRect(x: 0, y: currentY, width: buttonWidth, height: buttonSize.height + button.titleEdgeInsets.top + button.titleEdgeInsets.bottom)
-            currentY += button.frame.height
+            let buttonHeight = buttonSize.height + button.titleEdgeInsets.top + button.titleEdgeInsets.bottom
+            buttonFrames.append(CGRect(x: 0, y: currentY, width: buttonWidth, height: buttonHeight))
+            currentY += buttonHeight
+        }
+        
+        return CalculatedLayout(buttonFrames: buttonFrames, separatorFrames: separatorFrames)
+    }
+    
+    func updateFrames() {
+        let layout = getFramesThatFit(bounds.size)
+        for (i, button) in buttons.enumerated() {
+            button.frame = layout.buttonFrames[i]
+            separators[i].frame = layout.separatorFrames[i]
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateFrames()
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var currentY: CGFloat = 0
-        for button in buttons {
-            currentY += separatorHeight
-            
-            let buttonSize = button.sizeThatFits(CGSize(width: size.width, height: .greatestFiniteMagnitude))
-            currentY += buttonSize.height + button.titleEdgeInsets.top + button.titleEdgeInsets.bottom
-        }
-        return CGSize(width: size.width, height: floor(currentY))
+        let layout = getFramesThatFit(size)
+        let height = layout.buttonFrames.last?.maxY ?? 0
+        return CGSize(width: size.width, height: ceil(height))
     }
 }

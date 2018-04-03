@@ -89,6 +89,9 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     
     var message: ChatMessage? {
         didSet {
+            bubbleView.borderLayer?.removeAllAnimations()
+            bubbleView.borderLayer?.removeFromSuperlayer()
+            
             guard let message = message else {
                 label.text = nil
                 setNeedsLayout()
@@ -133,7 +136,6 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
             }
             
-            bubbleView.strokeLineWidth = 0.5
             bubbleView.fillColor = fillColor
             bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
             bubbleView.roundedCorners = getBubbleCorners(for: message)

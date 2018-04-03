@@ -65,10 +65,7 @@ class BubbleView: UIView, Bubble {
         drawBubble(rect)
     }
     
-    func prepareForReuse() {
-        borderLayer?.removeAllAnimations()
-        borderLayer?.removeFromSuperlayer()
-    }
+    func prepareForReuse() {}
 }
 
 protocol Bubble: class {
@@ -88,12 +85,12 @@ extension Bubble where Self: UIView {
         clipsToBounds = false
         backgroundColor = .clear
         contentMode = .redraw
+        isOpaque = false
     }
     
     // MARK: - Drawing
     
     func drawBubble(_ rect: CGRect) {
-        
         let fullPath = bubbleViewPath(for: rect)
         fillColor.setFill()
         

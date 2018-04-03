@@ -176,8 +176,6 @@ extension ChatMessageCell {
         attachmentView?.alpha = 1.0
         isTimeLabelVisible = false
         
-        textBubbleView.bubbleView.prepareForReuse()
-        
         isAnimating = false
         animationStartTime = nil
     }

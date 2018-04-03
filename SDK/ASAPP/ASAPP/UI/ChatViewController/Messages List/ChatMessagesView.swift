@@ -74,14 +74,6 @@ class ChatMessagesView: UIView {
         return dataSource.isEmpty()
     }
     
-    var overrideToHideInfoView = false {
-        didSet {
-            if oldValue != overrideToHideInfoView {
-                updateSubviewVisibility()
-            }
-        }
-    }
-    
     // MARK: - Private Properties
     
     private let cellAnimationsEnabled = true
@@ -102,8 +94,6 @@ class ChatMessagesView: UIView {
     private var dataSource: ChatMessagesViewDataSource!
     
     private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
-    private let emptyView = ChatMessagesEmptyView()
     
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     
@@ -129,12 +119,6 @@ class ChatMessagesView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
-        
-        emptyView.frame = bounds
-        emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        addSubview(emptyView)
-        
-        updateSubviewVisibility()
     }
     
     override init(frame: CGRect) {
@@ -172,30 +156,7 @@ class ChatMessagesView: UIView {
 
 // MARK: - Utility
 
-extension ChatMessagesView {
-
-    func updateSubviewVisibility(_ animated: Bool = false) {
-        let currentAlpha = emptyView.alpha
-        var nextAlpha: CGFloat
-        if overrideToHideInfoView || !dataSource.isEmpty() {
-            nextAlpha = 0.0
-        } else {
-            nextAlpha = 1.0
-        }
-        
-        if currentAlpha == nextAlpha {
-            return
-        }
-    
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { 
-                self.emptyView.alpha = nextAlpha
-            })
-        } else {
-            emptyView.alpha = nextAlpha
-        }
-    }
-    
+extension ChatMessagesView {    
     private func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
         guard let message = dataSource.getMessage(for: indexPath) else { return .none }
         
@@ -446,7 +407,14 @@ extension ChatMessagesView {
         otherParticipantIsTyping = isTyping
         
         if isDifferent {
-            tableView.reloadData()
+            let lastSection = dataSource.numberOfSections() - 1
+            let lastRow = dataSource.numberOfRowsInSection(lastSection)
+            let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
+            if isTyping {
+                tableView.insertRows(at: [lastIndexPath], with: .none)
+            } else {
+                tableView.deleteRows(at: [lastIndexPath], with: .none)
+            }
         }
         
         if shouldScrollToBottom {
@@ -464,7 +432,6 @@ extension ChatMessagesView {
         
         dataSource.reloadWithEvents(events)
         tableView.reloadData()
-        updateSubviewVisibility()
         
         if dataSource.allMessages.count != countBefore {
             scrollToBottomAnimated(false)
@@ -516,8 +483,6 @@ extension ChatMessagesView {
         if wasNearBottom {
             scrollToBottomAnimated(cellAnimationsEnabled)
         }
-        
-        updateSubviewVisibility(true)
         
         completion?()
     }

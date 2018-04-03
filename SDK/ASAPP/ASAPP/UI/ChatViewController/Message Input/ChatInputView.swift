@@ -53,7 +53,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
     }
     
-    var displayMediaButton = true {
+    var displayMediaButton = false {
         didSet {
             mediaButton.alpha = displayMediaButton ? 1 : 0
             updateSendButtonForCurrentState()
@@ -426,6 +426,16 @@ extension ChatInputView {
     
     func showBlur() {
         blurredBackground.isHidden = false
+        setNeedsDisplay()
+    }
+    
+    func hideSolidBackground() {
+        backgroundColor = .clear
+        setNeedsDisplay()
+    }
+    
+    func showSolidBackground() {
+        backgroundColor = .white
         setNeedsDisplay()
     }
 }

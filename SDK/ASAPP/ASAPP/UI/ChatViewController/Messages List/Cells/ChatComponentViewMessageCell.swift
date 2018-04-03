@@ -45,7 +45,6 @@ class ChatComponentViewMessageCell: ChatMessageCell {
         super.prepareForReuse()
         cardView.component = nil
         cardView.prepareForReuse()
-        textBubbleView.bubbleView.prepareForReuse()
     }
 }
 

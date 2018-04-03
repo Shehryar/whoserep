@@ -68,7 +68,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero
             styles.imageInsets = backButtonStyle?.insets ?? .zero
-            styles.imageInsets.right += 6
+            styles.imageInsets.right += 40
         }
         
         button.setImage(image?.tinted(styles.foregroundColor, alpha: styles.foregroundColor.cgColor.alpha), for: .normal)

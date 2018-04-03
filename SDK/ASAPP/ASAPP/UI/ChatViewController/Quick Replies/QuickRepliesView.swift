@@ -55,8 +55,6 @@ class QuickRepliesView: UIView {
         }
     }
     
-    var isCollapsed = true
-    
     // MARK: Private Properties
     
     private let buttonSize: CGFloat = 34
@@ -83,6 +81,7 @@ class QuickRepliesView: UIView {
     
     func commonInit() {
         backgroundColor = .clear
+        clipsToBounds = true
         
         addSubview(blurredBackground)
         
@@ -96,6 +95,7 @@ class QuickRepliesView: UIView {
                 strongSelf.delegate?.quickRepliesViewDidTapRestart(strongSelf)
             }
         }
+        restartButton.alpha = isRestartButtonVisible ? 1 : 0
         addSubview(restartButton)
     }
     
@@ -132,6 +132,14 @@ extension QuickRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        updateTopLevelFrames()
+        
+        if !animating {
+            updateListViewFrames()
+        }
+    }
+    
+    func updateTopLevelFrames() {
         // Separator Top
         
         separatorTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: separatorTopStroke)
@@ -144,19 +152,11 @@ extension QuickRepliesView {
         blurredBackground.frame = containerView.frame
         
         restartButton.frame = CGRect(x: 0, y: containerView.frame.maxY - restartButton.defaultHeight, width: bounds.width, height: restartButton.defaultHeight)
-        
-        if !animating {
-            updateListViewFrames()
-        }
     }
     
     func preferredDisplayHeight() -> CGFloat {
-        if isCollapsed {
-            return 0
-        }
-        
         if listViews.isEmpty || listViews[currentViewIndex].quickReplies?.isEmpty == true {
-            return restartButton.defaultHeight
+            return isRestartButtonVisible ? restartButton.defaultHeight : 0
         }
         
         let rowHeight = QuickRepliesListView.approximateRowHeight()
