@@ -234,33 +234,34 @@ extension SocketConnection {
     typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
     
     func authenticate(attempts: Int = 0, _ completion: SocketAuthResponseBlock? = nil) {
-        let authRequest = outgoingMessageSerializer.createAuthRequest()
-        sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
-            var session: Session?
-            
-            if message.type == .response {
-                session = self?.getSession(from: message)
-            }
-            
-            if let session = session {
-                self?.savedSessionManager.save(session: session)
-                self?.outgoingMessageSerializer.session = session
-                self?.isAuthenticated = true
-            } else {
-                self?.isAuthenticated = false
+        outgoingMessageSerializer.createAuthRequest { [weak self] authRequest in
+            self?.sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
+                var session: Session?
                 
-                if self?.outgoingMessageSerializer.session != nil {
-                    self?.savedSessionManager.clearSession()
-                    self?.outgoingMessageSerializer.session = nil
+                if message.type == .response {
+                    session = self?.getSession(from: message)
+                }
+                
+                if let session = session {
+                    self?.savedSessionManager.save(session: session)
+                    self?.outgoingMessageSerializer.session = session
+                    self?.isAuthenticated = true
+                } else {
+                    self?.isAuthenticated = false
                     
-                    if attempts == 0 {
-                        self?.authenticate(attempts: 1, completion)
-                        return
+                    if self?.outgoingMessageSerializer.session != nil {
+                        self?.savedSessionManager.clearSession()
+                        self?.outgoingMessageSerializer.session = nil
+                        
+                        if attempts == 0 {
+                            self?.authenticate(attempts: 1, completion)
+                            return
+                        }
                     }
                 }
+                
+                completion?(message, message.debugError)
             }
-            
-            completion?(message, message.debugError)
         }
     }
     
