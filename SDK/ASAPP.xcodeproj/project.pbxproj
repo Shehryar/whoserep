@@ -151,7 +151,7 @@
 		302AF3331E8049880086B939 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AF3321E8049880086B939 /* ProgressBarView.swift */; };
 		302B6E191E7999770035B584 /* QuickRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E161E7999770035B584 /* QuickRepliesView.swift */; };
 		302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E171E7999770035B584 /* QuickRepliesListView.swift */; };
-		302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyCell.swift */; };
+		302B6E1B1E7999770035B584 /* QuickReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E181E7999770035B584 /* QuickReplyView.swift */; };
 		302B6E1D1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */; };
 		303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */; };
 		303699A71EAFA9FB00A819DF /* ASAPPTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */; };
@@ -566,7 +566,7 @@
 		302AF3321E8049880086B939 /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		302B6E161E7999770035B584 /* QuickRepliesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesView.swift; sourceTree = "<group>"; };
 		302B6E171E7999770035B584 /* QuickRepliesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickRepliesListView.swift; sourceTree = "<group>"; };
-		302B6E181E7999770035B584 /* QuickReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyCell.swift; sourceTree = "<group>"; };
+		302B6E181E7999770035B584 /* QuickReplyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickReplyView.swift; sourceTree = "<group>"; };
 		302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+OutgoingAPI.swift"; sourceTree = "<group>"; };
 		303699A31EAFA9FB00A819DF /* ASAPPStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPStyles.swift; sourceTree = "<group>"; };
 		303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyle.swift; sourceTree = "<group>"; };
@@ -1373,7 +1373,7 @@
 				3ACAAA9B20570B4700963DD3 /* RestartButton.swift */,
 				302B6E161E7999770035B584 /* QuickRepliesView.swift */,
 				302B6E171E7999770035B584 /* QuickRepliesListView.swift */,
-				302B6E181E7999770035B584 /* QuickReplyCell.swift */,
+				302B6E181E7999770035B584 /* QuickReplyView.swift */,
 			);
 			path = "Quick Replies";
 			sourceTree = "<group>";
@@ -2080,7 +2080,7 @@
 				3093A4AC1E730D4F00C65818 /* Event.swift in Sources */,
 				3ACAAA9C20570B4700963DD3 /* RestartButton.swift in Sources */,
 				2804CE091E7886F60001E516 /* ChatMessageImage.swift in Sources */,
-				302B6E1B1E7999770035B584 /* QuickReplyCell.swift in Sources */,
+				302B6E1B1E7999770035B584 /* QuickReplyView.swift in Sources */,
 				3ACBD7F41F8E9743004D36A6 /* NavCloseBarButtonItem.swift in Sources */,
 				30A4BB0A1D510A3600795BA7 /* ImageViewerTransitionAnimator.swift in Sources */,
 				30A4BB0C1D510A8F00795BA7 /* ImageViewerImageView.swift in Sources */,

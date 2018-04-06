@@ -13,7 +13,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledExitConversation = false
     private(set) var calledSaveCurrentEvents = false
     private(set) var calledIsConnected = false
-    private(set) var calledGetQuickReplyMessages = false
+    private(set) var calledGetCurrentQuickReplyMessage = false
     private(set) var calledGetEvents = false
     private(set) var calledSendEnterChatRequest = false
     private(set) var calledSendRequestForAPIAction = false
@@ -39,7 +39,7 @@ class MockConversationManager: ConversationManagerProtocol {
     var isLiveChat: Bool
     var isConnected: Bool
     
-    var nextQuickReplyMessages: [ChatMessage]?
+    var nextQuickReplyMessage: ChatMessage?
     
     required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         events = []
@@ -64,9 +64,9 @@ class MockConversationManager: ConversationManagerProtocol {
         return isConnected
     }
     
-    func getQuickReplyMessages() -> [ChatMessage]? {
-        calledGetQuickReplyMessages = true
-        return nextQuickReplyMessages
+    func getCurrentQuickReplyMessage() -> ChatMessage? {
+        calledGetCurrentQuickReplyMessage = true
+        return nextQuickReplyMessage
     }
     
     func getEvents(afterEvent: Event?, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
@@ -147,7 +147,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledExitConversation = false
         calledSaveCurrentEvents = false
         calledIsConnected = false
-        calledGetQuickReplyMessages = false
+        calledGetCurrentQuickReplyMessage = false
         calledGetEvents = false
         calledSendEnterChatRequest = false
         calledSendRequestForAPIAction = false

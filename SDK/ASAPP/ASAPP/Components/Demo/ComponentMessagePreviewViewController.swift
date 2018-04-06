@@ -88,7 +88,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
         var contentBottom = view.bounds.height
-        if quickRepliesView.eventIds.count > 0 {
+        if quickRepliesView.eventId != nil {
             quickRepliesTop = view.bounds.height - quickRepliesHeight
             contentBottom = quickRepliesTop
         }
@@ -103,7 +103,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     private func clear() {
         messagesView.reloadWithEvents([Event]())
-        quickRepliesView.clear()
+        quickRepliesView.clear(animated: false)
         updateFrames()
     }
     
@@ -114,7 +114,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         
         messagesView.addMessage(message)
         if message.metadata.isReply {
-            quickRepliesView.add(message: message, animated: true)
+            quickRepliesView.show(message: message, animated: true)
         }
         updateFrames()
     }

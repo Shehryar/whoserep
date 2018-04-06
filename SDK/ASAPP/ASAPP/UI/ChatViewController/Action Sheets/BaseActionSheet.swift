@@ -16,7 +16,7 @@ protocol ActionSheetDelegate: class {
 class BaseActionSheet: UIView {
     weak var delegate: ActionSheetDelegate?
     
-    private let contentView = UIView()
+    let contentView = UIView()
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()

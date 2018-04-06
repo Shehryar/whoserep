@@ -1,5 +1,5 @@
 //
-//  QuickReplyCellSpec.swift
+//  QuickReplyViewSpec.swift
 //  UI Tests
 //
 //  Created by Hans Hyttinen on 10/19/17.
@@ -12,9 +12,9 @@ import Quick
 import Nimble
 import Nimble_Snapshots
 
-class QuickReplyCellSpec: QuickSpec {
+class QuickReplyViewSpec: QuickSpec {
     override func spec() {
-        describe("QuickReplyCell") {
+        describe("QuickReplyView") {
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -39,7 +39,7 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with default styles") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = Action(content: nil)!
@@ -53,7 +53,7 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with a filled bell icon") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = Action(content: nil)!
@@ -68,7 +68,7 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with a web action") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = WebPageAction(content: [
@@ -84,7 +84,7 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with a web action and a filled bell icon") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = WebPageAction(content: [
@@ -101,7 +101,7 @@ class QuickReplyCellSpec: QuickSpec {
                 
                 context("with a short title and a web action and a filled bell icon") {
                     it("has a valid snapshot") {
-                        let cell = QuickReplyCell(style: .default, reuseIdentifier: "quickReplyCell")
+                        let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = WebPageAction(content: [

@@ -25,7 +25,7 @@ protocol ConversationManagerProtocol {
     func saveCurrentEvents(async: Bool)
     func isConnected(retryConnectionIfNeeded: Bool) -> Bool
     
-    func getQuickReplyMessages() -> [ChatMessage]?
+    func getCurrentQuickReplyMessage() -> ChatMessage?
     func getEvents(afterEvent: Event?, completion: @escaping FetchedEventsCompletion)
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
@@ -295,35 +295,8 @@ extension ConversationManager {
 // MARK: - Quick Replies
 
 extension ConversationManager {
-    
-    func getQuickReplyMessages() -> [ChatMessage]? {
-        guard let (currentQuickReplyEvent, currentQuickReplyMessage) = getCurrentQuickReplyMessage() else {
-            return nil
-        }
-        
-        var quickReplyMessages: [ChatMessage] = [currentQuickReplyMessage]
-        var parentEventLogSeq = currentQuickReplyEvent.parentEventLogSeq
-        
-        for (_, event) in events.enumerated().reversed() {
-            if parentEventLogSeq == nil || parentEventLogSeq! > event.eventLogSeq || parentEventLogSeq == 0 {
-                break
-            }
-            
-            if event.eventLogSeq == parentEventLogSeq {
-                if let message = event.chatMessage {
-                    quickReplyMessages.append(message)
-                    parentEventLogSeq = event.parentEventLogSeq
-                } else {
-                    break
-                }
-            }
-        }
-        
-        return quickReplyMessages.reversed()
-    }
-    
-    func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
-        for (_, event) in events.enumerated().reversed() {
+    func getCurrentQuickReplyMessage() -> ChatMessage? {
+        for event in events.reversed() {
             if event.eventType == .accountMerge {
                 break
             }
@@ -331,7 +304,7 @@ extension ConversationManager {
             if event.isReply {
                 if let chatMessage = event.chatMessage,
                     let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
-                    return (event, chatMessage)
+                    return chatMessage
                 }
                 break
             }

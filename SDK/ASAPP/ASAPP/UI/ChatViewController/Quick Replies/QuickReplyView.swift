@@ -1,5 +1,5 @@
 //
-//  QuickReplyCell.swift
+//  QuickReplyView.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/15/16.
@@ -8,10 +8,12 @@
 
 import UIKit
 
-class QuickReplyCell: UITableViewCell {
-    class var reuseIdentifier: String {
-        return "QuickReplyCell"
-    }
+protocol QuickReplyViewDelegate: class {
+    func didTapQuickReplyView(_ quickReplyView: QuickReplyView)
+}
+
+class QuickReplyView: UIView {
+    weak var delegate: QuickReplyViewDelegate?
     
     var textInset: UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
@@ -47,12 +49,14 @@ class QuickReplyCell: UITableViewCell {
         return leftIconImage != nil
     }
     
+    private var gestureRecognizer: UIGestureRecognizer?
+    
     // MARK: Init
     
     func commonInit() {
         accessibilityTraits = UIAccessibilityTraitButton
-        selectionStyle = .none
         backgroundColor = .clear
+        isUserInteractionEnabled = true
         
         button.isUserInteractionEnabled = false
         button.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
@@ -69,9 +73,19 @@ class QuickReplyCell: UITableViewCell {
         button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundNormal, forState: .normal)
         button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundHighlighted, forState: .highlighted)
         button.layer.masksToBounds = false
-        contentView.addSubview(button)
+        addSubview(button)
         
         updateIcon()
+        
+        let press = UILongPressGestureRecognizer(target: self, action: #selector(didPress))
+        press.minimumPressDuration = 0
+        addGestureRecognizer(press)
+        gestureRecognizer = press
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,16 +93,15 @@ class QuickReplyCell: UITableViewCell {
         commonInit()
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        commonInit()
+    deinit {
+        if let recognizer = gestureRecognizer {
+            removeGestureRecognizer(recognizer)
+        }
     }
     
     // MARK: Selected / Highlighted
     
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
+    func setHighlighted(_ highlighted: Bool, animated: Bool) {
         button.isHighlighted = highlighted
         button.updateButtonDisplay()
     }
@@ -122,11 +135,20 @@ class QuickReplyCell: UITableViewCell {
         
         button.isEnabled = enabled
     }
+    
+    @objc func didPress(recognizer: UIGestureRecognizer) {
+        let highlighted = ![.ended, .cancelled].contains(recognizer.state)
+        setHighlighted(highlighted, animated: true)
+        
+        if recognizer.state == .ended {
+            delegate?.didTapQuickReplyView(self)
+        }
+    }
 }
 
 // MARK: - Layout
 
-extension QuickReplyCell {
+extension QuickReplyView {
     private struct CalculatedLayout {
         let buttonFrame: CGRect
     }
@@ -163,7 +185,7 @@ extension QuickReplyCell {
         let layout = getFramesThatFit(bounds.size)
         var height = layout.buttonFrame.height
         if height > 0 {
-            height += QuickReplyCell.contentInset.top + QuickReplyCell.contentInset.bottom
+            height += QuickReplyView.contentInset.top + QuickReplyView.contentInset.bottom
         }
         
         return CGSize(width: size.width, height: height)

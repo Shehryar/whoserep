@@ -23,18 +23,12 @@ class QuickRepliesView: UIView {
 
     weak var delegate: QuickRepliesViewDelegate?
     
-    var eventIds: [Int] {
-        var eventIds = [Int]()
-        for view in listViews {
-            if let message = view.message {
-                eventIds.append(message.metadata.eventId)
-            }
-        }
-        return eventIds
+    var eventId: Int? {
+        return listView.message?.metadata.eventId
     }
     
     var currentMessage: ChatMessage? {
-        return listViews.last?.message
+        return listView.message
     }
     
     var currentSRSClassification: String? {
@@ -44,15 +38,19 @@ class QuickRepliesView: UIView {
     var isRestartButtonVisible: Bool = false {
         didSet {
             restartButton.alpha = isRestartButtonVisible ? 1 : 0
-            listViews.forEach { view in
-                view.contentInsetBottom = isRestartButtonVisible ? restartButton.defaultHeight : 0
-            }
-            if isRestartButtonVisible && listViews.count > currentViewIndex && listViews[currentViewIndex].contentHeight > containerView.frame.height - restartButton.defaultHeight {
+            listView.contentInsetBottom = isRestartButtonVisible ? restartButton.defaultHeight : 0
+            if isRestartButtonVisible,
+               !listView.isEmpty,
+               listView.contentHeight > containerView.frame.height - restartButton.defaultHeight {
                 restartButton.showBlur()
             } else {
                 restartButton.hideBlur()
             }
         }
+    }
+    
+    var initialAnimationDuration: TimeInterval {
+        return listView.getTotalAnimationDuration(delay: true, direction: .in)
     }
     
     // MARK: Private Properties
@@ -61,9 +59,7 @@ class QuickRepliesView: UIView {
     
     private let separatorTopStroke: CGFloat = 1
     
-    private var listViews = [QuickRepliesListView]()
-    
-    private var currentViewIndex = 0
+    private let listView = QuickRepliesListView()
     
     private var animating = false
     
@@ -84,6 +80,8 @@ class QuickRepliesView: UIView {
         clipsToBounds = true
         
         addSubview(blurredBackground)
+        
+        containerView.addSubview(listView)
         
         addSubview(containerView)
         
@@ -120,9 +118,7 @@ class QuickRepliesView: UIView {
     // MARK: Display
     
     func updateDisplay() {
-        for view in listViews {
-            view.updateDisplay()
-        }
+        listView.updateDisplay()
     }
 }
 
@@ -132,14 +128,10 @@ extension QuickRepliesView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        updateTopLevelFrames()
-        
-        if !animating {
-            updateListViewFrames()
-        }
+        updateFrames()
     }
     
-    func updateTopLevelFrames() {
+    func updateFrames() {
         // Separator Top
         
         separatorTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: separatorTopStroke)
@@ -150,12 +142,13 @@ extension QuickRepliesView {
         let containerHeight = bounds.height - containerTop
         containerView.frame = CGRect(x: 0, y: containerTop, width: bounds.width, height: containerHeight)
         blurredBackground.frame = containerView.frame
+        listView.frame = containerView.bounds
         
         restartButton.frame = CGRect(x: 0, y: containerView.frame.maxY - restartButton.defaultHeight, width: bounds.width, height: restartButton.defaultHeight)
     }
     
     func preferredDisplayHeight() -> CGFloat {
-        if listViews.isEmpty || listViews[currentViewIndex].quickReplies?.isEmpty == true {
+        if listView.isEmpty {
             return isRestartButtonVisible ? restartButton.defaultHeight : 0
         }
         
@@ -163,26 +156,14 @@ extension QuickRepliesView {
         let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
         return restartButtonHeight + rowHeight * 3.5
     }
-    
-    func updateListViewFrames() {
-        let width = containerView.bounds.width
-        let height = containerView.bounds.height
-        
-        var left = -width * CGFloat(currentViewIndex)
-        for listView in listViews {
-            listView.frame = CGRect(x: left, y: 0, width: width, height: height)
-            left += width
-        }
-    }
 }
 
 // MARK: - Instance Methods
 
 extension QuickRepliesView {
   
-    private func createQuickRepliesListView(with message: ChatMessage) -> QuickRepliesListView {
-        let listView = QuickRepliesListView()
-        listView.message = message
+    private func updateListView(with message: ChatMessage) {
+        listView.update(for: message, animated: true)
         listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
                let delegate = strongSelf.delegate {
@@ -190,109 +171,44 @@ extension QuickRepliesView {
             }
             return false
         }
-        containerView.addSubview(listView)
-        listViews.append(listView)
-        updateListViewFrames()
-        
-        return listView
-    }
-    
-    private func goToPreviousListView() {
-        if listViews.count > 1 && currentViewIndex > 0 {
-            currentViewIndex -= 1
-            
-            let viewToRemove = self.listViews.last
-            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.updateListViewFrames()
-                self.listViews.removeLast()
-            }, completion: { [weak self] _ in
-                viewToRemove?.removeFromSuperview()
-                
-                if let currentView = self?.listViews.last {
-                    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, currentView)
-                }
-            })
-        }
     }
     
     // MARK: Public
     
-    func reload(with messages: [ChatMessage]?) {
-        clear()
-        
-        if let messages = messages {
-            for message in messages {
-                add(message: message, animated: false)
-            }
-        }
-    }
-    
-    func add(message: ChatMessage, animated: Bool) {
-        let listView = createQuickRepliesListView(with: message)
-        if let nextIndex = listViews.index(of: listView) {
-            currentViewIndex = nextIndex
-        }
-        
-        if listViews.count > 1 && animated {
-            animating = true
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
-                self?.updateListViewFrames()
-            }, completion: { [weak self] _ in
-                self?.animating = false
-                listView.flashScrollIndicatorsIfNecessary()
-                for previousView in (self?.listViews ?? []) where previousView != listView {
-                    previousView.clearSelection()
-                }
-            })
-        } else {
-            updateListViewFrames()
-            listView.flashScrollIndicatorsIfNecessary()
-        }
+    func show(message: ChatMessage, animated: Bool) {
+        updateListView(with: message)
+        listView.flashScrollIndicatorsIfNecessary()
     }
     
     func disableCurrentButtons() {
-        guard let currentView = listViews.last else {
-            return
-        }
-        
-        currentView.selectionDisabled = true
+        listView.selectionDisabled = true
     }
     
     func reloadButtons(for message: ChatMessage) {
-        for listView in listViews
-        where listView.message?.metadata.eventId == message.metadata.eventId {
-            listView.message = message
-            break
+        if listView.message?.metadata.eventId == message.metadata.eventId {
+            listView.update(for: message, animated: true)
         }
     }
     
-    func clear() {
-        for view in listViews {
-            view.message = nil
-            view.removeFromSuperview()
-        }
-        listViews.removeAll()
-        currentViewIndex = 0
+    func clear(animated: Bool) {
+        listView.update(for: nil, animated: animated)
         separatorTopView.alpha = 1
     }
     
     func deselectCurrentSelection(animated: Bool) {
-        if let currentView = listViews.last {
-            currentView.deselectButtonSelection(animated: animated)
-        }
+        listView.deselectButtonSelection(animated: animated)
     }
     
     func showRestartActionButton(animated: Bool) {
-        clear()
+        clear(animated: animated)
         
         if animated {
             animating = true
-            UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: { [weak self] in
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 self?.separatorTopView.alpha = 1
                 self?.isRestartButtonVisible = true
                 self?.setNeedsLayout()
                 self?.layoutIfNeeded()
-                self?.updateListViewFrames()
             }, completion: { [weak self] _ in
                 self?.animating = false
             })
@@ -301,7 +217,6 @@ extension QuickRepliesView {
             isRestartButtonVisible = true
             setNeedsLayout()
             layoutIfNeeded()
-            updateListViewFrames()
         }
     }
 }

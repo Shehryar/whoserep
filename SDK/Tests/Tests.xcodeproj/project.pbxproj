@@ -29,7 +29,7 @@
 		3A0521621F98F2B80072D089 /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */; };
 		3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521631F99211E0072D089 /* BubbleViewSpec.swift */; };
 		3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521651F9926220072D089 /* ButtonSpec.swift */; };
-		3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */; };
+		3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */; };
 		3A05216F1F9A78C70072D089 /* SessionManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05216E1F9A78C70072D089 /* SessionManagerSpec.swift */; };
 		3A0521711F9A976B0072D089 /* ChatMessageAttachmentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */; };
 		3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */; };
@@ -210,7 +210,7 @@
 		3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble_Snapshots.framework; path = ../Carthage/Build/iOS/Nimble_Snapshots.framework; sourceTree = "<group>"; };
 		3A0521631F99211E0072D089 /* BubbleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleViewSpec.swift; sourceTree = "<group>"; };
 		3A0521651F9926220072D089 /* ButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSpec.swift; sourceTree = "<group>"; };
-		3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReplyCellSpec.swift; sourceTree = "<group>"; };
+		3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReplyViewSpec.swift; sourceTree = "<group>"; };
 		3A05216E1F9A78C70072D089 /* SessionManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerSpec.swift; sourceTree = "<group>"; };
 		3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageAttachmentSpec.swift; sourceTree = "<group>"; };
 		3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItemSpec.swift; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
-				3A0521691F9937630072D089 /* QuickReplyCellSpec.swift */,
+				3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
 				3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */,
 				3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */,
@@ -758,7 +758,7 @@
 				3A26997C206063C9007C0EC6 /* ChatInputViewTestCase.swift in Sources */,
 				3AED18E71FA0E669005955DA /* XCUIElementExtensions.swift in Sources */,
 				3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */,
-				3A05216A1F9937630072D089 /* QuickReplyCellSpec.swift in Sources */,
+				3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */,

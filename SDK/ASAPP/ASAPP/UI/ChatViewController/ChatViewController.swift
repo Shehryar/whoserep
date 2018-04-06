@@ -472,12 +472,11 @@ extension ChatViewController {
     
     func updateFrames() {
         var minVisibleY: CGFloat = 0
-        if let navigationBar = navigationController?.navigationBar {
-            if let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
-                let intersection = chatMessagesView.frame.intersection(navBarFrame)
-                if !intersection.isNull {
-                    minVisibleY = intersection.maxY
-                }
+        if let navigationBar = navigationController?.navigationBar,
+           let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
+            let intersection = chatMessagesView.frame.intersection(navBarFrame)
+            if !intersection.isNull {
+                minVisibleY = intersection.maxY
             }
         }
         
@@ -526,7 +525,7 @@ extension ChatViewController {
         let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both ? chatInputView.frame.height : 0)
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeightWithChat)
         if previousInputState != inputState {
-            quickRepliesView.updateTopLevelFrames()
+            quickRepliesView.updateFrames()
         }
         
         if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
@@ -544,8 +543,10 @@ extension ChatViewController {
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom()
         if animated {
-            if inputState == .both && quickRepliesView.frame.height <= chatInputView.frame.height {
-                chatInputView.showSolidBackground()
+            if inputState == .both {
+                Dispatcher.performOnMainThread { [weak self] in
+                    self?.chatInputView.showSolidBackground()
+                }
             }
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 self?.updateFrames()
@@ -553,7 +554,9 @@ extension ChatViewController {
                     self?.chatMessagesView.scrollToBottomAnimated(false)
                 }
             }, completion: { [weak self] _ in
-                self?.chatInputView.hideSolidBackground()
+                Dispatcher.delay(self?.quickRepliesView.initialAnimationDuration ?? 0) { [weak self] in
+                    self?.chatInputView.hideSolidBackground()
+                }
                 completion?()
             })
         } else {
@@ -867,20 +870,12 @@ extension ChatViewController {
     // MARK: Showing
     
     func showQuickRepliesViewIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
-        if let quickReplyMessages = conversationManager.getQuickReplyMessages() {
-            showQuickRepliesViewIfNecessary(with: quickReplyMessages, animated: animated, completion: completion)
+        if let quickReplyMessage = conversationManager.getCurrentQuickReplyMessage() {
+            showQuickRepliesView(with: quickReplyMessage, animated: animated, completion: completion)
         } else if let lastEvent = conversationManager.events.last,
             lastEvent.eventType == .conversationEnd || lastEvent.chatMessage?.userCanTypeResponse == false {
             updateInputState(.conversationEnd)
         }
-    }
-    
-    private func showQuickRepliesViewIfNecessary(with messages: [ChatMessage], animated: Bool = true, completion: (() -> Void)? = nil) {
-        quickRepliesMessage = messages.last
-        
-        quickRepliesView.reload(with: messages)
-        conversationManager.currentSRSClassification = quickRepliesView.currentSRSClassification
-        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
     
     func showQuickRepliesView(with message: ChatMessage,
@@ -889,7 +884,7 @@ extension ChatViewController {
         guard message.quickReplies != nil && !isLiveChat else { return }
         
         quickRepliesMessage = message
-        quickRepliesView.add(message: message, animated: animated)
+        quickRepliesView.show(message: message, animated: animated)
         conversationManager.currentSRSClassification = quickRepliesView.currentSRSClassification
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
@@ -899,7 +894,7 @@ extension ChatViewController {
     func clearQuickRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = nil
         
-        quickRepliesView.clear()
+        quickRepliesView.clear(animated: animated)
         
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
@@ -1075,6 +1070,18 @@ extension ChatViewController: ConversationManagerDelegate {
         
         self.actionSheet = actionSheet
         actionSheet.show(in: view, below: spinner)
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let strongSelf = self else { return }
+            var top: CGFloat = 0
+            if let navigationBar = strongSelf.navigationController?.navigationBar,
+               let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: strongSelf.view) {
+                let intersection = strongSelf.chatMessagesView.frame.intersection(navBarFrame)
+                if !intersection.isNull {
+                    top = intersection.maxY
+                }
+            }
+            strongSelf.spinner.frame = CGRect(x: 0, y: top, width: strongSelf.view.bounds.width, height: strongSelf.view.bounds.height - top - actionSheet.contentView.bounds.height)
+        }
     }
     
     // Updated Messages
