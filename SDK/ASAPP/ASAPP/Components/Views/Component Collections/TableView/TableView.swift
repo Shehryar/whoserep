@@ -22,6 +22,9 @@ class TableView: BaseComponentView {
     
     override var component: Component? {
         didSet {
+            if let item = tableViewItem {
+                tableView.separatorStyle = item.separatorStyle
+            }
             tableView.reloadData()
         }
     }
