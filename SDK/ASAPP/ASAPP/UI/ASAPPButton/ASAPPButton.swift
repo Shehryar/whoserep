@@ -109,13 +109,13 @@ public class ASAPPButton: UIView {
         let currentAlpha = contentView.alpha
         let currentTransform = contentView.transform
         
-        contentView.alpha = 0.0
-        contentView.transform = CGAffineTransform.identity
+        contentView.alpha = 0
+        contentView.transform = .identity
         contentView.frame = bounds
         updateCornerRadius()
         
         let labelInset = floor(0.15 * bounds.height)
-        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: labelInset, bottom: labelInset, right: labelInset))
+        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: 0, bottom: labelInset, right: 0))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform

@@ -572,7 +572,6 @@
 		303699A41EAFA9FB00A819DF /* ASAPPTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyle.swift; sourceTree = "<group>"; };
 		303699A81EAFAA2E00A819DF /* ASAPPTextStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPTextStyles.swift; sourceTree = "<group>"; };
 		303699AA1EAFAAE700A819DF /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		303850631D91E811006FDFC4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		303C87711D775A5500213F6B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Localizable.strings; sourceTree = "<group>"; };
 		3046CDF91E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentMessagePreviewViewController.swift; sourceTree = "<group>"; };
 		3046CE4E1E8AF0C90022AEE5 /* alertError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alertError.png; sourceTree = "<group>"; };
@@ -1783,7 +1782,6 @@
 		FD8D8AFC1D0F6E2A001B420B /* ASAPP */ = {
 			isa = PBXGroup;
 			children = (
-				303850631D91E811006FDFC4 /* README.md */,
 				30099DB01D3EDBC400171D56 /* ASAPP */,
 				30099E051D3FD1DA00171D56 /* Resources */,
 				30E87C4B1D93112E00B5EF9E /* Embedded Third-Party Code */,

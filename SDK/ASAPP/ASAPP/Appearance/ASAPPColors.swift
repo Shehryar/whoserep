@@ -159,7 +159,7 @@ public class ASAPPColors: NSObject {
     public var helpButtonText = UIColor.white
     
     /// The color of the background of an `ASAPPButton`.
-    public var helpButtonBackground = UIColor(red: 0.374, green: 0.392, blue: 0.434, alpha: 1)
+    public var helpButtonBackground = UIColor.ASAPP.eggplant
 }
 
 extension ASAPPColors {
@@ -168,6 +168,7 @@ extension ASAPPColors {
         
         navBarButtonActive = primary
         messageBackground = primary
+        helpButtonBackground = primary
         navBarTitle = dark.withAlphaComponent(0.85)
         navBarButton = dark.withAlphaComponent(0.9)
         textSecondary = dark
