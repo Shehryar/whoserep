@@ -87,9 +87,6 @@
                 <a href="../Enums/ASAPPLogLevel.html">ASAPPLogLevel</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ASAPPNavBarButtonStyle.html">ASAPPNavBarButtonStyle</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/ASAPPSegue.html">ASAPPSegue</a>
               </li>
             </ul>
@@ -131,6 +128,71 @@
           <section class="section task-group-section">
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/General"></a>
+                <a name="//apple_ref/swift/Section/General" class="dashAnchor"></a>
+                <a href="#/General">
+                  <h3 class="section-name">General</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)primary"></a>
+                    <a name="//apple_ref/swift/Property/primary" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)primary">primary</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The color of most primary text and UI elements such as icons and buttons.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">primary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)dark"></a>
+                    <a name="//apple_ref/swift/Property/dark" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)dark">dark</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The color of most secondary text and UI elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dark</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Chat:%20Navigation%20Bar"></a>
                 <a name="//apple_ref/swift/Section/Chat: Navigation Bar" class="dashAnchor"></a>
                 <a href="#/Chat:%20Navigation%20Bar">
@@ -158,7 +220,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">white</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarBackground</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -185,7 +247,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarTitle</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">57.0</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">61.0</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">71.0</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarTitle</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span><span class="o">.</span><span class="nf">withAlphaComponent</span><span class="p">(</span><span class="mf">0.85</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -205,14 +267,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The color of text in navigation bar buttons in the chat view with <code><a href="../Enums/ASAPPNavBarButtonStyle.html#/c:@M@ASAPP@E@ASAPPNavBarButtonStyle@ASAPPNavBarButtonStyleText">ASAPPNavBarButtonStyle.text</a></code>, as well as the color of the close/back button.</p>
+                        <p>The color of navigation bar buttons in the chat view, as well as the color of the close/back button.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarButton</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.355</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.394</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.494</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarButton</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span></code></pre>
 
                         </div>
                       </div>
@@ -222,9 +284,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonForeground"></a>
-                    <a name="//apple_ref/swift/Property/navBarButtonForeground" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonForeground">navBarButtonForeground</a>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonActive"></a>
+                    <a name="//apple_ref/swift/Property/navBarButtonActive" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonActive">navBarButtonActive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -232,41 +294,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The color of text in navigation bar buttons with <code><a href="../Enums/ASAPPNavBarButtonStyle.html#/c:@M@ASAPP@E@ASAPPNavBarButtonStyle@ASAPPNavBarButtonStyleBubble">ASAPPNavBarButtonStyle.bubble</a></code>.</p>
+                        <p>The color of navigaiton bar buttons while tapped.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarButtonForeground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.264</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.278</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.316</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonBackground"></a>
-                    <a name="//apple_ref/swift/Property/navBarButtonBackground" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)navBarButtonBackground">navBarButtonBackground</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The color of the background in navigation bar buttons with <code><a href="../Enums/ASAPPNavBarButtonStyle.html#/c:@M@ASAPP@E@ASAPPNavBarButtonStyle@ASAPPNavBarButtonStyleBubble">ASAPPNavBarButtonStyle.bubble</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarButtonBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.866</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.878</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.907</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarButtonActive</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span></code></pre>
 
                         </div>
                       </div>
@@ -385,7 +420,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textSecondary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.42</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textSecondary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span></code></pre>
 
                         </div>
                       </div>
@@ -412,7 +447,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">separatorPrimary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.59</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.60</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.62</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">separatorPrimary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.86</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.87</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.88</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -432,14 +467,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The color of secondary separators, such as the borders of quick reply buttons, checkboxes, and tabs.</p>
+                        <p>The color of secondary separators, such as the borders of checkboxes and tabs.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">separatorSecondary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.816</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.824</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.847</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">separatorSecondary</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span><span class="o">.</span><span class="nf">withAlphaComponent</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -547,7 +582,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">positiveSelectedBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.11</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">positiveSelectedBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">successGreen</span></code></pre>
 
                         </div>
                       </div>
@@ -574,7 +609,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">negativeSelectedBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.82</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.11</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.26</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">negativeSelectedBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">errorRed</span></code></pre>
 
                         </div>
                       </div>
@@ -612,7 +647,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textButtonPrimary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span><span class="nv">textColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.125</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.714</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.931</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textButtonPrimary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span><span class="nv">textColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -666,7 +701,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buttonPrimary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.204</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.698</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.925</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buttonPrimary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -693,7 +728,34 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buttonSecondary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buttonSecondary</span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a></span><span class="p">(</span><span class="nv">backgroundColor</span><span class="p">:</span> <span class="o">.</span><span class="n">clear</span><span class="p">,</span> <span class="nv">textColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span><span class="p">,</span> <span class="nv">border</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)textShadow"></a>
+                    <a name="//apple_ref/swift/Property/textShadow" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)textShadow">textShadow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The color of the drop shadow for text in certain buttons.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textShadow</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.58</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -711,33 +773,6 @@
                 </a>
               </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)messagesListBackground"></a>
-                    <a name="//apple_ref/swift/Property/messagesListBackground" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)messagesListBackground">messagesListBackground</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The color of the background of the chat messages view.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">messagesListBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">alabasterWhite</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -866,7 +901,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">replyMessageBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.89</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.89</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.92</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">replyMessageBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span><span class="o">.</span><span class="nf">withAlphaComponent</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -893,7 +928,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">replyMessageBorder</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.89</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.89</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.92</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">replyMessageBorder</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">purpleHaze</span><span class="o">.</span><span class="nf">withAlphaComponent</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -911,33 +946,6 @@
                 </a>
               </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPColors(py)quickRepliesBackground"></a>
-                    <a name="//apple_ref/swift/Property/quickRepliesBackground" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPColors(py)quickRepliesBackground">quickRepliesBackground</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The color of the background of the quick replies list.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">quickRepliesBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">alabasterWhite</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1088,7 +1096,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">helpButtonBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mf">0.374</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mf">0.392</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mf">0.434</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">helpButtonBackground</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="kt"><a href="../Classes/ASAPP.html">ASAPP</a></span><span class="o">.</span><span class="n">eggplant</span></code></pre>
 
                         </div>
                       </div>
@@ -1100,7 +1108,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-03-14)</p>
+          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-04-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

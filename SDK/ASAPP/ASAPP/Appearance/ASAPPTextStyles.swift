@@ -91,7 +91,7 @@ public class ASAPPTextStyles: NSObject {
         error.updateFont(fontFamily.regular)
     }
     
-    public func updateColors(with color: UIColor) {
+    internal func updateColors(with color: UIColor) {
         header1.updateColor(color.withAlphaComponent(0.9))
         header2.updateColor(color)
         header3.updateColor(color)
