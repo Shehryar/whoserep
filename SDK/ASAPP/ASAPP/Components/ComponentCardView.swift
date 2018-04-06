@@ -142,7 +142,7 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
         
         let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
         
-        return CGSize(width: fittedSize.width, height: fittedSize.height + messageButtonsSize.height)
+        return CGSize(width: size.width, height: fittedSize.height + messageButtonsSize.height)
     }
 }
 

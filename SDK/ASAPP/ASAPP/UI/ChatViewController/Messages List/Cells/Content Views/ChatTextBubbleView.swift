@@ -160,7 +160,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     
     var isLongPressing: Bool = false
     
-    let maxBubbleWidthPercentage: CGFloat = 0.8
+    let maxBubbleWidth: CGFloat = 260
     
     let contentInset = UIEdgeInsets.zero
     
@@ -255,9 +255,8 @@ extension ChatTextBubbleView {
             return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }
         
-        let maxBubbleWidth = floor((size.width - contentInset.left - contentInset.right) * maxBubbleWidthPercentage)
-        let maxTextWidth = maxBubbleWidth
-        let textSize = label.sizeThatFits(CGSize(width: maxTextWidth, height: 0))
+        let maxWidth = min(size.width - contentInset.left - contentInset.right, maxBubbleWidth)
+        let textSize = label.sizeThatFits(CGSize(width: maxWidth, height: 0))
         guard textSize.height > 0 else {
             return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }

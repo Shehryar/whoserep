@@ -65,9 +65,7 @@ class ChatMessageCell: UITableViewCell {
     
     let timeLabelMarginTop: CGFloat = 4.0
     
-    internal var attachmentViewMaxWidthPercentage: CGFloat {
-        return 0.8
-    }
+    internal let attachmentViewWidth: CGFloat = 260
     
     private(set) var contentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16) {
         didSet {
@@ -212,8 +210,7 @@ extension ChatMessageCell {
     func getAttachmentViewSizeThatFits(_ size: CGSize) -> CGSize {
         var attachmentViewSize: CGSize = .zero
         if let attachmentView = attachmentView {
-            let maxAttachmentWidth = floor(size.width * attachmentViewMaxWidthPercentage)
-            attachmentViewSize = attachmentView.sizeThatFits(CGSize(width: maxAttachmentWidth, height: 0))
+            attachmentViewSize = attachmentView.sizeThatFits(CGSize(width: attachmentViewWidth, height: 0))
         }
         return attachmentViewSize
     }
@@ -241,7 +238,7 @@ extension ChatMessageCell {
             attachmentViewTop += attachmentViewMarginTop
         }
         var attachmentViewLeft = contentInset.left
-        if attachmentViewMaxWidthPercentage < 1 && !isReply {
+        if !isReply {
             attachmentViewLeft = size.width - contentInset.right - ceil(attachmentViewSize.width)
         }
         let attachmentViewFrame = CGRect(x: attachmentViewLeft, y: attachmentViewTop,
