@@ -49,7 +49,9 @@ class QuickReplyView: UIView {
         return leftIconImage != nil
     }
     
-    private var gestureRecognizer: UIGestureRecognizer?
+    private(set) var gestureRecognizer: UIGestureRecognizer?
+    
+    var canBeHighlighted = true
     
     // MARK: Init
     
@@ -138,7 +140,10 @@ class QuickReplyView: UIView {
     
     @objc func didPress(recognizer: UIGestureRecognizer) {
         let highlighted = ![.ended, .cancelled].contains(recognizer.state)
-        setHighlighted(highlighted, animated: true)
+        Dispatcher.delay(100) { [weak self] in
+            let shouldStillHighlight = ![.ended, .cancelled].contains(recognizer.state)
+            self?.setHighlighted(highlighted && shouldStillHighlight && (self?.canBeHighlighted ?? false), animated: true)
+        }
         
         if recognizer.state == .ended {
             delegate?.didTapQuickReplyView(self)

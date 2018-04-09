@@ -64,6 +64,7 @@ class QuickRepliesListView: UIView {
         scrollView.backgroundColor = .clear
         scrollView.scrollsToTop = false
         scrollView.alwaysBounceVertical = false
+        scrollView.delegate = self
         scrollView.contentInset = UIEdgeInsets(top: QuickReplyView.contentInset.top * 3 - 1, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
         addSubview(scrollView)
     }
@@ -129,16 +130,12 @@ class QuickRepliesListView: UIView {
     }
     
     private func updateViewsAnimated(_ animated: Bool) {
-        func updateBlock() {
-            for i in quickReplyViews.indices {
-                styleQuickReplyView(at: i)
-            }
-        }
-        
         if animated {
-            UIView.animate(withDuration: 0.3, animations: updateBlock)
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.updateDisplay()
+            }
         } else {
-            updateBlock()
+            updateDisplay()
         }
     }
 }
@@ -151,7 +148,7 @@ extension QuickRepliesListView {
         let delay = getDelay(initial: shouldDelay, at: lastIndex)
         let fadeDuration = getFadeDuration(at: lastIndex, direction: direction)
         let translationDuration = getTranslationDuration(direction: direction)
-        return delay + max(fadeDuration, translationDuration)
+        return delay + translationDuration
     }
     
     private func getDelay(initial: Bool, at index: Int) -> TimeInterval {
@@ -224,6 +221,7 @@ extension QuickRepliesListView {
         scrollView.subviews.forEach { view in
             view.removeFromSuperview()
         }
+        scrollView.contentOffset = CGPoint(x: 0, y: -scrollView.contentInset.top)
         scrollView.setNeedsLayout()
         scrollView.layoutIfNeeded()
         
@@ -237,6 +235,7 @@ extension QuickRepliesListView {
         for (i, quickReply) in quickReplies.enumerated() {
             let view = QuickReplyView(frame: .zero)
             view.delegate = self
+            view.gestureRecognizer?.delegate = self
             view.update(for: quickReply, enabled: true)
             
             let size = view.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))
@@ -286,9 +285,6 @@ extension QuickRepliesListView {
     
     private func reset() {
         selectionDisabled = false
-        if !(quickReplies?.isEmpty ?? true) {
-            scrollView.scrollRectToVisible(.zero, animated: true)
-        }
     }
 }
 
@@ -307,6 +303,29 @@ extension QuickRepliesListView: QuickReplyViewDelegate {
             selectedQuickReply = nil
         }
         updateViewsAnimated(true)
+    }
+}
+
+extension QuickRepliesListView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+extension QuickRepliesListView: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        for view in quickReplyViews {
+            view.gestureRecognizer?.isEnabled = false
+            view.gestureRecognizer?.isEnabled = true
+            view.canBeHighlighted = false
+            view.setHighlighted(false, animated: false)
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        for view in quickReplyViews {
+            view.canBeHighlighted = true
+        }
     }
 }
 

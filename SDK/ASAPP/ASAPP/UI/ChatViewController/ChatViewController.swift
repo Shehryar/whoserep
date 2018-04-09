@@ -496,7 +496,11 @@ extension ChatViewController {
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
         
-        spinner.frame = chatMessagesView.frame
+        if let actionSheet = actionSheet {
+            spinner.frame = CGRect(x: 0, y: minVisibleY, width: chatMessagesView.bounds.width, height: chatMessagesView.bounds.height - minVisibleY - actionSheet.contentView.bounds.height)
+        } else {
+            spinner.frame = chatMessagesView.frame
+        }
         spinner.alpha = chatMessagesView.isEmpty ? 1 : 0
         
         let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState)
@@ -872,9 +876,8 @@ extension ChatViewController {
     func showQuickRepliesViewIfNecessary(animated: Bool = true, completion: (() -> Void)? = nil) {
         if let quickReplyMessage = conversationManager.getCurrentQuickReplyMessage() {
             showQuickRepliesView(with: quickReplyMessage, animated: animated, completion: completion)
-        } else if let lastEvent = conversationManager.events.last,
-            lastEvent.eventType == .conversationEnd || lastEvent.chatMessage?.userCanTypeResponse == false {
-            updateInputState(.conversationEnd)
+        } else {
+            updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
         }
     }
     
@@ -936,7 +939,11 @@ extension ChatViewController: ActionSheetDelegate {
     
     func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
         hideActionSheet(actionSheet) { [weak self] in
-            self?.updateFrames()
+            if let lastEvent = self?.conversationManager.events.last {
+                self?.updateState(for: lastEvent)
+            } else {
+                self?.updateFrames()
+            }
         }
     }
     
@@ -1020,21 +1027,35 @@ extension ChatViewController: ConversationManagerDelegate {
         }
     }
     
+    private func updateState(for event: Event) {
+        if let message = event.chatMessage {
+            updateState(for: message)
+        }
+        
+        if event.eventType == .conversationEnd || (event.chatMessage?.userCanTypeResponse == false && !isLiveChat) {
+            updateInputState(.conversationEnd)
+        }
+    }
+    
+    private func updateState(for message: ChatMessage, animated: Bool = false) {
+        let showChatInput = isLiveChat || message.userCanTypeResponse
+        if showChatInput && message.hasQuickReplies {
+            clearQuickRepliesView(animated: false)
+            updateInputState(.both, animated: false)
+        } else if message.hasQuickReplies {
+            updateInputState(.quickReplies, animated: animated)
+        } else if showChatInput && actionSheet == nil {
+            chatInputView.becomeFirstResponder()
+            updateInputState(.chat, animated: animated)
+        }
+    }
+    
     private func messageCompletionHandler(_ message: ChatMessage) {
         func update() {
-            let showChatInput = isLiveChat || message.userCanTypeResponse
-            if showChatInput && message.hasQuickReplies {
-                clearQuickRepliesView(animated: false)
-                updateInputState(.both, animated: false)
-            } else if message.hasQuickReplies {
-                updateInputState(.quickReplies, animated: true)
-            } else if showChatInput {
-                chatInputView.becomeFirstResponder()
-                updateInputState(.chat, animated: true)
-            }
+            updateState(for: message, animated: true)
             
             if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
-                || (message.metadata.isReply && !showChatInput && !message.hasQuickReplies) {
+                || (message.metadata.isReply && !isLiveChat && !message.userCanTypeResponse && !message.hasQuickReplies) {
                 showRestartActionButton()
             } else if message.hasQuickReplies {
                 didReceiveMessageWithQuickReplies(message)
@@ -1208,13 +1229,20 @@ extension ChatViewController {
     
     func reloadMessageEvents() {
         conversationManager.getEvents { [weak self] (fetchedEvents, _) in
-            if let strongSelf = self, let fetchedEvents = fetchedEvents {
-                strongSelf.clearQuickRepliesView(animated: false, completion: nil)
-                strongSelf.showQuickRepliesViewIfNecessary(animated: true)
-                strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
-                strongSelf.spinner.alpha = strongSelf.chatMessagesView.isEmpty ? 1 : 0
-                strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
+            guard let strongSelf = self, let fetchedEvents = fetchedEvents else {
+                return
             }
+            
+            strongSelf.clearQuickRepliesView(animated: false, completion: nil)
+            if let lastEvent = fetchedEvents.last {
+                strongSelf.updateState(for: lastEvent)
+            }
+            strongSelf.showQuickRepliesViewIfNecessary(animated: true)
+            Dispatcher.delay(300) { [weak self] in
+                self?.chatMessagesView.reloadWithEvents(fetchedEvents)
+                self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
+            }
+            strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
         }
     }
 }
