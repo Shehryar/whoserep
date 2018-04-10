@@ -167,10 +167,9 @@ extension QuickReplyView {
     
     private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let buttonInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        let buttonSize = buttonSizeThatFits(size: CGSize(width: bounds.size.width - buttonInsets.left - buttonInsets.right, height: bounds.size.height))
-        let buttonLeft = floor((bounds.size.width - buttonSize.width)) - buttonInsets.right
-        let buttonTop = floor((bounds.size.height - buttonSize.height) / 2)
-        let buttonFrame = CGRect(x: buttonLeft, y: buttonTop, width: buttonSize.width, height: buttonSize.height)
+        let buttonSize = buttonSizeThatFits(size: CGSize(width: size.width - buttonInsets.left - buttonInsets.right, height: size.height))
+        let buttonLeft = floor((size.width - buttonSize.width)) - buttonInsets.right
+        let buttonFrame = CGRect(x: buttonLeft, y: 0, width: buttonSize.width, height: buttonSize.height)
         
         return CalculatedLayout(buttonFrame: buttonFrame)
     }
@@ -187,7 +186,7 @@ extension QuickReplyView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let layout = getFramesThatFit(bounds.size)
+        let layout = getFramesThatFit(size)
         var height = layout.buttonFrame.height
         if height > 0 {
             height += QuickReplyView.contentInset.top + QuickReplyView.contentInset.bottom

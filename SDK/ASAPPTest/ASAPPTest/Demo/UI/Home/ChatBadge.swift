@@ -22,7 +22,7 @@ class ChatBadge: UIView {
     
     func commonInit() {
         bubble.layer.borderWidth = 0.5
-        bubble.layer.borderColor = UIColor.white.cgColor
+        bubble.layer.borderColor = AppSettings.shared.branding.colors.navBarColor.cgColor
         addSubview(bubble)
         
         label.numberOfLines = 1

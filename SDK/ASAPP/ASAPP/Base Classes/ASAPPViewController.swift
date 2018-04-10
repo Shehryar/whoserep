@@ -130,6 +130,7 @@ extension ASAPPViewController {
             return
         }
         navigationBar.applyASAPPStyles()
+        navigationBar.replaceBottomBorder()
         setNeedsStatusBarAppearanceUpdate()
     }
 }

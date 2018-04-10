@@ -58,7 +58,7 @@ class NotificationBanner: UIView {
         bannerContainer.backgroundColor = .white
         addSubview(bannerContainer)
         
-        topBorder.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        topBorder.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
         addSubview(topBorder)
         
         bottomBorder.backgroundColor = topBorder.backgroundColor

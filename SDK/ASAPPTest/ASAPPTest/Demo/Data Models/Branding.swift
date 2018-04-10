@@ -23,10 +23,8 @@ class Branding: NSObject {
         let asappColors = ASAPPColors()
         let dict: [AppearanceConfig.ColorName: UIColor] = [
             .demoNavBar: UIColor.white,
-            .brandPrimary: UIColor(red: 0.33, green: 0.35, blue: 0.39, alpha: 1),
-            .brandSecondary: UIColor.black,
-            .textLight: UIColor.white,
-            .textDark: UIColor.black
+            .primary: UIColor(red: 0.33, green: 0.35, blue: 0.39, alpha: 1),
+            .dark: UIColor.black
         ]
         return dict.mapValues { Color(uiColor: $0)! }
     }()
@@ -101,14 +99,11 @@ extension Branding {
     fileprivate class func createTelstraStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
         
-        let primary = config.getUIColor(.brandPrimary)
-        
         // Telstra special cases
         
-        styles.colors.navBarBackground = .white
+        let primary = config.getUIColor(.primary)
         styles.colors.navBarTitle = primary
         styles.colors.navBarButton = primary
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: primary)
         
         return styles
     }
@@ -118,23 +113,11 @@ extension Branding {
         
         styles.textStyles.updateStyles(for: config.fontFamily)
         
-        let primary = config.getUIColor(.brandPrimary)
-        let secondary = config.getUIColor(.brandSecondary)
-        let textLight = config.getUIColor(.textLight)
-        let textDark = config.getUIColor(.textDark)
-        let buttonTextColor = UIColor.white.chooseFirstAcceptableColor(of: [primary, secondary, textDark])
+        let primary = config.getUIColor(.primary)
+        let dark = config.getUIColor(.dark)
         
-        styles.colors.controlTint = primary
-        styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
-        styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: buttonTextColor)
-        styles.colors.navBarBackground = primary
-        styles.colors.navBarTitle = styles.colors.navBarBackground?.chooseFirstAcceptableColor(of: [textLight, textDark], largeText: true) ?? textDark
-        styles.colors.navBarButton = styles.colors.navBarTitle
-        styles.colors.messageText = textDark.colorWithRelativeBrightness(0.33)!
-        styles.colors.replyMessageText = textLight
-        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundColor: .white, textColor: buttonTextColor)
-        styles.colors.helpButtonBackground = primary
-        styles.colors.helpButtonText = primary.isDark() ? textLight : textDark
+        styles.colors.primary = primary
+        styles.colors.dark = dark
         
         return styles
     }
@@ -164,9 +147,9 @@ class BrandingColors: NSObject {
         self.appearanceConfig = config
         super.init()
         
-        let primary = config.getUIColor(.brandPrimary)
-        let textLight = config.getUIColor(.textLight)
-        let textDark = config.getUIColor(.textDark)
+        let primary = config.getUIColor(.primary)
+        let textLight = UIColor.white
+        let textDark = config.getUIColor(.dark)
         let demoNavBar = config.getUIColor(.demoNavBar)
         let demoNavBarText = navBarColor.isBright()
                                 ? primary.isDark() ? primary : textDark

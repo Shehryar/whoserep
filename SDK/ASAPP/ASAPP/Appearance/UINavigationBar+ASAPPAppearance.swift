@@ -9,7 +9,6 @@
 import UIKit
 
 extension UINavigationBar {
-
     func applyASAPPStyles() {
         isTranslucent = ASAPP.styles.colors.navBarBackground == nil
         isOpaque = false
@@ -46,5 +45,31 @@ extension UINavigationBar {
         layer.shadowColor = nil
         layer.shadowOpacity = 0
         layer.shadowRadius = 0
+    }
+    
+    func replaceBottomBorder() {
+        if let shadowImage = findShadowImage(in: self) {
+            shadowImage.isHidden = true
+            let borderLayer = CALayer()
+            borderLayer.borderColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
+            borderLayer.borderWidth = 1
+            borderLayer.frame = CGRect(x: 0, y: layer.bounds.size.height, width: layer.bounds.size.width, height: 1)
+            layer.addSublayer(borderLayer)
+        }
+    }
+    
+    private func findShadowImage(in view: UIView) -> UIImageView? {
+        if let view = view as? UIImageView,
+           view.bounds.size.height <= 1 {
+            return view
+        }
+        
+        for subview in view.subviews {
+            if let result = findShadowImage(in: subview) {
+                return result
+            }
+        }
+        
+        return nil
     }
 }
