@@ -7,29 +7,20 @@
 //
 
 #import "AppDelegate.h"
-#import "NavigationController.h"
 #import "ViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
-    [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.118 green:0.714 blue:0.929 alpha:1.000]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],
-                                                            NSFontAttributeName : [UIFont systemFontOfSize:18 weight:UIFontWeightLight],
-                                                            NSKernAttributeName : @(1)                                                            
-                                                            }];
-    
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:12 weight:UIFontWeightBlack],
-                                                            NSForegroundColorAttributeName : [UIColor colorWithRed:0.125 green:0.714 blue:0.929 alpha:1.000],
-                                                            NSKernAttributeName : @(1)}
-                                                forState:UIControlStateNormal];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+        NSForegroundColorAttributeName : [UIColor colorWithHue:0.619 saturation:0.197 brightness:0.278 alpha:1],
+        NSFontAttributeName : [UIFont systemFontOfSize:20 weight:UIFontWeightLight],
+        NSKernAttributeName : @(1)
+    }];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[NavigationController alloc] initWithRootViewController:[ViewController new]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     [self.window makeKeyAndVisible];
     
     return YES;

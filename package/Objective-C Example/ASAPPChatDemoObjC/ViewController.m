@@ -113,7 +113,7 @@
      */
     [ASAPP.styles.textStyles updateStylesFor:avenirNext];
     
-    ASAPP.styles.textStyles.navTitle = [[ASAPPTextStyle alloc] initWithFont:avenirNext.bold size:18 letterSpacing:0 color:UIColor.whiteColor];
+    ASAPP.styles.textStyles.navButton = [[ASAPPTextStyle alloc] initWithFont:avenirNext.bold size:12 letterSpacing:0 color:UIColor.whiteColor uppercase:false];
     
     /**
      ASAPPStrings
@@ -121,10 +121,6 @@
      The strings displayed in the SDK can be customized by accessing ASAPP.strings...
      */
     ASAPP.strings.chatTitle = @"Demo Chat";
-    ASAPP.strings.predictiveTitle = @"Demo Chat";
-    ASAPP.strings.chatAskNavBarButton = @"Ask";
-    ASAPP.strings.predictiveBackToChatButton = @"History";
-    ASAPP.strings.chatEndChatNavBarButton = @"End Chat";
 }
 
 - (void)handleASAPPDeepLink:(NSString *)deepLink withData:(NSDictionary *)data

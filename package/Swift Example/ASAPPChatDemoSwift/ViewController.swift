@@ -110,7 +110,7 @@ extension ViewController {
          */
         ASAPP.styles.textStyles.updateStyles(for: avenirNext)
         
-        ASAPP.styles.textStyles.navTitle = ASAPPTextStyle(font: avenirNext.bold, size: 18, letterSpacing: 0, color: .white)
+        ASAPP.styles.textStyles.navButton = ASAPPTextStyle(font: avenirNext.bold, size: 12, letterSpacing: 0, color: .black)
         
         /**
          ASAPPStrings
@@ -118,10 +118,6 @@ extension ViewController {
          The strings displayed in the SDK can be customized by accessing ASAPP.strings...
          */
         ASAPP.strings.chatTitle = "Demo Chat"
-        ASAPP.strings.predictiveTitle = "Demo Chat"
-        ASAPP.strings.chatAskNavBarButton = "Ask"
-        ASAPP.strings.predictiveBackToChatButton = "History"
-        ASAPP.strings.chatEndChatNavBarButton = "End Chat"
     }
     
     func handleASAPPDeepLink(named deepLink: String, with data: [String : Any]?) {
