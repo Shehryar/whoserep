@@ -14,12 +14,12 @@ class QuickReply: NSObject {
     
     let action: Action
     
-    let isAutoSelect: Bool
+    let icon: NotificationIconItem?
     
-    init(title: String, action: Action, isAutoSelect: Bool = false) {
+    init(title: String, action: Action, icon: NotificationIconItem? = nil) {
         self.title = title
         self.action = action
-        self.isAutoSelect = isAutoSelect
+        self.icon = icon
         super.init()
     }
 }
@@ -31,7 +31,7 @@ extension QuickReply {
     enum JSONKey: String {
         case title
         case action
-        case isAutoSelect
+        case icon
     }
     
     class func fromJSON(_ json: Any?) -> QuickReply? {
@@ -49,9 +49,12 @@ extension QuickReply {
             return nil
         }
         
-        let isAutoSelect = json.bool(for: JSONKey.isAutoSelect.rawValue) ?? false
+        var icon: NotificationIconItem?
+        if let iconDict = json.jsonObject(for: JSONKey.icon.rawValue) {
+            icon = NotificationIconItem(with: iconDict)
+        }
         
-        return QuickReply(title: title, action: action, isAutoSelect: isAutoSelect)
+        return QuickReply(title: title, action: action, icon: icon)
     }
     
     class func arrayFromJSON(_ jsonArray: Any?) -> [QuickReply]? {

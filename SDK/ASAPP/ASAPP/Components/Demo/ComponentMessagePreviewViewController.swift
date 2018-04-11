@@ -21,7 +21,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     private let messagesView = ChatMessagesView()
     
-    private let quickRepliesView = QuickRepliesActionSheet()
+    private let quickRepliesView = QuickRepliesView()
     
     public override var canBecomeFirstResponder: Bool {
         return true
@@ -33,7 +33,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         messagesView.delegate = self
-        messagesView.overrideToHideInfoView = true
         
         quickRepliesView.clipsToBounds = true
         quickRepliesView.delegate = self
@@ -89,9 +88,9 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
         var contentBottom = view.bounds.height
-        if quickRepliesView.eventIds.count > 0 {
+        if quickRepliesView.eventId != nil {
             quickRepliesTop = view.bounds.height - quickRepliesHeight
-            contentBottom = quickRepliesTop + quickRepliesView.transparentInsetTop
+            contentBottom = quickRepliesTop
         }
         quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: view.bounds.width, height: quickRepliesHeight)
         
@@ -104,7 +103,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     private func clear() {
         messagesView.reloadWithEvents([Event]())
-        quickRepliesView.clear()
+        quickRepliesView.clear(animated: false)
         updateFrames()
     }
     
@@ -115,7 +114,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         
         messagesView.addMessage(message)
         if message.metadata.isReply {
-            quickRepliesView.add(message: message, animated: true)
+            quickRepliesView.show(message: message, animated: true)
         }
         updateFrames()
     }
@@ -145,6 +144,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                      sendTime: Date())
         
         let userMessage = ChatMessage(text: messageText,
+                                      notification: nil,
                                       attachment: nil,
                                       quickReplies: nil, 
                                       metadata: metadata)
@@ -189,7 +189,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
 // MARK: - ChatMessagesViewDelegate
 
 extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
-    
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
@@ -213,12 +212,11 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
         quickRepliesView.reloadButtons(for: message)
     }
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapLastMessage message: ChatMessage) {}
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {}
 }
 
-extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate {
-    
-    func quickRepliesActionSheet(_ actionSheet: QuickRepliesActionSheet, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
+extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {
+    func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         var title: String?
         var message: String?
         
@@ -275,9 +273,7 @@ extension ComponentMessagePreviewViewController: QuickRepliesActionSheetDelegate
     
     // Not Handled
     
-    func quickRepliesActionSheetDidCancel(_ actionSheet: QuickRepliesActionSheet) {}
-    func quickRepliesActionSheetDidTapBack(_ actionSheet: QuickRepliesActionSheet) {}
-    func quickRepliesActionSheetWillTapBack(_ actionSheet: QuickRepliesActionSheet) {}
+    func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {}
 }
 
 extension ComponentMessagePreviewViewController {

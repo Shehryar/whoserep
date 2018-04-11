@@ -14,11 +14,14 @@ class TableViewItem: Component {
     
     enum JSONKey: String {
         case sections
+        case separatorStyle
     }
     
     // MARK: - Properties
     
     let sections: [TableViewSectionItem]
+    
+    let separatorStyle: UITableViewCellSeparatorStyle
     
     // MARK: - Component Properties
     
@@ -57,6 +60,13 @@ class TableViewItem: Component {
             return nil
         }
         self.sections = sections
+        
+        var separatorStyle: UITableViewCellSeparatorStyle = .singleLine
+        if let separatorStyleValue = content?[JSONKey.separatorStyle.rawValue] as? String,
+            separatorStyleValue != "singleLine" {
+            separatorStyle = .none
+        }
+        self.separatorStyle = separatorStyle
         
         super.init(id: id,
                    name: name,

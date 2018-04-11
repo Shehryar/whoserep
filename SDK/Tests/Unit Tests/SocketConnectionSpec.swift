@@ -240,7 +240,7 @@ class SocketConnectionSpec: QuickSpec {
                     it("opens a socket and tries to authenticate") {
                         connection.connectIfNeeded(afterDelay: 1)
                         
-                        expect(MockSRWebSocket.calledOpen).toEventually(equal(true))
+                        expect(MockSRWebSocket.calledOpen).toEventually(equal(true), timeout: 3)
                         expect(MockSRWebSocket.calledClose).to(equal(false))
                         expect(MockSRWebSocket.calledSend).to(equal(true))
                         expect(mockOutgoingMessageSerializer.calledCreateAuthRequest).to(equal(true))

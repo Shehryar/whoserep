@@ -16,7 +16,7 @@ protocol PushNotificationsManagerProtocol {
     func enableIfSessionExists()
     func register()
     func deregister()
-    func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler)
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler)
     func requestAuthorization()
     func requestAuthorizationIfNeeded(after delay: TimeInterval)
 }
@@ -69,17 +69,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     }
     
     private func getHeaders(for session: Session) -> [String: String]? {
-        let passwordPayload: [String: Any] = [
-            "CustomerId": session.customer.id,
-            "SessionTime": session.auth.time,
-            "SessionSecret": session.auth.secret
-        ]
-        
-        guard let passwordPayloadData = try? JSONSerialization.data(withJSONObject: passwordPayload, options: []),
-              let passwordPayloadString = String(data: passwordPayloadData, encoding: .utf8) else {
-            DebugLog.e(caller: self, "Could not serialize the password payload.")
-            return nil
-        }
+        let passwordPayloadString = session.sessionTokenForHTTP
         
         let authPayloadString = ":\(passwordPayloadString)"
         guard let authPayloadData = authPayloadString.data(using: .utf8) else {
@@ -124,7 +114,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         
         HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
             guard let data = data,
-                  (data["Success"] as? Bool) == true,
                   let device = data["Device"] as? [String: Any],
                   let deviceId = device["DeviceID"] as? Int else {
                 if let error = error {
@@ -163,8 +152,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
         
         HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
-            guard let data = data,
-                  (data["Success"] as? Bool) == true else {
+            guard data != nil else {
                 if let error = error {
                     DebugLog.e(error)
                 } else {
@@ -178,34 +166,34 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler) {
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/offlineMessageCount")!
+        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/chatStatus")!
         
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
-            DebugLog.e(caller: self, "Could not get number of unread messages because no session was found.")
+            DebugLog.e(caller: self, "Could not get chat status because no session was found.")
             return
         }
         
         guard let headers = getHeaders(for: session) else {
-            DebugLog.e(caller: self, "Could not get number of unread messages because there was an error constructing the request headers.")
+            DebugLog.e(caller: self, "Could not get chat status because there was an error constructing the request headers.")
             return
         }
         
         HTTPClient.shared.sendRequest(method: .GET, url: url, headers: headers) { data, response, error in
             guard let data = data,
-                  (data["Success"] as? Bool) == true,
-                  let count = data["Count"] as? Int else {
+                  let count = data["UnreadMessages"] as? Int,
+                  let isLiveChat = data["IsLiveChat"] as? Bool else {
                 if let error = error {
                     DebugLog.e(error)
                 } else {
-                    DebugLog.e("Received error trying to get number of unread messages.\n\(String(describing: response))")
+                    DebugLog.e("Received error trying to get chat status.\n\(String(describing: response))")
                 }
                 return
             }
             
-            handler(count)
+            handler(count, isLiveChat)
         }
     }
     

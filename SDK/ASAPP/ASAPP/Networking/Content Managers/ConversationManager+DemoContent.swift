@@ -8,17 +8,6 @@
 
 import UIKit
 
-extension ConversationManager {
-    
-    // MARK: Sample Responses
-    
-    func demo_AppOpenResponse() -> AppOpenResponse? {
-        guard ASAPP.isDemoContentEnabled() else { return nil }
-        
-        return AppOpenResponse.sampleResponse(forCompany: config.appId)
-    }
-}
-
 // MARK: - Sending Fake Data
 
 extension ConversationManager {

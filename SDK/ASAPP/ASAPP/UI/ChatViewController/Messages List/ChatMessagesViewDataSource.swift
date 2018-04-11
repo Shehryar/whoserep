@@ -82,6 +82,21 @@ extension ChatMessagesViewDataSource {
         return sections.last?.last
     }
     
+    func getLastIndexPath() -> IndexPath? {
+        guard !sections.isEmpty else {
+            return nil
+        }
+        
+        let section = max(0, sections.count - 1)
+        
+        guard !sections[section].isEmpty else {
+            return nil
+        }
+        
+        let row = max(0, sections[section].count - 1)
+        return IndexPath(row: row, section: section)
+    }
+    
     func isEmpty() -> Bool {
         return getLastMessage() == nil
     }

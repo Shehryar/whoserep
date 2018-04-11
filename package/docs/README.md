@@ -24,7 +24,7 @@ This should not be required for most projects, but if you have used an
 older version of Swift in your project, you may need to add a
 user-defined setting to avoid any compiler issues. Go to the "Build
 Settings" of your target, scroll to "User-Defined" near the bottom, and
-add a new key "SWIFT\_VERSION" with value "3.2" or "4".
+add a new key "SWIFT_VERSION" with value "3.2" or "4".
 
 ### Add NSPhotoLibraryUsageDescription/NSCameraUsageDescription to Info.plist
 
@@ -67,15 +67,14 @@ SDK Usage
 ### Set [User](Classes/ASAPPUser.html)
 
     let user = ASAPPUser(userIdentifier: userIdentifier,
-                         requestContextProvider: requestContextProvider,
-                         userLoginHandler: userLoginHandler)
+                         requestContextProvider: requestContextProvider)
 
     ASAPP.user = user
 
 ### Customize [Styles](Classes/ASAPPStyles.html)
 
     ASAPP.styles.segue = .push
-    ASAPP.styles.navBarStyles.buttonStyle = .text
+    ASAPP.styles.colors.dark = .black
     ASAPP.styles.colors.navBarTitle = .blue
 
 ### Customize Styles with a [Font Family](Classes/ASAPPFontFamily.html)
@@ -95,15 +94,10 @@ SDK Usage
 ### Customize [Strings](Classes/ASAPPStrings.html)
 
     ASAPP.strings.chatTitle = "Demo Chat"
-    ASAPP.strings.predictiveTitle = "Demo Chat"
-    ASAPP.strings.chatAskNavBarButton = "Ask"
-    ASAPP.strings.predictiveBackToChatButton = "History"
-    ASAPP.strings.chatEndChatNavBarButton = "End Chat"
 
 ### Customize Title [Views](Classes/ASAPPViews.html)
 
     ASAPP.views.chatTitle = UIImageView(image: UIImage(named: "chat-logo"))
-    ASAPP.views.predictiveTitle = UIImageView(image: UIImage(named: "help-logo"))
 
 ### Launch Chat
 

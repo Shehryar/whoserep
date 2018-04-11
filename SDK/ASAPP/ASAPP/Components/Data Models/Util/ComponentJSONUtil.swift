@@ -41,7 +41,7 @@ extension String {
             do {
                 jsonObject =  try JSONSerialization.jsonObject(with: stringData, options: []) as? [String: Any]
             } catch {
-                DebugLog.d("Unable to serialize string as json: \(self)")
+                DebugLog.d("Unable to deserialize string as json: \(self)")
             }
         }
         return jsonObject

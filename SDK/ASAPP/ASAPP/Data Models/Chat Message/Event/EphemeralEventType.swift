@@ -12,6 +12,7 @@ enum EphemeralEventType: Int {
     case none = 0
     case typingStatus = 1
     case eventStatus = 6
+    case `continue` = 8
     
     static func from(_ value: Any?) -> EphemeralEventType? {
         guard let value = value as? Int else {

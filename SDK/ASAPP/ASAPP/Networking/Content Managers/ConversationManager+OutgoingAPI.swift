@@ -60,26 +60,19 @@ extension ConversationManager {
 // MARK: - SRS
 
 extension ConversationManager {
-    
-    func getAppOpen(_ completion: ((_ response: AppOpenResponse) -> Void)? = nil) {
-        
-        let onResponse: IncomingMessageHandler = { (message, request, responseTime) in
-            if ASAPP.isDemoContentEnabled(), let appOpenResponse = self.demo_AppOpenResponse() {
-                completion?(appOpenResponse)
-            }
-            
-            guard message.type == .response,
-                let data = message.bodyString?.data(using: String.Encoding.utf8),
-                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-                let appOpenResponse = AppOpenResponse.fromJSON(jsonObject)
-                else {
-                    return
-            }
-            
-            completion?(appOpenResponse)
+    func sendEnterChatRequest(_ completion: (() -> Void)? = nil) {
+        let handler: IncomingMessageHandler = { _, _, _ in
+            completion?()
         }
-        
-        sendRequest(path: "srs/AppOpen", completion: onResponse)
+        sendRequest(path: "customer/enterChat", completion: handler)
+    }
+    
+    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)? = nil) {
+        let handler: IncomingMessageHandler = { (message: IncomingMessage, _, _) in
+            let success = message.type != MessageType.responseError
+            completion?(success)
+        }
+        sendRequest(path: "customer/ask", completion: handler)
     }
     
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {

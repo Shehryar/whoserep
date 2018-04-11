@@ -15,7 +15,7 @@ extension UIViewController {
                               padding: UIEdgeInsets = ASAPP.styles.navBarStyles.titlePadding) -> UIView {
         let label = UILabel()
         label.textAlignment = .center
-        label.setAttributedText(title, textType: .navTitle, color: color)
+        label.setAttributedText(title, textType: .body2, color: color)
         let labelSize = label.sizeThatFits(CGSize.zero)
         
         let titleFrame = CGRect(x: 0, y: 0,

@@ -72,6 +72,18 @@ struct Session: Codable {
         return [:]
     }
     
+    var sessionTokenForHTTP: String {
+        guard let authDict = fullInfoAsDict["SessionAuth"] else {
+            return ""
+        }
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: authDict, options: []) else {
+            return ""
+        }
+        
+        return String(data: data, encoding: .utf8) ?? ""
+    }
+    
     var isAnonymous: Bool {
         return customer.primaryIdentifier?.isEmpty ?? true
     }

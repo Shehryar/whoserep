@@ -13,13 +13,13 @@ import UIKit
 enum ComponentFactory {
     
     enum JSONKey: String {
-        case content = "content"
-        case id = "id"
-        case name = "name"
+        case content
+        case id
+        case name
         case styleClass = "class"
-        case style = "style"
-        case type = "type"
-        case value = "value"
+        case style
+        case type
+        case value
         case isChecked = "checked"
         case isRequired = "required"
     }

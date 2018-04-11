@@ -15,7 +15,7 @@ protocol OutgoingMessageSerializerProtocol {
     func createRequest(withPath: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest
     func createRequestWithData(_: Data) -> SocketRequest
     func createRequestString(withRequest: SocketRequest) -> String
-    func createAuthRequest() -> OutgoingMessageSerializer.AuthRequest
+    func createAuthRequest(completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void)
 }
 
 class OutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
@@ -74,14 +74,13 @@ extension OutgoingMessageSerializer {
         let isSessionAuthRequest: Bool
     }
     
-    func createAuthRequest() -> AuthRequest {
+    func createAuthRequest(completion: @escaping (_ authRequest: AuthRequest) -> Void) {
         var path: String
         var params: [String: Any] = [
             "App": "ios-sdk",
             "CompanyMarker": config.appId,
             "RegionCode": config.regionCode
         ]
-        var isSessionAuthRequest = false
         
         var sessionInfoJson: [String: Any]?
         if let session = session {
@@ -96,7 +95,8 @@ extension OutgoingMessageSerializer {
             
             path = "auth/AuthenticateWithSession"
             params["SessionInfo"] = sessionInfoJson
-            isSessionAuthRequest = true
+            
+            completion(AuthRequest(path: path, params: params, isSessionAuthRequest: true))
         }
         
         //
@@ -117,6 +117,14 @@ extension OutgoingMessageSerializer {
                     params["MergeCustomerId"] = userLoginAction.mergeCustomerId
                     params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
                 }
+                
+                user.getContext { (_, authToken) in
+                    if let authToken = authToken {
+                        params["Auth"] = authToken
+                    }
+                    
+                    completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
+                }
             }
             
             //
@@ -126,10 +134,10 @@ extension OutgoingMessageSerializer {
                 DebugLog.d(caller: self, "Authenticating with Anonymous User")
                 
                 path = "auth/CreateAnonCustomerAccount"
+                
+                completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
             }
         }
-        
-        return AuthRequest(path: path, params: params, isSessionAuthRequest: isSessionAuthRequest)
     }
 }
 

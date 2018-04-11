@@ -29,12 +29,12 @@ class ChatTypingIndicatorCell: UITableViewCell {
         
         bubbleView.fillColor = ASAPP.styles.colors.replyMessageBackground
         bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
-        bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
+        bubbleView.strokeLineWidth = 1
         bubbleView.roundedCorners = [.topLeft, .topRight, .bottomRight]
         bubbleView.clipsToBounds = true
         contentView.addSubview(bubbleView)
         
-        loadingView.tintColor = ASAPP.styles.colors.replyMessageText.withAlphaComponent(0.6)
+        loadingView.tintColor = ASAPP.styles.colors.replyMessageText
         bubbleView.addSubview(loadingView)
     }
     

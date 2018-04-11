@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Represents a font family used by default styles.`.
+ Represents a font family used by default styles.
  */
 @objc(ASAPPFontFamily)
 @objcMembers

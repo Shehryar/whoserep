@@ -88,14 +88,12 @@ class TestUtil: NSObject {
         ASAPP.styles.colors.navBarBackground = UIColor.white
         ASAPP.styles.colors.navBarTitle = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
         ASAPP.styles.colors.navBarButton = UIColor(red: 0.355, green: 0.394, blue: 0.494, alpha: 1)
-        ASAPP.styles.colors.navBarButtonForeground = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
-        ASAPP.styles.colors.navBarButtonBackground = UIColor(red: 0.866, green: 0.878, blue: 0.907, alpha: 1)
         ASAPP.styles.colors.backgroundPrimary = UIColor.white
         ASAPP.styles.colors.backgroundSecondary = UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1)
         ASAPP.styles.colors.textPrimary = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 1)
         ASAPP.styles.colors.textSecondary = UIColor(red: 0.42, green: 0.43, blue: 0.45, alpha: 1)
-        ASAPP.styles.colors.separatorPrimary = UIColor(red: 0.59, green: 0.60, blue: 0.62, alpha: 1)
-        ASAPP.styles.colors.separatorSecondary = UIColor(red: 0.816, green: 0.824, blue: 0.847, alpha: 0.5)
+        ASAPP.styles.colors.separatorPrimary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
+        ASAPP.styles.colors.separatorSecondary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 0.75)
         ASAPP.styles.colors.controlSelectedBackground = UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1)
         ASAPP.styles.colors.positiveSelectedBackground = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
         ASAPP.styles.colors.negativeSelectedBackground = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
@@ -111,15 +109,12 @@ class TestUtil: NSObject {
             textDisabled: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.8),
             border: UIColor(red: 0.886, green: 0.890, blue: 0.906, alpha: 1))
         
-        ASAPP.styles.colors.messagesListBackground = UIColor.ASAPP.alabasterWhite
         ASAPP.styles.colors.messageText = UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1)
         ASAPP.styles.colors.messageBackground = UIColor.white
         ASAPP.styles.colors.messageBorder = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
         ASAPP.styles.colors.replyMessageText = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
         ASAPP.styles.colors.replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
         ASAPP.styles.colors.replyMessageBorder = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
-        ASAPP.styles.colors.quickRepliesBackground = UIColor.white
-        ASAPP.styles.colors.quickRepliesBackgroundPattern = true
         ASAPP.styles.colors.quickReplyButton = ASAPPButtonColors(
             backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
             textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))
@@ -132,38 +127,6 @@ class TestUtil: NSObject {
             border: UIColor(red: 0.937, green: 0.945, blue: 0.949, alpha: 1),
             primaryButton: UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1),
             secondaryButton: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1))
-        
-        ASAPP.styles.colors.predictiveNavBarBackground = nil
-        ASAPP.styles.colors.predictiveNavBarTitle = UIColor.white
-        ASAPP.styles.colors.predictiveNavBarButton = UIColor.white
-        ASAPP.styles.colors.predictiveNavBarButtonForeground = UIColor.white
-        ASAPP.styles.colors.predictiveNavBarButtonBackground = UIColor(red: 0.201, green: 0.215, blue: 0.249, alpha: 1)
-        
-        ASAPP.styles.colors.predictiveGradientColors = [
-            UIColor(red: 0.31, green: 0.31, blue: 0.35, alpha: 1),
-            UIColor(red: 0.37, green: 0.38, blue: 0.40, alpha: 1),
-            UIColor(red: 0.44, green: 0.47, blue: 0.51, alpha: 1)
-        ]
-        
-        ASAPP.styles.colors.predictiveGradientLocations = [
-            0,
-            0.5,
-            1
-        ]
-        
-        ASAPP.styles.colors.predictiveTextPrimary = UIColor.white
-        ASAPP.styles.colors.predictiveTextSecondary = UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
-        ASAPP.styles.colors.predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-        ASAPP.styles.colors.predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-        
-        ASAPP.styles.colors.predictiveInput = ASAPPInputColors(
-            background: UIColor(red: 0.232, green: 0.247, blue: 0.284, alpha: 0.9),
-            text: UIColor.white,
-            placeholderText: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-            tint: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-            border: nil,
-            primaryButton: UIColor.white,
-            secondaryButton: UIColor.white)
         
         ASAPP.styles.colors.helpButtonText = UIColor.white
         ASAPP.styles.colors.helpButtonBackground = UIColor(red: 0.374, green: 0.392, blue: 0.434, alpha: 1)

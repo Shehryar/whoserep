@@ -20,8 +20,6 @@ protocol HomeTableViewDelegate: class {
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
-    func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView)
-    func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView)
     func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView)
 }
 

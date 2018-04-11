@@ -165,7 +165,14 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     }
     
     func updateFrames() {
-        let top: CGFloat = 0.0
+        var top: CGFloat = 0
+        if let navigationBar = navigationController?.navigationBar,
+            let navBarFrame = navigationBar.superview?.convert(navigationBar.frame, to: view) {
+            let intersection = view.frame.intersection(navBarFrame)
+            if !intersection.isNull {
+                top = intersection.maxY
+            }
+        }
         let height = view.bounds.height - top
         let width = view.bounds.width
         rootView?.view.frame = CGRect(x: 0, y: top, width: width, height: height)

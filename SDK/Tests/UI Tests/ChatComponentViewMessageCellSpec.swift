@@ -55,6 +55,9 @@ class ChatComponentViewMessageCellSpec: QuickSpec {
                                         "type": "label",
                                         "content": [
                                             "text": "Hello, world"
+                                        ],
+                                        "style": [
+                                            "padding": "20 20"
                                         ]
                                     ]
                                 ]

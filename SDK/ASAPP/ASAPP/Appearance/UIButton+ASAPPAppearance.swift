@@ -11,35 +11,49 @@ import UIKit
 extension UIButton {
     
     func updateText(_ text: String?, textStyle: ASAPPTextStyle, colors: ASAPPButtonColors) {
-        // Background
+        updateBackgroundColors(colors)
+        
+        guard var text = text else {
+            setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])
+            return
+        }
+        
+        if textStyle.uppercase {
+            text = text.localizedUppercase
+        }
+        
+        // Text
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textNormal,
+            .kern: textStyle.letterSpacing
+        ]), for: .normal)
+        
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textHighlighted,
+            .kern: textStyle.letterSpacing
+        ]), for: .highlighted)
+        
+        setAttributedTitle(NSAttributedString(string: text, attributes: [
+            .font: textStyle.font,
+            .foregroundColor: colors.textDisabled,
+            .kern: textStyle.letterSpacing
+        ]), for: .disabled)
+    }
+    
+    func updateText(_ text: String?, buttonType: ButtonType) {
+        let textStyle = ASAPP.styles.textStyles.getStyle(forButtonType: buttonType)
+        let colors = ASAPP.styles.colors.getButtonColors(for: buttonType)
+
+        updateText(text, textStyle: textStyle, colors: colors)
+    }
+    
+    func updateBackgroundColors(_ colors: ASAPPButtonColors) {
         setBackgroundImage(UIImage.imageWithColor(colors.backgroundNormal), for: .normal)
         setBackgroundImage(UIImage.imageWithColor(colors.backgroundHighlighted), for: .highlighted)
         setBackgroundImage(UIImage.imageWithColor(colors.backgroundDisabled), for: .disabled)
         
-        // Text
-        if let text = text {
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textNormal,
-                .kern: textStyle.letterSpacing
-            ]), for: .normal)
-            
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textHighlighted,
-                .kern: textStyle.letterSpacing
-                ]), for: .highlighted)
-            
-            setAttributedTitle(NSAttributedString(string: text, attributes: [
-                .font: textStyle.font,
-                .foregroundColor: colors.textDisabled,
-                .kern: textStyle.letterSpacing
-                ]), for: .disabled)
-        } else {
-            setAttributedTitle(nil, for: [.normal, .highlighted, .disabled])
-        }
-        
-        // Border
         if let borderColor = colors.border {
             layer.borderColor = borderColor.cgColor
             layer.borderWidth = 1
@@ -49,10 +63,10 @@ extension UIButton {
         }
     }
     
-    func updateText(_ text: String?, buttonType: ButtonType) {
-        let textStyle = ASAPP.styles.textStyles.getStyle(forButtonType: buttonType)
-        let colors = ASAPP.styles.colors.getButtonColors(for: buttonType)
-
-        updateText(text, textStyle: textStyle, colors: colors)
+    func setTitleShadow(color: UIColor = ASAPP.styles.colors.textShadow, offset: CGSize = CGSize(width: 0, height: 1), radius: CGFloat = 3, opacity: Float) {
+        titleLabel?.layer.shadowColor = color.cgColor
+        titleLabel?.layer.shadowOffset = offset
+        titleLabel?.layer.shadowRadius = radius
+        titleLabel?.layer.shadowOpacity = opacity
     }
 }

@@ -101,7 +101,7 @@ extension ChatViewController {
         imagePickerController.navigationBar.setBackgroundImage(nil, for: .default)
         imagePickerController.navigationBar.barTintColor = barTintColor
         imagePickerController.navigationBar.tintColor = ASAPP.styles.colors.navBarButton
-        if barTintColor.isBright() {
+        if barTintColor?.isBright() ?? true {
             imagePickerController.navigationBar.barStyle = .default
         } else {
             imagePickerController.navigationBar.barStyle = .black

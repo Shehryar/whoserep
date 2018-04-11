@@ -24,15 +24,12 @@ public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData:
 @objc(ASAPP)
 @objcMembers
 public class ASAPP: NSObject {
+    // MARK: - Constants
     
     /// The key for referencing an auth token in a request context dictionary.
     public static let authTokenKey = "access_token"
     
-    /**
-     The SDK version.
-     
-     - returns: A `String` representing the SDK version in x.y.z format.
-     */
+    /// A `String` representing the SDK version in x.y.z format.
     public static var clientVersion: String {
         if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
@@ -114,28 +111,6 @@ public class ASAPP: NSObject {
     }
     
     /**
-     Creates a chat view controller in a navigation controller, ready to be presented modally.
-     
-     - returns: A `UIViewController`
-     - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
-     - warning: Deprecated in 3.0.0. Use `createChatViewControllerForPresenting(fromNotificationWith:appCallbackHandler:)` instead.
-     */
-    public class func createChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
-        let chatViewController = ChatViewController(
-            config: config,
-            user: user,
-            segue: .present,
-            appCallbackHandler: appCallbackHandler)
-        
-        if canHandleNotification(with: userInfo) {
-            chatViewController.showPredictiveOnViewAppear = false
-        }
-        
-        return NavigationController(rootViewController: chatViewController)
-    }
-    
-    /**
      Creates a button that will launch the SDK when tapped. Configure the segue style
      by setting the `ASAPPStyles.segue` property.
      
@@ -179,16 +154,16 @@ public class ASAPP: NSObject {
         PushNotificationsManager.shared.enableIfSessionExists()
     }
     
-    /// A `Void` closure type that takes an `Int`, the number of unread messages.
-    public typealias UnreadMessagesHandler = ((_ unread: Int) -> Void)
+    /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.
+    public typealias ChatStatusHandler = ((_ unread: Int, _ isLiveChat: Bool) -> Void)
     
     /**
-     Gets the number of messages the user received while offline.
+     Gets the number of messages the user received while offline as well as whether user is currently in a live chat.
      
-     - parameter handler: An `UnreadNumberHandler` that receives the number of unread ASAPP push notifications.
+     - parameter handler: A `ChatStatusHandler` that receives the number of unread ASAPP push notifications and the live chat status.
      */
-    public class func getNumberOfUnreadMessages(_ handler: @escaping UnreadMessagesHandler) {
-        return PushNotificationsManager.shared.getUnreadMessagesCount(handler)
+    public class func getChatStatus(_ handler: @escaping ChatStatusHandler) {
+        return PushNotificationsManager.shared.getChatStatus(handler)
     }
     
     /**
@@ -241,15 +216,13 @@ internal extension ASAPP {
     }
     
     class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+        let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,
             user: user,
             segue: segue,
+            conversationManager: conversationManager,
             appCallbackHandler: appCallbackHandler)
-        
-        if canHandleNotification(with: userInfo) {
-            chatViewController.showPredictiveOnViewAppear = false
-        }
         
         return chatViewController
     }

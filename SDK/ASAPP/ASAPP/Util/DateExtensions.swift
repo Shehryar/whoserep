@@ -73,13 +73,13 @@ extension Date {
     func dateFormatForMostRecent() -> String {
         var dateFormat: String
         if isToday() {
-            dateFormat = "h:mma"
+            dateFormat = "h:mm a"
         } else if isYesterday() {
-            dateFormat = "'Yesterday at' h:mma"
+            dateFormat = "'Yesterday at' h:mm a"
         } else if isThisYear() {
-            dateFormat = "MMMM d 'at' h:mma"
+            dateFormat = "MMMM d 'at' h:mm a"
         } else {
-            dateFormat = "MMMM d, yyyy 'at' h:mma"
+            dateFormat = "MMMM d, yyyy 'at' h:mm a"
         }
         return dateFormat
     }

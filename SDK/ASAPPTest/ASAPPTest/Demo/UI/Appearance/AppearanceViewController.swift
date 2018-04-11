@@ -25,6 +25,10 @@ class AppearanceViewController: BaseTableViewController {
         selectedOption = AppSettings.shared.appearanceConfig
         options = AppSettings.getAppearanceConfigArray()
         
+        if options == AppSettings.defaultAppearanceConfigs {
+            AppSettings.clearAppearanceConfigArray()
+        }
+        
         super.init(nibName: nil, bundle: nil)
         
         super.commonInit()

@@ -9,14 +9,18 @@
 import UIKit
 
 enum ComponentIcon: String {
+    case alertFilled
+    case alertOutline
     case alertError
     case alertWarning
     case arrowOutgoing
+    case bellFilled
     case caretDown
     case checkmarkCircle
     case checkmarkThick
     case checkmarkThin
     case clock
+    case clockFilled
     case loginKey
     case power
     case thumbsDown

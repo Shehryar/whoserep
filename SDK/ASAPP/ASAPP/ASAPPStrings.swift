@@ -26,31 +26,11 @@ public class ASAPPStrings: NSObject {
     /// The accessibility label for the close/back button.
     public var accessibilityClose = ASAPPLocalizedString("Close Help")
     
+    /// The accessibiltiy label for the more button.
+    public var accessibilityMore = ASAPPLocalizedString("Open Options Menu")
+    
     /// The accessibility label for the send button.
     public var accessibilitySend = ASAPPLocalizedString("Send")
-    
-    // MARK: Predictive
-    
-    /// The title for the predictive view. Overridden by `ASAPPViews.predictiveTitle`. Defaults to `nil`.
-    public var predictiveTitle: String?
-    
-    /// The text for the button that displays the chat view.
-    public var predictiveBackToChatButton = ASAPPLocalizedString("HISTORY")
-    
-    /// The welcome text in the predictive view.
-    public var predictiveWelcomeText = ASAPPLocalizedString("How can we help?")
-    
-    /// The text for the subheader displayed below the welcome text.
-    public var predictiveOtherSuggestions = ASAPPLocalizedString("OTHER SUGGESTIONS:")
-    
-    /// The placeholder text for the input field of the predictive view.
-    public var predictiveInputPlaceholder = ASAPPLocalizedString("Ask a new question...")
-    
-    /// The text for the send button of the predictive view.
-    public var predictiveSendButton: String?
-    
-    /// The text displayed when no connection is available in the predictive view.
-    public var predictiveNoConnectionText = ASAPPLocalizedString("PLEASE CHECK YOUR CONNECTION...")
 
     // MARK: Connection Status Banner
     
@@ -68,23 +48,14 @@ public class ASAPPStrings: NSObject {
     /// The title for the chat view. Overridden by `ASAPPViews.chatTitle`. Defaults to `nil`.
     public var chatTitle: String?
     
-    /// The text for the header displayed when there is no chat history.
-    public var chatEmptyTitle = ASAPPLocalizedString("Hi there, how can we help you?")
-    
-    /// The text for the message displayed when there is no chat history.
-    public var chatEmptyMessage = ASAPPLocalizedString("Tap 'ASK' to get started.")
-    
-    /// The text for the navigation bar button that appears in the chat view when not chatting with an agent. When tapped, it shows the predictive view. Overridden by `ASAPPNavBarButtonImages.ask`.
-    public var chatAskNavBarButton = ASAPPLocalizedString("ASK")
-    
-    /// The text for the navigation bar button that appears in the chat view when chatting with an agent. When tapped, it ends the chat. Overridden by `ASAPPNavBarButtonImages.end`.
-    public var chatEndChatNavBarButton = ASAPPLocalizedString("END CHAT")
+    /// The text for the action sheet button that ends the current live chat.
+    public var endChatTitle = ASAPPLocalizedString("End Live Chat")
     
     /// The placeholder text for the input field of the chat view.
-    public var chatInputPlaceholder = ASAPPLocalizedString("Enter a message...")
+    public var chatInputPlaceholder = ASAPPLocalizedString("Type your own question here")
     
-    /// The text for the send button of the chat view.
-    public var chatInputSend: String?
+    /// The text for the restart button in the quick replies view.
+    public var quickRepliesRestartButton = ASAPPLocalizedString("New Question")
     
     // MARK: Generic
     
@@ -112,21 +83,24 @@ public class ASAPPStrings: NSObject {
     /// The text displayed next to a required form field that was left empty.
     public var requiredFieldEmptyMessage = ASAPPLocalizedString("Required field")
     
-    // MARK: Ending Chat
+    // MARK: Restart confirmation action sheet
+    
+    /// The text for the quick reply button displayed at the end of a chat session.
+    public var restartActionButton = ASAPPLocalizedString("Ask a new question")
     
     /// The title for the alert displayed when ending chat.
-    public var endChatConfirmationTitle = ASAPPLocalizedString("Are you sure?")
+    public var restartConfirmationTitle = ASAPPLocalizedString("Are you sure?")
     
     /// The text for the alert displayed when ending chat.
-    public var endChatConfirmationMessage = ASAPPLocalizedString("This will end your current conversation.")
+    public var restartConfirmationBody = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")
     
     /// The text for the confirmation button of the end chat alert.
-    public var endChatConfirmationEndChatButton = ASAPPLocalizedString("End Chat")
+    public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to ask a new question")
     
     /// The text for the cancel button of the end chat alert.
-    public var endChatConfirmationCancelButton = ASAPPLocalizedString("Cancel")
+    public var restartConfirmationHideButton = ASAPPLocalizedString("Nevermind, I'll continue")
     
-    // Modal View: Feedback
+    // MARK: Modal View: Feedback
     
     /// The title for the feedback form.
     public var feedbackViewTitle = ASAPPLocalizedString("How did we do?")

@@ -22,7 +22,7 @@ class APIActionErrorSpec: QuickSpec {
                 }
                 
                 context("with a dictionary describing all properties") {
-                    it("creates a correct APIActionError instnace") {
+                    it("creates a correct APIActionError instance") {
                         let error = APIActionError([
                             APIActionError.JSONKey.code.rawValue: 42,
                             APIActionError.JSONKey.userMessage.rawValue: "foo",

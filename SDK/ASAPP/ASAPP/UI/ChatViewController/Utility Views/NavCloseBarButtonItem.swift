@@ -16,6 +16,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
     
     private struct Styles {
         var foregroundColor: UIColor
+        var activeColor: UIColor
         var backgroundColor: UIColor?
         var imageSize: CGSize
         var imageInsets: UIEdgeInsets
@@ -34,38 +35,21 @@ class NavCloseBarButtonItem: UIBarButtonItem {
     }
     private class func getStyles(location: NavBarButtonLocation, side: NavBarButtonSide) -> Styles {
         let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
-        var foregroundColor: UIColor
-        var backgroundColor: UIColor?
-        var imageSize = closeButtonStyle?.size ?? .zero
+        let backgroundColor: UIColor? = nil
+        let imageSize = closeButtonStyle?.size ?? .zero
         var imageInsets = closeButtonStyle?.insets ?? .zero
-        
-        switch ASAPP.styles.navBarStyles.buttonStyle {
-        case .bubble:
-            switch location {
-            case .chat:
-                foregroundColor = ASAPP.styles.colors.navBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.navBarButtonBackground
-            case .predictive:
-                foregroundColor = ASAPP.styles.colors.predictiveNavBarButtonForeground
-                backgroundColor = ASAPP.styles.colors.predictiveNavBarButtonBackground
-            }
-            
-            imageSize = CGSize(width: 8, height: 8)
-            imageInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
-            
-        case .text:
-            foregroundColor = ASAPP.styles.colors.navBarButton
-            backgroundColor = nil
-            imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
-            switch side {
-            case .left:
-                imageInsets.right += 20
-            case .right:
-                imageInsets.left += 20
-            }
+
+        let foregroundColor = ASAPP.styles.colors.navBarButton
+        let activeColor = ASAPP.styles.colors.navBarButtonActive
+        imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+        switch side {
+        case .left:
+            imageInsets.right += 20
+        case .right:
+            imageInsets.left += 20
         }
         
-        return Styles(foregroundColor: foregroundColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
+        return Styles(foregroundColor: foregroundColor, activeColor: activeColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
     }
     
     @discardableResult
@@ -79,19 +63,16 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         switch segue {
         case .present: break
         case .push:
-            styles.foregroundColor =
-                location == .chat
-                ? ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.navBarButtonBackground : ASAPP.styles.colors.navBarButton
-                : ASAPP.styles.navBarStyles.buttonStyle == .bubble ? ASAPP.styles.colors.predictiveNavBarButtonBackground : ASAPP.styles.colors.predictiveNavBarButton
+            styles.foregroundColor = ASAPP.styles.colors.navBarButton
             styles.backgroundColor = nil
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero
             styles.imageInsets = backButtonStyle?.insets ?? .zero
-            styles.imageInsets.right += 6
+            styles.imageInsets.right += 40
         }
         
-        button.setImage(image?.tinted(styles.foregroundColor, alpha: 1), for: .normal)
-        button.setImage(image?.tinted(styles.foregroundColor, alpha: 0.6), for: .highlighted)
+        button.setImage(image?.tinted(styles.foregroundColor, alpha: styles.foregroundColor.cgColor.alpha), for: .normal)
+        button.setImage(image?.tinted(styles.activeColor, alpha: styles.activeColor.cgColor.alpha), for: .highlighted)
         button.imageSize = styles.imageSize
         
         // Bubble
