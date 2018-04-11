@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// A type of closure that returns `[String: Any]`. The dictionary needs to contain the key-value pair `ASAPP.AUTH_KEY_ACCESS_TOKEN: authToken` where `authToken` is the user's authentication token.
+/// A type of closure that returns `[String: Any]`. The dictionary needs to contain the key-value pair `ASAPP.authTokenKey: authToken` where `authToken` is the user's authentication token.
 public typealias ASAPPRequestContextProvider = (() -> [String: Any])
 
 // MARK: - ASAPPUser

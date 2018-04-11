@@ -74,7 +74,7 @@ SDK Usage
 ### Customize [Styles](Classes/ASAPPStyles.html)
 
     ASAPP.styles.segue = .push
-    ASAPP.styles.navBarStyles.buttonStyle = .text
+    ASAPP.styles.colors.dark = .black
     ASAPP.styles.colors.navBarTitle = .blue
 
 ### Customize Styles with a [Font Family](Classes/ASAPPFontFamily.html)

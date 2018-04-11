@@ -27,9 +27,6 @@ public class ASAPPStyles: NSObject {
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()
     
-    /// The width of the stroke of separators such as timestamp headers and chat bubble borders.
-    public var separatorStrokeWidth: CGFloat = 1.0
-    
     /// Whether primary Component buttons have rounded corners.
     public var primaryButtonsRounded = false
 }

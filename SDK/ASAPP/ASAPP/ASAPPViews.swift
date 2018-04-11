@@ -14,6 +14,6 @@ import UIKit
 @objc(ASAPPViews)
 public class ASAPPViews: NSObject {
     
-    /// The title view displayed in the navigation bar when viewing live chat. Overrides `ASAPP.strings.chatTitle`.
+    /// The title view displayed in the navigation bar when viewing live chat. Overrides `ASAPPStrings.chatTitle`.
     public var chatTitle: UIView?
 }

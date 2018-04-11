@@ -24,15 +24,12 @@ public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData:
 @objc(ASAPP)
 @objcMembers
 public class ASAPP: NSObject {
+    // MARK: - Constants
     
     /// The key for referencing an auth token in a request context dictionary.
     public static let authTokenKey = "access_token"
     
-    /**
-     The SDK version.
-     
-     - returns: A `String` representing the SDK version in x.y.z format.
-     */
+    /// A `String` representing the SDK version in x.y.z format.
     public static var clientVersion: String {
         if let bundleVersion = ASAPP.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
             return bundleVersion
@@ -157,7 +154,7 @@ public class ASAPP: NSObject {
         PushNotificationsManager.shared.enableIfSessionExists()
     }
     
-    /// A `Void` closure type that takes an `Int`, the number of unread messages.
+    /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.
     public typealias ChatStatusHandler = ((_ unread: Int, _ isLiveChat: Bool) -> Void)
     
     /**

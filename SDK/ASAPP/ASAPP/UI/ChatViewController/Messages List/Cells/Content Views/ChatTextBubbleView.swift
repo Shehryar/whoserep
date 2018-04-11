@@ -137,7 +137,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
             }
             
             bubbleView.fillColor = fillColor
-            bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
+            bubbleView.strokeLineWidth = 1
             bubbleView.roundedCorners = getBubbleCorners(for: message)
             
             setNeedsLayout()
